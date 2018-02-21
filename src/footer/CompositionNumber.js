@@ -25,7 +25,7 @@ class CompositionNumber extends Component {
 
   render() {
     return (
-      <div>
+      <div id="composition-number">
         <Typography>current composition: {this.state.composition}</Typography>
       </div>
     );
