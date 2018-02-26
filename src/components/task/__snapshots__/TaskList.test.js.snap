@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays the list of tasks 1`] = `
+<div>
+  <Card
+    key="1"
+    raised={false}
+  >
+    <WithStyles(CardContent)>
+      <WithStyles(Typography)
+        component="h2"
+        variant="headline"
+      >
+        Test title
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        component="p"
+      >
+        Test Description
+      </WithStyles(Typography)>
+    </WithStyles(CardContent)>
+  </Card>
+  <Card
+    key="2"
+    raised={false}
+  >
+    <WithStyles(CardContent)>
+      <WithStyles(Typography)
+        component="h2"
+        variant="headline"
+      >
+        Test title 2
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        component="p"
+      >
+        Test Description 2
+      </WithStyles(Typography)>
+    </WithStyles(CardContent)>
+  </Card>
+</div>
+`;

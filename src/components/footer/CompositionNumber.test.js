@@ -1,6 +1,6 @@
 import React from 'react';
 import CompositionNumber from './CompositionNumber';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 it('displays the composition number', async () => {
   global.fetch = jest.fn();
@@ -9,11 +9,13 @@ it('displays the composition number', async () => {
   });
   fetch.mockReturnValueOnce(fetchRes);
 
-  const component = renderer.create(<CompositionNumber />);
+  const component = shallow(<CompositionNumber />);
+
+  // we need to wait, that the response is processed in the component
   const res = await fetchRes;
   await res.json();
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  component.update();
+  expect(component).toMatchSnapshot();
 });
 
 it('displays failure if the resource is not found', async () => {
@@ -23,8 +25,10 @@ it('displays failure if the resource is not found', async () => {
   });
   fetch.mockReturnValueOnce(fetchRes);
 
-  const component = renderer.create(<CompositionNumber />);
+  const component = shallow(<CompositionNumber />);
+
+  // we need to wait, that the response is processed in the component
   await fetchRes;
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  component.update();
+  expect(component).toMatchSnapshot();
 });

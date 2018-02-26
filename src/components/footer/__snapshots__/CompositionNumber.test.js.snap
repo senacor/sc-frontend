@@ -4,12 +4,10 @@ exports[`displays failure if the resource is not found 1`] = `
 <div
   id="composition-number"
 >
-  <p
-    className="MuiTypography-root-1 MuiTypography-body1-10"
-  >
+  <WithStyles(Typography)>
     current composition: 
     failed
-  </p>
+  </WithStyles(Typography)>
 </div>
 `;
 
@@ -17,11 +15,9 @@ exports[`displays the composition number 1`] = `
 <div
   id="composition-number"
 >
-  <p
-    className="MuiTypography-root-1 MuiTypography-body1-10"
-  >
+  <WithStyles(Typography)>
     current composition: 
     1
-  </p>
+  </WithStyles(Typography)>
 </div>
 `;
