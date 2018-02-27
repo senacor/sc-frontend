@@ -22,6 +22,7 @@ describe('fetchTasks', () => {
               title: 'Test title',
               description: 'Test Description',
               username: 'ttran',
+              deadline: '2017-12-31',
               _links: {
                 self: {
                   href: '/api/v1/tasks/1'
@@ -53,6 +54,7 @@ describe('fetchTasks', () => {
             title: 'Test title',
             description: 'Test Description',
             username: 'ttran',
+            deadline: '2017-12-31',
             _links: {
               self: {
                 href: '/api/v1/tasks/1'

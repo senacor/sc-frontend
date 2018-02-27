@@ -4,6 +4,7 @@ import * as actions from '../../actions';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import withLoading from '../hoc/Loading';
+import Deadline from './Deadline';
 
 export const TaskList = props => (
   <div>
@@ -14,6 +15,7 @@ export const TaskList = props => (
             {task.title}
           </Typography>
           <Typography component="p">{task.description}</Typography>
+          <Deadline deadline={task.deadline} />
         </CardContent>
       </Card>
     ))}
