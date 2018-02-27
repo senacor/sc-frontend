@@ -18,6 +18,7 @@ exports[`displays the list of tasks 1`] = `
       >
         Test Description
       </WithStyles(Typography)>
+      <Deadline />
     </WithStyles(CardContent)>
   </Card>
   <Card
@@ -36,6 +37,9 @@ exports[`displays the list of tasks 1`] = `
       >
         Test Description 2
       </WithStyles(Typography)>
+      <Deadline
+        deadline="2017-12-31"
+      />
     </WithStyles(CardContent)>
   </Card>
 </div>
