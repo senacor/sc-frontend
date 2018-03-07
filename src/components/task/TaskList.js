@@ -5,7 +5,6 @@ import Card, {CardContent} from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import withLoading from '../hoc/Loading';
 import Deadline from './Deadline';
-import {browserHistory, Route, Router} from 'react-router';
 import {Link} from 'react-router-dom';
 
 export const TaskList = props => (
