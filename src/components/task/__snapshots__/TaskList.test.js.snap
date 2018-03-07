@@ -7,6 +7,10 @@ exports[`displays the list of tasks 1`] = `
     raised={false}
   >
     <WithStyles(CardContent)>
+      <Link
+       to="/prs/1"
+       style={{textDecoration: 'none'}}
+      >
       <WithStyles(Typography)
         component="h2"
         variant="headline"
@@ -26,6 +30,10 @@ exports[`displays the list of tasks 1`] = `
     raised={false}
   >
     <WithStyles(CardContent)>
+     <Link
+           to="/prs/2"
+           style={{textDecoration: 'none'}}
+          >
       <WithStyles(Typography)
         component="h2"
         variant="headline"
