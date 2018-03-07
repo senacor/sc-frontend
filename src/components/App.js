@@ -8,12 +8,12 @@ import './App.css';
 const App = () => (
   <div>
     <Switch>
-      <Route exact path="/tasks" component={TaskList}/>
-      <Route path="/prs" component={PR}/>
-      <Route render={() => <Redirect to="/tasks"/>}/>
+      <Route exact path="/tasks" component={TaskList} />
+      <Route path="/prs" component={PR} />
+      <Route render={() => <Redirect to="/tasks" />} />
     </Switch>
     <footer className="App-center">
-      <CompositionNumber/>
+      <CompositionNumber />
     </footer>
   </div>
 );

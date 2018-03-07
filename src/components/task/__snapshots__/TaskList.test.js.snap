@@ -8,8 +8,13 @@ exports[`displays the list of tasks 1`] = `
   >
     <WithStyles(CardContent)>
       <Link
-       to="/prs/1"
-       style={{textDecoration: 'none'}}
+       replace={false}
+       style={
+        Object {
+          "textDecoration": "none",
+                }
+              }
+        to="/prs/1"
       >
       <WithStyles(Typography)
         component="h2"
@@ -31,8 +36,13 @@ exports[`displays the list of tasks 1`] = `
   >
     <WithStyles(CardContent)>
      <Link
-           to="/prs/2"
-           style={{textDecoration: 'none'}}
+       replace={false}
+       style={
+        Object {
+          "textDecoration": "none",
+                }
+              }
+        to="/prs/2"
           >
       <WithStyles(Typography)
         component="h2"
