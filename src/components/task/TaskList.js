@@ -1,11 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import Card, {CardContent} from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import withLoading from '../hoc/Loading';
 import Deadline from './Deadline';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const TaskList = props => (
   <div>
