@@ -8,26 +8,27 @@ exports[`displays the list of tasks 1`] = `
   >
     <WithStyles(CardContent)>
       <Link
-       replace={false}
-       style={
-        Object {
-          "textDecoration": "none",
-                }
-              }
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
         to="/prs/1"
       >
-      <WithStyles(Typography)
-        component="h2"
-        variant="headline"
-      >
-        Test title
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        component="p"
-      >
-        Test Description
-      </WithStyles(Typography)>
-      <Deadline />
+        <WithStyles(Typography)
+          component="h2"
+          variant="headline"
+        >
+          Test title
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          component="p"
+        >
+          Test Description
+        </WithStyles(Typography)>
+        <Deadline />
+      </Link>
     </WithStyles(CardContent)>
   </Card>
   <Card
@@ -35,29 +36,30 @@ exports[`displays the list of tasks 1`] = `
     raised={false}
   >
     <WithStyles(CardContent)>
-     <Link
-       replace={false}
-       style={
-        Object {
-          "textDecoration": "none",
-                }
-              }
+      <Link
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
         to="/prs/2"
-          >
-      <WithStyles(Typography)
-        component="h2"
-        variant="headline"
       >
-        Test title 2
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        component="p"
-      >
-        Test Description 2
-      </WithStyles(Typography)>
-      <Deadline
-        deadline="2017-12-31"
-      />
+        <WithStyles(Typography)
+          component="h2"
+          variant="headline"
+        >
+          Test title 2
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          component="p"
+        >
+          Test Description 2
+        </WithStyles(Typography)>
+        <Deadline
+          deadline="2017-12-31"
+        />
+      </Link>
     </WithStyles(CardContent)>
   </Card>
 </div>
