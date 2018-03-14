@@ -13,28 +13,31 @@ export const fetchTasks = () => async dispatch => {
   });
 };
 
-export const changeTask = newTask => async dispatch => {
+export const editTask = newTask => async dispatch => {
   dispatch({
-    type: 'CHANGE_TASK'
+    type: 'EDIT_TASK_REQUEST'
   });
 
-  const change = await fetch(process.env.REACT_APP_API + '/api/v1/tasks', {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: {
-      description: newTask.description,
-      title: newTask.title,
-      username: newTask.username,
-      deadline: newTask.deadline,
-      type: newTask.type,
-      linkToDetails: newTask.linkToDetails,
-      status: newTask.status
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/tasks/${newTask.id}`,
+    {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        description: newTask.description,
+        title: newTask.title,
+        username: newTask.username,
+        deadline: newTask.deadline,
+        type: newTask.type,
+        linkToDetails: newTask.linkToDetails,
+        status: newTask.status
+      })
     }
-  });
+  );
+  const task = await changeResponse.json();
 
   dispatch({
-    type: 'CHANGE_TASK_RESPONSE'
+    type: 'EDIT_TASK_RESPONSE',
+    task
   });
 };
-
-///action type is: change, notChange

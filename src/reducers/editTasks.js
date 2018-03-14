@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 
 const isChanging = (state = false, action) => {
   switch (action.type) {
-    case 'CHANGE_TASK':
+    case 'EDIT_TASK_REQUEST':
       return true;
-    case 'CHANGE_TASK_RESPONSE':
+    case 'EDIT_TASK_RESPONSE':
       return false;
     default:
       return state;
@@ -13,8 +13,8 @@ const isChanging = (state = false, action) => {
 
 const list = (state = [], action) => {
   switch (action.type) {
-    case 'CHANGE_TASK_RESPONSE':
-      return action.tasks;
+    case 'EDIT_TASK_RESPONSE':
+      return action.task;
     default:
       return state;
   }

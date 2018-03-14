@@ -8,6 +8,13 @@ import Deadline from './Deadline';
 import { Link } from 'react-router-dom';
 
 export class TaskList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: props.tasks
+    };
+  }
+
   handleClick = task => {
     task.status = 'DONE';
     let tempArray = [];
@@ -15,16 +22,13 @@ export class TaskList extends React.Component {
     for (let i = 0; i < this.state.tasks.length; i++) {
       tempArray[i] = this.state.tasks[i];
     }
+
     this.setState({
       tasks: tempArray
     });
+
     this.props.changeTask(task);
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {tasks: props.tasks};
-  }
 
   render() {
     return (
@@ -32,12 +36,12 @@ export class TaskList extends React.Component {
         {props.tasks.map(task => (
           <Card key={task.id} className="task">
             <CardContent className={task.id}>
-              <Link to={`/prs/${task.id}`} style={{textDecoration: 'none'}}>
+              <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
                 <Typography variant="headline" component="h2">
                   {task.title}
                 </Typography>
                 <Typography component="p">{task.description}</Typography>
-                <Deadline deadline={task.deadline}/>
+                <Deadline deadline={task.deadline} />
                 <button
                   onClick={() => {
                     this.handleClick(task);
@@ -63,6 +67,6 @@ export default connect(
   }),
   {
     fetchTasks: actions.fetchTasks,
-    changeTask: actions.changeTask
+    changeTask: actions.editTask
   }
 )(withLoading(props => props.fetchTasks())(TaskList));
