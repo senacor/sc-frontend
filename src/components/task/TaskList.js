@@ -18,6 +18,7 @@ export class TaskList extends React.Component {
     this.setState({
       tasks: tempArray
     });
+    this.props.changeTask(task);
   };
 
   constructor(props) {
@@ -57,9 +58,11 @@ export class TaskList extends React.Component {
 export default connect(
   state => ({
     tasks: state.tasks.list,
-    isLoading: state.tasks.isLoading
+    isLoading: state.tasks.isLoading,
+    isChanging: state.tasks.isChanging
   }),
   {
-    fetchTasks: actions.fetchTasks
+    fetchTasks: actions.fetchTasks,
+    changeTask: actions.changeTask
   }
 )(withLoading(props => props.fetchTasks())(TaskList));
