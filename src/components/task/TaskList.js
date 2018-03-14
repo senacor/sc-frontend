@@ -1,11 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import Card, { CardContent } from 'material-ui/Card';
+import { withStyles } from 'material-ui/styles';
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Icon from 'material-ui/Icon';
+import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import withLoading from '../hoc/Loading';
 import Deadline from './Deadline';
 import { Link } from 'react-router-dom';
+
+const styles = theme => ({
+  button: {
+    marginLeft: 'auto',
+    backgorundColor: theme.palette.primary.light
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  },
+  task: {
+    marginBottom: '15px'
+  }
+});
 
 export class TaskList extends React.Component {
   constructor(props) {
@@ -30,28 +46,35 @@ export class TaskList extends React.Component {
     this.props.changeTask(task);
   };
 
+  // TODO remove className only for e2e test.
+  // is needed. thinking of another way to do this.
   render() {
+    const { classes, tasks } = this.props;
     return (
       <div>
-        {props.tasks.map(task => (
-          <Card key={task.id} className="task">
-            <CardContent className={task.id}>
+        {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
+          <Card key={task.id} className={classes.task}>
+            <CardContent className={`${task.id}`}>
               <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
                 <Typography variant="headline" component="h2">
                   {task.title}
                 </Typography>
                 <Typography component="p">{task.description}</Typography>
                 <Deadline deadline={task.deadline} />
-                <button
-                  onClick={() => {
-                    this.handleClick(task);
-                  }}
-                >
-                  {' '}
-                  {task.status}
-                </button>
               </Link>
             </CardContent>
+            <CardActions>
+              <Button
+                color="primary"
+                className={classes.button}
+                onClick={() => {
+                  this.handleClick(task);
+                }}
+              >
+                Als erledigt markieren
+                <Icon className={classes.rightIcon}>check</Icon>
+              </Button>
+            </CardActions>
           </Card>
         ))}
       </div>
@@ -69,4 +92,4 @@ export default connect(
     fetchTasks: actions.fetchTasks,
     changeTask: actions.editTask
   }
-)(withLoading(props => props.fetchTasks())(TaskList));
+)(withLoading(props => props.fetchTasks())(withStyles(styles)(TaskList)));
