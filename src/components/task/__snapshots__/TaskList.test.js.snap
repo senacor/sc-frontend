@@ -3,10 +3,13 @@
 exports[`displays the list of tasks 1`] = `
 <div>
   <Card
+    className="task"
     key="1"
     raised={false}
   >
-    <WithStyles(CardContent)>
+    <WithStyles(CardContent)
+      className={1}
+    >
       <Link
         replace={false}
         style={
@@ -32,10 +35,13 @@ exports[`displays the list of tasks 1`] = `
     </WithStyles(CardContent)>
   </Card>
   <Card
+    className="task"
     key="2"
     raised={false}
   >
-    <WithStyles(CardContent)>
+    <WithStyles(CardContent)
+      className={2}
+    >
       <Link
         replace={false}
         style={

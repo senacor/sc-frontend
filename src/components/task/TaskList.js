@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 export const TaskList = props => (
   <div>
     {props.tasks.map(task => (
-      <Card key={task.id}>
-        <CardContent>
+      <Card key={task.id} className="task">
+        <CardContent className={task.id}>
           <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
             <Typography variant="headline" component="h2">
               {task.title}
