@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar should match snapshot 1`] = `
+<Sidebar
+  classes={
+    Object {
+      "avatar": "Sidebar-avatar-2",
+      "column": "Sidebar-column-3",
+      "root": "Sidebar-root-1",
+      "row": "Sidebar-row-4",
+    }
+  }
+/>
+`;

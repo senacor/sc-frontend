@@ -8,11 +8,12 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Hidden from 'material-ui/Hidden';
 import Drawer from 'material-ui/Drawer';
 
-const drawerWidth = 240;
+import Sidebar from '../sidebar/Sidebar';
+
+const drawerWidth = 300;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
     zIndex: 1,
     position: 'relative',
     display: 'flex',
@@ -61,13 +62,6 @@ class CustomAppBar extends Component {
   render() {
     const { classes, theme, children } = this.props;
 
-    const drawer = (
-      <div>
-        <div className={classes.toolbar} />
-        Test
-      </div>
-    );
-
     return (
       <div className={classes.root}>
         <AppBar className={classes.appBar}>
@@ -98,7 +92,7 @@ class CustomAppBar extends Component {
               keepMounted: true // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <Sidebar />
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -109,7 +103,7 @@ class CustomAppBar extends Component {
               paper: classes.drawerPaper
             }}
           >
-            {drawer}
+            <Sidebar />
           </Drawer>
         </Hidden>
         <main className={classes.content}>

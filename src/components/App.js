@@ -21,10 +21,10 @@ const App = () => (
         <Route path="/prs" component={PR} />
         <Route render={() => <Redirect to="/tasks" />} />
       </Switch>
+      <footer style={styles.footer}>
+        <CompositionNumber />
+      </footer>
     </AppBar>
-    <footer className="App-center">
-      <CompositionNumber />
-    </footer>
   </div>
 );
 
