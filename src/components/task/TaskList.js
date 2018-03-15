@@ -12,8 +12,7 @@ import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   button: {
-    marginLeft: 'auto',
-    backgorundColor: theme.palette.primary.light
+    marginLeft: 'auto'
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
@@ -53,8 +52,8 @@ export class TaskList extends React.Component {
     return (
       <div>
         {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
-          <Card key={task.id} id="task">
-            <CardContent id = {`task${task.id}`}>
+          <Card key={task.id}>
+            <CardContent>
               <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
                 <Typography variant="headline" component="h2">
                   {task.title}
@@ -65,15 +64,14 @@ export class TaskList extends React.Component {
             </CardContent>
             <CardActions>
               <Button
+                className={classes.button}
                 color="primary"
-                id={`button${task.id}`}
                 onClick={() => {
                   this.handleClick(task);
                 }}
               >
                 Als erledigt markieren
-                <Icon className={classes.rightIcon}
-                >check</Icon>
+                <Icon className={classes.rightIcon}>check</Icon>
               </Button>
             </CardActions>
           </Card>
