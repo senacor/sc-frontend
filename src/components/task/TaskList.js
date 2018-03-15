@@ -53,8 +53,8 @@ export class TaskList extends React.Component {
     return (
       <div>
         {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
-          <Card key={task.id} className={classes.task}>
-            <CardContent className={`${task.id}`}>
+          <Card key={task.id} id="task">
+            <CardContent id = {`task${task.id}`}>
               <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
                 <Typography variant="headline" component="h2">
                   {task.title}
@@ -66,13 +66,14 @@ export class TaskList extends React.Component {
             <CardActions>
               <Button
                 color="primary"
-                className={classes.button}
+                id={`button${task.id}`}
                 onClick={() => {
                   this.handleClick(task);
                 }}
               >
                 Als erledigt markieren
-                <Icon className={classes.rightIcon}>check</Icon>
+                <Icon className={classes.rightIcon}
+                >check</Icon>
               </Button>
             </CardActions>
           </Card>

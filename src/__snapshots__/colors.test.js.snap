@@ -80,7 +80,7 @@ Object {
     "primary": Object {
       "contrastText": "#fff",
       "dark": "rgb(0, 51, 58)",
-      "light": "rgb(51, 109, 118)",
+      "light": "#3b7580",
       "main": "#004954",
     },
     "secondary": Object {
