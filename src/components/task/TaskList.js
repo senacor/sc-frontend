@@ -6,6 +6,7 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import Hidden from 'material-ui/Hidden';
 import withLoading from '../hoc/Loading';
 import Deadline from './Deadline';
 import { Link } from 'react-router-dom';
@@ -18,13 +19,13 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit
   },
   task: {
-    marginBottom: '15px'
+    marginBottom: '10px'
   }
 });
 
 export class TaskList extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       tasks: props.tasks
     };
@@ -45,14 +46,15 @@ export class TaskList extends React.Component {
     this.props.changeTask(task);
   };
 
-  // TODO remove className only for e2e test.
-  // is needed. thinking of another way to do this.
   render() {
     const { classes, tasks } = this.props;
     return (
       <div>
+        <Typography variant="display1" paragraph>
+          Aufgabenliste
+        </Typography>
         {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
-          <Card key={task.id}>
+          <Card key={task.id} className={classes.task}>
             <CardContent>
               <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
                 <Typography variant="headline" component="h2">
@@ -70,7 +72,7 @@ export class TaskList extends React.Component {
                   this.handleClick(task);
                 }}
               >
-                Als erledigt markieren
+                <Hidden smDown>Als erledigt markieren</Hidden>
                 <Icon className={classes.rightIcon}>check</Icon>
               </Button>
             </CardActions>
