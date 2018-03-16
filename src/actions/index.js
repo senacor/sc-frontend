@@ -22,6 +22,7 @@ export const editTask = newTask => async dispatch => {
     `${process.env.REACT_APP_API}/api/v1/tasks/${newTask.id}`,
     {
       method: 'put',
+      mode: 'cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         description: newTask.description,
