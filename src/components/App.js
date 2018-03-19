@@ -5,6 +5,7 @@ import TaskList from './task/TaskList';
 import PR from './task/PR';
 import AppBar from './AppBar/AppBar';
 import './App.css';
+import Login from './login/Login';
 
 const styles = {
   main: {
@@ -13,18 +14,26 @@ const styles = {
   }
 };
 
+const withAppBar = WrappedComponent => () => (
+  <AppBar>
+    <WrappedComponent />
+    <footer style={styles.footer}>
+      <CompositionNumber />
+    </footer>
+  </AppBar>
+);
+
+const TaskListWithAppBar = withAppBar(TaskList);
+const PRWithAppBar = withAppBar(PR);
+
 const App = () => (
   <div style={styles.main}>
-    <AppBar>
-      <Switch>
-        <Route path="/tasks" component={TaskList} />
-        <Route path="/prs" component={PR} />
-        <Route render={() => <Redirect to="/tasks" />} />
-      </Switch>
-      <footer style={styles.footer}>
-        <CompositionNumber />
-      </footer>
-    </AppBar>
+    <Switch>
+      <Route path="/tasks" component={TaskListWithAppBar} />
+      <Route path="/prs" component={PRWithAppBar} />
+      <Route path="/login" component={Login} />
+      <Route render={() => <Redirect to="/tasks" />} />
+    </Switch>
   </div>
 );
 
