@@ -47,6 +47,10 @@ describe('fetchTasks', () => {
         type: 'FETCH_TASKS_REQUEST'
       },
       {
+        hasError: false,
+        type: 'ERROR_GONE'
+      },
+      {
         type: 'FETCH_TASKS_RESPONSE',
         tasks: [
           {
@@ -83,6 +87,10 @@ describe('fetchTasks', () => {
     expect(store.getActions()).toEqual([
       {
         type: 'FETCH_TASKS_REQUEST'
+      },
+      {
+        hasError: false,
+        type: 'ERROR_GONE'
       },
       {
         type: 'FETCH_TASKS_RESPONSE',
