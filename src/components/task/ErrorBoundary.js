@@ -45,7 +45,6 @@ export default connect(
     hasError: state.error.addError
   }),
   {
-    /*  addError: actions.fetchTasks,*/
     fetch: actions.fetchTasks
   }
 )(withLoading(props => props.fetch())(withStyles(styles)(Error)));
