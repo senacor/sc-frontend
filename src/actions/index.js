@@ -2,17 +2,28 @@ export const fetchTasks = () => async dispatch => {
   dispatch({
     type: 'FETCH_TASKS_REQUEST'
   });
+  dispatch({
+    type: 'ERROR_GONE',
+    hasError: false
+  });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/tasks');
-  const data = await response.json();
-  const tasks = data._embedded ? data._embedded.taskResponseList : [];
+  if (response.ok) {
+    const data = await response.json();
+    const tasks = data._embedded ? data._embedded.taskResponseList : [];
+    console.log(tasks);
 
-  dispatch({
-    type: 'FETCH_TASKS_RESPONSE',
-    tasks
-  });
+    dispatch({
+      type: 'FETCH_TASKS_RESPONSE',
+      tasks
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      hasError: true
+    });
+  }
 };
-
 export const fetchPrs = () => async dispatch => {
   dispatch({
     type: 'FETCH_PRS_REQUEST'

@@ -25,7 +25,7 @@ const styles = theme => ({
 
 export class TaskList extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       tasks: props.tasks
     };
@@ -47,10 +47,14 @@ export class TaskList extends React.Component {
   };
 
   render() {
-    const { classes, tasks } = this.props;
+    const { classes, tasks, hasError } = this.props;
     return (
       <div>
-        <Typography variant="display1" paragraph>
+        <Typography
+          variant="display1"
+          paragraph
+          style={{ visibility: hasError ? 'hidden' : 'visible' }}
+        >
           Aufgabenliste
         </Typography>
         {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
@@ -87,7 +91,8 @@ export default connect(
   state => ({
     tasks: state.tasks.list,
     isLoading: state.tasks.isLoading,
-    isChanging: state.tasks.isChanging
+    isChanging: state.tasks.isChanging,
+    hasError: state.error.addError
   }),
   {
     fetchTasks: actions.fetchTasks,
