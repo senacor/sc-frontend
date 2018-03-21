@@ -1,4 +1,3 @@
-import React from 'react';
 import { combineReducers } from 'redux';
 
 let initialState = { hasError: false };

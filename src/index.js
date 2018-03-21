@@ -11,6 +11,7 @@ import App from './components/App';
 import reducers from './reducers';
 import senacorTheme from './colors';
 import registerServiceWorker from './registerServiceWorker';
+import Error from './components/task/ErrorBoundary';
 
 const configureStore = () => {
   const middlewares = [thunk];

@@ -4,6 +4,11 @@ exports[`displays the list of tasks 1`] = `
 <div>
   <WithStyles(Typography)
     paragraph={true}
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
     variant="display1"
   >
     Aufgabenliste
