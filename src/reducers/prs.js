@@ -1,15 +1,5 @@
 import { combineReducers } from 'redux';
-
-const isLoadingPrs = (state = false, action) => {
-  switch (action.type) {
-    case 'FETCH_PRS_REQUEST':
-      return true;
-    case 'FETCH_PRS_RESPONSE':
-      return false;
-    default:
-      return state;
-  }
-};
+import { isLoading } from './tasks';
 
 const prsList = (state = [], action) => {
   switch (action.type) {
@@ -20,6 +10,6 @@ const prsList = (state = [], action) => {
   }
 };
 
-const prs = combineReducers({ isLoadingPrs, prsList });
+const prs = combineReducers({ isLoading, prsList });
 
 export default prs;

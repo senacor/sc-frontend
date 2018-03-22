@@ -5,7 +5,7 @@ import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
 import AppBar from './AppBar/AppBar';
 import './App.css';
-import IndividualPr from './pr/IndividualPr';
+import IndividualPr from './pr/Pr';
 
 const styles = {
   main: {
@@ -20,7 +20,7 @@ const App = () => (
       <Switch>
         <Route path="/tasks" component={TaskList} />
         <Route exact path="/prs" component={PRList} />
-        <Route path="/prs/" component={IndividualPr} />
+        <Route exact path="/prs/:id" component={IndividualPr} />
         <Route render={() => <Redirect to="/tasks" />} />
       </Switch>
       <footer style={styles.footer}>

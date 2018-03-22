@@ -9,11 +9,6 @@ import Card, { CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 const styles = () => ({
-  list: {
-    color: '#4d8087',
-    backgroundColor: '#63d7ff',
-    fontSize: '13px'
-  },
   prs: {
     marginBottom: '10px'
   }
@@ -26,7 +21,7 @@ export class PRList extends React.Component {
       prs: props.prs
     };
   }
-  mapPROccasions = occasion => {
+  translate = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
         return 'Auf Nachfrage';
@@ -46,7 +41,6 @@ export class PRList extends React.Component {
     if (prs.length === 0) {
       return (
         <div>
-          {' '}
           <Card>
             <CardHeader
               avatar={<Avatar src="/warning.png" className={classes.avatar} />}
@@ -58,7 +52,6 @@ export class PRList extends React.Component {
     } else {
       return (
         <div>
-          {' '}
           <Typography variant="display1" paragraph>
             Performance Review Liste
           </Typography>
@@ -73,7 +66,7 @@ export class PRList extends React.Component {
                         className={classes.avatar}
                       />
                     }
-                    title={`Grund der PR: ${this.mapPROccasions(pr.occasion)}`}
+                    title={`Grund der PR: ${this.translate(pr.occasion)}`}
                     subheader={`supervisor: ${pr.supervisor}`}
                   />
                 </Card>
@@ -90,7 +83,7 @@ export class PRList extends React.Component {
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoadingPRs: state.prs.isLoadingPRs
+    isLoading: state.prs.isLoading
   }),
   {
     fetchPrs: actions.fetchPrs
