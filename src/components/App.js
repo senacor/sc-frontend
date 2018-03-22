@@ -2,9 +2,10 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import CompositionNumber from './footer/CompositionNumber';
 import TaskList from './task/TaskList';
-import PR from './task/PR';
+import PRList from './pr/PRList';
 import AppBar from './AppBar/AppBar';
 import './App.css';
+import IndividualPr from './pr/IndividualPr';
 
 const styles = {
   main: {
@@ -18,7 +19,8 @@ const App = () => (
     <AppBar>
       <Switch>
         <Route path="/tasks" component={TaskList} />
-        <Route path="/prs" component={PR} />
+        <Route exact path="/prs" component={PRList} />
+        <Route path="/prs/" component={IndividualPr} />
         <Route render={() => <Redirect to="/tasks" />} />
       </Switch>
       <footer style={styles.footer}>

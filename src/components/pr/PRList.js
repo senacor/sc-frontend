@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles/index';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 
 const styles = () => ({
   list: {
@@ -18,7 +19,7 @@ const styles = () => ({
   }
 });
 
-export class PR extends React.Component {
+export class PRList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,6 +58,10 @@ export class PR extends React.Component {
     } else {
       return (
         <div>
+          {' '}
+          <Typography variant="display1" paragraph>
+            Performance Review Liste
+          </Typography>
           {prs.map(pr => {
             return (
               <div key={pr.id}>
@@ -90,4 +95,4 @@ export default connect(
   {
     fetchPrs: actions.fetchPrs
   }
-)(withLoading(props => props.fetchPrs())(withStyles(styles)(PR)));
+)(withLoading(props => props.fetchPrs())(withStyles(styles)(PRList)));
