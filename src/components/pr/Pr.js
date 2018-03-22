@@ -1,9 +1,6 @@
 import React from 'react';
 
 class Pr extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let individualUrl = this.props.location.pathname;
     return (
