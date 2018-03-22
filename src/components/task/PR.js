@@ -25,36 +25,67 @@ export class PR extends React.Component {
       prs: props.prs
     };
   }
+  mapPROccasions = occasion => {
+    switch (occasion) {
+      case 'ON_DEMAND':
+        return 'Auf Nachfrage';
+      case 'YEARLY':
+        return 'jährlich';
+      case 'QUARTERLY':
+        return 'vierteljährlich';
+      case 'END_PROBATION':
+        return 'Ende der Probezeit';
+      default:
+        return 'Auf Nachfrage';
+    }
+  };
 
   render() {
     const { classes, prs } = this.props;
-    return (
-      <div>
-        {prs.map(pr => {
-          return (
-            <div key={pr.id}>
-              <Card className={classes.prs}>
-                <CardHeader
-                  avatar={
-                    <Avatar src="/supervisor.jpg" className={classes.avatar} />
-                  }
-                  title={pr.occasion}
-                  subheader={`supervisor: ${pr.supervisor}`}
-                />
-              </Card>
-              <Divider inset />
-            </div>
-          );
-        })}
-      </div>
-    );
+    if (prs.length === 0) {
+      return (
+        <div>
+          {' '}
+          <Card>
+            <CardHeader
+              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+              title="No PRs available"
+            />
+          </Card>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {prs.map(pr => {
+            return (
+              <div key={pr.id}>
+                <Card className={classes.prs}>
+                  <CardHeader
+                    avatar={
+                      <Avatar
+                        src="/supervisor.jpg"
+                        className={classes.avatar}
+                      />
+                    }
+                    title={`Grund der PR: ${this.mapPROccasions(pr.occasion)}`}
+                    subheader={`supervisor: ${pr.supervisor}`}
+                  />
+                </Card>
+                <Divider inset />
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
   }
 }
 
 export default connect(
   state => ({
-    prs: state.tasks.list,
-    isLoadingPRs: state.tasks.isLoading
+    prs: state.prs.prsList,
+    isLoadingPRs: state.prs.isLoadingPRs
   }),
   {
     fetchPrs: actions.fetchPrs
