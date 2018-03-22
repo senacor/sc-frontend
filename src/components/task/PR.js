@@ -2,42 +2,92 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import withLoading from '../hoc/Loading';
-import List, { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import { withStyles } from 'material-ui/styles/index';
+import Avatar from 'material-ui/Avatar';
+import Card, { CardHeader } from 'material-ui/Card';
+
+const styles = () => ({
+  list: {
+    color: '#4d8087',
+    backgroundColor: '#63d7ff',
+    fontSize: '13px'
+  },
+  prs: {
+    marginBottom: '10px'
+  }
+});
 
 export class PR extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       prs: props.prs
     };
   }
+  mapPROccasions = occasion => {
+    switch (occasion) {
+      case 'ON_DEMAND':
+        return 'Auf Nachfrage';
+      case 'YEARLY':
+        return 'jährlich';
+      case 'QUARTERLY':
+        return 'vierteljährlich';
+      case 'END_PROBATION':
+        return 'Ende der Probezeit';
+      default:
+        return 'Auf Nachfrage';
+    }
+  };
 
   render() {
-    const { prs } = this.props;
-    return (
-      <div>
-        {prs.map(pr => {
-          return (
-            <List component="pr">
-              <ListItem>{pr.occasion}</ListItem>
-              <ListItem>{pr.employee}</ListItem>
-              <ListItem>{pr.supervisor}</ListItem>
-              <Divider />
-            </List>
-          );
-        })}
-      </div>
-    );
+    const { classes, prs } = this.props;
+    if (prs.length === 0) {
+      return (
+        <div>
+          {' '}
+          <Card>
+            <CardHeader
+              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+              title="No PRs available"
+            />
+          </Card>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {prs.map(pr => {
+            return (
+              <div key={pr.id}>
+                <Card className={classes.prs}>
+                  <CardHeader
+                    avatar={
+                      <Avatar
+                        src="/supervisor.jpg"
+                        className={classes.avatar}
+                      />
+                    }
+                    title={`Grund der PR: ${this.mapPROccasions(pr.occasion)}`}
+                    subheader={`supervisor: ${pr.supervisor}`}
+                  />
+                </Card>
+                <Divider inset />
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
   }
 }
 
 export default connect(
   state => ({
-    prs: state.tasks.list,
-    isLoadingPRs: state.tasks.isLoading
+    prs: state.prs.prsList,
+    isLoadingPRs: state.prs.isLoadingPRs
   }),
   {
     fetchPrs: actions.fetchPrs
   }
-)(withLoading(props => props.fetchPrs())(PR));
+)(withLoading(props => props.fetchPrs())(withStyles(styles)(PR)));
