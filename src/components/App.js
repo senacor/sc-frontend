@@ -29,14 +29,13 @@ const PRWithAppBar = withAppBar(PRList);
 
 const App = () => (
   <div style={styles.main}>
-      <Switch>
-        <Route path="/tasks" component={TaskListWithAppBar} />
-        <Route exact path="/prs" component={PRWithAppBar} />
-        <Route exact path="/prs/:id" component={IndividualPr} />
-        <Route path="/login" component={Login} />
-        <Route render={() => <Redirect to="/tasks" />} />
-      </Switch>
-
+    <Switch>
+      <Route path="/tasks" component={TaskListWithAppBar} />
+      <Route exact path="/prs" component={PRWithAppBar} />
+      <Route exact path="/prs/:id" component={IndividualPr} />
+      <Route path="/login" component={Login} />
+      <Route render={() => <Redirect to="/tasks" />} />
+    </Switch>
   </div>
 );
 
