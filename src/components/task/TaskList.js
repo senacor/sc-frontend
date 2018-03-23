@@ -52,8 +52,7 @@ export class TaskList extends React.Component {
     if (tasks.length === 0) {
       return (
         <div>
-          {' '}
-          <Card>
+          <Card style={{ visibility: hasError ? 'hidden' : 'visible' }}>
             <CardHeader
               avatar={<Avatar src="/warning.png" className={classes.avatar} />}
               title="No tasks assigned"

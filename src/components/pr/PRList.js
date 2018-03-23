@@ -37,11 +37,11 @@ export class PRList extends React.Component {
   };
 
   render() {
-    const { classes, prs } = this.props;
+    const { classes, prs, hasError } = this.props;
     if (prs.length === 0) {
       return (
         <div>
-          <Card>
+          <Card style={{ visibility: hasError ? 'hidden' : 'visible' }}>
             <CardHeader
               avatar={<Avatar src="/warning.png" className={classes.avatar} />}
               title="No PRs available"
@@ -83,7 +83,9 @@ export class PRList extends React.Component {
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.prs.isLoading
+    isLoading: state.prs.isLoading,
+    isChanging: state.tasks.isChanging,
+    hasError: state.error.addError
   }),
   {
     fetchPrs: actions.fetchPrs

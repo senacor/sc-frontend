@@ -28,15 +28,26 @@ export const fetchPrs = () => async dispatch => {
   dispatch({
     type: 'FETCH_PRS_REQUEST'
   });
+  dispatch({
+    type: 'ERROR_GONE',
+    hasError: false
+  });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/prs');
-  const data = await response.json();
-  const prs = data._embedded ? data._embedded.prResponseList : [];
+  if (response.ok) {
+    const data = await response.json();
+    const prs = data._embedded ? data._embedded.prResponseList : [];
 
-  dispatch({
-    type: 'FETCH_PRS_RESPONSE',
-    prs
-  });
+    dispatch({
+      type: 'FETCH_PRS_RESPONSE',
+      prs
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      hasError: true
+    });
+  }
 };
 
 export const editTask = newTask => async dispatch => {
