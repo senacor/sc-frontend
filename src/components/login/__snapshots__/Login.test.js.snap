@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Component should match snapshot 1`] = `
+<Login
+  classes={
+    Object {
+      "button": "Login-button-7",
+      "form": "Login-form-3",
+      "formControl": "Login-formControl-4",
+      "hero": "Login-hero-1",
+      "input": "Login-input-5",
+      "login": "Login-login-2",
+      "logo": "Login-logo-6",
+    }
+  }
+/>
+`;
