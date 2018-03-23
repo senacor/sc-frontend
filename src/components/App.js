@@ -2,10 +2,11 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import CompositionNumber from './footer/CompositionNumber';
 import TaskList from './task/TaskList';
-import PR from './task/PR';
+import PRList from './pr/PRList';
 import AppBar from './AppBar/AppBar';
 import './App.css';
 import Login from './login/Login';
+import PR from './pr/Pr';
 
 const styles = {
   main: {
@@ -24,13 +25,15 @@ const withAppBar = WrappedComponent => () => (
 );
 
 const TaskListWithAppBar = withAppBar(TaskList);
+const PRListWithAppBar = withAppBar(PRList);
 const PRWithAppBar = withAppBar(PR);
 
 const App = () => (
   <div style={styles.main}>
     <Switch>
       <Route path="/tasks" component={TaskListWithAppBar} />
-      <Route path="/prs" component={PRWithAppBar} />
+      <Route exact path="/prs" component={PRListWithAppBar} />
+      <Route exact path="/prs/:id" component={PRWithAppBar} />
       <Route path="/login" component={Login} />
       <Route render={() => <Redirect to="/tasks" />} />
     </Switch>

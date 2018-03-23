@@ -13,6 +13,21 @@ export const fetchTasks = () => async dispatch => {
   });
 };
 
+export const fetchPrs = () => async dispatch => {
+  dispatch({
+    type: 'FETCH_PRS_REQUEST'
+  });
+
+  const response = await fetch(process.env.REACT_APP_API + '/api/v1/prs');
+  const data = await response.json();
+  const prs = data._embedded ? data._embedded.prResponseList : [];
+
+  dispatch({
+    type: 'FETCH_PRS_RESPONSE',
+    prs
+  });
+};
+
 export const editTask = newTask => async dispatch => {
   dispatch({
     type: 'EDIT_TASK_REQUEST'

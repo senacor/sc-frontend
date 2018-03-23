@@ -6,6 +6,7 @@ import LibraryBooksIcon from 'material-ui-icons/LibraryBooks';
 import AssignmentLateIcon from 'material-ui-icons/AssignmentLate';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
+import { Link } from 'react-router-dom';
 
 const styles = () => ({
   root: {
@@ -32,11 +33,13 @@ const styles = () => ({
 const listOfMenuEntries = [
   {
     label: 'Alle Aufgaben',
-    icon: <AssignmentLateIcon />
+    icon: <AssignmentLateIcon />,
+    value: 'tasks'
   },
   {
     label: 'Alle PRs',
-    icon: <LibraryBooksIcon />
+    icon: <LibraryBooksIcon />,
+    value: 'prs'
   }
 ];
 
@@ -60,11 +63,13 @@ const Sidebar = props => {
         {listOfMenuEntries.map(entry => (
           <div key={entry.label}>
             <ListItem button>
-              <ListItemIcon>{entry.icon}</ListItemIcon>
-              <ListItemText
-                disableTypography
-                primary={<Typography type="h3">{entry.label}</Typography>}
-              />
+              <Link to={entry.value} style={{ textDecoration: 'none' }}>
+                <ListItemIcon>{entry.icon}</ListItemIcon>
+                <ListItemText
+                  disableTypography
+                  primary={<Typography type="h3">{entry.label}</Typography>}
+                />
+              </Link>
             </ListItem>
           </div>
         ))}
