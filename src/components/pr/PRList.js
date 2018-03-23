@@ -1,31 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles/index';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 
 const styles = () => ({
-  list: {
-    color: '#4d8087',
-    backgroundColor: '#63d7ff',
-    fontSize: '13px'
-  },
   prs: {
     marginBottom: '10px'
   }
 });
 
-export class PR extends React.Component {
+export class PRList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       prs: props.prs
     };
   }
-  mapPROccasions = occasion => {
+  translate = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
         return 'Auf Nachfrage';
@@ -45,7 +41,6 @@ export class PR extends React.Component {
     if (prs.length === 0) {
       return (
         <div>
-          {' '}
           <Card>
             <CardHeader
               avatar={<Avatar src="/warning.png" className={classes.avatar} />}
@@ -57,6 +52,9 @@ export class PR extends React.Component {
     } else {
       return (
         <div>
+          <Typography variant="display1" paragraph>
+            Performance Review Liste
+          </Typography>
           {prs.map(pr => {
             return (
               <div key={pr.id}>
@@ -68,7 +66,7 @@ export class PR extends React.Component {
                         className={classes.avatar}
                       />
                     }
-                    title={`Grund der PR: ${this.mapPROccasions(pr.occasion)}`}
+                    title={`Grund der PR: ${this.translate(pr.occasion)}`}
                     subheader={`supervisor: ${pr.supervisor}`}
                   />
                 </Card>
@@ -85,9 +83,9 @@ export class PR extends React.Component {
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoadingPRs: state.prs.isLoadingPRs
+    isLoading: state.prs.isLoading
   }),
   {
     fetchPrs: actions.fetchPrs
   }
-)(withLoading(props => props.fetchPrs())(withStyles(styles)(PR)));
+)(withLoading(props => props.fetchPrs())(withStyles(styles)(PRList)));
