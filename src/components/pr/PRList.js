@@ -40,14 +40,12 @@ export class PRList extends React.Component {
     const { classes, prs, hasError } = this.props;
     if (prs.length === 0) {
       return (
-        <div>
-          <Card style={{ visibility: hasError ? 'hidden' : 'visible' }}>
-            <CardHeader
-              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-              title="No PRs available"
-            />
-          </Card>
-        </div>
+        <Card style={{ display: hasError ? 'none' : 'block' }}>
+          <CardHeader
+            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+            title="No PRs available"
+          />
+        </Card>
       );
     } else {
       return (

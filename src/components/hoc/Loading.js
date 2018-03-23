@@ -14,7 +14,7 @@ const withLoading = onComponentDidMount => WrappedComponent => {
     }
 
     render() {
-      if (this.props.isLoading && !this.props.hasError) {
+      if (this.props.isLoading) {
         return <CircularProgress />;
       }
 

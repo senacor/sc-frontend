@@ -6,7 +6,7 @@ exports[`displays the list of tasks 1`] = `
     paragraph={true}
     style={
       Object {
-        "visibility": "visible",
+        "display": "block",
       }
     }
     variant="display1"

@@ -33,9 +33,9 @@ export class Error extends React.Component {
     return (
       <div
         className={classes.error}
-        style={{ visibility: hasError ? 'visible' : 'hidden' }}
+        style={{ display: hasError ? 'block' : 'none' }}
       >
-        <Typography>Sorry Something went wrong!!!</Typography>
+        <Typography>Server Error 500!!!</Typography>
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
-let initialState = { hasError: false };
-const addError = (state = initialState, action) => {
+const addError = (state = false, action) => {
   switch (action.type) {
     case 'ERROR_RESPONSE':
       return action.hasError;

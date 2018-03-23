@@ -51,14 +51,12 @@ export class TaskList extends React.Component {
     const { classes, tasks, hasError } = this.props;
     if (tasks.length === 0) {
       return (
-        <div>
-          <Card style={{ visibility: hasError ? 'hidden' : 'visible' }}>
-            <CardHeader
-              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-              title="No tasks assigned"
-            />
-          </Card>
-        </div>
+        <Card style={{ display: hasError ? 'none' : 'block' }}>
+          <CardHeader
+            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+            title="No tasks assigned"
+          />
+        </Card>
       );
     } else {
       return (
@@ -66,7 +64,7 @@ export class TaskList extends React.Component {
           <Typography
             variant="display1"
             paragraph
-            style={{ visibility: hasError ? 'hidden' : 'visible' }}
+            style={{ display: hasError ? 'none' : 'block' }}
           >
             Aufgabenliste
           </Typography>
