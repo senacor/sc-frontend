@@ -11,8 +11,6 @@ export const fetchTasks = () => async dispatch => {
   if (response.ok) {
     const data = await response.json();
     const tasks = data._embedded ? data._embedded.taskResponseList : [];
-    console.log(tasks);
-
     dispatch({
       type: 'FETCH_TASKS_RESPONSE',
       tasks
