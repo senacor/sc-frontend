@@ -9,6 +9,7 @@ import Hidden from 'material-ui/Hidden';
 import Drawer from 'material-ui/Drawer';
 
 import Sidebar from '../sidebar/Sidebar';
+import Error from '../task/ErrorBoundary';
 
 const drawerWidth = 300;
 const styles = theme => ({
@@ -108,6 +109,7 @@ class CustomAppBar extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <Error />
           {children}
         </main>
       </div>

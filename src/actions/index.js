@@ -2,30 +2,50 @@ export const fetchTasks = () => async dispatch => {
   dispatch({
     type: 'FETCH_TASKS_REQUEST'
   });
+  dispatch({
+    type: 'ERROR_GONE',
+    hasError: false
+  });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/tasks');
-  const data = await response.json();
-  const tasks = data._embedded ? data._embedded.taskResponseList : [];
-
-  dispatch({
-    type: 'FETCH_TASKS_RESPONSE',
-    tasks
-  });
+  if (response.ok) {
+    const data = await response.json();
+    const tasks = data._embedded ? data._embedded.taskResponseList : [];
+    dispatch({
+      type: 'FETCH_TASKS_RESPONSE',
+      tasks
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      hasError: true
+    });
+  }
 };
-
 export const fetchPrs = () => async dispatch => {
   dispatch({
     type: 'FETCH_PRS_REQUEST'
   });
+  dispatch({
+    type: 'ERROR_GONE',
+    hasError: false
+  });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/prs');
-  const data = await response.json();
-  const prs = data._embedded ? data._embedded.prResponseList : [];
+  if (response.ok) {
+    const data = await response.json();
+    const prs = data._embedded ? data._embedded.prResponseList : [];
 
-  dispatch({
-    type: 'FETCH_PRS_RESPONSE',
-    prs
-  });
+    dispatch({
+      type: 'FETCH_PRS_RESPONSE',
+      prs
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      hasError: true
+    });
+  }
 };
 
 export const editTask = newTask => async dispatch => {

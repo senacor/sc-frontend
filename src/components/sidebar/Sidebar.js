@@ -62,15 +62,15 @@ const Sidebar = props => {
       <List component="nav">
         {listOfMenuEntries.map(entry => (
           <div key={entry.label}>
-            <ListItem button>
-              <Link to={entry.value} style={{ textDecoration: 'none' }}>
+            <Link to={entry.value} style={{ textDecoration: 'none' }}>
+              <ListItem button>
                 <ListItemIcon>{entry.icon}</ListItemIcon>
                 <ListItemText
                   disableTypography
                   primary={<Typography type="h3">{entry.label}</Typography>}
                 />
-              </Link>
-            </ListItem>
+              </ListItem>
+            </Link>
           </div>
         ))}
       </List>

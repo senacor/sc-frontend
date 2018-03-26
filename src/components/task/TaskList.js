@@ -26,7 +26,7 @@ const styles = theme => ({
 
 export class TaskList extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       tasks: props.tasks
     };
@@ -48,24 +48,24 @@ export class TaskList extends React.Component {
   };
 
   render() {
-    const { classes, tasks } = this.props;
-
+    const { classes, tasks, hasError } = this.props;
     if (tasks.length === 0) {
       return (
-        <div>
-          {' '}
-          <Card>
-            <CardHeader
-              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-              title="No tasks assigned"
-            />
-          </Card>
-        </div>
+        <Card style={{ display: hasError ? 'none' : 'block' }}>
+          <CardHeader
+            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+            title="No tasks assigned"
+          />
+        </Card>
       );
     } else {
       return (
         <div>
-          <Typography variant="display1" paragraph>
+          <Typography
+            variant="display1"
+            paragraph
+            style={{ display: hasError ? 'none' : 'block' }}
+          >
             Aufgabenliste
           </Typography>
           {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
@@ -103,7 +103,8 @@ export default connect(
   state => ({
     tasks: state.tasks.list,
     isLoading: state.tasks.isLoading,
-    isChanging: state.tasks.isChanging
+    isChanging: state.tasks.isChanging,
+    hasError: state.error.addError
   }),
   {
     fetchTasks: actions.fetchTasks,

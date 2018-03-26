@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
-import { withStyles } from 'material-ui/styles/index';
+import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
@@ -37,17 +37,15 @@ export class PRList extends React.Component {
   };
 
   render() {
-    const { classes, prs } = this.props;
+    const { classes, prs, hasError } = this.props;
     if (prs.length === 0) {
       return (
-        <div>
-          <Card>
-            <CardHeader
-              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-              title="No PRs available"
-            />
-          </Card>
-        </div>
+        <Card style={{ display: hasError ? 'none' : 'block' }}>
+          <CardHeader
+            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+            title="No PRs available"
+          />
+        </Card>
       );
     } else {
       return (
@@ -83,7 +81,8 @@ export class PRList extends React.Component {
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.prs.isLoading
+    isLoading: state.prs.isLoading,
+    hasError: state.error.addError
   }),
   {
     fetchPrs: actions.fetchPrs
