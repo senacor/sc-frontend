@@ -34,12 +34,12 @@ const listOfMenuEntries = [
   {
     label: 'Alle Aufgaben',
     icon: <AssignmentLateIcon />,
-    value: 'tasks'
+    value: '/tasks'
   },
   {
     label: 'Alle PRs',
     icon: <LibraryBooksIcon />,
-    value: 'prs'
+    value: '/prs'
   }
 ];
 
