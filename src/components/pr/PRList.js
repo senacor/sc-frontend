@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
-import { withStyles } from 'material-ui/styles/index';
+import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
@@ -82,7 +82,6 @@ export default connect(
   state => ({
     prs: state.prs.prsList,
     isLoading: state.prs.isLoading,
-    isChanging: state.tasks.isChanging,
     hasError: state.error.addError
   }),
   {

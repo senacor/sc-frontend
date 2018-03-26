@@ -109,9 +109,7 @@ class CustomAppBar extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <div>
-            <Error />
-          </div>
+          <Error />
           {children}
         </main>
       </div>

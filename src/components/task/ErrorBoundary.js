@@ -1,7 +1,5 @@
 import React from 'react';
 import Typography from 'material-ui/Typography';
-import withLoading from '../hoc/Loading';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles/index';
 
@@ -40,11 +38,6 @@ export class Error extends React.Component {
     );
   }
 }
-export default connect(
-  state => ({
-    hasError: state.error.addError
-  }),
-  {
-    fetch: actions.fetchTasks
-  }
-)(withLoading(props => props.fetch())(withStyles(styles)(Error)));
+export default connect(state => ({
+  hasError: state.error.addError
+}))(withStyles(styles)(Error));
