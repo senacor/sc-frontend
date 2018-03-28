@@ -1,12 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow } from 'material-ui/test-utils';
 
 import Sidebar from './Sidebar';
 
 describe('Sidebar', () => {
+  let shallow = createShallow({ dive: true });
+
   it('should match snapshot', () => {
     const element = shallow(<Sidebar />);
 
     expect(element).toMatchSnapshot();
+  });
+
+  it('should contain composition number', () => {
+    const element = shallow(<Sidebar />);
+
+    expect(element.find('WithStyles(CompositionNumber)')).toHaveLength(1);
   });
 });
