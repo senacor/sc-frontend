@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays failure if the resource is not found 1`] = `
+<CompositionNumber
+  classes={
+    Object {
+      "version": "CompositionNumber-version-1",
+    }
+  }
+/>
+`;
+
+exports[`displays the composition number 1`] = `
+<CompositionNumber
+  classes={
+    Object {
+      "version": "CompositionNumber-version-1",
+    }
+  }
+/>
+`;

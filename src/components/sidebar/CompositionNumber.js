@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import Typography from 'material-ui/Typography';
 
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+  version: {
+    padding: theme.spacing.unit
+  }
+});
+
 class CompositionNumber extends Component {
   constructor(props) {
     super(props);
@@ -18,18 +26,21 @@ class CompositionNumber extends Component {
       });
     } catch (err) {
       this.setState({
-        composition: 'failed'
+        composition: 'localhost'
       });
     }
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div id="composition-number">
-        <Typography>current composition: {this.state.composition}</Typography>
+      <div id="composition-number" className={classes.version}>
+        <Typography color="textSecondary">
+          version {this.state.composition}
+        </Typography>
       </div>
     );
   }
 }
 
-export default CompositionNumber;
+export default withStyles(styles)(CompositionNumber);

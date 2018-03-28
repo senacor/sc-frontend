@@ -8,6 +8,8 @@ import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
 
+import CompositionNumber from './CompositionNumber';
+
 const styles = () => ({
   root: {
     width: '100%',
@@ -75,6 +77,7 @@ const Sidebar = props => {
         ))}
       </List>
       <Divider />
+      <CompositionNumber />
     </div>
   );
 };
