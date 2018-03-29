@@ -4,9 +4,12 @@ import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import LibraryBooksIcon from 'material-ui-icons/LibraryBooks';
 import AssignmentLateIcon from 'material-ui-icons/AssignmentLate';
+import PowerSettingsNewIcon from 'material-ui-icons/PowerSettingsNew';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
+
+import CompositionNumber from './CompositionNumber';
 
 const styles = () => ({
   root: {
@@ -40,10 +43,15 @@ const listOfMenuEntries = [
     label: 'Alle PRs',
     icon: <LibraryBooksIcon />,
     value: '/prs'
+  },
+  {
+    label: 'Logout',
+    icon: <PowerSettingsNewIcon />,
+    value: '/login'
   }
 ];
 
-const Sidebar = props => {
+export const Sidebar = props => {
   const { classes } = props;
 
   return (
@@ -75,6 +83,7 @@ const Sidebar = props => {
         ))}
       </List>
       <Divider />
+      <CompositionNumber />
     </div>
   );
 };

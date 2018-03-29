@@ -1,0 +1,45 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+import { withStyles } from 'material-ui/styles/index';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
+import ErrorIcon from 'material-ui-icons/Error';
+
+const styles = theme => ({
+  error: {
+    color: '#D8000C',
+    backgroundColor: '#FFBABA',
+    flexDirection: 'row',
+    marginBottom: theme.spacing.unit
+  },
+  icon: {
+    padding: theme.spacing.unit
+  },
+  message: {
+    display: 'inline-block',
+    padding: theme.spacing.unit
+  }
+});
+
+export class Error extends React.Component {
+  render() {
+    const { classes, errors } = this.props;
+
+    return (
+      <Paper
+        style={{ display: errors.hasErrors ? 'flex' : 'none' }}
+        className={classes.error}
+        elevation={8}
+      >
+        <ErrorIcon className={classes.icon} />
+        <Typography component="span" className={classes.message}>
+          {errors.message}
+        </Typography>
+      </Paper>
+    );
+  }
+}
+export default connect(state => ({
+  errors: state.errors
+}))(withStyles(styles)(Error));
