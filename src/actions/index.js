@@ -22,6 +22,7 @@ export const fetchTasks = () => async dispatch => {
     });
   }
 };
+
 export const fetchPrs = () => async dispatch => {
   dispatch({
     type: 'FETCH_PRS_REQUEST'
@@ -75,5 +76,31 @@ export const editTask = newTask => async dispatch => {
   dispatch({
     type: 'EDIT_TASK_RESPONSE',
     task
+  });
+};
+
+export const addPr = () => async dispatch => {
+  dispatch({
+    type: 'ADD_PR_REQUEST'
+  });
+
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs`,
+    {
+      method: 'post',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        occasion: 'ON_DEMAND',
+        supervisor: 'dummy',
+        employee: 'dummy e'
+      })
+    }
+  );
+  const prs = await changeResponse.json();
+
+  dispatch({
+    type: 'ADD_PR_RESPONSE',
+    prs
   });
 };
