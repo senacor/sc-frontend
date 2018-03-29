@@ -37,52 +37,37 @@ export class PRList extends React.Component {
   };
 
   render() {
-    const { classes, prs, hasError } = this.props;
-    if (prs.length === 0) {
-      return (
-        <Card style={{ display: hasError ? 'none' : 'block' }}>
-          <CardHeader
-            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-            title="No PRs available"
-          />
-        </Card>
-      );
-    } else {
-      return (
-        <div>
-          <Typography variant="display1" paragraph>
-            Performance Review Liste
-          </Typography>
-          {prs.map(pr => {
-            return (
-              <div key={pr.id}>
-                <Card className={classes.prs}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        src="/supervisor.jpg"
-                        className={classes.avatar}
-                      />
-                    }
-                    title={`Grund der PR: ${this.translate(pr.occasion)}`}
-                    subheader={`supervisor: ${pr.supervisor}`}
-                  />
-                </Card>
-                <Divider inset />
-              </div>
-            );
-          })}
-        </div>
-      );
-    }
+    const { classes, prs } = this.props;
+    return (
+      <div>
+        <Typography variant="display1" paragraph>
+          Performance Reviews
+        </Typography>
+        {prs.map(pr => {
+          return (
+            <div key={pr.id}>
+              <Card className={classes.prs}>
+                <CardHeader
+                  avatar={
+                    <Avatar src="/supervisor.jpg" className={classes.avatar} />
+                  }
+                  title={`Grund der PR: ${this.translate(pr.occasion)}`}
+                  subheader={`supervisor: ${pr.supervisor}`}
+                />
+              </Card>
+              <Divider inset />
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 }
 
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.prs.isLoading,
-    hasError: state.error.addError
+    isLoading: state.prs.isLoading
   }),
   {
     fetchPrs: actions.fetchPrs
