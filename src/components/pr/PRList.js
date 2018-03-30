@@ -5,18 +5,32 @@ import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader } from 'material-ui/Card';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
-import Paper from 'material-ui/Paper';
 
 const styles = () => ({
   prs: {
     marginBottom: '10px'
   },
+  container: {
+    width: '25%',
+    height: '5%',
+    marginLeft: '75%',
+    marginBottom: '10px',
+    border: '1px',
+    textAlign: 'center'
+  },
+
+  content: {
+    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#b3c8cb'
+  },
   button: {
-    anchor: 'right'
+    position: 'absolute',
+    marginLeft: '6.5%'
   }
 });
 
@@ -73,21 +87,35 @@ export class PRList extends React.Component {
           <Typography variant="display1" paragraph>
             Performance Review Liste
           </Typography>
-          <Paper style={{ width: 500, position: 'right', align: 'right' }}>
-            <Button
-              variant="fab"
-              mini
-              color="primary"
-              aria-label="add"
-              className={classes.button}
-              onClick={() => {
-                this.handleClick();
-              }}
-            >
-              {' '}
-              <AddIcon />
-            </Button>
-          </Paper>
+          <Card className={classes.container}>
+            <CardContent className={classes.content}>
+              <Typography
+                gutterBottom
+                variant="headline"
+                component="h4"
+                color="white"
+              >
+                Neuen PR beantragen
+              </Typography>
+              <CardActions>
+                <Button
+                  variant="fab"
+                  mini
+                  aria-label="add"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => {
+                    this.handleClick();
+                  }}
+                >
+                  {' '}
+                  <AddIcon />
+                </Button>
+              </CardActions>
+            </CardContent>
+          </Card>
+          <Divider inset />
+
           {prs.map(pr => {
             return (
               <div key={pr.id}>
