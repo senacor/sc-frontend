@@ -77,3 +77,29 @@ export const editTask = newTask => async dispatch => {
     task
   });
 };
+
+export const fetchTasksById = () => async dispatch => {
+  dispatch({
+    type: 'FETCH_TASK_BY_ID_REQUEST'
+  });
+  dispatch({
+    type: 'ERROR_GONE',
+    hasError: false
+  });
+
+  const response = await fetch(process.env.REACT_APP_API + '/api/v1/tasks/13');
+
+  if (response.ok) {
+    const taskById = await response.json();
+
+    dispatch({
+      type: 'FETCH_TASK_BY_ID_RESPONSE',
+      taskById
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      hasError: true
+    });
+  }
+};
