@@ -9,28 +9,26 @@ import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
+import Icon from 'material-ui/Icon';
+import Hidden from 'material-ui/Hidden';
 
-const styles = () => ({
+const styles = theme => ({
   prs: {
     marginBottom: '10px'
   },
-  container: {
-    width: '25%',
+  button: {
+    marginLeft: 'auto'
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  },
+  addCard: {
+    width: '19%',
     height: '5%',
-    marginLeft: '75%',
+    marginLeft: '81%',
     marginBottom: '10px',
     border: '1px',
     textAlign: 'center'
-  },
-
-  content: {
-    alignContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#b3c8cb'
-  },
-  button: {
-    position: 'absolute',
-    marginLeft: '6.5%'
   }
 });
 
@@ -75,32 +73,19 @@ export class PRList extends React.Component {
     if (prs.length === 0) {
       return (
         <div>
-          <Card className={classes.container}>
-            <CardContent className={classes.content}>
-              <Typography
-                gutterBottom
-                variant="headline"
-                component="h4"
-                color="white"
+          <Card className={classes.addCard}>
+            <CardActions>
+              <Button
+                className={classes.button}
+                color="primary"
+                onClick={() => {
+                  this.handleClick();
+                }}
               >
-                Neuen PR beantragen
-              </Typography>
-              <CardActions>
-                <Button
-                  variant="fab"
-                  mini
-                  aria-label="add"
-                  color="primary"
-                  className={classes.button}
-                  onClick={() => {
-                    this.handleClick();
-                  }}
-                >
-                  {' '}
-                  <AddIcon />
-                </Button>
-              </CardActions>
-            </CardContent>
+                <Hidden smDown> Neuen PR beantragen</Hidden>
+                <Icon className={classes.rightIcon}>add</Icon>
+              </Button>
+            </CardActions>
           </Card>
           <Card style={{ display: hasError ? 'none' : 'block' }}>
             <CardHeader
@@ -116,32 +101,20 @@ export class PRList extends React.Component {
           <Typography variant="display1" paragraph>
             Performance Review Liste
           </Typography>
-          <Card className={classes.container}>
-            <CardContent className={classes.content}>
-              <Typography
-                gutterBottom
-                variant="headline"
-                component="h4"
-                color="white"
+
+          <Card className={classes.addCard}>
+            <CardActions>
+              <Button
+                className={classes.button}
+                color="primary"
+                onClick={() => {
+                  this.handleClick();
+                }}
               >
-                Neuen PR beantragen
-              </Typography>
-              <CardActions>
-                <Button
-                  variant="fab"
-                  mini
-                  aria-label="add"
-                  color="primary"
-                  className={classes.button}
-                  onClick={() => {
-                    this.handleClick();
-                  }}
-                >
-                  {' '}
-                  <AddIcon />
-                </Button>
-              </CardActions>
-            </CardContent>
+                <Hidden smDown> Neuen PR beantragen</Hidden>
+                <Icon className={classes.rightIcon}>add</Icon>
+              </Button>
+            </CardActions>
           </Card>
 
           {prs.map(pr => {
