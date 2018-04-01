@@ -5,10 +5,9 @@ import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardActions, CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
 import Icon from 'material-ui/Icon';
 import Hidden from 'material-ui/Hidden';
 
