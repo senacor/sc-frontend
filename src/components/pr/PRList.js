@@ -74,12 +74,41 @@ export class PRList extends React.Component {
     const { classes, prs, hasError } = this.props;
     if (prs.length === 0) {
       return (
-        <Card style={{ display: hasError ? 'none' : 'block' }}>
-          <CardHeader
-            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-            title="No PRs available"
-          />
-        </Card>
+        <div>
+          <Card className={classes.container}>
+            <CardContent className={classes.content}>
+              <Typography
+                gutterBottom
+                variant="headline"
+                component="h4"
+                color="white"
+              >
+                Neuen PR beantragen
+              </Typography>
+              <CardActions>
+                <Button
+                  variant="fab"
+                  mini
+                  aria-label="add"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => {
+                    this.handleClick();
+                  }}
+                >
+                  {' '}
+                  <AddIcon />
+                </Button>
+              </CardActions>
+            </CardContent>
+          </Card>
+          <Card style={{ display: hasError ? 'none' : 'block' }}>
+            <CardHeader
+              avatar={<Avatar src="/warning.png" className={classes.avatar} />}
+              title="No PRs available"
+            />
+          </Card>
+        </div>
       );
     } else {
       return (
@@ -114,7 +143,6 @@ export class PRList extends React.Component {
               </CardActions>
             </CardContent>
           </Card>
-          <Divider inset />
 
           {prs.map(pr => {
             return (
