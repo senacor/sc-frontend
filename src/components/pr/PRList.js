@@ -5,29 +5,31 @@ import withLoading from '../hoc/Loading';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
-import Card, { CardActions, CardHeader } from 'material-ui/Card';
+import Card, { CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import Hidden from 'material-ui/Hidden';
+import AddIcon from 'material-ui-icons/Add';
 
-const styles = theme => ({
+const styles = () => ({
   prs: {
     marginBottom: '10px'
   },
-  button: {
-    marginLeft: 'auto'
+  buttonMobile: {
+    position: 'fixed',
+    left: '80%',
+    bottom: '10%'
   },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
+  icon: {
+    position: 'fixed',
+    left: '84%',
+    bottom: '13%'
   },
-  addCard: {
-    width: '19%',
-    height: '5%',
-    marginLeft: '81%',
-    marginBottom: '10px',
-    border: '1px',
-    textAlign: 'center'
+  button1: {
+    position: 'relative',
+    marginRight: '1%',
+    marginLeft: '80%'
   }
 });
 
@@ -63,8 +65,7 @@ export class PRList extends React.Component {
     this.setState({
       prs: tempArray
     });
-    this.props.addPr();
-    this.props.fetchPrs();
+    this.props.addPr().then(this.props.fetchPrs);
   };
 
   render() {
@@ -72,24 +73,29 @@ export class PRList extends React.Component {
     return (
       <div>
         <Typography variant="display1" paragraph>
-          Performance Review Liste
+          Performance Reviews
         </Typography>
-
-        <Card className={classes.addCard}>
-          <CardActions>
-            <Button
-              className={classes.button}
-              color="primary"
-              onClick={() => {
-                this.handleClick();
-              }}
-            >
-              <Hidden smDown> Neuen PR beantragen</Hidden>
-              <Icon className={classes.rightIcon}>add</Icon>
-            </Button>
-          </CardActions>
-        </Card>
-
+        <Hidden smDown>
+          <Button
+            className={classes.button1}
+            color="primary"
+            onClick={this.handleClick}
+          >
+            Neuen PR beantragen
+            <Icon className={classes.rightIcon}>add</Icon>
+          </Button>
+        </Hidden>
+        <Hidden mdUp>
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add"
+            className={classes.buttonMobile}
+            onClick={this.handleClick}
+          >
+            <AddIcon className={classes.icon} />
+          </Button>
+        </Hidden>
         {prs.map(pr => {
           return (
             <div key={pr.id}>
@@ -113,8 +119,7 @@ export class PRList extends React.Component {
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.prs.isLoading,
-    addingPrs: state.prs.addingPrs
+    isLoading: state.prs.isLoading
   }),
   {
     fetchPrs: actions.fetchPrs,

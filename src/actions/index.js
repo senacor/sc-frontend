@@ -95,10 +95,10 @@ export const addPr = () => async dispatch => {
       })
     }
   );
-  const prs = await changeResponse.json();
+  const pr = await changeResponse.json();
 
   dispatch({
     type: 'ADD_PR_RESPONSE',
-    prs
+    pr
   });
 };
