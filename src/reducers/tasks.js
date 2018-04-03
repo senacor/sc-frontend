@@ -1,11 +1,16 @@
 import { combineReducers } from 'redux';
 
 export const isLoading = (state = false, action) => {
-  const startLoading = ['FETCH_TASKS_REQUEST', 'FETCH_PRS_REQUEST'];
+  const startLoading = [
+    'FETCH_TASKS_REQUEST',
+    'FETCH_PRS_REQUEST',
+    'ADD_PR_REQUEST'
+  ];
   const stopLoading = [
     'FETCH_TASKS_RESPONSE',
     'FETCH_PRS_RESPONSE',
-    'ERROR_RESPONSE'
+    'ERROR_RESPONSE',
+    'ADD_PR_RESPONSE'
   ];
 
   if (findInArray(startLoading, action.type)) {

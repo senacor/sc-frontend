@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { isLoading } from './tasks';
 
 const prsList = (state = [], action) => {
   switch (action.type) {
@@ -9,7 +8,15 @@ const prsList = (state = [], action) => {
       return state;
   }
 };
+const addPr = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_PR_RESPONSE':
+      return action.pr;
+    default:
+      return state;
+  }
+};
 
-const prs = combineReducers({ isLoading, prsList });
+const prs = combineReducers({ prsList, addPr });
 
 export default prs;
