@@ -1,21 +1,25 @@
 import { combineReducers } from 'redux';
 
 export const isLoading = (state = false, action) => {
-  switch (action.type) {
-    case 'FETCH_TASKS_REQUEST':
-      return true;
-    case 'FETCH_PRS_REQUEST':
-      return true;
-    case 'ERROR_RESPONSE':
-      return false;
-    case 'FETCH_TASKS_RESPONSE':
-      return false;
-    case 'FETCH_PRS_RESPONSE':
-      return false;
-    default:
-      return state;
+  const startLoading = ['FETCH_TASKS_REQUEST', 'FETCH_PRS_REQUEST'];
+  const stopLoading = [
+    'FETCH_TASKS_RESPONSE',
+    'FETCH_PRS_RESPONSE',
+    'ERROR_RESPONSE'
+  ];
+
+  if (findInArray(startLoading, action.type)) {
+    return true;
+  } else if (findInArray(stopLoading, action.type)) {
+    return false;
   }
+
+  return state;
 };
+
+function findInArray(arr, val) {
+  return arr.find(element => element === val);
+}
 
 const list = (state = [], action) => {
   switch (action.type) {

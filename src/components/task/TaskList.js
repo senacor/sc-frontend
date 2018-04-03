@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card';
+import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -10,7 +10,6 @@ import Hidden from 'material-ui/Hidden';
 import withLoading from '../hoc/Loading';
 import Deadline from './Deadline';
 import { Link } from 'react-router-dom';
-import Avatar from 'material-ui/Avatar';
 
 const styles = theme => ({
   button: {
@@ -48,54 +47,40 @@ export class TaskList extends React.Component {
   };
 
   render() {
-    const { classes, tasks, hasError } = this.props;
-    if (tasks.length === 0) {
-      return (
-        <Card style={{ display: hasError ? 'none' : 'block' }}>
-          <CardHeader
-            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-            title="No tasks assigned"
-          />
-        </Card>
-      );
-    } else {
-      return (
-        <div>
-          <Typography
-            variant="display1"
-            paragraph
-            style={{ display: hasError ? 'none' : 'block' }}
-          >
-            Aufgabenliste
-          </Typography>
-          {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
-            <Card key={task.id} className={classes.task}>
-              <CardContent>
-                <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
-                  <Typography variant="headline" component="h2">
-                    {task.title}
-                  </Typography>
-                  <Typography component="p">{task.description}</Typography>
-                  <Deadline deadline={task.deadline} />
-                </Link>
-              </CardContent>
-              <CardActions>
-                <Button
-                  className={classes.button}
-                  color="primary"
-                  onClick={() => {
-                    this.handleClick(task);
-                  }}
-                >
-                  <Hidden smDown>Als erledigt markieren</Hidden>
-                  <Icon className={classes.rightIcon}>check</Icon>
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
-        </div>
-      );
-    }
+    const { classes, tasks } = this.props;
+    return (
+      <div>
+        <Typography variant="display1" paragraph>
+          Aufgabenliste
+        </Typography>
+        {tasks.length === 0 ? <p>Keine offenen Aufgaben</p> : ''}
+        {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
+          <Card key={task.id} className={classes.task}>
+            <CardContent>
+              <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
+                <Typography variant="headline" component="h2">
+                  {task.title}
+                </Typography>
+                <Typography component="p">{task.description}</Typography>
+                <Deadline deadline={task.deadline} />
+              </Link>
+            </CardContent>
+            <CardActions>
+              <Button
+                className={classes.button}
+                color="primary"
+                onClick={() => {
+                  this.handleClick(task);
+                }}
+              >
+                <Hidden smDown>Als erledigt markieren</Hidden>
+                <Icon className={classes.rightIcon}>check</Icon>
+              </Button>
+            </CardActions>
+          </Card>
+        ))}
+      </div>
+    );
   }
 }
 
@@ -103,8 +88,7 @@ export default connect(
   state => ({
     tasks: state.tasks.list,
     isLoading: state.tasks.isLoading,
-    isChanging: state.tasks.isChanging,
-    hasError: state.error.addError
+    isChanging: state.tasks.isChanging
   }),
   {
     fetchTasks: actions.fetchTasks,

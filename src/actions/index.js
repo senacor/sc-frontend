@@ -3,8 +3,7 @@ export const fetchTasks = () => async dispatch => {
     type: 'FETCH_TASKS_REQUEST'
   });
   dispatch({
-    type: 'ERROR_GONE',
-    hasError: false
+    type: 'ERROR_GONE'
   });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/tasks');
@@ -18,7 +17,7 @@ export const fetchTasks = () => async dispatch => {
   } else {
     dispatch({
       type: 'ERROR_RESPONSE',
-      hasError: true
+      httpCode: response.status
     });
   }
 };
@@ -28,8 +27,7 @@ export const fetchPrs = () => async dispatch => {
     type: 'FETCH_PRS_REQUEST'
   });
   dispatch({
-    type: 'ERROR_GONE',
-    hasError: false
+    type: 'ERROR_GONE'
   });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/prs');
@@ -44,7 +42,7 @@ export const fetchPrs = () => async dispatch => {
   } else {
     dispatch({
       type: 'ERROR_RESPONSE',
-      hasError: true
+      httpCode: response.status
     });
   }
 };

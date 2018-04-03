@@ -47,7 +47,6 @@ describe('fetchTasks', () => {
         type: 'FETCH_TASKS_REQUEST'
       },
       {
-        hasError: false,
         type: 'ERROR_GONE'
       },
       {
@@ -89,7 +88,6 @@ describe('fetchTasks', () => {
         type: 'FETCH_TASKS_REQUEST'
       },
       {
-        hasError: false,
         type: 'ERROR_GONE'
       },
       {
