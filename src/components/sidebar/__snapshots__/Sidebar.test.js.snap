@@ -1,14 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sidebar should match snapshot 1`] = `
-<Sidebar
-  classes={
-    Object {
-      "avatar": "Sidebar-avatar-2",
-      "column": "Sidebar-column-3",
-      "root": "Sidebar-root-1",
-      "row": "Sidebar-row-4",
-    }
-  }
-/>
+<div
+  className="Component-root-1"
+>
+  <div
+    className="Component-row-4"
+  >
+    <div
+      className="Component-column-3"
+    >
+      <WithStyles(Avatar)
+        alt="Remy Sharp"
+        className="Component-avatar-2"
+        src="/avatar.jpg"
+      />
+      <WithStyles(Typography)>
+        Max Mustermann
+      </WithStyles(Typography)>
+    </div>
+  </div>
+  <WithStyles(Divider) />
+  <WithStyles(List)
+    component="nav"
+  >
+    <div
+      key="Alle Aufgaben"
+    >
+      <Link
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/tasks"
+      >
+        <WithStyles(ListItem)
+          button={true}
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(AssignmentLate) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            disableTypography={true}
+            primary={
+              <WithStyles(Typography)
+                type="h3"
+              >
+                Alle Aufgaben
+              </WithStyles(Typography)>
+            }
+          />
+        </WithStyles(ListItem)>
+      </Link>
+    </div>
+    <div
+      key="Alle PRs"
+    >
+      <Link
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/prs"
+      >
+        <WithStyles(ListItem)
+          button={true}
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(LibraryBooks) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            disableTypography={true}
+            primary={
+              <WithStyles(Typography)
+                type="h3"
+              >
+                Alle PRs
+              </WithStyles(Typography)>
+            }
+          />
+        </WithStyles(ListItem)>
+      </Link>
+    </div>
+    <div
+      key="Logout"
+    >
+      <Link
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/login"
+      >
+        <WithStyles(ListItem)
+          button={true}
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(PowerSettingsNew) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            disableTypography={true}
+            primary={
+              <WithStyles(Typography)
+                type="h3"
+              >
+                Logout
+              </WithStyles(Typography)>
+            }
+          />
+        </WithStyles(ListItem)>
+      </Link>
+    </div>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
+  <WithStyles(CompositionNumber) />
+</div>
 `;

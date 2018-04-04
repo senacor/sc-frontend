@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import CompositionNumber from './footer/CompositionNumber';
 import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
 import AppBar from './AppBar/AppBar';
@@ -18,9 +17,6 @@ const styles = {
 const withAppBar = WrappedComponent => () => (
   <AppBar>
     <WrappedComponent />
-    <footer style={styles.footer}>
-      <CompositionNumber />
-    </footer>
   </AppBar>
 );
 

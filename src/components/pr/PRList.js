@@ -7,10 +7,29 @@ import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
+import Hidden from 'material-ui/Hidden';
+import AddIcon from 'material-ui-icons/Add';
 
 const styles = () => ({
   prs: {
     marginBottom: '10px'
+  },
+  buttonMobile: {
+    position: 'fixed',
+    left: '80%',
+    bottom: '10%'
+  },
+  icon: {
+    position: 'fixed',
+    left: '84%',
+    bottom: '13%'
+  },
+  button1: {
+    position: 'relative',
+    marginRight: '1%',
+    marginLeft: '80%'
   }
 });
 
@@ -36,55 +55,74 @@ export class PRList extends React.Component {
     }
   };
 
-  render() {
-    const { classes, prs, hasError } = this.props;
-    if (prs.length === 0) {
-      return (
-        <Card style={{ display: hasError ? 'none' : 'block' }}>
-          <CardHeader
-            avatar={<Avatar src="/warning.png" className={classes.avatar} />}
-            title="No PRs available"
-          />
-        </Card>
-      );
-    } else {
-      return (
-        <div>
-          <Typography variant="display1" paragraph>
-            Performance Review Liste
-          </Typography>
-          {prs.map(pr => {
-            return (
-              <div key={pr.id}>
-                <Card className={classes.prs}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        src="/supervisor.jpg"
-                        className={classes.avatar}
-                      />
-                    }
-                    title={`Grund der PR: ${this.translate(pr.occasion)}`}
-                    subheader={`supervisor: ${pr.supervisor}`}
-                  />
-                </Card>
-                <Divider inset />
-              </div>
-            );
-          })}
-        </div>
-      );
+  handleClick = () => {
+    let tempArray = [];
+
+    for (let i = 0; i < this.state.prs.length; i++) {
+      tempArray[i] = this.state.prs[i];
     }
+
+    this.setState({
+      prs: tempArray
+    });
+    this.props.addPr().then(this.props.fetchPrs);
+  };
+
+  render() {
+    const { classes, prs } = this.props;
+    return (
+      <div>
+        <Typography variant="display1" paragraph>
+          Performance Reviews
+        </Typography>
+        <Hidden smDown>
+          <Button
+            className={classes.button1}
+            color="primary"
+            onClick={this.handleClick}
+          >
+            Neuen PR beantragen
+            <Icon className={classes.rightIcon}>add</Icon>
+          </Button>
+        </Hidden>
+        <Hidden mdUp>
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add"
+            className={classes.buttonMobile}
+            onClick={this.handleClick}
+          >
+            <AddIcon className={classes.icon} />
+          </Button>
+        </Hidden>
+        {prs.map(pr => {
+          return (
+            <div key={pr.id}>
+              <Card className={classes.prs}>
+                <CardHeader
+                  avatar={
+                    <Avatar src="/supervisor.jpg" className={classes.avatar} />
+                  }
+                  title={`Grund der PR: ${this.translate(pr.occasion)}`}
+                  subheader={`supervisor: ${pr.supervisor}`}
+                />
+              </Card>
+              <Divider inset />
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 }
-
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.prs.isLoading,
-    hasError: state.error.addError
+    isLoading: state.prs.isLoading
   }),
   {
-    fetchPrs: actions.fetchPrs
+    fetchPrs: actions.fetchPrs,
+    addPr: actions.addPr
   }
 )(withLoading(props => props.fetchPrs())(withStyles(styles)(PRList)));

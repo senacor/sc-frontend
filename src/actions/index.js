@@ -3,8 +3,7 @@ export const fetchTasks = () => async dispatch => {
     type: 'FETCH_TASKS_REQUEST'
   });
   dispatch({
-    type: 'ERROR_GONE',
-    hasError: false
+    type: 'ERROR_GONE'
   });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/tasks');
@@ -18,17 +17,17 @@ export const fetchTasks = () => async dispatch => {
   } else {
     dispatch({
       type: 'ERROR_RESPONSE',
-      hasError: true
+      httpCode: response.status
     });
   }
 };
+
 export const fetchPrs = () => async dispatch => {
   dispatch({
     type: 'FETCH_PRS_REQUEST'
   });
   dispatch({
-    type: 'ERROR_GONE',
-    hasError: false
+    type: 'ERROR_GONE'
   });
 
   const response = await fetch(process.env.REACT_APP_API + '/api/v1/prs');
@@ -43,7 +42,7 @@ export const fetchPrs = () => async dispatch => {
   } else {
     dispatch({
       type: 'ERROR_RESPONSE',
-      hasError: true
+      httpCode: response.status
     });
   }
 };
@@ -75,6 +74,32 @@ export const editTask = newTask => async dispatch => {
   dispatch({
     type: 'EDIT_TASK_RESPONSE',
     task
+  });
+};
+
+export const addPr = () => async dispatch => {
+  dispatch({
+    type: 'ADD_PR_REQUEST'
+  });
+
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs`,
+    {
+      method: 'post',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        occasion: 'ON_DEMAND',
+        supervisor: 'dummy',
+        employee: 'dummy e'
+      })
+    }
+  );
+  const pr = await changeResponse.json();
+
+  dispatch({
+    type: 'ADD_PR_RESPONSE',
+    pr
   });
 };
 
