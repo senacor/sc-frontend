@@ -1,7 +1,6 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
-import Card, { CardHeader } from 'material-ui/Card';
+import Card from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
@@ -9,17 +8,32 @@ import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
 
-const styles = () => ({
-  card: {
-    maxWidth: '100%',
-    backgroundColor: '#004953',
-    indicatorColor: '#FFF',
-    textColor: '#FFF'
+const styles = theme => ({
+  avatar: {
+    marginLeft: '20px',
+    marginTop: '20px',
+    height: '50px',
+    width: '50px'
   },
-
-  avatar: {},
   flexGrow: {
     flex: '1 1 auto'
+  },
+  container: {
+    display: 'flex'
+  },
+  typography: {
+    color: '#FFF',
+    marginLeft: '30px',
+    marginTop: '20px',
+    fontSize: '15px'
+  },
+  detailPanel: {
+    width: '100%',
+    backgroundColor: theme.palette.primary['400'],
+    marginTop: '0px'
+  },
+  tabsColor: {
+    color: theme.palette.contrastText
   }
 });
 
@@ -27,7 +41,6 @@ class Pr extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prs: props.prs,
       taskById: props.taskById,
       value: 0
     };
@@ -41,49 +54,34 @@ class Pr extends React.Component {
     );
   };
 
-  clickOnAnstellung = () => {
-    console.log('anstellung');
-  };
+  clickOnAnstellung = () => {};
 
-  clickOnGehalt = () => {
-    console.log('gehalt');
-  };
+  clickOnGehalt = () => {};
   handleChange = (event, value) => {
     this.setState({ value });
   };
   render() {
-    const { classes } = this.props;
+    const { classes, taskById } = this.props;
 
     return (
-      <Paper
-        style={{
-          width: '80%',
-
-          backgroundColor: '#004953',
-          position: 'center'
-        }}
-      >
-        <div>
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar
-                  aria-label="Employee"
-                  className={classes.avatar}
-                  src="/supervisor.jpg"
-                />
-              }
-              title={`Performance Review for ${this.props.taskById.username}`}
-              subheader={`Deadline ${this.props.taskById.deadline}`}
-            />
-          </Card>
+      <div className={classes.detailPanel}>
+        <div className={classes.container}>
+          <Avatar
+            alt="Employee"
+            className={classes.avatar}
+            src="/supervisor.jpg"
+          />
+          <Typography className={classes.typography} component="div">
+            <div>Performance Review</div>
+            <div>{taskById.username}</div>
+          </Typography>
         </div>
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}
           fullWidth
-          indicatorColor="#FFF"
-          textColor="#FFF"
+          indicatorColor="#FFA07A"
+          className={classes.tabsColor}
         >
           <Tab
             label="STATUS"
@@ -104,18 +102,21 @@ class Pr extends React.Component {
             }}
           />
         </Tabs>
-      </Paper>
+      </div>
     );
   }
 }
-
+export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({
     taskById: state.taskById.returnTask,
-    hasError: state.error.addError,
     isLoading: state.taskById.getTask
   }),
   {
     fetchTasksById: actions.fetchTasksById
   }
-)(withLoading(props => props.fetchTasksById())(withStyles(styles)(Pr)));
+)(
+  withLoading(props => props.fetchTasksById(props.match.params.id))(
+    StyledComponent
+  )
+);

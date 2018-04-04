@@ -14,9 +14,9 @@ const styles = {
   }
 };
 
-const withAppBar = WrappedComponent => () => (
+const withAppBar = WrappedComponent => props => (
   <AppBar>
-    <WrappedComponent />
+    <WrappedComponent {...props} />
   </AppBar>
 );
 
