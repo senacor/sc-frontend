@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pr Component displays the pr 1`] = `
+<div
+  className="Pr-detailPanel-5"
+>
+  <div
+    className="Pr-container-3"
+  >
+    <WithStyles(Avatar)
+      alt="Employee"
+      className="Pr-avatar-1"
+      src="/supervisor.jpg"
+    />
+    <WithStyles(Typography)
+      className="Pr-typography-4"
+      component="div"
+    >
+      <div>
+        Performance Review
+      </div>
+      <div>
+        ttran
+      </div>
+    </WithStyles(Typography)>
+  </div>
+  <WithStyles(Tabs)
+    className="Pr-tabsColor-6"
+    fullWidth={true}
+    indicatorColor="#FFA07A"
+    onChange={[Function]}
+    value={0}
+  >
+    <WithStyles(Tab)
+      label="STATUS"
+      onClick={[Function]}
+    />
+    <WithStyles(Tab)
+      label="ANSTELLUNG"
+      onClick={[Function]}
+    />
+    <WithStyles(Tab)
+      label="GEHALT"
+      onClick={[Function]}
+    />
+  </WithStyles(Tabs)>
+</div>
+`;

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PRList Component displays the list of prs 1`] = `
+<div>
+  <WithStyles(Typography)
+    paragraph={true}
+    variant="display1"
+  >
+    Performance Reviews
+  </WithStyles(Typography)>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={true}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Button)
+      className="PRList-buttonDesktop-4"
+      color="primary"
+      onClick={[Function]}
+    >
+      Neuen PR beantragen
+      <WithStyles(Icon)>
+        add
+      </WithStyles(Icon)>
+    </WithStyles(Button)>
+  </Hidden>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Button)
+      aria-label="add"
+      className="PRList-buttonMobile-2"
+      color="primary"
+      onClick={[Function]}
+      variant="fab"
+    >
+      <pure(Add)
+        className="PRList-icon-3"
+      />
+    </WithStyles(Button)>
+  </Hidden>
+  <div
+    key="1"
+  >
+    <Card
+      className="PRList-prs-1"
+      raised={false}
+    >
+      <WithStyles(CardHeader)
+        avatar={
+          <WithStyles(Avatar)
+            className={undefined}
+            src="/supervisor.jpg"
+          />
+        }
+        subheader="supervisor: ttran"
+        title="Grund der PR: Auf Nachfrage"
+      />
+    </Card>
+    <WithStyles(Divider)
+      inset={true}
+    />
+  </div>
+  <div
+    key="2"
+  >
+    <Card
+      className="PRList-prs-1"
+      raised={false}
+    >
+      <WithStyles(CardHeader)
+        avatar={
+          <WithStyles(Avatar)
+            className={undefined}
+            src="/supervisor.jpg"
+          />
+        }
+        subheader="supervisor: ttran"
+        title="Grund der PR: Auf Nachfrage"
+      />
+    </Card>
+    <WithStyles(Divider)
+      inset={true}
+    />
+  </div>
+</div>
+`;
