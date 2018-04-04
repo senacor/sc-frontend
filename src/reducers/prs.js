@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 const prsList = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_PRS_RESPONSE':
-      return [...state, { type: action.type, prs: action.prs }];
+      return [...state, { prs: action.prs }];
     case 'ADD_PR_RESPONSE':
-      return [...state, { type: action.type, pr: action.pr }];
+      return [...state, { pr: action.pr }];
     default:
       return state;
   }

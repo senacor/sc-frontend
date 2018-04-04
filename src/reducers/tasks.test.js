@@ -9,21 +9,21 @@ describe('isLoading', () => {
     { type: 'FETCH_PRS_REQUEST', isLoading: false },
     { type: 'FETCH_TASKS_RESPONSE', isLoading: true },
     { type: 'FETCH_TASKS_REQUEST', isLoading: false }
-  ].forEach(type => {
-    it(`sets tasks and loading on ${type.type}`, () => {
+  ].forEach(state => {
+    it(`sets tasks and loading on ${state.type}`, () => {
       const stateBefore = {
         list: [],
-        isLoading: type.isLoading
+        isLoading: state.isLoading
       };
       const action = {
-        type: type.type,
+        type: state.type,
         tasks: []
       };
 
       const stateAfter = tasks(stateBefore, action);
 
       expect(stateAfter).toEqual({
-        isLoading: !type.isLoading,
+        isLoading: !state.isLoading,
         list: []
       });
     });
