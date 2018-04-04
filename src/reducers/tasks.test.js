@@ -9,7 +9,7 @@ describe('isLoading', () => {
     { type: 'FETCH_PRS_REQUEST', isLoading: false },
     { type: 'FETCH_TASKS_RESPONSE', isLoading: true },
     { type: 'FETCH_TASKS_REQUEST', isLoading: false }
-  ].map(type => {
+  ].forEach(type => {
     it(`sets tasks and loading on ${type.type}`, () => {
       const stateBefore = {
         list: [],
