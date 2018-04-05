@@ -2,10 +2,10 @@
 
 exports[`Pr Component displays the pr 1`] = `
 <div
-  className="Pr-detailPanel-5"
+  className="Pr-detailPanel-4"
 >
   <div
-    className="Pr-container-3"
+    className="Pr-container-2"
   >
     <WithStyles(Avatar)
       alt="Employee"
@@ -13,7 +13,7 @@ exports[`Pr Component displays the pr 1`] = `
       src="/supervisor.jpg"
     />
     <WithStyles(Typography)
-      className="Pr-typography-4"
+      className="Pr-typography-3"
       component="div"
     >
       <div>
@@ -25,7 +25,7 @@ exports[`Pr Component displays the pr 1`] = `
     </WithStyles(Typography)>
   </div>
   <WithStyles(Tabs)
-    className="Pr-tabsColor-6"
+    className="Pr-tabsColor-5"
     fullWidth={true}
     indicatorColor="#FFA07A"
     onChange={[Function]}

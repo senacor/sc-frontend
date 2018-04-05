@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 import tasks from './tasks';
 import editTasks from './editTasks';
 import prs from './prs';
-import taskById from './getTask';
+import prById from './getTask';
 import errors from './errors';
 
-const app = combineReducers({ tasks, editTasks, errors, prs, taskById });
+const app = combineReducers({ tasks, editTasks, errors, prs, prById });
 export default app;

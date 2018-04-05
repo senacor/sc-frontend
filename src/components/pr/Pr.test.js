@@ -5,7 +5,7 @@ import { createShallow } from 'material-ui/test-utils';
 describe('Pr Component', () => {
   let shallow = createShallow({ dive: true });
 
-  const taskById = {
+  const prById = {
     id: 1,
     title: 'Test title',
     description: 'Test Description',
@@ -19,7 +19,7 @@ describe('Pr Component', () => {
   };
 
   it('displays the pr', () => {
-    const component = shallow(<StyledComponent taskById={taskById} />);
+    const component = shallow(<StyledComponent prById={prById} />);
 
     expect(component).toMatchSnapshot();
   });

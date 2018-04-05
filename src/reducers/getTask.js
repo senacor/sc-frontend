@@ -16,12 +16,12 @@ export const getTask = (state = false, action) => {
 const returnTask = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_TASK_BY_ID_RESPONSE':
-      return action.taskById;
+      return action.prById;
     default:
       return state;
   }
 };
 
-const taskById = combineReducers({ getTask, returnTask });
+const prById = combineReducers({ getTask, returnTask });
 
-export default taskById;
+export default prById;

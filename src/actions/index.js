@@ -110,10 +110,10 @@ export const fetchTasksById = id => async dispatch => {
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v1/tasks/${id}`
   );
-  const taskById = await response.json();
+  const prById = await response.json();
 
   dispatch({
     type: 'FETCH_TASK_BY_ID_RESPONSE',
-    taskById
+    prById
   });
 };

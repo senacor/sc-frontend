@@ -15,9 +15,6 @@ const styles = theme => ({
     height: '50px',
     width: '50px'
   },
-  flexGrow: {
-    flex: '1 1 auto'
-  },
   container: {
     display: 'flex'
   },
@@ -41,7 +38,7 @@ class Pr extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskById: props.taskById,
+      prById: props.prById,
       value: 0
     };
   }
@@ -61,7 +58,7 @@ class Pr extends React.Component {
     this.setState({ value });
   };
   render() {
-    const { classes, taskById } = this.props;
+    const { classes, prById } = this.props;
 
     return (
       <div className={classes.detailPanel}>
@@ -73,7 +70,7 @@ class Pr extends React.Component {
           />
           <Typography className={classes.typography} component="div">
             <div>Performance Review</div>
-            <div>{taskById.username}</div>
+            <div>{prById.username}</div>
           </Typography>
         </div>
         <Tabs
@@ -109,14 +106,14 @@ class Pr extends React.Component {
 export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({
-    taskById: state.taskById.returnTask,
-    isLoading: state.taskById.getTask
+    prById: state.prById.returnTask,
+    isLoading: state.prById.getTask
   }),
   {
-    fetchTasksById: actions.fetchTasksById
+    fetchPrsById: actions.fetchTasksById
   }
 )(
-  withLoading(props => props.fetchTasksById(props.match.params.id))(
+  withLoading(props => props.fetchPrsById(props.match.params.id))(
     StyledComponent
   )
 );
