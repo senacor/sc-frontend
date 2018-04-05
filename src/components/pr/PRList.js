@@ -26,7 +26,7 @@ const styles = () => ({
     left: '84%',
     bottom: '13%'
   },
-  button1: {
+  buttonDesktop: {
     position: 'relative',
     marginRight: '1%',
     marginLeft: '80%'
@@ -65,7 +65,7 @@ export class PRList extends React.Component {
     this.setState({
       prs: tempArray
     });
-    this.props.addPr().then(this.props.fetchPrs);
+    this.props.addPr();
   };
 
   render() {
@@ -77,7 +77,7 @@ export class PRList extends React.Component {
         </Typography>
         <Hidden smDown>
           <Button
-            className={classes.button1}
+            className={classes.buttonDesktop}
             color="primary"
             onClick={this.handleClick}
           >
