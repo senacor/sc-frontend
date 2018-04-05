@@ -7,13 +7,12 @@ describe('Pr Component', () => {
 
   const prById = {
     id: 1,
-    title: 'Test title',
-    description: 'Test Description',
-    username: 'ttran',
-    status: 'DONE',
+    employee: 'Employee1',
+    occasion: 'ON_DEMAND',
+    supervisor: 'ttran',
     _links: {
       self: {
-        href: '/api/v1/tasks/1'
+        href: '/api/v1/prs/1'
       }
     }
   };
