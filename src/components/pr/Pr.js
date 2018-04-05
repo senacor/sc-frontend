@@ -70,7 +70,12 @@ class Pr extends React.Component {
           />
           <Typography className={classes.typography} component="div">
             <div>Performance Review</div>
-            <div>{prById.username}</div>
+
+            {prById.length === 0 ? (
+              <div>nicht vorhanden</div>
+            ) : (
+              <div>{prById.status}</div>
+            )}
           </Typography>
         </div>
         <Tabs
@@ -106,14 +111,14 @@ class Pr extends React.Component {
 export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({
-    prById: state.prById.returnTask,
-    isLoading: state.prById.getTask
+    prById: state.prById.returnPr,
+    isLoading: state.prById.getPr
   }),
   {
-    fetchPrsById: actions.fetchTasksById
+    fetchPrById: actions.fetchPrById
   }
 )(
-  withLoading(props => props.fetchPrsById(props.match.params.id))(
+  withLoading(props => props.fetchPrById(props.match.params.id))(
     StyledComponent
   )
 );

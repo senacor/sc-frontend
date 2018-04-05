@@ -103,17 +103,27 @@ export const addPr = () => async dispatch => {
   });
 };
 
-export const fetchTasksById = id => async dispatch => {
+export const fetchPrById = PrsId => async dispatch => {
   dispatch({
-    type: 'FETCH_TASK_BY_ID_REQUEST'
+    type: 'FETCH_PR_BY_ID_REQUEST'
+  });
+  dispatch({
+    type: 'ERROR_GONE'
   });
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/tasks/${id}`
+    `${process.env.REACT_APP_API}/api/v1/prs/${PrsId}`
   );
-  const prById = await response.json();
+  if (response.ok) {
+    const prById = await response.json();
 
-  dispatch({
-    type: 'FETCH_TASK_BY_ID_RESPONSE',
-    prById
-  });
+    dispatch({
+      type: 'FETCH_PR_BY_ID_RESPONSE',
+      prById
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      httpCode: response.status
+    });
+  }
 };
