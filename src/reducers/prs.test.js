@@ -11,7 +11,7 @@ describe('prs reducer', () => {
     };
     const stateAfter = prs(stateBefore, action);
 
-    expect(stateAfter).toEqual({ prsList: [{ prs: ['pr2'] }] });
+    expect(stateAfter).toEqual({ prsList: ['pr2'] });
   });
 
   it('should test the reducer for ADD_PR_RESPONSE', () => {
@@ -20,11 +20,11 @@ describe('prs reducer', () => {
     };
     const action = {
       type: 'ADD_PR_RESPONSE',
-      pr: ['pr2']
+      pr: 'pr2'
     };
 
     const stateAfter = prs(stateBefore, action);
 
-    expect(stateAfter).toEqual({ prsList: [{ pr: ['pr2'] }] });
+    expect(stateAfter).toEqual({ prsList: ['pr2'] });
   });
 });
