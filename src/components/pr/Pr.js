@@ -74,7 +74,7 @@ class Pr extends React.Component {
             {prById.length === 0 ? (
               <div>nicht vorhanden</div>
             ) : (
-              <div>{prById.status}</div>
+              <div>{prById.occasion}</div>
             )}
           </Typography>
         </div>
@@ -111,8 +111,8 @@ class Pr extends React.Component {
 export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({
-    prById: state.prById.returnPr,
-    isLoading: state.prById.getPr
+    prById: state.prById.prDetail,
+    isLoading: state.prById.isLoading
   }),
   {
     fetchPrById: actions.fetchPrById

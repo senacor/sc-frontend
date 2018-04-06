@@ -4,13 +4,15 @@ export const isLoading = (state = false, action) => {
   const startLoading = [
     'FETCH_TASKS_REQUEST',
     'FETCH_PRS_REQUEST',
-    'ADD_PR_REQUEST'
+    'ADD_PR_REQUEST',
+    'FETCH_PR_BY_ID_REQUEST'
   ];
   const stopLoading = [
     'FETCH_TASKS_RESPONSE',
     'FETCH_PRS_RESPONSE',
     'ERROR_RESPONSE',
-    'ADD_PR_RESPONSE'
+    'ADD_PR_RESPONSE',
+    'FETCH_PR_BY_ID_RESPONSE'
   ];
 
   if (findInArray(startLoading, action.type)) {

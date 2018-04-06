@@ -103,7 +103,7 @@ export const addPr = () => async dispatch => {
   });
 };
 
-export const fetchPrById = PrsId => async dispatch => {
+export const fetchPrById = prsId => async dispatch => {
   dispatch({
     type: 'FETCH_PR_BY_ID_REQUEST'
   });
@@ -111,7 +111,7 @@ export const fetchPrById = PrsId => async dispatch => {
     type: 'ERROR_GONE'
   });
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${PrsId}`
+    `${process.env.REACT_APP_API}/api/v1/prs/${prsId}`
   );
   if (response.ok) {
     const prById = await response.json();
