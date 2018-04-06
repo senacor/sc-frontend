@@ -101,8 +101,11 @@ class Login extends Component {
       password: ''
     };
   }
+  static token = false;
 
   handleOnClick = () => {
+    this.token = true;
+    console.log(this.token);
     this.setState({ redirect: true });
   };
 

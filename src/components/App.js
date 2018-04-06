@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './privateRoute/PrivateRoute';
 import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
 import AppBar from './AppBar/AppBar';
@@ -27,11 +28,11 @@ const PRWithAppBar = withAppBar(PR);
 const App = () => (
   <div style={styles.main}>
     <Switch>
-      <Route path="/tasks" component={TaskListWithAppBar} />
-      <Route exact path="/prs" component={PRListWithAppBar} />
-      <Route exact path="/prs/:id" component={PRWithAppBar} />
+      <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
+      <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
+      <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <Route path="/login" component={Login} />
-      <Route render={() => <Redirect to="/tasks" />} />
+      <PrivateRoute render={() => <Redirect to="/tasks" />} />
     </Switch>
   </div>
 );
