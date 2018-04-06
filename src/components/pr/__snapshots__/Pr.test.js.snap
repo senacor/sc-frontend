@@ -19,7 +19,9 @@ exports[`Pr Component displays the pr 1`] = `
       <div>
         Performance Review
       </div>
-      <div />
+      <div>
+        ON_DEMAND
+      </div>
     </WithStyles(Typography)>
   </div>
   <WithStyles(Tabs)
