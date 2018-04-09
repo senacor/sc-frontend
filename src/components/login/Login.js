@@ -13,6 +13,8 @@ import LockIcon from 'material-ui-icons/Lock';
 import officeMuenchen from './officeM.jpg';
 import senacorLogo from './senacor_transparent.png';
 import senacorLogoMobile from './senacor_transparent_white.png';
+import * as actions from '../../actions/index';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   hero: {
@@ -98,12 +100,13 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      token: props.token
     };
   }
-
   handleOnClick = () => {
     this.setState({ redirect: true });
+    this.props.login();
   };
 
   handleChange = event => {
@@ -191,4 +194,13 @@ const PasswordIcon = () => (
   </InputAdornment>
 );
 
-export default withStyles(styles)(Login);
+export const StyledComponent = withStyles(styles)(Login);
+
+export default connect(
+  state => ({
+    token: state.login.isLoggedIn
+  }),
+  {
+    login: actions.login
+  }
+)(StyledComponent);

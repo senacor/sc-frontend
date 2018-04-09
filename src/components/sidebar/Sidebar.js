@@ -47,7 +47,7 @@ const listOfMenuEntries = [
   {
     label: 'Logout',
     icon: <PowerSettingsNewIcon />,
-    value: '/login'
+    value: '/logout'
   }
 ];
 

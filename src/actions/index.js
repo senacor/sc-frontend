@@ -127,3 +127,19 @@ export const fetchPrById = prsId => async dispatch => {
     });
   }
 };
+
+export const login = () => async dispatch => {
+  dispatch({
+    type: 'TOKEN_TRUE',
+    token: true
+  });
+  localStorage.setItem('token', true.toString());
+};
+
+export const logout = () => async dispatch => {
+  dispatch({
+    type: 'TOKEN_FALSE',
+    token: false
+  });
+  localStorage.setItem('token', false.toString());
+};

@@ -96,7 +96,7 @@ exports[`Sidebar should match snapshot 1`] = `
             "textDecoration": "none",
           }
         }
-        to="/login"
+        to="/logout"
       >
         <WithStyles(ListItem)
           button={true}
