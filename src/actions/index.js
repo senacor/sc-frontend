@@ -102,3 +102,28 @@ export const addPr = () => async dispatch => {
     pr
   });
 };
+
+export const fetchPrById = prsId => async dispatch => {
+  dispatch({
+    type: 'FETCH_PR_BY_ID_REQUEST'
+  });
+  dispatch({
+    type: 'ERROR_GONE'
+  });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prsId}`
+  );
+  if (response.ok) {
+    const prById = await response.json();
+
+    dispatch({
+      type: 'FETCH_PR_BY_ID_RESPONSE',
+      prById
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      httpCode: response.status
+    });
+  }
+};

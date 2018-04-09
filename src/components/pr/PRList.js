@@ -116,6 +116,8 @@ export class PRList extends React.Component {
     );
   }
 }
+
+export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({
     prs: state.prs.prsList,
@@ -125,4 +127,4 @@ export default connect(
     fetchPrs: actions.fetchPrs,
     addPr: actions.addPr
   }
-)(withLoading(props => props.fetchPrs())(withStyles(styles)(PRList)));
+)(withLoading(props => props.fetchPrs())(StyledComponent));
