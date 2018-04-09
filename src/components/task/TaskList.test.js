@@ -1,14 +1,16 @@
 import React from 'react';
-import { TaskList } from './TaskList';
-import { shallow } from 'enzyme';
+import { StyledComponent } from './TaskList';
+import { createShallow } from 'material-ui/test-utils';
 
-it('displays the list of tasks', () => {
+describe('TaskList Component', () => {
+  let shallow = createShallow({ dive: true });
   const tasks = [
     {
       id: 1,
       title: 'Test title',
       description: 'Test Description',
       username: 'ttran',
+      status: 'DONE',
       _links: {
         self: {
           href: '/api/v1/tasks/1'
@@ -20,6 +22,7 @@ it('displays the list of tasks', () => {
       title: 'Test title 2',
       description: 'Test Description 2',
       username: 'ttran',
+      status: 'IN_PROGRESS',
       deadline: '2017-12-31',
       _links: {
         self: {
@@ -28,8 +31,15 @@ it('displays the list of tasks', () => {
       }
     }
   ];
+  it('should display the list of tasks', () => {
+    const component = shallow(<StyledComponent tasks={tasks} />);
 
-  const component = shallow(<TaskList tasks={tasks} />);
+    expect(component).toMatchSnapshot();
+  });
 
-  expect(component).toMatchSnapshot();
+  it('should contain only one task', () => {
+    const element = shallow(<StyledComponent tasks={tasks} />);
+
+    expect(element.find('Card')).toHaveLength(1);
+  });
 });

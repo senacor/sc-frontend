@@ -83,15 +83,16 @@ export class TaskList extends React.Component {
     );
   }
 }
+export const StyledComponent = withStyles(styles)(TaskList);
 
 export default connect(
   state => ({
     tasks: state.tasks.list,
-    isLoading: state.tasks.isLoading,
+    isLoading: state.isLoading,
     isChanging: state.tasks.isChanging
   }),
   {
     fetchTasks: actions.fetchTasks,
     changeTask: actions.editTask
   }
-)(withLoading(props => props.fetchTasks())(withStyles(styles)(TaskList)));
+)(withLoading(props => props.fetchTasks())(StyledComponent));
