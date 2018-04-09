@@ -1,17 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Login Component should match snapshot 1`] = `
-<Login
-  classes={
-    Object {
-      "button": "Login-button-7",
-      "form": "Login-form-3",
-      "formControl": "Login-formControl-4",
-      "hero": "Login-hero-1",
-      "input": "Login-input-5",
-      "login": "Login-login-2",
-      "logo": "Login-logo-6",
-    }
-  }
-/>
+<div
+  className="Login-hero-1"
+>
+  <div
+    className="Login-login-2"
+  >
+    <div
+      className="Login-form-3"
+    >
+      <Hidden
+        implementation="js"
+        lgDown={false}
+        lgUp={false}
+        mdDown={false}
+        mdUp={false}
+        smDown={true}
+        smUp={false}
+        xlDown={false}
+        xlUp={false}
+        xsDown={false}
+        xsUp={false}
+      >
+        <img
+          alt="Senacor"
+          className="Login-logo-6"
+          src="senacor_transparent.png"
+        />
+      </Hidden>
+      <Hidden
+        implementation="js"
+        lgDown={false}
+        lgUp={false}
+        mdDown={false}
+        mdUp={true}
+        smDown={false}
+        smUp={false}
+        xlDown={false}
+        xlUp={false}
+        xsDown={false}
+        xsUp={false}
+      >
+        <img
+          alt="Senacor"
+          className="Login-logo-6"
+          src="senacor_transparent_white.png"
+        />
+      </Hidden>
+      <WithStyles(FormControl)
+        className="Login-formControl-4"
+      >
+        <WithStyles(Input)
+          className="Login-input-5"
+          name="username"
+          onChange={[Function]}
+          placeholder="Nutzername"
+          startAdornment={<UserIcon />}
+        />
+      </WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        className="Login-formControl-4"
+      >
+        <WithStyles(Input)
+          className="Login-input-5"
+          name="password"
+          onChange={[Function]}
+          placeholder="Passwort"
+          startAdornment={<PasswordIcon />}
+          type="password"
+        />
+      </WithStyles(FormControl)>
+      <Hidden
+        implementation="js"
+        lgDown={false}
+        lgUp={false}
+        mdDown={false}
+        mdUp={false}
+        smDown={true}
+        smUp={false}
+        xlDown={false}
+        xlUp={false}
+        xsDown={false}
+        xsUp={false}
+      >
+        <WithStyles(Button)
+          className="Login-button-7"
+          color="primary"
+          onClick={[Function]}
+          variant="raised"
+        >
+          Log In
+        </WithStyles(Button)>
+      </Hidden>
+      <Hidden
+        implementation="js"
+        lgDown={false}
+        lgUp={false}
+        mdDown={false}
+        mdUp={true}
+        smDown={false}
+        smUp={false}
+        xlDown={false}
+        xlUp={false}
+        xsDown={false}
+        xsUp={false}
+      >
+        <WithStyles(Button)
+          className="Login-button-7"
+          onClick={[Function]}
+          variant="raised"
+        >
+          Log In
+        </WithStyles(Button)>
+      </Hidden>
+    </div>
+  </div>
+</div>
 `;

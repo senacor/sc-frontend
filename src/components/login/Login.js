@@ -194,6 +194,8 @@ const PasswordIcon = () => (
   </InputAdornment>
 );
 
+export const StyledComponent = withStyles(styles)(Login);
+
 export default connect(
   state => ({
     token: state.login.getToken
@@ -201,4 +203,4 @@ export default connect(
   {
     getToken: actions.getToken
   }
-)(withStyles(styles)(Login));
+)(StyledComponent);

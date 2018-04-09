@@ -1,10 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Login from './Login';
+import { StyledComponent } from './Login';
+import { createShallow } from 'material-ui/test-utils';
 
 describe('Login Component', () => {
+  let shallow = createShallow({ dive: true });
+
   it('should match snapshot', () => {
-    const eut = shallow(<Login />);
+    const token = {
+      token: true
+    };
+
+    const eut = shallow(<StyledComponent token={token} />);
 
     expect(eut).toMatchSnapshot();
   });
