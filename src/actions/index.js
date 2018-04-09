@@ -104,8 +104,17 @@ export const addPr = () => async dispatch => {
 };
 
 export const getToken = tokenValue => async dispatch => {
-  dispatch({
-    type: 'TOKEN_TRUE',
-    token: tokenValue
-  });
+  if (tokenValue === true) {
+    dispatch({
+      type: 'TOKEN_TRUE',
+      token: tokenValue
+    });
+    localStorage.setItem('token', true.toString());
+  } else {
+    dispatch({
+      type: 'TOKEN_FALSE',
+      token: tokenValue
+    });
+    localStorage.setItem('token', false.toString());
+  }
 };

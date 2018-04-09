@@ -7,6 +7,7 @@ import AppBar from './AppBar/AppBar';
 import './App.css';
 import Login from './login/Login';
 import PR from './pr/Pr';
+import Logout from './login/Logout';
 
 const styles = {
   main: {
@@ -31,6 +32,7 @@ const App = () => (
       <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
+      <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />
       <PrivateRoute render={() => <Redirect to="/tasks" />} />
     </Switch>
