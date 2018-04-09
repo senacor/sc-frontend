@@ -41,6 +41,11 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3
+  },
+  contentNoPadding: {
+    flexGrow: 1,
     backgroundColor: theme.palette.background.default
   }
 });
@@ -106,7 +111,13 @@ class CustomAppBar extends Component {
             <Sidebar />
           </Drawer>
         </Hidden>
-        <main className={classes.content}>
+        <main
+          className={
+            this.props.extendedHeader
+              ? classes.contentNoPadding
+              : classes.content
+          }
+        >
           <div className={classes.toolbar} />
           <ErrorMessage />
           {children}

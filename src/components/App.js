@@ -22,9 +22,15 @@ const withAppBar = WrappedComponent => props => (
   </AppBar>
 );
 
+const withAppBarExtendedHeader = WrappedComponent => props => (
+  <AppBar extendedHeader={true}>
+    <WrappedComponent {...props} />
+  </AppBar>
+);
+
 const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
-const PRWithAppBar = withAppBar(PR);
+const PRWithAppBar = withAppBarExtendedHeader(PR);
 
 const App = () => (
   <div style={styles.main}>

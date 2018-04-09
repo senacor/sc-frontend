@@ -1,48 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pr Component displays the pr 1`] = `
-<div
-  className="Pr-detailPanel-4"
->
+<div>
   <div
-    className="Pr-container-2"
+    className="Pr-detailPanel-4"
   >
-    <WithStyles(Avatar)
-      alt="Employee"
-      className="Pr-avatar-1"
-      src="/supervisor.jpg"
-    />
-    <WithStyles(Typography)
-      className="Pr-typography-3"
-      component="div"
+    <div
+      className="Pr-container-2"
     >
-      <div>
-        Performance Review
-      </div>
-      <div>
-        ON_DEMAND
-      </div>
-    </WithStyles(Typography)>
+      <WithStyles(Avatar)
+        alt="Employee"
+        className="Pr-avatar-1"
+        src="/supervisor.jpg"
+      />
+      <WithStyles(Typography)
+        className="Pr-typography-3"
+        component="div"
+      >
+        <div>
+          Performance Review
+        </div>
+        <div>
+          Employee1
+        </div>
+        <div>
+          Auf Nachfrage
+        </div>
+      </WithStyles(Typography)>
+    </div>
+    <WithStyles(Tabs)
+      className="Pr-tabsColor-5"
+      fullWidth={true}
+      indicatorColor="#FFA07A"
+      onChange={[Function]}
+      value={0}
+    >
+      <WithStyles(Tab)
+        label="STATUS"
+      />
+      <WithStyles(Tab)
+        label="ANSTELLUNG"
+      />
+      <WithStyles(Tab)
+        label="GEHALT"
+      />
+    </WithStyles(Tabs)>
   </div>
-  <WithStyles(Tabs)
-    className="Pr-tabsColor-5"
-    fullWidth={true}
-    indicatorColor="#FFA07A"
-    onChange={[Function]}
-    value={0}
-  >
-    <WithStyles(Tab)
-      label="STATUS"
-      onClick={[Function]}
-    />
-    <WithStyles(Tab)
-      label="ANSTELLUNG"
-      onClick={[Function]}
-    />
-    <WithStyles(Tab)
-      label="GEHALT"
-      onClick={[Function]}
-    />
-  </WithStyles(Tabs)>
+  <TabContainer>
+    Hier steht der Status des PRs
+  </TabContainer>
 </div>
 `;

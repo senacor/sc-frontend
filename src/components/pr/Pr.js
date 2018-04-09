@@ -1,6 +1,5 @@
 import React from 'react';
 import Tabs, { Tab } from 'material-ui/Tabs';
-import Card from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
@@ -34,6 +33,14 @@ const styles = theme => ({
   }
 });
 
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
 class Pr extends React.Component {
   constructor(props) {
     super(props);
@@ -43,67 +50,75 @@ class Pr extends React.Component {
     };
   }
 
-  clickOnStatus = () => {
-    return (
-      <Card>
-        <Typography>status</Typography>
-      </Card>
-    );
+  translate = occasion => {
+    switch (occasion) {
+      case 'ON_DEMAND':
+        return 'Auf Nachfrage';
+      case 'YEARLY':
+        return 'jährlich';
+      case 'QUARTERLY':
+        return 'vierteljährlich';
+      case 'END_PROBATION':
+        return 'Ende der Probezeit';
+      default:
+        return 'Auf Nachfrage';
+    }
   };
 
-  clickOnAnstellung = () => {};
-
-  clickOnGehalt = () => {};
   handleChange = (event, value) => {
     this.setState({ value });
   };
+
   render() {
     const { classes, prById } = this.props;
+    const { value } = this.state;
 
     return (
-      <div className={classes.detailPanel}>
-        <div className={classes.container}>
-          <Avatar
-            alt="Employee"
-            className={classes.avatar}
-            src="/supervisor.jpg"
-          />
-          <Typography className={classes.typography} component="div">
-            <div>Performance Review</div>
+      <div>
+        <div className={classes.detailPanel}>
+          <div className={classes.container}>
+            <Avatar
+              alt="Employee"
+              className={classes.avatar}
+              src="/supervisor.jpg"
+            />
+            <Typography className={classes.typography} component="div">
+              <div>Performance Review</div>
+              <div>{prById.employee}</div>
 
-            {prById.length === 0 ? (
-              <div>nicht vorhanden</div>
-            ) : (
-              <div>{prById.occasion}</div>
-            )}
-          </Typography>
+              {prById.length === 0 ? (
+                <div>nicht vorhanden</div>
+              ) : (
+                <div>{this.translate(prById.occasion)}</div>
+              )}
+            </Typography>
+          </div>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            fullWidth
+            indicatorColor="#FFA07A"
+            className={classes.tabsColor}
+          >
+            <Tab label="STATUS" />
+            <Tab label="ANSTELLUNG" />
+            <Tab label="GEHALT" />
+          </Tabs>
         </div>
-        <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
-          fullWidth
-          indicatorColor="#FFA07A"
-          className={classes.tabsColor}
-        >
-          <Tab
-            label="STATUS"
-            onClick={() => {
-              this.clickOnStatus();
-            }}
-          />
-          <Tab
-            label="ANSTELLUNG"
-            onClick={() => {
-              this.clickOnAnstellung();
-            }}
-          />
-          <Tab
-            label="GEHALT"
-            onClick={() => {
-              this.clickOnGehalt();
-            }}
-          />
-        </Tabs>
+
+        {value === 0 && (
+          <TabContainer>Hier steht der Status des PRs</TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>
+            Hier steht das Anstellungsverhältnis des Mitarbeiters
+          </TabContainer>
+        )}
+        {value === 2 && (
+          <TabContainer>
+            Hier steht die Gehaltshistorie des Mitarbeiters
+          </TabContainer>
+        )}
       </div>
     );
   }

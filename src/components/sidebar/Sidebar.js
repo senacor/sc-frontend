@@ -3,8 +3,10 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import LibraryBooksIcon from 'material-ui-icons/LibraryBooks';
-import AssignmentLateIcon from 'material-ui-icons/AssignmentLate';
+import GroupIcon from 'material-ui-icons/Group';
 import PowerSettingsNewIcon from 'material-ui-icons/PowerSettingsNew';
+import DashboardIcon from 'material-ui-icons/Dashboard';
+import AssignmentIndIcon from 'material-ui-icons/AssignmentInd';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
@@ -35,14 +37,24 @@ const styles = () => ({
 
 const listOfMenuEntries = [
   {
-    label: 'Alle Aufgaben',
-    icon: <AssignmentLateIcon />,
+    label: 'Dashboard',
+    icon: <DashboardIcon />,
     value: '/tasks'
   },
   {
-    label: 'Alle PRs',
+    label: 'PR Übersicht',
     icon: <LibraryBooksIcon />,
     value: '/prs'
+  },
+  {
+    label: 'Mitarbeiter Übersicht',
+    icon: <GroupIcon />,
+    value: '/employees'
+  },
+  {
+    label: 'Eigene PRs',
+    icon: <AssignmentIndIcon />,
+    value: '/myPrs'
   },
   {
     label: 'Logout',

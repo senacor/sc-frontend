@@ -25,7 +25,7 @@ exports[`Sidebar should match snapshot 1`] = `
     component="nav"
   >
     <div
-      key="Alle Aufgaben"
+      key="Dashboard"
     >
       <Link
         replace={false}
@@ -40,7 +40,7 @@ exports[`Sidebar should match snapshot 1`] = `
           button={true}
         >
           <WithStyles(ListItemIcon)>
-            <pure(AssignmentLate) />
+            <pure(Dashboard) />
           </WithStyles(ListItemIcon)>
           <WithStyles(ListItemText)
             disableTypography={true}
@@ -48,7 +48,7 @@ exports[`Sidebar should match snapshot 1`] = `
               <WithStyles(Typography)
                 type="h3"
               >
-                Alle Aufgaben
+                Dashboard
               </WithStyles(Typography)>
             }
           />
@@ -56,7 +56,7 @@ exports[`Sidebar should match snapshot 1`] = `
       </Link>
     </div>
     <div
-      key="Alle PRs"
+      key="PR Übersicht"
     >
       <Link
         replace={false}
@@ -79,7 +79,69 @@ exports[`Sidebar should match snapshot 1`] = `
               <WithStyles(Typography)
                 type="h3"
               >
-                Alle PRs
+                PR Übersicht
+              </WithStyles(Typography)>
+            }
+          />
+        </WithStyles(ListItem)>
+      </Link>
+    </div>
+    <div
+      key="Mitarbeiter Übersicht"
+    >
+      <Link
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/employees"
+      >
+        <WithStyles(ListItem)
+          button={true}
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(Group) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            disableTypography={true}
+            primary={
+              <WithStyles(Typography)
+                type="h3"
+              >
+                Mitarbeiter Übersicht
+              </WithStyles(Typography)>
+            }
+          />
+        </WithStyles(ListItem)>
+      </Link>
+    </div>
+    <div
+      key="Eigene PRs"
+    >
+      <Link
+        replace={false}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/myPrs"
+      >
+        <WithStyles(ListItem)
+          button={true}
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(AssignmentInd) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            disableTypography={true}
+            primary={
+              <WithStyles(Typography)
+                type="h3"
+              >
+                Eigene PRs
               </WithStyles(Typography)>
             }
           />

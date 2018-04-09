@@ -6,6 +6,7 @@ exports[`displays the appbar 1`] = `
     Object {
       "appBar": "CustomAppBar-appBar-2",
       "content": "CustomAppBar-content-6",
+      "contentNoPadding": "CustomAppBar-contentNoPadding-7",
       "drawerPaper": "CustomAppBar-drawerPaper-5",
       "navIconHide": "CustomAppBar-navIconHide-3",
       "root": "CustomAppBar-root-1",
