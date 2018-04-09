@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
@@ -40,7 +40,7 @@ const App = () => (
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />
-      <PrivateRoute render={() => <Redirect to="/tasks" />} />
+      <Route render={() => <Redirect to="/tasks" />} />
     </Switch>
   </div>
 );
