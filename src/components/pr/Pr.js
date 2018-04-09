@@ -112,7 +112,7 @@ export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({
     prById: state.prById.prDetail,
-    isLoading: state.prById.isLoading
+    isLoading: state.isLoading
   }),
   {
     fetchPrById: actions.fetchPrById

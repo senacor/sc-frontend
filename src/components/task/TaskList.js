@@ -88,7 +88,7 @@ export const StyledComponent = withStyles(styles)(TaskList);
 export default connect(
   state => ({
     tasks: state.tasks.list,
-    isLoading: state.tasks.isLoading,
+    isLoading: state.isLoading,
     isChanging: state.tasks.isChanging
   }),
   {

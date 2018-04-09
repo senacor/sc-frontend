@@ -121,7 +121,7 @@ export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.prs.isLoading
+    isLoading: state.isLoading
   }),
   {
     fetchPrs: actions.fetchPrs,

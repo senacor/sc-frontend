@@ -1,4 +1,4 @@
-import tasks from './tasks';
+import isLoading from './isLoading';
 
 describe('isLoading', () => {
   [
@@ -8,24 +8,19 @@ describe('isLoading', () => {
     { type: 'FETCH_PRS_RESPONSE', isLoading: true },
     { type: 'FETCH_PRS_REQUEST', isLoading: false },
     { type: 'FETCH_TASKS_RESPONSE', isLoading: true },
-    { type: 'FETCH_TASKS_REQUEST', isLoading: false }
+    { type: 'FETCH_TASKS_REQUEST', isLoading: false },
+    { type: 'FETCH_PR_BY_ID_RESPONSE', isLoading: true },
+    { type: 'FETCH_PR_BY_ID_REQUEST', isLoading: false }
   ].forEach(state => {
     it(`sets tasks and loading on ${state.type}`, () => {
-      const stateBefore = {
-        list: [],
-        isLoading: state.isLoading
-      };
+      const stateBefore = state.isLoading;
       const action = {
-        type: state.type,
-        tasks: []
+        type: state.type
       };
 
-      const stateAfter = tasks(stateBefore, action);
+      const stateAfter = isLoading(stateBefore, action);
 
-      expect(stateAfter).toEqual({
-        isLoading: !state.isLoading,
-        list: []
-      });
+      expect(stateAfter).toEqual(!state.isLoading);
     });
   });
 });
