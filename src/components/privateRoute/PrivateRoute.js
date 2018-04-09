@@ -1,28 +1,28 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import Login from '../login/Login';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
-const checkAuth = () => {
-  if (Login.token) {
-    console.log('tu sam');
-    return true;
-  }
-  console.log('tu sam pogresno');
-
-  return false;
+const PrivateRoute = ({ component: Component, token, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return token ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: '/login' }} />
+        );
+      }}
+    />
+  );
 };
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      checkAuth() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{ pathname: '/login' }} />
-      )
-    }
-  />
-);
-
-export default PrivateRoute;
+export default connect(
+  state => ({
+    token: state.login.getToken
+  }),
+  {
+    getToken: actions.getToken
+  }
+)(PrivateRoute);

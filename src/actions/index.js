@@ -102,3 +102,10 @@ export const addPr = () => async dispatch => {
     pr
   });
 };
+
+export const getToken = tokenValue => async dispatch => {
+  dispatch({
+    type: 'TOKEN_TRUE',
+    token: tokenValue
+  });
+};
