@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
-import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader } from 'material-ui/Card';
@@ -81,7 +80,7 @@ export class PRList extends React.Component {
             color="primary"
             onClick={this.handleClick}
           >
-            Neuen PR beantragen
+            PR beantragen
             <Icon className={classes.rightIcon}>add</Icon>
           </Button>
         </Hidden>
@@ -104,11 +103,15 @@ export class PRList extends React.Component {
                   avatar={
                     <Avatar src="/supervisor.jpg" className={classes.avatar} />
                   }
-                  title={`Grund der PR: ${this.translate(pr.occasion)}`}
-                  subheader={`supervisor: ${pr.supervisor}`}
+                  title={<div>Performance Review</div>}
+                  subheader={
+                    <div>
+                      <div>{`${this.translate(pr.occasion)}`}</div>
+                      <div>{`Beurteiler: ${pr.supervisor}`}</div>
+                    </div>
+                  }
                 />
               </Card>
-              <Divider inset />
             </div>
           );
         })}

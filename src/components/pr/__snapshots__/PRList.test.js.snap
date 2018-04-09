@@ -26,7 +26,7 @@ exports[`PRList Component displays the list of prs 1`] = `
       color="primary"
       onClick={[Function]}
     >
-      Neuen PR beantragen
+      PR beantragen
       <WithStyles(Icon)>
         add
       </WithStyles(Icon)>
@@ -71,13 +71,23 @@ exports[`PRList Component displays the list of prs 1`] = `
             src="/supervisor.jpg"
           />
         }
-        subheader="supervisor: ttran"
-        title="Grund der PR: Auf Nachfrage"
+        subheader={
+          <div>
+            <div>
+              Auf Nachfrage
+            </div>
+            <div>
+              Beurteiler: ttran
+            </div>
+          </div>
+        }
+        title={
+          <div>
+            Performance Review
+          </div>
+        }
       />
     </Card>
-    <WithStyles(Divider)
-      inset={true}
-    />
   </div>
   <div
     key="2"
@@ -93,13 +103,23 @@ exports[`PRList Component displays the list of prs 1`] = `
             src="/supervisor.jpg"
           />
         }
-        subheader="supervisor: ttran"
-        title="Grund der PR: Auf Nachfrage"
+        subheader={
+          <div>
+            <div>
+              Auf Nachfrage
+            </div>
+            <div>
+              Beurteiler: ttran
+            </div>
+          </div>
+        }
+        title={
+          <div>
+            Performance Review
+          </div>
+        }
       />
     </Card>
-    <WithStyles(Divider)
-      inset={true}
-    />
   </div>
 </div>
 `;

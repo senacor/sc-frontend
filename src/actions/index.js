@@ -90,8 +90,8 @@ export const addPr = () => async dispatch => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
-        supervisor: 'dummy',
-        employee: 'dummy e'
+        supervisor: 'ttran',
+        employee: 'ezugor'
       })
     }
   );
