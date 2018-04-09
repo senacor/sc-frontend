@@ -11,6 +11,8 @@ describe('TaskList Component', () => {
       description: 'Test Description',
       username: 'ttran',
       status: 'DONE',
+      type: 'PR',
+      linkToDetails: '2',
       _links: {
         self: {
           href: '/api/v1/tasks/1'
@@ -24,6 +26,8 @@ describe('TaskList Component', () => {
       username: 'ttran',
       status: 'IN_PROGRESS',
       deadline: '2017-12-31',
+      type: 'PR',
+      linkToDetails: '2',
       _links: {
         self: {
           href: '/api/v1/tasks/2'

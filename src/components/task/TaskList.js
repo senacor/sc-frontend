@@ -57,7 +57,14 @@ export class TaskList extends React.Component {
         {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
           <Card key={task.id} className={classes.task}>
             <CardContent>
-              <Link to={`/prs/${task.id}`} style={{ textDecoration: 'none' }}>
+              <Link
+                to={
+                  task.type === 'PR'
+                    ? `/prs/${task.linkToDetails}`
+                    : `${task.linkToDetails}`
+                }
+                style={{ textDecoration: 'none' }}
+              >
                 <Typography variant="headline" component="h2">
                   {task.title}
                 </Typography>

@@ -36,6 +36,7 @@ const App = () => (
   <div style={styles.main}>
     <Switch>
       <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
+      <PrivateRoute exact path="/myPrs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <PrivateRoute path="/logout" component={Logout} />
