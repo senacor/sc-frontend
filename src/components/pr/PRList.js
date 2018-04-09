@@ -10,6 +10,7 @@ import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import Hidden from 'material-ui/Hidden';
 import AddIcon from 'material-ui-icons/Add';
+import { Link } from 'react-router-dom';
 
 const styles = () => ({
   prs: {
@@ -98,20 +99,25 @@ export class PRList extends React.Component {
         {prs.map(pr => {
           return (
             <div key={pr.id}>
-              <Card className={classes.prs}>
-                <CardHeader
-                  avatar={
-                    <Avatar src="/supervisor.jpg" className={classes.avatar} />
-                  }
-                  title={<div>Performance Review</div>}
-                  subheader={
-                    <div>
-                      <div>{`${this.translate(pr.occasion)}`}</div>
-                      <div>{`Beurteiler: ${pr.supervisor}`}</div>
-                    </div>
-                  }
-                />
-              </Card>
+              <Link to={`/prs/${pr.id}`} style={{ textDecoration: 'none' }}>
+                <Card className={classes.prs}>
+                  <CardHeader
+                    avatar={
+                      <Avatar
+                        src="/supervisor.jpg"
+                        className={classes.avatar}
+                      />
+                    }
+                    title={<div>Performance Review</div>}
+                    subheader={
+                      <div>
+                        <div>{`${this.translate(pr.occasion)}`}</div>
+                        <div>{`Beurteiler: ${pr.supervisor}`}</div>
+                      </div>
+                    }
+                  />
+                </Card>
+              </Link>
             </div>
           );
         })}

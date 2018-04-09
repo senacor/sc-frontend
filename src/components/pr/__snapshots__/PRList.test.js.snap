@@ -60,66 +60,86 @@ exports[`PRList Component displays the list of prs 1`] = `
   <div
     key="1"
   >
-    <Card
-      className="PRList-prs-1"
-      raised={false}
+    <Link
+      replace={false}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      to="/prs/1"
     >
-      <WithStyles(CardHeader)
-        avatar={
-          <WithStyles(Avatar)
-            className={undefined}
-            src="/supervisor.jpg"
-          />
-        }
-        subheader={
-          <div>
+      <Card
+        className="PRList-prs-1"
+        raised={false}
+      >
+        <WithStyles(CardHeader)
+          avatar={
+            <WithStyles(Avatar)
+              className={undefined}
+              src="/supervisor.jpg"
+            />
+          }
+          subheader={
             <div>
-              Auf Nachfrage
+              <div>
+                Auf Nachfrage
+              </div>
+              <div>
+                Beurteiler: ttran
+              </div>
             </div>
+          }
+          title={
             <div>
-              Beurteiler: ttran
+              Performance Review
             </div>
-          </div>
-        }
-        title={
-          <div>
-            Performance Review
-          </div>
-        }
-      />
-    </Card>
+          }
+        />
+      </Card>
+    </Link>
   </div>
   <div
     key="2"
   >
-    <Card
-      className="PRList-prs-1"
-      raised={false}
+    <Link
+      replace={false}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      to="/prs/2"
     >
-      <WithStyles(CardHeader)
-        avatar={
-          <WithStyles(Avatar)
-            className={undefined}
-            src="/supervisor.jpg"
-          />
-        }
-        subheader={
-          <div>
+      <Card
+        className="PRList-prs-1"
+        raised={false}
+      >
+        <WithStyles(CardHeader)
+          avatar={
+            <WithStyles(Avatar)
+              className={undefined}
+              src="/supervisor.jpg"
+            />
+          }
+          subheader={
             <div>
-              Auf Nachfrage
+              <div>
+                Auf Nachfrage
+              </div>
+              <div>
+                Beurteiler: ttran
+              </div>
             </div>
+          }
+          title={
             <div>
-              Beurteiler: ttran
+              Performance Review
             </div>
-          </div>
-        }
-        title={
-          <div>
-            Performance Review
-          </div>
-        }
-      />
-    </Card>
+          }
+        />
+      </Card>
+    </Link>
   </div>
 </div>
 `;
