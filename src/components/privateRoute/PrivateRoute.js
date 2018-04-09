@@ -21,9 +21,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 export default connect(
   state => ({
-    token: state.login.getToken
+    token: state.login.isLoggedIn
   }),
   {
-    getToken: actions.getToken
+    login: actions.login,
+    logout: actions.logout
   }
 )(PrivateRoute);

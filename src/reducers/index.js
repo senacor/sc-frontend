@@ -7,5 +7,13 @@ import errors from './errors';
 import login from './login';
 import isLoading from './isLoading';
 
-const app = combineReducers({ tasks, editTasks, errors, prs, login, isLoading,prById  });
+const app = combineReducers({
+  tasks,
+  editTasks,
+  errors,
+  prs,
+  login,
+  isLoading,
+  prById
+});
 export default app;

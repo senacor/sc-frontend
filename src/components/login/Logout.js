@@ -6,7 +6,7 @@ import { Redirect, Route } from 'react-router-dom';
 class Logout extends Component {
   constructor(props) {
     super(props);
-    this.props.getToken(false);
+    this.props.logout();
 
     this.state = {
       token: props.token
@@ -20,9 +20,9 @@ class Logout extends Component {
 
 export default connect(
   state => ({
-    token: state.login.getToken
+    token: state.login.isLoggedIn
   }),
   {
-    getToken: actions.getToken
+    logout: actions.logout
   }
 )(Logout);

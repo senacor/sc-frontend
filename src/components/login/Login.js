@@ -13,7 +13,7 @@ import LockIcon from 'material-ui-icons/Lock';
 import officeMuenchen from './officeM.jpg';
 import senacorLogo from './senacor_transparent.png';
 import senacorLogoMobile from './senacor_transparent_white.png';
-import * as actions from '../../actions';
+import * as actions from '../../actions/index';
 import { connect } from 'react-redux';
 
 const styles = theme => ({
@@ -106,7 +106,7 @@ class Login extends Component {
   }
   handleOnClick = () => {
     this.setState({ redirect: true });
-    this.props.getToken(true);
+    this.props.login();
   };
 
   handleChange = event => {
@@ -198,9 +198,9 @@ export const StyledComponent = withStyles(styles)(Login);
 
 export default connect(
   state => ({
-    token: state.login.getToken
+    token: state.login.isLoggedIn
   }),
   {
-    getToken: actions.getToken
+    login: actions.login
   }
 )(StyledComponent);

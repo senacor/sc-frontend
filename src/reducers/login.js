@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const getToken = (state = false, action) => {
+const isLoggedIn = (state = false, action) => {
   switch (action.type) {
     case 'TOKEN_TRUE':
       return true;
@@ -12,6 +12,6 @@ const getToken = (state = false, action) => {
   }
 };
 
-const login = combineReducers({ getToken });
+const login = combineReducers({ isLoggedIn });
 
 export default login;
