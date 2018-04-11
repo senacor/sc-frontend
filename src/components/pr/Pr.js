@@ -6,6 +6,13 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
+import ExpansionPanel, {
+  ExpansionPanelDetails,
+  ExpansionPanelSummary
+} from 'material-ui/ExpansionPanel';
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import Divider from 'material-ui/Divider';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 const styles = theme => ({
   avatar: {
@@ -30,6 +37,15 @@ const styles = theme => ({
   },
   tabsColor: {
     color: theme.palette.contrastText
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
   }
 });
 
@@ -46,7 +62,8 @@ class Pr extends React.Component {
     super(props);
     this.state = {
       prById: props.prById,
-      value: 0
+      value: 0,
+      expanded: null
     };
   }
 
@@ -69,9 +86,16 @@ class Pr extends React.Component {
     this.setState({ value });
   };
 
+  handlePanel = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    });
+  };
+
   render() {
     const { classes, prById } = this.props;
     const { value } = this.state;
+    const { expanded } = this.state;
 
     return (
       <div>
@@ -107,7 +131,76 @@ class Pr extends React.Component {
         </div>
 
         {value === 0 && (
-          <TabContainer>Hier steht der Status des PRs</TabContainer>
+          <div className={classes.root}>
+            <ExpansionPanel
+              expanded={expanded === 'panel1'}
+              onChange={this.handlePanel('panel1')}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Vorbereitung
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  1/3 erledigt
+                </Typography>
+              </ExpansionPanelSummary>
+              <Divider />
+              <ExpansionPanelDetails>
+                <List>
+                  <ListItem>
+                    <ListItemText primary="Bogen ausfüllen" />
+                  </ListItem>
+                  <Divider />
+
+                  <ListItem button disabled>
+                    <ListItemText primary="Mitarbeiter" />
+                  </ListItem>
+                  <ListItem button disabled>
+                    <ListItemText primary="Terminierung" />
+                  </ListItem>
+                  <ListItem button disabled>
+                    <ListItemText primary="Bogen ausfüllen" />
+                  </ListItem>
+                </List>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+
+            <ExpansionPanel
+              expanded={expanded === 'panel2'}
+              onChange={this.handlePanel('panel2')}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  In Durchführung
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  0/1 erledigt{' '}
+                </Typography>
+              </ExpansionPanelSummary>
+              <Divider />
+              <ExpansionPanelDetails>
+                <Typography>Panel 2</Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel
+              expanded={expanded === 'panel3'}
+              onChange={this.handlePanel('panel3')}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Nachbereitung
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  0/2 erledigt{' '}
+                </Typography>
+              </ExpansionPanelSummary>
+              <Divider />
+
+              <ExpansionPanelDetails>
+                <Typography>Panel 3</Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </div>
         )}
         {value === 1 && (
           <TabContainer>
