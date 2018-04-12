@@ -67,7 +67,7 @@ class Pr extends React.Component {
     };
   }
 
-  translate = occasion => {
+  translateAnlass = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
         return 'Auf Nachfrage';
@@ -79,6 +79,21 @@ class Pr extends React.Component {
         return 'Ende der Probezeit';
       default:
         return 'Auf Nachfrage';
+    }
+  };
+
+  translateStatus = status => {
+    switch (status) {
+      case 'PREPARATION':
+        return 'Vorbereitung';
+      case 'EXECUTION':
+        return ' In Durchführung';
+      case 'POST_PROCESSING':
+        return 'Nachbereitung';
+      case 'DONE':
+        return 'Fertig';
+      default:
+        return 'Vorbereitung';
     }
   };
 
@@ -113,7 +128,7 @@ class Pr extends React.Component {
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
               ) : (
-                <div>{this.translate(prById.occasion)}</div>
+                <div>{this.translateAnlass(prById.occasion)}</div>
               )}
             </Typography>
           </div>
@@ -138,7 +153,7 @@ class Pr extends React.Component {
             >
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>
-                  Vorbereitung
+                  Vorbereitung{' '}
                 </Typography>
                 <Typography className={classes.secondaryHeading}>
                   1/3 erledigt
