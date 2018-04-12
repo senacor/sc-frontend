@@ -24,16 +24,31 @@ const styles = theme => ({
   container: {
     display: 'flex'
   },
+
+  containerVertical: {
+    flex: 1,
+    flexDirection: 'column',
+    width: '100%'
+  },
+
+  greyBox: {
+    backgroundColor: '#DDD',
+    width: '100%'
+  },
   typography: {
     color: '#FFF',
     marginLeft: '30px',
     marginTop: '20px',
     fontSize: '15px'
   },
+
   detailPanel: {
     width: '100%',
     backgroundColor: theme.palette.primary['400'],
     marginTop: '0px'
+  },
+  expansionPanel: {
+    padding: 0
   },
   tabsColor: {
     color: theme.palette.contrastText
@@ -160,23 +175,25 @@ class Pr extends React.Component {
                 </Typography>
               </ExpansionPanelSummary>
               <Divider />
-              <ExpansionPanelDetails>
-                <List>
-                  <ListItem>
-                    <ListItemText primary="Bogen ausfüllen" />
-                  </ListItem>
-                  <Divider />
-
-                  <ListItem button disabled>
-                    <ListItemText primary="Mitarbeiter" />
-                  </ListItem>
-                  <ListItem button disabled>
-                    <ListItemText primary="Terminierung" />
-                  </ListItem>
-                  <ListItem button disabled>
-                    <ListItemText primary="Bogen ausfüllen" />
-                  </ListItem>
-                </List>
+              <ExpansionPanelDetails className={classes.expansionPanel}>
+                <div className={classes.containerVertical}>
+                  <List>
+                    <ListItem>
+                      <ListItemText primary="Bogen ausfüllen" />
+                    </ListItem>
+                  </List>
+                  <List className={classes.greyBox}>
+                    <ListItem button disabled>
+                      <ListItemText primary="Mitarbeiter" />
+                    </ListItem>
+                    <ListItem button disabled>
+                      <ListItemText secondary="Terminierung" />
+                    </ListItem>
+                    <ListItem button disabled>
+                      <ListItemText secondary="Bogen ausfüllen" />
+                    </ListItem>
+                  </List>
+                </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
 
