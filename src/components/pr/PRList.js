@@ -46,7 +46,7 @@ const styles = theme => ({
   },
   controlButtons: {
     margin: theme.spacing.unit,
-    paddingLeft: 15 * theme.spacing.unit
+    paddingLeft: 5 * theme.spacing.unit
   }
 });
 
