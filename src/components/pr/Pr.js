@@ -75,10 +75,12 @@ function TabContainer(props) {
 class Pr extends React.Component {
   constructor(props) {
     super(props);
+    let shouldExpand = this.returnExpandState(props.prById.status);
+    console.log(shouldExpand);
     this.state = {
       prById: props.prById,
       value: 0,
-      expanded: null
+      expanded: shouldExpand
     };
   }
 
@@ -97,31 +99,22 @@ class Pr extends React.Component {
     }
   };
 
-  translateStatus = status => {
+  returnExpandState = status => {
     switch (status) {
       case 'PREPARATION':
-        return 'Vorbereitung';
+        return 'panel1';
       case 'EXECUTION':
-        return ' In Durchführung';
+        return 'panel2';
       case 'POST_PROCESSING':
-        return 'Nachbereitung';
-      case 'DONE':
-        return 'Fertig';
+        return 'panel3';
       default:
-        return 'Vorbereitung';
+        return false;
     }
   };
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
-
-  handlePanel = panel => (event, expanded) => {
-    this.setState({
-      expanded: expanded ? panel : false
-    });
-  };
-
   render() {
     const { classes, prById } = this.props;
     const { value } = this.state;
@@ -162,10 +155,7 @@ class Pr extends React.Component {
 
         {value === 0 && (
           <div className={classes.root}>
-            <ExpansionPanel
-              expanded={expanded === 'panel1'}
-              onChange={this.handlePanel('panel1')}
-            >
+            <ExpansionPanel expanded={expanded === 'panel1'}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>
                   Vorbereitung{' '}
@@ -197,10 +187,7 @@ class Pr extends React.Component {
               </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            <ExpansionPanel
-              expanded={expanded === 'panel2'}
-              onChange={this.handlePanel('panel2')}
-            >
+            <ExpansionPanel expanded={expanded === 'panel2'}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>
                   In Durchführung
@@ -214,10 +201,7 @@ class Pr extends React.Component {
                 <Typography>Panel 2</Typography>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel
-              expanded={expanded === 'panel3'}
-              onChange={this.handlePanel('panel3')}
-            >
+            <ExpansionPanel expanded={expanded === 'panel3'}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>
                   Nachbereitung
