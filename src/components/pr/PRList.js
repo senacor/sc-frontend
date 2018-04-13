@@ -11,7 +11,7 @@ import Hidden from 'material-ui/Hidden';
 import AddIcon from 'material-ui-icons/Add';
 import { Link } from 'react-router-dom';
 
-const styles = () => ({
+const styles = theme => ({
   prs: {
     marginBottom: '10px',
     display: 'flex'
@@ -32,8 +32,21 @@ const styles = () => ({
     marginLeft: '80%'
   },
   media: {
-    height: 200,
-    width: 130
+    height: 220,
+    width: 170
+  },
+  controls: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing.unit,
+    paddingTop: 2 * theme.spacing.unit
+  },
+  mediaIcon: {
+    paddingRight: 2 * theme.spacing.unit
+  },
+  controlButtons: {
+    margin: theme.spacing.unit,
+    paddingLeft: 15 * theme.spacing.unit
   }
 });
 
@@ -44,6 +57,22 @@ export class PRList extends React.Component {
       prs: props.prs
     };
   }
+
+  translateStatus = status => {
+    switch (status) {
+      case 'PREPARATION':
+        return 'In Vorbereitung';
+      case 'EXECUTION':
+        return 'In Durchführung';
+      case 'POST_PROCESSING':
+        return 'Nachbearbeitung';
+      case 'DONE':
+        return 'Fertig';
+      default:
+        return 'In Vorbereitung';
+    }
+  };
+
   translate = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
@@ -111,17 +140,34 @@ export class PRList extends React.Component {
                     title="Supervisor picture"
                   />
                   <CardContent className={classes.content}>
-                    <Typography variant="headline">{pr.employee}</Typography>
+                    <Typography variant="display1">{pr.employee}</Typography>
                     <Typography variant="subheading" color="textSecondary">
                       Performance Review
                     </Typography>
                     <Typography variant="subheading" color="textSecondary">
                       {pr.deadline}
-                    </Typography>
+                    </Typography>{' '}
+                    <div className={classes.controls}>
+                      <Icon className={classes.mediaIcon}>linear_scale</Icon>{' '}
+                      <Typography gutterBottom noWrap color="textSecondary">
+                        {this.translateStatus(pr.status)}
+                      </Typography>
+                    </div>
+                    <div className={classes.controls}>
+                      <Icon className={classes.mediaIcon}>event_note</Icon>{' '}
+                      <Typography gutterBottom noWrap color="textSecondary">
+                        Bogen ausfüllen
+                      </Typography>
+                    </div>
+                    <div className={classes.controlButtons}>
+                      <Button color="primary" className={classes.button}>
+                        DELEGIEREN
+                      </Button>
 
-                    <Typography variant="subheading" color="textSecondary">
-                      {`In ${pr.status}`}{' '}
-                    </Typography>
+                      <Button color="primary" className={classes.button}>
+                        DETAILS
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </Link>
