@@ -49,7 +49,6 @@ exports[`Pr Component displays the pr 1`] = `
   <div>
     <WithStyles(ExpansionPanel)
       expanded={false}
-      onChange={[Function]}
     >
       <WithStyles(ExpansionPanelSummary)
         expandIcon={<pure(ExpandMore) />}
@@ -113,7 +112,6 @@ exports[`Pr Component displays the pr 1`] = `
     </WithStyles(ExpansionPanel)>
     <WithStyles(ExpansionPanel)
       expanded={false}
-      onChange={[Function]}
     >
       <WithStyles(ExpansionPanelSummary)
         expandIcon={<pure(ExpandMore) />}
@@ -139,7 +137,6 @@ exports[`Pr Component displays the pr 1`] = `
     </WithStyles(ExpansionPanel)>
     <WithStyles(ExpansionPanel)
       expanded={false}
-      onChange={[Function]}
     >
       <WithStyles(ExpansionPanelSummary)
         expandIcon={<pure(ExpandMore) />}
