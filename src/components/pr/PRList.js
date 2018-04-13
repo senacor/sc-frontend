@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader } from 'material-ui/Card';
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
@@ -14,7 +13,8 @@ import { Link } from 'react-router-dom';
 
 const styles = () => ({
   prs: {
-    marginBottom: '10px'
+    marginBottom: '10px',
+    display: 'flex'
   },
   buttonMobile: {
     position: 'fixed',
@@ -30,6 +30,10 @@ const styles = () => ({
     position: 'relative',
     marginRight: '1%',
     marginLeft: '80%'
+  },
+  media: {
+    height: 200,
+    width: 130
   }
 });
 
@@ -96,26 +100,29 @@ export class PRList extends React.Component {
             <AddIcon className={classes.icon} />
           </Button>
         </Hidden>
-        {prs.map(pr => {
+        {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
           return (
             <div key={pr.id}>
               <Link to={`/prs/${pr.id}`} style={{ textDecoration: 'none' }}>
                 <Card className={classes.prs}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        src="/supervisor.jpg"
-                        className={classes.avatar}
-                      />
-                    }
-                    title={<div>Performance Review</div>}
-                    subheader={
-                      <div>
-                        <div>{`${this.translate(pr.occasion)}`}</div>
-                        <div>{`Beurteiler: ${pr.supervisor}`}</div>
-                      </div>
-                    }
+                  <CardMedia
+                    className={classes.media}
+                    image="/supervisor.jpg"
+                    title="Supervisor picture"
                   />
+                  <CardContent className={classes.content}>
+                    <Typography variant="headline">{pr.employee}</Typography>
+                    <Typography variant="subheading" color="textSecondary">
+                      Performance Review
+                    </Typography>
+                    <Typography variant="subheading" color="textSecondary">
+                      {pr.deadline}
+                    </Typography>
+
+                    <Typography variant="subheading" color="textSecondary">
+                      {`In ${pr.status}`}{' '}
+                    </Typography>
+                  </CardContent>
                 </Card>
               </Link>
             </div>
