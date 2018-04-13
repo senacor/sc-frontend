@@ -73,71 +73,77 @@ exports[`PRList Component displays the list of prs 1`] = `
         className="PRList-prs-1"
         raised={false}
       >
-        <WithStyles(CardHeader)
-          avatar={
-            <WithStyles(Avatar)
-              className={undefined}
-              src="/supervisor.jpg"
-            />
-          }
-          subheader={
-            <div>
-              <div>
-                Auf Nachfrage
-              </div>
-              <div>
-                Beurteiler: ttran
-              </div>
-            </div>
-          }
-          title={
-            <div>
-              Performance Review
-            </div>
-          }
+        <WithStyles(CardMedia)
+          className="PRList-media-5"
+          image="/supervisor.jpg"
+          title="Supervisor picture"
         />
-      </Card>
-    </Link>
-  </div>
-  <div
-    key="2"
-  >
-    <Link
-      replace={false}
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/prs/2"
-    >
-      <Card
-        className="PRList-prs-1"
-        raised={false}
-      >
-        <WithStyles(CardHeader)
-          avatar={
-            <WithStyles(Avatar)
-              className={undefined}
-              src="/supervisor.jpg"
-            />
-          }
-          subheader={
-            <div>
-              <div>
-                Auf Nachfrage
-              </div>
-              <div>
-                Beurteiler: ttran
-              </div>
-            </div>
-          }
-          title={
-            <div>
-              Performance Review
-            </div>
-          }
-        />
+        <WithStyles(CardContent)>
+          <WithStyles(Typography)
+            variant="display1"
+          >
+            Employee1
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            color="textSecondary"
+            variant="subheading"
+          >
+            Performance Review
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            color="textSecondary"
+            variant="subheading"
+          />
+           
+          <div
+            className="PRList-controls-6"
+          >
+            <WithStyles(Icon)
+              className="PRList-mediaIcon-7"
+            >
+              linear_scale
+            </WithStyles(Icon)>
+             
+            <WithStyles(Typography)
+              color="textSecondary"
+              gutterBottom={true}
+              noWrap={true}
+            >
+              In Vorbereitung
+            </WithStyles(Typography)>
+          </div>
+          <div
+            className="PRList-controls-6"
+          >
+            <WithStyles(Icon)
+              className="PRList-mediaIcon-7"
+            >
+              event_note
+            </WithStyles(Icon)>
+             
+            <WithStyles(Typography)
+              color="textSecondary"
+              gutterBottom={true}
+              noWrap={true}
+            >
+              Bogen ausfüllen
+            </WithStyles(Typography)>
+          </div>
+          <div
+            className="PRList-controlButtons-8"
+          >
+            <WithStyles(Button)
+              color="primary"
+            >
+              DELEGIEREN
+            </WithStyles(Button)>
+            <WithStyles(Button)
+              color="primary"
+            >
+              DETAILS
+            </WithStyles(Button)>
+          </div>
+        </WithStyles(CardContent)>
       </Card>
     </Link>
   </div>

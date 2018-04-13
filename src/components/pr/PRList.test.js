@@ -10,7 +10,7 @@ describe('PRList Component', () => {
       id: 1,
       employee: 'Employee1',
       occasion: 'ON_DEMAND',
-      supervisor: 'ttran',
+      supervisor: 'fukara',
       _links: {
         self: {
           href: '/api/v1/prs/1'
@@ -38,6 +38,6 @@ describe('PRList Component', () => {
   it('should contain two prs', () => {
     const element = shallow(<StyledComponent prs={prs} />);
 
-    expect(element.find('Card')).toHaveLength(2);
+    expect(element.find('Card')).toHaveLength(1);
   });
 });
