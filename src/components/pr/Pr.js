@@ -6,13 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
-import ExpansionPanel, {
-  ExpansionPanelDetails,
-  ExpansionPanelSummary
-} from 'material-ui/ExpansionPanel';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import PrState from './PrState';
 
 const styles = theme => ({
   avatar: {
@@ -25,16 +19,6 @@ const styles = theme => ({
     display: 'flex'
   },
 
-  containerVertical: {
-    flex: 1,
-    flexDirection: 'column',
-    width: '100%'
-  },
-
-  greyBox: {
-    backgroundColor: '#DDD',
-    width: '100%'
-  },
   typography: {
     color: '#FFF',
     marginLeft: '30px',
@@ -47,20 +31,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary['400'],
     marginTop: '0px'
   },
-  expansionPanel: {
-    padding: 0
-  },
+
   tabsColor: {
     color: theme.palette.contrastText
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary
   }
 });
 
@@ -118,7 +91,6 @@ class Pr extends React.Component {
   render() {
     const { classes, prById } = this.props;
     const { value } = this.state;
-    const { expanded } = this.state;
 
     return (
       <div>
@@ -153,71 +125,7 @@ class Pr extends React.Component {
           </Tabs>
         </div>
 
-        {value === 0 && (
-          <div className={classes.root}>
-            <ExpansionPanel expanded={expanded === 'panel1'}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.heading}>
-                  Vorbereitung{' '}
-                </Typography>
-                <Typography className={classes.secondaryHeading}>
-                  1/3 erledigt
-                </Typography>
-              </ExpansionPanelSummary>
-              <Divider />
-              <ExpansionPanelDetails className={classes.expansionPanel}>
-                <div className={classes.containerVertical}>
-                  <List>
-                    <ListItem>
-                      <ListItemText primary="Bogen ausfüllen" />
-                    </ListItem>
-                  </List>
-                  <List className={classes.greyBox}>
-                    <ListItem button disabled>
-                      <ListItemText primary="Mitarbeiter" />
-                    </ListItem>
-                    <ListItem button disabled>
-                      <ListItemText secondary="Terminierung" />
-                    </ListItem>
-                    <ListItem button disabled>
-                      <ListItemText secondary="Bogen ausfüllen" />
-                    </ListItem>
-                  </List>
-                </div>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-
-            <ExpansionPanel expanded={expanded === 'panel2'}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.heading}>
-                  In Durchführung
-                </Typography>
-                <Typography className={classes.secondaryHeading}>
-                  0/1 erledigt{' '}
-                </Typography>
-              </ExpansionPanelSummary>
-              <Divider />
-              <ExpansionPanelDetails>
-                <Typography>Panel 2</Typography>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel expanded={expanded === 'panel3'}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.heading}>
-                  Nachbereitung
-                </Typography>
-                <Typography className={classes.secondaryHeading}>
-                  0/2 erledigt{' '}
-                </Typography>
-              </ExpansionPanelSummary>
-              <Divider />
-
-              <ExpansionPanelDetails>
-                <Typography>Panel 3</Typography>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          </div>
-        )}
+        {value === 0 && <PrState expanded={this.state.expanded} />}
         {value === 1 && (
           <TabContainer>
             Hier steht das Anstellungsverhältnis des Mitarbeiters
