@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   prs: {
-    marginBottom: '10px',
+    marginBottom: '30px',
     display: 'flex'
   },
   buttonMobile: {
@@ -32,21 +32,24 @@ const styles = theme => ({
     marginLeft: '80%'
   },
   media: {
-    height: 220,
-    width: 170
+    height: 225,
+    width: 150
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing.unit,
     paddingTop: 2 * theme.spacing.unit
   },
   mediaIcon: {
-    paddingRight: 2 * theme.spacing.unit
+    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit
   },
   controlButtons: {
-    margin: theme.spacing.unit,
     paddingLeft: 5 * theme.spacing.unit
+  },
+  additionalSupervisor: {
+    paddingLeft: 4 * theme.spacing.unit,
+    display: 'flex'
   }
 });
 
@@ -101,6 +104,8 @@ export class PRList extends React.Component {
     this.props.addPr();
   };
 
+  addNewSupervisor = pr => {};
+
   render() {
     const { classes, prs } = this.props;
     return (
@@ -132,45 +137,60 @@ export class PRList extends React.Component {
         {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
           return (
             <div key={pr.id}>
-              <Link to={`/prs/${pr.id}`} style={{ textDecoration: 'none' }}>
-                <Card className={classes.prs}>
-                  <CardMedia
-                    className={classes.media}
-                    image="/supervisor.jpg"
-                    title="Supervisor picture"
-                  />
-                  <CardContent className={classes.content}>
-                    <Typography variant="display1">{pr.employee}</Typography>
-                    <Typography variant="subheading" color="textSecondary">
-                      Performance Review
+              <Card className={classes.prs}>
+                <CardMedia
+                  className={classes.media}
+                  image="/supervisor.jpg"
+                  title="Supervisor picture"
+                />
+                <CardContent className={classes.content}>
+                  <Typography variant="display1">{pr.employee}</Typography>
+                  <Typography variant="subheading" color="textSecondary">
+                    Performance Review
+                  </Typography>
+                  <Typography variant="subheading" color="textSecondary">
+                    {pr.deadline}
+                  </Typography>
+                  <div className={classes.controls}>
+                    <Icon className={classes.mediaIcon}>linear_scale</Icon>
+                    <Typography gutterBottom noWrap color="textSecondary">
+                      {this.translateStatus(pr.status)}
                     </Typography>
-                    <Typography variant="subheading" color="textSecondary">
-                      {pr.deadline}
-                    </Typography>{' '}
-                    <div className={classes.controls}>
-                      <Icon className={classes.mediaIcon}>linear_scale</Icon>{' '}
+                    <div className={classes.additionalSupervisor}>
+                      <Icon className={classes.mediaIcon}>face</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
-                        {this.translateStatus(pr.status)}
+                        dummy
                       </Typography>
                     </div>
-                    <div className={classes.controls}>
-                      <Icon className={classes.mediaIcon}>event_note</Icon>{' '}
-                      <Typography gutterBottom noWrap color="textSecondary">
-                        Bogen ausfüllen
-                      </Typography>
-                    </div>
-                    <div className={classes.controlButtons}>
-                      <Button color="primary" className={classes.button}>
-                        DELEGIEREN
-                      </Button>
+                  </div>
+                  <div className={classes.controls}>
+                    <Icon className={classes.mediaIcon}>event_note</Icon>
+                    <Typography gutterBottom noWrap color="textSecondary">
+                      Bogen ausfüllen
+                    </Typography>
+                  </div>
+                  <div className={classes.controlButtons}>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      onClick={() => {
+                        this.addNewSupervisor(pr);
+                      }}
+                    >
+                      DELEGIEREN
+                    </Button>
 
-                      <Button color="primary" className={classes.button}>
+                    <Button color="primary" className={classes.button}>
+                      <Link
+                        to={`/prs/${pr.id}`}
+                        style={{ textDecoration: 'none' }}
+                      >
                         DETAILS
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           );
         })}

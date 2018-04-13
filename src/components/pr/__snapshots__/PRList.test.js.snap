@@ -60,92 +60,106 @@ exports[`PRList Component displays the list of prs 1`] = `
   <div
     key="1"
   >
-    <Link
-      replace={false}
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/prs/1"
+    <Card
+      className="PRList-prs-1"
+      raised={false}
     >
-      <Card
-        className="PRList-prs-1"
-        raised={false}
-      >
-        <WithStyles(CardMedia)
-          className="PRList-media-5"
-          image="/supervisor.jpg"
-          title="Supervisor picture"
+      <WithStyles(CardMedia)
+        className="PRList-media-5"
+        image="/supervisor.jpg"
+        title="Supervisor picture"
+      />
+      <WithStyles(CardContent)>
+        <WithStyles(Typography)
+          variant="display1"
+        >
+          Employee1
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+          variant="subheading"
+        >
+          Performance Review
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+          variant="subheading"
         />
-        <WithStyles(CardContent)>
-          <WithStyles(Typography)
-            variant="display1"
+        <div
+          className="PRList-controls-6"
+        >
+          <WithStyles(Icon)
+            className="PRList-mediaIcon-7"
           >
-            Employee1
-          </WithStyles(Typography)>
+            linear_scale
+          </WithStyles(Icon)>
           <WithStyles(Typography)
             color="textSecondary"
-            variant="subheading"
+            gutterBottom={true}
+            noWrap={true}
           >
-            Performance Review
+            In Vorbereitung
           </WithStyles(Typography)>
-          <WithStyles(Typography)
-            color="textSecondary"
-            variant="subheading"
-          />
-           
           <div
-            className="PRList-controls-6"
+            className="PRList-additionalSupervisor-9"
           >
             <WithStyles(Icon)
               className="PRList-mediaIcon-7"
             >
-              linear_scale
+              face
             </WithStyles(Icon)>
-             
             <WithStyles(Typography)
               color="textSecondary"
               gutterBottom={true}
               noWrap={true}
             >
-              In Vorbereitung
+              dummy
             </WithStyles(Typography)>
           </div>
-          <div
-            className="PRList-controls-6"
+        </div>
+        <div
+          className="PRList-controls-6"
+        >
+          <WithStyles(Icon)
+            className="PRList-mediaIcon-7"
           >
-            <WithStyles(Icon)
-              className="PRList-mediaIcon-7"
-            >
-              event_note
-            </WithStyles(Icon)>
-             
-            <WithStyles(Typography)
-              color="textSecondary"
-              gutterBottom={true}
-              noWrap={true}
-            >
-              Bogen ausfüllen
-            </WithStyles(Typography)>
-          </div>
-          <div
-            className="PRList-controlButtons-8"
+            event_note
+          </WithStyles(Icon)>
+          <WithStyles(Typography)
+            color="textSecondary"
+            gutterBottom={true}
+            noWrap={true}
           >
-            <WithStyles(Button)
-              color="primary"
-            >
-              DELEGIEREN
-            </WithStyles(Button)>
-            <WithStyles(Button)
-              color="primary"
+            Bogen ausfüllen
+          </WithStyles(Typography)>
+        </div>
+        <div
+          className="PRList-controlButtons-8"
+        >
+          <WithStyles(Button)
+            color="primary"
+            onClick={[Function]}
+          >
+            DELEGIEREN
+          </WithStyles(Button)>
+          <WithStyles(Button)
+            color="primary"
+          >
+            <Link
+              replace={false}
+              style={
+                Object {
+                  "textDecoration": "none",
+                }
+              }
+              to="/prs/1"
             >
               DETAILS
-            </WithStyles(Button)>
-          </div>
-        </WithStyles(CardContent)>
-      </Card>
-    </Link>
+            </Link>
+          </WithStyles(Button)>
+        </div>
+      </WithStyles(CardContent)>
+    </Card>
   </div>
 </div>
 `;
