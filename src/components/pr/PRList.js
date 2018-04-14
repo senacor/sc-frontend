@@ -48,8 +48,7 @@ const styles = theme => ({
     paddingLeft: 5 * theme.spacing.unit
   },
   additionalSupervisor: {
-    paddingLeft: 4 * theme.spacing.unit,
-    display: 'flex'
+    paddingLeft: 4 * theme.spacing.unit
   }
 });
 
@@ -57,7 +56,8 @@ export class PRList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prs: props.prs
+      prs: props.prs,
+      displaySupervisor: 'none'
     };
   }
 
@@ -104,7 +104,11 @@ export class PRList extends React.Component {
     this.props.addPr();
   };
 
-  addNewSupervisor = pr => {};
+  addNewSupervisor = pr => {
+    this.setState({
+      displaySupervisor: 'flex'
+    });
+  };
 
   render() {
     const { classes, prs } = this.props;
@@ -156,7 +160,10 @@ export class PRList extends React.Component {
                     <Typography gutterBottom noWrap color="textSecondary">
                       {this.translateStatus(pr.status)}
                     </Typography>
-                    <div className={classes.additionalSupervisor}>
+                    <div
+                      className={classes.additionalSupervisor}
+                      style={{ display: this.state.displaySupervisor }}
+                    >
                       <Icon className={classes.mediaIcon}>face</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
                         dummy
