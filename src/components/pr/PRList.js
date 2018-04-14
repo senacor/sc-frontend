@@ -32,7 +32,7 @@ const styles = theme => ({
     marginLeft: '80%'
   },
   media: {
-    height: 225,
+    height: 245,
     width: 150
   },
   controls: {

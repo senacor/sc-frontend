@@ -102,6 +102,11 @@ exports[`PRList Component displays the list of prs 1`] = `
           </WithStyles(Typography)>
           <div
             className="PRList-additionalSupervisor-9"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
           >
             <WithStyles(Icon)
               className="PRList-mediaIcon-7"
