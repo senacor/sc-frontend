@@ -6,6 +6,7 @@ import prById from './getPr';
 import errors from './errors';
 import login from './login';
 import isLoading from './isLoading';
+import supervisors from './delegatedSupervisorsList';
 
 const app = combineReducers({
   tasks,
@@ -14,6 +15,7 @@ const app = combineReducers({
   prs,
   login,
   isLoading,
-  prById
+  prById,
+  supervisors
 });
 export default app;

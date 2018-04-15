@@ -48,7 +48,8 @@ const styles = theme => ({
     paddingLeft: 5 * theme.spacing.unit
   },
   additionalSupervisor: {
-    paddingLeft: 4 * theme.spacing.unit
+    paddingLeft: 4 * theme.spacing.unit,
+    display: 'none'
   }
 });
 
@@ -57,7 +58,7 @@ export class PRList extends React.Component {
     super(props);
     this.state = {
       prs: props.prs,
-      displaySupervisor: 'none'
+      delegatedSupervisors: props.delegatedSupervisors
     };
   }
 
@@ -104,14 +105,12 @@ export class PRList extends React.Component {
     this.props.addPr();
   };
 
-  addNewSupervisor = pr => {
-    this.setState({
-      displaySupervisor: 'flex'
-    });
+  addNewSupervisor = prId => {
+    this.props.addSupervisor(prId);
   };
 
   render() {
-    const { classes, prs } = this.props;
+    const { classes, prs, delegatedSupervisors } = this.props;
     return (
       <div>
         <Typography variant="display1" paragraph>
@@ -139,6 +138,8 @@ export class PRList extends React.Component {
           </Button>
         </Hidden>
         {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
+          let dS = delegatedSupervisors.filter(e => e.prId === pr.id);
+
           return (
             <div key={pr.id}>
               <Card className={classes.prs}>
@@ -160,15 +161,19 @@ export class PRList extends React.Component {
                     <Typography gutterBottom noWrap color="textSecondary">
                       {this.translateStatus(pr.status)}
                     </Typography>
-                    <div
-                      className={classes.additionalSupervisor}
-                      style={{ display: this.state.displaySupervisor }}
-                    >
-                      <Icon className={classes.mediaIcon}>face</Icon>
-                      <Typography gutterBottom noWrap color="textSecondary">
-                        dummy
-                      </Typography>
-                    </div>
+                    {dS.length === 0 ? (
+                      ''
+                    ) : (
+                      <div
+                        className={classes.additionalSupervisor}
+                        style={{ display: 'flex' }}
+                      >
+                        <Icon className={classes.mediaIcon}>face</Icon>
+                        <Typography gutterBottom noWrap color="textSecondary">
+                          dummy
+                        </Typography>
+                      </div>
+                    )}
                   </div>
                   <div className={classes.controls}>
                     <Icon className={classes.mediaIcon}>event_note</Icon>
@@ -181,7 +186,7 @@ export class PRList extends React.Component {
                       color="primary"
                       className={classes.button}
                       onClick={() => {
-                        this.addNewSupervisor(pr);
+                        this.addNewSupervisor(pr.id);
                       }}
                     >
                       DELEGIEREN
@@ -210,10 +215,12 @@ export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    delegatedSupervisors: state.supervisors.delegatedSupervisorsList
   }),
   {
     fetchPrs: actions.fetchPrs,
-    addPr: actions.addPr
+    addPr: actions.addPr,
+    addSupervisor: actions.addSupervisor
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));

@@ -143,3 +143,11 @@ export const logout = () => async dispatch => {
   });
   localStorage.setItem('token', false.toString());
 };
+
+export const addSupervisor = prId => async dispatch => {
+  dispatch({
+    type: 'ADD_SUPERVISOR',
+    supervisor: 'dummy',
+    prId: prId
+  });
+};
