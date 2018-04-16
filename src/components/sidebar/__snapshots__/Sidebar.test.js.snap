@@ -24,186 +24,176 @@ exports[`Sidebar should match snapshot 1`] = `
   <WithStyles(List)
     component="nav"
   >
-    <div
+    <WithStyles(ListItem)
+      activeStyle={
+        Object {
+          "backgroundColor": "#DDD",
+        }
+      }
+      component={[Function]}
       key="Dashboard"
       style={
         Object {
-          "backgroundColor": "#FFF",
+          "textDecoration": "none",
         }
       }
+      to="/tasks"
     >
-      <Link
-        replace={false}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/tasks"
-      >
-        <WithStyles(ListItem)
-          button={true}
-        >
-          <WithStyles(ListItemIcon)>
-            <pure(Dashboard) />
-          </WithStyles(ListItemIcon)>
-          <WithStyles(ListItemText)
-            disableTypography={true}
-            primary={
-              <WithStyles(Typography)
-                type="h3"
-              >
-                Dashboard
-              </WithStyles(Typography)>
+      <WithStyles(ListItemIcon)>
+        <pure(Dashboard) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        disableTypography={true}
+        primary={
+          <div
+            style={
+              Object {
+                "color": "#000",
+              }
             }
-          />
-        </WithStyles(ListItem)>
-      </Link>
-    </div>
-    <div
+            type="h3"
+          >
+            Dashboard
+          </div>
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      activeStyle={
+        Object {
+          "backgroundColor": "#DDD",
+        }
+      }
+      component={[Function]}
       key="PR Übersicht"
       style={
         Object {
-          "backgroundColor": "#FFF",
+          "textDecoration": "none",
         }
       }
+      to="/prs"
     >
-      <Link
-        replace={false}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/prs"
-      >
-        <WithStyles(ListItem)
-          button={true}
-        >
-          <WithStyles(ListItemIcon)>
-            <pure(LibraryBooks) />
-          </WithStyles(ListItemIcon)>
-          <WithStyles(ListItemText)
-            disableTypography={true}
-            primary={
-              <WithStyles(Typography)
-                type="h3"
-              >
-                PR Übersicht
-              </WithStyles(Typography)>
+      <WithStyles(ListItemIcon)>
+        <pure(LibraryBooks) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        disableTypography={true}
+        primary={
+          <div
+            style={
+              Object {
+                "color": "#000",
+              }
             }
-          />
-        </WithStyles(ListItem)>
-      </Link>
-    </div>
-    <div
+            type="h3"
+          >
+            PR Übersicht
+          </div>
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      activeStyle={
+        Object {
+          "backgroundColor": "#DDD",
+        }
+      }
+      component={[Function]}
       key="Mitarbeiter Übersicht"
       style={
         Object {
-          "backgroundColor": "#FFF",
+          "textDecoration": "none",
         }
       }
+      to="/employees"
     >
-      <Link
-        replace={false}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/employees"
-      >
-        <WithStyles(ListItem)
-          button={true}
-        >
-          <WithStyles(ListItemIcon)>
-            <pure(Group) />
-          </WithStyles(ListItemIcon)>
-          <WithStyles(ListItemText)
-            disableTypography={true}
-            primary={
-              <WithStyles(Typography)
-                type="h3"
-              >
-                Mitarbeiter Übersicht
-              </WithStyles(Typography)>
+      <WithStyles(ListItemIcon)>
+        <pure(Group) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        disableTypography={true}
+        primary={
+          <div
+            style={
+              Object {
+                "color": "#000",
+              }
             }
-          />
-        </WithStyles(ListItem)>
-      </Link>
-    </div>
-    <div
+            type="h3"
+          >
+            Mitarbeiter Übersicht
+          </div>
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      activeStyle={
+        Object {
+          "backgroundColor": "#DDD",
+        }
+      }
+      component={[Function]}
       key="Eigene PRs"
       style={
         Object {
-          "backgroundColor": "#FFF",
+          "textDecoration": "none",
         }
       }
+      to="/myPrs"
     >
-      <Link
-        replace={false}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/myPrs"
-      >
-        <WithStyles(ListItem)
-          button={true}
-        >
-          <WithStyles(ListItemIcon)>
-            <pure(AssignmentInd) />
-          </WithStyles(ListItemIcon)>
-          <WithStyles(ListItemText)
-            disableTypography={true}
-            primary={
-              <WithStyles(Typography)
-                type="h3"
-              >
-                Eigene PRs
-              </WithStyles(Typography)>
+      <WithStyles(ListItemIcon)>
+        <pure(AssignmentInd) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        disableTypography={true}
+        primary={
+          <div
+            style={
+              Object {
+                "color": "#000",
+              }
             }
-          />
-        </WithStyles(ListItem)>
-      </Link>
-    </div>
-    <div
+            type="h3"
+          >
+            Eigene PRs
+          </div>
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      activeStyle={
+        Object {
+          "backgroundColor": "#DDD",
+        }
+      }
+      component={[Function]}
       key="Logout"
       style={
         Object {
-          "backgroundColor": "#FFF",
+          "textDecoration": "none",
         }
       }
+      to="/logout"
     >
-      <Link
-        replace={false}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/logout"
-      >
-        <WithStyles(ListItem)
-          button={true}
-        >
-          <WithStyles(ListItemIcon)>
-            <pure(PowerSettingsNew) />
-          </WithStyles(ListItemIcon)>
-          <WithStyles(ListItemText)
-            disableTypography={true}
-            primary={
-              <WithStyles(Typography)
-                type="h3"
-              >
-                Logout
-              </WithStyles(Typography)>
+      <WithStyles(ListItemIcon)>
+        <pure(PowerSettingsNew) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        disableTypography={true}
+        primary={
+          <div
+            style={
+              Object {
+                "color": "#000",
+              }
             }
-          />
-        </WithStyles(ListItem)>
-      </Link>
-    </div>
+            type="h3"
+          >
+            Logout
+          </div>
+        }
+      />
+    </WithStyles(ListItem)>
   </WithStyles(List)>
   <WithStyles(Divider) />
   <WithStyles(CompositionNumber) />

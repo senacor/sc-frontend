@@ -9,7 +9,7 @@ import DashboardIcon from 'material-ui-icons/Dashboard';
 import AssignmentIndIcon from 'material-ui-icons/AssignmentInd';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import CompositionNumber from './CompositionNumber';
 
@@ -64,7 +64,6 @@ const listOfMenuEntries = [
 ];
 
 export const Sidebar = props => {
-  let url = window.location.pathname;
   const { classes } = props;
 
   return (
@@ -83,24 +82,25 @@ export const Sidebar = props => {
 
       <List component="nav">
         {listOfMenuEntries.map(entry => (
-          <div
+          <ListItem
             key={entry.label}
-            style={
-              url === entry.value
-                ? { backgroundColor: '#DDD' }
-                : { backgroundColor: '#FFF' }
-            }
+            component={NavLink}
+            to={entry.value}
+            style={{ textDecoration: 'none' }}
+            activeStyle={{
+              backgroundColor: '#DDD'
+            }}
           >
-            <Link to={entry.value} style={{ textDecoration: 'none' }}>
-              <ListItem button>
-                <ListItemIcon>{entry.icon}</ListItemIcon>
-                <ListItemText
-                  disableTypography
-                  primary={<Typography type="h3">{entry.label}</Typography>}
-                />
-              </ListItem>
-            </Link>
-          </div>
+            <ListItemIcon>{entry.icon}</ListItemIcon>
+            <ListItemText
+              disableTypography
+              primary={
+                <div type="h3" style={{ color: '#000' }}>
+                  {entry.label}
+                </div>
+              }
+            />
+          </ListItem>
         ))}
       </List>
       <Divider />
