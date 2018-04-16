@@ -64,6 +64,7 @@ const listOfMenuEntries = [
 ];
 
 export const Sidebar = props => {
+  let url = window.location.href;
   const { classes } = props;
 
   return (
@@ -79,20 +80,36 @@ export const Sidebar = props => {
         </div>
       </div>
       <Divider />
+
       <List component="nav">
-        {listOfMenuEntries.map(entry => (
-          <div key={entry.label}>
-            <Link to={entry.value} style={{ textDecoration: 'none' }}>
-              <ListItem button>
-                <ListItemIcon>{entry.icon}</ListItemIcon>
-                <ListItemText
-                  disableTypography
-                  primary={<Typography type="h3">{entry.label}</Typography>}
-                />
-              </ListItem>
-            </Link>
-          </div>
-        ))}
+        {listOfMenuEntries.map(
+          entry =>
+            url.includes(entry.value) ? (
+              <div key={entry.label} style={{ backgroundColor: '#DDD' }}>
+                <Link to={entry.value} style={{ textDecoration: 'none' }}>
+                  <ListItem button>
+                    <ListItemIcon>{entry.icon}</ListItemIcon>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="h3">{entry.label}</Typography>}
+                    />
+                  </ListItem>
+                </Link>
+              </div>
+            ) : (
+              <div key={entry.label}>
+                <Link to={entry.value} style={{ textDecoration: 'none' }}>
+                  <ListItem button>
+                    <ListItemIcon>{entry.icon}</ListItemIcon>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="h3">{entry.label}</Typography>}
+                    />
+                  </ListItem>
+                </Link>
+              </div>
+            )
+        )}
       </List>
       <Divider />
       <CompositionNumber />
