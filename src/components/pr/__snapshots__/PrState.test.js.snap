@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrState Component displays the prStatus 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMore) />}
+    >
+      <WithStyles(Typography)
+        className="PrState-heading-5"
+      >
+        Vorbereitung
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        className="PrState-secondaryHeading-6"
+      >
+        1/3 erledigt
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(Divider) />
+    <WithStyles(ExpansionPanelDetails)
+      className="PrState-expansionPanel-4"
+    >
+      <div
+        className="PrState-containerVertical-1"
+      >
+        <WithStyles(List)>
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              primary="Bogen ausfüllen"
+            />
+          </WithStyles(ListItem)>
+        </WithStyles(List)>
+        <WithStyles(List)
+          className="PrState-greyBox-2"
+        >
+          <WithStyles(ListItem)
+            button={true}
+            disabled={true}
+          >
+            <WithStyles(ListItemText)
+              primary="Mitarbeiter"
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            button={true}
+            disabled={true}
+          >
+            <WithStyles(ListItemText)
+              secondary="Terminierung"
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            button={true}
+            disabled={true}
+          >
+            <WithStyles(ListItemText)
+              secondary="Bogen ausfüllen"
+            />
+          </WithStyles(ListItem)>
+        </WithStyles(List)>
+      </div>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMore) />}
+    >
+      <WithStyles(Typography)
+        className="PrState-heading-5"
+      >
+        In Durchführung
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        className="PrState-secondaryHeading-6"
+      >
+        0/1 erledigt
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(Divider) />
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(Typography)>
+        Panel 2
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMore) />}
+    >
+      <WithStyles(Typography)
+        className="PrState-heading-5"
+      >
+        Nachbereitung
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        className="PrState-secondaryHeading-6"
+      >
+        0/2 erledigt
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(Divider) />
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(Typography)>
+        Panel 3
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+</div>
+`;
