@@ -49,7 +49,6 @@ class Pr extends React.Component {
   constructor(props) {
     super(props);
     let shouldExpand = this.returnExpandState(props.prById.status);
-    console.log(shouldExpand);
     this.state = {
       prById: props.prById,
       value: 0,
