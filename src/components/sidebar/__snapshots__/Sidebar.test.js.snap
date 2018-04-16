@@ -26,6 +26,11 @@ exports[`Sidebar should match snapshot 1`] = `
   >
     <div
       key="Dashboard"
+      style={
+        Object {
+          "backgroundColor": "#FFF",
+        }
+      }
     >
       <Link
         replace={false}
@@ -57,6 +62,11 @@ exports[`Sidebar should match snapshot 1`] = `
     </div>
     <div
       key="PR Übersicht"
+      style={
+        Object {
+          "backgroundColor": "#FFF",
+        }
+      }
     >
       <Link
         replace={false}
@@ -88,6 +98,11 @@ exports[`Sidebar should match snapshot 1`] = `
     </div>
     <div
       key="Mitarbeiter Übersicht"
+      style={
+        Object {
+          "backgroundColor": "#FFF",
+        }
+      }
     >
       <Link
         replace={false}
@@ -119,6 +134,11 @@ exports[`Sidebar should match snapshot 1`] = `
     </div>
     <div
       key="Eigene PRs"
+      style={
+        Object {
+          "backgroundColor": "#FFF",
+        }
+      }
     >
       <Link
         replace={false}
@@ -150,6 +170,11 @@ exports[`Sidebar should match snapshot 1`] = `
     </div>
     <div
       key="Logout"
+      style={
+        Object {
+          "backgroundColor": "#FFF",
+        }
+      }
     >
       <Link
         replace={false}
