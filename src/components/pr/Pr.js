@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
+import PrState from './PrState';
 
 const styles = theme => ({
   avatar: {
@@ -17,17 +18,20 @@ const styles = theme => ({
   container: {
     display: 'flex'
   },
+
   typography: {
     color: '#FFF',
     marginLeft: '30px',
     marginTop: '20px',
     fontSize: '15px'
   },
+
   detailPanel: {
     width: '100%',
     backgroundColor: theme.palette.primary['400'],
     marginTop: '0px'
   },
+
   tabsColor: {
     color: theme.palette.contrastText
   }
@@ -44,13 +48,15 @@ function TabContainer(props) {
 class Pr extends React.Component {
   constructor(props) {
     super(props);
+    let shouldExpand = this.returnExpandState(props.prById.status);
     this.state = {
       prById: props.prById,
-      value: 0
+      value: 0,
+      expanded: shouldExpand
     };
   }
 
-  translate = occasion => {
+  translateAnlass = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
         return 'Auf Nachfrage';
@@ -65,10 +71,22 @@ class Pr extends React.Component {
     }
   };
 
+  returnExpandState = status => {
+    switch (status) {
+      case 'PREPARATION':
+        return 'panel1';
+      case 'EXECUTION':
+        return 'panel2';
+      case 'POST_PROCESSING':
+        return 'panel3';
+      default:
+        return false;
+    }
+  };
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
-
   render() {
     const { classes, prById } = this.props;
     const { value } = this.state;
@@ -89,7 +107,7 @@ class Pr extends React.Component {
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
               ) : (
-                <div>{this.translate(prById.occasion)}</div>
+                <div>{this.translateAnlass(prById.occasion)}</div>
               )}
             </Typography>
           </div>
@@ -106,9 +124,7 @@ class Pr extends React.Component {
           </Tabs>
         </div>
 
-        {value === 0 && (
-          <TabContainer>Hier steht der Status des PRs</TabContainer>
-        )}
+        {value === 0 && <PrState expanded={this.state.expanded} />}
         {value === 1 && (
           <TabContainer>
             Hier steht das Anstellungsverhältnis des Mitarbeiters

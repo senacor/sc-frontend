@@ -46,8 +46,8 @@ exports[`Pr Component displays the pr 1`] = `
       />
     </WithStyles(Tabs)>
   </div>
-  <TabContainer>
-    Hier steht der Status des PRs
-  </TabContainer>
+  <WithStyles(PrState)
+    expanded={false}
+  />
 </div>
 `;
