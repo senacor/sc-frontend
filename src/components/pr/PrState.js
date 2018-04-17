@@ -51,13 +51,22 @@ class PrState extends React.Component {
     };
   }
 
+  handleChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
 
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'}>
+        <ExpansionPanel
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Vorbereitung</Typography>
             <Typography className={classes.secondaryHeading}>
@@ -87,7 +96,10 @@ class PrState extends React.Component {
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
-        <ExpansionPanel expanded={expanded === 'panel2'}>
+        <ExpansionPanel
+          expanded={expanded === 'panel2'}
+          onChange={this.handleChange('panel2')}
+        >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>In Durchführung</Typography>
             <Typography className={classes.secondaryHeading}>
@@ -99,7 +111,10 @@ class PrState extends React.Component {
             <Typography>Panel 2</Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'}>
+        <ExpansionPanel
+          expanded={expanded === 'panel3'}
+          onChange={this.handleChange('panel3')}
+        >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Nachbereitung</Typography>
             <Typography className={classes.secondaryHeading}>
