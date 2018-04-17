@@ -37,6 +37,7 @@ const App = () => (
     <Switch>
       <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
       <PrivateRoute exact path="/myPrs" component={PRListWithAppBar} />
+      <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <PrivateRoute path="/logout" component={Logout} />
