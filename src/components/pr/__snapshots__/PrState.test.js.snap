@@ -4,6 +4,7 @@ exports[`PrState Component displays the prStatus 1`] = `
 <div>
   <WithStyles(ExpansionPanel)
     expanded={false}
+    onChange={[Function]}
   >
     <WithStyles(ExpansionPanelSummary)
       expandIcon={<pure(ExpandMore) />}
@@ -66,6 +67,7 @@ exports[`PrState Component displays the prStatus 1`] = `
   </WithStyles(ExpansionPanel)>
   <WithStyles(ExpansionPanel)
     expanded={false}
+    onChange={[Function]}
   >
     <WithStyles(ExpansionPanelSummary)
       expandIcon={<pure(ExpandMore) />}
@@ -90,6 +92,7 @@ exports[`PrState Component displays the prStatus 1`] = `
   </WithStyles(ExpansionPanel)>
   <WithStyles(ExpansionPanel)
     expanded={false}
+    onChange={[Function]}
   >
     <WithStyles(ExpansionPanelSummary)
       expandIcon={<pure(ExpandMore) />}
