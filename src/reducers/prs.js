@@ -7,23 +7,25 @@ const prsList = (state = [], action) => {
     case 'ADD_PR_RESPONSE':
       return [...state, action.pr];
 
-    case 'ADD_SUPERVISOR':
+    case 'ADD_SUPERVISOR': {
+      function findPrIndex(pr) {
+        return pr.id === action.prId;
+      }
+      let index = state.findIndex(findPrIndex);
       return [
-        ...state.filter(pr => pr.id !== action.prId),
-
-        ...state.filter(pr => pr.id === action.prId).map(pr => ({
-          id: pr.id,
-          employee: pr.employee,
-          occasion: pr.occasion,
-          status: pr.status,
-          supervisor: pr.supervisor,
+        ...state.slice(0, index),
+        {
+          id: state[index].id,
+          employee: state[index].employee,
+          occasion: state[index].occasion,
+          status: state[index].status,
+          supervisor: state[index].supervisor,
           delegateSupervisor: action.supervisor,
-          deadline: pr.deadline
-        }))
-      ].sort(function(pr1, pr2) {
-        pr1.id < pr2.id;
-      });
-
+          deadline: state[index].deadline
+        },
+        ...state.slice(index + 1, state.length)
+      ];
+    }
     default:
       return state;
   }
