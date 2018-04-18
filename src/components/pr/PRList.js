@@ -176,7 +176,7 @@ export class PRList extends React.Component {
                     <Typography gutterBottom noWrap color="textSecondary">
                       {this.translateStatus(pr.status)}
                     </Typography>
-                    {pr.delegatedSupervisor === undefined ? (
+                    {!pr.delegatedSupervisor ? (
                       ''
                     ) : (
                       <div

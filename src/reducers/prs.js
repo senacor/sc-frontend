@@ -8,22 +8,13 @@ const prsList = (state = [], action) => {
       return [...state, action.pr];
 
     case 'ADD_SUPERVISOR': {
-      function findPrIndex(pr) {
-        return pr.id === action.prId;
-      }
-      let index = state.findIndex(findPrIndex);
+      let index = state.findIndex(pr => pr.id === action.prId);
+
       return [
         ...state.slice(0, index),
-        {
-          id: state[index].id,
-          employee: state[index].employee,
-          occasion: state[index].occasion,
-          status: state[index].status,
-          supervisor: state[index].supervisor,
-          delegatedSupervisor: action.delegatedSupervisor,
-          deadline: state[index].deadline,
-          _links: state[index]._links
-        },
+        Object.assign(state[index], {
+          delegatedSupervisor: action.delegatedSupervisor
+        }),
         ...state.slice(index + 1, state.length)
       ];
     }
