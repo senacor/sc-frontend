@@ -157,71 +157,69 @@ export class PRList extends React.Component {
         <div className={classes.container}>
           {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
             return (
-              <div key={pr.id}>
-                <Card className={classes.prs}>
-                  <CardMedia
-                    className={classes.media}
-                    image="/supervisor.jpg"
-                    title="Supervisor picture"
-                  />
-                  <CardContent className={classes.content}>
-                    <Typography variant="display1">{pr.employee}</Typography>
-                    <Typography variant="subheading" color="textSecondary">
-                      Performance Review
+              <Card className={classes.prs} key={pr.id}>
+                <CardMedia
+                  className={classes.media}
+                  image="/supervisor.jpg"
+                  title="Supervisor picture"
+                />
+                <CardContent className={classes.content}>
+                  <Typography variant="display1">{pr.employee}</Typography>
+                  <Typography variant="subheading" color="textSecondary">
+                    Performance Review
+                  </Typography>
+                  <Typography variant="subheading" color="textSecondary">
+                    {pr.deadline}
+                  </Typography>
+                  <div className={classes.controls}>
+                    <Icon className={classes.mediaIcon}>linear_scale</Icon>
+                    <Typography gutterBottom noWrap color="textSecondary">
+                      {this.translateStatus(pr.status)}
                     </Typography>
-                    <Typography variant="subheading" color="textSecondary">
-                      {pr.deadline}
-                    </Typography>
-                    <div className={classes.controls}>
-                      <Icon className={classes.mediaIcon}>linear_scale</Icon>
-                      <Typography gutterBottom noWrap color="textSecondary">
-                        {this.translateStatus(pr.status)}
-                      </Typography>
-                      {pr.delegateSupervisor === undefined ? (
-                        ''
-                      ) : (
-                        <div
-                          className={classes.additionalSupervisor}
-                          style={{ display: 'flex' }}
-                        >
-                          <Icon className={classes.mediaIcon}>face</Icon>
-                          <Typography gutterBottom noWrap color="textSecondary">
-                            dummy
-                          </Typography>
-                        </div>
-                      )}
-                    </div>
-                    <div className={classes.controls}>
-                      <Icon className={classes.mediaIcon}>event_note</Icon>
-                      <Typography gutterBottom noWrap color="textSecondary">
-                        Bogen ausfüllen
-                      </Typography>
-                    </div>
-                    <Divider />
-
-                    <div className={classes.controlButtons}>
-                      <Button
-                        color="primary"
-                        className={classes.button}
-                        onClick={() => {
-                          this.addNewSupervisor(pr.id);
-                        }}
+                    {pr.delegateSupervisor === undefined ? (
+                      ''
+                    ) : (
+                      <div
+                        className={classes.additionalSupervisor}
+                        style={{ display: 'flex' }}
                       >
-                        DELEGIEREN
-                      </Button>
+                        <Icon className={classes.mediaIcon}>face</Icon>
+                        <Typography gutterBottom noWrap color="textSecondary">
+                          dummy
+                        </Typography>
+                      </div>
+                    )}
+                  </div>
+                  <div className={classes.controls}>
+                    <Icon className={classes.mediaIcon}>event_note</Icon>
+                    <Typography gutterBottom noWrap color="textSecondary">
+                      Bogen ausfüllen
+                    </Typography>
+                  </div>
+                  <Divider />
 
-                      <Button color="primary" className={classes.button}>
-                        <Link
-                          to={`/prs/${pr.id}`}
-                          style={{ textDecoration: 'none' }}
-                        >
-                          DETAILS
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  <div className={classes.controlButtons}>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      onClick={() => {
+                        this.addNewSupervisor(pr.id);
+                      }}
+                    >
+                      DELEGIEREN
+                    </Button>
+
+                    <Button color="primary" className={classes.button}>
+                      <Link
+                        to={`/prs/${pr.id}`}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        DETAILS
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             );
           })}
         </div>
