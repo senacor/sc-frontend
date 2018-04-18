@@ -41,14 +41,13 @@ const styles = theme => ({
     paddingTop: 2 * theme.spacing.unit
   },
   mediaIcon: {
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit
+    paddingRight: theme.spacing.unit
   },
   controlButtons: {
-    paddingLeft: 5 * theme.spacing.unit
+    paddingLeft: theme.spacing.unit
   },
   additionalSupervisor: {
-    paddingLeft: 4 * theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
     display: 'none'
   }
 });
@@ -57,8 +56,7 @@ export class PRList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prs: props.prs,
-      delegatedSupervisors: props.delegatedSupervisors
+      prs: props.prs
     };
   }
 
@@ -110,7 +108,7 @@ export class PRList extends React.Component {
   };
 
   render() {
-    const { classes, prs, delegatedSupervisors } = this.props;
+    const { classes, prs } = this.props;
     return (
       <div>
         <Typography variant="display1" paragraph>
@@ -138,8 +136,6 @@ export class PRList extends React.Component {
           </Button>
         </Hidden>
         {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
-          let dS = delegatedSupervisors.filter(e => e.prId === pr.id);
-
           return (
             <div key={pr.id}>
               <Card className={classes.prs}>
@@ -161,7 +157,7 @@ export class PRList extends React.Component {
                     <Typography gutterBottom noWrap color="textSecondary">
                       {this.translateStatus(pr.status)}
                     </Typography>
-                    {dS.length === 0 ? (
+                    {pr.delegateSupervisor === undefined ? (
                       ''
                     ) : (
                       <div
@@ -215,8 +211,7 @@ export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.isLoading,
-    delegatedSupervisors: state.supervisors.delegatedSupervisorsList
+    isLoading: state.isLoading
   }),
   {
     fetchPrs: actions.fetchPrs,
