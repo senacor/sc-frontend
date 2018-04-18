@@ -75,42 +75,23 @@ describe('prs reducer', () => {
 
     const actionAddingDelegatedSupervisor = {
       type: 'ADD_SUPERVISOR',
-      supervisor: 'dummy',
+      delegatedSupervisor: 'dummy',
       prId: 2
     };
 
     const stateAfter = prs(stateBefore, actionAddingDelegatedSupervisor);
 
-    expect(stateAfter).toEqual({
+    const expectedOutput = {
       prsList: [
-        {
-          _links: { self: { href: 'http://localhost:8010/api/v1/prs/1' } },
-          deadline: '2019-03-14',
-          employee: 'emp1',
-          id: 1,
-          occasion: 'ON_DEMAND',
-          status: 'PREPARATION',
-          supervisor: 'fukara'
-        },
-        {
-          deadline: '2018-03-14',
-          delegateSupervisor: 'dummy',
-          employee: 'emp2',
-          id: 2,
-          occasion: 'ON_DEMAND',
-          status: 'PREPARATION',
-          supervisor: 'fukara'
-        },
-        {
-          _links: { self: { href: 'http://localhost:8010/api/v1/prs/3' } },
-          deadline: '2020-03-14',
-          employee: 'emp3',
-          id: 3,
-          occasion: 'ON_DEMAND',
-          status: 'PREPARATION',
-          supervisor: 'fukara'
-        }
+        stateBefore.prsList[0],
+
+        Object.assign(stateBefore.prsList[1], {
+          delegatedSupervisor: 'dummy'
+        }),
+        stateBefore.prsList[2]
       ]
-    });
+    };
+
+    expect(stateAfter).toEqual(expectedOutput);
   });
 });

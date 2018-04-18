@@ -20,8 +20,9 @@ const prsList = (state = [], action) => {
           occasion: state[index].occasion,
           status: state[index].status,
           supervisor: state[index].supervisor,
-          delegateSupervisor: action.supervisor,
-          deadline: state[index].deadline
+          delegatedSupervisor: action.delegatedSupervisor,
+          deadline: state[index].deadline,
+          _links: state[index]._links
         },
         ...state.slice(index + 1, state.length)
       ];

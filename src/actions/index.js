@@ -147,7 +147,7 @@ export const logout = () => async dispatch => {
 export const addSupervisor = prId => async dispatch => {
   dispatch({
     type: 'ADD_SUPERVISOR',
-    supervisor: 'dummy',
+    delegatedSupervisor: 'dummy',
     prId: prId
   });
 };
