@@ -3,18 +3,29 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader } from 'material-ui/Card';
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import Hidden from 'material-ui/Hidden';
 import AddIcon from 'material-ui-icons/Add';
 import { Link } from 'react-router-dom';
+import Divider from 'material-ui/Divider';
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexFlow: 'row wrap'
+  },
 
-const styles = () => ({
   prs: {
-    marginBottom: '10px'
+    marginBottom: '20px',
+    display: 'flex',
+    width: '368px',
+    [theme.breakpoints.up('md')]: {
+      marginRight: '30px',
+      width: '410px'
+    },
+    maxHeight: 220
   },
   buttonMobile: {
     position: 'fixed',
@@ -30,6 +41,33 @@ const styles = () => ({
     position: 'relative',
     marginRight: '1%',
     marginLeft: '80%'
+  },
+  media: {
+    height: 220,
+    width: 150,
+    [theme.breakpoints.down('md')]: {
+      width: 130
+    }
+  },
+  controls: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: theme.spacing.unit
+  },
+  mediaIcon: {
+    paddingRight: theme.spacing.unit
+  },
+  button: {
+    padding: '0px 0px'
+  },
+
+  additionalSupervisor: {
+    paddingLeft: theme.spacing.unit,
+    display: 'none'
+  },
+  content: {
+    paddingLeft: '10px',
+    paddingRight: '10px'
   }
 });
 
@@ -40,6 +78,22 @@ export class PRList extends React.Component {
       prs: props.prs
     };
   }
+
+  translateStatus = status => {
+    switch (status) {
+      case 'PREPARATION':
+        return 'In Vorbereitung';
+      case 'EXECUTION':
+        return 'In Durchführung';
+      case 'POST_PROCESSING':
+        return 'Nachbearbeitung';
+      case 'DONE':
+        return 'Fertig';
+      default:
+        return 'In Vorbereitung';
+    }
+  };
+
   translate = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
@@ -66,6 +120,10 @@ export class PRList extends React.Component {
       prs: tempArray
     });
     this.props.addPr();
+  };
+
+  addNewSupervisor = prId => {
+    this.props.addSupervisor(prId);
   };
 
   render() {
@@ -96,31 +154,75 @@ export class PRList extends React.Component {
             <AddIcon className={classes.icon} />
           </Button>
         </Hidden>
-        {prs.map(pr => {
-          return (
-            <div key={pr.id}>
-              <Link to={`/prs/${pr.id}`} style={{ textDecoration: 'none' }}>
-                <Card className={classes.prs}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        src="/supervisor.jpg"
-                        className={classes.avatar}
-                      />
-                    }
-                    title={<div>Performance Review</div>}
-                    subheader={
-                      <div>
-                        <div>{`${this.translate(pr.occasion)}`}</div>
-                        <div>{`Beurteiler: ${pr.supervisor}`}</div>
+        <div className={classes.container}>
+          {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
+            return (
+              <Card className={classes.prs} key={pr.id}>
+                <CardMedia
+                  className={classes.media}
+                  image="/supervisor.jpg"
+                  title="Supervisor picture"
+                />
+                <CardContent className={classes.content}>
+                  <Typography variant="display1">{pr.employee}</Typography>
+                  <Typography variant="subheading" color="textSecondary">
+                    Performance Review
+                  </Typography>
+                  <Typography variant="subheading" color="textSecondary">
+                    {pr.deadline}
+                  </Typography>
+                  <div className={classes.controls}>
+                    <Icon className={classes.mediaIcon}>linear_scale</Icon>
+                    <Typography gutterBottom noWrap color="textSecondary">
+                      {this.translateStatus(pr.status)}
+                    </Typography>
+                    {!pr.delegatedSupervisor ? (
+                      ''
+                    ) : (
+                      <div
+                        className={classes.additionalSupervisor}
+                        style={{ display: 'flex' }}
+                      >
+                        <Icon className={classes.mediaIcon}>face</Icon>
+                        <Typography gutterBottom noWrap color="textSecondary">
+                          dummy
+                        </Typography>
                       </div>
-                    }
-                  />
-                </Card>
-              </Link>
-            </div>
-          );
-        })}
+                    )}
+                  </div>
+                  <div className={classes.controls}>
+                    <Icon className={classes.mediaIcon}>event_note</Icon>
+                    <Typography gutterBottom noWrap color="textSecondary">
+                      Bogen ausfüllen
+                    </Typography>
+                  </div>
+                  <Divider />
+
+                  <div className={classes.controlButtons}>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      onClick={() => {
+                        this.addNewSupervisor(pr.id);
+                      }}
+                    >
+                      DELEGIEREN
+                    </Button>
+
+                    <Button color="primary" className={classes.button}>
+                      <Link
+                        to={`/prs/${pr.id}`}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        DETAILS
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -134,6 +236,7 @@ export default connect(
   }),
   {
     fetchPrs: actions.fetchPrs,
-    addPr: actions.addPr
+    addPr: actions.addPr,
+    addSupervisor: actions.addSupervisor
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));

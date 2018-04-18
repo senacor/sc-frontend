@@ -22,7 +22,7 @@ exports[`PRList Component displays the list of prs 1`] = `
     xsUp={false}
   >
     <WithStyles(Button)
-      className="PRList-buttonDesktop-4"
+      className="PRList-buttonDesktop-5"
       color="primary"
       onClick={[Function]}
     >
@@ -47,99 +47,107 @@ exports[`PRList Component displays the list of prs 1`] = `
   >
     <WithStyles(Button)
       aria-label="add"
-      className="PRList-buttonMobile-2"
+      className="PRList-buttonMobile-3"
       color="primary"
       onClick={[Function]}
       variant="fab"
     >
       <pure(Add)
-        className="PRList-icon-3"
+        className="PRList-icon-4"
       />
     </WithStyles(Button)>
   </Hidden>
   <div
-    key="1"
+    className="PRList-container-1"
   >
-    <Link
-      replace={false}
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/prs/1"
+    <Card
+      className="PRList-prs-2"
+      key="1"
+      raised={false}
     >
-      <Card
-        className="PRList-prs-1"
-        raised={false}
+      <WithStyles(CardMedia)
+        className="PRList-media-6"
+        image="/supervisor.jpg"
+        title="Supervisor picture"
+      />
+      <WithStyles(CardContent)
+        className="PRList-content-11"
       >
-        <WithStyles(CardHeader)
-          avatar={
-            <WithStyles(Avatar)
-              className={undefined}
-              src="/supervisor.jpg"
-            />
-          }
-          subheader={
-            <div>
-              <div>
-                Auf Nachfrage
-              </div>
-              <div>
-                Beurteiler: ttran
-              </div>
-            </div>
-          }
-          title={
-            <div>
-              Performance Review
-            </div>
-          }
+        <WithStyles(Typography)
+          variant="display1"
+        >
+          Employee1
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+          variant="subheading"
+        >
+          Performance Review
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+          variant="subheading"
         />
-      </Card>
-    </Link>
-  </div>
-  <div
-    key="2"
-  >
-    <Link
-      replace={false}
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/prs/2"
-    >
-      <Card
-        className="PRList-prs-1"
-        raised={false}
-      >
-        <WithStyles(CardHeader)
-          avatar={
-            <WithStyles(Avatar)
-              className={undefined}
-              src="/supervisor.jpg"
-            />
-          }
-          subheader={
-            <div>
-              <div>
-                Auf Nachfrage
-              </div>
-              <div>
-                Beurteiler: ttran
-              </div>
-            </div>
-          }
-          title={
-            <div>
-              Performance Review
-            </div>
-          }
-        />
-      </Card>
-    </Link>
+        <div
+          className="PRList-controls-7"
+        >
+          <WithStyles(Icon)
+            className="PRList-mediaIcon-8"
+          >
+            linear_scale
+          </WithStyles(Icon)>
+          <WithStyles(Typography)
+            color="textSecondary"
+            gutterBottom={true}
+            noWrap={true}
+          >
+            In Vorbereitung
+          </WithStyles(Typography)>
+        </div>
+        <div
+          className="PRList-controls-7"
+        >
+          <WithStyles(Icon)
+            className="PRList-mediaIcon-8"
+          >
+            event_note
+          </WithStyles(Icon)>
+          <WithStyles(Typography)
+            color="textSecondary"
+            gutterBottom={true}
+            noWrap={true}
+          >
+            Bogen ausfüllen
+          </WithStyles(Typography)>
+        </div>
+        <WithStyles(Divider) />
+        <div>
+          <WithStyles(Button)
+            className="PRList-button-9"
+            color="primary"
+            onClick={[Function]}
+          >
+            DELEGIEREN
+          </WithStyles(Button)>
+          <WithStyles(Button)
+            className="PRList-button-9"
+            color="primary"
+          >
+            <Link
+              replace={false}
+              style={
+                Object {
+                  "textDecoration": "none",
+                }
+              }
+              to="/prs/1"
+            >
+              DETAILS
+            </Link>
+          </WithStyles(Button)>
+        </div>
+      </WithStyles(CardContent)>
+    </Card>
   </div>
 </div>
 `;

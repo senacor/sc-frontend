@@ -10,7 +10,7 @@ describe('PRList Component', () => {
       id: 1,
       employee: 'Employee1',
       occasion: 'ON_DEMAND',
-      supervisor: 'ttran',
+      supervisor: 'fukara',
       _links: {
         self: {
           href: '/api/v1/prs/1'
@@ -29,15 +29,21 @@ describe('PRList Component', () => {
       }
     }
   ];
+
+  const delegatedSupervisors = [];
   it('displays the list of prs', () => {
-    const component = shallow(<StyledComponent prs={prs} />);
+    const component = shallow(
+      <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
+    );
 
     expect(component).toMatchSnapshot();
   });
 
-  it('should contain two prs', () => {
-    const element = shallow(<StyledComponent prs={prs} />);
+  it('should contain one prs', () => {
+    const element = shallow(
+      <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
+    );
 
-    expect(element.find('Card')).toHaveLength(2);
+    expect(element.find('Card')).toHaveLength(1);
   });
 });
