@@ -62,7 +62,7 @@ exports[`PRList Component displays the list of prs 1`] = `
   >
     <Card
       className="PRList-prs-2"
-      key="1"
+      key="2"
       raised={false}
     >
       <WithStyles(CardMedia)
@@ -76,7 +76,7 @@ exports[`PRList Component displays the list of prs 1`] = `
         <WithStyles(Typography)
           variant="display1"
         >
-          Employee1
+          Employee2
         </WithStyles(Typography)>
         <WithStyles(Typography)
           color="textSecondary"
@@ -140,7 +140,7 @@ exports[`PRList Component displays the list of prs 1`] = `
                   "textDecoration": "none",
                 }
               }
-              to="/prs/1"
+              to="/prs/2"
             >
               DETAILS
             </Link>

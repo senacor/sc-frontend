@@ -155,7 +155,7 @@ export class PRList extends React.Component {
           </Button>
         </Hidden>
         <div className={classes.container}>
-          {prs.filter(pr => pr.supervisor === 'fukara').map(pr => {
+          {prs.filter(pr => pr.supervisor === 'ttran').map(pr => {
             return (
               <Card className={classes.prs} key={pr.id}>
                 <CardMedia
