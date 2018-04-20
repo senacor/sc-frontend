@@ -22,8 +22,10 @@ const styles = theme => ({
     display: 'flex',
     width: '368px',
     [theme.breakpoints.up('md')]: {
-      marginRight: '30px',
-      width: '410px'
+      marginRight: '1.7%',
+      marginLeft: '1.7%',
+      width: '29.93%',
+      maxWidth: '450px'
     },
     maxHeight: 220
   },
