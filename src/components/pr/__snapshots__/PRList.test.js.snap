@@ -75,9 +75,7 @@ exports[`PRList Component displays the list of prs 1`] = `
       >
         <WithStyles(Typography)
           variant="display1"
-        >
-          Employee2
-        </WithStyles(Typography)>
+        />
         <WithStyles(Typography)
           color="textSecondary"
           variant="subheading"

@@ -21,7 +21,7 @@ exports[`Pr Component displays the pr 1`] = `
           Performance Review
         </div>
         <div>
-          Employee1
+           
         </div>
         <div>
           Auf Nachfrage
@@ -129,7 +129,21 @@ exports[`Pr Component displays the pr 1`] = `
       <div
         className="Pr-prTabs-9"
       >
-        <PrSalary />
+        <WithStyles(PrSalary)
+          prById={
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "/api/v1/prs/1",
+                },
+              },
+              "employee": "Employee1",
+              "id": 1,
+              "occasion": "ON_DEMAND",
+              "supervisor": "ttran",
+            }
+          }
+        />
       </div>
     </div>
   </Hidden>

@@ -73,10 +73,11 @@ function TabContainer(props) {
   );
 }
 
-class Pr extends React.Component {
+export class Pr extends React.Component {
   constructor(props) {
     super(props);
     let shouldExpand = this.returnExpandState(props.prById.status);
+
     this.state = {
       prById: props.prById,
       value: 0,
@@ -118,7 +119,6 @@ class Pr extends React.Component {
   render() {
     const { classes, prById } = this.props;
     const { value } = this.state;
-
     return (
       <div>
         <div className={classes.detailPanel}>
@@ -130,7 +130,7 @@ class Pr extends React.Component {
             />
             <Typography className={classes.typography} component="div">
               <div>Performance Review</div>
-              <div>{prById.employee}</div>
+              <div> {prById.status}</div>
 
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
@@ -159,11 +159,7 @@ class Pr extends React.Component {
               Hier steht das Anstellungsverhältnis des Mitarbeiters
             </TabContainer>
           )}
-          {value === 2 && (
-            <TabContainer>
-              Hier steht die Gehaltshistorie des Mitarbeiters
-            </TabContainer>
-          )}
+          {value === 2 && <PrSalary prById={this.state.prById} />}
         </Hidden>
         <Hidden smDown>
           <div className={classes.containerTabs}>
@@ -178,11 +174,11 @@ class Pr extends React.Component {
               <PrState expanded={this.state.expanded} />
             </div>
             <div className={classes.prTabs}>
-              <PrSalary />
+              <PrEmployment />
             </div>
 
             <div className={classes.prTabs}>
-              <PrEmployment />
+              <PrSalary prById={this.state.prById} />
             </div>
           </div>
         </Hidden>

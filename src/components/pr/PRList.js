@@ -166,7 +166,9 @@ export class PRList extends React.Component {
                   title="Supervisor picture"
                 />
                 <CardContent className={classes.content}>
-                  <Typography variant="display1">{pr.employee}</Typography>
+                  <Typography variant="display1">
+                    {pr.employee.firstName}
+                  </Typography>
                   <Typography variant="subheading" color="textSecondary">
                     Performance Review
                   </Typography>
