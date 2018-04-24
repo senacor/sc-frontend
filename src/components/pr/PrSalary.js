@@ -7,6 +7,9 @@ import Table, {
   TableRow
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import Icon from 'material-ui/Icon';
+import Typography from 'material-ui/Typography';
+
 import { withStyles } from 'material-ui/styles/index';
 
 const styles = theme => ({
@@ -43,7 +46,7 @@ class PrSalary extends React.Component {
               <TableRow>
                 <TableCell>Gehalt seit: </TableCell>
                 <TableCell>OTE:</TableCell>
-                <TableCell>FTE:</TableCell>
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -58,7 +61,16 @@ class PrSalary extends React.Component {
                   >
                     <TableCell>{salary.validFrom}</TableCell>
                     <TableCell>{salary.ote}</TableCell>
-                    <TableCell>{salary.fte}</TableCell>
+                    <TableCell>
+                      {salary.fte === 1 ? (
+                        ''
+                      ) : (
+                        <Typography>
+                          <Icon>priority_high</Icon>
+                          {`fte = ${salary.fte}`}
+                        </Typography>
+                      )}
+                    </TableCell>
                   </TableRow>
                 );
               })}
