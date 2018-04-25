@@ -13,14 +13,6 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles/index';
 
 const styles = theme => ({
-  root: {
-    width: '98%',
-    marginTop: theme.spacing.unit,
-    overflowX: 'auto'
-  },
-  table: {
-    width: '100%'
-  },
   tableRow: {
     backgroundColor: theme.palette.primary['50']
   }
@@ -40,8 +32,8 @@ class PrSalary extends React.Component {
 
     return (
       <div>
-        <Paper className={classes.root}>
-          <Table className={classes.table}>
+        <Paper>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell>Gehalt seit: </TableCell>

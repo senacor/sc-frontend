@@ -8,8 +8,11 @@ import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
 import PrState from './PrState';
 import PrSalary from './PrSalary';
+import PrSheet from './PrSheet';
 import PrEmployment from './PrEmployment';
 import Hidden from 'material-ui/Hidden';
+
+import Card, { CardHeader } from 'material-ui/Card';
 
 const styles = theme => ({
   avatar: {
@@ -21,12 +24,8 @@ const styles = theme => ({
   container: {
     display: 'flex'
   },
-
-  typography: {
-    color: '#FFF',
-    marginLeft: '30px',
-    marginTop: '20px',
-    fontSize: '15px'
+  card: {
+    width: '27%'
   },
   typographyTabs: {
     color: '#FFF',
@@ -36,42 +35,46 @@ const styles = theme => ({
     marginLeft: '15%'
   },
 
-  detailPanel: {
-    width: '100%',
-    backgroundColor: theme.palette.primary['400'],
-    marginTop: '0px'
+  typography: {
+    color: theme.palette.primary['800'],
+    marginLeft: '30px',
+    marginTop: '20px',
+    fontSize: '15px'
   },
-
   tabsColor: {
     color: theme.palette.contrastText
   },
+  detailPanel: {
+    width: '100%',
+    backgroundColor: theme.palette.primary['100'],
+    marginTop: '0px'
+  },
+
   label: {
     width: '33.3%'
   },
-  containerTabs: {
-    display: 'flex',
 
-    width: '100%',
-    backgroundColor: theme.palette.primary['400'],
-    paddingBottom: '10px'
-  },
-  prTabs: {
-    width: '33.3%'
-  },
-  prDetailsWholeView: {
+  cardContainerRow: {
     display: 'flex',
+    paddingTop: '1.5%',
+    justifyContent: 'space-around'
+  },
+  cardContainerColumn: {
+    display: 'flex',
+    paddingTop: '1.5%',
+    flexDirection: 'column',
+    height: '40%'
+  },
 
-    width: '100%'
+  cardColumn: {
+    width: '93.7%',
+    alignSelf: 'center'
+  },
+
+  cardHeader: {
+    backgroundColor: theme.palette.primary['100']
   }
 });
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
 
 export class Pr extends React.Component {
   constructor(props) {
@@ -145,41 +148,43 @@ export class Pr extends React.Component {
               onChange={this.handleChange}
               indicatorColor="#FFA07A"
               className={classes.tabsColor}
+              scrollable
+              scrollButtons="auto"
             >
               <Tab className={classes.label} label="STATUS" />
               <Tab className={classes.label} label="ANSTELLUNG" />
               <Tab className={classes.label} label="GEHALT" />
+              <Tab className={classes.label} label="SHEET" />
             </Tabs>
           </Hidden>
         </div>
         <Hidden smUp>
           {value === 0 && <PrState expanded={this.state.expanded} />}
-          {value === 1 && (
-            <TabContainer>
-              Hier steht das Anstellungsverhältnis des Mitarbeiters
-            </TabContainer>
-          )}
+          {value === 1 && <PrEmployment />}
           {value === 2 && <PrSalary prById={this.state.prById} />}
+          {value === 3 && <PrSheet />}
         </Hidden>
         <Hidden smDown>
-          <div className={classes.containerTabs}>
-            <Typography className={classes.typographyTabs}>STATUS</Typography>
-            <Typography className={classes.typographyTabs}>
-              ANSTELLUNG
-            </Typography>
-            <Typography className={classes.typographyTabs}>GEHALT</Typography>
-          </div>
-          <div className={classes.prDetailsWholeView}>
-            <div className={classes.prTabs}>
+          <div className={classes.cardContainerRow}>
+            <Card className={classes.card}>
+              <CardHeader title="STATUS" className={classes.cardHeader} />
               <PrState expanded={this.state.expanded} />
-            </div>
-            <div className={classes.prTabs}>
+            </Card>
+            <Card className={classes.card}>
+              <CardHeader title="ANSTELLUNG" className={classes.cardHeader} />
               <PrEmployment />
-            </div>
-
-            <div className={classes.prTabs}>
+            </Card>
+            <Card className={classes.card}>
+              <CardHeader title="GEHALT" className={classes.cardHeader} />
               <PrSalary prById={this.state.prById} />
-            </div>
+            </Card>
+          </div>
+
+          <div className={classes.cardContainerColumn}>
+            <Card className={classes.cardColumn}>
+              <CardHeader title="SHEET" className={classes.cardHeader} />
+              <PrSheet />
+            </Card>
           </div>
         </Hidden>
       </div>
