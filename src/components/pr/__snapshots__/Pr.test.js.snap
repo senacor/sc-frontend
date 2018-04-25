@@ -3,7 +3,7 @@
 exports[`Pr Component displays the pr 1`] = `
 <div>
   <div
-    className="Pr-detailPanel-4"
+    className="Pr-detailPanel-5"
   >
     <div
       className="Pr-container-2"
@@ -21,33 +21,131 @@ exports[`Pr Component displays the pr 1`] = `
           Performance Review
         </div>
         <div>
-          Employee1
+           
         </div>
         <div>
           Auf Nachfrage
         </div>
       </WithStyles(Typography)>
     </div>
-    <WithStyles(Tabs)
-      className="Pr-tabsColor-5"
-      fullWidth={true}
-      indicatorColor="#FFA07A"
-      onChange={[Function]}
-      value={0}
+    <Hidden
+      implementation="js"
+      lgDown={false}
+      lgUp={false}
+      mdDown={false}
+      mdUp={false}
+      smDown={false}
+      smUp={true}
+      xlDown={false}
+      xlUp={false}
+      xsDown={false}
+      xsUp={false}
     >
-      <WithStyles(Tab)
-        label="STATUS"
-      />
-      <WithStyles(Tab)
-        label="ANSTELLUNG"
-      />
-      <WithStyles(Tab)
-        label="GEHALT"
-      />
-    </WithStyles(Tabs)>
+      <WithStyles(Tabs)
+        className="Pr-tabsColor-6"
+        indicatorColor="#FFA07A"
+        onChange={[Function]}
+        value={0}
+      >
+        <WithStyles(Tab)
+          className="Pr-label-7"
+          label="STATUS"
+        />
+        <WithStyles(Tab)
+          className="Pr-label-7"
+          label="ANSTELLUNG"
+        />
+        <WithStyles(Tab)
+          className="Pr-label-7"
+          label="GEHALT"
+        />
+      </WithStyles(Tabs)>
+    </Hidden>
   </div>
-  <WithStyles(PrState)
-    expanded={false}
-  />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={false}
+    smUp={true}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(PrState)
+      expanded={false}
+    />
+  </Hidden>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={true}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <div
+      className="Pr-containerTabs-8"
+    >
+      <WithStyles(Typography)
+        className="Pr-typographyTabs-4"
+      >
+        STATUS
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        className="Pr-typographyTabs-4"
+      >
+        ANSTELLUNG
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        className="Pr-typographyTabs-4"
+      >
+        GEHALT
+      </WithStyles(Typography)>
+    </div>
+    <div
+      className="Pr-prDetailsWholeView-10"
+    >
+      <div
+        className="Pr-prTabs-9"
+      >
+        <WithStyles(PrState)
+          expanded={false}
+        />
+      </div>
+      <div
+        className="Pr-prTabs-9"
+      >
+        <PrSalary />
+      </div>
+      <div
+        className="Pr-prTabs-9"
+      >
+        <WithStyles(PrSalary)
+          prById={
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "/api/v1/prs/1",
+                },
+              },
+              "employee": "Employee1",
+              "id": 1,
+              "occasion": "ON_DEMAND",
+              "supervisor": "ttran",
+            }
+          }
+        />
+      </div>
+    </div>
+  </Hidden>
 </div>
 `;

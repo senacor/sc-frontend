@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 
   greyBox: {
-    backgroundColor: '#DDD',
+    backgroundColor: theme.palette.primary['50'],
     width: '100%'
   },
   typography: {
@@ -34,7 +34,7 @@ const styles = theme => ({
 
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
+    flexBasis: '40%',
     flexShrink: 0
   },
   secondaryHeading: {

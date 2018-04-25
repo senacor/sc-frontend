@@ -91,7 +91,8 @@ export const addPr = () => async dispatch => {
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
         supervisor: 'ttran',
-        employee: 'ezugor'
+        deadline: '2018-03-14',
+        employeeId: 1
       })
     }
   );
