@@ -12,7 +12,7 @@ import PrSheet from './PrSheet';
 import PrEmployment from './PrEmployment';
 import Hidden from 'material-ui/Hidden';
 
-import Card, { CardHeader } from 'material-ui/Card';
+import Card from 'material-ui/Card';
 
 const styles = theme => ({
   avatar: {
@@ -86,7 +86,11 @@ const styles = theme => ({
     backgroundColor: 'inherit'
   },
   title: {
-    backgroundColor: theme.palette.primary['100']
+    backgroundColor: theme.palette.primary['300'],
+    color: '#FFF',
+    height: '40px',
+    textAlign: 'center',
+    paddingTop: '15px'
   }
 });
 
@@ -179,20 +183,24 @@ export class Pr extends React.Component {
         <Hidden smDown>
           <div className={classes.cardContainerRow}>
             <Card className={classes.cardColumnSheet}>
-              <CardHeader title="Sheet" className={classes.title} />
+              <Typography variant="body2" className={classes.title}>
+                SHEET
+              </Typography>
               <PrSheet />
             </Card>
 
             <Card className={classes.cardColumn}>
-              <CardHeader title="Status" className={classes.title} />
+              <Typography variant="body2" className={classes.title}>
+                STATUS
+              </Typography>
               <PrState expanded={this.state.expanded} />
             </Card>
 
             <Card className={classes.cardColumn}>
-              <CardHeader
-                title="Anstellung und Gehalt"
-                className={classes.title}
-              />
+              <Typography variant="body2" className={classes.title}>
+                GEHALT UND ANSTELLUNG
+              </Typography>
+
               <PrSalary prById={this.state.prById} />
             </Card>
           </div>

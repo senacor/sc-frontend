@@ -43,7 +43,8 @@ const styles = theme => ({
     marginRight: '1%',
     marginLeft: '80%',
     backgroundColor: theme.palette.primary['300'],
-    color: '#FFF'
+    color: '#FFF',
+    marginBottom: '2%'
   },
   media: {
     height: '100%',
