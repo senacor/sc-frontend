@@ -20,14 +20,13 @@ const styles = theme => ({
   prs: {
     marginBottom: '20px',
     display: 'flex',
-    width: '368px',
+    width: '361px',
     [theme.breakpoints.up('md')]: {
       marginRight: '1.7%',
       marginLeft: '1.7%',
       width: '29.93%',
       maxWidth: '450px'
-    },
-    maxHeight: 220
+    }
   },
   buttonMobile: {
     position: 'fixed',
@@ -42,11 +41,13 @@ const styles = theme => ({
   buttonDesktop: {
     position: 'relative',
     marginRight: '1%',
-    marginLeft: '80%'
+    marginLeft: '80%',
+    backgroundColor: theme.palette.primary['300'],
+    color: '#FFF'
   },
   media: {
-    height: 220,
-    width: 150,
+    height: '100%',
+    width: '40%',
     [theme.breakpoints.down('md')]: {
       width: 130
     }
@@ -96,21 +97,6 @@ export class PRList extends React.Component {
     }
   };
 
-  translate = occasion => {
-    switch (occasion) {
-      case 'ON_DEMAND':
-        return 'Auf Nachfrage';
-      case 'YEARLY':
-        return 'jährlich';
-      case 'QUARTERLY':
-        return 'vierteljährlich';
-      case 'END_PROBATION':
-        return 'Ende der Probezeit';
-      default:
-        return 'Auf Nachfrage';
-    }
-  };
-
   handleClick = () => {
     let tempArray = [];
 
@@ -138,7 +124,7 @@ export class PRList extends React.Component {
         <Hidden smDown>
           <Button
             className={classes.buttonDesktop}
-            color="primary"
+            variant="raised"
             onClick={this.handleClick}
           >
             PR beantragen

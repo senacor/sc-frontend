@@ -16,16 +16,14 @@ import Card, { CardHeader } from 'material-ui/Card';
 
 const styles = theme => ({
   avatar: {
-    marginLeft: '20px',
-    marginTop: '20px',
-    height: '50px',
-    width: '50px'
+    marginLeft: '30px',
+    marginTop: '15px',
+    marginBottom: '15px',
+    height: '70px',
+    width: '70px'
   },
   container: {
     display: 'flex'
-  },
-  card: {
-    width: '27%'
   },
   typographyTabs: {
     color: '#FFF',
@@ -36,9 +34,9 @@ const styles = theme => ({
   },
 
   typography: {
-    color: theme.palette.primary['800'],
+    color: theme.palette.primary['600'],
     marginLeft: '30px',
-    marginTop: '20px',
+    marginTop: '30px',
     fontSize: '15px'
   },
   tabsColor: {
@@ -51,26 +49,42 @@ const styles = theme => ({
   },
 
   label: {
-    width: '33.3%'
+    width: '37%'
   },
 
+  cardContainerColumn: {
+    display: 'flex',
+    paddingLeft: '1.5%',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
   cardContainerRow: {
     display: 'flex',
     paddingTop: '1.5%',
+    flexDirection: 'row',
+    height: '500px',
+    width: '100%',
     justifyContent: 'space-around'
   },
-  cardContainerColumn: {
-    display: 'flex',
-    paddingTop: '1.5%',
-    flexDirection: 'column',
-    height: '40%'
+
+  cardColumnSheet: {
+    width: '65%',
+    alignSelf: 'center',
+    height: '100%',
+    marginLeft: '1.5%',
+    marginRight: '1.5%'
   },
 
   cardColumn: {
-    width: '93.7%',
-    alignSelf: 'center'
+    width: '35%',
+    alignSelf: 'center',
+    height: '100%',
+    marginLeft: '1.5%',
+    marginRight: '1.5%',
+    boxShadow:
+      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
+    backgroundColor: 'inherit'
   },
-
   cardHeader: {
     backgroundColor: theme.palette.primary['100']
   }
@@ -120,7 +134,7 @@ export class Pr extends React.Component {
     this.setState({ value });
   };
   render() {
-    const { classes, prById } = this.props;
+    const { prById, classes } = this.props;
     const { value } = this.state;
     return (
       <div>
@@ -132,9 +146,7 @@ export class Pr extends React.Component {
               src="/supervisor.jpg"
             />
             <Typography className={classes.typography} component="div">
-              <div>Performance Review</div>
-              <div> {prById.status}</div>
-
+              <div>PERFORMANCE REVIEW</div>
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
               ) : (
@@ -166,24 +178,22 @@ export class Pr extends React.Component {
         </Hidden>
         <Hidden smDown>
           <div className={classes.cardContainerRow}>
-            <Card className={classes.card}>
-              <CardHeader title="STATUS" className={classes.cardHeader} />
+            <Card className={classes.cardColumnSheet}>
+              <CardHeader title="Sheet" className={classes.cardHeader} />
+              <PrSheet />
+            </Card>
+
+            <Card className={classes.cardColumn}>
+              <CardHeader title="Status" className={classes.cardHeader} />
               <PrState expanded={this.state.expanded} />
             </Card>
-            <Card className={classes.card}>
-              <CardHeader title="ANSTELLUNG" className={classes.cardHeader} />
-              <PrEmployment />
-            </Card>
-            <Card className={classes.card}>
-              <CardHeader title="GEHALT" className={classes.cardHeader} />
-              <PrSalary prById={this.state.prById} />
-            </Card>
-          </div>
 
-          <div className={classes.cardContainerColumn}>
             <Card className={classes.cardColumn}>
-              <CardHeader title="SHEET" className={classes.cardHeader} />
-              <PrSheet />
+              <CardHeader
+                title="Anstellung und Gehalt"
+                className={classes.cardHeader}
+              />
+              <PrSalary prById={this.state.prById} />
             </Card>
           </div>
         </Hidden>
