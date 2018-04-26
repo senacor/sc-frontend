@@ -34,7 +34,7 @@ const styles = theme => ({
   },
 
   typography: {
-    color: theme.palette.primary['600'],
+    color: '#FFF',
     marginLeft: '30px',
     marginTop: '30px',
     fontSize: '15px'
@@ -85,7 +85,7 @@ const styles = theme => ({
       '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
     backgroundColor: 'inherit'
   },
-  cardHeader: {
+  title: {
     backgroundColor: theme.palette.primary['100']
   }
 });
@@ -179,19 +179,19 @@ export class Pr extends React.Component {
         <Hidden smDown>
           <div className={classes.cardContainerRow}>
             <Card className={classes.cardColumnSheet}>
-              <CardHeader title="Sheet" className={classes.cardHeader} />
+              <CardHeader title="Sheet" className={classes.title} />
               <PrSheet />
             </Card>
 
             <Card className={classes.cardColumn}>
-              <CardHeader title="Status" className={classes.cardHeader} />
+              <CardHeader title="Status" className={classes.title} />
               <PrState expanded={this.state.expanded} />
             </Card>
 
             <Card className={classes.cardColumn}>
               <CardHeader
                 title="Anstellung und Gehalt"
-                className={classes.cardHeader}
+                className={classes.title}
               />
               <PrSalary prById={this.state.prById} />
             </Card>

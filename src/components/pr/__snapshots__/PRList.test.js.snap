@@ -23,8 +23,8 @@ exports[`PRList Component displays the list of prs 1`] = `
   >
     <WithStyles(Button)
       className="PRList-buttonDesktop-5"
-      color="primary"
       onClick={[Function]}
+      variant="raised"
     >
       PR beantragen
       <WithStyles(Icon)>

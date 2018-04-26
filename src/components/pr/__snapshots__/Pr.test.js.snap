@@ -3,7 +3,7 @@
 exports[`Pr Component displays the pr 1`] = `
 <div>
   <div
-    className="Pr-detailPanel-7"
+    className="Pr-detailPanel-6"
   >
     <div
       className="Pr-container-2"
@@ -14,14 +14,11 @@ exports[`Pr Component displays the pr 1`] = `
         src="/supervisor.jpg"
       />
       <WithStyles(Typography)
-        className="Pr-typography-5"
+        className="Pr-typography-4"
         component="div"
       >
         <div>
-          Performance Review
-        </div>
-        <div>
-           
+          PERFORMANCE REVIEW
         </div>
         <div>
           Auf Nachfrage
@@ -42,7 +39,7 @@ exports[`Pr Component displays the pr 1`] = `
       xsUp={false}
     >
       <WithStyles(Tabs)
-        className="Pr-tabsColor-6"
+        className="Pr-tabsColor-5"
         indicatorColor="#FFA07A"
         onChange={[Function]}
         scrollButtons="auto"
@@ -50,19 +47,19 @@ exports[`Pr Component displays the pr 1`] = `
         value={0}
       >
         <WithStyles(Tab)
-          className="Pr-label-8"
+          className="Pr-label-7"
           label="STATUS"
         />
         <WithStyles(Tab)
-          className="Pr-label-8"
+          className="Pr-label-7"
           label="ANSTELLUNG"
         />
         <WithStyles(Tab)
-          className="Pr-label-8"
+          className="Pr-label-7"
           label="GEHALT"
         />
         <WithStyles(Tab)
-          className="Pr-label-8"
+          className="Pr-label-7"
           label="SHEET"
         />
       </WithStyles(Tabs)>
@@ -102,34 +99,34 @@ exports[`Pr Component displays the pr 1`] = `
       className="Pr-cardContainerRow-9"
     >
       <Card
-        className="Pr-card-3"
+        className="Pr-cardColumnSheet-10"
         raised={false}
       >
         <WithStyles(CardHeader)
           className="Pr-cardHeader-12"
-          title="STATUS"
+          title="Sheet"
+        />
+        <PrSheet />
+      </Card>
+      <Card
+        className="Pr-cardColumn-11"
+        raised={false}
+      >
+        <WithStyles(CardHeader)
+          className="Pr-cardHeader-12"
+          title="Status"
         />
         <WithStyles(PrState)
           expanded={false}
         />
       </Card>
       <Card
-        className="Pr-card-3"
+        className="Pr-cardColumn-11"
         raised={false}
       >
         <WithStyles(CardHeader)
           className="Pr-cardHeader-12"
-          title="ANSTELLUNG"
-        />
-        <PrSalary />
-      </Card>
-      <Card
-        className="Pr-card-3"
-        raised={false}
-      >
-        <WithStyles(CardHeader)
-          className="Pr-cardHeader-12"
-          title="GEHALT"
+          title="Anstellung und Gehalt"
         />
         <WithStyles(PrSalary)
           prById={
@@ -146,20 +143,6 @@ exports[`Pr Component displays the pr 1`] = `
             }
           }
         />
-      </Card>
-    </div>
-    <div
-      className="Pr-cardContainerColumn-10"
-    >
-      <Card
-        className="Pr-cardColumn-11"
-        raised={false}
-      >
-        <WithStyles(CardHeader)
-          className="Pr-cardHeader-12"
-          title="SHEET"
-        />
-        <PrSheet />
       </Card>
     </div>
   </Hidden>
