@@ -102,20 +102,24 @@ exports[`Pr Component displays the pr 1`] = `
         className="Pr-cardColumnSheet-10"
         raised={false}
       >
-        <WithStyles(CardHeader)
-          className="Pr-cardHeader-12"
-          title="Sheet"
-        />
+        <WithStyles(Typography)
+          className="Pr-title-12"
+          variant="body2"
+        >
+          SHEET
+        </WithStyles(Typography)>
         <PrSheet />
       </Card>
       <Card
         className="Pr-cardColumn-11"
         raised={false}
       >
-        <WithStyles(CardHeader)
-          className="Pr-cardHeader-12"
-          title="Status"
-        />
+        <WithStyles(Typography)
+          className="Pr-title-12"
+          variant="body2"
+        >
+          STATUS
+        </WithStyles(Typography)>
         <WithStyles(PrState)
           expanded={false}
         />
@@ -124,10 +128,12 @@ exports[`Pr Component displays the pr 1`] = `
         className="Pr-cardColumn-11"
         raised={false}
       >
-        <WithStyles(CardHeader)
-          className="Pr-cardHeader-12"
-          title="Anstellung und Gehalt"
-        />
+        <WithStyles(Typography)
+          className="Pr-title-12"
+          variant="body2"
+        >
+          GEHALT UND ANSTELLUNG
+        </WithStyles(Typography)>
         <WithStyles(PrSalary)
           prById={
             Object {
