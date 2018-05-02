@@ -127,9 +127,10 @@ const styles = theme => ({
 export class MyPRList extends React.Component {
   constructor(props) {
     super(props);
+    let prOpen = props.prs.length !== 0 ? props.prs[0] : 0;
     this.state = {
       prs: props.prs,
-      prOpen: 0
+      prOpen: prOpen
     };
   }
 
@@ -208,7 +209,6 @@ export class MyPRList extends React.Component {
   render() {
     const { classes, prs } = this.props;
     const { prOpen } = this.state;
-    console.log(prs);
 
     return (
       <div>
