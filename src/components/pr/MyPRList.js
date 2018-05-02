@@ -21,8 +21,8 @@ const styles = theme => ({
     flexDirection: 'row'
   },
   root: {
-    width: '35%',
-    maxWidth: 330,
+    width: '30%',
+    maxWidth: 300,
     backgroundColor: theme.palette.background.paper
   },
   buttonMobile: {
@@ -57,8 +57,8 @@ const styles = theme => ({
     marginTop: '10px',
     marginBottom: '10px'
   },
-  typographyRed: {
-    color: '#bf4040',
+  typographyDone: {
+    color: theme.palette.primary['50'],
     marginLeft: '25px',
     marginTop: '10px',
     marginBottom: '10px'
@@ -98,7 +98,7 @@ const styles = theme => ({
   cardContainerRow: {
     display: 'flex',
     flexDirection: 'row',
-    height: '500px',
+    maxHeight: '900px',
     width: '70%',
     justifyContent: 'space-around'
   },
@@ -119,7 +119,8 @@ const styles = theme => ({
   },
   buttonList: {
     fontSize: '0.675rem',
-    textTransform: 'none'
+    textTransform: 'none',
+    padding: '0'
   }
 });
 
@@ -147,6 +148,45 @@ export class MyPRList extends React.Component {
     }
   };
 
+  translateOccasion = occasion => {
+    switch (occasion) {
+      case 'ON_DEMAND':
+        return 'Auf Nachfrage';
+      case 'YEARLY':
+        return 'jährlich';
+      case 'QUARTERLY':
+        return 'vierteljährlich';
+      case 'END_PROBATION':
+        return 'Ende der Probezeit';
+      default:
+        return 'Auf Nachfrage';
+    }
+  };
+  formatDate = date => {
+    let monthNames = [
+      'Jan',
+      'Feb',
+      'Mär',
+      'Apr',
+      'Mai',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Dez'
+    ];
+
+    let dateNew = new Date(date);
+
+    let day = dateNew.getDate();
+    let monthIndex = dateNew.getMonth();
+    let year = dateNew.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  };
+
   handleClick = () => {
     let tempArray = [];
 
@@ -168,6 +208,7 @@ export class MyPRList extends React.Component {
   render() {
     const { classes, prs } = this.props;
     const { prOpen } = this.state;
+    console.log(prs);
 
     return (
       <div>
@@ -200,6 +241,7 @@ export class MyPRList extends React.Component {
             {prs.filter(pr => pr.employee.firstName === 'Lionel').map(pr => {
               return (
                 <Button
+                  key={pr.id}
                   className={classes.buttonList}
                   onClick={() => {
                     this.openAnotherSheet(pr);
@@ -215,12 +257,15 @@ export class MyPRList extends React.Component {
                             Beurteiler: {pr.supervisor}
                           </Typography>
                           <Typography className={classes.typography}>
-                            Deadline: {pr.deadline}
+                            Datum: {this.formatDate(pr.deadline)}
+                          </Typography>
+                          <Typography className={classes.typography}>
+                            {this.translateOccasion(pr.occasion)}
                           </Typography>
                           <Typography
                             className={
                               pr.status === 'DONE'
-                                ? classes.typographyRed
+                                ? classes.typographyDone
                                 : classes.typographyGreen
                             }
                           >

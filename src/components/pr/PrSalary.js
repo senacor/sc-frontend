@@ -14,7 +14,12 @@ import { withStyles } from 'material-ui/styles/index';
 
 const styles = theme => ({
   tableRow: {
-    backgroundColor: theme.palette.primary['50']
+    backgroundColor: theme.palette.primary['50'],
+    width: '100%'
+  },
+  table: {
+    tableLayout: 'fixed',
+    width: '100%'
   }
 });
 
@@ -33,18 +38,18 @@ class PrSalary extends React.Component {
     return (
       <div>
         <Paper>
-          <Table>
+          <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Gehalt seit: </TableCell>
+                <TableCell>Gehalt seit:</TableCell>
                 <TableCell>OTE:</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
               {prById.employee.salaries.map(salary => {
                 return (
                   <TableRow
+                    key={prById.employee.salaries.indexOf(salary)}
                     className={
                       prById.employee.salaries.indexOf(salary) === 0
                         ? classes.tableRow
@@ -53,16 +58,16 @@ class PrSalary extends React.Component {
                   >
                     <TableCell>{salary.validFrom}</TableCell>
                     <TableCell>{salary.ote}</TableCell>
-                    <TableCell>
-                      {salary.fte === 1 ? (
-                        ''
-                      ) : (
+                    {salary.fte === 1 ? (
+                      ''
+                    ) : (
+                      <TableCell>
                         <Typography>
                           <Icon>priority_high</Icon>
-                          {`fte = ${salary.fte}`}
+                          {`fte=${salary.fte}`}
                         </Typography>
-                      )}
-                    </TableCell>
+                      </TableCell>
+                    )}
                   </TableRow>
                 );
               })}
