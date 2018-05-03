@@ -7,10 +7,9 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
-import Hidden from 'material-ui/Hidden';
-import AddIcon from 'material-ui-icons/Add';
 import { Link } from 'react-router-dom';
 import Divider from 'material-ui/Divider';
+import moment from 'moment';
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -27,24 +26,6 @@ const styles = theme => ({
       width: '29.93%',
       maxWidth: '450px'
     }
-  },
-  buttonMobile: {
-    position: 'fixed',
-    left: '80%',
-    bottom: '10%'
-  },
-  icon: {
-    position: 'fixed',
-    left: '84%',
-    bottom: '13%'
-  },
-  buttonDesktop: {
-    position: 'relative',
-    marginRight: '1%',
-    marginLeft: '80%',
-    backgroundColor: theme.palette.primary['300'],
-    color: '#FFF',
-    marginBottom: '2%'
   },
   media: {
     height: '100%',
@@ -98,19 +79,6 @@ export class PRList extends React.Component {
     }
   };
 
-  handleClick = () => {
-    let tempArray = [];
-
-    for (let i = 0; i < this.state.prs.length; i++) {
-      tempArray[i] = this.state.prs[i];
-    }
-
-    this.setState({
-      prs: tempArray
-    });
-    this.props.addPr();
-  };
-
   addNewSupervisor = prId => {
     this.props.addSupervisor(prId);
   };
@@ -122,27 +90,7 @@ export class PRList extends React.Component {
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
-        <Hidden smDown>
-          <Button
-            className={classes.buttonDesktop}
-            variant="raised"
-            onClick={this.handleClick}
-          >
-            PR beantragen
-            <Icon className={classes.rightIcon}>add</Icon>
-          </Button>
-        </Hidden>
-        <Hidden mdUp>
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add"
-            className={classes.buttonMobile}
-            onClick={this.handleClick}
-          >
-            <AddIcon className={classes.icon} />
-          </Button>
-        </Hidden>
+
         <div className={classes.container}>
           {prs.filter(pr => pr.supervisor === 'ttran').map(pr => {
             return (
@@ -160,7 +108,7 @@ export class PRList extends React.Component {
                     Performance Review
                   </Typography>
                   <Typography variant="subheading" color="textSecondary">
-                    {pr.deadline}
+                    Deadline: {moment(pr.deadline).format('DD.MM.YY')}
                   </Typography>
                   <div className={classes.controls}>
                     <Icon className={classes.mediaIcon}>linear_scale</Icon>

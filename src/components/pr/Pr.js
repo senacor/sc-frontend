@@ -174,18 +174,18 @@ export class Pr extends React.Component {
               scrollable
               scrollButtons="auto"
             >
+              <Tab className={classes.label} label="SHEET" />
               <Tab className={classes.label} label="STATUS" />
               <Tab className={classes.label} label="ANSTELLUNG" />
               <Tab className={classes.label} label="GEHALT" />
-              <Tab className={classes.label} label="SHEET" />
             </Tabs>
           </Hidden>
         </div>
         <Hidden smUp>
-          {value === 0 && <PrState expanded={this.state.expanded} />}
-          {value === 1 && <PrEmployment />}
-          {value === 2 && <PrSalary prById={this.state.prById} />}
-          {value === 3 && <PrSheet />}
+          {value === 0 && <PrSheet />}
+          {value === 1 && <PrState expanded={this.state.expanded} />}
+          {value === 2 && <PrEmployment />}
+          {value === 3 && <PrSalary prById={this.state.prById} />}
         </Hidden>
         <Hidden smDown>
           <div className={classes.cardContainerRow}>

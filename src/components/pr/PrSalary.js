@@ -14,7 +14,12 @@ import { withStyles } from 'material-ui/styles/index';
 
 const styles = theme => ({
   tableRow: {
-    backgroundColor: theme.palette.primary['50']
+    backgroundColor: theme.palette.primary['50'],
+    width: '100%'
+  },
+  table: {
+    tableLayout: 'fixed',
+    width: '100%'
   }
 });
 
@@ -29,15 +34,15 @@ class PrSalary extends React.Component {
   render() {
     const { prById } = this.props;
     const { classes } = this.props;
+
     return (
       <div>
         <Paper>
-          <Table>
+          <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Gehalt seit: </TableCell>
+                <TableCell>Gehalt seit:</TableCell>
                 <TableCell>OTE:</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
