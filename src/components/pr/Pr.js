@@ -44,7 +44,7 @@ const styles = theme => ({
   },
   detailPanel: {
     width: '100%',
-    backgroundColor: theme.palette.primary['100'],
+    backgroundColor: theme.palette.primary['400'],
     marginTop: '0px'
   },
 
@@ -140,6 +140,7 @@ export class Pr extends React.Component {
   render() {
     const { prById, classes } = this.props;
     const { value } = this.state;
+    console.log(prById);
     return (
       <div>
         <div className={classes.detailPanel}>
@@ -154,7 +155,13 @@ export class Pr extends React.Component {
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
               ) : (
-                <div>{this.translateAnlass(prById.occasion)}</div>
+                <div>
+                  <div>
+                    {`${prById.employee.firstName} ${prById.employee.lastName}`}
+                  </div>
+                  <div>{this.translateAnlass(prById.occasion)}</div>
+                  <div>Junior Developer</div>
+                </div>
               )}
             </Typography>
           </div>
