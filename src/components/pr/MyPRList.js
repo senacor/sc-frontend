@@ -204,17 +204,7 @@ export class MyPRList extends React.Component {
             <Icon className={classes.rightIcon}>add</Icon>
           </Button>
         </Hidden>
-        <Hidden smUp>
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add"
-            className={classes.buttonMobile}
-            onClick={this.handleClick}
-          >
-            <AddIcon className={classes.icon} />
-          </Button>
-        </Hidden>
+
         <Hidden smDown>
           <div className={classes.container}>
             <div className={classes.root}>
@@ -331,6 +321,17 @@ export class MyPRList extends React.Component {
               </Link>
             );
           })}
+        </Hidden>
+        <Hidden smUp>
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add"
+            className={classes.buttonMobile}
+            onClick={this.handleClick}
+          >
+            <AddIcon className={classes.icon} />
+          </Button>
         </Hidden>
       </div>
     );
