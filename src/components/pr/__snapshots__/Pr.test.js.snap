@@ -21,7 +21,15 @@ exports[`Pr Component displays the pr 1`] = `
           PERFORMANCE REVIEW
         </div>
         <div>
-          Auf Nachfrage
+          <div>
+            undefined undefined
+          </div>
+          <div>
+            Auf Nachfrage
+          </div>
+          <div>
+            Junior Developer
+          </div>
         </div>
       </WithStyles(Typography)>
     </div>
@@ -48,6 +56,10 @@ exports[`Pr Component displays the pr 1`] = `
       >
         <WithStyles(Tab)
           className="Pr-label-7"
+          label="SHEET"
+        />
+        <WithStyles(Tab)
+          className="Pr-label-7"
           label="STATUS"
         />
         <WithStyles(Tab)
@@ -57,10 +69,6 @@ exports[`Pr Component displays the pr 1`] = `
         <WithStyles(Tab)
           className="Pr-label-7"
           label="GEHALT"
-        />
-        <WithStyles(Tab)
-          className="Pr-label-7"
-          label="SHEET"
         />
       </WithStyles(Tabs)>
     </Hidden>
@@ -78,9 +86,7 @@ exports[`Pr Component displays the pr 1`] = `
     xsDown={false}
     xsUp={false}
   >
-    <WithStyles(PrState)
-      expanded={false}
-    />
+    <PrSheet />
   </Hidden>
   <Hidden
     implementation="js"

@@ -51,6 +51,7 @@ class PrSalary extends React.Component {
                 .map(salary => {
                   return (
                     <TableRow
+                      key={prById.employee.salaries.indexOf(salary)}
                       className={
                         prById.employee.salaries.indexOf(salary) === 0
                           ? classes.tableRow
@@ -59,16 +60,16 @@ class PrSalary extends React.Component {
                     >
                       <TableCell>{salary.validFrom}</TableCell>
                       <TableCell>{salary.ote}</TableCell>
-                      <TableCell>
-                        {salary.fte === 1 ? (
-                          ''
-                        ) : (
+                      {salary.fte === 1 ? (
+                        ''
+                      ) : (
+                        <TableCell>
                           <Typography>
                             <Icon>priority_high</Icon>
                             {`fte = ${salary.fte}`}
                           </Typography>
-                        )}
-                      </TableCell>
+                        </TableCell>
+                      )}
                     </TableRow>
                   );
                 })}

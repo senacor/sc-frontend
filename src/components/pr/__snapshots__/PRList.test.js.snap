@@ -8,55 +8,6 @@ exports[`PRList Component displays the list of prs 1`] = `
   >
     Performance Reviews
   </WithStyles(Typography)>
-  <Hidden
-    implementation="js"
-    lgDown={false}
-    lgUp={false}
-    mdDown={false}
-    mdUp={false}
-    smDown={true}
-    smUp={false}
-    xlDown={false}
-    xlUp={false}
-    xsDown={false}
-    xsUp={false}
-  >
-    <WithStyles(Button)
-      className="PRList-buttonDesktop-5"
-      onClick={[Function]}
-      variant="raised"
-    >
-      PR beantragen
-      <WithStyles(Icon)>
-        add
-      </WithStyles(Icon)>
-    </WithStyles(Button)>
-  </Hidden>
-  <Hidden
-    implementation="js"
-    lgDown={false}
-    lgUp={false}
-    mdDown={false}
-    mdUp={true}
-    smDown={false}
-    smUp={false}
-    xlDown={false}
-    xlUp={false}
-    xsDown={false}
-    xsUp={false}
-  >
-    <WithStyles(Button)
-      aria-label="add"
-      className="PRList-buttonMobile-3"
-      color="primary"
-      onClick={[Function]}
-      variant="fab"
-    >
-      <pure(Add)
-        className="PRList-icon-4"
-      />
-    </WithStyles(Button)>
-  </Hidden>
   <div
     className="PRList-container-1"
   >
@@ -66,12 +17,12 @@ exports[`PRList Component displays the list of prs 1`] = `
       raised={false}
     >
       <WithStyles(CardMedia)
-        className="PRList-media-6"
+        className="PRList-media-3"
         image="/supervisor.jpg"
         title="Supervisor picture"
       />
       <WithStyles(CardContent)
-        className="PRList-content-11"
+        className="PRList-content-8"
       >
         <WithStyles(Typography)
           variant="display1"
@@ -85,12 +36,15 @@ exports[`PRList Component displays the list of prs 1`] = `
         <WithStyles(Typography)
           color="textSecondary"
           variant="subheading"
-        />
+        >
+          Deadline: 
+          03.05.18
+        </WithStyles(Typography)>
         <div
-          className="PRList-controls-7"
+          className="PRList-controls-4"
         >
           <WithStyles(Icon)
-            className="PRList-mediaIcon-8"
+            className="PRList-mediaIcon-5"
           >
             linear_scale
           </WithStyles(Icon)>
@@ -103,10 +57,10 @@ exports[`PRList Component displays the list of prs 1`] = `
           </WithStyles(Typography)>
         </div>
         <div
-          className="PRList-controls-7"
+          className="PRList-controls-4"
         >
           <WithStyles(Icon)
-            className="PRList-mediaIcon-8"
+            className="PRList-mediaIcon-5"
           >
             event_note
           </WithStyles(Icon)>
@@ -121,14 +75,14 @@ exports[`PRList Component displays the list of prs 1`] = `
         <WithStyles(Divider) />
         <div>
           <WithStyles(Button)
-            className="PRList-button-9"
+            className="PRList-button-6"
             color="primary"
             onClick={[Function]}
           >
             DELEGIEREN
           </WithStyles(Button)>
           <WithStyles(Button)
-            className="PRList-button-9"
+            className="PRList-button-6"
             color="primary"
           >
             <Link

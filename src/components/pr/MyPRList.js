@@ -112,7 +112,7 @@ const styles = theme => ({
 
   cardContainerColumn: {
     display: 'flex',
-    width: '35%',
+    width: '50%',
     paddingLeft: '1.5%',
     flexDirection: 'column',
     justifyContent: 'space-around'
