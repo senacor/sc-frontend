@@ -29,7 +29,6 @@ class PrSalary extends React.Component {
   render() {
     const { prById } = this.props;
     const { classes } = this.props;
-
     return (
       <div>
         <Paper>
@@ -42,30 +41,32 @@ class PrSalary extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {prById.employee.salaries.map(salary => {
-                return (
-                  <TableRow
-                    className={
-                      prById.employee.salaries.indexOf(salary) === 0
-                        ? classes.tableRow
-                        : ''
-                    }
-                  >
-                    <TableCell>{salary.validFrom}</TableCell>
-                    <TableCell>{salary.ote}</TableCell>
-                    <TableCell>
-                      {salary.fte === 1 ? (
-                        ''
-                      ) : (
-                        <Typography>
-                          <Icon>priority_high</Icon>
-                          {`fte = ${salary.fte}`}
-                        </Typography>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {prById.employee.salaries
+                .sort((a, b) => a.validFrom < b.validFrom)
+                .map(salary => {
+                  return (
+                    <TableRow
+                      className={
+                        prById.employee.salaries.indexOf(salary) === 0
+                          ? classes.tableRow
+                          : ''
+                      }
+                    >
+                      <TableCell>{salary.validFrom}</TableCell>
+                      <TableCell>{salary.ote}</TableCell>
+                      <TableCell>
+                        {salary.fte === 1 ? (
+                          ''
+                        ) : (
+                          <Typography>
+                            <Icon>priority_high</Icon>
+                            {`fte = ${salary.fte}`}
+                          </Typography>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         </Paper>
