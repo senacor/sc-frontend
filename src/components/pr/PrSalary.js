@@ -45,6 +45,7 @@ class PrSalary extends React.Component {
                 <TableCell>OTE:</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {prById.employee.salaries.map(salary => {
                 return (

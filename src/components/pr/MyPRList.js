@@ -279,32 +279,35 @@ export class MyPRList extends React.Component {
               );
             })}
           </div>
-          <Hidden smDown>
-            <div className={classes.cardContainerRow}>
-              <Card className={classes.cardColumnSheet}>
-                <Typography variant="body2" className={classes.title}>
-                  SHEET
-                </Typography>
-                <PrSheet />
-              </Card>
-              <div className={classes.cardContainerColumn}>
-                <Card className={classes.cardColumn}>
+          {prs.length === 0 ? (
+            ''
+          ) : (
+            <Hidden smDown>
+              <div className={classes.cardContainerRow}>
+                <Card className={classes.cardColumnSheet}>
                   <Typography variant="body2" className={classes.title}>
-                    GEHALT UND ANSTELLUNG
+                    SHEET
                   </Typography>
-
-                  <PrSalary prById={prs[0]} />
+                  <PrSheet />
                 </Card>
+                <div className={classes.cardContainerColumn}>
+                  <Card className={classes.cardColumn}>
+                    <Typography variant="body2" className={classes.title}>
+                      GEHALT UND ANSTELLUNG
+                    </Typography>
+                    <PrSalary prById={prs[0]} />
+                  </Card>
 
-                <Card className={classes.cardColumn}>
-                  <Typography variant="body2" className={classes.title}>
-                    STATUS
-                  </Typography>
-                  <PrState expanded={this.state.expanded} />
-                </Card>
+                  <Card className={classes.cardColumn}>
+                    <Typography variant="body2" className={classes.title}>
+                      STATUS
+                    </Typography>
+                    <PrState expanded={this.state.expanded} />
+                  </Card>
+                </div>
               </div>
-            </div>
-          </Hidden>
+            </Hidden>
+          )}
         </div>
       </div>
     );
