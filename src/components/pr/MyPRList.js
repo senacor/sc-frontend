@@ -12,7 +12,7 @@ import PrState from './PrState';
 import PrSalary from './PrSalary';
 import PrSheet from './PrSheet';
 import Card from 'material-ui/Card';
-
+import moment from 'moment';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 const styles = theme => ({
   container: {
@@ -163,30 +163,6 @@ export class MyPRList extends React.Component {
         return 'Auf Nachfrage';
     }
   };
-  formatDate = date => {
-    let monthNames = [
-      'Jan',
-      'Feb',
-      'Mär',
-      'Apr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Okt',
-      'Nov',
-      'Dez'
-    ];
-
-    let dateNew = new Date(date);
-
-    let day = dateNew.getDate();
-    let monthIndex = dateNew.getMonth();
-    let year = dateNew.getFullYear();
-
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-  };
 
   handleClick = () => {
     let tempArray = [];
@@ -257,7 +233,7 @@ export class MyPRList extends React.Component {
                             Beurteiler: {pr.supervisor}
                           </Typography>
                           <Typography className={classes.typography}>
-                            Datum: {this.formatDate(pr.deadline)}
+                            Datum: {moment(pr.deadline).format('DD.MM.YY')}
                           </Typography>
                           <Typography className={classes.typography}>
                             {this.translateOccasion(pr.occasion)}

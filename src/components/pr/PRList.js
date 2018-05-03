@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import { Link } from 'react-router-dom';
 import Divider from 'material-ui/Divider';
+import moment from 'moment';
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -78,31 +79,6 @@ export class PRList extends React.Component {
     }
   };
 
-  formatDate = date => {
-    let monthNames = [
-      'Jan',
-      'Feb',
-      'Mär',
-      'Apr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Okt',
-      'Nov',
-      'Dez'
-    ];
-
-    let dateNew = new Date(date);
-
-    let day = dateNew.getDate();
-    let monthIndex = dateNew.getMonth();
-    let year = dateNew.getFullYear();
-
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-  };
-
   addNewSupervisor = prId => {
     this.props.addSupervisor(prId);
   };
@@ -132,7 +108,7 @@ export class PRList extends React.Component {
                     Performance Review
                   </Typography>
                   <Typography variant="subheading" color="textSecondary">
-                    {this.formatDate(pr.deadline)}
+                    Deadline: {moment(pr.deadline).format('DD.MM.YY')}
                   </Typography>
                   <div className={classes.controls}>
                     <Icon className={classes.mediaIcon}>linear_scale</Icon>
