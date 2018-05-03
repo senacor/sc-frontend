@@ -14,8 +14,8 @@ import PrSheet from './PrSheet';
 import Card from 'material-ui/Card';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-
 import List, { ListItem, ListItemText } from 'material-ui/List';
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -130,7 +130,7 @@ const styles = theme => ({
 export class MyPRList extends React.Component {
   constructor(props) {
     super(props);
-    let prOpen = props.prs.length !== 0 ? props.prs[0] : 0;
+    let prOpen = props.prs.length !== 0 ? props.prs[0] : null;
     this.state = {
       prs: props.prs,
       prOpen: prOpen
@@ -168,14 +168,6 @@ export class MyPRList extends React.Component {
   };
 
   handleClick = () => {
-    let tempArray = [];
-
-    for (let i = 0; i < this.state.prs.length; i++) {
-      tempArray[i] = this.state.prs[i];
-    }
-    this.setState({
-      prs: tempArray
-    });
     this.props.addPr();
   };
 
@@ -254,31 +246,29 @@ export class MyPRList extends React.Component {
             {prs.length === 0 ? (
               ''
             ) : (
-              <Hidden smDown>
-                <div className={classes.cardContainerRow}>
-                  <Card className={classes.cardColumnSheet}>
+              <div className={classes.cardContainerRow}>
+                <Card className={classes.cardColumnSheet}>
+                  <Typography variant="body2" className={classes.title}>
+                    SHEET
+                  </Typography>
+                  <PrSheet />
+                </Card>
+                <div className={classes.cardContainerColumn}>
+                  <Card className={classes.cardColumn}>
                     <Typography variant="body2" className={classes.title}>
-                      SHEET
+                      GEHALT UND ANSTELLUNG
                     </Typography>
-                    <PrSheet />
+                    <PrSalary prById={prs[0]} />
                   </Card>
-                  <div className={classes.cardContainerColumn}>
-                    <Card className={classes.cardColumn}>
-                      <Typography variant="body2" className={classes.title}>
-                        GEHALT UND ANSTELLUNG
-                      </Typography>
-                      <PrSalary prById={prs[0]} />
-                    </Card>
 
-                    <Card className={classes.cardColumn}>
-                      <Typography variant="body2" className={classes.title}>
-                        STATUS
-                      </Typography>
-                      <PrState expanded={this.state.expanded} />
-                    </Card>
-                  </div>
+                  <Card className={classes.cardColumn}>
+                    <Typography variant="body2" className={classes.title}>
+                      STATUS
+                    </Typography>
+                    <PrState expanded={this.state.expanded} />
+                  </Card>
                 </div>
-              </Hidden>
+              </div>
             )}
           </div>
         </Hidden>

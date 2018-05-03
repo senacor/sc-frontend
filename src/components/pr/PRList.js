@@ -10,6 +10,7 @@ import Icon from 'material-ui/Icon';
 import { Link } from 'react-router-dom';
 import Divider from 'material-ui/Divider';
 import moment from 'moment';
+
 const styles = theme => ({
   container: {
     display: 'flex',

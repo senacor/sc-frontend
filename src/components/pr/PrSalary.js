@@ -7,8 +7,7 @@ import Table, {
   TableRow
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import Icon from 'material-ui/Icon';
-import Typography from 'material-ui/Typography';
+import moment from 'moment';
 
 import { withStyles } from 'material-ui/styles/index';
 
@@ -36,47 +35,39 @@ class PrSalary extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div>
-        <Paper>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>Gehalt seit:</TableCell>
-                <TableCell>OTE:</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {prById.employee.salaries
-                .sort((a, b) => a.validFrom < b.validFrom)
-                .map(salary => {
-                  return (
-                    <TableRow
-                      key={prById.employee.salaries.indexOf(salary)}
-                      className={
-                        prById.employee.salaries.indexOf(salary) === 0
-                          ? classes.tableRow
-                          : ''
-                      }
-                    >
-                      <TableCell>{salary.validFrom}</TableCell>
-                      <TableCell>{salary.ote}</TableCell>
-                      {salary.fte === 1 ? (
-                        ''
-                      ) : (
-                        <TableCell>
-                          <Typography>
-                            <Icon>priority_high</Icon>
-                            {`fte = ${salary.fte}`}
-                          </Typography>
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </Paper>
-      </div>
+      <Paper>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Gehalt seit:</TableCell>
+              <TableCell>OTE:</TableCell>
+              <TableCell>FTE:</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {prById.employee.salaries
+              .sort((a, b) => a.validFrom < b.validFrom)
+              .map(salary => {
+                return (
+                  <TableRow
+                    key={prById.employee.salaries.indexOf(salary)}
+                    className={
+                      prById.employee.salaries.indexOf(salary) === 0
+                        ? classes.tableRow
+                        : ''
+                    }
+                  >
+                    <TableCell>
+                      {moment(salary.validFrom).format('DD.MM.YY')}
+                    </TableCell>
+                    <TableCell>{salary.ote}</TableCell>
+                    <TableCell>{salary.fte}</TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </Paper>
     );
   }
 }
