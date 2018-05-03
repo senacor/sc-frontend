@@ -13,6 +13,8 @@ import PrSalary from './PrSalary';
 import PrSheet from './PrSheet';
 import Card from 'material-ui/Card';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+
 import List, { ListItem, ListItemText } from 'material-ui/List';
 const styles = theme => ({
   container: {
@@ -202,7 +204,7 @@ export class MyPRList extends React.Component {
             <Icon className={classes.rightIcon}>add</Icon>
           </Button>
         </Hidden>
-        <Hidden mdUp>
+        <Hidden smUp>
           <Button
             variant="fab"
             color="primary"
@@ -213,79 +215,123 @@ export class MyPRList extends React.Component {
             <AddIcon className={classes.icon} />
           </Button>
         </Hidden>
-        <div className={classes.container}>
-          <div className={classes.root}>
-            {prs.filter(pr => pr.employee.firstName === 'Lionel').map(pr => {
-              return (
-                <Button
-                  key={pr.id}
-                  className={classes.buttonList}
-                  onClick={() => {
-                    this.openAnotherSheet(pr);
-                  }}
-                >
-                  <List
-                    className={prOpen === pr ? classes.openList : classes.list}
+        <Hidden smDown>
+          <div className={classes.container}>
+            <div className={classes.root}>
+              {prs.filter(pr => pr.employee.firstName === 'Lionel').map(pr => {
+                return (
+                  <Button
+                    key={pr.id}
+                    className={classes.buttonList}
+                    onClick={() => {
+                      this.openAnotherSheet(pr);
+                    }}
                   >
-                    <ListItem className={classes.listItem}>
-                      <ListItemText>
-                        <div className={classes.divItemText}>
-                          <Typography className={classes.typography}>
-                            Beurteiler: {pr.supervisor}
-                          </Typography>
-                          <Typography className={classes.typography}>
-                            Datum: {moment(pr.deadline).format('DD.MM.YY')}
-                          </Typography>
-                          <Typography className={classes.typography}>
-                            {this.translateOccasion(pr.occasion)}
-                          </Typography>
-                          <Typography
-                            className={
-                              pr.status === 'DONE'
-                                ? classes.typographyDone
-                                : classes.typographyGreen
-                            }
-                          >
-                            {this.translateStatus(pr.status)}
-                          </Typography>
-                        </div>
-                      </ListItemText>
-                    </ListItem>
-                  </List>
-                </Button>
-              );
-            })}
-          </div>
-          {prs.length === 0 ? (
-            ''
-          ) : (
-            <Hidden smDown>
-              <div className={classes.cardContainerRow}>
-                <Card className={classes.cardColumnSheet}>
-                  <Typography variant="body2" className={classes.title}>
-                    SHEET
-                  </Typography>
-                  <PrSheet />
-                </Card>
-                <div className={classes.cardContainerColumn}>
-                  <Card className={classes.cardColumn}>
+                    <List
+                      className={
+                        prOpen === pr ? classes.openList : classes.list
+                      }
+                    >
+                      <ListItem className={classes.listItem}>
+                        <ListItemText>
+                          <div className={classes.divItemText}>
+                            <Typography className={classes.typography}>
+                              Beurteiler: {pr.supervisor}
+                            </Typography>
+                            <Typography className={classes.typography}>
+                              Datum: {moment(pr.deadline).format('DD.MM.YY')}
+                            </Typography>
+                            <Typography className={classes.typography}>
+                              {this.translateOccasion(pr.occasion)}
+                            </Typography>
+                            <Typography
+                              className={
+                                pr.status === 'DONE'
+                                  ? classes.typographyDone
+                                  : classes.typographyGreen
+                              }
+                            >
+                              {this.translateStatus(pr.status)}
+                            </Typography>
+                          </div>
+                        </ListItemText>
+                      </ListItem>
+                    </List>
+                  </Button>
+                );
+              })}
+            </div>
+            {prs.length === 0 ? (
+              ''
+            ) : (
+              <Hidden smDown>
+                <div className={classes.cardContainerRow}>
+                  <Card className={classes.cardColumnSheet}>
                     <Typography variant="body2" className={classes.title}>
-                      GEHALT UND ANSTELLUNG
+                      SHEET
                     </Typography>
-                    <PrSalary prById={prs[0]} />
+                    <PrSheet />
                   </Card>
+                  <div className={classes.cardContainerColumn}>
+                    <Card className={classes.cardColumn}>
+                      <Typography variant="body2" className={classes.title}>
+                        GEHALT UND ANSTELLUNG
+                      </Typography>
+                      <PrSalary prById={prs[0]} />
+                    </Card>
 
-                  <Card className={classes.cardColumn}>
-                    <Typography variant="body2" className={classes.title}>
-                      STATUS
-                    </Typography>
-                    <PrState expanded={this.state.expanded} />
-                  </Card>
+                    <Card className={classes.cardColumn}>
+                      <Typography variant="body2" className={classes.title}>
+                        STATUS
+                      </Typography>
+                      <PrState expanded={this.state.expanded} />
+                    </Card>
+                  </div>
                 </div>
-              </div>
-            </Hidden>
-          )}
-        </div>
+              </Hidden>
+            )}
+          </div>
+        </Hidden>
+        <Hidden smUp>
+          {prs.filter(pr => pr.employee.firstName === 'Lionel').map(pr => {
+            return (
+              <Link
+                key={pr.id}
+                to={`/prs/${pr.id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <List
+                  className={prOpen === pr ? classes.openList : classes.list}
+                >
+                  <ListItem className={classes.listItem}>
+                    <ListItemText>
+                      <div className={classes.divItemText}>
+                        <Typography className={classes.typography}>
+                          Beurteiler: {pr.supervisor}
+                        </Typography>
+                        <Typography className={classes.typography}>
+                          Datum: {moment(pr.deadline).format('DD.MM.YY')}
+                        </Typography>
+                        <Typography className={classes.typography}>
+                          {this.translateOccasion(pr.occasion)}
+                        </Typography>
+                        <Typography
+                          className={
+                            pr.status === 'DONE'
+                              ? classes.typographyDone
+                              : classes.typographyGreen
+                          }
+                        >
+                          {this.translateStatus(pr.status)}
+                        </Typography>
+                      </div>
+                    </ListItemText>
+                  </ListItem>
+                </List>
+              </Link>
+            );
+          })}
+        </Hidden>
       </div>
     );
   }
