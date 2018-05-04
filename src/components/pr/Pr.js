@@ -8,25 +8,22 @@ import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
 import PrState from './PrState';
 import PrSalary from './PrSalary';
+import PrSheet from './PrSheet';
 import PrEmployment from './PrEmployment';
 import Hidden from 'material-ui/Hidden';
 
+import Card from 'material-ui/Card';
+
 const styles = theme => ({
   avatar: {
-    marginLeft: '20px',
-    marginTop: '20px',
-    height: '50px',
-    width: '50px'
+    marginLeft: '30px',
+    marginTop: '15px',
+    marginBottom: '15px',
+    height: '70px',
+    width: '70px'
   },
   container: {
     display: 'flex'
-  },
-
-  typography: {
-    color: '#FFF',
-    marginLeft: '30px',
-    marginTop: '20px',
-    fontSize: '15px'
   },
   typographyTabs: {
     color: '#FFF',
@@ -36,42 +33,66 @@ const styles = theme => ({
     marginLeft: '15%'
   },
 
+  typography: {
+    color: '#FFF',
+    marginLeft: '30px',
+    marginTop: '30px',
+    fontSize: '15px'
+  },
+  tabsColor: {
+    color: theme.palette.contrastText
+  },
   detailPanel: {
     width: '100%',
     backgroundColor: theme.palette.primary['400'],
     marginTop: '0px'
   },
 
-  tabsColor: {
-    color: theme.palette.contrastText
-  },
   label: {
-    width: '33.3%'
+    width: '37%'
   },
-  containerTabs: {
-    display: 'flex',
 
+  cardContainerColumn: {
+    display: 'flex',
+    paddingLeft: '1.5%',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  cardContainerRow: {
+    display: 'flex',
+    paddingTop: '1.5%',
+    flexDirection: 'row',
+    height: '500px',
     width: '100%',
-    backgroundColor: theme.palette.primary['400'],
-    paddingBottom: '10px'
+    justifyContent: 'space-around'
   },
-  prTabs: {
-    width: '33.3%'
-  },
-  prDetailsWholeView: {
-    display: 'flex',
 
-    width: '100%'
+  cardColumnSheet: {
+    width: '65%',
+    alignSelf: 'center',
+    height: '100%',
+    marginLeft: '1.5%',
+    marginRight: '1.5%'
+  },
+
+  cardColumn: {
+    width: '35%',
+    alignSelf: 'center',
+    height: '100%',
+    marginLeft: '1.5%',
+    marginRight: '1.5%',
+    boxShadow:
+      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
+    backgroundColor: 'inherit'
+  },
+  title: {
+    backgroundColor: theme.palette.primary['300'],
+    color: '#FFF',
+    height: '40px',
+    textAlign: 'center',
+    paddingTop: '15px'
   }
 });
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
 
 export class Pr extends React.Component {
   constructor(props) {
@@ -117,8 +138,9 @@ export class Pr extends React.Component {
     this.setState({ value });
   };
   render() {
-    const { classes, prById } = this.props;
+    const { prById, classes } = this.props;
     const { value } = this.state;
+    console.log(prById);
     return (
       <div>
         <div className={classes.detailPanel}>
@@ -129,13 +151,17 @@ export class Pr extends React.Component {
               src="/supervisor.jpg"
             />
             <Typography className={classes.typography} component="div">
-              <div>Performance Review</div>
-              <div> {prById.status}</div>
-
+              <div>PERFORMANCE REVIEW</div>
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
               ) : (
-                <div>{this.translateAnlass(prById.occasion)}</div>
+                <div>
+                  <div>
+                    {`${prById.employee.firstName} ${prById.employee.lastName}`}
+                  </div>
+                  <div>{this.translateAnlass(prById.occasion)}</div>
+                  <div>Junior Developer</div>
+                </div>
               )}
             </Typography>
           </div>
@@ -145,7 +171,10 @@ export class Pr extends React.Component {
               onChange={this.handleChange}
               indicatorColor="#FFA07A"
               className={classes.tabsColor}
+              scrollable
+              scrollButtons="auto"
             >
+              <Tab className={classes.label} label="SHEET" />
               <Tab className={classes.label} label="STATUS" />
               <Tab className={classes.label} label="ANSTELLUNG" />
               <Tab className={classes.label} label="GEHALT" />
@@ -153,33 +182,34 @@ export class Pr extends React.Component {
           </Hidden>
         </div>
         <Hidden smUp>
-          {value === 0 && <PrState expanded={this.state.expanded} />}
-          {value === 1 && (
-            <TabContainer>
-              Hier steht das Anstellungsverhältnis des Mitarbeiters
-            </TabContainer>
-          )}
-          {value === 2 && <PrSalary prById={this.state.prById} />}
+          {value === 0 && <PrSheet />}
+          {value === 1 && <PrState expanded={this.state.expanded} />}
+          {value === 2 && <PrEmployment />}
+          {value === 3 && <PrSalary prById={this.state.prById} />}
         </Hidden>
         <Hidden smDown>
-          <div className={classes.containerTabs}>
-            <Typography className={classes.typographyTabs}>STATUS</Typography>
-            <Typography className={classes.typographyTabs}>
-              ANSTELLUNG
-            </Typography>
-            <Typography className={classes.typographyTabs}>GEHALT</Typography>
-          </div>
-          <div className={classes.prDetailsWholeView}>
-            <div className={classes.prTabs}>
-              <PrState expanded={this.state.expanded} />
-            </div>
-            <div className={classes.prTabs}>
-              <PrEmployment />
-            </div>
+          <div className={classes.cardContainerRow}>
+            <Card className={classes.cardColumnSheet}>
+              <Typography variant="body2" className={classes.title}>
+                SHEET
+              </Typography>
+              <PrSheet />
+            </Card>
 
-            <div className={classes.prTabs}>
+            <Card className={classes.cardColumn}>
+              <Typography variant="body2" className={classes.title}>
+                STATUS
+              </Typography>
+              <PrState expanded={this.state.expanded} />
+            </Card>
+
+            <Card className={classes.cardColumn}>
+              <Typography variant="body2" className={classes.title}>
+                GEHALT UND ANSTELLUNG
+              </Typography>
+
               <PrSalary prById={this.state.prById} />
-            </div>
+            </Card>
           </div>
         </Hidden>
       </div>

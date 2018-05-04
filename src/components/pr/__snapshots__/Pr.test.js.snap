@@ -3,7 +3,7 @@
 exports[`Pr Component displays the pr 1`] = `
 <div>
   <div
-    className="Pr-detailPanel-5"
+    className="Pr-detailPanel-6"
   >
     <div
       className="Pr-container-2"
@@ -14,17 +14,22 @@ exports[`Pr Component displays the pr 1`] = `
         src="/supervisor.jpg"
       />
       <WithStyles(Typography)
-        className="Pr-typography-3"
+        className="Pr-typography-4"
         component="div"
       >
         <div>
-          Performance Review
+          PERFORMANCE REVIEW
         </div>
         <div>
-           
-        </div>
-        <div>
-          Auf Nachfrage
+          <div>
+            undefined undefined
+          </div>
+          <div>
+            Auf Nachfrage
+          </div>
+          <div>
+            Junior Developer
+          </div>
         </div>
       </WithStyles(Typography)>
     </div>
@@ -42,11 +47,17 @@ exports[`Pr Component displays the pr 1`] = `
       xsUp={false}
     >
       <WithStyles(Tabs)
-        className="Pr-tabsColor-6"
+        className="Pr-tabsColor-5"
         indicatorColor="#FFA07A"
         onChange={[Function]}
+        scrollButtons="auto"
+        scrollable={true}
         value={0}
       >
+        <WithStyles(Tab)
+          className="Pr-label-7"
+          label="SHEET"
+        />
         <WithStyles(Tab)
           className="Pr-label-7"
           label="STATUS"
@@ -75,9 +86,7 @@ exports[`Pr Component displays the pr 1`] = `
     xsDown={false}
     xsUp={false}
   >
-    <WithStyles(PrState)
-      expanded={false}
-    />
+    <PrSheet />
   </Hidden>
   <Hidden
     implementation="js"
@@ -93,42 +102,44 @@ exports[`Pr Component displays the pr 1`] = `
     xsUp={false}
   >
     <div
-      className="Pr-containerTabs-8"
+      className="Pr-cardContainerRow-9"
     >
-      <WithStyles(Typography)
-        className="Pr-typographyTabs-4"
+      <Card
+        className="Pr-cardColumnSheet-10"
+        raised={false}
       >
-        STATUS
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        className="Pr-typographyTabs-4"
+        <WithStyles(Typography)
+          className="Pr-title-12"
+          variant="body2"
+        >
+          SHEET
+        </WithStyles(Typography)>
+        <PrSheet />
+      </Card>
+      <Card
+        className="Pr-cardColumn-11"
+        raised={false}
       >
-        ANSTELLUNG
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        className="Pr-typographyTabs-4"
-      >
-        GEHALT
-      </WithStyles(Typography)>
-    </div>
-    <div
-      className="Pr-prDetailsWholeView-10"
-    >
-      <div
-        className="Pr-prTabs-9"
-      >
+        <WithStyles(Typography)
+          className="Pr-title-12"
+          variant="body2"
+        >
+          STATUS
+        </WithStyles(Typography)>
         <WithStyles(PrState)
           expanded={false}
         />
-      </div>
-      <div
-        className="Pr-prTabs-9"
+      </Card>
+      <Card
+        className="Pr-cardColumn-11"
+        raised={false}
       >
-        <PrSalary />
-      </div>
-      <div
-        className="Pr-prTabs-9"
-      >
+        <WithStyles(Typography)
+          className="Pr-title-12"
+          variant="body2"
+        >
+          GEHALT UND ANSTELLUNG
+        </WithStyles(Typography)>
         <WithStyles(PrSalary)
           prById={
             Object {
@@ -144,7 +155,7 @@ exports[`Pr Component displays the pr 1`] = `
             }
           }
         />
-      </div>
+      </Card>
     </div>
   </Hidden>
 </div>
