@@ -62,7 +62,6 @@ const styles = theme => ({
     display: 'flex',
     paddingTop: '1.5%',
     flexDirection: 'row',
-    height: '500px',
     width: '100%',
     justifyContent: 'space-around'
   },
@@ -193,7 +192,7 @@ export class Pr extends React.Component {
               <Typography variant="body2" className={classes.title}>
                 SHEET
               </Typography>
-              <PrSheet />
+              <PrSheet prById={this.state.prById} />
             </Card>
 
             <Card className={classes.cardColumn}>
