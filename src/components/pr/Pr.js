@@ -76,7 +76,7 @@ const styles = theme => ({
 
   cardColumn: {
     width: '35%',
-    alignSelf: 'center',
+    alignSelf: 'top',
     height: '100%',
     marginLeft: '1.5%',
     marginRight: '1.5%',

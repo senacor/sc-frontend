@@ -26,9 +26,7 @@ class PrSheet extends React.Component {
   }
 
   render() {
-    const { prById } = this.props;
-    const { classes } = this.props;
-    console.log(prById);
+    const { prById, classes } = this.props;
 
     return (
       <div className={classes.root}>
