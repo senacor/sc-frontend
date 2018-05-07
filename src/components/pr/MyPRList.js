@@ -219,9 +219,14 @@ export class MyPRList extends React.Component {
                             <Typography className={classes.typography}>
                               Beurteiler: {pr.supervisor}
                             </Typography>
-                            <Typography className={classes.typography}>
-                              Datum: {moment(pr.deadline).format('DD.MM.YY')}
-                            </Typography>
+                            {pr.deadline ? (
+                              <Typography className={classes.typography}>
+                                Datum: {moment(pr.deadline).format('DD.MM.YY')}
+                              </Typography>
+                            ) : (
+                              ''
+                            )}
+
                             <Typography className={classes.typography}>
                               {this.translateOccasion(pr.occasion)}
                             </Typography>
