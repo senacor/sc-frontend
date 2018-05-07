@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrSheet Component displays the PrSheet 1`] = `
+<div>
+  <div
+    className="PrSheet-containerVertical-1"
+  >
+    <WithStyles(List)>
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          primary="Leistungen im Projekt"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Problemanalyse und -lösung"
+          />
+          <WithStyles(ListItemText)
+            className="PrSheet-rightAlignText-3"
+            primary="4 / 5"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Arbeitsergebnisse"
+          />
+          <WithStyles(ListItemText)
+            className="PrSheet-rightAlignText-3"
+            primary="3 / 5"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Arbeitsweise"
+          />
+          <WithStyles(ListItemText)
+            className="PrSheet-rightAlignText-3"
+            primary="1 / 5"
+          />
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </WithStyles(List)>
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          primary="Wirkung beim Kunden"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Kundeninteraktion und -veränderung"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Kundenbindung und Mandatsgenerierung"
+          />
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </WithStyles(List)>
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          primary="Wirkung im Team"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Effektives Arbeiten im Team und Teamführung"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Coaching, Leadership und Personalführung"
+          />
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </WithStyles(List)>
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          primary="Wirkung im Unternehmen"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Beitrag zur Unternehmensentwicklung"
+          />
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </WithStyles(List)>
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          primary="Gesamtschätzung und Entwicklungsbedarfe"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrSheet-nested-2"
+        >
+          <WithStyles(ListItemText)
+            secondary="Freitextfeld"
+          />
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </WithStyles(List)>
+    <WithStyles(Divider) />
+  </div>
+</div>
+`;
