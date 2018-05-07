@@ -108,9 +108,15 @@ export class PRList extends React.Component {
                   <Typography variant="subheading" color="textSecondary">
                     Performance Review
                   </Typography>
-                  <Typography variant="subheading" color="textSecondary">
-                    Deadline: {moment(pr.deadline).format('DD.MM.YY')}
-                  </Typography>
+
+                  {pr.deadline ? (
+                    <Typography variant="subheading" color="textSecondary">
+                      Deadline: {moment(pr.deadline).format('DD.MM.YY')}
+                    </Typography>
+                  ) : (
+                    ''
+                  )}
+
                   <div className={classes.controls}>
                     <Icon className={classes.mediaIcon}>linear_scale</Icon>
                     <Typography gutterBottom noWrap color="textSecondary">

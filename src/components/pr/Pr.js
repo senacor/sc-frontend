@@ -11,14 +11,13 @@ import PrSalary from './PrSalary';
 import PrSheet from './PrSheet';
 import PrEmployment from './PrEmployment';
 import Hidden from 'material-ui/Hidden';
-
 import Card from 'material-ui/Card';
+import moment from 'moment';
 
 const styles = theme => ({
   avatar: {
     marginLeft: '30px',
-    marginTop: '15px',
-    marginBottom: '15px',
+    marginTop: '25px',
     height: '70px',
     width: '70px'
   },
@@ -32,11 +31,12 @@ const styles = theme => ({
     width: '33.3%',
     marginLeft: '15%'
   },
-
   typography: {
     color: '#FFF',
     marginLeft: '30px',
-    marginTop: '30px',
+    textAlign: 'left',
+    marginTop: '10px',
+    marginBottom: '5px',
     fontSize: '15px'
   },
   tabsColor: {
@@ -90,6 +90,15 @@ const styles = theme => ({
     height: '40px',
     textAlign: 'center',
     paddingTop: '15px'
+  },
+  name: {
+    fontSize: '18px',
+    lineHeight: '2em'
+  },
+  deadline: {
+    [theme.breakpoints.up('sm')]: {
+      lineHeight: '2.4em'
+    }
   }
 });
 
@@ -108,15 +117,15 @@ export class Pr extends React.Component {
   translateAnlass = occasion => {
     switch (occasion) {
       case 'ON_DEMAND':
-        return 'Auf Nachfrage';
+        return 'auf Nachfrage';
       case 'YEARLY':
         return 'jährlich';
       case 'QUARTERLY':
         return 'vierteljährlich';
       case 'END_PROBATION':
-        return 'Ende der Probezeit';
+        return 'ende der Probezeit';
       default:
-        return 'Auf Nachfrage';
+        return 'auf Nachfrage';
     }
   };
 
@@ -149,16 +158,18 @@ export class Pr extends React.Component {
               src="/supervisor.jpg"
             />
             <Typography className={classes.typography} component="div">
-              <div>PERFORMANCE REVIEW</div>
               {prById.length === 0 ? (
                 <div>nicht vorhanden</div>
               ) : (
                 <div>
-                  <div>
-                    {`${prById.employee.firstName} ${prById.employee.lastName}`}
+                  <div className={classes.name}>
+                    {`${prById.employee.firstName.toUpperCase()} ${prById.employee.lastName.toUpperCase()}`}
                   </div>
-                  <div>{this.translateAnlass(prById.occasion)}</div>
+                  <div>{`PR ${this.translateAnlass(prById.occasion)}  `}</div>
                   <div>Junior Developer</div>
+                  <div className={classes.deadline}>
+                    {`Deadline: ${moment(prById.deadline).format('DD.MM.YY')}`}
+                  </div>
                 </div>
               )}
             </Typography>

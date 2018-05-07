@@ -1,8 +1,8 @@
 import React from 'react';
-import PrState from './PrState';
+import PrSalary from './PrSalary';
 import { createShallow } from 'material-ui/test-utils';
 
-describe('PrState Component', () => {
+describe('PrSalary Component', () => {
   let shallow = createShallow({ dive: true });
 
   const prById = {
@@ -1584,8 +1584,8 @@ describe('PrState Component', () => {
     }
   };
 
-  it('displays the PrState', () => {
-    const component = shallow(<PrState prById={prById} />);
+  it('displays the PrSalary', () => {
+    const component = shallow(<PrSalary prById={prById} />);
 
     expect(component).toMatchSnapshot();
   });
