@@ -81,15 +81,13 @@ const styles = theme => ({
     flexWrap: 'wrap'
   },
   cardColumn: {
-    alignSelf: 'center',
-    height: '100%',
     marginLeft: '1.5%',
+    alignSelf: 'top',
     marginRight: '1.5%',
-    marginBottom: '20px',
-    width: '100%',
     boxShadow:
       '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
-    backgroundColor: 'inherit'
+    backgroundColor: 'inherit',
+    marginBottom: '20px'
   },
   title: {
     backgroundColor: theme.palette.primary['200'],
@@ -101,16 +99,17 @@ const styles = theme => ({
   cardContainerRow: {
     display: 'flex',
     flexDirection: 'row',
-    maxHeight: '900px',
     width: '70%',
     justifyContent: 'space-around'
   },
   cardColumnSheet: {
     width: '100%',
-    alignSelf: 'center',
-    height: '100%',
     marginLeft: '1.5%',
-    marginRight: '1.5%'
+    marginRight: '1.5%',
+    alignSelf: 'top',
+    backgroundColor: 'inherit',
+    boxShadow:
+      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)'
   },
 
   cardContainerColumn: {
@@ -118,7 +117,7 @@ const styles = theme => ({
     width: '50%',
     paddingLeft: '1.5%',
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'flex-start'
   },
   buttonList: {
     fontSize: '0.675rem',
