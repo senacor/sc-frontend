@@ -279,9 +279,7 @@ export class MyPRList extends React.Component {
                 to={`/prs/${pr.id}`}
                 style={{ textDecoration: 'none' }}
               >
-                <List
-                  className={prOpen === pr ? classes.openList : classes.list}
-                >
+                <List className={classes.list}>
                   <ListItem className={classes.listItem}>
                     <ListItemText>
                       <div className={classes.divItemText}>

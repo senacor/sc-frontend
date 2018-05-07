@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrState Component displays the prStatus 1`] = `
+exports[`PrState Component displays the PrState 1`] = `
 <div>
   <WithStyles(ExpansionPanel)
     expanded={false}
