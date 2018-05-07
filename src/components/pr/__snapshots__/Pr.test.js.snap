@@ -86,7 +86,7 @@ exports[`Pr Component displays the pr 1`] = `
     xsDown={false}
     xsUp={false}
   >
-    <PrSheet />
+    <WithStyles(PrSheet) />
   </Hidden>
   <Hidden
     implementation="js"
@@ -114,7 +114,21 @@ exports[`Pr Component displays the pr 1`] = `
         >
           SHEET
         </WithStyles(Typography)>
-        <PrSheet />
+        <WithStyles(PrSheet)
+          prById={
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "/api/v1/prs/1",
+                },
+              },
+              "employee": "Employee1",
+              "id": 1,
+              "occasion": "ON_DEMAND",
+              "supervisor": "ttran",
+            }
+          }
+        />
       </Card>
       <Card
         className="Pr-cardColumn-11"

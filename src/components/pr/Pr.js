@@ -62,7 +62,6 @@ const styles = theme => ({
     display: 'flex',
     paddingTop: '1.5%',
     flexDirection: 'row',
-    height: '500px',
     width: '100%',
     justifyContent: 'space-around'
   },
@@ -77,7 +76,7 @@ const styles = theme => ({
 
   cardColumn: {
     width: '35%',
-    alignSelf: 'center',
+    alignSelf: 'top',
     height: '100%',
     marginLeft: '1.5%',
     marginRight: '1.5%',
@@ -140,7 +139,6 @@ export class Pr extends React.Component {
   render() {
     const { prById, classes } = this.props;
     const { value } = this.state;
-    console.log(prById);
     return (
       <div>
         <div className={classes.detailPanel}>
@@ -193,7 +191,7 @@ export class Pr extends React.Component {
               <Typography variant="body2" className={classes.title}>
                 SHEET
               </Typography>
-              <PrSheet />
+              <PrSheet prById={this.state.prById} />
             </Card>
 
             <Card className={classes.cardColumn}>
