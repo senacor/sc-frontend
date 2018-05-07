@@ -80,7 +80,7 @@ class PrSheet extends React.Component {
             </ListItem>
             <List disablePadding>
               <ListItem button className={classes.nested}>
-                <ListItemText secondary="Effektived Arbeiten im Team und Teamführung" />
+                <ListItemText secondary="Effektives Arbeiten im Team und Teamführung" />
               </ListItem>
               <ListItem button className={classes.nested}>
                 <ListItemText secondary="Coaching, Leadership und Personalführung" />
