@@ -8,7 +8,6 @@ import Table, {
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import moment from 'moment';
-
 import { withStyles } from 'material-ui/styles/index';
 
 const styles = theme => ({
@@ -18,7 +17,8 @@ const styles = theme => ({
   },
   table: {
     tableLayout: 'fixed',
-    width: '100%'
+    width: '100%',
+    marginBottom: '1px'
   }
 });
 

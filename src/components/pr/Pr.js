@@ -123,7 +123,7 @@ export class Pr extends React.Component {
       case 'QUARTERLY':
         return 'vierteljährlich';
       case 'END_PROBATION':
-        return 'ende der Probezeit';
+        return 'Ende der Probezeit';
       default:
         return 'auf Nachfrage';
     }

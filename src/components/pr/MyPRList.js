@@ -10,6 +10,7 @@ import Hidden from 'material-ui/Hidden';
 import AddIcon from 'material-ui-icons/Add';
 import PrState from './PrState';
 import PrSalary from './PrSalary';
+import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
 import Card from 'material-ui/Card';
 import moment from 'moment';
@@ -263,6 +264,7 @@ export class MyPRList extends React.Component {
                       GEHALT UND ANSTELLUNG
                     </Typography>
                     <PrSalary prById={prs[0]} />
+                    <PrEmployment prById={prs[0]} />
                   </Card>
 
                   <Card className={classes.cardColumn}>
