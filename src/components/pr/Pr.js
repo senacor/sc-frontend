@@ -139,7 +139,6 @@ export class Pr extends React.Component {
   render() {
     const { prById, classes } = this.props;
     const { value } = this.state;
-    console.log(prById);
     return (
       <div>
         <div className={classes.detailPanel}>
