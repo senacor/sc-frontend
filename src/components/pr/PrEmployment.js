@@ -26,7 +26,6 @@ class PrEmployment extends React.Component {
   render() {
     const { prById } = this.props;
     const { classes } = this.props;
-    console.log(prById);
     return (
       <Paper>
         {prById.employee.employment.endOfProbationPeriod ? (
