@@ -94,6 +94,11 @@ const styles = theme => ({
   name: {
     fontSize: '18px',
     lineHeight: '2em'
+  },
+  deadline: {
+    [theme.breakpoints.up('sm')]: {
+      lineHeight: '2.4em'
+    }
   }
 });
 
@@ -162,8 +167,8 @@ export class Pr extends React.Component {
                   </div>
                   <div>{`PR ${this.translateAnlass(prById.occasion)}  `}</div>
                   <div>Junior Developer</div>
-                  <div>
-                    {`DEADLINE: ${moment(prById.deadline).format('DD.MM.YY')}`}
+                  <div className={classes.deadline}>
+                    {`Deadline: ${moment(prById.deadline).format('DD.MM.YY')}`}
                   </div>
                 </div>
               )}

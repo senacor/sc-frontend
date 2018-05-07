@@ -29,8 +29,10 @@ exports[`Pr Component displays the pr 1`] = `
           <div>
             Junior Developer
           </div>
-          <div>
-            DEADLINE: 11.05.15
+          <div
+            className="Pr-deadline-14"
+          >
+            Deadline: 11.05.15
           </div>
         </div>
       </WithStyles(Typography)>
