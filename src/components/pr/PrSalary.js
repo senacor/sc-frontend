@@ -33,7 +33,7 @@ class PrSalary extends React.Component {
   translateReason = reason => {
     switch (reason) {
       case 'maternityLeave':
-        return 'Muterschutz';
+        return 'Mutterschutz';
       case 'parentalLeave':
         return 'Elternzeit';
       case 'sabbatical':

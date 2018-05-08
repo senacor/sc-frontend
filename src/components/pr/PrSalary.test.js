@@ -134,7 +134,11 @@ describe('PrSalary Component', () => {
         validTo: '2005-03-31',
         reason: 'Unbezahlter Urlaub'
       },
-      { validFrom: '2004-05-10', validTo: '2004-10-11', reason: 'Muterschutz' },
+      {
+        validFrom: '2004-05-10',
+        validTo: '2004-10-11',
+        reason: 'Mutterschutz'
+      },
       { validFrom: '2004-05-10', validTo: '2004-08-28', reason: 'Elternzeit' },
       {
         validFrom: '2004-05-10',

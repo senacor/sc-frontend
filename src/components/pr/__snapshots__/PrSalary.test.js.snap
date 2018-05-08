@@ -75,7 +75,7 @@ exports[`PrSalary Component displays the PrSalary 1`] = `
         <WithStyles(TableCell)
           colSpan={2}
         >
-          Muterschutz
+          Mutterschutz
         </WithStyles(TableCell)>
         <WithStyles(TableCell) />
       </WithStyles(TableRow)>
