@@ -30,22 +30,34 @@ class PrSalary extends React.Component {
     };
   }
 
+  translateReason = reason => {
+    switch (reason) {
+      case 'maternityLeave':
+        return 'Muterschutz';
+      case 'parentalLeave':
+        return 'Elternzeit';
+      case 'sabbatical':
+        return 'Forschungsurlaub';
+      case 'unpaidLeave':
+        return 'Unbezahlter Urlaub';
+      default:
+        return 'Unbezahlter Urlaub';
+    }
+  };
+
+  flatmap = (f, xs) => {
+    return xs.reduce((acc, x) => acc.concat(f(x)), []);
+  };
+
   addAllValues = pr => {
+    const keys = Object.keys(pr.employee.employment.leaves);
+    const values = Object.values(pr.employee.employment.leaves);
     return [
       {
         validFrom: pr.employee.employment.endOfProbationPeriod,
-        ursache: 'Ende der Probezeit'
+        reason: 'Ende der Probezeit'
       }
     ]
-      .concat(
-        pr.employee.employment.leaves.maternityLeave.map(maternityLeave => {
-          return {
-            validFrom: maternityLeave.from,
-            ursache: 'Mutterschtz',
-            validTo: maternityLeave.to
-          };
-        })
-      )
       .concat(
         pr.employee.salaries.map(salary => {
           return {
@@ -56,31 +68,17 @@ class PrSalary extends React.Component {
         })
       )
       .concat(
-        pr.employee.employment.leaves.parentalLeave.map(parentalLeave => {
-          return {
-            validFrom: parentalLeave.from,
-            ursache: 'Elternzeit',
-            validTo: parentalLeave.to
-          };
-        })
-      )
-      .concat(
-        pr.employee.employment.leaves.sabbatical.map(sabbatical => {
-          return {
-            validFrom: sabbatical.from,
-            ursache: 'Forschungsurlaub',
-            validTo: sabbatical.to
-          };
-        })
-      )
-      .concat(
-        pr.employee.employment.leaves.unpaidLeave.map(unpaidLeave => {
-          return {
-            validFrom: unpaidLeave.from,
-            ursache: 'Unbezahlter Urlaub',
-            validTo: unpaidLeave.to
-          };
-        })
+        this.flatmap(
+          value =>
+            value.map(entry => {
+              return {
+                validFrom: entry.from,
+                validTo: entry.to,
+                reason: this.translateReason(keys[values.indexOf(value)])
+              };
+            }),
+          values
+        )
       );
   };
 
@@ -92,40 +90,50 @@ class PrSalary extends React.Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>Gehalt seit:</TableCell>
-              <TableCell>OTE:</TableCell>
-              <TableCell>FTE:</TableCell>
+              <TableCell colSpan={2}>Gehalt seit:</TableCell>
+              <TableCell colSpan={2}>OTE:</TableCell>
+              <TableCell numeric>FTE:</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {allValues.sort((a, b) => a.validFrom < b.validFrom).map(value => {
-              return (
-                <TableRow
-                  key={allValues.indexOf(value)}
-                  className={
-                    allValues.indexOf(value) === 0 ? classes.tableRow : ''
-                  }
-                >
-                  {value.ote ? (
-                    <TableCell>
-                      {moment(value.validFrom).format('DD.MM.YY')}
-                    </TableCell>
-                  ) : (
-                    <TableCell>
-                      {`${moment(value.validFrom).format(
-                        'DD.MM.YY'
-                      )} - ${moment(value.validTo).format('DD.MM.YY')}`}{' '}
-                    </TableCell>
-                  )}
-                  {value.ote ? (
-                    <TableCell>{value.ote}</TableCell>
-                  ) : (
-                    <TableCell>{value.ursache}</TableCell>
-                  )}
-                  {value.fte ? <TableCell>{value.fte}</TableCell> : ''}
-                </TableRow>
-              );
-            })}
+            {allValues
+              .sort(
+                (a, b) =>
+                  (a.validTo ? a.validTo : a.validFrom) <
+                  (b.validTo ? b.validTo : b.validFrom)
+              )
+              .map(value => {
+                return (
+                  <TableRow
+                    key={allValues.indexOf(value)}
+                    className={
+                      allValues.indexOf(value) % 2 === 0 ? classes.tableRow : ''
+                    }
+                  >
+                    {value.validTo ? (
+                      <TableCell colSpan={2}>
+                        {`${moment(value.validFrom).format(
+                          'DD.MM.YY'
+                        )} - ${moment(value.validTo).format('DD.MM.YY')}`}{' '}
+                      </TableCell>
+                    ) : (
+                      <TableCell colSpan={2}>
+                        {moment(value.validFrom).format('DD.MM.YY')}
+                      </TableCell>
+                    )}
+                    {value.ote ? (
+                      <TableCell colSpan={2}>{value.ote}</TableCell>
+                    ) : (
+                      <TableCell colSpan={2}>{value.reason}</TableCell>
+                    )}
+                    {value.fte ? (
+                      <TableCell numeric>{value.fte}</TableCell>
+                    ) : (
+                      <TableCell />
+                    )}
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </Paper>

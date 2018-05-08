@@ -67,7 +67,7 @@ const styles = theme => ({
   },
 
   cardColumnSheet: {
-    width: '65%',
+    width: '50%',
     alignSelf: 'center',
     height: '100%',
     marginLeft: '1.5%',
@@ -75,7 +75,17 @@ const styles = theme => ({
   },
 
   cardColumn: {
-    width: '35%',
+    width: '50%',
+    alignSelf: 'top',
+    height: '100%',
+    marginLeft: '1.5%',
+    marginRight: '1.5%',
+    boxShadow:
+      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
+    backgroundColor: 'inherit'
+  },
+  cardColumnStatus: {
+    width: '30%',
     alignSelf: 'top',
     height: '100%',
     marginLeft: '1.5%',
@@ -205,7 +215,7 @@ export class Pr extends React.Component {
               <PrSheet prById={this.state.prById} />
             </Card>
 
-            <Card className={classes.cardColumn}>
+            <Card className={classes.cardColumnStatus}>
               <Typography variant="body2" className={classes.title}>
                 STATUS
               </Typography>

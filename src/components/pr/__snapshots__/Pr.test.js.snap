@@ -19,7 +19,7 @@ exports[`Pr Component displays the pr 1`] = `
       >
         <div>
           <div
-            className="Pr-name-13"
+            className="Pr-name-14"
           >
             LIONEL SCHÄFER
           </div>
@@ -30,7 +30,7 @@ exports[`Pr Component displays the pr 1`] = `
             Junior Developer
           </div>
           <div
-            className="Pr-deadline-14"
+            className="Pr-deadline-15"
           >
             Deadline: 11.05.15
           </div>
@@ -1694,7 +1694,7 @@ exports[`Pr Component displays the pr 1`] = `
         raised={false}
       >
         <WithStyles(Typography)
-          className="Pr-title-12"
+          className="Pr-title-13"
           variant="body2"
         >
           SHEET
@@ -3283,11 +3283,11 @@ exports[`Pr Component displays the pr 1`] = `
         />
       </Card>
       <Card
-        className="Pr-cardColumn-11"
+        className="Pr-cardColumnStatus-12"
         raised={false}
       >
         <WithStyles(Typography)
-          className="Pr-title-12"
+          className="Pr-title-13"
           variant="body2"
         >
           STATUS
@@ -3301,7 +3301,7 @@ exports[`Pr Component displays the pr 1`] = `
         raised={false}
       >
         <WithStyles(Typography)
-          className="Pr-title-12"
+          className="Pr-title-13"
           variant="body2"
         >
           GEHALT UND ANSTELLUNG
