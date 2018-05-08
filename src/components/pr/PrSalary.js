@@ -30,10 +30,63 @@ class PrSalary extends React.Component {
     };
   }
 
-  render() {
-    const { prById } = this.props;
-    const { classes } = this.props;
+  addAllValues = pr => {
+    return [
+      {
+        validFrom: pr.employee.employment.endOfProbationPeriod,
+        ursache: 'Ende der Probezeit'
+      }
+    ]
+      .concat(
+        pr.employee.employment.leaves.maternityLeave.map(maternityLeave => {
+          return {
+            validFrom: maternityLeave.from,
+            ursache: 'Mutterschtz',
+            validTo: maternityLeave.to
+          };
+        })
+      )
+      .concat(
+        pr.employee.salaries.map(salary => {
+          return {
+            validFrom: salary.validFrom,
+            ote: salary.ote,
+            fte: salary.fte
+          };
+        })
+      )
+      .concat(
+        pr.employee.employment.leaves.parentalLeave.map(parentalLeave => {
+          return {
+            validFrom: parentalLeave.from,
+            ursache: 'Elternzeit',
+            validTo: parentalLeave.to
+          };
+        })
+      )
+      .concat(
+        pr.employee.employment.leaves.sabbatical.map(sabbatical => {
+          return {
+            validFrom: sabbatical.from,
+            ursache: 'Forschungsurlaub',
+            validTo: sabbatical.to
+          };
+        })
+      )
+      .concat(
+        pr.employee.employment.leaves.unpaidLeave.map(unpaidLeave => {
+          return {
+            validFrom: unpaidLeave.from,
+            ursache: 'Unbezahlter Urlaub',
+            validTo: unpaidLeave.to
+          };
+        })
+      );
+  };
 
+  render() {
+    const { prById, classes } = this.props;
+    const allValues = this.addAllValues(prById);
     return (
       <Paper>
         <Table className={classes.table}>
@@ -45,26 +98,34 @@ class PrSalary extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {prById.employee.salaries
-              .sort((a, b) => a.validFrom < b.validFrom)
-              .map(salary => {
-                return (
-                  <TableRow
-                    key={prById.employee.salaries.indexOf(salary)}
-                    className={
-                      prById.employee.salaries.indexOf(salary) === 0
-                        ? classes.tableRow
-                        : ''
-                    }
-                  >
+            {allValues.sort((a, b) => a.validFrom < b.validFrom).map(value => {
+              return (
+                <TableRow
+                  key={allValues.indexOf(value)}
+                  className={
+                    allValues.indexOf(value) === 0 ? classes.tableRow : ''
+                  }
+                >
+                  {value.ote ? (
                     <TableCell>
-                      {moment(salary.validFrom).format('DD.MM.YY')}
+                      {moment(value.validFrom).format('DD.MM.YY')}
                     </TableCell>
-                    <TableCell>{salary.ote}</TableCell>
-                    <TableCell>{salary.fte}</TableCell>
-                  </TableRow>
-                );
-              })}
+                  ) : (
+                    <TableCell>
+                      {`${moment(value.validFrom).format(
+                        'DD.MM.YY'
+                      )} - ${moment(value.validTo).format('DD.MM.YY')}`}{' '}
+                    </TableCell>
+                  )}
+                  {value.ote ? (
+                    <TableCell>{value.ote}</TableCell>
+                  ) : (
+                    <TableCell>{value.ursache}</TableCell>
+                  )}
+                  {value.fte ? <TableCell>{value.fte}</TableCell> : ''}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </Paper>
