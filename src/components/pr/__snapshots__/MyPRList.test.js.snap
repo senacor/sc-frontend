@@ -1,0 +1,413 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyPRList Component displays the MyPRList 1`] = `
+<div>
+  <WithStyles(Typography)
+    paragraph={true}
+    variant="display1"
+  >
+    Performance Reviews
+  </WithStyles(Typography)>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={true}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Button)
+      className="MyPRList-buttonDesktop-5"
+      onClick={[Function]}
+      variant="raised"
+    >
+      PR beantragen
+      <WithStyles(Icon)>
+        add
+      </WithStyles(Icon)>
+    </WithStyles(Button)>
+  </Hidden>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={true}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <div
+      className="MyPRList-container-1"
+    >
+      <div
+        className="MyPRList-root-2"
+      >
+        <WithStyles(Button)
+          className="MyPRList-buttonList-18"
+          key="1"
+          onClick={[Function]}
+        >
+          <WithStyles(List)
+            className="MyPRList-openList-7"
+          >
+            <WithStyles(ListItem)
+              className="MyPRList-listItem-11"
+            >
+              <WithStyles(ListItemText)>
+                <div
+                  className="MyPRList-divItemText-12"
+                >
+                  <WithStyles(Typography)
+                    className="MyPRList-typography-8"
+                  >
+                    Beurteiler: 
+                    ttran
+                  </WithStyles(Typography)>
+                  <WithStyles(Typography)
+                    className="MyPRList-typography-8"
+                  >
+                    Datum: 
+                    11.05.15
+                  </WithStyles(Typography)>
+                  <WithStyles(Typography)
+                    className="MyPRList-typography-8"
+                  >
+                    Auf Nachfrage
+                  </WithStyles(Typography)>
+                  <WithStyles(Typography)
+                    className="MyPRList-typographyGreen-10"
+                  >
+                    In Vorbereitung
+                  </WithStyles(Typography)>
+                </div>
+              </WithStyles(ListItemText)>
+            </WithStyles(ListItem)>
+          </WithStyles(List)>
+        </WithStyles(Button)>
+      </div>
+      <div
+        className="MyPRList-cardContainerRow-15"
+      >
+        <Card
+          className="MyPRList-cardColumnSheet-16"
+          raised={false}
+        >
+          <WithStyles(Typography)
+            className="MyPRList-title-14"
+            variant="body2"
+          >
+            SHEET
+          </WithStyles(Typography)>
+          <WithStyles(PrSheet) />
+        </Card>
+        <div
+          className="MyPRList-cardContainerColumn-17"
+        >
+          <Card
+            className="MyPRList-cardColumn-13"
+            raised={false}
+          >
+            <WithStyles(Typography)
+              className="MyPRList-title-14"
+              variant="body2"
+            >
+              GEHALT UND ANSTELLUNG
+            </WithStyles(Typography)>
+            <WithStyles(PrSalary)
+              prById={
+                Object {
+                  "_links": Object {
+                    "self": Object {
+                      "href": "http://localhost:8010/api/v1/prs/1",
+                    },
+                  },
+                  "deadline": "2015-05-11",
+                  "employee": Object {
+                    "email": "lionel.schäfer@senacor.com",
+                    "employment": Object {
+                      "endOfProbationPeriod": "2004-05-10",
+                      "jobGradings": Array [
+                        Object {
+                          "competence": "DEVELOPMENT",
+                          "positionId": 1,
+                          "salaryLevel": 1,
+                          "validFrom": "2004-05-09",
+                        },
+                        Object {
+                          "competence": "DEVELOPMENT",
+                          "positionId": 2,
+                          "salaryLevel": 2,
+                          "validFrom": "2005-05-09",
+                        },
+                      ],
+                      "leaves": Object {
+                        "maternityLeave": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2004-10-11",
+                          },
+                        ],
+                        "parentalLeave": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2004-08-28",
+                          },
+                        ],
+                        "sabbatical": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2004-06-07",
+                          },
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2005-02-10",
+                          },
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2005-03-26",
+                          },
+                        ],
+                        "unpaidLeave": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2005-03-31",
+                          },
+                        ],
+                      },
+                    },
+                    "entryDate": "2004-05-10",
+                    "firstName": "Lionel",
+                    "id": 1,
+                    "lastName": "Schäfer",
+                    "login": "lschäfer",
+                    "salaries": Array [
+                      Object {
+                        "basicSalary": 40500,
+                        "fte": 1,
+                        "ote": 45000,
+                        "validFrom": "2004-05-10",
+                        "workingHoursPerWeek": 40,
+                      },
+                      Object {
+                        "basicSalary": 40000,
+                        "fte": 1,
+                        "ote": 50000,
+                        "validFrom": "2005-05-10",
+                        "workingHoursPerWeek": 40,
+                      },
+                    ],
+                    "title": "DR",
+                  },
+                  "id": 1,
+                  "occasion": "ON_DEMAND",
+                  "status": "PREPARATION",
+                  "supervisor": "ttran",
+                }
+              }
+            />
+            <WithStyles(PrEmployment)
+              prById={
+                Object {
+                  "_links": Object {
+                    "self": Object {
+                      "href": "http://localhost:8010/api/v1/prs/1",
+                    },
+                  },
+                  "deadline": "2015-05-11",
+                  "employee": Object {
+                    "email": "lionel.schäfer@senacor.com",
+                    "employment": Object {
+                      "endOfProbationPeriod": "2004-05-10",
+                      "jobGradings": Array [
+                        Object {
+                          "competence": "DEVELOPMENT",
+                          "positionId": 1,
+                          "salaryLevel": 1,
+                          "validFrom": "2004-05-09",
+                        },
+                        Object {
+                          "competence": "DEVELOPMENT",
+                          "positionId": 2,
+                          "salaryLevel": 2,
+                          "validFrom": "2005-05-09",
+                        },
+                      ],
+                      "leaves": Object {
+                        "maternityLeave": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2004-10-11",
+                          },
+                        ],
+                        "parentalLeave": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2004-08-28",
+                          },
+                        ],
+                        "sabbatical": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2004-06-07",
+                          },
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2005-02-10",
+                          },
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2005-03-26",
+                          },
+                        ],
+                        "unpaidLeave": Array [
+                          Object {
+                            "from": "2004-05-10",
+                            "to": "2005-03-31",
+                          },
+                        ],
+                      },
+                    },
+                    "entryDate": "2004-05-10",
+                    "firstName": "Lionel",
+                    "id": 1,
+                    "lastName": "Schäfer",
+                    "login": "lschäfer",
+                    "salaries": Array [
+                      Object {
+                        "basicSalary": 40500,
+                        "fte": 1,
+                        "ote": 45000,
+                        "validFrom": "2004-05-10",
+                        "workingHoursPerWeek": 40,
+                      },
+                      Object {
+                        "basicSalary": 40000,
+                        "fte": 1,
+                        "ote": 50000,
+                        "validFrom": "2005-05-10",
+                        "workingHoursPerWeek": 40,
+                      },
+                    ],
+                    "title": "DR",
+                  },
+                  "id": 1,
+                  "occasion": "ON_DEMAND",
+                  "status": "PREPARATION",
+                  "supervisor": "ttran",
+                }
+              }
+            />
+          </Card>
+          <Card
+            className="MyPRList-cardColumn-13"
+            raised={false}
+          >
+            <WithStyles(Typography)
+              className="MyPRList-title-14"
+              variant="body2"
+            >
+              STATUS
+            </WithStyles(Typography)>
+            <WithStyles(PrState) />
+          </Card>
+        </div>
+      </div>
+    </div>
+  </Hidden>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={false}
+    smUp={true}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <Link
+      key="1"
+      replace={false}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      to="/prs/1"
+    >
+      <WithStyles(List)
+        className="MyPRList-list-6"
+      >
+        <WithStyles(ListItem)
+          className="MyPRList-listItem-11"
+        >
+          <WithStyles(ListItemText)>
+            <div
+              className="MyPRList-divItemText-12"
+            >
+              <WithStyles(Typography)
+                className="MyPRList-typography-8"
+              >
+                Beurteiler: 
+                ttran
+              </WithStyles(Typography)>
+              <WithStyles(Typography)
+                className="MyPRList-typography-8"
+              >
+                Datum: 
+                11.05.15
+              </WithStyles(Typography)>
+              <WithStyles(Typography)
+                className="MyPRList-typography-8"
+              >
+                Auf Nachfrage
+              </WithStyles(Typography)>
+              <WithStyles(Typography)
+                className="MyPRList-typographyGreen-10"
+              >
+                In Vorbereitung
+              </WithStyles(Typography)>
+            </div>
+          </WithStyles(ListItemText)>
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </Link>
+  </Hidden>
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={false}
+    smDown={false}
+    smUp={true}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Button)
+      aria-label="add"
+      className="MyPRList-buttonMobile-3"
+      color="primary"
+      onClick={[Function]}
+      variant="fab"
+    >
+      <pure(Add)
+        className="MyPRList-icon-4"
+      />
+    </WithStyles(Button)>
+  </Hidden>
+</div>
+`;

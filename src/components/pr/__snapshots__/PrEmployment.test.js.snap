@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrEmployment Component displays the PrEmployment 1`] = `
+<WithStyles(Paper)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        <div>
+          <WithStyles(Typography)
+            className="PrEmployment-title-1"
+          >
+            Berufseinstufungen:
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="0"
+          >
+            Stufe 1 seit: 09.05.04
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="1"
+          >
+            Stufe 2 seit: 09.05.05
+          </WithStyles(Typography)>
+        </div>
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;

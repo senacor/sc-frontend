@@ -1,8 +1,8 @@
 import React from 'react';
-import PrSheet from './PrSheet';
+import PrSalary from './PrSalary';
 import { createShallow } from 'material-ui/test-utils';
 
-describe('PrSheet Component', () => {
+describe('PrSalary Component', () => {
   let shallow = createShallow({ dive: true });
 
   const prById = {
@@ -15,6 +15,33 @@ describe('PrSheet Component', () => {
       title: 'DR',
       email: 'lionel.schäfer@senacor.com',
       entryDate: '2004-05-10',
+      costCenters: [
+        {
+          name: 'WRJ',
+          supervisorId: 1,
+          costCenterId: 10
+        },
+        {
+          name: 'KLC',
+          supervisorId: 1,
+          costCenterId: 50
+        },
+        {
+          name: 'NPU',
+          supervisorId: 1,
+          costCenterId: 30
+        },
+        {
+          name: 'CYP',
+          supervisorId: 1,
+          costCenterId: 40
+        },
+        {
+          name: 'BOH',
+          supervisorId: 1,
+          costCenterId: 20
+        }
+      ],
       salaries: [
         {
           workingHoursPerWeek: 40,
@@ -70,18 +97,21 @@ describe('PrSheet Component', () => {
             {
               from: '2004-05-10',
               to: '2004-06-07'
-            },
-            {
-              from: '2004-05-10',
-              to: '2005-02-10'
-            },
-            {
-              from: '2004-05-10',
-              to: '2005-03-26'
             }
           ]
         }
-      }
+      },
+      staffings: [
+        {
+          costCenterId: 34,
+          date: '2018-03-16'
+        },
+        {
+          costCenterId: 8,
+          date: '2018-04-04'
+        }
+      ],
+      scorecards: []
     },
     supervisor: 'ttran',
     occasion: 'ON_DEMAND',
@@ -94,9 +124,34 @@ describe('PrSheet Component', () => {
     }
   };
 
-  it('displays the PrSheet', () => {
-    const component = shallow(<PrSheet prById={prById} />);
+  it('tests the addAllValues function', () => {
+    const output = [
+      { validFrom: '2004-05-10', reason: 'Ende der Probezeit' },
+      { validFrom: '2004-05-10', ote: 45000, fte: 1 },
+      { validFrom: '2005-05-10', ote: 50000, fte: 1 },
+      {
+        validFrom: '2004-05-10',
+        validTo: '2005-03-31',
+        reason: 'Unbezahlter Urlaub'
+      },
+      {
+        validFrom: '2004-05-10',
+        validTo: '2004-10-11',
+        reason: 'Mutterschutz'
+      },
+      { validFrom: '2004-05-10', validTo: '2004-08-28', reason: 'Elternzeit' },
+      {
+        validFrom: '2004-05-10',
+        validTo: '2004-06-07',
+        reason: 'Forschungsurlaub'
+      }
+    ];
+    const component = shallow(<PrSalary prById={prById} />);
+    expect(component.instance().addAllValues(prById)).toEqual(output);
+  });
 
+  it('displays the PrSalary', () => {
+    const component = shallow(<PrSalary prById={prById} />);
     expect(component).toMatchSnapshot();
   });
 });

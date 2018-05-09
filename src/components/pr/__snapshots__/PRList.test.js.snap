@@ -37,7 +37,7 @@ exports[`PRList Component displays the list of prs 1`] = `
           color="textSecondary"
           variant="subheading"
         >
-          Deadline: 
+          Deadline:
           09.05.18
         </WithStyles(Typography)>
         <div
