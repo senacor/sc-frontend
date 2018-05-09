@@ -190,8 +190,8 @@ class PrSheet extends React.Component {
                     multiline
                     fullWidth
                     rowsMax="4"
-                    value={this.state.multiline}
-                    onChange={this.handleChange('multiline')}
+                    value={this.state.multilineProblemanalyse}
+                    onChange={this.handleChange('multilineProblemanalyse')}
                     InputProps={{
                       disableUnderline: true,
                       classes: {
@@ -262,8 +262,8 @@ class PrSheet extends React.Component {
                     multiline
                     fullWidth
                     rowsMax="4"
-                    value={this.state.multiline}
-                    onChange={this.handleChange('multiline')}
+                    value={this.state.multilineArbeitsergebnisse}
+                    onChange={this.handleChange('multilineArbeitsergebnisse')}
                     InputProps={{
                       disableUnderline: true,
                       classes: {
@@ -335,8 +335,8 @@ class PrSheet extends React.Component {
                     multiline
                     fullWidth
                     rowsMax="4"
-                    value={this.state.multiline}
-                    onChange={this.handleChange('multiline')}
+                    value={this.state.multilineArbeitsweise}
+                    onChange={this.handleChange('multilineArbeitsweise')}
                     InputProps={{
                       disableUnderline: true,
                       classes: {
@@ -364,7 +364,6 @@ class PrSheet extends React.Component {
                   />
                 </ListItem>
               </List>
-              <Divider />
             </Collapse>
           </List>
         </List>
