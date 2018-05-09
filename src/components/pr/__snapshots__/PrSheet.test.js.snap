@@ -335,7 +335,6 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             />
           </WithStyles(ListItem)>
         </WithStyles(List)>
-        <WithStyles(Divider) />
       </WithStyles(Collapse)>
     </WithStyles(List)>
   </WithStyles(List)>
