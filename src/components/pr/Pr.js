@@ -67,7 +67,7 @@ const styles = theme => ({
   },
 
   cardColumnSheet: {
-    width: '65%',
+    width: '50%',
     alignSelf: 'center',
     height: '100%',
     marginLeft: '1.5%',
@@ -75,7 +75,17 @@ const styles = theme => ({
   },
 
   cardColumn: {
-    width: '35%',
+    width: '50%',
+    alignSelf: 'top',
+    height: '100%',
+    marginLeft: '1.5%',
+    marginRight: '1.5%',
+    boxShadow:
+      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
+    backgroundColor: 'inherit'
+  },
+  cardColumnStatus: {
+    width: '30%',
     alignSelf: 'top',
     height: '100%',
     marginLeft: '1.5%',
@@ -123,7 +133,7 @@ export class Pr extends React.Component {
       case 'QUARTERLY':
         return 'vierteljährlich';
       case 'END_PROBATION':
-        return 'ende der Probezeit';
+        return 'Ende der Probezeit';
       default:
         return 'auf Nachfrage';
     }
@@ -191,9 +201,9 @@ export class Pr extends React.Component {
           </Hidden>
         </div>
         <Hidden smUp>
-          {value === 0 && <PrSheet />}
+          {value === 0 && <PrSheet prById={this.state.prById} />}
           {value === 1 && <PrState expanded={this.state.expanded} />}
-          {value === 2 && <PrEmployment />}
+          {value === 2 && <PrEmployment prById={this.state.prById} />}
           {value === 3 && <PrSalary prById={this.state.prById} />}
         </Hidden>
         <Hidden smDown>
@@ -205,7 +215,7 @@ export class Pr extends React.Component {
               <PrSheet prById={this.state.prById} />
             </Card>
 
-            <Card className={classes.cardColumn}>
+            <Card className={classes.cardColumnStatus}>
               <Typography variant="body2" className={classes.title}>
                 STATUS
               </Typography>
@@ -218,6 +228,7 @@ export class Pr extends React.Component {
               </Typography>
 
               <PrSalary prById={this.state.prById} />
+              <PrEmployment prById={this.state.prById} />
             </Card>
           </div>
         </Hidden>

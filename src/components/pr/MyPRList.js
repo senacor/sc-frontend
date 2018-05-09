@@ -10,6 +10,7 @@ import Hidden from 'material-ui/Hidden';
 import AddIcon from 'material-ui-icons/Add';
 import PrState from './PrState';
 import PrSalary from './PrSalary';
+import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
 import Card from 'material-ui/Card';
 import moment from 'moment';
@@ -20,10 +21,11 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexFlow: 'row wrap',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   root: {
-    width: '30%',
+    width: '25%',
     maxWidth: 300,
     backgroundColor: theme.palette.background.paper
   },
@@ -81,9 +83,7 @@ const styles = theme => ({
     flexWrap: 'wrap'
   },
   cardColumn: {
-    marginLeft: '1.5%',
     alignSelf: 'top',
-    marginRight: '1.5%',
     boxShadow:
       '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
     backgroundColor: 'inherit',
@@ -99,13 +99,11 @@ const styles = theme => ({
   cardContainerRow: {
     display: 'flex',
     flexDirection: 'row',
-    width: '70%',
+    width: '74%',
     justifyContent: 'space-around'
   },
   cardColumnSheet: {
-    width: '100%',
-    marginLeft: '1.5%',
-    marginRight: '1.5%',
+    width: '40%',
     alignSelf: 'top',
     backgroundColor: 'inherit',
     boxShadow:
@@ -115,7 +113,6 @@ const styles = theme => ({
   cardContainerColumn: {
     display: 'flex',
     width: '50%',
-    paddingLeft: '1.5%',
     flexDirection: 'column',
     justifyContent: 'flex-start'
   },
@@ -263,6 +260,7 @@ export class MyPRList extends React.Component {
                       GEHALT UND ANSTELLUNG
                     </Typography>
                     <PrSalary prById={prs[0]} />
+                    <PrEmployment prById={prs[0]} />
                   </Card>
 
                   <Card className={classes.cardColumn}>

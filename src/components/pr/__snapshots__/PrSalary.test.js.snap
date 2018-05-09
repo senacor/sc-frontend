@@ -7,13 +7,19 @@ exports[`PrSalary Component displays the PrSalary 1`] = `
   >
     <WithStyles(TableHead)>
       <WithStyles(TableRow)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
           Gehalt seit:
         </WithStyles(TableCell)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
           OTE:
         </WithStyles(TableCell)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          numeric={true}
+        >
           FTE:
         </WithStyles(TableCell)>
       </WithStyles(TableRow)>
@@ -23,13 +29,19 @@ exports[`PrSalary Component displays the PrSalary 1`] = `
         className="PrSalary-tableRow-1"
         key="0"
       >
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
           10.05.05
         </WithStyles(TableCell)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
           50000
         </WithStyles(TableCell)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          numeric={true}
+        >
           1
         </WithStyles(TableCell)>
       </WithStyles(TableRow)>
@@ -37,13 +49,103 @@ exports[`PrSalary Component displays the PrSalary 1`] = `
         className=""
         key="1"
       >
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          10.05.04 - 31.03.05
+           
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          Unbezahlter Urlaub
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell) />
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        className="PrSalary-tableRow-1"
+        key="2"
+      >
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          10.05.04 - 11.10.04
+           
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          Mutterschutz
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell) />
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        className=""
+        key="3"
+      >
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          10.05.04 - 28.08.04
+           
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          Elternzeit
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell) />
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        className="PrSalary-tableRow-1"
+        key="4"
+      >
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          10.05.04 - 07.06.04
+           
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          Forschungsurlaub
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell) />
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        className=""
+        key="5"
+      >
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
           10.05.04
         </WithStyles(TableCell)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          Ende der Probezeit
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell) />
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        className="PrSalary-tableRow-1"
+        key="6"
+      >
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
+          10.05.04
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          colSpan={2}
+        >
           45000
         </WithStyles(TableCell)>
-        <WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          numeric={true}
+        >
           1
         </WithStyles(TableCell)>
       </WithStyles(TableRow)>
