@@ -29,7 +29,6 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           className="PrSheet-nestedNumber-5"
         >
           <TextField
-            className=""
             onChange={[Function]}
             required={false}
             select={true}
@@ -137,7 +136,6 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           className="PrSheet-nestedNumber-5"
         >
           <TextField
-            className=""
             onChange={[Function]}
             required={false}
             select={true}
@@ -245,7 +243,6 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           className="PrSheet-nestedNumber-5"
         >
           <TextField
-            className=""
             onChange={[Function]}
             required={false}
             select={true}
