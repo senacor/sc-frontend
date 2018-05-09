@@ -5,7 +5,6 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import classNames from 'classnames';
 import Collapse from 'material-ui/transitions/Collapse';
-import Icon from 'material-ui/Icon';
 import { withStyles } from 'material-ui/styles/index';
 
 const styles = theme => ({
@@ -16,9 +15,23 @@ const styles = theme => ({
     boxShadow:
       '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
   },
+  containerListItem: {
+    display: 'flex'
+  },
+
   nested: {
     paddingLeft: '30px'
   },
+
+  nestedListItem: {
+    paddingLeft: '30px',
+    width: '80%'
+  },
+
+  nestedNumber: {
+    width: '20%'
+  },
+
   nestedText: {
     paddingLeft: '30px',
     paddingRight: '30px'
@@ -131,25 +144,21 @@ class PrSheet extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <div className={classes.containerVertical}>
-          <List>
-            <ListItem>
-              <ListItemText primary="Leistungen im Projekt" />
-            </ListItem>
-            <List disablePadding>
+      <div className={classes.containerVertical}>
+        <List>
+          <ListItem>
+            <ListItemText primary="Leistungen im Projekt" />
+          </ListItem>
+          <List disablePadding>
+            <div className={classes.containerListItem}>
               <ListItem
                 button
-                className={classes.nested}
+                className={classes.nestedListItem}
                 onClick={() => this.handleClick('openProblemanalyse')}
               >
                 <ListItemText secondary="Problemanalyse und -lösung" />
-                {this.state.openProblemanalyse ? (
-                  <Icon>expand_less</Icon>
-                ) : (
-                  <Icon>expand_more</Icon>
-                )}
-
+              </ListItem>
+              <ListItem className={classes.nestedNumber}>
                 <TextField
                   select
                   className={classNames(classes.margin, classes.textField)}
@@ -163,60 +172,65 @@ class PrSheet extends React.Component {
                   ))}
                 </TextField>
               </ListItem>
-              <Collapse
-                in={this.state.openProblemanalyse}
-                timeout="auto"
-                unmountOnExit
+            </div>
+            <Collapse
+              in={this.state.openProblemanalyse}
+              timeout="auto"
+              unmountOnExit
+            >
+              <List
+                component="div"
+                disablePadding
+                className={classes.nestedText}
               >
-                <List
-                  component="div"
-                  disablePadding
-                  className={classes.nestedText}
-                >
-                  <ListItem>
-                    <TextField
-                      id="multiline-flexible"
-                      label="Kommentar"
-                      multiline
-                      fullWidth
-                      rowsMax="4"
-                      value={this.state.multiline}
-                      onChange={this.handleChange('multiline')}
-                      InputProps={{
-                        disableUnderline: true,
-                        classes: {
-                          root: classes.bootstrapRoot,
-                          input: classes.bootstrapInput
-                        }
-                      }}
-                      InputLabelProps={{
-                        shrink: true,
-                        className: classes.bootstrapFormLabel
-                      }}
-                    />
-                  </ListItem>
-                  <ListItem />
-                  <ListItem button>
-                    <ListItemText
-                      disabled
-                      secondary="Beschreibung: Problemanalyse !"
-                    />
-                  </ListItem>
-                </List>
-                <Divider />
-              </Collapse>
+                <ListItem>
+                  <TextField
+                    id="multiline-flexible"
+                    label="Kommentar"
+                    multiline
+                    fullWidth
+                    rowsMax="4"
+                    value={this.state.multiline}
+                    onChange={this.handleChange('multiline')}
+                    InputProps={{
+                      disableUnderline: true,
+                      classes: {
+                        root: classes.bootstrapRoot,
+                        input: classes.bootstrapInput
+                      }
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                      className: classes.bootstrapFormLabel
+                    }}
+                  />
+                </ListItem>
+                <ListItem />
+                <ListItem>
+                  <ListItemText
+                    disabled
+                    secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    disabled
+                    secondary="Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen"
+                  />
+                </ListItem>
+              </List>
+              <Divider />
+            </Collapse>
 
+            <div className={classes.containerListItem}>
               <ListItem
                 button
-                className={classes.nested}
+                className={classes.nestedListItem}
                 onClick={() => this.handleClick('openArbeitsergebnisse')}
               >
                 <ListItemText secondary="Arbeitsergebnisse" />
-                {this.state.openArbeitsergebnisse ? (
-                  <Icon>expand_less</Icon>
-                ) : (
-                  <Icon>expand_more</Icon>
-                )}
+              </ListItem>
+              <ListItem className={classes.nestedNumber}>
                 <TextField
                   select
                   className={classNames(classes.margin, classes.textField)}
@@ -230,60 +244,65 @@ class PrSheet extends React.Component {
                   ))}
                 </TextField>
               </ListItem>
-              <Collapse
-                in={this.state.openArbeitsergebnisse}
-                timeout="auto"
-                unmountOnExit
+            </div>
+            <Collapse
+              in={this.state.openArbeitsergebnisse}
+              timeout="auto"
+              unmountOnExit
+            >
+              <List
+                component="div"
+                disablePadding
+                className={classes.nestedText}
               >
-                <List
-                  component="div"
-                  disablePadding
-                  className={classes.nestedText}
-                >
-                  <ListItem>
-                    <TextField
-                      id="multiline-flexible"
-                      label="Kommentar"
-                      multiline
-                      fullWidth
-                      rowsMax="4"
-                      value={this.state.multiline}
-                      onChange={this.handleChange('multiline')}
-                      InputProps={{
-                        disableUnderline: true,
-                        classes: {
-                          root: classes.bootstrapRoot,
-                          input: classes.bootstrapInput
-                        }
-                      }}
-                      InputLabelProps={{
-                        shrink: true,
-                        className: classes.bootstrapFormLabel
-                      }}
-                    />
-                  </ListItem>
-                  <ListItem />
-                  <ListItem button>
-                    <ListItemText
-                      disabled
-                      secondary="Beschreibung:  Arbeitsergebnisse
- !"
-                    />
-                  </ListItem>
-                </List>
-                <Divider />
-              </Collapse>
+                <ListItem>
+                  <TextField
+                    id="multiline-flexible"
+                    label="Kommentar"
+                    multiline
+                    fullWidth
+                    rowsMax="4"
+                    value={this.state.multiline}
+                    onChange={this.handleChange('multiline')}
+                    InputProps={{
+                      disableUnderline: true,
+                      classes: {
+                        root: classes.bootstrapRoot,
+                        input: classes.bootstrapInput
+                      }
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                      className: classes.bootstrapFormLabel
+                    }}
+                  />
+                </ListItem>
+                <ListItem />
+                <ListItem>
+                  <ListItemText
+                    disabled
+                    secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    disabled
+                    secondary="Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern"
+                  />
+                </ListItem>
+              </List>
+              <Divider />
+            </Collapse>
+
+            <div className={classes.containerListItem}>
               <ListItem
                 button
-                className={classes.nested}
+                className={classes.nestedListItem}
                 onClick={() => this.handleClick('openArbeitsweise')}
               >
                 <ListItemText secondary="Arbeitsweise" />
-                {this.state.openArbeitsweise ? (
-                  <Icon>expand_less</Icon>
-                ) : (
-                  <Icon>expand_more</Icon>
-                )}
+              </ListItem>
+              <ListItem className={classes.nestedNumber}>
                 <TextField
                   select
                   className={classNames(classes.margin, classes.textField)}
@@ -297,103 +316,109 @@ class PrSheet extends React.Component {
                   ))}
                 </TextField>
               </ListItem>
+            </div>
 
-              <Collapse
-                in={this.state.openArbeitsweise}
-                timeout="auto"
-                unmountOnExit
+            <Collapse
+              in={this.state.openArbeitsweise}
+              timeout="auto"
+              unmountOnExit
+            >
+              <List
+                component="div"
+                disablePadding
+                className={classes.nestedText}
               >
-                <List
-                  component="div"
-                  disablePadding
-                  className={classes.nestedText}
-                >
-                  <ListItem>
-                    <TextField
-                      id="multiline-flexible"
-                      label="Kommentar"
-                      multiline
-                      fullWidth
-                      rowsMax="4"
-                      value={this.state.multiline}
-                      onChange={this.handleChange('multiline')}
-                      InputProps={{
-                        disableUnderline: true,
-                        classes: {
-                          root: classes.bootstrapRoot,
-                          input: classes.bootstrapInput
-                        }
-                      }}
-                      InputLabelProps={{
-                        shrink: true,
-                        className: classes.bootstrapFormLabel
-                      }}
-                    />
-                  </ListItem>
-                  <ListItem />
-                  <ListItem button>
-                    <ListItemText
-                      disabled
-                      secondary="Beschreibung: Arbeitsweise !"
-                    />
-                  </ListItem>
-                </List>
-                <Divider />
-              </Collapse>
-            </List>
+                <ListItem>
+                  <TextField
+                    id="multiline-flexible"
+                    label="Kommentar"
+                    multiline
+                    fullWidth
+                    rowsMax="4"
+                    value={this.state.multiline}
+                    onChange={this.handleChange('multiline')}
+                    InputProps={{
+                      disableUnderline: true,
+                      classes: {
+                        root: classes.bootstrapRoot,
+                        input: classes.bootstrapInput
+                      }
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                      className: classes.bootstrapFormLabel
+                    }}
+                  />
+                </ListItem>
+                <ListItem />
+                <ListItem>
+                  <ListItemText
+                    disabled
+                    secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    disabled
+                    secondary="Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte"
+                  />
+                </ListItem>
+              </List>
+              <Divider />
+            </Collapse>
           </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Wirkung beim Kunden" />
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Wirkung beim Kunden" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Kundeninteraktion und -veränderung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Kundeninteraktion und -veränderung" />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Kundenbindung und Mandatsgenerierung" />
-              </ListItem>
-            </List>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Wirkung im Team" />
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Kundenbindung und Mandatsgenerierung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Effektives Arbeiten im Team und Teamführung" />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Coaching, Leadership und Personalführung" />
-              </ListItem>
-            </List>
           </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Wirkung im Unternehmen" />
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Wirkung im Team" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Effektives Arbeiten im Team und Teamführung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Beitrag zur Unternehmensentwicklung" />
-              </ListItem>
-            </List>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Coaching, Leadership und Personalführung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Freitextfeld" />
-              </ListItem>
-            </List>
           </List>
-          <Divider />
-        </div>
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Wirkung im Unternehmen" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Beitrag zur Unternehmensentwicklung" />
+            </ListItem>
+          </List>
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Freitextfeld" />
+            </ListItem>
+          </List>
+        </List>
+        <Divider />
       </div>
     );
   }
