@@ -3,11 +3,11 @@ import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import classNames from 'classnames';
 import Collapse from 'material-ui/transitions/Collapse';
+import PrKommentar from './PrKommentar';
 import { withStyles } from 'material-ui/styles/index';
 
-const styles = theme => ({
+const styles = () => ({
   containerVertical: {
     flex: 1,
     flexDirection: 'column',
@@ -38,37 +38,6 @@ const styles = theme => ({
   },
   rightAlignText: {
     textAlign: 'right'
-  },
-  bootstrapRoot: {
-    padding: 0,
-    'label + &': {
-      marginTop: theme.spacing.unit * 3
-    }
-  },
-  bootstrapInput: {
-    borderRadius: 4,
-    backgroundColor: theme.palette.common.white,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 12px',
-    width: 'calc(100% - 24px)',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
-    ].join(','),
-    '&:focus': {
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'
-    }
   }
 });
 
@@ -161,7 +130,6 @@ class PrSheet extends React.Component {
               <ListItem className={classes.nestedNumber}>
                 <TextField
                   select
-                  className={classNames(classes.margin, classes.textField)}
                   value={this.state.problemanalyse}
                   onChange={this.handleChange('problemanalyse')}
                 >
@@ -178,50 +146,8 @@ class PrSheet extends React.Component {
               timeout="auto"
               unmountOnExit
             >
-              <List
-                component="div"
-                disablePadding
-                className={classes.nestedText}
-              >
-                <ListItem>
-                  <TextField
-                    id="multiline-flexible"
-                    label="Kommentar"
-                    multiline
-                    fullWidth
-                    rowsMax="4"
-                    value={this.state.multilineProblemanalyse}
-                    onChange={this.handleChange('multilineProblemanalyse')}
-                    InputProps={{
-                      disableUnderline: true,
-                      classes: {
-                        root: classes.bootstrapRoot,
-                        input: classes.bootstrapInput
-                      }
-                    }}
-                    InputLabelProps={{
-                      shrink: true,
-                      className: classes.bootstrapFormLabel
-                    }}
-                  />
-                </ListItem>
-                <ListItem />
-                <ListItem>
-                  <ListItemText
-                    disabled
-                    secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    disabled
-                    secondary="Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen"
-                  />
-                </ListItem>
-              </List>
-              <Divider />
+              <PrKommentar category="problemanalyse" />
             </Collapse>
-
             <div className={classes.containerListItem}>
               <ListItem
                 button
@@ -233,7 +159,6 @@ class PrSheet extends React.Component {
               <ListItem className={classes.nestedNumber}>
                 <TextField
                   select
-                  className={classNames(classes.margin, classes.textField)}
                   value={this.state.arbeitsergebnisse}
                   onChange={this.handleChange('arbeitsergebnisse')}
                 >
@@ -245,53 +170,13 @@ class PrSheet extends React.Component {
                 </TextField>
               </ListItem>
             </div>
+
             <Collapse
               in={this.state.openArbeitsergebnisse}
               timeout="auto"
               unmountOnExit
             >
-              <List
-                component="div"
-                disablePadding
-                className={classes.nestedText}
-              >
-                <ListItem>
-                  <TextField
-                    id="multiline-flexible"
-                    label="Kommentar"
-                    multiline
-                    fullWidth
-                    rowsMax="4"
-                    value={this.state.multilineArbeitsergebnisse}
-                    onChange={this.handleChange('multilineArbeitsergebnisse')}
-                    InputProps={{
-                      disableUnderline: true,
-                      classes: {
-                        root: classes.bootstrapRoot,
-                        input: classes.bootstrapInput
-                      }
-                    }}
-                    InputLabelProps={{
-                      shrink: true,
-                      className: classes.bootstrapFormLabel
-                    }}
-                  />
-                </ListItem>
-                <ListItem />
-                <ListItem>
-                  <ListItemText
-                    disabled
-                    secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    disabled
-                    secondary="Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern"
-                  />
-                </ListItem>
-              </List>
-              <Divider />
+              <PrKommentar category="arbeitsergebnisse" />
             </Collapse>
 
             <div className={classes.containerListItem}>
@@ -305,7 +190,6 @@ class PrSheet extends React.Component {
               <ListItem className={classes.nestedNumber}>
                 <TextField
                   select
-                  className={classNames(classes.margin, classes.textField)}
                   value={this.state.arbeitsweise}
                   onChange={this.handleChange('arbeitsweise')}
                 >
@@ -317,53 +201,12 @@ class PrSheet extends React.Component {
                 </TextField>
               </ListItem>
             </div>
-
             <Collapse
               in={this.state.openArbeitsweise}
               timeout="auto"
               unmountOnExit
             >
-              <List
-                component="div"
-                disablePadding
-                className={classes.nestedText}
-              >
-                <ListItem>
-                  <TextField
-                    id="multiline-flexible"
-                    label="Kommentar"
-                    multiline
-                    fullWidth
-                    rowsMax="4"
-                    value={this.state.multilineArbeitsweise}
-                    onChange={this.handleChange('multilineArbeitsweise')}
-                    InputProps={{
-                      disableUnderline: true,
-                      classes: {
-                        root: classes.bootstrapRoot,
-                        input: classes.bootstrapInput
-                      }
-                    }}
-                    InputLabelProps={{
-                      shrink: true,
-                      className: classes.bootstrapFormLabel
-                    }}
-                  />
-                </ListItem>
-                <ListItem />
-                <ListItem>
-                  <ListItemText
-                    disabled
-                    secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemText
-                    disabled
-                    secondary="Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte"
-                  />
-                </ListItem>
-              </List>
+              <PrKommentar category="arbeitsweise" />
             </Collapse>
           </List>
         </List>
