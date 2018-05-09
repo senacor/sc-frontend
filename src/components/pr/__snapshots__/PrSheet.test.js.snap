@@ -1,30 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrSheet Component displays the PrSheet 1`] = `
-<div>
-  <div
-    className="PrSheet-containerVertical-1"
-  >
-    <WithStyles(List)>
-      <WithStyles(ListItem)>
-        <WithStyles(ListItemText)
-          primary="Leistungen im Projekt"
-        />
-      </WithStyles(ListItem)>
-      <WithStyles(List)
-        disablePadding={true}
+<div
+  className="PrSheet-containerVertical-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        primary="Leistungen im Projekt"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(List)
+      disablePadding={true}
+    >
+      <div
+        className="PrSheet-containerListItem-2"
       >
         <WithStyles(ListItem)
           button={true}
-          className="PrSheet-nested-2"
+          className="PrSheet-nestedListItem-4"
           onClick={[Function]}
         >
           <WithStyles(ListItemText)
             secondary="Problemanalyse und -lösung"
           />
-          <WithStyles(Icon)>
-            expand_more
-          </WithStyles(Icon)>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="PrSheet-nestedNumber-5"
+        >
           <TextField
             className=""
             onChange={[Function]}
@@ -64,66 +67,75 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             </WithStyles(MenuItem)>
           </TextField>
         </WithStyles(ListItem)>
-        <WithStyles(Collapse)
-          in={false}
-          timeout="auto"
-          unmountOnExit={true}
+      </div>
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(List)
+          className="PrSheet-nestedText-6"
+          component="div"
+          disablePadding={true}
         >
-          <WithStyles(List)
-            className="PrSheet-nestedText-3"
-            component="div"
-            disablePadding={true}
-          >
-            <WithStyles(ListItem)>
-              <TextField
-                InputLabelProps={
-                  Object {
-                    "className": undefined,
-                    "shrink": true,
-                  }
+          <WithStyles(ListItem)>
+            <TextField
+              InputLabelProps={
+                Object {
+                  "className": undefined,
+                  "shrink": true,
                 }
-                InputProps={
-                  Object {
-                    "classes": Object {
-                      "input": "PrSheet-bootstrapInput-6",
-                      "root": "PrSheet-bootstrapRoot-5",
-                    },
-                    "disableUnderline": true,
-                  }
+              }
+              InputProps={
+                Object {
+                  "classes": Object {
+                    "input": "PrSheet-bootstrapInput-9",
+                    "root": "PrSheet-bootstrapRoot-8",
+                  },
+                  "disableUnderline": true,
                 }
-                fullWidth={true}
-                id="multiline-flexible"
-                label="Kommentar"
-                multiline={true}
-                onChange={[Function]}
-                required={false}
-                rowsMax="4"
-                select={false}
-              />
-            </WithStyles(ListItem)>
-            <WithStyles(ListItem) />
-            <WithStyles(ListItem)
-              button={true}
-            >
-              <WithStyles(ListItemText)
-                disabled={true}
-                secondary="Beschreibung: Problemanalyse !"
-              />
-            </WithStyles(ListItem)>
-          </WithStyles(List)>
-          <WithStyles(Divider) />
-        </WithStyles(Collapse)>
+              }
+              fullWidth={true}
+              id="multiline-flexible"
+              label="Kommentar"
+              multiline={true}
+              onChange={[Function]}
+              required={false}
+              rowsMax="4"
+              select={false}
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem) />
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              disabled={true}
+              secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              disabled={true}
+              secondary="Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen"
+            />
+          </WithStyles(ListItem)>
+        </WithStyles(List)>
+        <WithStyles(Divider) />
+      </WithStyles(Collapse)>
+      <div
+        className="PrSheet-containerListItem-2"
+      >
         <WithStyles(ListItem)
           button={true}
-          className="PrSheet-nested-2"
+          className="PrSheet-nestedListItem-4"
           onClick={[Function]}
         >
           <WithStyles(ListItemText)
             secondary="Arbeitsergebnisse"
           />
-          <WithStyles(Icon)>
-            expand_more
-          </WithStyles(Icon)>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="PrSheet-nestedNumber-5"
+        >
           <TextField
             className=""
             onChange={[Function]}
@@ -163,66 +175,75 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             </WithStyles(MenuItem)>
           </TextField>
         </WithStyles(ListItem)>
-        <WithStyles(Collapse)
-          in={false}
-          timeout="auto"
-          unmountOnExit={true}
+      </div>
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(List)
+          className="PrSheet-nestedText-6"
+          component="div"
+          disablePadding={true}
         >
-          <WithStyles(List)
-            className="PrSheet-nestedText-3"
-            component="div"
-            disablePadding={true}
-          >
-            <WithStyles(ListItem)>
-              <TextField
-                InputLabelProps={
-                  Object {
-                    "className": undefined,
-                    "shrink": true,
-                  }
+          <WithStyles(ListItem)>
+            <TextField
+              InputLabelProps={
+                Object {
+                  "className": undefined,
+                  "shrink": true,
                 }
-                InputProps={
-                  Object {
-                    "classes": Object {
-                      "input": "PrSheet-bootstrapInput-6",
-                      "root": "PrSheet-bootstrapRoot-5",
-                    },
-                    "disableUnderline": true,
-                  }
+              }
+              InputProps={
+                Object {
+                  "classes": Object {
+                    "input": "PrSheet-bootstrapInput-9",
+                    "root": "PrSheet-bootstrapRoot-8",
+                  },
+                  "disableUnderline": true,
                 }
-                fullWidth={true}
-                id="multiline-flexible"
-                label="Kommentar"
-                multiline={true}
-                onChange={[Function]}
-                required={false}
-                rowsMax="4"
-                select={false}
-              />
-            </WithStyles(ListItem)>
-            <WithStyles(ListItem) />
-            <WithStyles(ListItem)
-              button={true}
-            >
-              <WithStyles(ListItemText)
-                disabled={true}
-                secondary="Beschreibung:  Arbeitsergebnisse !"
-              />
-            </WithStyles(ListItem)>
-          </WithStyles(List)>
-          <WithStyles(Divider) />
-        </WithStyles(Collapse)>
+              }
+              fullWidth={true}
+              id="multiline-flexible"
+              label="Kommentar"
+              multiline={true}
+              onChange={[Function]}
+              required={false}
+              rowsMax="4"
+              select={false}
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem) />
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              disabled={true}
+              secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              disabled={true}
+              secondary="Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern"
+            />
+          </WithStyles(ListItem)>
+        </WithStyles(List)>
+        <WithStyles(Divider) />
+      </WithStyles(Collapse)>
+      <div
+        className="PrSheet-containerListItem-2"
+      >
         <WithStyles(ListItem)
           button={true}
-          className="PrSheet-nested-2"
+          className="PrSheet-nestedListItem-4"
           onClick={[Function]}
         >
           <WithStyles(ListItemText)
             secondary="Arbeitsweise"
           />
-          <WithStyles(Icon)>
-            expand_more
-          </WithStyles(Icon)>
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="PrSheet-nestedNumber-5"
+        >
           <TextField
             className=""
             onChange={[Function]}
@@ -262,154 +283,158 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             </WithStyles(MenuItem)>
           </TextField>
         </WithStyles(ListItem)>
-        <WithStyles(Collapse)
-          in={false}
-          timeout="auto"
-          unmountOnExit={true}
+      </div>
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(List)
+          className="PrSheet-nestedText-6"
+          component="div"
+          disablePadding={true}
         >
-          <WithStyles(List)
-            className="PrSheet-nestedText-3"
-            component="div"
-            disablePadding={true}
-          >
-            <WithStyles(ListItem)>
-              <TextField
-                InputLabelProps={
-                  Object {
-                    "className": undefined,
-                    "shrink": true,
-                  }
+          <WithStyles(ListItem)>
+            <TextField
+              InputLabelProps={
+                Object {
+                  "className": undefined,
+                  "shrink": true,
                 }
-                InputProps={
-                  Object {
-                    "classes": Object {
-                      "input": "PrSheet-bootstrapInput-6",
-                      "root": "PrSheet-bootstrapRoot-5",
-                    },
-                    "disableUnderline": true,
-                  }
+              }
+              InputProps={
+                Object {
+                  "classes": Object {
+                    "input": "PrSheet-bootstrapInput-9",
+                    "root": "PrSheet-bootstrapRoot-8",
+                  },
+                  "disableUnderline": true,
                 }
-                fullWidth={true}
-                id="multiline-flexible"
-                label="Kommentar"
-                multiline={true}
-                onChange={[Function]}
-                required={false}
-                rowsMax="4"
-                select={false}
-              />
-            </WithStyles(ListItem)>
-            <WithStyles(ListItem) />
-            <WithStyles(ListItem)
-              button={true}
-            >
-              <WithStyles(ListItemText)
-                disabled={true}
-                secondary="Beschreibung: Arbeitsweise !"
-              />
-            </WithStyles(ListItem)>
-          </WithStyles(List)>
-          <WithStyles(Divider) />
-        </WithStyles(Collapse)>
-      </WithStyles(List)>
+              }
+              fullWidth={true}
+              id="multiline-flexible"
+              label="Kommentar"
+              multiline={true}
+              onChange={[Function]}
+              required={false}
+              rowsMax="4"
+              select={false}
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem) />
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              disabled={true}
+              secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
+            />
+          </WithStyles(ListItem)>
+          <WithStyles(ListItem)>
+            <WithStyles(ListItemText)
+              disabled={true}
+              secondary="Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte"
+            />
+          </WithStyles(ListItem)>
+        </WithStyles(List)>
+        <WithStyles(Divider) />
+      </WithStyles(Collapse)>
     </WithStyles(List)>
-    <WithStyles(Divider) />
-    <WithStyles(List)>
-      <WithStyles(ListItem)>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        primary="Wirkung beim Kunden"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(List)
+      disablePadding={true}
+    >
+      <WithStyles(ListItem)
+        button={true}
+        className="PrSheet-nested-3"
+      >
         <WithStyles(ListItemText)
-          primary="Wirkung beim Kunden"
+          secondary="Kundeninteraktion und -veränderung"
         />
       </WithStyles(ListItem)>
-      <WithStyles(List)
-        disablePadding={true}
+      <WithStyles(ListItem)
+        button={true}
+        className="PrSheet-nested-3"
       >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nested-2"
-        >
-          <WithStyles(ListItemText)
-            secondary="Kundeninteraktion und -veränderung"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nested-2"
-        >
-          <WithStyles(ListItemText)
-            secondary="Kundenbindung und Mandatsgenerierung"
-          />
-        </WithStyles(ListItem)>
-      </WithStyles(List)>
-    </WithStyles(List)>
-    <WithStyles(Divider) />
-    <WithStyles(List)>
-      <WithStyles(ListItem)>
         <WithStyles(ListItemText)
-          primary="Wirkung im Team"
+          secondary="Kundenbindung und Mandatsgenerierung"
         />
       </WithStyles(ListItem)>
-      <WithStyles(List)
-        disablePadding={true}
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nested-2"
-        >
-          <WithStyles(ListItemText)
-            secondary="Effektives Arbeiten im Team und Teamführung"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nested-2"
-        >
-          <WithStyles(ListItemText)
-            secondary="Coaching, Leadership und Personalführung"
-          />
-        </WithStyles(ListItem)>
-      </WithStyles(List)>
     </WithStyles(List)>
-    <WithStyles(Divider) />
-    <WithStyles(List)>
-      <WithStyles(ListItem)>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        primary="Wirkung im Team"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(List)
+      disablePadding={true}
+    >
+      <WithStyles(ListItem)
+        button={true}
+        className="PrSheet-nested-3"
+      >
         <WithStyles(ListItemText)
-          primary="Wirkung im Unternehmen"
+          secondary="Effektives Arbeiten im Team und Teamführung"
         />
       </WithStyles(ListItem)>
-      <WithStyles(List)
-        disablePadding={true}
+      <WithStyles(ListItem)
+        button={true}
+        className="PrSheet-nested-3"
       >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nested-2"
-        >
-          <WithStyles(ListItemText)
-            secondary="Beitrag zur Unternehmensentwicklung"
-          />
-        </WithStyles(ListItem)>
-      </WithStyles(List)>
-    </WithStyles(List)>
-    <WithStyles(Divider) />
-    <WithStyles(List)>
-      <WithStyles(ListItem)>
         <WithStyles(ListItemText)
-          primary="Gesamtschätzung und Entwicklungsbedarfe"
+          secondary="Coaching, Leadership und Personalführung"
         />
       </WithStyles(ListItem)>
-      <WithStyles(List)
-        disablePadding={true}
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nested-2"
-        >
-          <WithStyles(ListItemText)
-            secondary="Freitextfeld"
-          />
-        </WithStyles(ListItem)>
-      </WithStyles(List)>
     </WithStyles(List)>
-    <WithStyles(Divider) />
-  </div>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        primary="Wirkung im Unternehmen"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(List)
+      disablePadding={true}
+    >
+      <WithStyles(ListItem)
+        button={true}
+        className="PrSheet-nested-3"
+      >
+        <WithStyles(ListItemText)
+          secondary="Beitrag zur Unternehmensentwicklung"
+        />
+      </WithStyles(ListItem)>
+    </WithStyles(List)>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        primary="Gesamtschätzung und Entwicklungsbedarfe"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(List)
+      disablePadding={true}
+    >
+      <WithStyles(ListItem)
+        button={true}
+        className="PrSheet-nested-3"
+      >
+        <WithStyles(ListItemText)
+          secondary="Freitextfeld"
+        />
+      </WithStyles(ListItem)>
+    </WithStyles(List)>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
 </div>
 `;
