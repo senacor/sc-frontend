@@ -110,7 +110,7 @@ class PrSheet extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { prById, classes } = this.props;
 
     return (
       <div className={classes.containerVertical}>
@@ -146,7 +146,7 @@ class PrSheet extends React.Component {
               timeout="auto"
               unmountOnExit
             >
-              <PrKommentar category="problemanalyse" />
+              <PrKommentar prById={prById} category="problemanalyse" />
             </Collapse>
             <div className={classes.containerListItem}>
               <ListItem
@@ -176,7 +176,7 @@ class PrSheet extends React.Component {
               timeout="auto"
               unmountOnExit
             >
-              <PrKommentar category="arbeitsergebnisse" />
+              <PrKommentar prById={prById} category="arbeitsergebnisse" />
             </Collapse>
 
             <div className={classes.containerListItem}>
@@ -206,7 +206,7 @@ class PrSheet extends React.Component {
               timeout="auto"
               unmountOnExit
             >
-              <PrKommentar category="arbeitsweise" />
+              <PrKommentar prById={prById} category="arbeitsweise" />
             </Collapse>
           </List>
         </List>

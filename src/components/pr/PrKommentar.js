@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles/index';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 const styles = theme => ({
   nestedText: {
@@ -24,11 +26,14 @@ const styles = theme => ({
 class PrKommentar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      prById: this.props.prById,
+      category: this.props.category
+    };
   }
 
-  handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
+  handleChange = (prById, category) => event => {
+    this.props.addComment(prById.id, category, event.target.value);
   };
 
   categoryText = category => {
@@ -62,40 +67,59 @@ class PrKommentar extends React.Component {
   };
 
   render() {
-    const { category, classes } = this.props;
+    const { prById, category, classes } = this.props;
 
     return (
       <List component="div" disablePadding className={classes.nestedText}>
         <ListItem>
-          <TextField
-            id="multiline-flexible"
-            label="Kommentar"
-            multiline
-            fullWidth
-            rowsMax="4"
-            value={this.state.category}
-            onChange={this.handleChange('category')}
-            InputProps={{
-              disableUnderline: true,
-              classes: {
-                input: classes.bootstrapInput
-              }
-            }}
-            InputLabelProps={{
-              shrink: true
-            }}
-          />
+          {prById[category] ? (
+            <TextField
+              id="multiline-flexible"
+              label="Kommentar"
+              multiline
+              fullWidth
+              rowsMax="4"
+              value={prById[category].comment}
+              onChange={this.handleChange(prById, category)}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  input: classes.bootstrapInput
+                }
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+          ) : (
+            <TextField
+              id="multiline-flexible"
+              label="Kommentar"
+              multiline
+              fullWidth
+              rowsMax="4"
+              value=""
+              onChange={this.handleChange(prById, category)}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  input: classes.bootstrapInput
+                }
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+          )}
         </ListItem>
         <ListItem />
         <ListItem>
           <ListItemText
-            disabled
             secondary={this.categoryText(category).categoryDescription}
           />
         </ListItem>
         <ListItem>
           <ListItemText
-            disabled
             secondary={this.categoryText(category).positionDescription}
           />
         </ListItem>
@@ -104,4 +128,12 @@ class PrKommentar extends React.Component {
   }
 }
 
-export default withStyles(styles)(PrKommentar);
+export const StyledComponent = withStyles(styles)(PrKommentar);
+export default connect(
+  state => ({
+    prs: state.prs.prsList
+  }),
+  {
+    addComment: actions.addComment
+  }
+)(StyledComponent);
