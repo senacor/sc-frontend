@@ -152,3 +152,12 @@ export const addSupervisor = prId => async dispatch => {
     prId: prId
   });
 };
+
+export const addComment = (prId, category, comment) => async dispatch => {
+  dispatch({
+    type: 'ADD_COMMENT',
+    category: category,
+    prId: prId,
+    comment: comment
+  });
+};

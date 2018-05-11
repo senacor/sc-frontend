@@ -84,6 +84,7 @@ class PrSalary extends React.Component {
 
   render() {
     const { prById, classes } = this.props;
+
     const allValues = this.addAllValues(prById);
     return (
       <Paper>
