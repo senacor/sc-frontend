@@ -5,6 +5,7 @@ import prs from './prs';
 import prById from './getPr';
 import errors from './errors';
 import login from './login';
+import prRatings from './rating';
 import isLoading from './isLoading';
 
 const app = combineReducers({
@@ -14,6 +15,7 @@ const app = combineReducers({
   prs,
   login,
   isLoading,
-  prById
+  prById,
+  prRatings
 });
 export default app;

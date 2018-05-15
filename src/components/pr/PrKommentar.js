@@ -225,6 +225,11 @@ class PrKommentar extends React.Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrKommentar);
-export default connect(null, {
-  addRating: actions.addRating
-})(StyledComponent);
+export default connect(
+  state => ({
+    prRating: state.prRatings.prRating
+  }),
+  {
+    addRating: actions.addRating
+  }
+)(StyledComponent);

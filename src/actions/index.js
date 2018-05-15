@@ -178,17 +178,15 @@ export const addRating = (
   );
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}`
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/ratings`
   );
 
   if (response.ok) {
-    const prById = await response.json();
+    const prRatings = await response.json();
 
-    console.log('dobivam: ');
-    console.log(prById);
     dispatch({
       type: 'ADD_COMMENT_RESPONSE',
-      prById
+      prRatings
     });
   }
 };

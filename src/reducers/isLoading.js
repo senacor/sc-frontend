@@ -10,7 +10,8 @@ export const isLoading = (state = false, action) => {
     'ERROR_RESPONSE',
     'FETCH_PR_BY_ID_RESPONSE',
     'FETCH_PRS_RESPONSE',
-    'FETCH_TASKS_RESPONSE'
+    'FETCH_TASKS_RESPONSE',
+    'ADD_COMMENT_RESPONSE'
   ];
 
   if (findInArray(startLoading, action.type)) {
