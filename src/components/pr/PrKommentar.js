@@ -7,6 +7,7 @@ import Collapse from 'material-ui/transitions/Collapse';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Select from 'material-ui/Select';
 import FormControl from 'material-ui/Form/FormControl';
+import Swipe from 'react-easy-swipe';
 import * as actions from '../../actions';
 
 const styles = theme => ({
@@ -38,9 +39,16 @@ const styles = theme => ({
   }
 });
 
+const position = {
+  1: 'junior',
+  2: 'senior',
+  3: 'expert',
+  4: 'lead'
+};
 class PrKommentar extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       rating: this.props.prById.prRatingSet.find(
         rating => rating.prRatingDescription === this.props.category
@@ -52,7 +60,10 @@ class PrKommentar extends React.Component {
       category: this.props.category,
       PROBLEM_ANALYSIS: false,
       WORK_RESULTS: false,
-      WORKING_MANNER: false
+      WORKING_MANNER: false,
+      problem_analysis_position: 1,
+      work_results_position: 1,
+      working_manner_position: 1
     };
   }
 
@@ -119,30 +130,129 @@ class PrKommentar extends React.Component {
     }
   };
 
+  positionText = position => {
+    switch (position) {
+      case 'PROBLEM_ANALYSIS':
+        return 'Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen';
+
+      case 'WORK_RESULTS':
+        return 'Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen';
+
+      case 'WORKING_MANNER':
+        return 'Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)';
+
+      default:
+        return;
+    }
+  };
+
   categoryText = category => {
     switch (category) {
       case 'PROBLEM_ANALYSIS':
         return {
-          categoryDescription:
-            'Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen',
-          positionDescription:
-            'Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen'
-        };
-      case 'WORKING_MANNER':
-        return {
-          categoryDescription:
-            'Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)',
-          positionDescription:
-            'Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte'
-        };
+          junior:
+            ' Junior: Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen',
 
+          senior:
+            'Senior: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
+
+          expert:
+            'Expert: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
+
+          lead:
+            'Lead: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen'
+        };
       case 'WORK_RESULTS':
         return {
-          categoryDescription:
-            'Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen',
-          positionDescription:
-            'Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern'
+          junior:
+            'Junior: Termingerechte Erstellung qualitativ hochwertiger Beiträge zu Endprodukten',
+
+          senior:
+            'Senior: Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern',
+
+          expert:
+            'Expert: Scoping und Strukturierung erforderlicher Endprodukte zur Absicherung des Projekterfolgs; Absicherung der termingerechten Bereitstellung in hoher Qualität; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern',
+
+          lead:
+            'Lead: Scoping und Strukturierung erforderlicher Endprodukte zur Absicherung des Projekterfolgs; Absicherung der termingerechten Bereitstellung in hoher Qualität; Vorstellung Ergebnisse bei Entscheidern'
         };
+
+      case 'WORKING_MANNER':
+        return {
+          junior:
+            'Junior: Eigenständige Bearbeitung klar umrissener Aufgabenstellungen; Pragmatismus; hoher Anspruch an die Qualität der eigenen Arbeit',
+
+          senior:
+            'Senior: Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte',
+
+          expert:
+            'Expert: Übernahme von Verantwortung für Teilprojekte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Gesamtqualität aller Endprodukte',
+
+          lead:
+            'Lead: Übernahme von Verantwortung für größere Projekte und Teilprojekte; Priorisierung und Strukturierung gegen Projektziele; Absicherung der Gesamtqualität aller Endprodukte'
+        };
+
+      default:
+        return;
+    }
+  };
+
+  onSwipeRight = category => event => {
+    switch (category) {
+      case 'PROBLEM_ANALYSIS':
+        if (this.state.problem_analysis_position < 4) {
+          this.setState({
+            problem_analysis_position: this.state.problem_analysis_position + 1
+          });
+        }
+        break;
+
+      case 'WORK_RESULTS':
+        if (this.state.work_results_position < 4) {
+          this.setState({
+            work_results_position: this.state.work_results_position + 1
+          });
+        }
+        break;
+
+      case 'WORKING_MANNER':
+        if (this.state.working_manner_position < 4) {
+          this.setState({
+            working_manner_position: this.state.working_manner_position + 1
+          });
+        }
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  onSwipeLeft = category => event => {
+    switch (category) {
+      case 'PROBLEM_ANALYSIS':
+        if (this.state.problem_analysis_position > 1) {
+          this.setState({
+            problem_analysis_position: this.state.problem_analysis_position - 1
+          });
+        }
+        break;
+
+      case 'WORK_RESULTS':
+        if (this.state.work_results_position > 1) {
+          this.setState({
+            work_results_position: this.state.work_results_position - 1
+          });
+        }
+        break;
+
+      case 'WORKING_MANNER':
+        if (this.state.working_manner_position > 1) {
+          this.setState({
+            working_manner_position: this.state.working_manner_position - 1
+          });
+        }
+        break;
 
       default:
         return;
@@ -208,14 +318,21 @@ class PrKommentar extends React.Component {
             </ListItem>
             <ListItem />
             <ListItem>
-              <ListItemText
-                secondary={this.categoryText(category).categoryDescription}
-              />
+              <Swipe
+                onSwipeRight={this.onSwipeRight(category)}
+                onSwipeLeft={this.onSwipeLeft(category)}
+              >
+                <ListItemText
+                  secondary={
+                    this.categoryText(category)[
+                      position[`${this.state.working_manner_position}`]
+                    ]
+                  }
+                />
+              </Swipe>
             </ListItem>
             <ListItem>
-              <ListItemText
-                secondary={this.categoryText(category).positionDescription}
-              />
+              <ListItemText secondary={this.positionText(category)} />
             </ListItem>
           </List>
         </Collapse>
