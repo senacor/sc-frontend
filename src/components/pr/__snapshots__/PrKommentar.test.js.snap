@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrKommentar Component displays the PrSheet 1`] = `
+<div>
+  <div
+    className="PrKommentar-containerListItem-3"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      className="PrKommentar-nestedListItem-4"
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemText)
+        secondary="Problemanalyse und -lösung"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrKommentar-nestedNumber-5"
+    >
+      <WithStyles(FormControl)>
+        <WithStyles(Select)
+          displayEmpty={true}
+          name="rating"
+          onChange={[Function]}
+          value={5}
+        >
+          <WithStyles(MenuItem)
+            value=""
+          >
+            <em>
+              None
+            </em>
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={1}
+          >
+            1
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={2}
+          >
+            2
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={3}
+          >
+            3
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={4}
+          >
+            4
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={5}
+          >
+            5
+          </WithStyles(MenuItem)>
+        </WithStyles(Select)>
+      </WithStyles(FormControl)>
+    </WithStyles(ListItem)>
+  </div>
+  <WithStyles(Collapse)
+    in={false}
+    timeout="auto"
+    unmountOnExit={true}
+  >
+    <WithStyles(List)
+      className="PrKommentar-nestedText-1"
+      component="div"
+      disablePadding={true}
+    >
+      <WithStyles(ListItem)>
+        <TextField
+          InputLabelProps={
+            Object {
+              "shrink": true,
+            }
+          }
+          InputProps={
+            Object {
+              "classes": Object {
+                "input": "PrKommentar-bootstrapInput-2",
+              },
+              "disableUnderline": true,
+              "name": "comment",
+            }
+          }
+          fullWidth={true}
+          id="multiline-flexible"
+          label="comment"
+          multiline={true}
+          onChange={[Function]}
+          required={false}
+          rowsMax="4"
+          select={false}
+          value="kvvvuierkfjrfhkrehghfj"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(ListItem) />
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(ListItem)>
+        <WithStyles(ListItemText)
+          secondary="Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+        />
+      </WithStyles(ListItem)>
+    </WithStyles(List)>
+  </WithStyles(Collapse)>
+</div>
+`;
