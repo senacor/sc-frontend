@@ -153,11 +153,42 @@ export const addSupervisor = prId => async dispatch => {
   });
 };
 
-export const addComment = (prId, category, comment) => async dispatch => {
+export const addRating = (
+  prById,
+  category,
+  comment,
+  rating,
+  ratingId
+) => async dispatch => {
   dispatch({
-    type: 'ADD_COMMENT',
-    category: category,
-    prId: prId,
-    comment: comment
+    type: 'ADD_COMMENT_REQUEST'
   });
+
+  await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/ratings/${ratingId}`,
+    {
+      method: 'put',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        comment: comment,
+        rating: rating
+      })
+    }
+  );
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}`
+  );
+
+  if (response.ok) {
+    const prById = await response.json();
+
+    console.log('dobivam: ');
+    console.log(prById);
+    dispatch({
+      type: 'ADD_COMMENT_RESPONSE',
+      prById
+    });
+  }
 };
