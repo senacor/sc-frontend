@@ -166,7 +166,7 @@ class PrKommentar extends React.Component {
           <ListItem className={classes.nestedNumber}>
             <FormControl>
               <Select
-                value={this.state.rating}
+                value={this.state.rating ? this.state.rating : 1}
                 onChange={this.handleChange(prById, category)}
                 displayEmpty
                 name="rating"
