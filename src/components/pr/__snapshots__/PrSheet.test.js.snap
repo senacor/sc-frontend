@@ -13,326 +13,285 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
-      <div
-        className="PrSheet-containerListItem-2"
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nestedListItem-4"
-          onClick={[Function]}
-        >
-          <WithStyles(ListItemText)
-            secondary="Problemanalyse und -lösung"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(ListItem)
-          className="PrSheet-nestedNumber-5"
-        >
-          <TextField
-            onChange={[Function]}
-            required={false}
-            select={true}
-            value="1"
-          >
-            <WithStyles(MenuItem)
-              key="1"
-              value="1"
-            >
-              1
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="2"
-              value="2"
-            >
-              2
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="3"
-              value="3"
-            >
-              3
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="4"
-              value="4"
-            >
-              4
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="5"
-              value="5"
-            >
-              5
-            </WithStyles(MenuItem)>
-          </TextField>
-        </WithStyles(ListItem)>
-      </div>
-      <WithStyles(Collapse)
-        in={false}
-        timeout="auto"
-        unmountOnExit={true}
-      >
-        <WithStyles(List)
-          className="PrSheet-nestedText-6"
-          component="div"
-          disablePadding={true}
-        >
-          <WithStyles(ListItem)>
-            <TextField
-              InputLabelProps={
-                Object {
-                  "className": undefined,
-                  "shrink": true,
-                }
-              }
-              InputProps={
-                Object {
-                  "classes": Object {
-                    "input": "PrSheet-bootstrapInput-9",
-                    "root": "PrSheet-bootstrapRoot-8",
+      <Connect(WithStyles(PrKommentar))
+        category="PROBLEM_ANALYSIS"
+        prById={
+          Object {
+            "_links": Object {
+              "self": Object {
+                "href": "http://localhost:8010/api/v1/prs/1",
+              },
+            },
+            "deadline": "2015-05-11",
+            "employee": Object {
+              "email": "lionel.schäfer@senacor.com",
+              "employment": Object {
+                "endOfProbationPeriod": "2004-05-10",
+                "jobGradings": Array [
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 1,
+                    "salaryLevel": 1,
+                    "validFrom": "2004-05-09",
                   },
-                  "disableUnderline": true,
-                }
-              }
-              fullWidth={true}
-              id="multiline-flexible"
-              label="Kommentar"
-              multiline={true}
-              onChange={[Function]}
-              required={false}
-              rowsMax="4"
-              select={false}
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem) />
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              disabled={true}
-              secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              disabled={true}
-              secondary="Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen"
-            />
-          </WithStyles(ListItem)>
-        </WithStyles(List)>
-        <WithStyles(Divider) />
-      </WithStyles(Collapse)>
-      <div
-        className="PrSheet-containerListItem-2"
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nestedListItem-4"
-          onClick={[Function]}
-        >
-          <WithStyles(ListItemText)
-            secondary="Arbeitsergebnisse"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(ListItem)
-          className="PrSheet-nestedNumber-5"
-        >
-          <TextField
-            onChange={[Function]}
-            required={false}
-            select={true}
-            value="1"
-          >
-            <WithStyles(MenuItem)
-              key="1"
-              value="1"
-            >
-              1
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="2"
-              value="2"
-            >
-              2
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="3"
-              value="3"
-            >
-              3
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="4"
-              value="4"
-            >
-              4
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="5"
-              value="5"
-            >
-              5
-            </WithStyles(MenuItem)>
-          </TextField>
-        </WithStyles(ListItem)>
-      </div>
-      <WithStyles(Collapse)
-        in={false}
-        timeout="auto"
-        unmountOnExit={true}
-      >
-        <WithStyles(List)
-          className="PrSheet-nestedText-6"
-          component="div"
-          disablePadding={true}
-        >
-          <WithStyles(ListItem)>
-            <TextField
-              InputLabelProps={
-                Object {
-                  "className": undefined,
-                  "shrink": true,
-                }
-              }
-              InputProps={
-                Object {
-                  "classes": Object {
-                    "input": "PrSheet-bootstrapInput-9",
-                    "root": "PrSheet-bootstrapRoot-8",
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 2,
+                    "salaryLevel": 2,
+                    "validFrom": "2005-05-09",
                   },
-                  "disableUnderline": true,
-                }
-              }
-              fullWidth={true}
-              id="multiline-flexible"
-              label="Kommentar"
-              multiline={true}
-              onChange={[Function]}
-              required={false}
-              rowsMax="4"
-              select={false}
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem) />
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              disabled={true}
-              secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              disabled={true}
-              secondary="Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern"
-            />
-          </WithStyles(ListItem)>
-        </WithStyles(List)>
-        <WithStyles(Divider) />
-      </WithStyles(Collapse)>
-      <div
-        className="PrSheet-containerListItem-2"
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrSheet-nestedListItem-4"
-          onClick={[Function]}
-        >
-          <WithStyles(ListItemText)
-            secondary="Arbeitsweise"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(ListItem)
-          className="PrSheet-nestedNumber-5"
-        >
-          <TextField
-            onChange={[Function]}
-            required={false}
-            select={true}
-            value="1"
-          >
-            <WithStyles(MenuItem)
-              key="1"
-              value="1"
-            >
-              1
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="2"
-              value="2"
-            >
-              2
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="3"
-              value="3"
-            >
-              3
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="4"
-              value="4"
-            >
-              4
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              key="5"
-              value="5"
-            >
-              5
-            </WithStyles(MenuItem)>
-          </TextField>
-        </WithStyles(ListItem)>
-      </div>
-      <WithStyles(Collapse)
-        in={false}
-        timeout="auto"
-        unmountOnExit={true}
-      >
-        <WithStyles(List)
-          className="PrSheet-nestedText-6"
-          component="div"
-          disablePadding={true}
-        >
-          <WithStyles(ListItem)>
-            <TextField
-              InputLabelProps={
+                ],
+                "leaves": Object {
+                  "maternityLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-10-11",
+                    },
+                  ],
+                  "parentalLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-08-28",
+                    },
+                  ],
+                  "sabbatical": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-06-07",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-02-10",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-26",
+                    },
+                  ],
+                  "unpaidLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-31",
+                    },
+                  ],
+                },
+              },
+              "entryDate": "2004-05-10",
+              "firstName": "Lionel",
+              "id": 1,
+              "lastName": "Schäfer",
+              "login": "lschäfer",
+              "salaries": Array [
                 Object {
-                  "className": undefined,
-                  "shrink": true,
-                }
-              }
-              InputProps={
+                  "basicSalary": 40500,
+                  "fte": 1,
+                  "ote": 45000,
+                  "validFrom": "2004-05-10",
+                  "workingHoursPerWeek": 40,
+                },
                 Object {
-                  "classes": Object {
-                    "input": "PrSheet-bootstrapInput-9",
-                    "root": "PrSheet-bootstrapRoot-8",
+                  "basicSalary": 40000,
+                  "fte": 1,
+                  "ote": 50000,
+                  "validFrom": "2005-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+              ],
+              "title": "DR",
+            },
+            "id": 1,
+            "occasion": "ON_DEMAND",
+            "status": "PREPARATION",
+            "supervisor": "ttran",
+          }
+        }
+      />
+      <Connect(WithStyles(PrKommentar))
+        category="WORK_RESULTS"
+        prById={
+          Object {
+            "_links": Object {
+              "self": Object {
+                "href": "http://localhost:8010/api/v1/prs/1",
+              },
+            },
+            "deadline": "2015-05-11",
+            "employee": Object {
+              "email": "lionel.schäfer@senacor.com",
+              "employment": Object {
+                "endOfProbationPeriod": "2004-05-10",
+                "jobGradings": Array [
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 1,
+                    "salaryLevel": 1,
+                    "validFrom": "2004-05-09",
                   },
-                  "disableUnderline": true,
-                }
-              }
-              fullWidth={true}
-              id="multiline-flexible"
-              label="Kommentar"
-              multiline={true}
-              onChange={[Function]}
-              required={false}
-              rowsMax="4"
-              select={false}
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem) />
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              disabled={true}
-              secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              disabled={true}
-              secondary="Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte"
-            />
-          </WithStyles(ListItem)>
-        </WithStyles(List)>
-      </WithStyles(Collapse)>
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 2,
+                    "salaryLevel": 2,
+                    "validFrom": "2005-05-09",
+                  },
+                ],
+                "leaves": Object {
+                  "maternityLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-10-11",
+                    },
+                  ],
+                  "parentalLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-08-28",
+                    },
+                  ],
+                  "sabbatical": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-06-07",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-02-10",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-26",
+                    },
+                  ],
+                  "unpaidLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-31",
+                    },
+                  ],
+                },
+              },
+              "entryDate": "2004-05-10",
+              "firstName": "Lionel",
+              "id": 1,
+              "lastName": "Schäfer",
+              "login": "lschäfer",
+              "salaries": Array [
+                Object {
+                  "basicSalary": 40500,
+                  "fte": 1,
+                  "ote": 45000,
+                  "validFrom": "2004-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+                Object {
+                  "basicSalary": 40000,
+                  "fte": 1,
+                  "ote": 50000,
+                  "validFrom": "2005-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+              ],
+              "title": "DR",
+            },
+            "id": 1,
+            "occasion": "ON_DEMAND",
+            "status": "PREPARATION",
+            "supervisor": "ttran",
+          }
+        }
+      />
+      <Connect(WithStyles(PrKommentar))
+        category="WORKING_MANNER"
+        prById={
+          Object {
+            "_links": Object {
+              "self": Object {
+                "href": "http://localhost:8010/api/v1/prs/1",
+              },
+            },
+            "deadline": "2015-05-11",
+            "employee": Object {
+              "email": "lionel.schäfer@senacor.com",
+              "employment": Object {
+                "endOfProbationPeriod": "2004-05-10",
+                "jobGradings": Array [
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 1,
+                    "salaryLevel": 1,
+                    "validFrom": "2004-05-09",
+                  },
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 2,
+                    "salaryLevel": 2,
+                    "validFrom": "2005-05-09",
+                  },
+                ],
+                "leaves": Object {
+                  "maternityLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-10-11",
+                    },
+                  ],
+                  "parentalLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-08-28",
+                    },
+                  ],
+                  "sabbatical": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-06-07",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-02-10",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-26",
+                    },
+                  ],
+                  "unpaidLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-31",
+                    },
+                  ],
+                },
+              },
+              "entryDate": "2004-05-10",
+              "firstName": "Lionel",
+              "id": 1,
+              "lastName": "Schäfer",
+              "login": "lschäfer",
+              "salaries": Array [
+                Object {
+                  "basicSalary": 40500,
+                  "fte": 1,
+                  "ote": 45000,
+                  "validFrom": "2004-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+                Object {
+                  "basicSalary": 40000,
+                  "fte": 1,
+                  "ote": 50000,
+                  "validFrom": "2005-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+              ],
+              "title": "DR",
+            },
+            "id": 1,
+            "occasion": "ON_DEMAND",
+            "status": "PREPARATION",
+            "supervisor": "ttran",
+          }
+        }
+      />
     </WithStyles(List)>
   </WithStyles(List)>
   <WithStyles(Divider) />
@@ -347,7 +306,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     >
       <WithStyles(ListItem)
         button={true}
-        className="PrSheet-nested-3"
+        className="PrSheet-nested-2"
       >
         <WithStyles(ListItemText)
           secondary="Kundeninteraktion und -veränderung"
@@ -355,7 +314,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
       </WithStyles(ListItem)>
       <WithStyles(ListItem)
         button={true}
-        className="PrSheet-nested-3"
+        className="PrSheet-nested-2"
       >
         <WithStyles(ListItemText)
           secondary="Kundenbindung und Mandatsgenerierung"
@@ -375,7 +334,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     >
       <WithStyles(ListItem)
         button={true}
-        className="PrSheet-nested-3"
+        className="PrSheet-nested-2"
       >
         <WithStyles(ListItemText)
           secondary="Effektives Arbeiten im Team und Teamführung"
@@ -383,7 +342,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
       </WithStyles(ListItem)>
       <WithStyles(ListItem)
         button={true}
-        className="PrSheet-nested-3"
+        className="PrSheet-nested-2"
       >
         <WithStyles(ListItemText)
           secondary="Coaching, Leadership und Personalführung"
@@ -403,7 +362,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     >
       <WithStyles(ListItem)
         button={true}
-        className="PrSheet-nested-3"
+        className="PrSheet-nested-2"
       >
         <WithStyles(ListItemText)
           secondary="Beitrag zur Unternehmensentwicklung"
@@ -423,7 +382,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     >
       <WithStyles(ListItem)
         button={true}
-        className="PrSheet-nested-3"
+        className="PrSheet-nested-2"
       >
         <WithStyles(ListItemText)
           secondary="Freitextfeld"
