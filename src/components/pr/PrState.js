@@ -1,14 +1,15 @@
 import React from 'react';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import ExpansionPanel, {
-  ExpansionPanelDetails,
-  ExpansionPanelSummary
-} from 'material-ui/ExpansionPanel';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles/index';
+import { withStyles } from '@material-ui/core/styles/index';
 
 const styles = theme => ({
   containerVertical: {

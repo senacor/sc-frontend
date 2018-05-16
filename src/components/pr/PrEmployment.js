@@ -1,9 +1,11 @@
 import React from 'react';
-import Typography from 'material-ui/Typography';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles/index';
+import Typography from '@material-ui/core/Typography';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   title: {

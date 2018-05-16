@@ -2,20 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
-import Hidden from 'material-ui/Hidden';
-import AddIcon from 'material-ui-icons/Add';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import Hidden from '@material-ui/core/Hidden';
+import AddIcon from '@material-ui/icons/Add';
 import PrState from './PrState';
 import PrSalary from './PrSalary';
 import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
-import Card from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   container: {

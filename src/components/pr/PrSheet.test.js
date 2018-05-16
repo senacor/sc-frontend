@@ -1,6 +1,6 @@
 import React from 'react';
 import PrSheet from './PrSheet';
-import { createShallow } from 'material-ui/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrSheet Component', () => {
   let shallow = createShallow({ dive: true });
