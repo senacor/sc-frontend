@@ -80,15 +80,15 @@ describe('Pr Component', () => {
             }
           ]
         }
-      },
-      supervisor: 'ttran',
-      occasion: 'ON_DEMAND',
-      status: 'PREPARATION',
-      deadline: '2015-05-11',
-      _links: {
-        self: {
-          href: 'http://localhost:8010/api/v1/prs/1'
-        }
+      }
+    },
+    supervisor: 'ttran',
+    occasion: 'ON_DEMAND',
+    status: 'PREPARATION',
+    deadline: '2015-05-11',
+    _links: {
+      self: {
+        href: 'http://localhost:8010/api/v1/prs/1'
       }
     }
   };

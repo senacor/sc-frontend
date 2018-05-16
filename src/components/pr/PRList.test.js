@@ -44,6 +44,6 @@ describe('PRList Component', () => {
       <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
     );
 
-    expect(element.find('Card')).toHaveLength(1);
+    expect(element.find('WithStyles(Card)')).toHaveLength(1);
   });
 });

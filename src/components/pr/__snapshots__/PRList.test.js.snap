@@ -11,10 +11,9 @@ exports[`PRList Component displays the list of prs 1`] = `
   <div
     className="PRList-container-1"
   >
-    <Card
+    <WithStyles(Card)
       className="PRList-prs-2"
       key="2"
-      raised={false}
     >
       <WithStyles(CardMedia)
         className="PRList-media-3"
@@ -92,7 +91,7 @@ exports[`PRList Component displays the list of prs 1`] = `
           </WithStyles(Button)>
         </div>
       </WithStyles(CardContent)>
-    </Card>
+    </WithStyles(Card)>
   </div>
 </div>
 `;

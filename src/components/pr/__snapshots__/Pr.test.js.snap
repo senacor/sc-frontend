@@ -32,7 +32,7 @@ exports[`Pr Component displays the pr 1`] = `
           <div
             className="Pr-deadline-15"
           >
-            Deadline: 08.05.18
+            Deadline: 11.05.15
           </div>
         </div>
       </WithStyles(Typography)>
@@ -93,13 +93,13 @@ exports[`Pr Component displays the pr 1`] = `
     <WithStyles(PrSheet)
       prById={
         Object {
-          "employee": Object {
-            "_links": Object {
-              "self": Object {
-                "href": "http://localhost:8010/api/v1/prs/1",
-              },
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/prs/1",
             },
-            "deadline": "2015-05-11",
+          },
+          "deadline": "2015-05-11",
+          "employee": Object {
             "email": "lionel.schäfer@senacor.com",
             "employment": Object {
               "endOfProbationPeriod": "2004-05-10",
@@ -157,7 +157,6 @@ exports[`Pr Component displays the pr 1`] = `
             "id": 1,
             "lastName": "Schäfer",
             "login": "lschäfer",
-            "occasion": "ON_DEMAND",
             "salaries": Array [
               Object {
                 "basicSalary": 40500,
@@ -174,11 +173,12 @@ exports[`Pr Component displays the pr 1`] = `
                 "workingHoursPerWeek": 40,
               },
             ],
-            "status": "PREPARATION",
-            "supervisor": "ttran",
             "title": "DR",
           },
           "id": 1,
+          "occasion": "ON_DEMAND",
+          "status": "PREPARATION",
+          "supervisor": "ttran",
         }
       }
     />
@@ -199,9 +199,8 @@ exports[`Pr Component displays the pr 1`] = `
     <div
       className="Pr-cardContainerRow-9"
     >
-      <Card
+      <WithStyles(Card)
         className="Pr-cardColumnSheet-10"
-        raised={false}
       >
         <WithStyles(Typography)
           className="Pr-title-13"
@@ -212,13 +211,13 @@ exports[`Pr Component displays the pr 1`] = `
         <WithStyles(PrSheet)
           prById={
             Object {
-              "employee": Object {
-                "_links": Object {
-                  "self": Object {
-                    "href": "http://localhost:8010/api/v1/prs/1",
-                  },
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/1",
                 },
-                "deadline": "2015-05-11",
+              },
+              "deadline": "2015-05-11",
+              "employee": Object {
                 "email": "lionel.schäfer@senacor.com",
                 "employment": Object {
                   "endOfProbationPeriod": "2004-05-10",
@@ -276,7 +275,6 @@ exports[`Pr Component displays the pr 1`] = `
                 "id": 1,
                 "lastName": "Schäfer",
                 "login": "lschäfer",
-                "occasion": "ON_DEMAND",
                 "salaries": Array [
                   Object {
                     "basicSalary": 40500,
@@ -293,18 +291,18 @@ exports[`Pr Component displays the pr 1`] = `
                     "workingHoursPerWeek": 40,
                   },
                 ],
-                "status": "PREPARATION",
-                "supervisor": "ttran",
                 "title": "DR",
               },
               "id": 1,
+              "occasion": "ON_DEMAND",
+              "status": "PREPARATION",
+              "supervisor": "ttran",
             }
           }
         />
-      </Card>
-      <Card
+      </WithStyles(Card)>
+      <WithStyles(Card)
         className="Pr-cardColumnStatus-12"
-        raised={false}
       >
         <WithStyles(Typography)
           className="Pr-title-13"
@@ -313,12 +311,11 @@ exports[`Pr Component displays the pr 1`] = `
           STATUS
         </WithStyles(Typography)>
         <WithStyles(PrState)
-          expanded={false}
+          expanded="panel1"
         />
-      </Card>
-      <Card
+      </WithStyles(Card)>
+      <WithStyles(Card)
         className="Pr-cardColumn-11"
-        raised={false}
       >
         <WithStyles(Typography)
           className="Pr-title-13"
@@ -329,13 +326,13 @@ exports[`Pr Component displays the pr 1`] = `
         <WithStyles(PrSalary)
           prById={
             Object {
-              "employee": Object {
-                "_links": Object {
-                  "self": Object {
-                    "href": "http://localhost:8010/api/v1/prs/1",
-                  },
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/1",
                 },
-                "deadline": "2015-05-11",
+              },
+              "deadline": "2015-05-11",
+              "employee": Object {
                 "email": "lionel.schäfer@senacor.com",
                 "employment": Object {
                   "endOfProbationPeriod": "2004-05-10",
@@ -393,7 +390,6 @@ exports[`Pr Component displays the pr 1`] = `
                 "id": 1,
                 "lastName": "Schäfer",
                 "login": "lschäfer",
-                "occasion": "ON_DEMAND",
                 "salaries": Array [
                   Object {
                     "basicSalary": 40500,
@@ -410,24 +406,25 @@ exports[`Pr Component displays the pr 1`] = `
                     "workingHoursPerWeek": 40,
                   },
                 ],
-                "status": "PREPARATION",
-                "supervisor": "ttran",
                 "title": "DR",
               },
               "id": 1,
+              "occasion": "ON_DEMAND",
+              "status": "PREPARATION",
+              "supervisor": "ttran",
             }
           }
         />
         <WithStyles(PrEmployment)
           prById={
             Object {
-              "employee": Object {
-                "_links": Object {
-                  "self": Object {
-                    "href": "http://localhost:8010/api/v1/prs/1",
-                  },
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/1",
                 },
-                "deadline": "2015-05-11",
+              },
+              "deadline": "2015-05-11",
+              "employee": Object {
                 "email": "lionel.schäfer@senacor.com",
                 "employment": Object {
                   "endOfProbationPeriod": "2004-05-10",
@@ -485,7 +482,6 @@ exports[`Pr Component displays the pr 1`] = `
                 "id": 1,
                 "lastName": "Schäfer",
                 "login": "lschäfer",
-                "occasion": "ON_DEMAND",
                 "salaries": Array [
                   Object {
                     "basicSalary": 40500,
@@ -502,15 +498,16 @@ exports[`Pr Component displays the pr 1`] = `
                     "workingHoursPerWeek": 40,
                   },
                 ],
-                "status": "PREPARATION",
-                "supervisor": "ttran",
                 "title": "DR",
               },
               "id": 1,
+              "occasion": "ON_DEMAND",
+              "status": "PREPARATION",
+              "supervisor": "ttran",
             }
           }
         />
-      </Card>
+      </WithStyles(Card)>
     </div>
   </Hidden>
 </div>

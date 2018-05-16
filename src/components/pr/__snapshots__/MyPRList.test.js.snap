@@ -97,9 +97,8 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       <div
         className="MyPRList-cardContainerRow-15"
       >
-        <Card
+        <WithStyles(Card)
           className="MyPRList-cardColumnSheet-16"
-          raised={false}
         >
           <WithStyles(Typography)
             className="MyPRList-title-14"
@@ -108,13 +107,12 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             SHEET
           </WithStyles(Typography)>
           <WithStyles(PrSheet) />
-        </Card>
+        </WithStyles(Card)>
         <div
           className="MyPRList-cardContainerColumn-17"
         >
-          <Card
+          <WithStyles(Card)
             className="MyPRList-cardColumn-13"
-            raised={false}
           >
             <WithStyles(Typography)
               className="MyPRList-title-14"
@@ -306,10 +304,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                 }
               }
             />
-          </Card>
-          <Card
+          </WithStyles(Card)>
+          <WithStyles(Card)
             className="MyPRList-cardColumn-13"
-            raised={false}
           >
             <WithStyles(Typography)
               className="MyPRList-title-14"
@@ -318,7 +315,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
               STATUS
             </WithStyles(Typography)>
             <WithStyles(PrState) />
-          </Card>
+          </WithStyles(Card)>
         </div>
       </div>
     </div>
