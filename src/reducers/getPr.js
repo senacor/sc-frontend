@@ -5,7 +5,7 @@ const prDetail = (state = [], action) => {
     case 'FETCH_PR_BY_ID_RESPONSE':
       return action.prById;
     default:
-      return [];
+      return state;
   }
 };
 

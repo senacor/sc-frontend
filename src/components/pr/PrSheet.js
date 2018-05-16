@@ -3,6 +3,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import PrKommentar from './PrKommentar';
 import { withStyles } from '@material-ui/core/styles/index';
 
 const styles = () => ({
@@ -13,6 +14,7 @@ const styles = () => ({
     boxShadow:
       '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
   },
+
   nested: {
     paddingLeft: '30px'
   },
@@ -30,91 +32,71 @@ class PrSheet extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { prById, classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <div className={classes.containerVertical}>
-          <List>
-            <ListItem>
-              <ListItemText primary="Leistungen im Projekt" />
-            </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Problemanalyse und -lösung" />
-                <ListItemText
-                  className={classes.rightAlignText}
-                  primary="4 / 5"
-                />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Arbeitsergebnisse" />
-                <ListItemText
-                  className={classes.rightAlignText}
-                  primary="3 / 5"
-                />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Arbeitsweise" />
-                <ListItemText
-                  className={classes.rightAlignText}
-                  primary="1 / 5"
-                />
-              </ListItem>
-            </List>
+      <div className={classes.containerVertical}>
+        <List>
+          <ListItem>
+            <ListItemText primary="Leistungen im Projekt" />
+          </ListItem>
+          <List disablePadding>
+            <PrKommentar prById={prById} category="PROBLEM_ANALYSIS" />
+            <PrKommentar prById={prById} category="WORK_RESULTS" />
+            <PrKommentar prById={prById} category="WORKING_MANNER" />
           </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Wirkung beim Kunden" />
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Wirkung beim Kunden" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Kundeninteraktion und -veränderung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Kundeninteraktion und -veränderung" />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Kundenbindung und Mandatsgenerierung" />
-              </ListItem>
-            </List>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Wirkung im Team" />
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Kundenbindung und Mandatsgenerierung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Effektives Arbeiten im Team und Teamführung" />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Coaching, Leadership und Personalführung" />
-              </ListItem>
-            </List>
           </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Wirkung im Unternehmen" />
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Wirkung im Team" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Effektives Arbeiten im Team und Teamführung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Beitrag zur Unternehmensentwicklung" />
-              </ListItem>
-            </List>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Coaching, Leadership und Personalführung" />
             </ListItem>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText secondary="Freitextfeld" />
-              </ListItem>
-            </List>
           </List>
-          <Divider />
-        </div>
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Wirkung im Unternehmen" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Beitrag zur Unternehmensentwicklung" />
+            </ListItem>
+          </List>
+        </List>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
+          </ListItem>
+          <List disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText secondary="Freitextfeld" />
+            </ListItem>
+          </List>
+        </List>
+        <Divider />
       </div>
     );
   }

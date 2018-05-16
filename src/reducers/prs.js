@@ -6,7 +6,6 @@ const prsList = (state = [], action) => {
       return action.prs;
     case 'ADD_PR_RESPONSE':
       return [...state, action.pr];
-
     case 'ADD_SUPERVISOR': {
       let index = state.findIndex(pr => pr.id === action.prId);
 
@@ -18,6 +17,7 @@ const prsList = (state = [], action) => {
         ...state.slice(index + 1, state.length)
       ];
     }
+
     default:
       return state;
   }
