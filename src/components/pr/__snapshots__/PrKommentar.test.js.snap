@@ -25,13 +25,6 @@ exports[`PrKommentar Component displays the PrSheet 1`] = `
           value={5}
         >
           <WithStyles(MenuItem)
-            value=""
-          >
-            <em>
-              None
-            </em>
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
             value={1}
           >
             1
@@ -88,7 +81,7 @@ exports[`PrKommentar Component displays the PrSheet 1`] = `
           }
           fullWidth={true}
           id="multiline-flexible"
-          label="comment"
+          label="Kommentar"
           multiline={true}
           onChange={[Function]}
           required={false}
