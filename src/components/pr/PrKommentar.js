@@ -259,6 +259,25 @@ class PrKommentar extends React.Component {
     }
   };
 
+  categoryTextPosition = category => {
+    switch (category) {
+      case 'PROBLEM_ANALYSIS':
+        return this.categoryText(category)[
+          position[`${this.state.problem_analysis_position}`]
+        ];
+      case 'WORK_RESULTS':
+        return this.categoryText(category)[
+          position[`${this.state.work_results_position}`]
+        ];
+      case 'WORKING_MANNER':
+        return this.categoryText(category)[
+          position[`${this.state.working_manner_position}`]
+        ];
+      default:
+        return;
+    }
+  };
+
   render() {
     const { prById, category, classes } = this.props;
     return (
@@ -322,13 +341,7 @@ class PrKommentar extends React.Component {
                 onSwipeRight={this.onSwipeRight(category)}
                 onSwipeLeft={this.onSwipeLeft(category)}
               >
-                <ListItemText
-                  secondary={
-                    this.categoryText(category)[
-                      position[`${this.state.working_manner_position}`]
-                    ]
-                  }
-                />
+                <ListItemText secondary={this.categoryTextPosition(category)} />
               </Swipe>
             </ListItem>
             <ListItem>
