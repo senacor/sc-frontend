@@ -1,7 +1,9 @@
 import React from 'react';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles/index';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles/index';
 
 const styles = () => ({
   containerVertical: {

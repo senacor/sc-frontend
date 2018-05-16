@@ -1,6 +1,6 @@
 import React from 'react';
 import PrSalary from './PrSalary';
-import { createShallow } from 'material-ui/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrSalary Component', () => {
   let shallow = createShallow({ dive: true });
