@@ -7,13 +7,12 @@ import Collapse from 'material-ui/transitions/Collapse';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Select from 'material-ui/Select';
 import FormControl from 'material-ui/Form/FormControl';
-import Swipe from 'react-easy-swipe';
+import ReactSwipe from 'react-swipe';
 import * as actions from '../../actions';
 
 const styles = theme => ({
   nestedText: {
-    paddingLeft: '30px',
-    paddingRight: '30px'
+    paddingLeft: '30px'
   },
   bootstrapInput: {
     borderRadius: 4,
@@ -36,15 +35,19 @@ const styles = theme => ({
 
   nestedNumber: {
     width: '20%'
+  },
+  swipe: {
+    overflow: 'hidden',
+    visibility: 'hidden',
+    position: 'relative',
+    width: '300px'
+  },
+  swipeWrapInside: {
+    float: 'left',
+    position: 'relative'
   }
 });
 
-const position = {
-  1: 'junior',
-  2: 'senior',
-  3: 'expert',
-  4: 'lead'
-};
 class PrKommentar extends React.Component {
   constructor(props) {
     super(props);
@@ -60,10 +63,7 @@ class PrKommentar extends React.Component {
       category: this.props.category,
       PROBLEM_ANALYSIS: false,
       WORK_RESULTS: false,
-      WORKING_MANNER: false,
-      problem_analysis_position: 1,
-      work_results_position: 1,
-      working_manner_position: 1
+      WORKING_MANNER: false
     };
   }
 
@@ -152,13 +152,11 @@ class PrKommentar extends React.Component {
         return {
           junior:
             ' Junior: Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen',
-
           senior:
             'Senior: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
 
           expert:
             'Expert: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
-
           lead:
             'Lead: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen'
         };
@@ -192,87 +190,6 @@ class PrKommentar extends React.Component {
             'Lead: Übernahme von Verantwortung für größere Projekte und Teilprojekte; Priorisierung und Strukturierung gegen Projektziele; Absicherung der Gesamtqualität aller Endprodukte'
         };
 
-      default:
-        return;
-    }
-  };
-
-  onSwipeRight = category => event => {
-    switch (category) {
-      case 'PROBLEM_ANALYSIS':
-        if (this.state.problem_analysis_position < 4) {
-          this.setState({
-            problem_analysis_position: this.state.problem_analysis_position + 1
-          });
-        }
-        break;
-
-      case 'WORK_RESULTS':
-        if (this.state.work_results_position < 4) {
-          this.setState({
-            work_results_position: this.state.work_results_position + 1
-          });
-        }
-        break;
-
-      case 'WORKING_MANNER':
-        if (this.state.working_manner_position < 4) {
-          this.setState({
-            working_manner_position: this.state.working_manner_position + 1
-          });
-        }
-        break;
-
-      default:
-        return;
-    }
-  };
-
-  onSwipeLeft = category => event => {
-    switch (category) {
-      case 'PROBLEM_ANALYSIS':
-        if (this.state.problem_analysis_position > 1) {
-          this.setState({
-            problem_analysis_position: this.state.problem_analysis_position - 1
-          });
-        }
-        break;
-
-      case 'WORK_RESULTS':
-        if (this.state.work_results_position > 1) {
-          this.setState({
-            work_results_position: this.state.work_results_position - 1
-          });
-        }
-        break;
-
-      case 'WORKING_MANNER':
-        if (this.state.working_manner_position > 1) {
-          this.setState({
-            working_manner_position: this.state.working_manner_position - 1
-          });
-        }
-        break;
-
-      default:
-        return;
-    }
-  };
-
-  categoryTextPosition = category => {
-    switch (category) {
-      case 'PROBLEM_ANALYSIS':
-        return this.categoryText(category)[
-          position[`${this.state.problem_analysis_position}`]
-        ];
-      case 'WORK_RESULTS':
-        return this.categoryText(category)[
-          position[`${this.state.work_results_position}`]
-        ];
-      case 'WORKING_MANNER':
-        return this.categoryText(category)[
-          position[`${this.state.working_manner_position}`]
-        ];
       default:
         return;
     }
@@ -337,12 +254,35 @@ class PrKommentar extends React.Component {
             </ListItem>
             <ListItem />
             <ListItem>
-              <Swipe
-                onSwipeRight={this.onSwipeRight(category)}
-                onSwipeLeft={this.onSwipeLeft(category)}
+              <ReactSwipe
+                className={classes.swipe}
+                swipeOptions={{ continuous: false }}
               >
-                <ListItemText secondary={this.categoryTextPosition(category)} />
-              </Swipe>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.categoryText}
+                    secondary={this.categoryText(category).junior}
+                  />
+                </div>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.categoryText}
+                    secondary={this.categoryText(category).senior}
+                  />
+                </div>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.categoryText}
+                    secondary={this.categoryText(category).expert}
+                  />
+                </div>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.categoryText}
+                    secondary={this.categoryText(category).lead}
+                  />
+                </div>
+              </ReactSwipe>
             </ListItem>
             <ListItem>
               <ListItemText secondary={this.positionText(category)} />
