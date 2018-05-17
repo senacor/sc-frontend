@@ -12,10 +12,10 @@ import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
 import ReactSwipe from 'react-swipe';
 
-
 const styles = theme => ({
   nestedText: {
-    paddingLeft: '30px'
+    paddingLeft: '30px',
+    paddingRight: '50px'
   },
   bootstrapInput: {
     borderRadius: 4,
@@ -225,9 +225,7 @@ class PrKommentar extends React.Component {
                 displayEmpty
                 name="rating"
               >
-
-                <MenuItem>
-            value={1}>1</MenuItem>
+                <MenuItem>value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
                 <MenuItem value={4}>4</MenuItem>

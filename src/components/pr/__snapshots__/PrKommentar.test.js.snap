@@ -24,10 +24,10 @@ exports[`PrKommentar Component displays the PrSheet 1`] = `
           onChange={[Function]}
           value={5}
         >
-          <WithStyles(MenuItem)
-            value={1}
-          >
+          <WithStyles(MenuItem)>
+            value=
             1
+            &gt;1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             value={2}
@@ -92,13 +92,67 @@ exports[`PrKommentar Component displays the PrSheet 1`] = `
       </WithStyles(ListItem)>
       <WithStyles(ListItem) />
       <WithStyles(ListItem)>
-        <WithStyles(ListItemText)
-          secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
-        />
+        <ReactSwipe
+          childCount={0}
+          className="PrKommentar-swipe-6"
+          style={
+            Object {
+              "child": Object {
+                "float": "left",
+                "position": "relative",
+                "transitionProperty": "transform",
+                "width": "100%",
+              },
+              "container": Object {
+                "overflow": "hidden",
+                "position": "relative",
+                "visibility": "hidden",
+              },
+              "wrapper": Object {
+                "overflow": "hidden",
+                "position": "relative",
+              },
+            }
+          }
+          swipeOptions={
+            Object {
+              "continuous": false,
+            }
+          }
+        >
+          <div
+            className="PrKommentar-swipeWrapInside-7"
+          >
+            <WithStyles(ListItemText)
+              secondary=" Junior: Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen"
+            />
+          </div>
+          <div
+            className="PrKommentar-swipeWrapInside-7"
+          >
+            <WithStyles(ListItemText)
+              secondary="Senior: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+            />
+          </div>
+          <div
+            className="PrKommentar-swipeWrapInside-7"
+          >
+            <WithStyles(ListItemText)
+              secondary="Expert: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+            />
+          </div>
+          <div
+            className="PrKommentar-swipeWrapInside-7"
+          >
+            <WithStyles(ListItemText)
+              secondary="Lead: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+            />
+          </div>
+        </ReactSwipe>
       </WithStyles(ListItem)>
       <WithStyles(ListItem)>
         <WithStyles(ListItemText)
-          secondary="Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+          secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
         />
       </WithStyles(ListItem)>
     </WithStyles(List)>
