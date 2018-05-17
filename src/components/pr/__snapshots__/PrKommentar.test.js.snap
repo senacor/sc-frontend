@@ -13,9 +13,14 @@ exports[`PrKommentar Component displays the PrSheet 1`] = `
       <WithStyles(ListItemText)
         secondary="Problemanalyse und -lösung"
       />
+      <WithStyles(Icon)
+        className="PrKommentar-icon-5"
+      >
+        comment
+      </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-5"
+      className="PrKommentar-nestedNumber-6"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)

@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
 import MenuItem from '@material-ui/core/MenuItem';
+import Icon from '@material-ui/core/Icon';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
@@ -34,7 +35,9 @@ const styles = theme => ({
     paddingLeft: '30px',
     width: '80%'
   },
-
+  icon: {
+    color: theme.palette.primary['400']
+  },
   nestedNumber: {
     width: '20%'
   }
@@ -170,6 +173,12 @@ class PrKommentar extends React.Component {
             <ListItemText
               secondary={this.translateRatingDescription(category)}
             />
+
+            {this.state.comment ? (
+              <Icon className={classes.icon}>comment</Icon>
+            ) : (
+              ''
+            )}
           </ListItem>
           <ListItem className={classes.nestedNumber}>
             <FormControl>
