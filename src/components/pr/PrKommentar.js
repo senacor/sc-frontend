@@ -11,6 +11,7 @@ import Icon from '@material-ui/core/Icon';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
+import { debounce } from '../../helper/debounce';
 
 const styles = theme => ({
   nestedText: {
@@ -80,7 +81,8 @@ class PrKommentar extends React.Component {
     let ratings = prById.prRatingSet.find(
       rating => rating.prRatingDescription === category
     );
-    this.props.addRating(
+
+    this.sendComment(
       prById,
       category,
       event.target.value,
@@ -88,6 +90,8 @@ class PrKommentar extends React.Component {
       ratings.id
     );
   };
+
+  sendComment = debounce(this.props.addRating, 500);
 
   translateRatingDescription = ratingDescription => {
     switch (ratingDescription) {
