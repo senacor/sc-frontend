@@ -10,12 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
-import ReactSwipe from 'react-swipe';
+import PrSwipePositionDescription from './PrSwipePositionDescription';
 
 const styles = theme => ({
   nestedText: {
-    paddingLeft: '30px',
-    paddingRight: '50px'
+    paddingLeft: '20px',
+    paddingRight: '30px'
   },
   bootstrapInput: {
     borderRadius: 4,
@@ -32,22 +32,12 @@ const styles = theme => ({
     display: 'flex'
   },
   nestedListItem: {
-    paddingLeft: '30px',
+    paddingLeft: '20px',
     width: '80%'
   },
 
   nestedNumber: {
     width: '20%'
-  },
-  swipe: {
-    overflow: 'hidden',
-    visibility: 'hidden',
-    position: 'relative',
-    width: '300px'
-  },
-  swipeWrapInside: {
-    float: 'left',
-    position: 'relative'
   }
 });
 
@@ -138,71 +128,6 @@ class PrKommentar extends React.Component {
     }
   };
 
-  positionText = position => {
-    switch (position) {
-      case 'PROBLEM_ANALYSIS':
-        return 'Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen';
-
-      case 'WORK_RESULTS':
-        return 'Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen';
-
-      case 'WORKING_MANNER':
-        return 'Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)';
-
-      default:
-        return;
-    }
-  };
-
-  categoryText = category => {
-    switch (category) {
-      case 'PROBLEM_ANALYSIS':
-        return {
-          junior:
-            ' Junior: Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen',
-          senior:
-            'Senior: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
-
-          expert:
-            'Expert: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
-          lead:
-            'Lead: Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen'
-        };
-      case 'WORK_RESULTS':
-        return {
-          junior:
-            'Junior: Termingerechte Erstellung qualitativ hochwertiger Beiträge zu Endprodukten',
-
-          senior:
-            'Senior: Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern',
-
-          expert:
-            'Expert: Scoping und Strukturierung erforderlicher Endprodukte zur Absicherung des Projekterfolgs; Absicherung der termingerechten Bereitstellung in hoher Qualität; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern',
-
-          lead:
-            'Lead: Scoping und Strukturierung erforderlicher Endprodukte zur Absicherung des Projekterfolgs; Absicherung der termingerechten Bereitstellung in hoher Qualität; Vorstellung Ergebnisse bei Entscheidern'
-        };
-
-      case 'WORKING_MANNER':
-        return {
-          junior:
-            'Junior: Eigenständige Bearbeitung klar umrissener Aufgabenstellungen; Pragmatismus; hoher Anspruch an die Qualität der eigenen Arbeit',
-
-          senior:
-            'Senior: Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte',
-
-          expert:
-            'Expert: Übernahme von Verantwortung für Teilprojekte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Gesamtqualität aller Endprodukte',
-
-          lead:
-            'Lead: Übernahme von Verantwortung für größere Projekte und Teilprojekte; Priorisierung und Strukturierung gegen Projektziele; Absicherung der Gesamtqualität aller Endprodukte'
-        };
-
-      default:
-        return;
-    }
-  };
-
   render() {
     const { prById, category, classes } = this.props;
     return (
@@ -225,7 +150,7 @@ class PrKommentar extends React.Component {
                 displayEmpty
                 name="rating"
               >
-                <MenuItem>value={1}>1</MenuItem>
+                <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
                 <MenuItem value={4}>4</MenuItem>
@@ -258,40 +183,7 @@ class PrKommentar extends React.Component {
               />
             </ListItem>
             <ListItem />
-            <ListItem>
-              <ReactSwipe
-                className={classes.swipe}
-                swipeOptions={{ continuous: false }}
-              >
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.categoryText}
-                    secondary={this.categoryText(category).junior}
-                  />
-                </div>
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.categoryText}
-                    secondary={this.categoryText(category).senior}
-                  />
-                </div>
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.categoryText}
-                    secondary={this.categoryText(category).expert}
-                  />
-                </div>
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.categoryText}
-                    secondary={this.categoryText(category).lead}
-                  />
-                </div>
-              </ReactSwipe>
-            </ListItem>
-            <ListItem>
-              <ListItemText secondary={this.positionText(category)} />
-            </ListItem>
+            <PrSwipePositionDescription category={category} />
           </List>
         </Collapse>
       </div>
