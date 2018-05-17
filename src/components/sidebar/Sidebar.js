@@ -1,14 +1,17 @@
 import React from 'react';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import { withStyles } from 'material-ui/styles';
-import LibraryBooksIcon from 'material-ui-icons/LibraryBooks';
-import GroupIcon from 'material-ui-icons/Group';
-import PowerSettingsNewIcon from 'material-ui-icons/PowerSettingsNew';
-import DashboardIcon from 'material-ui-icons/Dashboard';
-import AssignmentIndIcon from 'material-ui-icons/AssignmentInd';
-import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import { withStyles } from '@material-ui/core/styles';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import GroupIcon from '@material-ui/icons/Group';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import { NavLink } from 'react-router-dom';
 
 import CompositionNumber from './CompositionNumber';

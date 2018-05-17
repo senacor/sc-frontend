@@ -1,14 +1,17 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles/index';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import TextField from 'material-ui/TextField';
+import { withStyles } from '@material-ui/core/styles/index';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
-import Collapse from 'material-ui/transitions/Collapse';
-import MenuItem from 'material-ui/Menu/MenuItem';
-import Select from 'material-ui/Select';
-import FormControl from 'material-ui/Form/FormControl';
-import ReactSwipe from 'react-swipe';
+import Collapse from '@material-ui/core/Collapse';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
+import ReactSwipe from 'react-swipe';
+
 
 const styles = theme => ({
   nestedText: {
@@ -67,28 +70,33 @@ class PrKommentar extends React.Component {
     };
   }
 
-  handleChange = (prById, category) => event => {
+  handleChangeRating = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
     let ratings = prById.prRatingSet.find(
       rating => rating.prRatingDescription === category
     );
-    event.target.name === 'rating'
-      ? this.props.addRating(
-          prById,
-          category,
-          this.state.comment,
-          event.target.value,
-          ratings.id
-        )
-      : this.props.addRating(
-          prById,
-          category,
-          event.target.value,
-          this.state.rating,
-          ratings.id
-        );
+    this.props.addRating(
+      prById,
+      category,
+      this.state.comment,
+      event.target.value,
+      ratings.id
+    );
   };
 
+  handleChangeComment = (prById, category) => event => {
+    this.setState({ [event.target.name]: event.target.value });
+    let ratings = prById.prRatingSet.find(
+      rating => rating.prRatingDescription === category
+    );
+    this.props.addRating(
+      prById,
+      category,
+      event.target.value,
+      this.state.rating,
+      ratings.id
+    );
+  };
   translateRatingDescription = ratingDescription => {
     switch (ratingDescription) {
       case 'PROBLEM_ANALYSIS':
@@ -212,15 +220,14 @@ class PrKommentar extends React.Component {
           <ListItem className={classes.nestedNumber}>
             <FormControl>
               <Select
-                value={this.state.rating ? this.state.rating : 1}
-                onChange={this.handleChange(prById, category)}
+                value={this.state.rating ? this.state.rating : 3}
+                onChange={this.handleChangeRating(prById, category)}
                 displayEmpty
                 name="rating"
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={1}>1</MenuItem>
+
+                <MenuItem>
+            value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
                 <MenuItem value={4}>4</MenuItem>
@@ -234,12 +241,12 @@ class PrKommentar extends React.Component {
             <ListItem>
               <TextField
                 id="multiline-flexible"
-                label="comment"
+                label="Kommentar"
                 multiline
                 fullWidth
                 rowsMax="4"
                 value={this.state.comment ? this.state.comment : ''}
-                onChange={this.handleChange(prById, category)}
+                onChange={this.handleChangeComment(prById, category)}
                 InputProps={{
                   disableUnderline: true,
                   name: 'comment',

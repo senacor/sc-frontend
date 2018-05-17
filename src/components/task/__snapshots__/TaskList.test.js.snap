@@ -8,10 +8,9 @@ exports[`TaskList Component should display the list of tasks 1`] = `
   >
     Aufgabenliste
   </WithStyles(Typography)>
-  <Card
+  <WithStyles(Card)
     className="TaskList-task-3"
     key="2"
-    raised={false}
   >
     <WithStyles(CardContent)>
       <Link
@@ -67,6 +66,6 @@ exports[`TaskList Component should display the list of tasks 1`] = `
         </WithStyles(Icon)>
       </WithStyles(Button)>
     </WithStyles(CardActions)>
-  </Card>
+  </WithStyles(Card)>
 </div>
 `;

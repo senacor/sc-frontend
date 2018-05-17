@@ -43,8 +43,10 @@ Object {
       "disabled": "rgba(0, 0, 0, 0.26)",
       "disabledBackground": "rgba(0, 0, 0, 0.12)",
       "hover": "rgba(0, 0, 0, 0.08)",
+      "hoverOpacity": 0.08,
       "selected": "rgba(0, 0, 0, 0.14)",
     },
+    "augmentColor": [Function],
     "background": Object {
       "default": "#fafafa",
       "paper": "#fff",
@@ -181,6 +183,7 @@ Object {
       "lineHeight": "1.71429em",
     },
     "button": Object {
+      "color": "rgba(0, 0, 0, 0.87)",
       "fontFamily": "\\"Roboto\\", \\"Helvetica\\", \\"Arial\\", sans-serif",
       "fontSize": "0.875rem",
       "fontWeight": 500,

@@ -1,6 +1,6 @@
 import React from 'react';
 import PrState from './PrState';
-import { createShallow } from 'material-ui/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrState Component', () => {
   let shallow = createShallow({ dive: true });

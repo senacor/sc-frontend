@@ -1,3 +1,5 @@
+export { default as addRating } from './sheet';
+
 export const fetchTasks = () => async dispatch => {
   dispatch({
     type: 'FETCH_TASKS_REQUEST'

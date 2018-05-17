@@ -7,6 +7,7 @@ export const isLoading = (state = false, action) => {
   ];
   const stopLoading = [
     'ADD_PR_RESPONSE',
+    'ADD_COMMENT_RESPONSE',
     'ERROR_RESPONSE',
     'FETCH_PR_BY_ID_RESPONSE',
     'FETCH_PRS_RESPONSE',

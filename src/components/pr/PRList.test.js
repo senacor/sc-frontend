@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledComponent } from './PRList';
-import { createShallow } from 'material-ui/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PRList Component', () => {
   let shallow = createShallow({ dive: true });
@@ -44,6 +44,6 @@ describe('PRList Component', () => {
       <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
     );
 
-    expect(element.find('Card')).toHaveLength(1);
+    expect(element.find('WithStyles(Card)')).toHaveLength(1);
   });
 });

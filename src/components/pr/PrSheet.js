@@ -1,8 +1,10 @@
 import React from 'react';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
 import PrKommentar from './PrKommentar';
-import { withStyles } from 'material-ui/styles/index';
+import { withStyles } from '@material-ui/core/styles/index';
 
 const styles = () => ({
   containerVertical: {
@@ -12,7 +14,6 @@ const styles = () => ({
     boxShadow:
       '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
   },
-
   nested: {
     paddingLeft: '30px'
   },

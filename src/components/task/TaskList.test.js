@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledComponent } from './TaskList';
-import { createShallow } from 'material-ui/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('TaskList Component', () => {
   let shallow = createShallow({ dive: true });
@@ -44,6 +44,6 @@ describe('TaskList Component', () => {
   it('should contain only one task', () => {
     const element = shallow(<StyledComponent tasks={tasks} />);
 
-    expect(element.find('Card')).toHaveLength(1);
+    expect(element.find('WithStyles(Card)')).toHaveLength(1);
   });
 });

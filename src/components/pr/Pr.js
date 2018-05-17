@@ -1,8 +1,9 @@
 import React from 'react';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Avatar from 'material-ui/Avatar';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import * as actions from '../../actions/index';
@@ -10,8 +11,8 @@ import PrState from './PrState';
 import PrSalary from './PrSalary';
 import PrSheet from './PrSheet';
 import PrEmployment from './PrEmployment';
-import Hidden from 'material-ui/Hidden';
-import Card from 'material-ui/Card';
+import Hidden from '@material-ui/core/Hidden';
+import Card from '@material-ui/core/Card';
 import moment from 'moment';
 
 const styles = theme => ({

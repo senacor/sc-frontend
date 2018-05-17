@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-import Input from 'material-ui/Input';
-import Button from 'material-ui/Button';
-import Hidden from 'material-ui/Hidden';
-import { FormControl } from 'material-ui/Form';
-import InputAdornment from 'material-ui/Input/InputAdornment';
-import PermIdentityIcon from 'material-ui-icons/PermIdentity';
-import LockIcon from 'material-ui-icons/Lock';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
+import FormControl from '@material-ui/core/FormControl';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import LockIcon from '@material-ui/icons/Lock';
 
 import officeMuenchen from './officeM.jpg';
 import senacorLogo from './senacor_transparent.png';

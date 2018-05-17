@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledComponent } from './Login';
-import { createShallow } from 'material-ui/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('Login Component', () => {
   let shallow = createShallow({ dive: true });
