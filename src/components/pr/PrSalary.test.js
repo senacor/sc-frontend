@@ -124,32 +124,6 @@ describe('PrSalary Component', () => {
     }
   };
 
-  it('tests the addAllValues function', () => {
-    const output = [
-      { validFrom: '2004-05-10', reason: 'Ende der Probezeit' },
-      { validFrom: '2004-05-10', ote: 45000, fte: 1 },
-      { validFrom: '2005-05-10', ote: 50000, fte: 1 },
-      {
-        validFrom: '2004-05-10',
-        validTo: '2005-03-31',
-        reason: 'Unbezahlter Urlaub'
-      },
-      {
-        validFrom: '2004-05-10',
-        validTo: '2004-10-11',
-        reason: 'Mutterschutz'
-      },
-      { validFrom: '2004-05-10', validTo: '2004-08-28', reason: 'Elternzeit' },
-      {
-        validFrom: '2004-05-10',
-        validTo: '2004-06-07',
-        reason: 'Forschungsurlaub'
-      }
-    ];
-    const component = shallow(<PrSalary prById={prById} />);
-    expect(component.instance().addAllValues(prById)).toEqual(output);
-  });
-
   it('displays the PrSalary', () => {
     const component = shallow(<PrSalary prById={prById} />);
     expect(component).toMatchSnapshot();
