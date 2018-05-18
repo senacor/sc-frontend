@@ -33,15 +33,6 @@ const styles = theme => ({
 });
 
 class PrSwipePositionDescription extends React.Component {
-  titleDescriptionText = () => {
-    return {
-      junior: ' Anforderung an Junior: ',
-      senior: 'Anforderung an Senior: ',
-      expert: 'Anforderung an Expert: ',
-      lead: 'Anforderung an Lead: '
-    };
-  };
-
   positionText = position => {
     switch (position) {
       case 'PROBLEM_ANALYSIS':
@@ -106,65 +97,6 @@ class PrSwipePositionDescription extends React.Component {
     }
   };
 
-  showJunior = (classes, category) => {
-    return (
-      <div className={classes.swipeWrapInside}>
-        <ListItemText
-          className={classes.titleSize}
-          primary={this.titleDescriptionText().junior}
-        />
-        <ListItemText
-          className={classes.description}
-          secondary={this.categoryText(category).junior}
-        />
-      </div>
-    );
-  };
-
-  showSenior = (classes, category) => {
-    return (
-      <div className={classes.swipeWrapInside}>
-        <ListItemText
-          className={classes.titleSize}
-          primary={this.titleDescriptionText().senior}
-        />
-        <ListItemText
-          className={classes.description}
-          secondary={this.categoryText(category).senior}
-        />
-      </div>
-    );
-  };
-  showExpert = (classes, category) => {
-    return (
-      <div className={classes.swipeWrapInside}>
-        <ListItemText
-          className={classes.titleSize}
-          primary={this.titleDescriptionText().expert}
-        />
-        <ListItemText
-          className={classes.description}
-          secondary={this.categoryText(category).expert}
-        />
-      </div>
-    );
-  };
-
-  showLead = (classes, category) => {
-    return (
-      <div className={classes.swipeWrapInside}>
-        <ListItemText
-          className={classes.titleSize}
-          primary={this.titleDescriptionText().lead}
-        />
-        <ListItemText
-          className={classes.description}
-          secondary={this.categoryText(category).lead}
-        />
-      </div>
-    );
-  };
-
   render() {
     const { category, classes } = this.props;
     return (
@@ -182,10 +114,46 @@ class PrSwipePositionDescription extends React.Component {
             className={classes.swipe}
             swipeOptions={{ continuous: false }}
           >
-            {this.showJunior(classes, category)}
-            {this.showSenior(classes, category)}
-            {this.showExpert(classes, category)}
-            {this.showLead(classes, category)}
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Junior: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).junior}
+              />
+            </div>
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Senior: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).senior}
+              />
+            </div>
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Expert: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).expert}
+              />
+            </div>
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Lead: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).lead}
+              />
+            </div>
           </ReactSwipe>
           <IconButton
             className={classes.button}

@@ -44,7 +44,7 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       >
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-titleSize-4"
-          primary=" Anforderung an Junior: "
+          primary="Anforderung an Junior: "
         />
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-description-3"
@@ -149,7 +149,7 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       >
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-titleSize-4"
-          primary=" Anforderung an Junior: "
+          primary="Anforderung an Junior: "
         />
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-description-3"
@@ -254,7 +254,7 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       >
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-titleSize-4"
-          primary=" Anforderung an Junior: "
+          primary="Anforderung an Junior: "
         />
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-description-3"
