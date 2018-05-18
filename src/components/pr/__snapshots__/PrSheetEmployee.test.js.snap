@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFLUENCE_OF_LEADER_AND_ENVIRONMENT 1`] = `
+<WithStyles(ListItem)
+  className="PrSheetEmployee-nestedListItem-2"
+>
+  <TextField
+    InputLabelProps={
+      Object {
+        "shrink": true,
+      }
+    }
+    InputProps={
+      Object {
+        "classes": Object {
+          "input": "PrSheetEmployee-bootstrapInput-1",
+        },
+        "disableUnderline": true,
+        "name": "comment",
+      }
+    }
+    className="PrSheetEmployee-text-3"
+    fullWidth={true}
+    id="multiline-flexible"
+    label="Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung"
+    multiline={true}
+    onChange={[Function]}
+    placeholder="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
+    required={false}
+    rowsMax="4"
+    select={false}
+    value="hjkkkhgcghjjn"
+  />
+</WithStyles(ListItem)>
+`;
+
+exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE_AND_PROJECT_ENVIRONMENT  1`] = `
+<WithStyles(ListItem)
+  className="PrSheetEmployee-nestedListItem-2"
+>
+  <TextField
+    InputLabelProps={
+      Object {
+        "shrink": true,
+      }
+    }
+    InputProps={
+      Object {
+        "classes": Object {
+          "input": "PrSheetEmployee-bootstrapInput-1",
+        },
+        "disableUnderline": true,
+        "name": "comment",
+      }
+    }
+    className="PrSheetEmployee-text-3"
+    fullWidth={true}
+    id="multiline-flexible"
+    label="Rolle und Projektumfeld"
+    multiline={true}
+    onChange={[Function]}
+    placeholder="Beschreibung Projekt, Aufgabe und Rolle"
+    required={false}
+    rowsMax="4"
+    select={false}
+    value=""
+  />
+</WithStyles(ListItem)>
+`;
