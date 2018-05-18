@@ -189,7 +189,7 @@ export class Pr extends React.Component {
             <Tabs
               value={this.state.value}
               onChange={this.handleChange}
-              indicatorColor="#FFA07A"
+              indicatorColor="secondary"
               className={classes.tabsColor}
               scrollable
               scrollButtons="auto"
