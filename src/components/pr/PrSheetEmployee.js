@@ -1,0 +1,113 @@
+import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles/index';
+import { debounce } from '../../helper/debounce';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+
+const styles = theme => ({
+  bootstrapInput: {
+    borderRadius: 4,
+    backgroundColor: theme.palette.common.white,
+    border: '1px solid #ced4da',
+    fontSize: 10,
+    paddingBottom: '8px',
+    padding: '16px 6px',
+    '&:focus': {
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'
+    }
+  },
+  nestedListItem: {
+    paddingLeft: '30px',
+    width: '93%'
+  },
+  text: {
+    paddingTop: '8px',
+    paddingBottom: '7px'
+  }
+});
+
+class PrSheetEmployee extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: this.props.prById.prReflectionSet.find(
+        prReflection => prReflection.prReflectionField === this.props.category
+      ).text
+    };
+  }
+
+  handleChangeComment = (prById, category) => event => {
+    this.setState({ text: event.target.value });
+    let reflectionSet = prById.prReflectionSet.find(
+      prReflection => prReflection.prReflectionField === category
+    );
+
+    this.sendComment(prById, category, event.target.value, reflectionSet.id);
+  };
+
+  sendComment = debounce(this.props.addEmployeeContribution, 500);
+
+  translateCategoryName = categoryName => {
+    switch (categoryName) {
+      case 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT':
+        return 'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung';
+      case 'ROLE_AND_PROJECT_ENVIRONMENT':
+        return 'Rolle und Projektumfeld';
+      default:
+        return 'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung';
+    }
+  };
+
+  placeholder = categoryName => {
+    switch (categoryName) {
+      case 'ROLE_AND_PROJECT_ENVIRONMENT':
+        return 'Beschreibung Projekt, Aufgabe und Rolle';
+      case 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT':
+        return 'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?';
+      default:
+        return 'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?';
+    }
+  };
+
+  render() {
+    const { prById, category, classes } = this.props;
+    return (
+      <ListItem className={classes.nestedListItem}>
+        <TextField
+          id="multiline-flexible"
+          label={this.translateCategoryName(category)}
+          multiline
+          fullWidth
+          rowsMax="4"
+          placeholder={this.placeholder(category)}
+          value={this.state.text ? this.state.text : ''}
+          onChange={this.handleChangeComment(prById, category)}
+          className={classes.text}
+          InputProps={{
+            disableUnderline: true,
+            name: 'comment',
+            classes: {
+              input: classes.bootstrapInput
+            }
+          }}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+      </ListItem>
+    );
+  }
+}
+
+export const StyledComponent = withStyles(styles)(PrSheetEmployee);
+export default connect(
+  state => ({
+    prEmployeeContribution: state.prEmployeeContributions.prEmployeeContribution
+  }),
+  {
+    addEmployeeContribution: actions.addEmployeeContribution
+  }
+)(StyledComponent);

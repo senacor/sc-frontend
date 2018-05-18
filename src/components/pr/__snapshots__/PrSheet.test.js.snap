@@ -13,6 +13,205 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
+       
+      <Connect(WithStyles(PrSheetEmployee))
+        category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+        prById={
+          Object {
+            "_links": Object {
+              "self": Object {
+                "href": "http://localhost:8010/api/v1/prs/1",
+              },
+            },
+            "deadline": "2015-05-11",
+            "employee": Object {
+              "email": "lionel.schäfer@senacor.com",
+              "employment": Object {
+                "endOfProbationPeriod": "2004-05-10",
+                "jobGradings": Array [
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 1,
+                    "salaryLevel": 1,
+                    "validFrom": "2004-05-09",
+                  },
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 2,
+                    "salaryLevel": 2,
+                    "validFrom": "2005-05-09",
+                  },
+                ],
+                "leaves": Object {
+                  "maternityLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-10-11",
+                    },
+                  ],
+                  "parentalLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-08-28",
+                    },
+                  ],
+                  "sabbatical": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-06-07",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-02-10",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-26",
+                    },
+                  ],
+                  "unpaidLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-31",
+                    },
+                  ],
+                },
+              },
+              "entryDate": "2004-05-10",
+              "firstName": "Lionel",
+              "id": 1,
+              "lastName": "Schäfer",
+              "login": "lschäfer",
+              "salaries": Array [
+                Object {
+                  "basicSalary": 40500,
+                  "fte": 1,
+                  "ote": 45000,
+                  "validFrom": "2004-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+                Object {
+                  "basicSalary": 40000,
+                  "fte": 1,
+                  "ote": 50000,
+                  "validFrom": "2005-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+              ],
+              "title": "DR",
+            },
+            "id": 1,
+            "occasion": "ON_DEMAND",
+            "status": "PREPARATION",
+            "supervisor": "ttran",
+          }
+        }
+      />
+      <Connect(WithStyles(PrSheetEmployee))
+        category="ROLE_AND_PROJECT_ENVIRONMENT"
+        prById={
+          Object {
+            "_links": Object {
+              "self": Object {
+                "href": "http://localhost:8010/api/v1/prs/1",
+              },
+            },
+            "deadline": "2015-05-11",
+            "employee": Object {
+              "email": "lionel.schäfer@senacor.com",
+              "employment": Object {
+                "endOfProbationPeriod": "2004-05-10",
+                "jobGradings": Array [
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 1,
+                    "salaryLevel": 1,
+                    "validFrom": "2004-05-09",
+                  },
+                  Object {
+                    "competence": "DEVELOPMENT",
+                    "positionId": 2,
+                    "salaryLevel": 2,
+                    "validFrom": "2005-05-09",
+                  },
+                ],
+                "leaves": Object {
+                  "maternityLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-10-11",
+                    },
+                  ],
+                  "parentalLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-08-28",
+                    },
+                  ],
+                  "sabbatical": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2004-06-07",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-02-10",
+                    },
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-26",
+                    },
+                  ],
+                  "unpaidLeave": Array [
+                    Object {
+                      "from": "2004-05-10",
+                      "to": "2005-03-31",
+                    },
+                  ],
+                },
+              },
+              "entryDate": "2004-05-10",
+              "firstName": "Lionel",
+              "id": 1,
+              "lastName": "Schäfer",
+              "login": "lschäfer",
+              "salaries": Array [
+                Object {
+                  "basicSalary": 40500,
+                  "fte": 1,
+                  "ote": 45000,
+                  "validFrom": "2004-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+                Object {
+                  "basicSalary": 40000,
+                  "fte": 1,
+                  "ote": 50000,
+                  "validFrom": "2005-05-10",
+                  "workingHoursPerWeek": 40,
+                },
+              ],
+              "title": "DR",
+            },
+            "id": 1,
+            "occasion": "ON_DEMAND",
+            "status": "PREPARATION",
+            "supervisor": "ttran",
+          }
+        }
+      />
+    </WithStyles(List)>
+  </WithStyles(List)>
+  <WithStyles(Divider) />
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        primary="Leistungen im Projekt"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(List)
+      disablePadding={true}
+    >
       <Connect(WithStyles(PrKommentar))
         category="PROBLEM_ANALYSIS"
         prById={
