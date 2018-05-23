@@ -85,7 +85,7 @@ exports[`PrKommentar Component displays the PrKommentar 1`] = `
             }
           }
           fullWidth={true}
-          id="multiline-flexible"
+          id="PROBLEM_ANALYSIS"
           label="Kommentar"
           multiline={true}
           onChange={[Function]}

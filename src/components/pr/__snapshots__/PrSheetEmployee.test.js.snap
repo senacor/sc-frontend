@@ -31,7 +31,7 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
           }
         }
         fullWidth={true}
-        id="multiline-flexible"
+        id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
         multiline={true}
         onChange={[Function]}
         required={false}
@@ -80,7 +80,7 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE
           }
         }
         fullWidth={true}
-        id="multiline-flexible"
+        id="ROLE_AND_PROJECT_ENVIRONMENT"
         multiline={true}
         onChange={[Function]}
         required={false}

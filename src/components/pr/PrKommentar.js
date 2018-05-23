@@ -177,7 +177,7 @@ class PrKommentar extends React.Component {
           <List component="div" disablePadding className={classes.nestedText}>
             <ListItem>
               <TextField
-                id="multiline-flexible"
+                id={category}
                 label="Kommentar"
                 multiline
                 fullWidth
