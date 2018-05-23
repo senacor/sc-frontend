@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import PrKommentar from './PrKommentar';
+import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
 
 const styles = () => ({
@@ -32,9 +33,24 @@ class PrSheet extends React.Component {
 
   render() {
     const { prById, classes } = this.props;
-
     return (
       <div className={classes.containerVertical}>
+        <List>
+          <ListItem>
+            <ListItemText primary="Mitarbeiterrolle" />
+          </ListItem>
+          <List disablePadding>
+            <PrSheetEmployee
+              prById={prById}
+              category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+            />
+            <PrSheetEmployee
+              prById={prById}
+              category="ROLE_AND_PROJECT_ENVIRONMENT"
+            />
+          </List>
+        </List>
+        <Divider />
         <List>
           <ListItem>
             <ListItemText primary="Leistungen im Projekt" />

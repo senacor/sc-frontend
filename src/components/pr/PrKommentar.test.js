@@ -169,7 +169,7 @@ describe('PrKommentar Component', () => {
     }
   };
 
-  it('displays the PrSheet', () => {
+  it('displays the PrKommentar', () => {
     const component = shallow(
       <StyledComponent prById={prById} category="PROBLEM_ANALYSIS" />
     );

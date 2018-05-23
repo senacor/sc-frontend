@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFLUENCE_OF_LEADER_AND_ENVIRONMENT 1`] = `
+<div>
+  <WithStyles(ListItem)
+    className="PrSheetEmployee-nestedListItem-3"
+  >
+    <WithStyles(ListItemText)
+      secondary="Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(List)
+    className="PrSheetEmployee-nestedText-2"
+    component="div"
+    disablePadding={true}
+  >
+    <WithStyles(ListItem)>
+      <TextField
+        InputLabelProps={
+          Object {
+            "shrink": true,
+          }
+        }
+        InputProps={
+          Object {
+            "classes": Object {
+              "input": "PrSheetEmployee-bootstrapInput-1",
+            },
+            "disableUnderline": true,
+            "name": "comment",
+          }
+        }
+        fullWidth={true}
+        id="multiline-flexible"
+        multiline={true}
+        onChange={[Function]}
+        required={false}
+        rowsMax="4"
+        select={false}
+        value="hjkkkhgcghjjn"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        secondary="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</div>
+`;
+
+exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE_AND_PROJECT_ENVIRONMENT  1`] = `
+<div>
+  <WithStyles(ListItem)
+    className="PrSheetEmployee-nestedListItem-3"
+  >
+    <WithStyles(ListItemText)
+      secondary="Rolle und Projektumfeld"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(List)
+    className="PrSheetEmployee-nestedText-2"
+    component="div"
+    disablePadding={true}
+  >
+    <WithStyles(ListItem)>
+      <TextField
+        InputLabelProps={
+          Object {
+            "shrink": true,
+          }
+        }
+        InputProps={
+          Object {
+            "classes": Object {
+              "input": "PrSheetEmployee-bootstrapInput-1",
+            },
+            "disableUnderline": true,
+            "name": "comment",
+          }
+        }
+        fullWidth={true}
+        id="multiline-flexible"
+        multiline={true}
+        onChange={[Function]}
+        required={false}
+        rowsMax="4"
+        select={false}
+        value=""
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        secondary="Beschreibung Projekt, Aufgabe und Rolle"
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</div>
+`;

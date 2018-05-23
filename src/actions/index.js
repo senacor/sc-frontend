@@ -1,4 +1,4 @@
-export { default as addRating } from './sheet';
+export { addRating, addEmployeeContribution } from './sheet';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({

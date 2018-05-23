@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrKommentar Component displays the PrSheet 1`] = `
+exports[`PrKommentar Component displays the PrKommentar 1`] = `
 <div>
   <div
     className="PrKommentar-containerListItem-3"
