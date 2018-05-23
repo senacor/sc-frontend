@@ -38,10 +38,9 @@ class PrSheet extends React.Component {
       <div className={classes.containerVertical}>
         <List>
           <ListItem>
-            <ListItemText primary="Leistungen im Projekt" />
+            <ListItemText primary="Mitarbeiterrolle" />
           </ListItem>
           <List disablePadding>
-            {' '}
             <PrSheetEmployee
               prById={prById}
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"

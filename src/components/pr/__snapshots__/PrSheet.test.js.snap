@@ -7,13 +7,12 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
   <WithStyles(List)>
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)
-        primary="Leistungen im Projekt"
+        primary="Mitarbeiterrolle"
       />
     </WithStyles(ListItem)>
     <WithStyles(List)
       disablePadding={true}
     >
-       
       <Connect(WithStyles(PrSheetEmployee))
         category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
         prById={

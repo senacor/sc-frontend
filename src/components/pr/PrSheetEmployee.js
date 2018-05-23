@@ -1,5 +1,7 @@
 import React from 'react';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
@@ -11,21 +13,20 @@ const styles = theme => ({
     borderRadius: 4,
     backgroundColor: theme.palette.common.white,
     border: '1px solid #ced4da',
-    fontSize: 10,
-    paddingBottom: '8px',
-    padding: '16px 6px',
+    fontSize: 16,
+    padding: '10px 12px',
     '&:focus': {
       borderColor: '#80bdff',
       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'
     }
   },
+  nestedText: {
+    paddingLeft: '30px',
+    paddingRight: '30px'
+  },
   nestedListItem: {
     paddingLeft: '30px',
     width: '93%'
-  },
-  text: {
-    paddingTop: '8px',
-    paddingBottom: '7px'
   }
 });
 
@@ -75,29 +76,36 @@ class PrSheetEmployee extends React.Component {
   render() {
     const { prById, category, classes } = this.props;
     return (
-      <ListItem className={classes.nestedListItem}>
-        <TextField
-          id="multiline-flexible"
-          label={this.translateCategoryName(category)}
-          multiline
-          fullWidth
-          rowsMax="4"
-          placeholder={this.placeholder(category)}
-          value={this.state.text ? this.state.text : ''}
-          onChange={this.handleChangeComment(prById, category)}
-          className={classes.text}
-          InputProps={{
-            disableUnderline: true,
-            name: 'comment',
-            classes: {
-              input: classes.bootstrapInput
-            }
-          }}
-          InputLabelProps={{
-            shrink: true
-          }}
-        />
-      </ListItem>
+      <div>
+        <ListItem className={classes.nestedListItem}>
+          <ListItemText secondary={this.translateCategoryName(category)} />
+        </ListItem>
+        <List component="div" disablePadding className={classes.nestedText}>
+          <ListItem>
+            <TextField
+              id="multiline-flexible"
+              multiline
+              fullWidth
+              rowsMax="4"
+              value={this.state.text ? this.state.text : ''}
+              onChange={this.handleChangeComment(prById, category)}
+              InputProps={{
+                disableUnderline: true,
+                name: 'comment',
+                classes: {
+                  input: classes.bootstrapInput
+                }
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText secondary={this.placeholder(category)} />
+          </ListItem>
+        </List>
+      </div>
     );
   }
 }
