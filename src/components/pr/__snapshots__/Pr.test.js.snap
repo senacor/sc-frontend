@@ -52,7 +52,7 @@ exports[`Pr Component displays the pr 1`] = `
     >
       <WithStyles(Tabs)
         className="Pr-tabsColor-5"
-        indicatorColor="#FFA07A"
+        indicatorColor="secondary"
         onChange={[Function]}
         scrollButtons="auto"
         scrollable={true}

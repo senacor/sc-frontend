@@ -1,0 +1,316 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "PROBLEM ANALYSIS 1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <WithStyles(IconButton)
+      aria-label="Links"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_left
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+    <ReactSwipe
+      childCount={0}
+      className="PrSwipePositionDescription-swipe-1"
+      style={
+        Object {
+          "child": Object {
+            "float": "left",
+            "position": "relative",
+            "transitionProperty": "transform",
+            "width": "100%",
+          },
+          "container": Object {
+            "overflow": "hidden",
+            "position": "relative",
+            "visibility": "hidden",
+          },
+          "wrapper": Object {
+            "overflow": "hidden",
+            "position": "relative",
+          },
+        }
+      }
+      swipeOptions={
+        Object {
+          "continuous": false,
+        }
+      }
+    >
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Junior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Senior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Expert: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Lead: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen"
+        />
+      </div>
+    </ReactSwipe>
+    <WithStyles(IconButton)
+      aria-label="Rechts"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_right
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
+    />
+  </WithStyles(ListItem)>
+</div>
+`;
+
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORK RESULTS 1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <WithStyles(IconButton)
+      aria-label="Links"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_left
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+    <ReactSwipe
+      childCount={0}
+      className="PrSwipePositionDescription-swipe-1"
+      style={
+        Object {
+          "child": Object {
+            "float": "left",
+            "position": "relative",
+            "transitionProperty": "transform",
+            "width": "100%",
+          },
+          "container": Object {
+            "overflow": "hidden",
+            "position": "relative",
+            "visibility": "hidden",
+          },
+          "wrapper": Object {
+            "overflow": "hidden",
+            "position": "relative",
+          },
+        }
+      }
+      swipeOptions={
+        Object {
+          "continuous": false,
+        }
+      }
+    >
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Junior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Termingerechte Erstellung qualitativ hochwertiger Beiträge zu Endprodukten"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Senior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Expert: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Scoping und Strukturierung erforderlicher Endprodukte zur Absicherung des Projekterfolgs; Absicherung der termingerechten Bereitstellung in hoher Qualität; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Lead: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Scoping und Strukturierung erforderlicher Endprodukte zur Absicherung des Projekterfolgs; Absicherung der termingerechten Bereitstellung in hoher Qualität; Vorstellung Ergebnisse bei Entscheidern"
+        />
+      </div>
+    </ReactSwipe>
+    <WithStyles(IconButton)
+      aria-label="Rechts"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_right
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
+    />
+  </WithStyles(ListItem)>
+</div>
+`;
+
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORKING MANNER  1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <WithStyles(IconButton)
+      aria-label="Links"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_left
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+    <ReactSwipe
+      childCount={0}
+      className="PrSwipePositionDescription-swipe-1"
+      style={
+        Object {
+          "child": Object {
+            "float": "left",
+            "position": "relative",
+            "transitionProperty": "transform",
+            "width": "100%",
+          },
+          "container": Object {
+            "overflow": "hidden",
+            "position": "relative",
+            "visibility": "hidden",
+          },
+          "wrapper": Object {
+            "overflow": "hidden",
+            "position": "relative",
+          },
+        }
+      }
+      swipeOptions={
+        Object {
+          "continuous": false,
+        }
+      }
+    >
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Junior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Eigenständige Bearbeitung klar umrissener Aufgabenstellungen; Pragmatismus; hoher Anspruch an die Qualität der eigenen Arbeit"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Senior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Expert: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Übernahme von Verantwortung für Teilprojekte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Gesamtqualität aller Endprodukte"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Lead: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Übernahme von Verantwortung für größere Projekte und Teilprojekte; Priorisierung und Strukturierung gegen Projektziele; Absicherung der Gesamtqualität aller Endprodukte"
+        />
+      </div>
+    </ReactSwipe>
+    <WithStyles(IconButton)
+      aria-label="Rechts"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_right
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
+    />
+  </WithStyles(ListItem)>
+</div>
+`;

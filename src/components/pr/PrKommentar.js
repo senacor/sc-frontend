@@ -11,11 +11,12 @@ import Icon from '@material-ui/core/Icon';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
+import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
 
 const styles = theme => ({
   nestedText: {
-    paddingLeft: '30px',
+    paddingLeft: '20px',
     paddingRight: '30px'
   },
   bootstrapInput: {
@@ -33,7 +34,7 @@ const styles = theme => ({
     display: 'flex'
   },
   nestedListItem: {
-    paddingLeft: '30px',
+    paddingLeft: '20px',
     width: '80%'
   },
   icon: {
@@ -47,6 +48,7 @@ const styles = theme => ({
 class PrKommentar extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       rating: this.props.prById.prRatingSet.find(
         rating => rating.prRatingDescription === this.props.category
@@ -134,36 +136,6 @@ class PrKommentar extends React.Component {
     }
   };
 
-  categoryText = category => {
-    switch (category) {
-      case 'PROBLEM_ANALYSIS':
-        return {
-          categoryDescription:
-            'Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen',
-          positionDescription:
-            'Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen'
-        };
-      case 'WORKING_MANNER':
-        return {
-          categoryDescription:
-            'Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)',
-          positionDescription:
-            'Übernahme von Verantwortung für eigene Endprodukte; Kalibrierung von Vorgehen und Aufwand gegen Lieferzusagen und Machbarkeit; Absicherung der Qualität der verantworteten Endprodukte'
-        };
-
-      case 'WORK_RESULTS':
-        return {
-          categoryDescription:
-            'Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen',
-          positionDescription:
-            'Scoping, Strukturierung und termingerechte Erstellung komplexerer Endprodukte in hoher Qualität inkl. Integration von Zulieferungen Dritter; Vorstellung Ergebnisse bei Kunden-Mitarbeitern/Projektleitern'
-        };
-
-      default:
-        return;
-    }
-  };
-
   render() {
     const { prById, category, classes } = this.props;
     return (
@@ -225,16 +197,7 @@ class PrKommentar extends React.Component {
               />
             </ListItem>
             <ListItem />
-            <ListItem>
-              <ListItemText
-                secondary={this.categoryText(category).categoryDescription}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                secondary={this.categoryText(category).positionDescription}
-              />
-            </ListItem>
+            <PrSwipePositionDescription category={category} />
           </List>
         </Collapse>
       </div>

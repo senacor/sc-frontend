@@ -6,8 +6,8 @@ export const isLoading = (state = false, action) => {
     'FETCH_TASKS_REQUEST'
   ];
   const stopLoading = [
-    'ADD_PR_RESPONSE',
     'ADD_COMMENT_RESPONSE',
+    'ADD_PR_RESPONSE',
     'ADD_TEXT_RESPONSE',
     'ERROR_RESPONSE',
     'FETCH_PR_BY_ID_RESPONSE',
