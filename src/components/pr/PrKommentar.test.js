@@ -104,4 +104,12 @@ describe('PrKommentar Component', () => {
 
     expect(component).toMatchSnapshot();
   });
+
+  it('displays Customer interaction', () => {
+    const component = shallow(
+      <StyledComponent prById={prById} category="CUSTOMER_INTERACTION" />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
 });

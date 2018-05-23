@@ -50,6 +50,12 @@ class PrSwipePositionDescription extends React.Component {
       case 'LEADERSHIP':
         return 'Betreuung und Coaching anderer Teammitglieder | operative Steuerung anderer Teammitglieder | Mitarbeiterbewertung und -entwicklung | Mitarbeiterbindung';
 
+      case 'CUSTOMER_INTERACTION':
+        return 'Verständnis für Kundensituation | angemessene, professionelle Kommunikation | Motivation von Veränderungen';
+
+      case 'CUSTOMER_RETENTION':
+        return 'Positive Kundenwahrnehmung | Beitrag zu Auf- und Ausbau von Kundenbeziehungen | Identifikation & Entwicklung neuer Themen | Vertriebswirkung';
+
       default:
         return;
     }
@@ -128,6 +134,36 @@ class PrSwipePositionDescription extends React.Component {
 
           lead:
             'Coached, unterstützt und entwickelt aktiv Mitarbeiter der Junior und Senior-Ebene; führt Scorecardsbewertungen und PRs durch; leistet aktiven Beitrag zur Mitarbeiterbindung'
+        };
+
+      case 'CUSTOMER_INTERACTION':
+        return {
+          junior:
+            'Grundlegendes Verständnis für spezifische Kundensituation; inhaltlich fundierte Kommunikation',
+
+          senior:
+            'Ausgeprägtes Verständnis für spezifische Kundensituation und relevanten Kontext; eigenständige Gestaltung der Kommunikation mit unmittelbarem Umfeld; Identifikation und Motivation von Veränderungen beim Kunden',
+
+          expert:
+            'Ausgeprägtes Verständnis für spezifische Kundensituation und relevanten Kontext; eigenständige Gestaltung der Kommunikation mit unmittelbarem Umfeld; Identifikation und Motivation von Veränderungen beim Kunden',
+
+          lead:
+            'Ausgeprägtes Verständnis für Geamtkontext und Implikationen für Projektumfeld; Definition und Umsetzung der Kundenkommunikation; Treiben von Veränderungen mit/durch den Kunden'
+        };
+
+      case 'CUSTOMER_RETENTION':
+        return {
+          junior:
+            'Arbeitsebene des Kunden empfindet Zusammenarbeit als positiv und zielführend; erzeugt den Wunsch nach weiterer Zusammenarbeit',
+
+          senior:
+            'Erzeugt Nachfrage nach sich selbst; erkennt neue Themen und strukturiert mögliche Unterstützung durch Senacor; adressiert Chancen für neue Themen auf Lead- und Partnerebene; unterstützt Angebotsprozesse',
+
+          expert:
+            'Erzeugt Nachfrage nach sich selbst und Team; erkennt, strukturiert und gestaltet Ansätze für neue Themen; adressiert Chancen für neuen Themen auf Partnerebene; unterstützt Angebotsprozesse maßgeblich inhaltlich',
+
+          lead:
+            'Erzeugt Nachfrage nach sich selbst und Team; erkennt, strukturiert und gestaltet Ansätze für neue Themen; steuert bzw. unterstützt maßgeblich Angebotsprozesse und -präsentationen inhaltlich und kommerziell (nur Consultants)'
         };
 
       default:
