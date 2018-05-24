@@ -5,7 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import LockIcon from '@material-ui/icons/Lock';
@@ -91,6 +93,17 @@ const styles = theme => ({
       width: '50%',
       backgroundColor: theme.palette.primary['500']
     }
+  },
+  wrapper: {
+    position: 'relative'
+  },
+  buttonProgress: {
+    color: theme.palette.primary['A100'],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12
   }
 });
 
@@ -99,14 +112,17 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: '',
-      password: '',
+      username: 'test.pr.mitarbeiter1',
+      password: 'K!ckst4rter',
       token: props.token
     };
   }
+
   handleOnClick = () => {
-    this.setState({ redirect: true });
-    this.props.login();
+    this.props.login({
+      username: this.state.username,
+      password: this.state.password
+    });
   };
 
   handleChange = event => {
@@ -114,9 +130,9 @@ class Login extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, isLoggedIn, isUnauthorized, isLoading } = this.props;
 
-    if (this.state.redirect) {
+    if (isLoggedIn) {
       return <Redirect push to="/tasks" />;
     }
 
@@ -134,26 +150,29 @@ class Login extends Component {
                 alt="Senacor"
               />
             </Hidden>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControl} error={isUnauthorized}>
               <Input
                 name="username"
-                value={this.state.name}
+                value={this.state.username}
                 placeholder="Nutzername"
                 className={classes.input}
                 onChange={this.handleChange}
                 startAdornment={<UserIcon />}
               />
             </FormControl>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControl} error={isUnauthorized}>
               <Input
                 name="password"
                 type="password"
-                value={this.state.name}
+                value={this.state.password}
                 placeholder="Passwort"
                 className={classes.input}
                 onChange={this.handleChange}
                 startAdornment={<PasswordIcon />}
               />
+              <FormHelperText id="name-error-text">
+                {isUnauthorized && 'Anmeldung fehlgeschlagen'}
+              </FormHelperText>
             </FormControl>
 
             <Hidden smDown>
@@ -163,7 +182,14 @@ class Login extends Component {
                 variant="raised"
                 onClick={this.handleOnClick}
               >
-                Log In
+                {isLoading ? (
+                  <CircularProgress
+                    size={24}
+                    className={classes.buttonProgress}
+                  />
+                ) : (
+                  'Log In'
+                )}
               </Button>
             </Hidden>
             <Hidden mdUp>
@@ -198,7 +224,9 @@ export const StyledComponent = withStyles(styles)(Login);
 
 export default connect(
   state => ({
-    token: state.login.isLoggedIn
+    isLoggedIn: state.login.isLoggedIn,
+    isLoading: state.isLoading,
+    isUnauthorized: state.login.isUnauthorized
   }),
   {
     login: actions.login

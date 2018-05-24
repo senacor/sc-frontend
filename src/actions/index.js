@@ -1,4 +1,5 @@
 export { addRating, addEmployeeContribution } from './sheet';
+export { login, logout } from './login';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({
@@ -129,22 +130,6 @@ export const fetchPrById = prsId => async dispatch => {
       httpCode: response.status
     });
   }
-};
-
-export const login = () => async dispatch => {
-  dispatch({
-    type: 'TOKEN_TRUE',
-    token: true
-  });
-  localStorage.setItem('token', true.toString());
-};
-
-export const logout = () => async dispatch => {
-  dispatch({
-    type: 'TOKEN_FALSE',
-    token: false
-  });
-  localStorage.setItem('token', false.toString());
 };
 
 export const addSupervisor = prId => async dispatch => {

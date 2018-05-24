@@ -7,10 +7,6 @@ class Logout extends Component {
   constructor(props) {
     super(props);
     this.props.logout();
-
-    this.state = {
-      token: props.token
-    };
   }
 
   render() {
@@ -18,11 +14,6 @@ class Logout extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    token: state.login.isLoggedIn
-  }),
-  {
-    logout: actions.logout
-  }
-)(Logout);
+export default connect(null, {
+  logout: actions.logout
+})(Logout);
