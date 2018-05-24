@@ -36,7 +36,7 @@ function setDataInLocalStorage(data) {
   localStorage.setItem('access_token', data.access_token);
   localStorage.setItem('refresh_token', data.refresh_token);
 
-  return !!localStorage.getItem('access_token');
+  return true;
 }
 
 function removeDataInLocalStorage() {
