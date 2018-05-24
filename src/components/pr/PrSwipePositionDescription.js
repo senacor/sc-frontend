@@ -56,6 +56,9 @@ class PrSwipePositionDescription extends React.Component {
       case 'CUSTOMER_RETENTION':
         return 'Positive Kundenwahrnehmung | Beitrag zu Auf- und Ausbau von Kundenbeziehungen | Identifikation & Entwicklung neuer Themen | Vertriebswirkung';
 
+      case 'FREE_TEXT_FIELD':
+        return '';
+
       default:
         return;
     }
@@ -166,6 +169,12 @@ class PrSwipePositionDescription extends React.Component {
             'Erzeugt Nachfrage nach sich selbst und Team; erkennt, strukturiert und gestaltet Ansätze für neue Themen; steuert bzw. unterstützt maßgeblich Angebotsprozesse und -präsentationen inhaltlich und kommerziell (nur Consultants)'
         };
 
+      case 'FREE_TEXT_FIELD':
+        return {
+          text:
+            'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?',
+        };
+
       default:
         return;
     }
@@ -173,69 +182,76 @@ class PrSwipePositionDescription extends React.Component {
 
   render() {
     const { category, classes } = this.props;
+
     return (
       <div>
         <ListItem>
-          <IconButton
-            className={classes.button}
-            aria-label="Links"
-            onClick={() => this.refs.swiper.prev()}
-          >
-            <Icon>keyboard_arrow_left</Icon>
-          </IconButton>
-          <ReactSwipe
-            ref="swiper"
-            className={classes.swipe}
-            swipeOptions={{ continuous: false }}
-          >
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary="Anforderung an Junior: "
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).junior}
-              />
-            </div>
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary="Anforderung an Senior: "
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).senior}
-              />
-            </div>
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary="Anforderung an Expert: "
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).expert}
-              />
-            </div>
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary="Anforderung an Lead: "
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).lead}
-              />
-            </div>
-          </ReactSwipe>
-          <IconButton
-            className={classes.button}
-            aria-label="Rechts"
-            onClick={() => this.refs.swiper.next()}
-          >
-            <Icon>keyboard_arrow_right</Icon>
-          </IconButton>
+          {(category === "FREE_TEXT_FIELD") ?
+            (<ListItemText
+              className={classes.description}
+              secondary={this.categoryText(category).text}
+            />)
+            :
+            [<IconButton
+              className={classes.button}
+              aria-label="Links"
+              onClick={() => this.refs.swiper.prev()}
+            >
+              <Icon>keyboard_arrow_left</Icon>
+            </IconButton>,
+              <ReactSwipe
+                ref="swiper"
+                className={classes.swipe}
+                swipeOptions={{ continuous: false }}
+              >
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.titleSize}
+                    primary={(category === "FREE_TEXT_FIELD") ? "" : "Anforderung an Junior: "}
+                  />
+                  <ListItemText
+                    className={classes.description}
+                    secondary={this.categoryText(category).junior}
+                  />
+                </div>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.titleSize}
+                    primary="Anforderung an Senior: "
+                  />
+                  <ListItemText
+                    className={classes.description}
+                    secondary={this.categoryText(category).senior}
+                  />
+                </div>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.titleSize}
+                    primary="Anforderung an Expert: "
+                  />
+                  <ListItemText
+                    className={classes.description}
+                    secondary={this.categoryText(category).expert}
+                  />
+                </div>
+                <div className={classes.swipeWrapInside}>
+                  <ListItemText
+                    className={classes.titleSize}
+                    primary="Anforderung an Lead: "
+                  />
+                  <ListItemText
+                    className={classes.description}
+                    secondary={this.categoryText(category).lead}
+                  />
+                </div>
+              </ReactSwipe>,
+              <IconButton
+                className={classes.button}
+                aria-label="Rechts"
+                onClick={() => this.refs.swiper.next()}
+              >
+                <Icon>keyboard_arrow_right</Icon>
+              </IconButton>]}
         </ListItem>
         <ListItem>
           <ListItemText secondary={this.positionText(category)} />

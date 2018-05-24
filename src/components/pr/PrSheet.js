@@ -96,9 +96,7 @@ class PrSheet extends React.Component {
             <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
           </ListItem>
           <List disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText secondary="Freitextfeld" />
-            </ListItem>
+            <PrKommentar prById={prById} category="FREE_TEXT_FIELD" />
           </List>
         </List>
         <Divider />

@@ -42,6 +42,9 @@ const styles = theme => ({
   },
   nestedNumber: {
     width: '20%'
+  },
+  nestedNumberFFF: {
+    width: '48%'
   }
 });
 
@@ -64,7 +67,8 @@ class PrKommentar extends React.Component {
       TEAMWORK: false,
       LEADERSHIP: false,
       CUSTOMER_INTERACTION: false,
-      CUSTOMER_RETENTION: false
+      CUSTOMER_RETENTION: false,
+      FREE_TEXT_FIELD: false
     };
   }
 
@@ -114,7 +118,9 @@ class PrKommentar extends React.Component {
       case 'CUSTOMER_INTERACTION':
         return 'Kundeninteraktion und -veränderung';
       case 'CUSTOMER_RETENTION':
-        return 'Kundenbindung und Mandatsgenerierung';
+      return 'Kundenbindung und Mandatsgenerierung';
+      case 'FREE_TEXT_FIELD':
+        return 'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe';
       default:
         return 'default';
     }
@@ -130,7 +136,8 @@ class PrKommentar extends React.Component {
           TEAMWORK: false,
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
+          CUSTOMER_RETENTION: false,
+          FREE_TEXT_FIELD: false
         });
         break;
       case 'WORK_RESULTS':
@@ -141,7 +148,8 @@ class PrKommentar extends React.Component {
           TEAMWORK: false,
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
+          CUSTOMER_RETENTION: false,
+          FREE_TEXT_FIELD: false
         });
         break;
       case 'PROBLEM_ANALYSIS':
@@ -152,7 +160,8 @@ class PrKommentar extends React.Component {
           TEAMWORK: false,
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
+          CUSTOMER_RETENTION: false,
+          FREE_TEXT_FIELD: false
         });
         break;
       case 'TEAMWORK':
@@ -163,7 +172,8 @@ class PrKommentar extends React.Component {
           WORKING_MANNER: false,
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
+          CUSTOMER_RETENTION: false,
+          FREE_TEXT_FIELD: false
         });
         break;
       case 'LEADERSHIP':
@@ -174,7 +184,8 @@ class PrKommentar extends React.Component {
           WORK_RESULTS: false,
           WORKING_MANNER: false,
           CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
+          CUSTOMER_RETENTION: false,
+          FREE_TEXT_FIELD: false
         });
         break;
       case 'CUSTOMER_INTERACTION':
@@ -185,12 +196,26 @@ class PrKommentar extends React.Component {
           WORK_RESULTS: false,
           WORKING_MANNER: false,
           LEADERSHIP: false,
-          CUSTOMER_RETENTION: false
+          CUSTOMER_RETENTION: false,
+          FREE_TEXT_FIELD: false
         });
         break;
       case 'CUSTOMER_RETENTION':
         this.setState({
           CUSTOMER_RETENTION: !this.state.CUSTOMER_RETENTION,
+          TEAMWORK: false,
+          PROBLEM_ANALYSIS: false,
+          WORK_RESULTS: false,
+          WORKING_MANNER: false,
+          CUSTOMER_INTERACTION: false,
+          LEADERSHIP: false,
+          FREE_TEXT_FIELD: false
+        });
+        break;
+      case 'FREE_TEXT_FIELD':
+        this.setState({
+          FREE_TEXT_FIELD: !this.state.FREE_TEXT_FIELD,
+          CUSTOMER_RETENTION: false,
           TEAMWORK: false,
           PROBLEM_ANALYSIS: false,
           WORK_RESULTS: false,
@@ -204,8 +229,21 @@ class PrKommentar extends React.Component {
     }
   };
 
+
+
   render() {
     const { prById, category, classes } = this.props;
+    const menuItem = (category === "FREE_TEXT_FIELD") ?
+      ([<MenuItem value={1}>nicht erfüllt</MenuItem>,
+        <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
+        <MenuItem value={3}>erfüllt</MenuItem>,
+        <MenuItem value={4}>zT. übererfüllt</MenuItem>,
+        <MenuItem value={5}>übererfüllt</MenuItem>]) :
+      ([<MenuItem value={1}>1</MenuItem>,
+        <MenuItem value={2}>2</MenuItem>,
+        <MenuItem value={3}>3</MenuItem>,
+        <MenuItem value={4}>4</MenuItem>,
+        <MenuItem value={5}>5</MenuItem>]);
     return (
       <div>
         <div className={classes.containerListItem}>
@@ -224,7 +262,7 @@ class PrKommentar extends React.Component {
               ''
             )}
           </ListItem>
-          <ListItem className={classes.nestedNumber}>
+          <ListItem className={(category === "FREE_TEXT_FIELD") ? classes.nestedNumberFFF : classes.nestedNumber}>
             <FormControl>
               <Select
                 value={this.state.rating ? this.state.rating : 3}
@@ -232,11 +270,17 @@ class PrKommentar extends React.Component {
                 displayEmpty
                 name="rating"
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
+                {(category === "FREE_TEXT_FIELD") ?
+                  [<MenuItem value={1}>nicht erfüllt</MenuItem>,
+                    <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
+                    <MenuItem value={3}>erfüllt</MenuItem>,
+                    <MenuItem value={4}>zT. übererfüllt</MenuItem>,
+                    <MenuItem value={5}>übererfüllt</MenuItem>]
+                  : [<MenuItem value={1}>1</MenuItem>,
+                    <MenuItem value={2}>2</MenuItem>,
+                    <MenuItem value={3}>3</MenuItem>,
+                    <MenuItem value={4}>4</MenuItem>,
+                    <MenuItem value={5}>5</MenuItem>]}
               </Select>
             </FormControl>
           </ListItem>
@@ -246,7 +290,7 @@ class PrKommentar extends React.Component {
             <ListItem>
               <TextField
                 id={category}
-                label="Kommentar"
+                label={(category === "FREE_TEXT_FIELD") ? "Freitextfeld (bitte ausfüllen)" : "Kommentar"}
                 multiline
                 fullWidth
                 rowsMax="4"
@@ -271,6 +315,14 @@ class PrKommentar extends React.Component {
       </div>
     );
   }
+}
+
+function ConditionalRatingItem(props) {
+  const isFreeTextField = props.isFFF;
+  if(isFreeTextField) {
+    return ((<MenuItem value={3}>erfüllt</MenuItem>));
+  }
+  else {return <MenuItem value={3}>3</MenuItem>;}
 }
 
 export const StyledComponent = withStyles(styles)(PrKommentar);
