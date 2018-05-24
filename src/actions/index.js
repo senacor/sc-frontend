@@ -2,6 +2,7 @@ import { default as fetch } from '../helper/customFetch';
 
 export { addRating, addEmployeeContribution } from './sheet';
 export { login, logout } from './login';
+export { prSearch } from './employeeSearch';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({
@@ -132,10 +133,10 @@ export const fetchPrById = prsId => async dispatch => {
   }
 };
 
-export const addSupervisor = prId => async dispatch => {
+export const addSupervisor = (prId, employee) => async dispatch => {
   dispatch({
     type: 'ADD_SUPERVISOR',
-    delegatedSupervisor: 'dummy',
+    delegatedSupervisor: `${employee.firstName} ${employee.lastName}`,
     prId: prId
   });
 };

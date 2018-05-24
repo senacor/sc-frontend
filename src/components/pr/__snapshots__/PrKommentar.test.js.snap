@@ -33,26 +33,31 @@ exports[`PrKommentar Component should display Customer interaction 1`] = `
           value={4}
         >
           <WithStyles(MenuItem)
+            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="5"
             value={5}
           >
             5
@@ -140,26 +145,31 @@ exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
           value={2}
         >
           <WithStyles(MenuItem)
+            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="5"
             value={5}
           >
             5
@@ -247,26 +257,31 @@ exports[`PrKommentar Component should display Teamwork 1`] = `
           value={1}
         >
           <WithStyles(MenuItem)
+            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="5"
             value={5}
           >
             5
@@ -354,26 +369,31 @@ exports[`PrKommentar Component should display the ContributionToCompanyDevelopme
           value={3}
         >
           <WithStyles(MenuItem)
+            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            key="5"
             value={5}
           >
             5
