@@ -37,14 +37,24 @@ const styles = theme => ({
     paddingLeft: '20px',
     width: '80%'
   },
+  nestedListItemFTF: {
+    maxWidth: '80%'
+  },
   icon: {
     color: theme.palette.primary['400']
   },
   nestedNumber: {
     width: '20%'
   },
-  nestedNumberFFF: {
-    width: '48%'
+  nestedNumberFTF: {
+    width: '48%',
+    justifyContent: 'flex-end'
+  },
+  nestedNumberTargetRole: {
+    width: '95%'
+  },
+  formControlFTF: {
+    minWidth: '100%'
   }
 });
 
@@ -118,7 +128,7 @@ class PrKommentar extends React.Component {
       case 'CUSTOMER_INTERACTION':
         return 'Kundeninteraktion und -veränderung';
       case 'CUSTOMER_RETENTION':
-      return 'Kundenbindung und Mandatsgenerierung';
+        return 'Kundenbindung und Mandatsgenerierung';
       case 'FREE_TEXT_FIELD':
         return 'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe';
       default:
@@ -229,21 +239,9 @@ class PrKommentar extends React.Component {
     }
   };
 
-
-
   render() {
     const { prById, category, classes } = this.props;
-    const menuItem = (category === "FREE_TEXT_FIELD") ?
-      ([<MenuItem value={1}>nicht erfüllt</MenuItem>,
-        <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
-        <MenuItem value={3}>erfüllt</MenuItem>,
-        <MenuItem value={4}>zT. übererfüllt</MenuItem>,
-        <MenuItem value={5}>übererfüllt</MenuItem>]) :
-      ([<MenuItem value={1}>1</MenuItem>,
-        <MenuItem value={2}>2</MenuItem>,
-        <MenuItem value={3}>3</MenuItem>,
-        <MenuItem value={4}>4</MenuItem>,
-        <MenuItem value={5}>5</MenuItem>]);
+
     return (
       <div>
         <div className={classes.containerListItem}>
@@ -253,6 +251,9 @@ class PrKommentar extends React.Component {
             onClick={() => this.handleClick(category)}
           >
             <ListItemText
+              className={
+                category === 'FREE_TEXT_FIELD' ? classes.nestedListItemFTF : {}
+              }
               secondary={this.translateRatingDescription(category)}
             />
 
@@ -262,35 +263,77 @@ class PrKommentar extends React.Component {
               ''
             )}
           </ListItem>
-          <ListItem className={(category === "FREE_TEXT_FIELD") ? classes.nestedNumberFFF : classes.nestedNumber}>
-            <FormControl>
+          <ListItem
+            className={
+              category === 'FREE_TEXT_FIELD'
+                ? classes.nestedNumberFTF
+                : classes.nestedNumber
+            }
+          >
+            <FormControl className={classes.formControlFTF}>
               <Select
                 value={this.state.rating ? this.state.rating : 3}
                 onChange={this.handleChangeRating(prById, category)}
                 displayEmpty
                 name="rating"
               >
-                {(category === "FREE_TEXT_FIELD") ?
-                  [<MenuItem value={1}>nicht erfüllt</MenuItem>,
-                    <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
-                    <MenuItem value={3}>erfüllt</MenuItem>,
-                    <MenuItem value={4}>zT. übererfüllt</MenuItem>,
-                    <MenuItem value={5}>übererfüllt</MenuItem>]
-                  : [<MenuItem value={1}>1</MenuItem>,
-                    <MenuItem value={2}>2</MenuItem>,
-                    <MenuItem value={3}>3</MenuItem>,
-                    <MenuItem value={4}>4</MenuItem>,
-                    <MenuItem value={5}>5</MenuItem>]}
+                {category === 'FREE_TEXT_FIELD'
+                  ? [
+                      <MenuItem value={1}>nicht erfüllt</MenuItem>,
+                      <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
+                      <MenuItem value={3}>erfüllt</MenuItem>,
+                      <MenuItem value={4}>zT. übererfüllt</MenuItem>,
+                      <MenuItem value={5}>übererfüllt</MenuItem>
+                    ]
+                  : [
+                      <MenuItem value={1}>1</MenuItem>,
+                      <MenuItem value={2}>2</MenuItem>,
+                      <MenuItem value={3}>3</MenuItem>,
+                      <MenuItem value={4}>4</MenuItem>,
+                      <MenuItem value={5}>5</MenuItem>
+                    ]}
               </Select>
             </FormControl>
           </ListItem>
         </div>
         <Collapse in={this.state[category]} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
+            {category === 'FREE_TEXT_FIELD'
+              ? [
+                  <ListItem>
+                    <ListItemText
+                      secondary={'Zielrolle (ab Senior Level ausfüllen)'}
+                    />
+                    <FormControl className={classes.nestedNumberTargetRole}>
+                      <Select
+                        value={this.state.rating ? this.state.rating : 1}
+                        onChange={this.handleChangeRating(prById, category)}
+                        displayEmpty
+                        name="rating"
+                      >
+                        <MenuItem value={1}>keine Auswahl</MenuItem>,
+                        <MenuItem value={2}>Platformgestalter</MenuItem>,
+                        <MenuItem value={3}>
+                          Business IT Solution Leader
+                        </MenuItem>,
+                        <MenuItem value={4}>Transformation Manager</MenuItem>,
+                        <MenuItem value={5}>IT-Liefersteuerer</MenuItem>,
+                        <MenuItem value={6}>Architect</MenuItem>,
+                        <MenuItem value={7}>Technical Expert</MenuItem>,
+                        <MenuItem value={8}>Lead Developer</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </ListItem>
+                ]
+              : []}
             <ListItem>
               <TextField
                 id={category}
-                label={(category === "FREE_TEXT_FIELD") ? "Freitextfeld (bitte ausfüllen)" : "Kommentar"}
+                label={
+                  category === 'FREE_TEXT_FIELD'
+                    ? 'Freitextfeld (bitte ausfüllen)'
+                    : 'Kommentar'
+                }
                 multiline
                 fullWidth
                 rowsMax="4"
@@ -315,14 +358,6 @@ class PrKommentar extends React.Component {
       </div>
     );
   }
-}
-
-function ConditionalRatingItem(props) {
-  const isFreeTextField = props.isFFF;
-  if(isFreeTextField) {
-    return ((<MenuItem value={3}>erfüllt</MenuItem>));
-  }
-  else {return <MenuItem value={3}>3</MenuItem>;}
 }
 
 export const StyledComponent = withStyles(styles)(PrKommentar);

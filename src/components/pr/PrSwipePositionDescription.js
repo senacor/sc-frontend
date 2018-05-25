@@ -172,7 +172,7 @@ class PrSwipePositionDescription extends React.Component {
       case 'FREE_TEXT_FIELD':
         return {
           text:
-            'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?',
+            'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?'
         };
 
       default:
@@ -186,19 +186,20 @@ class PrSwipePositionDescription extends React.Component {
     return (
       <div>
         <ListItem>
-          {(category === "FREE_TEXT_FIELD") ?
-            (<ListItemText
+          {category === 'FREE_TEXT_FIELD' ? (
+            <ListItemText
               className={classes.description}
               secondary={this.categoryText(category).text}
-            />)
-            :
-            [<IconButton
-              className={classes.button}
-              aria-label="Links"
-              onClick={() => this.refs.swiper.prev()}
-            >
-              <Icon>keyboard_arrow_left</Icon>
-            </IconButton>,
+            />
+          ) : (
+            [
+              <IconButton
+                className={classes.button}
+                aria-label="Links"
+                onClick={() => this.refs.swiper.prev()}
+              >
+                <Icon>keyboard_arrow_left</Icon>
+              </IconButton>,
               <ReactSwipe
                 ref="swiper"
                 className={classes.swipe}
@@ -207,7 +208,11 @@ class PrSwipePositionDescription extends React.Component {
                 <div className={classes.swipeWrapInside}>
                   <ListItemText
                     className={classes.titleSize}
-                    primary={(category === "FREE_TEXT_FIELD") ? "" : "Anforderung an Junior: "}
+                    primary={
+                      category === 'FREE_TEXT_FIELD'
+                        ? ''
+                        : 'Anforderung an Junior: '
+                    }
                   />
                   <ListItemText
                     className={classes.description}
@@ -251,7 +256,9 @@ class PrSwipePositionDescription extends React.Component {
                 onClick={() => this.refs.swiper.next()}
               >
                 <Icon>keyboard_arrow_right</Icon>
-              </IconButton>]}
+              </IconButton>
+            ]
+          )}
         </ListItem>
         <ListItem>
           <ListItemText secondary={this.positionText(category)} />
