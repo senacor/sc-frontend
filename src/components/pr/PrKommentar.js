@@ -114,6 +114,8 @@ class PrKommentar extends React.Component {
         return 'Arbeitsergebnisse';
       case 'WORKING_MANNER':
         return 'Arbeitsweise';
+      case 'CONTRIBUTION_TO_COMPANY_DEVELOPMENT':
+        return 'Beitrag zur Unternehmensentwicklung';
       case 'TEAMWORK':
         return 'Effektives Arbeiten im Team und Teamführung';
       case 'LEADERSHIP':

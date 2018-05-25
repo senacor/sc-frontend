@@ -1,5 +1,110 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "CONTRIBUTION TO COMPANY DEVELOPMENT 1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <WithStyles(IconButton)
+      aria-label="Links"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_left
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+    <ReactSwipe
+      childCount={0}
+      className="PrSwipePositionDescription-swipe-1"
+      style={
+        Object {
+          "child": Object {
+            "float": "left",
+            "position": "relative",
+            "transitionProperty": "transform",
+            "width": "100%",
+          },
+          "container": Object {
+            "overflow": "hidden",
+            "position": "relative",
+            "visibility": "hidden",
+          },
+          "wrapper": Object {
+            "overflow": "hidden",
+            "position": "relative",
+          },
+        }
+      }
+      swipeOptions={
+        Object {
+          "continuous": false,
+        }
+      }
+    >
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Junior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Nimmt Schulungs- und Informationsangebote der Firma wahr; übernimmt Mentoringaufgaben für neue Mitarbeiter; leistet erste Beiträge zu inhaltlichen Diskussionen und Initiativen der Firma"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Senior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Übernimmt Interviews im Rahmen des Recruiting; leistet Beitrag in den Bereichen Hochschulrecruiting, Knowledge-Management und/oder Community-Aktivitäten; übernimmt Mentoringaufgaben"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Expert: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Übernimmt Interviews im Rahmen des Recruiting; leistet relevanten Beitrag in den Bereichen Hochschulrecruiting, Knowledge-Management und/oder Community-Aktivitäten; übernimmt Mentoringaufgaben"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Lead: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Übernimmt Interviews inkl. Fallverantwortung im Rahmen des Recruitings; leistet relevanten Beitrag in den Bereichen Hochschulrecruiting, Knowledge-Management und/oder Community-Aktivitäten; übernimmt Mentoringaufgaben und coacht Mentoren"
+        />
+      </div>
+    </ReactSwipe>
+    <WithStyles(IconButton)
+      aria-label="Rechts"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_right
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Recruiting (Interviews, Hochschulaktivitäten) | Knowledge Management | Mentoring neuer Kollegen | Community Engagement"
+    />
+  </WithStyles(ListItem)>
+</div>
+`;
+
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "CUSTOMER_INTERACTION" 1`] = `
 <div>
   <WithStyles(ListItem)>

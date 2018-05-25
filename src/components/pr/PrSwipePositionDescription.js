@@ -59,6 +59,9 @@ class PrSwipePositionDescription extends React.Component {
       case 'FULFILLMENT_OF_REQUIREMENT':
         return '';
 
+      case 'CONTRIBUTION_TO_COMPANY_DEVELOPMENT':
+        return 'Recruiting (Interviews, Hochschulaktivitäten) | Knowledge Management | Mentoring neuer Kollegen | Community Engagement';
+
       default:
         return;
     }
@@ -173,6 +176,21 @@ class PrSwipePositionDescription extends React.Component {
         return {
           text:
             'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?'
+        };
+
+      case 'CONTRIBUTION_TO_COMPANY_DEVELOPMENT':
+        return {
+          junior:
+            'Nimmt Schulungs- und Informationsangebote der Firma wahr; übernimmt Mentoringaufgaben für neue Mitarbeiter; leistet erste Beiträge zu inhaltlichen Diskussionen und Initiativen der Firma',
+
+          senior:
+            'Übernimmt Interviews im Rahmen des Recruiting; leistet Beitrag in den Bereichen Hochschulrecruiting, Knowledge-Management und/oder Community-Aktivitäten; übernimmt Mentoringaufgaben',
+
+          expert:
+            'Übernimmt Interviews im Rahmen des Recruiting; leistet relevanten Beitrag in den Bereichen Hochschulrecruiting, Knowledge-Management und/oder Community-Aktivitäten; übernimmt Mentoringaufgaben',
+
+          lead:
+            'Übernimmt Interviews inkl. Fallverantwortung im Rahmen des Recruitings; leistet relevanten Beitrag in den Bereichen Hochschulrecruiting, Knowledge-Management und/oder Community-Aktivitäten; übernimmt Mentoringaufgaben und coacht Mentoren'
         };
 
       default:

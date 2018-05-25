@@ -85,9 +85,10 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Unternehmen" />
           </ListItem>
           <List disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText secondary="Beitrag zur Unternehmensentwicklung" />
-            </ListItem>
+            <PrKommentar
+              prById={prById}
+              category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+            />
           </List>
         </List>
         <Divider />
