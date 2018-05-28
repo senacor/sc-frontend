@@ -96,7 +96,10 @@ class PrSheet extends React.Component {
             <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
           </ListItem>
           <List disablePadding>
-            <PrKommentar prById={prById} category="FREE_TEXT_FIELD" />
+            <PrKommentar
+              prById={prById}
+              category="FULFILLMENT_OF_REQUIREMENT"
+            />
           </List>
         </List>
         <Divider />

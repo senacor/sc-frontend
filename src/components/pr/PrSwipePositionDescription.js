@@ -56,7 +56,7 @@ class PrSwipePositionDescription extends React.Component {
       case 'CUSTOMER_RETENTION':
         return 'Positive Kundenwahrnehmung | Beitrag zu Auf- und Ausbau von Kundenbeziehungen | Identifikation & Entwicklung neuer Themen | Vertriebswirkung';
 
-      case 'FREE_TEXT_FIELD':
+      case 'FULFILLMENT_OF_REQUIREMENT':
         return '';
 
       default:
@@ -169,7 +169,7 @@ class PrSwipePositionDescription extends React.Component {
             'Erzeugt Nachfrage nach sich selbst und Team; erkennt, strukturiert und gestaltet Ansätze für neue Themen; steuert bzw. unterstützt maßgeblich Angebotsprozesse und -präsentationen inhaltlich und kommerziell (nur Consultants)'
         };
 
-      case 'FREE_TEXT_FIELD':
+      case 'FULFILLMENT_OF_REQUIREMENT':
         return {
           text:
             'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?'
@@ -186,7 +186,7 @@ class PrSwipePositionDescription extends React.Component {
     return (
       <div>
         <ListItem>
-          {category === 'FREE_TEXT_FIELD' ? (
+          {category === 'FULFILLMENT_OF_REQUIREMENT' ? (
             <ListItemText
               className={classes.description}
               secondary={this.categoryText(category).text}
@@ -209,7 +209,7 @@ class PrSwipePositionDescription extends React.Component {
                   <ListItemText
                     className={classes.titleSize}
                     primary={
-                      category === 'FREE_TEXT_FIELD'
+                      category === 'FULFILLMENT_OF_REQUIREMENT'
                         ? ''
                         : 'Anforderung an Junior: '
                     }

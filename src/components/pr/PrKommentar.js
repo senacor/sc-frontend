@@ -78,7 +78,8 @@ class PrKommentar extends React.Component {
       LEADERSHIP: false,
       CUSTOMER_INTERACTION: false,
       CUSTOMER_RETENTION: false,
-      FREE_TEXT_FIELD: false
+      FULFILLMENT_OF_REQUIREMENT: false,
+      TARGET_ROLE: false
     };
   }
 
@@ -129,8 +130,10 @@ class PrKommentar extends React.Component {
         return 'Kundeninteraktion und -veränderung';
       case 'CUSTOMER_RETENTION':
         return 'Kundenbindung und Mandatsgenerierung';
-      case 'FREE_TEXT_FIELD':
+      case 'FULFILLMENT_OF_REQUIREMENT':
         return 'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe';
+      case 'TARGET_ROLE':
+        return 'Zielrolle (ab Senior Level ausfüllen)';
       default:
         return 'default';
     }
@@ -147,7 +150,8 @@ class PrKommentar extends React.Component {
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
           CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
       case 'WORK_RESULTS':
@@ -159,7 +163,8 @@ class PrKommentar extends React.Component {
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
           CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
       case 'PROBLEM_ANALYSIS':
@@ -171,7 +176,8 @@ class PrKommentar extends React.Component {
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
           CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
       case 'TEAMWORK':
@@ -183,7 +189,8 @@ class PrKommentar extends React.Component {
           LEADERSHIP: false,
           CUSTOMER_INTERACTION: false,
           CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
       case 'LEADERSHIP':
@@ -195,7 +202,8 @@ class PrKommentar extends React.Component {
           WORKING_MANNER: false,
           CUSTOMER_INTERACTION: false,
           CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
       case 'CUSTOMER_INTERACTION':
@@ -207,7 +215,8 @@ class PrKommentar extends React.Component {
           WORKING_MANNER: false,
           LEADERSHIP: false,
           CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
       case 'CUSTOMER_RETENTION':
@@ -219,19 +228,21 @@ class PrKommentar extends React.Component {
           WORKING_MANNER: false,
           CUSTOMER_INTERACTION: false,
           LEADERSHIP: false,
-          FREE_TEXT_FIELD: false
+          FREE_TEXT_FIELD: false,
+          TARGET_ROLE: false
         });
         break;
-      case 'FREE_TEXT_FIELD':
+      case 'FULFILLMENT_OF_REQUIREMENT':
         this.setState({
-          FREE_TEXT_FIELD: !this.state.FREE_TEXT_FIELD,
+          FULFILLMENT_OF_REQUIREMENT: !this.state.FULFILLMENT_OF_REQUIREMENT,
           CUSTOMER_RETENTION: false,
           TEAMWORK: false,
           PROBLEM_ANALYSIS: false,
           WORK_RESULTS: false,
           WORKING_MANNER: false,
           CUSTOMER_INTERACTION: false,
-          LEADERSHIP: false
+          LEADERSHIP: false,
+          TARGET_ROLE: false
         });
         break;
       default:
@@ -252,7 +263,9 @@ class PrKommentar extends React.Component {
           >
             <ListItemText
               className={
-                category === 'FREE_TEXT_FIELD' ? classes.nestedListItemFTF : {}
+                category === 'FULFILLMENT_OF_REQUIREMENT'
+                  ? classes.nestedListItemFTF
+                  : {}
               }
               secondary={this.translateRatingDescription(category)}
             />
@@ -263,9 +276,10 @@ class PrKommentar extends React.Component {
               ''
             )}
           </ListItem>
+
           <ListItem
             className={
-              category === 'FREE_TEXT_FIELD'
+              category === 'FULFILLMENT_OF_REQUIREMENT'
                 ? classes.nestedNumberFTF
                 : classes.nestedNumber
             }
@@ -277,7 +291,7 @@ class PrKommentar extends React.Component {
                 displayEmpty
                 name="rating"
               >
-                {category === 'FREE_TEXT_FIELD'
+                {category === 'FULFILLMENT_OF_REQUIREMENT'
                   ? [
                       <MenuItem value={1}>nicht erfüllt</MenuItem>,
                       <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
@@ -298,16 +312,19 @@ class PrKommentar extends React.Component {
         </div>
         <Collapse in={this.state[category]} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
-            {category === 'FREE_TEXT_FIELD'
+            {category === 'FULFILLMENT_OF_REQUIREMENT'
               ? [
                   <ListItem>
                     <ListItemText
-                      secondary={'Zielrolle (ab Senior Level ausfüllen)'}
+                      secondary={this.translateRatingDescription('TARGET_ROLE')}
                     />
                     <FormControl className={classes.nestedNumberTargetRole}>
                       <Select
                         value={this.state.rating ? this.state.rating : 1}
-                        onChange={this.handleChangeRating(prById, category)}
+                        onChange={this.handleChangeRating(
+                          prById,
+                          'TARGET_ROLE'
+                        )}
                         displayEmpty
                         name="rating"
                       >
@@ -330,7 +347,7 @@ class PrKommentar extends React.Component {
               <TextField
                 id={category}
                 label={
-                  category === 'FREE_TEXT_FIELD'
+                  category === 'FULFILLMENT_OF_REQUIREMENT'
                     ? 'Freitextfeld (bitte ausfüllen)'
                     : 'Kommentar'
                 }

@@ -330,7 +330,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
       disablePadding={true}
     >
       <Connect(WithStyles(PrKommentar))
-        category="FREE_TEXT_FIELD"
+        category="FULFILLMENT_OF_REQUIREMENT"
         prById={
           Object {
             "_links": Object {
