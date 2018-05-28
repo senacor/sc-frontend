@@ -66,14 +66,8 @@ class PrSheet extends React.Component {
           <ListItem>
             <ListItemText primary="Wirkung beim Kunden" />
           </ListItem>
-          <List disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText secondary="Kundeninteraktion und -veränderung" />
-            </ListItem>
-            <ListItem button className={classes.nested}>
-              <ListItemText secondary="Kundenbindung und Mandatsgenerierung" />
-            </ListItem>
-          </List>
+          <PrKommentar prById={prById} category="CUSTOMER_INTERACTION" />
+          <PrKommentar prById={prById} category="CUSTOMER_RETENTION" />
         </List>
         <Divider />
         <List>

@@ -44,4 +44,20 @@ describe('PrSwipePositionDescription Component', () => {
 
     expect(component).toMatchSnapshot();
   });
+
+  it('displays the Description of the employee for the category= "CUSTOMER_INTERACTION"', () => {
+    const component = shallow(
+      <PrSwipePositionDescription category="CUSTOMER_INTERACTION" />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it('displays the Description of the employee for the category= "CUSTOMER_RETENTION"', () => {
+    const component = shallow(
+      <PrSwipePositionDescription category="CUSTOMER_RETENTION" />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
 });

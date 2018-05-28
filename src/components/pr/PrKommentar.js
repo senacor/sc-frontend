@@ -62,7 +62,9 @@ class PrKommentar extends React.Component {
       WORK_RESULTS: false,
       WORKING_MANNER: false,
       TEAMWORK: false,
-      LEADERSHIP: false
+      LEADERSHIP: false,
+      CUSTOMER_INTERACTION: false,
+      CUSTOMER_RETENTION: false
     };
   }
 
@@ -109,6 +111,10 @@ class PrKommentar extends React.Component {
         return 'Effektives Arbeiten im Team und Teamführung';
       case 'LEADERSHIP':
         return 'Coaching, Leadership und Personalführung';
+      case 'CUSTOMER_INTERACTION':
+        return 'Kundeninteraktion und -veränderung';
+      case 'CUSTOMER_RETENTION':
+        return 'Kundenbindung und Mandatsgenerierung';
       default:
         return 'default';
     }
@@ -122,7 +128,9 @@ class PrKommentar extends React.Component {
           PROBLEM_ANALYSIS: false,
           WORK_RESULTS: false,
           TEAMWORK: false,
-          LEADERSHIP: false
+          LEADERSHIP: false,
+          CUSTOMER_INTERACTION: false,
+          CUSTOMER_RETENTION: false
         });
         break;
       case 'WORK_RESULTS':
@@ -131,7 +139,9 @@ class PrKommentar extends React.Component {
           PROBLEM_ANALYSIS: false,
           WORKING_MANNER: false,
           TEAMWORK: false,
-          LEADERSHIP: false
+          LEADERSHIP: false,
+          CUSTOMER_INTERACTION: false,
+          CUSTOMER_RETENTION: false
         });
         break;
       case 'PROBLEM_ANALYSIS':
@@ -140,7 +150,9 @@ class PrKommentar extends React.Component {
           WORK_RESULTS: false,
           WORKING_MANNER: false,
           TEAMWORK: false,
-          LEADERSHIP: false
+          LEADERSHIP: false,
+          CUSTOMER_INTERACTION: false,
+          CUSTOMER_RETENTION: false
         });
         break;
       case 'TEAMWORK':
@@ -149,7 +161,9 @@ class PrKommentar extends React.Component {
           PROBLEM_ANALYSIS: false,
           WORK_RESULTS: false,
           WORKING_MANNER: false,
-          LEADERSHIP: false
+          LEADERSHIP: false,
+          CUSTOMER_INTERACTION: false,
+          CUSTOMER_RETENTION: false
         });
         break;
       case 'LEADERSHIP':
@@ -158,7 +172,31 @@ class PrKommentar extends React.Component {
           TEAMWORK: false,
           PROBLEM_ANALYSIS: false,
           WORK_RESULTS: false,
-          WORKING_MANNER: false
+          WORKING_MANNER: false,
+          CUSTOMER_INTERACTION: false,
+          CUSTOMER_RETENTION: false
+        });
+        break;
+      case 'CUSTOMER_INTERACTION':
+        this.setState({
+          CUSTOMER_INTERACTION: !this.state.CUSTOMER_INTERACTION,
+          TEAMWORK: false,
+          PROBLEM_ANALYSIS: false,
+          WORK_RESULTS: false,
+          WORKING_MANNER: false,
+          LEADERSHIP: false,
+          CUSTOMER_RETENTION: false
+        });
+        break;
+      case 'CUSTOMER_RETENTION':
+        this.setState({
+          CUSTOMER_RETENTION: !this.state.CUSTOMER_RETENTION,
+          TEAMWORK: false,
+          PROBLEM_ANALYSIS: false,
+          WORK_RESULTS: false,
+          WORKING_MANNER: false,
+          CUSTOMER_INTERACTION: false,
+          LEADERSHIP: false
         });
         break;
       default:
