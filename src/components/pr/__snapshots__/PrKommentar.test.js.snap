@@ -11,18 +11,21 @@ exports[`PrKommentar Component displays Customer interaction 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        className={Object {}}
         secondary="Kundeninteraktion und -veränderung"
       />
       <WithStyles(Icon)
-        className="PrKommentar-icon-5"
+        className="PrKommentar-icon-6"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-6"
+      className="PrKommentar-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        className="PrKommentar-formControlFTF-10"
+      >
         <WithStyles(Select)
           displayEmpty={true}
           name="rating"
@@ -115,18 +118,21 @@ exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        className={Object {}}
         secondary="Problemanalyse und -lösung"
       />
       <WithStyles(Icon)
-        className="PrKommentar-icon-5"
+        className="PrKommentar-icon-6"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-6"
+      className="PrKommentar-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        className="PrKommentar-formControlFTF-10"
+      >
         <WithStyles(Select)
           displayEmpty={true}
           name="rating"
@@ -219,18 +225,21 @@ exports[`PrKommentar Component should display Teamwork 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        className={Object {}}
         secondary="Effektives Arbeiten im Team und Teamführung"
       />
       <WithStyles(Icon)
-        className="PrKommentar-icon-5"
+        className="PrKommentar-icon-6"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-6"
+      className="PrKommentar-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        className="PrKommentar-formControlFTF-10"
+      >
         <WithStyles(Select)
           displayEmpty={true}
           name="rating"

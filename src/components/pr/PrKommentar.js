@@ -37,11 +37,24 @@ const styles = theme => ({
     paddingLeft: '20px',
     width: '80%'
   },
+  nestedListItemFTF: {
+    maxWidth: '80%'
+  },
   icon: {
     color: theme.palette.primary['400']
   },
   nestedNumber: {
     width: '20%'
+  },
+  nestedNumberFTF: {
+    width: '48%',
+    justifyContent: 'flex-end'
+  },
+  nestedNumberTargetRole: {
+    width: '95%'
+  },
+  formControlFTF: {
+    minWidth: '100%'
   }
 });
 
@@ -58,13 +71,7 @@ class PrKommentar extends React.Component {
       ).comment,
       prById: this.props.prById,
       category: this.props.category,
-      PROBLEM_ANALYSIS: false,
-      WORK_RESULTS: false,
-      WORKING_MANNER: false,
-      TEAMWORK: false,
-      LEADERSHIP: false,
-      CUSTOMER_INTERACTION: false,
-      CUSTOMER_RETENTION: false
+      is_expanded: false
     };
   }
 
@@ -115,97 +122,24 @@ class PrKommentar extends React.Component {
         return 'Kundeninteraktion und -veränderung';
       case 'CUSTOMER_RETENTION':
         return 'Kundenbindung und Mandatsgenerierung';
+      case 'FULFILLMENT_OF_REQUIREMENT':
+        return 'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe';
+      case 'TARGET_ROLE':
+        return 'Zielrolle (ab Senior Level ausfüllen)';
       default:
         return 'default';
     }
   };
 
-  handleClick = value => {
-    switch (value) {
-      case 'WORKING_MANNER':
-        this.setState({
-          WORKING_MANNER: !this.state.WORKING_MANNER,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          TEAMWORK: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
-        });
-        break;
-      case 'WORK_RESULTS':
-        this.setState({
-          WORK_RESULTS: !this.state.WORK_RESULTS,
-          PROBLEM_ANALYSIS: false,
-          WORKING_MANNER: false,
-          TEAMWORK: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
-        });
-        break;
-      case 'PROBLEM_ANALYSIS':
-        this.setState({
-          PROBLEM_ANALYSIS: !this.state.PROBLEM_ANALYSIS,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          TEAMWORK: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
-        });
-        break;
-      case 'TEAMWORK':
-        this.setState({
-          TEAMWORK: !this.state.TEAMWORK,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
-        });
-        break;
-      case 'LEADERSHIP':
-        this.setState({
-          LEADERSHIP: !this.state.LEADERSHIP,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false
-        });
-        break;
-      case 'CUSTOMER_INTERACTION':
-        this.setState({
-          CUSTOMER_INTERACTION: !this.state.CUSTOMER_INTERACTION,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          LEADERSHIP: false,
-          CUSTOMER_RETENTION: false
-        });
-        break;
-      case 'CUSTOMER_RETENTION':
-        this.setState({
-          CUSTOMER_RETENTION: !this.state.CUSTOMER_RETENTION,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          CUSTOMER_INTERACTION: false,
-          LEADERSHIP: false
-        });
-        break;
-      default:
-        return;
-    }
+  handleClick = () => {
+    this.setState({
+      is_expanded: !this.state.is_expanded
+    });
   };
 
   render() {
     const { prById, category, classes } = this.props;
+
     return (
       <div>
         <div className={classes.containerListItem}>
@@ -215,6 +149,11 @@ class PrKommentar extends React.Component {
             onClick={() => this.handleClick(category)}
           >
             <ListItemText
+              className={
+                category === 'FULFILLMENT_OF_REQUIREMENT'
+                  ? classes.nestedListItemFTF
+                  : {}
+              }
               secondary={this.translateRatingDescription(category)}
             />
 
@@ -224,29 +163,81 @@ class PrKommentar extends React.Component {
               ''
             )}
           </ListItem>
-          <ListItem className={classes.nestedNumber}>
-            <FormControl>
+
+          <ListItem
+            className={
+              category === 'FULFILLMENT_OF_REQUIREMENT'
+                ? classes.nestedNumberFTF
+                : classes.nestedNumber
+            }
+          >
+            <FormControl className={classes.formControlFTF}>
               <Select
                 value={this.state.rating ? this.state.rating : 3}
                 onChange={this.handleChangeRating(prById, category)}
                 displayEmpty
                 name="rating"
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
+                {category === 'FULFILLMENT_OF_REQUIREMENT'
+                  ? [
+                      <MenuItem value={1}>nicht erfüllt</MenuItem>,
+                      <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
+                      <MenuItem value={3}>erfüllt</MenuItem>,
+                      <MenuItem value={4}>zT. übererfüllt</MenuItem>,
+                      <MenuItem value={5}>übererfüllt</MenuItem>
+                    ]
+                  : [
+                      <MenuItem value={1}>1</MenuItem>,
+                      <MenuItem value={2}>2</MenuItem>,
+                      <MenuItem value={3}>3</MenuItem>,
+                      <MenuItem value={4}>4</MenuItem>,
+                      <MenuItem value={5}>5</MenuItem>
+                    ]}
               </Select>
             </FormControl>
           </ListItem>
         </div>
-        <Collapse in={this.state[category]} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.is_expanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
+            {category === 'FULFILLMENT_OF_REQUIREMENT'
+              ? [
+                  <ListItem>
+                    <ListItemText
+                      secondary={this.translateRatingDescription('TARGET_ROLE')}
+                    />
+                    <FormControl className={classes.nestedNumberTargetRole}>
+                      <Select
+                        value={this.state.rating ? this.state.rating : 1}
+                        onChange={this.handleChangeRating(
+                          prById,
+                          'TARGET_ROLE'
+                        )}
+                        displayEmpty
+                        name="rating"
+                      >
+                        <MenuItem value={1}>keine Auswahl</MenuItem>,
+                        <MenuItem value={2}>Platformgestalter</MenuItem>,
+                        <MenuItem value={3}>
+                          Business IT Solution Leader
+                        </MenuItem>,
+                        <MenuItem value={4}>Transformation Manager</MenuItem>,
+                        <MenuItem value={5}>IT-Liefersteuerer</MenuItem>,
+                        <MenuItem value={6}>Architect</MenuItem>,
+                        <MenuItem value={7}>Technical Expert</MenuItem>,
+                        <MenuItem value={8}>Lead Developer</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </ListItem>
+                ]
+              : []}
             <ListItem>
               <TextField
                 id={category}
-                label="Kommentar"
+                label={
+                  category === 'FULFILLMENT_OF_REQUIREMENT'
+                    ? 'Freitextfeld (bitte ausfüllen)'
+                    : 'Kommentar'
+                }
                 multiline
                 fullWidth
                 rowsMax="4"

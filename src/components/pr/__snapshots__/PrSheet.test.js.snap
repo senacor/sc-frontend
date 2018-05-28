@@ -329,14 +329,34 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
-      <WithStyles(ListItem)
-        button={true}
-        className="PrSheet-nested-2"
-      >
-        <WithStyles(ListItemText)
-          secondary="Freitextfeld"
-        />
-      </WithStyles(ListItem)>
+      <Connect(WithStyles(PrKommentar))
+        category="FULFILLMENT_OF_REQUIREMENT"
+        prById={
+          Object {
+            "_links": Object {
+              "self": Object {
+                "href": "http://localhost:8010/api/v1/prs/1",
+              },
+            },
+            "deadline": "2015-05-11",
+            "employee": Object {
+              "email": "lionel.schäfer@senacor.com",
+              "employment": Object {},
+              "entryDate": "2004-05-10",
+              "firstName": "Lionel",
+              "id": 1,
+              "lastName": "Schäfer",
+              "login": "lschäfer",
+              "salaries": Array [],
+              "title": "DR",
+            },
+            "id": 1,
+            "occasion": "ON_DEMAND",
+            "status": "PREPARATION",
+            "supervisor": "ttran",
+          }
+        }
+      />
     </WithStyles(List)>
   </WithStyles(List)>
   <WithStyles(Divider) />

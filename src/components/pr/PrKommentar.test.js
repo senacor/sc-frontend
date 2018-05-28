@@ -17,10 +17,17 @@ describe('PrKommentar Component', () => {
       },
       {
         id: 8,
-        prRatingDescription: 'FREE_TEXT_FIELD',
+        prRatingDescription: 'FULFILLMENT_OF_REQUIREMENT',
         prRatingCategory: 'OVERALL_ASSESSMENT',
         rating: 2,
         comment: 'bbb'
+      },
+      {
+        id: 9,
+        prRatingDescription: 'TARGET_ROLE',
+        prRatingCategory: 'OVERALL_ASSESSMENT',
+        rating: 3,
+        comment: 'jjj'
       },
       {
         id: 3,
