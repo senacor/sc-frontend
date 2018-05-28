@@ -71,15 +71,7 @@ class PrKommentar extends React.Component {
       ).comment,
       prById: this.props.prById,
       category: this.props.category,
-      PROBLEM_ANALYSIS: false,
-      WORK_RESULTS: false,
-      WORKING_MANNER: false,
-      TEAMWORK: false,
-      LEADERSHIP: false,
-      CUSTOMER_INTERACTION: false,
-      CUSTOMER_RETENTION: false,
-      FULFILLMENT_OF_REQUIREMENT: false,
-      TARGET_ROLE: false
+      is_expanded: false
     };
   }
 
@@ -139,115 +131,10 @@ class PrKommentar extends React.Component {
     }
   };
 
-  handleClick = value => {
-    switch (value) {
-      case 'WORKING_MANNER':
-        this.setState({
-          WORKING_MANNER: !this.state.WORKING_MANNER,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          TEAMWORK: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'WORK_RESULTS':
-        this.setState({
-          WORK_RESULTS: !this.state.WORK_RESULTS,
-          PROBLEM_ANALYSIS: false,
-          WORKING_MANNER: false,
-          TEAMWORK: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'PROBLEM_ANALYSIS':
-        this.setState({
-          PROBLEM_ANALYSIS: !this.state.PROBLEM_ANALYSIS,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          TEAMWORK: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'TEAMWORK':
-        this.setState({
-          TEAMWORK: !this.state.TEAMWORK,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          LEADERSHIP: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'LEADERSHIP':
-        this.setState({
-          LEADERSHIP: !this.state.LEADERSHIP,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          CUSTOMER_INTERACTION: false,
-          CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'CUSTOMER_INTERACTION':
-        this.setState({
-          CUSTOMER_INTERACTION: !this.state.CUSTOMER_INTERACTION,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          LEADERSHIP: false,
-          CUSTOMER_RETENTION: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'CUSTOMER_RETENTION':
-        this.setState({
-          CUSTOMER_RETENTION: !this.state.CUSTOMER_RETENTION,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          CUSTOMER_INTERACTION: false,
-          LEADERSHIP: false,
-          FREE_TEXT_FIELD: false,
-          TARGET_ROLE: false
-        });
-        break;
-      case 'FULFILLMENT_OF_REQUIREMENT':
-        this.setState({
-          FULFILLMENT_OF_REQUIREMENT: !this.state.FULFILLMENT_OF_REQUIREMENT,
-          CUSTOMER_RETENTION: false,
-          TEAMWORK: false,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false,
-          CUSTOMER_INTERACTION: false,
-          LEADERSHIP: false,
-          TARGET_ROLE: false
-        });
-        break;
-      default:
-        return;
-    }
+  handleClick = () => {
+    this.setState({
+      is_expanded: !this.state.is_expanded
+    });
   };
 
   render() {
@@ -310,7 +197,7 @@ class PrKommentar extends React.Component {
             </FormControl>
           </ListItem>
         </div>
-        <Collapse in={this.state[category]} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.is_expanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             {category === 'FULFILLMENT_OF_REQUIREMENT'
               ? [
