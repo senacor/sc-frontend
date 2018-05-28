@@ -1,3 +1,5 @@
+import { default as fetch } from '../helper/customFetch';
+
 export const addRating = (
   prById,
   category,
@@ -14,7 +16,6 @@ export const addRating = (
     {
       method: 'put',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         comment: comment,
         rating: rating
@@ -53,7 +54,6 @@ export const addEmployeeContribution = (
     {
       method: 'put',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         text: text
       })

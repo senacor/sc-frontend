@@ -1,3 +1,5 @@
+import { default as fetch } from '../helper/customFetch';
+
 export const login = credentials => async dispatch => {
   if (credentials.username === '' || credentials.password === '') {
     return;
@@ -10,7 +12,6 @@ export const login = credentials => async dispatch => {
   const response = await fetch(`${process.env.REACT_APP_API}/oauth2/token`, {
     method: 'post',
     mode: 'cors',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
   });
 

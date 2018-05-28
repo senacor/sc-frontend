@@ -1,3 +1,5 @@
+import { default as fetch } from '../helper/customFetch';
+
 export { addRating, addEmployeeContribution } from './sheet';
 export { login, logout } from './login';
 
@@ -60,7 +62,6 @@ export const editTask = newTask => async dispatch => {
     {
       method: 'put',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         description: newTask.description,
         title: newTask.title,
@@ -90,7 +91,6 @@ export const addPr = () => async dispatch => {
     {
       method: 'post',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
         supervisor: 'ttran',
