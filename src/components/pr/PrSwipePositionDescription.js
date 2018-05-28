@@ -44,6 +44,12 @@ class PrSwipePositionDescription extends React.Component {
       case 'WORKING_MANNER':
         return 'Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)';
 
+      case 'TEAMWORK':
+        return 'Aktive Informationssuche und -verteilung | gezielte Einbindung Teamleads und -mitglieder | Unterstützung anderer Teammitglieder | fachlich-konzeptionelle Teamsteuerung | Liefersteuerung Gesamtteam';
+
+      case 'LEADERSHIP':
+        return 'Betreuung und Coaching anderer Teammitglieder | operative Steuerung anderer Teammitglieder | Mitarbeiterbewertung und -entwicklung | Mitarbeiterbindung';
+
       default:
         return;
     }
@@ -54,11 +60,13 @@ class PrSwipePositionDescription extends React.Component {
         return {
           junior:
             'Einarbeitung in definierte, abgegrenzte Aufgabenstellung; Durchführung strukturierter Analysen; Entwicklung von Hypothesen zu Implikationen',
+
           senior:
             'Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
 
           expert:
             'Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen',
+
           lead:
             'Scoping Problem- und Analysekontext; Entwicklung Analysevorgehen, Durchführung von Analysen inkl. Anleitung von Teammitgliedern; Ableitung Implikationen'
         };
@@ -90,6 +98,36 @@ class PrSwipePositionDescription extends React.Component {
 
           lead:
             'Übernahme von Verantwortung für größere Projekte und Teilprojekte; Priorisierung und Strukturierung gegen Projektziele; Absicherung der Gesamtqualität aller Endprodukte'
+        };
+
+      case 'TEAMWORK':
+        return {
+          junior:
+            'Recherchiert und analysiert verfügbare Informationen (Projekt, andere Quellen) und adressiert konkrete Fragen; integriert sich in Teamstruktur; sucht den Kontakt zu Teammitgliedern, um Kontextwissen für seine Aufgabenstellungen aufzubauen',
+
+          senior:
+            'Strukturiert inhaltlich und auf Aufgabenebene die Arbeit für seine Themenstellungen; schafft Rahmen für effektive und effiziente Zusammenarbeit',
+
+          expert:
+            'Strukturiert inhaltlich und auf Aufgabenebene die Arbeit für seine Themenstellungen; schafft Rahmen für effektive und effiziente Zusammenarbeit; unterstützt Team als Experte',
+
+          lead:
+            'Schafft inhaltlich und organisatorisch Rahmen für effektive und effiziente Zusammenarbeit im Team; integriert Teammitglieder und sorgt für ausreichende Klarheit bezüglich Zielen, Aufgaben und Vorgehen'
+        };
+
+      case 'LEADERSHIP':
+        return {
+          junior:
+            'Untertstützt Teammitglieder im Rahmen seiner Möglichkeiten, z. B. mit in seinem Projektbereich aufgebautem Spezialwissen',
+
+          senior:
+            'Coached Mitarbeiter im Rahmen ihrer Arbeit und bezüglich der Orientierung in der Firma; gibt Orientierung bezüglich der persönlichen Entwicklung; unterstützt Leads und Partner im Rahmen von Scorecards und PR',
+
+          expert:
+            'Coached und unterstützt aktiv Mitarbeiter der Junior und Senior-Ebene; unterstützt Leads und Partner im Rahmen von Scorecards und PR; leistet aktiven Beitrag zur Mitarbeiterbindung',
+
+          lead:
+            'Coached, unterstützt und entwickelt aktiv Mitarbeiter der Junior und Senior-Ebene; führt Scorecardsbewertungen und PRs durch; leistet aktiven Beitrag zur Mitarbeiterbindung'
         };
 
       default:

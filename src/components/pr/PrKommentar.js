@@ -60,7 +60,9 @@ class PrKommentar extends React.Component {
       category: this.props.category,
       PROBLEM_ANALYSIS: false,
       WORK_RESULTS: false,
-      WORKING_MANNER: false
+      WORKING_MANNER: false,
+      TEAMWORK: false,
+      LEADERSHIP: false
     };
   }
 
@@ -103,8 +105,12 @@ class PrKommentar extends React.Component {
         return 'Arbeitsergebnisse';
       case 'WORKING_MANNER':
         return 'Arbeitsweise';
+      case 'TEAMWORK':
+        return 'Effektives Arbeiten im Team und Teamführung';
+      case 'LEADERSHIP':
+        return 'Coaching, Leadership und Personalführung';
       default:
-        return 'Arbeitsweise';
+        return 'default';
     }
   };
 
@@ -114,19 +120,43 @@ class PrKommentar extends React.Component {
         this.setState({
           WORKING_MANNER: !this.state.WORKING_MANNER,
           PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false
+          WORK_RESULTS: false,
+          TEAMWORK: false,
+          LEADERSHIP: false
         });
         break;
       case 'WORK_RESULTS':
         this.setState({
           WORK_RESULTS: !this.state.WORK_RESULTS,
           PROBLEM_ANALYSIS: false,
-          WORKING_MANNER: false
+          WORKING_MANNER: false,
+          TEAMWORK: false,
+          LEADERSHIP: false
         });
         break;
       case 'PROBLEM_ANALYSIS':
         this.setState({
           PROBLEM_ANALYSIS: !this.state.PROBLEM_ANALYSIS,
+          WORK_RESULTS: false,
+          WORKING_MANNER: false,
+          TEAMWORK: false,
+          LEADERSHIP: false
+        });
+        break;
+      case 'TEAMWORK':
+        this.setState({
+          TEAMWORK: !this.state.TEAMWORK,
+          PROBLEM_ANALYSIS: false,
+          WORK_RESULTS: false,
+          WORKING_MANNER: false,
+          LEADERSHIP: false
+        });
+        break;
+      case 'LEADERSHIP':
+        this.setState({
+          LEADERSHIP: !this.state.LEADERSHIP,
+          TEAMWORK: false,
+          PROBLEM_ANALYSIS: false,
           WORK_RESULTS: false,
           WORKING_MANNER: false
         });

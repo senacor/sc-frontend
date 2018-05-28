@@ -5,7 +5,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 describe('PrSwipePositionDescription Component', () => {
   let shallow = createShallow({ dive: true });
 
-  it('displays the Description of the employee for the category= "PROBLEM ANALYSIS', () => {
+  it('displays the Description of the employee for the category= "PROBLEM_ANALYSIS"', () => {
     const component = shallow(
       <PrSwipePositionDescription category="PROBLEM_ANALYSIS" />
     );
@@ -13,7 +13,7 @@ describe('PrSwipePositionDescription Component', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('displays the Description of the employee for the category= "WORKING MANNER ', () => {
+  it('displays the Description of the employee for the category= "WORKING_MANNER"', () => {
     const component = shallow(
       <PrSwipePositionDescription category="WORKING_MANNER" />
     );
@@ -21,9 +21,25 @@ describe('PrSwipePositionDescription Component', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('displays the Description of the employee for the category= "WORK RESULTS', () => {
+  it('displays the Description of the employee for the category= "WORK_RESULTS"', () => {
     const component = shallow(
       <PrSwipePositionDescription category="WORK_RESULTS" />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it('displays the Description of the employee for the category= "TEAMWORK"', () => {
+    const component = shallow(
+      <PrSwipePositionDescription category="TEAMWORK" />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it('displays the Description of the employee for the category= "LEADERSHIP"', () => {
+    const component = shallow(
+      <PrSwipePositionDescription category="LEADERSHIP" />
     );
 
     expect(component).toMatchSnapshot();

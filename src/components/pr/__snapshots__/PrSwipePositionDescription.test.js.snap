@@ -1,6 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "PROBLEM ANALYSIS 1`] = `
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "LEADERSHIP" 1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <WithStyles(IconButton)
+      aria-label="Links"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_left
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+    <ReactSwipe
+      childCount={0}
+      className="PrSwipePositionDescription-swipe-1"
+      style={
+        Object {
+          "child": Object {
+            "float": "left",
+            "position": "relative",
+            "transitionProperty": "transform",
+            "width": "100%",
+          },
+          "container": Object {
+            "overflow": "hidden",
+            "position": "relative",
+            "visibility": "hidden",
+          },
+          "wrapper": Object {
+            "overflow": "hidden",
+            "position": "relative",
+          },
+        }
+      }
+      swipeOptions={
+        Object {
+          "continuous": false,
+        }
+      }
+    >
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Junior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Untertstützt Teammitglieder im Rahmen seiner Möglichkeiten, z. B. mit in seinem Projektbereich aufgebautem Spezialwissen"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Senior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Coached Mitarbeiter im Rahmen ihrer Arbeit und bezüglich der Orientierung in der Firma; gibt Orientierung bezüglich der persönlichen Entwicklung; unterstützt Leads und Partner im Rahmen von Scorecards und PR"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Expert: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Coached und unterstützt aktiv Mitarbeiter der Junior und Senior-Ebene; unterstützt Leads und Partner im Rahmen von Scorecards und PR; leistet aktiven Beitrag zur Mitarbeiterbindung"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Lead: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Coached, unterstützt und entwickelt aktiv Mitarbeiter der Junior und Senior-Ebene; führt Scorecardsbewertungen und PRs durch; leistet aktiven Beitrag zur Mitarbeiterbindung"
+        />
+      </div>
+    </ReactSwipe>
+    <WithStyles(IconButton)
+      aria-label="Rechts"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_right
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Betreuung und Coaching anderer Teammitglieder | operative Steuerung anderer Teammitglieder | Mitarbeiterbewertung und -entwicklung | Mitarbeiterbindung"
+    />
+  </WithStyles(ListItem)>
+</div>
+`;
+
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "PROBLEM_ANALYSIS" 1`] = `
 <div>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
@@ -105,7 +210,112 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
 </div>
 `;
 
-exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORK RESULTS 1`] = `
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "TEAMWORK" 1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <WithStyles(IconButton)
+      aria-label="Links"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_left
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+    <ReactSwipe
+      childCount={0}
+      className="PrSwipePositionDescription-swipe-1"
+      style={
+        Object {
+          "child": Object {
+            "float": "left",
+            "position": "relative",
+            "transitionProperty": "transform",
+            "width": "100%",
+          },
+          "container": Object {
+            "overflow": "hidden",
+            "position": "relative",
+            "visibility": "hidden",
+          },
+          "wrapper": Object {
+            "overflow": "hidden",
+            "position": "relative",
+          },
+        }
+      }
+      swipeOptions={
+        Object {
+          "continuous": false,
+        }
+      }
+    >
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Junior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Recherchiert und analysiert verfügbare Informationen (Projekt, andere Quellen) und adressiert konkrete Fragen; integriert sich in Teamstruktur; sucht den Kontakt zu Teammitgliedern, um Kontextwissen für seine Aufgabenstellungen aufzubauen"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Senior: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Strukturiert inhaltlich und auf Aufgabenebene die Arbeit für seine Themenstellungen; schafft Rahmen für effektive und effiziente Zusammenarbeit"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Expert: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Strukturiert inhaltlich und auf Aufgabenebene die Arbeit für seine Themenstellungen; schafft Rahmen für effektive und effiziente Zusammenarbeit; unterstützt Team als Experte"
+        />
+      </div>
+      <div
+        className="PrSwipePositionDescription-swipeWrapInside-2"
+      >
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-titleSize-4"
+          primary="Anforderung an Lead: "
+        />
+        <WithStyles(ListItemText)
+          className="PrSwipePositionDescription-description-3"
+          secondary="Schafft inhaltlich und organisatorisch Rahmen für effektive und effiziente Zusammenarbeit im Team; integriert Teammitglieder und sorgt für ausreichende Klarheit bezüglich Zielen, Aufgaben und Vorgehen"
+        />
+      </div>
+    </ReactSwipe>
+    <WithStyles(IconButton)
+      aria-label="Rechts"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        keyboard_arrow_right
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Aktive Informationssuche und -verteilung | gezielte Einbindung Teamleads und -mitglieder | Unterstützung anderer Teammitglieder | fachlich-konzeptionelle Teamsteuerung | Liefersteuerung Gesamtteam"
+    />
+  </WithStyles(ListItem)>
+</div>
+`;
+
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORK_RESULTS" 1`] = `
 <div>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
@@ -210,7 +420,7 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
 </div>
 `;
 
-exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORKING MANNER  1`] = `
+exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORKING_MANNER" 1`] = `
 <div>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)

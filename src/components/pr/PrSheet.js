@@ -81,12 +81,8 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Team" />
           </ListItem>
           <List disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText secondary="Effektives Arbeiten im Team und Teamführung" />
-            </ListItem>
-            <ListItem button className={classes.nested}>
-              <ListItemText secondary="Coaching, Leadership und Personalführung" />
-            </ListItem>
+            <PrKommentar prById={prById} category="TEAMWORK" />
+            <PrKommentar prById={prById} category="LEADERSHIP" />
           </List>
         </List>
         <Divider />
