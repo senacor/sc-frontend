@@ -3,7 +3,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
-import PrKommentar from './PrKommentar';
+import PrComment from './PrComment';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
@@ -57,9 +57,9 @@ class PrSheet extends React.Component {
             <ListItemText primary="Leistungen im Projekt" />
           </ListItem>
           <List disablePadding>
-            <PrKommentar prById={prById} category="PROBLEM_ANALYSIS" />
-            <PrKommentar prById={prById} category="WORK_RESULTS" />
-            <PrKommentar prById={prById} category="WORKING_MANNER" />
+            <PrComment prById={prById} category="PROBLEM_ANALYSIS" />
+            <PrComment prById={prById} category="WORK_RESULTS" />
+            <PrComment prById={prById} category="WORKING_MANNER" />
           </List>
         </List>
         <Divider />
@@ -67,8 +67,8 @@ class PrSheet extends React.Component {
           <ListItem>
             <ListItemText primary="Wirkung beim Kunden" />
           </ListItem>
-          <PrKommentar prById={prById} category="CUSTOMER_INTERACTION" />
-          <PrKommentar prById={prById} category="CUSTOMER_RETENTION" />
+          <PrComment prById={prById} category="CUSTOMER_INTERACTION" />
+          <PrComment prById={prById} category="CUSTOMER_RETENTION" />
         </List>
         <Divider />
         <List>
@@ -76,8 +76,8 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Team" />
           </ListItem>
           <List disablePadding>
-            <PrKommentar prById={prById} category="TEAMWORK" />
-            <PrKommentar prById={prById} category="LEADERSHIP" />
+            <PrComment prById={prById} category="TEAMWORK" />
+            <PrComment prById={prById} category="LEADERSHIP" />
           </List>
         </List>
         <Divider />

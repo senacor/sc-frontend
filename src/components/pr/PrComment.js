@@ -48,7 +48,7 @@ const styles = theme => ({
   }
 });
 
-class PrKommentar extends React.Component {
+class PrComment extends React.Component {
   constructor(props) {
     super(props);
 
@@ -195,7 +195,7 @@ class PrKommentar extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(PrKommentar);
+export const StyledComponent = withStyles(styles)(PrComment);
 export default connect(
   state => ({
     prRating: state.prRatings.prRating

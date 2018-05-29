@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyledComponent } from './PrKommentar';
+import { StyledComponent } from './PrComment';
 import { createShallow } from '@material-ui/core/test-utils';
 
-describe('PrKommentar Component', () => {
+describe('PrComment Component', () => {
   let shallow = createShallow({ dive: true });
 
   const prById = {

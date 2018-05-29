@@ -81,7 +81,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
-      <Connect(WithStyles(PrKommentar))
+      <Connect(WithStyles(PrComment))
         category="PROBLEM_ANALYSIS"
         prById={
           Object {
@@ -109,7 +109,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           }
         }
       />
-      <Connect(WithStyles(PrKommentar))
+      <Connect(WithStyles(PrComment))
         category="WORK_RESULTS"
         prById={
           Object {
@@ -137,7 +137,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           }
         }
       />
-      <Connect(WithStyles(PrKommentar))
+      <Connect(WithStyles(PrComment))
         category="WORKING_MANNER"
         prById={
           Object {
@@ -174,7 +174,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
         primary="Wirkung beim Kunden"
       />
     </WithStyles(ListItem)>
-    <Connect(WithStyles(PrKommentar))
+    <Connect(WithStyles(PrComment))
       category="CUSTOMER_INTERACTION"
       prById={
         Object {
@@ -202,7 +202,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
         }
       }
     />
-    <Connect(WithStyles(PrKommentar))
+    <Connect(WithStyles(PrComment))
       category="CUSTOMER_RETENTION"
       prById={
         Object {
@@ -241,7 +241,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
-      <Connect(WithStyles(PrKommentar))
+      <Connect(WithStyles(PrComment))
         category="TEAMWORK"
         prById={
           Object {
@@ -269,7 +269,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           }
         }
       />
-      <Connect(WithStyles(PrKommentar))
+      <Connect(WithStyles(PrComment))
         category="LEADERSHIP"
         prById={
           Object {

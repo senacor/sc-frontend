@@ -1,26 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrKommentar Component should display Customer interaction 1`] = `
+exports[`PrComment Component should display Customer interaction 1`] = `
 <div>
   <div
-    className="PrKommentar-containerListItem-3"
+    className="PrComment-containerListItem-3"
   >
     <WithStyles(ListItem)
       button={true}
-      className="PrKommentar-nestedListItem-4"
+      className="PrComment-nestedListItem-4"
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
         secondary="Kundeninteraktion und -veränderung"
       />
       <WithStyles(Icon)
-        className="PrKommentar-icon-5"
+        className="PrComment-icon-5"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-6"
+      className="PrComment-nestedNumber-6"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)
@@ -30,31 +30,26 @@ exports[`PrKommentar Component should display Customer interaction 1`] = `
           value={4}
         >
           <WithStyles(MenuItem)
-            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="5"
             value={5}
           >
             5
@@ -69,7 +64,7 @@ exports[`PrKommentar Component should display Customer interaction 1`] = `
     unmountOnExit={true}
   >
     <WithStyles(List)
-      className="PrKommentar-nestedText-1"
+      className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
@@ -83,7 +78,7 @@ exports[`PrKommentar Component should display Customer interaction 1`] = `
           InputProps={
             Object {
               "classes": Object {
-                "input": "PrKommentar-bootstrapInput-2",
+                "input": "PrComment-bootstrapInput-2",
               },
               "disableUnderline": true,
               "name": "comment",
@@ -109,27 +104,27 @@ exports[`PrKommentar Component should display Customer interaction 1`] = `
 </div>
 `;
 
-exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
+exports[`PrComment Component should display ProblemAnalysis 1`] = `
 <div>
   <div
-    className="PrKommentar-containerListItem-3"
+    className="PrComment-containerListItem-3"
   >
     <WithStyles(ListItem)
       button={true}
-      className="PrKommentar-nestedListItem-4"
+      className="PrComment-nestedListItem-4"
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
         secondary="Problemanalyse und -lösung"
       />
       <WithStyles(Icon)
-        className="PrKommentar-icon-5"
+        className="PrComment-icon-5"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-6"
+      className="PrComment-nestedNumber-6"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)
@@ -139,31 +134,26 @@ exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
           value={2}
         >
           <WithStyles(MenuItem)
-            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="5"
             value={5}
           >
             5
@@ -178,7 +168,7 @@ exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
     unmountOnExit={true}
   >
     <WithStyles(List)
-      className="PrKommentar-nestedText-1"
+      className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
@@ -192,7 +182,7 @@ exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
           InputProps={
             Object {
               "classes": Object {
-                "input": "PrKommentar-bootstrapInput-2",
+                "input": "PrComment-bootstrapInput-2",
               },
               "disableUnderline": true,
               "name": "comment",
@@ -218,27 +208,27 @@ exports[`PrKommentar Component should display ProblemAnalysis 1`] = `
 </div>
 `;
 
-exports[`PrKommentar Component should display Teamwork 1`] = `
+exports[`PrComment Component should display Teamwork 1`] = `
 <div>
   <div
-    className="PrKommentar-containerListItem-3"
+    className="PrComment-containerListItem-3"
   >
     <WithStyles(ListItem)
       button={true}
-      className="PrKommentar-nestedListItem-4"
+      className="PrComment-nestedListItem-4"
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
         secondary="Effektives Arbeiten im Team und Teamführung"
       />
       <WithStyles(Icon)
-        className="PrKommentar-icon-5"
+        className="PrComment-icon-5"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-6"
+      className="PrComment-nestedNumber-6"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)
@@ -248,31 +238,26 @@ exports[`PrKommentar Component should display Teamwork 1`] = `
           value={1}
         >
           <WithStyles(MenuItem)
-            key="1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
-            key="5"
             value={5}
           >
             5
@@ -287,7 +272,7 @@ exports[`PrKommentar Component should display Teamwork 1`] = `
     unmountOnExit={true}
   >
     <WithStyles(List)
-      className="PrKommentar-nestedText-1"
+      className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
@@ -301,7 +286,7 @@ exports[`PrKommentar Component should display Teamwork 1`] = `
           InputProps={
             Object {
               "classes": Object {
-                "input": "PrKommentar-bootstrapInput-2",
+                "input": "PrComment-bootstrapInput-2",
               },
               "disableUnderline": true,
               "name": "comment",
@@ -321,118 +306,6 @@ exports[`PrKommentar Component should display Teamwork 1`] = `
       <WithStyles(ListItem) />
       <WithStyles(PrSwipePositionDescription)
         category="TEAMWORK"
-      />
-    </WithStyles(List)>
-  </WithStyles(Collapse)>
-</div>
-`;
-
-exports[`PrKommentar Component should display the ContributionToCompanyDevelopment 1`] = `
-<div>
-  <div
-    className="PrKommentar-containerListItem-3"
-  >
-    <WithStyles(ListItem)
-      button={true}
-      className="PrKommentar-nestedListItem-4"
-      onClick={[Function]}
-    >
-      <WithStyles(ListItemText)
-        className={Object {}}
-        secondary="Beitrag zur Unternehmensentwicklung"
-      />
-      <WithStyles(Icon)
-        className="PrKommentar-icon-6"
-      >
-        comment
-      </WithStyles(Icon)>
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrKommentar-nestedNumber-7"
-    >
-      <WithStyles(FormControl)
-        className="PrKommentar-formControlFTF-10"
-      >
-        <WithStyles(Select)
-          displayEmpty={true}
-          name="rating"
-          onChange={[Function]}
-          value={3}
-        >
-          <WithStyles(MenuItem)
-            key="1"
-            value={1}
-          >
-            1
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            key="2"
-            value={2}
-          >
-            2
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            key="3"
-            value={3}
-          >
-            3
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            key="4"
-            value={4}
-          >
-            4
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            key="5"
-            value={5}
-          >
-            5
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
-    </WithStyles(ListItem)>
-  </div>
-  <WithStyles(Collapse)
-    in={false}
-    timeout="auto"
-    unmountOnExit={true}
-  >
-    <WithStyles(List)
-      className="PrKommentar-nestedText-1"
-      component="div"
-      disablePadding={true}
-    >
-      <WithStyles(ListItem)>
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrKommentar-bootstrapInput-2",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-          label="Kommentar"
-          multiline={true}
-          onChange={[Function]}
-          required={false}
-          rowsMax="4"
-          select={false}
-          value="hhh"
-        />
-      </WithStyles(ListItem)>
-      <WithStyles(ListItem) />
-      <WithStyles(PrSwipePositionDescription)
-        category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
       />
     </WithStyles(List)>
   </WithStyles(Collapse)>
