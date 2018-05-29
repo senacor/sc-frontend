@@ -1,6 +1,6 @@
 {
-    "composition": 93,
+    "composition": 94,
     "pr-app": { "commit": "e59666de5e6f6244fc56bd37ac86c80255efb773" },
     "task-service": { "commit": "d1c810e1ee93c05266b25c5ef6302d86e3eb1f51", "docker_hash": "sha256:e38cf232ad82cc2d2b22b659a665efa8a4107280535fa4d79644b83028504135" },
-    "pr-service": { "commit": "d9e4bb7b00596f65d5bdfb9fcd84f3ceda2de75f", "docker_hash": "sha256:896d4dd7a057737d1722dbdabbc09e5c2328205d396b212cd42c4e5be68205f4" }
+    "pr-service": { "commit": "22a949e5165e963b1609e74cb4fbf2f79faccf74", "docker_hash": "sha256:b2628aee71fffbd0ade4a55e3cc258673eba02039b9d770eff663751d18cc439" }
 }
