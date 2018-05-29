@@ -112,9 +112,20 @@ describe('PrKommentar Component', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('displays Customer interaction', () => {
+  it('should display Customer interaction', () => {
     const component = shallow(
       <StyledComponent prById={prById} category="CUSTOMER_INTERACTION" />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should display the ContributionToCompanyDevelopment', () => {
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+      />
     );
 
     expect(component).toMatchSnapshot();
