@@ -204,79 +204,66 @@ class PrSwipePositionDescription extends React.Component {
     return (
       <div>
         <ListItem>
-          {category === 'FULFILLMENT_OF_REQUIREMENT' ? (
-            <ListItemText
-              className={classes.description}
-              secondary={this.categoryText(category).text}
-            />
-          ) : (
-            [
-              <IconButton
-                className={classes.button}
-                aria-label="Links"
-                onClick={() => this.refs.swiper.prev()}
-              >
-                <Icon>keyboard_arrow_left</Icon>
-              </IconButton>,
-              <ReactSwipe
-                ref="swiper"
-                className={classes.swipe}
-                swipeOptions={{ continuous: false }}
-              >
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.titleSize}
-                    primary={
-                      category === 'FULFILLMENT_OF_REQUIREMENT'
-                        ? ''
-                        : 'Anforderung an Junior: '
-                    }
-                  />
-                  <ListItemText
-                    className={classes.description}
-                    secondary={this.categoryText(category).junior}
-                  />
-                </div>
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.titleSize}
-                    primary="Anforderung an Senior: "
-                  />
-                  <ListItemText
-                    className={classes.description}
-                    secondary={this.categoryText(category).senior}
-                  />
-                </div>
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.titleSize}
-                    primary="Anforderung an Expert: "
-                  />
-                  <ListItemText
-                    className={classes.description}
-                    secondary={this.categoryText(category).expert}
-                  />
-                </div>
-                <div className={classes.swipeWrapInside}>
-                  <ListItemText
-                    className={classes.titleSize}
-                    primary="Anforderung an Lead: "
-                  />
-                  <ListItemText
-                    className={classes.description}
-                    secondary={this.categoryText(category).lead}
-                  />
-                </div>
-              </ReactSwipe>,
-              <IconButton
-                className={classes.button}
-                aria-label="Rechts"
-                onClick={() => this.refs.swiper.next()}
-              >
-                <Icon>keyboard_arrow_right</Icon>
-              </IconButton>
-            ]
-          )}
+          <IconButton
+            className={classes.button}
+            aria-label="Links"
+            onClick={() => this.refs.swiper.prev()}
+          >
+            <Icon>keyboard_arrow_left</Icon>
+          </IconButton>
+          <ReactSwipe
+            ref="swiper"
+            className={classes.swipe}
+            swipeOptions={{ continuous: false }}
+          >
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Junior: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).junior}
+              />
+            </div>
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Senior: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).senior}
+              />
+            </div>
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Expert: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).expert}
+              />
+            </div>
+            <div className={classes.swipeWrapInside}>
+              <ListItemText
+                className={classes.titleSize}
+                primary="Anforderung an Lead: "
+              />
+              <ListItemText
+                className={classes.description}
+                secondary={this.categoryText(category).lead}
+              />
+            </div>
+          </ReactSwipe>
+          <IconButton
+            className={classes.button}
+            aria-label="Rechts"
+            onClick={() => this.refs.swiper.next()}
+          >
+            <Icon>keyboard_arrow_right</Icon>
+          </IconButton>
         </ListItem>
         <ListItem>
           <ListItemText secondary={this.positionText(category)} />

@@ -349,8 +349,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
-      <Connect(WithStyles(PrKommentar))
-        category="FULFILLMENT_OF_REQUIREMENT"
+      <Connect(WithStyles(PrOverallAssessment))
         prById={
           Object {
             "_links": Object {

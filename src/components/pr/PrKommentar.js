@@ -17,7 +17,7 @@ import { debounce } from '../../helper/debounce';
 const styles = theme => ({
   nestedText: {
     paddingLeft: '20px',
-    paddingRight: '30px'
+    paddingRight: '27px'
   },
   bootstrapInput: {
     borderRadius: 4,
@@ -37,24 +37,14 @@ const styles = theme => ({
     paddingLeft: '20px',
     width: '80%'
   },
-  nestedListItemFTF: {
-    maxWidth: '80%'
-  },
   icon: {
     color: theme.palette.primary['400']
   },
   nestedNumber: {
     width: '20%'
   },
-  nestedNumberFTF: {
-    width: '48%',
-    justifyContent: 'flex-end'
-  },
   nestedNumberTargetRole: {
     width: '95%'
-  },
-  formControlFTF: {
-    minWidth: '100%'
   }
 });
 
@@ -64,35 +54,34 @@ class PrKommentar extends React.Component {
 
     this.state = {
       rating: this.props.prById.prRatingSet.find(
-        rating => rating.prRatingDescription === this.props.category
+        prRating => prRating.prRatingDescription === this.props.category
       ).rating,
       comment: this.props.prById.prRatingSet.find(
-        rating => rating.prRatingDescription === this.props.category
+        prRating => prRating.prRatingDescription === this.props.category
       ).comment,
       prById: this.props.prById,
-      category: this.props.category,
       is_expanded: false
     };
   }
 
   handleChangeRating = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
-    let ratings = prById.prRatingSet.find(
-      rating => rating.prRatingDescription === category
+    let prRating = prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === category
     );
     this.props.addRating(
       prById,
       category,
       this.state.comment,
       event.target.value,
-      ratings.id
+      prRating.id
     );
   };
 
   handleChangeComment = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
-    let ratings = prById.prRatingSet.find(
-      rating => rating.prRatingDescription === category
+    let prRating = prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === category
     );
 
     this.sendComment(
@@ -100,7 +89,7 @@ class PrKommentar extends React.Component {
       category,
       event.target.value,
       this.state.rating,
-      ratings.id
+      prRating.id
     );
   };
 
@@ -124,10 +113,6 @@ class PrKommentar extends React.Component {
         return 'Kundeninteraktion und -veränderung';
       case 'CUSTOMER_RETENTION':
         return 'Kundenbindung und Mandatsgenerierung';
-      case 'FULFILLMENT_OF_REQUIREMENT':
-        return 'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe';
-      case 'TARGET_ROLE':
-        return 'Zielrolle (ab Senior Level ausfüllen)';
       default:
         return 'default';
     }
@@ -151,11 +136,6 @@ class PrKommentar extends React.Component {
             onClick={() => this.handleClick(category)}
           >
             <ListItemText
-              className={
-                category === 'FULFILLMENT_OF_REQUIREMENT'
-                  ? classes.nestedListItemFTF
-                  : {}
-              }
               secondary={this.translateRatingDescription(category)}
             />
 
@@ -166,100 +146,29 @@ class PrKommentar extends React.Component {
             )}
           </ListItem>
 
-          <ListItem
-            className={
-              category === 'FULFILLMENT_OF_REQUIREMENT'
-                ? classes.nestedNumberFTF
-                : classes.nestedNumber
-            }
-          >
-            <FormControl className={classes.formControlFTF}>
+          <ListItem className={classes.nestedNumber}>
+            <FormControl className={classes.formControl}>
               <Select
                 value={this.state.rating ? this.state.rating : 3}
                 onChange={this.handleChangeRating(prById, category)}
                 displayEmpty
                 name="rating"
               >
-                {category === 'FULFILLMENT_OF_REQUIREMENT'
-                  ? [
-                      <MenuItem value={1} key={1}>
-                        nicht erfüllt
-                      </MenuItem>,
-                      <MenuItem value={2} key={2}>
-                        zT. nicht erfüllt
-                      </MenuItem>,
-                      <MenuItem value={3} key={3}>
-                        erfüllt
-                      </MenuItem>,
-                      <MenuItem value={4} key={4}>
-                        zT. übererfüllt
-                      </MenuItem>,
-                      <MenuItem value={5} key={5}>
-                        übererfüllt
-                      </MenuItem>
-                    ]
-                  : [
-                      <MenuItem value={1} key={1}>
-                        1
-                      </MenuItem>,
-                      <MenuItem value={2} key={2}>
-                        2
-                      </MenuItem>,
-                      <MenuItem value={3} key={3}>
-                        3
-                      </MenuItem>,
-                      <MenuItem value={4} key={4}>
-                        4
-                      </MenuItem>,
-                      <MenuItem value={5} key={5}>
-                        5
-                      </MenuItem>
-                    ]}
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
               </Select>
             </FormControl>
           </ListItem>
         </div>
         <Collapse in={this.state.is_expanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
-            {category === 'FULFILLMENT_OF_REQUIREMENT'
-              ? [
-                  <ListItem>
-                    <ListItemText
-                      secondary={this.translateRatingDescription('TARGET_ROLE')}
-                    />
-                    <FormControl className={classes.nestedNumberTargetRole}>
-                      <Select
-                        value={this.state.rating ? this.state.rating : 1}
-                        onChange={this.handleChangeRating(
-                          prById,
-                          'TARGET_ROLE'
-                        )}
-                        displayEmpty
-                        name="rating"
-                      >
-                        <MenuItem value={1}>keine Auswahl</MenuItem>,
-                        <MenuItem value={2}>Platformgestalter</MenuItem>,
-                        <MenuItem value={3}>
-                          Business IT Solution Leader
-                        </MenuItem>,
-                        <MenuItem value={4}>Transformation Manager</MenuItem>,
-                        <MenuItem value={5}>IT-Liefersteuerer</MenuItem>,
-                        <MenuItem value={6}>Architect</MenuItem>,
-                        <MenuItem value={7}>Technical Expert</MenuItem>,
-                        <MenuItem value={8}>Lead Developer</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </ListItem>
-                ]
-              : []}
             <ListItem>
               <TextField
                 id={category}
-                label={
-                  category === 'FULFILLMENT_OF_REQUIREMENT'
-                    ? 'Freitextfeld (bitte ausfüllen)'
-                    : 'Kommentar'
-                }
+                label="Kommentar"
                 multiline
                 fullWidth
                 rowsMax="4"

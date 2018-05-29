@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import PrKommentar from './PrKommentar';
+import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
 
@@ -97,10 +98,7 @@ class PrSheet extends React.Component {
             <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
           </ListItem>
           <List disablePadding>
-            <PrKommentar
-              prById={prById}
-              category="FULFILLMENT_OF_REQUIREMENT"
-            />
+            <PrOverallAssessment prById={prById} />
           </List>
         </List>
         <Divider />
