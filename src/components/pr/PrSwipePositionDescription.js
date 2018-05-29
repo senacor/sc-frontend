@@ -26,9 +26,7 @@ const styles = theme => ({
   },
   titleSize: {
     paddingLeft: '0',
-    paddingRight: '0',
-    fontSize: '0.8rem',
-    fontWeight: '450'
+    paddingRight: '0'
   }
 });
 

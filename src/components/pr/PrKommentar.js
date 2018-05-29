@@ -43,7 +43,7 @@ const styles = theme => ({
   nestedNumber: {
     width: '20%'
   },
-  nestedNumberTargetRole: {
+  nestedTextSelect: {
     width: '95%'
   }
 });

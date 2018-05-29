@@ -7,19 +7,11 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
   >
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)
+        className="PrOverallAssessment-nestedTextDescr-6"
         secondary="Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe"
       />
-      <WithStyles(Icon)
-        className="PrOverallAssessment-icon-7"
-      >
-        comment
-      </WithStyles(Icon)>
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrOverallAssessment-nestedNumber-9"
-    >
       <WithStyles(FormControl)
-        className="PrOverallAssessment-formControl-11"
+        className="PrOverallAssessment-nestedTextSelect-5"
       >
         <WithStyles(Select)
           displayEmpty={true}
@@ -36,7 +28,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           <WithStyles(MenuItem)
             value={2}
           >
-            zT. n. erfüllt
+            zT. nicht erfüllt
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
@@ -60,17 +52,16 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
       </WithStyles(FormControl)>
     </WithStyles(ListItem)>
   </div>
-  <WithStyles(List)
-    className="PrOverallAssessment-nestedText-1"
-    component="div"
-    disablePadding={true}
+  <div
+    className="PrOverallAssessment-containerListItem-3"
   >
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)
+        className="PrOverallAssessment-nestedTextDescr-6"
         secondary="Zielrolle (ab Senior Level ausfüllen)"
       />
       <WithStyles(FormControl)
-        className="PrOverallAssessment-nestedNumberTargetRole-10"
+        className="PrOverallAssessment-nestedTextSelect-5"
       >
         <WithStyles(Select)
           displayEmpty={true}
@@ -128,6 +119,25 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
         </WithStyles(Select)>
       </WithStyles(FormControl)>
     </WithStyles(ListItem)>
+  </div>
+  <WithStyles(List)
+    className="PrOverallAssessment-nestedText-1"
+    component="div"
+    disablePadding={true}
+  >
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        className="PrOverallAssessment-nestedTextInfo-7"
+        disableTypography={true}
+        secondary={
+          <WithStyles(Typography)
+            className="PrOverallAssessment-test-9"
+          >
+            Freitextfeld (bitte ausfüllen)
+          </WithStyles(Typography)>
+        }
+      />
+    </WithStyles(ListItem)>
     <WithStyles(ListItem)>
       <TextField
         InputLabelProps={
@@ -146,7 +156,6 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
         }
         fullWidth={true}
         id="FULFILLMENT_OF_REQUIREMENT"
-        label="Freitextfeld (bitte ausfüllen)"
         multiline={true}
         onChange={[Function]}
         required={false}

@@ -11,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
 import { debounce } from '../../helper/debounce';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   nestedText: {
@@ -32,32 +33,27 @@ const styles = theme => ({
     display: 'flex'
   },
   description: {
-    paddingLeft: '0',
-    paddingRight: '30px'
+    paddingRight: '0px'
   },
-  nestedListItem: {
-    paddingLeft: '20px',
-    width: '80%'
+  nestedTextSelect: {
+    minWidth: '46%'
   },
-  nestedListItemFTF: {
-    maxWidth: '80%'
+  nestedTextDescr: {
+    minWidth: '49%'
+  },
+  nestedTextInfo: {
+    maxWidth: '147px',
+    paddingBottom: '0px',
+    marginBottom: '-30px'
   },
   icon: {
-    color: theme.palette.primary['400']
+    color: theme.palette.primary['400'],
+    fontSize: 17,
+    marginBottom: '-30px'
   },
-  iconWhite: {
-    color: theme.palette.common.white
-  },
-  nestedNumber: {
-    minWidth: '44%',
-    justifyContent: 'flex-end'
-  },
-  nestedNumberTargetRole: {
-    width: '95%'
-  },
-  formControl: {
-    paddingRight: '0px',
-    minWidth: '95%'
+  test: {
+    fontSize: 12,
+    color: theme.palette.text.secondary
   }
 });
 
@@ -86,9 +82,10 @@ class PrOverallAssessment extends React.Component {
 
   handleChangeRating = prById => event => {
     this.setState({ [event.target.name]: event.target.value });
-    let category = (event.target.name = 'ratingFulfillment'
-      ? this.state.categoryFulfillment
-      : this.state.categoryTargetRole);
+    let category =
+      event.target.name === 'ratingFulfillment'
+        ? this.state.categoryFulfillment
+        : this.state.categoryTargetRole;
     let prRating = prById.prRatingSet.find(
       prRating => prRating.prRatingDescription === category
     );
@@ -143,20 +140,12 @@ class PrOverallAssessment extends React.Component {
         <div className={classes.containerListItem}>
           <ListItem>
             <ListItemText
+              className={classes.nestedTextDescr}
               secondary={this.translateRatingDescription(
                 this.state.categoryFulfillment
               )}
             />
-
-            {this.state.comment ? (
-              <Icon className={classes.icon}>comment</Icon>
-            ) : (
-              <Icon className={classes.iconWhite}>comment</Icon>
-            )}
-          </ListItem>
-
-          <ListItem className={classes.nestedNumber}>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.nestedTextSelect}>
               <Select
                 value={
                   this.state.ratingFulfillment
@@ -168,7 +157,7 @@ class PrOverallAssessment extends React.Component {
                 name="ratingFulfillment"
               >
                 <MenuItem value={1}>nicht erfüllt</MenuItem>,
-                <MenuItem value={2}>zT. n. erfüllt</MenuItem>,
+                <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
                 <MenuItem value={3}>erfüllt</MenuItem>,
                 <MenuItem value={4}>zT. übererfüllt</MenuItem>,
                 <MenuItem value={5}>übererfüllt</MenuItem>
@@ -176,21 +165,24 @@ class PrOverallAssessment extends React.Component {
             </FormControl>
           </ListItem>
         </div>
-        <List component="div" disablePadding className={classes.nestedText}>
+
+        <div className={classes.containerListItem}>
           <ListItem>
             <ListItemText
+              className={classes.nestedTextDescr}
               secondary={this.translateRatingDescription(
                 this.state.categoryTargetRole
               )}
             />
-            <FormControl className={classes.nestedNumberTargetRole}>
+
+            <FormControl className={classes.nestedTextSelect}>
               <Select
                 value={
                   this.state.ratingTargetRole ? this.state.ratingTargetRole : 1
                 }
-                onChange={this.handleChangeRating(prById)}
                 displayEmpty
                 name="ratingTargetRole"
+                onChange={this.handleChangeRating(prById)}
               >
                 <MenuItem value={1}>keine Auswahl</MenuItem>,
                 <MenuItem value={2}>Platformgestalter</MenuItem>,
@@ -203,10 +195,28 @@ class PrOverallAssessment extends React.Component {
               </Select>
             </FormControl>
           </ListItem>
+        </div>
+
+        <List component="div" disablePadding className={classes.nestedText}>
+          <ListItem>
+            <ListItemText
+              className={classes.nestedTextInfo}
+              disableTypography
+              secondary={
+                <Typography className={classes.test}>
+                  Freitextfeld (bitte ausfüllen)
+                </Typography>
+              }
+            />
+            {this.state.comment ? (
+              ''
+            ) : (
+              <Icon className={classes.icon}>error</Icon>
+            )}
+          </ListItem>
           <ListItem>
             <TextField
               id={this.state.categoryFulfillment}
-              label="Freitextfeld (bitte ausfüllen)"
               multiline
               fullWidth
               rowsMax="4"
