@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -15,6 +16,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { NavLink } from 'react-router-dom';
 
 import CompositionNumber from './CompositionNumber';
+import * as actions from '../../actions';
 
 const styles = () => ({
   root: {
@@ -66,50 +68,74 @@ const listOfMenuEntries = [
   }
 ];
 
-export const Sidebar = props => {
-  const { classes } = props;
+export class Sidebar extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.row}>
-        <div className={classes.column}>
-          <Avatar
-            alt="Remy Sharp"
-            src="/avatar.jpg"
-            className={classes.avatar}
-          />
-          <Typography>Max Mustermann</Typography>
+    this.state = {
+      imageString: this.props.userphoto
+    };
+  }
+  componentDidMount() {
+    if (this.props.userphoto === '') {
+      this.props.getUserPhoto();
+    }
+    return this.props.getUserInfo();
+  }
+
+  render() {
+    const {
+      classes,
+      userinfo: { givenName = '', surname = '' },
+      userphoto
+    } = this.props;
+
+    const fullName = `${givenName} ${surname}`;
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.row}>
+          <div className={classes.column}>
+            <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
+            <Typography>{fullName}</Typography>
+          </div>
         </div>
+        <Divider />
+
+        <List component="nav">
+          {listOfMenuEntries.map(entry => (
+            <ListItem
+              key={entry.label}
+              component={NavLink}
+              to={entry.value}
+              style={{ textDecoration: 'none' }}
+              activeStyle={{
+                backgroundColor: '#DDD'
+              }}
+            >
+              <ListItemIcon>{entry.icon}</ListItemIcon>
+              <ListItemText
+                disableTypography
+                primary={<div style={{ color: '#000' }}>{entry.label}</div>}
+              />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <CompositionNumber />
       </div>
-      <Divider />
+    );
+  }
+}
 
-      <List component="nav">
-        {listOfMenuEntries.map(entry => (
-          <ListItem
-            key={entry.label}
-            component={NavLink}
-            to={entry.value}
-            style={{ textDecoration: 'none' }}
-            activeStyle={{
-              backgroundColor: '#DDD'
-            }}
-          >
-            <ListItemIcon>{entry.icon}</ListItemIcon>
-            <ListItemText
-              disableTypography
-              primary={
-                <div type="h3" style={{ color: '#000' }}>
-                  {entry.label}
-                </div>
-              }
-            />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <CompositionNumber />
-    </div>
-  );
-};
-
-export default withStyles(styles)(Sidebar);
+export const StyledComponent = withStyles(styles)(Sidebar);
+export default connect(
+  state => ({
+    userinfo: state.userinfo,
+    userphoto: state.userphoto
+  }),
+  {
+    getUserInfo: actions.getUserInfo,
+    getUserPhoto: actions.getUserPhoto
+  }
+)(StyledComponent);

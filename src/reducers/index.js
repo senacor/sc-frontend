@@ -5,6 +5,7 @@ import prs from './prs';
 import prById from './getPr';
 import errors from './errors';
 import login from './login';
+import { userinfo, userphoto } from './userinfo';
 import prRatings from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
@@ -20,6 +21,8 @@ const app = combineReducers({
   prById,
   prRatings,
   prEmployeeContributions,
-  search
+  search,
+  userinfo,
+  userphoto
 });
 export default app;
