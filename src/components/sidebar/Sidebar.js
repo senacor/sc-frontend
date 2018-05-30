@@ -69,13 +69,6 @@ const listOfMenuEntries = [
 ];
 
 export class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      imageString: this.props.userphoto
-    };
-  }
   componentDidMount() {
     if (this.props.userphoto === '') {
       this.props.getUserPhoto();
@@ -96,7 +89,19 @@ export class Sidebar extends Component {
       <div className={classes.root}>
         <div className={classes.row}>
           <div className={classes.column}>
-            <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
+            {userphoto === '' ? (
+              <Avatar
+                alt={fullName}
+                className={classes.avatar}
+              >{`${givenName.charAt(0)}${surname.charAt(0)}`}</Avatar>
+            ) : (
+              <Avatar
+                alt={fullName}
+                src={userphoto}
+                className={classes.avatar}
+              />
+            )}
+
             <Typography>{fullName}</Typography>
           </div>
         </div>

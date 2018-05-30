@@ -11,6 +11,8 @@ export const userphoto = (state = '', action) => {
   switch (action.type) {
     case 'FETCHED_USERPHOTO':
       return action.imageString;
+    case 'LOGOUT':
+      return '';
     default:
       return state;
   }
