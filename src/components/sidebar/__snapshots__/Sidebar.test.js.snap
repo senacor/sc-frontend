@@ -2,21 +2,20 @@
 
 exports[`Sidebar should match snapshot 1`] = `
 <div
-  className="Component-root-1"
+  className="Sidebar-root-1"
 >
   <div
-    className="Component-row-4"
+    className="Sidebar-row-4"
   >
     <div
-      className="Component-column-3"
+      className="Sidebar-column-3"
     >
       <WithStyles(Avatar)
-        alt="Remy Sharp"
-        className="Component-avatar-2"
-        src="/avatar.jpg"
+        alt="Maria Mueller"
+        className="Sidebar-avatar-2"
       />
       <WithStyles(Typography)>
-        Max Mustermann
+        Maria Mueller
       </WithStyles(Typography)>
     </div>
   </div>
@@ -51,7 +50,6 @@ exports[`Sidebar should match snapshot 1`] = `
                 "color": "#000",
               }
             }
-            type="h3"
           >
             Dashboard
           </div>
@@ -85,7 +83,6 @@ exports[`Sidebar should match snapshot 1`] = `
                 "color": "#000",
               }
             }
-            type="h3"
           >
             PR Übersicht
           </div>
@@ -119,7 +116,6 @@ exports[`Sidebar should match snapshot 1`] = `
                 "color": "#000",
               }
             }
-            type="h3"
           >
             Mitarbeiter Übersicht
           </div>
@@ -153,7 +149,6 @@ exports[`Sidebar should match snapshot 1`] = `
                 "color": "#000",
               }
             }
-            type="h3"
           >
             Eigene PRs
           </div>
@@ -187,7 +182,6 @@ exports[`Sidebar should match snapshot 1`] = `
                 "color": "#000",
               }
             }
-            type="h3"
           >
             Logout
           </div>
