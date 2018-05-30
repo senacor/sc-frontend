@@ -12,13 +12,23 @@ import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
+import EmployeeSearchDialog from '../employeeSearch/EmployeeSearchDialog';
 
 const styles = theme => ({
   container: {
     display: 'flex',
     flexFlow: 'row wrap'
   },
-
+  appBar: {
+    position: 'relative'
+  },
+  toolbar: {
+    display: 'flex',
+    paddingLeft: '0px'
+  },
+  title: {
+    color: '#FFF'
+  },
   prs: {
     marginBottom: '20px',
     display: 'flex',
@@ -30,6 +40,7 @@ const styles = theme => ({
       maxWidth: '450px'
     }
   },
+
   media: {
     height: '100%',
     width: '40%',
@@ -63,7 +74,8 @@ export class PRList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prs: props.prs
+      prs: props.prs,
+      open: false
     };
   }
 
@@ -83,7 +95,23 @@ export class PRList extends React.Component {
   };
 
   addNewSupervisor = prId => {
-    this.props.addSupervisor(prId);
+    this.handleClickOpen();
+    this.setState({
+      currentPr: prId
+    });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  selectEmployee = employee => {
+    this.handleClose();
+    this.props.addSupervisor(this.state.currentPr, employee);
   };
 
   render() {
@@ -133,7 +161,7 @@ export class PRList extends React.Component {
                       >
                         <Icon className={classes.mediaIcon}>face</Icon>
                         <Typography gutterBottom noWrap color="textSecondary">
-                          dummy
+                          {pr.delegatedSupervisor}
                         </Typography>
                       </div>
                     )}
@@ -171,11 +199,15 @@ export class PRList extends React.Component {
             );
           })}
         </div>
+        <EmployeeSearchDialog
+          open={this.state.open}
+          handleClose={this.handleClose}
+          selectEmployee={this.selectEmployee}
+        />
       </div>
     );
   }
 }
-
 export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({

@@ -12,16 +12,16 @@ exports[`PRList Component displays the list of prs 1`] = `
     className="PRList-container-1"
   >
     <WithStyles(Card)
-      className="PRList-prs-2"
+      className="PRList-prs-5"
       key="2"
     >
       <WithStyles(CardMedia)
-        className="PRList-media-3"
+        className="PRList-media-6"
         image="/supervisor.jpg"
         title="Supervisor picture"
       />
       <WithStyles(CardContent)
-        className="PRList-content-8"
+        className="PRList-content-11"
       >
         <WithStyles(Typography)
           variant="display1"
@@ -33,10 +33,10 @@ exports[`PRList Component displays the list of prs 1`] = `
           Performance Review
         </WithStyles(Typography)>
         <div
-          className="PRList-controls-4"
+          className="PRList-controls-7"
         >
           <WithStyles(Icon)
-            className="PRList-mediaIcon-5"
+            className="PRList-mediaIcon-8"
           >
             linear_scale
           </WithStyles(Icon)>
@@ -49,10 +49,10 @@ exports[`PRList Component displays the list of prs 1`] = `
           </WithStyles(Typography)>
         </div>
         <div
-          className="PRList-controls-4"
+          className="PRList-controls-7"
         >
           <WithStyles(Icon)
-            className="PRList-mediaIcon-5"
+            className="PRList-mediaIcon-8"
           >
             event_note
           </WithStyles(Icon)>
@@ -67,14 +67,14 @@ exports[`PRList Component displays the list of prs 1`] = `
         <WithStyles(Divider) />
         <div>
           <WithStyles(Button)
-            className="PRList-button-6"
+            className="PRList-button-9"
             color="primary"
             onClick={[Function]}
           >
             DELEGIEREN
           </WithStyles(Button)>
           <WithStyles(Button)
-            className="PRList-button-6"
+            className="PRList-button-9"
             color="primary"
           >
             <Link
@@ -93,5 +93,10 @@ exports[`PRList Component displays the list of prs 1`] = `
       </WithStyles(CardContent)>
     </WithStyles(Card)>
   </div>
+  <WithTheme(WithWidth(WithMobileDialog))
+    handleClose={[Function]}
+    open={false}
+    selectEmployee={[Function]}
+  />
 </div>
 `;

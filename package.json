@@ -43,6 +43,9 @@
     },
     "/api/v1/prs": {
       "target": "http://localhost:8010"
+    },
+    "/api/v1/employees": {
+      "target": "http://localhost:8010"
     }
   },
   "jest": {

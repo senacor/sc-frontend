@@ -182,18 +182,38 @@ class PrKommentar extends React.Component {
               >
                 {category === 'FULFILLMENT_OF_REQUIREMENT'
                   ? [
-                      <MenuItem value={1}>nicht erfüllt</MenuItem>,
-                      <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
-                      <MenuItem value={3}>erfüllt</MenuItem>,
-                      <MenuItem value={4}>zT. übererfüllt</MenuItem>,
-                      <MenuItem value={5}>übererfüllt</MenuItem>
+                      <MenuItem value={1} key={1}>
+                        nicht erfüllt
+                      </MenuItem>,
+                      <MenuItem value={2} key={2}>
+                        zT. nicht erfüllt
+                      </MenuItem>,
+                      <MenuItem value={3} key={3}>
+                        erfüllt
+                      </MenuItem>,
+                      <MenuItem value={4} key={4}>
+                        zT. übererfüllt
+                      </MenuItem>,
+                      <MenuItem value={5} key={5}>
+                        übererfüllt
+                      </MenuItem>
                     ]
                   : [
-                      <MenuItem value={1}>1</MenuItem>,
-                      <MenuItem value={2}>2</MenuItem>,
-                      <MenuItem value={3}>3</MenuItem>,
-                      <MenuItem value={4}>4</MenuItem>,
-                      <MenuItem value={5}>5</MenuItem>
+                      <MenuItem value={1} key={1}>
+                        1
+                      </MenuItem>,
+                      <MenuItem value={2} key={2}>
+                        2
+                      </MenuItem>,
+                      <MenuItem value={3} key={3}>
+                        3
+                      </MenuItem>,
+                      <MenuItem value={4} key={4}>
+                        4
+                      </MenuItem>,
+                      <MenuItem value={5} key={5}>
+                        5
+                      </MenuItem>
                     ]}
               </Select>
             </FormControl>

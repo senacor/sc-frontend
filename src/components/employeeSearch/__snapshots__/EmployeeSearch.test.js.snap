@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeSearch Component displays the list of employees on search 1`] = `
+<div
+  className="EmployeeSearch-box-1"
+>
+  <TextField
+    InputProps={
+      Object {
+        "name": "employeeSearchValue",
+      }
+    }
+    label="Name, Email, ..."
+    onChange={[Function]}
+    required={false}
+    select={false}
+    value=""
+  />
+  <p>
+    Keine Suchtreffer
+  </p>
+</div>
+`;
