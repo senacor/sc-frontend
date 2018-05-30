@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrOverallAssessment Component should display fulfillment of requirement 1`] = `
+<div>
+  <div
+    className="PrOverallAssessment-containerListItem-3"
+  >
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        className="PrOverallAssessment-nestedTextDescr-6"
+        secondary="Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe"
+      />
+      <WithStyles(FormControl)
+        className="PrOverallAssessment-nestedTextSelect-5"
+      >
+        <WithStyles(Select)
+          displayEmpty={true}
+          name="ratingFulfillment"
+          onChange={[Function]}
+          value={2}
+        >
+          <WithStyles(MenuItem)
+            value={1}
+          >
+            nicht erfüllt
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={2}
+          >
+            zT. nicht erfüllt
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={3}
+          >
+            erfüllt
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={4}
+          >
+            zT. übererfüllt
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={5}
+          >
+            übererfüllt
+          </WithStyles(MenuItem)>
+        </WithStyles(Select)>
+      </WithStyles(FormControl)>
+    </WithStyles(ListItem)>
+  </div>
+  <div
+    className="PrOverallAssessment-containerListItem-3"
+  >
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        className="PrOverallAssessment-nestedTextDescr-6"
+        secondary="Zielrolle (ab Senior Level ausfüllen)"
+      />
+      <WithStyles(FormControl)
+        className="PrOverallAssessment-nestedTextSelect-5"
+      >
+        <WithStyles(Select)
+          displayEmpty={true}
+          name="ratingTargetRole"
+          onChange={[Function]}
+          value={3}
+        >
+          <WithStyles(MenuItem)
+            value={1}
+          >
+            keine Auswahl
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={2}
+          >
+            Platformgestalter
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={3}
+          >
+            Business IT Solution Leader
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={4}
+          >
+            Transformation Manager
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={5}
+          >
+            IT-Liefersteuerer
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={6}
+          >
+            Architect
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={7}
+          >
+            Technical Expert
+          </WithStyles(MenuItem)>
+          ,
+          <WithStyles(MenuItem)
+            value={8}
+          >
+            Lead Developer
+          </WithStyles(MenuItem)>
+        </WithStyles(Select)>
+      </WithStyles(FormControl)>
+    </WithStyles(ListItem)>
+  </div>
+  <WithStyles(List)
+    className="PrOverallAssessment-nestedText-1"
+    component="div"
+    disablePadding={true}
+  >
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        className="PrOverallAssessment-nestedTextInfo-7"
+        disableTypography={true}
+        secondary={
+          <WithStyles(Typography)
+            className="PrOverallAssessment-test-9"
+          >
+            Freitextfeld (bitte ausfüllen)
+          </WithStyles(Typography)>
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <TextField
+        InputLabelProps={
+          Object {
+            "shrink": true,
+          }
+        }
+        InputProps={
+          Object {
+            "classes": Object {
+              "input": "PrOverallAssessment-bootstrapInput-2",
+            },
+            "disableUnderline": true,
+            "name": "comment",
+          }
+        }
+        fullWidth={true}
+        id="FULFILLMENT_OF_REQUIREMENT"
+        multiline={true}
+        onChange={[Function]}
+        required={false}
+        rowsMax="4"
+        select={false}
+        value="bbb"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem) />
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)
+        className="PrOverallAssessment-description-4"
+        primary="Beschreibung"
+        secondary="In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?"
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</div>
+`;
