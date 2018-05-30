@@ -86,7 +86,7 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Unternehmen" />
           </ListItem>
           <List disablePadding>
-            <PrKommentar
+            <PrComment
               prById={prById}
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
             />

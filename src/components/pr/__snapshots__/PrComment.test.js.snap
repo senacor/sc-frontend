@@ -311,3 +311,107 @@ exports[`PrComment Component should display Teamwork 1`] = `
   </WithStyles(Collapse)>
 </div>
 `;
+
+exports[`PrComment Component should display the ContributionToCompanyDevelopment 1`] = `
+<div>
+  <div
+    className="PrComment-containerListItem-3"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      className="PrComment-nestedListItem-4"
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemText)
+        secondary="Beitrag zur Unternehmensentwicklung"
+      />
+      <WithStyles(Icon)
+        className="PrComment-icon-5"
+      >
+        comment
+      </WithStyles(Icon)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    >
+      <WithStyles(FormControl)>
+        <WithStyles(Select)
+          displayEmpty={true}
+          name="rating"
+          onChange={[Function]}
+          value={3}
+        >
+          <WithStyles(MenuItem)
+            value={1}
+          >
+            1
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={2}
+          >
+            2
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={3}
+          >
+            3
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={4}
+          >
+            4
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value={5}
+          >
+            5
+          </WithStyles(MenuItem)>
+        </WithStyles(Select)>
+      </WithStyles(FormControl)>
+    </WithStyles(ListItem)>
+  </div>
+  <WithStyles(Collapse)
+    in={false}
+    timeout="auto"
+    unmountOnExit={true}
+  >
+    <WithStyles(List)
+      className="PrComment-nestedText-1"
+      component="div"
+      disablePadding={true}
+    >
+      <WithStyles(ListItem)>
+        <TextField
+          InputLabelProps={
+            Object {
+              "shrink": true,
+            }
+          }
+          InputProps={
+            Object {
+              "classes": Object {
+                "input": "PrComment-bootstrapInput-2",
+              },
+              "disableUnderline": true,
+              "name": "comment",
+            }
+          }
+          fullWidth={true}
+          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+          label="Kommentar"
+          multiline={true}
+          onChange={[Function]}
+          required={false}
+          rowsMax="4"
+          select={false}
+          value="hhh"
+        />
+      </WithStyles(ListItem)>
+      <WithStyles(ListItem) />
+      <WithStyles(PrSwipePositionDescription)
+        category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+      />
+    </WithStyles(List)>
+  </WithStyles(Collapse)>
+</div>
+`;

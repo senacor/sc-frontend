@@ -309,7 +309,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(List)
       disablePadding={true}
     >
-      <Connect(WithStyles(PrKommentar))
+      <Connect(WithStyles(PrComment))
         category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
         prById={
           Object {
