@@ -57,7 +57,7 @@ class PrComment extends React.Component {
     );
 
     this.state = {
-      rating: prRating ? prRating.rating : undefined,
+      rating: prRating ? prRating.rating : {},
       comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
       is_expanded: false
