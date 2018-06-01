@@ -52,13 +52,13 @@ class PrComment extends React.Component {
   constructor(props) {
     super(props);
 
+    let prRating = this.props.prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === this.props.category
+    );
+
     this.state = {
-      rating: this.props.prById.prRatingSet.find(
-        prRating => prRating.prRatingDescription === this.props.category
-      ).rating,
-      comment: this.props.prById.prRatingSet.find(
-        prRating => prRating.prRatingDescription === this.props.category
-      ).comment,
+      rating: prRating ? prRating.rating : undefined,
+      comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
       is_expanded: false
     };
