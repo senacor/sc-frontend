@@ -63,16 +63,20 @@ class PrOverallAssessment extends React.Component {
     const categoryFulfillment = 'FULFILLMENT_OF_REQUIREMENT';
     const categoryTargetRole = 'TARGET_ROLE';
 
+    let ratingFulfillment = this.props.prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === categoryFulfillment
+    );
+
+    let targetRole = this.props.prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === categoryTargetRole
+    );
+
     this.state = {
-      ratingFulfillment: this.props.prById.prRatingSet.find(
-        prRating => prRating.prRatingDescription === categoryFulfillment
-      ).rating,
-      ratingTargetRole: this.props.prById.prRatingSet.find(
-        prRating => prRating.prRatingDescription === categoryTargetRole
-      ).rating,
-      comment: this.props.prById.prRatingSet.find(
-        prRating => prRating.prRatingDescription === categoryFulfillment
-      ).comment,
+      ratingFulfillment: ratingFulfillment
+        ? ratingFulfillment.rating
+        : undefined,
+      ratingTargetRole: targetRole ? targetRole.rating : undefined,
+      comment: ratingFulfillment ? ratingFulfillment.comment : '',
       prById: this.props.prById,
       categoryFulfillment: categoryFulfillment,
       categoryTargetRole: categoryTargetRole,
