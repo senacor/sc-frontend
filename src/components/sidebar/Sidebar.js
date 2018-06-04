@@ -57,7 +57,7 @@ const listOfMenuEntries = [
   {
     label: 'Mitarbeiter Übersicht',
     icon: <GroupIcon />,
-    value: '/employees',
+    value: '/cstmembers',
     role: ROLES.PR_CST_LEITER
   },
   {
