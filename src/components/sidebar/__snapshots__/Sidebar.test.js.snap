@@ -112,7 +112,7 @@ exports[`Sidebar should match snapshot 1`] = `
             "textDecoration": "none",
           }
         }
-        to="/employees"
+        to="/cstmembers"
       >
         <WithStyles(ListItemIcon)>
           <pure(Group) />
