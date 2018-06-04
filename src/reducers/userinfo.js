@@ -17,3 +17,22 @@ export const userphoto = (state = '', action) => {
       return state;
   }
 };
+
+export const userroles = (state = [], action) => {
+  switch (action.type) {
+    case 'FETCHED_USERROLES':
+      return convertGroupsToArray(action.roles);
+    case 'LOGOUT':
+      return [];
+    default:
+      return state;
+  }
+};
+
+function convertGroupsToArray(adGroups) {
+  if (adGroups && adGroups.value) {
+    return adGroups.value.map(group => group.displayName);
+  }
+
+  return ['PR_MITARBEITER'];
+}

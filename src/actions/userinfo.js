@@ -8,7 +8,11 @@ export const getUserInfo = () => async dispatch => {
     }
   );
 
-  if (response.ok) {
+  if (response.status === 401) {
+    dispatch({
+      type: 'LOGIN_UNAUTHORIZED'
+    });
+  } else if (response.ok) {
     const userinfo = await response.json();
 
     dispatch({
@@ -29,7 +33,11 @@ export const getUserPhoto = () => async dispatch => {
     }
   );
 
-  if (response.ok) {
+  if (response.status === 401) {
+    dispatch({
+      type: 'LOGIN_UNAUTHORIZED'
+    });
+  } else if (response.ok) {
     let buffer = await response.arrayBuffer();
 
     let base64Flag = 'data:image/jpeg;base64,';
@@ -39,6 +47,28 @@ export const getUserPhoto = () => async dispatch => {
     dispatch({
       type: 'FETCHED_USERPHOTO',
       imageString
+    });
+  }
+};
+
+export const getUserRoles = () => async dispatch => {
+  const response = await authorizedFetch(
+    `${process.env.REACT_APP_API}/oauth2/userinfo/groups`,
+    {
+      mode: 'cors'
+    }
+  );
+
+  if (response.status === 401) {
+    dispatch({
+      type: 'LOGIN_UNAUTHORIZED'
+    });
+  } else if (response.ok) {
+    const roles = await response.json();
+
+    dispatch({
+      type: 'FETCHED_USERROLES',
+      roles
     });
   }
 };

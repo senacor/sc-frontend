@@ -2,7 +2,7 @@ import { default as fetch } from '../helper/customFetch';
 
 export { addRating, addEmployeeContribution } from './sheet';
 export { login, logout } from './login';
-export { getUserInfo, getUserPhoto } from './userinfo';
+export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
 
 export const fetchTasks = () => async dispatch => {
