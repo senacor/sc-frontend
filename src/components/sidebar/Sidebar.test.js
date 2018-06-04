@@ -11,6 +11,7 @@ describe('Sidebar', () => {
       <StyledComponent
         userinfo={{ givenName: 'Maria', surname: 'Mueller' }}
         getUserInfo={() => {}}
+        getUserRoles={() => {}}
       />
     );
 
@@ -22,6 +23,7 @@ describe('Sidebar', () => {
       <StyledComponent
         userinfo={{ givenName: 'Maria', surname: 'Mueller' }}
         getUserInfo={() => {}}
+        getUserRoles={() => {}}
       />
     );
 

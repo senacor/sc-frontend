@@ -15,7 +15,9 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink } from 'react-router-dom';
 
+import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
+import ROLES from '../../helper/roles';
 import * as actions from '../../actions';
 
 const styles = () => ({
@@ -49,17 +51,20 @@ const listOfMenuEntries = [
   {
     label: 'PR Übersicht',
     icon: <LibraryBooksIcon />,
-    value: '/prs'
+    value: '/prs',
+    role: ROLES.PR_CST_LEITER
   },
   {
     label: 'Mitarbeiter Übersicht',
     icon: <GroupIcon />,
-    value: '/employees'
+    value: '/employees',
+    role: ROLES.PR_CST_LEITER
   },
   {
     label: 'Eigene PRs',
     icon: <AssignmentIndIcon />,
-    value: '/myPrs'
+    value: '/myPrs',
+    role: ROLES.PR_MITARBEITER
   },
   {
     label: 'Logout',
@@ -73,15 +78,15 @@ export class Sidebar extends Component {
     if (this.props.userphoto === '') {
       this.props.getUserPhoto();
     }
-    return this.props.getUserInfo();
+    this.props.getUserInfo();
+    this.props.getUserRoles();
   }
 
   render() {
-    const {
-      classes,
-      userinfo: { givenName = '', surname = '' },
-      userphoto
-    } = this.props;
+    let { classes, userphoto, userinfo } = this.props;
+
+    let givenName = userinfo.givenName ? userinfo.givenName : '';
+    let surname = userinfo.surname ? userinfo.surname : '';
 
     const fullName = `${givenName} ${surname}`;
 
@@ -109,21 +114,22 @@ export class Sidebar extends Component {
 
         <List component="nav">
           {listOfMenuEntries.map(entry => (
-            <ListItem
-              key={entry.label}
-              component={NavLink}
-              to={entry.value}
-              style={{ textDecoration: 'none' }}
-              activeStyle={{
-                backgroundColor: '#DDD'
-              }}
-            >
-              <ListItemIcon>{entry.icon}</ListItemIcon>
-              <ListItemText
-                disableTypography
-                primary={<div style={{ color: '#000' }}>{entry.label}</div>}
-              />
-            </ListItem>
+            <Authorized forRole={entry.role} key={entry.label}>
+              <ListItem
+                component={NavLink}
+                to={entry.value}
+                style={{ textDecoration: 'none' }}
+                activeStyle={{
+                  backgroundColor: '#DDD'
+                }}
+              >
+                <ListItemIcon>{entry.icon}</ListItemIcon>
+                <ListItemText
+                  disableTypography
+                  primary={<div style={{ color: '#000' }}>{entry.label}</div>}
+                />
+              </ListItem>
+            </Authorized>
           ))}
         </List>
         <Divider />
@@ -141,6 +147,7 @@ export default connect(
   }),
   {
     getUserInfo: actions.getUserInfo,
-    getUserPhoto: actions.getUserPhoto
+    getUserPhoto: actions.getUserPhoto,
+    getUserRoles: actions.getUserRoles
   }
 )(StyledComponent);
