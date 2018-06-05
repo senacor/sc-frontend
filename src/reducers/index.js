@@ -5,8 +5,12 @@ import prs from './prs';
 import prById from './getPr';
 import errors from './errors';
 import login from './login';
+import { userinfo, userphoto, userroles } from './userinfo';
+import { cstMembers } from './cstMembers';
 import prRatings from './rating';
 import isLoading from './isLoading';
+import search from './searchEmployee';
+import prEmployeeContributions from './employeeContributions';
 
 const app = combineReducers({
   tasks,
@@ -16,6 +20,12 @@ const app = combineReducers({
   login,
   isLoading,
   prById,
-  prRatings
+  prRatings,
+  prEmployeeContributions,
+  search,
+  userinfo,
+  userphoto,
+  userroles,
+  cstMembers
 });
 export default app;

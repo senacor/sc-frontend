@@ -2,21 +2,20 @@
 
 exports[`Sidebar should match snapshot 1`] = `
 <div
-  className="Component-root-1"
+  className="Sidebar-root-1"
 >
   <div
-    className="Component-row-4"
+    className="Sidebar-row-4"
   >
     <div
-      className="Component-column-3"
+      className="Sidebar-column-3"
     >
       <WithStyles(Avatar)
-        alt="Remy Sharp"
-        className="Component-avatar-2"
-        src="/avatar.jpg"
+        alt="Maria Mueller"
+        className="Sidebar-avatar-2"
       />
       <WithStyles(Typography)>
-        Max Mustermann
+        Maria Mueller
       </WithStyles(Typography)>
     </div>
   </div>
@@ -24,176 +23,189 @@ exports[`Sidebar should match snapshot 1`] = `
   <WithStyles(List)
     component="nav"
   >
-    <WithStyles(ListItem)
-      activeStyle={
-        Object {
-          "backgroundColor": "#DDD",
-        }
-      }
-      component={[Function]}
+    <Connect(Authorized)
       key="Dashboard"
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/tasks"
     >
-      <WithStyles(ListItemIcon)>
-        <pure(Dashboard) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
-        disableTypography={true}
-        primary={
-          <div
-            style={
-              Object {
-                "color": "#000",
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
+        }
+        component={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/tasks"
+      >
+        <WithStyles(ListItemIcon)>
+          <pure(Dashboard) />
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
               }
-            }
-            type="h3"
-          >
-            Dashboard
-          </div>
-        }
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      activeStyle={
-        Object {
-          "backgroundColor": "#DDD",
-        }
-      }
-      component={[Function]}
+            >
+              Dashboard
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
+    <Connect(Authorized)
+      forRole="PR_CST_Leiter"
       key="PR Übersicht"
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/prs"
     >
-      <WithStyles(ListItemIcon)>
-        <pure(LibraryBooks) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
-        disableTypography={true}
-        primary={
-          <div
-            style={
-              Object {
-                "color": "#000",
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
+        }
+        component={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/prs"
+      >
+        <WithStyles(ListItemIcon)>
+          <pure(LibraryBooks) />
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
               }
-            }
-            type="h3"
-          >
-            PR Übersicht
-          </div>
-        }
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      activeStyle={
-        Object {
-          "backgroundColor": "#DDD",
-        }
-      }
-      component={[Function]}
+            >
+              PR Übersicht
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
+    <Connect(Authorized)
+      forRole="PR_CST_Leiter"
       key="Mitarbeiter Übersicht"
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/employees"
     >
-      <WithStyles(ListItemIcon)>
-        <pure(Group) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
-        disableTypography={true}
-        primary={
-          <div
-            style={
-              Object {
-                "color": "#000",
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
+        }
+        component={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/cstmembers"
+      >
+        <WithStyles(ListItemIcon)>
+          <pure(Group) />
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
               }
-            }
-            type="h3"
-          >
-            Mitarbeiter Übersicht
-          </div>
-        }
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      activeStyle={
-        Object {
-          "backgroundColor": "#DDD",
-        }
-      }
-      component={[Function]}
+            >
+              Mitarbeiter Übersicht
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
+    <Connect(Authorized)
+      forRole="PR_Mitarbeiter"
       key="Eigene PRs"
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/myPrs"
     >
-      <WithStyles(ListItemIcon)>
-        <pure(AssignmentInd) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
-        disableTypography={true}
-        primary={
-          <div
-            style={
-              Object {
-                "color": "#000",
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
+        }
+        component={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/myPrs"
+      >
+        <WithStyles(ListItemIcon)>
+          <pure(AssignmentInd) />
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
               }
-            }
-            type="h3"
-          >
-            Eigene PRs
-          </div>
-        }
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      activeStyle={
-        Object {
-          "backgroundColor": "#DDD",
-        }
-      }
-      component={[Function]}
+            >
+              Eigene PRs
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
+    <Connect(Authorized)
       key="Logout"
-      style={
-        Object {
-          "textDecoration": "none",
-        }
-      }
-      to="/logout"
     >
-      <WithStyles(ListItemIcon)>
-        <pure(PowerSettingsNew) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
-        disableTypography={true}
-        primary={
-          <div
-            style={
-              Object {
-                "color": "#000",
-              }
-            }
-            type="h3"
-          >
-            Logout
-          </div>
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
         }
-      />
-    </WithStyles(ListItem)>
+        component={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/logout"
+      >
+        <WithStyles(ListItemIcon)>
+          <pure(PowerSettingsNew) />
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
+              }
+            >
+              Logout
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
   </WithStyles(List)>
   <WithStyles(Divider) />
   <WithStyles(CompositionNumber) />

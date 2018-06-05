@@ -17,7 +17,7 @@ import { debounce } from '../../helper/debounce';
 const styles = theme => ({
   nestedText: {
     paddingLeft: '20px',
-    paddingRight: '30px'
+    paddingRight: '27px'
   },
   bootstrapInput: {
     borderRadius: 4,
@@ -42,46 +42,46 @@ const styles = theme => ({
   },
   nestedNumber: {
     width: '20%'
+  },
+  nestedTextSelect: {
+    width: '95%'
   }
 });
 
-class PrKommentar extends React.Component {
+class PrComment extends React.Component {
   constructor(props) {
     super(props);
 
+    let prRating = this.props.prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === this.props.category
+    );
+
     this.state = {
-      rating: this.props.prById.prRatingSet.find(
-        rating => rating.prRatingDescription === this.props.category
-      ).rating,
-      comment: this.props.prById.prRatingSet.find(
-        rating => rating.prRatingDescription === this.props.category
-      ).comment,
+      rating: prRating ? prRating.rating : {},
+      comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
-      category: this.props.category,
-      PROBLEM_ANALYSIS: false,
-      WORK_RESULTS: false,
-      WORKING_MANNER: false
+      is_expanded: false
     };
   }
 
   handleChangeRating = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
-    let ratings = prById.prRatingSet.find(
-      rating => rating.prRatingDescription === category
+    let prRating = prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === category
     );
     this.props.addRating(
       prById,
       category,
       this.state.comment,
       event.target.value,
-      ratings.id
+      prRating.id
     );
   };
 
   handleChangeComment = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
-    let ratings = prById.prRatingSet.find(
-      rating => rating.prRatingDescription === category
+    let prRating = prById.prRatingSet.find(
+      prRating => prRating.prRatingDescription === category
     );
 
     this.sendComment(
@@ -89,7 +89,7 @@ class PrKommentar extends React.Component {
       category,
       event.target.value,
       this.state.rating,
-      ratings.id
+      prRating.id
     );
   };
 
@@ -103,41 +103,30 @@ class PrKommentar extends React.Component {
         return 'Arbeitsergebnisse';
       case 'WORKING_MANNER':
         return 'Arbeitsweise';
+      case 'CONTRIBUTION_TO_COMPANY_DEVELOPMENT':
+        return 'Beitrag zur Unternehmensentwicklung';
+      case 'TEAMWORK':
+        return 'Effektives Arbeiten im Team und Teamführung';
+      case 'LEADERSHIP':
+        return 'Coaching, Leadership und Personalführung';
+      case 'CUSTOMER_INTERACTION':
+        return 'Kundeninteraktion und -veränderung';
+      case 'CUSTOMER_RETENTION':
+        return 'Kundenbindung und Mandatsgenerierung';
       default:
-        return 'Arbeitsweise';
+        return 'default';
     }
   };
 
-  handleClick = value => {
-    switch (value) {
-      case 'WORKING_MANNER':
-        this.setState({
-          WORKING_MANNER: !this.state.WORKING_MANNER,
-          PROBLEM_ANALYSIS: false,
-          WORK_RESULTS: false
-        });
-        break;
-      case 'WORK_RESULTS':
-        this.setState({
-          WORK_RESULTS: !this.state.WORK_RESULTS,
-          PROBLEM_ANALYSIS: false,
-          WORKING_MANNER: false
-        });
-        break;
-      case 'PROBLEM_ANALYSIS':
-        this.setState({
-          PROBLEM_ANALYSIS: !this.state.PROBLEM_ANALYSIS,
-          WORK_RESULTS: false,
-          WORKING_MANNER: false
-        });
-        break;
-      default:
-        return;
-    }
+  handleClick = () => {
+    this.setState({
+      is_expanded: !this.state.is_expanded
+    });
   };
 
   render() {
     const { prById, category, classes } = this.props;
+
     return (
       <div>
         <div className={classes.containerListItem}>
@@ -156,8 +145,9 @@ class PrKommentar extends React.Component {
               ''
             )}
           </ListItem>
+
           <ListItem className={classes.nestedNumber}>
-            <FormControl>
+            <FormControl className={classes.formControl}>
               <Select
                 value={this.state.rating ? this.state.rating : 3}
                 onChange={this.handleChangeRating(prById, category)}
@@ -173,11 +163,11 @@ class PrKommentar extends React.Component {
             </FormControl>
           </ListItem>
         </div>
-        <Collapse in={this.state[category]} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.is_expanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             <ListItem>
               <TextField
-                id="multiline-flexible"
+                id={category}
                 label="Kommentar"
                 multiline
                 fullWidth
@@ -205,7 +195,7 @@ class PrKommentar extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(PrKommentar);
+export const StyledComponent = withStyles(styles)(PrComment);
 export default connect(
   state => ({
     prRating: state.prRatings.prRating

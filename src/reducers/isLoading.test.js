@@ -10,7 +10,11 @@ describe('isLoading', () => {
     { type: 'FETCH_TASKS_RESPONSE', isLoading: true },
     { type: 'FETCH_TASKS_REQUEST', isLoading: false },
     { type: 'FETCH_PR_BY_ID_RESPONSE', isLoading: true },
-    { type: 'FETCH_PR_BY_ID_REQUEST', isLoading: false }
+    { type: 'FETCH_PR_BY_ID_REQUEST', isLoading: false },
+    { type: 'LOGIN_REQUEST', isLoading: false },
+    { type: 'LOGIN_RESPONSE', isLoading: true },
+    { type: 'LOGIN_UNAUTHORIZED', isLoading: true },
+    { type: 'LOGOUT', isLoading: true }
   ].forEach(state => {
     it(`sets tasks and loading on ${state.type}`, () => {
       const stateBefore = state.isLoading;

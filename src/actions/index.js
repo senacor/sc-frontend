@@ -1,4 +1,10 @@
-export { default as addRating } from './sheet';
+import { default as fetch } from '../helper/customFetch';
+
+export { addRating, addEmployeeContribution } from './sheet';
+export { login, logout } from './login';
+export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
+export { prSearch } from './employeeSearch';
+export { getCstMembers } from './cstMembers';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({
@@ -59,7 +65,6 @@ export const editTask = newTask => async dispatch => {
     {
       method: 'put',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         description: newTask.description,
         title: newTask.title,
@@ -89,7 +94,6 @@ export const addPr = () => async dispatch => {
     {
       method: 'post',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
         supervisor: 'ttran',
@@ -131,26 +135,10 @@ export const fetchPrById = prsId => async dispatch => {
   }
 };
 
-export const login = () => async dispatch => {
-  dispatch({
-    type: 'TOKEN_TRUE',
-    token: true
-  });
-  localStorage.setItem('token', true.toString());
-};
-
-export const logout = () => async dispatch => {
-  dispatch({
-    type: 'TOKEN_FALSE',
-    token: false
-  });
-  localStorage.setItem('token', false.toString());
-};
-
-export const addSupervisor = prId => async dispatch => {
+export const addSupervisor = (prId, employee) => async dispatch => {
   dispatch({
     type: 'ADD_SUPERVISOR',
-    delegatedSupervisor: 'dummy',
+    delegatedSupervisor: `${employee.firstName} ${employee.lastName}`,
     prId: prId
   });
 };

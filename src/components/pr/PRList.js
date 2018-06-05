@@ -6,12 +6,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
+import EmployeeSearchDialog from '../employeeSearch/EmployeeSearchDialog';
 
 const styles = theme => ({
   container: {
@@ -48,14 +50,15 @@ const styles = theme => ({
   button: {
     padding: '0px 0px'
   },
-
-  additionalSupervisor: {
-    paddingLeft: theme.spacing.unit,
-    display: 'none'
-  },
   content: {
     paddingLeft: '10px',
-    paddingRight: '10px'
+    paddingRight: '10px',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  description: {
+    display: 'flex',
+    flexDirection: 'column'
   }
 });
 
@@ -63,7 +66,8 @@ export class PRList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prs: props.prs
+      prs: props.prs,
+      open: false
     };
   }
 
@@ -83,7 +87,23 @@ export class PRList extends React.Component {
   };
 
   addNewSupervisor = prId => {
-    this.props.addSupervisor(prId);
+    this.handleClickOpen();
+    this.setState({
+      currentPr: prId
+    });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  selectEmployee = employee => {
+    this.handleClose();
+    this.props.addSupervisor(this.state.currentPr, employee);
   };
 
   render() {
@@ -103,50 +123,58 @@ export class PRList extends React.Component {
                   image="/supervisor.jpg"
                   title="Supervisor picture"
                 />
-                <CardContent className={classes.content}>
-                  <Typography variant="display1">
-                    {pr.employee.firstName}
-                  </Typography>
-                  <Typography variant="subheading" color="textSecondary">
-                    Performance Review
-                  </Typography>
-
-                  {pr.deadline ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '60%'
+                  }}
+                >
+                  <CardContent className={classes.content}>
+                    <Typography variant="display1">
+                      {pr.employee.firstName}
+                    </Typography>
                     <Typography variant="subheading" color="textSecondary">
-                      Deadline: {moment(pr.deadline).format('DD.MM.YY')}
+                      Performance Review
                     </Typography>
-                  ) : (
-                    ''
-                  )}
 
-                  <div className={classes.controls}>
-                    <Icon className={classes.mediaIcon}>linear_scale</Icon>
-                    <Typography gutterBottom noWrap color="textSecondary">
-                      {this.translateStatus(pr.status)}
-                    </Typography>
-                    {!pr.delegatedSupervisor ? (
-                      ''
+                    {pr.deadline ? (
+                      <Typography variant="subheading" color="textSecondary">
+                        Deadline: {moment(pr.deadline).format('DD.MM.YY')}
+                      </Typography>
                     ) : (
-                      <div
-                        className={classes.additionalSupervisor}
-                        style={{ display: 'flex' }}
-                      >
-                        <Icon className={classes.mediaIcon}>face</Icon>
-                        <Typography gutterBottom noWrap color="textSecondary">
-                          dummy
-                        </Typography>
-                      </div>
+                      ''
                     )}
-                  </div>
-                  <div className={classes.controls}>
-                    <Icon className={classes.mediaIcon}>event_note</Icon>
-                    <Typography gutterBottom noWrap color="textSecondary">
-                      Bogen ausfüllen
-                    </Typography>
-                  </div>
-                  <Divider />
 
-                  <div className={classes.controlButtons}>
+                    <div
+                      className={classes.controls}
+                      style={{
+                        visibility: pr.delegatedSupervisor
+                          ? 'visible'
+                          : 'hidden'
+                      }}
+                    >
+                      <Icon className={classes.mediaIcon}>face</Icon>
+                      <Typography gutterBottom noWrap color="textSecondary">
+                        {pr.delegatedSupervisor}
+                      </Typography>
+                    </div>
+
+                    <div className={classes.controls}>
+                      <Icon className={classes.mediaIcon}>linear_scale</Icon>
+                      <Typography gutterBottom noWrap color="textSecondary">
+                        {this.translateStatus(pr.status)}
+                      </Typography>
+                    </div>
+                    <div className={classes.controls}>
+                      <Icon className={classes.mediaIcon}>event_note</Icon>
+                      <Typography gutterBottom noWrap color="textSecondary">
+                        Bogen ausfüllen
+                      </Typography>
+                    </div>
+                  </CardContent>
+                  <Divider />
+                  <CardActions>
                     <Button
                       color="primary"
                       className={classes.button}
@@ -165,17 +193,21 @@ export class PRList extends React.Component {
                         DETAILS
                       </Link>
                     </Button>
-                  </div>
-                </CardContent>
+                  </CardActions>
+                </div>
               </Card>
             );
           })}
         </div>
+        <EmployeeSearchDialog
+          open={this.state.open}
+          handleClose={this.handleClose}
+          selectEmployee={this.selectEmployee}
+        />
       </div>
     );
   }
 }
-
 export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({

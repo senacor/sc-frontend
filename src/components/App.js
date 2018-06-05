@@ -5,6 +5,7 @@ import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
 import MyPRList from './pr/MyPRList';
 import AppBar from './AppBar/AppBar';
+import CstMembers from './cstmembers/CstMembers';
 import './App.css';
 import Login from './login/Login';
 import PR from './pr/Pr';
@@ -33,6 +34,7 @@ const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
 const MyPRListWithAppBar = withAppBar(MyPRList);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
+const CstMembersWithAppBar = withAppBar(CstMembers);
 
 const App = () => (
   <div style={styles.main}>
@@ -42,6 +44,7 @@ const App = () => (
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
+      <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />
       <Route render={() => <Redirect to="/tasks" />} />
