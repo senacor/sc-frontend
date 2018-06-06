@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component should match snapshot 1`] = `
+<div
+  className="Dashboard-columnContainer-2"
+>
+  <div
+    className="Dashboard-rowContainer-1"
+  >
+    <WithStyles(Card)
+      className="Dashboard-card-3"
+    >
+      <WithStyles(CardContent)>
+        <WithStyles(Typography)
+          component="h2"
+          variant="headline"
+        >
+          5
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+        >
+          offene PRs
+        </WithStyles(Typography)>
+      </WithStyles(CardContent)>
+    </WithStyles(Card)>
+    <WithStyles(Card)
+      className="Dashboard-card-3"
+    >
+      <WithStyles(CardContent)>
+        <WithStyles(Typography)
+          component="h2"
+          variant="headline"
+        >
+          18
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+        >
+          Kollegen im CST
+        </WithStyles(Typography)>
+      </WithStyles(CardContent)>
+    </WithStyles(Card)>
+  </div>
+  <WithStyles(List)
+    component="nav"
+    subheader={
+      <WithStyles(ListSubheader)
+        component="div"
+      >
+        Aktivitäten
+      </WithStyles(ListSubheader)>
+    }
+  >
+    <WithStyles(ListItem)
+      className="Dashboard-thinItem-4"
+    >
+      <WithStyles(ListItemText)
+        primary="Volker Vorgesetzter hat seine Bewertung abgegeben"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+    <WithStyles(ListItem)
+      className="Dashboard-thinItem-4"
+    >
+      <WithStyles(ListItemText)
+        primary="Volker Vorgesetzter hat den Terminvorschlag abgelehnt"
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</div>
+`;
