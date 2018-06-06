@@ -118,7 +118,9 @@ class Login extends Component {
     };
   }
 
-  handleOnClick = () => {
+  handleOnClick = event => {
+    event.preventDefault();
+
     this.props.login({
       username: this.state.username,
       password: this.state.password
@@ -139,7 +141,7 @@ class Login extends Component {
     return (
       <div className={classes.hero}>
         <div className={classes.login}>
-          <div className={classes.form}>
+          <form className={classes.form} onSubmit={this.handleOnClick}>
             <Hidden smDown>
               <img src={senacorLogo} className={classes.logo} alt="Senacor" />
             </Hidden>
@@ -181,6 +183,7 @@ class Login extends Component {
                 className={classes.button}
                 variant="raised"
                 onClick={this.handleOnClick}
+                type="submit"
               >
                 {isLoading ? (
                   <CircularProgress
@@ -197,11 +200,12 @@ class Login extends Component {
                 className={classes.button}
                 variant="raised"
                 onClick={this.handleOnClick}
+                type="submit"
               >
                 Log In
               </Button>
             </Hidden>
-          </div>
+          </form>
         </div>
       </div>
     );

@@ -7,8 +7,9 @@ exports[`Login Component should match snapshot 1`] = `
   <div
     className="Login-login-2"
   >
-    <div
+    <form
       className="Login-form-3"
+      onSubmit={[Function]}
     >
       <Hidden
         implementation="js"
@@ -93,6 +94,7 @@ exports[`Login Component should match snapshot 1`] = `
           className="Login-button-7"
           color="primary"
           onClick={[Function]}
+          type="submit"
           variant="raised"
         >
           Log In
@@ -114,12 +116,13 @@ exports[`Login Component should match snapshot 1`] = `
         <WithStyles(Button)
           className="Login-button-7"
           onClick={[Function]}
+          type="submit"
           variant="raised"
         >
           Log In
         </WithStyles(Button)>
       </Hidden>
-    </div>
+    </form>
   </div>
 </div>
 `;
