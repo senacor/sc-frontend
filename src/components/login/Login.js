@@ -135,7 +135,7 @@ class Login extends Component {
     const { classes, isLoggedIn, isUnauthorized, isLoading } = this.props;
 
     if (isLoggedIn) {
-      return <Redirect push to="/tasks" />;
+      return <Redirect push to="/" />;
     }
 
     return (
