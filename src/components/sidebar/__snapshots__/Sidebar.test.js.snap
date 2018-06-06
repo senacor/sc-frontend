@@ -38,7 +38,7 @@ exports[`Sidebar should match snapshot 1`] = `
             "textDecoration": "none",
           }
         }
-        to="/tasks"
+        to="/dashboard"
       >
         <WithStyles(ListItemIcon)>
           <pure(Dashboard) />

@@ -10,6 +10,7 @@ import './App.css';
 import Login from './login/Login';
 import PR from './pr/Pr';
 import Logout from './login/Logout';
+import Dashboard from './dashboard/Dashboard';
 
 const styles = {
   main: {
@@ -35,11 +36,13 @@ const PRListWithAppBar = withAppBar(PRList);
 const MyPRListWithAppBar = withAppBar(MyPRList);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
+const DashboardWithAppBar = withAppBar(Dashboard);
 
 const App = () => (
   <div style={styles.main}>
     <Switch>
       <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
+      <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
       <PrivateRoute exact path="/myPrs" component={MyPRListWithAppBar} />
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
@@ -47,7 +50,7 @@ const App = () => (
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />
-      <Route render={() => <Redirect to="/tasks" />} />
+      <Route render={() => <Redirect to="/dashboard" />} />
     </Switch>
   </div>
 );
