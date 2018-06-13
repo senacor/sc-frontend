@@ -149,16 +149,27 @@ class PrComment extends React.Component {
           <ListItem className={classes.nestedNumber}>
             <FormControl className={classes.formControl}>
               <Select
+                id={category + '_RatingId'}
                 value={this.state.rating ? this.state.rating : 3}
                 onChange={this.handleChangeRating(prById, category)}
                 displayEmpty
                 name="rating"
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
+                <MenuItem id={category + '_RatingValue1'} value={1}>
+                  1
+                </MenuItem>
+                <MenuItem id={category + '_RatingValue2'} value={2}>
+                  2
+                </MenuItem>
+                <MenuItem id={category + '_RatingValue3'} value={3}>
+                  3
+                </MenuItem>
+                <MenuItem id={category + '_RatingValue4'} value={4}>
+                  4
+                </MenuItem>
+                <MenuItem id={category + '_RatingValue5'} value={5}>
+                  5
+                </MenuItem>
               </Select>
             </FormControl>
           </ListItem>
@@ -167,7 +178,7 @@ class PrComment extends React.Component {
           <List component="div" disablePadding className={classes.nestedText}>
             <ListItem>
               <TextField
-                id={category}
+                id={category + '_CommentId'}
                 label="Kommentar"
                 multiline
                 fullWidth
