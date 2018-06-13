@@ -131,7 +131,8 @@ export class MyPRList extends React.Component {
     let prOpen = props.prs.length !== 0 ? props.prs[0] : null;
     this.state = {
       prs: props.prs,
-      prOpen: prOpen
+      prOpen: prOpen,
+      sortDateInAscOrder: true,
     };
   }
 
@@ -175,15 +176,43 @@ export class MyPRList extends React.Component {
     });
   };
 
+  switchDateOrder = () => {
+    this.setState(prevState => ({
+      sortDateInAscOrder: !prevState.sortDateInAscOrder
+    }));
+  };
+
+  dateSort = (sortDateInAscOrder) => {
+    return (firstPR, secondPR) => {
+      let comparison = 0;
+      if (moment(firstPR.deadline).isBefore(moment(secondPR.deadline))) {
+        comparison = 1;
+      } else if (moment(firstPR.deadline).isAfter(moment(secondPR.deadline))) {
+        comparison = -1;
+      }
+      return (
+        (sortDateInAscOrder) ? (comparison * -1) : comparison
+      );
+    };
+  };
+
   render() {
     const { classes, prs } = this.props;
-    const { prOpen } = this.state;
-
+    const { prOpen, sortDateInAscOrder  } = this.state;
+    prs.sort(this.dateSort(sortDateInAscOrder));
     return (
       <div>
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          onClick={this.switchDateOrder}
+        >
+          Datum
+          <Icon className={classes.rightIcon}>{sortDateInAscOrder ? "arrow_upward" : "arrow_downward"}</Icon>
+        </Button>
         <Hidden smDown>
           <Button
             className={classes.buttonDesktop}
