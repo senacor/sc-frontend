@@ -25,31 +25,37 @@ exports[`PrComment Component should display Customer interaction 1`] = `
       <WithStyles(FormControl)>
         <WithStyles(Select)
           displayEmpty={true}
+          id="CUSTOMER_INTERACTION_RatingId"
           name="rating"
           onChange={[Function]}
           value={4}
         >
           <WithStyles(MenuItem)
+            id="CUSTOMER_INTERACTION_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CUSTOMER_INTERACTION_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CUSTOMER_INTERACTION_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CUSTOMER_INTERACTION_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CUSTOMER_INTERACTION_RatingValue5"
             value={5}
           >
             5
@@ -85,7 +91,7 @@ exports[`PrComment Component should display Customer interaction 1`] = `
             }
           }
           fullWidth={true}
-          id="CUSTOMER_INTERACTION"
+          id="CUSTOMER_INTERACTION_CommentId"
           label="Kommentar"
           multiline={true}
           onChange={[Function]}
@@ -129,31 +135,37 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
       <WithStyles(FormControl)>
         <WithStyles(Select)
           displayEmpty={true}
+          id="PROBLEM_ANALYSIS_RatingId"
           name="rating"
           onChange={[Function]}
           value={2}
         >
           <WithStyles(MenuItem)
+            id="PROBLEM_ANALYSIS_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="PROBLEM_ANALYSIS_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="PROBLEM_ANALYSIS_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="PROBLEM_ANALYSIS_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="PROBLEM_ANALYSIS_RatingValue5"
             value={5}
           >
             5
@@ -189,7 +201,7 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
             }
           }
           fullWidth={true}
-          id="PROBLEM_ANALYSIS"
+          id="PROBLEM_ANALYSIS_CommentId"
           label="Kommentar"
           multiline={true}
           onChange={[Function]}
@@ -233,31 +245,37 @@ exports[`PrComment Component should display Teamwork 1`] = `
       <WithStyles(FormControl)>
         <WithStyles(Select)
           displayEmpty={true}
+          id="TEAMWORK_RatingId"
           name="rating"
           onChange={[Function]}
           value={1}
         >
           <WithStyles(MenuItem)
+            id="TEAMWORK_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="TEAMWORK_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="TEAMWORK_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="TEAMWORK_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="TEAMWORK_RatingValue5"
             value={5}
           >
             5
@@ -293,7 +311,7 @@ exports[`PrComment Component should display Teamwork 1`] = `
             }
           }
           fullWidth={true}
-          id="TEAMWORK"
+          id="TEAMWORK_CommentId"
           label="Kommentar"
           multiline={true}
           onChange={[Function]}
@@ -337,31 +355,37 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
       <WithStyles(FormControl)>
         <WithStyles(Select)
           displayEmpty={true}
+          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingId"
           name="rating"
           onChange={[Function]}
           value={3}
         >
           <WithStyles(MenuItem)
+            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
+            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue5"
             value={5}
           >
             5
@@ -397,7 +421,7 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
             }
           }
           fullWidth={true}
-          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
           label="Kommentar"
           multiline={true}
           onChange={[Function]}
