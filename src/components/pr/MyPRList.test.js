@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledComponent } from './MyPRList';
 import { createShallow } from '@material-ui/core/test-utils';
+import MyPRListItem from './MyPRListItem';
 
 describe('MyPRList Component', () => {
   let shallow = createShallow({ dive: true });
@@ -100,5 +101,12 @@ describe('MyPRList Component', () => {
     const component = shallow(<StyledComponent prs={prs} />);
 
     expect(component).toMatchSnapshot();
+  });
+
+  it('filters PRs according to reviewer', () => {
+    const wrapper = shallow(<StyledComponent prs={prs} />);
+    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
+    wrapper.setState({ filters: { reviewer: 'S1', occasion: 'ALL' } });
+    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(0);
   });
 });
