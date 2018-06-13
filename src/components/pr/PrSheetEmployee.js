@@ -83,7 +83,7 @@ class PrSheetEmployee extends React.Component {
         <List component="div" disablePadding className={classes.nestedText}>
           <ListItem>
             <TextField
-              id={category}
+              id={category + '_CommentId'}
               multiline
               fullWidth
               rowsMax="4"
