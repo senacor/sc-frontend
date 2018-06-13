@@ -15,35 +15,41 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
       >
         <WithStyles(Select)
           displayEmpty={true}
+          id="ratingFullfillmentId"
           name="ratingFulfillment"
           onChange={[Function]}
           value={2}
         >
           <WithStyles(MenuItem)
+            id="ratingFullfillmentValue1"
             value={1}
           >
             nicht erfüllt
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingFullfillmentValue2"
             value={2}
           >
             zT. nicht erfüllt
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingFullfillmentValue3"
             value={3}
           >
             erfüllt
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingFullfillmentValue4"
             value={4}
           >
             zT. übererfüllt
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingFullfillmentValue5"
             value={5}
           >
             übererfüllt
@@ -65,53 +71,62 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
       >
         <WithStyles(Select)
           displayEmpty={true}
+          id="ratingTargetRoleId"
           name="ratingTargetRole"
           onChange={[Function]}
           value={3}
         >
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue1"
             value={1}
           >
             keine Auswahl
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue2"
             value={2}
           >
             Platformgestalter
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue3"
             value={3}
           >
             Business IT Solution Leader
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue4"
             value={4}
           >
             Transformation Manager
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue5"
             value={5}
           >
             IT-Liefersteuerer
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue6"
             value={6}
           >
             Architect
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue7"
             value={7}
           >
             Technical Expert
           </WithStyles(MenuItem)>
           ,
           <WithStyles(MenuItem)
+            id="ratingTargetRoleValue8"
             value={8}
           >
             Lead Developer
