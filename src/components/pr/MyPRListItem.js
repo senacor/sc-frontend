@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment/moment';
 import styles from './MyPRListStyle';
 
-export class MyPRListItem extends React.Component {
+class MyPRListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

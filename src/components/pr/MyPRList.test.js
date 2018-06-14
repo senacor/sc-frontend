@@ -105,8 +105,10 @@ describe('MyPRList Component', () => {
 
   it('filters PRs according to reviewer', () => {
     const wrapper = shallow(<StyledComponent prs={prs} />);
-    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
+    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(4);
     wrapper.setState({ filters: { reviewer: 'S1', occasion: 'ALL' } });
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(0);
+    wrapper.setState({ filters: { reviewer: 'ttran', occasion: 'ALL' } });
+    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
   });
 });
