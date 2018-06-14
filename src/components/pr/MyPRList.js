@@ -13,6 +13,7 @@ import PrSalary from './PrSalary';
 import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
 import Card from '@material-ui/core/Card';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import Select from '@material-ui/core/Select';
@@ -30,7 +31,8 @@ export class MyPRList extends React.Component {
       filters: {
         reviewer: 'ALL',
         occasion: 'ALL'
-      }
+      },
+      sortDateInAscOrder: true,
     };
   }
 
@@ -74,6 +76,26 @@ export class MyPRList extends React.Component {
     });
   };
 
+  switchDateOrder = () => {
+    this.setState(prevState => ({
+      sortDateInAscOrder: !prevState.sortDateInAscOrder
+    }));
+  };
+
+  dateSort = (sortDateInAscOrder) => {
+    return (firstPR, secondPR) => {
+      let comparison = 0;
+      if (moment(firstPR.deadline).isBefore(moment(secondPR.deadline))) {
+        comparison = 1;
+      } else if (moment(firstPR.deadline).isAfter(moment(secondPR.deadline))) {
+        comparison = -1;
+      }
+      return (
+        (sortDateInAscOrder) ? (comparison * -1) : comparison
+      );
+    };
+  };
+
   filterPR = pr => {
     const { filters } = this.state;
     return (
@@ -109,13 +131,21 @@ export class MyPRList extends React.Component {
 
   render() {
     const { classes, prs } = this.props;
-    const { prOpen } = this.state;
-
+    const { prOpen, sortDateInAscOrder  } = this.state;
+    prs.sort(this.dateSort(sortDateInAscOrder));
     return (
       <div>
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          onClick={this.switchDateOrder}
+        >
+          Datum
+          <Icon className={classes.rightIcon}>{sortDateInAscOrder ? "arrow_upward" : "arrow_downward"}</Icon>
+        </Button>
 
         <Select
           value={this.state.filters.reviewer}
