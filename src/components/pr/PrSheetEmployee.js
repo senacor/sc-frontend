@@ -33,15 +33,19 @@ const styles = theme => ({
 class PrSheetEmployee extends React.Component {
   constructor(props) {
     super(props);
+
+    let reflectionSet = this.props.prById.prReflectionSet.find(
+      prReflection => prReflection.prReflectionField === this.props.category
+    );
+
     this.state = {
-      text: this.props.prById.prReflectionSet.find(
-        prReflection => prReflection.prReflectionField === this.props.category
-      ).text
+      text: reflectionSet ? reflectionSet.text : ''
     };
   }
 
   handleChangeComment = (prById, category) => event => {
     this.setState({ text: event.target.value });
+
     let reflectionSet = prById.prReflectionSet.find(
       prReflection => prReflection.prReflectionField === category
     );

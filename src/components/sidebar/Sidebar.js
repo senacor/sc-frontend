@@ -46,7 +46,7 @@ const listOfMenuEntries = [
   {
     label: 'Dashboard',
     icon: <DashboardIcon />,
-    value: '/tasks'
+    value: '/dashboard'
   },
   {
     label: 'PR Übersicht',
