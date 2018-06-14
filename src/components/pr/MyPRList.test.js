@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledComponent } from './MyPRList';
 import { createShallow } from '@material-ui/core/test-utils';
-import MyPRListItem from './MyPRListItem';
 
 describe('MyPRList Component', () => {
   let shallow = createShallow({ dive: true });
