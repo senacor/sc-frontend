@@ -86,7 +86,7 @@ describe('MyPRList Component', () => {
         }
       },
       supervisor: 'ttran',
-      occasion: 'ON_DEMAND',
+      occasion: 'YEARLY',
       status: 'PREPARATION',
       deadline: '2015-05-11',
       _links: {
@@ -191,19 +191,66 @@ describe('MyPRList Component', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('filters PRs according to reviewer', () => {
+  it('filters PRs according to a reviewer', () => {
     const wrapper = shallow(<StyledComponent prs={prs} />);
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
+
     wrapper.setState({ filters: { reviewer: 'S1', occasion: 'ALL' } });
+
+    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(0);
+  });
+
+  it('should filter by occasion', () => {
+    const wrapper = shallow(
+      <StyledComponent
+        prs={prs}
+        filters={{ reviewer: 'ALL', occasion: 'ALL' }}
+      />
+    );
+    const text_ondemand = wrapper.instance().translateOccasion('ON_DEMAND');
+    const text_yearly = wrapper.instance().translateOccasion('YEARLY');
+    expect(wrapper.find('[occasion="' + text_ondemand + '"]')).toHaveLength(2);
+    expect(wrapper.find('[occasion="' + text_yearly + '"]')).toHaveLength(2);
+
+    wrapper.setState({ filters: { reviewer: 'ALL', occasion: 'ON_DEMAND' } });
+
+    expect(wrapper.find('[occasion="' + text_ondemand + '"]')).toHaveLength(2);
+    expect(wrapper.find('[occasion="' + text_yearly + '"]')).toHaveLength(0);
+  });
+
+  it('should filter by reviewer and occasion at the same time', () => {
+    const wrapper = shallow(
+      <StyledComponent
+        prs={prs}
+        filters={{ reviewer: 'ALL', occasion: 'ALL' }}
+      />
+    );
+    const text_ondemand = wrapper.instance().translateOccasion('ON_DEMAND');
+    const text_yearly = wrapper.instance().translateOccasion('YEARLY');
+    expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
+    expect(wrapper.find('[reviewer="test"]')).toHaveLength(2);
+    expect(wrapper.find('[occasion="' + text_ondemand + '"]')).toHaveLength(2);
+    expect(wrapper.find('[occasion="' + text_yearly + '"]')).toHaveLength(2);
+
+    wrapper.setState({ filters: { reviewer: 'ttran', occasion: 'ON_DEMAND' } });
+
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(0);
   });
 
   it('sorts the MyPRList in given order', () => {
     const wrapper = shallow(<StyledComponent prs={prs} />);
-    expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual('2015-05-11');
-    expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual('2222-05-11');
+    expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual(
+      '2015-05-11'
+    );
+    expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual(
+      '2222-05-11'
+    );
     wrapper.setState({ sortDateInAscOrder: false });
-    expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual('2222-05-11');
-    expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual('2015-05-11');
+    expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual(
+      '2222-05-11'
+    );
+    expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual(
+      '2015-05-11'
+    );
   });
 });

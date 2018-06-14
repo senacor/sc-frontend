@@ -8,6 +8,15 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
   >
     Performance Reviews
   </WithStyles(Typography)>
+  <WithStyles(Button)
+    onClick={[Function]}
+    variant="outlined"
+  >
+    Datum
+    <WithStyles(Icon)>
+      arrow_upward
+    </WithStyles(Icon)>
+  </WithStyles(Button)>
   <WithStyles(Select)
     className="MyPRList-buttonDesktop-5"
     displayEmpty={true}
@@ -37,6 +46,15 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
         className="MyPRList-filterDesktop-6"
       >
         ttran
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      value="test"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        test
       </div>
     </WithStyles(MenuItem)>
   </WithStyles(Select)>
@@ -152,8 +170,24 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           >
             <WithStyles(MyPRListItem)
               deadline="2015-05-11"
-              occasion="Auf Nachfrage"
+              occasion="jährlich"
               reviewer="ttran"
+              status="In Vorbereitung"
+            />
+          </WithStyles(List)>
+        </WithStyles(Button)>
+        <WithStyles(Button)
+          className="MyPRList-buttonList-19"
+          key="2"
+          onClick={[Function]}
+        >
+          <WithStyles(List)
+            className="MyPRList-list-7"
+          >
+            <WithStyles(MyPRListItem)
+              deadline="2222-05-11"
+              occasion="Auf Nachfrage"
+              reviewer="test"
               status="In Vorbereitung"
             />
           </WithStyles(List)>
@@ -257,7 +291,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                   "title": "DR",
                 },
                 "id": 1,
-                "occasion": "ON_DEMAND",
+                "occasion": "YEARLY",
                 "status": "PREPARATION",
                 "supervisor": "ttran",
               }
@@ -362,7 +396,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                     "title": "DR",
                   },
                   "id": 1,
-                  "occasion": "ON_DEMAND",
+                  "occasion": "YEARLY",
                   "status": "PREPARATION",
                   "supervisor": "ttran",
                 }
@@ -454,7 +488,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                     "title": "DR",
                   },
                   "id": 1,
-                  "occasion": "ON_DEMAND",
+                  "occasion": "YEARLY",
                   "status": "PREPARATION",
                   "supervisor": "ttran",
                 }
@@ -504,8 +538,29 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       >
         <WithStyles(MyPRListItem)
           deadline="2015-05-11"
-          occasion="Auf Nachfrage"
+          occasion="jährlich"
           reviewer="ttran"
+          status="In Vorbereitung"
+        />
+      </WithStyles(List)>
+    </Link>
+    <Link
+      key="2"
+      replace={false}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      to="/prs/2"
+    >
+      <WithStyles(List)
+        className="MyPRList-list-7"
+      >
+        <WithStyles(MyPRListItem)
+          deadline="2222-05-11"
+          occasion="Auf Nachfrage"
+          reviewer="test"
           status="In Vorbereitung"
         />
       </WithStyles(List)>

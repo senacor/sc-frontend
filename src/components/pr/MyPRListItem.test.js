@@ -1,5 +1,5 @@
 import React from 'react';
-import { MyPRListItem } from './MyPRListItem';
+import MyPRListItem from './MyPRListItem';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('MyPRListItem Component', () => {
