@@ -163,7 +163,7 @@ export class MyPRList extends React.Component {
           </MenuItem>
           {Array.from(new Set(prs.map(pr => pr.supervisor))).map(revr => {
             return (
-              <MenuItem value={revr}>
+              <MenuItem key={revr} value={revr}>
                 <div className={classes.filterDesktop}>{revr}</div>
               </MenuItem>
             );
@@ -185,7 +185,7 @@ export class MyPRList extends React.Component {
           </MenuItem>
           {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(occ => {
             return (
-              <MenuItem value={occ}>
+              <MenuItem key={occ} value={occ}>
                 <div className={classes.filterDesktop}>
                   {this.translateOccasion(occ)}
                 </div>
