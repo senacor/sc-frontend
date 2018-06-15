@@ -151,6 +151,7 @@ class PrOverallAssessment extends React.Component {
             />
             <FormControl className={classes.nestedTextSelect}>
               <Select
+                id="ratingFullfillmentId"
                 value={
                   this.state.ratingFulfillment
                     ? this.state.ratingFulfillment
@@ -160,11 +161,21 @@ class PrOverallAssessment extends React.Component {
                 displayEmpty
                 name="ratingFulfillment"
               >
-                <MenuItem value={1}>nicht erfüllt</MenuItem>,
-                <MenuItem value={2}>zT. nicht erfüllt</MenuItem>,
-                <MenuItem value={3}>erfüllt</MenuItem>,
-                <MenuItem value={4}>zT. übererfüllt</MenuItem>,
-                <MenuItem value={5}>übererfüllt</MenuItem>
+                <MenuItem id="ratingFullfillmentValue1" value={1}>
+                  nicht erfüllt
+                </MenuItem>,
+                <MenuItem id="ratingFullfillmentValue2" value={2}>
+                  zT. nicht erfüllt
+                </MenuItem>,
+                <MenuItem id="ratingFullfillmentValue3" value={3}>
+                  erfüllt
+                </MenuItem>,
+                <MenuItem id="ratingFullfillmentValue4" value={4}>
+                  zT. übererfüllt
+                </MenuItem>,
+                <MenuItem id="ratingFullfillmentValue5" value={5}>
+                  übererfüllt
+                </MenuItem>
               </Select>
             </FormControl>
           </ListItem>
@@ -181,6 +192,7 @@ class PrOverallAssessment extends React.Component {
 
             <FormControl className={classes.nestedTextSelect}>
               <Select
+                id="ratingTargetRoleId"
                 value={
                   this.state.ratingTargetRole ? this.state.ratingTargetRole : 1
                 }
@@ -188,14 +200,30 @@ class PrOverallAssessment extends React.Component {
                 name="ratingTargetRole"
                 onChange={this.handleChangeRating(prById)}
               >
-                <MenuItem value={1}>keine Auswahl</MenuItem>,
-                <MenuItem value={2}>Platformgestalter</MenuItem>,
-                <MenuItem value={3}>Business IT Solution Leader</MenuItem>,
-                <MenuItem value={4}>Transformation Manager</MenuItem>,
-                <MenuItem value={5}>IT-Liefersteuerer</MenuItem>,
-                <MenuItem value={6}>Architect</MenuItem>,
-                <MenuItem value={7}>Technical Expert</MenuItem>,
-                <MenuItem value={8}>Lead Developer</MenuItem>
+                <MenuItem id="ratingTargetRoleValue1" value={1}>
+                  keine Auswahl
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue2" value={2}>
+                  Platformgestalter
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue3" value={3}>
+                  Business IT Solution Leader
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue4" value={4}>
+                  Transformation Manager
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue5" value={5}>
+                  IT-Liefersteuerer
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue6" value={6}>
+                  Architect
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue7" value={7}>
+                  Technical Expert
+                </MenuItem>,
+                <MenuItem id="ratingTargetRoleValue8" value={8}>
+                  Lead Developer
+                </MenuItem>
               </Select>
             </FormControl>
           </ListItem>
