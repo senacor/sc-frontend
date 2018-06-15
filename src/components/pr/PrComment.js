@@ -155,21 +155,16 @@ class PrComment extends React.Component {
                 displayEmpty
                 name="rating"
               >
-                <MenuItem id={category + '_RatingValue1'} value={1}>
-                  1
-                </MenuItem>
-                <MenuItem id={category + '_RatingValue2'} value={2}>
-                  2
-                </MenuItem>
-                <MenuItem id={category + '_RatingValue3'} value={3}>
-                  3
-                </MenuItem>
-                <MenuItem id={category + '_RatingValue4'} value={4}>
-                  4
-                </MenuItem>
-                <MenuItem id={category + '_RatingValue5'} value={5}>
-                  5
-                </MenuItem>
+                {[1, 2, 3, 4, 5].map(ratingValue => {
+                  return (
+                    <MenuItem
+                      id={category + '_RatingValue' + ratingValue}
+                      value={ratingValue}
+                    >
+                      {ratingValue}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </ListItem>
