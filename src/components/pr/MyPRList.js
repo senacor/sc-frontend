@@ -106,12 +106,12 @@ export class MyPRList extends React.Component {
   };
 
   handleFilter = event => {
-    const oldfiltr = this.state.filters;
+    const oldfilter = this.state.filters;
     switch (event.target.name) {
       case 'Reviewer':
         this.setState({
           filters: {
-            ...oldfiltr,
+            ...oldfilter,
             reviewer: event.target.value
           }
         });
@@ -119,7 +119,7 @@ export class MyPRList extends React.Component {
       case 'Occasion':
         this.setState({
           filters: {
-            ...oldfiltr,
+            ...oldfilter,
             occasion: event.target.value
           }
         });
@@ -155,10 +155,6 @@ export class MyPRList extends React.Component {
           displayEmpty
           name="Reviewer"
           className={classes.buttonDesktop}
-          style={{
-            borderRadius: '2px',
-            marginLeft: '2px'
-          }}
         >
           <MenuItem value="ALL">
             <div className={classes.filterDesktop}>Alle</div>
@@ -177,23 +173,21 @@ export class MyPRList extends React.Component {
           displayEmpty
           name="Occasion"
           className={classes.buttonDesktop}
-          style={{
-            borderRadius: '2px',
-            marginLeft: '2px'
-          }}
         >
           <MenuItem value="ALL">
             <div className={classes.filterDesktop}>Alle</div>
           </MenuItem>
-          {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(occ => {
-            return (
-              <MenuItem value={occ}>
-                <div className={classes.filterDesktop}>
-                  {this.translateOccasion(occ)}
-                </div>
-              </MenuItem>
-            );
-          })}
+          {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
+            occasion => {
+              return (
+                <MenuItem value={occasion}>
+                  <div className={classes.filterDesktop}>
+                    {this.translateOccasion(occasion)}
+                  </div>
+                </MenuItem>
+              );
+            }
+          )}
         </Select>
 
         <Hidden smDown>
