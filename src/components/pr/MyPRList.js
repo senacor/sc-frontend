@@ -34,7 +34,7 @@ export class MyPRList extends React.Component {
             reviewer: 'ALL',
             occasion: 'ALL'
           },
-      sortDateInAscOrder: true
+      dateInAscendingOrder: true
     };
   }
 
@@ -80,11 +80,12 @@ export class MyPRList extends React.Component {
 
   switchDateOrder = () => {
     this.setState(prevState => ({
-      sortDateInAscOrder: !prevState.sortDateInAscOrder
+      dateInAscendingOrder: !prevState.dateInAscendingOrder,
+      prs: this.state.prs.sort(this.dateSort(!prevState.dateInAscendingOrder))
     }));
   };
 
-  dateSort = sortDateInAscOrder => {
+  dateSort = dateInAscendingOrder => {
     return (firstPR, secondPR) => {
       let comparison = 0;
       if (moment(firstPR.deadline).isBefore(moment(secondPR.deadline))) {
@@ -92,7 +93,7 @@ export class MyPRList extends React.Component {
       } else if (moment(firstPR.deadline).isAfter(moment(secondPR.deadline))) {
         comparison = -1;
       }
-      return sortDateInAscOrder ? comparison * -1 : comparison;
+      return dateInAscendingOrder ? comparison * -1 : comparison;
     };
   };
 
@@ -129,23 +130,29 @@ export class MyPRList extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.setState({
+      prs: this.state.prs.sort(this.dateSort(this.state.dateInAscendingOrder))
+    });
+  }
+
   render() {
     const { classes, prs } = this.props;
-    const { prOpen, sortDateInAscOrder } = this.state;
-    prs.sort(this.dateSort(sortDateInAscOrder));
+    const { prOpen, dateInAscendingOrder } = this.state;
     return (
       <div>
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
         <Button
+          id="sortButton"
           className={classes.button}
           variant="outlined"
           onClick={this.switchDateOrder}
         >
           Datum
           <Icon className={classes.rightIcon}>
-            {sortDateInAscOrder ? 'arrow_upward' : 'arrow_downward'}
+            {dateInAscendingOrder ? 'arrow_upward' : 'arrow_downward'}
           </Icon>
         </Button>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyledComponent } from './MyPRList';
 import { createShallow } from '@material-ui/core/test-utils';
+import Button from '@material-ui/core/Button';
+import sinon from 'sinon';
 
 describe('MyPRList Component', () => {
   let shallow = createShallow({ dive: true });
@@ -237,6 +239,7 @@ describe('MyPRList Component', () => {
   });
 
   it('sorts the MyPRList in given order', () => {
+    const spy = sinon.spy();
     const wrapper = shallow(<StyledComponent prs={prs} />);
     expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual(
       '2015-05-11'
@@ -244,7 +247,7 @@ describe('MyPRList Component', () => {
     expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual(
       '2222-05-11'
     );
-    wrapper.setState({ sortDateInAscOrder: false });
+    wrapper.find('#sortButton').simulate('click');
     expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual(
       '2222-05-11'
     );
