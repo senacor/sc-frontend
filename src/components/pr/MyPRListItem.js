@@ -6,50 +6,38 @@ import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment/moment';
 import styles from './MyPRListStyle';
 
-class MyPRListItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      reviewer: props.reviewer,
-      deadline: props.deadline,
-      occasion: props.occasion,
-      status: props.status
-    };
-  }
-
-  render() {
-    const { classes } = this.props;
-    const { reviewer, deadline, occasion, status } = this.state;
-    return (
-      <ListItem className={classes.listItem}>
-        <ListItemText>
-          <div className={classes.divItemText}>
-            <Typography className={classes.typography}>
-              Beurteiler: {reviewer}
+function MyPRListItem(props) {
+  return (
+    <ListItem className={props.classes.listItem}>
+      <ListItemText>
+        <div className={props.classes.divItemText}>
+          <Typography className={props.classes.typography}>
+            Beurteiler: {props.reviewer}
+          </Typography>
+          {props.deadline ? (
+            <Typography className={props.classes.typography}>
+              Datum: {moment(props.deadline).format('DD.MM.YY')}
             </Typography>
-            {deadline ? (
-              <Typography className={classes.typography}>
-                Datum: {moment(deadline).format('DD.MM.YY')}
-              </Typography>
-            ) : (
-              ''
-            )}
+          ) : (
+            ''
+          )}
 
-            <Typography className={classes.typography}>{occasion}</Typography>
-            <Typography
-              className={
-                status === 'DONE'
-                  ? classes.typographyDone
-                  : classes.typographyGreen
-              }
-            >
-              {status}
-            </Typography>
-          </div>
-        </ListItemText>
-      </ListItem>
-    );
-  }
+          <Typography className={props.classes.typography}>
+            {props.occasion}
+          </Typography>
+          <Typography
+            className={
+              props.status === 'DONE'
+                ? props.classes.typographyDone
+                : props.classes.typographyGreen
+            }
+          >
+            {props.status}
+          </Typography>
+        </div>
+      </ListItemText>
+    </ListItem>
+  );
 }
 
 export default withStyles(styles)(MyPRListItem);

@@ -19,7 +19,7 @@ import List from '@material-ui/core/List';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './MyPRListStyle';
-import MyPRListItem from './MyPRListItem';
+import { default as MyPRListItem } from './MyPRListItem';
 
 export class MyPRList extends React.Component {
   constructor(props) {
@@ -133,6 +133,7 @@ export class MyPRList extends React.Component {
     const { classes, prs } = this.props;
     const { prOpen, sortDateInAscOrder } = this.state;
     prs.sort(this.dateSort(sortDateInAscOrder));
+
     return (
       <div>
         <Typography variant="display1" paragraph>
