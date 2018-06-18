@@ -74,7 +74,11 @@ class EmployeeSearch extends React.Component {
           }}
         />
         {this.state.employeeSearchValue ? (
-          <List component="nav" className={classes.employeeList}>
+          <List
+            id="employeeSearchResultList"
+            component="nav"
+            className={classes.employeeList}
+          >
             {prSearchResults.map(employee => {
               return (
                 <div key={employee.id}>
