@@ -23,7 +23,7 @@ describe('getCstmembers redux action', () => {
             dateOfLastPr: '2018-03-14',
             _links: {
               self: {
-                href: 'http://localhost:3000/api/v1/cstmembers?supervisorId=1'
+                href: 'http://localhost:3000/api/v1/cstmembers'
               }
             }
           }
@@ -31,7 +31,7 @@ describe('getCstmembers redux action', () => {
       }
     };
 
-    fetchMock.getOnce('/api/v1/cstmembers?supervisorId=1', {
+    fetchMock.getOnce('/api/v1/cstmembers', {
       body: data
     });
     const store = mockStore();
