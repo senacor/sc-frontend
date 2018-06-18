@@ -1,4 +1,4 @@
-export const styles = theme => ({
+const styles = theme => ({
   container: {
     display: 'flex',
     flexFlow: 'row wrap',
