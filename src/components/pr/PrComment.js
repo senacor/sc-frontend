@@ -17,7 +17,7 @@ import { debounce } from '../../helper/debounce';
 import { isEmployee } from '../../helper/checkRole';
 
 const styles = theme => ({
-  nestedText: {},
+  nestedText: { paddingRight: '27px' },
   bootstrapInput: {
     borderRadius: 4,
     backgroundColor: theme.palette.common.white,
@@ -147,7 +147,11 @@ class PrComment extends React.Component {
             />
 
             {this.state.comment ? (
-              <Icon className={classes.icon}>comment</Icon>
+              !this.state.is_expanded ? (
+                <Icon className={classes.icon}>comment</Icon>
+              ) : (
+                ''
+              )
             ) : (
               ''
             )}
@@ -186,7 +190,7 @@ class PrComment extends React.Component {
             {isEmployee(this.props.userroles) ? (
               this.state.comment ? (
                 <ListItem>
-                  <Icon className={classes.icon}>format_quote</Icon>
+                  <Icon className={classes.icon}>comment</Icon>
                   <Typography className={classes.comment} variant="body1">
                     {this.state.comment}
                   </Typography>

@@ -3,6 +3,11 @@
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "CONTRIBUTION TO COMPANY DEVELOPMENT 1`] = `
 <div>
   <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Recruiting (Interviews, Hochschulaktivitäten) | Knowledge Management | Mentoring neuer Kollegen | Community Engagement"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
       onClick={[Function]}
@@ -97,16 +102,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Recruiting (Interviews, Hochschulaktivitäten) | Knowledge Management | Mentoring neuer Kollegen | Community Engagement"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "CUSTOMER_INTERACTION" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Verständnis für Kundensituation | angemessene, professionelle Kommunikation | Motivation von Veränderungen"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -202,16 +207,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Verständnis für Kundensituation | angemessene, professionelle Kommunikation | Motivation von Veränderungen"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "CUSTOMER_RETENTION" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Positive Kundenwahrnehmung | Beitrag zu Auf- und Ausbau von Kundenbeziehungen | Identifikation & Entwicklung neuer Themen | Vertriebswirkung"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -307,16 +312,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Positive Kundenwahrnehmung | Beitrag zu Auf- und Ausbau von Kundenbeziehungen | Identifikation & Entwicklung neuer Themen | Vertriebswirkung"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "LEADERSHIP" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Betreuung und Coaching anderer Teammitglieder | operative Steuerung anderer Teammitglieder | Mitarbeiterbewertung und -entwicklung | Mitarbeiterbindung"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -412,16 +417,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Betreuung und Coaching anderer Teammitglieder | operative Steuerung anderer Teammitglieder | Mitarbeiterbewertung und -entwicklung | Mitarbeiterbindung"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "PROBLEM_ANALYSIS" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -517,16 +522,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Problemverständnis und Analysestruktur | Relevanz und Korrektheit Analyseergebnisse | korrekte Ableitung von Implikationen"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "TEAMWORK" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Aktive Informationssuche und -verteilung | gezielte Einbindung Teamleads und -mitglieder | Unterstützung anderer Teammitglieder | fachlich-konzeptionelle Teamsteuerung | Liefersteuerung Gesamtteam"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -622,16 +627,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Aktive Informationssuche und -verteilung | gezielte Einbindung Teamleads und -mitglieder | Unterstützung anderer Teammitglieder | fachlich-konzeptionelle Teamsteuerung | Liefersteuerung Gesamtteam"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORK_RESULTS" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -727,16 +732,16 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Geeignete und fehlerfreie Ergebnisse | Einhaltung eigener Lieferzusagen | innovative Lösungen"
-    />
-  </WithStyles(ListItem)>
 </div>
 `;
 
 exports[`PrSwipePositionDescription Component displays the Description of the employee for the category= "WORKING_MANNER" 1`] = `
 <div>
+  <WithStyles(ListItem)>
+    <WithStyles(ListItemText)
+      secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
+    />
+  </WithStyles(ListItem)>
   <WithStyles(ListItem)>
     <WithStyles(IconButton)
       aria-label="Links"
@@ -831,11 +836,6 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
         keyboard_arrow_right
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
-  </WithStyles(ListItem)>
-  <WithStyles(ListItem)>
-    <WithStyles(ListItemText)
-      secondary="Pro-aktive Verantwortungsübernahme | pragmatische Herangehensweise | Qualitätsanspruch (Drive for Excellence)"
-    />
   </WithStyles(ListItem)>
 </div>
 `;

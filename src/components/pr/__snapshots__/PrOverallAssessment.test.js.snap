@@ -179,11 +179,9 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
         value="bbb"
       />
     </WithStyles(ListItem)>
-    <WithStyles(ListItem) />
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)
         className="PrOverallAssessment-description-4"
-        primary="Beschreibung"
         secondary="In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?"
       />
     </WithStyles(ListItem)>

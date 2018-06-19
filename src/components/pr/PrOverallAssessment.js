@@ -164,9 +164,9 @@ class PrOverallAssessment extends React.Component {
       case 4:
         return 'Transformation Manager';
       case 5:
-        return 'Architect';
-      case 6:
         return 'IT-Liefersteuerer';
+      case 6:
+        return 'Architect';
       case 7:
         return 'Technical Expert';
       case 8:
