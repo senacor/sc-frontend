@@ -158,6 +158,7 @@ class PrComment extends React.Component {
                 {[1, 2, 3, 4, 5].map(ratingValue => {
                   return (
                     <MenuItem
+                      key={category + '_RatingValue' + ratingValue}
                       id={category + '_RatingValue' + ratingValue}
                       value={ratingValue}
                     >

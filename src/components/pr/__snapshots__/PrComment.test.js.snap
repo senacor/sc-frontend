@@ -32,30 +32,35 @@ exports[`PrComment Component should display Customer interaction 1`] = `
         >
           <WithStyles(MenuItem)
             id="CUSTOMER_INTERACTION_RatingValue1"
+            key="CUSTOMER_INTERACTION_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CUSTOMER_INTERACTION_RatingValue2"
+            key="CUSTOMER_INTERACTION_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CUSTOMER_INTERACTION_RatingValue3"
+            key="CUSTOMER_INTERACTION_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CUSTOMER_INTERACTION_RatingValue4"
+            key="CUSTOMER_INTERACTION_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CUSTOMER_INTERACTION_RatingValue5"
+            key="CUSTOMER_INTERACTION_RatingValue5"
             value={5}
           >
             5
@@ -142,30 +147,35 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
         >
           <WithStyles(MenuItem)
             id="PROBLEM_ANALYSIS_RatingValue1"
+            key="PROBLEM_ANALYSIS_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="PROBLEM_ANALYSIS_RatingValue2"
+            key="PROBLEM_ANALYSIS_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="PROBLEM_ANALYSIS_RatingValue3"
+            key="PROBLEM_ANALYSIS_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="PROBLEM_ANALYSIS_RatingValue4"
+            key="PROBLEM_ANALYSIS_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="PROBLEM_ANALYSIS_RatingValue5"
+            key="PROBLEM_ANALYSIS_RatingValue5"
             value={5}
           >
             5
@@ -252,30 +262,35 @@ exports[`PrComment Component should display Teamwork 1`] = `
         >
           <WithStyles(MenuItem)
             id="TEAMWORK_RatingValue1"
+            key="TEAMWORK_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="TEAMWORK_RatingValue2"
+            key="TEAMWORK_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="TEAMWORK_RatingValue3"
+            key="TEAMWORK_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="TEAMWORK_RatingValue4"
+            key="TEAMWORK_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="TEAMWORK_RatingValue5"
+            key="TEAMWORK_RatingValue5"
             value={5}
           >
             5
@@ -362,30 +377,35 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
         >
           <WithStyles(MenuItem)
             id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue1"
+            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue1"
             value={1}
           >
             1
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue2"
+            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue2"
             value={2}
           >
             2
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue3"
+            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue3"
             value={3}
           >
             3
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue4"
+            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue4"
             value={4}
           >
             4
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
             id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue5"
+            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue5"
             value={5}
           >
             5
