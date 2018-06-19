@@ -7,6 +7,8 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import { isSupervisor } from '../../helper/checkRole';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -14,19 +16,24 @@ const styles = theme => ({
     backgroundColor: theme.palette.common.white,
     border: '1px solid #ced4da',
     fontSize: 16,
-    padding: '10px 12px',
+    padding: '5px 0px',
     '&:focus': {
       borderColor: '#80bdff',
       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'
     }
   },
   nestedText: {
-    paddingLeft: '30px',
-    paddingRight: '30px'
+    paddingLeft: '0px'
   },
   nestedListItem: {
-    paddingLeft: '30px',
-    width: '93%'
+    width: '80%',
+    paddingBottom: '0px'
+  },
+  comment: {
+    paddingLeft: '24px',
+    paddingRight: '24px',
+    color: '#26646d',
+    fontStyle: 'italic'
   }
 });
 
@@ -86,27 +93,36 @@ class PrSheetEmployee extends React.Component {
         </ListItem>
         <List component="div" disablePadding className={classes.nestedText}>
           <ListItem>
-            <TextField
-              id={category + '_CommentId'}
-              multiline
-              fullWidth
-              rowsMax="4"
-              value={this.state.text ? this.state.text : ''}
-              onChange={this.handleChangeComment(prById, category)}
-              InputProps={{
-                disableUnderline: true,
-                name: 'comment',
-                classes: {
-                  input: classes.bootstrapInput
-                }
-              }}
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemText secondary={this.placeholder(category)} />
+            {isSupervisor(this.props.userroles) ? (
+              <Typography className={classes.comment} variant="body1">
+                {this.state.text ? this.state.text : 'Noch kein Eintrag'}
+              </Typography>
+            ) : (
+              <TextField
+                id={category + '_CommentId'}
+                multiline
+                fullWidth
+                rows="4"
+                rowsMax="4"
+                margin="none"
+                helperText={this.placeholder(category)}
+                value={this.state.text ? this.state.text : ''}
+                onChange={this.handleChangeComment(prById, category)}
+                InputProps={{
+                  disableUnderline: true,
+                  name: 'comment',
+                  classes: {
+                    input: classes.bootstrapInput
+                  }
+                }}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                FormHelperTextProps={{
+                  margin: 'none'
+                }}
+              />
+            )}
           </ListItem>
         </List>
       </div>
@@ -117,6 +133,7 @@ class PrSheetEmployee extends React.Component {
 export const StyledComponent = withStyles(styles)(PrSheetEmployee);
 export default connect(
   state => ({
+    userroles: state.userroles,
     prEmployeeContribution: state.prEmployeeContributions.prEmployeeContribution
   }),
   {
