@@ -138,19 +138,14 @@ describe('PrComment Component', () => {
 
   it('should display no input components when viewer is employee', () => {
     const wrapper = shallow(
-      <StyledComponent prById={prById} userroles={[ROLES.PR_MITARBEITER]} />
+      <StyledComponent
+        prById={prById}
+        category="TEAMWORK"
+        userroles={[ROLES.PR_MITARBEITER]}
+      />
     );
+    expect(wrapper.find(Typography)).toHaveLength(2);
     expect(wrapper.find(TextField)).toHaveLength(0);
     expect(wrapper.find(Select)).toHaveLength(0);
-    //expect(wrapper.find(Typography).hasClass('rating')).toEqual(false);
-    // console.log(
-    //   wrapper
-    //     .find(Typography)
-    //     .dive()
-    //     .debug()
-    // );
-    // wrapper.find(Typography).forEach(node => {
-    //   console.log(node.debug());
-    // });
   });
 });

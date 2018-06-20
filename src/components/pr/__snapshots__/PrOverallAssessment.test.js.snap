@@ -21,34 +21,35 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           value={2}
         >
           <WithStyles(MenuItem)
+            key="_ratingFulfillment1"
             id="ratingFullfillmentValue1"
             value={1}
           >
             nicht erfüllt
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
+            key="_ratingFulfillment2"
             id="ratingFullfillmentValue2"
             value={2}
           >
             zT. nicht erfüllt
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
+            key="_ratingFulfillment3"
             id="ratingFullfillmentValue3"
             value={3}
           >
             erfüllt
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
+            key="_ratingFulfillment4"
             id="ratingFullfillmentValue4"
             value={4}
           >
             zT. übererfüllt
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
+            key="_ratingFulfillment5"
             id="ratingFullfillmentValue5"
             value={5}
           >

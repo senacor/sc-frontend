@@ -47,6 +47,9 @@ const styles = theme => ({
     marginBottom: '-30px'
   },
   icon: {
+    color: theme.palette.primary['400']
+  },
+  iconError: {
     color: theme.palette.primary['400'],
     fontSize: 17,
     marginBottom: '-30px'
@@ -54,6 +57,12 @@ const styles = theme => ({
   test: {
     fontSize: 12,
     color: theme.palette.text.secondary
+  },
+  comment: {
+    paddingLeft: '24px',
+    paddingRight: '24px',
+    color: '#26646d',
+    fontStyle: 'italic'
   }
 });
 
@@ -136,7 +145,7 @@ class PrOverallAssessment extends React.Component {
       'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?'
   };
 
-  translateRatingFullfilment = ratingFulfillemnt => {
+  mapRatingFullfilment = ratingFulfillemnt => {
     switch (ratingFulfillemnt) {
       case 1:
         return 'nicht erfüllt';
@@ -153,7 +162,7 @@ class PrOverallAssessment extends React.Component {
     }
   };
 
-  translateRatingTargetRole = ratingTargetRole => {
+  mapRatingTargetRole = ratingTargetRole => {
     switch (ratingTargetRole) {
       case 1:
         return 'keine Auswahl';
@@ -191,7 +200,7 @@ class PrOverallAssessment extends React.Component {
             />
             {isEmployee(this.props.userroles) ? (
               <Typography variant="body1">
-                {this.translateRatingFullfilment(this.state.ratingFulfillment)}
+                {this.mapRatingFullfilment(this.state.ratingFulfillment)}
               </Typography>
             ) : (
               <FormControl className={classes.nestedTextSelect}>
@@ -206,21 +215,17 @@ class PrOverallAssessment extends React.Component {
                   displayEmpty
                   name="ratingFulfillment"
                 >
-                  <MenuItem id="ratingFullfillmentValue1" value={1}>
-                    {this.translateRatingFullfilment(1)}
-                  </MenuItem>,
-                  <MenuItem id="ratingFullfillmentValue2" value={2}>
-                    {this.translateRatingFullfilment(2)}
-                  </MenuItem>,
-                  <MenuItem id="ratingFullfillmentValue3" value={3}>
-                    {this.translateRatingFullfilment(3)}
-                  </MenuItem>,
-                  <MenuItem id="ratingFullfillmentValue4" value={4}>
-                    {this.translateRatingFullfilment(4)}
-                  </MenuItem>,
-                  <MenuItem id="ratingFullfillmentValue5" value={5}>
-                    {this.translateRatingFullfilment(5)}
-                  </MenuItem>
+                  {[1, 2, 3, 4, 5].map(ratingValue => {
+                    return (
+                      <MenuItem
+                        key={'_ratingFulfillment' + ratingValue}
+                        id={'_ratingFulfillmentValue' + ratingValue}
+                        value={ratingValue}
+                      >
+                        {this.mapRatingFullfilment(ratingValue)}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
             )}
@@ -237,7 +242,7 @@ class PrOverallAssessment extends React.Component {
 
             {isEmployee(this.props.userroles) ? (
               <Typography variant="body1">
-                {this.translateRatingTargetRole(this.state.ratingTargetRole)}
+                {this.mapRatingTargetRole(this.state.ratingTargetRole)}
               </Typography>
             ) : (
               <FormControl className={classes.nestedTextSelect}>
@@ -252,30 +257,17 @@ class PrOverallAssessment extends React.Component {
                   name="ratingTargetRole"
                   onChange={this.handleChangeRating(prById)}
                 >
-                  <MenuItem id="ratingTargetRoleValue1" value={1}>
-                    {this.translateRatingTargetRole(1)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue2" value={2}>
-                    {this.translateRatingTargetRole(2)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue3" value={3}>
-                    {this.translateRatingTargetRole(3)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue4" value={4}>
-                    {this.translateRatingTargetRole(4)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue5" value={5}>
-                    {this.translateRatingTargetRole(5)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue6" value={6}>
-                    {this.translateRatingTargetRole(6)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue7" value={7}>
-                    {this.translateRatingTargetRole(7)}
-                  </MenuItem>,
-                  <MenuItem id="ratingTargetRoleValue8" value={8}>
-                    {this.translateRatingTargetRole(8)}
-                  </MenuItem>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(ratingValue => {
+                    return (
+                      <MenuItem
+                        key={'_ratingTargetRole' + ratingValue}
+                        id={'_ratingTargetValueRole' + ratingValue}
+                        value={ratingValue}
+                      >
+                        {this.mapRatingTargetRole(ratingValue)}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
             )}
@@ -283,11 +275,13 @@ class PrOverallAssessment extends React.Component {
         </div>
         {isEmployee(this.props.userroles) ? (
           this.state.comment ? (
-            <div>
-              <Icon className={classes.icon}>format_quote</Icon>
-              <Typography className={classes.comment} variant="body1">
-                {this.state.comment}
-              </Typography>
+            <div className={classes.containerListItem}>
+              <ListItem>
+                <Icon className={classes.icon}>comment</Icon>
+                <Typography className={classes.comment} variant="body1">
+                  {this.state.comment}
+                </Typography>
+              </ListItem>
             </div>
           ) : (
             ''
@@ -307,7 +301,7 @@ class PrOverallAssessment extends React.Component {
               {this.state.comment ? (
                 ''
               ) : (
-                <Icon className={classes.icon}>error</Icon>
+                <Icon className={classes.iconError}>error</Icon>
               )}
             </ListItem>
             <ListItem>
@@ -333,7 +327,7 @@ class PrOverallAssessment extends React.Component {
             <ListItem>
               <ListItemText
                 className={classes.description}
-                //primary="Beschreibung"
+                primary="Beschreibung"
                 secondary={this.categoryText.text}
               />
             </ListItem>
