@@ -149,7 +149,7 @@ class PrOverallAssessment extends React.Component {
       case 5:
         return 'übererfüllt';
       default:
-        return 'default';
+        return 'keine Auswahl';
     }
   };
 
