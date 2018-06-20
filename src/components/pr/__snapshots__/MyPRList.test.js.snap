@@ -8,6 +8,110 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
   >
     Performance Reviews
   </WithStyles(Typography)>
+  <WithStyles(Button)
+    id="sortButton"
+    onClick={[Function]}
+    variant="outlined"
+  >
+    Datum
+    <WithStyles(Icon)>
+      arrow_upward
+    </WithStyles(Icon)>
+  </WithStyles(Button)>
+  <WithStyles(Select)
+    className="MyPRList-buttonDesktop-5"
+    displayEmpty={true}
+    name="Reviewer"
+    onChange={[Function]}
+    value="ALL"
+  >
+    <WithStyles(MenuItem)
+      value="ALL"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        Alle
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      key="ttran"
+      value="ttran"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        ttran
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      key="test"
+      value="test"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        test
+      </div>
+    </WithStyles(MenuItem)>
+  </WithStyles(Select)>
+  <WithStyles(Select)
+    className="MyPRList-buttonDesktop-5"
+    displayEmpty={true}
+    name="Occasion"
+    onChange={[Function]}
+    value="ALL"
+  >
+    <WithStyles(MenuItem)
+      value="ALL"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        Alle
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      key="ON_DEMAND"
+      value="ON_DEMAND"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        Auf Nachfrage
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      key="YEARLY"
+      value="YEARLY"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        jährlich
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      key="QUARTERLY"
+      value="QUARTERLY"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        vierteljährlich
+      </div>
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      key="END_PROBATION"
+      value="END_PROBATION"
+    >
+      <div
+        className="MyPRList-filterDesktop-6"
+      >
+        Ende der Probezeit
+      </div>
+    </WithStyles(MenuItem)>
+  </WithStyles(Select)>
   <Hidden
     implementation="js"
     lgDown={false}
@@ -52,56 +156,46 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
         className="MyPRList-root-2"
       >
         <WithStyles(Button)
-          className="MyPRList-buttonList-18"
+          className="MyPRList-buttonList-19"
           key="1"
           onClick={[Function]}
         >
           <WithStyles(List)
-            className="MyPRList-openList-7"
+            className="MyPRList-openList-8"
           >
-            <WithStyles(ListItem)
-              className="MyPRList-listItem-11"
-            >
-              <WithStyles(ListItemText)>
-                <div
-                  className="MyPRList-divItemText-12"
-                >
-                  <WithStyles(Typography)
-                    className="MyPRList-typography-8"
-                  >
-                    Beurteiler: 
-                    ttran
-                  </WithStyles(Typography)>
-                  <WithStyles(Typography)
-                    className="MyPRList-typography-8"
-                  >
-                    Datum: 
-                    11.05.15
-                  </WithStyles(Typography)>
-                  <WithStyles(Typography)
-                    className="MyPRList-typography-8"
-                  >
-                    Auf Nachfrage
-                  </WithStyles(Typography)>
-                  <WithStyles(Typography)
-                    className="MyPRList-typographyGreen-10"
-                  >
-                    In Vorbereitung
-                  </WithStyles(Typography)>
-                </div>
-              </WithStyles(ListItemText)>
-            </WithStyles(ListItem)>
+            <WithStyles(MyPRListItem)
+              deadline="2015-05-11"
+              occasion="jährlich"
+              reviewer="ttran"
+              status="In Vorbereitung"
+            />
+          </WithStyles(List)>
+        </WithStyles(Button)>
+        <WithStyles(Button)
+          className="MyPRList-buttonList-19"
+          key="2"
+          onClick={[Function]}
+        >
+          <WithStyles(List)
+            className="MyPRList-list-7"
+          >
+            <WithStyles(MyPRListItem)
+              deadline="2222-05-11"
+              occasion="Auf Nachfrage"
+              reviewer="test"
+              status="In Vorbereitung"
+            />
           </WithStyles(List)>
         </WithStyles(Button)>
       </div>
       <div
-        className="MyPRList-cardContainerRow-15"
+        className="MyPRList-cardContainerRow-16"
       >
         <WithStyles(Card)
-          className="MyPRList-cardColumnSheet-16"
+          className="MyPRList-cardColumnSheet-17"
         >
           <WithStyles(Typography)
-            className="MyPRList-title-14"
+            className="MyPRList-title-15"
             variant="body2"
           >
             SHEET
@@ -192,7 +286,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                   "title": "DR",
                 },
                 "id": 1,
-                "occasion": "ON_DEMAND",
+                "occasion": "YEARLY",
                 "status": "PREPARATION",
                 "supervisor": "ttran",
               }
@@ -200,13 +294,13 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           />
         </WithStyles(Card)>
         <div
-          className="MyPRList-cardContainerColumn-17"
+          className="MyPRList-cardContainerColumn-18"
         >
           <WithStyles(Card)
-            className="MyPRList-cardColumn-13"
+            className="MyPRList-cardColumn-14"
           >
             <WithStyles(Typography)
-              className="MyPRList-title-14"
+              className="MyPRList-title-15"
               variant="body2"
             >
               GEHALT UND ANSTELLUNG
@@ -297,7 +391,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                     "title": "DR",
                   },
                   "id": 1,
-                  "occasion": "ON_DEMAND",
+                  "occasion": "YEARLY",
                   "status": "PREPARATION",
                   "supervisor": "ttran",
                 }
@@ -389,7 +483,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                     "title": "DR",
                   },
                   "id": 1,
-                  "occasion": "ON_DEMAND",
+                  "occasion": "YEARLY",
                   "status": "PREPARATION",
                   "supervisor": "ttran",
                 }
@@ -397,10 +491,10 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             />
           </WithStyles(Card)>
           <WithStyles(Card)
-            className="MyPRList-cardColumn-13"
+            className="MyPRList-cardColumn-14"
           >
             <WithStyles(Typography)
-              className="MyPRList-title-14"
+              className="MyPRList-title-15"
               variant="body2"
             >
               STATUS
@@ -435,40 +529,35 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       to="/prs/1"
     >
       <WithStyles(List)
-        className="MyPRList-list-6"
+        className="MyPRList-list-7"
       >
-        <WithStyles(ListItem)
-          className="MyPRList-listItem-11"
-        >
-          <WithStyles(ListItemText)>
-            <div
-              className="MyPRList-divItemText-12"
-            >
-              <WithStyles(Typography)
-                className="MyPRList-typography-8"
-              >
-                Beurteiler: 
-                ttran
-              </WithStyles(Typography)>
-              <WithStyles(Typography)
-                className="MyPRList-typography-8"
-              >
-                Datum: 
-                11.05.15
-              </WithStyles(Typography)>
-              <WithStyles(Typography)
-                className="MyPRList-typography-8"
-              >
-                Auf Nachfrage
-              </WithStyles(Typography)>
-              <WithStyles(Typography)
-                className="MyPRList-typographyGreen-10"
-              >
-                In Vorbereitung
-              </WithStyles(Typography)>
-            </div>
-          </WithStyles(ListItemText)>
-        </WithStyles(ListItem)>
+        <WithStyles(MyPRListItem)
+          deadline="2015-05-11"
+          occasion="jährlich"
+          reviewer="ttran"
+          status="In Vorbereitung"
+        />
+      </WithStyles(List)>
+    </Link>
+    <Link
+      key="2"
+      replace={false}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
+      to="/prs/2"
+    >
+      <WithStyles(List)
+        className="MyPRList-list-7"
+      >
+        <WithStyles(MyPRListItem)
+          deadline="2222-05-11"
+          occasion="Auf Nachfrage"
+          reviewer="test"
+          status="In Vorbereitung"
+        />
       </WithStyles(List)>
     </Link>
   </Hidden>

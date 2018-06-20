@@ -15,115 +15,11 @@ import PrSheet from './PrSheet';
 import Card from '@material-ui/core/Card';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexFlow: 'row wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  root: {
-    width: '25%',
-    maxWidth: 300,
-    backgroundColor: theme.palette.background.paper
-  },
-  buttonMobile: {
-    position: 'fixed',
-    left: '80%',
-    bottom: '10%'
-  },
-  icon: {
-    position: 'fixed',
-    left: '84%',
-    bottom: '13%'
-  },
-  buttonDesktop: {
-    position: 'relative',
-    marginRight: '1%',
-    marginLeft: '80%',
-    backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
-    marginBottom: '2%'
-  },
-  list: {
-    backgroundColor: theme.palette.primary['400'],
-    marginBottom: '5px'
-  },
-  openList: {
-    backgroundColor: theme.palette.primary['200'],
-    marginBottom: '5px'
-  },
-  typography: {
-    color: theme.palette.primary['50'],
-    marginLeft: '25px',
-    marginTop: '10px',
-    marginBottom: '10px'
-  },
-  typographyDone: {
-    color: theme.palette.primary['50'],
-    marginLeft: '25px',
-    marginTop: '10px',
-    marginBottom: '10px'
-  },
-  typographyGreen: {
-    color: '#40bf40',
-    marginLeft: '25px',
-    marginTop: '10px',
-    marginBottom: '10px'
-  },
-  listItem: {
-    textAlign: 'center',
-    padding: '0'
-  },
-  divItemText: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-  cardColumn: {
-    alignSelf: 'top',
-    boxShadow:
-      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)',
-    backgroundColor: 'inherit',
-    marginBottom: '20px'
-  },
-  title: {
-    backgroundColor: theme.palette.primary['200'],
-    color: '#FFF',
-    height: '40px',
-    textAlign: 'center',
-    paddingTop: '15px'
-  },
-  cardContainerRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '74%',
-    justifyContent: 'space-around'
-  },
-  cardColumnSheet: {
-    width: '40%',
-    alignSelf: 'top',
-    backgroundColor: 'inherit',
-    boxShadow:
-      '0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px 0px rgba(0, 0, 0, 0)'
-  },
-
-  cardContainerColumn: {
-    display: 'flex',
-    width: '50%',
-    flexDirection: 'column',
-    justifyContent: 'flex-start'
-  },
-  buttonList: {
-    fontSize: '0.675rem',
-    textTransform: 'none',
-    padding: '0'
-  }
-});
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import styles from './MyPRListStyle';
+import { default as MyPRListItem } from './MyPRListItem';
 
 export class MyPRList extends React.Component {
   constructor(props) {
@@ -131,7 +27,14 @@ export class MyPRList extends React.Component {
     let prOpen = props.prs.length !== 0 ? props.prs[0] : null;
     this.state = {
       prs: props.prs,
-      prOpen: prOpen
+      prOpen: prOpen,
+      filters: props.filters
+        ? props.filters
+        : {
+            reviewer: 'ALL',
+            occasion: 'ALL'
+          },
+      dateInAscendingOrder: true
     };
   }
 
@@ -175,15 +78,125 @@ export class MyPRList extends React.Component {
     });
   };
 
+  switchDateOrder = () => {
+    this.setState(prevState => ({
+      dateInAscendingOrder: !prevState.dateInAscendingOrder,
+      prs: this.state.prs.sort(this.dateSort(!prevState.dateInAscendingOrder))
+    }));
+  };
+
+  dateSort = dateInAscendingOrder => {
+    return (firstPR, secondPR) => {
+      let comparison = 0;
+      if (moment(firstPR.deadline).isBefore(moment(secondPR.deadline))) {
+        comparison = 1;
+      } else if (moment(firstPR.deadline).isAfter(moment(secondPR.deadline))) {
+        comparison = -1;
+      }
+      return dateInAscendingOrder ? comparison * -1 : comparison;
+    };
+  };
+
+  filterPR = pr => {
+    const { filters } = this.state;
+    return (
+      pr.employee.firstName === 'Lionel' &&
+      (filters.reviewer === 'ALL' || pr.supervisor === filters.reviewer) &&
+      (filters.occasion === 'ALL' || pr.occasion === filters.occasion)
+    );
+  };
+
+  handleFilter = event => {
+    const oldfilter = this.state.filters;
+    switch (event.target.name) {
+      case 'Reviewer':
+        this.setState({
+          filters: {
+            ...oldfilter,
+            reviewer: event.target.value
+          }
+        });
+        break;
+      case 'Occasion':
+        this.setState({
+          filters: {
+            ...oldfilter,
+            occasion: event.target.value
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
+  componentDidMount() {
+    this.setState({
+      prs: this.state.prs.sort(this.dateSort(this.state.dateInAscendingOrder))
+    });
+  }
+
   render() {
     const { classes, prs } = this.props;
-    const { prOpen } = this.state;
-
+    const { prOpen, dateInAscendingOrder } = this.state;
     return (
       <div>
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
+        <Button
+          id="sortButton"
+          className={classes.button}
+          variant="outlined"
+          onClick={this.switchDateOrder}
+        >
+          Datum
+          <Icon className={classes.rightIcon}>
+            {dateInAscendingOrder ? 'arrow_upward' : 'arrow_downward'}
+          </Icon>
+        </Button>
+
+        <Select
+          value={this.state.filters.reviewer}
+          onChange={this.handleFilter}
+          displayEmpty
+          name="Reviewer"
+          className={classes.buttonDesktop}
+        >
+          <MenuItem value="ALL">
+            <div className={classes.filterDesktop}>Alle</div>
+          </MenuItem>
+          {Array.from(new Set(prs.map(pr => pr.supervisor))).map(reviewer => {
+            return (
+              <MenuItem key={reviewer} value={reviewer}>
+                <div className={classes.filterDesktop}>{reviewer}</div>
+              </MenuItem>
+            );
+          })}
+        </Select>
+        <Select
+          value={this.state.filters.occasion}
+          onChange={this.handleFilter}
+          displayEmpty
+          name="Occasion"
+          className={classes.buttonDesktop}
+        >
+          <MenuItem value="ALL">
+            <div className={classes.filterDesktop}>Alle</div>
+          </MenuItem>
+          {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
+            occasion => {
+              return (
+                <MenuItem key={occasion} value={occasion}>
+                  <div className={classes.filterDesktop}>
+                    {this.translateOccasion(occasion)}
+                  </div>
+                </MenuItem>
+              );
+            }
+          )}
+        </Select>
+
         <Hidden smDown>
           <Button
             className={classes.buttonDesktop}
@@ -198,7 +211,7 @@ export class MyPRList extends React.Component {
         <Hidden smDown>
           <div className={classes.container}>
             <div className={classes.root}>
-              {prs.filter(pr => pr.employee.firstName === 'Lionel').map(pr => {
+              {prs.filter(this.filterPR).map(pr => {
                 return (
                   <Button
                     key={pr.id}
@@ -212,35 +225,12 @@ export class MyPRList extends React.Component {
                         prOpen === pr ? classes.openList : classes.list
                       }
                     >
-                      <ListItem className={classes.listItem}>
-                        <ListItemText>
-                          <div className={classes.divItemText}>
-                            <Typography className={classes.typography}>
-                              Beurteiler: {pr.supervisor}
-                            </Typography>
-                            {pr.deadline ? (
-                              <Typography className={classes.typography}>
-                                Datum: {moment(pr.deadline).format('DD.MM.YY')}
-                              </Typography>
-                            ) : (
-                              ''
-                            )}
-
-                            <Typography className={classes.typography}>
-                              {this.translateOccasion(pr.occasion)}
-                            </Typography>
-                            <Typography
-                              className={
-                                pr.status === 'DONE'
-                                  ? classes.typographyDone
-                                  : classes.typographyGreen
-                              }
-                            >
-                              {this.translateStatus(pr.status)}
-                            </Typography>
-                          </div>
-                        </ListItemText>
-                      </ListItem>
+                      <MyPRListItem
+                        reviewer={pr.supervisor}
+                        deadline={pr.deadline}
+                        occasion={this.translateOccasion(pr.occasion)}
+                        status={this.translateStatus(pr.status)}
+                      />
                     </List>
                   </Button>
                 );
@@ -277,7 +267,7 @@ export class MyPRList extends React.Component {
           </div>
         </Hidden>
         <Hidden smUp>
-          {prs.filter(pr => pr.employee.firstName === 'Lionel').map(pr => {
+          {prs.filter(this.filterPR).map(pr => {
             return (
               <Link
                 key={pr.id}
@@ -285,30 +275,12 @@ export class MyPRList extends React.Component {
                 style={{ textDecoration: 'none' }}
               >
                 <List className={classes.list}>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText>
-                      <div className={classes.divItemText}>
-                        <Typography className={classes.typography}>
-                          Beurteiler: {pr.supervisor}
-                        </Typography>
-                        <Typography className={classes.typography}>
-                          Datum: {moment(pr.deadline).format('DD.MM.YY')}
-                        </Typography>
-                        <Typography className={classes.typography}>
-                          {this.translateOccasion(pr.occasion)}
-                        </Typography>
-                        <Typography
-                          className={
-                            pr.status === 'DONE'
-                              ? classes.typographyDone
-                              : classes.typographyGreen
-                          }
-                        >
-                          {this.translateStatus(pr.status)}
-                        </Typography>
-                      </div>
-                    </ListItemText>
-                  </ListItem>
+                  <MyPRListItem
+                    reviewer={pr.supervisor}
+                    deadline={pr.deadline}
+                    occasion={this.translateOccasion(pr.occasion)}
+                    status={this.translateStatus(pr.status)}
+                  />
                 </List>
               </Link>
             );
