@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyledComponent } from './PrSheetEmployee';
 import { createShallow } from '@material-ui/core/test-utils';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 describe('PrSheetEmployee Component', () => {
   let shallow = createShallow({ dive: true });
@@ -52,5 +54,18 @@ describe('PrSheetEmployee Component', () => {
     );
 
     expect(component).toMatchSnapshot();
+  });
+
+  it('displays the text read-only for the supervisor', () => {
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        category="ROLE_AND_PROJECT_ENVIRONMENT"
+        userroles={['PR_CST_Leiter']}
+      />
+    );
+
+    expect(component.find(Typography)).toHaveLength(1);
+    expect(component.find(TextField)).toHaveLength(0);
   });
 });
