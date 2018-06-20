@@ -2,7 +2,7 @@ import { default as fetch } from '../helper/customFetch';
 
 export const getCstMembers = () => async dispatch => {
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/cstmembers?supervisorId=1`,
+    `${process.env.REACT_APP_API}/api/v1/cstmembers`,
     {
       mode: 'cors'
     }
