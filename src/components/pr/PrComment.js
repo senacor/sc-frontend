@@ -37,8 +37,11 @@ const styles = theme => ({
     paddingLeft: '20px',
     width: '80%'
   },
-  icon: {
+  iconComment: {
     color: theme.palette.primary['400']
+  },
+  iconNoComment: {
+    color: '#dddddd'
   },
   nestedNumber: {
     width: '20%'
@@ -140,9 +143,9 @@ class PrComment extends React.Component {
             />
 
             {this.state.comment ? (
-              <Icon className={classes.icon}>comment</Icon>
+              <Icon className={classes.iconComment}>comment</Icon>
             ) : (
-              ''
+              <Icon className={classes.iconNoComment}>comment</Icon>
             )}
           </ListItem>
 
