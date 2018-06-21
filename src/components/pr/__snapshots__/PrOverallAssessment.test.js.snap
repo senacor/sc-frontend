@@ -78,59 +78,67 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           value={3}
         >
           <WithStyles(MenuItem)
+            key="_ratingTargetRole1"
             id="ratingTargetRoleValue1"
             value={1}
           >
             keine Auswahl
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue2"
+            key="_ratingTargetRole2"
             value={2}
           >
             Platformgestalter
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue3"
+            key="_ratingTargetRole3"
             value={3}
           >
             Business IT Solution Leader
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue4"
+            key="_ratingTargetRole4"
             value={4}
           >
             Transformation Manager
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue5"
+            key="_ratingTargetRole5"
             value={5}
           >
             IT-Liefersteuerer
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue6"
+            key="_ratingTargetRole6"
             value={6}
           >
             Architect
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue7"
+            key="_ratingTargetRole7"
             value={7}
           >
             Technical Expert
           </WithStyles(MenuItem)>
-          ,
           <WithStyles(MenuItem)
             id="ratingTargetRoleValue8"
+            key="_ratingTargetRole8"
             value={8}
           >
             Lead Developer
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            id="_ratingTargetRole9"
+            key="_ratingTargetRole9"
+            value={9}
+          >
+            keine Auswahl
           </WithStyles(MenuItem)>
         </WithStyles(Select)>
       </WithStyles(FormControl)>
@@ -147,7 +155,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
         disableTypography={true}
         secondary={
           <WithStyles(Typography)
-            className="PrOverallAssessment-test-9"
+            className="PrOverallAssessment-test-10"
           >
             Freitextfeld (bitte ausfüllen)
           </WithStyles(Typography)>
@@ -183,6 +191,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)
         className="PrOverallAssessment-description-4"
+        primary="Beschreibung"
         secondary="In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?"
       />
     </WithStyles(ListItem)>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledComponent } from './PrComment';
 import { createShallow } from '@material-ui/core/test-utils';
-import { mount } from 'enzyme';
 import ROLES from '../../helper/roles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
