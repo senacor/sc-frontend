@@ -47,11 +47,14 @@ const styles = theme => ({
   comment: {
     paddingLeft: '24px',
     paddingRight: '24px',
-    color: '#26646d',
+    color: theme.palette.primary['400'],
     fontStyle: 'italic'
   },
   expanded: {
     backgroundColor: 'rgba(0, 0, 0, 0.04)'
+  },
+  rating: {
+    color: theme.palette.primary['400']
   }
 });
 
@@ -159,7 +162,9 @@ class PrComment extends React.Component {
 
           <ListItem className={classes.nestedNumber}>
             {isEmployee(this.props.userroles) ? (
-              <Typography variant="body1">{this.state.rating}</Typography>
+              <Typography className={classes.rating} variant="body2">
+                {this.state.rating}
+              </Typography>
             ) : (
               <FormControl className={classes.formControl}>
                 <Select
