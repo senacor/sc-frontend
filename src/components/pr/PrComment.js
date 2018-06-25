@@ -35,8 +35,11 @@ const styles = theme => ({
   nestedListItem: {
     width: '80%'
   },
-  icon: {
+  iconComment: {
     color: theme.palette.primary['400']
+  },
+  iconNoComment: {
+    color: '#dddddd'
   },
   nestedNumber: {
     width: '20%'
@@ -45,7 +48,6 @@ const styles = theme => ({
     width: '95%'
   },
   comment: {
-    paddingLeft: '24px',
     paddingRight: '24px',
     color: theme.palette.primary['400'],
     fontStyle: 'italic'
@@ -149,11 +151,13 @@ class PrComment extends React.Component {
               secondary={this.translateRatingDescription(category)}
             />
 
-            {this.state.comment && !this.state.isExpanded ? (
-              <Icon className={classes.icon}>comment</Icon>
-            ) : (
-              ''
-            )}
+            <Icon
+              className={
+                this.state.comment ? classes.iconComment : classes.iconNoComment
+              }
+            >
+              comment
+            </Icon>
           </ListItem>
 
           <ListItem className={classes.nestedNumber}>
@@ -191,9 +195,8 @@ class PrComment extends React.Component {
             {isEmployee(this.props.userroles) ? (
               this.state.comment ? (
                 <ListItem>
-                  <Icon className={classes.icon}>comment</Icon>
                   <Typography className={classes.comment} variant="body1">
-                    {this.state.comment}
+                    » {this.state.comment} «
                   </Typography>
                 </ListItem>
               ) : (
