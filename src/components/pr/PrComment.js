@@ -142,11 +142,13 @@ class PrComment extends React.Component {
               secondary={this.translateRatingDescription(category)}
             />
 
-            {this.state.comment ? (
-              <Icon className={classes.iconComment}>comment</Icon>
-            ) : (
-              <Icon className={classes.iconNoComment}>comment</Icon>
-            )}
+            <Icon
+              className={
+                this.state.comment ? classes.iconComment : classes.iconNoComment
+              }
+            >
+              comment
+            </Icon>
           </ListItem>
 
           <ListItem className={classes.nestedNumber}>
