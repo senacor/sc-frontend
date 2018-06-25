@@ -1,6 +1,10 @@
 import React from 'react';
 import { StyledComponent } from './PrComment';
 import { createShallow } from '@material-ui/core/test-utils';
+import ROLES from '../../helper/roles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 
 describe('PrComment Component', () => {
   let shallow = createShallow({ dive: true });
@@ -129,5 +133,18 @@ describe('PrComment Component', () => {
     );
 
     expect(component).toMatchSnapshot();
+  });
+
+  it('should display no input components when viewer is employee', () => {
+    const wrapper = shallow(
+      <StyledComponent
+        prById={prById}
+        category="TEAMWORK"
+        userroles={[ROLES.PR_MITARBEITER]}
+      />
+    );
+    expect(wrapper.find(Typography)).toHaveLength(2);
+    expect(wrapper.find(TextField)).toHaveLength(0);
+    expect(wrapper.find(Select)).toHaveLength(0);
   });
 });

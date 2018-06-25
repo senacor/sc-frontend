@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrComment Component should display Customer interaction 1`] = `
-<div>
+<div
+  className=""
+>
   <div
     className="PrComment-containerListItem-3"
   >
@@ -106,7 +108,6 @@ exports[`PrComment Component should display Customer interaction 1`] = `
           value="iii"
         />
       </WithStyles(ListItem)>
-      <WithStyles(ListItem) />
       <WithStyles(PrSwipePositionDescription)
         category="CUSTOMER_INTERACTION"
       />
@@ -116,7 +117,9 @@ exports[`PrComment Component should display Customer interaction 1`] = `
 `;
 
 exports[`PrComment Component should display ProblemAnalysis 1`] = `
-<div>
+<div
+  className=""
+>
   <div
     className="PrComment-containerListItem-3"
   >
@@ -221,7 +224,6 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
           value="ggg"
         />
       </WithStyles(ListItem)>
-      <WithStyles(ListItem) />
       <WithStyles(PrSwipePositionDescription)
         category="PROBLEM_ANALYSIS"
       />
@@ -231,7 +233,9 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
 `;
 
 exports[`PrComment Component should display Teamwork 1`] = `
-<div>
+<div
+  className=""
+>
   <div
     className="PrComment-containerListItem-3"
   >
@@ -336,7 +340,6 @@ exports[`PrComment Component should display Teamwork 1`] = `
           value="fff"
         />
       </WithStyles(ListItem)>
-      <WithStyles(ListItem) />
       <WithStyles(PrSwipePositionDescription)
         category="TEAMWORK"
       />
@@ -346,7 +349,9 @@ exports[`PrComment Component should display Teamwork 1`] = `
 `;
 
 exports[`PrComment Component should display the ContributionToCompanyDevelopment 1`] = `
-<div>
+<div
+  className=""
+>
   <div
     className="PrComment-containerListItem-3"
   >
@@ -451,7 +456,6 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
           value="hhh"
         />
       </WithStyles(ListItem)>
-      <WithStyles(ListItem) />
       <WithStyles(PrSwipePositionDescription)
         category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
       />

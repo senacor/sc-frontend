@@ -202,6 +202,9 @@ class PrSwipePositionDescription extends React.Component {
     return (
       <div>
         <ListItem>
+          <ListItemText secondary={this.positionText(category)} />
+        </ListItem>
+        <ListItem>
           <IconButton
             className={classes.button}
             aria-label="Links"
@@ -262,9 +265,6 @@ class PrSwipePositionDescription extends React.Component {
           >
             <Icon>keyboard_arrow_right</Icon>
           </IconButton>
-        </ListItem>
-        <ListItem>
-          <ListItemText secondary={this.positionText(category)} />
         </ListItem>
       </div>
     );

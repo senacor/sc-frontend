@@ -11,11 +11,11 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import * as actions from '../../actions';
 import { debounce } from '../../helper/debounce';
+import { isEmployee } from '../../helper/checkRole';
 import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   nestedText: {
-    paddingLeft: '20px',
     paddingRight: '27px'
   },
   bootstrapInput: {
@@ -47,6 +47,9 @@ const styles = theme => ({
     marginBottom: '-30px'
   },
   icon: {
+    color: theme.palette.primary['400']
+  },
+  iconError: {
     color: theme.palette.primary['400'],
     fontSize: 17,
     marginBottom: '-30px'
@@ -54,6 +57,12 @@ const styles = theme => ({
   test: {
     fontSize: 12,
     color: theme.palette.text.secondary
+  },
+  comment: {
+    paddingLeft: '24px',
+    paddingRight: '24px',
+    color: '#26646d',
+    fontStyle: 'italic'
   }
 });
 
@@ -136,6 +145,46 @@ class PrOverallAssessment extends React.Component {
       'In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?'
   };
 
+  mapRatingFullfilment = ratingFulfillemnt => {
+    switch (ratingFulfillemnt) {
+      case 1:
+        return 'nicht erfüllt';
+      case 2:
+        return 'zT. nicht erfüllt';
+      case 3:
+        return 'erfüllt';
+      case 4:
+        return 'zT. übererfüllt';
+      case 5:
+        return 'übererfüllt';
+      default:
+        return 'keine Auswahl';
+    }
+  };
+
+  mapRatingTargetRole = ratingTargetRole => {
+    switch (ratingTargetRole) {
+      case 1:
+        return 'keine Auswahl';
+      case 2:
+        return 'Platformgestalter';
+      case 3:
+        return 'Business IT Solution Leader';
+      case 4:
+        return 'Transformation Manager';
+      case 5:
+        return 'IT-Liefersteuerer';
+      case 6:
+        return 'Architect';
+      case 7:
+        return 'Technical Expert';
+      case 8:
+        return 'Lead Developer';
+      default:
+        return 'keine Auswahl';
+    }
+  };
+
   render() {
     const { prById, classes } = this.props;
 
@@ -149,38 +198,39 @@ class PrOverallAssessment extends React.Component {
                 this.state.categoryFulfillment
               )}
             />
-            <FormControl className={classes.nestedTextSelect}>
-              <Select
-                id="ratingFullfillmentId"
-                value={
-                  this.state.ratingFulfillment
-                    ? this.state.ratingFulfillment
-                    : 3
-                }
-                onChange={this.handleChangeRating(prById)}
-                displayEmpty
-                name="ratingFulfillment"
-              >
-                <MenuItem id="ratingFullfillmentValue1" value={1}>
-                  nicht erfüllt
-                </MenuItem>,
-                <MenuItem id="ratingFullfillmentValue2" value={2}>
-                  zT. nicht erfüllt
-                </MenuItem>,
-                <MenuItem id="ratingFullfillmentValue3" value={3}>
-                  erfüllt
-                </MenuItem>,
-                <MenuItem id="ratingFullfillmentValue4" value={4}>
-                  zT. übererfüllt
-                </MenuItem>,
-                <MenuItem id="ratingFullfillmentValue5" value={5}>
-                  übererfüllt
-                </MenuItem>
-              </Select>
-            </FormControl>
+            {isEmployee(this.props.userroles) ? (
+              <Typography variant="body1">
+                {this.mapRatingFullfilment(this.state.ratingFulfillment)}
+              </Typography>
+            ) : (
+              <FormControl className={classes.nestedTextSelect}>
+                <Select
+                  id="ratingFullfillmentId"
+                  value={
+                    this.state.ratingFulfillment
+                      ? this.state.ratingFulfillment
+                      : 3
+                  }
+                  onChange={this.handleChangeRating(prById)}
+                  displayEmpty
+                  name="ratingFulfillment"
+                >
+                  {[1, 2, 3, 4, 5].map(ratingValue => {
+                    return (
+                      <MenuItem
+                        key={'_ratingFulfillment' + ratingValue}
+                        id={'_ratingFulfillmentValue' + ratingValue}
+                        value={ratingValue}
+                      >
+                        {this.mapRatingFullfilment(ratingValue)}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            )}
           </ListItem>
         </div>
-
         <div className={classes.containerListItem}>
           <ListItem>
             <ListItemText
@@ -190,91 +240,99 @@ class PrOverallAssessment extends React.Component {
               )}
             />
 
-            <FormControl className={classes.nestedTextSelect}>
-              <Select
-                id="ratingTargetRoleId"
-                value={
-                  this.state.ratingTargetRole ? this.state.ratingTargetRole : 1
-                }
-                displayEmpty
-                name="ratingTargetRole"
-                onChange={this.handleChangeRating(prById)}
-              >
-                <MenuItem id="ratingTargetRoleValue1" value={1}>
-                  keine Auswahl
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue2" value={2}>
-                  Platformgestalter
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue3" value={3}>
-                  Business IT Solution Leader
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue4" value={4}>
-                  Transformation Manager
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue5" value={5}>
-                  IT-Liefersteuerer
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue6" value={6}>
-                  Architect
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue7" value={7}>
-                  Technical Expert
-                </MenuItem>,
-                <MenuItem id="ratingTargetRoleValue8" value={8}>
-                  Lead Developer
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </ListItem>
-        </div>
-
-        <List component="div" disablePadding className={classes.nestedText}>
-          <ListItem>
-            <ListItemText
-              className={classes.nestedTextInfo}
-              disableTypography
-              secondary={
-                <Typography className={classes.test}>
-                  Freitextfeld (bitte ausfüllen)
-                </Typography>
-              }
-            />
-            {this.state.comment ? (
-              ''
+            {isEmployee(this.props.userroles) ? (
+              <Typography variant="body1">
+                {this.mapRatingTargetRole(this.state.ratingTargetRole)}
+              </Typography>
             ) : (
-              <Icon className={classes.icon}>error</Icon>
+              <FormControl className={classes.nestedTextSelect}>
+                <Select
+                  id="ratingTargetRoleId"
+                  value={
+                    this.state.ratingTargetRole
+                      ? this.state.ratingTargetRole
+                      : 1
+                  }
+                  displayEmpty
+                  name="ratingTargetRole"
+                  onChange={this.handleChangeRating(prById)}
+                >
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(ratingValue => {
+                    return (
+                      <MenuItem
+                        key={'_ratingTargetRole' + ratingValue}
+                        id={'_ratingTargetValueRole' + ratingValue}
+                        value={ratingValue}
+                      >
+                        {this.mapRatingTargetRole(ratingValue)}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
             )}
           </ListItem>
-          <ListItem>
-            <TextField
-              id={this.state.categoryFulfillment}
-              multiline
-              fullWidth
-              rowsMax="4"
-              value={this.state.comment ? this.state.comment : ''}
-              onChange={this.handleChangeComment(prById)}
-              InputProps={{
-                disableUnderline: true,
-                name: 'comment',
-                classes: {
-                  input: classes.bootstrapInput
+        </div>
+        {isEmployee(this.props.userroles) ? (
+          this.state.comment ? (
+            <div className={classes.containerListItem}>
+              <ListItem>
+                <Icon className={classes.icon}>comment</Icon>
+                <Typography className={classes.comment} variant="body1">
+                  {this.state.comment}
+                </Typography>
+              </ListItem>
+            </div>
+          ) : (
+            ''
+          )
+        ) : (
+          <List component="div" disablePadding className={classes.nestedText}>
+            <ListItem>
+              <ListItemText
+                className={classes.nestedTextInfo}
+                disableTypography
+                secondary={
+                  <Typography className={classes.test}>
+                    Freitextfeld (bitte ausfüllen)
+                  </Typography>
                 }
-              }}
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-          </ListItem>
-          <ListItem />
-          <ListItem>
-            <ListItemText
-              className={classes.description}
-              primary="Beschreibung"
-              secondary={this.categoryText.text}
-            />
-          </ListItem>
-        </List>
+              />
+              {this.state.comment ? (
+                ''
+              ) : (
+                <Icon className={classes.iconError}>error</Icon>
+              )}
+            </ListItem>
+            <ListItem>
+              <TextField
+                id={this.state.categoryFulfillment}
+                multiline
+                fullWidth
+                rowsMax="4"
+                value={this.state.comment ? this.state.comment : ''}
+                onChange={this.handleChangeComment(prById)}
+                InputProps={{
+                  disableUnderline: true,
+                  name: 'comment',
+                  classes: {
+                    input: classes.bootstrapInput
+                  }
+                }}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                className={classes.description}
+                primary="Beschreibung"
+                secondary={this.categoryText.text}
+              />
+            </ListItem>
+          </List>
+        )}
       </div>
     );
   }
@@ -283,6 +341,7 @@ class PrOverallAssessment extends React.Component {
 export const StyledComponentOA = withStyles(styles)(PrOverallAssessment);
 export default connect(
   state => ({
+    userroles: state.userroles,
     prRating: state.prRatings.prRating
   }),
   {
