@@ -1,9 +1,9 @@
 import { isEmployee } from './checkRole';
 
 describe('checkRole', () => {
-  it('recognizes whether the logged in user is an employee', () => {
-    let userroles = ['PR_Mitarbeiter'];
+  it('should recognize whether the logged in user is an employee', () => {
+    let userroles = [];
     let result = isEmployee(userroles);
-    expect(result).toBe(true);
+    expect(result).toBe(false);
   });
 });

@@ -70,7 +70,7 @@ class PrComment extends React.Component {
       rating: prRating ? prRating.rating : {},
       comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
-      is_expanded: false
+      isExpanded: false
     };
   }
 
@@ -130,7 +130,7 @@ class PrComment extends React.Component {
 
   handleClick = () => {
     this.setState({
-      is_expanded: !this.state.is_expanded
+      isExpanded: !this.state.isExpanded
     });
   };
 
@@ -138,7 +138,7 @@ class PrComment extends React.Component {
     const { prById, category, classes } = this.props;
 
     return (
-      <div className={this.state.is_expanded ? classes.expanded : ''}>
+      <div className={this.state.isExpanded ? classes.expanded : ''}>
         <div className={classes.containerListItem}>
           <ListItem
             button
@@ -149,12 +149,8 @@ class PrComment extends React.Component {
               secondary={this.translateRatingDescription(category)}
             />
 
-            {this.state.comment ? (
-              !this.state.is_expanded ? (
-                <Icon className={classes.icon}>comment</Icon>
-              ) : (
-                ''
-              )
+            {this.state.comment && !this.state.isExpanded ? (
+              <Icon className={classes.icon}>comment</Icon>
             ) : (
               ''
             )}
@@ -190,7 +186,7 @@ class PrComment extends React.Component {
             )}
           </ListItem>
         </div>
-        <Collapse in={this.state.is_expanded} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             {isEmployee(this.props.userroles) ? (
               this.state.comment ? (
