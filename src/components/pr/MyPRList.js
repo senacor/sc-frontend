@@ -157,6 +157,7 @@ export class MyPRList extends React.Component {
         </Button>
 
         <Select
+          id="_SelectIdFilter"
           value={this.state.filters.reviewer}
           onChange={this.handleFilter}
           displayEmpty
@@ -175,6 +176,7 @@ export class MyPRList extends React.Component {
           })}
         </Select>
         <Select
+          id="_SelectIdFilter"
           value={this.state.filters.occasion}
           onChange={this.handleFilter}
           displayEmpty
@@ -215,6 +217,7 @@ export class MyPRList extends React.Component {
                 return (
                   <Button
                     key={pr.id}
+                    id={pr.id}
                     className={classes.buttonList}
                     onClick={() => {
                       this.openAnotherSheet(pr);

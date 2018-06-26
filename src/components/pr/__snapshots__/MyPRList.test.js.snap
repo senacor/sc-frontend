@@ -21,6 +21,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
   <WithStyles(Select)
     className="MyPRList-buttonDesktop-5"
     displayEmpty={true}
+    id="_SelectIdFilter"
     name="Reviewer"
     onChange={[Function]}
     value="ALL"
@@ -58,6 +59,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
   <WithStyles(Select)
     className="MyPRList-buttonDesktop-5"
     displayEmpty={true}
+    id="_SelectIdFilter"
     name="Occasion"
     onChange={[Function]}
     value="ALL"
@@ -157,6 +159,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       >
         <WithStyles(Button)
           className="MyPRList-buttonList-19"
+          id={1}
           key="1"
           onClick={[Function]}
         >
@@ -173,6 +176,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
         </WithStyles(Button)>
         <WithStyles(Button)
           className="MyPRList-buttonList-19"
+          id={2}
           key="2"
           onClick={[Function]}
         >
