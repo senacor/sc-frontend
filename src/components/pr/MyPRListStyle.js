@@ -13,12 +13,7 @@ const styles = theme => ({
   buttonMobile: {
     position: 'fixed',
     left: '80%',
-    bottom: '10%'
-  },
-  icon: {
-    position: 'fixed',
-    left: '84%',
-    bottom: '13%'
+    bottom: '5%'
   },
   buttonDesktop: {
     position: 'relative',
@@ -104,6 +99,18 @@ const styles = theme => ({
     fontSize: '0.675rem',
     textTransform: 'none',
     padding: '0'
+  },
+  prControls: {
+    marginBottom: '1%',
+    '& *': {
+      marginRight: '2%'
+    }
+  },
+  buttonWrapper: {
+    display: 'block'
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit
   }
 });
 

@@ -144,72 +144,70 @@ export class MyPRList extends React.Component {
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
-        <Button
-          id="sortButton"
-          className={classes.button}
-          variant="outlined"
-          onClick={this.switchDateOrder}
-        >
-          Datum
-          <Icon className={classes.rightIcon}>
-            {dateInAscendingOrder ? 'arrow_upward' : 'arrow_downward'}
-          </Icon>
-        </Button>
-
-        <Select
-          id="_SelectIdFilter"
-          value={this.state.filters.reviewer}
-          onChange={this.handleFilter}
-          displayEmpty
-          name="Reviewer"
-          className={classes.buttonDesktop}
-        >
-          <MenuItem value="ALL">
-            <div className={classes.filterDesktop}>Alle</div>
-          </MenuItem>
-          {Array.from(new Set(prs.map(pr => pr.supervisor))).map(reviewer => {
-            return (
-              <MenuItem key={reviewer} value={reviewer}>
-                <div className={classes.filterDesktop}>{reviewer}</div>
-              </MenuItem>
-            );
-          })}
-        </Select>
-        <Select
-          id="_SelectIdFilter"
-          value={this.state.filters.occasion}
-          onChange={this.handleFilter}
-          displayEmpty
-          name="Occasion"
-          className={classes.buttonDesktop}
-        >
-          <MenuItem value="ALL">
-            <div className={classes.filterDesktop}>Alle</div>
-          </MenuItem>
-          {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
-            occasion => {
-              return (
-                <MenuItem key={occasion} value={occasion}>
-                  <div className={classes.filterDesktop}>
-                    {this.translateOccasion(occasion)}
-                  </div>
-                </MenuItem>
-              );
-            }
-          )}
-        </Select>
 
         <Hidden smDown>
-          <Button
-            className={classes.buttonDesktop}
-            variant="raised"
-            onClick={this.handleClick}
-          >
-            PR beantragen
-            <Icon className={classes.rightIcon}>add</Icon>
-          </Button>
+          <div className={classes.buttonWrapper}>
+            <Button
+              className={classes.buttonDesktop}
+              variant="raised"
+              onClick={this.handleClick}
+            >
+              <Icon className={classes.leftIcon}>add</Icon>
+              Beantrage PR
+            </Button>
+          </div>
         </Hidden>
+        <div className={classes.prControls}>
+          <Button id="sortButton" onClick={this.switchDateOrder}>
+            <Icon className={classes.leftIcon}>
+              {dateInAscendingOrder ? 'arrow_upward' : 'arrow_downward'}
+            </Icon>
+            Datum
+          </Button>
 
+          <Select
+            id="_SelectIdFilter"
+            value={this.state.filters.reviewer}
+            onChange={this.handleFilter}
+            displayEmpty
+            name="Reviewer"
+            className={classes.buttonDesktop}
+          >
+            <MenuItem value="ALL">
+              <div className={classes.filterDesktop}>Alle</div>
+            </MenuItem>
+            {Array.from(new Set(prs.map(pr => pr.supervisor))).map(reviewer => {
+              return (
+                <MenuItem key={reviewer} value={reviewer}>
+                  <div className={classes.filterDesktop}>{reviewer}</div>
+                </MenuItem>
+              );
+            })}
+          </Select>
+          <Select
+            id="_SelectIdFilter"
+            value={this.state.filters.occasion}
+            onChange={this.handleFilter}
+            displayEmpty
+            name="Occasion"
+            className={classes.buttonDesktop}
+          >
+            <MenuItem value="ALL">
+              <div className={classes.filterDesktop}>Alle</div>
+            </MenuItem>
+            {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
+              occasion => {
+                return (
+                  <MenuItem key={occasion} value={occasion}>
+                    <div className={classes.filterDesktop}>
+                      {this.translateOccasion(occasion)}
+                    </div>
+                  </MenuItem>
+                );
+              }
+            )}
+          </Select>
+        </div>
         <Hidden smDown>
           <div className={classes.container}>
             <div className={classes.root}>
@@ -297,7 +295,7 @@ export class MyPRList extends React.Component {
             className={classes.buttonMobile}
             onClick={this.handleClick}
           >
-            <AddIcon className={classes.icon} />
+            <AddIcon />
           </Button>
         </Hidden>
       </div>

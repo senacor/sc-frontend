@@ -8,112 +8,6 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
   >
     Performance Reviews
   </WithStyles(Typography)>
-  <WithStyles(Button)
-    id="sortButton"
-    onClick={[Function]}
-    variant="outlined"
-  >
-    Datum
-    <WithStyles(Icon)>
-      arrow_upward
-    </WithStyles(Icon)>
-  </WithStyles(Button)>
-  <WithStyles(Select)
-    className="MyPRList-buttonDesktop-5"
-    displayEmpty={true}
-    id="_SelectIdFilter"
-    name="Reviewer"
-    onChange={[Function]}
-    value="ALL"
-  >
-    <WithStyles(MenuItem)
-      value="ALL"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        Alle
-      </div>
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
-      key="ttran"
-      value="ttran"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        ttran
-      </div>
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
-      key="test"
-      value="test"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        test
-      </div>
-    </WithStyles(MenuItem)>
-  </WithStyles(Select)>
-  <WithStyles(Select)
-    className="MyPRList-buttonDesktop-5"
-    displayEmpty={true}
-    id="_SelectIdFilter"
-    name="Occasion"
-    onChange={[Function]}
-    value="ALL"
-  >
-    <WithStyles(MenuItem)
-      value="ALL"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        Alle
-      </div>
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
-      key="ON_DEMAND"
-      value="ON_DEMAND"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        Auf Nachfrage
-      </div>
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
-      key="YEARLY"
-      value="YEARLY"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        jährlich
-      </div>
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
-      key="QUARTERLY"
-      value="QUARTERLY"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        vierteljährlich
-      </div>
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
-      key="END_PROBATION"
-      value="END_PROBATION"
-    >
-      <div
-        className="MyPRList-filterDesktop-6"
-      >
-        Ende der Probezeit
-      </div>
-    </WithStyles(MenuItem)>
-  </WithStyles(Select)>
   <Hidden
     implementation="js"
     lgDown={false}
@@ -127,17 +21,133 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
     xsDown={false}
     xsUp={false}
   >
-    <WithStyles(Button)
-      className="MyPRList-buttonDesktop-5"
-      onClick={[Function]}
-      variant="raised"
+    <div
+      className="MyPRList-buttonWrapper-20"
     >
-      PR beantragen
-      <WithStyles(Icon)>
-        add
-      </WithStyles(Icon)>
-    </WithStyles(Button)>
+      <WithStyles(Button)
+        className="MyPRList-buttonDesktop-4"
+        onClick={[Function]}
+        variant="raised"
+      >
+        <WithStyles(Icon)
+          className="MyPRList-leftIcon-21"
+        >
+          add
+        </WithStyles(Icon)>
+        Beantrage PR
+      </WithStyles(Button)>
+    </div>
   </Hidden>
+  <div
+    className="MyPRList-prControls-19"
+  >
+    <WithStyles(Button)
+      id="sortButton"
+      onClick={[Function]}
+      variant="outlined"
+    >
+      <WithStyles(Icon)
+        className="MyPRList-leftIcon-21"
+      >
+        arrow_upward
+      </WithStyles(Icon)>
+      Datum
+    </WithStyles(Button)>
+    <WithStyles(Select)
+      displayEmpty={true}
+      name="Reviewer"
+      onChange={[Function]}
+      value="ALL"
+      id="_SelectIdFilter"
+    >
+      <WithStyles(MenuItem)
+        value="ALL"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          Alle
+        </div>
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        key="ttran"
+        value="ttran"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          ttran
+        </div>
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        key="test"
+        value="test"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          test
+        </div>
+      </WithStyles(MenuItem)>
+    </WithStyles(Select)>
+    <WithStyles(Select)
+      displayEmpty={true}
+      name="Occasion"
+      onChange={[Function]}
+      value="ALL"
+       id="_SelectIdFilter"
+    >
+      <WithStyles(MenuItem)
+        value="ALL"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          Alle
+        </div>
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        key="ON_DEMAND"
+        value="ON_DEMAND"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          Auf Nachfrage
+        </div>
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        key="YEARLY"
+        value="YEARLY"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          jährlich
+        </div>
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        key="QUARTERLY"
+        value="QUARTERLY"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          vierteljährlich
+        </div>
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        key="END_PROBATION"
+        value="END_PROBATION"
+      >
+        <div
+          className="MyPRList-filterDesktop-5"
+        >
+          Ende der Probezeit
+        </div>
+      </WithStyles(MenuItem)>
+    </WithStyles(Select)>
+  </div>
   <Hidden
     implementation="js"
     lgDown={false}
@@ -158,13 +168,13 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
         className="MyPRList-root-2"
       >
         <WithStyles(Button)
-          className="MyPRList-buttonList-19"
+          className="MyPRList-buttonList-18"
           id={1}
           key="1"
           onClick={[Function]}
         >
           <WithStyles(List)
-            className="MyPRList-openList-8"
+            className="MyPRList-openList-7"
           >
             <WithStyles(MyPRListItem)
               deadline="2015-05-11"
@@ -175,13 +185,13 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           </WithStyles(List)>
         </WithStyles(Button)>
         <WithStyles(Button)
-          className="MyPRList-buttonList-19"
+          className="MyPRList-buttonList-18"
           id={2}
           key="2"
           onClick={[Function]}
         >
           <WithStyles(List)
-            className="MyPRList-list-7"
+            className="MyPRList-list-6"
           >
             <WithStyles(MyPRListItem)
               deadline="2222-05-11"
@@ -193,13 +203,13 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
         </WithStyles(Button)>
       </div>
       <div
-        className="MyPRList-cardContainerRow-16"
+        className="MyPRList-cardContainerRow-15"
       >
         <WithStyles(Card)
-          className="MyPRList-cardColumnSheet-17"
+          className="MyPRList-cardColumnSheet-16"
         >
           <WithStyles(Typography)
-            className="MyPRList-title-15"
+            className="MyPRList-title-14"
             variant="body2"
           >
             SHEET
@@ -298,13 +308,13 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           />
         </WithStyles(Card)>
         <div
-          className="MyPRList-cardContainerColumn-18"
+          className="MyPRList-cardContainerColumn-17"
         >
           <WithStyles(Card)
-            className="MyPRList-cardColumn-14"
+            className="MyPRList-cardColumn-13"
           >
             <WithStyles(Typography)
-              className="MyPRList-title-15"
+              className="MyPRList-title-14"
               variant="body2"
             >
               GEHALT UND ANSTELLUNG
@@ -495,10 +505,10 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             />
           </WithStyles(Card)>
           <WithStyles(Card)
-            className="MyPRList-cardColumn-14"
+            className="MyPRList-cardColumn-13"
           >
             <WithStyles(Typography)
-              className="MyPRList-title-15"
+              className="MyPRList-title-14"
               variant="body2"
             >
               STATUS
@@ -533,7 +543,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       to="/prs/1"
     >
       <WithStyles(List)
-        className="MyPRList-list-7"
+        className="MyPRList-list-6"
       >
         <WithStyles(MyPRListItem)
           deadline="2015-05-11"
@@ -554,7 +564,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       to="/prs/2"
     >
       <WithStyles(List)
-        className="MyPRList-list-7"
+        className="MyPRList-list-6"
       >
         <WithStyles(MyPRListItem)
           deadline="2222-05-11"
@@ -585,9 +595,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       onClick={[Function]}
       variant="fab"
     >
-      <pure(Add)
-        className="MyPRList-icon-4"
-      />
+      <pure(Add) />
     </WithStyles(Button)>
   </Hidden>
 </div>
