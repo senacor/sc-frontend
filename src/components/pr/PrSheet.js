@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -7,8 +8,10 @@ import PrComment from './PrComment';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
+import Button from '@material-ui/core/Button';
+import * as actions from '../../actions';
 
-const styles = () => ({
+const styles = theme => ({
   containerVertical: {
     flex: 1,
     flexDirection: 'column',
@@ -21,6 +24,20 @@ const styles = () => ({
   },
   rightAlignText: {
     textAlign: 'right'
+  },
+  buttonDesktop: {
+    position: 'relative',
+    marginRight: '1%',
+    backgroundColor: theme.palette.primary['400'],
+    color: '#FFF',
+    marginBottom: '2%'
+  },
+  buttonDesktopDisabled: {
+    position: 'relative',
+    marginRight: '1%',
+    backgroundColor: theme.palette.primary['50'],
+    color: '#FFF',
+    marginBottom: '2%'
   }
 });
 
@@ -28,9 +45,17 @@ class PrSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prById: this.props.prById
+      prById: this.props.prById,
+      prReleased: false
     };
   }
+
+  handleClick = () => {
+    this.setState({
+      prReleased: true
+    });
+    //this.props.changeVisibilityToSupervisor;
+  };
 
   render() {
     const { prById, classes } = this.props;
@@ -50,6 +75,20 @@ class PrSheet extends React.Component {
               category="ROLE_AND_PROJECT_ENVIRONMENT"
             />
           </List>
+          <List>
+            <ListItem>
+              <Button
+                className={
+                  this.state.prReleased
+                    ? classes.buttonDesktopDisabled
+                    : classes.buttonDesktop
+                }
+                onClick={this.handleClick}
+              >
+                PR Freigeben
+              </Button>
+            </ListItem>
+          </List>
         </List>
         <Divider />
         <List>
@@ -57,9 +96,21 @@ class PrSheet extends React.Component {
             <ListItemText primary="Leistungen im Projekt" />
           </ListItem>
           <List disablePadding>
-            <PrComment prById={prById} category="PROBLEM_ANALYSIS" />
-            <PrComment prById={prById} category="WORK_RESULTS" />
-            <PrComment prById={prById} category="WORKING_MANNER" />
+            <PrComment
+              prById={prById}
+              prReleased={this.state.prReleased}
+              category="PROBLEM_ANALYSIS"
+            />
+            <PrComment
+              prById={prById}
+              prReleased={this.state.prReleased}
+              category="WORK_RESULTS"
+            />
+            <PrComment
+              prById={prById}
+              prReleased={this.state.prReleased}
+              category="WORKING_MANNER"
+            />
           </List>
         </List>
         <Divider />
@@ -67,8 +118,16 @@ class PrSheet extends React.Component {
           <ListItem>
             <ListItemText primary="Wirkung beim Kunden" />
           </ListItem>
-          <PrComment prById={prById} category="CUSTOMER_INTERACTION" />
-          <PrComment prById={prById} category="CUSTOMER_RETENTION" />
+          <PrComment
+            prById={prById}
+            prReleased={this.state.prReleased}
+            category="CUSTOMER_INTERACTION"
+          />
+          <PrComment
+            prById={prById}
+            prReleased={this.state.prReleased}
+            category="CUSTOMER_RETENTION"
+          />
         </List>
         <Divider />
         <List>
@@ -76,8 +135,16 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Team" />
           </ListItem>
           <List disablePadding>
-            <PrComment prById={prById} category="TEAMWORK" />
-            <PrComment prById={prById} category="LEADERSHIP" />
+            <PrComment
+              prById={prById}
+              prReleased={this.state.prReleased}
+              category="TEAMWORK"
+            />
+            <PrComment
+              prById={prById}
+              prReleased={this.state.prReleased}
+              category="LEADERSHIP"
+            />
           </List>
         </List>
         <Divider />
@@ -107,4 +174,12 @@ class PrSheet extends React.Component {
   }
 }
 
-export default withStyles(styles)(PrSheet);
+export const StyledComponent = withStyles(styles)(PrSheet);
+export default connect(
+  state => ({
+    prReleased: state.prReleased
+  }),
+  {
+    //changeVisibilityToSupervisor: actions.changeVisibilityToSupervisor
+  }
+)(StyledComponent);

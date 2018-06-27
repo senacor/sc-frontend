@@ -163,7 +163,7 @@ class PrComment extends React.Component {
           <ListItem className={classes.nestedNumber}>
             {isEmployee(this.props.userroles) ? (
               <Typography className={classes.rating} variant="body2">
-                {this.state.rating}
+                {this.props.prReleased ? this.state.rating : ''}
               </Typography>
             ) : (
               <FormControl className={classes.formControl}>
@@ -193,7 +193,7 @@ class PrComment extends React.Component {
         <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             {isEmployee(this.props.userroles) ? (
-              this.state.comment ? (
+              this.state.comment && this.props.prReleased ? (
                 <ListItem>
                   <Typography className={classes.comment} variant="body1">
                     » {this.state.comment} «
