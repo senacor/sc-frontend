@@ -1,4 +1,5 @@
 import { default as fetch } from '../helper/customFetch';
+import { FETCHED_CSTMEMBERS } from '../helper/dispatchTypes';
 
 export const getCstMembers = () => async dispatch => {
   const response = await fetch(
@@ -12,7 +13,7 @@ export const getCstMembers = () => async dispatch => {
     const cstMembers = await response.json();
 
     dispatch({
-      type: 'FETCHED_CSTMEMBERS',
+      type: FETCHED_CSTMEMBERS,
       cstMembers
     });
   }
