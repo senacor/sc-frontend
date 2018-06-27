@@ -200,7 +200,9 @@ class PrOverallAssessment extends React.Component {
             />
             {isEmployee(this.props.userroles) ? (
               <Typography variant="body1">
-                {this.mapRatingFullfilment(this.state.ratingFulfillment)}
+                {this.props.prReleased
+                  ? this.mapRatingFullfilment(this.state.ratingFulfillment)
+                  : ''}
               </Typography>
             ) : (
               <FormControl className={classes.nestedTextSelect}>
@@ -242,7 +244,9 @@ class PrOverallAssessment extends React.Component {
 
             {isEmployee(this.props.userroles) ? (
               <Typography variant="body1">
-                {this.mapRatingTargetRole(this.state.ratingTargetRole)}
+                {this.props.prReleased
+                  ? this.mapRatingTargetRole(this.state.ratingTargetRole)
+                  : ''}
               </Typography>
             ) : (
               <FormControl className={classes.nestedTextSelect}>
