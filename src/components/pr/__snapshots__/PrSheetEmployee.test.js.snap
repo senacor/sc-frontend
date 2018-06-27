@@ -31,18 +31,16 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
           }
         }
         fullWidth={true}
+        helperText="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
         id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_CommentId"
+        margin="none"
         multiline={true}
         onChange={[Function]}
         required={false}
+        rows="4"
         rowsMax="4"
         select={false}
         value="hjkkkhgcghjjn"
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)>
-      <WithStyles(ListItemText)
-        secondary="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
       />
     </WithStyles(ListItem)>
   </WithStyles(List)>
@@ -80,18 +78,16 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE
           }
         }
         fullWidth={true}
+        helperText="Beschreibung Projekt, Aufgabe und Rolle"
         id="ROLE_AND_PROJECT_ENVIRONMENT_CommentId"
+        margin="none"
         multiline={true}
         onChange={[Function]}
         required={false}
+        rows="4"
         rowsMax="4"
         select={false}
         value=""
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)>
-      <WithStyles(ListItemText)
-        secondary="Beschreibung Projekt, Aufgabe und Rolle"
       />
     </WithStyles(ListItem)>
   </WithStyles(List)>

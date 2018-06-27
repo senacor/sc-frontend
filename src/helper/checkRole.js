@@ -8,6 +8,6 @@ export const isEmployee = (userroles = []) => {
   return userroles.includes('PR_Mitarbeiter');
 };
 
-export const isSupervisor = userroles => {
+export const isSupervisor = (userroles = []) => {
   return userroles.includes(ROLES.PR_CST_LEITER);
 };

@@ -118,9 +118,6 @@ class PrSheetEmployee extends React.Component {
                 InputLabelProps={{
                   shrink: true
                 }}
-                FormHelperTextProps={{
-                  margin: 'none'
-                }}
               />
             )}
           </ListItem>
