@@ -17,6 +17,7 @@ exports[`PrComment Component should display Customer interaction 1`] = `
       />
       <WithStyles(Icon)
         className="PrComment-iconComment-5"
+        id="CUSTOMER_INTERACTION_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
@@ -133,6 +134,7 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
       />
       <WithStyles(Icon)
         className="PrComment-iconComment-5"
+        id="PROBLEM_ANALYSIS_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
@@ -249,6 +251,7 @@ exports[`PrComment Component should display Teamwork 1`] = `
       />
       <WithStyles(Icon)
         className="PrComment-iconComment-5"
+        id="TEAMWORK_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
@@ -365,6 +368,7 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
       />
       <WithStyles(Icon)
         className="PrComment-iconComment-5"
+        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
