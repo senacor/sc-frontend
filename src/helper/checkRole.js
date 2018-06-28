@@ -5,7 +5,7 @@ export const hasRole = (role, userroles) => {
 };
 
 export const isEmployee = (userroles = []) => {
-  return userroles.includes('PR_Mitarbeiter');
+  return userroles.includes(ROLES.PR_MITARBEITER);
 };
 
 export const isSupervisor = (userroles = []) => {
