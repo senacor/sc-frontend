@@ -143,3 +143,10 @@ export const addSupervisor = (prId, employee) => async dispatch => {
     prId: prId
   });
 };
+
+export const ChangePrSortOrderToProvidedDirection = sortOrder => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_SORT_ORDER,
+    sortOrder: sortOrder
+  });
+};
