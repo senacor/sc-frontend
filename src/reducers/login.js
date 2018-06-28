@@ -1,12 +1,18 @@
 import { combineReducers } from 'redux';
+import {
+  LOGIN_RESPONSE,
+  LOGOUT,
+  LOGIN_UNAUTHORIZED,
+  LOGIN_REQUEST
+} from '../helper/dispatchTypes';
 
 export const isLoggedIn = (state = false, action) => {
   switch (action.type) {
-    case 'LOGIN_RESPONSE':
+    case LOGIN_RESPONSE:
       return setDataInLocalStorage(action.data);
-    case 'LOGOUT':
+    case LOGOUT:
       return removeDataInLocalStorage();
-    case 'LOGIN_UNAUTHORIZED':
+    case LOGIN_UNAUTHORIZED:
       return removeDataInLocalStorage();
     default:
       return state;
@@ -15,13 +21,13 @@ export const isLoggedIn = (state = false, action) => {
 
 export const isUnauthorized = (state = false, action) => {
   switch (action.type) {
-    case 'LOGIN_UNAUTHORIZED':
+    case LOGIN_UNAUTHORIZED:
       return true;
-    case 'LOGIN_RESPONSE':
+    case LOGIN_RESPONSE:
       return false;
-    case 'LOGIN_REQUEST':
+    case LOGIN_REQUEST:
       return false;
-    case 'LOGOUT':
+    case LOGOUT:
       return false;
     default:
       return state;

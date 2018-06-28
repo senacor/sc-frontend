@@ -1,10 +1,15 @@
 import { isUnauthorized, isLoggedIn } from './login';
+import {
+  LOGIN_RESPONSE,
+  LOGOUT,
+  LOGIN_UNAUTHORIZED
+} from '../helper/dispatchTypes';
 
 describe('login reducer', () => {
   describe('for isLoggedIn', () => {
     it('should return true for action LOGIN_RESPONSE', () => {
       let action = {
-        type: 'LOGIN_RESPONSE',
+        type: LOGIN_RESPONSE,
         data: {
           access_token: 'staticAccessToken',
           refresh_token: 'staticRefreshToken'
@@ -18,7 +23,7 @@ describe('login reducer', () => {
 
     it('should set access_token and refresh_token in localStorage for action LOGIN_RESPONSE', () => {
       let action = {
-        type: 'LOGIN_RESPONSE',
+        type: LOGIN_RESPONSE,
         data: {
           access_token: 'staticAccessToken',
           refresh_token: 'staticRefreshToken'
@@ -37,7 +42,7 @@ describe('login reducer', () => {
       );
     });
 
-    ['LOGOUT', 'LOGIN_UNAUTHORIZED'].forEach(type => {
+    [LOGOUT, LOGIN_UNAUTHORIZED].forEach(type => {
       it(`should return false for action ${type}`, () => {
         let action = {
           type: type
@@ -51,7 +56,7 @@ describe('login reducer', () => {
 
     it('should remove access_token and refresh_token in localStorage for action LOGOUT', () => {
       let action = {
-        type: 'LOGOUT'
+        type: LOGOUT
       };
 
       isLoggedIn(false, action);
@@ -64,7 +69,7 @@ describe('login reducer', () => {
   describe('for isUnauthorized', () => {
     it('should return true for action LOGIN_UNAUTHORIZED', () => {
       let action = {
-        type: 'LOGIN_UNAUTHORIZED'
+        type: LOGIN_UNAUTHORIZED
       };
 
       let result = isUnauthorized(false, action);
@@ -72,7 +77,7 @@ describe('login reducer', () => {
       expect(result).toBe(true);
     });
 
-    ['LOGOUT', 'LOGIN_RESPONSE', 'LOGIN_RESPONSE'].forEach(type => {
+    [LOGOUT, LOGIN_RESPONSE, LOGIN_RESPONSE].forEach(type => {
       it(`should return false for action ${type}`, () => {
         let action = {
           type: type
