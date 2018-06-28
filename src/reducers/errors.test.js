@@ -1,11 +1,12 @@
 import errorsReducer from './errors';
+import { ERROR_RESPONSE, ERROR_GONE } from '../helper/dispatchTypes';
 
 describe('Errors Reducer', () => {
   const defaultState = { hasErrors: false, message: null };
 
   it('should return technical error on 500 httpCode', () => {
     let actionMock = {
-      type: 'ERROR_RESPONSE',
+      type: ERROR_RESPONSE,
       httpCode: 500
     };
 
@@ -19,7 +20,7 @@ describe('Errors Reducer', () => {
 
   it('should return technical error on errors greater than 500', () => {
     let actionMock = {
-      type: 'ERROR_RESPONSE',
+      type: ERROR_RESPONSE,
       httpCode: 501
     };
 
@@ -33,7 +34,7 @@ describe('Errors Reducer', () => {
 
   it('should return default error state on codes lower than 500', () => {
     let actionMock = {
-      type: 'ERROR_RESPONSE',
+      type: ERROR_RESPONSE,
       httpCode: 499
     };
 
@@ -44,7 +45,7 @@ describe('Errors Reducer', () => {
 
   it('should return default error state on ERROR_GONE', () => {
     let actionMock = {
-      type: 'ERROR_GONE'
+      type: ERROR_GONE
     };
 
     let result = errorsReducer(defaultState, actionMock);

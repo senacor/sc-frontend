@@ -1,12 +1,19 @@
 import { default as fetch } from '../helper/customFetch';
 
+import {
+  LOGIN_REQUEST,
+  LOGIN_UNAUTHORIZED,
+  LOGIN_RESPONSE,
+  LOGOUT
+} from '../helper/dispatchTypes';
+
 export const login = credentials => async dispatch => {
   if (credentials.username === '' || credentials.password === '') {
     return;
   }
 
   dispatch({
-    type: 'LOGIN_REQUEST'
+    type: LOGIN_REQUEST
   });
 
   const response = await fetch(`${process.env.REACT_APP_API}/oauth2/token`, {
@@ -17,13 +24,13 @@ export const login = credentials => async dispatch => {
 
   if (response.status === 401) {
     dispatch({
-      type: 'LOGIN_UNAUTHORIZED'
+      type: LOGIN_UNAUTHORIZED
     });
   } else {
     const data = await response.json();
 
     dispatch({
-      type: 'LOGIN_RESPONSE',
+      type: LOGIN_RESPONSE,
       data
     });
   }
@@ -31,6 +38,6 @@ export const login = credentials => async dispatch => {
 
 export const logout = () => async dispatch => {
   dispatch({
-    type: 'LOGOUT'
+    type: LOGOUT
   });
 };

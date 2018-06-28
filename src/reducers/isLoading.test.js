@@ -1,20 +1,21 @@
 import isLoading from './isLoading';
+import * as dispatchTypes from '../helper/dispatchTypes';
 
 describe('isLoading', () => {
   [
-    { type: 'ADD_PR_RESPONSE', isLoading: true },
-    { type: 'ERROR_RESPONSE', isLoading: true },
-    { type: 'ADD_PR_REQUEST', isLoading: false },
-    { type: 'FETCH_PRS_RESPONSE', isLoading: true },
-    { type: 'FETCH_PRS_REQUEST', isLoading: false },
-    { type: 'FETCH_TASKS_RESPONSE', isLoading: true },
-    { type: 'FETCH_TASKS_REQUEST', isLoading: false },
-    { type: 'FETCH_PR_BY_ID_RESPONSE', isLoading: true },
-    { type: 'FETCH_PR_BY_ID_REQUEST', isLoading: false },
-    { type: 'LOGIN_REQUEST', isLoading: false },
-    { type: 'LOGIN_RESPONSE', isLoading: true },
-    { type: 'LOGIN_UNAUTHORIZED', isLoading: true },
-    { type: 'LOGOUT', isLoading: true }
+    { type: dispatchTypes.ADD_PR_RESPONSE, isLoading: true },
+    { type: dispatchTypes.ERROR_RESPONSE, isLoading: true },
+    { type: dispatchTypes.ADD_PR_REQUEST, isLoading: false },
+    { type: dispatchTypes.FETCH_PRS_RESPONSE, isLoading: true },
+    { type: dispatchTypes.FETCH_PRS_REQUEST, isLoading: false },
+    { type: dispatchTypes.FETCH_TASKS_RESPONSE, isLoading: true },
+    { type: dispatchTypes.FETCH_TASKS_REQUEST, isLoading: false },
+    { type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE, isLoading: true },
+    { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST, isLoading: false },
+    { type: dispatchTypes.LOGIN_REQUEST, isLoading: false },
+    { type: dispatchTypes.LOGIN_RESPONSE, isLoading: true },
+    { type: dispatchTypes.LOGIN_UNAUTHORIZED, isLoading: true },
+    { type: dispatchTypes.LOGOUT, isLoading: true }
   ].forEach(state => {
     it(`sets tasks and loading on ${state.type}`, () => {
       const stateBefore = state.isLoading;

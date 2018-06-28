@@ -1,11 +1,17 @@
 import { default as fetch } from '../helper/customFetch';
+import {
+  FETCH_EMPLOYEES_REQUEST,
+  ERROR_GONE,
+  FETCH_EMPLOYEES_RESPONSE,
+  ERROR_RESPONSE
+} from '../helper/dispatchTypes';
 
 export const prSearch = searchEmployee => async dispatch => {
   dispatch({
-    type: 'FETCH_EMPLOYEES_REQUEST'
+    type: FETCH_EMPLOYEES_REQUEST
   });
   dispatch({
-    type: 'ERROR_GONE'
+    type: ERROR_GONE
   });
 
   const response = await fetch(
@@ -17,12 +23,12 @@ export const prSearch = searchEmployee => async dispatch => {
       ? data._embedded.personSearchResponseList
       : [];
     dispatch({
-      type: 'FETCH_EMPLOYEES_RESPONSE',
+      type: FETCH_EMPLOYEES_RESPONSE,
       employees
     });
   } else {
     dispatch({
-      type: 'ERROR_RESPONSE',
+      type: ERROR_RESPONSE,
       httpCode: response.status
     });
   }
