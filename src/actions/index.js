@@ -135,6 +135,28 @@ export const fetchPrById = prsId => async dispatch => {
   }
 };
 
+export const fetchPrVisibilityById = prsId => async dispatch => {
+  dispatch({
+    type: 'FETCH_PR_VISIBILITY_BY_ID_REQUEST'
+  });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prsId}/visibility`
+  );
+  if (response.ok) {
+    const prVisibilityById = await response.json();
+
+    dispatch({
+      type: 'FETCH_PR_VISIBILITY_BY_ID_RESPONSE',
+      prVisibilityById
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      httpCode: response.status
+    });
+  }
+};
+
 export const addSupervisor = (prId, employee) => async dispatch => {
   dispatch({
     type: 'ADD_SUPERVISOR',

@@ -10,7 +10,7 @@ import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
 import Button from '@material-ui/core/Button';
 import { isEmployee } from '../../helper/checkRole';
-//import * as actions from '../../actions';
+import * as actions from '../../actions';
 
 const styles = theme => ({
   containerVertical: {
@@ -49,18 +49,22 @@ class PrSheet extends React.Component {
       prById: this.props.prById,
       prReleased: false
     };
+    this.props.fetchPrVisibilityById(this.state.prById.id);
   }
 
   handleClick = () => {
+    //console.log(this.props.fetchPrVisibilityById(1));
     this.setState({
       prReleased: true
     });
-    console.log(this.props.userroles);
     //this.props.changeVisibilityToSupervisor;
   };
 
   render() {
     const { prById, classes } = this.props;
+    console.log(prById.id);
+    console.log(this.props.toEmployee);
+    console.log(this.props.toSupervisor);
     return (
       <div className={classes.containerVertical}>
         <List>
@@ -82,7 +86,7 @@ class PrSheet extends React.Component {
               <ListItem>
                 <Button
                   className={
-                    this.state.prReleased
+                    this.props.toEmployee
                       ? classes.buttonDesktopDisabled
                       : classes.buttonDesktop
                   }
@@ -104,17 +108,17 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
               category="PROBLEM_ANALYSIS"
             />
             <PrComment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
               category="WORK_RESULTS"
             />
             <PrComment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
               category="WORKING_MANNER"
             />
           </List>
@@ -126,12 +130,12 @@ class PrSheet extends React.Component {
           </ListItem>
           <PrComment
             prById={prById}
-            prReleased={this.state.prReleased}
+            prReleased={this.props.toEmployee}
             category="CUSTOMER_INTERACTION"
           />
           <PrComment
             prById={prById}
-            prReleased={this.state.prReleased}
+            prReleased={this.props.toEmployee}
             category="CUSTOMER_RETENTION"
           />
         </List>
@@ -143,12 +147,12 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
               category="TEAMWORK"
             />
             <PrComment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
               category="LEADERSHIP"
             />
           </List>
@@ -161,7 +165,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
             />
           </List>
@@ -174,7 +178,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrOverallAssessment
               prById={prById}
-              prReleased={this.state.prReleased}
+              prReleased={this.props.toEmployee}
             />
           </List>
         </List>
@@ -184,7 +188,7 @@ class PrSheet extends React.Component {
             <ListItem>
               <Button
                 className={
-                  this.state.prReleased
+                  this.props.toEmployee
                     ? classes.buttonDesktopDisabled
                     : classes.buttonDesktop
                 }
@@ -205,10 +209,12 @@ class PrSheet extends React.Component {
 export const StyledComponent = withStyles(styles)(PrSheet);
 export default connect(
   state => ({
-    prReleased: state.prReleased,
+    toEmployee: state.prVisibilityById.prVisibility.toEmployee,
+    toSupervisor: state.prVisibilityById.prVisibility.toSupervisor,
     userroles: state.userroles
   }),
   {
+    fetchPrVisibilityById: actions.fetchPrVisibilityById
     //changeVisibilityToSupervisor: actions.changeVisibilityToSupervisor
   }
 )(StyledComponent);
