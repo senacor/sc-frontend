@@ -9,7 +9,7 @@ import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
 import Button from '@material-ui/core/Button';
-import { isEmployee } from '../../helper/checkRole';
+import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 
 const styles = theme => ({
@@ -52,7 +52,11 @@ class PrSheet extends React.Component {
   }
 
   handleClick = () => {
-    // this.props.editVisibilityById();
+    this.props.setVisibilityById(
+      this.state.prById.id,
+      isSupervisor(this.props.userroles) ? true : this.props.toEmployee,
+      isEmployee(this.props.userroles) ? true : this.props.toSupervisor
+    );
   };
 
   render() {
@@ -69,12 +73,16 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrSheetEmployee
               prById={prById}
-              prVisible={this.props.toSupervisor}
+              prVisible={
+                isEmployee(this.props.userroles) || this.props.toSupervisor
+              }
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
             <PrSheetEmployee
               prById={prById}
-              prVisible={this.props.toSupervisor}
+              prVisible={
+                isEmployee(this.props.userroles) || this.props.toSupervisor
+              }
               category="ROLE_AND_PROJECT_ENVIRONMENT"
             />
           </List>
@@ -212,6 +220,6 @@ export default connect(
   }),
   {
     fetchPrVisibilityById: actions.fetchPrVisibilityById,
-    editVisibilityById: actions.editVisibilityById
+    setVisibilityById: actions.setVisibilityById
   }
 )(StyledComponent);

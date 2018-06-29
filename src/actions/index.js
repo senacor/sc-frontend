@@ -157,18 +157,22 @@ export const fetchPrVisibilityById = prsId => async dispatch => {
   }
 };
 
-export const editVisibilityById = () => async dispatch => {
+export const setVisibilityById = (
+  prId,
+  toEmployee = false,
+  toSupervisor = false
+) => async dispatch => {
   dispatch({
     type: 'EDIT_PR_VISIBILITY_REQUEST'
   });
   const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/3/visibility`,
+    `${process.env.REACT_APP_API}/api/v1/${prId}/visibility`,
     {
       method: 'put',
       mode: 'cors',
       body: JSON.stringify({
-        visibilityToEmployee: 'INVISIBLE',
-        visibilityToReviewer: 'VISIBLE'
+        visibilityToEmployee: toEmployee ? 'VISIBLE' : 'INVISIBLE',
+        visibilityToReviewer: toSupervisor ? 'VISIBLE' : 'INVISIBLE'
       })
     }
   );
