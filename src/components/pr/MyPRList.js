@@ -13,7 +13,6 @@ import PrSalary from './PrSalary';
 import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
 import Card from '@material-ui/core/Card';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import Select from '@material-ui/core/Select';
@@ -82,7 +81,7 @@ export class MyPRList extends React.Component {
     this.setState({
       sortOrder: this.state.sortOrder === 'asc' ? 'desc' : 'asc'
     });
-    this.props.ChangePrSortOrderToProvidedDirection(this.state.sortOrder);
+    this.props.changePrSortOrderToProvidedDirection(this.state.sortOrder);
   };
 
   filterPR = pr => {
@@ -119,7 +118,7 @@ export class MyPRList extends React.Component {
   };
 
   componentDidMount() {
-    this.props.ChangePrSortOrderToProvidedDirection(this.state.sortOrder);
+    this.props.changePrSortOrderToProvidedDirection(this.state.sortOrder);
   }
 
   render() {
@@ -301,7 +300,7 @@ export default connect(
     fetchPrs: actions.fetchPrs,
     addPr: actions.addPr,
     addSupervisor: actions.addSupervisor,
-    ChangePrSortOrderToProvidedDirection:
-      actions.ChangePrSortOrderToProvidedDirection
+    changePrSortOrderToProvidedDirection:
+      actions.changePrSortOrderToProvidedDirection
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));
