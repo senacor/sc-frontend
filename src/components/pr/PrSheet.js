@@ -46,18 +46,13 @@ class PrSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prById: this.props.prById,
-      prReleased: false
+      prById: this.props.prById
     };
     this.props.fetchPrVisibilityById(this.state.prById.id);
   }
 
   handleClick = () => {
-    //console.log(this.props.fetchPrVisibilityById(1));
-    this.setState({
-      prReleased: true
-    });
-    //this.props.changeVisibilityToSupervisor;
+    // this.props.editVisibilityById();
   };
 
   render() {
@@ -74,10 +69,12 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrSheetEmployee
               prById={prById}
+              prVisible={this.props.toSupervisor}
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
             <PrSheetEmployee
               prById={prById}
+              prVisible={this.props.toSupervisor}
               category="ROLE_AND_PROJECT_ENVIRONMENT"
             />
           </List>
@@ -108,17 +105,17 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
               category="PROBLEM_ANALYSIS"
             />
             <PrComment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
               category="WORK_RESULTS"
             />
             <PrComment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
               category="WORKING_MANNER"
             />
           </List>
@@ -130,12 +127,12 @@ class PrSheet extends React.Component {
           </ListItem>
           <PrComment
             prById={prById}
-            prReleased={this.props.toEmployee}
+            prVisible={this.props.toEmployee}
             category="CUSTOMER_INTERACTION"
           />
           <PrComment
             prById={prById}
-            prReleased={this.props.toEmployee}
+            prVisible={this.props.toEmployee}
             category="CUSTOMER_RETENTION"
           />
         </List>
@@ -147,12 +144,12 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
               category="TEAMWORK"
             />
             <PrComment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
               category="LEADERSHIP"
             />
           </List>
@@ -165,7 +162,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
             />
           </List>
@@ -178,7 +175,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrOverallAssessment
               prById={prById}
-              prReleased={this.props.toEmployee}
+              prVisible={this.props.toEmployee}
             />
           </List>
         </List>
@@ -214,7 +211,7 @@ export default connect(
     userroles: state.userroles
   }),
   {
-    fetchPrVisibilityById: actions.fetchPrVisibilityById
-    //changeVisibilityToSupervisor: actions.changeVisibilityToSupervisor
+    fetchPrVisibilityById: actions.fetchPrVisibilityById,
+    editVisibilityById: actions.editVisibilityById
   }
 )(StyledComponent);

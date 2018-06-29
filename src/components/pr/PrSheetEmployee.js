@@ -39,7 +39,8 @@ class PrSheetEmployee extends React.Component {
     );
 
     this.state = {
-      text: reflectionSet ? reflectionSet.text : ''
+      text: reflectionSet ? reflectionSet.text : '',
+      prVisible: this.props.prVisible
     };
   }
 
@@ -91,7 +92,9 @@ class PrSheetEmployee extends React.Component {
               multiline
               fullWidth
               rowsMax="4"
-              value={this.state.text ? this.state.text : ''}
+              value={
+                this.state.text && this.state.prVisible ? this.state.text : ''
+              }
               onChange={this.handleChangeComment(prById, category)}
               InputProps={{
                 disableUnderline: true,
