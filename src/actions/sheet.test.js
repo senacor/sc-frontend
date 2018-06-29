@@ -2,6 +2,10 @@ import { addRating } from './index';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
+import {
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_RESPONSE
+} from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -165,10 +169,10 @@ describe('addRating', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'ADD_COMMENT_REQUEST'
+        type: ADD_COMMENT_REQUEST
       },
       {
-        type: 'ADD_COMMENT_RESPONSE',
+        type: ADD_COMMENT_RESPONSE,
         prRatings: {
           prRatingResponseList: [
             {

@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import { getCstMembers } from './cstMembers';
+import { FETCHED_CSTMEMBERS } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -39,7 +40,7 @@ describe('getCstmembers redux action', () => {
     await store.dispatch(getCstMembers());
 
     expect(store.getActions()).toContainEqual({
-      type: 'FETCHED_CSTMEMBERS',
+      type: FETCHED_CSTMEMBERS,
       cstMembers: data
     });
   });

@@ -35,8 +35,11 @@ const styles = theme => ({
   nestedListItem: {
     width: '80%'
   },
-  icon: {
+  iconComment: {
     color: theme.palette.primary['400']
+  },
+  iconNoComment: {
+    color: '#dddddd'
   },
   nestedNumber: {
     width: '20%'
@@ -45,7 +48,6 @@ const styles = theme => ({
     width: '95%'
   },
   comment: {
-    paddingLeft: '24px',
     paddingRight: '24px',
     color: theme.palette.primary['400'],
     fontStyle: 'italic'
@@ -70,7 +72,7 @@ class PrComment extends React.Component {
       rating: prRating ? prRating.rating : {},
       comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
-      is_expanded: false
+      isExpanded: false
     };
   }
 
@@ -130,7 +132,7 @@ class PrComment extends React.Component {
 
   handleClick = () => {
     this.setState({
-      is_expanded: !this.state.is_expanded
+      isExpanded: !this.state.isExpanded
     });
   };
 
@@ -138,7 +140,7 @@ class PrComment extends React.Component {
     const { prById, category, classes } = this.props;
 
     return (
-      <div className={this.state.is_expanded ? classes.expanded : ''}>
+      <div className={this.state.isExpanded ? classes.expanded : ''}>
         <div className={classes.containerListItem}>
           <ListItem
             button
@@ -149,15 +151,14 @@ class PrComment extends React.Component {
               secondary={this.translateRatingDescription(category)}
             />
 
-            {this.state.comment ? (
-              !this.state.is_expanded ? (
-                <Icon className={classes.icon}>comment</Icon>
-              ) : (
-                ''
-              )
-            ) : (
-              ''
-            )}
+            <Icon
+              id={`${category}_CommentIconId`}
+              className={
+                this.state.comment ? classes.iconComment : classes.iconNoComment
+              }
+            >
+              comment
+            </Icon>
           </ListItem>
 
           <ListItem className={classes.nestedNumber}>
@@ -190,14 +191,13 @@ class PrComment extends React.Component {
             )}
           </ListItem>
         </div>
-        <Collapse in={this.state.is_expanded} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             {isEmployee(this.props.userroles) ? (
               this.state.comment ? (
                 <ListItem>
-                  <Icon className={classes.icon}>comment</Icon>
                   <Typography className={classes.comment} variant="body1">
-                    {this.state.comment}
+                    » {this.state.comment} «
                   </Typography>
                 </ListItem>
               ) : (

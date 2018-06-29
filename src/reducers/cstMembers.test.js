@@ -1,10 +1,11 @@
 import { cstMembers } from './cstMembers';
+import { FETCHED_CSTMEMBERS } from '../helper/dispatchTypes';
 
 describe('userinfo reducer', () => {
   it('should set cstmembers on FETCHED_CSTMEMBERS', () => {
     const stateBefore = [];
     const action = {
-      type: 'FETCHED_CSTMEMBERS',
+      type: FETCHED_CSTMEMBERS,
       cstMembers: {
         _embedded: {
           employeeResponseList: [
@@ -46,7 +47,7 @@ describe('userinfo reducer', () => {
   it('should return empty array if no user was found', () => {
     const stateBefore = [];
     const action = {
-      type: 'FETCHED_CSTMEMBERS',
+      type: FETCHED_CSTMEMBERS,
       cstMembers: {
         link: {
           href: 'something'

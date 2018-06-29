@@ -16,13 +16,14 @@ exports[`PrComment Component should display Customer interaction 1`] = `
         secondary="Kundeninteraktion und -veränderung"
       />
       <WithStyles(Icon)
-        className="PrComment-icon-5"
+        className="PrComment-iconComment-5"
+        id="CUSTOMER_INTERACTION_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrComment-nestedNumber-6"
+      className="PrComment-nestedNumber-7"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)
@@ -132,13 +133,14 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
         secondary="Problemanalyse und -lösung"
       />
       <WithStyles(Icon)
-        className="PrComment-icon-5"
+        className="PrComment-iconComment-5"
+        id="PROBLEM_ANALYSIS_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrComment-nestedNumber-6"
+      className="PrComment-nestedNumber-7"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)
@@ -248,13 +250,14 @@ exports[`PrComment Component should display Teamwork 1`] = `
         secondary="Effektives Arbeiten im Team und Teamführung"
       />
       <WithStyles(Icon)
-        className="PrComment-icon-5"
+        className="PrComment-iconComment-5"
+        id="TEAMWORK_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrComment-nestedNumber-6"
+      className="PrComment-nestedNumber-7"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)
@@ -364,13 +367,14 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
         secondary="Beitrag zur Unternehmensentwicklung"
       />
       <WithStyles(Icon)
-        className="PrComment-icon-5"
+        className="PrComment-iconComment-5"
+        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentIconId"
       >
         comment
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
-      className="PrComment-nestedNumber-6"
+      className="PrComment-nestedNumber-7"
     >
       <WithStyles(FormControl)>
         <WithStyles(Select)

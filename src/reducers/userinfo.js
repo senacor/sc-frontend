@@ -1,6 +1,13 @@
+import {
+  FETCHED_USERINFO,
+  FETCHED_USERPHOTO,
+  FETCHED_USERROLES,
+  LOGOUT
+} from '../helper/dispatchTypes';
+
 export const userinfo = (state = {}, action) => {
   switch (action.type) {
-    case 'FETCHED_USERINFO':
+    case FETCHED_USERINFO:
       return action.userinfo;
     default:
       return state;
@@ -9,9 +16,9 @@ export const userinfo = (state = {}, action) => {
 
 export const userphoto = (state = '', action) => {
   switch (action.type) {
-    case 'FETCHED_USERPHOTO':
+    case FETCHED_USERPHOTO:
       return action.imageString;
-    case 'LOGOUT':
+    case LOGOUT:
       return '';
     default:
       return state;
@@ -20,9 +27,9 @@ export const userphoto = (state = '', action) => {
 
 export const userroles = (state = [], action) => {
   switch (action.type) {
-    case 'FETCHED_USERROLES':
+    case FETCHED_USERROLES:
       return convertGroupsToArray(action.roles);
-    case 'LOGOUT':
+    case LOGOUT:
       return [];
     default:
       return state;

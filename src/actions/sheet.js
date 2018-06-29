@@ -1,4 +1,10 @@
 import { default as fetch } from '../helper/customFetch';
+import {
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_RESPONSE,
+  ADD_TEXT_REQUEST,
+  ADD_TEXT_RESPONSE
+} from '../helper/dispatchTypes';
 
 export const addRating = (
   prById,
@@ -8,7 +14,7 @@ export const addRating = (
   ratingId
 ) => async dispatch => {
   dispatch({
-    type: 'ADD_COMMENT_REQUEST'
+    type: ADD_COMMENT_REQUEST
   });
 
   await fetch(
@@ -31,7 +37,7 @@ export const addRating = (
     const prRatings = await response.json();
 
     dispatch({
-      type: 'ADD_COMMENT_RESPONSE',
+      type: ADD_COMMENT_RESPONSE,
       prRatings
     });
   }
@@ -44,7 +50,7 @@ export const addEmployeeContribution = (
   reflectionSetId
 ) => async dispatch => {
   dispatch({
-    type: 'ADD_TEXT_REQUEST'
+    type: ADD_TEXT_REQUEST
   });
 
   await fetch(
@@ -68,7 +74,7 @@ export const addEmployeeContribution = (
     const prReflectionSet = await response.json();
 
     dispatch({
-      type: 'ADD_TEXT_RESPONSE',
+      type: ADD_TEXT_RESPONSE,
       prReflectionSet
     });
   }

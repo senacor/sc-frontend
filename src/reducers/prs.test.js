@@ -1,4 +1,9 @@
 import prs from './prs';
+import {
+  FETCH_PRS_RESPONSE,
+  ADD_PR_RESPONSE,
+  ADD_SUPERVISOR
+} from '../helper/dispatchTypes';
 
 describe('prs reducer', () => {
   it('should test the reducer for FETCH_PRS_RESPONSE', () => {
@@ -6,7 +11,7 @@ describe('prs reducer', () => {
       prsList: []
     };
     const action = {
-      type: 'FETCH_PRS_RESPONSE',
+      type: FETCH_PRS_RESPONSE,
       prs: ['pr2']
     };
     const stateAfter = prs(stateBefore, action);
@@ -19,7 +24,7 @@ describe('prs reducer', () => {
       prsList: []
     };
     const action = {
-      type: 'ADD_PR_RESPONSE',
+      type: ADD_PR_RESPONSE,
       pr: 'pr2'
     };
 
@@ -74,7 +79,7 @@ describe('prs reducer', () => {
     };
 
     const actionAddingDelegatedSupervisor = {
-      type: 'ADD_SUPERVISOR',
+      type: ADD_SUPERVISOR,
       delegatedSupervisor: 'dummy',
       prId: 2
     };

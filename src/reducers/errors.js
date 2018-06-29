@@ -1,10 +1,12 @@
+import { ERROR_RESPONSE, ERROR_GONE } from '../helper/dispatchTypes';
+
 const defaultState = { hasErrors: false, message: null };
 
 const errors = (state = defaultState, action) => {
   switch (action.type) {
-    case 'ERROR_RESPONSE':
+    case ERROR_RESPONSE:
       return generateErrorState(action.httpCode);
-    case 'ERROR_GONE':
+    case ERROR_GONE:
       return defaultState;
     default:
       return defaultState;

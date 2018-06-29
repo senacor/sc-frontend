@@ -1,4 +1,5 @@
 import prRatings from './rating';
+import { ADD_COMMENT_RESPONSE } from '../helper/dispatchTypes';
 
 describe('rating reducer', () => {
   it('should test the reducer for ADD_COMMENT_RESPONSE', () => {
@@ -37,7 +38,7 @@ describe('rating reducer', () => {
 
     const stateBefore = {};
     const action = {
-      type: 'ADD_COMMENT_RESPONSE',
+      type: ADD_COMMENT_RESPONSE,
       prRatings: ratingsBefore
     };
 
