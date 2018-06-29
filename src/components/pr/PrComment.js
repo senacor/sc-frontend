@@ -81,6 +81,8 @@ class PrComment extends React.Component {
     let prRating = prById.prRatingSet.find(
       prRating => prRating.prRatingDescription === category
     );
+    prRating.rating = event.target.value;
+
     this.props.addRating(
       prById,
       category,
@@ -95,6 +97,7 @@ class PrComment extends React.Component {
     let prRating = prById.prRatingSet.find(
       prRating => prRating.prRatingDescription === category
     );
+    prRating.comment = event.target.value;
 
     this.sendComment(
       prById,
