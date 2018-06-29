@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyPRListFilterDialog Component displays the dialog for filtering in mobile view 1`] = `
+<div>
+  <WithStyles(Button)
+    onClick={[Function]}
+  >
+    <WithStyles(Icon)>
+      filter_list
+    </WithStyles(Icon)>
+    Filter
+  </WithStyles(Button)>
+  <WithStyles(Dialog)
+    disableBackdropClick={true}
+    disableEscapeKeyDown={true}
+    onClose={[Function]}
+    open={false}
+  >
+    <WithStyles(DialogTitle)>
+      Filtern der PR-Ansicht
+    </WithStyles(DialogTitle)>
+    <WithStyles(DialogContent) />
+    <WithStyles(DialogActions)>
+      <WithStyles(Button)
+        color="primary"
+        onClick={[Function]}
+      >
+        Ok
+      </WithStyles(Button)>
+    </WithStyles(DialogActions)>
+  </WithStyles(Dialog)>
+</div>
+`;

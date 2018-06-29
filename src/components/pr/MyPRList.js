@@ -3,23 +3,24 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import { withStyles } from '@material-ui/core/styles';
+import PrState from './PrState';
+import PrSalary from './PrSalary';
+import PrEmployment from './PrEmployment';
+import PrSheet from './PrSheet';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+import styles from './MyPRListStyle';
+import MyPRListFilterDialog from './MyPRListFilterDialog';
+import { default as MyPRListItem } from './MyPRListItem';
+import List from '@material-ui/core/List';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Hidden from '@material-ui/core/Hidden';
 import AddIcon from '@material-ui/icons/Add';
-import PrState from './PrState';
-import PrSalary from './PrSalary';
-import PrEmployment from './PrEmployment';
-import PrSheet from './PrSheet';
-import Card from '@material-ui/core/Card';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-import List from '@material-ui/core/List';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import styles from './MyPRListStyle';
-import { default as MyPRListItem } from './MyPRListItem';
 
 export class MyPRList extends React.Component {
   constructor(props) {
@@ -164,49 +165,96 @@ export class MyPRList extends React.Component {
             </Icon>
             Datum
           </Button>
-
-          <Select
-            id="_SelectIdFilter"
-            value={this.state.filters.reviewer}
-            onChange={this.handleFilter}
-            displayEmpty
-            name="Reviewer"
-            className={classes.buttonDesktop}
-          >
-            <MenuItem value="ALL">
-              <div className={classes.filterDesktop}>Alle</div>
-            </MenuItem>
-            {Array.from(new Set(prs.map(pr => pr.supervisor))).map(reviewer => {
-              return (
-                <MenuItem key={reviewer} value={reviewer}>
-                  <div className={classes.filterDesktop}>{reviewer}</div>
+          <Hidden smDown>
+            <Select
+              id="_SelectIdFilter"
+              value={this.state.filters.reviewer}
+              onChange={this.handleFilter}
+              displayEmpty
+              name="Reviewer"
+            >
+              <MenuItem value="ALL">
+                <div className={classes.filterDesktop}>Alle</div>
+              </MenuItem>
+              {Array.from(new Set(prs.map(pr => pr.supervisor))).map(
+                reviewer => {
+                  return (
+                    <MenuItem key={reviewer} value={reviewer}>
+                      <div className={classes.filterDesktop}>{reviewer}</div>
+                    </MenuItem>
+                  );
+                }
+              )}
+            </Select>
+            <Select
+              id="_SelectIdFilter"
+              value={this.state.filters.occasion}
+              onChange={this.handleFilter}
+              displayEmpty
+              name="Occasion"
+            >
+              <MenuItem value="ALL">
+                <div className={classes.filterDesktop}>Alle</div>
+              </MenuItem>
+              {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
+                occasion => {
+                  return (
+                    <MenuItem key={occasion} value={occasion}>
+                      <div className={classes.filterDesktop}>
+                        {this.translateOccasion(occasion)}
+                      </div>
+                    </MenuItem>
+                  );
+                }
+              )}
+            </Select>
+          </Hidden>
+          <Hidden smUp>
+            <MyPRListFilterDialog>
+              <Select
+                value={this.state.filters.reviewer}
+                onChange={this.handleFilter}
+                displayEmpty
+                name="Reviewer"
+                className={classes.dialogSelect}
+              >
+                <MenuItem value="ALL">
+                  <div className={classes.filterDesktop}>Alle</div>
                 </MenuItem>
-              );
-            })}
-          </Select>
-          <Select
-            id="_SelectIdFilter"
-            value={this.state.filters.occasion}
-            onChange={this.handleFilter}
-            displayEmpty
-            name="Occasion"
-            className={classes.buttonDesktop}
-          >
-            <MenuItem value="ALL">
-              <div className={classes.filterDesktop}>Alle</div>
-            </MenuItem>
-            {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
-              occasion => {
-                return (
-                  <MenuItem key={occasion} value={occasion}>
-                    <div className={classes.filterDesktop}>
-                      {this.translateOccasion(occasion)}
-                    </div>
-                  </MenuItem>
-                );
-              }
-            )}
-          </Select>
+                {Array.from(new Set(prs.map(pr => pr.supervisor))).map(
+                  reviewer => {
+                    return (
+                      <MenuItem key={reviewer} value={reviewer}>
+                        <div className={classes.filterDesktop}>{reviewer}</div>
+                      </MenuItem>
+                    );
+                  }
+                )}
+              </Select>
+              <Select
+                value={this.state.filters.occasion}
+                onChange={this.handleFilter}
+                displayEmpty
+                name="Occasion"
+                className={classes.dialogSelect}
+              >
+                <MenuItem value="ALL">
+                  <div className={classes.filterDesktop}>Alle</div>
+                </MenuItem>
+                {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
+                  occasion => {
+                    return (
+                      <MenuItem key={occasion} value={occasion}>
+                        <div className={classes.filterDesktop}>
+                          {this.translateOccasion(occasion)}
+                        </div>
+                      </MenuItem>
+                    );
+                  }
+                )}
+              </Select>
+            </MyPRListFilterDialog>
+          </Hidden>
         </div>
         <Hidden smDown>
           <div className={classes.container}>
