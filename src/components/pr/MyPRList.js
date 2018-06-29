@@ -79,9 +79,7 @@ export class MyPRList extends React.Component {
 
   switchDateOrder = () => {
     let sortOrder = this.state.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.setState({
-      sortOrder: sortOrder
-    });
+    this.setState({ sortOrder });
     this.props.changePrSortOrder(sortOrder);
   };
 
