@@ -82,7 +82,7 @@ export class MyPRList extends React.Component {
     this.setState({
       sortOrder: sortOrder
     });
-    this.props.changePrSortOrderToProvidedDirection(sortOrder);
+    this.props.changePrSortOrder(sortOrder);
   };
 
   filterPR = pr => {
@@ -119,7 +119,7 @@ export class MyPRList extends React.Component {
   };
 
   componentDidMount() {
-    this.props.changePrSortOrderToProvidedDirection(this.state.sortOrder);
+    this.props.changePrSortOrder(this.state.sortOrder);
   }
 
   render() {
@@ -301,7 +301,6 @@ export default connect(
     fetchPrs: actions.fetchPrs,
     addPr: actions.addPr,
     addSupervisor: actions.addSupervisor,
-    changePrSortOrderToProvidedDirection:
-      actions.changePrSortOrderToProvidedDirection
+    changePrSortOrder: actions.changePrSortOrder
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));
