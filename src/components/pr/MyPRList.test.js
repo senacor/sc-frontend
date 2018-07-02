@@ -185,13 +185,19 @@ describe('MyPRList Component', () => {
   ];
 
   it('displays the MyPRList', () => {
-    const component = shallow(<StyledComponent prs={prs} />);
+    const mockChangePrSortOrder = jest.fn();
+    const component = shallow(
+      <StyledComponent prs={prs} changePrSortOrder={mockChangePrSortOrder} />
+    );
 
     expect(component).toMatchSnapshot();
   });
 
   it('filters PRs according to a reviewer', () => {
-    const wrapper = shallow(<StyledComponent prs={prs} />);
+    const mockChangePrSortOrder = jest.fn();
+    const wrapper = shallow(
+      <StyledComponent prs={prs} changePrSortOrder={mockChangePrSortOrder} />
+    );
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
 
     wrapper.setState({ filters: { reviewer: 'S1', occasion: 'ALL' } });
@@ -200,10 +206,12 @@ describe('MyPRList Component', () => {
   });
 
   it('should filter by occasion', () => {
+    const mockChangePrSortOrder = jest.fn();
     const wrapper = shallow(
       <StyledComponent
         prs={prs}
         filters={{ reviewer: 'ALL', occasion: 'ALL' }}
+        changePrSortOrder={mockChangePrSortOrder}
       />
     );
     const text_ondemand = wrapper.instance().translateOccasion('ON_DEMAND');
@@ -218,10 +226,12 @@ describe('MyPRList Component', () => {
   });
 
   it('should filter by reviewer and occasion at the same time', () => {
+    const mockChangePrSortOrder = jest.fn();
     const wrapper = shallow(
       <StyledComponent
         prs={prs}
         filters={{ reviewer: 'ALL', occasion: 'ALL' }}
+        changePrSortOrder={mockChangePrSortOrder}
       />
     );
     const text_ondemand = wrapper.instance().translateOccasion('ON_DEMAND');
@@ -234,22 +244,5 @@ describe('MyPRList Component', () => {
     wrapper.setState({ filters: { reviewer: 'ttran', occasion: 'ON_DEMAND' } });
 
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(0);
-  });
-
-  it('sorts the MyPRList in given order', () => {
-    const wrapper = shallow(<StyledComponent prs={prs} />);
-    expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual(
-      '2015-05-11'
-    );
-    expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual(
-      '2222-05-11'
-    );
-    wrapper.find('#sortButton').simulate('click');
-    expect(wrapper.find('[deadline]').get(0).props.deadline).toEqual(
-      '2222-05-11'
-    );
-    expect(wrapper.find('[deadline]').get(1).props.deadline).toEqual(
-      '2015-05-11'
-    );
   });
 });
