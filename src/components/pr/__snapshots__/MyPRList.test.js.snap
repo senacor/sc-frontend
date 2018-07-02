@@ -8,14 +8,14 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
   >
     Performance Reviews
   </WithStyles(Typography)>
-  <GridWrapper
+  <WithStyles(Grid)
     alignItems="center"
     container={true}
     direction="row"
     justify="space-between"
     spacing={0}
   >
-    <GridWrapper
+    <WithStyles(Grid)
       item={true}
       sm={9}
       xs={12}
@@ -322,7 +322,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           </WithTheme(WithWidth(WithMobileDialog))>
         </Hidden>
       </div>
-    </GridWrapper>
+    </WithStyles(Grid)>
     <Hidden
       implementation="js"
       lgDown={false}
@@ -336,7 +336,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       xsDown={false}
       xsUp={false}
     >
-      <GridWrapper
+      <WithStyles(Grid)
         align="right"
         item={true}
         sm={3}
@@ -355,9 +355,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           </WithStyles(Icon)>
           Beantrage PR
         </WithStyles(Button)>
-      </GridWrapper>
+      </WithStyles(Grid)>
     </Hidden>
-  </GridWrapper>
+  </WithStyles(Grid)>
   <Hidden
     implementation="js"
     lgDown={false}
