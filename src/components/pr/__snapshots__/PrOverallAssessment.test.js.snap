@@ -18,7 +18,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           id="ratingFullfillmentId"
           name="ratingFulfillment"
           onChange={[Function]}
-          value={2}
+          value={3}
         >
           <WithStyles(MenuItem)
             id="_ratingFulfillmentValue1"
@@ -75,7 +75,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           id="ratingTargetRoleId"
           name="ratingTargetRole"
           onChange={[Function]}
-          value={3}
+          value={2}
         >
           <WithStyles(MenuItem)
             id="_ratingTargetValueRole1"
@@ -185,7 +185,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
         required={false}
         rowsMax="4"
         select={false}
-        value="bbb"
+        value="Everything is awesome!!!"
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)>

@@ -244,7 +244,7 @@ class PrSheet extends React.Component {
                     ? classes.buttonDesktopDisabled
                     : classes.buttonDesktop
                 }
-                disabled={this.state.visibilityToReviewer}
+                disabled={this.state.visibilityToEmployee}
                 onClick={this.handleClick}
               >
                 PR Freigeben
