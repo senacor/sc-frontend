@@ -52,6 +52,10 @@ Object {
     "flexFlow": "row wrap",
     "justifyContent": "space-around",
   },
+  "dialogSelect": Object {
+    "display": "block",
+    "marginBottom": "10%",
+  },
   "divItemText": Object {
     "display": "flex",
     "flexDirection": "row",
@@ -79,6 +83,9 @@ Object {
   "prControls": Object {
     "& *": Object {
       "marginRight": "2%",
+    },
+    "& div": Object {
+      "display": "inline",
     },
     "marginBottom": "1%",
   },
