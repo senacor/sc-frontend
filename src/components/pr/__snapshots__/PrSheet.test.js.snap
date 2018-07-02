@@ -36,10 +36,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={true}
       />
       <Connect(WithStyles(PrSheetEmployee))
         category="ROLE_AND_PROJECT_ENVIRONMENT"
@@ -64,10 +69,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={true}
       />
     </WithStyles(List)>
   </WithStyles(List)>
@@ -104,10 +114,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
       <Connect(WithStyles(PrComment))
         category="WORK_RESULTS"
@@ -132,10 +147,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
       <Connect(WithStyles(PrComment))
         category="WORKING_MANNER"
@@ -160,10 +180,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
     </WithStyles(List)>
   </WithStyles(List)>
@@ -197,10 +222,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           },
           "id": 1,
           "occasion": "ON_DEMAND",
+          "prVisibilityEntry": Object {
+            "visibilityToEmployee": "INVISIBLE",
+            "visibilityToReviewer": "VISIBLE",
+          },
           "status": "PREPARATION",
           "supervisor": "ttran",
         }
       }
+      prVisible={false}
     />
     <Connect(WithStyles(PrComment))
       category="CUSTOMER_RETENTION"
@@ -225,10 +255,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
           },
           "id": 1,
           "occasion": "ON_DEMAND",
+          "prVisibilityEntry": Object {
+            "visibilityToEmployee": "INVISIBLE",
+            "visibilityToReviewer": "VISIBLE",
+          },
           "status": "PREPARATION",
           "supervisor": "ttran",
         }
       }
+      prVisible={false}
     />
   </WithStyles(List)>
   <WithStyles(Divider) />
@@ -264,10 +299,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
       <Connect(WithStyles(PrComment))
         category="LEADERSHIP"
@@ -292,10 +332,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
     </WithStyles(List)>
   </WithStyles(List)>
@@ -332,10 +377,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
     </WithStyles(List)>
   </WithStyles(List)>
@@ -371,10 +421,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prVisibilityEntry": Object {
+              "visibilityToEmployee": "INVISIBLE",
+              "visibilityToReviewer": "VISIBLE",
+            },
             "status": "PREPARATION",
             "supervisor": "ttran",
           }
         }
+        prVisible={false}
       />
     </WithStyles(List)>
   </WithStyles(List)>
@@ -383,6 +438,7 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     <WithStyles(ListItem)>
       <WithStyles(Button)
         className="PrSheet-buttonDesktop-4"
+        disabled={true}
         onClick={[Function]}
       >
         PR Freigeben

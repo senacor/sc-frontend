@@ -55,15 +55,13 @@ class PrSheet extends React.Component {
   }
 
   handleClick = () => {
-    console.log(this.state.visibilityToEmployee);
-    console.log(this.state.visibilityToReviewer);
     if (
       (isSupervisor(this.props.userroles) &&
         !this.state.visibilityToEmployee) ||
       (isEmployee(this.props.userroles) && !this.state.visibilityToReviewer)
     ) {
       this.props.setVisibilityById(
-        this.state.prById.id,
+        this.state.prById,
         isSupervisor(this.props.userroles)
           ? true
           : this.state.visibilityToEmployee,
@@ -71,6 +69,12 @@ class PrSheet extends React.Component {
           ? true
           : this.state.visibilityToReviewer
       );
+      this.setState({
+        visibilityToEmployee:
+          isSupervisor(this.props.userroles) || this.state.visibilityToEmployee,
+        visibilityToReviewer:
+          isEmployee(this.props.userroles) || this.state.visibilityToReviewer
+      });
     }
   };
 
@@ -110,6 +114,7 @@ class PrSheet extends React.Component {
                       ? classes.buttonDesktopDisabled
                       : classes.buttonDesktop
                   }
+                  disabled={this.state.visibilityToReviewer}
                   onClick={this.handleClick}
                 >
                   PR Freigeben
@@ -239,6 +244,7 @@ class PrSheet extends React.Component {
                     ? classes.buttonDesktopDisabled
                     : classes.buttonDesktop
                 }
+                disabled={this.state.visibilityToReviewer}
                 onClick={this.handleClick}
               >
                 PR Freigeben

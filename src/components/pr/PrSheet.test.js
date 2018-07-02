@@ -26,6 +26,10 @@ describe('PrSheet Component', () => {
       self: {
         href: 'http://localhost:8010/api/v1/prs/1'
       }
+    },
+    prVisibilityEntry: {
+      visibilityToEmployee: 'INVISIBLE',
+      visibilityToReviewer: 'VISIBLE'
     }
   };
 

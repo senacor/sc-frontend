@@ -11,7 +11,3 @@ export const isEmployee = (userroles = []) => {
 export const isSupervisor = (userroles = []) => {
   return userroles.includes(ROLES.PR_CST_LEITER);
 };
-
-export const isSupervisor = (userroles = []) => {
-  return userroles.includes('PR_CST_Leiter');
-};

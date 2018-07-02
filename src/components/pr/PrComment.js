@@ -158,7 +158,9 @@ class PrComment extends React.Component {
             <Icon
               id={`${category}_CommentIconId`}
               className={
-                this.state.comment ? classes.iconComment : classes.iconNoComment
+                this.state.comment && this.state.prVisible
+                  ? classes.iconComment
+                  : classes.iconNoComment
               }
             >
               comment

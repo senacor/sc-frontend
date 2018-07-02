@@ -159,7 +159,7 @@ export const fetchPrVisibilityById = prsId => async dispatch => {
 };
 
 export const setVisibilityById = (
-  prId,
+  prById,
   toEmployee = false,
   toSupervisor = false
 ) => async dispatch => {
@@ -167,7 +167,7 @@ export const setVisibilityById = (
     type: 'EDIT_PR_VISIBILITY_REQUEST'
   });
   const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/visibility`,
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/visibility`,
     {
       method: 'put',
       mode: 'cors',
@@ -184,6 +184,7 @@ export const setVisibilityById = (
       type: 'EDIT_PR_VISIBILITY_RESPONSE',
       task
     });
+    Object.assign(prById.prVisibilityEntry, task);
   } else {
     dispatch({
       type: 'ERROR_RESPONSE',

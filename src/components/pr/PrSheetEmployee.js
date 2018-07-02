@@ -97,7 +97,9 @@ class PrSheetEmployee extends React.Component {
           <ListItem>
             {isSupervisor(this.props.userroles) ? (
               <Typography className={classes.comment} variant="body1">
-                {this.state.text ? this.state.text : 'Noch kein Eintrag'}
+                {this.state.text && this.state.prVisible
+                  ? this.state.text
+                  : 'Noch kein Eintrag'}
               </Typography>
             ) : (
               <TextField
@@ -108,9 +110,7 @@ class PrSheetEmployee extends React.Component {
                 rowsMax="4"
                 margin="none"
                 helperText={this.placeholder(category)}
-                value={
-                this.state.text && this.state.prVisible ? this.state.text : ''
-              }
+                value={this.state.text ? this.state.text : ''}
                 onChange={this.handleChangeComment(prById, category)}
                 InputProps={{
                   disableUnderline: true,

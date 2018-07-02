@@ -48,7 +48,7 @@ describe('PRList Component', () => {
       <StyledComponent
         prs={prs}
         delegatedSupervisors={delegatedSupervisors}
-        username="ttran@polaris.senacor.com"
+        username="ttran"
       />
     );
 

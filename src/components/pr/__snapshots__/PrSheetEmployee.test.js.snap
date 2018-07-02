@@ -40,7 +40,7 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
         rows="4"
         rowsMax="4"
         select={false}
-        value=""
+        value="hjkkkhgcghjjn"
       />
     </WithStyles(ListItem)>
   </WithStyles(List)>
