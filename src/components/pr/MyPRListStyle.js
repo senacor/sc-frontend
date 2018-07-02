@@ -104,9 +104,6 @@ const styles = theme => ({
     marginBottom: '1%',
     '& *': {
       marginRight: '2%'
-    },
-    '& div': {
-      display: 'inline'
     }
   },
   buttonWrapper: {
@@ -115,9 +112,9 @@ const styles = theme => ({
   leftIcon: {
     marginRight: theme.spacing.unit
   },
-  dialogSelect: {
-    display: 'block',
-    marginBottom: '10%'
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
   }
 });
 

@@ -65,119 +65,23 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       xsDown={false}
       xsUp={false}
     >
-      <WithStyles(Select)
-        displayEmpty={true}
-        id="_SelectIdFilter"
-        name="Reviewer"
-        onChange={[Function]}
-        value="ALL"
+      <WithStyles(FormControl)
+        className="MyPRList-formControl-22"
       >
-        <WithStyles(MenuItem)
-          value="ALL"
+        <WithStyles(InputLabel)
+          htmlFor="reviewer"
         >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            Alle
-          </div>
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          key="ttran"
-          value="ttran"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            ttran
-          </div>
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          key="test"
-          value="test"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            test
-          </div>
-        </WithStyles(MenuItem)>
-      </WithStyles(Select)>
-      <WithStyles(Select)
-        displayEmpty={true}
-        id="_SelectIdFilter"
-        name="Occasion"
-        onChange={[Function]}
-        value="ALL"
-      >
-        <WithStyles(MenuItem)
-          value="ALL"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            Alle
-          </div>
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          key="ON_DEMAND"
-          value="ON_DEMAND"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            Auf Nachfrage
-          </div>
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          key="YEARLY"
-          value="YEARLY"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            jährlich
-          </div>
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          key="QUARTERLY"
-          value="QUARTERLY"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            vierteljährlich
-          </div>
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          key="END_PROBATION"
-          value="END_PROBATION"
-        >
-          <div
-            className="MyPRList-filterDesktop-5"
-          >
-            Ende der Probezeit
-          </div>
-        </WithStyles(MenuItem)>
-      </WithStyles(Select)>
-    </Hidden>
-    <Hidden
-      implementation="js"
-      lgDown={false}
-      lgUp={false}
-      mdDown={false}
-      mdUp={false}
-      smDown={false}
-      smUp={true}
-      xlDown={false}
-      xlUp={false}
-      xsDown={false}
-      xsUp={false}
-    >
-      <WithStyles(MyPRListFilterDialog)>
+          Beurteiler
+        </WithStyles(InputLabel)>
         <WithStyles(Select)
-          className="MyPRList-dialogSelect-22"
           displayEmpty={true}
-          name="Reviewer"
+          id="_SelectIdFilter"
+          inputProps={
+            Object {
+              "id": "_SelectIdFilter",
+              "name": "Reviewer",
+            }
+          }
           onChange={[Function]}
           value="ALL"
         >
@@ -211,9 +115,24 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             </div>
           </WithStyles(MenuItem)>
         </WithStyles(Select)>
+      </WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        className="MyPRList-formControl-22"
+      >
+        <WithStyles(InputLabel)
+          htmlFor="occasion"
+        >
+          Anlass
+        </WithStyles(InputLabel)>
         <WithStyles(Select)
-          className="MyPRList-dialogSelect-22"
           displayEmpty={true}
+          id="_SelectIdFilter"
+          inputProps={
+            Object {
+              "id": "_SelectIdFilter",
+              "name": "Occasion",
+            }
+          }
           name="Occasion"
           onChange={[Function]}
           value="ALL"
@@ -244,7 +163,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             <div
               className="MyPRList-filterDesktop-5"
             >
-              jährlich
+              Jährlich
             </div>
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
@@ -254,7 +173,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             <div
               className="MyPRList-filterDesktop-5"
             >
-              vierteljährlich
+              Vierteljährlich
             </div>
           </WithStyles(MenuItem)>
           <WithStyles(MenuItem)
@@ -268,7 +187,157 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             </div>
           </WithStyles(MenuItem)>
         </WithStyles(Select)>
-      </WithStyles(MyPRListFilterDialog)>
+      </WithStyles(FormControl)>
+    </Hidden>
+    <Hidden
+      implementation="js"
+      lgDown={false}
+      lgUp={false}
+      mdDown={false}
+      mdUp={false}
+      smDown={false}
+      smUp={true}
+      xlDown={false}
+      xlUp={false}
+      xsDown={false}
+      xsUp={false}
+    >
+      <WithStyles(Button)
+        id="openFilterDialog"
+        onClick={[Function]}
+      >
+        <WithStyles(Icon)
+          className="MyPRList-leftIcon-21"
+        >
+          filter_list
+        </WithStyles(Icon)>
+        Filter
+      </WithStyles(Button)>
+      <WithTheme(WithWidth(WithMobileDialog))
+        handleClose={[Function]}
+        open={false}
+      >
+        <WithStyles(FormControl)
+          className="MyPRList-formControl-22"
+        >
+          <WithStyles(InputLabel)
+            htmlFor="reviewer"
+          >
+            Beurteiler
+          </WithStyles(InputLabel)>
+          <WithStyles(Select)
+            displayEmpty={true}
+            inputProps={
+              Object {
+                "id": "_SelectIdFilter",
+                "name": "Reviewer",
+              }
+            }
+            onChange={[Function]}
+            value="ALL"
+          >
+            <WithStyles(MenuItem)
+              value="ALL"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                Alle
+              </div>
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              key="ttran"
+              value="ttran"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                ttran
+              </div>
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              key="test"
+              value="test"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                test
+              </div>
+            </WithStyles(MenuItem)>
+          </WithStyles(Select)>
+        </WithStyles(FormControl)>
+        <WithStyles(FormControl)
+          className="MyPRList-formControl-22"
+        >
+          <WithStyles(InputLabel)
+            htmlFor="occasion"
+          >
+            Anlass
+          </WithStyles(InputLabel)>
+          <WithStyles(Select)
+            displayEmpty={true}
+            inputProps={
+              Object {
+                "id": "_SelectIdFilter",
+                "name": "Occasion",
+              }
+            }
+            onChange={[Function]}
+            value="ALL"
+          >
+            <WithStyles(MenuItem)
+              value="ALL"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                Alle
+              </div>
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              key="ON_DEMAND"
+              value="ON_DEMAND"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                Auf Nachfrage
+              </div>
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              key="YEARLY"
+              value="YEARLY"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                Jährlich
+              </div>
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              key="QUARTERLY"
+              value="QUARTERLY"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                Vierteljährlich
+              </div>
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              key="END_PROBATION"
+              value="END_PROBATION"
+            >
+              <div
+                className="MyPRList-filterDesktop-5"
+              >
+                Ende der Probezeit
+              </div>
+            </WithStyles(MenuItem)>
+          </WithStyles(Select)>
+        </WithStyles(FormControl)>
+      </WithTheme(WithWidth(WithMobileDialog))>
     </Hidden>
   </div>
   <Hidden
@@ -301,7 +370,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           >
             <WithStyles(MyPRListItem)
               deadline="2015-05-11"
-              occasion="jährlich"
+              occasion="Jährlich"
               reviewer="ttran"
               status="In Vorbereitung"
             />
@@ -670,7 +739,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
       >
         <WithStyles(MyPRListItem)
           deadline="2015-05-11"
-          occasion="jährlich"
+          occasion="Jährlich"
           reviewer="ttran"
           status="In Vorbereitung"
         />

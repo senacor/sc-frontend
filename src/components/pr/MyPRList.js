@@ -21,6 +21,8 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Hidden from '@material-ui/core/Hidden';
 import AddIcon from '@material-ui/icons/Add';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 export class MyPRList extends React.Component {
   constructor(props) {
@@ -29,6 +31,7 @@ export class MyPRList extends React.Component {
     this.state = {
       prs: props.prs,
       prOpen: prOpen,
+      filterDialogOpen: false,
       filters: props.filters
         ? props.filters
         : {
@@ -59,9 +62,9 @@ export class MyPRList extends React.Component {
       case 'ON_DEMAND':
         return 'Auf Nachfrage';
       case 'YEARLY':
-        return 'jährlich';
+        return 'Jährlich';
       case 'QUARTERLY':
-        return 'vierteljährlich';
+        return 'Vierteljährlich';
       case 'END_PROBATION':
         return 'Ende der Probezeit';
       default:
@@ -71,6 +74,14 @@ export class MyPRList extends React.Component {
 
   handleClick = () => {
     this.props.addPr();
+  };
+
+  handleClickOpenFilterDialog = () => {
+    this.setState({ filterDialogOpen: true });
+  };
+
+  handleClickCloseFilterDialog = () => {
+    this.setState({ filterDialogOpen: false });
   };
 
   openAnotherSheet = pr => {
@@ -166,57 +177,17 @@ export class MyPRList extends React.Component {
             Datum
           </Button>
           <Hidden smDown>
-            <Select
-              id="_SelectIdFilter"
-              value={this.state.filters.reviewer}
-              onChange={this.handleFilter}
-              displayEmpty
-              name="Reviewer"
-            >
-              <MenuItem value="ALL">
-                <div className={classes.filterDesktop}>Alle</div>
-              </MenuItem>
-              {Array.from(new Set(prs.map(pr => pr.supervisor))).map(
-                reviewer => {
-                  return (
-                    <MenuItem key={reviewer} value={reviewer}>
-                      <div className={classes.filterDesktop}>{reviewer}</div>
-                    </MenuItem>
-                  );
-                }
-              )}
-            </Select>
-            <Select
-              id="_SelectIdFilter"
-              value={this.state.filters.occasion}
-              onChange={this.handleFilter}
-              displayEmpty
-              name="Occasion"
-            >
-              <MenuItem value="ALL">
-                <div className={classes.filterDesktop}>Alle</div>
-              </MenuItem>
-              {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
-                occasion => {
-                  return (
-                    <MenuItem key={occasion} value={occasion}>
-                      <div className={classes.filterDesktop}>
-                        {this.translateOccasion(occasion)}
-                      </div>
-                    </MenuItem>
-                  );
-                }
-              )}
-            </Select>
-          </Hidden>
-          <Hidden smUp>
-            <MyPRListFilterDialog>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="reviewer">Beurteiler</InputLabel>
               <Select
+                id="_SelectIdFilter"
                 value={this.state.filters.reviewer}
                 onChange={this.handleFilter}
                 displayEmpty
-                name="Reviewer"
-                className={classes.dialogSelect}
+                inputProps={{
+                  name: 'Reviewer',
+                  id: '_SelectIdFilter'
+                }}
               >
                 <MenuItem value="ALL">
                   <div className={classes.filterDesktop}>Alle</div>
@@ -231,12 +202,19 @@ export class MyPRList extends React.Component {
                   }
                 )}
               </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="occasion">Anlass</InputLabel>
               <Select
+                id="_SelectIdFilter"
                 value={this.state.filters.occasion}
                 onChange={this.handleFilter}
                 displayEmpty
                 name="Occasion"
-                className={classes.dialogSelect}
+                inputProps={{
+                  name: 'Occasion',
+                  id: '_SelectIdFilter'
+                }}
               >
                 <MenuItem value="ALL">
                   <div className={classes.filterDesktop}>Alle</div>
@@ -253,6 +231,73 @@ export class MyPRList extends React.Component {
                   }
                 )}
               </Select>
+            </FormControl>
+          </Hidden>
+          <Hidden smUp>
+            <Button
+              id="openFilterDialog"
+              onClick={this.handleClickOpenFilterDialog}
+            >
+              <Icon className={classes.leftIcon}>filter_list</Icon>Filter
+            </Button>
+            <MyPRListFilterDialog
+              open={this.state.filterDialogOpen}
+              handleClose={this.handleClickCloseFilterDialog}
+            >
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="reviewer">Beurteiler</InputLabel>
+                <Select
+                  value={this.state.filters.reviewer}
+                  onChange={this.handleFilter}
+                  displayEmpty
+                  inputProps={{
+                    name: 'Reviewer',
+                    id: '_SelectIdFilter'
+                  }}
+                >
+                  <MenuItem value="ALL">
+                    <div className={classes.filterDesktop}>Alle</div>
+                  </MenuItem>
+                  {Array.from(new Set(prs.map(pr => pr.supervisor))).map(
+                    reviewer => {
+                      return (
+                        <MenuItem key={reviewer} value={reviewer}>
+                          <div className={classes.filterDesktop}>
+                            {reviewer}
+                          </div>
+                        </MenuItem>
+                      );
+                    }
+                  )}
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="occasion">Anlass</InputLabel>
+                <Select
+                  value={this.state.filters.occasion}
+                  onChange={this.handleFilter}
+                  displayEmpty
+                  inputProps={{
+                    name: 'Occasion',
+                    id: '_SelectIdFilter'
+                  }}
+                >
+                  <MenuItem value="ALL">
+                    <div className={classes.filterDesktop}>Alle</div>
+                  </MenuItem>
+                  {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
+                    occasion => {
+                      return (
+                        <MenuItem key={occasion} value={occasion}>
+                          <div className={classes.filterDesktop}>
+                            {this.translateOccasion(occasion)}
+                          </div>
+                        </MenuItem>
+                      );
+                    }
+                  )}
+                </Select>
+              </FormControl>
             </MyPRListFilterDialog>
           </Hidden>
         </div>

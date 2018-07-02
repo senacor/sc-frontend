@@ -5,9 +5,8 @@ import { createShallow } from '@material-ui/core/test-utils';
 describe('MyPRListFilterDialog Component', () => {
   let shallow = createShallow({ dive: true });
 
-  it('displays the dialog for filtering in mobile view', () => {
+  it('should match snapshot', () => {
     const component = shallow(<MyPRListFilterDialog />);
-
     expect(component).toMatchSnapshot();
   });
 });

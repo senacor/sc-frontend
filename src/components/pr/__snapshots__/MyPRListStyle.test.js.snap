@@ -52,10 +52,6 @@ Object {
     "flexFlow": "row wrap",
     "justifyContent": "space-around",
   },
-  "dialogSelect": Object {
-    "display": "block",
-    "marginBottom": "10%",
-  },
   "divItemText": Object {
     "display": "flex",
     "flexDirection": "row",
@@ -64,6 +60,10 @@ Object {
   "filterDesktop": Object {
     "borderRadius": "5px",
     "padding": "2px 10px",
+  },
+  "formControl": Object {
+    "margin": "8px",
+    "minWidth": 120,
   },
   "leftIcon": Object {
     "marginRight": "8px",
@@ -83,9 +83,6 @@ Object {
   "prControls": Object {
     "& *": Object {
       "marginRight": "2%",
-    },
-    "& div": Object {
-      "display": "inline",
     },
     "marginBottom": "1%",
   },
