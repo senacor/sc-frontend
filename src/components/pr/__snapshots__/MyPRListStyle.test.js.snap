@@ -5,7 +5,6 @@ Object {
   "buttonDesktop": Object {
     "backgroundColor": 400,
     "color": "#FFF",
-    "marginBottom": "2%",
     "marginRight": "1%",
     "position": "relative",
   },
@@ -18,9 +17,6 @@ Object {
     "bottom": "5%",
     "left": "80%",
     "position": "fixed",
-  },
-  "buttonWrapper": Object {
-    "display": "block",
   },
   "cardColumn": Object {
     "alignSelf": "top",
@@ -44,7 +40,7 @@ Object {
     "display": "flex",
     "flexDirection": "row",
     "justifyContent": "space-around",
-    "width": "74%",
+    "width": "75%",
   },
   "container": Object {
     "display": "flex",

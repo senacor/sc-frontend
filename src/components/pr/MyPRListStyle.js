@@ -19,8 +19,7 @@ const styles = theme => ({
     position: 'relative',
     marginRight: '1%',
     backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
-    marginBottom: '2%'
+    color: '#FFF'
   },
   filterDesktop: {
     padding: '2px 10px',
@@ -78,7 +77,7 @@ const styles = theme => ({
   cardContainerRow: {
     display: 'flex',
     flexDirection: 'row',
-    width: '74%',
+    width: '75%',
     justifyContent: 'space-around'
   },
   cardColumnSheet: {
@@ -105,9 +104,6 @@ const styles = theme => ({
     '& *': {
       marginRight: '2%'
     }
-  },
-  buttonWrapper: {
-    display: 'block'
   },
   leftIcon: {
     marginRight: theme.spacing.unit
