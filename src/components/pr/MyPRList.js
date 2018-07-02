@@ -314,6 +314,5 @@ export default connect(
   {
     fetchPrs: actions.fetchPrs,
     addPr: actions.addPr,
-    addSupervisor: actions.addSupervisor
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));
