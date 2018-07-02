@@ -2,6 +2,7 @@ import { getUserInfo, getUserRoles } from './userinfo';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
+import { FETCHED_USERINFO, FETCHED_USERROLES } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -31,7 +32,7 @@ describe('getUserInfo redux action', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCHED_USERINFO',
+        type: FETCHED_USERINFO,
         userinfo: testdata
       }
     ]);
@@ -84,7 +85,7 @@ describe('getUserRoles redux action', () => {
     await store.dispatch(getUserRoles());
 
     expect(store.getActions()).toContainEqual({
-      type: 'FETCHED_USERROLES',
+      type: FETCHED_USERROLES,
       roles: testdata
     });
   });

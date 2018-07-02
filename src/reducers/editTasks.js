@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
+import { EDIT_TASK_REQUEST, EDIT_TASK_RESPONSE } from '../helper/dispatchTypes';
 
 const isChanging = (state = false, action) => {
   switch (action.type) {
-    case 'EDIT_TASK_REQUEST':
+    case EDIT_TASK_REQUEST:
       return true;
-    case 'EDIT_TASK_RESPONSE':
+    case EDIT_TASK_RESPONSE:
       return false;
     default:
       return state;
@@ -13,7 +14,7 @@ const isChanging = (state = false, action) => {
 
 const list = (state = [], action) => {
   switch (action.type) {
-    case 'EDIT_TASK_RESPONSE':
+    case EDIT_TASK_RESPONSE:
       return action.task;
     default:
       return state;

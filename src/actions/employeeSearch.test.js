@@ -2,6 +2,11 @@ import fetchMock from 'fetch-mock';
 import { prSearch } from './employeeSearch';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import {
+  FETCH_EMPLOYEES_REQUEST,
+  ERROR_GONE,
+  FETCH_EMPLOYEES_RESPONSE
+} from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -39,13 +44,13 @@ describe('employeeSearch', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCH_EMPLOYEES_REQUEST'
+        type: FETCH_EMPLOYEES_REQUEST
       },
       {
-        type: 'ERROR_GONE'
+        type: ERROR_GONE
       },
       {
-        type: 'FETCH_EMPLOYEES_RESPONSE',
+        type: FETCH_EMPLOYEES_RESPONSE,
         employees: [
           {
             id: 1,

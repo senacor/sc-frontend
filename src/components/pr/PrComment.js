@@ -82,6 +82,8 @@ class PrComment extends React.Component {
     let prRating = prById.prRatingSet.find(
       prRating => prRating.prRatingDescription === category
     );
+    prRating.rating = event.target.value;
+
     this.props.addRating(
       prById,
       category,
@@ -96,6 +98,7 @@ class PrComment extends React.Component {
     let prRating = prById.prRatingSet.find(
       prRating => prRating.prRatingDescription === category
     );
+    prRating.comment = event.target.value;
 
     this.sendComment(
       prById,
@@ -153,6 +156,7 @@ class PrComment extends React.Component {
             />
 
             <Icon
+              id={`${category}_CommentIconId`}
               className={
                 this.state.comment ? classes.iconComment : classes.iconNoComment
               }

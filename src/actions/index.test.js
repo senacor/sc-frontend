@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import { fetchPrById, addPr, editTask, fetchPrs, fetchTasks } from './index';
+import * as dispatchTypes from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -44,13 +45,13 @@ describe('fetchTasks', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCH_TASKS_REQUEST'
+        type: dispatchTypes.FETCH_TASKS_REQUEST
       },
       {
-        type: 'ERROR_GONE'
+        type: dispatchTypes.ERROR_GONE
       },
       {
-        type: 'FETCH_TASKS_RESPONSE',
+        type: dispatchTypes.FETCH_TASKS_RESPONSE,
         tasks: [
           {
             id: 1,
@@ -85,13 +86,13 @@ describe('fetchTasks', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCH_TASKS_REQUEST'
+        type: dispatchTypes.FETCH_TASKS_REQUEST
       },
       {
-        type: 'ERROR_GONE'
+        type: dispatchTypes.ERROR_GONE
       },
       {
-        type: 'FETCH_TASKS_RESPONSE',
+        type: dispatchTypes.FETCH_TASKS_RESPONSE,
         tasks: []
       }
     ]);
@@ -145,13 +146,13 @@ describe('fetchPrs', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCH_PRS_REQUEST'
+        type: dispatchTypes.FETCH_PRS_REQUEST
       },
       {
-        type: 'ERROR_GONE'
+        type: dispatchTypes.ERROR_GONE
       },
       {
-        type: 'FETCH_PRS_RESPONSE',
+        type: dispatchTypes.FETCH_PRS_RESPONSE,
         prs: [
           {
             id: 1,
@@ -195,13 +196,13 @@ describe('fetchPrs', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCH_PRS_REQUEST'
+        type: dispatchTypes.FETCH_PRS_REQUEST
       },
       {
-        type: 'ERROR_GONE'
+        type: dispatchTypes.ERROR_GONE
       },
       {
-        type: 'FETCH_PRS_RESPONSE',
+        type: dispatchTypes.FETCH_PRS_RESPONSE,
         prs: []
       }
     ]);
@@ -252,10 +253,10 @@ describe('editTask', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'EDIT_TASK_REQUEST'
+        type: dispatchTypes.EDIT_TASK_REQUEST
       },
       {
-        type: 'EDIT_TASK_RESPONSE',
+        type: dispatchTypes.EDIT_TASK_RESPONSE,
         task: {
           id: 1,
           title: 'Test title',
@@ -310,10 +311,10 @@ describe('addPr', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'ADD_PR_REQUEST'
+        type: dispatchTypes.ADD_PR_REQUEST
       },
       {
-        type: 'ADD_PR_RESPONSE',
+        type: dispatchTypes.ADD_PR_RESPONSE,
         pr: {
           id: 1,
           employee: {
@@ -374,13 +375,13 @@ describe('fetchPrById', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'FETCH_PR_BY_ID_REQUEST'
+        type: dispatchTypes.FETCH_PR_BY_ID_REQUEST
       },
       {
-        type: 'ERROR_GONE'
+        type: dispatchTypes.ERROR_GONE
       },
       {
-        type: 'FETCH_PR_BY_ID_RESPONSE',
+        type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE,
         prById: {
           id: 1,
           employee: {

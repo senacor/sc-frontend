@@ -1,4 +1,10 @@
 import { default as authorizedFetch } from '../helper/customFetch';
+import {
+  FETCHED_USERINFO,
+  FETCHED_USERPHOTO,
+  FETCHED_USERROLES,
+  LOGIN_UNAUTHORIZED
+} from '../helper/dispatchTypes';
 
 export const getUserInfo = () => async dispatch => {
   const response = await authorizedFetch(
@@ -10,13 +16,13 @@ export const getUserInfo = () => async dispatch => {
 
   if (response.status === 401) {
     dispatch({
-      type: 'LOGIN_UNAUTHORIZED'
+      type: LOGIN_UNAUTHORIZED
     });
   } else if (response.ok) {
     const userinfo = await response.json();
 
     dispatch({
-      type: 'FETCHED_USERINFO',
+      type: FETCHED_USERINFO,
       userinfo
     });
   }
@@ -35,7 +41,7 @@ export const getUserPhoto = () => async dispatch => {
 
   if (response.status === 401) {
     dispatch({
-      type: 'LOGIN_UNAUTHORIZED'
+      type: LOGIN_UNAUTHORIZED
     });
   } else if (response.ok) {
     let buffer = await response.arrayBuffer();
@@ -45,7 +51,7 @@ export const getUserPhoto = () => async dispatch => {
     let imageString = base64Flag + base64ImageString;
 
     dispatch({
-      type: 'FETCHED_USERPHOTO',
+      type: FETCHED_USERPHOTO,
       imageString
     });
   }
@@ -61,13 +67,13 @@ export const getUserRoles = () => async dispatch => {
 
   if (response.status === 401) {
     dispatch({
-      type: 'LOGIN_UNAUTHORIZED'
+      type: LOGIN_UNAUTHORIZED
     });
   } else if (response.ok) {
     const roles = await response.json();
 
     dispatch({
-      type: 'FETCHED_USERROLES',
+      type: FETCHED_USERROLES,
       roles
     });
   }

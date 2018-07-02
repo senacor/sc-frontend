@@ -2,6 +2,12 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import { login, logout } from './login';
+import {
+  LOGIN_REQUEST,
+  LOGIN_UNAUTHORIZED,
+  LOGIN_RESPONSE,
+  LOGOUT
+} from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -28,10 +34,10 @@ describe('login redux action', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'LOGIN_REQUEST'
+        type: LOGIN_REQUEST
       },
       {
-        type: 'LOGIN_RESPONSE',
+        type: LOGIN_RESPONSE,
         data
       }
     ]);
@@ -55,11 +61,11 @@ describe('login redux action', () => {
     await store.dispatch(login(credentials));
 
     expect(store.getActions()).toContainEqual({
-      type: 'LOGIN_UNAUTHORIZED'
+      type: LOGIN_UNAUTHORIZED
     });
 
     expect(store.getActions()).not.toContainEqual({
-      type: 'LOGIN_RESPONSE'
+      type: LOGIN_RESPONSE
     });
   });
 
@@ -102,7 +108,7 @@ describe('logout redux action', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: 'LOGOUT'
+        type: LOGOUT
       }
     ]);
   });
