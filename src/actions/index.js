@@ -136,17 +136,9 @@ export const fetchPrById = prsId => async dispatch => {
   }
 };
 
-export const addSupervisor = (prId, employee) => async dispatch => {
-  dispatch({
-    type: dispatchTypes.ADD_SUPERVISOR,
-    delegatedSupervisor: `${employee.firstName} ${employee.lastName}`,
-    prId: prId
-  });
-};
-
 export const delegateReviewer = (prId, reviewerId) => async dispatch => {
   dispatch({
-    type: 'DELEGATE_SUPERVISOR_REQUEST'
+    type: dispatchTypes.DELEGATE_REVIEWER_REQUEST
   });
 
   const changeResponse = await fetch(
@@ -160,20 +152,17 @@ export const delegateReviewer = (prId, reviewerId) => async dispatch => {
     }
   );
 
+  const prNewReviewer = await changeResponse.json();
   if (changeResponse.ok) {
-    const updatedPr = await changeResponse.json();
     dispatch({
-      type: 'DELEGATE_SUPERVISOR_RESPONSE',
-      updatedPr: updatedPr
+      type: dispatchTypes.DELEGATE_REVIEWER_RESPONSE,
+      prNewReviewer: prNewReviewer
     });
   } else {
     dispatch({
-      type: 'ERROR_RESPONSE_DELEGATION',
+      type: dispatchTypes.ERROR_RESPONSE_DELEGATION,
       httpCode: changeResponse.status,
-      errorMessage: changeResponse.errorMessage,
-      id: JSON.stringify({
-        reviewerEmployeeId: reviewerId
-      })
+      errorMessage: prNewReviewer.message,
     });
   }
 };
