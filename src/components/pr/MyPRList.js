@@ -7,7 +7,6 @@ import PrState from './PrState';
 import PrSalary from './PrSalary';
 import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styles from './MyPRListStyle';
 import MyPRListFilterDialog from './MyPRListFilterDialog';
