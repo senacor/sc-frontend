@@ -57,6 +57,8 @@ class PrSheetEmployee extends React.Component {
       prReflection => prReflection.prReflectionField === category
     );
 
+    reflectionSet.text = event.target.value;
+
     this.sendComment(prById, category, event.target.value, reflectionSet.id);
   };
 

@@ -3,7 +3,21 @@ import {
   FETCH_PRS_RESPONSE,
   ADD_PR_RESPONSE,
   DELEGATE_REVIEWER_RESPONSE
+  CHANGE_SORT_ORDER
 } from '../helper/dispatchTypes';
+import moment from 'moment/moment';
+
+function dateSort(sortOrder) {
+  return (firstPR, secondPR) => {
+    let comparison = 0;
+    if (moment(firstPR.deadline).isBefore(moment(secondPR.deadline))) {
+      comparison = 1;
+    } else if (moment(firstPR.deadline).isAfter(moment(secondPR.deadline))) {
+      comparison = -1;
+    }
+    return sortOrder === 'asc' ? comparison * -1 : comparison;
+  };
+}
 
 const prsList = (state = [], action) => {
   switch (action.type) {
@@ -23,6 +37,10 @@ const prsList = (state = [], action) => {
         ...state.slice(indexReviewer + 1, state.length)
       ];
 
+    }
+    case CHANGE_SORT_ORDER: {
+      return [...state].sort(dateSort(action.sortOrder));
+    }
     default:
       return state;
   }

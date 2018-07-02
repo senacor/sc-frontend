@@ -13,7 +13,6 @@ import PrSalary from './PrSalary';
 import PrEmployment from './PrEmployment';
 import PrSheet from './PrSheet';
 import Card from '@material-ui/core/Card';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import Select from '@material-ui/core/Select';
@@ -34,7 +33,7 @@ export class MyPRList extends React.Component {
             reviewer: 'ALL',
             occasion: 'ALL'
           },
-      dateInAscendingOrder: true
+      sortOrder: 'asc'
     };
   }
 
@@ -79,28 +78,15 @@ export class MyPRList extends React.Component {
   };
 
   switchDateOrder = () => {
-    this.setState(prevState => ({
-      dateInAscendingOrder: !prevState.dateInAscendingOrder,
-      prs: this.state.prs.sort(this.dateSort(!prevState.dateInAscendingOrder))
-    }));
-  };
-
-  dateSort = dateInAscendingOrder => {
-    return (firstPR, secondPR) => {
-      let comparison = 0;
-      if (moment(firstPR.deadline).isBefore(moment(secondPR.deadline))) {
-        comparison = 1;
-      } else if (moment(firstPR.deadline).isAfter(moment(secondPR.deadline))) {
-        comparison = -1;
-      }
-      return dateInAscendingOrder ? comparison * -1 : comparison;
-    };
+    let sortOrder = this.state.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.setState({ sortOrder });
+    this.props.changePrSortOrder(sortOrder);
   };
 
   filterPR = pr => {
     const { filters } = this.state;
     return (
-      pr.employee.firstName === 'Lionel' &&
+      //pr.employee.firstName === 'Lionel' &&
       (filters.reviewer === 'ALL' || pr.supervisor === filters.reviewer) &&
       (filters.occasion === 'ALL' || pr.occasion === filters.occasion)
     );
@@ -131,14 +117,12 @@ export class MyPRList extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({
-      prs: this.state.prs.sort(this.dateSort(this.state.dateInAscendingOrder))
-    });
+    this.props.changePrSortOrder(this.state.sortOrder);
   }
 
   render() {
     const { classes, prs } = this.props;
-    const { prOpen, dateInAscendingOrder } = this.state;
+    const { prOpen, sortOrder } = this.state;
     return (
       <div>
         <Typography variant="display1" paragraph>
@@ -152,7 +136,7 @@ export class MyPRList extends React.Component {
         >
           Datum
           <Icon className={classes.rightIcon}>
-            {dateInAscendingOrder ? 'arrow_upward' : 'arrow_downward'}
+            {sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward'}
           </Icon>
         </Button>
 
@@ -247,15 +231,15 @@ export class MyPRList extends React.Component {
                   <Typography variant="body2" className={classes.title}>
                     SHEET
                   </Typography>
-                  <PrSheet prById={prs[0]} />
+                  <PrSheet prById={prOpen} key={prOpen.id} />
                 </Card>
                 <div className={classes.cardContainerColumn}>
                   <Card className={classes.cardColumn}>
                     <Typography variant="body2" className={classes.title}>
                       GEHALT UND ANSTELLUNG
                     </Typography>
-                    <PrSalary prById={prs[0]} />
-                    <PrEmployment prById={prs[0]} />
+                    <PrSalary prById={prOpen} />
+                    <PrEmployment prById={prOpen} />
                   </Card>
 
                   <Card className={classes.cardColumn}>
@@ -314,5 +298,6 @@ export default connect(
   {
     fetchPrs: actions.fetchPrs,
     addPr: actions.addPr,
+    changePrSortOrder: actions.changePrSortOrder
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));

@@ -166,3 +166,10 @@ export const delegateReviewer = (prId, reviewerId) => async dispatch => {
     });
   }
 };
+
+export const changePrSortOrder = sortOrder => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_SORT_ORDER,
+    sortOrder: sortOrder
+  });
+};
