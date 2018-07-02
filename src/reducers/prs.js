@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import {
   FETCH_PRS_RESPONSE,
   ADD_PR_RESPONSE,
-  ADD_SUPERVISOR
+  DELEGATE_REVIEWER_RESPONSE
 } from '../helper/dispatchTypes';
 
 const prsList = (state = [], action) => {
@@ -11,17 +11,17 @@ const prsList = (state = [], action) => {
       return action.prs;
     case ADD_PR_RESPONSE:
       return [...state, action.pr];
-    case ADD_SUPERVISOR: {
-      let index = state.findIndex(pr => pr.id === action.prId);
-
+    case DELEGATE_REVIEWER_RESPONSE:
+      let indexReviewer = state.findIndex(pr => pr.id === action.prNewReviewer.id);
       return [
-        ...state.slice(0, index),
-        Object.assign(state[index], {
-          delegatedSupervisor: action.delegatedSupervisor
+        ...state.slice(0, indexReviewer),
+        Object.assign({}, state[indexReviewer], {
+          reviewer: {
+            ...action.prNewReviewer.reviewer
+          }
         }),
-        ...state.slice(index + 1, state.length)
+        ...state.slice(indexReviewer + 1, state.length)
       ];
-    }
 
     default:
       return state;

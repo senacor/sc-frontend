@@ -1,8 +1,7 @@
 import prs from './prs';
 import {
   FETCH_PRS_RESPONSE,
-  ADD_PR_RESPONSE,
-  ADD_SUPERVISOR
+  DELEGATE_REVIEWER_RESPONSE,
 } from '../helper/dispatchTypes';
 
 describe('prs reducer', () => {
@@ -33,7 +32,7 @@ describe('prs reducer', () => {
     expect(stateAfter).toEqual({ prsList: ['pr2'] });
   });
 
-  it('should test the reducer for ADD_SUPERVISOR, to see if a new delegated supervisor is added in the state', () => {
+  it('should test the reducer for DELEGATE_REVIEWER_RESPONSE, to see if a new delegated reviewer is added in the state', () => {
     const stateBefore = {
       prsList: [
         {
@@ -79,7 +78,7 @@ describe('prs reducer', () => {
     };
 
     const actionAddingDelegatedSupervisor = {
-      type: ADD_SUPERVISOR,
+      type: DELEGATE_REVIEWER_RESPONSE,
       delegatedSupervisor: 'dummy',
       prId: 2
     };
