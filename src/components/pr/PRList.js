@@ -33,7 +33,7 @@ const styles = theme => ({
     }
   },
   media: {
-    height: '100%',
+    minHeight: '100%',
     width: '40%',
     [theme.breakpoints.down('md')]: {
       width: 130
