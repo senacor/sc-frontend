@@ -93,12 +93,6 @@ export class PRList extends React.Component {
     });
   };
 
-  renderReviewer = pr => {
-    if (pr.reviewer) {
-      return <span>{pr.reviewer.firstName + ' ' + pr.reviewer.lastName}</span>;
-    }
-  };
-
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -160,7 +154,7 @@ export class PRList extends React.Component {
                     >
                       <Icon className={classes.mediaIcon}>face</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
-                        {this.renderReviewer(pr)}
+                        {pr.reviewer ? pr.reviewer.firstName + ' ' + pr.reviewer.lastName : pr.supervisor}
                       </Typography>
                     </div>
 

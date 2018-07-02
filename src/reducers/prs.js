@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import {
   FETCH_PRS_RESPONSE,
   ADD_PR_RESPONSE,
-  DELEGATE_REVIEWER_RESPONSE
+  DELEGATE_REVIEWER_RESPONSE,
   CHANGE_SORT_ORDER
 } from '../helper/dispatchTypes';
 import moment from 'moment/moment';
@@ -25,7 +25,7 @@ const prsList = (state = [], action) => {
       return action.prs;
     case ADD_PR_RESPONSE:
       return [...state, action.pr];
-    case DELEGATE_REVIEWER_RESPONSE:
+    case DELEGATE_REVIEWER_RESPONSE: {
       let indexReviewer = state.findIndex(pr => pr.id === action.prNewReviewer.id);
       return [
         ...state.slice(0, indexReviewer),
