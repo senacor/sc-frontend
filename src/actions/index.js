@@ -143,3 +143,37 @@ export const addSupervisor = (prId, employee) => async dispatch => {
     prId: prId
   });
 };
+
+export const delegateReviewer = (prId, reviewerId) => async dispatch => {
+  dispatch({
+    type: 'DELEGATE_SUPERVISOR_REQUEST'
+  });
+
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/delegation`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        reviewerEmployeeId: reviewerId
+      })
+    }
+  );
+
+  if (changeResponse.ok) {
+    const updatedPr = await changeResponse.json();
+    dispatch({
+      type: 'DELEGATE_SUPERVISOR_RESPONSE',
+      updatedPr: updatedPr
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE_DELEGATION',
+      httpCode: changeResponse.status,
+      errorMessage: changeResponse.errorMessage,
+      id: JSON.stringify({
+        reviewerEmployeeId: reviewerId
+      })
+    });
+  }
+};
