@@ -5,8 +5,7 @@ const prVisibility = (state = [], action) => {
     case 'FETCH_PR_VISIBILITY_BY_ID_RESPONSE':
       return {
         toEmployee: action.prVisibilityById.visibilityToEmployee === 'VISIBLE',
-        toSupervisor:
-          action.prVisibilityById.visibilityToSupervisor === 'VISIBLE'
+        toSupervisor: action.prVisibilityById.visibilityToReviewer === 'VISIBLE'
       };
     default:
       return state;

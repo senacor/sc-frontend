@@ -166,7 +166,7 @@ export const setVisibilityById = (
     type: 'EDIT_PR_VISIBILITY_REQUEST'
   });
   const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/${prId}/visibility`,
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/visibility`,
     {
       method: 'put',
       mode: 'cors',
@@ -178,10 +178,17 @@ export const setVisibilityById = (
   );
   const task = await changeResponse.json();
 
-  dispatch({
-    type: 'EDIT_PR_VISIBILITY_RESPONSE',
-    task
-  });
+  if (changeResponse.ok) {
+    dispatch({
+      type: 'EDIT_PR_VISIBILITY_RESPONSE',
+      task
+    });
+  } else {
+    dispatch({
+      type: 'ERROR_RESPONSE',
+      httpCode: changeResponse.status
+    });
+  }
 };
 
 export const addSupervisor = (prId, employee) => async dispatch => {

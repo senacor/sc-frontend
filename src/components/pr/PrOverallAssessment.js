@@ -87,6 +87,7 @@ class PrOverallAssessment extends React.Component {
       ratingTargetRole: targetRole ? targetRole.rating : undefined,
       comment: ratingFulfillment ? ratingFulfillment.comment : '',
       prById: this.props.prById,
+      prVisible: this.props.prVisible,
       categoryFulfillment: categoryFulfillment,
       categoryTargetRole: categoryTargetRole,
       is_expanded: false
@@ -200,7 +201,7 @@ class PrOverallAssessment extends React.Component {
             />
             {isEmployee(this.props.userroles) ? (
               <Typography variant="body1">
-                {this.props.prReleased
+                {this.state.prVisible
                   ? this.mapRatingFullfilment(this.state.ratingFulfillment)
                   : ''}
               </Typography>
@@ -244,7 +245,7 @@ class PrOverallAssessment extends React.Component {
 
             {isEmployee(this.props.userroles) ? (
               <Typography variant="body1">
-                {this.props.prReleased
+                {this.state.prVisible
                   ? this.mapRatingTargetRole(this.state.ratingTargetRole)
                   : ''}
               </Typography>
@@ -278,7 +279,7 @@ class PrOverallAssessment extends React.Component {
           </ListItem>
         </div>
         {isEmployee(this.props.userroles) ? (
-          this.state.comment ? (
+          this.state.comment && this.state.prVisible ? (
             <div className={classes.containerListItem}>
               <ListItem>
                 <Icon className={classes.icon}>comment</Icon>

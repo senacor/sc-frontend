@@ -194,15 +194,13 @@ class PrComment extends React.Component {
         <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             {isEmployee(this.props.userroles) ? (
-              this.state.comment && this.state.prVisible ? (
-                <ListItem>
-                  <Typography className={classes.comment} variant="body1">
-                    » {this.state.comment} «
-                  </Typography>
-                </ListItem>
-              ) : (
-                ''
-              )
+              <ListItem>
+                <Typography className={classes.comment} variant="body1">
+                  {this.state.comment && this.state.prVisible
+                    ? '»' + this.state.comment + '«'
+                    : ''}
+                </Typography>
+              </ListItem>
             ) : (
               <ListItem>
                 <TextField

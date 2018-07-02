@@ -1,5 +1,5 @@
 import React from 'react';
-import PrSheet from './PrSheet';
+import { StyledComponent } from './PrSheet';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrSheet Component', () => {
@@ -30,7 +30,13 @@ describe('PrSheet Component', () => {
   };
 
   it('displays the PrSheet', () => {
-    const component = shallow(<PrSheet prById={prById} />);
+    const fetchVisibilityMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        fetchPrVisibilityById={fetchVisibilityMock}
+      />
+    );
 
     expect(component).toMatchSnapshot();
   });

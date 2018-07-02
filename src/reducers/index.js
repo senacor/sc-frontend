@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import tasks from './tasks';
-import editVisibility from './editPrVisibility'
+import editVisibility from './editPrVisibility';
 import editTasks from './editTasks';
 import prs from './prs';
 import prById from './getPr';

@@ -200,7 +200,8 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
           >
             SHEET
           </WithStyles(Typography)>
-          <WithStyles(PrSheet)
+          <Connect(WithStyles(PrSheet))
+            key="1"
             prById={
               Object {
                 "_links": Object {

@@ -46,24 +46,37 @@ class PrSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prById: this.props.prById
+      prById: this.props.prById,
+      visibilityToEmployee:
+        this.props.prById.prVisibilityEntry.visibilityToEmployee === 'VISIBLE',
+      visibilityToReviewer:
+        this.props.prById.prVisibilityEntry.visibilityToReviewer === 'VISIBLE'
     };
-    this.props.fetchPrVisibilityById(this.state.prById.id);
   }
 
   handleClick = () => {
-    this.props.setVisibilityById(
-      this.state.prById.id,
-      isSupervisor(this.props.userroles) ? true : this.props.toEmployee,
-      isEmployee(this.props.userroles) ? true : this.props.toSupervisor
-    );
+    console.log(this.state.visibilityToEmployee);
+    console.log(this.state.visibilityToReviewer);
+    if (
+      (isSupervisor(this.props.userroles) &&
+        !this.state.visibilityToEmployee) ||
+      (isEmployee(this.props.userroles) && !this.state.visibilityToReviewer)
+    ) {
+      this.props.setVisibilityById(
+        this.state.prById.id,
+        isSupervisor(this.props.userroles)
+          ? true
+          : this.state.visibilityToEmployee,
+        isEmployee(this.props.userroles)
+          ? true
+          : this.state.visibilityToReviewer
+      );
+    }
   };
 
   render() {
     const { prById, classes } = this.props;
-    console.log(prById.id);
-    console.log(this.props.toEmployee);
-    console.log(this.props.toSupervisor);
+
     return (
       <div className={classes.containerVertical}>
         <List>
@@ -74,14 +87,16 @@ class PrSheet extends React.Component {
             <PrSheetEmployee
               prById={prById}
               prVisible={
-                isEmployee(this.props.userroles) || this.props.toSupervisor
+                isEmployee(this.props.userroles) ||
+                this.state.visibilityToReviewer
               }
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
             <PrSheetEmployee
               prById={prById}
               prVisible={
-                isEmployee(this.props.userroles) || this.props.toSupervisor
+                isEmployee(this.props.userroles) ||
+                this.state.visibilityToReviewer
               }
               category="ROLE_AND_PROJECT_ENVIRONMENT"
             />
@@ -91,7 +106,7 @@ class PrSheet extends React.Component {
               <ListItem>
                 <Button
                   className={
-                    this.props.toEmployee
+                    this.state.visibilityToReviewer
                       ? classes.buttonDesktopDisabled
                       : classes.buttonDesktop
                   }
@@ -113,17 +128,26 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="PROBLEM_ANALYSIS"
             />
             <PrComment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="WORK_RESULTS"
             />
             <PrComment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="WORKING_MANNER"
             />
           </List>
@@ -135,12 +159,18 @@ class PrSheet extends React.Component {
           </ListItem>
           <PrComment
             prById={prById}
-            prVisible={this.props.toEmployee}
+            prVisible={
+              isSupervisor(this.props.userroles) ||
+              this.state.visibilityToEmployee
+            }
             category="CUSTOMER_INTERACTION"
           />
           <PrComment
             prById={prById}
-            prVisible={this.props.toEmployee}
+            prVisible={
+              isSupervisor(this.props.userroles) ||
+              this.state.visibilityToEmployee
+            }
             category="CUSTOMER_RETENTION"
           />
         </List>
@@ -152,12 +182,18 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="TEAMWORK"
             />
             <PrComment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="LEADERSHIP"
             />
           </List>
@@ -170,7 +206,10 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
             />
           </List>
@@ -183,7 +222,10 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrOverallAssessment
               prById={prById}
-              prVisible={this.props.toEmployee}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
             />
           </List>
         </List>
@@ -193,7 +235,7 @@ class PrSheet extends React.Component {
             <ListItem>
               <Button
                 className={
-                  this.props.toEmployee
+                  this.state.visibilityToEmployee
                     ? classes.buttonDesktopDisabled
                     : classes.buttonDesktop
                 }
@@ -214,12 +256,9 @@ class PrSheet extends React.Component {
 export const StyledComponent = withStyles(styles)(PrSheet);
 export default connect(
   state => ({
-    toEmployee: state.prVisibilityById.prVisibility.toEmployee,
-    toSupervisor: state.prVisibilityById.prVisibility.toSupervisor,
     userroles: state.userroles
   }),
   {
-    fetchPrVisibilityById: actions.fetchPrVisibilityById,
     setVisibilityById: actions.setVisibilityById
   }
 )(StyledComponent);

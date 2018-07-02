@@ -379,5 +379,15 @@ exports[`PrSheet Component displays the PrSheet 1`] = `
     </WithStyles(List)>
   </WithStyles(List)>
   <WithStyles(Divider) />
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(Button)
+        className="PrSheet-buttonDesktop-4"
+        onClick={[Function]}
+      >
+        PR Freigeben
+      </WithStyles(Button)>
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
 </div>
 `;

@@ -1,7 +1,12 @@
 export const userinfo = (state = {}, action) => {
   switch (action.type) {
     case 'FETCHED_USERINFO':
-      return action.userinfo;
+      return Object.assign({}, action.userinfo, {
+        userPrincipalName: action.userinfo.userPrincipalName.replace(
+          '@polaris.senacor.com',
+          ''
+        )
+      });
     default:
       return state;
   }

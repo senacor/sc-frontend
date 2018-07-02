@@ -31,17 +31,25 @@ describe('PRList Component', () => {
   ];
 
   const delegatedSupervisors = [];
-  it('displays the list of prs', () => {
+  it('displays the list of PRs', () => {
     const component = shallow(
-      <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
+      <StyledComponent
+        prs={prs}
+        delegatedSupervisors={delegatedSupervisors}
+        username="ttran"
+      />
     );
 
     expect(component).toMatchSnapshot();
   });
 
-  it('should contain one prs', () => {
+  it('should contain one PR', () => {
     const element = shallow(
-      <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
+      <StyledComponent
+        prs={prs}
+        delegatedSupervisors={delegatedSupervisors}
+        username="ttran@polaris.senacor.com"
+      />
     );
 
     expect(element.find('WithStyles(Card)')).toHaveLength(1);
