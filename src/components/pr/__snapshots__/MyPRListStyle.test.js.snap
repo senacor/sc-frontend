@@ -5,7 +5,6 @@ Object {
   "buttonDesktop": Object {
     "backgroundColor": 400,
     "color": "#FFF",
-    "marginBottom": "2%",
     "marginRight": "1%",
     "position": "relative",
   },
@@ -15,7 +14,7 @@ Object {
     "textTransform": "none",
   },
   "buttonMobile": Object {
-    "bottom": "10%",
+    "bottom": "5%",
     "left": "80%",
     "position": "fixed",
   },
@@ -41,7 +40,7 @@ Object {
     "display": "flex",
     "flexDirection": "row",
     "justifyContent": "space-around",
-    "width": "74%",
+    "width": "75%",
   },
   "container": Object {
     "display": "flex",
@@ -58,10 +57,12 @@ Object {
     "borderRadius": "5px",
     "padding": "2px 10px",
   },
-  "icon": Object {
-    "bottom": "13%",
-    "left": "84%",
-    "position": "fixed",
+  "formControl": Object {
+    "margin": "8px",
+    "minWidth": 120,
+  },
+  "leftIcon": Object {
+    "marginRight": "8px",
   },
   "list": Object {
     "backgroundColor": 400,
@@ -74,6 +75,12 @@ Object {
   "openList": Object {
     "backgroundColor": 200,
     "marginBottom": "5px",
+  },
+  "prControls": Object {
+    "& *": Object {
+      "marginRight": "2%",
+    },
+    "marginBottom": "1%",
   },
   "root": Object {
     "backgroundColor": 1,

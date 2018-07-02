@@ -13,19 +13,13 @@ const styles = theme => ({
   buttonMobile: {
     position: 'fixed',
     left: '80%',
-    bottom: '10%'
-  },
-  icon: {
-    position: 'fixed',
-    left: '84%',
-    bottom: '13%'
+    bottom: '5%'
   },
   buttonDesktop: {
     position: 'relative',
     marginRight: '1%',
     backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
-    marginBottom: '2%'
+    color: '#FFF'
   },
   filterDesktop: {
     padding: '2px 10px',
@@ -83,7 +77,7 @@ const styles = theme => ({
   cardContainerRow: {
     display: 'flex',
     flexDirection: 'row',
-    width: '74%',
+    width: '75%',
     justifyContent: 'space-around'
   },
   cardColumnSheet: {
@@ -104,6 +98,19 @@ const styles = theme => ({
     fontSize: '0.675rem',
     textTransform: 'none',
     padding: '0'
+  },
+  prControls: {
+    marginBottom: '1%',
+    '& *': {
+      marginRight: '2%'
+    }
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
   }
 });
 

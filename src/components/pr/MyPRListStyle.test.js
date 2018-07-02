@@ -12,6 +12,9 @@ describe('MyPRList Style storage', () => {
           '300': 300,
           '400': 400
         }
+      },
+      spacing: {
+        unit: '8px'
       }
     };
 
