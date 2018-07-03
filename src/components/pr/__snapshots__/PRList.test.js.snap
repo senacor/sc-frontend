@@ -105,18 +105,10 @@ exports[`PRList Component displays the list of prs 1`] = `
           <WithStyles(Button)
             className="PRList-button-6"
             color="primary"
+            component={[Function]}
+            to="/prs/2"
           >
-            <Link
-              replace={false}
-              style={
-                Object {
-                  "textDecoration": "none",
-                }
-              }
-              to="/prs/2"
-            >
-              DETAILS
-            </Link>
+            DETAILS
           </WithStyles(Button)>
         </WithStyles(CardActions)>
       </div>

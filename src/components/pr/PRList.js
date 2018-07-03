@@ -185,13 +185,13 @@ export class PRList extends React.Component {
                       DELEGIEREN
                     </Button>
 
-                    <Button color="primary" className={classes.button}>
-                      <Link
-                        to={`/prs/${pr.id}`}
-                        style={{ textDecoration: 'none' }}
-                      >
-                        DETAILS
-                      </Link>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      component={Link}
+                      to={`/prs/${pr.id}`}
+                    >
+                      DETAILS
                     </Button>
                   </CardActions>
                 </div>
