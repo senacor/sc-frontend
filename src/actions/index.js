@@ -160,9 +160,8 @@ export const delegateReviewer = (prId, reviewerId) => async dispatch => {
     });
   } else {
     dispatch({
-      type: dispatchTypes.ERROR_RESPONSE_DELEGATION,
-      httpCode: changeResponse.status,
-      errorMessage: prNewReviewer.message,
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: changeResponse.status
     });
   }
 };

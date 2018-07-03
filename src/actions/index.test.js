@@ -1,7 +1,14 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
-import { fetchPrById, addPr, editTask, fetchPrs, fetchTasks } from './index';
+import {
+  fetchPrById,
+  addPr,
+  delegateReviewer,
+  editTask,
+  fetchPrs,
+  fetchTasks
+} from './index';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -394,6 +401,75 @@ describe('fetchPrById', () => {
             entryDate: '2004-05-10'
           },
           supervisor: 'ttran',
+          occasion: 'ON_DEMAND',
+          status: 'PREPARATION',
+          deadline: '2018-03-14',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/prs/1'
+            }
+          }
+        }
+      }
+    ]);
+  });
+});
+
+describe('delgatePr', () => {
+  afterEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
+
+  it('delegate pr to a new person (reviewer) and trigger the actions', async () => {
+    fetchMock.putOnce('/api/v1/prs/1/delegation', () => {
+      return {
+        id: 1,
+        employee: {
+          id: 1,
+          login: 'lschäfer',
+          firstName: 'Lionel',
+          lastName: 'Schäfer',
+          title: 'DR',
+          email: 'lionel.schäfer@senacor.com',
+          entryDate: '2004-05-10'
+        },
+        supervisor: 'ttran',
+        reviewer: 'max mustermann',
+        occasion: 'ON_DEMAND',
+        status: 'PREPARATION',
+        deadline: '2018-03-14',
+        _links: {
+          self: {
+            href: 'http://localhost:8010/api/v1/prs/1'
+          }
+        }
+      };
+    });
+
+    const store = mockStore();
+
+    await store.dispatch(delegateReviewer(1, 3));
+
+    expect(store.getActions()).toEqual([
+      {
+        type: dispatchTypes.DELEGATE_REVIEWER_REQUEST
+      },
+      {
+        type: dispatchTypes.DELEGATE_REVIEWER_RESPONSE,
+        prNewReviewer: {
+          id: 1,
+          employee: {
+            id: 1,
+            login: 'lschäfer',
+            firstName: 'Lionel',
+            lastName: 'Schäfer',
+            title: 'DR',
+            email: 'lionel.schäfer@senacor.com',
+            entryDate: '2004-05-10'
+          },
+          supervisor: 'ttran',
+          reviewer: 'max mustermann',
           occasion: 'ON_DEMAND',
           status: 'PREPARATION',
           deadline: '2018-03-14',
