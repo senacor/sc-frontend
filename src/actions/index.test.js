@@ -1,7 +1,14 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
-import { fetchPrById, addPr, editTask, fetchPrs, fetchTasks } from './index';
+import {
+  fetchPrById,
+  addPr,
+  editTask,
+  fetchPrs,
+  fetchTasks,
+  changePrSortOrder
+} from './index';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -403,6 +410,19 @@ describe('fetchPrById', () => {
             }
           }
         }
+      }
+    ]);
+  });
+});
+
+describe('sortPRs', () => {
+  it('should dispatch CHANGE_SORT_ORDER', async () => {
+    const store = mockStore();
+    await store.dispatch(changePrSortOrder());
+
+    expect(store.getActions()).toEqual([
+      {
+        type: dispatchTypes.CHANGE_SORT_ORDER
       }
     ]);
   });
