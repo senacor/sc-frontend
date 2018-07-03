@@ -154,7 +154,9 @@ export class PRList extends React.Component {
                     >
                       <Icon className={classes.mediaIcon}>face</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
-                        {pr.reviewer ? pr.reviewer.firstName + ' ' + pr.reviewer.lastName : pr.supervisor}
+                        {pr.reviewer
+                          ? pr.reviewer.firstName + ' ' + pr.reviewer.lastName
+                          : pr.supervisor}
                       </Typography>
                     </div>
 
