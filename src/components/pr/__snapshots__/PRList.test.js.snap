@@ -13,6 +13,118 @@ exports[`PRList Component displays the list of prs 1`] = `
   >
     <WithStyles(Card)
       className="PRList-prs-2"
+      key="1"
+    >
+      <WithStyles(CardMedia)
+        className="PRList-media-3"
+        image="/supervisor.jpg"
+        title="Supervisor picture"
+      />
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "column",
+            "width": "60%",
+          }
+        }
+      >
+        <WithStyles(CardContent)
+          className="PRList-content-7"
+        >
+          <WithStyles(Typography)
+            variant="display1"
+          />
+          <WithStyles(Typography)
+            color="textSecondary"
+            variant="subheading"
+          >
+            Performance Review
+          </WithStyles(Typography)>
+          <div
+            className="PRList-controls-4"
+            style={
+              Object {
+                "visibility": "hidden",
+              }
+            }
+          >
+            <WithStyles(Icon)
+              className="PRList-mediaIcon-5"
+            >
+              face
+            </WithStyles(Icon)>
+            <WithStyles(Typography)
+              color="textSecondary"
+              gutterBottom={true}
+              noWrap={true}
+            >
+              fukara
+            </WithStyles(Typography)>
+          </div>
+          <div
+            className="PRList-controls-4"
+          >
+            <WithStyles(Icon)
+              className="PRList-mediaIcon-5"
+            >
+              linear_scale
+            </WithStyles(Icon)>
+            <WithStyles(Typography)
+              color="textSecondary"
+              gutterBottom={true}
+              noWrap={true}
+            >
+              In Vorbereitung
+            </WithStyles(Typography)>
+          </div>
+          <div
+            className="PRList-controls-4"
+          >
+            <WithStyles(Icon)
+              className="PRList-mediaIcon-5"
+            >
+              event_note
+            </WithStyles(Icon)>
+            <WithStyles(Typography)
+              color="textSecondary"
+              gutterBottom={true}
+              noWrap={true}
+            >
+              Bogen ausfüllen
+            </WithStyles(Typography)>
+          </div>
+        </WithStyles(CardContent)>
+        <WithStyles(Divider) />
+        <WithStyles(CardActions)>
+          <WithStyles(Button)
+            className="PRList-button-6"
+            color="primary"
+            onClick={[Function]}
+          >
+            DELEGIEREN
+          </WithStyles(Button)>
+          <WithStyles(Button)
+            className="PRList-button-6"
+            color="primary"
+          >
+            <Link
+              replace={false}
+              style={
+                Object {
+                  "textDecoration": "none",
+                }
+              }
+              to="/prs/1"
+            >
+              DETAILS
+            </Link>
+          </WithStyles(Button)>
+        </WithStyles(CardActions)>
+      </div>
+    </WithStyles(Card)>
+    <WithStyles(Card)
+      className="PRList-prs-2"
       key="2"
     >
       <WithStyles(CardMedia)
@@ -58,7 +170,9 @@ exports[`PRList Component displays the list of prs 1`] = `
               color="textSecondary"
               gutterBottom={true}
               noWrap={true}
-            />
+            >
+              ttran
+            </WithStyles(Typography)>
           </div>
           <div
             className="PRList-controls-4"

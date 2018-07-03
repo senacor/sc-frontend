@@ -30,20 +30,9 @@ describe('PRList Component', () => {
     }
   ];
 
-  const delegatedSupervisors = [];
   it('displays the list of prs', () => {
-    const component = shallow(
-      <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
-    );
+    const component = shallow(<StyledComponent prs={prs} />);
 
     expect(component).toMatchSnapshot();
-  });
-
-  it('should contain one prs', () => {
-    const element = shallow(
-      <StyledComponent prs={prs} delegatedSupervisors={delegatedSupervisors} />
-    );
-
-    expect(element.find('WithStyles(Card)')).toHaveLength(1);
   });
 });
