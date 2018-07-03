@@ -96,7 +96,11 @@ class PrSheetEmployee extends React.Component {
         <List component="div" disablePadding className={classes.nestedText}>
           <ListItem>
             {isSupervisor(this.props.userroles) ? (
-              <Typography className={classes.comment} variant="body1">
+              <Typography
+                id={category + '_Description'}
+                className={classes.comment}
+                variant="body1"
+              >
                 {this.state.text && this.state.prVisible
                   ? this.state.text
                   : 'Noch kein Eintrag'}

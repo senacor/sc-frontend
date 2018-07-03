@@ -13,6 +13,7 @@ exports[`PrComment Component should display Customer interaction 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        id="CUSTOMER_INTERACTION_CommentDescription"
         secondary="Kundeninteraktion und -veränderung"
       />
       <WithStyles(Icon)
@@ -130,6 +131,7 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        id="PROBLEM_ANALYSIS_CommentDescription"
         secondary="Problemanalyse und -lösung"
       />
       <WithStyles(Icon)
@@ -247,6 +249,7 @@ exports[`PrComment Component should display Teamwork 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        id="TEAMWORK_CommentDescription"
         secondary="Effektives Arbeiten im Team und Teamführung"
       />
       <WithStyles(Icon)
@@ -364,6 +367,7 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
       onClick={[Function]}
     >
       <WithStyles(ListItemText)
+        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentDescription"
         secondary="Beitrag zur Unternehmensentwicklung"
       />
       <WithStyles(Icon)
