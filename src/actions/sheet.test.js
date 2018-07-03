@@ -6,8 +6,7 @@ import fetchMock from 'fetch-mock';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
-  CHANGE_PR_VISIBILITY_REQUEST,
-  CHANGE_PR_VISIBILITY_RESPONSE
+  CHANGE_PR_VISIBILITY_REQUEST
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -324,14 +323,7 @@ describe('setVisibilityById', () => {
     await store.dispatch(setVisibilityById(prWithVisibility, false, true));
 
     expect(store.getActions()).toEqual([
-      { type: CHANGE_PR_VISIBILITY_REQUEST },
-      {
-        type: CHANGE_PR_VISIBILITY_RESPONSE,
-        task: finalVisibility.prVisibilityEntry
-      }
+      { type: CHANGE_PR_VISIBILITY_REQUEST }
     ]);
-    expect(prWithVisibility).toEqual(
-      Object.assign({}, prById, finalVisibility)
-    );
   });
 });

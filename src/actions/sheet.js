@@ -1,4 +1,5 @@
 import { default as fetch } from '../helper/customFetch';
+import { fetchPrById } from './index';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
@@ -105,14 +106,10 @@ export const setVisibilityById = (
       })
     }
   );
-  const task = await changeResponse.json();
+  await changeResponse.json();
 
   if (changeResponse.ok) {
-    dispatch({
-      type: dispatchTypes.CHANGE_PR_VISIBILITY_RESPONSE,
-      task
-    });
-    Object.assign(prById.prVisibilityEntry, task);
+    fetchPrById(prById.id);
   } else {
     dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
