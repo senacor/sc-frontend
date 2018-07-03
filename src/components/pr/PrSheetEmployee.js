@@ -46,7 +46,8 @@ class PrSheetEmployee extends React.Component {
     );
 
     this.state = {
-      text: reflectionSet ? reflectionSet.text : ''
+      text: reflectionSet ? reflectionSet.text : '',
+      prVisible: this.props.prVisible
     };
   }
 
@@ -58,7 +59,6 @@ class PrSheetEmployee extends React.Component {
     );
 
     reflectionSet.text = event.target.value;
-
     this.sendComment(prById, category, event.target.value, reflectionSet.id);
   };
 
@@ -96,8 +96,14 @@ class PrSheetEmployee extends React.Component {
         <List component="div" disablePadding className={classes.nestedText}>
           <ListItem>
             {isSupervisor(this.props.userroles) ? (
-              <Typography className={classes.comment} variant="body1">
-                {this.state.text ? this.state.text : 'Noch kein Eintrag'}
+              <Typography
+                id={category + '_Description'}
+                className={classes.comment}
+                variant="body1"
+              >
+                {this.state.text && this.state.prVisible
+                  ? this.state.text
+                  : 'Noch kein Eintrag'}
               </Typography>
             ) : (
               <TextField

@@ -115,7 +115,7 @@ export class PRList extends React.Component {
         </Typography>
 
         <div className={classes.container}>
-          {prs.filter(pr => pr.supervisor === 'ttran').map(pr => {
+          {prs.filter(pr => pr.supervisor === this.props.username).map(pr => {
             return (
               <Card className={classes.prs} key={pr.id}>
                 <CardMedia
@@ -212,7 +212,8 @@ export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({
     prs: state.prs.prsList,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    username: state.userinfo.userPrincipalName
   }),
   {
     fetchPrs: actions.fetchPrs,

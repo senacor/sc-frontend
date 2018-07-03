@@ -147,4 +147,41 @@ describe('PrComment Component', () => {
     expect(wrapper.find(TextField)).toHaveLength(0);
     expect(wrapper.find(Select)).toHaveLength(0);
   });
+
+  it('should not display any ratings or comments if the supervisor did not submit yet', () => {
+    const wrapper = shallow(
+      <StyledComponent
+        prById={prById}
+        category="TEAMWORK"
+        userroles={[ROLES.PR_MITARBEITER]}
+        prVisible={false}
+      />
+    );
+    expect(wrapper.find(Typography)).toHaveLength(2);
+    expect(wrapper.find(TextField)).toHaveLength(0);
+    expect(wrapper.find(Select)).toHaveLength(0);
+
+    expect(
+      wrapper
+        .find(Typography)
+        .findWhere(
+          element =>
+            element.text() ===
+            prById.prRatingSet
+              .find(set => set.prRatingDescription === 'TEAMWORK')
+              .rating.toString()
+        )
+    ).toHaveLength(0);
+    expect(
+      wrapper
+        .find(Typography)
+        .findWhere(
+          element =>
+            element.text() ===
+            prById.prRatingSet
+              .find(set => set.prRatingDescription === 'TEAMWORK')
+              .comment.toString()
+        )
+    ).toHaveLength(0);
+  });
 });

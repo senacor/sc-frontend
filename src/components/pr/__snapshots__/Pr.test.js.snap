@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pr Component displays the pr 1`] = `
+exports[`Pr Component displays the PR 1`] = `
 <div>
   <div
     className="Pr-detailPanel-6"
@@ -90,7 +90,7 @@ exports[`Pr Component displays the pr 1`] = `
     xsDown={false}
     xsUp={false}
   >
-    <WithStyles(PrSheet)
+    <Connect(WithStyles(PrSheet))
       prById={
         Object {
           "_links": Object {
@@ -208,7 +208,7 @@ exports[`Pr Component displays the pr 1`] = `
         >
           SHEET
         </WithStyles(Typography)>
-        <WithStyles(PrSheet)
+        <Connect(WithStyles(PrSheet))
           prById={
             Object {
               "_links": Object {
