@@ -152,6 +152,7 @@ class PrComment extends React.Component {
             onClick={() => this.handleClick(category)}
           >
             <ListItemText
+              id={`${category}_CommentDescription`}
               secondary={this.translateRatingDescription(category)}
             />
 
@@ -169,7 +170,11 @@ class PrComment extends React.Component {
 
           <ListItem className={classes.nestedNumber}>
             {isEmployee(this.props.userroles) ? (
-              <Typography className={classes.rating} variant="body2">
+              <Typography
+                id={category}
+                className={classes.rating}
+                variant="body2"
+              >
                 {this.state.prVisible ? this.state.rating : ''}
               </Typography>
             ) : (
@@ -201,7 +206,11 @@ class PrComment extends React.Component {
           <List component="div" disablePadding className={classes.nestedText}>
             {isEmployee(this.props.userroles) ? (
               <ListItem>
-                <Typography className={classes.comment} variant="body1">
+                <Typography
+                  id={category + '_TYPO'}
+                  className={classes.comment}
+                  variant="body1"
+                >
                   {this.state.comment && this.state.prVisible
                     ? '»' + this.state.comment + '«'
                     : ''}

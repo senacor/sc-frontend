@@ -200,7 +200,7 @@ class PrOverallAssessment extends React.Component {
               )}
             />
             {isEmployee(this.props.userroles) ? (
-              <Typography variant="body1">
+              <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
                 {this.state.prVisible
                   ? this.mapRatingFullfilment(this.state.ratingFulfillment)
                   : ''}
@@ -244,7 +244,7 @@ class PrOverallAssessment extends React.Component {
             />
 
             {isEmployee(this.props.userroles) ? (
-              <Typography variant="body1">
+              <Typography id="TARGET_ROLE_TYPO" variant="body1">
                 {this.state.prVisible
                   ? this.mapRatingTargetRole(this.state.ratingTargetRole)
                   : ''}
@@ -283,7 +283,11 @@ class PrOverallAssessment extends React.Component {
             <div className={classes.containerListItem}>
               <ListItem>
                 <Icon className={classes.icon}>comment</Icon>
-                <Typography className={classes.comment} variant="body1">
+                <Typography
+                  id="FREITEXTFELD"
+                  className={classes.comment}
+                  variant="body1"
+                >
                   {this.state.comment}
                 </Typography>
               </ListItem>
