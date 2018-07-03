@@ -1,11 +1,21 @@
 import { combineReducers } from 'redux';
+import objectGet from 'object-get';
+import * as dispatchTypes from '../helper/dispatchTypes';
+import * as visibilityTypes from '../helper/prVisibility';
 
-const prVisibility = (state = [], action) => {
+export const prVisibility = (
+  state = { toEmployee: false, toSupervisor: false },
+  action
+) => {
   switch (action.type) {
-    case 'FETCH_PR_VISIBILITY_BY_ID_RESPONSE':
+    case dispatchTypes.FETCHED_PR_VISIBILITY:
       return {
-        toEmployee: action.prVisibilityById.visibilityToEmployee === 'VISIBLE',
-        toSupervisor: action.prVisibilityById.visibilityToReviewer === 'VISIBLE'
+        toEmployee:
+          objectGet(action, 'prVisibilityById.visibilityToEmployee') ===
+          visibilityTypes.VISIBLE,
+        toSupervisor:
+          objectGet(action, 'prVisibilityById.visibilityToReviewer') ===
+          visibilityTypes.VISIBLE
       };
     default:
       return state;

@@ -11,6 +11,8 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Button from '@material-ui/core/Button';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
+import * as visibilityTypes from '../../helper/prVisibility';
+import objectGet from 'object-get';
 
 const styles = theme => ({
   containerVertical: {
@@ -48,9 +50,15 @@ class PrSheet extends React.Component {
     this.state = {
       prById: this.props.prById,
       visibilityToEmployee:
-        this.props.prById.prVisibilityEntry.visibilityToEmployee === 'VISIBLE',
+        objectGet(
+          this.props,
+          'prById.prVisibilityEntry.visibilityToEmployee'
+        ) === visibilityTypes.VISIBLE,
       visibilityToReviewer:
-        this.props.prById.prVisibilityEntry.visibilityToReviewer === 'VISIBLE'
+        objectGet(
+          this.props,
+          'prById.prVisibilityEntry.visibilityToReviewer'
+        ) === visibilityTypes.VISIBLE
     };
   }
 
@@ -235,7 +243,7 @@ class PrSheet extends React.Component {
           </List>
         </List>
         <Divider />
-        {!isEmployee(this.props.userroles) ? (
+        {isSupervisor(this.props.userroles) ? (
           <List>
             <ListItem>
               <Button

@@ -1,14 +1,39 @@
 import { addRating } from './index';
+import { setVisibilityById } from './sheet';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import {
   ADD_COMMENT_REQUEST,
-  ADD_COMMENT_RESPONSE
+  ADD_COMMENT_RESPONSE,
+  CHANGE_PR_VISIBILITY_REQUEST,
+  CHANGE_PR_VISIBILITY_RESPONSE
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+
+const prById = {
+  id: 1,
+  employee: {
+    id: 1,
+    login: 'lschäfer',
+    firstName: 'Lionel',
+    lastName: 'Schäfer',
+    title: 'DR',
+    email: 'lionel.schäfer@senacor.com',
+    entryDate: '2004-05-10'
+  },
+  supervisor: 'ttran',
+  occasion: 'ON_DEMAND',
+  status: 'PREPARATION',
+  deadline: '2018-03-14',
+  _links: {
+    self: {
+      href: 'http://localhost:8010/api/v1/prs/1'
+    }
+  }
+};
 
 describe('addRating', () => {
   afterEach(() => {
@@ -17,27 +42,6 @@ describe('addRating', () => {
   });
 
   it('adds new ratings for the pr and triggers the actions', async () => {
-    let prById = {
-      id: 1,
-      employee: {
-        id: 1,
-        login: 'lschäfer',
-        firstName: 'Lionel',
-        lastName: 'Schäfer',
-        title: 'DR',
-        email: 'lionel.schäfer@senacor.com',
-        entryDate: '2004-05-10'
-      },
-      supervisor: 'ttran',
-      occasion: 'ON_DEMAND',
-      status: 'PREPARATION',
-      deadline: '2018-03-14',
-      _links: {
-        self: {
-          href: 'http://localhost:8010/api/v1/prs/1'
-        }
-      }
-    };
     fetchMock.putOnce('/api/v1/prs/1/ratings/5', {
       id: 5,
       prRatingDescription: 'PROBLEM_ANALYSIS',
@@ -287,5 +291,47 @@ describe('addRating', () => {
         }
       }
     ]);
+  });
+});
+
+describe('setVisibilityById', () => {
+  afterEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
+
+  it('should change the visibility for the employee in the PR and database', async () => {
+    const initialVisibility = {
+      prVisibilityEntry: {
+        visibilityToEmployee: 'INVISIBLE',
+        visibilityToReviewer: 'INVISIBLE'
+      }
+    };
+    const finalVisibility = {
+      prVisibilityEntry: {
+        id: 1,
+        visibilityToEmployee: 'INVISIBLE',
+        visibilityToReviewer: 'VISIBLE'
+      }
+    };
+    let prWithVisibility = Object.assign({}, prById, initialVisibility);
+    fetchMock.putOnce(
+      `/api/v1/prs/${prById.id}/visibility`,
+      finalVisibility.prVisibilityEntry
+    );
+
+    const store = mockStore();
+    await store.dispatch(setVisibilityById(prWithVisibility, false, true));
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_PR_VISIBILITY_REQUEST },
+      {
+        type: CHANGE_PR_VISIBILITY_RESPONSE,
+        task: finalVisibility.prVisibilityEntry
+      }
+    ]);
+    expect(prWithVisibility).toEqual(
+      Object.assign({}, prById, finalVisibility)
+    );
   });
 });

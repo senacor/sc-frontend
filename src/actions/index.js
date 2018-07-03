@@ -1,7 +1,7 @@
 import { default as fetch } from '../helper/customFetch';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
-export { addRating, addEmployeeContribution } from './sheet';
+export { addRating, addEmployeeContribution, setVisibilityById } from './sheet';
 export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
@@ -132,63 +132,6 @@ export const fetchPrById = prsId => async dispatch => {
     dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
       httpCode: response.status
-    });
-  }
-};
-
-export const fetchPrVisibilityById = prsId => async dispatch => {
-  dispatch({
-    type: 'FETCH_PR_VISIBILITY_BY_ID_REQUEST'
-  });
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prsId}/visibility`
-  );
-  if (response.ok) {
-    const prVisibilityById = await response.json();
-
-    dispatch({
-      type: 'FETCH_PR_VISIBILITY_BY_ID_RESPONSE',
-      prVisibilityById
-    });
-  } else {
-    dispatch({
-      type: 'ERROR_RESPONSE',
-      httpCode: response.status
-    });
-  }
-};
-
-export const setVisibilityById = (
-  prById,
-  toEmployee = false,
-  toSupervisor = false
-) => async dispatch => {
-  dispatch({
-    type: 'EDIT_PR_VISIBILITY_REQUEST'
-  });
-  const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/visibility`,
-    {
-      method: 'put',
-      mode: 'cors',
-      body: JSON.stringify({
-        visibilityToEmployee: toEmployee ? 'VISIBLE' : 'INVISIBLE',
-        visibilityToReviewer: toSupervisor ? 'VISIBLE' : 'INVISIBLE'
-      })
-    }
-  );
-  const task = await changeResponse.json();
-
-  if (changeResponse.ok) {
-    dispatch({
-      type: 'EDIT_PR_VISIBILITY_RESPONSE',
-      task
-    });
-    Object.assign(prById.prVisibilityEntry, task);
-  } else {
-    dispatch({
-      type: 'ERROR_RESPONSE',
-      httpCode: changeResponse.status
     });
   }
 };
