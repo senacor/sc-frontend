@@ -26,7 +26,9 @@ const prsList = (state = [], action) => {
     case ADD_PR_RESPONSE:
       return [...state, action.pr];
     case DELEGATE_REVIEWER_RESPONSE: {
-      let indexReviewer = state.findIndex(pr => pr.id === action.prNewReviewer.id);
+      let indexReviewer = state.findIndex(
+        pr => pr.id === action.prNewReviewer.id
+      );
       return [
         ...state.slice(0, indexReviewer),
         Object.assign({}, state[indexReviewer], {
@@ -36,7 +38,6 @@ const prsList = (state = [], action) => {
         }),
         ...state.slice(indexReviewer + 1, state.length)
       ];
-
     }
     case CHANGE_SORT_ORDER: {
       return [...state].sort(dateSort(action.sortOrder));
