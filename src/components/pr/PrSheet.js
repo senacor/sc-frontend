@@ -70,7 +70,6 @@ class PrSheet extends React.Component {
         true
       );
       this.setState({
-        visibilityToEmployee: this.state.visibilityToEmployee,
         visibilityToReviewer: true
       });
     }
@@ -84,8 +83,7 @@ class PrSheet extends React.Component {
         this.state.visibilityToReviewer
       );
       this.setState({
-        visibilityToEmployee: true,
-        visibilityToReviewer: this.state.visibilityToReviewer
+        visibilityToEmployee: true
       });
     }
   };
