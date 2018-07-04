@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import styles from './MyPRListStyle';
 import MyPRListFilterDialog from './MyPRListFilterDialog';
 import { default as MyPRListItem } from './MyPRListItem';
+import AvailabilityViewDialog from '../availabilityView/AvailabilityViewDialog';
 import List from '@material-ui/core/List';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -38,7 +39,8 @@ export class MyPRList extends React.Component {
             reviewer: 'ALL',
             occasion: 'ALL'
           },
-      sortOrder: 'asc'
+      sortOrder: 'asc',
+      open: false
     };
   }
 
@@ -70,6 +72,10 @@ export class MyPRList extends React.Component {
       default:
         return 'Auf Nachfrage';
     }
+  };
+
+  openAvailabilityViewDialog = () => {
+    this.setState({ open: true });
   };
 
   handleClick = () => {
@@ -150,7 +156,7 @@ export class MyPRList extends React.Component {
           alignItems="center"
           className={classes.grid}
         >
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={6}>
             <div className={classes.prControls}>
               <Button id="sortButton" onClick={this.switchDateOrder}>
                 <Icon className={classes.leftIcon}>
@@ -290,7 +296,16 @@ export class MyPRList extends React.Component {
             </div>
           </Grid>
           <Hidden smDown>
-            <Grid item xs={12} sm={3} align="right">
+            <Grid item xs={12} sm={6} align="right">
+              <Button
+                id="addPrButton"
+                className={classes.buttonDesktop}
+                variant="raised"
+                onClick={this.openAvailabilityViewDialog}
+              >
+                <Icon className={classes.leftIcon}>add</Icon>
+                Terminverfügbarkeit
+              </Button>
               <Button
                 id="addPrButton"
                 className={classes.buttonDesktop}
@@ -393,6 +408,7 @@ export class MyPRList extends React.Component {
             <AddIcon />
           </Button>
         </Hidden>
+        <AvailabilityViewDialog open={this.state.open} />
       </div>
     );
   }
