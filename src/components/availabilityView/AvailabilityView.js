@@ -8,6 +8,8 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemText';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -35,55 +37,52 @@ let styles = {
   }
 };
 
+const style = {
+  color: 'blue'
+};
+
 class AvailabilityView extends React.Component {
   state = {
-    gilad: true,
-    jason: false,
-    antoine: true,
+    checked: ['wifi'],
   };
 
-  handleChange = name => event => {
-    this.setState({[name]: event.target.checked});
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked
+    });
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Assign responsibility</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
+      <div className={classes.root}>
+        <List subheader={<ListSubheader>Settings</ListSubheader>}>
+          <ListItem>
+            <ListItemText
+              primary="Tuan Si Tran (Mitarbeiter)"
+              style={style}
+            />
+            <ListItemSecondaryAction>
               <Switch
-                checked={this.state.gilad}
-                onChange={this.handleChange('gilad')}
-                value="gilad"
+                onChange={this.handleToggle('wifi')}
+                checked={this.state.checked.indexOf('wifi') !== -1}
+                color="primary"
               />
-            }
-            label="Gilad Gray"
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.jason}
-                onChange={this.handleChange('jason')}
-                value="jason"
-              />
-            }
-            label="Jason Killian"
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.antoine}
-                onChange={this.handleChange('antoine')}
-                value="antoine"
-              />
-            }
-            label="Antoine Llorca"
-          />
-        </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
-      </FormControl>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
+      </div>
     );
   }
 }
