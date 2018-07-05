@@ -1,87 +1,86 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemText';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
 
-let styles = {
-  rowContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+const styles = theme => ({
+  root: {
+    width: '100%'
   },
-  columnContainer: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  card: {
-    flexGrow: '1',
-    margin: '20px'
-  },
-  thinItem: {
-    paddingTop: 10,
-    paddingBottom: 10
+  table: {
+    minWidth: 300,
+    maxWidth: 500
   }
-};
-
-const style = {
-  color: 'blue'
-};
+});
 
 class AvailabilityView extends React.Component {
   state = {
-    checked: ['wifi'],
+    employee: true,
+    reviewer: false,
+    supervisor: true
   };
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked
-    });
+  handleToggle = name => event => {
+    this.setState({ [name]: event.target.checked });
   };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <List subheader={<ListSubheader>Settings</ListSubheader>}>
-          <ListItem>
-            <ListItemText
-              primary="Tuan Si Tran (Mitarbeiter)"
-              style={style}
-            />
-            <ListItemSecondaryAction>
-              <Switch
-                onChange={this.handleToggle('wifi')}
-                checked={this.state.checked.indexOf('wifi') !== -1}
-                color="primary"
-              />
-            </ListItemSecondaryAction>
-          </ListItem>
-        </List>
+      <div class="float" className={classes.root}>
+        <Table className={classes.table}>
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subheading">
+                  Mitarbeiter
+                </Typography>
+              </TableCell>
+              <TableCell numeric>
+                <Switch
+                  checked={this.state.employee}
+                  onChange={this.handleToggle('employee')}
+                  color="primary"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subheading">
+                  Bewerter
+                </Typography>
+              </TableCell>
+              <TableCell numeric>
+                <Switch
+                  checked={this.state.reviewer}
+                  onChange={this.handleToggle('reviewer')}
+                  color="primary"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subheading">
+                  Vorgesetzter
+                </Typography>
+              </TableCell>
+              <TableCell numeric>
+                <Switch
+                  checked={this.state.supervisor}
+                  onChange={this.handleToggle('supervisor')}
+                  color="primary"
+                />
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
     );
   }
