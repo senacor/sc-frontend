@@ -3,6 +3,7 @@ import tasks from './tasks';
 import editTasks from './editTasks';
 import prs from './prs';
 import prById from './getPr';
+import prVisibilityById from './getPrVisibility';
 import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
@@ -20,6 +21,7 @@ const app = combineReducers({
   login,
   isLoading,
   prById,
+  prVisibilityById,
   prRatings,
   prEmployeeContributions,
   search,

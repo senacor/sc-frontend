@@ -1,7 +1,7 @@
 import { default as fetch } from '../helper/customFetch';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
-export { addRating, addEmployeeContribution } from './sheet';
+export { addRating, addEmployeeContribution, setVisibilityById } from './sheet';
 export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';

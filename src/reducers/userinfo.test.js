@@ -8,7 +8,8 @@ describe('userinfo reducer', () => {
       type: FETCHED_USERINFO,
       userinfo: {
         givenName: 'Petra',
-        surname: 'Panther'
+        surname: 'Panther',
+        userPrincipalName: 'ppanther@polaris.senacor.com'
       }
     };
 
@@ -16,7 +17,8 @@ describe('userinfo reducer', () => {
 
     expect(stateAfter).toEqual({
       givenName: 'Petra',
-      surname: 'Panther'
+      surname: 'Panther',
+      userPrincipalName: 'ppanther'
     });
   });
 });

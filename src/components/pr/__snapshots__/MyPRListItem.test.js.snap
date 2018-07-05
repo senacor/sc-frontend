@@ -2,31 +2,31 @@
 
 exports[`MyPRListItem Component displays the MyPRListItem 1`] = `
 <WithStyles(ListItem)
-  className="MyPRListItem-listItem-12"
+  className="MyPRListItem-listItem-11"
 >
   <WithStyles(ListItemText)>
     <div
-      className="MyPRListItem-divItemText-13"
+      className="MyPRListItem-divItemText-12"
     >
       <WithStyles(Typography)
-        className="MyPRListItem-typography-9"
+        className="MyPRListItem-typography-8"
       >
         Beurteiler: 
         VVorgesetzter
       </WithStyles(Typography)>
       <WithStyles(Typography)
-        className="MyPRListItem-typography-9"
+        className="MyPRListItem-typography-8"
       >
         Datum: 
         13.06.18
       </WithStyles(Typography)>
       <WithStyles(Typography)
-        className="MyPRListItem-typography-9"
+        className="MyPRListItem-typography-8"
       >
         Auf Anfrage
       </WithStyles(Typography)>
       <WithStyles(Typography)
-        className="MyPRListItem-typographyGreen-11"
+        className="MyPRListItem-typographyGreen-10"
       >
         Abgeschlossen
       </WithStyles(Typography)>

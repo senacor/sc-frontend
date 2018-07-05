@@ -72,6 +72,7 @@ class PrComment extends React.Component {
       rating: prRating ? prRating.rating : {},
       comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
+      prVisible: this.props.prVisible,
       isExpanded: false
     };
   }
@@ -151,13 +152,16 @@ class PrComment extends React.Component {
             onClick={() => this.handleClick(category)}
           >
             <ListItemText
+              id={`${category}_CommentDescription`}
               secondary={this.translateRatingDescription(category)}
             />
 
             <Icon
               id={`${category}_CommentIconId`}
               className={
-                this.state.comment ? classes.iconComment : classes.iconNoComment
+                this.state.comment && this.state.prVisible
+                  ? classes.iconComment
+                  : classes.iconNoComment
               }
             >
               comment
@@ -166,8 +170,12 @@ class PrComment extends React.Component {
 
           <ListItem className={classes.nestedNumber}>
             {isEmployee(this.props.userroles) ? (
-              <Typography className={classes.rating} variant="body2">
-                {this.state.rating}
+              <Typography
+                id={category}
+                className={classes.rating}
+                variant="body2"
+              >
+                {this.state.prVisible ? this.state.rating : ''}
               </Typography>
             ) : (
               <FormControl className={classes.formControl}>
@@ -197,15 +205,17 @@ class PrComment extends React.Component {
         <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
             {isEmployee(this.props.userroles) ? (
-              this.state.comment ? (
-                <ListItem>
-                  <Typography className={classes.comment} variant="body1">
-                    » {this.state.comment} «
-                  </Typography>
-                </ListItem>
-              ) : (
-                ''
-              )
+              <ListItem>
+                <Typography
+                  id={category + '_TYPO'}
+                  className={classes.comment}
+                  variant="body1"
+                >
+                  {this.state.comment && this.state.prVisible
+                    ? '»' + this.state.comment + '«'
+                    : ''}
+                </Typography>
+              </ListItem>
             ) : (
               <ListItem>
                 <TextField

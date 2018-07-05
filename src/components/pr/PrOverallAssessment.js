@@ -87,6 +87,7 @@ class PrOverallAssessment extends React.Component {
       ratingTargetRole: targetRole ? targetRole.rating : undefined,
       comment: ratingFulfillment ? ratingFulfillment.comment : '',
       prById: this.props.prById,
+      prVisible: this.props.prVisible,
       categoryFulfillment: categoryFulfillment,
       categoryTargetRole: categoryTargetRole,
       is_expanded: false
@@ -199,8 +200,10 @@ class PrOverallAssessment extends React.Component {
               )}
             />
             {isEmployee(this.props.userroles) ? (
-              <Typography variant="body1">
-                {this.mapRatingFullfilment(this.state.ratingFulfillment)}
+              <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
+                {this.state.prVisible
+                  ? this.mapRatingFullfilment(this.state.ratingFulfillment)
+                  : ''}
               </Typography>
             ) : (
               <FormControl className={classes.nestedTextSelect}>
@@ -241,8 +244,10 @@ class PrOverallAssessment extends React.Component {
             />
 
             {isEmployee(this.props.userroles) ? (
-              <Typography variant="body1">
-                {this.mapRatingTargetRole(this.state.ratingTargetRole)}
+              <Typography id="TARGET_ROLE_TYPO" variant="body1">
+                {this.state.prVisible
+                  ? this.mapRatingTargetRole(this.state.ratingTargetRole)
+                  : ''}
               </Typography>
             ) : (
               <FormControl className={classes.nestedTextSelect}>
@@ -274,11 +279,15 @@ class PrOverallAssessment extends React.Component {
           </ListItem>
         </div>
         {isEmployee(this.props.userroles) ? (
-          this.state.comment ? (
+          this.state.comment && this.state.prVisible ? (
             <div className={classes.containerListItem}>
               <ListItem>
                 <Icon className={classes.icon}>comment</Icon>
-                <Typography className={classes.comment} variant="body1">
+                <Typography
+                  id="FREITEXTFELD"
+                  className={classes.comment}
+                  variant="body1"
+                >
                   {this.state.comment}
                 </Typography>
               </ListItem>

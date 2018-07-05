@@ -68,4 +68,21 @@ describe('PrSheetEmployee Component', () => {
     expect(component.find(Typography)).toHaveLength(1);
     expect(component.find(TextField)).toHaveLength(0);
   });
+
+  it('should display the text for the supervisor only if submitted by employee', () => {
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+        userroles={['PR_CST_Leiter']}
+        prVisible={false}
+      />
+    );
+
+    expect(
+      component
+        .find('WithStyles(Typography)')
+        .findWhere(x => x.text() === 'hjkkkhgcghjjn')
+    ).toHaveLength(0);
+  });
 });

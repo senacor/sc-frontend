@@ -1,10 +1,13 @@
 import { default as fetch } from '../helper/customFetch';
+import { fetchPrById } from './index';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
   ADD_TEXT_REQUEST,
   ADD_TEXT_RESPONSE
 } from '../helper/dispatchTypes';
+import * as dispatchTypes from '../helper/dispatchTypes';
+import * as visibilityTypes from '../helper/prVisibility';
 
 export const addRating = (
   prById,
@@ -76,6 +79,41 @@ export const addEmployeeContribution = (
     dispatch({
       type: ADD_TEXT_RESPONSE,
       prReflectionSet
+    });
+  }
+};
+
+export const setVisibilityById = (
+  prById,
+  toEmployee = false,
+  toSupervisor = false
+) => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_PR_VISIBILITY_REQUEST
+  });
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/visibility`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        visibilityToEmployee: toEmployee
+          ? visibilityTypes.VISIBLE
+          : visibilityTypes.INVISIBLE,
+        visibilityToReviewer: toSupervisor
+          ? visibilityTypes.VISIBLE
+          : visibilityTypes.INVISIBLE
+      })
+    }
+  );
+  await changeResponse.json();
+
+  if (changeResponse.ok) {
+    fetchPrById(prById.id);
+  } else {
+    dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: changeResponse.status
     });
   }
 };

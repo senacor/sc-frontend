@@ -93,7 +93,7 @@ describe('Pr Component', () => {
     }
   };
 
-  it('displays the pr', () => {
+  it('displays the PR', () => {
     const component = shallow(<StyledComponent prById={prById} />);
 
     expect(component).toMatchSnapshot();

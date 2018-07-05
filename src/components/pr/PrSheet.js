@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -7,8 +8,13 @@ import PrComment from './PrComment';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
+import Button from '@material-ui/core/Button';
+import { isEmployee, isSupervisor } from '../../helper/checkRole';
+import * as actions from '../../actions';
+import * as visibilityTypes from '../../helper/prVisibility';
+import objectGet from 'object-get';
 
-const styles = () => ({
+const styles = theme => ({
   containerVertical: {
     flex: 1,
     flexDirection: 'column',
@@ -21,6 +27,20 @@ const styles = () => ({
   },
   rightAlignText: {
     textAlign: 'right'
+  },
+  buttonDesktop: {
+    position: 'relative',
+    marginRight: '1%',
+    backgroundColor: theme.palette.primary['400'],
+    color: '#FFF',
+    marginBottom: '2%'
+  },
+  buttonDesktopDisabled: {
+    position: 'relative',
+    marginRight: '1%',
+    backgroundColor: theme.palette.primary['50'],
+    color: '#FFF',
+    marginBottom: '2%'
   }
 });
 
@@ -28,12 +48,49 @@ class PrSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prById: this.props.prById
+      prById: this.props.prById,
+      visibilityToEmployee:
+        objectGet(
+          this.props,
+          'prById.prVisibilityEntry.visibilityToEmployee'
+        ) === visibilityTypes.VISIBLE,
+      visibilityToReviewer:
+        objectGet(
+          this.props,
+          'prById.prVisibilityEntry.visibilityToReviewer'
+        ) === visibilityTypes.VISIBLE
     };
   }
 
+  handleClickEmployee = () => {
+    if (!this.state.visibilityToReviewer) {
+      this.props.setVisibilityById(
+        this.state.prById,
+        this.state.visibilityToEmployee,
+        true
+      );
+      this.setState({
+        visibilityToReviewer: true
+      });
+    }
+  };
+
+  handleClickReviewer = () => {
+    if (!this.state.visibilityToEmployee) {
+      this.props.setVisibilityById(
+        this.state.prById,
+        true,
+        this.state.visibilityToReviewer
+      );
+      this.setState({
+        visibilityToEmployee: true
+      });
+    }
+  };
+
   render() {
     const { prById, classes } = this.props;
+
     return (
       <div className={classes.containerVertical}>
         <List>
@@ -43,13 +100,40 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrSheetEmployee
               prById={prById}
+              prVisible={
+                isEmployee(this.props.userroles) ||
+                this.state.visibilityToReviewer
+              }
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
             <PrSheetEmployee
               prById={prById}
+              prVisible={
+                isEmployee(this.props.userroles) ||
+                this.state.visibilityToReviewer
+              }
               category="ROLE_AND_PROJECT_ENVIRONMENT"
             />
           </List>
+          {isEmployee(this.props.userroles) ? (
+            <List>
+              <ListItem>
+                <Button
+                  className={
+                    this.state.visibilityToReviewer
+                      ? classes.buttonDesktopDisabled
+                      : classes.buttonDesktop
+                  }
+                  disabled={this.state.visibilityToReviewer}
+                  onClick={this.handleClickEmployee}
+                >
+                  PR Freigeben
+                </Button>
+              </ListItem>
+            </List>
+          ) : (
+            ''
+          )}
         </List>
         <Divider />
         <List>
@@ -57,9 +141,30 @@ class PrSheet extends React.Component {
             <ListItemText primary="Leistungen im Projekt" />
           </ListItem>
           <List disablePadding>
-            <PrComment prById={prById} category="PROBLEM_ANALYSIS" />
-            <PrComment prById={prById} category="WORK_RESULTS" />
-            <PrComment prById={prById} category="WORKING_MANNER" />
+            <PrComment
+              prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
+              category="PROBLEM_ANALYSIS"
+            />
+            <PrComment
+              prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
+              category="WORK_RESULTS"
+            />
+            <PrComment
+              prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
+              category="WORKING_MANNER"
+            />
           </List>
         </List>
         <Divider />
@@ -67,8 +172,22 @@ class PrSheet extends React.Component {
           <ListItem>
             <ListItemText primary="Wirkung beim Kunden" />
           </ListItem>
-          <PrComment prById={prById} category="CUSTOMER_INTERACTION" />
-          <PrComment prById={prById} category="CUSTOMER_RETENTION" />
+          <PrComment
+            prById={prById}
+            prVisible={
+              isSupervisor(this.props.userroles) ||
+              this.state.visibilityToEmployee
+            }
+            category="CUSTOMER_INTERACTION"
+          />
+          <PrComment
+            prById={prById}
+            prVisible={
+              isSupervisor(this.props.userroles) ||
+              this.state.visibilityToEmployee
+            }
+            category="CUSTOMER_RETENTION"
+          />
         </List>
         <Divider />
         <List>
@@ -76,8 +195,22 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Team" />
           </ListItem>
           <List disablePadding>
-            <PrComment prById={prById} category="TEAMWORK" />
-            <PrComment prById={prById} category="LEADERSHIP" />
+            <PrComment
+              prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
+              category="TEAMWORK"
+            />
+            <PrComment
+              prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
+              category="LEADERSHIP"
+            />
           </List>
         </List>
         <Divider />
@@ -88,6 +221,10 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
             />
           </List>
@@ -98,13 +235,46 @@ class PrSheet extends React.Component {
             <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
           </ListItem>
           <List disablePadding>
-            <PrOverallAssessment prById={prById} />
+            <PrOverallAssessment
+              prById={prById}
+              prVisible={
+                isSupervisor(this.props.userroles) ||
+                this.state.visibilityToEmployee
+              }
+            />
           </List>
         </List>
         <Divider />
+        {isSupervisor(this.props.userroles) ? (
+          <List>
+            <ListItem>
+              <Button
+                className={
+                  this.state.visibilityToEmployee
+                    ? classes.buttonDesktopDisabled
+                    : classes.buttonDesktop
+                }
+                disabled={this.state.visibilityToEmployee}
+                onClick={this.handleClickReviewer}
+              >
+                PR Freigeben
+              </Button>
+            </ListItem>
+          </List>
+        ) : (
+          ''
+        )}
       </div>
     );
   }
 }
 
-export default withStyles(styles)(PrSheet);
+export const StyledComponent = withStyles(styles)(PrSheet);
+export default connect(
+  state => ({
+    userroles: state.userroles
+  }),
+  {
+    setVisibilityById: actions.setVisibilityById
+  }
+)(StyledComponent);
