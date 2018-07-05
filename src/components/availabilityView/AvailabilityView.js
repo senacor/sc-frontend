@@ -53,7 +53,7 @@ class AvailabilityView extends React.Component {
   };
 
   selectedEmployee = employee => () => {
-    this.props.selectEmployee(employee);
+    this.props.selectAppointment(employee);
   };
 
   executeSearch = debounce(this.props.prSearch, 500);

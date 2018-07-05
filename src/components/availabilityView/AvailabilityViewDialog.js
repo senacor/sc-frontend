@@ -9,7 +9,7 @@ import EmployeeSearch from '../employeeSearch/EmployeeSearch';
 
 class AvailabilityViewDialog extends Component {
   render() {
-    const { fullScreen, open, handleClose, selectEmployee } = this.props;
+    const { fullScreen, open, handleClose, selectAppointment } = this.props;
 
     return (
       <Dialog
@@ -21,7 +21,7 @@ class AvailabilityViewDialog extends Component {
         <DialogTitle>Delegieren an</DialogTitle>
 
         <DialogContent>
-          <EmployeeSearch selectEmployee={selectEmployee} />
+          <EmployeeSearch selectAppointment={selectAppointment} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

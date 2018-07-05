@@ -78,6 +78,15 @@ export class MyPRList extends React.Component {
     this.setState({ open: true });
   };
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  selectAppointment = employee => {
+    this.handleClose();
+    this.props.addSupervisor(this.state.currentPr, employee);
+  };
+
   handleClick = () => {
     this.props.addPr();
   };
@@ -408,7 +417,11 @@ export class MyPRList extends React.Component {
             <AddIcon />
           </Button>
         </Hidden>
-        <AvailabilityViewDialog open={this.state.open} />
+        <AvailabilityViewDialog
+          open={this.state.open}
+          handleClose={this.handleClose}
+          selectAppointment={this.selectAppointment}
+        />
       </div>
     );
   }
