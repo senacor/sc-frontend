@@ -17,6 +17,4 @@ export default function customFetch(url, config = {}) {
     Authorization: `Bearer ${access_token}`,
     'Content-Type': 'application/json'
   });
-
-  return fetch(url, authenticationConfig);
 }
