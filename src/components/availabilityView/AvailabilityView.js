@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import List from '@material-ui/core/List';
+import TextField from '@material-ui/core/TextField';
 import ListItem from '@material-ui/core/ListItem';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,7 +15,16 @@ const styles = theme => ({
   },
   table: {
     minWidth: 300,
-    maxWidth: 500
+    maxWidth: 400
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
   }
 });
 
@@ -39,9 +48,7 @@ class AvailabilityView extends React.Component {
           <TableBody>
             <TableRow>
               <TableCell>
-                <Typography variant="subheading">
-                  Mitarbeiter
-                </Typography>
+                <Typography variant="subheading">Mitarbeiter</Typography>
               </TableCell>
               <TableCell numeric>
                 <Switch
@@ -53,9 +60,7 @@ class AvailabilityView extends React.Component {
             </TableRow>
             <TableRow>
               <TableCell>
-                <Typography variant="subheading">
-                  Bewerter
-                </Typography>
+                <Typography variant="subheading">Bewerter</Typography>
               </TableCell>
               <TableCell numeric>
                 <Switch
@@ -67,9 +72,7 @@ class AvailabilityView extends React.Component {
             </TableRow>
             <TableRow>
               <TableCell>
-                <Typography variant="subheading">
-                  Vorgesetzter
-                </Typography>
+                <Typography variant="subheading">Vorgesetzter</Typography>
               </TableCell>
               <TableCell numeric>
                 <Switch
@@ -77,6 +80,23 @@ class AvailabilityView extends React.Component {
                   onChange={this.handleToggle('supervisor')}
                   color="primary"
                 />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell />
+              <TableCell>
+                <form className={classes.container} noValidate>
+                  <TextField
+                    id="datetime-local"
+                    label="Terminvorschlag"
+                    type="datetime-local"
+                    defaultValue="2017-05-24T10:30"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                  />
+                </form>
               </TableCell>
             </TableRow>
           </TableBody>
