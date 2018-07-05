@@ -1,120 +1,91 @@
 import React from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles/index';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles/index';
-import { debounce } from '../../helper/debounce';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Switch from '@material-ui/core/Switch';
 
-const styles = theme => ({
-  box: {
+let styles = {
+  rowContainer: {
     display: 'flex',
-    padding: '20px',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  columnContainer: {
+    display: 'flex',
     flexDirection: 'column'
   },
-  listItem: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: '0',
-      paddingRight: '0'
-    },
-    textAlign: 'center'
+  card: {
+    flexGrow: '1',
+    margin: '20px'
   },
-
-  insideList: {
-    textAlign: 'center'
-  },
-  employeeList: {
-    width: '100%'
-  },
-
-  avatar: {
-    backgroundColor: theme.palette.primary['500']
+  thinItem: {
+    paddingTop: 10,
+    paddingBottom: 10
   }
-});
+};
 
 class AvailabilityView extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      availabilityViewValue: ''
-    };
-  }
-
-  handleChange = () => event => {
-    this.setState({ [event.target.name]: event.target.value });
-    if (event.target.value) {
-      this.executeSearch(event.target.value);
-    }
+  state = {
+    gilad: true,
+    jason: false,
+    antoine: true,
   };
 
-  selectedEmployee = employee => () => {
-    this.props.selectAppointment(employee);
+  handleChange = name => event => {
+    this.setState({[name]: event.target.checked});
   };
-
-  executeSearch = debounce(this.props.prSearch, 500);
 
   render() {
-    const { classes, prSearchResults } = this.props;
-
     return (
-      <div className={classes.box}>
-        <TextField
-          label="Name, Email, ..."
-          value={
-            this.state.availabilityViewValue
-              ? this.state.availabilityViewValue
-              : ''
-          }
-          onChange={this.handleChange()}
-          InputProps={{
-            name: 'availabilityViewValue'
-          }}
-        />
-        {this.state.availabilityViewValue ? (
-          <List
-            id="availabilityViewResultList"
-            component="nav"
-            className={classes.employeeList}
-          >
-            {prSearchResults.map(employee => {
-              return (
-                <div key={employee.id}>
-                  <ListItem
-                    className={classes.listItem}
-                    onClick={this.selectedEmployee(employee)}
-                  >
-                    <Avatar className={classes.avatar}>
-                      {employee.firstName.charAt(0)}
-                      {employee.lastName.charAt(0)}
-                    </Avatar>
-                    <ListItemText
-                      primary={`${employee.firstName} ${employee.lastName}`}
-                    />
-                  </ListItem>
-                  <Divider />
-                </div>
-              );
-            })}
-          </List>
-        ) : (
-          <p>Keine Suchtreffer</p>
-        )}
-      </div>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Assign responsibility</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.gilad}
+                onChange={this.handleChange('gilad')}
+                value="gilad"
+              />
+            }
+            label="Gilad Gray"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.jason}
+                onChange={this.handleChange('jason')}
+                value="jason"
+              />
+            }
+            label="Jason Killian"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.antoine}
+                onChange={this.handleChange('antoine')}
+                value="antoine"
+              />
+            }
+            label="Antoine Llorca"
+          />
+        </FormGroup>
+        <FormHelperText>Be careful</FormHelperText>
+      </FormControl>
     );
   }
 }
 
-export const StyledComponent = withStyles(styles)(AvailabilityView);
-export default connect(
-  state => ({
-    prSearchResults: state.search.prSearchResults
-  }),
-  {
-    prSearch: actions.prSearch
-  }
-)(StyledComponent);
+export default withStyles(styles)(AvailabilityView);
