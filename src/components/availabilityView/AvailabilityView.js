@@ -25,6 +25,9 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200
+  },
+  tableCell: {
+    backgroundColor: 'primary'
   }
 });
 
@@ -84,6 +87,8 @@ class AvailabilityView extends React.Component {
             </TableRow>
             <TableRow>
               <TableCell />
+              <TableCell />
+              <TableCell />
               <TableCell>
                 <form className={classes.container} noValidate>
                   <TextField
@@ -98,6 +103,32 @@ class AvailabilityView extends React.Component {
                   />
                 </form>
               </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell numeric>
+                <Typography variant="subheading">9:00</Typography>
+              </TableCell>
+              <TableCell body={classes.tableCell}>
+                <Typography variant="subheading" color="primary">9:00</Typography>
+              </TableCell>
+              <TableCell />
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableCell numeric>
+                <Typography variant="subheading">9:30</Typography>
+              </TableCell>
+              <TableCell />
+              <TableCell />
+              <TableCell />
+            </TableRow>
+            <TableRow>
+              <TableCell numeric>
+                <Typography variant="subheading">10:00</Typography>
+              </TableCell>
+              <TableCell />
+              <TableCell />
+              <TableCell />
             </TableRow>
           </TableBody>
         </Table>
