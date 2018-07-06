@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
+import moment from 'moment';
 import {
   addPr,
   delegateReviewer,
@@ -291,7 +292,7 @@ describe('addPr', () => {
     fetchMock.restore();
   });
 
-  it('ads a new pr and triggers the actions', async () => {
+  it('adds a new pr and triggers the actions', async () => {
     fetchMock.postOnce('/api/v1/prs', {
       id: 1,
       employee: {
@@ -306,7 +307,7 @@ describe('addPr', () => {
       supervisor: 'ttran',
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
-      deadline: '2018-03-14',
+      deadline: moment().format('YYYY-MM-DD'),
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/prs/1'
@@ -337,7 +338,7 @@ describe('addPr', () => {
           supervisor: 'ttran',
           occasion: 'ON_DEMAND',
           status: 'PREPARATION',
-          deadline: '2018-03-14',
+          deadline: moment().format('YYYY-MM-DD'),
           _links: {
             self: {
               href: 'http://localhost:8010/api/v1/prs/1'

@@ -33,7 +33,7 @@ const styles = theme => ({
     }
   },
   media: {
-    height: '100%',
+    minHeight: '100%',
     width: '40%',
     [theme.breakpoints.down('md')]: {
       width: 130
@@ -185,13 +185,13 @@ export class PRList extends React.Component {
                       DELEGIEREN
                     </Button>
 
-                    <Button color="primary" className={classes.button}>
-                      <Link
-                        to={`/prs/${pr.id}`}
-                        style={{ textDecoration: 'none' }}
-                      >
-                        DETAILS
-                      </Link>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      component={Link}
+                      to={`/prs/${pr.id}`}
+                    >
+                      DETAILS
                     </Button>
                   </CardActions>
                 </div>
