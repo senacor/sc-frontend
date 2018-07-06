@@ -322,7 +322,11 @@ export class MyPRList extends React.Component {
                       }
                     >
                       <MyPRListItem
-                        reviewer={pr.supervisor}
+                        reviewer={
+                          pr.reviewer
+                            ? pr.reviewer.firstName + ' ' + pr.reviewer.lastName
+                            : pr.supervisor
+                        }
                         deadline={pr.deadline}
                         occasion={this.translateOccasion(pr.occasion)}
                         status={this.translateStatus(pr.status)}
@@ -372,7 +376,11 @@ export class MyPRList extends React.Component {
               >
                 <List className={classes.list}>
                   <MyPRListItem
-                    reviewer={pr.supervisor}
+                    reviewer={
+                      pr.reviewer
+                        ? pr.reviewer.firstName + ' ' + pr.reviewer.lastName
+                        : pr.supervisor
+                    }
                     deadline={pr.deadline}
                     occasion={this.translateOccasion(pr.occasion)}
                     status={this.translateStatus(pr.status)}

@@ -86,7 +86,7 @@ export class PRList extends React.Component {
     }
   };
 
-  addNewSupervisor = prId => {
+  addReviewer = prId => {
     this.handleClickOpen();
     this.setState({
       currentPr: prId
@@ -103,7 +103,7 @@ export class PRList extends React.Component {
 
   selectEmployee = employee => {
     this.handleClose();
-    this.props.addSupervisor(this.state.currentPr, employee);
+    this.props.delegateReviewer(this.state.currentPr, employee.id);
   };
 
   render() {
@@ -149,14 +149,14 @@ export class PRList extends React.Component {
                     <div
                       className={classes.controls}
                       style={{
-                        visibility: pr.delegatedSupervisor
-                          ? 'visible'
-                          : 'hidden'
+                        visibility: pr.reviewer ? 'visible' : 'hidden'
                       }}
                     >
                       <Icon className={classes.mediaIcon}>face</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
-                        {pr.delegatedSupervisor}
+                        {pr.reviewer
+                          ? pr.reviewer.firstName + ' ' + pr.reviewer.lastName
+                          : pr.supervisor}
                       </Typography>
                     </div>
 
@@ -179,7 +179,7 @@ export class PRList extends React.Component {
                       color="primary"
                       className={classes.button}
                       onClick={() => {
-                        this.addNewSupervisor(pr.id);
+                        this.addReviewer(pr.id);
                       }}
                     >
                       DELEGIEREN
@@ -218,6 +218,6 @@ export default connect(
   {
     fetchPrs: actions.fetchPrs,
     addPr: actions.addPr,
-    addSupervisor: actions.addSupervisor
+    delegateReviewer: actions.delegateReviewer
   }
 )(withLoading(props => props.fetchPrs())(StyledComponent));
