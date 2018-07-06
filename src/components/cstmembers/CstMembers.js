@@ -5,8 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import * as actions from '../../actions';
-import moment from 'moment';
-import { formatMomentForFrontend } from '../../helper/date';
+import { formatDateForFrontend } from '../../helper/date';
 
 class CstMembers extends Component {
   componentDidMount() {
@@ -27,8 +26,8 @@ class CstMembers extends Component {
                 )}${cstMember.lastName.charAt(0)}`}</Avatar>
                 <ListItemText
                   primary={`${cstMember.firstName} ${cstMember.lastName}`}
-                  secondary={`Datum letztes PR: ${formatMomentForFrontend(
-                    moment(cstMember.dateOfLastPr)
+                  secondary={`Datum letztes PR: ${formatDateForFrontend(
+                    cstMember.dateOfLastPr
                   )}`}
                 />
               </ListItem>

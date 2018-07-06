@@ -7,6 +7,6 @@ exports[`displays the deadline if specified 1`] = `
   component="p"
 >
   Deadline: 
-  Invalid date
+  31.12.2017
 </WithStyles(Typography)>
 `;
