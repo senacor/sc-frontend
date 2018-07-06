@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField';
-import ListItem from '@material-ui/core/ListItem';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -13,21 +13,22 @@ const styles = theme => ({
   root: {
     width: '100%'
   },
-  table: {
-    minWidth: 300,
-    maxWidth: 400
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
+  tableRolePick: {
+    display: 'inline'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200
+    height: 80,
+    position: 'relative',
+    top: 10
+  },
+  table: {
+    maxWidth: 500
   },
   tableCell: {
-    backgroundColor: 'primary'
+    backgroundColor: '#4d8087',
+    maxWidth: 50
   }
 });
 
@@ -46,51 +47,49 @@ class AvailabilityView extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div class="float" className={classes.root}>
-        <Table className={classes.table}>
-          <TableBody>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subheading">Mitarbeiter</Typography>
-              </TableCell>
-              <TableCell numeric>
-                <Switch
-                  checked={this.state.employee}
-                  onChange={this.handleToggle('employee')}
-                  color="primary"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subheading">Bewerter</Typography>
-              </TableCell>
-              <TableCell numeric>
-                <Switch
-                  checked={this.state.reviewer}
-                  onChange={this.handleToggle('reviewer')}
-                  color="primary"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subheading">Vorgesetzter</Typography>
-              </TableCell>
-              <TableCell numeric>
-                <Switch
-                  checked={this.state.supervisor}
-                  onChange={this.handleToggle('supervisor')}
-                  color="primary"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-              <TableCell>
-                <form className={classes.container} noValidate>
+      <div id={'outer'}>
+        <Typography variant="headline">Terminfindung</Typography>
+        <div id={'tableRolePick'}>
+          <Table className={classes.tableRolePick}>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <Typography variant="subheading">Mitarbeiter</Typography>
+                </TableCell>
+                <TableCell numeric>
+                  <Switch
+                    checked={this.state.employee}
+                    onChange={this.handleToggle('employee')}
+                    color="primary"
+                  />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Typography variant="subheading">Bewerter</Typography>
+                </TableCell>
+                <TableCell numeric>
+                  <Switch
+                    checked={this.state.reviewer}
+                    onChange={this.handleToggle('reviewer')}
+                    color="primary"
+                  />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Typography variant="subheading">Vorgesetzter</Typography>
+                </TableCell>
+                <TableCell numeric>
+                  <Switch
+                    checked={this.state.supervisor}
+                    onChange={this.handleToggle('supervisor')}
+                    color="primary"
+                  />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <form noValidate>
                   <TextField
                     id="datetime-local"
                     label="Terminvorschlag"
@@ -102,39 +101,47 @@ class AvailabilityView extends React.Component {
                     }}
                   />
                 </form>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell numeric>
-                <Typography variant="subheading">9:00</Typography>
-              </TableCell>
-              <TableCell body={classes.tableCell}>
-                <Typography variant="subheading" color="primary">9:00</Typography>
-              </TableCell>
-              <TableCell />
-              <TableCell />
-            </TableRow>
-            <TableRow>
-              <TableCell numeric>
-                <Typography variant="subheading">9:30</Typography>
-              </TableCell>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-            </TableRow>
-            <TableRow>
-              <TableCell numeric>
-                <Typography variant="subheading">10:00</Typography>
-              </TableCell>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-            </TableRow>
-          </TableBody>
-        </Table>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+        <div id={'timeTable'}>
+          <Table className={classes.table}>
+            <TableBody>
+              <TableRow>
+                <TableCell numeric>
+                  <Typography variant="subheading">9:00</Typography>
+                </TableCell>
+                <TableCell className={classes.tableCell} />
+                <TableCell />
+                <TableCell />
+              </TableRow>
+              <TableRow>
+                <TableCell numeric>
+                  <Typography variant="subheading">9:30</Typography>
+                </TableCell>
+                <TableCell />
+                <TableCell className={classes.tableCell} />
+                <TableCell />
+              </TableRow>
+              <TableRow>
+                <TableCell numeric>
+                  <Typography variant="subheading">10:00</Typography>
+                </TableCell>
+                <TableCell />
+                <TableCell />
+                <TableCell className={classes.tableCell} />
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </div>
     );
   }
 }
+
+AvailabilityView.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(AvailabilityView);
