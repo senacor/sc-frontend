@@ -4,6 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,17 +15,11 @@ import Switch from '@material-ui/core/Switch';
 
 const styles = theme => ({
   root: {
-    width: '100%'
-  },
-  tableRolePick: {
-    display: 'inline'
+    flexGrow: 1
   },
   textField: {
     marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    height: 80,
-    position: 'relative',
-    top: 10
+    marginRight: theme.spacing.unit
   },
   table: {
     maxWidth: 500
@@ -29,6 +27,65 @@ const styles = theme => ({
   tableCell: {
     backgroundColor: '#4d8087',
     maxWidth: 50
+  },
+  appointmentEmployee: {
+    display: 'inline',
+    borderRadius: 10,
+    background: '#4d8087',
+    border: '0px solid #000000',
+    padding: 24,
+    width: 15,
+    height: 15,
+    position: 'relative',
+    left: 100,
+    bottom: 150
+  },
+  appointmentReviewer: {
+    display: 'inline',
+    borderRadius: 10,
+    background: '#4d8087',
+    border: '0px solid #000000',
+    padding: 24,
+    width: 15,
+    height: 15,
+    position: 'relative',
+    left: 130,
+    bottom: 86
+  },
+  appointmentSupervisor: {
+    display: 'inline',
+    borderRadius: 10,
+    background: '#4d8087',
+    border: '0px solid #000000',
+    padding: 24,
+    width: 15,
+    height: 15,
+    position: 'relative',
+    left: 160,
+    bottom: 210
+  },
+  list: {
+    height: '100%',
+    minWidth: 400,
+    display: 'inline'
+  },
+  listItem: {
+    height: 30,
+    width: 100
+  },
+  timeTable: {
+    align: 'center',
+    width: '100%',
+    position: 'relative',
+    top: 20,
+    left: 10
+  },
+  hours: {},
+  divider: {
+    width: '100%',
+    maxWidth: 350,
+    position: 'relative',
+    bottom: 15
   }
 });
 
@@ -47,94 +104,132 @@ class AvailabilityView extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div id={'outer'}>
+      <div id={'outer'} className={classes.root}>
         <Typography variant="headline">Terminfindung</Typography>
-        <div id={'tableRolePick'}>
-          <Table className={classes.tableRolePick}>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subheading">Mitarbeiter</Typography>
-                </TableCell>
-                <TableCell numeric>
-                  <Switch
-                    checked={this.state.employee}
-                    onChange={this.handleToggle('employee')}
-                    color="primary"
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subheading">Bewerter</Typography>
-                </TableCell>
-                <TableCell numeric>
-                  <Switch
-                    checked={this.state.reviewer}
-                    onChange={this.handleToggle('reviewer')}
-                    color="primary"
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subheading">Vorgesetzter</Typography>
-                </TableCell>
-                <TableCell numeric>
-                  <Switch
-                    checked={this.state.supervisor}
-                    onChange={this.handleToggle('supervisor')}
-                    color="primary"
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <form noValidate>
-                  <TextField
-                    id="datetime-local"
-                    label="Terminvorschlag"
-                    type="datetime-local"
-                    defaultValue="2017-05-24T10:30"
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                  />
-                </form>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-        <div id={'timeTable'}>
-          <Table className={classes.table}>
-            <TableBody>
-              <TableRow>
-                <TableCell numeric>
-                  <Typography variant="subheading">9:00</Typography>
-                </TableCell>
-                <TableCell className={classes.tableCell} />
-                <TableCell />
-                <TableCell />
-              </TableRow>
-              <TableRow>
-                <TableCell numeric>
-                  <Typography variant="subheading">9:30</Typography>
-                </TableCell>
-                <TableCell />
-                <TableCell className={classes.tableCell} />
-                <TableCell />
-              </TableRow>
-              <TableRow>
-                <TableCell numeric>
-                  <Typography variant="subheading">10:00</Typography>
-                </TableCell>
-                <TableCell />
-                <TableCell />
-                <TableCell className={classes.tableCell} />
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        <Grid id={'tableRolePick'} container spacing={24}>
+          <Grid item xs={12} sm={3}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="subheading">Mitarbeiter</Typography>
+                  </TableCell>
+                  <TableCell numeric>
+                    <Switch
+                      checked={this.state.employee}
+                      onChange={this.handleToggle('employee')}
+                      color="primary"
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="subheading">Bewerter</Typography>
+                  </TableCell>
+                  <TableCell numeric>
+                    <Switch
+                      checked={this.state.reviewer}
+                      onChange={this.handleToggle('reviewer')}
+                      color="primary"
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Typography variant="subheading">Vorgesetzter</Typography>
+                  </TableCell>
+                  <TableCell numeric>
+                    <Switch
+                      checked={this.state.supervisor}
+                      onChange={this.handleToggle('supervisor')}
+                      color="primary"
+                    />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
+          <Grid item xs={12} sm={9}>
+            <form noValidate>
+              <TextField
+                id="datetime-local"
+                label="Terminvorschlag"
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+            </form>
+          </Grid>
+        </Grid>
+        <Grid container spacing={24}>
+          <Grid id={'hours'} className={classes.timeTable}>
+            <List className={classes.list} align="right">
+              <ListItem className={classes.listItem} align="right">
+                <Typography className={classes.hours}>8:00</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>8:30</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>9:00</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>9:30</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>10:00</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>10:30</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>11:00</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>11:30</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>12:00</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>12:30</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>13:00</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+              <ListItem className={classes.listItem}>
+                <Typography className={classes.hours}>13:30</Typography>
+              </ListItem>
+              <Divider className={classes.divider} />
+            </List>
+            <div
+              id={'availabilityEmployee'}
+              className={classes.appointmentEmployee}
+            />
+            <div
+              id={'availabilityReviewer'}
+              className={classes.appointmentReviewer}
+            />
+            <div
+              id={'availabilitySupervisor'}
+              className={classes.appointmentSupervisor}
+            />
+          </Grid>
+        </Grid>
       </div>
     );
   }
