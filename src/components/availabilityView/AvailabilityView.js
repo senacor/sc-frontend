@@ -96,6 +96,11 @@ class AvailabilityView extends React.Component {
     supervisor: true
   };
 
+  componentDidMount() {
+    let { clientHeight, clientWidth } = this.refs.timeTable;
+    console.log('height :', clientHeight, ' width :', clientWidth);
+  }
+
   handleToggle = name => event => {
     this.setState({ [name]: event.target.checked });
   };
@@ -164,7 +169,7 @@ class AvailabilityView extends React.Component {
             </form>
           </Grid>
         </Grid>
-        <Grid container spacing={24}>
+        <div ref="timeTable">
           <Grid id={'hours'} className={classes.timeTable}>
             <List className={classes.list} align="right">
               <ListItem className={classes.listItem} align="right">
@@ -229,7 +234,7 @@ class AvailabilityView extends React.Component {
               className={classes.appointmentSupervisor}
             />
           </Grid>
-        </Grid>
+        </div>
       </div>
     );
   }
