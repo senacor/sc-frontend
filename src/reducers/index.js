@@ -8,6 +8,7 @@ import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
 import { cstMembers } from './cstMembers';
+import { prEventsReducer } from './events';
 import prRatings from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
@@ -28,6 +29,7 @@ const app = combineReducers({
   userinfo,
   userphoto,
   userroles,
-  cstMembers
+  cstMembers,
+  prEventsReducer
 });
 export default app;
