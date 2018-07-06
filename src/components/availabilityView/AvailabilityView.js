@@ -179,7 +179,7 @@ class AvailabilityView extends React.Component {
             </ListItem>
             <Divider
               className={classes.divider}
-              style={{ minWidth: this.state.tableWidth - 15 }}
+              style={{ maxWidth: this.state.tableWidth - 15 }}
             />
             <ListItem className={classes.listItem}>
               <Typography className={classes.hours}>9:00</Typography>
