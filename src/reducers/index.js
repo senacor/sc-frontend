@@ -9,12 +9,13 @@ import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
 import { cstMembers } from './cstMembers';
+import { prEventsReducer } from '/.events';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
 import prEmployeeContributions from './employeeContributions';
 
-const app = combineReducers({
+const combineReducer = combineReducers({
   tasks,
   editTasks,
   errors,
@@ -22,15 +23,23 @@ const app = combineReducers({
   login,
   isLoading,
   prById,
-  prDetailId,
   prVisibilityById,
   prRatings,
   prEmployeeContributions,
   search,
-  sortOrderPrs,
   userinfo,
   userphoto,
   userroles,
-  cstMembers
+  cstMembers,
+  prEventsReducer
 });
+
+const app = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined;
+  }
+
+  return combineReducer(state, action);
+};
+
 export default app;
