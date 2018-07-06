@@ -17,6 +17,24 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
+  appointmentEmployee: {
+    width: 60,
+    height: 60,
+    borderRadius: 10,
+    background: '#4d8087'
+  },
+  appointmentReviewer: {
+    width: 60,
+    height: 60,
+    borderRadius: 10,
+    background: '#4d8087'
+  },
+  appointmentSupervisor: {
+    width: 60,
+    height: 60,
+    borderRadius: 10,
+    background: '#4d8087'
+  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -28,41 +46,29 @@ const styles = theme => ({
     backgroundColor: '#4d8087',
     maxWidth: 50
   },
-  appointmentEmployee: {
-    display: 'inline',
+  appointmentEmployeeDiv: {
     borderRadius: 10,
     background: '#4d8087',
     border: '0px solid #000000',
-    padding: 24,
-    width: 15,
-    height: 15,
-    position: 'relative',
-    left: 100,
-    bottom: 150
+    width: 50,
+    height: 50,
+    position: 'relative'
   },
-  appointmentReviewer: {
-    display: 'inline',
+  appointmentReviewerDiv: {
     borderRadius: 10,
     background: '#4d8087',
     border: '0px solid #000000',
-    padding: 24,
-    width: 15,
-    height: 15,
-    position: 'relative',
-    left: 130,
-    bottom: 86
+    width: 50,
+    height: 50,
+    position: 'relative'
   },
-  appointmentSupervisor: {
-    display: 'inline',
+  appointmentSupervisorDiv: {
     borderRadius: 10,
     background: '#4d8087',
     border: '0px solid #000000',
-    padding: 24,
-    width: 15,
-    height: 15,
-    position: 'relative',
-    left: 160,
-    bottom: 210
+    width: 50,
+    height: 50,
+    position: 'relative'
   },
   list: {
     height: '100%',
@@ -80,11 +86,14 @@ const styles = theme => ({
     top: 20,
     left: 10
   },
-  hours: {},
+  hours: {
+    height: 30,
+    width: 50
+  },
   divider: {
     maxWidth: 350,
     position: 'relative',
-    bottom: 15
+    bottom: 20
   }
 });
 
@@ -112,6 +121,9 @@ class AvailabilityView extends React.Component {
     const tableWidth = this.divElement.clientWidth;
     this.setState({ tableWidth });
     console.log('width :', tableWidth);
+    const boundingRect = this.divElement.getBoundingClientRect;
+    const tableTop = boundingRect.top;
+    console.log('top :', tableTop);
   }
 
   handleToggle = name => event => {
@@ -183,106 +195,121 @@ class AvailabilityView extends React.Component {
           </Grid>
         </Grid>
         <div ref={divElement => (this.divElement = divElement)}>
-          <Grid id={'hours'} className={classes.timeTable}>
-            <List className={classes.list} align="right">
-              <ListItem className={classes.listItem} align="right">
-                <Typography className={classes.hours}>8:00</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>8:30</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>9:00</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>9:30</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>10:00</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>10:30</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>11:00</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>11:30</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>12:00</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>12:30</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>13:00</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-              <ListItem className={classes.listItem}>
-                <Typography className={classes.hours}>13:30</Typography>
-              </ListItem>
-              <Divider
-                className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth }}
-              />
-            </List>
-            <div
-              id={'availabilityEmployee'}
-              className={classes.appointmentEmployee}
-            />
-            <div
-              id={'availabilityReviewer'}
-              className={classes.appointmentReviewer}
-            />
-            <div
-              id={'availabilitySupervisor'}
-              className={classes.appointmentSupervisor}
-            />
-          </Grid>
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <List className={classes.list} align="right">
+                    <ListItem className={classes.listItem} align="right">
+                      <Typography className={classes.hours}>8:00</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>8:30</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>9:00</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>9:30</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>10:00</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>10:30</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>11:00</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>11:30</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>12:00</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>12:30</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>13:00</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                    <ListItem className={classes.listItem}>
+                      <Typography className={classes.hours}>13:30</Typography>
+                    </ListItem>
+                    <Divider
+                      className={classes.divider}
+                      style={{ maxWidth: this.state.tableWidth - 15 }}
+                    />
+                  </List>
+                </TableCell>
+                <TableCell style={{ verticalAlign: 'top' }}>
+                  <div
+                    id={'availabilityEmployee'}
+                    className={classes.appointmentEmployeeDiv}
+                    style={{ top: 0 }}
+                  />
+                </TableCell>
+                <TableCell style={{ verticalAlign: 'top' }}>
+                  <div
+                    id={'availabilityReviewer'}
+                    className={classes.appointmentReviewerDiv}
+                    style={{ top: 1 * this.state.tableHeight / 14 }}
+                  />
+                </TableCell>
+                <TableCell style={{ verticalAlign: 'top' }}>
+                  <div
+                    id={'availabilitySupervisor'}
+                    className={classes.appointmentSupervisorDiv}
+                    style={{ top: 2 * this.state.tableHeight / 14 }}
+                  />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       </div>
     );
