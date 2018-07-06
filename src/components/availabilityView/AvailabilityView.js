@@ -82,7 +82,6 @@ const styles = theme => ({
   },
   hours: {},
   divider: {
-    width: '100%',
     maxWidth: 350,
     position: 'relative',
     bottom: 15
@@ -96,9 +95,22 @@ class AvailabilityView extends React.Component {
     supervisor: true
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tableHeight: 0,
+      tableWidth: 0
+    };
+  }
+
   componentDidMount() {
-    let { clientHeight, clientWidth } = this.refs.timeTable;
-    console.log('height :', clientHeight, ' width :', clientWidth);
+    const tableHeight = this.divElement.clientHeight;
+    this.setState({ tableHeight });
+    console.log('height :', tableHeight);
+    const tableWidth = this.divElement.clientWidth;
+    this.setState({ tableWidth });
+    console.log('height :', tableWidth);
   }
 
   handleToggle = name => event => {
@@ -169,13 +181,16 @@ class AvailabilityView extends React.Component {
             </form>
           </Grid>
         </Grid>
-        <div ref="timeTable">
+        <div ref={ (divElement) => this.divElement = divElement}>
           <Grid id={'hours'} className={classes.timeTable}>
             <List className={classes.list} align="right">
               <ListItem className={classes.listItem} align="right">
                 <Typography className={classes.hours}>8:00</Typography>
               </ListItem>
-              <Divider className={classes.divider} />
+              <Divider
+                className={classes.divider}
+                //style={{ width: clientWidth }}
+              />
               <ListItem className={classes.listItem}>
                 <Typography className={classes.hours}>8:30</Typography>
               </ListItem>
