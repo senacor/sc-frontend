@@ -2,9 +2,12 @@ import moment from 'moment';
 
 export const FRONTEND_DATE_FORMAT = 'DD.MM.YYYY';
 
-export const formatMomentForFrontend = momentObject => {
-  if (momentObject) {
-    return moment(momentObject).format(FRONTEND_DATE_FORMAT);
+export const formatDateForFrontend = input => {
+  if (input) {
+    let date = moment.isMoment(input) ? input : moment(input);
+    if (date.isValid()) {
+      return date.format(FRONTEND_DATE_FORMAT);
+    }
   }
   return null;
 };
