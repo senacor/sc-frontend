@@ -1,9 +1,9 @@
 import prs from './prs';
 import {
-  FETCH_PRS_RESPONSE,
   ADD_PR_RESPONSE,
-  ADD_SUPERVISOR,
-  CHANGE_SORT_ORDER
+  CHANGE_SORT_ORDER,
+  DELEGATE_REVIEWER_RESPONSE,
+  FETCH_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 
 const stateBefore = {
@@ -50,6 +50,26 @@ const stateBefore = {
   ]
 };
 
+const updatedPrWithNewReviewer = {
+  id: 2,
+  employee: 'emp2',
+  supervisor: 'fukara',
+  reviewer: {
+    id: 1,
+    firstName: 'Hänsel',
+    lastName: 'Gretel',
+    dateOfLastPr: '2018-01-01'
+  },
+  occasion: 'ON_DEMAND',
+  status: 'PREPARATION',
+  deadline: '2018-03-14',
+  _links: {
+    self: {
+      href: 'http://localhost:8010/api/v1/prs/2'
+    }
+  }
+};
+
 describe('prs reducer', () => {
   it('should test the reducer for FETCH_PRS_RESPONSE', () => {
     const stateBefore = {
@@ -78,11 +98,10 @@ describe('prs reducer', () => {
     expect(stateAfter).toEqual({ prsList: ['pr2'] });
   });
 
-  it('should test the reducer for ADD_SUPERVISOR, to see if a new delegated supervisor is added in the state', () => {
+  it('should test the reducer for DELEGATE_REVIEWER_RESPONSE, to see if a new delegated reviewer is added in the state', () => {
     const actionAddingDelegatedSupervisor = {
-      type: ADD_SUPERVISOR,
-      delegatedSupervisor: 'dummy',
-      prId: 2
+      type: DELEGATE_REVIEWER_RESPONSE,
+      prNewReviewer: updatedPrWithNewReviewer
     };
 
     const stateAfter = prs(stateBefore, actionAddingDelegatedSupervisor);
@@ -90,9 +109,10 @@ describe('prs reducer', () => {
     const expectedOutput = {
       prsList: [
         stateBefore.prsList[0],
-
         Object.assign(stateBefore.prsList[1], {
-          delegatedSupervisor: 'dummy'
+          reviewer: {
+            ...updatedPrWithNewReviewer.reviewer
+          }
         }),
         stateBefore.prsList[2]
       ]

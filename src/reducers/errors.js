@@ -13,7 +13,7 @@ const errors = (state = defaultState, action) => {
   }
 };
 
-function generateErrorState(httpCode) {
+function generateErrorState(httpCode, errorMessage, showErrorMessage) {
   if (httpCode < 500) {
     return Object.assign({}, { hasErrors: false, message: null });
   }

@@ -3,7 +3,7 @@ import Deadline from './Deadline';
 import { shallow } from 'enzyme';
 
 it('displays the deadline if specified', () => {
-  const deadline = '2017-11-31';
+  const deadline = '2017-12-31';
 
   const component = shallow(<Deadline deadline={deadline} />);
 

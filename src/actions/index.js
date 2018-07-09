@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { default as fetch } from '../helper/customFetch';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
@@ -98,7 +99,7 @@ export const addPr = () => async dispatch => {
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
         supervisor: 'ttran',
-        deadline: '2018-03-14',
+        deadline: moment().format('YYYY-MM-DD'),
         employeeId: 1
       })
     }
@@ -136,12 +137,34 @@ export const fetchPrById = prsId => async dispatch => {
   }
 };
 
-export const addSupervisor = (prId, employee) => async dispatch => {
+export const delegateReviewer = (prId, reviewerId) => async dispatch => {
   dispatch({
-    type: dispatchTypes.ADD_SUPERVISOR,
-    delegatedSupervisor: `${employee.firstName} ${employee.lastName}`,
-    prId: prId
+    type: dispatchTypes.DELEGATE_REVIEWER_REQUEST
   });
+
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/delegation`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        reviewerEmployeeId: reviewerId
+      })
+    }
+  );
+
+  const prNewReviewer = await changeResponse.json();
+  if (changeResponse.ok) {
+    dispatch({
+      type: dispatchTypes.DELEGATE_REVIEWER_RESPONSE,
+      prNewReviewer: prNewReviewer
+    });
+  } else {
+    dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: changeResponse.status
+    });
+  }
 };
 
 export const changePrSortOrder = sortOrder => async dispatch => {

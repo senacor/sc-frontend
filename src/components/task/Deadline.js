@@ -9,7 +9,7 @@ const Deadline = props => {
 
   return (
     <Typography component="p">
-      Deadline: {date.formatMomentForFrontend(props.deadline)}
+      Deadline: {date.formatDateForFrontend(props.deadline)}
     </Typography>
   );
 };
