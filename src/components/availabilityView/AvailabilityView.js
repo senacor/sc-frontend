@@ -5,56 +5,35 @@ import { withStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
 
+const marginLeft = 50;
+const timeTableListHeight = 40;
+
 const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  textField: {
+  datePicker: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
-  appointmentEmployeeDiv: {
+  appointmentDiv: {
     borderRadius: 10,
     background: '#4d8087',
-    width: 70,
-    height: 40,
-    position: 'absolute',
-    left: 100
+    height: timeTableListHeight,
+    position: 'absolute'
   },
-  appointmentReviewerDiv: {
-    borderRadius: 10,
-    background: '#4d8087',
-    width: 70,
-    height: 40,
-    position: 'absolute',
-    left: 175
-  },
-  appointmentSupervisorDiv: {
-    borderRadius: 10,
-    background: '#4d8087',
-    width: 70,
-    height: 40,
-    position: 'absolute',
-    left: 250
-  },
-  list: {
-    textAlign: 'left'
-  },
-  listItem: {
-    height: 40
+  timeTable: {
+    height: timeTableListHeight
   },
   divider: {
     position: 'relative',
     top: -20,
-    left: 50,
+    left: marginLeft,
     height: 1,
     margin: 0,
     border: 'none',
@@ -68,19 +47,15 @@ const styles = theme => ({
 });
 
 class AvailabilityView extends React.Component {
-  state = {
-    employee: true,
-    reviewer: false,
-    supervisor: true,
-    maxWidth: 0
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
       tableHeight: 0,
-      tableWidth: 0
+      tableWidth: 0,
+      employee: true,
+      reviewer: false,
+      supervisor: true
     };
   }
 
@@ -156,7 +131,7 @@ class AvailabilityView extends React.Component {
                 label="Terminvorschlag"
                 type="datetime-local"
                 defaultValue="2017-05-24T10:30"
-                className={classes.textField}
+                className={classes.datePicker}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -168,116 +143,120 @@ class AvailabilityView extends React.Component {
           ref={divElement => (this.divElement = divElement)}
           style={{ position: 'relative', top: 50, maxWidth: 650 }}
         >
-          <div className={classes.list}>
-            <div className={classes.listItem}>
+          <div>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>8:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>8:30</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>9:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>9:30</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>10:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>10:30</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>11:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>11:30</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>12:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>12:30</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>13:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
-            <div className={classes.listItem}>
+            <div className={classes.timeTable}>
               <Typography className={classes.hours}>13:30</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 50 }}
+                style={{ maxWidth: this.state.tableWidth - marginLeft }}
               />
             </div>
           </div>
           <div style={{ position: 'absolute', top: 0, left: 0 }}>
             <div
               id={'availabilityEmployee'}
-              className={classes.appointmentEmployeeDiv}
-              style={{ left: (this.state.tableWidth) / 6 * 0.5 + 50,
+              className={classes.appointmentDiv}
+              style={{
+                left: this.state.tableWidth / 6 * 0.5 + marginLeft,
                 top: 0,
-                width: (this.state.tableWidth-50)/6}}
+                width: (this.state.tableWidth - marginLeft) / 6
+              }}
             />
             <div
               id={'availabilityReviewer'}
-              className={classes.appointmentReviewerDiv}
+              className={classes.appointmentDiv}
               style={{
-                left: (this.state.tableWidth -50) / 6 * 2.5 + 50,
+                left:
+                  (this.state.tableWidth - marginLeft) / 6 * 2.5 + marginLeft,
                 top: 1 * this.state.tableHeight / 12,
-                width: (this.state.tableWidth-50)/6
+                width: (this.state.tableWidth - marginLeft) / 6
               }}
             />
             <div
               id={'availabilitySupervisor'}
-              className={classes.appointmentSupervisorDiv}
+              className={classes.appointmentDiv}
               style={{
-                left: (this.state.tableWidth-50 ) / 6 * 4.5 + 50,
+                left:
+                  (this.state.tableWidth - marginLeft) / 6 * 4.5 + marginLeft,
                 top: 2 * this.state.tableHeight / 12,
-                width: (this.state.tableWidth -50)/6
+                width: (this.state.tableWidth - marginLeft) / 6
               }}
             />
           </div>
