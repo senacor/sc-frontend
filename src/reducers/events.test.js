@@ -1,4 +1,4 @@
-import { prEventsReducer } from './events';
+import { events } from './events';
 import { FETCHED_EVENTS } from '../helper/dispatchTypes';
 
 describe('event reducer', () => {
@@ -6,148 +6,210 @@ describe('event reducer', () => {
     const stateBefore = [];
     const action = {
       type: FETCHED_EVENTS,
-      response: {
-        _embedded: {
-          eventableResponseList: [
-            {
-              id: 1,
-              employeeId: 501,
-              eventableEntityId: 8,
-              eventableEntityType: 'pr',
-              event: {
-                type: 'PR_CREATED_EMPLOYEE',
-                text: ' hat ein PR beantragt.',
-                employee: 'Michaela Mitarbeiterin'
-              },
-              datetime: '2017-05-04T11:28:56.816'
-            },
-            {
-              id: 2,
-              employeeId: 502,
-              eventableEntityId: 8,
-              eventableEntityType: 'pr',
-              event: {
-                type: 'PR_RELEASED_EMPLOYEE',
-                text: ' hat ein PR freigegeben.',
-                employee: 'Martin Mitarbeiter'
-              },
-              datetime: '2017-05-04T11:28:56.816'
-            },
-            {
-              id: 3,
-              employeeId: 500,
-              eventableEntityId: 9,
-              eventableEntityType: 'pr',
-              event: {
-                type: 'PR_RELEASED_REVIEWER',
-                text: ' hat seine Bewertung abgegeben.',
-                employee: 'Volker Vorgesetzter'
-              },
-              datetime: '2017-05-04T11:28:56.816'
-            },
-            {
-              id: 4,
-              employeeId: 501,
-              eventableEntityId: 8,
-              eventableEntityType: 'pr',
-              event: {
-                type: 'PR_CREATED_EMPLOYEE',
-                text: ' hat ein PR beantragt.',
-                employee: 'Michaela Mitarbeiterin'
-              },
-              datetime: '2017-05-04T11:28:56.816'
-            },
-            {
-              id: 5,
-              employeeId: 502,
-              eventableEntityId: 9,
-              eventableEntityType: 'pr',
-              event: {
-                type: 'PR_RELEASED_EMPLOYEE',
-                text: ' hat ein PR freigegeben.',
-                employee: 'Martin Mitarbeiter'
-              },
-              datetime: '2017-05-04T11:28:56.816'
-            },
-            {
-              id: 6,
-              employeeId: 500,
-              eventableEntityId: 8,
-              eventableEntityType: 'pr',
-              event: {
-                type: 'PR_RELEASED_REVIEWER',
-                text: ' hat seine Bewertung abgegeben.',
-                employee: 'Volker Vorgesetzter'
-              },
-              datetime: '2017-05-04T11:28:56.816'
+      prEvents: [
+        {
+          id: 1,
+          employee: {
+            id: 3,
+            firstName: 'Michaela',
+            lastName: 'Mitarbeiterin',
+            dateOfLastPr: '2019-08-30'
+          },
+          eventableEntityType: 'pr',
+          eventableEntityId: 1,
+          eventType: 'EMPLOYEE_RELEASED_PR',
+          createdAt: '2018-07-09T14:54:25.675+0000',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/events/1'
             }
-          ]
+          }
+        },
+        {
+          id: 2,
+          employee: {
+            id: 3,
+            firstName: 'Michaela',
+            lastName: 'Mitarbeiterin',
+            dateOfLastPr: '2019-08-30'
+          },
+          eventableEntityType: 'pr',
+          eventableEntityId: 1,
+          eventType: 'EMPLOYEE_RELEASED_PR',
+          createdAt: '2018-07-09T14:54:25.675+0000',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/events/1'
+            }
+          }
+        },
+        {
+          id: 3,
+          employee: {
+            id: 3,
+            firstName: 'Michaela',
+            lastName: 'Mitarbeiterin',
+            dateOfLastPr: '2019-08-30'
+          },
+          eventableEntityType: 'pr',
+          eventableEntityId: 1,
+          eventType: 'EMPLOYEE_RELEASED_PR',
+          createdAt: '2018-07-09T14:54:25.675+0000',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/events/1'
+            }
+          }
+        },
+        {
+          id: 4,
+          employee: {
+            id: 3,
+            firstName: 'Michaela',
+            lastName: 'Mitarbeiterin',
+            dateOfLastPr: '2019-08-30'
+          },
+          eventableEntityType: 'pr',
+          eventableEntityId: 1,
+          eventType: 'EMPLOYEE_RELEASED_PR',
+          createdAt: '2018-07-09T14:54:25.675+0000',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/events/1'
+            }
+          }
+        },
+        {
+          id: 5,
+          employee: {
+            id: 3,
+            firstName: 'Michaela',
+            lastName: 'Mitarbeiterin',
+            dateOfLastPr: '2019-08-30'
+          },
+          eventableEntityType: 'pr',
+          eventableEntityId: 1,
+          eventType: 'EMPLOYEE_RELEASED_PR',
+          createdAt: '2018-07-09T14:54:25.675+0000',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/events/1'
+            }
+          }
+        },
+        {
+          id: 6,
+          employee: {
+            id: 3,
+            firstName: 'Michaela',
+            lastName: 'Mitarbeiterin',
+            dateOfLastPr: '2019-08-30'
+          },
+          eventableEntityType: 'pr',
+          eventableEntityId: 1,
+          eventType: 'EMPLOYEE_RELEASED_PR',
+          createdAt: '2018-07-09T14:54:25.675+0000',
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/events/1'
+            }
+          }
         }
-      }
+      ]
     };
 
-    const stateAfter = prEventsReducer(stateBefore, action);
+    const stateAfter = events(stateBefore, action);
 
     expect(stateAfter).toEqual([
       {
         id: 1,
-        employeeId: 501,
-        eventableEntityId: 8,
-        eventableEntityType: 'pr',
-        event: {
-          type: 'PR_CREATED_EMPLOYEE',
-          text: ' hat ein PR beantragt.',
-          employee: 'Michaela Mitarbeiterin'
+        employee: {
+          id: 3,
+          firstName: 'Michaela',
+          lastName: 'Mitarbeiterin',
+          dateOfLastPr: '2019-08-30'
         },
-        datetime: '2017-05-04T11:28:56.816'
+        eventableEntityType: 'pr',
+        eventableEntityId: 1,
+        eventType: 'EMPLOYEE_RELEASED_PR',
+        createdAt: '2018-07-09T14:54:25.675+0000',
+        _links: {
+          self: {
+            href: 'http://localhost:8010/api/v1/events/1'
+          }
+        }
       },
       {
         id: 2,
-        employeeId: 502,
-        eventableEntityId: 8,
-        eventableEntityType: 'pr',
-        event: {
-          type: 'PR_RELEASED_EMPLOYEE',
-          text: ' hat ein PR freigegeben.',
-          employee: 'Martin Mitarbeiter'
+        employee: {
+          id: 3,
+          firstName: 'Michaela',
+          lastName: 'Mitarbeiterin',
+          dateOfLastPr: '2019-08-30'
         },
-        datetime: '2017-05-04T11:28:56.816'
+        eventableEntityType: 'pr',
+        eventableEntityId: 1,
+        eventType: 'EMPLOYEE_RELEASED_PR',
+        createdAt: '2018-07-09T14:54:25.675+0000',
+        _links: {
+          self: {
+            href: 'http://localhost:8010/api/v1/events/1'
+          }
+        }
       },
       {
         id: 3,
-        employeeId: 500,
-        eventableEntityId: 9,
-        eventableEntityType: 'pr',
-        event: {
-          type: 'PR_RELEASED_REVIEWER',
-          text: ' hat seine Bewertung abgegeben.',
-          employee: 'Volker Vorgesetzter'
+        employee: {
+          id: 3,
+          firstName: 'Michaela',
+          lastName: 'Mitarbeiterin',
+          dateOfLastPr: '2019-08-30'
         },
-        datetime: '2017-05-04T11:28:56.816'
+        eventableEntityType: 'pr',
+        eventableEntityId: 1,
+        eventType: 'EMPLOYEE_RELEASED_PR',
+        createdAt: '2018-07-09T14:54:25.675+0000',
+        _links: {
+          self: {
+            href: 'http://localhost:8010/api/v1/events/1'
+          }
+        }
       },
       {
         id: 4,
-        employeeId: 501,
-        eventableEntityId: 8,
-        eventableEntityType: 'pr',
-        event: {
-          type: 'PR_CREATED_EMPLOYEE',
-          text: ' hat ein PR beantragt.',
-          employee: 'Michaela Mitarbeiterin'
+        employee: {
+          id: 3,
+          firstName: 'Michaela',
+          lastName: 'Mitarbeiterin',
+          dateOfLastPr: '2019-08-30'
         },
-        datetime: '2017-05-04T11:28:56.816'
+        eventableEntityType: 'pr',
+        eventableEntityId: 1,
+        eventType: 'EMPLOYEE_RELEASED_PR',
+        createdAt: '2018-07-09T14:54:25.675+0000',
+        _links: {
+          self: {
+            href: 'http://localhost:8010/api/v1/events/1'
+          }
+        }
       },
       {
         id: 5,
-        employeeId: 502,
-        eventableEntityId: 9,
-        eventableEntityType: 'pr',
-        event: {
-          type: 'PR_RELEASED_EMPLOYEE',
-          text: ' hat ein PR freigegeben.',
-          employee: 'Martin Mitarbeiter'
+        employee: {
+          id: 3,
+          firstName: 'Michaela',
+          lastName: 'Mitarbeiterin',
+          dateOfLastPr: '2019-08-30'
         },
-        datetime: '2017-05-04T11:28:56.816'
+        eventableEntityType: 'pr',
+        eventableEntityId: 1,
+        eventType: 'EMPLOYEE_RELEASED_PR',
+        createdAt: '2018-07-09T14:54:25.675+0000',
+        _links: {
+          self: {
+            href: 'http://localhost:8010/api/v1/events/1'
+          }
+        }
       }
     ]);
   });

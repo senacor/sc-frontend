@@ -1,9 +1,9 @@
 import { FETCHED_EVENTS } from '../helper/dispatchTypes';
 
-export const prEventsReducer = (state = [], action) => {
+export const events = (state = [], action) => {
   switch (action.type) {
     case FETCHED_EVENTS: {
-      return getEventData(action.response);
+      return getEventData(action.prEvents);
     }
     default:
       return state;
@@ -11,13 +11,5 @@ export const prEventsReducer = (state = [], action) => {
 };
 
 function getEventData(response) {
-  if (
-    response &&
-    response._embedded &&
-    response._embedded.eventableResponseList
-  ) {
-    return response._embedded.eventableResponseList.slice(0, 5);
-  }
-
-  return [];
+  return response.slice(0, 5);
 }
