@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledComponent } from './MyPRList';
 import { createShallow } from '@material-ui/core/test-utils';
+import { translateContent } from '../translate/Translate';
 
 describe('MyPRList Component', () => {
   let shallow = createShallow({ dive: true });
@@ -187,7 +188,11 @@ describe('MyPRList Component', () => {
   it('displays the MyPRList', () => {
     const mockChangePrSortOrder = jest.fn();
     const component = shallow(
-      <StyledComponent prs={prs} changePrSortOrder={mockChangePrSortOrder} />
+      <StyledComponent
+        prs={prs}
+        sortedPrs={prs}
+        changePrSortOrder={mockChangePrSortOrder}
+      />
     );
 
     expect(component).toMatchSnapshot();
@@ -196,7 +201,11 @@ describe('MyPRList Component', () => {
   it('filters PRs according to a reviewer', () => {
     const mockChangePrSortOrder = jest.fn();
     const wrapper = shallow(
-      <StyledComponent prs={prs} changePrSortOrder={mockChangePrSortOrder} />
+      <StyledComponent
+        sortedPrs={prs}
+        prs={prs}
+        changePrSortOrder={mockChangePrSortOrder}
+      />
     );
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
 
@@ -210,12 +219,13 @@ describe('MyPRList Component', () => {
     const wrapper = shallow(
       <StyledComponent
         prs={prs}
+        sortedPrs={prs}
         filters={{ reviewer: 'ALL', occasion: 'ALL' }}
         changePrSortOrder={mockChangePrSortOrder}
       />
     );
-    const text_ondemand = wrapper.instance().translateOccasion('ON_DEMAND');
-    const text_yearly = wrapper.instance().translateOccasion('YEARLY');
+    const text_ondemand = translateContent('ON_DEMAND');
+    const text_yearly = translateContent('YEARLY');
     expect(wrapper.find('[occasion="' + text_ondemand + '"]')).toHaveLength(2);
     expect(wrapper.find('[occasion="' + text_yearly + '"]')).toHaveLength(2);
 
@@ -230,12 +240,13 @@ describe('MyPRList Component', () => {
     const wrapper = shallow(
       <StyledComponent
         prs={prs}
+        sortedPrs={prs}
         filters={{ reviewer: 'ALL', occasion: 'ALL' }}
         changePrSortOrder={mockChangePrSortOrder}
       />
     );
-    const text_ondemand = wrapper.instance().translateOccasion('ON_DEMAND');
-    const text_yearly = wrapper.instance().translateOccasion('YEARLY');
+    const text_ondemand = translateContent('ON_DEMAND');
+    const text_yearly = translateContent('YEARLY');
     expect(wrapper.find('[reviewer="ttran"]')).toHaveLength(2);
     expect(wrapper.find('[reviewer="test"]')).toHaveLength(2);
     expect(wrapper.find('[occasion="' + text_ondemand + '"]')).toHaveLength(2);

@@ -13,6 +13,7 @@ import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';
 import objectGet from 'object-get';
+import { getPrDetail } from '../../reducers/selector';
 
 const styles = theme => ({
   containerVertical: {
@@ -272,6 +273,7 @@ class PrSheet extends React.Component {
 export const StyledComponent = withStyles(styles)(PrSheet);
 export default connect(
   state => ({
+    prById: getPrDetail()(state),
     userroles: state.userroles
   }),
   {
