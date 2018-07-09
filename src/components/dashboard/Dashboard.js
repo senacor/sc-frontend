@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core/styles/index';
 import withLoading from '../hoc/Loading';
+import { formatMomentForFrontend } from '../../helper/date';
 
 let styles = {
   rowContainer: {
@@ -39,7 +40,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { classes, prEvents } = this.props;
+    const { classes, events } = this.props;
 
     return (
       <div className={classes.columnContainer}>
@@ -71,17 +72,15 @@ class Dashboard extends Component {
           component="nav"
           subheader={<ListSubheader component="div">Aktivitäten</ListSubheader>}
         >
-          {prEvents.map(eventable => {
+          {events.map(eventable => {
             return (
               <ListItem className={classes.thinItem} key={eventable.id}>
                 <Chip
-                  label={eventable.datetime.slice(0, 10)}
+                  label={formatMomentForFrontend(eventable.createdAt)}
                   className={classes.chip}
                 />
                 <Divider />
-                <ListItemText
-                  primary={eventable.event.employee + eventable.event.text}
-                />
+                <ListItemText primary={`${eventable.eventType}`} />
               </ListItem>
             );
           })}
@@ -95,7 +94,7 @@ export const StyledComponent = withStyles(styles)(Dashboard);
 export default connect(
   // MapStateToProps
   state => ({
-    prEvents: state.prEventsReducer
+    events: state.events
   }),
   // MapDispatchToProps
   {

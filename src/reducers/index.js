@@ -9,8 +9,8 @@ import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
 import { cstMembers } from './cstMembers';
-import { prEventsReducer } from '/.events';
-import { prRatings } from './rating';
+import { events } from '/.events';
+import prRatings from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
 import prEmployeeContributions from './employeeContributions';
@@ -31,7 +31,7 @@ const combineReducer = combineReducers({
   userphoto,
   userroles,
   cstMembers,
-  prEventsReducer
+  events
 });
 
 const app = (state, action) => {
