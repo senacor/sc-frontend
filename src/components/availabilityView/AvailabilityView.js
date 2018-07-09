@@ -59,7 +59,7 @@ const styles = theme => ({
     margin: 0,
     border: 'none',
     flexShrink: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+    backgroundColor: 'rgba(0, 0, 0, 0.12)'
   },
   hours: {
     position: 'relative',
@@ -166,7 +166,7 @@ class AvailabilityView extends React.Component {
         </Grid>
         <div
           ref={divElement => (this.divElement = divElement)}
-          style={{ position: 'relative', top: 50 }}
+          style={{ position: 'relative', top: 50, maxWidth: 650 }}
         >
           <div className={classes.list}>
             <div className={classes.listItem}>
@@ -201,7 +201,7 @@ class AvailabilityView extends React.Component {
               <Typography className={classes.hours}>10:00</Typography>
               <hr
                 className={classes.divider}
-                style={{ maxWidth: this.state.tableWidth - 70 }}
+                style={{ maxWidth: this.state.tableWidth - 50 }}
               />
             </div>
             <div className={classes.listItem}>
@@ -258,17 +258,27 @@ class AvailabilityView extends React.Component {
             <div
               id={'availabilityEmployee'}
               className={classes.appointmentEmployeeDiv}
-              style={{ top: 0 }}
+              style={{ left: (this.state.tableWidth) / 6 * 0.5 + 50,
+                top: 0,
+                width: (this.state.tableWidth-50)/6}}
             />
             <div
               id={'availabilityReviewer'}
               className={classes.appointmentReviewerDiv}
-              style={{ top: 6 * this.state.tableHeight / 12 }}
+              style={{
+                left: (this.state.tableWidth -50) / 6 * 2.5 + 50,
+                top: 1 * this.state.tableHeight / 12,
+                width: (this.state.tableWidth-50)/6
+              }}
             />
             <div
               id={'availabilitySupervisor'}
               className={classes.appointmentSupervisorDiv}
-              style={{ top: 2 * this.state.tableHeight / 12 }}
+              style={{
+                left: (this.state.tableWidth-50 ) / 6 * 4.5 + 50,
+                top: 2 * this.state.tableHeight / 12,
+                width: (this.state.tableWidth -50)/6
+              }}
             />
           </div>
         </div>
