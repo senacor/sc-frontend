@@ -63,11 +63,17 @@ const styles = theme => ({
   },
   divider: {
     position: 'relative',
+    top: -20,
+    left: 50,
     height: 1,
     margin: 0,
     border: 'none',
     flexShrink: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.12)'
+  },
+  hours: {
+    position: 'relative',
+    top: -10
   }
 });
 
@@ -267,7 +273,7 @@ class AvailabilityView extends React.Component {
             <div
               id={'availabilityReviewer'}
               className={classes.appointmentReviewerDiv}
-              style={{ top: 1 * this.state.tableHeight / 12 }}
+              style={{ top: 6 * this.state.tableHeight / 12 }}
             />
             <div
               id={'availabilitySupervisor'}
