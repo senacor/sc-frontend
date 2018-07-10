@@ -116,34 +116,26 @@ class AvailabilityView extends React.Component {
     let startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
     let endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
     console.log(startHours, startMinutes, endHours, endMinutes);
-    if (name === 'employee') {
-      let newState = this.state[name];
-      newState.show = true;
-      newState.appointmentStart = startMinutesSinceEight;
-      newState.appointmentDuration =
-        endMinutesSinceEight - startMinutesSinceEight;
-      this.setState({ [name]: newState });
-      console.log('logging');
-    }
+    let newState = this.state[name];
+    newState.show = true;
+    newState.appointmentStart = startMinutesSinceEight;
+    newState.appointmentDuration =
+      endMinutesSinceEight - startMinutesSinceEight;
+    this.setState({ [name]: newState });
+    console.log('logging');
   }
 
   handleToggle = name => {
     return event => {
       this.setState({ [name]: event.target.checked });
       let newState = this.state[name];
-      if (name === 'employee') {
-        if (this.state[name].show === false) {
-          this.getAppointmentStartAndDuration(name);
-        } else {
-          newState.show = false;
-          newState.appointmentStart = 0;
-          newState.appointmentDuration = 0;
-          this.setState({ [name]: newState });
-        }
-      } else if (name === 'reviewer') {
+      if (this.state[name].show === false) {
         this.getAppointmentStartAndDuration(name);
-      } else if (name === 'supervisor') {
-        this.getAppointmentStartAndDuration(name);
+      } else {
+        newState.show = false;
+        newState.appointmentStart = 0;
+        newState.appointmentDuration = 0;
+        this.setState({ [name]: newState });
       }
     };
   };
@@ -325,8 +317,15 @@ class AvailabilityView extends React.Component {
               style={{
                 left:
                   ((this.state.tableWidth - marginLeft) / 6) * 2.5 + marginLeft,
-                top: (0.5 * this.state.tableHeight) / 6,
-                width: (this.state.tableWidth - marginLeft) / 6
+                top:
+                  ((this.state.reviewer.appointmentStart / 60) *
+                    this.state.tableHeight) /
+                  6,
+                width: (this.state.tableWidth - marginLeft) / 6,
+                height:
+                  (timeTableListHeight *
+                    this.state.reviewer.appointmentDuration) /
+                  30
               }}
             />
             <div
@@ -335,8 +334,15 @@ class AvailabilityView extends React.Component {
               style={{
                 left:
                   ((this.state.tableWidth - marginLeft) / 6) * 4.5 + marginLeft,
-                top: (1 * this.state.tableHeight) / 6,
-                width: (this.state.tableWidth - marginLeft) / 6
+                top:
+                  ((this.state.supervisor.appointmentStart / 60) *
+                    this.state.tableHeight) /
+                  6,
+                width: (this.state.tableWidth - marginLeft) / 6,
+                height:
+                  (timeTableListHeight *
+                    this.state.supervisor.appointmentDuration) /
+                  30
               }}
             />
           </div>
