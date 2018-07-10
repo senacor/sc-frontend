@@ -5,7 +5,6 @@ import {
   LOGIN_UNAUTHORIZED,
   LOGIN_REQUEST
 } from '../helper/dispatchTypes';
-import history from '../history';
 
 export const isLoggedIn = (state = false, action) => {
   switch (action.type) {
@@ -14,7 +13,6 @@ export const isLoggedIn = (state = false, action) => {
     case LOGOUT:
       return removeDataInLocalStorage();
     case LOGIN_UNAUTHORIZED:
-      history.push('/login');
       return removeDataInLocalStorage();
     default:
       return state;
@@ -24,7 +22,6 @@ export const isLoggedIn = (state = false, action) => {
 export const isUnauthorized = (state = false, action) => {
   switch (action.type) {
     case LOGIN_UNAUTHORIZED:
-      history.push('/login');
       return true;
     case LOGIN_RESPONSE:
       return false;

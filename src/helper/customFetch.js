@@ -19,19 +19,14 @@ export default function customFetch(url, config = {}) {
     Authorization: `Bearer ${access_token}`,
     'Content-Type': 'application/json'
   });
-  return fetch(url, authenticationConfig)
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else if (response.status === 401) {
-        store.dispatch({
-          type: LOGIN_UNAUTHORIZED,
-          payload: response.status
-        });
-        return Promise.reject(response);
-      }
-    })
-    .catch(response => {
-      return response;
-    });
+  return fetch(url, authenticationConfig).then(response => {
+    if (response.status === 401) {
+      store.dispatch({
+        type: LOGIN_UNAUTHORIZED,
+        payload: response.status
+      });
+    }
+
+    return response;
+  });
 }
