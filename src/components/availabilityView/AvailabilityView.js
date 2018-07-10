@@ -13,9 +13,6 @@ import Switch from '@material-ui/core/Switch';
 const marginLeft = 50;
 const timeTableListHeight = 40;
 
-const moreTestJson =
-  '{"_embedded":{"exchangeOutlookResponseList":[{"employeeId":"1","exchangeOutlookAppointmentResponse":[{"appointmentStartTime":"2018-06-14T10:30","appointmentEndTime":"2018-06-14T11:00","appointmentStatus":"Busy"}],"_links":{"self":{"href":"http://localhost:8010/api/v1/appointments?employees=1&date=2018-06-14"}}},{"employeeId":"2","exchangeOutlookAppointmentResponse":[{"appointmentStartTime":"2018-06-05T00:00","appointmentEndTime":"2018-06-22T00:00","appointmentStatus":"Free"},{"appointmentStartTime":"2018-06-14T08:00","appointmentEndTime":"2018-06-14T09:30","appointmentStatus":"Busy"},{"appointmentStartTime":"2018-06-14T14:00","appointmentEndTime":"2018-06-14T16:00","appointmentStatus":"Busy"}],"_links":{"self":{"href":"http://localhost:8010/api/v1/appointments?employees=2&date=2018-06-14"}}},{"employeeId":"3","exchangeOutlookAppointmentResponse":[],"_links":{"self":{"href":"http://localhost:8010/api/v1/appointments?employees=3&date=2018-06-14"}}}]},"_links":{"self":{"href":"http://localhost:8010/api/v1/appointments?employees=1&employees=2&employees=3&date=2018-06-14"}}}';
-
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -69,24 +66,37 @@ class AvailabilityView extends React.Component {
     const tableWidth = this.divElement.clientWidth;
     this.setState({ tableWidth });
     console.log('width :', tableWidth);
-    let testJson = JSON.parse(moreTestJson);
-    console.log(
-      testJson._embedded.exchangeOutlookResponseList[1]
-        .exchangeOutlookAppointmentResponse[0].appointmentStartTime
-    );
-    this.appointmentPositon();
   }
 
-  appointmentPositon() {
-    let jsonFile = require('./test.json');
-    console.log(
-      jsonFile._embedded.exchangeOutlookResponseList[1]
-        .exchangeOutlookAppointmentResponse[0].appointmentStartTime
-    );
+  appointment(json, employeeId) {
+    let i;
+    for (i = 0; i < 3; i++) {
+      if (
+        json._embedded.exchangeOutlookResponseList[i].employeeId === employeeId.toString()
+      ) {
+        let j;
+        let responseList = json._embedded.exchangeOutlookResponseList[i];
+        for (j = 0; j < Object.keys(responseList.exchangeOutlookAppointmentResponse).length; j++) {
+          console.log(
+            responseList.exchangeOutlookAppointmentResponse[j]
+              .appointmentStartTime
+          );
+        }
+        return;
+      }
+    }
   }
 
   handleToggle = name => event => {
     this.setState({ [name]: event.target.checked });
+    let jsonFile = require('./test.json');
+    if (name === 'employee') {
+      this.appointment(jsonFile, 1);
+    } else if (name === 'reviewer') {
+      this.appointment(jsonFile, 2);
+    } else if (name === 'supervisor') {
+      this.appointment(jsonFile, 3);
+    }
   };
 
   render() {
@@ -248,7 +258,7 @@ class AvailabilityView extends React.Component {
               id={'availabilityEmployee'}
               className={classes.appointmentDiv}
               style={{
-                left: this.state.tableWidth / 6 * 0.5 + marginLeft,
+                left: (this.state.tableWidth / 6) * 0.5 + marginLeft,
                 top: 0,
                 width: (this.state.tableWidth - marginLeft) / 6
               }}
@@ -258,8 +268,8 @@ class AvailabilityView extends React.Component {
               className={classes.appointmentDiv}
               style={{
                 left:
-                  (this.state.tableWidth - marginLeft) / 6 * 2.5 + marginLeft,
-                top: 0.5 * this.state.tableHeight / 6,
+                  ((this.state.tableWidth - marginLeft) / 6) * 2.5 + marginLeft,
+                top: (0.5 * this.state.tableHeight) / 6,
                 width: (this.state.tableWidth - marginLeft) / 6
               }}
             />
@@ -268,8 +278,8 @@ class AvailabilityView extends React.Component {
               className={classes.appointmentDiv}
               style={{
                 left:
-                  (this.state.tableWidth - marginLeft) / 6 * 4.5 + marginLeft,
-                top: 1 * this.state.tableHeight / 6,
+                  ((this.state.tableWidth - marginLeft) / 6) * 4.5 + marginLeft,
+                top: (1 * this.state.tableHeight) / 6,
                 width: (this.state.tableWidth - marginLeft) / 6
               }}
             />
