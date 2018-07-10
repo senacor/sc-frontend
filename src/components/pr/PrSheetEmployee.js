@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { isSupervisor } from '../../helper/checkRole';
 import Typography from '@material-ui/core/Typography';
+import { translateContent } from '../translate/Translate';
+import { getUserroles } from '../../reducers/selector';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -64,34 +66,12 @@ class PrSheetEmployee extends React.Component {
 
   sendComment = debounce(this.props.addEmployeeContribution, 500);
 
-  translateCategoryName = categoryName => {
-    switch (categoryName) {
-      case 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT':
-        return 'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung';
-      case 'ROLE_AND_PROJECT_ENVIRONMENT':
-        return 'Rolle und Projektumfeld';
-      default:
-        return 'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung';
-    }
-  };
-
-  placeholder = categoryName => {
-    switch (categoryName) {
-      case 'ROLE_AND_PROJECT_ENVIRONMENT':
-        return 'Beschreibung Projekt, Aufgabe und Rolle';
-      case 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT':
-        return 'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?';
-      default:
-        return 'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?';
-    }
-  };
-
   render() {
     const { prById, category, classes } = this.props;
     return (
       <div>
         <ListItem className={classes.nestedListItem}>
-          <ListItemText secondary={this.translateCategoryName(category)} />
+          <ListItemText secondary={translateContent(category)} />
         </ListItem>
         <List component="div" disablePadding className={classes.nestedText}>
           <ListItem>
@@ -113,7 +93,7 @@ class PrSheetEmployee extends React.Component {
                 rows="4"
                 rowsMax="4"
                 margin="none"
-                helperText={this.placeholder(category)}
+                helperText={translateContent(`PLACEHOLDER_${category}`)}
                 value={this.state.text ? this.state.text : ''}
                 onChange={this.handleChangeComment(prById, category)}
                 InputProps={{
@@ -138,7 +118,7 @@ class PrSheetEmployee extends React.Component {
 export const StyledComponent = withStyles(styles)(PrSheetEmployee);
 export default connect(
   state => ({
-    userroles: state.userroles,
+    userroles: getUserroles(state),
     prEmployeeContribution: state.prEmployeeContributions.prEmployeeContribution
   }),
   {

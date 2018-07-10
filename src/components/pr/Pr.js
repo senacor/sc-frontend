@@ -14,6 +14,8 @@ import PrEmployment from './PrEmployment';
 import Hidden from '@material-ui/core/Hidden';
 import Card from '@material-ui/core/Card';
 import moment from 'moment';
+import { getPrDetail } from '../../reducers/selector';
+import { translateContent } from '../translate/Translate';
 
 const styles = theme => ({
   avatar: {
@@ -116,7 +118,10 @@ const styles = theme => ({
 export class Pr extends React.Component {
   constructor(props) {
     super(props);
-    let shouldExpand = this.returnExpandState(props.prById.status);
+
+    let shouldExpand = this.returnExpandState(
+      props.prById ? props.prById.status : 'PREPARATION'
+    );
 
     this.state = {
       prById: props.prById,
@@ -124,21 +129,6 @@ export class Pr extends React.Component {
       expanded: shouldExpand
     };
   }
-
-  translateAnlass = occasion => {
-    switch (occasion) {
-      case 'ON_DEMAND':
-        return 'auf Nachfrage';
-      case 'YEARLY':
-        return 'jährlich';
-      case 'QUARTERLY':
-        return 'vierteljährlich';
-      case 'END_PROBATION':
-        return 'Ende der Probezeit';
-      default:
-        return 'auf Nachfrage';
-    }
-  };
 
   returnExpandState = status => {
     switch (status) {
@@ -159,6 +149,11 @@ export class Pr extends React.Component {
   render() {
     const { prById, classes } = this.props;
     const { value } = this.state;
+
+    if (!prById) {
+      return null;
+    }
+
     return (
       <div>
         <div className={classes.detailPanel}>
@@ -176,7 +171,7 @@ export class Pr extends React.Component {
                   <div className={classes.name}>
                     {`${prById.employee.firstName.toUpperCase()} ${prById.employee.lastName.toUpperCase()}`}
                   </div>
-                  <div>{`PR ${this.translateAnlass(prById.occasion)}  `}</div>
+                  <div>{`PR ${translateContent(prById.occasion)}  `}</div>
                   <div>Junior Developer</div>
                   <div className={classes.deadline}>
                     {`Deadline: ${moment(prById.deadline).format('DD.MM.YY')}`}
@@ -240,7 +235,7 @@ export class Pr extends React.Component {
 export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({
-    prById: state.prById.prDetail,
+    prById: getPrDetail()(state),
     isLoading: state.isLoading
   }),
   {
