@@ -24,6 +24,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 
+import { getAllPrs, getSortedPrs } from '../../reducers/selector';
+import Translate, { translateContent } from '../translate/Translate';
+
 export class MyPRList extends React.Component {
   constructor(props) {
     super(props);
@@ -41,36 +44,6 @@ export class MyPRList extends React.Component {
       sortOrder: 'asc'
     };
   }
-
-  translateStatus = status => {
-    switch (status) {
-      case 'PREPARATION':
-        return 'In Vorbereitung';
-      case 'EXECUTION':
-        return 'In Durchführung';
-      case 'POST_PROCESSING':
-        return 'Nachbearbeitung';
-      case 'DONE':
-        return 'Fertig';
-      default:
-        return 'In Vorbereitung';
-    }
-  };
-
-  translateOccasion = occasion => {
-    switch (occasion) {
-      case 'ON_DEMAND':
-        return 'Auf Nachfrage';
-      case 'YEARLY':
-        return 'Jährlich';
-      case 'QUARTERLY':
-        return 'Vierteljährlich';
-      case 'END_PROBATION':
-        return 'Ende der Probezeit';
-      default:
-        return 'Auf Nachfrage';
-    }
-  };
 
   handleClick = () => {
     this.props.addPr();
@@ -99,7 +72,6 @@ export class MyPRList extends React.Component {
   filterPR = pr => {
     const { filters } = this.state;
     return (
-      //pr.employee.firstName === 'Lionel' &&
       (filters.reviewer === 'ALL' || pr.supervisor === filters.reviewer) &&
       (filters.occasion === 'ALL' || pr.occasion === filters.occasion)
     );
@@ -134,7 +106,7 @@ export class MyPRList extends React.Component {
   }
 
   render() {
-    const { classes, prs } = this.props;
+    const { classes, sortedPrs } = this.props;
     const { prOpen, sortOrder } = this.state;
     return (
       <div>
@@ -174,17 +146,17 @@ export class MyPRList extends React.Component {
                     <MenuItem value="ALL">
                       <div className={classes.filterDesktop}>Alle</div>
                     </MenuItem>
-                    {Array.from(new Set(prs.map(pr => pr.supervisor))).map(
-                      reviewer => {
-                        return (
-                          <MenuItem key={reviewer} value={reviewer}>
-                            <div className={classes.filterDesktop}>
-                              {reviewer}
-                            </div>
-                          </MenuItem>
-                        );
-                      }
-                    )}
+                    {Array.from(
+                      new Set(sortedPrs.map(pr => pr.supervisor))
+                    ).map(reviewer => {
+                      return (
+                        <MenuItem key={reviewer} value={reviewer}>
+                          <div className={classes.filterDesktop}>
+                            {reviewer}
+                          </div>
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -208,7 +180,7 @@ export class MyPRList extends React.Component {
                         return (
                           <MenuItem key={occasion} value={occasion}>
                             <div className={classes.filterDesktop}>
-                              {this.translateOccasion(occasion)}
+                              <Translate content={occasion} />
                             </div>
                           </MenuItem>
                         );
@@ -242,17 +214,17 @@ export class MyPRList extends React.Component {
                       <MenuItem value="ALL">
                         <div className={classes.filterDesktop}>Alle</div>
                       </MenuItem>
-                      {Array.from(new Set(prs.map(pr => pr.supervisor))).map(
-                        reviewer => {
-                          return (
-                            <MenuItem key={reviewer} value={reviewer}>
-                              <div className={classes.filterDesktop}>
-                                {reviewer}
-                              </div>
-                            </MenuItem>
-                          );
-                        }
-                      )}
+                      {Array.from(
+                        new Set(sortedPrs.map(pr => pr.supervisor))
+                      ).map(reviewer => {
+                        return (
+                          <MenuItem key={reviewer} value={reviewer}>
+                            <div className={classes.filterDesktop}>
+                              {reviewer}
+                            </div>
+                          </MenuItem>
+                        );
+                      })}
                     </Select>
                   </FormControl>
                   <FormControl className={classes.formControl}>
@@ -269,20 +241,17 @@ export class MyPRList extends React.Component {
                       <MenuItem value="ALL">
                         <div className={classes.filterDesktop}>Alle</div>
                       </MenuItem>
-                      {[
-                        'ON_DEMAND',
-                        'YEARLY',
-                        'QUARTERLY',
-                        'END_PROBATION'
-                      ].map(occasion => {
-                        return (
-                          <MenuItem key={occasion} value={occasion}>
-                            <div className={classes.filterDesktop}>
-                              {this.translateOccasion(occasion)}
-                            </div>
-                          </MenuItem>
-                        );
-                      })}
+                      {['ON_DEMAND', 'YEARLY', 'END_PROBATION'].map(
+                        occasion => {
+                          return (
+                            <MenuItem key={occasion} value={occasion}>
+                              <div className={classes.filterDesktop}>
+                                <Translate content={occasion} />
+                              </div>
+                            </MenuItem>
+                          );
+                        }
+                      )}
                     </Select>
                   </FormControl>
                 </MyPRListFilterDialog>
@@ -306,7 +275,7 @@ export class MyPRList extends React.Component {
         <Hidden smDown>
           <div className={classes.container}>
             <div className={classes.root}>
-              {prs.filter(this.filterPR).map(pr => {
+              {sortedPrs.filter(this.filterPR).map(pr => {
                 return (
                   <Button
                     key={pr.id}
@@ -328,15 +297,15 @@ export class MyPRList extends React.Component {
                             : pr.supervisor
                         }
                         deadline={pr.deadline}
-                        occasion={this.translateOccasion(pr.occasion)}
-                        status={this.translateStatus(pr.status)}
+                        occasion={translateContent(pr.occasion)}
+                        status={translateContent(pr.status)}
                       />
                     </List>
                   </Button>
                 );
               })}
             </div>
-            {prs.length === 0 ? (
+            {sortedPrs.length === 0 ? (
               ''
             ) : (
               <div className={classes.cardContainerRow}>
@@ -367,7 +336,7 @@ export class MyPRList extends React.Component {
           </div>
         </Hidden>
         <Hidden smUp>
-          {prs.filter(this.filterPR).map(pr => {
+          {sortedPrs.filter(this.filterPR).map(pr => {
             return (
               <Link
                 key={pr.id}
@@ -382,8 +351,8 @@ export class MyPRList extends React.Component {
                         : pr.supervisor
                     }
                     deadline={pr.deadline}
-                    occasion={this.translateOccasion(pr.occasion)}
-                    status={this.translateStatus(pr.status)}
+                    occasion={translateContent(pr.occasion)}
+                    status={translateContent(pr.status)}
                   />
                 </List>
               </Link>
@@ -409,7 +378,8 @@ export class MyPRList extends React.Component {
 export const StyledComponent = withStyles(styles)(MyPRList);
 export default connect(
   state => ({
-    prs: state.prs.prsList,
+    prs: getAllPrs(state),
+    sortedPrs: getSortedPrs()(state),
     isLoading: state.isLoading
   }),
   {

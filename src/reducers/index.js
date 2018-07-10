@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import tasks from './tasks';
 import editTasks from './editTasks';
-import prs from './prs';
+import { prs, sortOrderPrs } from './prs';
 import prById from './getPr';
 import prVisibilityById from './getPrVisibility';
 import errors from './errors';
@@ -25,6 +25,7 @@ const app = combineReducers({
   prRatings,
   prEmployeeContributions,
   search,
+  sortOrderPrs,
   userinfo,
   userphoto,
   userroles,
