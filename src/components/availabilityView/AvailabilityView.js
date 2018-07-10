@@ -53,11 +53,21 @@ class AvailabilityView extends React.Component {
     this.state = {
       tableHeight: 0,
       tableWidth: 0,
-      employee: false,
-      reviewer: false,
-      supervisor: false,
-      employeeAppointmentStart: 0,
-      employeeAppointmentDuration: 0
+      reviewer: {
+        show: false,
+        appointmentStart: 0,
+        appointmentDuration: 0
+      },
+      supervisor: {
+        show: false,
+        appointmentStart: 0,
+        appointmentDuration: 0
+      },
+      employee: {
+        show: false,
+        appointmentStart: 0,
+        appointmentDuration: 0
+      }
     };
   }
 
@@ -94,31 +104,46 @@ class AvailabilityView extends React.Component {
     }
   }
 
+  getAppointmentStartAndDuration(name) {
+    let jsonFile = require('./test.json');
+    let appointments = this.getAppointments(jsonFile, 1);
+    let startDate = new Date(appointments[0][0]);
+    let endDate = new Date(appointments[0][1]);
+    let startHours = startDate.getHours();
+    let endHours = endDate.getHours();
+    let startMinutes = startDate.getMinutes();
+    let endMinutes = endDate.getMinutes();
+    let startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
+    let endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
+    console.log(startHours, startMinutes, endHours, endMinutes);
+    if (name === 'employee') {
+      let newState = this.state[name];
+      newState.show = true;
+      newState.appointmentStart = startMinutesSinceEight;
+      newState.appointmentDuration =
+        endMinutesSinceEight - startMinutesSinceEight;
+      this.setState({ [name]: newState });
+      console.log('logging');
+    }
+  }
+
   handleToggle = name => {
     return event => {
       this.setState({ [name]: event.target.checked });
-      let jsonFile = require('./test.json');
-      if (name === 'employee' && this.state.employee === false) {
-        let appointments = this.getAppointments(jsonFile, 1);
-        let startDate = new Date(appointments[0][0]);
-        let endDate = new Date(appointments[0][1]);
-        let startHours = startDate.getHours();
-        let endHours = endDate.getHours();
-        let startMinutes = startDate.getMinutes();
-        let endMinutes = endDate.getMinutes();
-        let startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
-        let endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
-        this.setState({
-          employeeAppointmentStart: startMinutesSinceEight,
-          employeeAppointmentDuration:
-            endMinutesSinceEight - startMinutesSinceEight,
-          employee: true
-        });
-        console.log(startHours, startMinutes, endHours, endMinutes);
+      let newState = this.state[name];
+      if (name === 'employee') {
+        if (this.state[name].show === false) {
+          this.getAppointmentStartAndDuration(name);
+        } else {
+          newState.show = false;
+          newState.appointmentStart = 0;
+          newState.appointmentDuration = 0;
+          this.setState({ [name]: newState });
+        }
       } else if (name === 'reviewer') {
-        this.getAppointments(jsonFile, 2);
+        this.getAppointmentStartAndDuration(name);
       } else if (name === 'supervisor') {
-        this.getAppointments(jsonFile, 3);
+        this.getAppointmentStartAndDuration(name);
       }
     };
   };
@@ -139,7 +164,7 @@ class AvailabilityView extends React.Component {
                   </TableCell>
                   <TableCell numeric>
                     <Switch
-                      checked={this.state.employee}
+                      checked={this.state.employee.show}
                       onChange={this.handleToggle('employee')}
                       color="primary"
                     />
@@ -151,7 +176,7 @@ class AvailabilityView extends React.Component {
                   </TableCell>
                   <TableCell numeric>
                     <Switch
-                      checked={this.state.reviewer}
+                      checked={this.state.reviewer.show}
                       onChange={this.handleToggle('reviewer')}
                       color="primary"
                     />
@@ -163,7 +188,7 @@ class AvailabilityView extends React.Component {
                   </TableCell>
                   <TableCell numeric>
                     <Switch
-                      checked={this.state.supervisor}
+                      checked={this.state.supervisor.show}
                       onChange={this.handleToggle('supervisor')}
                       color="primary"
                     />
@@ -284,11 +309,14 @@ class AvailabilityView extends React.Component {
               style={{
                 left: (this.state.tableWidth / 6) * 0.5 + marginLeft,
                 top:
-                  ((this.state.employeeAppointmentStart / 60) *
+                  ((this.state.employee.appointmentStart / 60) *
                     this.state.tableHeight) /
                   6,
                 width: (this.state.tableWidth - marginLeft) / 6,
-                height: timeTableListHeight * this.state.employeeAppointmentDuration / 30
+                height:
+                  (timeTableListHeight *
+                    this.state.employee.appointmentDuration) /
+                  30
               }}
             />
             <div
