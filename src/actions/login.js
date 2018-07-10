@@ -1,11 +1,6 @@
 import { default as fetch } from '../helper/customFetch';
 
-import {
-  LOGIN_REQUEST,
-  LOGIN_UNAUTHORIZED,
-  LOGIN_RESPONSE,
-  LOGOUT
-} from '../helper/dispatchTypes';
+import { LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT } from '../helper/dispatchTypes';
 
 export const login = credentials => async dispatch => {
   if (credentials.username === '' || credentials.password === '') {
@@ -22,18 +17,12 @@ export const login = credentials => async dispatch => {
     body: JSON.stringify(credentials)
   });
 
-  if (response.status === 401) {
-    dispatch({
-      type: LOGIN_UNAUTHORIZED
-    });
-  } else {
-    const data = await response.json();
+  const data = await response.json();
 
-    dispatch({
-      type: LOGIN_RESPONSE,
-      data
-    });
-  }
+  dispatch({
+    type: LOGIN_RESPONSE,
+    data
+  });
 };
 
 export const logout = () => async dispatch => {
