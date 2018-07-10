@@ -53,11 +53,11 @@ class AvailabilityView extends React.Component {
     this.state = {
       tableHeight: 0,
       tableWidth: 0,
-      employee: true,
+      employee: false,
       reviewer: false,
-      supervisor: true,
+      supervisor: false,
       employeeAppointmentStart: 0,
-      employeeAppointmentEnd: 0
+      employeeAppointmentDuration: 0
     };
   }
 
@@ -98,7 +98,7 @@ class AvailabilityView extends React.Component {
     return event => {
       this.setState({ [name]: event.target.checked });
       let jsonFile = require('./test.json');
-      if (name === 'employee') {
+      if (name === 'employee' && this.state.employee === false) {
         let appointments = this.getAppointments(jsonFile, 1);
         let startDate = new Date(appointments[0][0]);
         let endDate = new Date(appointments[0][1]);
@@ -107,13 +107,13 @@ class AvailabilityView extends React.Component {
         let startMinutes = startDate.getMinutes();
         let endMinutes = endDate.getMinutes();
         let startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
-        let endMinutesSinceEight = (startHours - 8) * 60 + endMinutes;
-        this.setState(
-          { employeeAppointmentStart: startMinutesSinceEight }
-        );
-        this.setState(
-          { employeeAppointmentEnd: endMinutesSinceEight }
-        );
+        let endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
+        this.setState({
+          employeeAppointmentStart: startMinutesSinceEight,
+          employeeAppointmentDuration:
+            endMinutesSinceEight - startMinutesSinceEight,
+          employee: true
+        });
         console.log(startHours, startMinutes, endHours, endMinutes);
       } else if (name === 'reviewer') {
         this.getAppointments(jsonFile, 2);
@@ -283,8 +283,12 @@ class AvailabilityView extends React.Component {
               className={classes.appointmentDiv}
               style={{
                 left: (this.state.tableWidth / 6) * 0.5 + marginLeft,
-                top: (this.state.employeeAppointmentStart/60 * this.state.tableHeight)/6,
-                width: (this.state.tableWidth - marginLeft) / 6
+                top:
+                  ((this.state.employeeAppointmentStart / 60) *
+                    this.state.tableHeight) /
+                  6,
+                width: (this.state.tableWidth - marginLeft) / 6,
+                height: timeTableListHeight * this.state.employeeAppointmentDuration / 30
               }}
             />
             <div
