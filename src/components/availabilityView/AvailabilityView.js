@@ -160,8 +160,39 @@ class AvailabilityView extends React.Component {
     };
   };
 
+  createTimeTable() {
+    let timeTable = {};
+    for (let hour = 8; hour < 20; hour++) {
+      for (let i = 0; i < 1; i++) {
+        let minutes;
+        if (i === 0) {
+          minutes = ':00';
+        } else {
+          minutes = ':30';
+        }
+        timeTable.add(
+          React.createElement('div', { className: 'classes.timeTable' }, [
+            React.createElement(
+              'Typography',
+              { className: 'classes.hours' },
+              hour.toString() + minutes
+            ),
+            React.createElement('hr', {
+              className: 'classes.divider',
+              style: { maxWidth: 'this.state.tableWidth - marginLeft' }
+            }),
+            null
+          ])
+        );
+      }
+    }
+    return timeTable;
+  }
+
   render() {
     const { classes } = this.props;
+
+    let timeTable = this.createTimeTable();
 
     return (
       <div id={'outer'} className={classes.root}>
@@ -229,6 +260,7 @@ class AvailabilityView extends React.Component {
           style={{ position: 'relative', top: 50, maxWidth: 650 }}
         >
           <div>
+            {timeTable}
             <div className={classes.timeTable}>
               <Typography className={classes.hours}>8:00</Typography>
               <hr
