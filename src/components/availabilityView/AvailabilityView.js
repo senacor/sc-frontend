@@ -70,17 +70,22 @@ class AvailabilityView extends React.Component {
 
   appointment(json, employeeId) {
     let i;
+    let appointments = [];
     for (i = 0; i < 3; i++) {
       if (
-        json._embedded.exchangeOutlookResponseList[i].employeeId === employeeId.toString()
+        json._embedded.exchangeOutlookResponseList[i].employeeId ===
+        employeeId.toString()
       ) {
-        let j;
         let responseList = json._embedded.exchangeOutlookResponseList[i];
-        for (j = 0; j < Object.keys(responseList.exchangeOutlookAppointmentResponse).length; j++) {
-          console.log(
+        for (let j in responseList.exchangeOutlookAppointmentResponse) {
+          let appointment = [
             responseList.exchangeOutlookAppointmentResponse[j]
-              .appointmentStartTime
-          );
+              .appointmentStartTime,
+            responseList.exchangeOutlookAppointmentResponse[j]
+              .appointmentEndTime
+          ];
+          appointments[j] = appointment;
+          console.log(appointment);
         }
         return;
       }
