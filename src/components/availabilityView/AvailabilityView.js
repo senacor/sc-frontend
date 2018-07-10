@@ -55,7 +55,9 @@ class AvailabilityView extends React.Component {
       tableWidth: 0,
       employee: true,
       reviewer: false,
-      supervisor: true
+      supervisor: true,
+      employeeAppointmentStart: 0,
+      employeeAppointmentEnd: 0
     };
   }
 
@@ -68,7 +70,7 @@ class AvailabilityView extends React.Component {
     console.log('width :', tableWidth);
   }
 
-  appointment(json, employeeId) {
+  getAppointments(json, employeeId) {
     let i;
     let appointments = [];
     for (i = 0; i < 3; i++) {
@@ -76,32 +78,49 @@ class AvailabilityView extends React.Component {
         json._embedded.exchangeOutlookResponseList[i].employeeId ===
         employeeId.toString()
       ) {
-        let responseList = json._embedded.exchangeOutlookResponseList[i];
-        for (let j in responseList.exchangeOutlookAppointmentResponse) {
+        let responseList =
+          json._embedded.exchangeOutlookResponseList[i]
+            .exchangeOutlookAppointmentResponse;
+        for (let j in responseList) {
           let appointment = [
-            responseList.exchangeOutlookAppointmentResponse[j]
-              .appointmentStartTime,
-            responseList.exchangeOutlookAppointmentResponse[j]
-              .appointmentEndTime
+            responseList[j].appointmentStartTime,
+            responseList[j].appointmentEndTime
           ];
           appointments[j] = appointment;
           console.log(appointment);
         }
-        return;
+        return appointments;
       }
     }
   }
 
-  handleToggle = name => event => {
-    this.setState({ [name]: event.target.checked });
-    let jsonFile = require('./test.json');
-    if (name === 'employee') {
-      this.appointment(jsonFile, 1);
-    } else if (name === 'reviewer') {
-      this.appointment(jsonFile, 2);
-    } else if (name === 'supervisor') {
-      this.appointment(jsonFile, 3);
-    }
+  handleToggle = name => {
+    return event => {
+      this.setState({ [name]: event.target.checked });
+      let jsonFile = require('./test.json');
+      if (name === 'employee') {
+        let appointments = this.getAppointments(jsonFile, 1);
+        let startDate = new Date(appointments[0][0]);
+        let endDate = new Date(appointments[0][1]);
+        let startHours = startDate.getHours();
+        let endHours = endDate.getHours();
+        let startMinutes = startDate.getMinutes();
+        let endMinutes = endDate.getMinutes();
+        let startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
+        let endMinutesSinceEight = (startHours - 8) * 60 + endMinutes;
+        this.setState(
+          { employeeAppointmentStart: startMinutesSinceEight }
+        );
+        this.setState(
+          { employeeAppointmentEnd: endMinutesSinceEight }
+        );
+        console.log(startHours, startMinutes, endHours, endMinutes);
+      } else if (name === 'reviewer') {
+        this.getAppointments(jsonFile, 2);
+      } else if (name === 'supervisor') {
+        this.getAppointments(jsonFile, 3);
+      }
+    };
   };
 
   render() {
@@ -264,7 +283,7 @@ class AvailabilityView extends React.Component {
               className={classes.appointmentDiv}
               style={{
                 left: (this.state.tableWidth / 6) * 0.5 + marginLeft,
-                top: 0,
+                top: (this.state.employeeAppointmentStart/60 * this.state.tableHeight)/6,
                 width: (this.state.tableWidth - marginLeft) / 6
               }}
             />
