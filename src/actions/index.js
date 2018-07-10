@@ -7,7 +7,7 @@ export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
 export { getCstMembers } from './cstMembers';
-export { getPrEvents } from './events';
+export { getEvents } from './events';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({

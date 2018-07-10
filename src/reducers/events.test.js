@@ -6,7 +6,7 @@ describe('event reducer', () => {
     const stateBefore = [];
     const action = {
       type: FETCHED_EVENTS,
-      prEvents: [
+      events: [
         {
           id: 1,
           employee: {
@@ -120,8 +120,8 @@ describe('event reducer', () => {
 
     const stateAfter = events(stateBefore, action);
 
-    expect(stateAfter).toEqual([
-      {
+    expect(stateAfter).toEqual({
+      '1': {
         id: 1,
         employee: {
           id: 3,
@@ -139,7 +139,7 @@ describe('event reducer', () => {
           }
         }
       },
-      {
+      '2': {
         id: 2,
         employee: {
           id: 3,
@@ -157,7 +157,7 @@ describe('event reducer', () => {
           }
         }
       },
-      {
+      '3': {
         id: 3,
         employee: {
           id: 3,
@@ -175,7 +175,7 @@ describe('event reducer', () => {
           }
         }
       },
-      {
+      '4': {
         id: 4,
         employee: {
           id: 3,
@@ -193,7 +193,7 @@ describe('event reducer', () => {
           }
         }
       },
-      {
+      '5': {
         id: 5,
         employee: {
           id: 3,
@@ -211,22 +211,6 @@ describe('event reducer', () => {
           }
         }
       }
-    ]);
+    });
   });
-
-  // it('should return empty array if no user was found', () => {
-  //   const stateBefore = [];
-  //   const action = {
-  //     type: FETCHED_EVENTS,
-  //     cstMembers: {
-  //       link: {
-  //         href: 'something'
-  //       }
-  //     }
-  //   };
-  //
-  //   const stateAfter = cstMembers(stateBefore, action);
-  //
-  //   expect(stateAfter).toEqual([]);
-  // });
 });
