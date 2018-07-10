@@ -14,7 +14,7 @@ import isLoading from './isLoading';
 import search from './searchEmployee';
 import prEmployeeContributions from './employeeContributions';
 
-const app = combineReducers({
+const combineReducer = combineReducers({
   tasks,
   editTasks,
   errors,
@@ -32,4 +32,13 @@ const app = combineReducers({
   userroles,
   events
 });
+
+const app = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined;
+  }
+
+  return combineReducer(state, action);
+};
+
 export default app;

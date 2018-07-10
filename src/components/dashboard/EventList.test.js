@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledComponent } from './Dashboard';
+import EventList from './EventList';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('Dashboard component', () => {
@@ -99,7 +99,8 @@ describe('Dashboard component', () => {
   };
 
   it('should match snapshot', () => {
-    let wrapper = shallow(<StyledComponent events={events} />);
-    expect(wrapper).toMatchSnapshot();
+    let cut = shallow(<EventList events={Object.values(events)} />);
+
+    expect(cut).toMatchSnapshot();
   });
 });

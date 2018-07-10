@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import Chip from '@material-ui/core/Chip';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core/styles/index';
 import withLoading from '../hoc/Loading';
-import { formatMomentForFrontend } from '../../helper/date';
+import EventList from './EventList';
 
 let styles = {
   rowContainer: {
@@ -35,10 +30,6 @@ let styles = {
 };
 
 class Dashboard extends Component {
-  componentDidMount() {
-    this.props.getPrEvents();
-  }
-
   render() {
     const { classes, events } = this.props;
 
@@ -68,36 +59,25 @@ class Dashboard extends Component {
           </Card>
         </div>
 
-        <List
-          component="nav"
-          subheader={<ListSubheader component="div">Aktivitäten</ListSubheader>}
-        >
-          {events.map(eventable => {
-            return (
-              <ListItem className={classes.thinItem} key={eventable.id}>
-                <Chip
-                  label={formatMomentForFrontend(eventable.createdAt)}
-                  className={classes.chip}
-                />
-                <Divider />
-                <ListItemText primary={`${eventable.eventType}`} />
-              </ListItem>
-            );
-          })}
-        </List>
+        <EventList events={events} />
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    events: Object.values(state.events)
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getEvents: bindActionCreators(actions.getEvents, dispatch)
+  };
+}
+
 export const StyledComponent = withStyles(styles)(Dashboard);
-export default connect(
-  // MapStateToProps
-  state => ({
-    events: state.events
-  }),
-  // MapDispatchToProps
-  {
-    getPrEvents: actions.getPrEvents
-  }
-)(withLoading(props => props.getPrEvents())(StyledComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withLoading(props => props.getEvents())(StyledComponent)
+);
