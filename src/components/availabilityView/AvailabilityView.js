@@ -54,16 +54,19 @@ class AvailabilityView extends React.Component {
       tableHeight: 0,
       tableWidth: 0,
       reviewer: {
+        id: 2,
         show: false,
         appointmentStart: 0,
         appointmentDuration: 0
       },
       supervisor: {
+        id: 3,
         show: false,
         appointmentStart: 0,
         appointmentDuration: 0
       },
       employee: {
+        id: 1,
         show: false,
         appointmentStart: 0,
         appointmentDuration: 0
@@ -106,7 +109,8 @@ class AvailabilityView extends React.Component {
 
   getAppointmentStartAndDuration(name) {
     let jsonFile = require('./test.json');
-    let appointments = this.getAppointments(jsonFile, 1);
+    let id = this.state[name].id;
+    let appointments = this.getAppointments(jsonFile, id);
     let startDate = new Date(appointments[0][0]);
     let endDate = new Date(appointments[0][1]);
     let startHours = startDate.getHours();
