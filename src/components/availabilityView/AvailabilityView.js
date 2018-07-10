@@ -111,14 +111,30 @@ class AvailabilityView extends React.Component {
     let jsonFile = require('./test.json');
     let id = this.state[name].id;
     let appointments = this.getAppointments(jsonFile, id);
+    console.log(appointments);
+    let defaultDate = new Date('2018-06-14T08:00');
+    if (appointments[0] === undefined) {
+      let newState = this.state[name];
+      newState.show = true;
+      this.setState({ [name]: newState });
+      return;
+    }
     let startDate = new Date(appointments[0][0]);
     let endDate = new Date(appointments[0][1]);
     let startHours = startDate.getHours();
     let endHours = endDate.getHours();
     let startMinutes = startDate.getMinutes();
     let endMinutes = endDate.getMinutes();
-    let startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
-    let endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
+    let startMinutesSinceEight = 0;
+    let endMinutesSinceEight = 0;
+    if (startDate >= defaultDate) {
+      startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
+    }
+    if (endDate <= defaultDate.setHours(defaultDate.getHours() + 12)) {
+      endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
+    } else if (endDate > defaultDate.setHours(defaultDate.getHours() + 12)) {
+      endMinutesSinceEight = 12 * 60;
+    }
     console.log(startHours, startMinutes, endHours, endMinutes);
     let newState = this.state[name];
     newState.show = true;
@@ -199,7 +215,7 @@ class AvailabilityView extends React.Component {
                 id="datetime-local"
                 label="Terminvorschlag"
                 type="datetime-local"
-                defaultValue="2017-05-24T10:30"
+                defaultValue="2018-06-14T10:30"
                 className={classes.datePicker}
                 InputLabelProps={{
                   shrink: true
