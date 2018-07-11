@@ -30,6 +30,11 @@ const styles = theme => ({
   timeTable: {
     height: timeTableListHeight
   },
+  timeTableDiv: {
+    '@media (min-Width: 1000px)': { width: '75%' },
+    '@media (min-Width: 1500px)': { width: '50%' },
+    '@media (min-Width: 1800px)': { width: '40%' }
+  },
   divider: {
     position: 'relative',
     top: -20,
@@ -72,15 +77,6 @@ class AvailabilityView extends React.Component {
         appointmentDuration: 0
       }
     };
-  }
-
-  componentDidMount() {
-    const tableHeight = this.divElement.clientHeight;
-    this.setState({ tableHeight });
-    console.log('height :', tableHeight);
-    const tableWidth = this.divElement.clientWidth;
-    this.setState({ tableWidth });
-    console.log('width :', tableWidth);
   }
 
   getAppointments(json, employeeId) {
@@ -244,20 +240,17 @@ class AvailabilityView extends React.Component {
           </Grid>
         </Grid>
         <div
-          ref={divElement => (this.divElement = divElement)}
-          style={{ position: 'relative', top: 50, maxWidth: 650 }}
+          className={classes.timeTableDiv}
+          style={{ position: 'relative', top: 50 }}
         >
           <div>{timeTable}</div>
           <div
             id={'availabilityEmployee'}
             className={classes.appointmentDiv}
             style={{
-              left: (this.state.tableWidth / 6) * 0.5 + marginLeft,
-              top:
-                ((this.state.employee.appointmentStart / 60) *
-                  this.state.tableHeight) /
-                12,
-              width: (this.state.tableWidth - marginLeft) / 6,
+              left: '15.5%',
+              top: (this.state.employee.appointmentStart / 60 / 12) * 100 + '%',
+              width: '15.5%',
               height:
                 (timeTableListHeight *
                   this.state.employee.appointmentDuration) /
@@ -268,13 +261,9 @@ class AvailabilityView extends React.Component {
             id={'availabilityReviewer'}
             className={classes.appointmentDiv}
             style={{
-              left:
-                ((this.state.tableWidth - marginLeft) / 6) * 2.5 + marginLeft,
-              top:
-                ((this.state.reviewer.appointmentStart / 60) *
-                  this.state.tableHeight) /
-                12,
-              width: (this.state.tableWidth - marginLeft) / 6,
+              left: '46.5%',
+              top: (this.state.reviewer.appointmentStart / 60 / 12) * 100 + '%',
+              width: '15.5%',
               height:
                 (timeTableListHeight *
                   this.state.reviewer.appointmentDuration) /
@@ -285,13 +274,10 @@ class AvailabilityView extends React.Component {
             id={'availabilitySupervisor'}
             className={classes.appointmentDiv}
             style={{
-              left:
-                ((this.state.tableWidth - marginLeft) / 6) * 4.5 + marginLeft,
+              left: '77.5%',
               top:
-                ((this.state.supervisor.appointmentStart / 60) *
-                  this.state.tableHeight) /
-                12,
-              width: (this.state.tableWidth - marginLeft) / 6,
+                (this.state.supervisor.appointmentStart / 60 / 12) * 100 + '%',
+              width: '15.5%',
               height:
                 (timeTableListHeight *
                   this.state.supervisor.appointmentDuration) /
