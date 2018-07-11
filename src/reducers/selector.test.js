@@ -34,7 +34,7 @@ describe('getUserroles', () => {
     };
   });
 
-  it('should userroles', () => {
+  it('should return the userroles', () => {
     let result = getUserroles(storeState);
 
     expect(result).toEqual(['PR_MITARBEITER']);
@@ -89,7 +89,7 @@ describe('getPrDetail', () => {
         1: { id: 1, deadline: '2018-01-01' },
         2: { id: 2, deadline: '2017-01-01' }
       },
-      prDetail: 2
+      prDetailId: 2
     };
   });
 

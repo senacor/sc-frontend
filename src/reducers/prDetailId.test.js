@@ -1,4 +1,4 @@
-import { prDetail } from './prDetail';
+import { prDetailId } from './prDetailId';
 import { FETCH_PR_BY_ID_RESPONSE } from '../helper/dispatchTypes';
 
 describe('prDetail reducer', () => {
@@ -12,7 +12,7 @@ describe('prDetail reducer', () => {
       }
     };
 
-    const stateAfter = prDetail(stateBefore, action);
+    const stateAfter = prDetailId(stateBefore, action);
 
     expect(stateAfter).toEqual(83);
   });
