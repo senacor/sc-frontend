@@ -60,22 +60,12 @@ class AvailabilityView extends React.Component {
       reviewer: {
         id: 2,
         show: false,
-        appointments: [
-          {
-            startMinutes: 0,
-            duration: 0
-          }
-        ]
+        appointments: [{}]
       },
       supervisor: {
         id: 3,
         show: false,
-        appointments: [
-          {
-            startMinutes: 0,
-            duration: 0
-          }
-        ]
+        appointments: [{}]
       },
       employee2: {
         id: 1,
@@ -86,12 +76,7 @@ class AvailabilityView extends React.Component {
       employee: {
         id: 1,
         show: false,
-        appointments: [
-          {
-            startMinutes: 0,
-            duration: 0
-          }
-        ]
+        appointments: [{}]
       }
     };
   }
@@ -177,8 +162,7 @@ class AvailabilityView extends React.Component {
         this.getAppointmentStartAndDuration(name);
       } else {
         newState.show = false;
-        newState.appointmentStart = 0;
-        newState.appointmentDuration = 0;
+        newState.appointments = [{}];
         this.setState({ [name]: newState });
       }
     };
