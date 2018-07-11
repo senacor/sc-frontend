@@ -20,27 +20,25 @@ class EventList extends Component {
     const { classes, events } = this.props;
 
     return (
-      <div>
-        <List
-          component="nav"
-          subheader={
-            <ListSubheader component="div">Letzte Aktivitäten</ListSubheader>
-          }
-        >
-          {events.map(event => {
-            return (
-              <ListItem className={classes.thinItem} key={event.id}>
-                <Chip
-                  label={formatMomentForFrontend(event.createdAt)}
-                  className={classes.chip}
-                />
-                <Divider />
-                <ListItemText primary={`${event.eventType}`} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </div>
+      <List
+        component="nav"
+        subheader={
+          <ListSubheader component="div">Letzte Aktivitäten</ListSubheader>
+        }
+      >
+        {events.map(event => {
+          return (
+            <ListItem className={classes.thinItem} key={event.id}>
+              <Chip
+                label={formatMomentForFrontend(event.createdAt)}
+                className={classes.chip}
+              />
+              <Divider />
+              <ListItemText primary={`${event.eventType}`} />
+            </ListItem>
+          );
+        })}
+      </List>
     );
   }
 }

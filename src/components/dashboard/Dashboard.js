@@ -3,7 +3,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core/styles/index';
 import withLoading from '../hoc/Loading';
@@ -71,13 +70,11 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getEvents: bindActionCreators(actions.getEvents, dispatch)
-  };
-}
+let dispatchToProps = {
+  getEvents: actions.getEvents
+};
 
 export const StyledComponent = withStyles(styles)(Dashboard);
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(mapStateToProps, dispatchToProps)(
   withLoading(props => props.getEvents())(StyledComponent)
 );
