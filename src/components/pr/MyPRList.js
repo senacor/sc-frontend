@@ -306,15 +306,17 @@ export class MyPRList extends React.Component {
           </Grid>
           <Hidden smDown>
             <Grid item xs={12} sm={6} align="right">
-              <Button
-                id="addPrButton"
-                className={classes.buttonDesktop}
-                variant="raised"
-                onClick={this.openAvailabilityViewDialog}
-              >
-                <Icon className={classes.leftIcon}>add</Icon>
-                Terminverfügbarkeit
-              </Button>
+              <Link to={'/availabilityview'} style={{ textDecoration: 'none' }}>
+                <Button
+                  id="addPrButton"
+                  className={classes.buttonDesktop}
+                  variant="raised"
+                  onClick={this.openAvailabilityViewDialog}
+                >
+                  <Icon className={classes.leftIcon}>add</Icon>
+                  Terminverfügbarkeit
+                </Button>
+              </Link>
               <Button
                 id="addPrButton"
                 className={classes.buttonDesktop}
@@ -421,6 +423,7 @@ export class MyPRList extends React.Component {
             aria-label="add"
             className={classes.buttonMobile}
             onClick={this.handleClick}
+            href={'/availabilityview'}
           >
             <AddIcon />
           </Button>
