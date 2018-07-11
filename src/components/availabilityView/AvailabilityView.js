@@ -60,11 +60,25 @@ class AvailabilityView extends React.Component {
       reviewer: {
         id: 2,
         show: false,
-        appointmentStart: 0,
-        appointmentDuration: 0
+        appointments: [
+          {
+            startMinutes: 0,
+            duration: 0
+          }
+        ]
       },
       supervisor: {
         id: 3,
+        show: false,
+        appointments: [
+          {
+            startMinutes: 0,
+            duration: 0
+          }
+        ]
+      },
+      employee2: {
+        id: 1,
         show: false,
         appointmentStart: 0,
         appointmentDuration: 0
@@ -72,10 +86,13 @@ class AvailabilityView extends React.Component {
       employee: {
         id: 1,
         show: false,
-        appointmentStart: 0,
-        appointmentDuration: 0
-      },
-      person: {}
+        appointments: [
+          {
+            startMinutes: 0,
+            duration: 0
+          }
+        ]
+      }
     };
   }
 
@@ -108,37 +125,48 @@ class AvailabilityView extends React.Component {
     let id = this.state[name].id;
     let appointments = this.getAppointments(jsonFile, id);
     console.log(appointments);
-    let defaultDate = new Date('2018-06-14T08:00');
     if (appointments[0] === undefined) {
       let newState = this.state[name];
       newState.show = true;
       this.setState({ [name]: newState });
       return;
     }
-    let startDate = new Date(appointments[0][0]);
-    let endDate = new Date(appointments[0][1]);
-    let startHours = startDate.getHours();
-    let endHours = endDate.getHours();
-    let startMinutes = startDate.getMinutes();
-    let endMinutes = endDate.getMinutes();
-    let startMinutesSinceEight = 0;
-    let endMinutesSinceEight = 0;
-    if (startDate >= defaultDate) {
-      startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
+    for (let i = 0; i < appointments.length; i++) {
+      let defaultDate = new Date('2018-06-14T08:00');
+      let startDate = new Date(appointments[i][0]);
+      let endDate = new Date(appointments[i][1]);
+      let startHours = startDate.getHours();
+      let endHours = endDate.getHours();
+      let startMinutes = startDate.getMinutes();
+      let endMinutes = endDate.getMinutes();
+      let startMinutesSinceEight = 0;
+      let endMinutesSinceEight = 0;
+      if (startDate >= defaultDate) {
+        startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
+      }
+      if (endDate <= defaultDate.setHours(defaultDate.getHours() + 11.5)) {
+        endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
+      } else if (
+        endDate > defaultDate.setHours(defaultDate.getHours() + 11.5)
+      ) {
+        endMinutesSinceEight = 11.5 * 60;
+      }
+      console.log(startHours, startMinutes, endHours, endMinutes);
+      let newState = this.state[name];
+      newState.show = true;
+      let appointment = {
+        startMinutes: startMinutesSinceEight,
+        duration: endMinutesSinceEight - startMinutesSinceEight
+      };
+      newState.appointments.push(appointment);
+      this.setState({ [name]: newState });
+      console.log(
+        'startMinutes: ' +
+          newState.appointments[newState.appointments.length - 1].startMinutes +
+          ' duration: ' +
+          newState.appointments[newState.appointments.length - 1].duration
+      );
     }
-    if (endDate <= defaultDate.setHours(defaultDate.getHours() + 11.5)) {
-      endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
-    } else if (endDate > defaultDate.setHours(defaultDate.getHours() + 11.5)) {
-      endMinutesSinceEight = 11.5 * 60;
-    }
-    console.log(startHours, startMinutes, endHours, endMinutes);
-    let newState = this.state[name];
-    newState.show = true;
-    newState.appointmentStart = startMinutesSinceEight;
-    newState.appointmentDuration =
-      endMinutesSinceEight - startMinutesSinceEight;
-    this.setState({ [name]: newState });
-    console.log('logging');
   }
 
   handleToggle = name => {
@@ -179,19 +207,36 @@ class AvailabilityView extends React.Component {
     personPosition.set('employee', '15.5%');
     personPosition.set('reviewer', '46.5%');
     personPosition.set('supervisor', '77.5%');
-    appointmentDiv.push(
-      <div
-        id={'availabilitySupervisor'}
-        className={classes.appointmentDiv}
-        style={{
-          left: personPosition.get(person),
-          top: (this.state[person].appointmentStart / 60 / 12) * 100 + '%',
-          width: '15.5%',
-          height:
-            (timeTableListHeight * this.state[person].appointmentDuration) / 30
-        }}
-      />
-    );
+    const thisAppointments = this.state[person].appointments;
+    for (let i = 1; i < thisAppointments.length; i++) {
+      if (thisAppointments[i] !== undefined) {
+        console.log(
+          'logging div creation: ' +
+            'startMinutes: ' +
+            this.state[person].appointments[i].startMinutes +
+            ' duration: ' +
+            this.state[person].appointments[i].duration
+        );
+        appointmentDiv.push(
+          <div
+            id={'availabilitySupervisor'}
+            className={classes.appointmentDiv}
+            style={{
+              left: personPosition.get(person),
+              top:
+                (this.state[person].appointments[i].startMinutes / 60 / 12) *
+                  100 +
+                '%',
+              width: '15.5%',
+              height:
+                (timeTableListHeight *
+                  this.state[person].appointments[i].duration) /
+                30
+            }}
+          />
+        );
+      }
+    }
     return appointmentDiv;
   }
 
