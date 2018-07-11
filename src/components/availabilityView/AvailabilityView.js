@@ -129,7 +129,9 @@ class AvailabilityView extends React.Component {
           (startHours - firstHour) * 60 + startMinutes;
       }
       if (
-        endDate <= defaultDate.setHours(defaultDate.getHours() + timeTableHours)
+        endDate <=
+          defaultDate.setHours(defaultDate.getHours() + timeTableHours) &&
+        startDate
       ) {
         endMinutesSinceFirstHour = (endHours - firstHour) * 60 + endMinutes;
       } else if (
@@ -167,17 +169,24 @@ class AvailabilityView extends React.Component {
     let newState = this.state[person];
     newState.appointments = [{}];
     this.setState({ [person]: newState });
+    let day = this.state.date.split('T')[0];
+    console.log('day update: ' + day);
     if (this.state[person].show === true) {
-      this.fetchAppointnments(person);
+      this.fetchAppointments(person, day);
     }
   }
 
   handleTimeChange = event => {
-    this.setState({ date: event.target.value });
+    let newState = this.state;
+    newState.date = event.target.value.toLocaleString();
+    this.setState({ newState });
+    console.log('state date: ' + this.state.date);
+    let day = this.state.date.split('T')[0];
+    console.log('day calendar: ' + day);
     persons.forEach(person => {
       this.updateAppointments(person);
     });
-    console.log('date: ' + event.target.value);
+    console.log('date: ' + this.state.date);
   };
 
   createTimeTable(classes) {
@@ -241,9 +250,9 @@ class AvailabilityView extends React.Component {
     return appointmentDiv;
   }
 
-  async fetchAppointnments(person) {
+  async fetchAppointments(person, day) {
     await fetch(
-      'http://localhost:8010/api/v1/appointments?employees=1,2,3&date=2018-06-14'
+      'http://localhost:8010/api/v1/appointments?employees=1,2,3&date=' + day
     )
       .then(response => response.json())
       .then(data => ({ data }))
