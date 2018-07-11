@@ -10,7 +10,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
 
-const marginLeft = 50;
 const timeTableListHeight = 40;
 
 const styles = theme => ({
@@ -75,7 +74,8 @@ class AvailabilityView extends React.Component {
         show: false,
         appointmentStart: 0,
         appointmentDuration: 0
-      }
+      },
+      person: {}
     };
   }
 
@@ -198,7 +198,7 @@ class AvailabilityView extends React.Component {
   render() {
     const { classes } = this.props;
 
-    let timeTable = this.createTimeTable(classes);
+    const timeTable = this.createTimeTable(classes);
 
     return (
       <div id={'outer'} className={classes.root}>
