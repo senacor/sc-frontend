@@ -2,11 +2,15 @@ import { createSelector } from 'reselect';
 import moment from 'moment/moment';
 
 export const getAllPrs = state => Object.values(state.prs);
-export const getPrById = state => state.prDetail;
+export const getPrById = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
+export const getUserroles = state => state.userroles;
 
 export const getPrDetail = () => {
-  return createSelector([getAllPrs, getPrById], (prs, id) => prs[id]);
+  return createSelector(
+    [state => state.prs, getPrById],
+    (prs, prDetail) => prs[prDetail]
+  );
 };
 
 export const getSortedPrs = () => {
