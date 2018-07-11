@@ -105,15 +105,17 @@ class AvailabilityView extends React.Component {
     }
   }
 
-  getAppointmentStartAndDuration(name) {
+  getAppointmentStartAndDuration(person) {}
+
+  setAppointmentStartAndDuration(person) {
     let jsonFile = require('./test.json');
-    let id = this.state[name].id;
+    let id = this.state[person].id;
     let appointments = this.getAppointments(jsonFile, id);
     console.log(appointments);
     if (appointments[0] === undefined) {
-      let newState = this.state[name];
+      let newState = this.state[person];
       newState.show = true;
-      this.setState({ [name]: newState });
+      this.setState({ [person]: newState });
       return;
     }
     for (let i = 0; i < appointments.length; i++) {
@@ -137,14 +139,14 @@ class AvailabilityView extends React.Component {
         endMinutesSinceEight = 11.5 * 60;
       }
       console.log(startHours, startMinutes, endHours, endMinutes);
-      let newState = this.state[name];
+      let newState = this.state[person];
       newState.show = true;
       let appointment = {
         startMinutes: startMinutesSinceEight,
         duration: endMinutesSinceEight - startMinutesSinceEight
       };
       newState.appointments.push(appointment);
-      this.setState({ [name]: newState });
+      this.setState({ [person]: newState });
       console.log(
         'startMinutes: ' +
           newState.appointments[newState.appointments.length - 1].startMinutes +
@@ -154,16 +156,16 @@ class AvailabilityView extends React.Component {
     }
   }
 
-  handleToggle = name => {
+  handleToggle = person => {
     return event => {
-      this.setState({ [name]: event.target.checked });
-      let newState = this.state[name];
-      if (this.state[name].show === false) {
-        this.getAppointmentStartAndDuration(name);
+      this.setState({ [person]: event.target.checked });
+      let newState = this.state[person];
+      if (this.state[person].show === false) {
+        this.setAppointmentStartAndDuration(person);
       } else {
         newState.show = false;
         newState.appointments = [{}];
-        this.setState({ [name]: newState });
+        this.setState({ [person]: newState });
       }
     };
   };
@@ -173,7 +175,10 @@ class AvailabilityView extends React.Component {
     for (let hour = 8; hour <= 19; hour++) {
       [':00', ':30'].forEach(minutes => {
         timeTable.push(
-          <div className={classes.timeTable}>
+          <div
+            className={classes.timeTable}
+            key={'time' + hour.toString() + minutes} //needs an unique key
+          >
             <Typography className={classes.hours}>
               {hour.toString() + minutes}
             </Typography>
@@ -203,7 +208,7 @@ class AvailabilityView extends React.Component {
         );
         appointmentDiv.push(
           <div
-            id={'availabilitySupervisor'}
+            key={'availability' + person + i} //needs an unique key
             className={classes.appointmentDiv}
             style={{
               left: personPosition.get(person),
@@ -228,6 +233,10 @@ class AvailabilityView extends React.Component {
     const { classes } = this.props;
 
     const timeTable = this.createTimeTable(classes);
+    const appointmentDivs = [];
+    ['employee', 'reviewer', 'supervisor'].forEach(person =>
+      appointmentDivs.push(this.createAppointmentDiv(classes, person))
+    );
 
     return (
       <div id={'outer'} className={classes.root}>
@@ -295,9 +304,7 @@ class AvailabilityView extends React.Component {
           style={{ position: 'relative', top: 50 }}
         >
           <div>{timeTable}</div>
-          {this.createAppointmentDiv(classes, 'employee')}
-          {this.createAppointmentDiv(classes, 'reviewer')}
-          {this.createAppointmentDiv(classes, 'supervisor')}
+          {appointmentDivs}
         </div>
       </div>
     );
