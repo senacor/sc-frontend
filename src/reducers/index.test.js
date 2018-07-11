@@ -1,7 +1,105 @@
 import reducers from './index';
+import app from './index';
+import { LOGOUT } from '../helper/dispatchTypes';
 
 describe('reducers', () => {
   it('should return combined reducers', () => {
     expect(reducers).toBeInstanceOf(Function);
+  });
+
+  describe('LOGOUT dispatch', () => {
+    it('should wipe state', () => {
+      let someValue = 'someValue';
+      const action = {
+        type: LOGOUT
+      };
+      const stateBefore = {
+        cstMembers: [someValue],
+        editTasks: {
+          isChanging: false,
+          list: [someValue]
+        },
+        errors: {
+          hasErrors: false,
+          message: null
+        },
+        events: [someValue],
+        isLoading: false,
+        login: {
+          isLoggedIn: true,
+          isUnauthorized: false
+        },
+        prById: {
+          prDetail: [someValue]
+        },
+        prDetailId: 0,
+        prEmployeeContributions: {
+          prEmployeeContribution: [someValue]
+        },
+        prRatings: { someValue },
+        prVisibilityById: {
+          prVisibility: {
+            toEmployee: false,
+            toSupervisor: false
+          }
+        },
+        prs: { someValue },
+        search: {
+          prSearchResults: [someValue]
+        },
+        sortOrderPrs: 'des',
+        tasks: {
+          list: [someValue]
+        },
+        userinfo: { someValue },
+        userphoto: '',
+        userroles: [someValue]
+      };
+
+      const stateAfter = app(stateBefore, action);
+
+      expect(stateAfter).toEqual({
+        cstMembers: [],
+        editTasks: {
+          isChanging: false,
+          list: []
+        },
+        errors: {
+          hasErrors: false,
+          message: null
+        },
+        events: [],
+        isLoading: false,
+        login: {
+          isLoggedIn: false,
+          isUnauthorized: false
+        },
+        prById: {
+          prDetail: []
+        },
+        prDetailId: 0,
+        prEmployeeContributions: {
+          prEmployeeContribution: []
+        },
+        prRatings: {},
+        prVisibilityById: {
+          prVisibility: {
+            toEmployee: false,
+            toSupervisor: false
+          }
+        },
+        prs: {},
+        search: {
+          prSearchResults: []
+        },
+        sortOrderPrs: 'asc',
+        tasks: {
+          list: []
+        },
+        userinfo: {},
+        userphoto: '',
+        userroles: []
+      });
+    });
   });
 });

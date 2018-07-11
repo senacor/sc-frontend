@@ -75,6 +75,7 @@ let dispatchToProps = {
 };
 
 export const StyledComponent = withStyles(styles)(Dashboard);
-export default connect(mapStateToProps, dispatchToProps)(
-  withLoading(props => props.getEvents())(StyledComponent)
-);
+export default connect(
+  mapStateToProps,
+  dispatchToProps
+)(withLoading(props => props.getEvents())(StyledComponent));
