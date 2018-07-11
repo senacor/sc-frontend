@@ -11,6 +11,10 @@ import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
 
 const timeTableListHeight = 40;
+const firstHour = 8;
+const lastHour = 19;
+const timeTableTimeSteps = [':00', ':30'];
+const timeTableHours = 11.5;
 
 const styles = theme => ({
   root: {
@@ -67,12 +71,6 @@ class AvailabilityView extends React.Component {
         show: false,
         appointments: [{}]
       },
-      employee2: {
-        id: 1,
-        show: false,
-        appointmentStart: 0,
-        appointmentDuration: 0
-      },
       employee: {
         id: 1,
         show: false,
@@ -105,16 +103,16 @@ class AvailabilityView extends React.Component {
     }
   }
 
-  getAppointmentStartAndDuration(person) {}
-
   setAppointmentStartAndDuration(person) {
-    let jsonFile = require('./test.json');
-    let id = this.state[person].id;
-    let appointments = this.getAppointments(jsonFile, id);
+    let appointments = this.getAppointments(
+      require('./test.json'),
+      this.state[person].id
+    );
     console.log(appointments);
+    let newState = this.state[person];
+    newState.show = true;
+
     if (appointments[0] === undefined) {
-      let newState = this.state[person];
-      newState.show = true;
       this.setState({ [person]: newState });
       return;
     }
@@ -126,24 +124,26 @@ class AvailabilityView extends React.Component {
       let endHours = endDate.getHours();
       let startMinutes = startDate.getMinutes();
       let endMinutes = endDate.getMinutes();
-      let startMinutesSinceEight = 0;
-      let endMinutesSinceEight = 0;
+      let startMinutesSinceFirstHour = 0;
+      let endMinutesSinceFirstHour = 0;
       if (startDate >= defaultDate) {
-        startMinutesSinceEight = (startHours - 8) * 60 + startMinutes;
+        startMinutesSinceFirstHour =
+          (startHours - firstHour) * 60 + startMinutes;
       }
-      if (endDate <= defaultDate.setHours(defaultDate.getHours() + 11.5)) {
-        endMinutesSinceEight = (endHours - 8) * 60 + endMinutes;
-      } else if (
-        endDate > defaultDate.setHours(defaultDate.getHours() + 11.5)
+      if (
+        endDate <= defaultDate.setHours(defaultDate.getHours() + timeTableHours)
       ) {
-        endMinutesSinceEight = 11.5 * 60;
+        endMinutesSinceFirstHour = (endHours - firstHour) * 60 + endMinutes;
+      } else if (
+        endDate > defaultDate.setHours(defaultDate.getHours() + timeTableHours)
+      ) {
+        endMinutesSinceFirstHour = timeTableHours * 60;
       }
       console.log(startHours, startMinutes, endHours, endMinutes);
-      let newState = this.state[person];
-      newState.show = true;
+
       let appointment = {
-        startMinutes: startMinutesSinceEight,
-        duration: endMinutesSinceEight - startMinutesSinceEight
+        startMinutes: startMinutesSinceFirstHour,
+        duration: endMinutesSinceFirstHour - startMinutesSinceFirstHour
       };
       newState.appointments.push(appointment);
       this.setState({ [person]: newState });
@@ -172,8 +172,8 @@ class AvailabilityView extends React.Component {
 
   createTimeTable(classes) {
     const timeTable = [];
-    for (let hour = 8; hour <= 19; hour++) {
-      [':00', ':30'].forEach(minutes => {
+    for (let hour = firstHour; hour <= lastHour; hour++) {
+      timeTableTimeSteps.forEach(minutes => {
         timeTable.push(
           <div
             className={classes.timeTable}
@@ -213,9 +213,8 @@ class AvailabilityView extends React.Component {
             style={{
               left: personPosition.get(person),
               top:
-                (this.state[person].appointments[i].startMinutes / 60 / 12) *
-                  100 +
-                '%',
+                (this.state[person].appointments[i].startMinutes /
+                  60 / (timeTableHours + 0.5)) * 100 + '%',
               width: '15.5%',
               height:
                 (timeTableListHeight *
