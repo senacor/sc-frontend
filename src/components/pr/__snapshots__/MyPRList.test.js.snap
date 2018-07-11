@@ -153,18 +153,6 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                 </div>
               </WithStyles(MenuItem)>
               <WithStyles(MenuItem)
-                key="QUARTERLY"
-                value="QUARTERLY"
-              >
-                <div
-                  className="MyPRList-filterDesktop-5"
-                >
-                  <Translate
-                    content="QUARTERLY"
-                  />
-                </div>
-              </WithStyles(MenuItem)>
-              <WithStyles(MenuItem)
                 key="END_PROBATION"
                 value="END_PROBATION"
               >
