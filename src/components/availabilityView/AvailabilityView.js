@@ -173,6 +173,28 @@ class AvailabilityView extends React.Component {
     return timeTable;
   }
 
+  createAppointmentDiv(classes, person) {
+    const appointmentDiv = [];
+    const personPosition = new Map();
+    personPosition.set('employee', '15.5%');
+    personPosition.set('reviewer', '46.5%');
+    personPosition.set('supervisor', '77.5%');
+    appointmentDiv.push(
+      <div
+        id={'availabilitySupervisor'}
+        className={classes.appointmentDiv}
+        style={{
+          left: personPosition.get(person),
+          top: (this.state[person].appointmentStart / 60 / 12) * 100 + '%',
+          width: '15.5%',
+          height:
+            (timeTableListHeight * this.state[person].appointmentDuration) / 30
+        }}
+      />
+    );
+    return appointmentDiv;
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -244,46 +266,9 @@ class AvailabilityView extends React.Component {
           style={{ position: 'relative', top: 50 }}
         >
           <div>{timeTable}</div>
-          <div
-            id={'availabilityEmployee'}
-            className={classes.appointmentDiv}
-            style={{
-              left: '15.5%',
-              top: (this.state.employee.appointmentStart / 60 / 12) * 100 + '%',
-              width: '15.5%',
-              height:
-                (timeTableListHeight *
-                  this.state.employee.appointmentDuration) /
-                30
-            }}
-          />
-          <div
-            id={'availabilityReviewer'}
-            className={classes.appointmentDiv}
-            style={{
-              left: '46.5%',
-              top: (this.state.reviewer.appointmentStart / 60 / 12) * 100 + '%',
-              width: '15.5%',
-              height:
-                (timeTableListHeight *
-                  this.state.reviewer.appointmentDuration) /
-                30
-            }}
-          />
-          <div
-            id={'availabilitySupervisor'}
-            className={classes.appointmentDiv}
-            style={{
-              left: '77.5%',
-              top:
-                (this.state.supervisor.appointmentStart / 60 / 12) * 100 + '%',
-              width: '15.5%',
-              height:
-                (timeTableListHeight *
-                  this.state.supervisor.appointmentDuration) /
-                30
-            }}
-          />
+          {this.createAppointmentDiv(classes, 'employee')}
+          {this.createAppointmentDiv(classes, 'reviewer')}
+          {this.createAppointmentDiv(classes, 'supervisor')}
         </div>
       </div>
     );
