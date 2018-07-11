@@ -15,6 +15,7 @@ const firstHour = 8;
 const lastHour = 19;
 const timeTableTimeSteps = [':00', ':30'];
 const timeTableHours = 11.5;
+const persons = ['employee', 'reviewer', 'supervisor'];
 
 const styles = theme => ({
   root: {
@@ -75,7 +76,8 @@ class AvailabilityView extends React.Component {
         id: 1,
         show: false,
         appointments: [{}]
-      }
+      },
+      date: '2018-06-14T10:30'
     };
   }
 
@@ -110,14 +112,13 @@ class AvailabilityView extends React.Component {
     );
     console.log(appointments);
     let newState = this.state[person];
-    newState.show = true;
 
     if (appointments[0] === undefined) {
       this.setState({ [person]: newState });
       return;
     }
     for (let i = 0; i < appointments.length; i++) {
-      let defaultDate = new Date('2018-06-14T08:00');
+      let defaultDate = new Date(this.state.date);
       let startDate = new Date(appointments[i][0]);
       let endDate = new Date(appointments[i][1]);
       let startHours = startDate.getHours();
@@ -158,16 +159,28 @@ class AvailabilityView extends React.Component {
 
   handleToggle = person => {
     return event => {
-      this.setState({ [person]: event.target.checked });
       let newState = this.state[person];
-      if (this.state[person].show === false) {
-        this.setAppointmentStartAndDuration(person);
-      } else {
-        newState.show = false;
-        newState.appointments = [{}];
-        this.setState({ [person]: newState });
-      }
+      newState.show = !this.state[person].show;
+      this.setState({ [person]: event.target.checked, [person]: newState });
+      this.updateAppointments(person);
     };
+  };
+
+  updateAppointments(person) {
+    let newState = this.state[person];
+    newState.appointments = [{}];
+    this.setState({ [person]: newState });
+    if (this.state[person].show === true) {
+      this.setAppointmentStartAndDuration(person);
+    }
+  }
+
+  handleTimeChange = event => {
+    this.setState({ date: event.target.value });
+    persons.forEach(person => {
+      this.updateAppointments(person);
+    });
+    console.log('date: ' + event.target.value);
   };
 
   createTimeTable(classes) {
@@ -214,7 +227,10 @@ class AvailabilityView extends React.Component {
               left: personPosition.get(person),
               top:
                 (this.state[person].appointments[i].startMinutes /
-                  60 / (timeTableHours + 0.5)) * 100 + '%',
+                  60 /
+                  (timeTableHours + 0.5)) *
+                  100 +
+                '%',
               width: '15.5%',
               height:
                 (timeTableListHeight *
@@ -233,7 +249,7 @@ class AvailabilityView extends React.Component {
 
     const timeTable = this.createTimeTable(classes);
     const appointmentDivs = [];
-    ['employee', 'reviewer', 'supervisor'].forEach(person =>
+    persons.forEach(person =>
       appointmentDivs.push(this.createAppointmentDiv(classes, person))
     );
 
@@ -284,18 +300,21 @@ class AvailabilityView extends React.Component {
             </Table>
           </Grid>
           <Grid item xs={12} lg={9} sm={6}>
-            <form noValidate>
-              <TextField
-                id="datetime-local"
-                label="Terminvorschlag"
-                type="datetime-local"
-                defaultValue="2018-06-14T10:30"
-                className={classes.datePicker}
-                InputLabelProps={{
-                  shrink: true
-                }}
-              />
-            </form>
+            <div className="picker">
+              <form noValidate>
+                <TextField
+                  id="datetime-local"
+                  label="Terminvorschlag"
+                  type="datetime-local"
+                  defaultValue="2018-06-14T10:30"
+                  className={classes.datePicker}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  onChange={this.handleTimeChange}
+                />
+              </form>
+            </div>
           </Grid>
         </Grid>
         <div
