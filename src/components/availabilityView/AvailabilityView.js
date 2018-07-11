@@ -9,6 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
+import * as actions from '../../actions/index';
+import { default as fetch } from '../../helper/customFetch';
 
 const timeTableListHeight = 40;
 const firstHour = 8;
@@ -105,12 +107,7 @@ class AvailabilityView extends React.Component {
     }
   }
 
-  setAppointmentStartAndDuration(person) {
-    let appointments = this.getAppointments(
-      require('./test.json'),
-      this.state[person].id
-    );
-    console.log(appointments);
+  setAppointmentStartAndDuration(person, appointments) {
     let newState = this.state[person];
 
     if (appointments[0] === undefined) {
@@ -171,7 +168,7 @@ class AvailabilityView extends React.Component {
     newState.appointments = [{}];
     this.setState({ [person]: newState });
     if (this.state[person].show === true) {
-      this.setAppointmentStartAndDuration(person);
+      this.fetchAppointnments(person);
     }
   }
 
@@ -242,6 +239,20 @@ class AvailabilityView extends React.Component {
       }
     }
     return appointmentDiv;
+  }
+
+  async fetchAppointnments(person) {
+    await fetch(
+      'http://localhost:8010/api/v1/appointments?employees=1,2,3&date=2018-06-14'
+    )
+      .then(response => response.json())
+      .then(data => ({ data }))
+      .then(obj => {
+        return this.setAppointmentStartAndDuration(
+          person,
+          this.getAppointments(obj.data, this.state[person].id)
+        );
+      });
   }
 
   render() {
