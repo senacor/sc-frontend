@@ -9,9 +9,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
-import * as actions from '../../actions/appointments';
+import * as actions from '../../actions';
 import { default as fetch } from '../../helper/customFetch';
 import { connect } from 'react-redux';
+import { getAppointments } from '../../reducers/selector';
 
 const timeTableListHeight = 40;
 const firstHour = 8;
@@ -19,7 +20,6 @@ const lastHour = 19;
 const timeTableTimeSteps = [':00', ':30'];
 const timeTableHours = 11.5;
 const persons = ['employee', 'reviewer', 'supervisor'];
-let appointmentResponseData = [];
 
 const styles = theme => ({
   root: {
@@ -84,21 +84,21 @@ class AvailabilityView extends React.Component {
       appointmentResponse: {
         date: '2018-06-14T10:30',
         fetched: false
+      },
+      appointment: {
+        day: '2018-06-14'
       }
     };
   }
 
-  getAppointments(responseData, employeeId) {
-    let i;
+  getAppointments(responseData) {
+    persons.forEach(person => {
+      this.updateAppointments(person);
+    });
     let appointments = [];
-    for (i = 0; i < 3; i++) {
-      if (
-        responseData._embedded.exchangeOutlookResponseList[i].employeeId ===
-        employeeId.toString()
-      ) {
-        let responseList =
-          responseData._embedded.exchangeOutlookResponseList[i]
-            .exchangeOutlookAppointmentResponse;
+    if (responseData !== undefined) {
+      for (let i = 0; i < persons.length; i++) {
+        let responseList = responseData[i].exchangeOutlookAppointmentResponse;
         for (let j in responseList) {
           let appointment = [
             responseList[j].appointmentStartTime,
@@ -185,6 +185,7 @@ class AvailabilityView extends React.Component {
     let newState = this.state.appointmentResponse;
     newState.date = event.target.value.toLocaleString();
     this.setState({ newState });
+    this.fetchAppointments();
     console.log('state date: ' + this.state.date);
     let day = this.state.appointmentResponse.date.split('T')[0];
     console.log('day calendar: ' + day);
@@ -194,7 +195,7 @@ class AvailabilityView extends React.Component {
     console.log('date: ' + this.state.appointmentResponse.date);
   };
 
-  async fetchAppointments(person, day) {
+  /*async fetchAppointments(person, day) {
     await fetch(
       'http://localhost:8010/api/v1/appointments?employees=1,2,3&date=' + day
     )
@@ -210,6 +211,10 @@ class AvailabilityView extends React.Component {
           this.getAppointments(obj.data, this.state[person].id)
         );
       });
+  }*/
+
+  fetchAppointments() {
+    this.props.appointmentsSearch('1,2,3', this.state.appointment.day);
   }
 
   createTimeTable(classes) {
@@ -273,14 +278,20 @@ class AvailabilityView extends React.Component {
     return appointmentDiv;
   }
 
+  componentDidMount() {
+    this.fetchAppointments();
+  }
+
   render() {
-    const { classes, appointmentsSearch } = this.props;
+    const { classes, appointmentsSearchResults } = this.props;
 
     const timeTable = this.createTimeTable(classes);
     const appointmentDivs = [];
     persons.forEach(person =>
       appointmentDivs.push(this.createAppointmentDiv(classes, person))
     );
+
+    this.getAppointments(appointmentsSearchResults);
 
     return (
       <div id={'outer'} className={classes.root}>
@@ -365,7 +376,7 @@ AvailabilityView.propTypes = {
 export const StyledComponent = withStyles(styles)(AvailabilityView);
 export default connect(
   state => ({
-    appointmentsSearchResults: state.search.appointmentsSearchResults
+    appointmentsSearchResults: getAppointments(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch

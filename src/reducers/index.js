@@ -13,10 +13,10 @@ import { prRatings } from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
 import prEmployeeContributions from './employeeContributions';
-import appointmentsSearch from './appointments';
+import { appointmentsSearchResults } from './appointments';
 
 const app = combineReducers({
-  appointmentsSearch,
+  appointmentsSearchResults,
   tasks,
   editTasks,
   errors,
