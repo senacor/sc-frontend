@@ -13,6 +13,21 @@ export const getPrDetail = () => {
   );
 };
 
+export const getPrEmployeeContributions = type => {
+  return createSelector(
+    [state => state.prEmployeeContributions, getPrById],
+    (employeeContributions, prDetailId) =>
+      employeeContributions[prDetailId][type]
+  );
+};
+
+export const getPrRatings = type => {
+  return createSelector(
+    [state => state.prRatings, getPrById],
+    (prRatings, prDetailId) => prRatings[prDetailId][type]
+  );
+};
+
 export const getSortedPrs = () => {
   return createSelector([getAllPrs, getSortOrder], (prs, sortOrder) =>
     Array.from(prs).sort(dateSort(sortOrder))

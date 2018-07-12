@@ -2,46 +2,67 @@
 
 exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFLUENCE_OF_LEADER_AND_ENVIRONMENT 1`] = `
 <div>
-  <WithStyles(ListItem)
-    className="PrSheetEmployee-nestedListItem-3"
-  >
-    <WithStyles(ListItemText)
-      secondary="Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung"
-    />
-  </WithStyles(ListItem)>
   <WithStyles(List)
     className="PrSheetEmployee-nestedText-2"
     component="div"
     disablePadding={true}
   >
     <WithStyles(ListItem)>
-      <TextField
-        InputLabelProps={
-          Object {
-            "shrink": true,
-          }
-        }
-        InputProps={
-          Object {
-            "classes": Object {
-              "input": "PrSheetEmployee-bootstrapInput-1",
-            },
-            "disableUnderline": true,
-            "name": "comment",
-          }
-        }
-        fullWidth={true}
-        helperText="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
-        id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_CommentId"
-        margin="none"
-        multiline={true}
-        onChange={[Function]}
-        required={false}
-        rows="4"
-        rowsMax="4"
-        select={false}
-        value="hjkkkhgcghjjn"
-      />
+      <WithStyles(Grid)
+        container={true}
+        direction="column"
+      >
+        <WithStyles(Grid)
+          item={true}
+          lg={12}
+          md={12}
+          sm={12}
+          xl={12}
+          xs={12}
+        >
+          <WithStyles(Typography)
+            component="p"
+          >
+            Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung
+          </WithStyles(Typography)>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          lg={12}
+          md={12}
+          sm={12}
+          xl={12}
+          xs={12}
+        >
+          <TextField
+            InputLabelProps={
+              Object {
+                "shrink": true,
+              }
+            }
+            InputProps={
+              Object {
+                "classes": Object {
+                  "input": "PrSheetEmployee-bootstrapInput-1",
+                },
+                "disableUnderline": true,
+                "name": "comment",
+              }
+            }
+            fullWidth={true}
+            helperText="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
+            id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_CommentId"
+            margin="none"
+            multiline={true}
+            onChange={[Function]}
+            required={false}
+            rows="4"
+            rowsMax="4"
+            select={false}
+            value=""
+          />
+        </WithStyles(Grid)>
+      </WithStyles(Grid)>
     </WithStyles(ListItem)>
   </WithStyles(List)>
 </div>
@@ -49,46 +70,67 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
 
 exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE_AND_PROJECT_ENVIRONMENT  1`] = `
 <div>
-  <WithStyles(ListItem)
-    className="PrSheetEmployee-nestedListItem-3"
-  >
-    <WithStyles(ListItemText)
-      secondary="Rolle und Projektumfeld"
-    />
-  </WithStyles(ListItem)>
   <WithStyles(List)
     className="PrSheetEmployee-nestedText-2"
     component="div"
     disablePadding={true}
   >
     <WithStyles(ListItem)>
-      <TextField
-        InputLabelProps={
-          Object {
-            "shrink": true,
-          }
-        }
-        InputProps={
-          Object {
-            "classes": Object {
-              "input": "PrSheetEmployee-bootstrapInput-1",
-            },
-            "disableUnderline": true,
-            "name": "comment",
-          }
-        }
-        fullWidth={true}
-        helperText="Beschreibung Projekt, Aufgabe und Rolle"
-        id="ROLE_AND_PROJECT_ENVIRONMENT_CommentId"
-        margin="none"
-        multiline={true}
-        onChange={[Function]}
-        required={false}
-        rows="4"
-        rowsMax="4"
-        select={false}
-        value=""
-      />
+      <WithStyles(Grid)
+        container={true}
+        direction="column"
+      >
+        <WithStyles(Grid)
+          item={true}
+          lg={12}
+          md={12}
+          sm={12}
+          xl={12}
+          xs={12}
+        >
+          <WithStyles(Typography)
+            component="p"
+          >
+            Rolle und Projektumfeld
+          </WithStyles(Typography)>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          lg={12}
+          md={12}
+          sm={12}
+          xl={12}
+          xs={12}
+        >
+          <TextField
+            InputLabelProps={
+              Object {
+                "shrink": true,
+              }
+            }
+            InputProps={
+              Object {
+                "classes": Object {
+                  "input": "PrSheetEmployee-bootstrapInput-1",
+                },
+                "disableUnderline": true,
+                "name": "comment",
+              }
+            }
+            fullWidth={true}
+            helperText="Beschreibung Projekt, Aufgabe und Rolle"
+            id="ROLE_AND_PROJECT_ENVIRONMENT_CommentId"
+            margin="none"
+            multiline={true}
+            onChange={[Function]}
+            required={false}
+            rows="4"
+            rowsMax="4"
+            select={false}
+            value=""
+          />
+        </WithStyles(Grid)>
+      </WithStyles(Grid)>
     </WithStyles(ListItem)>
   </WithStyles(List)>
 </div>

@@ -18,13 +18,6 @@ const styles = theme => ({
 });
 
 class PrEmployment extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prById: this.props.prById
-    };
-  }
-
   render() {
     const { prById, classes } = this.props;
 
@@ -46,12 +39,11 @@ class PrEmployment extends React.Component {
                 </div>
               </ListItemText>
             </ListItem>
+            <Divider />
           </List>
         ) : (
           ''
         )}
-        <Divider />
-
         {prById.employee.employment.leaves.maternityLeave ? (
           <List>
             <ListItem>
@@ -82,11 +74,11 @@ class PrEmployment extends React.Component {
                 </div>
               </ListItemText>
             </ListItem>
+            <Divider />
           </List>
         ) : (
           ''
         )}
-        <Divider />
         {prById.employee.employment.leaves.parentalLeave ? (
           <List>
             <ListItem>
@@ -115,19 +107,17 @@ class PrEmployment extends React.Component {
                 </div>
               </ListItemText>
             </ListItem>
+            <Divider />
           </List>
         ) : (
           ''
         )}
-        <Divider />
         {prById.employee.employment.leaves.sabbatical ? (
           <List>
             <ListItem>
               <ListItemText>
                 <div>
-                  <Typography className={classes.title}>
-                    Forschungsurlaub:
-                  </Typography>
+                  <Typography className={classes.title}>Sabbatical:</Typography>
                   {prById.employee.employment.leaves.sabbatical.map(
                     sabbatical => {
                       return (
@@ -147,11 +137,11 @@ class PrEmployment extends React.Component {
                 </div>
               </ListItemText>
             </ListItem>
+            <Divider />
           </List>
         ) : (
           ''
         )}
-        <Divider />
         {prById.employee.employment.leaves.unpaidLeave ? (
           <List>
             <ListItem>

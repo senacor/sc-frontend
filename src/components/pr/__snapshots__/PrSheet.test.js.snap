@@ -14,7 +14,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       disablePadding={true}
     >
       <Connect(WithStyles(PrSheetEmployee))
-        category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+        category="ROLE_AND_PROJECT_ENVIRONMENT"
         prById={
           Object {
             "_links": Object {
@@ -191,7 +191,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         prVisible={true}
       />
       <Connect(WithStyles(PrSheetEmployee))
-        category="ROLE_AND_PROJECT_ENVIRONMENT"
+        category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
         prById={
           Object {
             "_links": Object {

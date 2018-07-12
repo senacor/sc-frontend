@@ -80,11 +80,18 @@ export const addEmployeeContribution = (
   );
 
   if (response.ok) {
-    const prReflectionSet = await response.json();
-
+    const result = await response.json();
+    const responseList = objectGet(
+      result,
+      '_embedded.prReflectionResponseList'
+    );
+    const prReflectionSet = responseList ? responseList : [];
     dispatch({
       type: ADD_TEXT_RESPONSE,
-      prReflectionSet
+      payload: {
+        prReflectionSet,
+        prId: prById.id
+      }
     });
   }
 };

@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
-import MyPRList from './pr/MyPRList';
 import AppBar from './AppBar/AppBar';
 import CstMembers from './cstmembers/CstMembers';
 import './App.css';
@@ -11,6 +10,7 @@ import Login from './login/Login';
 import PR from './pr/Pr';
 import Logout from './login/Logout';
 import Dashboard from './dashboard/Dashboard';
+import MyPerformanceReviews from './myPerformanceReviews/MyPerformanceReviews';
 
 const styles = {
   main: {
@@ -33,7 +33,7 @@ const withAppBarExtendedHeader = WrappedComponent => props => (
 
 const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
-const MyPRListWithAppBar = withAppBar(MyPRList);
+const MyPRListWithAppBar = withAppBar(MyPerformanceReviews);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);

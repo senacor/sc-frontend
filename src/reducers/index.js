@@ -12,7 +12,7 @@ import { cstMembers } from './cstMembers';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
-import prEmployeeContributions from './employeeContributions';
+import { prEmployeeContributions } from './employeeContributions';
 
 const app = combineReducers({
   tasks,
