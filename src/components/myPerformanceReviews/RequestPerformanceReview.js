@@ -14,6 +14,6 @@ export function RequestPerformanceReview(props) {
 }
 
 export default connect(
-  null,
+  state => {},
   { addPr: actions.addPr }
 )(RequestPerformanceReview);
