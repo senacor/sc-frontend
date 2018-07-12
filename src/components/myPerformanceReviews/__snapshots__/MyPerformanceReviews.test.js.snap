@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyPerformanceReviews should match snapshot 1`] = `
+<div>
+  <WithStyles(Typography)
+    paragraph={true}
+    variant="display1"
+  >
+    Performance Reviews
+  </WithStyles(Typography)>
+  <WithStyles(Grid)
+    container={true}
+    spacing={8}
+  >
+    <WithStyles(Grid)
+      item={true}
+      lg={3}
+      md={12}
+      sm={12}
+      xl={3}
+      xs={12}
+    >
+      <Connect(RequestPerformanceReview) />
+      <Connect(WithStyles(MyPerformanceReviewsList))
+        highlightPrDetail={true}
+      />
+    </WithStyles(Grid)>
+    <Hidden
+      implementation="js"
+      lgDown={false}
+      lgUp={false}
+      mdDown={true}
+      mdUp={false}
+      smDown={false}
+      smUp={false}
+      xlDown={false}
+      xlUp={false}
+      xsDown={false}
+      xsUp={false}
+    >
+      <WithStyles(Grid)
+        item={true}
+        lg={9}
+        xl={9}
+      >
+        <Connect(PerformanceReviewDetail) />
+      </WithStyles(Grid)>
+    </Hidden>
+  </WithStyles(Grid)>
+</div>
+`;

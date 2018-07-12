@@ -19,8 +19,8 @@ exports[`PrEmployment Component displays the PrEmployment 1`] = `
         </div>
       </WithStyles(ListItemText)>
     </WithStyles(ListItem)>
+    <WithStyles(Divider) />
   </WithStyles(List)>
-  <WithStyles(Divider) />
   <WithStyles(List)>
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)>
@@ -39,8 +39,8 @@ exports[`PrEmployment Component displays the PrEmployment 1`] = `
         </div>
       </WithStyles(ListItemText)>
     </WithStyles(ListItem)>
+    <WithStyles(Divider) />
   </WithStyles(List)>
-  <WithStyles(Divider) />
   <WithStyles(List)>
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)>
@@ -59,8 +59,8 @@ exports[`PrEmployment Component displays the PrEmployment 1`] = `
         </div>
       </WithStyles(ListItemText)>
     </WithStyles(ListItem)>
+    <WithStyles(Divider) />
   </WithStyles(List)>
-  <WithStyles(Divider) />
   <WithStyles(List)>
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)>
@@ -68,7 +68,7 @@ exports[`PrEmployment Component displays the PrEmployment 1`] = `
           <WithStyles(Typography)
             className="PrEmployment-title-1"
           >
-            Forschungsurlaub:
+            Sabbatical:
           </WithStyles(Typography)>
           <WithStyles(Typography)
             className="PrEmployment-listItems-2"
@@ -91,8 +91,8 @@ exports[`PrEmployment Component displays the PrEmployment 1`] = `
         </div>
       </WithStyles(ListItemText)>
     </WithStyles(ListItem)>
+    <WithStyles(Divider) />
   </WithStyles(List)>
-  <WithStyles(Divider) />
   <WithStyles(List)>
     <WithStyles(ListItem)>
       <WithStyles(ListItemText)>

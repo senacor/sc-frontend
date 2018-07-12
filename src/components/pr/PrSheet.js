@@ -13,6 +13,7 @@ import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';
 import objectGet from 'object-get';
+import { getPrDetail, getUserroles } from '../../reducers/selector';
 
 const styles = theme => ({
   containerVertical: {
@@ -91,6 +92,10 @@ class PrSheet extends React.Component {
   render() {
     const { prById, classes } = this.props;
 
+    if (!prById) {
+      return null;
+    }
+
     return (
       <div className={classes.containerVertical}>
         <List>
@@ -104,7 +109,7 @@ class PrSheet extends React.Component {
                 isEmployee(this.props.userroles) ||
                 this.state.visibilityToReviewer
               }
-              category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+              category="ROLE_AND_PROJECT_ENVIRONMENT"
             />
             <PrSheetEmployee
               prById={prById}
@@ -112,7 +117,7 @@ class PrSheet extends React.Component {
                 isEmployee(this.props.userroles) ||
                 this.state.visibilityToReviewer
               }
-              category="ROLE_AND_PROJECT_ENVIRONMENT"
+              category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
           </List>
           {isEmployee(this.props.userroles) ? (
@@ -272,7 +277,8 @@ class PrSheet extends React.Component {
 export const StyledComponent = withStyles(styles)(PrSheet);
 export default connect(
   state => ({
-    userroles: state.userroles
+    prById: getPrDetail()(state),
+    userroles: getUserroles(state)
   }),
   {
     setVisibilityById: actions.setVisibilityById

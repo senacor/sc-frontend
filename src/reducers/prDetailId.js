@@ -1,4 +1,5 @@
 import {
+  ADD_PR_RESPONSE,
   FETCH_PR_BY_ID_RESPONSE,
   FETCH_PRS_RESPONSE,
   SET_PR_DETAIL
@@ -17,6 +18,9 @@ export const prDetailId = (state = 0, action) => {
     }
     case SET_PR_DETAIL: {
       return action.prId;
+    }
+    case ADD_PR_RESPONSE: {
+      return action.pr.id;
     }
     default:
       return state;

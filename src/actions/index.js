@@ -98,7 +98,7 @@ export const addPr = () => async dispatch => {
       mode: 'cors',
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
-        supervisor: 'ttran',
+        supervisor: 'test.pr.vorgesetzter',
         deadline: moment().format('YYYY-MM-DD'),
         employeeId: 1
       })
@@ -171,5 +171,12 @@ export const changePrSortOrder = sortOrder => async dispatch => {
   dispatch({
     type: dispatchTypes.CHANGE_SORT_ORDER,
     sortOrder: sortOrder
+  });
+};
+
+export const setPrDetail = prId => async dispatch => {
+  dispatch({
+    type: dispatchTypes.SET_PR_DETAIL,
+    prId
   });
 };
