@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
 import EmployeeSearchDialog from '../employeeSearch/EmployeeSearchDialog';
+import Translate from '../translate/Translate';
+import { getAllPrs } from '../../reducers/selector';
 
 const styles = theme => ({
   container: {
@@ -70,21 +72,6 @@ export class PRList extends React.Component {
       open: false
     };
   }
-
-  translateStatus = status => {
-    switch (status) {
-      case 'PREPARATION':
-        return 'In Vorbereitung';
-      case 'EXECUTION':
-        return 'In Durchführung';
-      case 'POST_PROCESSING':
-        return 'Nachbearbeitung';
-      case 'DONE':
-        return 'Fertig';
-      default:
-        return 'In Vorbereitung';
-    }
-  };
 
   addReviewer = prId => {
     this.handleClickOpen();
@@ -163,7 +150,7 @@ export class PRList extends React.Component {
                     <div className={classes.controls}>
                       <Icon className={classes.mediaIcon}>linear_scale</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
-                        {this.translateStatus(pr.status)}
+                        <Translate content={pr.status} />
                       </Typography>
                     </div>
                     <div className={classes.controls}>
@@ -211,7 +198,7 @@ export class PRList extends React.Component {
 export const StyledComponent = withStyles(styles)(PRList);
 export default connect(
   state => ({
-    prs: state.prs.prsList,
+    prs: getAllPrs(state),
     isLoading: state.isLoading,
     username: state.userinfo.userPrincipalName
   }),

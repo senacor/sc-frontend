@@ -1,3 +1,4 @@
+import objectGet from 'object-get';
 import { default as fetch } from '../helper/customFetch';
 import { fetchPrById } from './index';
 import {
@@ -37,11 +38,16 @@ export const addRating = (
   );
 
   if (response.ok) {
-    const prRatings = await response.json();
+    const result = await response.json();
+    const responseList = objectGet(result, '_embedded.prRatingResponseList');
+    const prRatings = responseList ? responseList : [];
 
     dispatch({
       type: ADD_COMMENT_RESPONSE,
-      prRatings
+      payload: {
+        prId: prById.id,
+        prRatings
+      }
     });
   }
 };

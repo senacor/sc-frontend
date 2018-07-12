@@ -135,7 +135,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                 <div
                   className="MyPRList-filterDesktop-5"
                 >
-                  Auf Nachfrage
+                  <Translate
+                    content="ON_DEMAND"
+                  />
                 </div>
               </WithStyles(MenuItem)>
               <WithStyles(MenuItem)
@@ -145,17 +147,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                 <div
                   className="MyPRList-filterDesktop-5"
                 >
-                  Jährlich
-                </div>
-              </WithStyles(MenuItem)>
-              <WithStyles(MenuItem)
-                key="QUARTERLY"
-                value="QUARTERLY"
-              >
-                <div
-                  className="MyPRList-filterDesktop-5"
-                >
-                  Vierteljährlich
+                  <Translate
+                    content="YEARLY"
+                  />
                 </div>
               </WithStyles(MenuItem)>
               <WithStyles(MenuItem)
@@ -165,7 +159,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                 <div
                   className="MyPRList-filterDesktop-5"
                 >
-                  Ende der Probezeit
+                  <Translate
+                    content="END_PROBATION"
+                  />
                 </div>
               </WithStyles(MenuItem)>
             </WithStyles(Select)>
@@ -284,7 +280,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                   <div
                     className="MyPRList-filterDesktop-5"
                   >
-                    Auf Nachfrage
+                    <Translate
+                      content="ON_DEMAND"
+                    />
                   </div>
                 </WithStyles(MenuItem)>
                 <WithStyles(MenuItem)
@@ -294,17 +292,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                   <div
                     className="MyPRList-filterDesktop-5"
                   >
-                    Jährlich
-                  </div>
-                </WithStyles(MenuItem)>
-                <WithStyles(MenuItem)
-                  key="QUARTERLY"
-                  value="QUARTERLY"
-                >
-                  <div
-                    className="MyPRList-filterDesktop-5"
-                  >
-                    Vierteljährlich
+                    <Translate
+                      content="YEARLY"
+                    />
                   </div>
                 </WithStyles(MenuItem)>
                 <WithStyles(MenuItem)
@@ -314,7 +304,9 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
                   <div
                     className="MyPRList-filterDesktop-5"
                   >
-                    Ende der Probezeit
+                    <Translate
+                      content="END_PROBATION"
+                    />
                   </div>
                 </WithStyles(MenuItem)>
               </WithStyles(Select)>

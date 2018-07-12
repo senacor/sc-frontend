@@ -15,6 +15,8 @@ import * as actions from '../../actions';
 import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
 import { isEmployee } from '../../helper/checkRole';
+import { translateContent } from '../translate/Translate';
+import { getUserroles } from '../../reducers/selector';
 
 const styles = theme => ({
   nestedText: { paddingRight: '27px' },
@@ -111,29 +113,6 @@ class PrComment extends React.Component {
 
   sendComment = debounce(this.props.addRating, 500);
 
-  translateRatingDescription = ratingDescription => {
-    switch (ratingDescription) {
-      case 'PROBLEM_ANALYSIS':
-        return 'Problemanalyse und -lösung';
-      case 'WORK_RESULTS':
-        return 'Arbeitsergebnisse';
-      case 'WORKING_MANNER':
-        return 'Arbeitsweise';
-      case 'CONTRIBUTION_TO_COMPANY_DEVELOPMENT':
-        return 'Beitrag zur Unternehmensentwicklung';
-      case 'TEAMWORK':
-        return 'Effektives Arbeiten im Team und Teamführung';
-      case 'LEADERSHIP':
-        return 'Coaching, Leadership und Personalführung';
-      case 'CUSTOMER_INTERACTION':
-        return 'Kundeninteraktion und -veränderung';
-      case 'CUSTOMER_RETENTION':
-        return 'Kundenbindung und Mandatsgenerierung';
-      default:
-        return 'default';
-    }
-  };
-
   handleClick = () => {
     this.setState({
       isExpanded: !this.state.isExpanded
@@ -153,7 +132,7 @@ class PrComment extends React.Component {
           >
             <ListItemText
               id={`${category}_CommentDescription`}
-              secondary={this.translateRatingDescription(category)}
+              secondary={translateContent(category)}
             />
 
             <Icon
@@ -250,7 +229,7 @@ class PrComment extends React.Component {
 export const StyledComponent = withStyles(styles)(PrComment);
 export default connect(
   state => ({
-    userroles: state.userroles,
+    userroles: getUserroles(state),
     prRating: state.prRatings.prRating
   }),
   {
