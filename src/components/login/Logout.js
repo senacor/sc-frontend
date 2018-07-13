@@ -15,7 +15,7 @@ class Logout extends Component {
 }
 
 export default connect(
-  state => {},
+  state => ({}),
   {
     logout: actions.logout
   }

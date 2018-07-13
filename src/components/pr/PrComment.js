@@ -69,7 +69,6 @@ class PrComment extends React.Component {
 
     this.state = {
       prById: this.props.prById,
-      prVisible: this.props.prVisible,
       isExpanded: false
     };
   }
@@ -82,14 +81,14 @@ class PrComment extends React.Component {
     this.props.addRating(
       prById,
       category,
-      this.state.comment,
+      this.props.prRating.comment,
       event.target.value,
       this.props.prRating.id
     );
   };
 
   handleChangeComment = (prById, category) => event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ comment: event.target.value });
     this.props.prRating.comment = event.target.value;
 
     this.sendComment(
@@ -112,6 +111,10 @@ class PrComment extends React.Component {
   render() {
     const { prById, category, classes, prRating } = this.props;
 
+    if (!prRating) {
+      return null;
+    }
+
     return (
       <div className={this.state.isExpanded ? classes.expanded : ''}>
         <div className={classes.containerListItem}>
@@ -128,7 +131,7 @@ class PrComment extends React.Component {
             <Icon
               id={`${category}_CommentIconId`}
               className={
-                this.state.comment && this.state.prVisible
+                prRating.comment && this.props.prVisible
                   ? classes.iconComment
                   : classes.iconNoComment
               }
@@ -144,7 +147,7 @@ class PrComment extends React.Component {
                 className={classes.rating}
                 variant="body2"
               >
-                {this.state.prVisible ? prRating.rating : ''}
+                {this.props.prVisible ? prRating.rating : ''}
               </Typography>
             ) : (
               <FormControl className={classes.formControl}>
@@ -180,7 +183,7 @@ class PrComment extends React.Component {
                   className={classes.comment}
                   variant="body1"
                 >
-                  {prRating.comment && this.state.prVisible
+                  {prRating.comment && this.props.prVisible
                     ? '»' + prRating.comment + '«'
                     : ''}
                 </Typography>
@@ -193,7 +196,9 @@ class PrComment extends React.Component {
                   multiline
                   fullWidth
                   rowsMax="4"
-                  value={prRating.comment ? prRating.comment : ''}
+                  value={
+                    this.state.comment ? this.state.comment : prRating.comment
+                  }
                   onChange={this.handleChangeComment(prById, category)}
                   InputProps={{
                     disableUnderline: true,
