@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import PersonToggle from './PersonToggle';
 
 const timeTableListHeight = 40;
 const firstHourOfDay = 8;
@@ -74,6 +73,7 @@ class TimeTable extends React.Component {
   }
 
   createSingleAppointmentDiv(person, appointment, classes) {
+    console.log(appointment);
     const personPosition = new Map();
     personPosition.set('employee', '15.5%');
     personPosition.set('reviewer', '46.5%');
@@ -83,18 +83,20 @@ class TimeTable extends React.Component {
     } else {
       divIds++;
     }
-    return (
-      <div
-        key={'availability' + person + divIds.toString()} //needs an unique key
-        className={classes.appointmentDiv}
-        style={{
-          left: personPosition.get(person),
-          top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
-          width: '15.5%',
-          height: (timeTableListHeight * appointment[1]) / 30
-        }}
-      />
-    );
+    if (appointment) {
+      return (
+        <div
+          key={'availability' + person + divIds.toString()} //needs an unique key
+          className={classes.appointmentDiv}
+          style={{
+            left: personPosition.get(person),
+            top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
+            width: '15.5%',
+            height: (timeTableListHeight * appointment[1]) / 30
+          }}
+        />
+      );
+    }
   }
 
   createAppointmentDivs(
@@ -140,6 +142,7 @@ class TimeTable extends React.Component {
     }
     let startDate = new Date(appointments[0]);
     let endDate = new Date(appointments[1]);
+    console.log(appointments);
     let startHourAppointment = startDate.getHours();
     let endHourAppointment = endDate.getHours();
     let startMinutes = startDate.getMinutes();
@@ -162,10 +165,12 @@ class TimeTable extends React.Component {
       } else {
         endMinutesSinceFirstHour = timeTableHours * 60;
       }
-      return [
+      let appointmentStartAndDuration = [
         startMinutesSinceFirstHour,
         endMinutesSinceFirstHour - startMinutesSinceFirstHour
       ];
+      console.log(appointmentStartAndDuration);
+      return appointmentStartAndDuration;
     }
   }
 
@@ -197,12 +202,12 @@ class TimeTable extends React.Component {
   }
 }
 
-PersonToggle.propTypes = {
-  appointmentsEmployee: PropTypes.object.isRequired,
-  appointmentsReviewer: PropTypes.object.isRequired,
-  appointmentsSupervisor: PropTypes.object.isRequired
+TimeTable.propTypes = {
+  appointmentsEmployee: PropTypes.array.isRequired,
+  appointmentsReviewer: PropTypes.array.isRequired,
+  appointmentsSupervisor: PropTypes.array.isRequired
 };
-PersonToggle.defaultProps = {
+TimeTable.defaultProps = {
   appointmentsEmployee: [],
   appointmentsReviewer: [],
   appointmentsSupervisor: []

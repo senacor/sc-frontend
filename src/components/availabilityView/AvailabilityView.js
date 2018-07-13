@@ -73,7 +73,7 @@ class AvailabilityView extends React.Component {
       reviewer: {
         id: 2,
         show: false,
-        appointments: []
+        appointments: [{}]
       },
       supervisor: {
         id: 3,
@@ -263,16 +263,19 @@ class AvailabilityView extends React.Component {
   extractAppointmentsFromResponseForPersons(appointmentsSearchResults) {
     let newState = {};
     persons.forEach(person => {
-      if (appointmentsSearchResults[persons.indexOf(person)] === undefined) {
-      } else {
-        newState[person].appointments =
-          appointmentsSearchResults[
-            persons.indexOf(person)
-          ].exchangeOutlookAppointmentResponse;
+      if (appointmentsSearchResults[persons.indexOf(person)] !== undefined) {
+        newState[person] = {};
+        newState[person].appointments = this.extractAppointments(
+          appointmentsSearchResults[persons.indexOf(person)]
+            .exchangeOutlookAppointmentResponse
+        );
+        console.log(newState[person].appointments);
       }
     });
     this.setState(previousState => {
-
+      return persons.forEach(person =>
+        Object.assign(previousState[person], newState[person])
+      );
     });
   }
 
@@ -289,7 +292,11 @@ class AvailabilityView extends React.Component {
 
     const timeTable = this.createTimeTable(classes);
     const appointmentDivs = this.state.appointmentDivs;
+    this.extractAppointmentsFromResponseForPersons(appointmentsSearchResults);
     console.log('render');
+    console.log(this.state.employee.appointments);
+    console.log(this.state.reviewer.appointments);
+    console.log(this.state.supervisor.appointments);
 
     return (
       <div id={'outer'} className={classes.root}>
