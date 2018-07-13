@@ -5,6 +5,8 @@ export const translationMap = {
   DONE: 'Fertig',
   END_PROBATION: 'Ende der Probezeit',
   EXECUTION: 'In Durchführung',
+  FULFILLMENT_OF_REQUIREMENT:
+    'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
     'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung',
   LEADERSHIP: 'Coaching, Leadership und Personalführung',
@@ -17,6 +19,7 @@ export const translationMap = {
   PREPARATION: 'In Vorbereitung',
   PROBLEM_ANALYSIS: 'Problemanalyse und -lösung',
   ROLE_AND_PROJECT_ENVIRONMENT: 'Rolle und Projektumfeld',
+  TARGET_ROLE: 'Zielrolle (ab Senior Level ausfüllen)',
   TEAMWORK: 'Effektives Arbeiten im Team und Teamführung',
   WORKING_MANNER: 'Arbeitsweise',
   WORK_RESULTS: 'Arbeitsergebnisse',

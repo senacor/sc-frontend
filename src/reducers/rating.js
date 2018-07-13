@@ -1,5 +1,6 @@
 import {
   ADD_COMMENT_RESPONSE,
+  ADD_PR_RESPONSE,
   FETCH_PR_BY_ID_RESPONSE,
   FETCH_PRS_RESPONSE
 } from '../helper/dispatchTypes';
@@ -19,6 +20,11 @@ export const prRatings = (state = {}, action) => {
 
     case FETCH_PR_BY_ID_RESPONSE: {
       let pr = action.prById;
+      return cloneDeep(generateRatingsForOnePr(state, pr.id, pr.prRatingSet));
+    }
+
+    case ADD_PR_RESPONSE: {
+      let pr = action.pr;
       return cloneDeep(generateRatingsForOnePr(state, pr.id, pr.prRatingSet));
     }
 

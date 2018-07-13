@@ -3,198 +3,547 @@
 exports[`PrOverallAssessment Component should display fulfillment of requirement 1`] = `
 <div>
   <div
-    className="PrOverallAssessment-containerListItem-3"
+    className="PrOverallAssessment-containerListItem-1"
   >
-    <WithStyles(ListItem)>
-      <WithStyles(ListItemText)
-        className="PrOverallAssessment-nestedTextDescr-6"
-        secondary="Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe"
-      />
-      <WithStyles(FormControl)
-        className="PrOverallAssessment-nestedTextSelect-5"
-      >
-        <WithStyles(Select)
-          displayEmpty={true}
-          id="ratingFullfillmentId"
-          name="ratingFulfillment"
-          onChange={[Function]}
-          value={3}
-        >
-          <WithStyles(MenuItem)
-            id="_ratingFulfillmentValue1"
-            key="_ratingFulfillment1"
-            value={1}
-          >
-            nicht erfüllt
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingFulfillmentValue2"
-            key="_ratingFulfillment2"
-            value={2}
-          >
-            zT. nicht erfüllt
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingFulfillmentValue3"
-            key="_ratingFulfillment3"
-            value={3}
-          >
-            erfüllt
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingFulfillmentValue4"
-            key="_ratingFulfillment4"
-            value={4}
-          >
-            zT. übererfüllt
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingFulfillmentValue5"
-            key="_ratingFulfillment5"
-            value={5}
-          >
-            übererfüllt
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
-    </WithStyles(ListItem)>
+    <Connect(PrOverallFulfillment)
+      category="FULFILLMENT_OF_REQUIREMENT"
+      prById={
+        Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/prs/1",
+            },
+          },
+          "deadline": "2015-05-11",
+          "employee": Object {
+            "email": "lionel.schäfer@senacor.com",
+            "employment": Object {},
+            "entryDate": "2004-05-10",
+            "firstName": "Lionel",
+            "id": 1,
+            "lastName": "Schäfer",
+            "login": "lschäfer",
+            "salaries": Array [],
+            "title": "DR",
+          },
+          "id": 1,
+          "occasion": "ON_DEMAND",
+          "prRatingSet": Array [
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/29",
+                },
+              },
+              "comment": "Everything is awesome!!!",
+              "id": 29,
+              "prRatingCategory": "OVERALL_ASSESSMENT",
+              "prRatingDescription": "FULFILLMENT_OF_REQUIREMENT",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/22",
+                },
+              },
+              "comment": null,
+              "id": 22,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "WORK_RESULTS",
+              "rating": 4,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/24",
+                },
+              },
+              "comment": "Employee uses Attract. It is super effective!",
+              "id": 24,
+              "prRatingCategory": "IMPACT_ON_CUSTOMER",
+              "prRatingDescription": "CUSTOMER_INTERACTION",
+              "rating": 5,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/30",
+                },
+              },
+              "comment": null,
+              "id": 30,
+              "prRatingCategory": "OVERALL_ASSESSMENT",
+              "prRatingDescription": "TARGET_ROLE",
+              "rating": 2,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/26",
+                },
+              },
+              "comment": null,
+              "id": 26,
+              "prRatingCategory": "IMPACT_ON_TEAM",
+              "prRatingDescription": "LEADERSHIP",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/27",
+                },
+              },
+              "comment": null,
+              "id": 27,
+              "prRatingCategory": "IMPACT_ON_TEAM",
+              "prRatingDescription": "TEAMWORK",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/21",
+                },
+              },
+              "comment": null,
+              "id": 21,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "PROBLEM_ANALYSIS",
+              "rating": 4,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/23",
+                },
+              },
+              "comment": null,
+              "id": 23,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "WORKING_MANNER",
+              "rating": 2,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/25",
+                },
+              },
+              "comment": null,
+              "id": 25,
+              "prRatingCategory": "IMPACT_ON_CUSTOMER",
+              "prRatingDescription": "CUSTOMER_RETENTION",
+              "rating": 5,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/28",
+                },
+              },
+              "comment": null,
+              "id": 28,
+              "prRatingCategory": "IMPACT_ON_COMPANY",
+              "prRatingDescription": "CONTRIBUTION_TO_COMPANY_DEVELOPMENT",
+              "rating": 3,
+            },
+          ],
+          "prReflectionSet": Array [
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/reflections/5",
+                },
+              },
+              "id": 5,
+              "prReflectionField": "INFLUENCE_OF_LEADER_AND_ENVIRONMENT",
+              "text": "We went on a hike together and my leader showed me the mountains",
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/reflections/6",
+                },
+              },
+              "id": 6,
+              "prReflectionField": "ROLE_AND_PROJECT_ENVIRONMENT",
+              "text": "I am a hiker now",
+            },
+          ],
+          "prVisibilityEntry": Object {
+            "visibilityToEmployee": "INVISIBLE",
+            "visibilityToReviewer": "VISIBLE",
+          },
+          "status": "PREPARATION",
+          "supervisor": "ttran",
+        }
+      }
+      prVisible={false}
+    />
   </div>
   <div
-    className="PrOverallAssessment-containerListItem-3"
+    className="PrOverallAssessment-containerListItem-1"
   >
-    <WithStyles(ListItem)>
-      <WithStyles(ListItemText)
-        className="PrOverallAssessment-nestedTextDescr-6"
-        secondary="Zielrolle (ab Senior Level ausfüllen)"
-      />
-      <WithStyles(FormControl)
-        className="PrOverallAssessment-nestedTextSelect-5"
-      >
-        <WithStyles(Select)
-          displayEmpty={true}
-          id="ratingTargetRoleId"
-          name="ratingTargetRole"
-          onChange={[Function]}
-          value={2}
-        >
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole1"
-            key="_ratingTargetRole1"
-            value={1}
-          >
-            keine Auswahl
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole2"
-            key="_ratingTargetRole2"
-            value={2}
-          >
-            Platformgestalter
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole3"
-            key="_ratingTargetRole3"
-            value={3}
-          >
-            Business IT Solution Leader
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole4"
-            key="_ratingTargetRole4"
-            value={4}
-          >
-            Transformation Manager
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole5"
-            key="_ratingTargetRole5"
-            value={5}
-          >
-            IT-Liefersteuerer
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole6"
-            key="_ratingTargetRole6"
-            value={6}
-          >
-            Architect
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole7"
-            key="_ratingTargetRole7"
-            value={7}
-          >
-            Technical Expert
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole8"
-            key="_ratingTargetRole8"
-            value={8}
-          >
-            Lead Developer
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="_ratingTargetValueRole9"
-            key="_ratingTargetRole9"
-            value={9}
-          >
-            keine Auswahl
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
-    </WithStyles(ListItem)>
-  </div>
-  <WithStyles(List)
-    className="PrOverallAssessment-nestedText-1"
-    component="div"
-    disablePadding={true}
-  >
-    <WithStyles(ListItem)>
-      <WithStyles(ListItemText)
-        className="PrOverallAssessment-nestedTextInfo-7"
-        disableTypography={true}
-        secondary={
-          <WithStyles(Typography)
-            className="PrOverallAssessment-test-10"
-          >
-            Freitextfeld (bitte ausfüllen)
-          </WithStyles(Typography)>
-        }
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)>
-      <TextField
-        InputLabelProps={
-          Object {
-            "shrink": true,
-          }
-        }
-        InputProps={
-          Object {
-            "classes": Object {
-              "input": "PrOverallAssessment-bootstrapInput-2",
+    <Connect(TargetRole)
+      category="TARGET_ROLE"
+      prById={
+        Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/prs/1",
             },
-            "disableUnderline": true,
-            "name": "comment",
-          }
+          },
+          "deadline": "2015-05-11",
+          "employee": Object {
+            "email": "lionel.schäfer@senacor.com",
+            "employment": Object {},
+            "entryDate": "2004-05-10",
+            "firstName": "Lionel",
+            "id": 1,
+            "lastName": "Schäfer",
+            "login": "lschäfer",
+            "salaries": Array [],
+            "title": "DR",
+          },
+          "id": 1,
+          "occasion": "ON_DEMAND",
+          "prRatingSet": Array [
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/29",
+                },
+              },
+              "comment": "Everything is awesome!!!",
+              "id": 29,
+              "prRatingCategory": "OVERALL_ASSESSMENT",
+              "prRatingDescription": "FULFILLMENT_OF_REQUIREMENT",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/22",
+                },
+              },
+              "comment": null,
+              "id": 22,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "WORK_RESULTS",
+              "rating": 4,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/24",
+                },
+              },
+              "comment": "Employee uses Attract. It is super effective!",
+              "id": 24,
+              "prRatingCategory": "IMPACT_ON_CUSTOMER",
+              "prRatingDescription": "CUSTOMER_INTERACTION",
+              "rating": 5,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/30",
+                },
+              },
+              "comment": null,
+              "id": 30,
+              "prRatingCategory": "OVERALL_ASSESSMENT",
+              "prRatingDescription": "TARGET_ROLE",
+              "rating": 2,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/26",
+                },
+              },
+              "comment": null,
+              "id": 26,
+              "prRatingCategory": "IMPACT_ON_TEAM",
+              "prRatingDescription": "LEADERSHIP",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/27",
+                },
+              },
+              "comment": null,
+              "id": 27,
+              "prRatingCategory": "IMPACT_ON_TEAM",
+              "prRatingDescription": "TEAMWORK",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/21",
+                },
+              },
+              "comment": null,
+              "id": 21,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "PROBLEM_ANALYSIS",
+              "rating": 4,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/23",
+                },
+              },
+              "comment": null,
+              "id": 23,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "WORKING_MANNER",
+              "rating": 2,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/25",
+                },
+              },
+              "comment": null,
+              "id": 25,
+              "prRatingCategory": "IMPACT_ON_CUSTOMER",
+              "prRatingDescription": "CUSTOMER_RETENTION",
+              "rating": 5,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/28",
+                },
+              },
+              "comment": null,
+              "id": 28,
+              "prRatingCategory": "IMPACT_ON_COMPANY",
+              "prRatingDescription": "CONTRIBUTION_TO_COMPANY_DEVELOPMENT",
+              "rating": 3,
+            },
+          ],
+          "prReflectionSet": Array [
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/reflections/5",
+                },
+              },
+              "id": 5,
+              "prReflectionField": "INFLUENCE_OF_LEADER_AND_ENVIRONMENT",
+              "text": "We went on a hike together and my leader showed me the mountains",
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/reflections/6",
+                },
+              },
+              "id": 6,
+              "prReflectionField": "ROLE_AND_PROJECT_ENVIRONMENT",
+              "text": "I am a hiker now",
+            },
+          ],
+          "prVisibilityEntry": Object {
+            "visibilityToEmployee": "INVISIBLE",
+            "visibilityToReviewer": "VISIBLE",
+          },
+          "status": "PREPARATION",
+          "supervisor": "ttran",
         }
-        fullWidth={true}
-        id="FULFILLMENT_OF_REQUIREMENT"
-        multiline={true}
-        onChange={[Function]}
-        required={false}
-        rowsMax="4"
-        select={false}
-        value="Everything is awesome!!!"
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)>
-      <WithStyles(ListItemText)
-        className="PrOverallAssessment-description-4"
-        primary="Beschreibung"
-        secondary="In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund der aktuellen Einstufung? Welche Stärken gilt es auszubauen, welche Lücken sollten geschlossen werden?"
-      />
-    </WithStyles(ListItem)>
-  </WithStyles(List)>
+      }
+      prVisible={false}
+    />
+  </div>
+  <div
+    className="PrOverallAssessment-containerListItem-1"
+  >
+    <Connect(WithStyles(PrOverallComment))
+      category="FULFILLMENT_OF_REQUIREMENT"
+      prById={
+        Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/prs/1",
+            },
+          },
+          "deadline": "2015-05-11",
+          "employee": Object {
+            "email": "lionel.schäfer@senacor.com",
+            "employment": Object {},
+            "entryDate": "2004-05-10",
+            "firstName": "Lionel",
+            "id": 1,
+            "lastName": "Schäfer",
+            "login": "lschäfer",
+            "salaries": Array [],
+            "title": "DR",
+          },
+          "id": 1,
+          "occasion": "ON_DEMAND",
+          "prRatingSet": Array [
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/29",
+                },
+              },
+              "comment": "Everything is awesome!!!",
+              "id": 29,
+              "prRatingCategory": "OVERALL_ASSESSMENT",
+              "prRatingDescription": "FULFILLMENT_OF_REQUIREMENT",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/22",
+                },
+              },
+              "comment": null,
+              "id": 22,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "WORK_RESULTS",
+              "rating": 4,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/24",
+                },
+              },
+              "comment": "Employee uses Attract. It is super effective!",
+              "id": 24,
+              "prRatingCategory": "IMPACT_ON_CUSTOMER",
+              "prRatingDescription": "CUSTOMER_INTERACTION",
+              "rating": 5,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/30",
+                },
+              },
+              "comment": null,
+              "id": 30,
+              "prRatingCategory": "OVERALL_ASSESSMENT",
+              "prRatingDescription": "TARGET_ROLE",
+              "rating": 2,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/26",
+                },
+              },
+              "comment": null,
+              "id": 26,
+              "prRatingCategory": "IMPACT_ON_TEAM",
+              "prRatingDescription": "LEADERSHIP",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/27",
+                },
+              },
+              "comment": null,
+              "id": 27,
+              "prRatingCategory": "IMPACT_ON_TEAM",
+              "prRatingDescription": "TEAMWORK",
+              "rating": 3,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/21",
+                },
+              },
+              "comment": null,
+              "id": 21,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "PROBLEM_ANALYSIS",
+              "rating": 4,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/23",
+                },
+              },
+              "comment": null,
+              "id": 23,
+              "prRatingCategory": "PERFORMANCE_IN_PROJECT",
+              "prRatingDescription": "WORKING_MANNER",
+              "rating": 2,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/25",
+                },
+              },
+              "comment": null,
+              "id": 25,
+              "prRatingCategory": "IMPACT_ON_CUSTOMER",
+              "prRatingDescription": "CUSTOMER_RETENTION",
+              "rating": 5,
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/ratings/28",
+                },
+              },
+              "comment": null,
+              "id": 28,
+              "prRatingCategory": "IMPACT_ON_COMPANY",
+              "prRatingDescription": "CONTRIBUTION_TO_COMPANY_DEVELOPMENT",
+              "rating": 3,
+            },
+          ],
+          "prReflectionSet": Array [
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/reflections/5",
+                },
+              },
+              "id": 5,
+              "prReflectionField": "INFLUENCE_OF_LEADER_AND_ENVIRONMENT",
+              "text": "We went on a hike together and my leader showed me the mountains",
+            },
+            Object {
+              "_links": Object {
+                "self": Object {
+                  "href": "http://localhost:8010/api/v1/prs/3/reflections/6",
+                },
+              },
+              "id": 6,
+              "prReflectionField": "ROLE_AND_PROJECT_ENVIRONMENT",
+              "text": "I am a hiker now",
+            },
+          ],
+          "prVisibilityEntry": Object {
+            "visibilityToEmployee": "INVISIBLE",
+            "visibilityToReviewer": "VISIBLE",
+          },
+          "status": "PREPARATION",
+          "supervisor": "ttran",
+        }
+      }
+      prVisible={false}
+    />
+  </div>
 </div>
 `;
