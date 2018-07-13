@@ -111,6 +111,96 @@ class AvailabilityView extends React.Component {
     return appointments;
   }
 
+  handleToggle = (person, appointmentsSearchResults) => {
+    return event => {
+      let newState = this.state[person];
+      newState.show = !this.state[person].show;
+      this.setState({ [person]: event.target.checked, [person]: newState });
+      this.updateAppointments(appointmentsSearchResults);
+    };
+  };
+
+  handleTimeChange = event => {
+    let newState = this.state.appointmentResponse;
+    newState.date = event.target.value.toLocaleString();
+    this.setState({ newState });
+    this.fetchAppointments();
+    console.log('state date: ' + this.state.date);
+    let day = this.state.appointmentResponse.date.split('T')[0];
+    console.log('day calendar: ' + day);
+    /*persons.forEach(person => {
+      this.updateAppointments(person);
+    });*/
+    console.log('date: ' + this.state.appointmentResponse.date);
+  };
+
+  createTimeTable(classes) {
+    const timeTable = [];
+    for (let hour = firstHour; hour <= lastHour; hour++) {
+      timeTableTimeSteps.forEach(minutes => {
+        timeTable.push(
+          <div
+            className={classes.timeTable}
+            key={'time' + hour.toString() + minutes} //needs an unique key
+          >
+            <Typography className={classes.hours}>
+              {hour.toString() + minutes}
+            </Typography>
+            <hr className={classes.divider} style={{ maxWidth: '93%' }} />
+          </div>
+        );
+      });
+    }
+    return timeTable;
+  }
+
+  createAppointmentDiv(person, appointment) {
+    const appointmentDiv = [];
+    console.log(appointment);
+    const personPosition = new Map();
+    personPosition.set('employee', '15.5%');
+    personPosition.set('reviewer', '46.5%');
+    personPosition.set('supervisor', '77.5%');
+    if (appointment !== undefined) {
+      console.log(
+        'logging div creation: ' +
+          'startMinutes: ' +
+          appointment[0] +
+          ' duration: ' +
+          appointment[1]
+      );
+      if (divIds > 1000) {
+        divIds = 0;
+      } else {
+        divIds++;
+      }
+      appointmentDiv.push(
+        <div
+          key={'availability' + person + divIds.toString()} //needs an unique key
+          className={styles.appointmentDiv}
+          style={{
+            left: personPosition.get(person),
+            top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
+            width: '15.5%',
+            height: (timeTableListHeight * appointment[1]) / 30
+          }}
+        />
+      );
+    }
+    return appointmentDiv;
+  }
+
+  /*updateAppointments(person) {
+    let newState = this.state[person];
+    newState.appointments = [{}];
+    this.setState({ [person]: newState });
+    let day = this.state.appointmentResponse.date.split('T')[0];
+    console.log('day update: ' + day);
+    if (this.state[person].show === true) {
+      this.fetchAppointments(person, day);
+    }
+  }*/
+
   setAppointmentStartAndDuration(person, appointments) {
     let newState = this.state[person];
     let appointmentsForPerson = [];
@@ -154,129 +244,44 @@ class AvailabilityView extends React.Component {
     return appointmentsForPerson;
   }
 
-  handleToggle = (person, appointmentsSearchResults) => {
-    return event => {
-      let newState = this.state[person];
-      newState.show = !this.state[person].show;
-      this.setState({ [person]: event.target.checked, [person]: newState });
-      this.updateAppointments(appointmentsSearchResults);
-    };
-  };
-
-  /*updateAppointments(person) {
-    let newState = this.state[person];
-    newState.appointments = [{}];
-    this.setState({ [person]: newState });
-    let day = this.state.appointmentResponse.date.split('T')[0];
-    console.log('day update: ' + day);
-    if (this.state[person].show === true) {
-      this.fetchAppointments(person, day);
-    }
-  }*/
-
   updateAppointments(appointmentsSearchResults) {
     console.log(appointmentsSearchResults);
     let appointmentDivs = [];
     persons.forEach(person => {
       if (appointmentsSearchResults[persons.indexOf(person)] === undefined) {
-
       } else {
         let personAppointmentResults =
           appointmentsSearchResults[persons.indexOf(person)]
             .exchangeOutlookAppointmentResponse;
         console.log(personAppointmentResults);
-        console.log('personsResults' + person);
+        console.log('personsResults ' + person);
         let appointmentsForPerson = this.setAppointmentStartAndDuration(
           person,
           this.extractAppointments(personAppointmentResults)
         );
+        console.log(appointmentsForPerson);
         if (this.state[person].show) {
-          for (let appointment in appointmentsForPerson) {
+          for (let i = 0; i < appointmentsForPerson.length; i++) {
+            console.log('appintment to show:');
+            console.log(appointmentsForPerson[i]);
             appointmentDivs.push(
-              this.createAppointmentDiv(person, appointment)
+              this.createAppointmentDiv(person, appointmentsForPerson[i])
             );
+            console.log(appointmentDivs);
           }
         }
       }
     });
+    console.log(appointmentDivs);
     return appointmentDivs;
-  }
-
-  handleTimeChange = event => {
-    let newState = this.state.appointmentResponse;
-    newState.date = event.target.value.toLocaleString();
-    this.setState({ newState });
-    this.fetchAppointments();
-    console.log('state date: ' + this.state.date);
-    let day = this.state.appointmentResponse.date.split('T')[0];
-    console.log('day calendar: ' + day);
-    /*persons.forEach(person => {
-      this.updateAppointments(person);
-    });*/
-    console.log('date: ' + this.state.appointmentResponse.date);
-  };
-
-  fetchAppointments() {
-    this.props.appointmentsSearch('1,2,3', this.state.appointment.day);
-  }
-
-  createTimeTable(classes) {
-    const timeTable = [];
-    for (let hour = firstHour; hour <= lastHour; hour++) {
-      timeTableTimeSteps.forEach(minutes => {
-        timeTable.push(
-          <div
-            className={classes.timeTable}
-            key={'time' + hour.toString() + minutes} //needs an unique key
-          >
-            <Typography className={classes.hours}>
-              {hour.toString() + minutes}
-            </Typography>
-            <hr className={classes.divider} style={{ maxWidth: '93%' }} />
-          </div>
-        );
-      });
-    }
-    return timeTable;
-  }
-
-  createAppointmentDiv(person, appointment) {
-    const appointmentDiv = [];
-    const personPosition = new Map();
-    personPosition.set('employee', '15.5%');
-    personPosition.set('reviewer', '46.5%');
-    personPosition.set('supervisor', '77.5%');
-    if (appointment !== undefined) {
-      console.log(
-        'logging div creation: ' +
-          'startMinutes: ' +
-          appointment[0] +
-          ' duration: ' +
-          appointment[1]
-      );
-      if (divIds > 1000) {
-        divIds = 0;
-      } else {
-        divIds++;
-      }
-      appointmentDiv.push(
-        <div
-          key={'availability' + person + divIds.toString()} //needs an unique key
-          className={styles.appointmentDiv}
-          style={{
-            left: personPosition.get(person),
-            top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
-            width: '15.5%',
-            height: (timeTableListHeight * appointment[1]) / 30
-          }}
-        />
-      );
-    }
-    return appointmentDiv;
   }
 
   componentDidMount() {
     this.fetchAppointments();
+  }
+
+  fetchAppointments() {
+    this.props.appointmentsSearch('1,2,3', this.state.appointment.day);
   }
 
   render() {
