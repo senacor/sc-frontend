@@ -73,17 +73,17 @@ class AvailabilityView extends React.Component {
       reviewer: {
         id: 2,
         show: false,
-        appointments: [{}]
+        appointments: []
       },
       supervisor: {
         id: 3,
         show: false,
-        appointments: [{}]
+        appointments: []
       },
       employee: {
         id: 1,
         show: false,
-        appointments: [{}]
+        appointments: []
       },
       selectedDay: '2018-06-14',
       appointmentDivs: []
@@ -260,6 +260,22 @@ class AvailabilityView extends React.Component {
     this.setState({ appointmentDivs: appointmentDivs });
   }
 
+  extractAppointmentsFromResponseForPersons(appointmentsSearchResults) {
+    let newState = {};
+    persons.forEach(person => {
+      if (appointmentsSearchResults[persons.indexOf(person)] === undefined) {
+      } else {
+        newState[person].appointments =
+          appointmentsSearchResults[
+            persons.indexOf(person)
+          ].exchangeOutlookAppointmentResponse;
+      }
+    });
+    this.setState(previousState => {
+
+    });
+  }
+
   componentDidMount() {
     this.fetchAppointments();
   }
@@ -366,9 +382,9 @@ class AvailabilityView extends React.Component {
         />
         <DatePicker onChange={console.log} />
         <TimeTable
-          appointmentsEmployee={[]}
-          appointmentsReviewer={[]}
-          appointmentsSupervisor={[]}
+          appointmentsEmployee={this.state.employee.appointments}
+          appointmentsReviewer={this.state.reviewer.appointments}
+          appointmentsSupervisor={this.state.supervisor.appointments}
         />
       </div>
     );
