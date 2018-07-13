@@ -11,6 +11,14 @@ export const getEvents = () => async dispatch => {
     const data = await response.json();
     const events = data._embedded ? data._embedded.eventResponseList : [];
 
+    events.forEach(event => {
+      event.text = replaceParametersInDefaultText(
+        event.eventTypeResponse.eventTypeParamResponseSet,
+        event.eventTypeResponse.defaultText
+      );
+      delete event.eventTypeResponse;
+    });
+
     dispatch({
       type: FETCHED_EVENTS,
       events
@@ -21,4 +29,18 @@ export const getEvents = () => async dispatch => {
       httpCode: response.status
     });
   }
+};
+
+export const replaceParametersInDefaultText = (
+  paramList = [],
+  defaultText = ''
+) => {
+  let result = defaultText;
+  paramList.forEach(parameter => {
+    result = result.replace(
+      '{' + parameter.textParam + '}',
+      parameter.textValue
+    );
+  });
+  return result;
 };

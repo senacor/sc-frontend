@@ -34,7 +34,7 @@ class EventList extends Component {
                 className={classes.chip}
               />
               <Divider />
-              <ListItemText primary={`${event.eventType}`} />
+              <ListItemText primary={`${event.text}`} />
             </ListItem>
           );
         })}
