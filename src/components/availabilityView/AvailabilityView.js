@@ -10,13 +10,14 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
 import * as actions from '../../actions';
-import { default as fetch } from '../../helper/customFetch';
 import { connect } from 'react-redux';
 import { getAppointments } from '../../reducers/selector';
+import moment from 'moment';
+import PersonToggle from './PersonToggle';
 
 const timeTableListHeight = 40;
-const firstHour = 8;
-const lastHour = 19;
+const firstHourOfDay = 8;
+const lastHourOfDay = 19;
 const timeTableTimeSteps = [':00', ':30'];
 const timeTableHours = 11.5;
 const persons = ['employee', 'reviewer', 'supervisor'];
@@ -82,61 +83,32 @@ class AvailabilityView extends React.Component {
         show: false,
         appointments: [{}]
       },
-      appointmentResponse: {
-        date: '2018-06-14T10:30',
-        fetched: false
-      },
-      appointment: {
-        day: '2018-06-14'
-      },
+      selectedDay: '2018-06-14',
       appointmentDivs: []
     };
-  }
-
-  extractAppointments(personAppointmentResults) {
-    let appointments = [];
-    if (personAppointmentResults[0] == undefined) {
-      return;
-    } else {
-      for (let j in personAppointmentResults) {
-        let appointment = [
-          personAppointmentResults[j].appointmentStartTime,
-          personAppointmentResults[j].appointmentEndTime
-        ];
-        appointments[j] = appointment;
-        console.log(appointment);
-      }
-    }
-    console.log('appointments: ' + appointments);
-    return appointments;
   }
 
   handleToggle = (person, appointmentsSearchResults, classes) => {
     return event => {
       let newState = this.state[person];
       newState.show = !this.state[person].show;
-      this.setState({ [person]: event.target.checked, [person]: newState });
+      this.setState({ [person]: newState });
       this.updateAppointments(appointmentsSearchResults, classes);
     };
   };
 
   handleTimeChange = event => {
-    let newState = this.state.appointmentResponse;
-    newState.date = event.target.value.toLocaleString();
-    this.setState({ newState });
+    let newDate = moment(event.target.value).format('YYYY-MM-DD');
+    console.log(newDate);
+    this.setState({ selectedDay: newDate });
+    this.state.selectedDay = newDate;
+    console.log(this.state.selectedDay);
     this.fetchAppointments();
-    console.log('state date: ' + this.state.date);
-    let day = this.state.appointmentResponse.date.split('T')[0];
-    console.log('day calendar: ' + day);
-    /*persons.forEach(person => {
-      this.updateAppointments(person);
-    });*/
-    console.log('date: ' + this.state.appointmentResponse.date);
   };
 
   createTimeTable(classes) {
     const timeTable = [];
-    for (let hour = firstHour; hour <= lastHour; hour++) {
+    for (let hour = firstHourOfDay; hour <= lastHourOfDay; hour++) {
       timeTableTimeSteps.forEach(minutes => {
         timeTable.push(
           <div
@@ -156,19 +128,11 @@ class AvailabilityView extends React.Component {
 
   createAppointmentDiv(person, appointment, classes) {
     let appointmentDiv;
-    console.log(appointment);
     const personPosition = new Map();
     personPosition.set('employee', '15.5%');
     personPosition.set('reviewer', '46.5%');
     personPosition.set('supervisor', '77.5%');
     if (appointment !== undefined) {
-      console.log(
-        'logging div creation: ' +
-          'startMinutes: ' +
-          appointment[0] +
-          ' duration: ' +
-          appointment[1]
-      );
       if (divIds > 1000) {
         divIds = 0;
       } else {
@@ -190,33 +154,22 @@ class AvailabilityView extends React.Component {
     return appointmentDiv;
   }
 
-  /*updateAppointments(person) {
-    let newState = this.state[person];
-    newState.appointments = [{}];
-    this.setState({ [person]: newState });
-    let day = this.state.appointmentResponse.date.split('T')[0];
-    console.log('day update: ' + day);
-    if (this.state[person].show === true) {
-      this.fetchAppointments(person, day);
-    }
-  }*/
-
   setAppointmentStartAndDuration(person, appointments) {
     let appointmentsForPerson = [];
     if (appointments === undefined) {
       return;
     }
     for (let i = 0; i < appointments.length; i++) {
-      let defaultDate = new Date(this.state.appointmentResponse.date);
+      //let requestedDate = new Date(this.state.appointmentResponse.date);
       let startDate = new Date(appointments[i][0]);
       let endDate = new Date(appointments[i][1]);
-      let startHours = startDate.getHours();
-      let endHours = endDate.getHours();
+      let startHourAppointment = startDate.getHours();
+      let endHourAppointment = endDate.getHours();
       let startMinutes = startDate.getMinutes();
       let endMinutes = endDate.getMinutes();
       let startMinutesSinceFirstHour = 0;
       let endMinutesSinceFirstHour = 0;
-      if (startDate >= defaultDate) {
+      /*if (startDate >= defaultDate) {
         startMinutesSinceFirstHour =
           (startHours - firstHour) * 60 + startMinutes;
       }
@@ -230,21 +183,54 @@ class AvailabilityView extends React.Component {
         endDate > defaultDate.setHours(defaultDate.getHours() + timeTableHours)
       ) {
         endMinutesSinceFirstHour = timeTableHours * 60;
+      }*/
+      let appointment = [];
+      if (
+        startHourAppointment < lastHourOfDay &&
+        endHourAppointment > firstHourOfDay
+      ) {
+        if (startHourAppointment <= firstHourOfDay) {
+          startMinutesSinceFirstHour = 0;
+        } else {
+          startMinutesSinceFirstHour =
+            (startHourAppointment - firstHourOfDay) * 60 + startMinutes;
+        }
+        if (endHourAppointment <= lastHourOfDay) {
+          endMinutesSinceFirstHour =
+            (endHourAppointment - firstHourOfDay) * 60 + endMinutes;
+        } else {
+          endMinutesSinceFirstHour = timeTableHours * 60;
+        }
+        appointment = [
+          startMinutesSinceFirstHour,
+          endMinutesSinceFirstHour - startMinutesSinceFirstHour
+        ];
       }
-      console.log(startHours, startMinutes, endHours, endMinutes);
-      let appointment = [
-        startMinutesSinceFirstHour,
-        endMinutesSinceFirstHour - startMinutesSinceFirstHour
-      ];
-      console.log(appointment);
-      appointmentsForPerson.push(appointment);
+      if (appointment.length > 0) {
+        appointmentsForPerson.push(appointment);
+        console.log(appointment);
+      }
     }
-    console.log(appointmentsForPerson);
     return appointmentsForPerson;
   }
 
+  extractAppointments(personAppointmentResults) {
+    let appointments = [];
+    if (personAppointmentResults[0] == undefined) {
+      return;
+    } else {
+      for (let j in personAppointmentResults) {
+        let appointment = [
+          personAppointmentResults[j].appointmentStartTime,
+          personAppointmentResults[j].appointmentEndTime
+        ];
+        appointments[j] = appointment;
+      }
+    }
+    return appointments;
+  }
+
   updateAppointments(appointmentsSearchResults, classes) {
-    console.log(appointmentsSearchResults);
     let appointmentDivs = [];
     persons.forEach(person => {
       if (appointmentsSearchResults[persons.indexOf(person)] === undefined) {
@@ -252,17 +238,12 @@ class AvailabilityView extends React.Component {
         let personAppointmentResults =
           appointmentsSearchResults[persons.indexOf(person)]
             .exchangeOutlookAppointmentResponse;
-        console.log(personAppointmentResults);
-        console.log('personsResults ' + person);
         let appointmentsForPerson = this.setAppointmentStartAndDuration(
           person,
           this.extractAppointments(personAppointmentResults)
         );
-        console.log(appointmentsForPerson);
         if (this.state[person].show) {
           for (let i = 0; i < appointmentsForPerson.length; i++) {
-            console.log('appintment to show:');
-            console.log(appointmentsForPerson[i]);
             appointmentDivs.push(
               this.createAppointmentDiv(
                 person,
@@ -270,13 +251,10 @@ class AvailabilityView extends React.Component {
                 classes
               )
             );
-            console.log(appointmentDivs);
           }
         }
       }
     });
-    console.log(appointmentDivs);
-    console.log(styles => appointmentDivs);
     this.setState({ appointmentDivs: appointmentDivs });
   }
 
@@ -285,16 +263,15 @@ class AvailabilityView extends React.Component {
   }
 
   fetchAppointments() {
-    this.props.appointmentsSearch('1,2,3', this.state.appointment.day);
+    this.props.appointmentsSearch('1,2,3', this.state.selectedDay);
   }
 
   render() {
     const { classes, appointmentsSearchResults } = this.props;
 
     const timeTable = this.createTimeTable(classes);
-    console.log(timeTable);
     const appointmentDivs = this.state.appointmentDivs;
-    console.log(appointmentDivs);
+    console.log('render');
 
     return (
       <div id={'outer'} className={classes.root}>
@@ -379,6 +356,13 @@ class AvailabilityView extends React.Component {
           <div>{timeTable}</div>
           {appointmentDivs}
         </div>
+        <PersonToggle
+          classes={classes.root}
+          onChange={console.log}
+          showEmployee={true}
+          showReviewer={true}
+          showSupervisor={false}
+        />
       </div>
     );
   }
