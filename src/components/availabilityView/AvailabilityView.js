@@ -90,6 +90,13 @@ class AvailabilityView extends React.Component {
     };
   }
 
+  onVisibilityChange = visibilies => {
+    const { showEmployee, showReviewer, showSupervisor } = visibilies;
+    let newState = {};
+
+    this.setState();
+  };
+
   handleToggle = (person, appointmentsSearchResults, classes) => {
     return event => {
       let newState = this.state[person];
@@ -185,6 +192,14 @@ class AvailabilityView extends React.Component {
         endDate > defaultDate.setHours(defaultDate.getHours() + timeTableHours)
       ) {
         endMinutesSinceFirstHour = timeTableHours * 60;
+        this.setState(previousState => {
+      persons.forEach(person => {
+        newState[person] = Object.assign(
+          previousState[person],
+          newState[person]
+        );
+      });
+      return newState;
       }*/
       let appointment = [];
       if (
@@ -260,23 +275,18 @@ class AvailabilityView extends React.Component {
     this.setState({ appointmentDivs: appointmentDivs });
   }
 
-  extractAppointmentsFromResponseForPersons(appointmentsSearchResults) {
-    let newState = {};
-    persons.forEach(person => {
-      if (appointmentsSearchResults[persons.indexOf(person)] !== undefined) {
-        newState[person] = {};
-        newState[person].appointments = this.extractAppointments(
-          appointmentsSearchResults[persons.indexOf(person)]
-            .exchangeOutlookAppointmentResponse
-        );
-        console.log(newState[person].appointments);
-      }
-    });
-    this.setState(previousState => {
-      return persons.forEach(person =>
-        Object.assign(previousState[person], newState[person])
-      );
-    });
+  extractAppointmentsFromSearchResultsForPerson(person) {
+    if (
+      this.props.appointmentsSearchResults[persons.indexOf(person)] ===
+        undefined ||
+      !this.state[person].show
+    ) {
+      return [];
+    }
+    return this.extractAppointments(
+      this.props.appointmentsSearchResults[persons.indexOf(person)]
+        .exchangeOutlookAppointmentResponse
+    );
   }
 
   componentDidMount() {
@@ -292,11 +302,7 @@ class AvailabilityView extends React.Component {
 
     const timeTable = this.createTimeTable(classes);
     const appointmentDivs = this.state.appointmentDivs;
-    this.extractAppointmentsFromResponseForPersons(appointmentsSearchResults);
     console.log('render');
-    console.log(this.state.employee.appointments);
-    console.log(this.state.reviewer.appointments);
-    console.log(this.state.supervisor.appointments);
 
     return (
       <div id={'outer'} className={classes.root}>
@@ -382,16 +388,22 @@ class AvailabilityView extends React.Component {
           {appointmentDivs}
         </div>
         <PersonToggle
-          onChange={console.log}
+          onChange={this.onVisibilityChange}
           showEmployee={true}
           showReviewer={true}
           showSupervisor={false}
         />
         <DatePicker onChange={console.log} />
         <TimeTable
-          appointmentsEmployee={this.state.employee.appointments}
-          appointmentsReviewer={this.state.reviewer.appointments}
-          appointmentsSupervisor={this.state.supervisor.appointments}
+          appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
+            'employee'
+          )}
+          appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
+            'reviewer'
+          )}
+          appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
+            'supervisor'
+          )}
         />
       </div>
     );
