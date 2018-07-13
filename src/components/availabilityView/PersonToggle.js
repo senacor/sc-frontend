@@ -7,13 +7,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
-import { withStyles } from '@material-ui/core/styles/index';
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  }
-});
 
 class PersonToggle extends React.Component {
   constructor(props) {
@@ -94,7 +87,6 @@ class PersonToggle extends React.Component {
 }
 
 PersonToggle.propTypes = {
-  classes: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   showReviewer: PropTypes.bool,
   showEmployee: PropTypes.bool,

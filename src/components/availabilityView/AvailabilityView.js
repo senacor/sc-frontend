@@ -14,6 +14,8 @@ import { connect } from 'react-redux';
 import { getAppointments } from '../../reducers/selector';
 import moment from 'moment';
 import PersonToggle from './PersonToggle';
+import DatePicker from './DatePicker';
+import TimeTable from './TimeTable';
 
 const timeTableListHeight = 40;
 const firstHourOfDay = 8;
@@ -357,11 +359,16 @@ class AvailabilityView extends React.Component {
           {appointmentDivs}
         </div>
         <PersonToggle
-          classes={classes.root}
           onChange={console.log}
           showEmployee={true}
           showReviewer={true}
           showSupervisor={false}
+        />
+        <DatePicker onChange={console.log} />
+        <TimeTable
+          appointmentsEmployee={[]}
+          appointmentsReviewer={[]}
+          appointmentsSupervisor={[]}
         />
       </div>
     );

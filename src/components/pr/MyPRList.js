@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import styles from './MyPRListStyle';
 import MyPRListFilterDialog from './MyPRListFilterDialog';
 import { default as MyPRListItem } from './MyPRListItem';
-import AvailabilityViewDialog from '../availabilityView/AvailabilityViewDialog';
 import List from '@material-ui/core/List';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -264,7 +263,6 @@ export class MyPRList extends React.Component {
                   id="availabilityViewButton"
                   className={classes.buttonDesktop}
                   variant="raised"
-                  onClick={this.openAvailabilityViewDialog}
                 >
                   <Icon className={classes.leftIcon}>add</Icon>
                   Terminverfügbarkeit
@@ -376,16 +374,10 @@ export class MyPRList extends React.Component {
             aria-label="add"
             className={classes.buttonMobile}
             onClick={this.handleClick}
-            href={'/availabilityview'}
           >
             <AddIcon />
           </Button>
         </Hidden>
-        <AvailabilityViewDialog
-          open={this.state.open}
-          handleClose={this.handleClose}
-          selectAppointment={this.selectAppointment}
-        />
       </div>
     );
   }
