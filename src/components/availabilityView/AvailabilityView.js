@@ -21,7 +21,6 @@ const timeTableTimeSteps = [':00', ':30'];
 const timeTableHours = 11.5;
 const persons = ['employee', 'reviewer', 'supervisor'];
 let divIds = 0;
-let appointmentDivs = [];
 
 const styles = theme => ({
   root: {
@@ -30,12 +29,6 @@ const styles = theme => ({
   datePicker: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
-  },
-  appointmentDiv: {
-    borderRadius: 10,
-    background: '#4d8087',
-    height: timeTableListHeight,
-    position: 'absolute'
   },
   timeTable: {
     height: timeTableListHeight
@@ -58,6 +51,12 @@ const styles = theme => ({
   hours: {
     position: 'relative',
     top: -10
+  },
+  appointmentDiv: {
+    borderRadius: 10,
+    background: '#4d8087',
+    height: timeTableListHeight,
+    position: 'absolute'
   }
 });
 
@@ -89,7 +88,8 @@ class AvailabilityView extends React.Component {
       },
       appointment: {
         day: '2018-06-14'
-      }
+      },
+      appointmentDivs: []
     };
   }
 
@@ -111,12 +111,12 @@ class AvailabilityView extends React.Component {
     return appointments;
   }
 
-  handleToggle = (person, appointmentsSearchResults) => {
+  handleToggle = (person, appointmentsSearchResults, classes) => {
     return event => {
       let newState = this.state[person];
       newState.show = !this.state[person].show;
       this.setState({ [person]: event.target.checked, [person]: newState });
-      this.updateAppointments(appointmentsSearchResults);
+      this.updateAppointments(appointmentsSearchResults, classes);
     };
   };
 
@@ -154,8 +154,8 @@ class AvailabilityView extends React.Component {
     return timeTable;
   }
 
-  createAppointmentDiv(person, appointment) {
-    const appointmentDiv = [];
+  createAppointmentDiv(person, appointment, classes) {
+    let appointmentDiv;
     console.log(appointment);
     const personPosition = new Map();
     personPosition.set('employee', '15.5%');
@@ -174,10 +174,10 @@ class AvailabilityView extends React.Component {
       } else {
         divIds++;
       }
-      appointmentDiv.push(
+      appointmentDiv = (
         <div
           key={'availability' + person + divIds.toString()} //needs an unique key
-          className={styles.appointmentDiv}
+          className={classes.appointmentDiv}
           style={{
             left: personPosition.get(person),
             top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
@@ -202,7 +202,6 @@ class AvailabilityView extends React.Component {
   }*/
 
   setAppointmentStartAndDuration(person, appointments) {
-    let newState = this.state[person];
     let appointmentsForPerson = [];
     if (appointments === undefined) {
       return;
@@ -244,7 +243,7 @@ class AvailabilityView extends React.Component {
     return appointmentsForPerson;
   }
 
-  updateAppointments(appointmentsSearchResults) {
+  updateAppointments(appointmentsSearchResults, classes) {
     console.log(appointmentsSearchResults);
     let appointmentDivs = [];
     persons.forEach(person => {
@@ -265,7 +264,11 @@ class AvailabilityView extends React.Component {
             console.log('appintment to show:');
             console.log(appointmentsForPerson[i]);
             appointmentDivs.push(
-              this.createAppointmentDiv(person, appointmentsForPerson[i])
+              this.createAppointmentDiv(
+                person,
+                appointmentsForPerson[i],
+                classes
+              )
             );
             console.log(appointmentDivs);
           }
@@ -273,7 +276,8 @@ class AvailabilityView extends React.Component {
       }
     });
     console.log(appointmentDivs);
-    return appointmentDivs;
+    console.log(styles => appointmentDivs);
+    this.setState({ appointmentDivs: appointmentDivs });
   }
 
   componentDidMount() {
@@ -288,7 +292,9 @@ class AvailabilityView extends React.Component {
     const { classes, appointmentsSearchResults } = this.props;
 
     const timeTable = this.createTimeTable(classes);
-    const appointmentDivs = this.updateAppointments(appointmentsSearchResults);
+    console.log(timeTable);
+    const appointmentDivs = this.state.appointmentDivs;
+    console.log(appointmentDivs);
 
     return (
       <div id={'outer'} className={classes.root}>
@@ -306,7 +312,8 @@ class AvailabilityView extends React.Component {
                       checked={this.state.employee.show}
                       onChange={this.handleToggle(
                         'employee',
-                        appointmentsSearchResults
+                        appointmentsSearchResults,
+                        classes
                       )}
                       color="primary"
                     />
@@ -321,7 +328,8 @@ class AvailabilityView extends React.Component {
                       checked={this.state.reviewer.show}
                       onChange={this.handleToggle(
                         'reviewer',
-                        appointmentsSearchResults
+                        appointmentsSearchResults,
+                        classes
                       )}
                       color="primary"
                     />
@@ -336,7 +344,8 @@ class AvailabilityView extends React.Component {
                       checked={this.state.supervisor.show}
                       onChange={this.handleToggle(
                         'supervisor',
-                        appointmentsSearchResults
+                        appointmentsSearchResults,
+                        classes
                       )}
                       color="primary"
                     />
