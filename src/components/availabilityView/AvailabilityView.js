@@ -92,9 +92,20 @@ class AvailabilityView extends React.Component {
 
   onVisibilityChange = visibilies => {
     const { showEmployee, showReviewer, showSupervisor } = visibilies;
-    let newState = {};
-
-    this.setState();
+    let newState = {
+      employee: { show: showEmployee },
+      reviewer: { show: showReviewer },
+      supervisor: { show: showSupervisor }
+    };
+    this.setState(previousState => {
+      persons.forEach(person => {
+        newState[person] = Object.assign(
+          previousState[person],
+          newState[person]
+        );
+      });
+      return newState;
+    });
   };
 
   handleToggle = (person, appointmentsSearchResults, classes) => {

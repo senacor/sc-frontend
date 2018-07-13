@@ -20,14 +20,16 @@ class PersonToggle extends React.Component {
   }
 
   handleToggle = showPerson => {
-    this.setState(previousState => {
-      return { [showPerson]: !previousState[showPerson] };
-    });
+    this.setState(
+      previousState => {
+        return { [showPerson]: !previousState[showPerson] };
+      },
+      () => {
+        this.props.onChange(this.state);
+        console.log('componentDidUpdatePErsonToggle');
+      }
+    );
   };
-
-  componentDidUpdate() {
-    this.props.onChange(this.state);
-  }
 
   render() {
     return (
