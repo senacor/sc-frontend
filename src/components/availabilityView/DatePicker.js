@@ -21,14 +21,15 @@ class DatePicker extends React.Component {
   }
 
   handleTimeChange = event => {
-    this.setState({
-      selectedDay: moment(event.target.value).format('YYYY-MM-DD')
-    });
+    this.setState(
+      {
+        selectedDay: moment(event.target.value).format('YYYY-MM-DD')
+      },
+      () => {
+        this.props.onChange(this.state.selectedDay);
+      }
+    );
   };
-
-  componentDidUpdate() {
-    this.props.onChange(this.state);
-  }
 
   render() {
     const { classes } = this.props;

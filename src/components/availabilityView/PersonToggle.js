@@ -26,63 +26,60 @@ class PersonToggle extends React.Component {
       },
       () => {
         this.props.onChange(this.state);
-        console.log('componentDidUpdatePErsonToggle');
       }
     );
   };
 
   render() {
     return (
-      <Grid id={'tableRolePick'} container spacing={24}>
-        <Grid item xs={12} lg={3} sm={6}>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subheading">Mitarbeiter</Typography>
-                </TableCell>
-                <TableCell numeric>
-                  <Switch
-                    checked={this.state.showEmployee}
-                    onChange={() => {
-                      //does not run function immediately, just makes reference. Function is executed on click, not on reder
-                      this.handleToggle('showEmployee');
-                    }}
-                    color="primary"
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subheading">Bewerter</Typography>
-                </TableCell>
-                <TableCell numeric>
-                  <Switch
-                    checked={this.state.showReviewer}
-                    onChange={() => {
-                      this.handleToggle('showReviewer');
-                    }}
-                    color="primary"
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subheading">Vorgesetzter</Typography>
-                </TableCell>
-                <TableCell numeric>
-                  <Switch
-                    checked={this.state.showSupervisor}
-                    onChange={() => {
-                      this.handleToggle('showSupervisor');
-                    }}
-                    color="primary"
-                  />
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Grid>
+      <Grid item xs={12} lg={3} sm={6}>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subheading">Mitarbeiter</Typography>
+              </TableCell>
+              <TableCell numeric>
+                <Switch
+                  checked={this.state.showEmployee}
+                  onChange={() => {
+                    //does not run function immediately, just makes reference. Function is executed on click, not on reder
+                    this.handleToggle('showEmployee');
+                  }}
+                  color="primary"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subheading">Bewerter</Typography>
+              </TableCell>
+              <TableCell numeric>
+                <Switch
+                  checked={this.state.showReviewer}
+                  onChange={() => {
+                    this.handleToggle('showReviewer');
+                  }}
+                  color="primary"
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subheading">Vorgesetzter</Typography>
+              </TableCell>
+              <TableCell numeric>
+                <Switch
+                  checked={this.state.showSupervisor}
+                  onChange={() => {
+                    this.handleToggle('showSupervisor');
+                  }}
+                  color="primary"
+                />
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </Grid>
     );
   }
