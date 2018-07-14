@@ -143,6 +143,7 @@ class TimeTable extends React.Component {
   }
 
   calculateAppointmentStartAndDuration(appointments) {
+    console.log(appointments);
     let appointmentStartAndDuration = [];
     let startAppointment = moment(appointments[0]);
     let endAppointment = moment(appointments[1]);
@@ -153,7 +154,7 @@ class TimeTable extends React.Component {
     let startMinutesSinceFirstHour = 0;
     let endMinutesSinceFirstHour = timeTableHours * 60;
 
-    //exclude appointments that are completely before or after the time window to be displayed
+    //exclude appointments that are completely before or after the time window to be displayed (in that case, an empty array will be returned)
     if (
       startAppointment.isBefore(endSelectedDay) &&
       endAppointment.isAfter(startSelectedDay)
@@ -170,11 +171,13 @@ class TimeTable extends React.Component {
           (endAppointment.hours() - firstHourOfDay) * 60 +
           endAppointment.minutes();
       }
+      appointmentStartAndDuration.push(
+        startMinutesSinceFirstHour,
+        endMinutesSinceFirstHour - startMinutesSinceFirstHour
+      );
     }
-    return appointmentStartAndDuration.push(
-      startMinutesSinceFirstHour,
-      endMinutesSinceFirstHour - startMinutesSinceFirstHour
-    );
+    console.log(appointmentStartAndDuration);
+    return appointmentStartAndDuration;
   }
 
   render() {
