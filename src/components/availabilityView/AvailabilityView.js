@@ -133,7 +133,7 @@ class AvailabilityView extends React.Component {
 
   extractAppointments(personAppointmentResults) {
     let appointments = [];
-    if (personAppointmentResults[0] === undefined) {
+    if (personAppointmentResults[0]) {
       return appointments;
     } else {
       for (let j in personAppointmentResults) {

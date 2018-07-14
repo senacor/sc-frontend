@@ -36,7 +36,7 @@ const styles = theme => ({
   appointmentDiv: {
     width: '15.5%',
     borderRadius: 10,
-    background: '#4d8087',
+    background: theme.palette.primary['300'],
     position: 'absolute'
   },
   hourLabel: {
