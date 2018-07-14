@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
+import moment from 'moment';
 
 const timeTableListHeight = 25;
 const firstHourOfDay = 8;
@@ -48,7 +49,8 @@ class TimeTable extends React.Component {
     this.state = {
       appointmentsEmployee: props.appointmentsEmployee,
       appointmentsReviewer: props.appointmentsReviewer,
-      appointmentsSupervisor: props.appointmentsSupervisor
+      appointmentsSupervisor: props.appointmentsSupervisor,
+      selectedDay: props.selectedDay
     };
   }
 
@@ -83,6 +85,10 @@ class TimeTable extends React.Component {
     } else {
       divIds++;
     }
+    let height = 0;
+    if (appointment[1] > 0) {
+      height = (timeTableListHeight * appointment[1]) / 30;
+    }
     if (appointment) {
       return (
         <div
@@ -92,7 +98,7 @@ class TimeTable extends React.Component {
             left: personPosition.get(person),
             top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
             width: '15.5%',
-            height: (timeTableListHeight * appointment[1]) / 30
+            height: height
           }}
         />
       );
@@ -137,41 +143,38 @@ class TimeTable extends React.Component {
   }
 
   calculateAppointmentStartAndDuration(appointments) {
-    if (appointments === undefined) {
-      return;
-    }
-    let startDate = new Date(appointments[0]);
-    let endDate = new Date(appointments[1]);
-    console.log(appointments);
-    let startHourAppointment = startDate.getHours();
-    let endHourAppointment = endDate.getHours();
-    let startMinutes = startDate.getMinutes();
-    let endMinutes = endDate.getMinutes();
+    let appointmentStartAndDuration = [];
+    let startAppointment = moment(appointments[0]);
+    let endAppointment = moment(appointments[1]);
+    let startSelectedDay = moment(this.props.selectedDay).hours(firstHourOfDay);
+    let endSelectedDay = moment(this.props.selectedDay)
+      .hours(lastHourOfDay)
+      .minutes(30);
     let startMinutesSinceFirstHour = 0;
-    let endMinutesSinceFirstHour = 0;
+    let endMinutesSinceFirstHour = timeTableHours * 60;
+
+    //exclude appointments that are completely before or after the time window to be displayed
     if (
-      startHourAppointment < lastHourOfDay &&
-      endHourAppointment > firstHourOfDay
+      startAppointment.isBefore(endSelectedDay) &&
+      endAppointment.isAfter(startSelectedDay)
     ) {
-      if (startHourAppointment <= firstHourOfDay) {
-        startMinutesSinceFirstHour = 0;
-      } else {
+      //appointments starting before the time window start at the beginning of the time window (startMinutesSinceFirstHour = 0), all other start after that
+      if (startAppointment.isAfter(startSelectedDay)) {
         startMinutesSinceFirstHour =
-          (startHourAppointment - firstHourOfDay) * 60 + startMinutes;
+          (startAppointment.hours() - firstHourOfDay) * 60 +
+          startAppointment.minutes();
       }
-      if (endHourAppointment <= lastHourOfDay) {
+      //appointments ending after the time window end at the end of the time window (endMinutesSinceFirstHour = timeTableHours * 60), all other end before that
+      if (endAppointment.isBefore(endSelectedDay)) {
         endMinutesSinceFirstHour =
-          (endHourAppointment - firstHourOfDay) * 60 + endMinutes;
-      } else {
-        endMinutesSinceFirstHour = timeTableHours * 60;
+          (endAppointment.hours() - firstHourOfDay) * 60 +
+          endAppointment.minutes();
       }
-      let appointmentStartAndDuration = [
-        startMinutesSinceFirstHour,
-        endMinutesSinceFirstHour - startMinutesSinceFirstHour
-      ];
-      console.log(appointmentStartAndDuration);
-      return appointmentStartAndDuration;
     }
+    return appointmentStartAndDuration.push(
+      startMinutesSinceFirstHour,
+      endMinutesSinceFirstHour - startMinutesSinceFirstHour
+    );
   }
 
   render() {
@@ -205,11 +208,13 @@ class TimeTable extends React.Component {
 TimeTable.propTypes = {
   appointmentsEmployee: PropTypes.array.isRequired,
   appointmentsReviewer: PropTypes.array.isRequired,
-  appointmentsSupervisor: PropTypes.array.isRequired
+  appointmentsSupervisor: PropTypes.array.isRequired,
+  selectedDay: PropTypes.string.isRequired
 };
 TimeTable.defaultProps = {
   appointmentsEmployee: [],
   appointmentsReviewer: [],
-  appointmentsSupervisor: []
+  appointmentsSupervisor: [],
+  selectedDay: '2018-06-14'
 };
 export default withStyles(styles)(TimeTable);

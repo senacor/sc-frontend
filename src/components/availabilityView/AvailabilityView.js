@@ -142,6 +142,7 @@ class AvailabilityView extends React.Component {
           appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
             'supervisor'
           )}
+          selectedDay={this.selectedDay}
         />
       </div>
     );
