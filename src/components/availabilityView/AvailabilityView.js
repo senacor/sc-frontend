@@ -38,7 +38,7 @@ class AvailabilityView extends React.Component {
         show: false,
         appointments: []
       },
-      selectedDay: '2018-06-14',
+      selectedDay: '2018-06-14'
     };
   }
 
@@ -132,22 +132,17 @@ class AvailabilityView extends React.Component {
             </div>
           </Grid>
         </Grid>
-        <div
-          className={classes.timeTableDiv}
-          style={{ position: 'relative', top: 50 }}
-        >
-          <TimeTable
-            appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
-              'employee'
-            )}
-            appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
-              'reviewer'
-            )}
-            appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
-              'supervisor'
-            )}
-          />
-        </div>
+        <TimeTable
+          appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
+            'employee'
+          )}
+          appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
+            'reviewer'
+          )}
+          appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
+            'supervisor'
+          )}
+        />
       </div>
     );
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 
-const timeTableListHeight = 40;
+const timeTableListHeight = 25;
 const firstHourOfDay = 8;
 const lastHourOfDay = 19;
 const timeTableTimeSteps = [':00', ':30'];
