@@ -132,6 +132,7 @@ class AvailabilityView extends React.Component {
             </div>
           </Grid>
         </Grid>
+        <br/><br/>
         <TimeTable
           appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
             'employee'

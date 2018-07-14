@@ -7,38 +7,48 @@ import moment from 'moment';
 const timeTableListHeight = 25;
 const firstHourOfDay = 8;
 const lastHourOfDay = 19;
-const timeTableTimeSteps = [':00', ':30'];
-const timeTableHours = 11.5;
+const minuteGranularity = 60;
+const timeTableHours = lastHourOfDay - firstHourOfDay;
 let divIds = 0;
 
 const styles = theme => ({
   timeTable: {
-    height: timeTableListHeight
+    //height: timeTableListHeight
   },
   timeTableDiv: {
+    position: 'relative',
+    padding: 0,
+    margin: 0,
     '@media (min-Width: 1000px)': { width: '75%' },
     '@media (min-Width: 1500px)': { width: '50%' },
     '@media (min-Width: 1800px)': { width: '40%' }
   },
   divider: {
-    position: 'relative',
-    top: -20,
-    left: '7%',
     height: 1,
     margin: 0,
+    marginLeft: '7%',
+    marginBottom: timeTableListHeight - 1,
+    padding: 0,
     border: 'none',
     flexShrink: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.12)'
   },
   hours: {
-    position: 'relative',
-    top: -10
+    position: 'absolute'
   },
   appointmentDiv: {
+    width: '15.5%',
     borderRadius: 10,
     background: '#4d8087',
-    height: timeTableListHeight,
     position: 'absolute'
+  },
+  hourLabel: {
+    position: 'relative',
+    top: -timeTableListHeight / 2,
+    display: 'block'
+  },
+  hourLabelText: {
+    lineHeight: timeTableListHeight + 'px'
   }
 });
 
@@ -56,26 +66,101 @@ class TimeTable extends React.Component {
 
   createTimeTable(classes) {
     const timeTable = [];
-    for (let hour = firstHourOfDay; hour <= lastHourOfDay; hour++) {
-      timeTableTimeSteps.forEach(minutes => {
-        timeTable.push(
-          <div
-            className={classes.timeTable}
-            key={'time' + hour.toString() + minutes} //needs an unique key
-          >
-            <Typography className={classes.hours}>
-              {hour.toString() + minutes}
-            </Typography>
-            <hr className={classes.divider} style={{ maxWidth: '93%' }} />
-          </div>
-        );
-      });
+    for (
+      let hour = moment()
+        .hour(firstHourOfDay)
+        .minutes(0);
+      hour <=
+      moment()
+        .hour(lastHourOfDay)
+        .minutes(0);
+      hour.add(minuteGranularity, 'm')
+    ) {
+      timeTable.push(
+        <hr className={classes.divider} />
+        /*<div
+          className={classes.timeTable}
+          key={'time' + hour.toString()} //needs an unique key
+        >
+          <Typography className={classes.hours}>{hour.format('HH:mm')}</Typography>
+        </div>*/
+      );
     }
+
     return timeTable;
   }
 
-  createSingleAppointmentDiv(person, appointment, classes) {
+  createDividers(classes) {
+    const dividers = [];
+    for (
+      let hour = moment()
+        .hour(firstHourOfDay)
+        .minutes(0);
+      hour <=
+      moment()
+        .hour(lastHourOfDay)
+        .minutes(0);
+      hour.add(minuteGranularity, 'm')
+    ) {
+      dividers.push(<hr className={classes.divider} />);
+    }
+    return dividers;
+  }
+
+  createHourLables(classes) {
+    const hourLables = [];
+    for (
+      let hour = moment()
+        .hour(firstHourOfDay)
+        .minutes(0);
+      hour <=
+      moment()
+        .hour(lastHourOfDay)
+        .minutes(0);
+      hour.add(minuteGranularity, 'm')
+    ) {
+      hourLables.push(
+        <div
+          className={classes.hours}
+          style={{ top: this.calculatePositionFor(hour).toString() + '%' }}
+        >
+          <div className={classes.hourLabel}>
+            <Typography className={classes.hourLabelText}>
+              {hour.format('HH:mm')}
+            </Typography>
+          </div>
+        </div>
+      );
+    }
+    return hourLables;
+  }
+
+  calculatePositionFor(time) {
+    let startMinutesSinceFirstHour =
+      time.hours() * 60 + time.minutes() - firstHourOfDay * 60;
+    let relativePosition =
+      (startMinutesSinceFirstHour / (timeTableHours * 60)) * 100;
+    return relativePosition;
+  }
+
+  calculateAppointmentStartTimeToPercent(appointment) {
     console.log(appointment);
+    let startOfAppointment = moment(appointment);
+    let startOfSelectedDay = moment(this.props.selectedDay).hour(
+      firstHourOfDay
+    );
+    console.log(startOfAppointment);
+    console.log(startOfSelectedDay);
+    if (startOfAppointment.isAfter(startOfSelectedDay)) {
+      return this.calculatePositionFor(startOfAppointment);
+    } else {
+      return 0;
+    }
+  }
+
+  createSingleAppointmentDiv(person, appointment, classes) {
+    console.log(appointment[0]);
+    console.log(this.calculateAppointmentStartTimeToPercent(appointment[0]));
     const personPosition = new Map();
     personPosition.set('employee', '15.5%');
     personPosition.set('reviewer', '46.5%');
@@ -85,10 +170,14 @@ class TimeTable extends React.Component {
     } else {
       divIds++;
     }
-    let height = 0;
-    if (appointment[1] > 0) {
-      height = (timeTableListHeight * appointment[1]) / 30;
-    }
+    let topPosition = this.calculateAppointmentStartTimeToPercent(
+      appointment[0]
+    );
+    let length =
+      this.calculateAppointmentStartTimeToPercent(appointment[1]) - topPosition;
+    /*if (appointment[1] > 0) {
+      height = (timeTableListHeight * appointment[1]) / minuteGranularity;
+    }*/
     if (appointment) {
       return (
         <div
@@ -96,9 +185,8 @@ class TimeTable extends React.Component {
           className={classes.appointmentDiv}
           style={{
             left: personPosition.get(person),
-            top: (appointment[0] / 60 / (timeTableHours + 0.5)) * 100 + '%',
-            width: '15.5%',
-            height: height
+            top: topPosition.toString() + '%',
+            height: length.toString() + '%'
           }}
         />
       );
@@ -112,29 +200,38 @@ class TimeTable extends React.Component {
     appointmentsSupervisor
   ) {
     let appointmentDivs = [];
-    for (let i = 0; i < appointmentsEmployee.length; i++) {
+    let filteredAppointmentsEmployee = this.appointmentsFilter(
+      appointmentsEmployee
+    );
+    let filteredAppointmentsReviewer = this.appointmentsFilter(
+      appointmentsReviewer
+    );
+    let filteredAppointmentsSupervisor = this.appointmentsFilter(
+      appointmentsSupervisor
+    );
+    for (let i = 0; i < filteredAppointmentsEmployee.length; i++) {
       appointmentDivs.push(
         this.createSingleAppointmentDiv(
           'employee',
-          this.calculateAppointmentStartAndDuration(appointmentsEmployee[i]),
+          filteredAppointmentsEmployee[i],
           classes
         ) //contains already the start and end
       );
     }
-    for (let i = 0; i < appointmentsReviewer.length; i++) {
+    for (let i = 0; i < filteredAppointmentsReviewer.length; i++) {
       appointmentDivs.push(
         this.createSingleAppointmentDiv(
           'reviewer',
-          this.calculateAppointmentStartAndDuration(appointmentsReviewer[i]),
+          filteredAppointmentsReviewer[i],
           classes
         )
       );
     }
-    for (let i = 0; i < appointmentsSupervisor.length; i++) {
+    for (let i = 0; i < filteredAppointmentsSupervisor.length; i++) {
       appointmentDivs.push(
         this.createSingleAppointmentDiv(
           'supervisor',
-          this.calculateAppointmentStartAndDuration(appointmentsSupervisor[i]),
+          filteredAppointmentsSupervisor[i],
           classes
         )
       );
@@ -142,42 +239,25 @@ class TimeTable extends React.Component {
     return appointmentDivs;
   }
 
-  calculateAppointmentStartAndDuration(appointments) {
+  appointmentsFilter(appointments) {
     console.log(appointments);
-    let appointmentStartAndDuration = [];
-    let startAppointment = moment(appointments[0]);
-    let endAppointment = moment(appointments[1]);
     let startSelectedDay = moment(this.props.selectedDay).hours(firstHourOfDay);
-    let endSelectedDay = moment(this.props.selectedDay)
-      .hours(lastHourOfDay)
-      .minutes(30);
-    let startMinutesSinceFirstHour = 0;
-    let endMinutesSinceFirstHour = timeTableHours * 60;
-
-    //exclude appointments that are completely before or after the time window to be displayed (in that case, an empty array will be returned)
-    if (
-      startAppointment.isBefore(endSelectedDay) &&
-      endAppointment.isAfter(startSelectedDay)
-    ) {
-      //appointments starting before the time window start at the beginning of the time window (startMinutesSinceFirstHour = 0), all other start after that
-      if (startAppointment.isAfter(startSelectedDay)) {
-        startMinutesSinceFirstHour =
-          (startAppointment.hours() - firstHourOfDay) * 60 +
-          startAppointment.minutes();
+    let endSelectedDay = moment(this.props.selectedDay).hours(lastHourOfDay);
+    return appointments.filter(appointment => {
+      let startAppointment = moment(appointment[0]);
+      let endAppointment = moment(appointment[1]);
+      console.log(startAppointment);
+      //exclude appointments that are completely before or after the time window to be displayed (in that case, an empty array will be returned)
+      if (
+        startAppointment.isBefore(endSelectedDay) &&
+        endAppointment.isAfter(startSelectedDay)
+      ) {
+        console.log(appointment);
+        return true;
+      } else {
+        return false;
       }
-      //appointments ending after the time window end at the end of the time window (endMinutesSinceFirstHour = timeTableHours * 60), all other end before that
-      if (endAppointment.isBefore(endSelectedDay)) {
-        endMinutesSinceFirstHour =
-          (endAppointment.hours() - firstHourOfDay) * 60 +
-          endAppointment.minutes();
-      }
-      appointmentStartAndDuration.push(
-        startMinutesSinceFirstHour,
-        endMinutesSinceFirstHour - startMinutesSinceFirstHour
-      );
-    }
-    console.log(appointmentStartAndDuration);
-    return appointmentStartAndDuration;
+    });
   }
 
   render() {
@@ -188,7 +268,9 @@ class TimeTable extends React.Component {
       appointmentsSupervisor
     } = this.props;
 
-    const timeTable = this.createTimeTable(classes);
+    //const timeTable = this.createTimeTable(classes);
+    const dividers = this.createDividers(classes);
+    const hourLables = this.createHourLables(classes);
     const appointmentDivs = this.createAppointmentDivs(
       classes,
       appointmentsEmployee,
@@ -197,11 +279,9 @@ class TimeTable extends React.Component {
     );
 
     return (
-      <div
-        className={classes.timeTableDiv}
-        style={{ position: 'relative', top: 50 }}
-      >
-        <div>{timeTable}</div>
+      <div className={classes.timeTableDiv}>
+        {dividers}
+        {hourLables}
         {appointmentDivs}
       </div>
     );
