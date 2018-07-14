@@ -42,6 +42,51 @@ class AvailabilityView extends React.Component {
     };
   }
 
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div id={'outer'} className={classes.root}>
+        <Typography variant="headline">Terminfindung</Typography>
+        <Grid id={'tableRolePick'} container spacing={24}>
+          <PersonToggle
+            onChange={this.onVisibilityChange}
+            showEmployee={false}
+            showReviewer={false}
+            showSupervisor={false}
+          />
+          <Grid item xs={12} lg={9} sm={6}>
+            <div className="picker">
+              <DatePicker onChange={this.onDateChange} />
+            </div>
+          </Grid>
+        </Grid>
+        <br />
+        <br />
+        <TimeTable
+          appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
+            'employee'
+          )}
+          appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
+            'reviewer'
+          )}
+          appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
+            'supervisor'
+          )}
+          selectedDay={this.selectedDay}
+        />
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    this.fetchAppointments();
+  }
+
+  fetchAppointments() {
+    this.props.appointmentsSearch('1,2,3', this.state.selectedDay);
+  }
+
   onVisibilityChange = visibilies => {
     const { showEmployee, showReviewer, showSupervisor } = visibilies;
     let newState = {
@@ -72,22 +117,6 @@ class AvailabilityView extends React.Component {
     );
   };
 
-  extractAppointments(personAppointmentResults) {
-    let appointments = [];
-    if (personAppointmentResults[0] == undefined) {
-      return;
-    } else {
-      for (let j in personAppointmentResults) {
-        let appointment = [
-          personAppointmentResults[j].appointmentStartTime,
-          personAppointmentResults[j].appointmentEndTime
-        ];
-        appointments[j] = appointment;
-      }
-    }
-    return appointments;
-  }
-
   extractAppointmentsFromSearchResultsForPerson(person) {
     if (
       this.props.appointmentsSearchResults[persons.indexOf(person)] ===
@@ -102,51 +131,20 @@ class AvailabilityView extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.fetchAppointments();
-  }
-
-  fetchAppointments() {
-    this.props.appointmentsSearch('1,2,3', this.state.selectedDay);
-    console.log('fetchappointments', this.state.selectedDay);
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    console.log('render');
-
-    return (
-      <div id={'outer'} className={classes.root}>
-        <Typography variant="headline">Terminfindung</Typography>
-        <Grid id={'tableRolePick'} container spacing={24}>
-          <PersonToggle
-            onChange={this.onVisibilityChange}
-            showEmployee={false}
-            showReviewer={false}
-            showSupervisor={false}
-          />
-          <Grid item xs={12} lg={9} sm={6}>
-            <div className="picker">
-              <DatePicker onChange={this.onDateChange} />
-            </div>
-          </Grid>
-        </Grid>
-        <br/><br/>
-        <TimeTable
-          appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
-            'employee'
-          )}
-          appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
-            'reviewer'
-          )}
-          appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
-            'supervisor'
-          )}
-          selectedDay={this.selectedDay}
-        />
-      </div>
-    );
+  extractAppointments(personAppointmentResults) {
+    let appointments = [];
+    if (personAppointmentResults[0] === undefined) {
+      return appointments;
+    } else {
+      for (let j in personAppointmentResults) {
+        let appointment = [
+          personAppointmentResults[j].appointmentStartTime,
+          personAppointmentResults[j].appointmentEndTime
+        ];
+        appointments[j] = appointment;
+      }
+    }
+    return appointments;
   }
 }
 

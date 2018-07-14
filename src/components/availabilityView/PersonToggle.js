@@ -19,17 +19,6 @@ class PersonToggle extends React.Component {
     };
   }
 
-  handleToggle = showPerson => {
-    this.setState(
-      previousState => {
-        return { [showPerson]: !previousState[showPerson] };
-      },
-      () => {
-        this.props.onChange(this.state);
-      }
-    );
-  };
-
   render() {
     return (
       <Grid item xs={12} lg={3} sm={6}>
@@ -81,6 +70,17 @@ class PersonToggle extends React.Component {
           </TableBody>
         </Table>
       </Grid>
+    );
+  }
+
+  handleToggle = showPerson => {
+    this.setState(
+      previousState => {
+        return { [showPerson]: !previousState[showPerson] };
+      },
+      () => {
+        this.props.onChange(this.state);
+      }
     );
   }
 }

@@ -20,17 +20,6 @@ class DatePicker extends React.Component {
     };
   }
 
-  handleTimeChange = event => {
-    this.setState(
-      {
-        selectedDay: moment(event.target.value).format('YYYY-MM-DD')
-      },
-      () => {
-        this.props.onChange(this.state.selectedDay);
-      }
-    );
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -48,6 +37,17 @@ class DatePicker extends React.Component {
           onChange={this.handleTimeChange}
         />
       </form>
+    );
+  }
+
+  handleTimeChange = event => {
+    this.setState(
+      {
+        selectedDay: moment(event.target.value).format('YYYY-MM-DD')
+      },
+      () => {
+        this.props.onChange(this.state.selectedDay);
+      }
     );
   }
 }
