@@ -16,7 +16,7 @@ import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
 import { isEmployee } from '../../helper/checkRole';
 import { translateContent } from '../translate/Translate';
-import { getUserroles } from '../../reducers/selector';
+import { getUserroles, getPrRatings } from '../../reducers/selector';
 
 const styles = theme => ({
   nestedText: { paddingRight: '27px' },
@@ -62,52 +62,41 @@ const styles = theme => ({
   }
 });
 
+// TODO Rename to PrReviewerRating
 class PrComment extends React.Component {
   constructor(props) {
     super(props);
 
-    let prRating = this.props.prById.prRatingSet.find(
-      prRating => prRating.prRatingDescription === this.props.category
-    );
-
     this.state = {
-      rating: prRating ? prRating.rating : {},
-      comment: prRating ? prRating.comment : '',
       prById: this.props.prById,
-      prVisible: this.props.prVisible,
       isExpanded: false
     };
   }
 
   handleChangeRating = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
-    let prRating = prById.prRatingSet.find(
-      prRating => prRating.prRatingDescription === category
-    );
-    prRating.rating = event.target.value;
+
+    this.props.prRating.rating = event.target.value;
 
     this.props.addRating(
       prById,
       category,
-      this.state.comment,
+      this.props.prRating.comment,
       event.target.value,
-      prRating.id
+      this.props.prRating.id
     );
   };
 
   handleChangeComment = (prById, category) => event => {
-    this.setState({ [event.target.name]: event.target.value });
-    let prRating = prById.prRatingSet.find(
-      prRating => prRating.prRatingDescription === category
-    );
-    prRating.comment = event.target.value;
+    this.setState({ comment: event.target.value });
+    this.props.prRating.comment = event.target.value;
 
     this.sendComment(
       prById,
       category,
       event.target.value,
       this.state.rating,
-      prRating.id
+      this.props.prRating.id
     );
   };
 
@@ -120,7 +109,11 @@ class PrComment extends React.Component {
   };
 
   render() {
-    const { prById, category, classes } = this.props;
+    const { prById, category, classes, prRating } = this.props;
+
+    if (!prRating) {
+      return null;
+    }
 
     return (
       <div className={this.state.isExpanded ? classes.expanded : ''}>
@@ -138,7 +131,7 @@ class PrComment extends React.Component {
             <Icon
               id={`${category}_CommentIconId`}
               className={
-                this.state.comment && this.state.prVisible
+                prRating.comment && this.props.prVisible
                   ? classes.iconComment
                   : classes.iconNoComment
               }
@@ -154,13 +147,13 @@ class PrComment extends React.Component {
                 className={classes.rating}
                 variant="body2"
               >
-                {this.state.prVisible ? this.state.rating : ''}
+                {this.props.prVisible ? prRating.rating : ''}
               </Typography>
             ) : (
               <FormControl className={classes.formControl}>
                 <Select
                   id={category + '_RatingId'}
-                  value={this.state.rating ? this.state.rating : 3}
+                  value={prRating.rating ? prRating.rating : 3}
                   onChange={this.handleChangeRating(prById, category)}
                   displayEmpty
                   name="rating"
@@ -190,8 +183,8 @@ class PrComment extends React.Component {
                   className={classes.comment}
                   variant="body1"
                 >
-                  {this.state.comment && this.state.prVisible
-                    ? '»' + this.state.comment + '«'
+                  {prRating.comment && this.props.prVisible
+                    ? '»' + prRating.comment + '«'
                     : ''}
                 </Typography>
               </ListItem>
@@ -203,7 +196,9 @@ class PrComment extends React.Component {
                   multiline
                   fullWidth
                   rowsMax="4"
-                  value={this.state.comment ? this.state.comment : ''}
+                  value={
+                    this.state.comment ? this.state.comment : prRating.comment
+                  }
                   onChange={this.handleChangeComment(prById, category)}
                   InputProps={{
                     disableUnderline: true,
@@ -228,9 +223,9 @@ class PrComment extends React.Component {
 
 export const StyledComponent = withStyles(styles)(PrComment);
 export default connect(
-  state => ({
+  (state, props) => ({
     userroles: getUserroles(state),
-    prRating: state.prRatings.prRating
+    prRating: getPrRatings(props.category)(state)
   }),
   {
     addRating: actions.addRating

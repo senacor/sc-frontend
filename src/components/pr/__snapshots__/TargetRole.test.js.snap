@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetRole Component should match snapshot 1`] = `
+<WithStyles(ListItem)>
+  <WithStyles(ListItemText)
+    secondary="Zielrolle (ab Senior Level ausfüllen)"
+  />
+  <WithStyles(FormControl)>
+    <WithStyles(Select)
+      displayEmpty={true}
+      id="ratingTargetRoleId"
+      name="ratingTargetRole"
+      onChange={[Function]}
+      value={2}
+    >
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole1"
+        key="_ratingTargetRole1"
+        value={1}
+      >
+        keine Auswahl
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole2"
+        key="_ratingTargetRole2"
+        value={2}
+      >
+        Platformgestalter
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole3"
+        key="_ratingTargetRole3"
+        value={3}
+      >
+        Business IT Solution Leader
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole4"
+        key="_ratingTargetRole4"
+        value={4}
+      >
+        Transformation Manager
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole5"
+        key="_ratingTargetRole5"
+        value={5}
+      >
+        IT-Liefersteuerer
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole6"
+        key="_ratingTargetRole6"
+        value={6}
+      >
+        Architect
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole7"
+        key="_ratingTargetRole7"
+        value={7}
+      >
+        Technical Expert
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole8"
+        key="_ratingTargetRole8"
+        value={8}
+      >
+        Lead Developer
+      </WithStyles(MenuItem)>
+      <WithStyles(MenuItem)
+        id="_ratingTargetValueRole9"
+        key="_ratingTargetRole9"
+        value={9}
+      >
+        keine Auswahl
+      </WithStyles(MenuItem)>
+    </WithStyles(Select)>
+  </WithStyles(FormControl)>
+</WithStyles(ListItem)>
+`;

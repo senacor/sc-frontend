@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyPerformanceReviewsList should match snapshot 1`] = `
+<WithStyles(List)>
+  <div
+    key="1"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      className=""
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemText)
+        primary={
+          <Translate
+            content="ON_DEMAND"
+          />
+        }
+        primaryTypographyProps={
+          Object {
+            "component": "div",
+          }
+        }
+        secondary={
+          <div>
+            <div>
+              Fälligkeitsdatum: 
+              01.03.2018
+            </div>
+            <div>
+              Bewerter: 
+              test.pr.vorgesetzter
+            </div>
+          </div>
+        }
+        secondaryTypographyProps={
+          Object {
+            "component": "div",
+          }
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </div>
+  <div
+    key="2"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      className=""
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemText)
+        primary={
+          <Translate
+            content="ON_DEMAND"
+          />
+        }
+        primaryTypographyProps={
+          Object {
+            "component": "div",
+          }
+        }
+        secondary={
+          <div>
+            <div>
+              Fälligkeitsdatum: 
+              01.02.2018
+            </div>
+            <div>
+              Bewerter: 
+              test.pr.vorgesetzter
+            </div>
+          </div>
+        }
+        secondaryTypographyProps={
+          Object {
+            "component": "div",
+          }
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </div>
+  <div
+    key="3"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      className=""
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemText)
+        primary={
+          <Translate
+            content="ON_DEMAND"
+          />
+        }
+        primaryTypographyProps={
+          Object {
+            "component": "div",
+          }
+        }
+        secondary={
+          <div>
+            <div>
+              Fälligkeitsdatum: 
+              01.01.2018
+            </div>
+            <div>
+              Bewerter: 
+              test.pr.vorgesetzter
+            </div>
+          </div>
+        }
+        secondaryTypographyProps={
+          Object {
+            "component": "div",
+          }
+        }
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </div>
+</WithStyles(List)>
+`;

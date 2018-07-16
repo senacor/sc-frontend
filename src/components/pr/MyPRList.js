@@ -175,17 +175,15 @@ export class MyPRList extends React.Component {
                     <MenuItem value="ALL">
                       <div className={classes.filterDesktop}>Alle</div>
                     </MenuItem>
-                    {['ON_DEMAND', 'YEARLY', 'QUARTERLY', 'END_PROBATION'].map(
-                      occasion => {
-                        return (
-                          <MenuItem key={occasion} value={occasion}>
-                            <div className={classes.filterDesktop}>
-                              <Translate content={occasion} />
-                            </div>
-                          </MenuItem>
-                        );
-                      }
-                    )}
+                    {['ON_DEMAND', 'YEARLY', 'END_PROBATION'].map(occasion => {
+                      return (
+                        <MenuItem key={occasion} value={occasion}>
+                          <div className={classes.filterDesktop}>
+                            <Translate content={occasion} />
+                          </div>
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
               </Hidden>
@@ -313,7 +311,7 @@ export class MyPRList extends React.Component {
                   <Typography variant="body2" className={classes.title}>
                     SHEET
                   </Typography>
-                  <PrSheet prById={prOpen} key={prOpen.id} />
+                  <PrSheet />
                 </Card>
                 <div className={classes.cardContainerColumn}>
                   <Card className={classes.cardColumn}>

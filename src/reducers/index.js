@@ -13,9 +13,12 @@ import { events } from './events';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
-import prEmployeeContributions from './employeeContributions';
+import { prEmployeeContributions } from './employeeContributions';
+import { appointmentsSearchResults } from './appointments';
+import { selectedDate } from './appointments';
 
 const combineReducer = combineReducers({
+  appointmentsSearchResults,
   tasks,
   editTasks,
   errors,
@@ -28,6 +31,7 @@ const combineReducer = combineReducers({
   prRatings,
   prEmployeeContributions,
   search,
+  selectedDate,
   sortOrderPrs,
   userinfo,
   userphoto,

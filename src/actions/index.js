@@ -8,6 +8,8 @@ export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
 export { getCstMembers } from './cstMembers';
 export { getEvents } from './events';
+export { appointmentsSearch } from './appointments';
+export { changeDate } from './appointments';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({
@@ -99,7 +101,7 @@ export const addPr = () => async dispatch => {
       mode: 'cors',
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
-        supervisor: 'ttran',
+        supervisor: 'test.pr.vorgesetzter',
         deadline: moment().format('YYYY-MM-DD'),
         employeeId: 1
       })
@@ -172,5 +174,12 @@ export const changePrSortOrder = sortOrder => async dispatch => {
   dispatch({
     type: dispatchTypes.CHANGE_SORT_ORDER,
     sortOrder: sortOrder
+  });
+};
+
+export const setPrDetail = prId => async dispatch => {
+  dispatch({
+    type: dispatchTypes.SET_PR_DETAIL,
+    prId
   });
 };

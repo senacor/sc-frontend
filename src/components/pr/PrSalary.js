@@ -22,15 +22,8 @@ const styles = theme => ({
 });
 
 class PrSalary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prById: this.props.prById
-    };
-  }
-
   render() {
-    const { prById, classes } = this.props;
+    const { prDetail, classes } = this.props;
 
     return (
       <Paper>
@@ -42,14 +35,14 @@ class PrSalary extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {prById.employee.salaries
+            {prDetail.employee.salaries
               .sort((a, b) => a.validFrom < b.validFrom)
               .map(value => {
                 return (
                   <TableRow
-                    key={prById.employee.salaries.indexOf(value)}
+                    key={prDetail.employee.salaries.indexOf(value)}
                     className={
-                      prById.employee.salaries.indexOf(value) % 2 === 0
+                      prDetail.employee.salaries.indexOf(value) % 2 === 0
                         ? classes.tableRow
                         : ''
                     }

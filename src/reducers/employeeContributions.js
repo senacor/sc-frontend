@@ -1,15 +1,68 @@
-import { combineReducers } from 'redux';
-import { ADD_TEXT_RESPONSE } from '../helper/dispatchTypes';
+import {
+  ADD_PR_RESPONSE,
+  ADD_TEXT_RESPONSE,
+  FETCH_PR_BY_ID_RESPONSE,
+  FETCH_PRS_RESPONSE
+} from '../helper/dispatchTypes';
+import cloneDeep from '../helper/cloneDeep';
 
-const prEmployeeContribution = (state = [], action) => {
+export const prEmployeeContributions = (state = [], action) => {
   switch (action.type) {
     case ADD_TEXT_RESPONSE:
-      return action.prReflectionSet;
+      return cloneDeep(
+        generateEmployeeContributionsForOnePr(
+          state,
+          action.payload.prId,
+          action.payload.prReflectionSet
+        )
+      );
+    case FETCH_PRS_RESPONSE:
+      return cloneDeep(
+        generateEmployeeContributionsForMultiplePrs(state, action.prs)
+      );
+    case FETCH_PR_BY_ID_RESPONSE:
+      return cloneDeep(
+        generateEmployeeContributionsForOnePr(
+          state,
+          action.prById.id,
+          action.prById.prReflectionSet
+        )
+      );
+    case ADD_PR_RESPONSE:
+      return cloneDeep(
+        generateEmployeeContributionsForOnePr(
+          state,
+          action.pr.id,
+          action.pr.prReflectionSet
+        )
+      );
     default:
       return state;
   }
 };
 
-const prEmployeeContributions = combineReducers({ prEmployeeContribution });
+function generateMapByReflectionField(reflectionSet) {
+  let result = {};
 
-export default prEmployeeContributions;
+  reflectionSet.forEach(item => {
+    result[item.prReflectionField] = item;
+  });
+
+  return result;
+}
+
+function generateEmployeeContributionsForOnePr(state, prId, reflectionSet) {
+  return Object.assign({}, state, {
+    [prId]: generateMapByReflectionField(reflectionSet)
+  });
+}
+
+function generateEmployeeContributionsForMultiplePrs(state, prs) {
+  let result = {};
+
+  prs.forEach(pr => {
+    result[pr.id] = generateMapByReflectionField(pr.prReflectionSet);
+  });
+
+  return Object.assign({}, state, result);
+}
