@@ -14,6 +14,7 @@ describe('reducers', () => {
         type: LOGOUT
       };
       const stateBefore = {
+        appointmentsSearchResults: [someValue],
         cstMembers: [someValue],
         editTasks: {
           isChanging: false,
@@ -47,6 +48,7 @@ describe('reducers', () => {
         search: {
           prSearchResults: [someValue]
         },
+        selectedDate: 'someValue',
         sortOrderPrs: 'des',
         tasks: {
           list: [someValue]
@@ -59,6 +61,7 @@ describe('reducers', () => {
       const stateAfter = app(stateBefore, action);
 
       expect(stateAfter).toEqual({
+        appointmentsSearchResults: [],
         cstMembers: [],
         editTasks: {
           isChanging: false,
@@ -78,9 +81,7 @@ describe('reducers', () => {
           prDetail: []
         },
         prDetailId: 0,
-        prEmployeeContributions: {
-          prEmployeeContribution: []
-        },
+        prEmployeeContributions: [],
         prRatings: {},
         prVisibilityById: {
           prVisibility: {
@@ -92,7 +93,8 @@ describe('reducers', () => {
         search: {
           prSearchResults: []
         },
-        sortOrderPrs: 'asc',
+        selectedDate: '2018-06-14',
+        sortOrderPrs: 'desc',
         tasks: {
           list: []
         },
