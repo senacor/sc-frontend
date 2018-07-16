@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DatePicker from './DatePicker';
+import {StyledComponent as DatePicker } from './DatePicker';
 
 describe('DatePicker', () => {
   it('should match snapshot', () => {

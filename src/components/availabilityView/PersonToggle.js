@@ -86,7 +86,6 @@ class PersonToggle extends React.Component {
 }
 
 PersonToggle.propTypes = {
-  onChange: PropTypes.func.isRequired,
   showReviewer: PropTypes.bool,
   showEmployee: PropTypes.bool,
   showSupervisor: PropTypes.bool
