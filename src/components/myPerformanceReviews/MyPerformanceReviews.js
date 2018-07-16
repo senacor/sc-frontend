@@ -26,7 +26,12 @@ class MyPerformanceReviews extends Component {
                 Termin finden
               </Button>
             </Link>
-            <MyPerformanceReviewsList highlightPrDetail={true} />
+            <Hidden mdDown>
+              <MyPerformanceReviewsList highlightPrDetail={true} />
+            </Hidden>
+            <Hidden smUp>
+              <MyPerformanceReviewsList highlightPrDetail={false} />
+            </Hidden>
           </Grid>
           <Hidden mdDown>
             <Grid item lg={9} xl={9}>

@@ -19,6 +19,7 @@ import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import * as actions from '../../actions';
+import { getUserroles } from '../../reducers/selector';
 
 const styles = () => ({
   root: {
@@ -83,12 +84,16 @@ export class Sidebar extends Component {
   }
 
   render() {
-    let { classes, userphoto, userinfo } = this.props;
+    let { classes, userphoto, userinfo, userroles } = this.props;
 
     let givenName = userinfo.givenName ? userinfo.givenName : '';
     let surname = userinfo.surname ? userinfo.surname : '';
 
     const fullName = `${givenName} ${surname}`;
+
+    if (!userroles.length) {
+      return null;
+    }
 
     return (
       <div className={classes.root}>
@@ -143,7 +148,8 @@ export const StyledComponent = withStyles(styles)(Sidebar);
 export default connect(
   state => ({
     userinfo: state.userinfo,
-    userphoto: state.userphoto
+    userphoto: state.userphoto,
+    userroles: getUserroles(state)
   }),
   {
     getUserInfo: actions.getUserInfo,

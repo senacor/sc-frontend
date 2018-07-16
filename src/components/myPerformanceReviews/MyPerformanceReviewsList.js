@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
@@ -23,8 +24,11 @@ class MyPerformanceReviewsList extends Component {
     return this.props.fetchPrs();
   }
 
-  selectPerformanceReview = prId => () => {
+  selectPerformanceReview = (prId, shouldGoTo) => () => {
     this.props.setPrDetail(prId);
+    if (shouldGoTo) {
+      this.props.history.push(`/prs/${prId}`);
+    }
   };
 
   render() {
@@ -42,7 +46,10 @@ class MyPerformanceReviewsList extends Component {
                     ? classes.button_highlight
                     : ''
                 }
-                onClick={this.selectPerformanceReview(pr.id)}
+                onClick={this.selectPerformanceReview(
+                  pr.id,
+                  !highlightPrDetail
+                )}
               >
                 <ListItemText
                   primary={<Translate content={pr.occasion} />}
@@ -82,4 +89,4 @@ export default connect(
     fetchPrs: actions.fetchPrs,
     setPrDetail: actions.setPrDetail
   }
-)(StyledComponent);
+)(withRouter(StyledComponent));
