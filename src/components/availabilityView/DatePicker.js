@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 const styles = theme => ({
   textField: {
@@ -16,7 +17,7 @@ class DatePicker extends React.Component {
     super(props);
 
     this.state = {
-      selectedDay: '2018-06-14'
+      selectedDate: '2018-06-14'
     };
   }
 
@@ -41,20 +42,12 @@ class DatePicker extends React.Component {
   }
 
   handleTimeChange = event => {
-    this.setState(
-      {
-        selectedDay: moment(event.target.value).format('YYYY-MM-DD')
-      },
-      () => {
-        this.props.onChange(this.state.selectedDay);
-      }
-    );
+    this.props.changeDate(moment(event.target.value).format('YYYY-MM-DD'));
   };
 }
 
-DatePicker.propTypes = {
-  onChange: PropTypes.func.isRequired
-};
-DatePicker.defaultProps = {};
-
-export default withStyles(styles)(DatePicker);
+export const StyledComponent = withStyles(styles)(DatePicker);
+export default connect(
+  state => ({}),
+  { changeDate: actions.changeDate }
+)(StyledComponent);

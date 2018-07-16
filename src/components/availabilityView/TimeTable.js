@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { getSelectedDate } from '../../reducers/selector';
 
 const timeTableListHeight = 25;
 const firstHourOfDay = 8;
@@ -11,7 +13,7 @@ const minuteGranularity = 30;
 const timeTableHours = lastHourOfDay - firstHourOfDay;
 let divIds = 0;
 
-const styles = theme => ({
+const styles = () => ({
   timeTableDiv: {
     position: 'relative',
     padding: 0,
@@ -49,17 +51,6 @@ const styles = theme => ({
 });
 
 class TimeTable extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      appointmentsEmployee: props.appointmentsEmployee,
-      appointmentsReviewer: props.appointmentsReviewer,
-      appointmentsSupervisor: props.appointmentsSupervisor,
-      selectedDay: props.selectedDay
-    };
-  }
-
   render() {
     const {
       classes,
@@ -184,20 +175,18 @@ class TimeTable extends React.Component {
   }
 
   appointmentsFilter(appointments) {
-    let startSelectedDay = moment(this.props.selectedDay).hours(firstHourOfDay);
-    let endSelectedDay = moment(this.props.selectedDay).hours(lastHourOfDay);
+    let startSelectedDay = moment(this.props.selectedDate).hours(
+      firstHourOfDay
+    );
+    let endSelectedDay = moment(this.props.selectedDate).hours(lastHourOfDay);
     return appointments.filter(appointment => {
       let startAppointment = moment(appointment[0]);
       let endAppointment = moment(appointment[1]);
       //exclude appointments that are completely before or after the time window to be displayed (in that case, an empty array will be returned)
-      if (
+      return (
         startAppointment.isBefore(endSelectedDay) &&
         endAppointment.isAfter(startSelectedDay)
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      );
     });
   }
 
@@ -241,10 +230,10 @@ class TimeTable extends React.Component {
   //Takes a moment object as an argument - the start or the end moment of an appointment.
   transformAppointmentTimeToPercent(appointment) {
     let appointmentMoment = moment(appointment);
-    let startOfSelectedDay = moment(this.props.selectedDay).hour(
+    let startOfSelectedDay = moment(this.props.selectedDate).hour(
       firstHourOfDay
     );
-    let endOfSelectedDay = moment(this.props.selectedDay).hour(lastHourOfDay);
+    let endOfSelectedDay = moment(this.props.selectedDate).hour(lastHourOfDay);
     //For Appointments inside the time window:
     if (
       appointmentMoment.isAfter(startOfSelectedDay) &&
@@ -268,13 +257,16 @@ class TimeTable extends React.Component {
 TimeTable.propTypes = {
   appointmentsEmployee: PropTypes.array.isRequired,
   appointmentsReviewer: PropTypes.array.isRequired,
-  appointmentsSupervisor: PropTypes.array.isRequired,
-  selectedDay: PropTypes.string.isRequired
+  appointmentsSupervisor: PropTypes.array.isRequired
 };
 TimeTable.defaultProps = {
   appointmentsEmployee: [],
   appointmentsReviewer: [],
-  appointmentsSupervisor: [],
-  selectedDay: '2018-06-14'
+  appointmentsSupervisor: []
 };
-export default withStyles(styles)(TimeTable);
+
+export const StyledComponent = withStyles(styles)(TimeTable);
+export default connect(
+  state => ({ selectedDate: getSelectedDate(state) }),
+  {}
+)(StyledComponent);

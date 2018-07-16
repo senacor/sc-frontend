@@ -8,6 +8,7 @@ export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
 export { getCstMembers } from './cstMembers';
 export { appointmentsSearch } from './appointments';
+export { changeDate } from './appointments';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({

@@ -14,6 +14,7 @@ import isLoading from './isLoading';
 import search from './searchEmployee';
 import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults } from './appointments';
+import { selectedDate } from './appointments';
 
 const app = combineReducers({
   appointmentsSearchResults,
@@ -29,6 +30,7 @@ const app = combineReducers({
   prRatings,
   prEmployeeContributions,
   search,
+  selectedDate,
   sortOrderPrs,
   userinfo,
   userphoto,

@@ -5,23 +5,21 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { getAppointments } from '../../reducers/selector';
+import { getAppointments, getSelectedDate } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
 import DatePicker from './DatePicker';
 import TimeTable from './TimeTable';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  }
-});
+const styles = theme => ({});
 
 class AvailabilityView extends React.Component {
   constructor(props) {
     super(props);
 
+    //TODO 1: these ids should be the employeeIds
+    //TODO 2: right now only three attendees are supported. A more generic approach shall be implemented
     this.state = {
       reviewer: {
         id: 2,
@@ -34,16 +32,13 @@ class AvailabilityView extends React.Component {
       employee: {
         id: 1,
         show: false
-      },
-      selectedDay: '2018-06-14'
+      }
     };
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div id={'outer'} className={classes.root}>
+      <div id={'outer'}>
         <Typography variant="headline">Terminfindung</Typography>
         <Grid id={'tableRolePick'} container spacing={24}>
           <PersonToggle
@@ -70,7 +65,6 @@ class AvailabilityView extends React.Component {
           appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
             'supervisor'
           )}
-          selectedDay={this.selectedDay}
         />
       </div>
     );
@@ -80,12 +74,13 @@ class AvailabilityView extends React.Component {
     this.fetchAppointments();
   }
 
+  //TODO replace '1,2,3' string with a string containing the employeeIds
   fetchAppointments() {
-    this.props.appointmentsSearch('1,2,3', this.state.selectedDay);
+    this.props.appointmentsSearch('1,2,3', this.props.selectedDate);
   }
 
-  onVisibilityChange = visibilies => {
-    const { showEmployee, showReviewer, showSupervisor } = visibilies;
+  onVisibilityChange = visibilities => {
+    const { showEmployee, showReviewer, showSupervisor } = visibilities;
     let newState = {
       employee: { show: showEmployee },
       reviewer: { show: showReviewer },
@@ -100,18 +95,6 @@ class AvailabilityView extends React.Component {
       });
       return newState;
     });
-  };
-
-  onDateChange = date => {
-    this.setState(
-      {
-        selectedDay: date
-      },
-      () => {
-        console.log('callbacktest');
-        this.fetchAppointments();
-      }
-    );
   };
 
   extractAppointmentsFromSearchResultsForPerson(person) {
@@ -152,7 +135,8 @@ AvailabilityView.propTypes = {
 export const StyledComponent = withStyles(styles)(AvailabilityView);
 export default connect(
   state => ({
-    appointmentsSearchResults: getAppointments(state)
+    appointmentsSearchResults: getAppointments(state),
+    selectedDate: getSelectedDate(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch
