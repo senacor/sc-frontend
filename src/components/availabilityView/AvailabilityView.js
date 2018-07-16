@@ -25,18 +25,15 @@ class AvailabilityView extends React.Component {
     this.state = {
       reviewer: {
         id: 2,
-        show: false,
-        appointments: [{}]
+        show: false
       },
       supervisor: {
         id: 3,
-        show: false,
-        appointments: []
+        show: false
       },
       employee: {
         id: 1,
-        show: false,
-        appointments: []
+        show: false
       },
       selectedDay: '2018-06-14'
     };
