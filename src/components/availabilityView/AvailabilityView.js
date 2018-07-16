@@ -9,8 +9,10 @@ import { getAppointments, getSelectedDate } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
 import DatePicker from './DatePicker';
 import TimeTable from './TimeTable';
+import { selectedDate } from '../../reducers/appointments';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
+let previousDate;
 
 const styles = theme => ({});
 
@@ -37,6 +39,10 @@ class AvailabilityView extends React.Component {
   }
 
   render() {
+    if (previousDate !== this.props.selectedDate) {
+      this.fetchAppointments();
+      previousDate = this.props.selectedDate;
+    }
     return (
       <div id={'outer'}>
         <Typography variant="headline">Terminfindung</Typography>
@@ -49,7 +55,7 @@ class AvailabilityView extends React.Component {
           />
           <Grid item xs={12} lg={9} sm={6}>
             <div className="picker">
-              <DatePicker onChange={this.onDateChange} />
+              <DatePicker />
             </div>
           </Grid>
         </Grid>
@@ -76,6 +82,7 @@ class AvailabilityView extends React.Component {
 
   //TODO replace '1,2,3' string with a string containing the employeeIds
   fetchAppointments() {
+    console.log(this.props.selectedDate);
     this.props.appointmentsSearch('1,2,3', this.props.selectedDate);
   }
 
