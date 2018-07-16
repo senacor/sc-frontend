@@ -13,13 +13,6 @@ const styles = theme => ({
 });
 
 class DatePicker extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedDate: '2018-06-14'
-    };
-  }
 
   render() {
     const { classes } = this.props;
