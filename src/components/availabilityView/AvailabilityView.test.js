@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import  {StyledComponent as AvailabilityView } from './AvailabilityView';
+import  { StyledComponent as AvailabilityView } from './AvailabilityView';
 
 describe('DatePicker', () => {
   it('should match snapshot', () => {

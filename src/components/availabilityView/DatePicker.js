@@ -13,7 +13,6 @@ const styles = theme => ({
 });
 
 class DatePicker extends React.Component {
-
   render() {
     const { classes } = this.props;
 
