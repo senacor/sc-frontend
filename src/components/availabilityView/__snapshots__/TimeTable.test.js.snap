@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker should match snapshot 1`] = `
+<TimeTable
+  appointmentsEmployee={Array []}
+  appointmentsReviewer={Array []}
+  appointmentsSupervisor={Array []}
+  classes={
+    Object {
+      "appointmentDiv": "TimeTable-appointmentDiv-4",
+      "divider": "TimeTable-divider-2",
+      "hourLabel": "TimeTable-hourLabel-5",
+      "hourLabelText": "TimeTable-hourLabelText-6",
+      "hours": "TimeTable-hours-3",
+      "timeTableDiv": "TimeTable-timeTableDiv-1",
+    }
+  }
+/>
+`;

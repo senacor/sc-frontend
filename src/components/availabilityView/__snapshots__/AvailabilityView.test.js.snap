@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker should match snapshot 1`] = `
+<AvailabilityView
+  classes={Object {}}
+/>
+`;

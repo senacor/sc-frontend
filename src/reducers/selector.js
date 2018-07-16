@@ -5,6 +5,8 @@ export const getAllPrs = state => Object.values(state.prs);
 export const getPrById = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
 export const getUserroles = state => state.userroles;
+export const getAppointments = state => state.appointmentsSearchResults;
+export const getSelectedDate = state => state.selectedDate;
 
 export const getPrDetail = () => {
   return createSelector(
