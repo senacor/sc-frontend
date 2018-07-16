@@ -82,7 +82,7 @@ class PersonToggle extends React.Component {
         this.props.onChange(this.state);
       }
     );
-  }
+  };
 }
 
 PersonToggle.propTypes = {

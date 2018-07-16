@@ -49,7 +49,7 @@ class DatePicker extends React.Component {
         this.props.onChange(this.state.selectedDay);
       }
     );
-  }
+  };
 }
 
 DatePicker.propTypes = {

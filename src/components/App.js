@@ -50,7 +50,11 @@ const App = () => (
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
-      <PrivateRoute exact path="/availabilityview" component={AvailabilityViewWithAppBar} />
+      <PrivateRoute
+        exact
+        path="/availabilityview"
+        component={AvailabilityViewWithAppBar}
+      />
       <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />
       <Route render={() => <Redirect to="/dashboard" />} />

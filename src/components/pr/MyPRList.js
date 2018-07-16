@@ -257,17 +257,7 @@ export class MyPRList extends React.Component {
             </div>
           </Grid>
           <Hidden smDown>
-            <Grid item xs={12} sm={6} align="right">
-              <Link to={'/availabilityview'} style={{ textDecoration: 'none' }}>
-                <Button
-                  id="availabilityViewButton"
-                  className={classes.buttonDesktop}
-                  variant="raised"
-                >
-                  <Icon className={classes.leftIcon}>add</Icon>
-                  Terminverfügbarkeit
-                </Button>
-              </Link>
+            <Grid item xs={12} sm={3} align="right">
               <Button
                 id="addPrButton"
                 className={classes.buttonDesktop}
