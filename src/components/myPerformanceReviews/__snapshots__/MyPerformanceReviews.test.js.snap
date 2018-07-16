@@ -21,9 +21,40 @@ exports[`MyPerformanceReviews should match snapshot 1`] = `
       xs={12}
     >
       <Connect(RequestPerformanceReview) />
-      <Connect(WithStyles(MyPerformanceReviewsList))
-        highlightPrDetail={true}
-      />
+      <Hidden
+        implementation="js"
+        lgDown={false}
+        lgUp={false}
+        mdDown={true}
+        mdUp={false}
+        smDown={false}
+        smUp={false}
+        xlDown={false}
+        xlUp={false}
+        xsDown={false}
+        xsUp={false}
+      >
+        <Connect(withRouter(WithStyles(MyPerformanceReviewsList)))
+          highlightPrDetail={true}
+        />
+      </Hidden>
+      <Hidden
+        implementation="js"
+        lgDown={false}
+        lgUp={false}
+        mdDown={false}
+        mdUp={false}
+        smDown={false}
+        smUp={true}
+        xlDown={false}
+        xlUp={false}
+        xsDown={false}
+        xsUp={false}
+      >
+        <Connect(withRouter(WithStyles(MyPerformanceReviewsList)))
+          highlightPrDetail={false}
+        />
+      </Hidden>
     </WithStyles(Grid)>
     <Hidden
       implementation="js"

@@ -17,7 +17,12 @@ class MyPerformanceReviews extends Component {
         <Grid container spacing={8}>
           <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
             <RequestPerformanceReview />
-            <MyPerformanceReviewsList highlightPrDetail={true} />
+            <Hidden mdDown>
+              <MyPerformanceReviewsList highlightPrDetail={true} />
+            </Hidden>
+            <Hidden smUp>
+              <MyPerformanceReviewsList highlightPrDetail={false} />
+            </Hidden>
           </Grid>
           <Hidden mdDown>
             <Grid item lg={9} xl={9}>

@@ -10,6 +10,7 @@ describe('Sidebar', () => {
     const element = shallow(
       <StyledComponent
         userinfo={{ givenName: 'Maria', surname: 'Mueller' }}
+        userroles={['PR_MITARBEITER']}
         getUserInfo={() => {}}
         getUserRoles={() => {}}
       />
@@ -24,6 +25,7 @@ describe('Sidebar', () => {
         userinfo={{ givenName: 'Maria', surname: 'Mueller' }}
         getUserInfo={() => {}}
         getUserRoles={() => {}}
+        userroles={['PR_MITARBEITER']}
       />
     );
 
