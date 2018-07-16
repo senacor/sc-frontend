@@ -9,7 +9,6 @@ import { getAppointments, getSelectedDate } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
 import DatePicker from './DatePicker';
 import TimeTable from './TimeTable';
-import { selectedDate } from '../../reducers/appointments';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
 let previousDate;
