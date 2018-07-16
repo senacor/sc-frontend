@@ -9,6 +9,7 @@ import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
 import { cstMembers } from './cstMembers';
+import { events } from './events';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
@@ -16,7 +17,7 @@ import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults } from './appointments';
 import { selectedDate } from './appointments';
 
-const app = combineReducers({
+const combineReducer = combineReducers({
   appointmentsSearchResults,
   tasks,
   editTasks,
@@ -35,6 +36,16 @@ const app = combineReducers({
   userinfo,
   userphoto,
   userroles,
-  cstMembers
+  cstMembers,
+  events
 });
+
+const app = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined;
+  }
+
+  return combineReducer(state, action);
+};
+
 export default app;

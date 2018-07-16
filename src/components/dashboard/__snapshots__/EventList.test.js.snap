@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component should match snapshot 1`] = `
+<WithStyles(List)
+  component="nav"
+  subheader={
+    <WithStyles(ListSubheader)
+      component="div"
+    >
+      Letzte Aktivitäten
+    </WithStyles(ListSubheader)>
+  }
+>
+  <WithStyles(ListItem)
+    className="EventList-thinItem-1"
+    key="1"
+  >
+    <WithStyles(Chip)
+      label="09.07.2018"
+    />
+    <WithStyles(Divider) />
+    <WithStyles(ListItemText)
+      primary="undefined"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    className="EventList-thinItem-1"
+    key="2"
+  >
+    <WithStyles(Chip)
+      label="09.07.2018"
+    />
+    <WithStyles(Divider) />
+    <WithStyles(ListItemText)
+      primary="undefined"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    className="EventList-thinItem-1"
+    key="3"
+  >
+    <WithStyles(Chip)
+      label="09.07.2018"
+    />
+    <WithStyles(Divider) />
+    <WithStyles(ListItemText)
+      primary="undefined"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    className="EventList-thinItem-1"
+    key="4"
+  >
+    <WithStyles(Chip)
+      label="09.07.2018"
+    />
+    <WithStyles(Divider) />
+    <WithStyles(ListItemText)
+      primary="undefined"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    className="EventList-thinItem-1"
+    key="5"
+  >
+    <WithStyles(Chip)
+      label="09.07.2018"
+    />
+    <WithStyles(Divider) />
+    <WithStyles(ListItemText)
+      primary="undefined"
+    />
+  </WithStyles(ListItem)>
+</WithStyles(List)>
+`;

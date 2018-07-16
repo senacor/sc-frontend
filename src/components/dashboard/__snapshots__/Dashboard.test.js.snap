@@ -42,31 +42,101 @@ exports[`Dashboard component should match snapshot 1`] = `
       </WithStyles(CardContent)>
     </WithStyles(Card)>
   </div>
-  <WithStyles(List)
-    component="nav"
-    subheader={
-      <WithStyles(ListSubheader)
-        component="div"
-      >
-        Aktivitäten
-      </WithStyles(ListSubheader)>
+  <WithStyles(EventList)
+    events={
+      Object {
+        "1": Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/events/1",
+            },
+          },
+          "createdAt": "2018-07-09T14:54:25.675+0000",
+          "employee": Object {
+            "dateOfLastPr": "2019-08-30",
+            "firstName": "Michaela",
+            "id": 3,
+            "lastName": "Mitarbeiterin",
+          },
+          "eventType": "EMPLOYEE_RELEASED_PR",
+          "eventableEntityId": 1,
+          "eventableEntityType": "pr",
+          "id": 1,
+        },
+        "2": Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/events/1",
+            },
+          },
+          "createdAt": "2018-07-09T14:54:25.675+0000",
+          "employee": Object {
+            "dateOfLastPr": "2019-08-30",
+            "firstName": "Michaela",
+            "id": 3,
+            "lastName": "Mitarbeiterin",
+          },
+          "eventType": "EMPLOYEE_RELEASED_PR",
+          "eventableEntityId": 1,
+          "eventableEntityType": "pr",
+          "id": 2,
+        },
+        "3": Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/events/1",
+            },
+          },
+          "createdAt": "2018-07-09T14:54:25.675+0000",
+          "employee": Object {
+            "dateOfLastPr": "2019-08-30",
+            "firstName": "Michaela",
+            "id": 3,
+            "lastName": "Mitarbeiterin",
+          },
+          "eventType": "EMPLOYEE_RELEASED_PR",
+          "eventableEntityId": 1,
+          "eventableEntityType": "pr",
+          "id": 3,
+        },
+        "4": Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/events/1",
+            },
+          },
+          "createdAt": "2018-07-09T14:54:25.675+0000",
+          "employee": Object {
+            "dateOfLastPr": "2019-08-30",
+            "firstName": "Michaela",
+            "id": 3,
+            "lastName": "Mitarbeiterin",
+          },
+          "eventType": "EMPLOYEE_RELEASED_PR",
+          "eventableEntityId": 1,
+          "eventableEntityType": "pr",
+          "id": 4,
+        },
+        "5": Object {
+          "_links": Object {
+            "self": Object {
+              "href": "http://localhost:8010/api/v1/events/1",
+            },
+          },
+          "createdAt": "2018-07-09T14:54:25.675+0000",
+          "employee": Object {
+            "dateOfLastPr": "2019-08-30",
+            "firstName": "Michaela",
+            "id": 3,
+            "lastName": "Mitarbeiterin",
+          },
+          "eventType": "EMPLOYEE_RELEASED_PR",
+          "eventableEntityId": 1,
+          "eventableEntityType": "pr",
+          "id": 5,
+        },
+      }
     }
-  >
-    <WithStyles(ListItem)
-      className="Dashboard-thinItem-4"
-    >
-      <WithStyles(ListItemText)
-        primary="Volker Vorgesetzter hat seine Bewertung abgegeben"
-      />
-    </WithStyles(ListItem)>
-    <WithStyles(Divider) />
-    <WithStyles(ListItem)
-      className="Dashboard-thinItem-4"
-    >
-      <WithStyles(ListItemText)
-        primary="Volker Vorgesetzter hat den Terminvorschlag abgelehnt"
-      />
-    </WithStyles(ListItem)>
-  </WithStyles(List)>
+  />
 </div>
 `;
