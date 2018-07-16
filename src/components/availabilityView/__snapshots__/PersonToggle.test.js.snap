@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker should match snapshot 1`] = `
+<WithStyles(Grid)
+  item={true}
+  lg={3}
+  sm={6}
+  xs={12}
+>
+  <WithStyles(Table)>
+    <WithStyles(TableBody)>
+      <WithStyles(TableRow)>
+        <WithStyles(TableCell)>
+          <WithStyles(Typography)
+            variant="subheading"
+          >
+            Mitarbeiter
+          </WithStyles(Typography)>
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          numeric={true}
+        >
+          <WithStyles(Switch)
+            checked={false}
+            color="primary"
+            onChange={[Function]}
+          />
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)>
+        <WithStyles(TableCell)>
+          <WithStyles(Typography)
+            variant="subheading"
+          >
+            Bewerter
+          </WithStyles(Typography)>
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          numeric={true}
+        >
+          <WithStyles(Switch)
+            checked={false}
+            color="primary"
+            onChange={[Function]}
+          />
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)>
+        <WithStyles(TableCell)>
+          <WithStyles(Typography)
+            variant="subheading"
+          >
+            Vorgesetzter
+          </WithStyles(Typography)>
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          numeric={true}
+        >
+          <WithStyles(Switch)
+            checked={false}
+            color="primary"
+            onChange={[Function]}
+          />
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+    </WithStyles(TableBody)>
+  </WithStyles(Table)>
+</WithStyles(Grid)>
+`;
