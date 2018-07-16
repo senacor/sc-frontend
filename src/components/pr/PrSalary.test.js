@@ -125,7 +125,7 @@ describe('PrSalary Component', () => {
   };
 
   it('displays the PrSalary', () => {
-    const component = shallow(<PrSalary prById={prById} />);
+    const component = shallow(<PrSalary prDetail={prById} />);
     expect(component).toMatchSnapshot();
   });
 });

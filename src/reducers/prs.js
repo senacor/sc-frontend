@@ -45,5 +45,5 @@ export const sortOrderPrs = (state = '', action) => {
     return action.sortOrder;
   }
 
-  return 'asc';
+  return 'desc';
 };

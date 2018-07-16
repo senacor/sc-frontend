@@ -321,7 +321,7 @@ export class MyPRList extends React.Component {
                   <Typography variant="body2" className={classes.title}>
                     SHEET
                   </Typography>
-                  <PrSheet prById={prOpen} key={prOpen.id} />
+                  <PrSheet />
                 </Card>
                 <div className={classes.cardContainerColumn}>
                   <Card className={classes.cardColumn}>

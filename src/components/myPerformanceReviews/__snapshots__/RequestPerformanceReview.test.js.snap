@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RequestPerformanceReview should match snapshot 1`] = `
+<WithStyles(Button)
+  color="primary"
+  id="addPrButton"
+>
+  <WithStyles(Icon)>
+    add
+  </WithStyles(Icon)>
+  PR beantragen
+</WithStyles(Button)>
+`;

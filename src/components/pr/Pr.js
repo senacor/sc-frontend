@@ -197,10 +197,10 @@ export class Pr extends React.Component {
           </Hidden>
         </div>
         <Hidden smUp>
-          {value === 0 && <PrSheet prById={this.state.prById} />}
+          {value === 0 && <PrSheet />}
           {value === 1 && <PrState expanded={this.state.expanded} />}
           {value === 2 && <PrEmployment prById={this.state.prById} />}
-          {value === 3 && <PrSalary prById={this.state.prById} />}
+          {value === 3 && <PrSalary prDetail={this.state.prById} />}
         </Hidden>
         <Hidden smDown>
           <div className={classes.cardContainerRow}>
@@ -208,7 +208,7 @@ export class Pr extends React.Component {
               <Typography variant="body2" className={classes.title}>
                 SHEET
               </Typography>
-              <PrSheet prById={this.state.prById} />
+              <PrSheet />
             </Card>
 
             <Card className={classes.cardColumnStatus}>
@@ -223,7 +223,7 @@ export class Pr extends React.Component {
                 GEHALT UND ANSTELLUNG
               </Typography>
 
-              <PrSalary prById={this.state.prById} />
+              <PrSalary prDetail={this.state.prById} />
               <PrEmployment prById={this.state.prById} />
             </Card>
           </div>

@@ -38,6 +38,13 @@ describe('PrSheetEmployee Component', () => {
     const component = shallow(
       <StyledComponent
         prById={prById}
+        employeeContribution={{
+          ROLE_AND_PROJECT_ENVIRONMENT: {
+            id: 12,
+            prReflectionField: 'ROLE_AND_PROJECT_ENVIRONMENT',
+            text: 'Comment 121'
+          }
+        }}
         category="ROLE_AND_PROJECT_ENVIRONMENT"
       />
     );
@@ -49,6 +56,13 @@ describe('PrSheetEmployee Component', () => {
     const component = shallow(
       <StyledComponent
         prById={prById}
+        employeeContribution={{
+          INFLUENCE_OF_LEADER_AND_ENVIRONMENT: {
+            id: 11,
+            prReflectionField: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT',
+            text: 'Comment 111'
+          }
+        }}
         category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
       />
     );
@@ -60,12 +74,19 @@ describe('PrSheetEmployee Component', () => {
     const component = shallow(
       <StyledComponent
         prById={prById}
+        employeeContribution={{
+          ROLE_AND_PROJECT_ENVIRONMENT: {
+            id: 12,
+            prReflectionField: 'ROLE_AND_PROJECT_ENVIRONMENT',
+            text: 'Comment 121'
+          }
+        }}
         category="ROLE_AND_PROJECT_ENVIRONMENT"
         userroles={['PR_CST_Leiter']}
       />
     );
 
-    expect(component.find(Typography)).toHaveLength(1);
+    expect(component.find(Typography)).toHaveLength(2);
     expect(component.find(TextField)).toHaveLength(0);
   });
 
@@ -73,9 +94,16 @@ describe('PrSheetEmployee Component', () => {
     const component = shallow(
       <StyledComponent
         prById={prById}
-        category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+        employeeContribution={{
+          INFLUENCE_OF_LEADER_AND_ENVIRONMENT: {
+            id: 11,
+            prReflectionField: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT',
+            text: 'Comment 111'
+          }
+        }}
         userroles={['PR_CST_Leiter']}
         prVisible={false}
+        category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
       />
     );
 
