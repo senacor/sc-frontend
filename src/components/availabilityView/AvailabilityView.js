@@ -81,7 +81,6 @@ class AvailabilityView extends React.Component {
 
   //TODO replace '1,2,3' string with a string containing the employeeIds
   fetchAppointments() {
-    console.log(this.props.selectedDate);
     this.props.appointmentsSearch('1,2,3', this.props.selectedDate);
   }
 
