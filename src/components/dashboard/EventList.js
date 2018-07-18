@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { formatDateForFrontend } from '../../helper/date';
+import { formatDateTimeForFrontend } from '../../helper/date';
 import { withStyles } from '@material-ui/core/styles/index';
 
 let styles = {
@@ -30,7 +30,7 @@ class EventList extends Component {
           return (
             <ListItem className={classes.thinItem} key={event.id}>
               <Chip
-                label={formatDateForFrontend(event.createdAt)}
+                label={formatDateTimeForFrontend(event.createdAt)}
                 className={classes.chip}
               />
               <Divider />

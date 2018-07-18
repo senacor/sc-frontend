@@ -16,7 +16,7 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="1"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      label="09.07.2018 16:54"
     />
     <WithStyles(Divider) />
     <WithStyles(ListItemText)
@@ -28,7 +28,7 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="2"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      label="09.07.2018 16:54"
     />
     <WithStyles(Divider) />
     <WithStyles(ListItemText)
@@ -40,7 +40,7 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="3"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      label="09.07.2018 16:54"
     />
     <WithStyles(Divider) />
     <WithStyles(ListItemText)
@@ -52,7 +52,7 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="4"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      label="09.07.2018 16:54"
     />
     <WithStyles(Divider) />
     <WithStyles(ListItemText)
@@ -64,7 +64,7 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="5"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      label="09.07.2018 16:54"
     />
     <WithStyles(Divider) />
     <WithStyles(ListItemText)
