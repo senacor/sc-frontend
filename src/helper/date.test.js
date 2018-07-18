@@ -44,14 +44,6 @@ describe('formatDateForFrontend', () => {
 });
 
 describe('formatDateTimeForFrontend', () => {
-  it('should render german date time format ', () => {
-    let testdate = moment('2018-03-05 13:44');
-
-    let result = formatDateTimeForFrontend(testdate);
-
-    expect(result).toEqual('05.03.2018 13:44');
-  });
-
   it('should return null if date is undefined ', () => {
     let testdate = undefined;
 
@@ -60,27 +52,27 @@ describe('formatDateTimeForFrontend', () => {
     expect(result).toBeNull();
   });
 
-  it('should render german date if it is a valid date string', () => {
-    let testdate = '2018-03-05 13:44';
-
-    let result = formatDateTimeForFrontend(testdate);
-
-    expect(result).toEqual('05.03.2018 13:44');
-  });
-
-  it('should render german date if it is a valid date object', () => {
-    let testdate = new Date(2018, 2, 5, 13, 44);
-
-    let result = formatDateTimeForFrontend(testdate);
-
-    expect(result).toEqual('05.03.2018 13:44');
-  });
-
   it('should return null if date is invalid', () => {
     let testdate = '2017-11-31 25:11';
 
     let result = formatDateTimeForFrontend(testdate);
 
     expect(result).toEqual(null);
+  });
+
+  it('should return correct time for a String with GMT timezone', () => {
+    let testdate = '2018-07-09T12:54:25.675+0000';
+
+    let result = formatDateTimeForFrontend(testdate);
+
+    expect(result).toEqual('09.07.2018 14:54');
+  });
+
+  it('should return correct time for a String with CEST timezone', () => {
+    let testdate = '2018-07-09T14:54:25.675+02:00';
+
+    let result = formatDateTimeForFrontend(testdate);
+
+    expect(result).toEqual('09.07.2018 14:54');
   });
 });
