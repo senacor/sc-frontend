@@ -2,11 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import { appointmentsSearch } from './appointments';
-import {
-  ERROR_RESPONSE,
-  FETCH_APPOINTMENTS_REQUEST,
-  FETCH_APPOINTMENTS_RESPONSE
-} from '../helper/dispatchTypes';
+import { FETCH_APPOINTMENTS_RESPONSE } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
