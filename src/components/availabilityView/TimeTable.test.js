@@ -14,21 +14,15 @@ describe('DatePicker', () => {
       selectedDate: '2018-03-08'
     };
     const component = shallow(<TimeTable />).dive();
-    console.log(component.instance());
-    const appointmentsFilterMock = appointments => {
-      return component.instance().appointmentsFilter(appointments);
-    };
-    let startAppointment = '2018-03-08T10:00Z[UTC]';
-    let endAppointment = '2018-03-08T23:00Z[UTC]';
+    component.setProps(props);
+    let startAppointment = '2018-03-08T07:00Z[UTC]';
+    let endAppointment = '2018-03-08T08:00Z[UTC]';
     let appointment = [];
     appointment.push(startAppointment);
     appointment.push(endAppointment);
-    console.log(appointment);
     let appointments = [];
     appointments.push(appointment);
-    console.log(appointments);
-    console.log(component.instance());
-    expect(appointmentsFilterMock(appointments)).toEqual([]);
+    expect(component.instance().appointmentsFilter(appointments)).toEqual(appointments);
   });
 
   it('should match snapshot', () => {
