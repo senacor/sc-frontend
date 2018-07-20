@@ -55,6 +55,7 @@ class EventList extends Component {
                 className={classes.chip}
               />
               <Chip
+                name={'typeChip' + event.id}
                 label={event.eventableEntityType}
                 className={[
                   classes.chip,
@@ -62,6 +63,7 @@ class EventList extends Component {
                 ].join(' ')}
               />
               <ListItemText
+                name={'description' + event.id}
                 className={classes.listItemTextMobile}
                 primary={`${event.text}`}
               />

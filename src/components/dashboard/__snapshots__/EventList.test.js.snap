@@ -22,9 +22,11 @@ exports[`Dashboard component should match snapshot 1`] = `
     <WithStyles(Chip)
       className="EventList-chip-3 "
       label="pr"
+      name="typeChip1"
     />
     <WithStyles(ListItemText)
       className="EventList-listItemTextMobile-2"
+      name="description1"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -39,9 +41,11 @@ exports[`Dashboard component should match snapshot 1`] = `
     <WithStyles(Chip)
       className="EventList-chip-3 "
       label="pr"
+      name="typeChip2"
     />
     <WithStyles(ListItemText)
       className="EventList-listItemTextMobile-2"
+      name="description2"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -56,9 +60,11 @@ exports[`Dashboard component should match snapshot 1`] = `
     <WithStyles(Chip)
       className="EventList-chip-3 "
       label="pr"
+      name="typeChip3"
     />
     <WithStyles(ListItemText)
       className="EventList-listItemTextMobile-2"
+      name="description3"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -73,9 +79,11 @@ exports[`Dashboard component should match snapshot 1`] = `
     <WithStyles(Chip)
       className="EventList-chip-3 "
       label="pr"
+      name="typeChip4"
     />
     <WithStyles(ListItemText)
       className="EventList-listItemTextMobile-2"
+      name="description4"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -90,9 +98,11 @@ exports[`Dashboard component should match snapshot 1`] = `
     <WithStyles(Chip)
       className="EventList-chip-3 "
       label="pr"
+      name="typeChip5"
     />
     <WithStyles(ListItemText)
       className="EventList-listItemTextMobile-2"
+      name="description5"
       primary="undefined"
     />
   </WithStyles(ListItem)>
