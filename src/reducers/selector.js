@@ -13,6 +13,10 @@ export const getPrDetail = () => {
   );
 };
 
+export const getPrStatuses = () => {
+  return createSelector([getPrDetail()], prDetail => prDetail.prStatusEntries);
+};
+
 export const getPrEmployeeContributions = type => {
   return createSelector(
     [state => state.prEmployeeContributions, getPrById],
