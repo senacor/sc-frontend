@@ -92,9 +92,9 @@ describe('calculatePositionFor', () => {
         .local()
         .format('YYYY-MM-DDTHH:mmZ')
     );
-    expect(
-      component.instance().transformAppointmentTimeToPercent(startAppointment)
-    ).toEqual(25);
+    expect(component.instance().calculatePositionFor(startAppointment)).toEqual(
+      25
+    );
   });
 });
 
