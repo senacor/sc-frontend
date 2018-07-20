@@ -1,13 +1,9 @@
-/* eslint-disable no-useless-concat */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { StyledComponent as TimeTable } from './TimeTable';
 
-const timeTableListHeight = 25;
 const firstHourOfDay = 8;
 const lastHourOfDay = 19;
-const minuteGranularity = 30;
-const timeTableHours = lastHourOfDay - firstHourOfDay;
 const props = {
   selectedDate: '2018-03-08'
 };
@@ -27,7 +23,7 @@ describe('createSingleAppointmentDiv', () => {
     appointment.push(endAppointment);
     let singleAppointmentDiv = (
       <div
-        key={'availabilityemployee1'} //if this test is run after the createAppointmentDivs test, which calls this function, the divId (1 here) has been already set to a higher value and this test will fail. If it is run separately, it never fails, since a new instance of the component is created. A workaround to ignore the key would be JSON.stringify the expected and obtained div-result.
+        key={'availabilityemployee1'} //if this test is run after the createAppointmentDivs test, which calls this function, the divId (1 here) has been already set to a higher value and this test will fail. If it is run separately, it never fails, since a new instance of the component is created and divIds are set to 0. A workaround to ignore the key would be for example to JSON.stringify the expected and the obtained div-result and then to compare.
         className={classes.appointmentDiv}
         style={{
           left: '15.5%',

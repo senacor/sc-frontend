@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
 import { StyledComponent as AvailabilityView } from './AvailabilityView';
 
-describe('DatePicker', () => {
+describe('AvailabilityView', () => {
   it('should match snapshot', () => {
-    let cut = shallow(<AvailabilityView />);
+    let component = shallow(<AvailabilityView />);
 
-    expect(cut).toMatchSnapshot();
+    expect(component).toMatchSnapshot();
   });
 });
