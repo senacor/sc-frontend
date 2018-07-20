@@ -60,7 +60,7 @@ class TimeTable extends React.Component {
     } = this.props;
 
     const dividers = this.createDividers(classes);
-    const hourLables = this.createHourLables(classes);
+    const hourLabels = this.createHourLabels(classes);
     const appointmentDivs = this.createAppointmentDivs(
       classes,
       appointmentsEmployee,
@@ -71,7 +71,7 @@ class TimeTable extends React.Component {
     return (
       <div className={classes.timeTableDiv}>
         {dividers}
-        {hourLables}
+        {hourLabels}
         {appointmentDivs}
       </div>
     );
@@ -99,8 +99,8 @@ class TimeTable extends React.Component {
     return dividers;
   }
 
-  createHourLables(classes) {
-    const hourLables = [];
+  createHourLabels(classes) {
+    const hourLabels = [];
     for (
       let hour = moment()
         .hour(firstHourOfDay)
@@ -111,11 +111,11 @@ class TimeTable extends React.Component {
         .minutes(0);
       hour.add(minuteGranularity, 'm')
     ) {
-      hourLables.push(
+      hourLabels.push(
         <div
           className={classes.hours}
           style={{ top: this.calculatePositionFor(hour).toString() + '%' }}
-          key={'hourLable' + hour.toString()} //needs an unique key
+          key={'hourLabel' + hour.toString()} //needs an unique key
         >
           <div className={classes.hourLabel}>
             <Typography className={classes.hourLabelText}>
@@ -125,7 +125,7 @@ class TimeTable extends React.Component {
         </div>
       );
     }
-    return hourLables;
+    return hourLabels;
   }
 
   createAppointmentDivs(
@@ -181,8 +181,6 @@ class TimeTable extends React.Component {
     let endSelectedDay = moment(this.props.selectedDate)
       .local()
       .hours(lastHourOfDay);
-    console.log(appointments);
-    console.log(lastHourOfDay);
     return appointments.filter(appointment => {
       let startAppointmentUtc = moment.utc(appointment[0], 'YYYY-MM-DDTHH:mmZ');
       let endAppointmentUtc = moment.utc(appointment[1], 'YYYY-MM-DDTHH:mmZ');
