@@ -8,7 +8,6 @@ import PrComment from './PrComment';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
-import Button from '@material-ui/core/Button';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';

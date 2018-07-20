@@ -1,3 +1,5 @@
+import { statusText } from '../pr/PrState';
+
 export const translationMap = {
   CONTRIBUTION_TO_COMPANY_DEVELOPMENT: 'Beitrag zur Unternehmensentwicklung',
   CUSTOMER_INTERACTION: 'Kundeninteraktion und -veränderung',
@@ -23,7 +25,8 @@ export const translationMap = {
   TEAMWORK: 'Effektives Arbeiten im Team und Teamführung',
   WORKING_MANNER: 'Arbeitsweise',
   WORK_RESULTS: 'Arbeitsergebnisse',
-  YEARLY: 'Jährlich'
+  YEARLY: 'Jährlich',
+  ...statusText
 };
 
 export default function Translate(props) {

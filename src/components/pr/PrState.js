@@ -15,10 +15,11 @@ import Grid from '@material-ui/core/Grid';
 import ObjectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
-import { isEmployee, isSupervisor } from '../../helper/checkRole';
+import { isEmployee } from '../../helper/checkRole';
 import { createSelector } from 'reselect';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
 import * as actions from '../../actions';
+import { addPrStatus } from '../../actions/status';
 
 const styles = theme => ({
   paper: {
@@ -52,6 +53,15 @@ const styles = theme => ({
   }
 });
 
+export const prStatusEnum = {
+  RELEASED_SHEET_REVIEWER: 'FILLED_SHEET_REVIEWER',
+  RELEASED_SHEET_EMPLOYEE: 'FILLED_SHEET_EMPLOYEE',
+  FIXED_DATE: 'ACCEPTED_DATE_REVIEWER',
+  FINALIZED_REVIEWER: 'MODIFICATIONS_ACCEPTED_REVIEWER',
+  FINALIZED_EMPLOYEE: 'MODIFICATIONS_ACCEPTED_EMPLOYEE',
+  ARCHIVED_HR: 'COMPLETED_PR'
+};
+
 export const statusText = {
   FILLED_SHEET_EMPLOYEE: 'Freigabe Mitarbeiter',
   FILLED_SHEET_REVIEWER: 'Freigabe Beurteiler',
@@ -64,22 +74,22 @@ const progressStructure = [
   {
     text: 'Vorbereitung PR',
     statuses: [
-      'FILLED_SHEET_EMPLOYEE',
-      'FILLED_SHEET_REVIEWER',
-      'ACCEPTED_DATE_REVIEWER'
+      prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+      prStatusEnum.RELEASED_SHEET_REVIEWER,
+      prStatusEnum.FIXED_DATE
     ]
   },
   {
     text: 'PR abgeschlossen (Beurteiler)',
-    statuses: ['MODIFICATIONS_ACCEPTED_REVIEWER']
+    statuses: [prStatusEnum.FINALIZED_REVIEWER]
   },
   {
     text: 'PR abgeschlossen (Mitarbeiter)',
-    statuses: ['MODIFICATIONS_ACCEPTED_EMPLOYEE']
+    statuses: [prStatusEnum.FINALIZED_EMPLOYEE]
   },
   {
     text: 'PR archiviert (HR)',
-    statuses: []
+    statuses: [prStatusEnum.ARCHIVED_HR]
   }
 ];
 
@@ -118,22 +128,12 @@ class PrState extends React.Component {
     this.state = {};
   }
 
-  changeVisibility = () => {
+  releaseContributions = status => event => {
     let pr = this.props.prById;
-    if (isEmployee(this.props.userroles)) {
-      this.props.setVisibilityById(
-        pr,
-        pr.prVisibilityEntry.visibilityToEmployee === 'VISIBLE',
-        true
-      );
+    if (!event.disabled) {
+      this.props.addPrStatus(pr, status);
     } else {
-      if (isSupervisor(this.props.userroles)) {
-        this.props.setVisibilityById(
-          pr,
-          true,
-          pr.prVisibilityEntry.visibilityToReviewer === 'VISIBLE'
-        );
-      }
+      console.log('FORBIDDEN!!!');
     }
   };
 
@@ -142,15 +142,15 @@ class PrState extends React.Component {
     let forEmployee = isEmployee(this.props.userroles);
     let { classes } = this.props;
     switch (status) {
-      case 'FILLED_SHEET_EMPLOYEE':
-      case 'FILLED_SHEET_REVIEWER':
-      case 'ACCEPTED_DATE_REVIEWER':
+      case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
+      case prStatusEnum.RELEASED_SHEET_REVIEWER:
+      case prStatusEnum.FIXED_DATE:
         let done =
           isStatusDoneMap === undefined
             ? false
             : ObjectGet(isStatusDoneMap, status);
         return (
-          <Grid container alignItems="center" spacing={6}>
+          <Grid container alignItems="center" spacing={8}>
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
               <Grid container direction="row">
                 <Grid item lg={8} md={6} sm={8} xs={8}>
@@ -161,15 +161,16 @@ class PrState extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            {(forEmployee && status === 'FILLED_SHEET_EMPLOYEE') ||
-            (!forEmployee && status === 'FILLED_SHEET_REVIEWER') ? (
+            {(forEmployee && status === prStatusEnum.RELEASED_SHEET_EMPLOYEE) ||
+            (!forEmployee &&
+              status === prStatusEnum.RELEASED_SHEET_REVIEWER) ? (
               <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
                 <Button
                   disabled={done}
                   className={
                     done ? classes.buttonDesktopDisabled : classes.buttonDesktop
                   }
-                  onClick={this.changeVisibility}
+                  onClick={this.releaseContributions(status)}
                 >
                   PR freigeben
                 </Button>
@@ -184,7 +185,7 @@ class PrState extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    console.log(this.props);
     return (
       <Paper className={classes.paper}>
         <List>
@@ -225,6 +226,7 @@ export default connect(
     userroles: getUserroles(state)
   }),
   {
-    setVisibilityById: actions.setVisibilityById
+    changePrVisibility: actions.setVisibilityById,
+    addPrStatus
   }
 )(Styledcomponent);
