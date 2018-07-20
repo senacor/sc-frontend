@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { StyledComponent as TimeTable } from './TimeTable';
 
-const firstHourOfDay = 8;
-const lastHourOfDay = 19;
 const props = {
   selectedDate: '2018-03-08'
 };
