@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-concat */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { StyledComponent as TimeTable } from './TimeTable';
@@ -16,19 +17,57 @@ const classes = {
 };
 
 describe('createSingleAppointmentDiv', () => {
-  it('should create 23 hourLabels if the time window is from 8:00 to 19:00 and the minuteGranularity is 30', () => {
+  it('should create an appointmentDiv with the correct height and position', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let singleAppointmentDiv = (<div
-      key={'availability' + 'employee1')}
-      className={classes.appointmentDiv}
-      style={{
-        left: '15.5%',
-        top: topPosition.toString() + '%',
-        height: length.toString() + '%'
-      }}
-    />);
-    expect(component.instance().createHourLabels(classes)).toHaveLength(23);
+    let startAppointment = '2018-03-08T09:45Z[UTC]';
+    let endAppointment = '2018-03-08T15:15Z[UTC]';
+    let appointment = [];
+    appointment.push(startAppointment);
+    appointment.push(endAppointment);
+    let singleAppointmentDiv = (
+      <div
+        key={'availabilityemployee1'} //if this test is run after the createAppointmentDivs test, which calls this function, the divId (1 here) has been already set to a higher value and this test will fail. If it is run separately, it never fails, since a new instance of the component is created. A workaround to ignore the key would be JSON.stringify the expected and obtained div-result.
+        className={classes.appointmentDiv}
+        style={{
+          left: '15.5%',
+          top: '25%',
+          height: '50%'
+        }}
+      />
+    );
+    expect(
+      component
+        .instance()
+        .createSingleAppointmentDiv('employee', appointment, classes)
+    ).toEqual(singleAppointmentDiv);
+  });
+});
+
+describe('createAppointmentDivs', () => {
+  it('should create two appointmentDivs for two appointments', () => {
+    const component = shallow(<TimeTable />).dive();
+    component.setProps(props);
+    let startAppointment = '2018-03-08T09:45Z[UTC]';
+    let endAppointment = '2018-03-08T15:15Z[UTC]';
+    let appointment = [];
+    appointment.push(startAppointment);
+    appointment.push(endAppointment);
+    let appointmentsEmployee = [];
+    appointmentsEmployee.push(appointment);
+    let appointmentsReviewer = [];
+    appointmentsReviewer.push(appointment);
+    let appointmentsSupervisor = [];
+    expect(
+      component
+        .instance()
+        .createAppointmentDivs(
+          classes,
+          appointmentsEmployee,
+          appointmentsReviewer,
+          appointmentsSupervisor
+        )
+    ).toHaveLength(2);
   });
 });
 
