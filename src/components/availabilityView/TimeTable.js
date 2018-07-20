@@ -184,12 +184,6 @@ class TimeTable extends React.Component {
     return appointments.filter(appointment => {
       let startAppointmentUtc = moment.utc(appointment[0], 'YYYY-MM-DDTHH:mmZ');
       let endAppointmentUtc = moment.utc(appointment[1], 'YYYY-MM-DDTHH:mmZ');
-      /*let startAppointmentLocal = moment(
-        startAppointmentUtc.local().format('YYYY-MM-DDTHH:mmZ')
-      );
-      let endAppointmentLocal = moment(
-        endAppointmentUtc.local().format('YYYY-MM-DDTHH:mmZ')
-      );*/
       //exclude appointments that are completely before or after the time window to be displayed (in that case, an empty array will be returned)
       return (
         startAppointmentUtc.isBefore(endSelectedDay) &&

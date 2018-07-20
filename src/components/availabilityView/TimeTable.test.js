@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { StyledComponent as TimeTable } from './TimeTable';
+import moment from 'moment';
 
 const props = {
   selectedDate: '2018-03-08'
@@ -85,7 +86,12 @@ describe('calculatePositionFor', () => {
   it('should return 25 if the appointment is in 25% of the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = '2018-03-08T09:45Z[UTC]';
+    let startAppointment = moment(
+      moment
+        .utc('2018-03-08T09:45Z[UTC]', 'YYYY-MM-DDTHH:mmZ')
+        .local()
+        .format('YYYY-MM-DDTHH:mmZ')
+    );
     expect(
       component.instance().transformAppointmentTimeToPercent(startAppointment)
     ).toEqual(25);
