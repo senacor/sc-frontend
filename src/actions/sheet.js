@@ -122,9 +122,9 @@ export const setVisibilityById = (
   await changeResponse.json();
 
   if (changeResponse.ok) {
-    fetchPrById(prById.id)(dispatch);
+    return fetchPrById(prById.id)(dispatch);
   } else {
-    dispatch({
+    return dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
       httpCode: changeResponse.status
     });

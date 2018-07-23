@@ -6,7 +6,9 @@ import fetchMock from 'fetch-mock';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
-  CHANGE_PR_VISIBILITY_REQUEST
+  CHANGE_PR_VISIBILITY_REQUEST,
+  FETCH_PR_BY_ID_REQUEST,
+  ERROR_GONE
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -322,11 +324,15 @@ describe('setVisibilityById', () => {
       finalVisibility.prVisibilityEntry
     );
 
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
     const store = mockStore();
     await store.dispatch(setVisibilityById(prWithVisibility, false, true));
 
     expect(store.getActions()).toEqual([
-      { type: CHANGE_PR_VISIBILITY_REQUEST }
+      { type: CHANGE_PR_VISIBILITY_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE }
     ]);
   });
 });

@@ -23,7 +23,7 @@ export const addPrStatus = (prById, status) => async dispatch => {
   if (addResponse.ok) {
     switch (status) {
       case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
-        setVisibilityById(
+        return setVisibilityById(
           prById,
           prById.prVisibilityEntry.visibilityToEmployee ===
             visibilityTypes.VISIBLE,
@@ -31,7 +31,7 @@ export const addPrStatus = (prById, status) => async dispatch => {
         )(dispatch);
         break;
       case prStatusEnum.RELEASED_SHEET_REVIEWER:
-        setVisibilityById(
+        return setVisibilityById(
           prById,
           true,
           prById.prVisibilityEntry.visibilityToReviewer ===
@@ -39,7 +39,7 @@ export const addPrStatus = (prById, status) => async dispatch => {
         )(dispatch);
         break;
       default:
-        fetchPrById(prById.id)(dispatch);
+        return fetchPrById(prById.id)(dispatch);
         break;
     }
   } else {
