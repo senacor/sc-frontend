@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
 import Chip from '@material-ui/core/Chip';
-import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { formatDateForFrontend } from '../../helper/date';
+import { formatDateTimeForFrontend } from '../../helper/date';
 import { withStyles } from '@material-ui/core/styles/index';
 
-let styles = {
+let styles = theme => ({
   thinItem: {
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
+    [theme.breakpoints.down('sm')]: {
+      display: 'block'
+    }
+  },
+  listItemTextMobile: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 5
+    }
+  },
+  chip: {
+    '&:first-of-type': {
+      marginRight: 16
+    },
+    '&:nth-child(2)': {
+      minWidth: 100
+    }
+  },
+  PR: {
+    backgroundColor: '#A5D6A7'
+  },
+  SYSTEM: {
+    backgroundColor: '#90CAF9'
   }
-};
+});
 
 class EventList extends Component {
   render() {
@@ -30,11 +51,22 @@ class EventList extends Component {
           return (
             <ListItem className={classes.thinItem} key={event.id}>
               <Chip
-                label={formatDateForFrontend(event.createdAt)}
+                label={formatDateTimeForFrontend(event.createdAt)}
                 className={classes.chip}
               />
-              <Divider />
-              <ListItemText primary={`${event.text}`} />
+              <Chip
+                name={'typeChip' + event.id}
+                label={event.eventableEntityType}
+                className={[
+                  classes.chip,
+                  classes[event.eventableEntityType]
+                ].join(' ')}
+              />
+              <ListItemText
+                name={'description' + event.id}
+                className={classes.listItemTextMobile}
+                primary={`${event.text}`}
+              />
             </ListItem>
           );
         })}

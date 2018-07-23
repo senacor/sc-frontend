@@ -17,7 +17,7 @@ describe('Dashboard component', () => {
       eventableEntityType: 'pr',
       eventableEntityId: 1,
       eventType: 'EMPLOYEE_RELEASED_PR',
-      createdAt: '2018-07-09T14:54:25.675+0000',
+      createdAt: '2018-07-09T14:54:25.675+02:00',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/events/1'
@@ -35,7 +35,7 @@ describe('Dashboard component', () => {
       eventableEntityType: 'pr',
       eventableEntityId: 1,
       eventType: 'EMPLOYEE_RELEASED_PR',
-      createdAt: '2018-07-09T14:54:25.675+0000',
+      createdAt: '2018-07-09T14:54:25.675+0200',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/events/1'
@@ -53,7 +53,7 @@ describe('Dashboard component', () => {
       eventableEntityType: 'pr',
       eventableEntityId: 1,
       eventType: 'EMPLOYEE_RELEASED_PR',
-      createdAt: '2018-07-09T14:54:25.675+0000',
+      createdAt: '2018-07-09T12:54:25.675+0000',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/events/1'
@@ -71,7 +71,7 @@ describe('Dashboard component', () => {
       eventableEntityType: 'pr',
       eventableEntityId: 1,
       eventType: 'EMPLOYEE_RELEASED_PR',
-      createdAt: '2018-07-09T14:54:25.675+0000',
+      createdAt: '2018-07-09T12:54:25.675+00:00',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/events/1'
@@ -89,7 +89,7 @@ describe('Dashboard component', () => {
       eventableEntityType: 'pr',
       eventableEntityId: 1,
       eventType: 'EMPLOYEE_RELEASED_PR',
-      createdAt: '2018-07-09T14:54:25.675+0000',
+      createdAt: '2018-07-09T14:54:25.675+0200',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/events/1'
