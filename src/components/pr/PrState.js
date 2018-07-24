@@ -18,8 +18,8 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { isEmployee } from '../../helper/checkRole';
 import { createSelector } from 'reselect';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
-import * as actions from '../../actions';
 import { addPrStatus } from '../../actions/status';
+import { translationMap } from '../translate/Translate';
 
 const styles = theme => ({
   paper: {
@@ -60,14 +60,6 @@ export const prStatusEnum = {
   FINALIZED_REVIEWER: 'MODIFICATIONS_ACCEPTED_REVIEWER',
   FINALIZED_EMPLOYEE: 'MODIFICATIONS_ACCEPTED_EMPLOYEE',
   ARCHIVED_HR: 'COMPLETED_PR'
-};
-
-export const statusText = {
-  FILLED_SHEET_EMPLOYEE: 'Freigabe Mitarbeiter',
-  FILLED_SHEET_REVIEWER: 'Freigabe Beurteiler',
-  ACCEPTED_DATE_REVIEWER: 'Termin akzeptiert',
-  MODIFICATIONS_ACCEPTED_EMPLOYEE: 'Änderungen Mitarbeiter',
-  MODIFICATIONS_ACCEPTED_REVIEWER: 'Änderungen Beurteiler'
 };
 
 const progressStructure = [
@@ -133,7 +125,7 @@ class PrState extends React.Component {
     if (!event.disabled) {
       this.props.addPrStatus(pr, status);
     } else {
-      console.log('FORBIDDEN!!!');
+      alert('FORBIDDEN!!!');
     }
   };
 
@@ -150,11 +142,16 @@ class PrState extends React.Component {
             ? false
             : ObjectGet(isStatusDoneMap, status);
         return (
-          <Grid container alignItems="center" spacing={8}>
+          <Grid
+            key={`SubStepGrid_${status}`}
+            container
+            alignItems="center"
+            spacing={8}
+          >
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
               <Grid container direction="row">
                 <Grid item lg={8} md={6} sm={8} xs={8}>
-                  <Typography>{statusText[status]}</Typography>
+                  <Typography>{translationMap[status]}</Typography>
                 </Grid>
                 <Grid item lg={4} md={6} sm={4} xs={4}>
                   {done ? <Icon>done</Icon> : null}
@@ -185,7 +182,7 @@ class PrState extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.props);
+
     return (
       <Paper className={classes.paper}>
         <List>
@@ -218,15 +215,14 @@ class PrState extends React.Component {
   }
 }
 
-export const Styledcomponent = withStyles(styles)(PrState);
+export const StyledComponent = withStyles(styles)(PrState);
 export default connect(
   state => ({
     prById: getPrDetail()(state),
-    prStatusesDone: getFinishedMilestones(statusText)(state),
+    prStatusesDone: getFinishedMilestones(translationMap)(state),
     userroles: getUserroles(state)
   }),
   {
-    changePrVisibility: actions.setVisibilityById,
     addPrStatus
   }
-)(Styledcomponent);
+)(StyledComponent);

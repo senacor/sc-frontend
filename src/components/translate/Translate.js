@@ -1,17 +1,20 @@
-import { statusText } from '../pr/PrState';
-
 export const translationMap = {
+  ACCEPTED_DATE_REVIEWER: 'Termin akzeptiert',
   CONTRIBUTION_TO_COMPANY_DEVELOPMENT: 'Beitrag zur Unternehmensentwicklung',
   CUSTOMER_INTERACTION: 'Kundeninteraktion und -veränderung',
   CUSTOMER_RETENTION: 'Kundenbindung und Mandatsgenerierung',
   DONE: 'Fertig',
   END_PROBATION: 'Ende der Probezeit',
   EXECUTION: 'In Durchführung',
+  FILLED_SHEET_EMPLOYEE: 'Freigabe Mitarbeiter',
+  FILLED_SHEET_REVIEWER: 'Freigabe Beurteiler',
   FULFILLMENT_OF_REQUIREMENT:
     'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
     'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung',
   LEADERSHIP: 'Coaching, Leadership und Personalführung',
+  MODIFICATIONS_ACCEPTED_EMPLOYEE: 'Änderungen Mitarbeiter',
+  MODIFICATIONS_ACCEPTED_REVIEWER: 'Änderungen Beurteiler',
   ON_DEMAND: 'Auf Nachfrage',
   PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
     'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?',
@@ -25,8 +28,7 @@ export const translationMap = {
   TEAMWORK: 'Effektives Arbeiten im Team und Teamführung',
   WORKING_MANNER: 'Arbeitsweise',
   WORK_RESULTS: 'Arbeitsergebnisse',
-  YEARLY: 'Jährlich',
-  ...statusText
+  YEARLY: 'Jährlich'
 };
 
 export default function Translate(props) {

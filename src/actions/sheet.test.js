@@ -8,7 +8,8 @@ import {
   ADD_COMMENT_RESPONSE,
   CHANGE_PR_VISIBILITY_REQUEST,
   FETCH_PR_BY_ID_REQUEST,
-  ERROR_GONE
+  ERROR_GONE,
+  FETCH_PR_BY_ID_RESPONSE
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -332,7 +333,8 @@ describe('setVisibilityById', () => {
     expect(store.getActions()).toEqual([
       { type: CHANGE_PR_VISIBILITY_REQUEST },
       { type: FETCH_PR_BY_ID_REQUEST },
-      { type: ERROR_GONE }
+      { type: ERROR_GONE },
+      { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
     ]);
   });
 });
