@@ -100,7 +100,7 @@ const getFinishedMilestones = all_statuses => {
       if (prs[prDetailId] === undefined) {
         return undefined;
       } else {
-        let prStatuses = ObjectGet(prs[prDetailId], 'prStatusEntries');
+        let prStatuses = ObjectGet(prs[prDetailId], 'statuses');
         return Object.getOwnPropertyNames(all_statuses).reduce(function(
           previousObject,
           nextObject
