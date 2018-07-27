@@ -51,12 +51,8 @@ describe('addPrStatus', () => {
     );
 
     expect(store.getActions()).toEqual([
-      {
-        type: dispatchTypes.ADD_PR_STATUS_REQUEST
-      },
-      {
-        type: dispatchTypes.CHANGE_PR_VISIBILITY_REQUEST
-      },
+      { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
+      { type: dispatchTypes.CHANGE_PR_VISIBILITY_REQUEST },
       { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
       { type: dispatchTypes.ERROR_GONE },
       {

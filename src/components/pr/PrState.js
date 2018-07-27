@@ -102,11 +102,11 @@ const getFinishedMilestones = all_statuses => {
       } else {
         let prStatuses = ObjectGet(prs[prDetailId], 'statuses');
         return Object.getOwnPropertyNames(all_statuses).reduce(function(
-          previousObject,
-          nextObject
+          statusIsReachedMap,
+          nextStatus
         ) {
-          previousObject[nextObject] = isDone(prStatuses, nextObject);
-          return previousObject;
+          statusIsReachedMap[nextStatus] = isDone(prStatuses, nextStatus);
+          return statusIsReachedMap;
         },
         {});
       }
@@ -124,14 +124,14 @@ class PrState extends React.Component {
     let pr = this.props.prById;
     if (!event.disabled) {
       this.props.addPrStatus(pr, status);
-    } else {
-      alert('FORBIDDEN!!!');
     }
   };
 
   getExtraStepContent(status) {
     let isStatusDoneMap = this.props.prStatusesDone;
     let forEmployee = isEmployee(this.props.userroles);
+    let isReleasedByEmployee = status === prStatusEnum.RELEASED_SHEET_EMPLOYEE;
+    let isReleasedByReviewer = status === prStatusEnum.RELEASED_SHEET_REVIEWER;
     let { classes } = this.props;
     switch (status) {
       case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
@@ -158,9 +158,8 @@ class PrState extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            {(forEmployee && status === prStatusEnum.RELEASED_SHEET_EMPLOYEE) ||
-            (!forEmployee &&
-              status === prStatusEnum.RELEASED_SHEET_REVIEWER) ? (
+            {(forEmployee && isReleasedByEmployee) ||
+            (!forEmployee && isReleasedByReviewer) ? (
               <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
                 <Button
                   disabled={done}

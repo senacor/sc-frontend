@@ -130,3 +130,19 @@ export const setVisibilityById = (
     });
   }
 };
+
+export const changeVisibilityForEmployee = pr => {
+  let isVisibleToEmployee =
+    pr.prVisibilityEntry.visibilityToEmployee === visibilityTypes.VISIBLE;
+  let isVisibleToReviewer =
+    pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
+  return setVisibilityById(pr, !isVisibleToEmployee, isVisibleToReviewer);
+};
+
+export const changeVisibilityForReviewer = pr => {
+  let isVisibleToEmployee =
+    pr.prVisibilityEntry.visibilityToEmployee === visibilityTypes.VISIBLE;
+  let isVisibleToReviewer =
+    pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
+  return setVisibilityById(pr, isVisibleToEmployee, !isVisibleToReviewer);
+};
