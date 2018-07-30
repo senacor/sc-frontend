@@ -128,7 +128,7 @@ exports[`Pr Component displays the PR 1`] = `
         >
           STATUS
         </WithStyles(Typography)>
-        <WithStyles(PrState)
+        <Connect(WithStyles(PrState))
           expanded="panel1"
         />
       </WithStyles(Card)>

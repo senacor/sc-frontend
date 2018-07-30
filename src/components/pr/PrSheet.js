@@ -8,7 +8,6 @@ import PrComment from './PrComment';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
-import Button from '@material-ui/core/Button';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';
@@ -115,25 +114,6 @@ class PrSheet extends React.Component {
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
           </List>
-          {isEmployee(this.props.userroles) ? (
-            <List>
-              <ListItem>
-                <Button
-                  className={
-                    this.isVisibleToReviewer()
-                      ? classes.buttonDesktopDisabled
-                      : classes.buttonDesktop
-                  }
-                  disabled={this.isVisibleToReviewer()}
-                  onClick={this.handleClickEmployee}
-                >
-                  PR Freigeben
-                </Button>
-              </ListItem>
-            </List>
-          ) : (
-            ''
-          )}
         </List>
         <Divider />
         <List>
@@ -235,26 +215,6 @@ class PrSheet extends React.Component {
             />
           </List>
         </List>
-        <Divider />
-        {isSupervisor(this.props.userroles) ? (
-          <List>
-            <ListItem>
-              <Button
-                className={
-                  this.isVisibleToEmployee()
-                    ? classes.buttonDesktopDisabled
-                    : classes.buttonDesktop
-                }
-                disabled={this.isVisibleToEmployee()}
-                onClick={this.handleClickReviewer}
-              >
-                PR Freigeben
-              </Button>
-            </ListItem>
-          </List>
-        ) : (
-          ''
-        )}
       </div>
     );
   }

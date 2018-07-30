@@ -1,12 +1,19 @@
 import { addRating } from './index';
-import { setVisibilityById } from './sheet';
+import {
+  changeVisibilityForEmployee,
+  changeVisibilityForReviewer,
+  setVisibilityById
+} from './sheet';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
-  CHANGE_PR_VISIBILITY_REQUEST
+  CHANGE_PR_VISIBILITY_REQUEST,
+  FETCH_PR_BY_ID_REQUEST,
+  ERROR_GONE,
+  FETCH_PR_BY_ID_RESPONSE
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -322,11 +329,102 @@ describe('setVisibilityById', () => {
       finalVisibility.prVisibilityEntry
     );
 
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
     const store = mockStore();
     await store.dispatch(setVisibilityById(prWithVisibility, false, true));
 
     expect(store.getActions()).toEqual([
-      { type: CHANGE_PR_VISIBILITY_REQUEST }
+      { type: CHANGE_PR_VISIBILITY_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE },
+      { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
+    ]);
+  });
+});
+
+describe('changeVisibilityForEmployee', () => {
+  afterEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
+
+  it('should change the visibility for the employee in the PR and database', async () => {
+    const initialVisibility = {
+      prVisibilityEntry: {
+        visibilityToEmployee: 'INVISIBLE',
+        visibilityToReviewer: 'INVISIBLE'
+      }
+    };
+    const finalVisibility = {
+      prVisibilityEntry: {
+        id: 1,
+        visibilityToEmployee: 'VISIBLE',
+        visibilityToReviewer: 'INVISIBLE'
+      }
+    };
+    let prWithVisibility = Object.assign({}, prById, initialVisibility);
+    fetchMock.putOnce(
+      `/api/v1/prs/${prById.id}/visibility`,
+      finalVisibility.prVisibilityEntry
+    );
+
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
+    const store = mockStore();
+    await store.dispatch(changeVisibilityForEmployee(prWithVisibility));
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_PR_VISIBILITY_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE },
+      {
+        type: FETCH_PR_BY_ID_RESPONSE,
+        prById: { id: 1 }
+      }
+    ]);
+  });
+});
+
+describe('changeVisibilityForReviewer', () => {
+  afterEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
+
+  it('should change the visibility for the reviewer', async () => {
+    const initialVisibility = {
+      prVisibilityEntry: {
+        visibilityToEmployee: 'INVISIBLE',
+        visibilityToReviewer: 'INVISIBLE'
+      }
+    };
+    const finalVisibility = {
+      prVisibilityEntry: {
+        id: 1,
+        visibilityToEmployee: 'INVISIBLE',
+        visibilityToReviewer: 'VISIBLE'
+      }
+    };
+    let prWithVisibility = Object.assign({}, prById, initialVisibility);
+    fetchMock.putOnce(
+      `/api/v1/prs/${prById.id}/visibility`,
+      finalVisibility.prVisibilityEntry
+    );
+
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
+    const store = mockStore();
+    await store.dispatch(changeVisibilityForReviewer(prWithVisibility));
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_PR_VISIBILITY_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE },
+      {
+        type: FETCH_PR_BY_ID_RESPONSE,
+        prById: { id: 1 }
+      }
     ]);
   });
 });

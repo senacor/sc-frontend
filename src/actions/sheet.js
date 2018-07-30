@@ -125,9 +125,9 @@ export const setVisibilityById = (
   await changeResponse.json();
 
   if (changeResponse.ok) {
-    fetchPrById(prById.id);
+    return fetchPrById(prById.id)(dispatch);
   } else {
-    dispatch({
+    return dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
       httpCode: changeResponse.status
     });
@@ -172,4 +172,20 @@ export const changeRatingTargetRole = (
       }
     });
   }
+};
+
+export const changeVisibilityForEmployee = pr => {
+  let isVisibleToEmployee =
+    pr.prVisibilityEntry.visibilityToEmployee === visibilityTypes.VISIBLE;
+  let isVisibleToReviewer =
+    pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
+  return setVisibilityById(pr, !isVisibleToEmployee, isVisibleToReviewer);
+};
+
+export const changeVisibilityForReviewer = pr => {
+  let isVisibleToEmployee =
+    pr.prVisibilityEntry.visibilityToEmployee === visibilityTypes.VISIBLE;
+  let isVisibleToReviewer =
+    pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
+  return setVisibilityById(pr, isVisibleToEmployee, !isVisibleToReviewer);
 };
