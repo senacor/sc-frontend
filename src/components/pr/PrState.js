@@ -56,7 +56,7 @@ const styles = theme => ({
 export const prStatusEnum = {
   RELEASED_SHEET_REVIEWER: 'FILLED_SHEET_REVIEWER',
   RELEASED_SHEET_EMPLOYEE: 'FILLED_SHEET_EMPLOYEE',
-  FIXED_DATE: 'ACCEPTED_DATE_REVIEWER',
+  FIXED_DATE: 'ALL_DATES_ACCEPTED',
   FINALIZED_REVIEWER: 'MODIFICATIONS_ACCEPTED_REVIEWER',
   FINALIZED_EMPLOYEE: 'MODIFICATIONS_ACCEPTED_EMPLOYEE',
   ARCHIVED_HR: 'COMPLETED_PR'
@@ -72,15 +72,15 @@ const progressStructure = [
     ]
   },
   {
-    text: 'PR abgeschlossen (Beurteiler)',
+    text: 'PR abschließen (Beurteiler)',
     statuses: [prStatusEnum.FINALIZED_REVIEWER]
   },
   {
-    text: 'PR abgeschlossen (Mitarbeiter)',
+    text: 'PR abschließen (Mitarbeiter)',
     statuses: [prStatusEnum.FINALIZED_EMPLOYEE]
   },
   {
-    text: 'PR archiviert (HR)',
+    text: 'PR archivieren (HR)',
     statuses: [prStatusEnum.ARCHIVED_HR]
   }
 ];
@@ -91,6 +91,13 @@ function isDone(prStatuses, status) {
   } else {
     return prStatuses.includes(status);
   }
+}
+
+function mainStepIsDone(prStatusesDone, stepId) {
+  let finishedSubTasks = progressStructure[stepId].statuses.map(
+    status => prStatusesDone[status]
+  );
+  return !finishedSubTasks.includes(false);
 }
 
 const getFinishedMilestones = all_statuses => {
@@ -192,7 +199,11 @@ class PrState extends React.Component {
             <Stepper
               orientation="vertical"
               className={classes.stepper}
-              activeStep={0}
+              activeStep={
+                [...Array(progressStructure.length).keys()].filter(stepId =>
+                  mainStepIsDone(this.props.prStatusesDone, stepId)
+                ).length - 1
+              }
             >
               {progressStructure.map(progressStep => {
                 return (
