@@ -152,8 +152,8 @@ export class PRList extends React.Component {
                       <Typography gutterBottom noWrap color="textSecondary">
                         <Translate
                           content={
-                            pr.prStatusEntries.length > 0
-                              ? pr.prStatusEntries.pop()
+                            pr.statuses && pr.statuses.length > 0
+                              ? pr.statuses[pr.statuses.length - 1]
                               : 'PREPARATION'
                           }
                         />

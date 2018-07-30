@@ -1,4 +1,5 @@
 export const translationMap = {
+  ALL_DATES_ACCEPTED: 'Termin festgesetzt',
   ARCHITECT: 'Architekt',
   ACCEPTED_DATE_REVIEWER: 'Termin akzeptiert',
   CONTRIBUTION_TO_COMPANY_DEVELOPMENT: 'Beitrag zur Unternehmensentwicklung',
