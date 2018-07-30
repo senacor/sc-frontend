@@ -5,7 +5,10 @@ import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
   ADD_TEXT_REQUEST,
-  ADD_TEXT_RESPONSE
+  ADD_TEXT_RESPONSE,
+  CHANGE_RATING_TARGETROLE,
+  CHANGE_RATING_TARGETROLE_REQUEST,
+  CHANGE_RATING_TARGETROLE_RESPONSE
 } from '../helper/dispatchTypes';
 import * as dispatchTypes from '../helper/dispatchTypes';
 import * as visibilityTypes from '../helper/prVisibility';
@@ -127,6 +130,46 @@ export const setVisibilityById = (
     dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
       httpCode: changeResponse.status
+    });
+  }
+};
+
+export const changeRatingTargetRole = (
+  prById,
+  targetRoleName,
+  rating
+) => async dispatch => {
+  dispatch({
+    type: CHANGE_RATING_TARGETROLE_REQUEST
+  });
+
+  await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${
+      prById.id
+    }/role/${targetRoleName}`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        rating: rating
+      })
+    }
+  );
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${
+      prById.id
+    }/role/${targetRoleName}`
+  );
+
+  if (response.ok) {
+    const result = await response.json();
+    const ratingResponse = objectGet(result, 'rating');
+    dispatch({
+      type: CHANGE_RATING_TARGETROLE_RESPONSE,
+      payload: {
+        ratingResponse
+      }
     });
   }
 };

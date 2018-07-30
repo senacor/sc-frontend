@@ -27,13 +27,11 @@ class PrOverallAssessment extends React.Component {
             prVisible={this.props.prVisible}
           />
         </div>
+
         <div className={classes.containerListItem}>
-          <TargetRole
-            prById={prById}
-            category="TARGET_ROLE"
-            prVisible={this.props.prVisible}
-          />
+          <TargetRole prById={prById} />
         </div>
+
         <div className={classes.containerListItem}>
           <PrOverallComment
             prById={prById}
@@ -53,6 +51,7 @@ export default connect(
     prRating: getPrRatings(props.category)(state)
   }),
   {
-    addRating: actions.addRating
+    addRating: actions.addRating,
+    fetchTargetRolesById: actions.fetchTargetRolesById
   }
 )(StyledComponentOA);
