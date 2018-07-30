@@ -4,6 +4,7 @@ import editTasks from './editTasks';
 import { prs, sortOrderPrs } from './prs';
 import { prDetailId } from './prDetailId';
 import prById from './getPr';
+import prTargetRole from './getTargetRole';
 import prVisibilityById from './getPrVisibility';
 import errors from './errors';
 import login from './login';
@@ -27,6 +28,7 @@ const combineReducer = combineReducers({
   isLoading,
   prById,
   prDetailId,
+  prTargetRole,
   prVisibilityById,
   prRatings,
   prEmployeeContributions,

@@ -1,103 +1,133 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { withStyles } from '@material-ui/core/styles/index';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import FormControl from '@material-ui/core/FormControl';
-import Typography from '@material-ui/core/Typography';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-
+import StepSlider from './StepSlider';
 import { isEmployee } from '../../helper/checkRole';
-import { translateContent } from '../translate/Translate';
-import { getPrRatings, getUserroles } from '../../reducers/selector';
+import { getUserroles } from '../../reducers/selector';
+import Grid from '@material-ui/core/Grid/index';
+import objectGet from 'object-get';
 import * as actions from '../../actions';
+import { translateContent } from '../translate/Translate';
+
+const styles = theme => ({
+  outerGrid: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch'
+  },
+  ratingTargetRole: {
+    color: theme.palette.primary['300'],
+    justifyContent: 'flex-end'
+  },
+  targetRole: {
+    color: theme.palette.primary['300'],
+    alignItems: 'flex-end'
+  }
+});
+
+const getSortedTargetRoleSet = targetRoleSet => {
+  const targetRolesOrdered = [
+    'PLATTFORMGESTALTER',
+    'IT_SOLUTION_LEADER',
+    'TRANSFORMATION_MANAGER',
+    'IT_LIEFERSTEUERER',
+    'ARCHITECT',
+    'TECHNICAL_EXPERT',
+    'LEAD_DEVELOPER'
+  ];
+
+  return targetRoleSet.sort((objTargetRoleOne, objTargetRoleTwo) => {
+    let priorityTargetRoleOne = targetRolesOrdered.indexOf(
+      objTargetRoleOne.prTargetRoleName
+    );
+    let priorityTargetRoleTwo = targetRolesOrdered.indexOf(
+      objTargetRoleTwo.prTargetRoleName
+    );
+
+    return priorityTargetRoleOne > priorityTargetRoleTwo ? 1 : -1;
+  });
+};
 
 export class TargetRole extends Component {
-  handleChangeRating = prById => event => {
-    this.props.addRating(
-      prById,
-      this.props.category,
-      this.props.prRating.comment,
-      event.target.value,
-      this.props.prRating.id
-    );
-  };
+  constructor(props) {
+    super(props);
+  }
 
-  mapRatingTargetRole = ratingTargetRole => {
-    switch (ratingTargetRole) {
-      case 1:
-        return 'keine Auswahl';
-      case 2:
-        return 'Platformgestalter';
-      case 3:
-        return 'Business IT Solution Leader';
-      case 4:
-        return 'Transformation Manager';
-      case 5:
-        return 'IT-Liefersteuerer';
-      case 6:
-        return 'Architect';
-      case 7:
-        return 'Technical Expert';
-      case 8:
-        return 'Lead Developer';
-      default:
-        return 'keine Auswahl';
-    }
+  renderTargetRoleInformation = () => {
+    let targetRoleInformationOfEmployee = objectGet(
+      this.props,
+      'prById.prTargetRoleSet'
+    );
+    let sortedTargetRoleInformationOfEmployee = getSortedTargetRoleSet(
+      targetRoleInformationOfEmployee
+    );
+
+    const { prById, classes } = this.props;
+
+    return sortedTargetRoleInformationOfEmployee.map((targetRole, index) => {
+      let targetRoleName = targetRole.prTargetRoleName;
+
+      return (
+        <Grid container className={classes.outerGrid}>
+          <Grid
+            item
+            xs={8}
+            sm={8}
+            md={8}
+            lg={8}
+            xl={8}
+            className={classes.targetRole}
+          >
+            <ListItemText secondary={translateContent(targetRoleName)} />
+          </Grid>
+
+          <Grid
+            item
+            xs={4}
+            sm={4}
+            md={4}
+            lg={4}
+            xl={4}
+            className={classes.ratingTargetRole}
+          >
+            <StepSlider
+              prById={prById}
+              targetRoleName={targetRole.prTargetRoleName}
+              rating={targetRole.rating}
+              key={targetRole.prTargetRoleName}
+              id={index}
+            />
+          </Grid>
+        </Grid>
+      );
+    });
   };
 
   render() {
-    const { category, prRating, prById } = this.props;
-
-    if (!prRating) {
+    if (isEmployee(this.props.userroles)) {
       return null;
     }
 
+    const { classes } = this.props;
     return (
       <ListItem>
-        <ListItemText secondary={translateContent(category)} />
-
-        {isEmployee(this.props.userroles) ? (
-          <Typography id="TARGET_ROLE_TYPO" variant="body1">
-            {this.props.prVisible
-              ? this.mapRatingTargetRole(prRating.rating)
-              : ''}
-          </Typography>
-        ) : (
-          <FormControl>
-            <Select
-              id="ratingTargetRoleId"
-              value={prRating.rating ? prRating.rating : 1}
-              displayEmpty
-              name="ratingTargetRole"
-              onChange={this.handleChangeRating(prById)}
-            >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(ratingValue => {
-                return (
-                  <MenuItem
-                    key={'_ratingTargetRole' + ratingValue}
-                    id={'_ratingTargetValueRole' + ratingValue}
-                    value={ratingValue}
-                  >
-                    {this.mapRatingTargetRole(ratingValue)}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        )}
+        <Grid container className={classes.root}>
+          {this.renderTargetRoleInformation()}
+        </Grid>
       </ListItem>
     );
   }
 }
 
+export const StyledComponent = withStyles(styles)(TargetRole);
 export default connect(
   (state, props) => ({
-    prRating: getPrRatings(props.category)(state),
-    userroles: getUserroles(state)
+    userroles: getUserroles(state),
+    prById: props.prById
   }),
   {
-    addRating: actions.addRating
+    changeRatingTargetRole: actions.changeRatingTargetRole
   }
-)(TargetRole);
+)(StyledComponent);

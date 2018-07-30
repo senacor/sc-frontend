@@ -2,7 +2,12 @@ import moment from 'moment';
 import { default as fetch } from '../helper/customFetch';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
-export { addRating, addEmployeeContribution, setVisibilityById } from './sheet';
+export {
+  addRating,
+  addEmployeeContribution,
+  setVisibilityById,
+  changeRatingTargetRole
+} from './sheet';
 export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
@@ -182,4 +187,39 @@ export const setPrDetail = prId => async dispatch => {
     type: dispatchTypes.SET_PR_DETAIL,
     prId
   });
+};
+
+export const fetchTargetRolesById = prsId => async dispatch => {
+  const targetRoleNames = [
+    'PLATTFORMGESTALTER',
+    'IT_SOLUTION_LEADER',
+    'TRANSFORMATION_MANAGER',
+    'IT_LIEFERSTEUERER',
+    'ARCHITECT',
+    'TECHNICAL_EXPERT',
+    'LEAD_DEVELOPER'
+  ];
+
+  dispatch({
+    type: dispatchTypes.FETCH_TARGETROLE_REQUEST
+  });
+  dispatch({
+    type: dispatchTypes.ERROR_GONE
+  });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/role/${targetRoleNames[0]}`
+  );
+  if (response.ok) {
+    const targetRole = await response.json();
+
+    dispatch({
+      type: dispatchTypes.FETCH_TARGETROLE_RESPONSE,
+      targetRole
+    });
+  } else {
+    dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: response.status
+    });
+  }
 };
