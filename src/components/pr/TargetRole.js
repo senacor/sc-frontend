@@ -27,15 +27,28 @@ const styles = theme => ({
   }
 });
 
-const targetRolesOrdered = [
-  'PLATTFORMGESTALTER',
-  'IT_SOLUTION_LEADER',
-  'TRANSFORMATION_MANAGER',
-  'IT_LIEFERSTEUERER',
-  'ARCHITECT',
-  'TECHNICAL_EXPERT',
-  'LEAD_DEVELOPER'
-];
+const getSortedTargetRoleSet = targetRoleSet => {
+  const targetRolesOrdered = [
+    'PLATTFORMGESTALTER',
+    'IT_SOLUTION_LEADER',
+    'TRANSFORMATION_MANAGER',
+    'IT_LIEFERSTEUERER',
+    'ARCHITECT',
+    'TECHNICAL_EXPERT',
+    'LEAD_DEVELOPER'
+  ];
+
+  return targetRoleSet.sort((objTargetRoleOne, objTargetRoleTwo) => {
+    let priorityTargetRoleOne = targetRolesOrdered.indexOf(
+      objTargetRoleOne.prTargetRoleName
+    );
+    let priorityTargetRoleTwo = targetRolesOrdered.indexOf(
+      objTargetRoleTwo.prTargetRoleName
+    );
+
+    return priorityTargetRoleOne > priorityTargetRoleTwo ? 1 : -1;
+  });
+};
 
 export class TargetRole extends Component {
   constructor(props) {
@@ -47,23 +60,13 @@ export class TargetRole extends Component {
       this.props,
       'prById.prTargetRoleSet'
     );
-
-    targetRoleInformationOfEmployee.sort(
-      (objTargetRoleOne, objTargetRoleTwo) => {
-        let priorityTargetRoleOne = targetRolesOrdered.indexOf(
-          objTargetRoleOne.prTargetRoleName
-        );
-        let priorityTargetRoleTwo = targetRolesOrdered.indexOf(
-          objTargetRoleTwo.prTargetRoleName
-        );
-
-        return priorityTargetRoleOne > priorityTargetRoleTwo ? 1 : -1;
-      }
+    let sortedTargetRoleInformationOfEmployee = getSortedTargetRoleSet(
+      targetRoleInformationOfEmployee
     );
 
     const { prById, classes } = this.props;
 
-    return targetRoleInformationOfEmployee.map((targetRole, index) => {
+    return sortedTargetRoleInformationOfEmployee.map((targetRole, index) => {
       let targetRoleName = targetRole.prTargetRoleName;
 
       return (
