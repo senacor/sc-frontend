@@ -1,119 +1,189 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrState Component displays the PrState 1`] = `
-<div>
-  <WithStyles(ExpansionPanel)
-    expanded={false}
-    onChange={[Function]}
-  >
-    <WithStyles(ExpansionPanelSummary)
-      expandIcon={<pure(ExpandMore) />}
-    >
-      <WithStyles(Typography)
-        className="PrState-heading-5"
+<WithStyles(Paper)
+  className="PrState-paper-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        Fortschritt des Reviewprozesses
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(Stepper)
+        activeStep={0}
+        className="PrState-stepper-2"
+        orientation="vertical"
       >
-        Vorbereitung
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        className="PrState-secondaryHeading-6"
-      >
-        1/3 erledigt
-      </WithStyles(Typography)>
-    </WithStyles(ExpansionPanelSummary)>
-    <WithStyles(Divider) />
-    <WithStyles(ExpansionPanelDetails)
-      className="PrState-expansionPanel-4"
-    >
-      <div
-        className="PrState-containerVertical-1"
-      >
-        <WithStyles(List)>
-          <WithStyles(ListItem)>
-            <WithStyles(ListItemText)
-              primary="Bogen ausfüllen"
-            />
-          </WithStyles(ListItem)>
-        </WithStyles(List)>
-        <WithStyles(List)
-          className="PrState-greyBox-2"
+        <WithStyles(Step)
+          key="Vorbereitung PR"
         >
-          <WithStyles(ListItem)
-            button={true}
-            disabled={true}
-          >
-            <WithStyles(ListItemText)
-              primary="Mitarbeiter"
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem)
-            button={true}
-            disabled={true}
-          >
-            <WithStyles(ListItemText)
-              secondary="Terminierung"
-            />
-          </WithStyles(ListItem)>
-          <WithStyles(ListItem)
-            button={true}
-            disabled={true}
-          >
-            <WithStyles(ListItemText)
-              secondary="Bogen ausfüllen"
-            />
-          </WithStyles(ListItem)>
-        </WithStyles(List)>
-      </div>
-    </WithStyles(ExpansionPanelDetails)>
-  </WithStyles(ExpansionPanel)>
-  <WithStyles(ExpansionPanel)
-    expanded={false}
-    onChange={[Function]}
-  >
-    <WithStyles(ExpansionPanelSummary)
-      expandIcon={<pure(ExpandMore) />}
-    >
-      <WithStyles(Typography)
-        className="PrState-heading-5"
-      >
-        In Durchführung
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        className="PrState-secondaryHeading-6"
-      >
-        0/1 erledigt
-      </WithStyles(Typography)>
-    </WithStyles(ExpansionPanelSummary)>
-    <WithStyles(Divider) />
-    <WithStyles(ExpansionPanelDetails)>
-      <WithStyles(Typography)>
-        Panel 2
-      </WithStyles(Typography)>
-    </WithStyles(ExpansionPanelDetails)>
-  </WithStyles(ExpansionPanel)>
-  <WithStyles(ExpansionPanel)
-    expanded={false}
-    onChange={[Function]}
-  >
-    <WithStyles(ExpansionPanelSummary)
-      expandIcon={<pure(ExpandMore) />}
-    >
-      <WithStyles(Typography)
-        className="PrState-heading-5"
-      >
-        Nachbereitung
-      </WithStyles(Typography)>
-      <WithStyles(Typography)
-        className="PrState-secondaryHeading-6"
-      >
-        0/2 erledigt
-      </WithStyles(Typography)>
-    </WithStyles(ExpansionPanelSummary)>
-    <WithStyles(Divider) />
-    <WithStyles(ExpansionPanelDetails)>
-      <WithStyles(Typography)>
-        Panel 3
-      </WithStyles(Typography)>
-    </WithStyles(ExpansionPanelDetails)>
-  </WithStyles(ExpansionPanel)>
-</div>
+          <WithStyles(StepLabel)>
+            Vorbereitung PR
+          </WithStyles(StepLabel)>
+          <WithStyles(StepContent)>
+            <WithStyles(Grid)
+              alignItems="center"
+              container={true}
+              key="SubStepGrid_FILLED_SHEET_EMPLOYEE"
+              spacing={8}
+            >
+              <WithStyles(Grid)
+                item={true}
+                lg={12}
+                md={12}
+                sm={12}
+                xl={6}
+                xs={12}
+              >
+                <WithStyles(Grid)
+                  container={true}
+                  direction="row"
+                >
+                  <WithStyles(Grid)
+                    item={true}
+                    lg={8}
+                    md={6}
+                    sm={8}
+                    xs={8}
+                  >
+                    <WithStyles(Typography)>
+                      Freigabe Mitarbeiter
+                    </WithStyles(Typography)>
+                  </WithStyles(Grid)>
+                  <WithStyles(Grid)
+                    item={true}
+                    lg={4}
+                    md={6}
+                    sm={4}
+                    xs={4}
+                  />
+                </WithStyles(Grid)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              alignItems="center"
+              container={true}
+              key="SubStepGrid_FILLED_SHEET_REVIEWER"
+              spacing={8}
+            >
+              <WithStyles(Grid)
+                item={true}
+                lg={12}
+                md={12}
+                sm={12}
+                xl={6}
+                xs={12}
+              >
+                <WithStyles(Grid)
+                  container={true}
+                  direction="row"
+                >
+                  <WithStyles(Grid)
+                    item={true}
+                    lg={8}
+                    md={6}
+                    sm={8}
+                    xs={8}
+                  >
+                    <WithStyles(Typography)>
+                      Freigabe Beurteiler
+                    </WithStyles(Typography)>
+                  </WithStyles(Grid)>
+                  <WithStyles(Grid)
+                    item={true}
+                    lg={4}
+                    md={6}
+                    sm={4}
+                    xs={4}
+                  />
+                </WithStyles(Grid)>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                lg={12}
+                md={12}
+                sm={12}
+                xl={6}
+                xs={12}
+              >
+                <WithStyles(Button)
+                  className="PrState-buttonDesktop-4"
+                  disabled={false}
+                  onClick={[Function]}
+                >
+                  PR freigeben
+                </WithStyles(Button)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              alignItems="center"
+              container={true}
+              key="SubStepGrid_ACCEPTED_DATE_REVIEWER"
+              spacing={8}
+            >
+              <WithStyles(Grid)
+                item={true}
+                lg={12}
+                md={12}
+                sm={12}
+                xl={6}
+                xs={12}
+              >
+                <WithStyles(Grid)
+                  container={true}
+                  direction="row"
+                >
+                  <WithStyles(Grid)
+                    item={true}
+                    lg={8}
+                    md={6}
+                    sm={8}
+                    xs={8}
+                  >
+                    <WithStyles(Typography)>
+                      Termin akzeptiert
+                    </WithStyles(Typography)>
+                  </WithStyles(Grid)>
+                  <WithStyles(Grid)
+                    item={true}
+                    lg={4}
+                    md={6}
+                    sm={4}
+                    xs={4}
+                  />
+                </WithStyles(Grid)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+          </WithStyles(StepContent)>
+        </WithStyles(Step)>
+        <WithStyles(Step)
+          key="PR abgeschlossen (Beurteiler)"
+        >
+          <WithStyles(StepLabel)>
+            PR abgeschlossen (Beurteiler)
+          </WithStyles(StepLabel)>
+          <WithStyles(StepContent) />
+        </WithStyles(Step)>
+        <WithStyles(Step)
+          key="PR abgeschlossen (Mitarbeiter)"
+        >
+          <WithStyles(StepLabel)>
+            PR abgeschlossen (Mitarbeiter)
+          </WithStyles(StepLabel)>
+          <WithStyles(StepContent) />
+        </WithStyles(Step)>
+        <WithStyles(Step)
+          key="PR archiviert (HR)"
+        >
+          <WithStyles(StepLabel)>
+            PR archiviert (HR)
+          </WithStyles(StepLabel)>
+          <WithStyles(StepContent) />
+        </WithStyles(Step)>
+      </WithStyles(Stepper)>
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
 `;

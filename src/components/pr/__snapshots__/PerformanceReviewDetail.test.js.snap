@@ -45,6 +45,14 @@ exports[`PerformanceReviewDetail should match snapshot 1`] = `
           md={12}
           xl={12}
         >
+          <Connect(WithStyles(PrState)) />
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          lg={12}
+          md={12}
+          xl={12}
+        >
           <WithStyles(PrSalary)
             prDetail={Object {}}
           />
@@ -58,14 +66,6 @@ exports[`PerformanceReviewDetail should match snapshot 1`] = `
           <WithStyles(PrEmployment)
             prById={Object {}}
           />
-        </WithStyles(Grid)>
-        <WithStyles(Grid)
-          item={true}
-          lg={12}
-          md={12}
-          xl={12}
-        >
-          <WithStyles(PrState) />
         </WithStyles(Grid)>
       </WithStyles(Grid)>
     </WithStyles(Grid)>

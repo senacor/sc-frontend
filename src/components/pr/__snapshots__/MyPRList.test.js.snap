@@ -624,7 +624,7 @@ exports[`MyPRList Component displays the MyPRList 1`] = `
             >
               STATUS
             </WithStyles(Typography)>
-            <WithStyles(PrState) />
+            <Connect(WithStyles(PrState)) />
           </WithStyles(Card)>
         </div>
       </div>
