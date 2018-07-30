@@ -1,5 +1,5 @@
 export const translationMap = {
-  ACCEPTED_DATE_REVIEWER: 'Termin akzeptiert',
+  ALL_DATES_ACCEPTED: 'Termin festgesetzt',
   CONTRIBUTION_TO_COMPANY_DEVELOPMENT: 'Beitrag zur Unternehmensentwicklung',
   CUSTOMER_INTERACTION: 'Kundeninteraktion und -veränderung',
   CUSTOMER_RETENTION: 'Kundenbindung und Mandatsgenerierung',

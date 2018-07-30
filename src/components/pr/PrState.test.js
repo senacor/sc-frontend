@@ -94,8 +94,12 @@ describe('PrState Component', () => {
     }
   };
 
+  let dummyStatusMap = {};
+
   it('displays the PrState', () => {
-    const component = shallow(<StyledComponent prById={prById} />);
+    const component = shallow(
+      <StyledComponent prById={prById} prStatusesDone={dummyStatusMap} />
+    );
 
     expect(component).toMatchSnapshot();
   });

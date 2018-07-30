@@ -12,7 +12,7 @@ exports[`PrState Component displays the PrState 1`] = `
     </WithStyles(ListItem)>
     <WithStyles(ListItem)>
       <WithStyles(Stepper)
-        activeStep={0}
+        activeStep={3}
         className="PrState-stepper-2"
         orientation="vertical"
       >
@@ -110,7 +110,6 @@ exports[`PrState Component displays the PrState 1`] = `
               >
                 <WithStyles(Button)
                   className="PrState-buttonDesktop-4"
-                  disabled={false}
                   onClick={[Function]}
                 >
                   PR freigeben
@@ -120,7 +119,7 @@ exports[`PrState Component displays the PrState 1`] = `
             <WithStyles(Grid)
               alignItems="center"
               container={true}
-              key="SubStepGrid_ACCEPTED_DATE_REVIEWER"
+              key="SubStepGrid_ALL_DATES_ACCEPTED"
               spacing={8}
             >
               <WithStyles(Grid)
@@ -143,7 +142,7 @@ exports[`PrState Component displays the PrState 1`] = `
                     xs={8}
                   >
                     <WithStyles(Typography)>
-                      Termin akzeptiert
+                      Termin festgesetzt
                     </WithStyles(Typography)>
                   </WithStyles(Grid)>
                   <WithStyles(Grid)
@@ -159,26 +158,26 @@ exports[`PrState Component displays the PrState 1`] = `
           </WithStyles(StepContent)>
         </WithStyles(Step)>
         <WithStyles(Step)
-          key="PR abgeschlossen (Beurteiler)"
+          key="PR abschließen (Beurteiler)"
         >
           <WithStyles(StepLabel)>
-            PR abgeschlossen (Beurteiler)
+            PR abschließen (Beurteiler)
           </WithStyles(StepLabel)>
           <WithStyles(StepContent) />
         </WithStyles(Step)>
         <WithStyles(Step)
-          key="PR abgeschlossen (Mitarbeiter)"
+          key="PR abschließen (Mitarbeiter)"
         >
           <WithStyles(StepLabel)>
-            PR abgeschlossen (Mitarbeiter)
+            PR abschließen (Mitarbeiter)
           </WithStyles(StepLabel)>
           <WithStyles(StepContent) />
         </WithStyles(Step)>
         <WithStyles(Step)
-          key="PR archiviert (HR)"
+          key="PR archivieren (HR)"
         >
           <WithStyles(StepLabel)>
-            PR archiviert (HR)
+            PR archivieren (HR)
           </WithStyles(StepLabel)>
           <WithStyles(StepContent) />
         </WithStyles(Step)>
