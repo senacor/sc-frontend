@@ -20,26 +20,31 @@ class StepSlider extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = (event, targetRoleName, rating, id) => {
+  handleChange = (event, prActive, targetRoleName, value) => {
     event.preventDefault();
-    const prById = this.props.prById;
-    this.setState({ rating });
-    this.props.changeRatingTargetRole(prById, targetRoleName, rating);
+    this.setState({ rating: value });
+    this.props.changeRatingTargetRole(prActive, targetRoleName, value);
   };
 
   render() {
-    const { targetRoleName, id, classes } = this.props;
-    const { rating } = this.state;
+    const {
+      classes,
+      isDisabled,
+      prActive,
+      rating,
+      targetRoleName
+    } = this.props;
 
     return (
       <Slider
+        disabled={isDisabled}
         className={classes.root}
         value={rating}
         min={1}
         max={3}
         step={1}
         onChange={(event, value) =>
-          this.handleChange(event, targetRoleName, value, id)
+          this.handleChange(event, prActive, targetRoleName, value)
         }
       />
     );
