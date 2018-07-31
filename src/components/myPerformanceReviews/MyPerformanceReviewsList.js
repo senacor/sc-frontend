@@ -26,6 +26,7 @@ class MyPerformanceReviewsList extends Component {
 
   selectPerformanceReview = (prId, shouldGoTo) => () => {
     this.props.setPrDetail(prId);
+    this.props.fetchPrById(prId);
     if (shouldGoTo) {
       this.props.history.push(`/prs/${prId}`);
     }
@@ -87,6 +88,7 @@ export default connect(
   }),
   {
     fetchPrs: actions.fetchPrs,
-    setPrDetail: actions.setPrDetail
+    setPrDetail: actions.setPrDetail,
+    fetchPrById: actions.fetchPrById
   }
 )(withRouter(StyledComponent));
