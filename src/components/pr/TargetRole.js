@@ -27,8 +27,8 @@ const styles = theme => ({
   }
 });
 
-const getSortedTargetRoleSet = targetRoleSet => {
-  const targetRolesOrdered = [
+const compareTargetRoles = (() => {
+  const orderedTargetRoleNames = [
     'PLATTFORMGESTALTER',
     'IT_SOLUTION_LEADER',
     'TRANSFORMATION_MANAGER',
@@ -38,37 +38,36 @@ const getSortedTargetRoleSet = targetRoleSet => {
     'LEAD_DEVELOPER'
   ];
 
-  return targetRoleSet.sort((objTargetRoleOne, objTargetRoleTwo) => {
-    let priorityTargetRoleOne = targetRolesOrdered.indexOf(
+  return (objTargetRoleOne, objTargetRoleTwo) => {
+    let priorityTargetRoleOne = orderedTargetRoleNames.indexOf(
       objTargetRoleOne.prTargetRoleName
     );
-    let priorityTargetRoleTwo = targetRolesOrdered.indexOf(
+    let priorityTargetRoleTwo = orderedTargetRoleNames.indexOf(
       objTargetRoleTwo.prTargetRoleName
     );
 
     return priorityTargetRoleOne > priorityTargetRoleTwo ? 1 : -1;
-  });
-};
+  };
+})();
 
 export class TargetRole extends Component {
   constructor(props) {
     super(props);
+    this.buildTargetRoleInformation = this.buildTargetRoleInformation.bind(
+      this
+    );
   }
 
-  renderTargetRoleInformation = () => {
+  buildTargetRoleInformation = () => {
     let targetRoleInformationOfEmployee = objectGet(
       this.props,
-      'prById.prTargetRoleSet'
+      'prActive.prTargetRoleSet'
     );
-    let sortedTargetRoleInformationOfEmployee = getSortedTargetRoleSet(
-      targetRoleInformationOfEmployee
-    );
+    targetRoleInformationOfEmployee.sort(compareTargetRoles);
 
-    const { prById, classes } = this.props;
+    const { prActive, isDisabled, classes } = this.props;
 
-    return sortedTargetRoleInformationOfEmployee.map((targetRole, index) => {
-      let targetRoleName = targetRole.prTargetRoleName;
-
+    return targetRoleInformationOfEmployee.map(targetRole => {
       return (
         <Grid container className={classes.outerGrid}>
           <Grid
@@ -80,7 +79,9 @@ export class TargetRole extends Component {
             xl={8}
             className={classes.targetRole}
           >
-            <ListItemText secondary={translateContent(targetRoleName)} />
+            <ListItemText
+              secondary={translateContent(targetRole.prTargetRoleName)}
+            />
           </Grid>
 
           <Grid
@@ -93,11 +94,11 @@ export class TargetRole extends Component {
             className={classes.ratingTargetRole}
           >
             <StepSlider
-              prById={prById}
-              targetRoleName={targetRole.prTargetRoleName}
-              rating={targetRole.rating}
               key={targetRole.prTargetRoleName}
-              id={index}
+              isDisabled={isDisabled}
+              prActive={prActive}
+              rating={targetRole.rating}
+              targetRoleName={targetRole.prTargetRoleName}
             />
           </Grid>
         </Grid>
@@ -106,15 +107,11 @@ export class TargetRole extends Component {
   };
 
   render() {
-    if (isEmployee(this.props.userroles)) {
-      return null;
-    }
-
     const { classes } = this.props;
     return (
       <ListItem>
         <Grid container className={classes.root}>
-          {this.renderTargetRoleInformation()}
+          {this.buildTargetRoleInformation()}
         </Grid>
       </ListItem>
     );
@@ -124,8 +121,8 @@ export class TargetRole extends Component {
 export const StyledComponent = withStyles(styles)(TargetRole);
 export default connect(
   (state, props) => ({
-    userroles: getUserroles(state),
-    prById: props.prById
+    prActive: state.prs[state.prDetailId],
+    isDisabled: isEmployee(getUserroles(state)) === true
   }),
   {
     changeRatingTargetRole: actions.changeRatingTargetRole
