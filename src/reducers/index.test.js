@@ -83,6 +83,9 @@ describe('reducers', () => {
         prDetailId: 0,
         prEmployeeContributions: [],
         prRatings: {},
+        prTargetRole: {
+          prGetTargetRole: []
+        },
         prVisibilityById: {
           prVisibility: {
             toEmployee: false,

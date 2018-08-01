@@ -11,7 +11,9 @@ const configurestore = () => {
   }
 
   const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    (typeof window === 'object' &&
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+    compose;
 
   return createStore(
     reducers,

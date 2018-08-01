@@ -1,14 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { TargetRole } from './TargetRole';
-import { StyledComponent } from './PrComment';
-import TextField from '@material-ui/core/TextField/index';
-import ROLES from '../../helper/roles';
-import Typography from '@material-ui/core/Typography/index';
-import Select from '@material-ui/core/Select/index';
+import { createShallow } from '@material-ui/core/test-utils';
+import { StyledComponent } from './TargetRole';
 
-
-const countTargetRoles = 7;
 const targetRoleSet = [
   {
     id: 22,
@@ -48,35 +41,12 @@ const targetRoleSet = [
 ];
 
 describe('TargetRole Component', () => {
-
+  let shallow = createShallow({ dive: true });
   it('should match snapshot', () => {
-    let wrapper = shallow(<TargetRole prById={{}} />);
-
-    expect(wrapper.find(ListItemText)).toHaveLength(countTargetRoles);
-    expect(wrapper.find(ListItemText)).toHaveLength(countTargetRoles);
-    //expect(cut).toMatchSnapshot();
-  });
-
-
-    /*
-  it('should display no input components when viewer is employee', () => {
     const wrapper = shallow(
-      <StyledComponent
-        prById={prById}
-        category="TEAMWORK"
-        prRating={{
-          id: 9,
-          prRatingDescription: 'TEAMWORK',
-          prRatingCategory: 'IMPACT_ON_TEAM',
-          rating: 1,
-          comment: 'fff'
-        }}
-        userroles={[ROLES.PR_MITARBEITER]}
-      />
+      <StyledComponent prActive={{ prTargetRoleSet: targetRoleSet }} />
     );
-    expect(wrapper.find(Typography)).toHaveLength(2);
-    expect(wrapper.find(TextField)).toHaveLength(0);
-    expect(wrapper.find(Select)).toHaveLength(0);
+
+    expect(wrapper).toMatchSnapshot();
   });
-  */
 });
