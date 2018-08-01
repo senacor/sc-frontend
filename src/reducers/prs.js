@@ -3,10 +3,13 @@ import {
   ADD_PR_RESPONSE,
   DELEGATE_REVIEWER_RESPONSE,
   CHANGE_SORT_ORDER,
-  FETCH_PR_BY_ID_RESPONSE
+  FETCH_PR_BY_ID_RESPONSE,
+  CHANGE_RATING_TARGETROLE_RESPONSE
 } from '../helper/dispatchTypes';
 import generateMapById from '../helper/generateMapById';
 import cloneDeep from '../helper/cloneDeep';
+import objectGet from 'object-get';
+import set from 'object-set';
 
 export const prs = (state = {}, action) => {
   switch (action.type) {
@@ -35,6 +38,27 @@ export const prs = (state = {}, action) => {
         })
       );
     }
+    case CHANGE_RATING_TARGETROLE_RESPONSE: {
+      const prId = action.payload.prId;
+      const targetRoleName = action.payload.targetRoleName;
+      const rating = action.payload.rating;
+
+      const prs = cloneDeep(state);
+      const targetRoleSet = objectGet(prs, `${prId}.prTargetRoleSet`);
+
+      const indexChangedRating = targetRoleSet.findIndex(
+        targetRoleInfo => targetRoleInfo.prTargetRoleName === targetRoleName
+      );
+
+      const prsUpdated = set(
+        prs,
+        `${prId}.prTargetRoleSet.${indexChangedRating}.rating`,
+        rating
+      );
+
+      return prsUpdated;
+    }
+
     default:
       return state;
   }

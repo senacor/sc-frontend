@@ -134,7 +134,7 @@ export const setVisibilityById = (
 };
 
 export const changeRatingTargetRole = (
-  prById,
+  prId,
   targetRoleName,
   rating
 ) => async dispatch => {
@@ -143,9 +143,7 @@ export const changeRatingTargetRole = (
   });
 
   await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${
-      prById.id
-    }/role/${targetRoleName}`,
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/role/${targetRoleName}`,
     {
       method: 'put',
       mode: 'cors',
@@ -156,18 +154,18 @@ export const changeRatingTargetRole = (
   );
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${
-      prById.id
-    }/role/${targetRoleName}`
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/role/${targetRoleName}`
   );
 
   if (response.ok) {
     const result = await response.json();
-    const ratingResponse = objectGet(result, 'rating');
+    const rating = objectGet(result, 'rating');
     dispatch({
       type: CHANGE_RATING_TARGETROLE_RESPONSE,
       payload: {
-        ratingResponse
+        prId,
+        targetRoleName,
+        rating
       }
     });
   }

@@ -22,8 +22,7 @@ class StepSlider extends React.Component {
 
   handleChange = (event, prActive, targetRoleName, value) => {
     event.preventDefault();
-    this.setState({ rating: value });
-    this.props.changeRatingTargetRole(prActive, targetRoleName, value);
+    this.props.changeRatingTargetRole(prActive.id, targetRoleName, value);
   };
 
   render() {
@@ -52,7 +51,21 @@ class StepSlider extends React.Component {
 }
 
 StepSlider.propTypes = {
-  classes: PropTypes.object.isRequired
+  disabled: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
+  value: PropTypes.number,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  onChange: PropTypes.func.isRequired
+};
+
+StepSlider.defaultProps = {
+  disabled: false,
+  value: 2,
+  min: 1,
+  max: 3,
+  step: 1
 };
 
 export const StyledComponent = withStyles(styles)(StepSlider);
