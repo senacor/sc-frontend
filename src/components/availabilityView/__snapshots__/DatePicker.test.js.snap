@@ -5,6 +5,7 @@ exports[`DatePicker should match snapshot 1`] = `
   classes={
     Object {
       "textField": "DatePicker-textField-1",
+      "textFieldDesktop": "DatePicker-textFieldDesktop-2",
     }
   }
 />
