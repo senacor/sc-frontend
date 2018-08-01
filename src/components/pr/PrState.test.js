@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledComponent } from './PrState';
+import { StyledComponent, prStatusEnum } from './PrState';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrState Component', () => {
@@ -102,5 +102,22 @@ describe('PrState Component', () => {
     );
 
     expect(component).toMatchSnapshot();
+  });
+
+  it('sets step 2 as active for a released sheed and fixed date', () => {
+    const statusMap = {
+      [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: true,
+      [prStatusEnum.RELEASED_SHEET_REVIEWER]: true,
+      [prStatusEnum.FIXED_DATE]: true,
+      [prStatusEnum.FINALIZED_REVIEWER]: false,
+      [prStatusEnum.FINALIZED_REVIEWER]: false,
+      [prStatusEnum.ARCHIVED_HR]: false
+    };
+    const component = shallow(
+      <StyledComponent prById={prById} prStatusesDone={statusMap} />
+    );
+
+    expect(component.find('WithStyles(Typography)')).toHaveLength(3);
+    expect(component.find('[activeStep=1]')).toHaveLength(1);
   });
 });
