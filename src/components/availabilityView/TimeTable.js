@@ -220,17 +220,22 @@ class TimeTable extends React.Component {
   }
 
   calculatePositionFor(time) {
-    let startMinutesSinceFirstHour =
-      time.hours() * minutesPerHour + time.minutes() - firstHourOfDay * minutesPerHour;
-    let relativePosition =
-      ((startMinutesSinceFirstHour + minutesPerHour) / (timeTableHours * minutesPerHour)) * 100;
-    return relativePosition;
+    let amountOfHourPassed = time.minutes() / minutesPerHour;
+    let percentageOfHourPassed = amountOfHourPassed * 100;
+    let percentageOfHourRemaining = 100 - percentageOfHourPassed;
+    return percentageOfHourRemaining;
   }
 
   //Calculate here the relative position of a div or the relative time in percent to calculate the appointments length.
   //Takes a moment object as an argument - the start or the end moment of an appointment.
   transformAppointmentTimeToPercent(appointment) {
-    let appointmentMoment = moment.parseZone(appointment, 'YYYY-MM-DDTHH:mmZ').utc();
+    let splitAppointment = appointment.split(/[\[\]]/);
+    let appointmentWithoutTimezoneHint = splitAppointment[0];
+    let appointmentInGivenTimezone = moment.parseZone(appointmentWithoutTimezoneHint, 'YYYY-MM-DDTHH:mmZ', true);
+    if (!appointmentInGivenTimezone.isValid()) {
+      throw `${appointment} is not a valid date / time configuration`;
+    }
+    let appointmentMoment = appointmentInGivenTimezone.utc();
     let startOfSelectedDay = moment.utc(this.props.selectedDate)
       .hour(firstHourOfDay);
     let endOfSelectedDay = moment.utc(this.props.selectedDate)
