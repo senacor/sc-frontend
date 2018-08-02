@@ -86,20 +86,15 @@ describe('calculatePositionFor', () => {
   it('should return 25 if the appointment is in 25% of the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment(
-      moment
-        .utc('2018-03-08T09:45Z[UTC]', 'YYYY-MM-DDTHH:mmZ')
-        .local()
-        .format('YYYY-MM-DDTHH:mmZ')
-    );
-    expect(component.instance().calculatePositionFor(startAppointment)).toEqual(
-      25
-    );
+    let startAppointment = moment.utc('2018-03-08T09:45Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    expect(
+      component.instance().calculatePositionFor(startAppointment)
+    ).toEqual(25);
   });
 });
 
 describe('transformAppointmentTimeToPercent', () => {
-  it('should return 50 if the appointment is in the center of the time window', () => {
+  it('should return 50 if the appointment is in the center of the time window in UTC', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T12:30Z[UTC]';
@@ -148,11 +143,8 @@ describe('appointmentsFilter', () => {
     component.setProps(props);
     let startAppointment = '2018-03-08T12:00Z[UTC]';
     let endAppointment = '2018-03-08T13:00Z[UTC]';
-    let appointment = [];
-    appointment.push(startAppointment);
-    appointment.push(endAppointment);
-    let appointments = [];
-    appointments.push(appointment);
+    let appointment = [ startAppointment, endAppointment ];
+    let appointments = [ appointment ];
     expect(component.instance().appointmentsFilter(appointments)).toEqual(
       appointments
     );

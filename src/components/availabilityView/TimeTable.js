@@ -10,6 +10,7 @@ const timeTableListHeight = 25;
 const firstHourOfDay = 8;
 const lastHourOfDay = 19;
 const minuteGranularity = 30;
+const minutesPerHour = 60;
 const timeTableHours = lastHourOfDay - firstHourOfDay;
 let divIds = 0;
 
@@ -175,11 +176,9 @@ class TimeTable extends React.Component {
   }
 
   appointmentsFilter(appointments) {
-    let startSelectedDay = moment(this.props.selectedDate)
-      .local()
+    let startSelectedDay = moment.utc(this.props.selectedDate)
       .hours(firstHourOfDay);
-    let endSelectedDay = moment(this.props.selectedDate)
-      .local()
+    let endSelectedDay = moment.utc(this.props.selectedDate)
       .hours(lastHourOfDay);
     return appointments.filter(appointment => {
       let startAppointmentUtc = moment.utc(appointment[0], 'YYYY-MM-DDTHH:mmZ');
@@ -222,26 +221,19 @@ class TimeTable extends React.Component {
 
   calculatePositionFor(time) {
     let startMinutesSinceFirstHour =
-      time.hours() * 60 + time.minutes() - firstHourOfDay * 60;
+      time.hours() * minutesPerHour + time.minutes() - firstHourOfDay * minutesPerHour;
     let relativePosition =
-      (startMinutesSinceFirstHour / (timeTableHours * 60)) * 100;
+      ((startMinutesSinceFirstHour + minutesPerHour) / (timeTableHours * minutesPerHour)) * 100;
     return relativePosition;
   }
 
   //Calculate here the relative position of a div or the relative time in percent to calculate the appointments length.
   //Takes a moment object as an argument - the start or the end moment of an appointment.
   transformAppointmentTimeToPercent(appointment) {
-    let appointmentMoment = moment(
-      moment
-        .utc(appointment, 'YYYY-MM-DDTHH:mmZ')
-        .local()
-        .format('YYYY-MM-DDTHH:mmZ')
-    );
-    let startOfSelectedDay = moment(this.props.selectedDate)
-      .local()
+    let appointmentMoment = moment.parseZone(appointment, 'YYYY-MM-DDTHH:mmZ').utc();
+    let startOfSelectedDay = moment.utc(this.props.selectedDate)
       .hour(firstHourOfDay);
-    let endOfSelectedDay = moment(this.props.selectedDate)
-      .local()
+    let endOfSelectedDay = moment.utc(this.props.selectedDate)
       .hour(lastHourOfDay);
     //For Appointments inside the time window:
     if (
