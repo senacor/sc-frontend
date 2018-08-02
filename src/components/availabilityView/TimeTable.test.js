@@ -82,41 +82,41 @@ describe('createDividers', () => {
   });
 });
 
-describe('calculatePositionFor', () => {
-  it('should return 100 if the appointment is at the beginning of the time window', () => {
+describe('calculatePositionInTimetableFor', () => {
+  it('should return 0 if the appointment is at the beginning of the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T09:00Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc('2018-03-08T08:00+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
     expect(
-      component.instance().calculatePositionFor(startAppointment)
-    ).toEqual(100);
+      component.instance().calculatePositionInTimetableFor(startAppointment)
+    ).toEqual(0);
   });
 
-  it('should return 75 if the appointment is at a quarter past the hour of the time window', () => {
+  it('should return 25 if the appointment is at a quarter way through the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T09:15Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc('2018-03-08T10:45+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
     expect(
-      component.instance().calculatePositionFor(startAppointment)
-    ).toEqual(75);
+      component.instance().calculatePositionInTimetableFor(startAppointment)
+    ).toEqual(25);
   });
 
-  it('should return 50 if the appointment is at half past the hour of the time window', () => {
+  it('should return 50 if the appointment is half way through the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T09:30Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc('2018-03-08T13:30+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
     expect(
-      component.instance().calculatePositionFor(startAppointment)
+      component.instance().calculatePositionInTimetableFor(startAppointment)
     ).toEqual(50);
   });
 
-  it('should return 25 if the appointment is at a quarter to the hour of the time window', () => {
+  it('should return 75 if the appointment is three quarters through the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T09:45Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc('2018-03-08T16:15+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
     expect(
-      component.instance().calculatePositionFor(startAppointment)
-    ).toEqual(25);
+      component.instance().calculatePositionInTimetableFor(startAppointment)
+    ).toEqual(75);
   });
 });
 

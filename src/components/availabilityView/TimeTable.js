@@ -7,11 +7,13 @@ import {connect} from 'react-redux';
 import {getSelectedDate} from '../../reducers/selector';
 
 const timeTableListHeight = 25;
+const minutesPerHour = 60;
 const firstHourOfDayInGermany = 8;
 const lastHourOfDayInGermany = 19;
+const timeTableHoursInGermany = lastHourOfDayInGermany - firstHourOfDayInGermany;
+const timeTableMinutesInGermany = timeTableHoursInGermany * minutesPerHour;
 const timezoneInGermany = 'Europe/Berlin';
 const minuteGranularity = 30;
-const minutesPerHour = 60;
 let divIds = 0;
 
 const styles = () => ({
@@ -119,7 +121,7 @@ class TimeTable extends React.Component {
       hourLabels.push(
         <div
           className={classes.hours}
-          style={{top: this.calculatePositionFor(hour).toString() + '%'}}
+          style={{top: this.calculatePositionInTimetableFor(hour).toString() + '%'}}
           key={'hourLabel' + hour.toString()} //needs an unique key
         >
           <div className={classes.hourLabel}>
@@ -224,11 +226,12 @@ class TimeTable extends React.Component {
     }
   }
 
-  calculatePositionFor(time) {
-    let amountOfHourPassed = time.minutes() / minutesPerHour;
-    let percentageOfHourPassed = amountOfHourPassed * 100;
-    let percentageOfHourRemaining = 100 - percentageOfHourPassed;
-    return percentageOfHourRemaining;
+  calculatePositionInTimetableFor(time) {
+    const timeInGermany = time.tz(timezoneInGermany);
+    const hoursPassedSinceStartOfDay = timeInGermany.hours() - firstHourOfDayInGermany;
+    const minutesPassedSinceStartOfDay = timeInGermany.minutes() + hoursPassedSinceStartOfDay * minutesPerHour;
+
+    return minutesPassedSinceStartOfDay / timeTableMinutesInGermany * 100;
   }
 
   //Calculate here the relative position of a div or the relative time in percent to calculate the appointments length.
@@ -250,7 +253,7 @@ class TimeTable extends React.Component {
       appointmentInUtc.isAfter(startOfSelectedDay) &&
       appointmentInUtc.isBefore(endOfSelectedDay)
     ) {
-      return this.calculatePositionFor(appointmentInUtc);
+      return this.calculatePositionInTimetableFor(appointmentInUtc);
     }
     //For appointments that end after the time window the size is 100%. The appointments that could start after the time
     // window were already filtered before by appointmentsFilter():
