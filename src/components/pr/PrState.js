@@ -94,13 +94,21 @@ function isDone(prStatuses, status) {
 }
 
 function mainStepIsDone(prStatusesDone, stepId) {
-  let finishedSubTasks = progressStructure[stepId].statuses.map(
-    status => prStatusesDone[status]
-  );
-  return !finishedSubTasks.includes(false);
+  if (prStatusesDone !== undefined) {
+    let finishedSubTasks = progressStructure[stepId].statuses.map(
+      status => prStatusesDone[status]
+    );
+    if (!finishedSubTasks.includes(undefined)) {
+      return !finishedSubTasks.includes(false);
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
 
-const getFinishedMilestones = all_statuses => {
+export const getFinishedMilestones = () => {
   return createSelector(
     [state1 => state1.prs, state2 => state2.prDetailId],
     (prs, prDetailId) => {
@@ -108,14 +116,14 @@ const getFinishedMilestones = all_statuses => {
         return undefined;
       } else {
         let prStatuses = ObjectGet(prs[prDetailId], 'statuses');
-        return Object.getOwnPropertyNames(all_statuses).reduce(function(
-          statusIsReachedMap,
-          nextStatus
-        ) {
-          statusIsReachedMap[nextStatus] = isDone(prStatuses, nextStatus);
-          return statusIsReachedMap;
-        },
-        {});
+        let isDoneStatusMap = {};
+        for (let status in prStatusEnum) {
+          isDoneStatusMap[prStatusEnum[status]] = isDone(
+            prStatuses,
+            prStatusEnum[status]
+          );
+        }
+        return isDoneStatusMap;
       }
     }
   );
@@ -202,7 +210,7 @@ class PrState extends React.Component {
               activeStep={
                 [...Array(progressStructure.length).keys()].filter(stepId =>
                   mainStepIsDone(this.props.prStatusesDone, stepId)
-                ).length - 1
+                ).length
               }
             >
               {progressStructure.map(progressStep => {
@@ -229,7 +237,7 @@ export const StyledComponent = withStyles(styles)(PrState);
 export default connect(
   state => ({
     prById: getPrDetail()(state),
-    prStatusesDone: getFinishedMilestones(translationMap)(state),
+    prStatusesDone: getFinishedMilestones()(state),
     userroles: getUserroles(state)
   }),
   {
