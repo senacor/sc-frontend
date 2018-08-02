@@ -14,26 +14,27 @@ describe('appointmentSearch redux action', () => {
   });
 
   it('should dispatch the appointments for the given date and users', async () => {
+    let appointments = [
+      {
+        employeeId: '1',
+        exchangeOutlookAppointmentResponse: [
+          {
+            appointmentStartTime: '2018-06-12T22:00Z[UTC]',
+            appointmentEndTime: '2018-06-13T22:00Z[UTC]',
+            appointmentStatus: 'Free'
+          }
+        ],
+        _links: {
+          self: {
+            href:
+              'http://localhost:8010/api/v1/appointments?employees=1&date=2018-06-12'
+          }
+        }
+      }
+    ];
     fetchMock.getOnce('/api/v1/appointments?employees=1&date=2018-06-12', {
       _embedded: {
-        exchangeOutlookResponseList: [
-          {
-            employeeId: '1',
-            exchangeOutlookAppointmentResponse: [
-              {
-                appointmentStartTime: '2018-06-12T22:00Z[UTC]',
-                appointmentEndTime: '2018-06-13T22:00Z[UTC]',
-                appointmentStatus: 'Free'
-              }
-            ],
-            _links: {
-              self: {
-                href:
-                  'http://localhost:8010/api/v1/appointments?employees=1&date=2018-06-12'
-              }
-            }
-          }
-        ]
+        exchangeOutlookResponseList: appointments
       }
     });
     const store = mockStore();
@@ -42,24 +43,7 @@ describe('appointmentSearch redux action', () => {
 
     expect(store.getActions()).toContainEqual({
       type: FETCH_APPOINTMENTS_RESPONSE,
-      appointments: [
-        {
-          employeeId: '1',
-          exchangeOutlookAppointmentResponse: [
-            {
-              appointmentStartTime: '2018-06-12T22:00Z[UTC]',
-              appointmentEndTime: '2018-06-13T22:00Z[UTC]',
-              appointmentStatus: 'Free'
-            }
-          ],
-          _links: {
-            self: {
-              href:
-                'http://localhost:8010/api/v1/appointments?employees=1&date=2018-06-12'
-            }
-          }
-        }
-      ]
+      appointments
     });
   });
 });

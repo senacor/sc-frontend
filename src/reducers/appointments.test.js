@@ -5,31 +5,7 @@ import { CHANGE_DATE_FOR_APPOINTMENT } from '../helper/dispatchTypes';
 describe('appointments search reducer', () => {
   it('should fetch the appointments on FETCH_APPOINTMENTS_RESPONSE', () => {
     const stateBefore = [];
-    const action = {
-      type: FETCH_APPOINTMENTS_RESPONSE,
-      appointments: [
-        {
-          employeeId: '1',
-          exchangeOutlookAppointmentResponse: [
-            {
-              appointmentStartTime: '2018-06-12T22:00Z[UTC]',
-              appointmentEndTime: '2018-06-13T22:00Z[UTC]',
-              appointmentStatus: 'Free'
-            }
-          ],
-          _links: {
-            self: {
-              href:
-                'http://localhost:8010/api/v1/appointments?employees=1&date=2018-06-12'
-            }
-          }
-        }
-      ]
-    };
-
-    const stateAfter = appointmentsSearchResults(stateBefore, action);
-
-    expect(stateAfter).toEqual([
+    let appointments = [
       {
         employeeId: '1',
         exchangeOutlookAppointmentResponse: [
@@ -46,7 +22,15 @@ describe('appointments search reducer', () => {
           }
         }
       }
-    ]);
+    ];
+    const action = {
+      type: FETCH_APPOINTMENTS_RESPONSE,
+      appointments
+    };
+
+    const stateAfter = appointmentsSearchResults(stateBefore, action);
+
+    expect(stateAfter).toEqual(appointments);
   });
 });
 
