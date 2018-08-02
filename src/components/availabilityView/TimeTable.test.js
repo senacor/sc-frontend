@@ -83,7 +83,34 @@ describe('createDividers', () => {
 });
 
 describe('calculatePositionFor', () => {
-  it('should return 25 if the appointment is in 25% of the time window', () => {
+  it('should return 100 if the appointment is at the beginning of the time window', () => {
+    const component = shallow(<TimeTable />).dive();
+    component.setProps(props);
+    let startAppointment = moment.utc('2018-03-08T09:00Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    expect(
+      component.instance().calculatePositionFor(startAppointment)
+    ).toEqual(100);
+  });
+
+  it('should return 75 if the appointment is at a quarter past the hour of the time window', () => {
+    const component = shallow(<TimeTable />).dive();
+    component.setProps(props);
+    let startAppointment = moment.utc('2018-03-08T09:15Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    expect(
+      component.instance().calculatePositionFor(startAppointment)
+    ).toEqual(75);
+  });
+
+  it('should return 50 if the appointment is at half past the hour of the time window', () => {
+    const component = shallow(<TimeTable />).dive();
+    component.setProps(props);
+    let startAppointment = moment.utc('2018-03-08T09:30Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
+    expect(
+      component.instance().calculatePositionFor(startAppointment)
+    ).toEqual(50);
+  });
+
+  it('should return 25 if the appointment is at a quarter to the hour of the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = moment.utc('2018-03-08T09:45Z[UTC]', 'YYYY-MM-DDTHH:mmZ');
@@ -468,7 +495,7 @@ describe('transformAppointmentTimeToPercent', () => {
   it('should return 100 if the appointment ends after the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let endAppointment = '2018-03-08T22:00Z[UTC]';
+    let endAppointment = '2018-03-08T19:15+01:00[Europe/Berlin]';
 
     expect(
       component.instance().transformAppointmentTimeToPercent(endAppointment)
@@ -478,7 +505,7 @@ describe('transformAppointmentTimeToPercent', () => {
   it('should return 0 if the appointment starts before the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = '2018-03-08T02:00Z[UTC]';
+    let startAppointment = '2018-03-08T07:45+01:00[Europe/Berlin]';
 
     expect(
       component.instance().transformAppointmentTimeToPercent(startAppointment)
