@@ -186,8 +186,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
   <div
     className="PrOverallAssessment-containerListItem-1"
   >
-    <Connect(TargetRole)
-      category="TARGET_ROLE"
+    <Connect(WithStyles(TargetRole))
       prById={
         Object {
           "_links": Object {
@@ -361,7 +360,6 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           "supervisor": "ttran",
         }
       }
-      prVisible={false}
     />
   </div>
   <div

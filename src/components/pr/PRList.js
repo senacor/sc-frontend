@@ -150,7 +150,13 @@ export class PRList extends React.Component {
                     <div className={classes.controls}>
                       <Icon className={classes.mediaIcon}>linear_scale</Icon>
                       <Typography gutterBottom noWrap color="textSecondary">
-                        <Translate content={pr.status} />
+                        <Translate
+                          content={
+                            pr.statuses && pr.statuses.length > 0
+                              ? pr.statuses[pr.statuses.length - 1]
+                              : 'PREPARATION'
+                          }
+                        />
                       </Typography>
                     </div>
                     <div className={classes.controls}>

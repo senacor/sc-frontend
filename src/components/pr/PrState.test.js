@@ -1,5 +1,5 @@
 import React from 'react';
-import PrState from './PrState';
+import { StyledComponent } from './PrState';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrState Component', () => {
@@ -94,8 +94,12 @@ describe('PrState Component', () => {
     }
   };
 
+  let dummyStatusMap = {};
+
   it('displays the PrState', () => {
-    const component = shallow(<PrState prById={prById} />);
+    const component = shallow(
+      <StyledComponent prById={prById} prStatusesDone={dummyStatusMap} />
+    );
 
     expect(component).toMatchSnapshot();
   });

@@ -368,17 +368,6 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         prVisible={true}
       />
     </WithStyles(List)>
-    <WithStyles(List)>
-      <WithStyles(ListItem)>
-        <WithStyles(Button)
-          className="PrSheet-buttonDesktopDisabled-5"
-          disabled={true}
-          onClick={[Function]}
-        >
-          PR Freigeben
-        </WithStyles(Button)>
-      </WithStyles(ListItem)>
-    </WithStyles(List)>
   </WithStyles(List)>
   <WithStyles(Divider) />
   <WithStyles(List)>
@@ -2028,6 +2017,5 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       />
     </WithStyles(List)>
   </WithStyles(List)>
-  <WithStyles(Divider) />
 </div>
 `;

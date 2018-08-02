@@ -19,6 +19,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.common.white,
     border: '1px solid #ced4da',
     fontSize: 16,
+    padding: '3pt 3pt',
     '&:focus': {
       borderColor: '#80bdff',
       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'

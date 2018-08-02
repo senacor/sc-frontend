@@ -16,10 +16,17 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="1"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      className="EventList-chip-3"
+      label="09.07.2018 14:54"
     />
-    <WithStyles(Divider) />
+    <WithStyles(Chip)
+      className="EventList-chip-3 "
+      label="pr"
+      name="typeChip1"
+    />
     <WithStyles(ListItemText)
+      className="EventList-listItemTextMobile-2"
+      name="description1"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -28,10 +35,17 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="2"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      className="EventList-chip-3"
+      label="09.07.2018 14:54"
     />
-    <WithStyles(Divider) />
+    <WithStyles(Chip)
+      className="EventList-chip-3 "
+      label="pr"
+      name="typeChip2"
+    />
     <WithStyles(ListItemText)
+      className="EventList-listItemTextMobile-2"
+      name="description2"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -40,10 +54,17 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="3"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      className="EventList-chip-3"
+      label="09.07.2018 14:54"
     />
-    <WithStyles(Divider) />
+    <WithStyles(Chip)
+      className="EventList-chip-3 "
+      label="pr"
+      name="typeChip3"
+    />
     <WithStyles(ListItemText)
+      className="EventList-listItemTextMobile-2"
+      name="description3"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -52,10 +73,17 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="4"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      className="EventList-chip-3"
+      label="09.07.2018 14:54"
     />
-    <WithStyles(Divider) />
+    <WithStyles(Chip)
+      className="EventList-chip-3 "
+      label="pr"
+      name="typeChip4"
+    />
     <WithStyles(ListItemText)
+      className="EventList-listItemTextMobile-2"
+      name="description4"
       primary="undefined"
     />
   </WithStyles(ListItem)>
@@ -64,10 +92,17 @@ exports[`Dashboard component should match snapshot 1`] = `
     key="5"
   >
     <WithStyles(Chip)
-      label="09.07.2018"
+      className="EventList-chip-3"
+      label="09.07.2018 14:54"
     />
-    <WithStyles(Divider) />
+    <WithStyles(Chip)
+      className="EventList-chip-3 "
+      label="pr"
+      name="typeChip5"
+    />
     <WithStyles(ListItemText)
+      className="EventList-listItemTextMobile-2"
+      name="description5"
       primary="undefined"
     />
   </WithStyles(ListItem)>

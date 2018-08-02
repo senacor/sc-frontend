@@ -5,7 +5,9 @@ import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
   ADD_TEXT_REQUEST,
-  ADD_TEXT_RESPONSE
+  ADD_TEXT_RESPONSE,
+  CHANGE_RATING_TARGETROLE_REQUEST,
+  CHANGE_RATING_TARGETROLE_RESPONSE
 } from '../helper/dispatchTypes';
 import * as dispatchTypes from '../helper/dispatchTypes';
 import * as visibilityTypes from '../helper/prVisibility';
@@ -122,11 +124,65 @@ export const setVisibilityById = (
   await changeResponse.json();
 
   if (changeResponse.ok) {
-    fetchPrById(prById.id);
+    return fetchPrById(prById.id)(dispatch);
   } else {
-    dispatch({
+    return dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
       httpCode: changeResponse.status
     });
   }
+};
+
+export const changeRatingTargetRole = (
+  prId,
+  targetRoleName,
+  rating
+) => async dispatch => {
+  dispatch({
+    type: CHANGE_RATING_TARGETROLE_REQUEST
+  });
+
+  await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/role/${targetRoleName}`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        rating: rating
+      })
+    }
+  );
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/role/${targetRoleName}`
+  );
+
+  if (response.ok) {
+    const result = await response.json();
+    const rating = objectGet(result, 'rating');
+    dispatch({
+      type: CHANGE_RATING_TARGETROLE_RESPONSE,
+      payload: {
+        prId,
+        targetRoleName,
+        rating
+      }
+    });
+  }
+};
+
+export const changeVisibilityForEmployee = pr => {
+  let isVisibleToEmployee =
+    pr.prVisibilityEntry.visibilityToEmployee === visibilityTypes.VISIBLE;
+  let isVisibleToReviewer =
+    pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
+  return setVisibilityById(pr, !isVisibleToEmployee, isVisibleToReviewer);
+};
+
+export const changeVisibilityForReviewer = pr => {
+  let isVisibleToEmployee =
+    pr.prVisibilityEntry.visibilityToEmployee === visibilityTypes.VISIBLE;
+  let isVisibleToReviewer =
+    pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
+  return setVisibilityById(pr, isVisibleToEmployee, !isVisibleToReviewer);
 };

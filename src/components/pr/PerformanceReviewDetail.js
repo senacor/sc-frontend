@@ -26,13 +26,13 @@ export class PerformanceReviewDetail extends Component {
           <Grid item md={4} lg={4} xl={4}>
             <Grid container direction="row" spacing={8}>
               <Grid item md={12} lg={12} xl={12}>
+                <PrState />
+              </Grid>
+              <Grid item md={12} lg={12} xl={12}>
                 <PrSalary prDetail={prDetail} />
               </Grid>
               <Grid item md={12} lg={12} xl={12}>
                 <PrEmployment prById={prDetail} />
-              </Grid>
-              <Grid item md={12} lg={12} xl={12}>
-                <PrState />
               </Grid>
             </Grid>
           </Grid>
