@@ -12,7 +12,7 @@ exports[`PrState Component displays the PrState 1`] = `
     </WithStyles(ListItem)>
     <WithStyles(ListItem)>
       <WithStyles(Stepper)
-        activeStep={3}
+        activeStep={0}
         className="PrState-stepper-2"
         orientation="vertical"
       >
