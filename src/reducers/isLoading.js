@@ -7,7 +7,8 @@ export const isLoading = (state = false, action) => {
     dispatchTypes.FETCH_PRS_REQUEST,
     dispatchTypes.FETCH_TARGETROLE_REQUEST,
     dispatchTypes.FETCH_TASKS_REQUEST,
-    dispatchTypes.LOGIN_REQUEST
+    dispatchTypes.LOGIN_REQUEST,
+    dispatchTypes.FETCH_MEETING_REQUEST
   ];
   const stopLoading = [
     dispatchTypes.ADD_COMMENT_RESPONSE,
@@ -18,6 +19,7 @@ export const isLoading = (state = false, action) => {
     dispatchTypes.FETCH_PRS_RESPONSE,
     dispatchTypes.FETCH_TARGETROLE_RESPONSE,
     dispatchTypes.FETCH_TASKS_RESPONSE,
+    dispatchTypes.FETCH_MEETING_RESPONSE,
     dispatchTypes.LOGIN_RESPONSE,
     dispatchTypes.LOGIN_UNAUTHORIZED,
     dispatchTypes.LOGOUT

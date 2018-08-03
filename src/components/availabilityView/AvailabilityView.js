@@ -5,10 +5,15 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { getAppointments, getSelectedDate } from '../../reducers/selector';
+import {
+  getAppointments,
+  getSelectedDate,
+  getMeeting
+} from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
 import AppointmentPicker from './AppointmentPicker';
 import TimeTable from './TimeTable';
+import MeetingView from './MeetingView';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
 
@@ -45,6 +50,7 @@ class AvailabilityView extends React.Component {
         <Grid id={'tableRolePick'} container spacing={24} direction="column">
           <Grid item>
             <AppointmentPicker />
+            <MeetingView selectedDateTime={this.props.selectedDate} />
           </Grid>
           <Grid item>
             <PersonToggle
@@ -138,9 +144,11 @@ export const StyledComponent = withStyles(styles)(AvailabilityView);
 export default connect(
   state => ({
     appointmentsSearchResults: getAppointments(state),
-    selectedDate: getSelectedDate(state)
+    selectedDate: getSelectedDate(state),
+    meeting: getMeeting(state)
   }),
   {
-    appointmentsSearch: actions.appointmentsSearch
+    appointmentsSearch: actions.appointmentsSearch,
+    fetchMeeting: actions.fetchMeeting
   }
 )(StyledComponent);

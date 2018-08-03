@@ -11,7 +11,7 @@ import {
 export const appointmentsSearch = (employeeIds, day) => async dispatch => {
   //argument true makes sure that Moment doesn't try to parse the input if it doesn't _exactly_
   //conform the format provided:
-  if (!moment(day, 'YYYY-MM-DD', true).isValid()) {
+  if (!moment(day, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
     dispatch({
       type: ERROR_RESPONSE,
       httpCode: 400
@@ -25,7 +25,9 @@ export const appointmentsSearch = (employeeIds, day) => async dispatch => {
   const response = await fetch(
     `${
       process.env.REACT_APP_API
-    }/api/v1/appointments?employees=${employeeIds}&date=${day}`
+    }/api/v1/appointments?employees=${employeeIds}&date=${moment(day).format(
+      'YYYY-MM-DD'
+    )}`
   );
   if (response.ok) {
     const data = await response.json();
