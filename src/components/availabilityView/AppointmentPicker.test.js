@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { StyledComponent as DatePicker } from './DatePicker';
+import { StyledComponent } from './AppointmentPicker';
 
-describe('DatePicker', () => {
+describe('AppointmentPicker', () => {
   it('should match snapshot', () => {
-    let cut = shallow(<DatePicker />);
+    let cut = shallow(<StyledComponent />);
 
     expect(cut).toMatchSnapshot();
   });
