@@ -46,7 +46,7 @@ class AppointmentPicker extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form noValidate>
+      <form>
         <TextField
           id="date"
           type="date"

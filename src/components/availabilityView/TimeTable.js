@@ -208,12 +208,19 @@ class TimeTable extends React.Component {
     } else {
       divIds++;
     }
+    let timeStart = moment(appointment[0], 'YYYY-MM-DDTHH:mmZ[UTC]')
+      .tz('Europe/Berlin')
+      .format('HH:mm');
+    let timeEnd = moment(appointment[1], 'YYYY-MM-DDTHH:mmZ[UTC]')
+      .tz('Europe/Berlin')
+      .format('HH:mm');
     let topPosition = this.transformAppointmentTimeToPercent(appointment[0]);
     let length =
       this.transformAppointmentTimeToPercent(appointment[1]) - topPosition;
     if (appointment) {
       return (
         <div
+          id={`${person}_${timeStart}-${timeEnd}`}
           key={'availability' + person + divIds.toString()} //needs an unique key
           className={classes.appointmentDiv}
           style={{
