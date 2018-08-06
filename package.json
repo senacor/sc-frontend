@@ -9,7 +9,6 @@
     "@material/slider": "^0.36.0",
     "ajv": "^6.0.0",
     "lodash": "^4.17.10",
-    "material-ui-pickers": "^1.0.0-rc.12",
     "material-ui-slider": "^0.1.0",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.21",

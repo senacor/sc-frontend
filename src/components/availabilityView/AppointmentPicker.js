@@ -17,24 +17,29 @@ const styles = theme => ({
 class AppointmentPicker extends React.Component {
   constructor(props) {
     super(props);
+    let now = moment().tz('Europe/Berlin');
     this.state = {
-      date: new Date(),
-      startTime: new Date(),
-      endTime: new Date()
+      date: now.format('YYYY-MM-DD'),
+      startTime: now.format('HH:mm'),
+      endTime: now.format('HH:mm')
     };
   }
 
   onStartTimeChange = event => {
-    this.setState({ startTime: moment(event.target.value, 'HH:mm').toDate() });
+    this.setState({ startTime: event.target.value });
   };
 
   onEndTimeChange = event => {
-    this.setState({ endTime: moment(event.target.value, 'HH:mm').toDate() });
+    this.setState({ endTime: event.target.value });
   };
 
   onDateChange = event => {
-    this.setState({ date: moment(event.target.value).toDate() });
-    this.props.changeDate(moment(this.state.date).format('YYYY-MM-DD'));
+    let date = event.target.value;
+    this.setState({ date });
+    if (moment(date, 'YYYY-MM-DD').isValid()) {
+      this.props.changeDate(date);
+      this.props.appointmentsSearch('1,2,3', date);
+    }
   };
 
   render() {
@@ -46,13 +51,15 @@ class AppointmentPicker extends React.Component {
           id="date"
           type="date"
           label="Datumsvorschlag"
-          value={moment(this.state.date).format('YYYY-MM-DD')}
+          value={this.state.date}
           className={classes.textField}
           onChange={this.onDateChange}
           InputLabelProps={{
             shrink: true
           }}
+          autoComplete="bday"
           required
+          pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
         />
         <TextField
           type="time"
@@ -62,7 +69,7 @@ class AppointmentPicker extends React.Component {
           min="00:00"
           max="24:00"
           label="Von"
-          value={moment(this.state.startTime).format('HH:mm')}
+          value={this.state.startTime}
           onChange={this.onStartTimeChange}
           required
         />
@@ -74,7 +81,7 @@ class AppointmentPicker extends React.Component {
           min="00:00"
           max="24:00"
           label="Bis"
-          value={moment(this.state.endTime).format('HH:mm')}
+          value={this.state.endTime}
           onChange={this.onEndTimeChange}
           required
         />
@@ -85,6 +92,11 @@ class AppointmentPicker extends React.Component {
 
 export const StyledComponent = withStyles(styles)(AppointmentPicker);
 export default connect(
-  null,
-  { changeDate: actions.changeDate }
+  state => ({
+    appointmentDate: state.selectedDate
+  }),
+  {
+    changeDate: actions.changeDate,
+    appointmentsSearch: actions.appointmentsSearch
+  }
 )(StyledComponent);

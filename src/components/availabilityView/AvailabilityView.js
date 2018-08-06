@@ -11,7 +11,6 @@ import AppointmentPicker from './AppointmentPicker';
 import TimeTable from './TimeTable';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
-let previousDate;
 
 const styles = theme => ({});
 
@@ -38,10 +37,6 @@ class AvailabilityView extends React.Component {
   }
 
   render() {
-    if (previousDate !== this.props.selectedDate) {
-      this.fetchAppointments();
-      previousDate = this.props.selectedDate;
-    }
     return (
       <div id={'outer'}>
         <Typography gutterBottom variant="display1">
