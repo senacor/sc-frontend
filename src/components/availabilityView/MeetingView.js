@@ -8,6 +8,7 @@ import { getSelectedDate, getMeeting } from '../../reducers/selector';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
+import { extendMoment } from 'moment-range';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -99,6 +100,7 @@ class MeetingView extends React.Component {
               margin="normal"
             />
             <Button
+              id="createMeeting"
               className={classes.button}
               variant="raised"
               onClick={this.handleClickOfMeetingButton}
@@ -129,10 +131,10 @@ class MeetingView extends React.Component {
               Benötigte Teilnehmer
             </Typography>
             <div className={classes.attendeeList}>
-              <List>
+              <List id="requiredAttendees">
                 {Array.from(meeting.requiredAttendees).map(requiredAttendee => {
                   return (
-                    <ListItem key={requiredAttendee.email}>
+                    <ListItem key={requiredAttendee.email} dense>
                       <ListItemText
                         primary={
                           requiredAttendee.name +
@@ -149,30 +151,37 @@ class MeetingView extends React.Component {
                 })}
               </List>
             </div>
-            <Typography variant="body2" className={classes.title}>
-              Benötigte Teilnehmer
-            </Typography>
-            <div className={classes.attendeeList}>
-              <List>
-                {Array.from(meeting.optionalAttendees).map(optionalAttendee => {
-                  return (
-                    <ListItem key={optionalAttendee.email}>
-                      <ListItemText
-                        primary={
-                          optionalAttendee.name +
-                          ' <' +
-                          optionalAttendee.email +
-                          '>'
-                        }
-                        secondary={
-                          'Status: ' + translateContent(optionalAttendee.status)
-                        }
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </div>
+            {Array.from(meeting.optionalAttendees).length > 0 ? (
+              <div className={classes.attendeeList}>
+                <Typography variant="body2" className={classes.title}>
+                  Optionale Teilnehmer
+                </Typography>
+                <List id="optionalAttendees">
+                  {Array.from(meeting.optionalAttendees).map(
+                    optionalAttendee => {
+                      return (
+                        <ListItem key={optionalAttendee.email}>
+                          <ListItemText
+                            primary={
+                              optionalAttendee.name +
+                              ' <' +
+                              optionalAttendee.email +
+                              '>'
+                            }
+                            secondary={
+                              'Status: ' +
+                              translateContent(optionalAttendee.status)
+                            }
+                          />
+                        </ListItem>
+                      );
+                    }
+                  )}
+                </List>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         )}
       </div>

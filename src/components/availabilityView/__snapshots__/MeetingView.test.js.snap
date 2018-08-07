@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MeetingView should match snapshot 1`] = `
+<div
+  style={
+    Object {
+      "padding": "10px",
+    }
+  }
+>
+  <form
+    autoComplete="off"
+    className="MeetingView-container-1"
+    noValidate={true}
+  >
+    <TextField
+      id="location"
+      label="Ort"
+      margin="normal"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      value="Test"
+    />
+    <TextField
+      id="duration"
+      label="Dauer des Termins (min)"
+      margin="normal"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      value={60}
+    />
+    <WithStyles(Button)
+      id="createMeeting"
+      onClick={[Function]}
+      type="submit"
+      variant="raised"
+    >
+      Termin erstellen
+    </WithStyles(Button)>
+  </form>
+</div>
+`;
