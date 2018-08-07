@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { StyledComponent } from './MeetingView';
 import { createShallow } from '@material-ui/core/test-utils';
+import moment from 'moment';
 
 describe('MeetingView', () => {
   let shallow = createShallow({ dive: true });
@@ -56,13 +56,31 @@ describe('MeetingView', () => {
   });
 
   it('should display meeting details when a meeting exists', () => {
+    let startDateTimeAsLocal = moment(meeting.start)
+      .local()
+      .format('DD-MM-YYYY HH:mm');
+
+    let endDateTimeAsLocal = moment(meeting.end)
+      .local()
+      .format('DD-MM-YYYY HH:mm');
+
     let wrapper = shallow(
-      <StyledComponent
-        meeting={meeting}
-        selectedDateTime={'2018-08-07T11:27+02:00'}
-        fetchMeeting={mockFetchMeeting}
-      />
+      <StyledComponent meeting={meeting} fetchMeeting={mockFetchMeeting} />
     );
+
+    expect(
+      wrapper
+        .find('#startDateTime')
+        .childAt(2)
+        .text()
+    ).toContain(startDateTimeAsLocal);
+
+    expect(
+      wrapper
+        .find('#endDateTime')
+        .childAt(2)
+        .text()
+    ).toContain(endDateTimeAsLocal);
 
     expect(wrapper.find('#requiredAttendees').children()).toHaveLength(
       meeting.requiredAttendees.length

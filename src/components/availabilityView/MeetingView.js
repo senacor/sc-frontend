@@ -112,13 +112,13 @@ class MeetingView extends React.Component {
         ) : (
           <div className={classes.container}>
             <Typography variant="headline">Termindetails</Typography>
-            <Typography variant="body1">
+            <Typography id="startDateTime" variant="body1">
               Start:{' '}
               {moment(meeting.start)
                 .local()
                 .format('DD-MM-YYYY HH:mm')}
             </Typography>
-            <Typography variant="body1">
+            <Typography id="endDateTime" variant="body1">
               Ende:{' '}
               {moment(meeting.end)
                 .local()
