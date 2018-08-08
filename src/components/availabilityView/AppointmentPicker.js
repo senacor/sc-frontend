@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import 'moment/locale/de';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
@@ -17,11 +17,11 @@ const styles = theme => ({
 class AppointmentPicker extends React.Component {
   constructor(props) {
     super(props);
-    let now = moment().tz('Europe/Berlin');
+    let now = moment.tz('Europe/Berlin');
     this.state = {
       date: now.format('YYYY-MM-DD'),
       startTime: now.format('HH:mm'),
-      endTime: now.format('HH:mm')
+      endTime: now.add(1, 'hour').format('HH:mm')
     };
   }
 
@@ -57,15 +57,13 @@ class AppointmentPicker extends React.Component {
           InputLabelProps={{
             shrink: true
           }}
-          autoComplete="bday"
           required
           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
         />
         <TextField
           type="time"
           className={classes.textField}
-          id="appt-time"
-          name="appt-time"
+          id="appt-start-time"
           min="00:00"
           max="24:00"
           label="Von"
@@ -76,8 +74,7 @@ class AppointmentPicker extends React.Component {
         <TextField
           type="time"
           className={classes.textField}
-          id="appt-time"
-          name="appt-time"
+          id="appt-end-time"
           min="00:00"
           max="24:00"
           label="Bis"
