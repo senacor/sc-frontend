@@ -2,81 +2,534 @@
 
 exports[`TargetRole Component should match snapshot 1`] = `
 <WithStyles(ListItem)>
-  <WithStyles(ListItemText)
-    secondary="Zielrolle (ab Senior Level ausfüllen)"
-  />
-  <WithStyles(FormControl)>
-    <WithStyles(Select)
-      displayEmpty={true}
-      id="ratingTargetRoleId"
-      name="ratingTargetRole"
-      onChange={[Function]}
-      value={2}
+  <WithStyles(Grid)
+    container={true}
+  >
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="PLATTFORMGESTALTER_Container"
     >
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole1"
-        key="_ratingTargetRole1"
-        value={1}
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
       >
-        keine Auswahl
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole2"
-        key="_ratingTargetRole2"
-        value={2}
+        <WithStyles(ListItemText)
+          secondary="Plattformgestalter"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
       >
-        Platformgestalter
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole3"
-        key="_ratingTargetRole3"
-        value={3}
+        <Connect(WithStyles(StepSlider))
+          key="PLATTFORMGESTALTER"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="PLATTFORMGESTALTER"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="IT_SOLUTION_LEADER_Container"
+    >
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
       >
-        Business IT Solution Leader
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole4"
-        key="_ratingTargetRole4"
-        value={4}
+        <WithStyles(ListItemText)
+          secondary="IT Solution Leader"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
       >
-        Transformation Manager
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole5"
-        key="_ratingTargetRole5"
-        value={5}
+        <Connect(WithStyles(StepSlider))
+          key="IT_SOLUTION_LEADER"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="IT_SOLUTION_LEADER"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="TRANSFORMATION_MANAGER_Container"
+    >
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
       >
-        IT-Liefersteuerer
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole6"
-        key="_ratingTargetRole6"
-        value={6}
+        <WithStyles(ListItemText)
+          secondary="Transformation Manager"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
       >
-        Architect
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole7"
-        key="_ratingTargetRole7"
-        value={7}
+        <Connect(WithStyles(StepSlider))
+          key="TRANSFORMATION_MANAGER"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="TRANSFORMATION_MANAGER"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="IT_LIEFERSTEUERER_Container"
+    >
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
       >
-        Technical Expert
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole8"
-        key="_ratingTargetRole8"
-        value={8}
+        <WithStyles(ListItemText)
+          secondary="IT Liefersteuerer"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
       >
-        Lead Developer
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingTargetValueRole9"
-        key="_ratingTargetRole9"
-        value={9}
+        <Connect(WithStyles(StepSlider))
+          key="IT_LIEFERSTEUERER"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="IT_LIEFERSTEUERER"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="ARCHITECT_Container"
+    >
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
       >
-        keine Auswahl
-      </WithStyles(MenuItem)>
-    </WithStyles(Select)>
-  </WithStyles(FormControl)>
+        <WithStyles(ListItemText)
+          secondary="Architekt"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
+      >
+        <Connect(WithStyles(StepSlider))
+          key="ARCHITECT"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="ARCHITECT"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="TECHNICAL_EXPERT_Container"
+    >
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
+      >
+        <WithStyles(ListItemText)
+          secondary="Technischer Experte"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
+      >
+        <Connect(WithStyles(StepSlider))
+          key="TECHNICAL_EXPERT"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="TECHNICAL_EXPERT"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="TargetRole-outerGrid-1"
+      container={true}
+      key="LEAD_DEVELOPER_Container"
+    >
+      <WithStyles(Grid)
+        className="TargetRole-targetRole-3"
+        item={true}
+        lg={8}
+        md={8}
+        sm={8}
+        xl={8}
+        xs={8}
+      >
+        <WithStyles(ListItemText)
+          secondary="Lead Developer"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        className="TargetRole-ratingTargetRole-2"
+        item={true}
+        lg={4}
+        md={4}
+        sm={4}
+        xl={4}
+        xs={4}
+      >
+        <Connect(WithStyles(StepSlider))
+          key="LEAD_DEVELOPER"
+          prActive={
+            Object {
+              "prTargetRoleSet": Array [
+                Object {
+                  "id": 22,
+                  "prTargetRoleName": "PLATTFORMGESTALTER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 25,
+                  "prTargetRoleName": "IT_SOLUTION_LEADER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 27,
+                  "prTargetRoleName": "TRANSFORMATION_MANAGER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 26,
+                  "prTargetRoleName": "IT_LIEFERSTEUERER",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 23,
+                  "prTargetRoleName": "ARCHITECT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 28,
+                  "prTargetRoleName": "TECHNICAL_EXPERT",
+                  "rating": 2,
+                },
+                Object {
+                  "id": 24,
+                  "prTargetRoleName": "LEAD_DEVELOPER",
+                  "rating": 2,
+                },
+              ],
+            }
+          }
+          rating={2}
+          targetRoleName="LEAD_DEVELOPER"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+  </WithStyles(Grid)>
 </WithStyles(ListItem)>
 `;

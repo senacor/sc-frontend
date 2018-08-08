@@ -59,17 +59,19 @@ export class TargetRole extends Component {
   }
 
   buildTargetRoleInformation = () => {
-    let targetRoleInformationOfEmployee = objectGet(
-      this.props,
-      'prActive.prTargetRoleSet'
-    );
+    let targetRoleInformationOfEmployee =
+      objectGet(this.props, 'prActive.prTargetRoleSet') || [];
     targetRoleInformationOfEmployee.sort(compareTargetRoles);
 
     const { prActive, isDisabled, classes } = this.props;
 
     return targetRoleInformationOfEmployee.map(targetRole => {
       return (
-        <Grid container className={classes.outerGrid}>
+        <Grid
+          key={targetRole.prTargetRoleName + '_Container'}
+          container
+          className={classes.outerGrid}
+        >
           <Grid
             item
             xs={8}
@@ -120,7 +122,7 @@ export class TargetRole extends Component {
 
 export const StyledComponent = withStyles(styles)(TargetRole);
 export default connect(
-  (state, props) => ({
+  state => ({
     prActive: state.prs[state.prDetailId],
     isDisabled: isEmployee(getUserroles(state)) === true
   }),
