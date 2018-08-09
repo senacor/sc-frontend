@@ -34,7 +34,7 @@ describe('MeetingView', () => {
   it('should match snapshot', () => {
     let wrapper = shallow(
       <StyledComponent
-        selectedDateTime={'2018-0s8-07T11:27+02:00'}
+        selectedDateTime={'2018-08-07T11:27+02:00'}
         fetchMeeting={mockFetchMeeting}
       />
     );
@@ -42,7 +42,7 @@ describe('MeetingView', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should display the create appointment form when meeting not exists', () => {
+  it('should display the create appointment form when meeting does not exist', () => {
     let shallow = createShallow({ dive: true });
     let wrapper = shallow(
       <StyledComponent

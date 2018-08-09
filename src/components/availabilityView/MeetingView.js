@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getSelectedDate, getMeeting } from '../../reducers/selector';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { extendMoment } from 'moment-range';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -136,12 +136,9 @@ class MeetingView extends React.Component {
                   return (
                     <ListItem key={requiredAttendee.email} dense>
                       <ListItemText
-                        primary={
-                          requiredAttendee.name +
-                          ' <' +
-                          requiredAttendee.email +
-                          '>'
-                        }
+                        primary={`${requiredAttendee.name} <${
+                          requiredAttendee.email
+                        }>`}
                         secondary={
                           'Status: ' + translateContent(requiredAttendee.status)
                         }
@@ -162,12 +159,9 @@ class MeetingView extends React.Component {
                       return (
                         <ListItem key={optionalAttendee.email}>
                           <ListItemText
-                            primary={
-                              optionalAttendee.name +
-                              ' <' +
-                              optionalAttendee.email +
-                              '>'
-                            }
+                            primary={`${optionalAttendee.name} <${
+                              optionalAttendee.email
+                            }>`}
                             secondary={
                               'Status: ' +
                               translateContent(optionalAttendee.status)
