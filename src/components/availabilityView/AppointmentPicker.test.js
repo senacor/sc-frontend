@@ -14,7 +14,7 @@ describe('DatePicker', () => {
   });
 
   it('should match snapshot', () => {
-    let component = shallow(<DatePicker />);
+    let component = shallow(<DatePicker/>);
 
     expect(component).toMatchSnapshot();
   });

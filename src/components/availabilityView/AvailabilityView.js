@@ -7,11 +7,10 @@ import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { getAppointments, getSelectedDate } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
-import DatePicker from './DatePicker';
+import AppointmentPicker from './AppointmentPicker';
 import TimeTable from './TimeTable';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
-let previousDate;
 
 const styles = theme => ({});
 
@@ -38,39 +37,37 @@ class AvailabilityView extends React.Component {
   }
 
   render() {
-    if (previousDate !== this.props.selectedDate) {
-      this.fetchAppointments();
-      previousDate = this.props.selectedDate;
-    }
     return (
       <div id={'outer'}>
-        <Typography variant="headline">Terminfindung</Typography>
-        <Grid id={'tableRolePick'} container spacing={24}>
-          <PersonToggle
-            onChange={this.onVisibilityChange}
-            showEmployee={false}
-            showReviewer={false}
-            showSupervisor={false}
-          />
-          <Grid item xs={12} lg={9} sm={6}>
-            <div className="picker">
-              <DatePicker />
-            </div>
+        <Typography gutterBottom variant="display1">
+          Terminfindung
+        </Typography>
+        <Grid id={'tableRolePick'} container spacing={24} direction="column">
+          <Grid item>
+            <AppointmentPicker />
+          </Grid>
+          <Grid item>
+            <PersonToggle
+              onChange={this.onVisibilityChange}
+              showEmployee={false}
+              showReviewer={false}
+              showSupervisor={false}
+            />
+          </Grid>
+          <Grid item>
+            <TimeTable
+              appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
+                'employee'
+              )}
+              appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
+                'reviewer'
+              )}
+              appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
+                'supervisor'
+              )}
+            />
           </Grid>
         </Grid>
-        <br />
-        <br />
-        <TimeTable
-          appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
-            'employee'
-          )}
-          appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
-            'reviewer'
-          )}
-          appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
-            'supervisor'
-          )}
-        />
       </div>
     );
   }

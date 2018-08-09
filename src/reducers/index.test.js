@@ -1,6 +1,7 @@
 import reducers from './index';
 import app from './index';
 import { LOGOUT } from '../helper/dispatchTypes';
+import moment from 'moment-timezone';
 
 describe('reducers', () => {
   it('should return combined reducers', () => {
@@ -83,6 +84,9 @@ describe('reducers', () => {
         prDetailId: 0,
         prEmployeeContributions: [],
         prRatings: {},
+        prTargetRole: {
+          prGetTargetRole: []
+        },
         prVisibilityById: {
           prVisibility: {
             toEmployee: false,
@@ -93,7 +97,7 @@ describe('reducers', () => {
         search: {
           prSearchResults: []
         },
-        selectedDate: '2018-06-14',
+        selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DD'),
         sortOrderPrs: 'desc',
         tasks: {
           list: []

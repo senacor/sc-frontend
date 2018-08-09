@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
 import Grid from '@material-ui/core/Grid';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import Switch from '@material-ui/core/Switch';
 
 class PersonToggle extends React.Component {
@@ -21,57 +17,55 @@ class PersonToggle extends React.Component {
 
   render() {
     return (
-      <Grid item xs={12} lg={3} sm={6}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subheading">Mitarbeiter</Typography>
-              </TableCell>
-              <TableCell numeric>
-                <Switch
-                  className="employeeSwitch"
-                  checked={this.state.showEmployee}
-                  onChange={() => {
-                    //does not run function immediately, just makes reference. Function is executed on click, not on reder
-                    this.handleToggle('showEmployee');
-                  }}
-                  color="primary"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subheading">Bewerter</Typography>
-              </TableCell>
-              <TableCell numeric>
-                <Switch
-                  className="reviewerSwitch"
-                  checked={this.state.showReviewer}
-                  onChange={() => {
-                    this.handleToggle('showReviewer');
-                  }}
-                  color="primary"
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subheading">Vorgesetzter</Typography>
-              </TableCell>
-              <TableCell numeric>
-                <Switch
-                  className="supervisorSwitch"
-                  checked={this.state.showSupervisor}
-                  onChange={() => {
-                    this.handleToggle('showSupervisor');
-                  }}
-                  color="primary"
-                />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        alignContent="space-between"
+        spacing={24}
+      >
+        <Grid item>
+          <Grid container alignItems="center" direction="row">
+            <Typography variant="subheading" noWrap>
+              Mitarbeiter
+            </Typography>
+            <Switch
+              className="employeeSwitch"
+              checked={this.state.showEmployee}
+              onChange={() => {
+                //does not run function immediately, just makes reference. Function is executed on click, not on reder
+                this.handleToggle('showEmployee');
+              }}
+              color="primary"
+            />
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Grid container alignItems="center">
+            <Typography variant="subheading">Bewerter</Typography>
+            <Switch
+              className="reviewerSwitch"
+              checked={this.state.showReviewer}
+              onChange={() => {
+                this.handleToggle('showReviewer');
+              }}
+              color="primary"
+            />
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Grid container alignItems="center">
+            <Typography variant="subheading">Vorgesetzter</Typography>
+            <Switch
+              className="supervisorSwitch"
+              checked={this.state.showSupervisor}
+              onChange={() => {
+                this.handleToggle('showSupervisor');
+              }}
+              color="primary"
+            />
+          </Grid>
+        </Grid>
       </Grid>
     );
   }
