@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DatePicker should match snapshot 1`] = `
+exports[`PersonToggle should match snapshot 1`] = `
 <WithStyles(Grid)
   alignContent="space-between"
   alignItems="center"
@@ -24,6 +24,7 @@ exports[`DatePicker should match snapshot 1`] = `
       </WithStyles(Typography)>
       <WithStyles(Switch)
         checked={false}
+        className="employeeSwitch"
         color="primary"
         onChange={[Function]}
       />
@@ -43,6 +44,7 @@ exports[`DatePicker should match snapshot 1`] = `
       </WithStyles(Typography)>
       <WithStyles(Switch)
         checked={false}
+        className="reviewerSwitch"
         color="primary"
         onChange={[Function]}
       />
@@ -62,6 +64,7 @@ exports[`DatePicker should match snapshot 1`] = `
       </WithStyles(Typography)>
       <WithStyles(Switch)
         checked={false}
+        className="supervisorSwitch"
         color="primary"
         onChange={[Function]}
       />

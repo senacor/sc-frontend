@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles/index';
-import moment from 'moment';
-import { connect } from 'react-redux';
-import { getSelectedDate } from '../../reducers/selector';
+import {withStyles} from '@material-ui/core/styles/index';
+import moment from 'moment-timezone';
+import {connect} from 'react-redux';
+import {getSelectedDate} from '../../reducers/selector';
 
 const timeTableListHeight = 25;
-const firstHourOfDay = 8;
-const lastHourOfDay = 19;
+const minutesPerHour = 60;
+const firstHourOfDayInGermany = 8;
+const lastHourOfDayInGermany = 19;
+const timeTableHoursInGermany = lastHourOfDayInGermany - firstHourOfDayInGermany;
+const timeTableMinutesInGermany = timeTableHoursInGermany * minutesPerHour;
+const timezoneInGermany = 'Europe/Berlin';
 const minuteGranularity = 30;
-const timeTableHours = lastHourOfDay - firstHourOfDay;
 let divIds = 0;
 
 const styles = () => ({
@@ -18,9 +21,9 @@ const styles = () => ({
     position: 'relative',
     padding: 0,
     margin: 0,
-    '@media (min-Width: 1000px)': { width: '75%' },
-    '@media (min-Width: 1500px)': { width: '50%' },
-    '@media (min-Width: 1800px)': { width: '40%' }
+    '@media (min-Width: 1000px)': {width: '75%'},
+    '@media (min-Width: 1500px)': {width: '50%'},
+    '@media (min-Width: 1800px)': {width: '40%'}
   },
   divider: {
     height: 1,
@@ -60,7 +63,7 @@ class TimeTable extends React.Component {
     } = this.props;
 
     const dividers = this.createDividers(classes);
-    const hourLables = this.createHourLables(classes);
+    const hourLabels = this.createHourLabels(classes);
     const appointmentDivs = this.createAppointmentDivs(
       classes,
       appointmentsEmployee,
@@ -71,7 +74,7 @@ class TimeTable extends React.Component {
     return (
       <div className={classes.timeTableDiv}>
         {dividers}
-        {hourLables}
+        {hourLabels}
         {appointmentDivs}
       </div>
     );
@@ -80,12 +83,14 @@ class TimeTable extends React.Component {
   createDividers(classes) {
     const dividers = [];
     for (
-      let hour = moment()
-        .hour(firstHourOfDay)
+      let hour = moment.tz(timezoneInGermany)
+        .hour(firstHourOfDayInGermany)
+        .utc()
         .minutes(0);
       hour <=
-      moment()
-        .hour(lastHourOfDay)
+      moment.tz(timezoneInGermany)
+        .hour(lastHourOfDayInGermany)
+        .utc()
         .minutes(0);
       hour.add(minuteGranularity, 'm')
     ) {
@@ -99,23 +104,25 @@ class TimeTable extends React.Component {
     return dividers;
   }
 
-  createHourLables(classes) {
-    const hourLables = [];
+  createHourLabels(classes) {
+    const hourLabels = [];
     for (
-      let hour = moment()
-        .hour(firstHourOfDay)
+      let hour = moment.tz(timezoneInGermany)
+        .hour(firstHourOfDayInGermany)
+        .utc()
         .minutes(0);
       hour <=
-      moment()
-        .hour(lastHourOfDay)
+      moment.tz(timezoneInGermany)
+        .hour(lastHourOfDayInGermany)
+        .utc()
         .minutes(0);
       hour.add(minuteGranularity, 'm')
     ) {
-      hourLables.push(
+      hourLabels.push(
         <div
           className={classes.hours}
-          style={{ top: this.calculatePositionFor(hour).toString() + '%' }}
-          key={'hourLable' + hour.toString()} //needs an unique key
+          style={{top: this.calculatePositionInTimetableFor(hour).toString() + '%'}}
+          key={'hourLabel' + hour.toString()} //needs an unique key
         >
           <div className={classes.hourLabel}>
             <Typography className={classes.hourLabelText}>
@@ -125,7 +132,7 @@ class TimeTable extends React.Component {
         </div>
       );
     }
-    return hourLables;
+    return hourLabels;
   }
 
   createAppointmentDivs(
@@ -175,25 +182,18 @@ class TimeTable extends React.Component {
   }
 
   appointmentsFilter(appointments) {
-    let startSelectedDay = moment(this.props.selectedDate)
-      .local()
-      .hours(firstHourOfDay);
-    let endSelectedDay = moment(this.props.selectedDate)
-      .local()
-      .hours(lastHourOfDay);
+    let startSelectedDay = moment.tz(this.props.selectedDate, timezoneInGermany)
+      .hours(firstHourOfDayInGermany)
+      .utc();
+    let endSelectedDay = moment.tz(this.props.selectedDate, timezoneInGermany)
+      .hours(lastHourOfDayInGermany);
     return appointments.filter(appointment => {
       let startAppointmentUtc = moment.utc(appointment[0], 'YYYY-MM-DDTHH:mmZ');
       let endAppointmentUtc = moment.utc(appointment[1], 'YYYY-MM-DDTHH:mmZ');
-      let startAppointmentLocal = moment(
-        startAppointmentUtc.local().format('YYYY-MM-DDTHH:mmZ')
-      );
-      let endAppointmentLocal = moment(
-        endAppointmentUtc.local().format('YYYY-MM-DDTHH:mmZ')
-      );
       //exclude appointments that are completely before or after the time window to be displayed (in that case, an empty array will be returned)
       return (
-        startAppointmentLocal.isBefore(endSelectedDay) &&
-        endAppointmentLocal.isAfter(startSelectedDay)
+        startAppointmentUtc.isBefore(endSelectedDay) &&
+        endAppointmentUtc.isAfter(startSelectedDay)
       );
     });
   }
@@ -233,39 +233,38 @@ class TimeTable extends React.Component {
     }
   }
 
-  calculatePositionFor(time) {
-    let startMinutesSinceFirstHour =
-      time.hours() * 60 + time.minutes() - firstHourOfDay * 60;
-    let relativePosition =
-      (startMinutesSinceFirstHour / (timeTableHours * 60)) * 100;
-    return relativePosition;
+  calculatePositionInTimetableFor(time) {
+    const timeInGermany = time.tz(timezoneInGermany);
+    const hoursPassedSinceStartOfDay = timeInGermany.hours() - firstHourOfDayInGermany;
+    const minutesPassedSinceStartOfDay = timeInGermany.minutes() + hoursPassedSinceStartOfDay * minutesPerHour;
+
+    return minutesPassedSinceStartOfDay / timeTableMinutesInGermany * 100;
   }
 
   //Calculate here the relative position of a div or the relative time in percent to calculate the appointments length.
   //Takes a moment object as an argument - the start or the end moment of an appointment.
   transformAppointmentTimeToPercent(appointment) {
-    let appointmentMoment = moment(
-      moment
-        .utc(appointment, 'YYYY-MM-DDTHH:mmZ')
-        .local()
-        .format('YYYY-MM-DDTHH:mmZ')
-    );
-    let startOfSelectedDay = moment(this.props.selectedDate)
-      .local()
-      .hour(firstHourOfDay);
-    let endOfSelectedDay = moment(this.props.selectedDate)
-      .local()
-      .hour(lastHourOfDay);
+    let splitAppointment = appointment.split(/[\[\]]/);
+    let appointmentWithoutTimezoneHint = splitAppointment[0];
+    let appointmentInGivenTimezone = moment.parseZone(appointmentWithoutTimezoneHint, 'YYYY-MM-DDTHH:mmZ', true);
+    let appointmentInUtc = appointmentInGivenTimezone.utc();
+
+    let startOfSelectedDay = moment.tz(this.props.selectedDate, timezoneInGermany)
+      .hour(firstHourOfDayInGermany)
+      .utc();
+    let endOfSelectedDay = moment.tz(this.props.selectedDate, timezoneInGermany)
+      .hour(lastHourOfDayInGermany)
+      .utc();
     //For Appointments inside the time window:
     if (
-      appointmentMoment.isAfter(startOfSelectedDay) &&
-      appointmentMoment.isBefore(endOfSelectedDay)
+      appointmentInUtc.isAfter(startOfSelectedDay) &&
+      appointmentInUtc.isBefore(endOfSelectedDay)
     ) {
-      return this.calculatePositionFor(appointmentMoment);
+      return this.calculatePositionInTimetableFor(appointmentInUtc);
     }
     //For appointments that end after the time window the size is 100%. The appointments that could start after the time
     // window were already filtered before by appointmentsFilter():
-    if (appointmentMoment.isAfter(endOfSelectedDay)) {
+    if (appointmentInUtc.isAfter(endOfSelectedDay)) {
       return 100;
     }
     //For appointments that start before the time window, the relative positioning is 0. The appointments that could end
@@ -289,6 +288,6 @@ TimeTable.defaultProps = {
 
 export const StyledComponent = withStyles(styles)(TimeTable);
 export default connect(
-  state => ({ selectedDate: getSelectedDate(state) }),
+  state => ({selectedDate: getSelectedDate(state)}),
   {}
 )(StyledComponent);

@@ -30,6 +30,7 @@ class PersonToggle extends React.Component {
               Mitarbeiter
             </Typography>
             <Switch
+              className="employeeSwitch"
               checked={this.state.showEmployee}
               onChange={() => {
                 //does not run function immediately, just makes reference. Function is executed on click, not on reder
@@ -43,6 +44,7 @@ class PersonToggle extends React.Component {
           <Grid container alignItems="center">
             <Typography variant="subheading">Bewerter</Typography>
             <Switch
+              className="reviewerSwitch"
               checked={this.state.showReviewer}
               onChange={() => {
                 this.handleToggle('showReviewer');
@@ -55,6 +57,7 @@ class PersonToggle extends React.Component {
           <Grid container alignItems="center">
             <Typography variant="subheading">Vorgesetzter</Typography>
             <Switch
+              className="supervisorSwitch"
               checked={this.state.showSupervisor}
               onChange={() => {
                 this.handleToggle('showSupervisor');

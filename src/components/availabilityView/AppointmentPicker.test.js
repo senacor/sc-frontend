@@ -1,11 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { StyledComponent } from './AppointmentPicker';
+import { StyledComponent as DatePicker } from './DatePicker';
+import { changeDate } from '../../actions/appointments';
 
-describe('AppointmentPicker', () => {
+describe('DatePicker', () => {
+  it('should call changeDate upon picking a date', () => {
+    const mockChangeDate = jest.fn(changeDate);
+    const component = shallow(
+      <DatePicker changeDate={mockChangeDate} />
+    ).dive();
+    component.find('TextField').simulate('change', { target: '2018-03-08' });
+    expect(mockChangeDate).toBeCalled();
+  });
+
   it('should match snapshot', () => {
-    let cut = shallow(<StyledComponent />);
+    let component = shallow(<DatePicker/>);
 
-    expect(cut).toMatchSnapshot();
+    expect(component).toMatchSnapshot();
   });
 });
