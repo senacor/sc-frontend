@@ -5,7 +5,7 @@ import {
 } from '../helper/dispatchTypes';
 
 describe('meeting reducer', () => {
-  let stateBefore = {};
+  const stateBefore = {};
   it('should add a new Meeting for ADD_MEETING_RESPONSE', () => {
     let stateBefore = {};
     const testdata = {
@@ -38,7 +38,7 @@ describe('meeting reducer', () => {
   });
 
   it('should override an existing meeting for FETCH_MEETING_RESPONSE', () => {
-    stateBefore = {
+    const stateBefore = {
       start: '2018-07-31T15:00:00.000+0000',
       end: '2018-07-31T16:00:00.000+0000',
       location: '01 NUE Projekt Office 3 2.41 (6)',
