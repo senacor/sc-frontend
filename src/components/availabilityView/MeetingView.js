@@ -17,11 +17,10 @@ import { translateContent } from '../translate/Translate';
 
 const styles = theme => ({
   container: {
-    display: 'block !important',
     '& > *': {
-      display: 'block !important',
-      marginTop: 1 * theme.spacing.unit,
-      marginBottom: 1 * theme.spacing.unit
+      // display: 'block !important',
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit
     }
   },
   attendeeList: {
@@ -35,8 +34,7 @@ class MeetingView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: 'Test',
-      duration: 60
+      location: ''
     };
   }
 
@@ -59,7 +57,8 @@ class MeetingView extends React.Component {
     let startDateTime = moment(this.props.getSelectedDateTime);
     let start = startDateTime.utc().format('YYYY-MM-DDTHH:mmZ');
     let end = startDateTime
-      .add(this.state.duration, 'm')
+      //TODO replace hardcoded values
+      .add(1, 'h')
       .utc()
       .format('YYYY-MM-DDTHH:mmZ');
     let meeting_details = {
@@ -72,15 +71,13 @@ class MeetingView extends React.Component {
       requiredAttendeeIds: [4],
       optionalAttendeeIds: []
     };
-    console.log(start);
-    console.log(end);
     this.props.addMeeting(meeting_details);
   }
 
   render() {
     const { classes, meeting } = this.props;
     return (
-      <div style={{ padding: 10 + 'px' }}>
+      <div>
         {meeting == null ? (
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
@@ -89,14 +86,6 @@ class MeetingView extends React.Component {
               className={classes.textField}
               value={this.state.location}
               onChange={this.handleChange('location')}
-              margin="normal"
-            />
-            <TextField
-              id="duration"
-              label="Dauer des Termins (min)"
-              className={classes.textField}
-              value={this.state.duration}
-              onChange={this.handleChange('duration')}
               margin="normal"
             />
             <Button
