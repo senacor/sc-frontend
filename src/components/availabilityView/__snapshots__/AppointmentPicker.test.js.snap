@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppointmentPicker should match snapshot 1`] = `
+<AppointmentPicker
+  classes={
+    Object {
+      "textField": "AppointmentPicker-textField-1",
+      "textFieldDesktop": "AppointmentPicker-textFieldDesktop-2",
+    }
+  }
+/>
+`;

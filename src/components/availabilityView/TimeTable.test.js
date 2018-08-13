@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { StyledComponent as TimeTable } from './TimeTable';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const props = {
   selectedDate: '2018-03-08'
@@ -11,8 +11,14 @@ const classes = {
   appointmentDiv: {}
 };
 
+const germanTimeFrom = dateTimeString =>
+  moment
+    .utc(dateTimeString, 'YYYY-MM-DDTHH:mmZ[UTC]')
+    .tz('Europe/Berlin')
+    .format('HH:mm');
+
 describe('createSingleAppointmentDiv', () => {
-  it('should create an appointmentDiv with the correct height and position', () => {
+  it('should create an appointmentDiv with the correct height and position.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T09:45Z[UTC]';
@@ -24,6 +30,9 @@ describe('createSingleAppointmentDiv', () => {
       <div
         key={'availabilityemployee1'} //if this test is run after the createAppointmentDivs test, which calls this function, the divId (1 here) has been already set to a higher value and this test will fail. If it is run separately, it never fails, since a new instance of the component is created and divIds are set to 0. A workaround to ignore the key would be for example to JSON.stringify the expected and the obtained div-result and then to compare.
         className={classes.appointmentDiv}
+        id={`employee_${germanTimeFrom(startAppointment)}-${germanTimeFrom(
+          endAppointment
+        )}`}
         style={{
           left: '15.5%',
           top: '25%',
@@ -40,7 +49,7 @@ describe('createSingleAppointmentDiv', () => {
 });
 
 describe('createAppointmentDivs', () => {
-  it('should create two appointmentDivs for two appointments', () => {
+  it('should create two appointmentDivs for two appointments.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T09:45Z[UTC]';
@@ -67,7 +76,7 @@ describe('createAppointmentDivs', () => {
 });
 
 describe('createHourLabels', () => {
-  it('should create 23 hourLabels if the time window is from 8:00 to 19:00 and the minuteGranularity is 30', () => {
+  it('should create 23 hourLabels if the time window is from 8:00 to 19:00 and the minuteGranularity is 30.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     expect(component.instance().createHourLabels(classes)).toHaveLength(23);
@@ -75,7 +84,7 @@ describe('createHourLabels', () => {
 });
 
 describe('createDividers', () => {
-  it('should create 23 dividers if the time window is from 8:00 to 19:00 and the minuteGranularity is 30', () => {
+  it('should create 23 dividers if the time window is from 8:00 to 19:00 and the minuteGranularity is 30.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     expect(component.instance().createDividers(classes)).toHaveLength(23);
@@ -83,7 +92,7 @@ describe('createDividers', () => {
 });
 
 describe('calculatePositionInTimetableFor', () => {
-  it('should return 0 if the appointment is at the beginning of the time window', () => {
+  it('should return 0 if the appointment is at the beginning of the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = moment.utc(
@@ -95,7 +104,7 @@ describe('calculatePositionInTimetableFor', () => {
     ).toEqual(0);
   });
 
-  it('should return 25 if the appointment is at a quarter way through the time window', () => {
+  it('should return 25 if the appointment is at a quarter way through the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = moment.utc(
@@ -107,7 +116,7 @@ describe('calculatePositionInTimetableFor', () => {
     ).toEqual(25);
   });
 
-  it('should return 50 if the appointment is half way through the time window', () => {
+  it('should return 50 if the appointment is half way through the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = moment.utc(
@@ -119,7 +128,7 @@ describe('calculatePositionInTimetableFor', () => {
     ).toEqual(50);
   });
 
-  it('should return 75 if the appointment is three quarters through the time window', () => {
+  it('should return 75 if the appointment is three quarters through the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = moment.utc(
@@ -134,7 +143,7 @@ describe('calculatePositionInTimetableFor', () => {
 
 describe('transformAppointmentTimeToPercent', () => {
   describe('should return 50 if the appointment is in the center of the time window if', () => {
-    it('is in UTC', () => {
+    it('is in UTC.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T12:30Z[UTC]';
@@ -143,7 +152,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is on Baker Island, USA', () => {
+    it('is on Baker Island, USA..', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T00:30-12:00[Etc/GMT+12]';
@@ -152,7 +161,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in Niue, New Zealand', () => {
+    it('is in Niue, New Zealand.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T01:30-11:00[Pacific/Niue]';
@@ -161,7 +170,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in Tahiti', () => {
+    it('is in Tahiti.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T02:30-10:00[Pacific/Tahiti]';
@@ -170,7 +179,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is on the Marquesas Islands, French Polynesia', () => {
+    it('is on the Marquesas Islands, French Polynesia..', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T03:00-09:30[Pacific/Marquesas]';
@@ -179,7 +188,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in Alaska, USA', () => {
+    it('is winter time in Alaska, USA.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T03:30-09:00[America/Anchorage]';
@@ -188,7 +197,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in California, USA', () => {
+    it('is in California, USA.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T04:30-08:00[America/Los_Angeles]';
@@ -197,7 +206,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in Arizona, USA', () => {
+    it('is winter time in Arizona, USA..', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T05:30-07:00[America/Phoenix]';
@@ -206,7 +215,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in Belize', () => {
+    it('is in Belize.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T06:30-06:00[America/Belize]';
@@ -215,7 +224,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time on the Bahamas', () => {
+    it('is winter time on the Bahamas..', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T07:30-05:00[America/Nassau]';
@@ -224,7 +233,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in Toronto, Canada', () => {
+    it('is winter time in Toronto, Canada..', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T08:30-04:00[America/Toronto]';
@@ -233,7 +242,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in Newfoundland, Canada', () => {
+    it('is winter time in Newfoundland, Canada.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T09:00-03:30[America/St_Johns]';
@@ -242,7 +251,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in Argentina', () => {
+    it('is in Argentina.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment =
@@ -252,7 +261,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is summer time in Newfoundland, Canada', () => {
+    it('is summer time in Newfoundland, Canada.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T10:00-02:30[America/St_Johns]';
@@ -261,7 +270,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in South Georgia, UK', () => {
+    it('is in South Georgia, UK.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T10:30-02:00[Atlantic/South_Georgia]';
@@ -270,7 +279,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is in Cape Verde', () => {
+    it('is in Cape Verde.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T11:30-01:00[Atlantic/Cape_Verde]';
@@ -279,7 +288,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in the UK', () => {
+    it('is winter time in the UK.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T12:30+00:00[Europe/London]';
@@ -288,7 +297,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in Germany', () => {
+    it('is winter time in Germany.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T13:30+01:00[Europe/Berlin]';
@@ -297,7 +306,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time in Latvia', () => {
+    it('is winter time in Latvia.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T14:30+02:00[Europe/Riga]';
@@ -441,7 +450,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is on Lord Howe Island, Australia', () => {
+    it('is on Lord Howe Island, Australia.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T23:00+10:30[Australia/Lord_Howe]';
@@ -450,7 +459,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is on Macquarie Island, Australia', () => {
+    it('is on Macquarie Island, Australia.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-08T23:30+11:00[Antarctica/Macquarie]';
@@ -459,7 +468,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time on Fiji', () => {
+    it('is winter time on Fiji.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-09T00:30+12:00[Pacific/Fiji]';
@@ -468,7 +477,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is winter time on the Chatham Islands, New Zealand', () => {
+    it('is winter time on the Chatham Islands, New Zealand.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-09T01:15+12:45[Pacific/Chatham]';
@@ -477,7 +486,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is on Enderbury Island, Republic of Kiribati', () => {
+    it('is on Enderbury Island, Republic of Kiribati.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-09T01:30+13:00[Pacific/Enderbury]';
@@ -486,7 +495,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is summer time on the Chatham Islands, New Zealand', () => {
+    it('is summer time on the Chatham Islands, New Zealand.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-09T02:15+13:45[Pacific/Chatham]';
@@ -495,7 +504,7 @@ describe('transformAppointmentTimeToPercent', () => {
       ).toEqual(50);
     });
 
-    it('is on Christmas Island', () => {
+    it('is on Christmas Island.', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
       let startAppointment = '2018-03-09T02:30+14:00[Pacific/Kiritimati]';
@@ -505,7 +514,7 @@ describe('transformAppointmentTimeToPercent', () => {
     });
   });
 
-  it('should return 100 if the appointment ends after the time window', () => {
+  it('should return 100 if the appointment ends after the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let endAppointment = '2018-03-08T19:15+01:00[Europe/Berlin]';
@@ -515,7 +524,7 @@ describe('transformAppointmentTimeToPercent', () => {
     ).toEqual(100);
   });
 
-  it('should return 0 if the appointment starts before the time window', () => {
+  it('should return 0 if the appointment starts before the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T07:45+01:00[Europe/Berlin]';
@@ -527,7 +536,7 @@ describe('transformAppointmentTimeToPercent', () => {
 });
 
 describe('appointmentsFilter', () => {
-  it('excludes appointments that are completely before or after the time window', () => {
+  it('excludes appointments that are completely before or after the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T02:00Z[UTC]';
@@ -540,7 +549,7 @@ describe('appointmentsFilter', () => {
     expect(component.instance().appointmentsFilter(appointments)).toEqual([]);
   });
 
-  it('includes appointments that are inside the time window', () => {
+  it('includes appointments that are inside the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T12:00Z[UTC]';
@@ -552,7 +561,7 @@ describe('appointmentsFilter', () => {
     );
   });
 
-  it('includes appointments that are inside and outside the time window', () => {
+  it('includes appointments that are inside and outside the time window.', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
     let startAppointment = '2018-03-08T00:00Z[UTC]';
@@ -569,7 +578,7 @@ describe('appointmentsFilter', () => {
 });
 
 describe('TimeTable', () => {
-  it('should match snapshot', () => {
+  it('should match snapshot.', () => {
     let component = shallow(<TimeTable />);
 
     expect(component).toMatchSnapshot();

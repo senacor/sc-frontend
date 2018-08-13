@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TimeTable should match snapshot 1`] = `
+exports[`TimeTable should match snapshot. 1`] = `
 <TimeTable
   appointmentsEmployee={Array []}
   appointmentsReviewer={Array []}

@@ -50,7 +50,7 @@ const compareTargetRoles = (() => {
   };
 })();
 
-export class TargetRole extends Component {
+class TargetRole extends Component {
   constructor(props) {
     super(props);
     this.buildTargetRoleInformation = this.buildTargetRoleInformation.bind(
@@ -109,12 +109,9 @@ export class TargetRole extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <ListItem>
-        <Grid container className={classes.root}>
-          {this.buildTargetRoleInformation()}
-        </Grid>
+        <Grid container>{this.buildTargetRoleInformation()}</Grid>
       </ListItem>
     );
   }
