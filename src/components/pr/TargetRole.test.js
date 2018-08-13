@@ -3,7 +3,6 @@ import { createShallow } from '@material-ui/core/test-utils';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import { StyledComponent as TargetRole } from './TargetRole';
 
-
 const countTargetRoles = 7;
 const prTargetRoleSet = [
   {
@@ -47,22 +46,40 @@ describe('TargetRole Component', () => {
   let shallow = createShallow({ dive: true });
   it('should match snapshot', () => {
     let wrapper = shallow(
-      <TargetRole prById={{}} prActive={{ prTargetRoleSet }} isDisabled={false}/>
+      <TargetRole
+        prById={{}}
+        prActive={{ prTargetRoleSet }}
+        isDisabled={false}
+      />
     );
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should have expected number of target roles', () => {
-    let wrapper = shallow(<TargetRole prById={{}} prActive={{ prTargetRoleSet }} isDisabled={false}/>);
+    let wrapper = shallow(
+      <TargetRole
+        prById={{}}
+        prActive={{ prTargetRoleSet }}
+        isDisabled={false}
+      />
+    );
 
     expect(wrapper.find(ListItemText)).toHaveLength(countTargetRoles);
   });
 
   it('should show the target roles in the designated order', () => {
-    let wrapper = shallow(<TargetRole prById={{}} prActive={{ prTargetRoleSet }} isDisabled={false}/>);
+    let wrapper = shallow(
+      <TargetRole
+        prById={{}}
+        prActive={{ prTargetRoleSet }}
+        isDisabled={false}
+      />
+    );
 
-    let actualRoles = wrapper.find(ListItemText).map(role => role.get(0).props.secondary);
+    let actualRoles = wrapper
+      .find(ListItemText)
+      .map(role => role.get(0).props.secondary);
     expect(actualRoles).toEqual([
       'Plattformgestalter',
       'IT Solution Leader',
@@ -72,5 +89,5 @@ describe('TargetRole Component', () => {
       'Technischer Experte',
       'Lead Developer'
     ]);
-  })
+  });
 });

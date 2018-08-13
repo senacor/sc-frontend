@@ -111,9 +111,7 @@ class TargetRole extends Component {
   render() {
     return (
       <ListItem>
-        <Grid container>
-          {this.buildTargetRoleInformation()}
-        </Grid>
+        <Grid container>{this.buildTargetRoleInformation()}</Grid>
       </ListItem>
     );
   }
