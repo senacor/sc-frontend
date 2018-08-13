@@ -11,6 +11,8 @@ const classes = {
   appointmentDiv: {}
 };
 
+const localTimeFrom = (dateTimeString) => moment(dateTimeString, 'YYYY-MM-DDTHH:mmZ[UTC]').format('HH:mm');
+
 describe('createSingleAppointmentDiv', () => {
   it('should create an appointmentDiv with the correct height and position', () => {
     const component = shallow(<TimeTable />).dive();
@@ -24,6 +26,7 @@ describe('createSingleAppointmentDiv', () => {
       <div
         key={'availabilityemployee1'} //if this test is run after the createAppointmentDivs test, which calls this function, the divId (1 here) has been already set to a higher value and this test will fail. If it is run separately, it never fails, since a new instance of the component is created and divIds are set to 0. A workaround to ignore the key would be for example to JSON.stringify the expected and the obtained div-result and then to compare.
         className={classes.appointmentDiv}
+        id={`employee_${localTimeFrom(startAppointment)}-${localTimeFrom(endAppointment)}`}
         style={{
           left: '15.5%',
           top: '25%',

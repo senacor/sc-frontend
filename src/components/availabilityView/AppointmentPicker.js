@@ -34,7 +34,7 @@ class AppointmentPicker extends React.Component {
   };
 
   onDateChange = event => {
-    let date = event.target.value;
+    let date = event.target.value || event.target;
     this.setState({ date });
     if (moment(date, 'YYYY-MM-DD').isValid()) {
       this.props.changeDate(date);
