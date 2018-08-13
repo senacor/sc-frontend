@@ -25,12 +25,22 @@ class AppointmentPicker extends React.Component {
     };
   }
 
+  updateTimeOnParentComponent() {
+    this.props.onTimeChange(
+      this.state.date,
+      this.state.startTime,
+      this.state.endTime
+    );
+  }
+
   onStartTimeChange = event => {
     this.setState({ startTime: event.target.value });
+    this.updateTimeOnParentComponent();
   };
 
   onEndTimeChange = event => {
     this.setState({ endTime: event.target.value });
+    this.updateTimeOnParentComponent();
   };
 
   onDateChange = event => {
@@ -39,8 +49,13 @@ class AppointmentPicker extends React.Component {
     if (moment(date, 'YYYY-MM-DD').isValid()) {
       this.props.changeDate(date);
       this.props.appointmentsSearch('1,2,3', date);
+      this.updateTimeOnParentComponent();
     }
   };
+
+  componentDidMount() {
+    this.updateTimeOnParentComponent();
+  }
 
   render() {
     const { classes } = this.props;

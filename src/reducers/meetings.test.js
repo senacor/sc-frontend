@@ -5,7 +5,6 @@ import {
 } from '../helper/dispatchTypes';
 
 describe('meeting reducer', () => {
-  const stateBefore = {};
   it('should add a new Meeting for ADD_MEETING_RESPONSE', () => {
     let stateBefore = {};
     const testdata = {

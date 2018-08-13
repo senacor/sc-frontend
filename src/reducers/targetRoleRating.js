@@ -32,13 +32,3 @@ function generateMapByDescription(ratings) {
 
   return result;
 }
-
-function generateRatingsForMultiplePrs(state, prs) {
-  let result = {};
-
-  prs.forEach(pr => {
-    result[pr.id] = generateMapByDescription(pr.prRatingSet);
-  });
-
-  return Object.assign({}, state, result);
-}

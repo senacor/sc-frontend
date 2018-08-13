@@ -11,7 +11,7 @@ import {
   getMeeting
 } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
-import AppointmentPicker from './AppointmentPicker';
+import MeetingCreator from './MeetingCreator';
 import TimeTable from './TimeTable';
 import MeetingView from './MeetingView';
 
@@ -42,44 +42,56 @@ class AvailabilityView extends React.Component {
   }
 
   render() {
+    const { meeting } = this.props;
     return (
       <div id={'outer'}>
-        <Typography gutterBottom variant="display1">
-          Terminfindung
-        </Typography>
-        <Grid id={'tableRolePick'} container spacing={24} direction="column">
-          <Grid item>
-            <AppointmentPicker />
-            <MeetingView selectedDateTime={this.props.selectedDate} />
-          </Grid>
-          <Grid item>
-            <PersonToggle
-              onChange={this.onVisibilityChange}
-              showEmployee={false}
-              showReviewer={false}
-              showSupervisor={false}
-            />
-          </Grid>
-          <Grid item>
-            <TimeTable
-              appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
-                'employee'
-              )}
-              appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
-                'reviewer'
-              )}
-              appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
-                'supervisor'
-              )}
-            />
-          </Grid>
-        </Grid>
+        {meeting == null ? (
+          <React.Fragment>
+            <Typography gutterBottom variant="display1">
+              Terminfindung
+            </Typography>
+            <Grid
+              id={'tableRolePick'}
+              container
+              spacing={24}
+              direction="column"
+            >
+              <Grid item>
+                <MeetingCreator />
+              </Grid>
+              <Grid item>
+                <PersonToggle
+                  onChange={this.onVisibilityChange}
+                  showEmployee={false}
+                  showReviewer={false}
+                  showSupervisor={false}
+                />
+              </Grid>
+              <Grid item>
+                <TimeTable
+                  appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
+                    'employee'
+                  )}
+                  appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
+                    'reviewer'
+                  )}
+                  appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
+                    'supervisor'
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </React.Fragment>
+        ) : (
+          <MeetingView />
+        )}
       </div>
     );
   }
 
   componentDidMount() {
     this.fetchAppointments();
+    this.props.fetchMeeting(1);
   }
 
   //TODO replace '1,2,3' string with a string containing the employeeIds

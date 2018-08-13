@@ -5,7 +5,6 @@ import moment from 'moment';
 
 describe('MeetingView', () => {
   let shallow = createShallow({ dive: true });
-  const mockFetchMeeting = jest.fn();
 
   const meeting = {
     start: '2018-08-06T09:51:00.000+0000',
@@ -32,55 +31,31 @@ describe('MeetingView', () => {
   };
 
   it('should match snapshot', () => {
-    let wrapper = shallow(
-      <StyledComponent
-        selectedDateTime={'2018-08-07T11:27+02:00'}
-        fetchMeeting={mockFetchMeeting}
-      />
-    );
+    let wrapper = shallow(<StyledComponent meeting={meeting} />);
 
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should display the create appointment form when meeting does not exist', () => {
-    let shallow = createShallow({ dive: true });
-    let wrapper = shallow(
-      <StyledComponent
-        meeting={null}
-        selectedDateTime={'2018-08-07T11:27+02:00'}
-        fetchMeeting={mockFetchMeeting}
-      />
-    );
-
-    expect(wrapper.find('#createMeeting')).toHaveLength(1);
-  });
-
   it('should display meeting details when a meeting exists', () => {
-    let startDateTimeAsLocal = moment(meeting.start)
+    let startDateAsLocal = moment(meeting.start)
       .local()
-      .format('DD-MM-YYYY HH:mm');
+      .format('DD.MM.YYYY');
 
-    let endDateTimeAsLocal = moment(meeting.end)
+    let startTimeAsLocal = moment(meeting.start)
       .local()
-      .format('DD-MM-YYYY HH:mm');
+      .format('HH:mm');
 
-    let wrapper = shallow(
-      <StyledComponent meeting={meeting} fetchMeeting={mockFetchMeeting} />
-    );
+    let endTimeAsLocal = moment(meeting.end)
+      .local()
+      .format('HH:mm');
+
+    let wrapper = shallow(<StyledComponent meeting={meeting} />);
+
+    expect(wrapper.find({ primary: startDateAsLocal })).toHaveLength(1);
 
     expect(
-      wrapper
-        .find('#startDateTime')
-        .childAt(2)
-        .text()
-    ).toContain(startDateTimeAsLocal);
-
-    expect(
-      wrapper
-        .find('#endDateTime')
-        .childAt(2)
-        .text()
-    ).toContain(endDateTimeAsLocal);
+      wrapper.find({ primary: startTimeAsLocal + ' - ' + endTimeAsLocal })
+    ).toHaveLength(1);
 
     expect(wrapper.find('#requiredAttendees').children()).toHaveLength(
       meeting.requiredAttendees.length

@@ -86,7 +86,10 @@ describe('calculatePositionInTimetableFor', () => {
   it('should return 0 if the appointment is at the beginning of the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T08:00+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc(
+      '2018-03-08T08:00+01:00[Europe/Berlin]',
+      'YYYY-MM-DDTHH:mmZ'
+    );
     expect(
       component.instance().calculatePositionInTimetableFor(startAppointment)
     ).toEqual(0);
@@ -95,7 +98,10 @@ describe('calculatePositionInTimetableFor', () => {
   it('should return 25 if the appointment is at a quarter way through the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T10:45+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc(
+      '2018-03-08T10:45+01:00[Europe/Berlin]',
+      'YYYY-MM-DDTHH:mmZ'
+    );
     expect(
       component.instance().calculatePositionInTimetableFor(startAppointment)
     ).toEqual(25);
@@ -104,7 +110,10 @@ describe('calculatePositionInTimetableFor', () => {
   it('should return 50 if the appointment is half way through the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T13:30+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc(
+      '2018-03-08T13:30+01:00[Europe/Berlin]',
+      'YYYY-MM-DDTHH:mmZ'
+    );
     expect(
       component.instance().calculatePositionInTimetableFor(startAppointment)
     ).toEqual(50);
@@ -113,7 +122,10 @@ describe('calculatePositionInTimetableFor', () => {
   it('should return 75 if the appointment is three quarters through the time window', () => {
     const component = shallow(<TimeTable />).dive();
     component.setProps(props);
-    let startAppointment = moment.utc('2018-03-08T16:15+01:00[Europe/Berlin]', 'YYYY-MM-DDTHH:mmZ');
+    let startAppointment = moment.utc(
+      '2018-03-08T16:15+01:00[Europe/Berlin]',
+      'YYYY-MM-DDTHH:mmZ'
+    );
     expect(
       component.instance().calculatePositionInTimetableFor(startAppointment)
     ).toEqual(75);
@@ -233,7 +245,8 @@ describe('transformAppointmentTimeToPercent', () => {
     it('is in Argentina', () => {
       const component = shallow(<TimeTable />).dive();
       component.setProps(props);
-      let startAppointment = '2018-03-08T09:30-03:00[America/Argentina/San_Juan]';
+      let startAppointment =
+        '2018-03-08T09:30-03:00[America/Argentina/San_Juan]';
       expect(
         component.instance().transformAppointmentTimeToPercent(startAppointment)
       ).toEqual(50);
@@ -532,8 +545,8 @@ describe('appointmentsFilter', () => {
     component.setProps(props);
     let startAppointment = '2018-03-08T12:00Z[UTC]';
     let endAppointment = '2018-03-08T13:00Z[UTC]';
-    let appointment = [ startAppointment, endAppointment ];
-    let appointments = [ appointment ];
+    let appointment = [startAppointment, endAppointment];
+    let appointments = [appointment];
     expect(component.instance().appointmentsFilter(appointments)).toEqual(
       appointments
     );

@@ -2,23 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { getSelectedDate, getMeeting } from '../../reducers/selector';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
-import { extendMoment } from 'moment-range';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import TodayIcon from '@material-ui/icons/Today';
+import PeopleIcon from '@material-ui/icons/People';
+import PersonIcon from '@material-ui/icons/Person';
 
 import { translateContent } from '../translate/Translate';
 
 const styles = theme => ({
   container: {
     '& > *': {
-      // display: 'block !important',
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit
     }
@@ -27,6 +31,14 @@ const styles = theme => ({
     '& ListItemText span': {
       fontSize: '0.875rem'
     }
+  },
+  nested: {
+    paddingLeft: theme.spacing.unit * 8
+  },
+  meetingView: {
+    [theme.breakpoints.up('md')]: {
+      width: '50%'
+    }
   }
 });
 
@@ -34,120 +46,133 @@ class MeetingView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: ''
+      location: '',
+      openRequiredAttendees: true,
+      openOptionalAttendees: false
     };
   }
 
-  componentDidMount() {
-    this.props.fetchMeeting(1);
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
+  handleClickOpenRequiredAttendees = () => {
+    this.setState(state => ({
+      openRequiredAttendees: !state.openRequiredAttendees
+    }));
   };
 
-  handleClickOfMeetingButton = event => {
-    event.preventDefault();
-    this.addMeeting();
+  handleClickOpenOptionalAttendees = () => {
+    this.setState(state => ({
+      openOptionalAttendees: !state.openOptionalAttendees
+    }));
   };
-
-  addMeeting() {
-    let startDateTime = moment(this.props.getSelectedDateTime);
-    let start = startDateTime.utc().format('YYYY-MM-DDTHH:mmZ');
-    let end = startDateTime
-      //TODO replace hardcoded values
-      .add(1, 'h')
-      .utc()
-      .format('YYYY-MM-DDTHH:mmZ');
-    let meeting_details = {
-      //TODO replace hardcoded values
-      prId: 1,
-      start: start,
-      end: end,
-      location: this.state.location,
-      //TODO replace hardcoded values
-      requiredAttendeeIds: [4],
-      optionalAttendeeIds: []
-    };
-    this.props.addMeeting(meeting_details);
-  }
 
   render() {
     const { classes, meeting } = this.props;
     return (
-      <div>
-        {meeting == null ? (
-          <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-              id="location"
-              label="Ort"
-              className={classes.textField}
-              value={this.state.location}
-              onChange={this.handleChange('location')}
-              margin="normal"
+      <div className={classes.meetingView}>
+        <Typography gutterBottom variant="display1">
+          Termindetails
+        </Typography>
+        <List>
+          <ListItem id={'date'}>
+            <ListItemIcon>
+              <TodayIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={moment(meeting.start)
+                .local()
+                .format('DD.MM.YYYY')}
             />
-            <Button
-              id="createMeeting"
-              className={classes.button}
-              variant="raised"
-              onClick={this.handleClickOfMeetingButton}
-              type="submit"
-            >
-              Termin erstellen
-            </Button>
-          </form>
-        ) : (
-          <div className={classes.container}>
-            <Typography variant="headline">Termindetails</Typography>
-            <Typography id="startDateTime" variant="body1">
-              Start:{' '}
-              {moment(meeting.start)
+          </ListItem>
+          <ListItem id={'startAndEndTime'}>
+            <ListItemIcon>
+              <ScheduleIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={`${moment(meeting.start)
                 .local()
-                .format('DD-MM-YYYY HH:mm')}
-            </Typography>
-            <Typography id="endDateTime" variant="body1">
-              Ende:{' '}
-              {moment(meeting.end)
+                .format('HH:mm')} - ${moment(meeting.end)
                 .local()
-                .format('DD-MM-YYYY HH:mm')}
-            </Typography>
-            <Typography variant="body1">
-              Ort:{' ' + meeting.location}
-            </Typography>
-            <Typography variant="body2" className={classes.title}>
-              Benötigte Teilnehmer
-            </Typography>
-            <div className={classes.attendeeList}>
-              <List id="requiredAttendees">
-                {Array.from(meeting.requiredAttendees).map(requiredAttendee => {
-                  return (
-                    <ListItem key={requiredAttendee.email} dense>
-                      <ListItemText
-                        primary={`${requiredAttendee.name} <${
-                          requiredAttendee.email
-                        }>`}
-                        secondary={
-                          'Status: ' + translateContent(requiredAttendee.status)
-                        }
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </div>
-            {Array.from(meeting.optionalAttendees).length > 0 ? (
-              <div className={classes.attendeeList}>
-                <Typography variant="body2" className={classes.title}>
-                  Optionale Teilnehmer
-                </Typography>
-                <List id="optionalAttendees">
+                .format('HH:mm')}`}
+            />
+          </ListItem>
+          <ListItem id={'location'}>
+            <ListItemIcon>
+              <LocationOnIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                meeting.location !== null ? meeting.location : 'nicht angegeben'
+              }
+            />
+          </ListItem>
+          <ListItem button onClick={this.handleClickOpenRequiredAttendees}>
+            <ListItemIcon>
+              <PeopleIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText primary={'Benötige Teilnehmer'} />
+            {this.state.openRequiredAttendees ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse
+            in={this.state.openRequiredAttendees}
+            timeout="auto"
+            unmountOnExit
+          >
+            <List id="requiredAttendees" component="div" disablePadding dense>
+              {Array.from(meeting.requiredAttendees).map(requiredAttendee => {
+                return (
+                  <ListItem
+                    key={requiredAttendee.email}
+                    button
+                    className={classes.nested}
+                  >
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      inset
+                      primary={`${requiredAttendee.name} <${
+                        requiredAttendee.email
+                      }>`}
+                      secondary={
+                        'Status: ' + translateContent(requiredAttendee.status)
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Collapse>
+          {Array.from(meeting.optionalAttendees).length > 0 ? (
+            <React.Fragment>
+              <ListItem button onClick={this.handleClickOpenOptionalAttendees}>
+                <ListItemIcon>
+                  <PeopleIcon className={classes.icon} />
+                </ListItemIcon>
+                <ListItemText primary={'Optionale Teilnehmer'} />
+                {this.state.openRequiredAttendees ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )}
+              </ListItem>
+              <Collapse
+                in={this.state.openOptionalAttendees}
+                timeout="auto"
+                unmountOnExit
+              >
+                <List id="optionalAttendees" component="div" disablePadding>
                   {Array.from(meeting.optionalAttendees).map(
                     optionalAttendee => {
                       return (
-                        <ListItem key={optionalAttendee.email}>
+                        <ListItem
+                          key={optionalAttendee.email}
+                          button
+                          className={classes.nested}
+                        >
+                          <ListItemIcon>
+                            <PersonIcon />
+                          </ListItemIcon>
                           <ListItemText
+                            inset
                             primary={`${optionalAttendee.name} <${
                               optionalAttendee.email
                             }>`}
@@ -161,19 +186,20 @@ class MeetingView extends React.Component {
                     }
                   )}
                 </List>
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-        )}
+              </Collapse>
+            </React.Fragment>
+          ) : (
+            ''
+          )}
+        </List>
       </div>
     );
   }
 }
 
 MeetingView.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  meeting: PropTypes.object.isRequired
 };
 
 export const StyledComponent = withStyles(styles)(MeetingView);
@@ -182,8 +208,5 @@ export default connect(
     meeting: getMeeting(state),
     getSelectedDateTime: getSelectedDate(state)
   }),
-  {
-    addMeeting: actions.addMeeting,
-    fetchMeeting: actions.fetchMeeting
-  }
+  {}
 )(StyledComponent);

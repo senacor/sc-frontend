@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MeetingCreator should match snapshot 1`] = `
+<div>
+  <Connect(WithStyles(AppointmentPicker))
+    onTimeChange={[Function]}
+  />
+  <form
+    autoComplete="off"
+    className="MeetingView-container-1"
+    noValidate={true}
+  >
+    <TextField
+      id="location"
+      label="Ort"
+      margin="normal"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      value=""
+    />
+    <WithStyles(Button)
+      id="createMeeting"
+      onClick={[Function]}
+      type="submit"
+      variant="raised"
+    >
+      Termin erstellen
+    </WithStyles(Button)>
+  </form>
+</div>
+`;

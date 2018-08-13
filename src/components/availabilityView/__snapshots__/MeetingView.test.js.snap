@@ -2,43 +2,98 @@
 
 exports[`MeetingView should match snapshot 1`] = `
 <div
-  style={
-    Object {
-      "padding": "10px",
-    }
-  }
+  className="MeetingView-meetingView-4"
 >
-  <form
-    autoComplete="off"
-    className="MeetingView-container-1"
-    noValidate={true}
+  <WithStyles(Typography)
+    gutterBottom={true}
+    variant="display1"
   >
-    <TextField
-      id="location"
-      label="Ort"
-      margin="normal"
-      onChange={[Function]}
-      required={false}
-      select={false}
-      value="Test"
-    />
-    <TextField
-      id="duration"
-      label="Dauer des Termins (min)"
-      margin="normal"
-      onChange={[Function]}
-      required={false}
-      select={false}
-      value={60}
-    />
-    <WithStyles(Button)
-      id="createMeeting"
-      onClick={[Function]}
-      type="submit"
-      variant="raised"
+    Termindetails
+  </WithStyles(Typography)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)
+      id="date"
     >
-      Termin erstellen
-    </WithStyles(Button)>
-  </form>
+      <WithStyles(ListItemIcon)>
+        <pure(Today) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="06.08.2018"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      id="startAndEndTime"
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(Schedule) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="11:51 - 12:51"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      id="location"
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(LocationOn) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="Test"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      button={true}
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(People) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="Benötige Teilnehmer"
+      />
+      <pure(ExpandLess) />
+    </WithStyles(ListItem)>
+    <WithStyles(Collapse)
+      in={true}
+      timeout="auto"
+      unmountOnExit={true}
+    >
+      <WithStyles(List)
+        component="div"
+        dense={true}
+        disablePadding={true}
+        id="requiredAttendees"
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="MeetingView-nested-3"
+          key="test.pr.mitarbeiter2@senacor.com"
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(Person) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            inset={true}
+            primary="PR Mitarbeiter2 <test.pr.mitarbeiter2@senacor.com>"
+            secondary="Status: Abgelehnt"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          button={true}
+          className="MeetingView-nested-3"
+          key="test.pr.mitarbeiter3@senacor.com"
+        >
+          <WithStyles(ListItemIcon)>
+            <pure(Person) />
+          </WithStyles(ListItemIcon)>
+          <WithStyles(ListItemText)
+            inset={true}
+            primary="PR Mitarbeiter3 <test.pr.mitarbeiter3@senacor.com>"
+            secondary="Status: Angenommen"
+          />
+        </WithStyles(ListItem)>
+      </WithStyles(List)>
+    </WithStyles(Collapse)>
+  </WithStyles(List)>
 </div>
 `;
