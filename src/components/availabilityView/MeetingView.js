@@ -48,7 +48,7 @@ class MeetingView extends React.Component {
     this.state = {
       location: '',
       openRequiredAttendees: true,
-      openOptionalAttendees: false
+      openOptionalAttendees: true
     };
   }
 
@@ -159,7 +159,12 @@ class MeetingView extends React.Component {
                 timeout="auto"
                 unmountOnExit
               >
-                <List id="optionalAttendees" component="div" disablePadding>
+                <List
+                  id="optionalAttendees"
+                  component="div"
+                  disablePadding
+                  dense
+                >
                   {Array.from(meeting.optionalAttendees).map(
                     optionalAttendee => {
                       return (

@@ -26,7 +26,7 @@ class AppointmentPicker extends React.Component {
   }
 
   updateTimeValuesForMeetingCreatorComponent() {
-    this.props.onTimeChange(
+    this.props.onDateTimeChange(
       this.state.date,
       this.state.startTime,
       this.state.endTime
