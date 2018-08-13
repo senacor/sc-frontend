@@ -6,37 +6,64 @@ import moment from 'moment';
 describe('MeetingView', () => {
   let shallow = createShallow({ dive: true });
 
-  const meeting = {
-    start: '2018-08-06T09:51:00.000+0000',
-    end: '2018-08-06T10:51:00.000+0000',
-    location: 'Test',
-    requiredAttendees: [
-      {
-        name: 'PR Mitarbeiter2',
-        email: 'test.pr.mitarbeiter2@senacor.com',
-        status: 'DECLINE'
-      },
-      {
-        name: 'PR Mitarbeiter3',
-        email: 'test.pr.mitarbeiter3@senacor.com',
-        status: 'ACCEPT'
-      }
-    ],
-    optionalAttendees: [],
-    _links: {
-      self: {
-        href: 'http://localhost:8010/api/v1/meetings?prId=1'
-      }
-    }
-  };
-
   it('should match snapshot', () => {
+    let start = moment('2018-08-06T09:51:00.000+0000');
+    let end = moment('2018-08-06T10:51:00.000+0000');
+
+    const meeting = {
+      start: start.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
+      end: end.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
+      location: 'Test',
+      requiredAttendees: [
+        {
+          name: 'PR Mitarbeiter2',
+          email: 'test.pr.mitarbeiter2@senacor.com',
+          status: 'DECLINE'
+        },
+        {
+          name: 'PR Mitarbeiter3',
+          email: 'test.pr.mitarbeiter3@senacor.com',
+          status: 'ACCEPT'
+        }
+      ],
+      optionalAttendees: [],
+      _links: {
+        self: {
+          href: 'http://localhost:8010/api/v1/meetings?prId=1'
+        }
+      }
+    };
+
     let wrapper = shallow(<StyledComponent meeting={meeting} />);
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should display meeting details when a meeting exists', () => {
+    const meeting = {
+      start: '2018-08-06T09:51:00.000+0000',
+      end: '2018-08-06T10:51:00.000+0000',
+      location: 'Test',
+      requiredAttendees: [
+        {
+          name: 'PR Mitarbeiter2',
+          email: 'test.pr.mitarbeiter2@senacor.com',
+          status: 'DECLINE'
+        },
+        {
+          name: 'PR Mitarbeiter3',
+          email: 'test.pr.mitarbeiter3@senacor.com',
+          status: 'ACCEPT'
+        }
+      ],
+      optionalAttendees: [],
+      _links: {
+        self: {
+          href: 'http://localhost:8010/api/v1/meetings?prId=1'
+        }
+      }
+    };
+
     let startDateAsLocal = moment(meeting.start)
       .local()
       .format('DD.MM.YYYY');
