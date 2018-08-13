@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { StyledComponent as TimeTable } from './TimeTable';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const props = {
   selectedDate: '2018-03-08'
@@ -11,8 +11,11 @@ const classes = {
   appointmentDiv: {}
 };
 
-const localTimeFrom = dateTimeString =>
-  moment(dateTimeString, 'YYYY-MM-DDTHH:mmZ[UTC]').format('HH:mm');
+const germanTimeFrom = dateTimeString =>
+  moment
+    .utc(dateTimeString, 'YYYY-MM-DDTHH:mmZ[UTC]')
+    .tz('Europe/Berlin')
+    .format('HH:mm');
 
 describe('createSingleAppointmentDiv', () => {
   it('should create an appointmentDiv with the correct height and position.', () => {
@@ -27,7 +30,7 @@ describe('createSingleAppointmentDiv', () => {
       <div
         key={'availabilityemployee1'} //if this test is run after the createAppointmentDivs test, which calls this function, the divId (1 here) has been already set to a higher value and this test will fail. If it is run separately, it never fails, since a new instance of the component is created and divIds are set to 0. A workaround to ignore the key would be for example to JSON.stringify the expected and the obtained div-result and then to compare.
         className={classes.appointmentDiv}
-        id={`employee_${localTimeFrom(startAppointment)}-${localTimeFrom(
+        id={`employee_${germanTimeFrom(startAppointment)}-${germanTimeFrom(
           endAppointment
         )}`}
         style={{
