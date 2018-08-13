@@ -12,7 +12,6 @@ import AppointmentPicker from './AppointmentPicker';
 const styles = theme => ({
   container: {
     '& > *': {
-      // display: 'block !important',
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit
     }
@@ -46,7 +45,7 @@ class MeetingView extends React.Component {
     this.addMeeting();
   };
 
-  setStartAndEndTime = (date, startTime, endTime) => {
+  setDateTime = (date, startTime, endTime) => {
     this.setState({
       date: date,
       startTime: startTime,
@@ -78,7 +77,7 @@ class MeetingView extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <AppointmentPicker onTimeChange={this.setStartAndEndTime} />
+        <AppointmentPicker onDateTimeChange={this.setDateTime} />
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
             id="location"
