@@ -21,7 +21,7 @@ class MyPerformanceReviews extends Component {
           <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
             <RequestPerformanceReview />
             <Link to={'/availabilityview'} style={{ textDecoration: 'none' }}>
-              <Button color="primary">
+              <Button id="appointments" color="primary">
                 <Icon>add</Icon>
                 Termin finden
               </Button>

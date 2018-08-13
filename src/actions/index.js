@@ -15,6 +15,8 @@ export { getCstMembers } from './cstMembers';
 export { getEvents } from './events';
 export { appointmentsSearch } from './appointments';
 export { changeDate } from './appointments';
+export { addMeeting } from './meetings';
+export { fetchMeeting } from './meetings';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({

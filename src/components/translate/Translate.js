@@ -1,10 +1,12 @@
 export const translationMap = {
+  ACCEPT: 'Angenommen',
   ACCEPTED_DATE_REVIEWER: 'Termin akzeptiert',
   ALL_DATES_ACCEPTED: 'Termin festgesetzt',
   ARCHITECT: 'Architekt',
   CONTRIBUTION_TO_COMPANY_DEVELOPMENT: 'Beitrag zur Unternehmensentwicklung',
   CUSTOMER_INTERACTION: 'Kundeninteraktion und -veränderung',
   CUSTOMER_RETENTION: 'Kundenbindung und Mandatsgenerierung',
+  DECLINE: 'Abgelehnt',
   DONE: 'Fertig',
   END_PROBATION: 'Ende der Probezeit',
   EXECUTION: 'In Durchführung',
@@ -20,6 +22,7 @@ export const translationMap = {
   LEAD_DEVELOPER: 'Lead Developer',
   MODIFICATIONS_ACCEPTED_EMPLOYEE: 'Änderungen Mitarbeiter',
   MODIFICATIONS_ACCEPTED_REVIEWER: 'Änderungen Beurteiler',
+  NORESPONSERECEIVED: 'Noch keine Antwort erhalten',
   ON_DEMAND: 'Auf Nachfrage',
   PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
     'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?',
@@ -33,7 +36,9 @@ export const translationMap = {
   TARGET_ROLE: 'Zielrolle (ab Senior Level ausfüllen)',
   TEAMWORK: 'Effektives Arbeiten im Team und Teamführung',
   TECHNICAL_EXPERT: 'Technischer Experte',
+  TENTATIVE: 'Unter Vorbehalt',
   TRANSFORMATION_MANAGER: 'Transformation Manager',
+  UNKNOWN: 'Unbekannt',
   WORKING_MANNER: 'Arbeitsweise',
   WORK_RESULTS: 'Arbeitsergebnisse',
   YEARLY: 'Jährlich'

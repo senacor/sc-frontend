@@ -5,10 +5,15 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { getAppointments, getSelectedDate } from '../../reducers/selector';
+import {
+  getAppointments,
+  getSelectedDate,
+  getMeeting
+} from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
-import AppointmentPicker from './AppointmentPicker';
+import MeetingCreator from './MeetingCreator';
 import TimeTable from './TimeTable';
+import MeetingView from './MeetingView';
 
 const persons = ['employee', 'reviewer', 'supervisor'];
 
@@ -37,43 +42,56 @@ class AvailabilityView extends React.Component {
   }
 
   render() {
+    const { meeting } = this.props;
     return (
       <div id={'outer'}>
-        <Typography gutterBottom variant="display1">
-          Terminfindung
-        </Typography>
-        <Grid id={'tableRolePick'} container spacing={24} direction="column">
-          <Grid item>
-            <AppointmentPicker />
-          </Grid>
-          <Grid item>
-            <PersonToggle
-              onChange={this.onVisibilityChange}
-              showEmployee={false}
-              showReviewer={false}
-              showSupervisor={false}
-            />
-          </Grid>
-          <Grid item>
-            <TimeTable
-              appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
-                'employee'
-              )}
-              appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
-                'reviewer'
-              )}
-              appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
-                'supervisor'
-              )}
-            />
-          </Grid>
-        </Grid>
+        {meeting == null ? (
+          <React.Fragment>
+            <Typography gutterBottom variant="display1">
+              Terminfindung
+            </Typography>
+            <Grid
+              id={'tableRolePick'}
+              container
+              spacing={24}
+              direction="column"
+            >
+              <Grid item>
+                <MeetingCreator />
+              </Grid>
+              <Grid item>
+                <PersonToggle
+                  onChange={this.onVisibilityChange}
+                  showEmployee={false}
+                  showReviewer={false}
+                  showSupervisor={false}
+                />
+              </Grid>
+              <Grid item>
+                <TimeTable
+                  appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
+                    'employee'
+                  )}
+                  appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
+                    'reviewer'
+                  )}
+                  appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
+                    'supervisor'
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </React.Fragment>
+        ) : (
+          <MeetingView />
+        )}
       </div>
     );
   }
 
   componentDidMount() {
     this.fetchAppointments();
+    this.props.fetchMeeting(1);
   }
 
   //TODO replace '1,2,3' string with a string containing the employeeIds
@@ -138,9 +156,11 @@ export const StyledComponent = withStyles(styles)(AvailabilityView);
 export default connect(
   state => ({
     appointmentsSearchResults: getAppointments(state),
-    selectedDate: getSelectedDate(state)
+    selectedDate: getSelectedDate(state),
+    meeting: getMeeting(state)
   }),
   {
-    appointmentsSearch: actions.appointmentsSearch
+    appointmentsSearch: actions.appointmentsSearch,
+    fetchMeeting: actions.fetchMeeting
   }
 )(StyledComponent);

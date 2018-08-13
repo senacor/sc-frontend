@@ -78,6 +78,7 @@ describe('reducers', () => {
           isLoggedIn: false,
           isUnauthorized: false
         },
+        meeting: null,
         prById: {
           prDetail: []
         },
@@ -97,7 +98,7 @@ describe('reducers', () => {
         search: {
           prSearchResults: []
         },
-        selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DD'),
+        selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
         sortOrderPrs: 'desc',
         tasks: {
           list: []
