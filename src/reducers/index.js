@@ -17,6 +17,7 @@ import search from './searchEmployee';
 import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults } from './appointments';
 import { selectedDate } from './appointments';
+import { meeting } from './meetings';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -26,6 +27,7 @@ const combineReducer = combineReducers({
   prs,
   login,
   isLoading,
+  meeting,
   prById,
   prDetailId,
   prTargetRole,

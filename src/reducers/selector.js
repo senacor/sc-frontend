@@ -7,6 +7,7 @@ export const getSortOrder = state => state.sortOrderPrs;
 export const getUserroles = state => state.userroles;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
+export const getMeeting = state => state.meeting;
 
 export const getPrDetail = () => {
   return createSelector(

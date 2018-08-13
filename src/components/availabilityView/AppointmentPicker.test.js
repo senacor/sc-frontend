@@ -9,6 +9,7 @@ describe('AppointmentPicker', () => {
     const component = shallow(
       <AppointmentPicker
         changeDate={mockChangeDate}
+        onDateTimeChange={() => {}}
         appointmentsSearch={appointmentsSearch}
       />
     ).dive();
@@ -23,6 +24,7 @@ describe('AppointmentPicker', () => {
     const component = shallow(
       <AppointmentPicker
         changeDate={changeDate}
+        onDateTimeChange={() => {}}
         appointmentsSearch={mockAppointmentsSearch}
       />
     ).dive();

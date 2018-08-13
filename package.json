@@ -11,6 +11,7 @@
     "lodash": "^4.17.10",
     "material-ui-slider": "^0.1.0",
     "moment": "^2.20.1",
+    "moment-range": "^4.0.1",
     "moment-timezone": "^0.5.21",
     "object-get": "^2.1.0",
     "object-set": "^1.0.1",
@@ -65,6 +66,9 @@
       "target": "http://localhost:8010"
     },
     "api/v1/appointments": {
+      "target": "http://localhost:8010"
+    },
+    "api/v1/meetings": {
       "target": "http://localhost:8010"
     }
   },
