@@ -44,7 +44,8 @@
     "fetch-mock": "^6.0.0",
     "jest-localstorage-mock": "^2.2.0",
     "prettier": "^1.13.7",
-    "redux-mock-store": "^1.5.1"
+    "redux-mock-store": "^1.5.1",
+    "timezone-mock": "^1.0.0"
   },
   "proxy": {
     "/oauth2": {

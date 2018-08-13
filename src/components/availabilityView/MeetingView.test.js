@@ -2,13 +2,23 @@ import React from 'react';
 import { StyledComponent } from './MeetingView';
 import { createShallow } from '@material-ui/core/test-utils';
 import moment from 'moment';
+import timezone_mock from 'timezone-mock';
 
 describe('MeetingView', () => {
+  beforeEach(() => {
+    // Only works for US/Pacific, US/Eastern, Brazil/East and UTC according to https://www.npmjs.com/package/timezone-mock
+    timezone_mock.register('UTC');
+  });
+
+  afterEach(() => {
+    timezone_mock.unregister();
+  });
+
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
-    let start = moment('2018-08-06T09:51:00.000+0000');
-    let end = moment('2018-08-06T10:51:00.000+0000');
+    let start = moment.utc('2018-08-06T09:51:00.000+0000');
+    let end = moment.utc('2018-08-06T10:51:00.000+0000');
 
     const meeting = {
       start: start.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),

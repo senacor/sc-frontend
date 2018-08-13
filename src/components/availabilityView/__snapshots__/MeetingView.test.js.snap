@@ -28,7 +28,7 @@ exports[`MeetingView should match snapshot 1`] = `
         <pure(Schedule) />
       </WithStyles(ListItemIcon)>
       <WithStyles(ListItemText)
-        primary="11:51 - 12:51"
+        primary="09:51 - 10:51"
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
