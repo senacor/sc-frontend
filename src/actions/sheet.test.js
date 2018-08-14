@@ -2,7 +2,8 @@ import { addRating } from './index';
 import {
   changeVisibilityForEmployee,
   changeVisibilityForReviewer,
-  setVisibilityById
+  setVisibilityById,
+  changeRatingTargetRole
 } from './sheet';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -10,10 +11,13 @@ import fetchMock from 'fetch-mock';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
+  CHANGE_RATING_TARGETROLE_REQUEST,
+  CHANGE_RATING_TARGETROLE_RESPONSE,
   CHANGE_PR_VISIBILITY_REQUEST,
   FETCH_PR_BY_ID_REQUEST,
   ERROR_GONE,
-  FETCH_PR_BY_ID_RESPONSE
+  FETCH_PR_BY_ID_RESPONSE,
+  ERROR_RESPONSE
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -34,6 +38,18 @@ const prById = {
   occasion: 'ON_DEMAND',
   status: 'PREPARATION',
   deadline: '2018-03-14',
+  prTargetRoleSet: [
+    {
+      id: 77,
+      prTargetRoleName: 'LEAD_DEVELOPER',
+      rating: 1,
+      _links: {
+        self: {
+          href: 'http://localhost:8010/api/v1/prs/2/role/LEAD_DEVELOPER'
+        }
+      }
+    }
+  ],
   _links: {
     self: {
       href: 'http://localhost:8010/api/v1/prs/1'
@@ -425,6 +441,63 @@ describe('changeVisibilityForReviewer', () => {
         type: FETCH_PR_BY_ID_RESPONSE,
         prById: { id: 1 }
       }
+    ]);
+  });
+});
+
+describe('changeRatingTargetRole', () => {
+  afterEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
+
+  it('should update the rating for the target role and dispatch the response action', async () => {
+    const prId = prById.id;
+    const prTargetRoleName = 'LEAD_DEVELOPER';
+    const rating = 3;
+
+    const prTargetRoleResponse = {
+      prId: prId,
+      targetRoleName: prTargetRoleName,
+      rating: rating
+    };
+
+    fetchMock.putOnce(`/api/v1/prs/${prId}/role/${prTargetRoleName}`, {
+      rating: 3
+    });
+
+    const store = mockStore();
+    await store.dispatch(
+      changeRatingTargetRole(prId, prTargetRoleName, rating)
+    );
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_RATING_TARGETROLE_REQUEST },
+      { type: CHANGE_RATING_TARGETROLE_RESPONSE, payload: prTargetRoleResponse }
+    ]);
+  });
+
+  it('should display the HTTP status code NOT_FOUND when service throws TargetRoleNotFoundException', async () => {
+    const prId = prById.id;
+    const prTargetRoleNameNotExisting = 'I_DO_NOT_EXIST';
+    const rating = 3;
+
+    fetchMock.putOnce(
+      `/api/v1/prs/${prId}/role/${prTargetRoleNameNotExisting}`,
+      {
+        status: 404,
+        body: { httpCode: 'NOT_FOUND' }
+      }
+    );
+
+    const store = mockStore();
+    await store.dispatch(
+      changeRatingTargetRole(prId, prTargetRoleNameNotExisting, rating)
+    );
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_RATING_TARGETROLE_REQUEST },
+      { type: ERROR_RESPONSE, httpCode: 404 }
     ]);
   });
 });
