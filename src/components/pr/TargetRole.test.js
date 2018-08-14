@@ -3,7 +3,6 @@ import { createShallow } from '@material-ui/core/test-utils';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import { StyledComponent as TargetRole } from './TargetRole';
 
-const countTargetRoles = 7;
 const prTargetRoleSet = [
   {
     id: 22,
@@ -41,6 +40,7 @@ const prTargetRoleSet = [
     rating: 2
   }
 ];
+const countTargetRoles = prTargetRoleSet.length;
 
 describe('TargetRole Component', () => {
   let shallow = createShallow({ dive: true });
