@@ -94,6 +94,7 @@ class TargetRole extends Component {
             lg={4}
             xl={4}
             className={classes.ratingTargetRole}
+            id={'target-role-' + targetRole.prTargetRoleName}
           >
             <StepSlider
               key={targetRole.prTargetRoleName}
