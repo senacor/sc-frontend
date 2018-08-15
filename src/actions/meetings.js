@@ -28,7 +28,7 @@ export const addMeeting = meeting_details => async dispatch => {
     });
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/meetings`,
+      `${process.env.REACT_APP_API}/api/v1/prs/1/meetings`,
       {
         method: 'post',
         mode: 'cors',
@@ -37,8 +37,8 @@ export const addMeeting = meeting_details => async dispatch => {
           start: meeting_details.start,
           end: meeting_details.end,
           location: meeting_details.location,
-          requiredAttendeeIds: meeting_details.requiredAttendeeIds,
-          optionalAttendeeIds: meeting_details.optionalAttendeeIds
+          requiredAttendees: meeting_details.requiredAttendees,
+          optionalAttendees: meeting_details.optionalAttendees
         })
       }
     );
@@ -58,13 +58,13 @@ export const addMeeting = meeting_details => async dispatch => {
   }
 };
 
-export const fetchMeeting = prId => async dispatch => {
+export const fetchMeeting = () => async dispatch => {
   dispatch({
     type: dispatchTypes.FETCH_MEETING_REQUEST
   });
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/meetings?prId=${prId}`
+    `${process.env.REACT_APP_API}/api/v1/prs/1/meetings`
   );
   if (response.ok) {
     const meeting = await response.json();

@@ -61,14 +61,12 @@ class MeetingView extends React.Component {
       'Europe/Berlin'
     );
     let meeting_details = {
-      //TODO replace hardcoded values
-      prId: 1,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: this.state.location,
       //TODO replace hardcoded values
-      requiredAttendeeIds: [4],
-      optionalAttendeeIds: []
+      requiredAttendees: ['test.pr.mitarbeiter2'],
+      optionalAttendees: []
     };
     this.props.addMeeting(meeting_details);
   }

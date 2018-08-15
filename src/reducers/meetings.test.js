@@ -13,15 +13,17 @@ describe('meeting reducer', () => {
       location: '01 NUE Projekt Office 3 2.41 (6)',
       requiredAttendees: [
         {
-          name: 'PR Mitarbeiter2',
-          email: 'test.pr.mitarbeiter2@senacor.com',
-          status: 'UNKNOWN'
+          test_pr_mitarbeiter2: {
+            name: 'PR Mitarbeiter2',
+            email: 'test.pr.mitarbeiter2@senacor.com',
+            status: 'UNKNOWN'
+          }
         }
       ],
       optionalAttendees: [],
       _links: {
         self: {
-          href: 'http://localhost:8010/api/v1/meetings?prId=1'
+          href: 'http://localhost:8010/api/v1/prs/1/meetings'
         }
       }
     };
@@ -51,7 +53,7 @@ describe('meeting reducer', () => {
       optionalAttendees: [],
       _links: {
         self: {
-          href: 'http://localhost:8010/api/v1/meetings?prId=1'
+          href: 'http://localhost:8010/api/v1/prs/1/meetings'
         }
       }
     };
@@ -62,15 +64,17 @@ describe('meeting reducer', () => {
       location: '01 NUE Projekt Office 3 2.41 (6)',
       requiredAttendees: [
         {
-          name: 'PR Mitarbeiter2',
-          email: 'test.pr.mitarbeiter2@senacor.com',
-          status: 'DECLINE'
+          test_pr_mitarbeiter2: {
+            name: 'PR Mitarbeiter2',
+            email: 'test.pr.mitarbeiter2@senacor.com',
+            status: 'DECLINE'
+          }
         }
       ],
       optionalAttendees: [],
       _links: {
         self: {
-          href: 'http://localhost:8010/api/v1/meetings?prId=1'
+          href: 'http://localhost:8010/api/v1/prs/1/meetings'
         }
       }
     };
