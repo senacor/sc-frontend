@@ -8,6 +8,8 @@ import {
 } from '../helper/dispatchTypes';
 
 describe('prs reducer', () => {
+  const idLeadDeveloper = 14;
+
   let stateBefore = {
     1: {
       id: 1,
@@ -18,7 +20,7 @@ describe('prs reducer', () => {
       deadline: '2019-03-14',
       prTargetRoleSet: [
         {
-          id: 14,
+          id: idLeadDeveloper,
           prTargetRoleName: 'LEAD_DEVELOPER',
           rating: 1,
           _links: {
@@ -199,7 +201,6 @@ describe('prs reducer', () => {
     };
 
     const stateAfter = prs(stateBefore, actionChangeRatingTargetRole);
-    const idLeadDeveloper = 14;
     const newRatingLeadDeveloper = stateAfter[1].prTargetRoleSet.filter(
       targetRole => targetRole.id === idLeadDeveloper
     )[0].rating;

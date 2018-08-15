@@ -453,23 +453,21 @@ describe('changeRatingTargetRole', () => {
 
   it('should update the rating for the target role and dispatch the response action', async () => {
     const prId = prById.id;
-    const prTargetRoleName = 'LEAD_DEVELOPER';
+    const targetRoleName = 'LEAD_DEVELOPER';
     const rating = 3;
 
     const prTargetRoleResponse = {
-      prId: prId,
-      targetRoleName: prTargetRoleName,
-      rating: rating
+      prId,
+      targetRoleName,
+      rating
     };
 
-    fetchMock.putOnce(`/api/v1/prs/${prId}/role/${prTargetRoleName}`, {
-      rating: 3
+    fetchMock.putOnce(`/api/v1/prs/${prId}/role/${targetRoleName}`, {
+      rating
     });
 
     const store = mockStore();
-    await store.dispatch(
-      changeRatingTargetRole(prId, prTargetRoleName, rating)
-    );
+    await store.dispatch(changeRatingTargetRole(prId, targetRoleName, rating));
 
     expect(store.getActions()).toEqual([
       { type: CHANGE_RATING_TARGETROLE_REQUEST },
