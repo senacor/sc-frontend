@@ -25,37 +25,22 @@ class AppointmentPicker extends React.Component {
     };
   }
 
-  updateTimeValuesForMeetingCreatorComponent() {
-    this.props.onDateTimeChange(
-      this.state.date,
-      this.state.startTime,
-      this.state.endTime
-    );
-  }
-
   onStartTimeChange = event => {
     this.setState({ startTime: event.target.value });
-    this.updateTimeValuesForMeetingCreatorComponent();
   };
 
   onEndTimeChange = event => {
     this.setState({ endTime: event.target.value });
-    this.updateTimeValuesForMeetingCreatorComponent();
   };
 
   onDateChange = event => {
     let date = event.target.value || event.target;
     this.setState({ date });
-    if (moment(date, 'YYYY-MM-DD').isValid()) {
+    if (moment(date, 'YYYY-MM-DD', true).isValid()) {
+      this.props.onDateChange(date);
       this.props.changeDate(date);
-      this.props.appointmentsSearch('1,2,3', date);
-      this.updateTimeValuesForMeetingCreatorComponent();
     }
   };
-
-  componentDidMount() {
-    this.updateTimeValuesForMeetingCreatorComponent();
-  }
 
   render() {
     const { classes } = this.props;

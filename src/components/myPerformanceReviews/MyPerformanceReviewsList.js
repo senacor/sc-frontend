@@ -60,7 +60,13 @@ class MyPerformanceReviewsList extends Component {
                       <div>
                         Fälligkeitsdatum: {formatDateForFrontend(pr.deadline)}
                       </div>
-                      <div>Bewerter: {pr.supervisor}</div>
+                      <div>
+                        Bewerter:
+                        {' ' +
+                          pr.supervisor.firstName +
+                          ' ' +
+                          pr.supervisor.lastName}
+                      </div>
                     </div>
                   }
                 />
