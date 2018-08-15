@@ -25,6 +25,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-PLATTFORMGESTALTER"
         item={true}
         lg={4}
         md={4}
@@ -101,6 +102,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-IT_SOLUTION_LEADER"
         item={true}
         lg={4}
         md={4}
@@ -177,6 +179,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-TRANSFORMATION_MANAGER"
         item={true}
         lg={4}
         md={4}
@@ -253,6 +256,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-IT_LIEFERSTEUERER"
         item={true}
         lg={4}
         md={4}
@@ -329,6 +333,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-ARCHITECT"
         item={true}
         lg={4}
         md={4}
@@ -405,6 +410,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-TECHNICAL_EXPERT"
         item={true}
         lg={4}
         md={4}
@@ -481,6 +487,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
+        id="target-role-LEAD_DEVELOPER"
         item={true}
         lg={4}
         md={4}

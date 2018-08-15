@@ -1,12 +1,15 @@
 import { prs, sortOrderPrs } from './prs';
 import {
   ADD_PR_RESPONSE,
+  CHANGE_RATING_TARGETROLE_RESPONSE,
   CHANGE_SORT_ORDER,
   DELEGATE_REVIEWER_RESPONSE,
   FETCH_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 
 describe('prs reducer', () => {
+  const idLeadDeveloper = 14;
+
   let stateBefore = {
     1: {
       id: 1,
@@ -15,6 +18,18 @@ describe('prs reducer', () => {
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
       deadline: '2019-03-14',
+      prTargetRoleSet: [
+        {
+          id: idLeadDeveloper,
+          prTargetRoleName: 'LEAD_DEVELOPER',
+          rating: 1,
+          _links: {
+            self: {
+              href: 'http://localhost:8010/api/v1/prs/2/role/LEAD_DEVELOPER'
+            }
+          }
+        }
+      ],
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/prs/1'
@@ -173,5 +188,23 @@ describe('prs reducer', () => {
     const stateAfter = sortOrderPrs(stateBefore, actionChangeSortOrder);
 
     expect(stateAfter).toEqual('desc');
+  });
+
+  it('should change the rating of target role IT_SOLUTION_LEADER from 1 to 2', () => {
+    const actionChangeRatingTargetRole = {
+      type: CHANGE_RATING_TARGETROLE_RESPONSE,
+      payload: {
+        prId: 1,
+        targetRoleName: 'LEAD_DEVELOPER',
+        rating: 2
+      }
+    };
+
+    const stateAfter = prs(stateBefore, actionChangeRatingTargetRole);
+    const newRatingLeadDeveloper = stateAfter[1].prTargetRoleSet.filter(
+      targetRole => targetRole.id === idLeadDeveloper
+    )[0].rating;
+
+    expect(newRatingLeadDeveloper).toEqual(2);
   });
 });

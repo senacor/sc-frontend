@@ -7,7 +7,8 @@ import {
   ADD_TEXT_REQUEST,
   ADD_TEXT_RESPONSE,
   CHANGE_RATING_TARGETROLE_REQUEST,
-  CHANGE_RATING_TARGETROLE_RESPONSE
+  CHANGE_RATING_TARGETROLE_RESPONSE,
+  ERROR_RESPONSE
 } from '../helper/dispatchTypes';
 import * as dispatchTypes from '../helper/dispatchTypes';
 import * as visibilityTypes from '../helper/prVisibility';
@@ -127,7 +128,7 @@ export const setVisibilityById = (
     return fetchPrById(prById.id)(dispatch);
   } else {
     return dispatch({
-      type: dispatchTypes.ERROR_RESPONSE,
+      type: ERROR_RESPONSE,
       httpCode: changeResponse.status
     });
   }
@@ -142,7 +143,7 @@ export const changeRatingTargetRole = (
     type: CHANGE_RATING_TARGETROLE_REQUEST
   });
 
-  await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_API}/api/v1/prs/${prId}/role/${targetRoleName}`,
     {
       method: 'put',
@@ -151,10 +152,6 @@ export const changeRatingTargetRole = (
         rating: rating
       })
     }
-  );
-
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prId}/role/${targetRoleName}`
   );
 
   if (response.ok) {
@@ -167,6 +164,11 @@ export const changeRatingTargetRole = (
         targetRoleName,
         rating
       }
+    });
+  } else {
+    dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: response.status
     });
   }
 };
