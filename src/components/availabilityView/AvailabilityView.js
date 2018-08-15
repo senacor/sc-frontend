@@ -24,36 +24,43 @@ class AvailabilityView extends React.Component {
     super(props);
     //TODO 1: these ids should be the employeeIds
     //TODO 2: right now only three attendees are supported. A more generic approach shall be implemented
-    this.state = {
-      employee: {
-        id: props.prDetail.employee.login,
-        show: false
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.setState((state, props) => {
+      let newState = {
+        employee: {
+          id: props.prDetail.employee.login,
+          show: false
+        }
+      };
+      if (
+        props.prDetail.reviewer !== undefined &&
+        props.prDetail.reviewer.id !== ''
+      ) {
+        newState.reviewer = {
+          id: props.prDetail.reviewer.login,
+          name:
+            ObjectGet(props, 'prDetail.reviewer.firstName') +
+            ObjectGet(props, 'prDetail.reviewer.lastName'),
+          show: false
+        };
       }
-    };
-    if (
-      this.props.prDetail.reviewer !== undefined &&
-      this.props.prDetail.reviewer.id !== ''
-    ) {
-      this.state.reviewer = {
-        id: props.prDetail.reviewer.login,
-        name:
-          ObjectGet(props, 'prDetail.reviewer.firstName') +
-          ObjectGet(props, 'prDetail.reviewer.lastName'),
-        show: false
-      };
-    }
-    if (
-      this.props.prDetail.supervisor !== undefined &&
-      this.props.prDetail.supervisor.id !== ''
-    ) {
-      this.state.supervisor = {
-        id: props.prDetail.supervisor.login,
-        name:
-          ObjectGet(props, 'prDetail.supervisor.firstName') +
-          ObjectGet(props, 'prDetail.supervisor.lastName'),
-        show: false
-      };
-    }
+      if (
+        props.prDetail.supervisor !== undefined &&
+        props.prDetail.supervisor.id !== ''
+      ) {
+        newState.supervisor = {
+          id: props.prDetail.supervisor.login,
+          name:
+            ObjectGet(props, 'prDetail.supervisor.firstName') +
+            ObjectGet(props, 'prDetail.supervisor.lastName'),
+          show: false
+        };
+      }
+      return newState;
+    });
   }
 
   render() {
