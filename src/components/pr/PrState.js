@@ -135,7 +135,7 @@ class PrState extends React.Component {
     this.state = {};
   }
 
-  releaseContributions = status => event => {
+  changeStateOnButtonClick = status => event => {
     let pr = this.props.prById;
     if (!event.disabled) {
       this.props.addPrStatus(pr, status);
@@ -147,6 +147,7 @@ class PrState extends React.Component {
     let forEmployee = isEmployee(this.props.userroles);
     let isReleasedByEmployee = status === prStatusEnum.RELEASED_SHEET_EMPLOYEE;
     let isReleasedByReviewer = status === prStatusEnum.RELEASED_SHEET_REVIEWER;
+    let supervisorfinalizesPr = status === prStatusEnum.FINALIZED_REVIEWER;
     let { classes } = this.props;
     switch (status) {
       case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
@@ -181,13 +182,29 @@ class PrState extends React.Component {
                   className={
                     done ? classes.buttonDesktopDisabled : classes.buttonDesktop
                   }
-                  onClick={this.releaseContributions(status)}
+                  onClick={this.changeStateOnButtonClick(status)}
                 >
                   PR freigeben
                 </Button>
               </Grid>
             ) : null}
           </Grid>
+        );
+      case prStatusEnum.FINALIZED_REVIEWER:
+        return (
+          <div>
+            {!forEmployee && supervisorfinalizesPr ? (
+              <Button
+                disabled={done}
+                className={
+                  done ? classes.buttonDesktopDisabled : classes.buttonDesktop
+                }
+                onClick={this.changeStateOnButtonClick(status)}
+              >
+                Abschließen
+              </Button>
+            ) : null}
+          </div>
         );
       default:
         return null;
