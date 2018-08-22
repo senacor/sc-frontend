@@ -5,6 +5,7 @@ import ROLES from '../../helper/roles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 
 describe('PrComment Component', () => {
   let shallow = createShallow({ dive: true });
@@ -121,6 +122,7 @@ describe('PrComment Component', () => {
         prVisible={false}
       />
     );
+
     expect(wrapper.find(Typography)).toHaveLength(2);
     expect(wrapper.find(TextField)).toHaveLength(0);
     expect(wrapper.find(Select)).toHaveLength(0);
@@ -131,5 +133,38 @@ describe('PrComment Component', () => {
     expect(
       wrapper.find(Typography).findWhere(element => element.text() === '1')
     ).toHaveLength(0);
+  });
+
+  it('should display inputs as read-only if the supervisor has finalized the PR', () => {
+    const wrapper = shallow(
+      <StyledComponent
+        prById={prById}
+        prRating={{
+          id: 9,
+          prRatingDescription: 'TEAMWORK',
+          prRatingCategory: 'IMPACT_ON_TEAM',
+          rating: 1,
+          comment: 'fff'
+        }}
+        category="TEAMWORK"
+        userroles={[ROLES.PR_CST_LEITER]}
+        prFinalized={true}
+        prVisible={true}
+      />
+    );
+
+    expect(
+      wrapper
+        .find(FormControl)
+        .find('[disabled]')
+        .props().disabled
+    ).toEqual(true);
+
+    expect(
+      wrapper
+        .find(TextField)
+        .find('[disabled]')
+        .props().disabled
+    ).toEqual(true);
   });
 });

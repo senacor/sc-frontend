@@ -24,6 +24,9 @@ describe('PrSheet Component', () => {
     occasion: 'ON_DEMAND',
     status: 'PREPARATION',
     deadline: '2015-05-11',
+    statuses: [
+      'FILLED_SHEET_EMPLOYEE,FILLED_SHEET_REVIEWER,ALL_DATES_ACCEPTED,MODIFICATIONS_ACCEPTED_REVIEWER'
+    ],
     _links: {
       self: {
         href: 'http://localhost:8010/api/v1/prs/1'
@@ -225,5 +228,29 @@ describe('PrSheet Component', () => {
     expect(
       component.find('Connect(WithStyles(PrSheetEmployee))[prVisible=true]')
     ).toHaveLength(2);
+  });
+
+  it("should display the supervisor's comment or ratings as readonly", () => {
+    const fetchVisibilityMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        fetchPrVisibilityById={fetchVisibilityMock}
+        userroles={[ROLES.PR_CST_LEITER]}
+      />
+    );
+    expect(
+      component.contains(
+        <PrOverallAssessment
+          prById={prById}
+          prVisible={true}
+          prFinalized={false}
+        />
+      )
+    ).toBe(true);
+
+    expect(
+      component.find('Connect(WithStyles(PrComment))[prFinalized=true]')
+    ).toHaveLength(8);
   });
 });

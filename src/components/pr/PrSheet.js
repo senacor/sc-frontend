@@ -13,6 +13,7 @@ import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';
 import objectGet from 'object-get';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
+import { prStatusEnum } from './PrState';
 
 const styles = theme => ({
   containerVertical: {
@@ -85,6 +86,12 @@ class PrSheet extends React.Component {
     );
   };
 
+  isFinalizedForReviewer = () => {
+    return objectGet(this.props, 'prById.statuses').includes(
+      prStatusEnum.FINALIZED_REVIEWER
+    );
+  };
+
   render() {
     const { prById, classes } = this.props;
 
@@ -123,6 +130,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }
@@ -130,6 +138,7 @@ class PrSheet extends React.Component {
             />
             <PrComment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }
@@ -137,6 +146,7 @@ class PrSheet extends React.Component {
             />
             <PrComment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }
@@ -151,6 +161,7 @@ class PrSheet extends React.Component {
           </ListItem>
           <PrComment
             prById={prById}
+            prFinalized={this.isFinalizedForReviewer()}
             prVisible={
               isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
             }
@@ -158,6 +169,7 @@ class PrSheet extends React.Component {
           />
           <PrComment
             prById={prById}
+            prFinalized={this.isFinalizedForReviewer()}
             prVisible={
               isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
             }
@@ -172,6 +184,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }
@@ -179,6 +192,7 @@ class PrSheet extends React.Component {
             />
             <PrComment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }
@@ -194,6 +208,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrComment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }
@@ -209,6 +224,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrOverallAssessment
               prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
               prVisible={
                 isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
               }

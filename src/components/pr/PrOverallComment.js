@@ -78,6 +78,7 @@ class PrOverallComment extends Component {
                   margin="none"
                   value={prRating.comment ? prRating.comment : ''}
                   onChange={this.handleChangeComment(prById)}
+                  disabled={this.props.prFinalized}
                   InputProps={{
                     disableUnderline: true,
                     name: 'comment',

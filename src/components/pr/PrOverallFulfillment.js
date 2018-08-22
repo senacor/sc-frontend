@@ -42,7 +42,7 @@ export class PrOverallFulfillment extends Component {
   };
 
   render() {
-    const { category, userroles, prRating, prById } = this.props;
+    const { category, userroles, prRating, prById, prFinalized } = this.props;
 
     if (!prRating) {
       return null;
@@ -58,7 +58,7 @@ export class PrOverallFulfillment extends Component {
               : ''}
           </Typography>
         ) : (
-          <FormControl>
+          <FormControl disabled={prFinalized}>
             <Select
               id="ratingFullfillmentId"
               value={prRating.rating ? prRating.rating : 3}

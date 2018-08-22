@@ -206,4 +206,22 @@ describe('PrOverallAssessment Component', () => {
         .findWhere(x => x.text() === 'Everything is awesome!!!')
     ).toHaveLength(0);
   });
+
+  it('should display "fulfillment of requirement"-field as read-only', () => {
+    const component = shallow(
+      <StyledComponentOA
+        prById={prById}
+        userroles={[ROLES.PR_CST_LEITER]}
+        prFinalized={true}
+        prVisible={false}
+      />
+    );
+
+    console.log(component.find('WithStyles(Typography)')),
+      expect(
+        component
+          .find('WithStyles(Typography)')
+          .findWhere(x => x.text() === 'Everything is awesome!!!')
+      ).toHaveLength(0);
+  });
 });

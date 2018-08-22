@@ -91,7 +91,7 @@ class TargetRole extends Component {
           >
             <StepSlider
               key={targetRole.prTargetRoleName}
-              isDisabled={isDisabled}
+              isDisabled={!(isDisabled && this.props.prFinalized)}
               prActive={prActive}
               rating={targetRole.rating}
               targetRoleName={targetRole.prTargetRoleName}
