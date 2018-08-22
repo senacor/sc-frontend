@@ -36,7 +36,7 @@ exports[`PrSalary Component displays the PrSalary 1`] = `
         </WithStyles(TableCell)>
       </WithStyles(TableRow)>
       <WithStyles(TableRow)
-        className=""
+        className={null}
         key="1"
       >
         <WithStyles(TableCell)

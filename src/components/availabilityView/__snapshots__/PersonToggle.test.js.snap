@@ -10,65 +10,37 @@ exports[`PersonToggle should match snapshot 1`] = `
 >
   <WithStyles(Grid)
     item={true}
+    lg={2}
+    md={2}
+    sm={4}
+    xl={2}
+    xs={8}
   >
-    <WithStyles(Grid)
-      alignItems="center"
-      container={true}
-      direction="row"
+    <WithStyles(Typography)
+      color="textSecondary"
+      variant="caption"
     >
-      <WithStyles(Typography)
-        noWrap={true}
-        variant="subheading"
-      >
-        Mitarbeiter
-      </WithStyles(Typography)>
-      <WithStyles(Switch)
-        checked={false}
-        className="employeeSwitch"
-        color="primary"
-        onChange={[Function]}
-      />
-    </WithStyles(Grid)>
+      Mitarbeiter
+    </WithStyles(Typography)>
+    <WithStyles(Typography)
+      noWrap={true}
+      variant="subheading"
+    >
+      Michaela Mitarbeiterin
+    </WithStyles(Typography)>
   </WithStyles(Grid)>
   <WithStyles(Grid)
     item={true}
+    md={1}
+    sm={1}
+    xs={1}
   >
-    <WithStyles(Grid)
-      alignItems="center"
-      container={true}
-    >
-      <WithStyles(Typography)
-        variant="subheading"
-      >
-        Bewerter
-      </WithStyles(Typography)>
-      <WithStyles(Switch)
-        checked={false}
-        className="reviewerSwitch"
-        color="primary"
-        onChange={[Function]}
-      />
-    </WithStyles(Grid)>
-  </WithStyles(Grid)>
-  <WithStyles(Grid)
-    item={true}
-  >
-    <WithStyles(Grid)
-      alignItems="center"
-      container={true}
-    >
-      <WithStyles(Typography)
-        variant="subheading"
-      >
-        Vorgesetzter
-      </WithStyles(Typography)>
-      <WithStyles(Switch)
-        checked={false}
-        className="supervisorSwitch"
-        color="primary"
-        onChange={[Function]}
-      />
-    </WithStyles(Grid)>
+    <WithStyles(Switch)
+      checked={false}
+      className="employeeSwitch"
+      color="primary"
+      onChange={[Function]}
+    />
   </WithStyles(Grid)>
 </WithStyles(Grid)>
 `;

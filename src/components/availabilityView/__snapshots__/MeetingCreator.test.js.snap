@@ -3,11 +3,12 @@
 exports[`MeetingCreator should match snapshot 1`] = `
 <div>
   <Connect(WithStyles(AppointmentPicker))
+    fetchAppointments={[Function]}
     onDateTimeChange={[Function]}
   />
   <form
     autoComplete="off"
-    className="MeetingView-container-1"
+    className="MeetingCreator-container-1"
     noValidate={true}
   >
     <TextField

@@ -12,6 +12,18 @@ import {
   styles
 } from './AppointmentUtilities';
 
+const endHour = moment
+  .tz(timezoneInGermany)
+  .hour(lastHourOfDayInGermany)
+  .utc()
+  .minutes(1);
+
+const startHour = moment
+  .tz(timezoneInGermany)
+  .hour(firstHourOfDayInGermany)
+  .utc()
+  .minutes(0);
+
 class TimeTable extends React.Component {
   render() {
     const { classes } = this.props;
@@ -30,18 +42,10 @@ class TimeTable extends React.Component {
 
   static createDividers(classes) {
     const dividers = [];
+
     for (
-      let hour = moment
-        .tz(timezoneInGermany)
-        .hour(firstHourOfDayInGermany)
-        .utc()
-        .minutes(0);
-      hour <=
-      moment
-        .tz(timezoneInGermany)
-        .hour(lastHourOfDayInGermany)
-        .utc()
-        .minutes(0);
+      let hour = moment(startHour);
+      hour.isSameOrBefore(endHour);
       hour.add(minuteGranularity, 'm')
     ) {
       dividers.push(
@@ -57,17 +61,8 @@ class TimeTable extends React.Component {
   static createHourLabels(classes) {
     const hourLabels = [];
     for (
-      let hour = moment
-        .tz(timezoneInGermany)
-        .hour(firstHourOfDayInGermany)
-        .utc()
-        .minutes(0);
-      hour <=
-      moment
-        .tz(timezoneInGermany)
-        .hour(lastHourOfDayInGermany)
-        .utc()
-        .minutes(0);
+      let hour = moment(startHour);
+      hour <= endHour;
       hour.add(minuteGranularity, 'm')
     ) {
       hourLabels.push(

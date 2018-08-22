@@ -11,19 +11,31 @@ describe('MyPerformanceReviewsList', () => {
         id: 1,
         deadline: '2018-03-01',
         occasion: 'ON_DEMAND',
-        supervisor: 'test.pr.vorgesetzter'
+        supervisor: {
+          login: 'test.pr.vorgesetzter',
+          firstName: 'Volker',
+          lastName: 'Vorgesetzter'
+        }
       },
       {
         id: 2,
         deadline: '2018-02-01',
         occasion: 'ON_DEMAND',
-        supervisor: 'test.pr.vorgesetzter'
+        supervisor: {
+          login: 'test.pr.vorgesetzter',
+          firstName: 'Volker',
+          lastName: 'Vorgesetzter'
+        }
       },
       {
         id: 3,
         deadline: '2018-01-01',
         occasion: 'ON_DEMAND',
-        supervisor: 'test.pr.vorgesetzter'
+        supervisor: {
+          login: 'test.pr.mrx',
+          firstName: 'Mister',
+          lastName: 'Xavier'
+        }
       }
     ];
   });

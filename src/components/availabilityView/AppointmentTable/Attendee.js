@@ -8,7 +8,7 @@ import {
   styles
 } from './AppointmentUtilities';
 
-function createSingleAppointmentDiv(
+export function createSingleAppointmentDiv(
   distanceFromLeft,
   startTime,
   endTime,
@@ -38,17 +38,10 @@ function createSingleAppointmentDiv(
 }
 
 class Attendee extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      appointments: props.appointments
-    };
-  }
-
   createAppointmentDivs() {
     let appointmentDivs = [];
     let filteredAppointments = appointmentsFilter(
-      this.state.appointments,
+      this.props.appointments,
       this.props.selectedDate
     );
     for (let i = 0; i < filteredAppointments.length; i++) {
@@ -70,11 +63,7 @@ class Attendee extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.createAppointmentDivs(
-          this.props.distanceFromLeft,
-          this.state.appointments,
-          this.props.classes
-        )}
+        {this.props.show ? this.createAppointmentDivs() : null}
       </React.Fragment>
     );
   }
@@ -83,8 +72,13 @@ class Attendee extends React.Component {
 Attendee.propTypes = {
   appointments: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
-  distanceFromLeft: PropTypes.number.isRequired
+  distanceFromLeft: PropTypes.number.isRequired,
+  show: PropTypes.bool.isRequired
 };
 
-const StyledComponent = withStyles(styles)(Attendee);
+Attendee.defaultProps = {
+  show: true
+};
+
+export const StyledComponent = withStyles(styles)(Attendee);
 export default StyledComponent;

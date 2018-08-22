@@ -28,8 +28,8 @@ exports[`MyPerformanceReviewsList should match snapshot 1`] = `
               01.03.2018
             </div>
             <div>
-              Bewerter: 
-              test.pr.vorgesetzter
+              Bewerter:
+               Volker Vorgesetzter
             </div>
           </div>
         }
@@ -68,8 +68,8 @@ exports[`MyPerformanceReviewsList should match snapshot 1`] = `
               01.02.2018
             </div>
             <div>
-              Bewerter: 
-              test.pr.vorgesetzter
+              Bewerter:
+               Volker Vorgesetzter
             </div>
           </div>
         }
@@ -108,8 +108,8 @@ exports[`MyPerformanceReviewsList should match snapshot 1`] = `
               01.01.2018
             </div>
             <div>
-              Bewerter: 
-              test.pr.vorgesetzter
+              Bewerter:
+               Mister Xavier
             </div>
           </div>
         }

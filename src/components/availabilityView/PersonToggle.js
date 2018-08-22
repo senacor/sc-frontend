@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 
-class PersonToggle extends React.Component {
+export class PersonToggle extends React.Component {
   constructor(props) {
     super(props);
 
@@ -47,7 +47,7 @@ class PersonToggle extends React.Component {
   handleToggle = () => {
     const { showAttendee } = this.state;
     this.setState({ showAttendee: !showAttendee });
-    this.props.onChange();
+    this.props.onChange(!showAttendee);
   };
 }
 

@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-class MeetingView extends React.Component {
+class MeetingCreator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,7 +77,10 @@ class MeetingView extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <AppointmentPicker onDateTimeChange={this.setDateTime} />
+        <AppointmentPicker
+          onDateTimeChange={this.setDateTime}
+          fetchAppointments={this.props.fetchAppointments}
+        />
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
             id="location"
@@ -102,11 +105,12 @@ class MeetingView extends React.Component {
   }
 }
 
-MeetingView.propTypes = {
-  classes: PropTypes.object.isRequired
+MeetingCreator.propTypes = {
+  classes: PropTypes.object.isRequired,
+  fetchAppointments: PropTypes.func.isRequired
 };
 
-export const StyledComponent = withStyles(styles)(MeetingView);
+export const StyledComponent = withStyles(styles)(MeetingCreator);
 export default connect(
   state => ({
     meeting: getMeeting(state),

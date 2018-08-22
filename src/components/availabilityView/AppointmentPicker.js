@@ -27,20 +27,40 @@ class AppointmentPicker extends React.Component {
 
   onStartTimeChange = event => {
     this.setState({ startTime: event.target.value });
+    this.props.onDateTimeChange(
+      this.state.date,
+      event.target.value,
+      this.state.endTime
+    );
   };
 
   onEndTimeChange = event => {
     this.setState({ endTime: event.target.value });
+    this.props.onDateTimeChange(
+      this.state.date,
+      this.state.startTime,
+      event.target.value
+    );
   };
 
   onDateChange = event => {
     let date = event.target.value || event.target;
     this.setState({ date });
     if (moment(date, 'YYYY-MM-DD', true).isValid()) {
-      this.props.onDateChange(date);
+      this.props.fetchAppointments(date);
       this.props.changeDate(date);
+      this.props.onDateTimeChange(
+        date,
+        this.state.startTime,
+        this.state.endTime
+      );
     }
   };
+
+  componentDidMount() {
+    const { date, startTime, endTime } = this.state;
+    this.props.onDateTimeChange(date, startTime, endTime);
+  }
 
   render() {
     const { classes } = this.props;
@@ -93,7 +113,6 @@ export default connect(
     appointmentDate: state.selectedDate
   }),
   {
-    changeDate: actions.changeDate,
-    appointmentsSearch: actions.appointmentsSearch
+    changeDate: actions.changeDate
   }
 )(StyledComponent);

@@ -73,7 +73,7 @@ export function appointmentsFilter(appointments, selectedDate) {
 
 export function extractAppointments(personAppointmentResults) {
   let appointments = [];
-  if (personAppointmentResults[0] === undefined) {
+  if (personAppointmentResults === undefined) {
     return appointments;
   } else {
     for (let j = 0; j < personAppointmentResults.length; j++) {
