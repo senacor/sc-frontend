@@ -185,6 +185,11 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
@@ -362,6 +367,11 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
@@ -551,9 +561,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
       <Connect(WithStyles(PrComment))
@@ -728,9 +744,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
       <Connect(WithStyles(PrComment))
@@ -905,9 +927,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
@@ -1091,9 +1119,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+          ],
           "supervisor": "ttran",
         }
       }
+      prFinalized={false}
       prVisible={false}
     />
     <Connect(WithStyles(PrComment))
@@ -1268,9 +1302,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+          ],
           "supervisor": "ttran",
         }
       }
+      prFinalized={false}
       prVisible={false}
     />
   </WithStyles(List)>
@@ -1456,9 +1496,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
       <Connect(WithStyles(PrComment))
@@ -1633,9 +1679,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
@@ -1822,9 +1874,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
@@ -2010,9 +2068,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>

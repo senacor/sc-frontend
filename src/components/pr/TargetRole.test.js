@@ -2,6 +2,7 @@ import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import { StyledComponent as TargetRole } from './TargetRole';
+import StepSlider from './StepSlider';
 
 const prTargetRoleSet = [
   {
@@ -89,5 +90,21 @@ describe('TargetRole Component', () => {
       'Technischer Experte',
       'Lead Developer'
     ]);
+  });
+
+  it('should call subcomponents to be read-onlys', () => {
+    let wrapper = shallow(
+      <TargetRole
+        prById={{}}
+        prActive={{ prTargetRoleSet }}
+        isDisabled={false}
+        prFinalized={true}
+      />
+    );
+
+    const components = wrapper
+      .find(StepSlider)
+      .findWhere(n => n.find('[isDisabled]').props().isDisabled === true);
+    expect(components).toHaveLength(7);
   });
 });

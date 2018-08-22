@@ -148,15 +148,15 @@ class PrState extends React.Component {
     let isReleasedByEmployee = status === prStatusEnum.RELEASED_SHEET_EMPLOYEE;
     let isReleasedByReviewer = status === prStatusEnum.RELEASED_SHEET_REVIEWER;
     let supervisorfinalizesPr = status === prStatusEnum.FINALIZED_REVIEWER;
+    let done =
+      isStatusDoneMap === undefined
+        ? false
+        : ObjectGet(isStatusDoneMap, status);
     let { classes } = this.props;
     switch (status) {
       case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
       case prStatusEnum.RELEASED_SHEET_REVIEWER:
       case prStatusEnum.FIXED_DATE:
-        let done =
-          isStatusDoneMap === undefined
-            ? false
-            : ObjectGet(isStatusDoneMap, status);
         return (
           <Grid
             key={`SubStepGrid_${status}`}
@@ -192,7 +192,7 @@ class PrState extends React.Component {
         );
       case prStatusEnum.FINALIZED_REVIEWER:
         return (
-          <div>
+          <div key={`SubStepGrid_${status}`}>
             {!forEmployee && supervisorfinalizesPr ? (
               <Button
                 disabled={done}

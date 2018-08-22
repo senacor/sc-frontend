@@ -25,7 +25,9 @@ describe('PrSheet Component', () => {
     status: 'PREPARATION',
     deadline: '2015-05-11',
     statuses: [
-      'FILLED_SHEET_EMPLOYEE,FILLED_SHEET_REVIEWER,ALL_DATES_ACCEPTED,MODIFICATIONS_ACCEPTED_REVIEWER'
+      'FILLED_SHEET_EMPLOYEE',
+      'FILLED_SHEET_REVIEWER',
+      'ALL_DATES_ACCEPTED'
     ],
     _links: {
       self: {
@@ -207,7 +209,11 @@ describe('PrSheet Component', () => {
     );
     expect(
       component.contains(
-        <PrOverallAssessment prById={prById} prVisible={false} />
+        <PrOverallAssessment
+          prById={prById}
+          prVisible={false}
+          prFinalized={false}
+        />
       )
     ).toBe(true);
     expect(
@@ -231,20 +237,30 @@ describe('PrSheet Component', () => {
   });
 
   it("should display the supervisor's comment or ratings as readonly", () => {
+    let statuses = {
+      statuses: [
+        'FILLED_SHEET_EMPLOYEE',
+        'FILLED_SHEET_REVIEWER',
+        'ALL_DATES_ACCEPTED',
+        'MODIFICATIONS_ACCEPTED_REVIEWER'
+      ]
+    };
+    let prByIdWhichReviewerFinalized = Object.assign(prById, statuses);
     const fetchVisibilityMock = jest.fn();
     const component = shallow(
       <StyledComponent
-        prById={prById}
+        prById={prByIdWhichReviewerFinalized}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_CST_LEITER]}
       />
     );
+
     expect(
       component.contains(
         <PrOverallAssessment
           prById={prById}
           prVisible={true}
-          prFinalized={false}
+          prFinalized={true}
         />
       )
     ).toBe(true);

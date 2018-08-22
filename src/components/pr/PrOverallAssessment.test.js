@@ -2,6 +2,9 @@ import React from 'react';
 import { StyledComponentOA } from './PrOverallAssessment';
 import { createShallow } from '@material-ui/core/test-utils';
 import ROLES from '../../helper/roles';
+import PrOverallFulfillment from './PrOverallFulfillment';
+import TargetRole from './TargetRole';
+import PrOverallComment from './PrOverallComment';
 
 describe('PrOverallAssessment Component', () => {
   let shallow = createShallow({ dive: true });
@@ -23,6 +26,12 @@ describe('PrOverallAssessment Component', () => {
     occasion: 'ON_DEMAND',
     status: 'PREPARATION',
     deadline: '2015-05-11',
+    statuses: [
+      'FILLED_SHEET_EMPLOYEE',
+      'FILLED_SHEET_REVIEWER',
+      'ALL_DATES_ACCEPTED',
+      'MODIFICATIONS_ACCEPTED_REVIEWER'
+    ],
     _links: {
       self: {
         href: 'http://localhost:8010/api/v1/prs/1'
@@ -207,21 +216,50 @@ describe('PrOverallAssessment Component', () => {
     ).toHaveLength(0);
   });
 
-  it('should display "fulfillment of requirement"-field as read-only', () => {
+  it('should call subcomponents to be read-only', () => {
     const component = shallow(
       <StyledComponentOA
         prById={prById}
         userroles={[ROLES.PR_CST_LEITER]}
         prFinalized={true}
-        prVisible={false}
+        prVisible={true}
       />
     );
 
-    console.log(component.find('WithStyles(Typography)')),
-      expect(
-        component
-          .find('WithStyles(Typography)')
-          .findWhere(x => x.text() === 'Everything is awesome!!!')
-      ).toHaveLength(0);
+    expect(
+      component.find('Connect(PrOverallFulfillment)[prFinalized=true]')
+    ).toHaveLength(1);
+    expect(
+      component.find('Connect(WithStyles(TargetRole))[prFinalized=true]')
+    ).toHaveLength(1);
+    expect(
+      component.find('Connect(WithStyles(PrOverallComment))[prFinalized=true]')
+    ).toHaveLength(1);
+
+    expect(
+      component.contains(
+        <PrOverallFulfillment
+          prById={prById}
+          category="FULFILLMENT_OF_REQUIREMENT"
+          prFinalized={true}
+          prVisible={true}
+        />
+      )
+    ).toBe(true);
+
+    expect(
+      component.contains(<TargetRole prById={prById} prFinalized={true} />)
+    ).toBe(true);
+
+    expect(
+      component.contains(
+        <PrOverallComment
+          prById={prById}
+          category="FULFILLMENT_OF_REQUIREMENT"
+          prFinalized={true}
+          prVisible={true}
+        />
+      )
+    ).toBe(true);
   });
 });
