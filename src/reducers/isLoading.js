@@ -3,7 +3,6 @@ import * as dispatchTypes from '../helper/dispatchTypes';
 export const isLoading = (state = false, action) => {
   const startLoading = [
     dispatchTypes.ADD_PR_REQUEST,
-    dispatchTypes.CHANGE_RATING_TARGETROLE_REQUEST,
     dispatchTypes.FETCH_PR_BY_ID_REQUEST,
     dispatchTypes.FETCH_PRS_REQUEST,
     dispatchTypes.FETCH_TARGETROLE_REQUEST,
@@ -15,7 +14,6 @@ export const isLoading = (state = false, action) => {
     dispatchTypes.ADD_COMMENT_RESPONSE,
     dispatchTypes.ADD_PR_RESPONSE,
     dispatchTypes.ADD_TEXT_RESPONSE,
-    dispatchTypes.CHANGE_RATING_TARGETROLE_RESPONSE,
     dispatchTypes.ERROR_RESPONSE,
     dispatchTypes.FETCH_PR_BY_ID_RESPONSE,
     dispatchTypes.FETCH_PRS_RESPONSE,
