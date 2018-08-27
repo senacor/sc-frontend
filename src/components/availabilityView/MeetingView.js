@@ -117,35 +117,33 @@ class MeetingView extends React.Component {
             unmountOnExit
           >
             <List id="requiredAttendees" component="div" disablePadding dense>
-              {Object.getOwnPropertyNames(meeting.requiredAttendees).map(
-                employee => {
-                  return (
-                    <ListItem
-                      key={meeting.requiredAttendees[employee].email}
-                      className={classes.nested}
-                    >
-                      <ListItemIcon>
-                        <PersonIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        inset
-                        primary={`${
-                          meeting.requiredAttendees[employee].name
-                        } <${meeting.requiredAttendees[employee].email}>`}
-                        secondary={
-                          'Status: ' +
-                          translateContent(
-                            meeting.requiredAttendees[employee].status
-                          )
-                        }
-                      />
-                    </ListItem>
-                  );
-                }
-              )}
+              {Object.keys(meeting.requiredAttendees).map(employee => {
+                return (
+                  <ListItem
+                    key={meeting.requiredAttendees[employee].email}
+                    className={classes.nested}
+                  >
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      inset
+                      primary={`${meeting.requiredAttendees[employee].name} <${
+                        meeting.requiredAttendees[employee].email
+                      }>`}
+                      secondary={
+                        'Status: ' +
+                        translateContent(
+                          meeting.requiredAttendees[employee].status
+                        )
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
             </List>
           </Collapse>
-          {Object.keys(meeting.optionalAttendees) > 0 ? (
+          {Object.keys(meeting.optionalAttendees).length > 0 ? (
             <React.Fragment>
               <ListItem button onClick={this.handleClickOpenOptionalAttendees}>
                 <ListItemIcon>
@@ -169,32 +167,30 @@ class MeetingView extends React.Component {
                   disablePadding
                   dense
                 >
-                  {Object.getOwnPropertyNames(meeting.optionalAttendees).map(
-                    employee => {
-                      return (
-                        <ListItem
-                          key={meeting.optionalAttendees[employee].email}
-                          className={classes.nested}
-                        >
-                          <ListItemIcon>
-                            <PersonIcon />
-                          </ListItemIcon>
-                          <ListItemText
-                            inset
-                            primary={`${
-                              meeting.optionalAttendees[employee].name
-                            } <${meeting.optionalAttendees[employee].email}>`}
-                            secondary={
-                              'Status: ' +
-                              translateContent(
-                                meeting.optionalAttendees[employee].status
-                              )
-                            }
-                          />
-                        </ListItem>
-                      );
-                    }
-                  )}
+                  {Object.keys(meeting.optionalAttendees).map(employee => {
+                    return (
+                      <ListItem
+                        key={meeting.optionalAttendees[employee].email}
+                        className={classes.nested}
+                      >
+                        <ListItemIcon>
+                          <PersonIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          inset
+                          primary={`${
+                            meeting.optionalAttendees[employee].name
+                          } <${meeting.optionalAttendees[employee].email}>`}
+                          secondary={
+                            'Status: ' +
+                            translateContent(
+                              meeting.optionalAttendees[employee].status
+                            )
+                          }
+                        />
+                      </ListItem>
+                    );
+                  })}
                 </List>
               </Collapse>
             </React.Fragment>
