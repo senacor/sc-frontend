@@ -31,7 +31,8 @@ const styles = theme => ({
       marginRight: '1.7%',
       marginLeft: '1.7%',
       width: '29.93%',
-      maxWidth: '450px'
+      maxWidth: '450px',
+      minWidth: '350px'
     }
   },
   media: {
