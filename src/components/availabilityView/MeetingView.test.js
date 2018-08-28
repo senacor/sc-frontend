@@ -24,22 +24,17 @@ describe('MeetingView', () => {
       start: start.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
       end: end.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
       location: 'Test',
-      requiredAttendees: [
-        {
+      requiredAttendees: {
+        'test.pr.mitarbeiter2': {
           name: 'PR Mitarbeiter2',
           email: 'test.pr.mitarbeiter2@senacor.com',
           status: 'DECLINE'
-        },
-        {
-          name: 'PR Mitarbeiter3',
-          email: 'test.pr.mitarbeiter3@senacor.com',
-          status: 'ACCEPT'
         }
-      ],
-      optionalAttendees: [],
+      },
+      optionalAttendees: {},
       _links: {
         self: {
-          href: 'http://localhost:8010/api/v1/meetings?prId=1'
+          href: 'http://localhost:8010/api/v1/prs/1/meetings'
         }
       }
     };
@@ -54,19 +49,14 @@ describe('MeetingView', () => {
       start: '2018-08-06T09:51:00.000+0000',
       end: '2018-08-06T10:51:00.000+0000',
       location: 'Test',
-      requiredAttendees: [
-        {
+      requiredAttendees: {
+        'test.pr.mitarbeiter2': {
           name: 'PR Mitarbeiter2',
           email: 'test.pr.mitarbeiter2@senacor.com',
           status: 'DECLINE'
-        },
-        {
-          name: 'PR Mitarbeiter3',
-          email: 'test.pr.mitarbeiter3@senacor.com',
-          status: 'ACCEPT'
         }
-      ],
-      optionalAttendees: [],
+      },
+      optionalAttendees: {},
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/meetings?prId=1'
@@ -95,11 +85,11 @@ describe('MeetingView', () => {
     ).toHaveLength(1);
 
     expect(wrapper.find('#requiredAttendees').children()).toHaveLength(
-      meeting.requiredAttendees.length
+      Object.keys(meeting.requiredAttendees).length
     );
 
     expect(wrapper.find('#optionalAttendees').children()).toHaveLength(
-      meeting.optionalAttendees.length
+      Object.keys(meeting.optionalAttendees).length
     );
   });
 });
