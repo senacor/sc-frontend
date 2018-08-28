@@ -11,38 +11,34 @@ import {
 export const appointmentsSearch = (employeeIds, day) => async dispatch => {
   //argument true makes sure that Moment doesn't try to parse the input if it doesn't _exactly_
   //conform the format provided:
-  if (!moment(day, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
+  if (!moment(day, 'YYYY-MM-DD', true).isValid()) {
     dispatch({
       type: ERROR_RESPONSE,
       httpCode: 400
     });
-  }
-
-  dispatch({
-    type: FETCH_APPOINTMENTS_REQUEST
-  });
-
-  const response = await fetch(
-    `${
-      process.env.REACT_APP_API
-    }/api/v1/appointments?employees=${employeeIds}&date=${moment(day).format(
-      'YYYY-MM-DD'
-    )}`
-  );
-  if (response.ok) {
-    const data = await response.json();
-    const appointments = data._embedded
-      ? data._embedded.exchangeOutlookResponseList
-      : [];
-    dispatch({
-      type: FETCH_APPOINTMENTS_RESPONSE,
-      appointments
-    });
   } else {
     dispatch({
-      type: ERROR_RESPONSE,
-      httpCode: response.status
+      type: FETCH_APPOINTMENTS_REQUEST
     });
+
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/employees/appointments?login=${employeeIds}&date=${day}`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      const appointments = data.content;
+      dispatch({
+        type: FETCH_APPOINTMENTS_RESPONSE,
+        appointments
+      });
+    } else {
+      dispatch({
+        type: ERROR_RESPONSE,
+        httpCode: response.status
+      });
+    }
   }
 };
 

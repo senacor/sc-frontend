@@ -212,6 +212,7 @@ class PrState extends React.Component {
                   mainStepIsDone(this.props.prStatusesDone, stepId)
                 ).length
               }
+              onChange={() => {}}
             >
               {progressStructure.map(progressStep => {
                 return (

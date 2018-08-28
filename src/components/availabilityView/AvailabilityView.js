@@ -1,47 +1,70 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles/index';
 import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import {
   getAppointments,
+  getPrDetail,
   getSelectedDate,
-  getMeeting
+  getMeeting,
+  getPrById
 } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
-import MeetingCreator from './MeetingCreator';
-import TimeTable from './TimeTable';
+import TimeTable from './AppointmentTable/TimeTable';
+import Attendee from './AppointmentTable/Attendee';
+import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
+import ObjectGet from 'object-get';
 import MeetingView from './MeetingView';
+import MeetingCreator from './MeetingCreator';
 
-const persons = ['employee', 'reviewer', 'supervisor'];
-
-const styles = theme => ({});
-
-class AvailabilityView extends React.Component {
+export class AvailabilityView extends React.Component {
   constructor(props) {
     super(props);
-
-    //TODO 1: these ids should be the employeeIds
-    //TODO 2: right now only three attendees are supported. A more generic approach shall be implemented
     this.state = {
-      reviewer: {
-        id: 2,
-        show: false
-      },
-      supervisor: {
-        id: 3,
-        show: false
-      },
       employee: {
-        id: 1,
+        id: props.prDetail.employee.login,
+        name:
+          ObjectGet(props, 'prDetail.employee.firstName') +
+          ' ' +
+          ObjectGet(props, 'prDetail.employee.lastName'),
+        role: 'Ich',
         show: false
       }
     };
+    if (
+      props.prDetail.reviewer !== undefined &&
+      props.prDetail.reviewer.id !== ''
+    ) {
+      this.state.reviewer = {
+        id: props.prDetail.reviewer.login,
+        name:
+          ObjectGet(props, 'prDetail.reviewer.firstName') +
+          ' ' +
+          ObjectGet(props, 'prDetail.reviewer.lastName'),
+        role: 'Beurteiler',
+        show: false
+      };
+    }
+    if (
+      props.prDetail.supervisor !== undefined &&
+      props.prDetail.supervisor.id !== ''
+    ) {
+      this.state.supervisor = {
+        id: props.prDetail.supervisor.login,
+        name:
+          ObjectGet(props, 'prDetail.supervisor.firstName') +
+          ' ' +
+          ObjectGet(props, 'prDetail.supervisor.lastName'),
+        role: 'Vorgesetzter',
+        show: false
+      };
+    }
   }
 
   render() {
+    const allAppointments = this.props.appointmentsSearchResults;
     const { meeting } = this.props;
     return (
       <div id={'outer'}>
@@ -57,28 +80,45 @@ class AvailabilityView extends React.Component {
               direction="column"
             >
               <Grid item>
-                <MeetingCreator />
+                <MeetingCreator fetchAppointments={this.fetchAppointments} />
               </Grid>
               <Grid item>
-                <PersonToggle
-                  onChange={this.onVisibilityChange}
-                  showEmployee={false}
-                  showReviewer={false}
-                  showSupervisor={false}
-                />
+                <Grid container direction="column">
+                  {Object.getOwnPropertyNames(this.state).map(attendee => {
+                    return (
+                      <Grid item key={attendee}>
+                        <PersonToggle
+                          displayName={`${this.state[attendee].id}`}
+                          displayRole={`${this.state[attendee].role}`}
+                          onChange={this.onVisibilityChange(attendee)}
+                          showAttendee={this.state[attendee].show}
+                        />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
               </Grid>
               <Grid item>
-                <TimeTable
-                  appointmentsEmployee={this.extractAppointmentsFromSearchResultsForPerson(
-                    'employee'
-                  )}
-                  appointmentsReviewer={this.extractAppointmentsFromSearchResultsForPerson(
-                    'reviewer'
-                  )}
-                  appointmentsSupervisor={this.extractAppointmentsFromSearchResultsForPerson(
-                    'supervisor'
-                  )}
-                />
+                <TimeTable>
+                  {Object.getOwnPropertyNames(this.state)
+                    .filter(
+                      key =>
+                        this.state[key] &&
+                        this.state[key].id &&
+                        allAppointments[this.state[key].id]
+                    )
+                    .map((attendee, index, keyArray) => (
+                      <Attendee
+                        key={attendee}
+                        show={this.state[attendee].show}
+                        appointments={extractAppointments(
+                          allAppointments[this.state[attendee].id].appointments
+                        )}
+                        selectedDate={this.props.selectedDate}
+                        distanceFromLeft={(100 * index) / keyArray.length}
+                      />
+                    ))}
+                </TimeTable>
               </Grid>
             </Grid>
           </React.Fragment>
@@ -90,77 +130,42 @@ class AvailabilityView extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchAppointments();
-    this.props.fetchMeeting(1);
+    this.fetchAppointments(
+      moment()
+        .local()
+        .format('YYYY-MM-DD')
+    );
+    this.props.fetchMeeting(this.props.prById);
   }
 
-  //TODO replace '1,2,3' string with a string containing the employeeIds
-  fetchAppointments() {
-    this.props.appointmentsSearch('1,2,3', this.props.selectedDate);
-  }
-
-  onVisibilityChange = visibilities => {
-    const { showEmployee, showReviewer, showSupervisor } = visibilities;
-    let newState = {
-      employee: { show: showEmployee },
-      reviewer: { show: showReviewer },
-      supervisor: { show: showSupervisor }
-    };
-    this.setState(previousState => {
-      persons.forEach(person => {
-        newState[person] = Object.assign(
-          previousState[person],
-          newState[person]
-        );
-      });
-      return newState;
-    });
+  fetchAppointments = date => {
+    this.props.appointmentsSearch(
+      Object.getOwnPropertyNames(this.state)
+        .map(role => this.state[role].id)
+        .join(),
+      date
+    );
   };
 
-  extractAppointmentsFromSearchResultsForPerson(person) {
-    if (
-      this.props.appointmentsSearchResults[persons.indexOf(person)] ===
-        undefined ||
-      !this.state[person].show
-    ) {
-      return [];
-    }
-    return this.extractAppointments(
-      this.props.appointmentsSearchResults[persons.indexOf(person)]
-        .exchangeOutlookAppointmentResponse
-    );
-  }
-
-  extractAppointments(personAppointmentResults) {
-    let appointments = [];
-    if (personAppointmentResults[0] === undefined) {
-      return appointments;
-    } else {
-      for (let j in personAppointmentResults) {
-        let appointment = [
-          personAppointmentResults[j].appointmentStartTime,
-          personAppointmentResults[j].appointmentEndTime
-        ];
-        appointments[j] = appointment;
-      }
-    }
-    return appointments;
-  }
+  onVisibilityChange = attendee => () => {
+    this.setState({
+      [attendee]: Object.assign({}, this.state[attendee], {
+        show: !this.state[attendee].show
+      })
+    });
+  };
 }
 
-AvailabilityView.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export const StyledComponent = withStyles(styles)(AvailabilityView);
 export default connect(
   state => ({
     appointmentsSearchResults: getAppointments(state),
+    prDetail: getPrDetail()(state),
     selectedDate: getSelectedDate(state),
-    meeting: getMeeting(state)
+    meeting: getMeeting(state),
+    prById: getPrById(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch,
     fetchMeeting: actions.fetchMeeting
   }
-)(StyledComponent);
+)(AvailabilityView);

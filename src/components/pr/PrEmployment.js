@@ -23,7 +23,8 @@ class PrEmployment extends React.Component {
 
     return (
       <Paper>
-        {prById.employee.employment.endOfProbationPeriod ? (
+        {prById.employee.employment &&
+        prById.employee.employment.endOfProbationPeriod ? (
           <List>
             <ListItem>
               <ListItemText>
@@ -41,10 +42,9 @@ class PrEmployment extends React.Component {
             </ListItem>
             <Divider />
           </List>
-        ) : (
-          ''
-        )}
-        {prById.employee.employment.leaves.maternityLeave ? (
+        ) : null}
+        {prById.employee.employment &&
+        prById.employee.employment.leaves.maternityLeave ? (
           <List>
             <ListItem>
               <ListItemText>
@@ -54,32 +54,27 @@ class PrEmployment extends React.Component {
                   </Typography>
 
                   {prById.employee.employment.leaves.maternityLeave.map(
-                    maternityLeave => {
-                      return (
-                        <Typography
-                          className={classes.listItems}
-                          key={prById.employee.employment.leaves.maternityLeave.indexOf(
-                            maternityLeave
-                          )}
-                        >
-                          {`${moment(maternityLeave.from).format(
-                            'DD.MM.YY'
-                          )} bis ${moment(maternityLeave.to).format(
-                            'DD.MM.YY'
-                          )}`}
-                        </Typography>
-                      );
-                    }
+                    maternityLeave => (
+                      <Typography
+                        className={classes.listItems}
+                        key={prById.employee.employment.leaves.maternityLeave.indexOf(
+                          maternityLeave
+                        )}
+                      >
+                        {`${moment(maternityLeave.from).format(
+                          'DD.MM.YY'
+                        )} bis ${moment(maternityLeave.to).format('DD.MM.YY')}`}
+                      </Typography>
+                    )
                   )}
                 </div>
               </ListItemText>
             </ListItem>
             <Divider />
           </List>
-        ) : (
-          ''
-        )}
-        {prById.employee.employment.leaves.parentalLeave ? (
+        ) : null}
+        {prById.employee.employment &&
+        prById.employee.employment.leaves.parentalLeave ? (
           <List>
             <ListItem>
               <ListItemText>
@@ -87,62 +82,54 @@ class PrEmployment extends React.Component {
                   <Typography className={classes.title}>Elternzeit:</Typography>
 
                   {prById.employee.employment.leaves.parentalLeave.map(
-                    parentalLeave => {
-                      return (
-                        <Typography
-                          className={classes.listItems}
-                          key={prById.employee.employment.leaves.parentalLeave.indexOf(
-                            parentalLeave
-                          )}
-                        >
-                          {` ${moment(parentalLeave.from).format(
-                            'DD.MM.YY'
-                          )} bis ${moment(parentalLeave.to).format(
-                            'DD.MM.YY'
-                          )}`}
-                        </Typography>
-                      );
-                    }
+                    parentalLeave => (
+                      <Typography
+                        className={classes.listItems}
+                        key={prById.employee.employment.leaves.parentalLeave.indexOf(
+                          parentalLeave
+                        )}
+                      >
+                        {` ${moment(parentalLeave.from).format(
+                          'DD.MM.YY'
+                        )} bis ${moment(parentalLeave.to).format('DD.MM.YY')}`}
+                      </Typography>
+                    )
                   )}
                 </div>
               </ListItemText>
             </ListItem>
             <Divider />
           </List>
-        ) : (
-          ''
-        )}
-        {prById.employee.employment.leaves.sabbatical ? (
+        ) : null}
+        {prById.employee.employment &&
+        prById.employee.employment.leaves.sabbatical ? (
           <List>
             <ListItem>
               <ListItemText>
                 <div>
                   <Typography className={classes.title}>Sabbatical:</Typography>
                   {prById.employee.employment.leaves.sabbatical.map(
-                    sabbatical => {
-                      return (
-                        <Typography
-                          className={classes.listItems}
-                          key={prById.employee.employment.leaves.sabbatical.indexOf(
-                            sabbatical
-                          )}
-                        >
-                          {` ${moment(sabbatical.from).format(
-                            'DD.MM.YY'
-                          )} bis ${moment(sabbatical.to).format('DD.MM.YY')}`}
-                        </Typography>
-                      );
-                    }
+                    sabbatical => (
+                      <Typography
+                        className={classes.listItems}
+                        key={prById.employee.employment.leaves.sabbatical.indexOf(
+                          sabbatical
+                        )}
+                      >
+                        {` ${moment(sabbatical.from).format(
+                          'DD.MM.YY'
+                        )} bis ${moment(sabbatical.to).format('DD.MM.YY')}`}
+                      </Typography>
+                    )
                   )}
                 </div>
               </ListItemText>
             </ListItem>
             <Divider />
           </List>
-        ) : (
-          ''
-        )}
-        {prById.employee.employment.leaves.unpaidLeave ? (
+        ) : null}
+        {prById.employee.employment &&
+        prById.employee.employment.leaves.unpaidLeave ? (
           <List>
             <ListItem>
               <ListItemText>
@@ -151,28 +138,24 @@ class PrEmployment extends React.Component {
                     Unbezahlter Urlaub:
                   </Typography>
                   {prById.employee.employment.leaves.unpaidLeave.map(
-                    unpaidLeave => {
-                      return (
-                        <Typography
-                          className={classes.listItems}
-                          key={prById.employee.employment.leaves.unpaidLeave.indexOf(
-                            unpaidLeave
-                          )}
-                        >
-                          {` ${moment(unpaidLeave.from).format(
-                            'DD.MM.YY'
-                          )} bis ${moment(unpaidLeave.to).format('DD.MM.YY')}`}
-                        </Typography>
-                      );
-                    }
+                    unpaidLeave => (
+                      <Typography
+                        className={classes.listItems}
+                        key={prById.employee.employment.leaves.unpaidLeave.indexOf(
+                          unpaidLeave
+                        )}
+                      >
+                        {` ${moment(unpaidLeave.from).format(
+                          'DD.MM.YY'
+                        )} bis ${moment(unpaidLeave.to).format('DD.MM.YY')}`}
+                      </Typography>
+                    )
                   )}
                 </div>
               </ListItemText>
             </ListItem>
           </List>
-        ) : (
-          ''
-        )}
+        ) : null}
       </Paper>
     );
   }

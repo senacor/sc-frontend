@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Attendee renders appointments if show is set to true. 1`] = `
+<React.Fragment>
+  <div
+    className={
+      Object {
+        "color": "#AABBCC",
+      }
+    }
+    id="appointmentDiv15.5_10:45-16:15"
+    key="appointmentDiv15.5_10:45-16:15"
+    style={
+      Object {
+        "height": "50%",
+        "left": "15.5%",
+        "top": "25%",
+      }
+    }
+  />
+  <div
+    className={
+      Object {
+        "color": "#AABBCC",
+      }
+    }
+    id="appointmentDiv15.5_10:45-16:15"
+    key="appointmentDiv15.5_10:45-16:15"
+    style={
+      Object {
+        "height": "50%",
+        "left": "15.5%",
+        "top": "25%",
+      }
+    }
+  />
+</React.Fragment>
+`;

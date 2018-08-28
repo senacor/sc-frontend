@@ -75,7 +75,10 @@ class MeetingCreator extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <AppointmentPicker onDateTimeChange={this.setDateTime} />
+        <AppointmentPicker
+          onDateTimeChange={this.setDateTime}
+          fetchAppointments={this.props.fetchAppointments}
+        />
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
             id="location"
@@ -101,7 +104,8 @@ class MeetingCreator extends React.Component {
 }
 
 MeetingCreator.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  fetchAppointments: PropTypes.func.isRequired
 };
 
 export const StyledComponent = withStyles(styles)(MeetingCreator);

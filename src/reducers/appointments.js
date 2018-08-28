@@ -12,7 +12,6 @@ export const appointmentsSearchResults = (state = [], action) => {
 };
 
 export const selectedDate = (
-  //TODO Thorsten fragen warum hier tz Angabe gemacht wird.
   state = moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
   action
 ) => {

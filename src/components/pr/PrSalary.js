@@ -35,16 +35,16 @@ class PrSalary extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {prDetail.employee.salaries
-              .sort((a, b) => a.validFrom < b.validFrom)
-              .map(value => {
-                return (
+            {prDetail.employee.salaries ? (
+              prDetail.employee.salaries
+                .sort((a, b) => a.validFrom < b.validFrom)
+                .map(value => (
                   <TableRow
                     key={prDetail.employee.salaries.indexOf(value)}
                     className={
                       prDetail.employee.salaries.indexOf(value) % 2 === 0
                         ? classes.tableRow
-                        : ''
+                        : null
                     }
                   >
                     <TableCell colSpan={2}>
@@ -53,8 +53,10 @@ class PrSalary extends React.Component {
 
                     <TableCell colSpan={2}>{value.ote}</TableCell>
                   </TableRow>
-                );
-              })}
+                ))
+            ) : (
+              <TableRow />
+            )}
           </TableBody>
         </Table>
       </Paper>

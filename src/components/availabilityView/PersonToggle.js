@@ -4,14 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 
-class PersonToggle extends React.Component {
+export class PersonToggle extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showReviewer: props.showReviewer,
-      showSupervisor: props.showSupervisor,
-      showEmployee: props.showEmployee
+      showAttendee: props.showAttendee
     };
   }
 
@@ -24,72 +22,44 @@ class PersonToggle extends React.Component {
         alignContent="space-between"
         spacing={24}
       >
-        <Grid item>
-          <Grid container alignItems="center" direction="row">
-            <Typography variant="subheading" noWrap>
-              Mitarbeiter
-            </Typography>
-            <Switch
-              className="employeeSwitch"
-              checked={this.state.showEmployee}
-              onChange={() => {
-                //does not run function immediately, just makes reference. Function is executed on click, not on reder
-                this.handleToggle('showEmployee');
-              }}
-              color="primary"
-            />
-          </Grid>
+        <Grid item xs={8} sm={4} md={2} lg={2} xl={2}>
+          <Typography variant="caption" color="textSecondary">
+            {this.props.displayRole}
+          </Typography>
+          <Typography variant="subheading" noWrap>
+            {this.props.displayName}
+          </Typography>
         </Grid>
-        <Grid item>
-          <Grid container alignItems="center">
-            <Typography variant="subheading">Bewerter</Typography>
-            <Switch
-              className="reviewerSwitch"
-              checked={this.state.showReviewer}
-              onChange={() => {
-                this.handleToggle('showReviewer');
-              }}
-              color="primary"
-            />
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container alignItems="center">
-            <Typography variant="subheading">Vorgesetzter</Typography>
-            <Switch
-              className="supervisorSwitch"
-              checked={this.state.showSupervisor}
-              onChange={() => {
-                this.handleToggle('showSupervisor');
-              }}
-              color="primary"
-            />
-          </Grid>
+        <Grid item xs={1} sm={1} md={1}>
+          <Switch
+            className="employeeSwitch"
+            checked={this.state.showAttendee}
+            onChange={() => {
+              this.handleToggle();
+            }}
+            color="primary"
+          />
         </Grid>
       </Grid>
     );
   }
 
-  handleToggle = showPerson => {
-    this.setState(
-      previousState => {
-        return { [showPerson]: !previousState[showPerson] };
-      },
-      () => {
-        this.props.onChange(this.state);
-      }
-    );
+  handleToggle = () => {
+    const { showAttendee } = this.state;
+    this.setState({ showAttendee: !showAttendee });
+    this.props.onChange(!showAttendee);
   };
 }
 
 PersonToggle.propTypes = {
-  showReviewer: PropTypes.bool,
-  showEmployee: PropTypes.bool,
-  showSupervisor: PropTypes.bool
+  displayName: PropTypes.string.isRequired,
+  displayRole: PropTypes.string,
+  showAttendee: PropTypes.bool
 };
+
 PersonToggle.defaultProps = {
-  showReviewer: false,
-  showEmployee: false,
-  showSupervisor: false
+  displayRole: '',
+  showAttendee: false
 };
+
 export default PersonToggle;
