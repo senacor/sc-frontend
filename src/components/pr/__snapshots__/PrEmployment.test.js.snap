@@ -1,3 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrEmployment Component displays the PrEmployment 1`] = `""`;
+exports[`PrEmployment Component displays the PrEmployment 1`] = `
+<WithStyles(Paper)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        <div>
+          <WithStyles(Typography)
+            className="PrEmployment-title-1"
+          >
+            Ende der Probezeit:
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+          >
+            10.05.04
+          </WithStyles(Typography)>
+        </div>
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </WithStyles(List)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        <div>
+          <WithStyles(Typography)
+            className="PrEmployment-title-1"
+          >
+            Mutterschutz:
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="0"
+          >
+            10.05.04 bis 11.10.04
+          </WithStyles(Typography)>
+        </div>
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </WithStyles(List)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        <div>
+          <WithStyles(Typography)
+            className="PrEmployment-title-1"
+          >
+            Elternzeit:
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="0"
+          >
+             10.05.04 bis 28.08.04
+          </WithStyles(Typography)>
+        </div>
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </WithStyles(List)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        <div>
+          <WithStyles(Typography)
+            className="PrEmployment-title-1"
+          >
+            Sabbatical:
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="0"
+          >
+             10.05.04 bis 07.06.04
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="1"
+          >
+             10.05.04 bis 10.02.05
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="2"
+          >
+             10.05.04 bis 26.03.05
+          </WithStyles(Typography)>
+        </div>
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(Divider) />
+  </WithStyles(List)>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        <div>
+          <WithStyles(Typography)
+            className="PrEmployment-title-1"
+          >
+            Unbezahlter Urlaub:
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            className="PrEmployment-listItems-2"
+            key="0"
+          >
+             10.05.04 bis 31.03.05
+          </WithStyles(Typography)>
+        </div>
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;

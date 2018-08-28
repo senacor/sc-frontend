@@ -32,6 +32,7 @@ describe('PrEmployment Component', () => {
         }
       ],
       employment: {
+        id: 1,
         endOfProbationPeriod: '2004-05-10',
         jobGradings: [
           {
