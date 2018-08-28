@@ -53,5 +53,5 @@ export function translateContent(key) {
     return translationMap[key];
   }
 
-  throw new Error(`Missing translation key ${key}`);
+  throw new Error(`Missing translation key: ${key}`);
 }

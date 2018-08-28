@@ -49,7 +49,7 @@ exports[`MeetingView should match snapshot 1`] = `
         <pure(People) />
       </WithStyles(ListItemIcon)>
       <WithStyles(ListItemText)
-        primary="Benötige Teilnehmer"
+        primary="Benötigte Teilnehmer"
       />
       <pure(ExpandLess) />
     </WithStyles(ListItem)>
@@ -65,7 +65,6 @@ exports[`MeetingView should match snapshot 1`] = `
         id="requiredAttendees"
       >
         <WithStyles(ListItem)
-          button={true}
           className="MeetingView-nested-3"
           key="test.pr.mitarbeiter2@senacor.com"
         >
@@ -76,20 +75,6 @@ exports[`MeetingView should match snapshot 1`] = `
             inset={true}
             primary="PR Mitarbeiter2 <test.pr.mitarbeiter2@senacor.com>"
             secondary="Status: Abgelehnt"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(ListItem)
-          button={true}
-          className="MeetingView-nested-3"
-          key="test.pr.mitarbeiter3@senacor.com"
-        >
-          <WithStyles(ListItemIcon)>
-            <pure(Person) />
-          </WithStyles(ListItemIcon)>
-          <WithStyles(ListItemText)
-            inset={true}
-            primary="PR Mitarbeiter3 <test.pr.mitarbeiter3@senacor.com>"
-            secondary="Status: Angenommen"
           />
         </WithStyles(ListItem)>
       </WithStyles(List)>

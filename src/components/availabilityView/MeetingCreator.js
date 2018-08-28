@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-class MeetingView extends React.Component {
+class MeetingCreator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,14 +61,12 @@ class MeetingView extends React.Component {
       'Europe/Berlin'
     );
     let meeting_details = {
-      //TODO replace hardcoded values
-      prId: 1,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: this.state.location,
       //TODO replace hardcoded values
-      requiredAttendeeIds: [4],
-      optionalAttendeeIds: []
+      requiredAttendees: ['test.pr.mitarbeiter2'],
+      optionalAttendees: []
     };
     this.props.addMeeting(meeting_details);
   }
@@ -102,11 +100,11 @@ class MeetingView extends React.Component {
   }
 }
 
-MeetingView.propTypes = {
+MeetingCreator.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export const StyledComponent = withStyles(styles)(MeetingView);
+export const StyledComponent = withStyles(styles)(MeetingCreator);
 export default connect(
   state => ({
     meeting: getMeeting(state),
