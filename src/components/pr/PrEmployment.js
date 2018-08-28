@@ -20,7 +20,11 @@ const styles = theme => ({
 class PrEmployment extends React.Component {
   render() {
     const { prById, classes } = this.props;
+    const noEmploymentDataAvailable = prById.employee.employment.id == null;
 
+    if (noEmploymentDataAvailable) {
+      return null;
+    }
     return (
       <Paper>
         {prById.employee.employment &&
