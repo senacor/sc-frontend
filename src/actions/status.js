@@ -3,7 +3,9 @@ import { fetchPrById } from './index';
 import * as dispatchTypes from '../helper/dispatchTypes';
 import {
   changeVisibilityForEmployee,
-  changeVisibilityForReviewer
+  changeVisibilityForReviewer,
+  changeFinalizationStatusOfEmployee,
+  changeFinalizationStatusOfReviewer
 } from './sheet';
 import { prStatusEnum } from '../components/pr/PrState';
 
@@ -28,6 +30,10 @@ export const addPrStatus = (prById, status) => async dispatch => {
         return changeVisibilityForReviewer(prById)(dispatch);
       case prStatusEnum.RELEASED_SHEET_REVIEWER:
         return changeVisibilityForEmployee(prById)(dispatch);
+      case prStatusEnum.FINALIZED_EMPLOYEE:
+        return changeFinalizationStatusOfEmployee(prById)(dispatch);
+      case prStatusEnum.FINALIZED_REVIEWER:
+        return changeFinalizationStatusOfReviewer(prById)(dispatch);
       default:
         return fetchPrById(prById.id)(dispatch);
     }
