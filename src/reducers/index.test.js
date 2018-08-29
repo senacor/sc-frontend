@@ -94,6 +94,12 @@ describe('reducers', () => {
             toSupervisor: false
           }
         },
+        prFinalizationStatusById: {
+          prFinalizationStatus: {
+            isFinalizedByEmployee: false,
+            isFinalizedByReviewer: false
+          }
+        },
         prs: {},
         search: {
           prSearchResults: []

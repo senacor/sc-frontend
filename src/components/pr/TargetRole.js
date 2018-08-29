@@ -56,7 +56,7 @@ class TargetRole extends Component {
       objectGet(this.props, 'prActive.prTargetRoleSet') || [];
     targetRoleInformationOfEmployee.sort(compareTargetRoles);
 
-    const { prActive, isDisabled, classes } = this.props;
+    const { prActive, isDisabled, classes, prFinalized } = this.props;
 
     return targetRoleInformationOfEmployee.map(targetRole => {
       return (
@@ -91,7 +91,7 @@ class TargetRole extends Component {
           >
             <StepSlider
               key={targetRole.prTargetRoleName}
-              isDisabled={!(isDisabled && this.props.prFinalized)}
+              isDisabled={isDisabled || prFinalized}
               prActive={prActive}
               rating={targetRole.rating}
               targetRoleName={targetRole.prTargetRoleName}

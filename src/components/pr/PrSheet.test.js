@@ -182,6 +182,10 @@ describe('PrSheet Component', () => {
     prVisibilityEntry: {
       visibilityToEmployee: 'INVISIBLE',
       visibilityToReviewer: 'VISIBLE'
+    },
+    prFinalizationStatus: {
+      finalizationStatusOfEmployee: 'NOT_FINALIZED',
+      finalizationStatusOfReviewer: 'NOT_FINALIZED'
     }
   };
 
@@ -245,7 +249,18 @@ describe('PrSheet Component', () => {
         'MODIFICATIONS_ACCEPTED_REVIEWER'
       ]
     };
-    let prByIdWhichReviewerFinalized = Object.assign(prById, statuses);
+
+    let finalization = {
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'FINALIZED'
+      }
+    };
+    let prByIdWhichReviewerFinalized = Object.assign(
+      prById,
+      statuses,
+      finalization
+    );
     const fetchVisibilityMock = jest.fn();
     const component = shallow(
       <StyledComponent

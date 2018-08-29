@@ -216,20 +216,6 @@ export const changeVisibilityForReviewer = pr => {
   return setVisibilityById(pr, isVisibleToEmployee, !isVisibleToReviewer);
 };
 
-export const changeFinalizationStatusOfEmployee = pr => {
-  let isFinalizedByEmployee =
-    pr.prFinalizationStatus.finalizationStatusOfEmployee ===
-    finalizationTypes.FINALIZED;
-  let isFinalizedByReviewer =
-    pr.prFinalizationStatus.finalizationStatusOfReviewer ===
-    finalizationTypes.FINALIZED;
-  return setPrFinalizationStatus(
-    pr,
-    !isFinalizedByEmployee,
-    isFinalizedByReviewer
-  );
-};
-
 export const changeFinalizationStatusOfReviewer = pr => {
   let isFinalizedByEmployee =
     pr.prFinalizationStatus.finalizationStatusOfEmployee ===

@@ -36,6 +36,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -218,6 +222,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -412,6 +420,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -595,6 +607,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -778,6 +794,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -970,6 +990,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           },
           "id": 1,
           "occasion": "ON_DEMAND",
+          "prFinalizationStatus": Object {
+            "finalizationStatusOfEmployee": "NOT_FINALIZED",
+            "finalizationStatusOfReviewer": "NOT_FINALIZED",
+          },
           "prRatingSet": Array [
             Object {
               "_links": Object {
@@ -1153,6 +1177,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           },
           "id": 1,
           "occasion": "ON_DEMAND",
+          "prFinalizationStatus": Object {
+            "finalizationStatusOfEmployee": "NOT_FINALIZED",
+            "finalizationStatusOfReviewer": "NOT_FINALIZED",
+          },
           "prRatingSet": Array [
             Object {
               "_links": Object {
@@ -1347,6 +1375,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -1530,6 +1562,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -1725,6 +1761,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -1919,6 +1959,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {

@@ -11,17 +11,17 @@ export const prFinalizationStatus = (
   action
 ) => {
   switch (action.type) {
-    case dispatchTypes.FETCHED_PR_VISIBILITY:
+    case dispatchTypes.FETCHED_PR_FINALIZATION_STATUS:
       return {
         isFinalizedByEmployee:
           objectGet(
             action,
-            'prFinalizationStatus.finalizationStatusOfEmployee'
+            'prFinalizationStatusById.finalizationStatusOfEmployee'
           ) === finalizationTypes.FINALIZED,
         isFinalizedByReviewer:
           objectGet(
             action,
-            'prFinalizationStatus.finalizationStatusOfReviewer'
+            'prFinalizationStatusById.finalizationStatusOfReviewer'
           ) === finalizationTypes.FINALIZED
       };
     default:

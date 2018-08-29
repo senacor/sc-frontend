@@ -6,6 +6,7 @@ import { prDetailId } from './prDetailId';
 import prById from './getPr';
 import prTargetRole from './getTargetRole';
 import prVisibilityById from './getPrVisibility';
+import prFinalizationStatusById from './getPrFinalizationStatus';
 import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
@@ -18,7 +19,6 @@ import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults } from './appointments';
 import { selectedDate } from './appointments';
 import { meeting } from './meetings';
-import prFinalizationStatusById from './getPrFinalizationStatus';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
