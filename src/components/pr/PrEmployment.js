@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
+import ObjectGet from 'object-get';
 
 const styles = theme => ({
   title: {
@@ -20,9 +21,8 @@ const styles = theme => ({
 class PrEmployment extends React.Component {
   render() {
     const { prById, classes } = this.props;
-    const noEmploymentDataAvailable = prById.employee.employment.id == null;
 
-    if (noEmploymentDataAvailable) {
+    if (ObjectGet(this.props, 'prById.employee.employment') == null) {
       return null;
     }
     return (
