@@ -16,10 +16,10 @@ import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import ObjectGet from 'object-get';
-import MeetingView from './MeetingView';
-import MeetingCreator from './MeetingCreator';
+import MeetingView from './MeetingDetailsView';
+import MeetingCreator from './MeetingCreatorForm';
 
-export class AvailabilityView extends React.Component {
+export class SchedulingView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -173,4 +173,4 @@ export default connect(
     appointmentsSearch: actions.appointmentsSearch,
     fetchMeeting: actions.fetchMeeting
   }
-)(AvailabilityView);
+)(SchedulingView);

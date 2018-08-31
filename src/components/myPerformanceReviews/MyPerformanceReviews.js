@@ -20,7 +20,7 @@ class MyPerformanceReviews extends Component {
         <Grid container spacing={8}>
           <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
             <RequestPerformanceReview />
-            <Link to={'/availabilityview'} style={{ textDecoration: 'none' }}>
+            <Link to={'/scheduling'} style={{ textDecoration: 'none' }}>
               <Button id="appointments" color="primary">
                 <Icon>add</Icon>
                 Termin finden

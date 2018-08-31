@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledComponent } from './MeetingCreator';
+import { StyledComponent } from './MeetingCreatorForm';
 import { createShallow } from '@material-ui/core/test-utils';
 
 const fetchAppointmentsMock = jest.fn();

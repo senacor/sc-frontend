@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
-import { AvailabilityView } from './AvailabilityView';
-import MeetingView from './MeetingView';
+import { SchedulingView } from './SchedulingView';
+import MeetingView from './MeetingDetailsView';
 
-describe('AvailabilityView', () => {
+describe('SchedulingView', () => {
   let testPr = {
     id: 1,
     employee: {
@@ -32,7 +32,7 @@ describe('AvailabilityView', () => {
 
   it('should match snapshot', () => {
     let component = shallow(
-      <AvailabilityView
+      <SchedulingView
         prDetail={testPr}
         prById={testPr.id}
         meeting={null}
@@ -47,7 +47,7 @@ describe('AvailabilityView', () => {
 
   it('takes the employee and supervisor from the PR and saves it to its state', () => {
     let component = shallow(
-      <AvailabilityView
+      <SchedulingView
         prDetail={testPr}
         prById={testPr.id}
         meeting={null}
@@ -76,7 +76,7 @@ describe('AvailabilityView', () => {
 
   it('displays a MeetingView if the meeting is not null', () => {
     let component = shallow(
-      <AvailabilityView
+      <SchedulingView
         prDetail={testPr}
         prById={testPr.id}
         meeting={{
@@ -98,7 +98,7 @@ describe('AvailabilityView', () => {
   it("only shows the employee's toggle and appointments, if it is the only employee object in the PR.", () => {
     const newPr = { employee: testPr.employee };
     let component = shallow(
-      <AvailabilityView
+      <SchedulingView
         prDetail={newPr}
         prById={testPr.id}
         meeting={null}
@@ -122,7 +122,7 @@ describe('AvailabilityView', () => {
 
   it('fetches the appointments and meeting on mount', () => {
     shallow(
-      <AvailabilityView
+      <SchedulingView
         prDetail={testPr}
         prById={testPr.id}
         meeting={null}
@@ -147,7 +147,7 @@ describe('AvailabilityView', () => {
 
   it('changes the visibility/PersonToggle of the attendee if onVisibilityChange is called.', () => {
     let component = shallow(
-      <AvailabilityView
+      <SchedulingView
         prDetail={testPr}
         prById={testPr.id}
         meeting={null}

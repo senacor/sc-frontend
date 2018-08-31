@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledComponent } from './MeetingView';
+import { StyledComponent } from './MeetingDetailsView';
 import { createShallow } from '@material-ui/core/test-utils';
 import moment from 'moment';
 import timezone_mock from 'timezone-mock';

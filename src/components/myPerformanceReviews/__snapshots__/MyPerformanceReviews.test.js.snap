@@ -28,7 +28,7 @@ exports[`MyPerformanceReviews should match snapshot 1`] = `
             "textDecoration": "none",
           }
         }
-        to="/availabilityview"
+        to="/scheduling"
       >
         <WithStyles(Button)
           color="primary"

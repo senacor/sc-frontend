@@ -8,7 +8,7 @@ exports[`MeetingCreator should match snapshot 1`] = `
   />
   <form
     autoComplete="off"
-    className="MeetingCreator-container-1"
+    className="MeetingCreatorForm-container-1"
     noValidate={true}
   >
     <TextField

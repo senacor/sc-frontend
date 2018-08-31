@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-class MeetingCreator extends React.Component {
+class MeetingCreatorForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -103,12 +103,12 @@ class MeetingCreator extends React.Component {
   }
 }
 
-MeetingCreator.propTypes = {
+MeetingCreatorForm.propTypes = {
   classes: PropTypes.object.isRequired,
   fetchAppointments: PropTypes.func.isRequired
 };
 
-export const StyledComponent = withStyles(styles)(MeetingCreator);
+export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
 export default connect(
   state => ({
     meeting: getMeeting(state),

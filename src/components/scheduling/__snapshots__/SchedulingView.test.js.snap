@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AvailabilityView should match snapshot 1`] = `
+exports[`SchedulingView should match snapshot 1`] = `
 <div
   id="outer"
 >
@@ -20,7 +20,7 @@ exports[`AvailabilityView should match snapshot 1`] = `
       <WithStyles(Grid)
         item={true}
       >
-        <Connect(WithStyles(MeetingCreator))
+        <Connect(WithStyles(MeetingCreatorForm))
           fetchAppointments={[Function]}
         />
       </WithStyles(Grid)>

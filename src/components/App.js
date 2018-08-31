@@ -5,7 +5,7 @@ import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
 import AppBar from './AppBar/AppBar';
 import CstMembers from './cstmembers/CstMembers';
-import AvailabilityView from './availabilityView/AvailabilityView';
+import SchedulingView from './scheduling/SchedulingView';
 import './App.css';
 import Login from './login/Login';
 import PR from './pr/Pr';
@@ -38,7 +38,7 @@ const MyPRListWithAppBar = withAppBar(MyPerformanceReviews);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);
-const AvailabilityViewWithAppBar = withAppBar(AvailabilityView);
+const SchedulingViewWithAppBar = withAppBar(SchedulingView);
 
 const App = () => (
   <div style={styles.main}>
@@ -52,8 +52,8 @@ const App = () => (
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute
         exact
-        path="/availabilityview"
-        component={AvailabilityViewWithAppBar}
+        path="/scheduling"
+        component={SchedulingViewWithAppBar}
       />
       <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />

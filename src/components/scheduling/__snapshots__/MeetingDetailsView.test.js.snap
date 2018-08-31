@@ -2,7 +2,7 @@
 
 exports[`MeetingView should match snapshot 1`] = `
 <div
-  className="MeetingView-meetingView-4"
+  className="MeetingDetailsView-meetingView-4"
 >
   <WithStyles(Typography)
     gutterBottom={true}
@@ -65,7 +65,7 @@ exports[`MeetingView should match snapshot 1`] = `
         id="requiredAttendees"
       >
         <WithStyles(ListItem)
-          className="MeetingView-nested-3"
+          className="MeetingDetailsView-nested-3"
           key="test.pr.mitarbeiter2@senacor.com"
         >
           <WithStyles(ListItemIcon)>
