@@ -65,9 +65,6 @@
     },
     "/api/v1/events": {
       "target": "http://localhost:8010"
-    },
-    "api/v1/appointments": {
-      "target": "http://localhost:8010"
     }
   },
   "jest": {
