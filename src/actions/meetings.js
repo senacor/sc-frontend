@@ -77,7 +77,7 @@ export const fetchMeeting = prById => async dispatch => {
   });
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prById}/meetings`
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/meetings`
   );
   if (response.ok) {
     const meeting = await response.json();
