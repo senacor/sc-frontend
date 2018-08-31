@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MeetingCreator should match snapshot 1`] = `
+exports[`MeetingCreatorForm should match snapshot 1`] = `
 <div>
   <Connect(WithStyles(AppointmentPicker))
     fetchAppointments={[Function]}

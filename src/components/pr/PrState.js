@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 import ObjectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
@@ -148,6 +149,7 @@ class PrState extends React.Component {
     let isReleasedByEmployee = status === prStatusEnum.RELEASED_SHEET_EMPLOYEE;
     let isReleasedByReviewer = status === prStatusEnum.RELEASED_SHEET_REVIEWER;
     let supervisorfinalizesPr = status === prStatusEnum.FINALIZED_REVIEWER;
+    let meetingIsScheduled = status === prStatusEnum.FIXED_DATE;
     let done =
       isStatusDoneMap === undefined
         ? false
@@ -186,6 +188,24 @@ class PrState extends React.Component {
                 >
                   PR freigeben
                 </Button>
+              </Grid>
+            ) : null}
+            {forEmployee && meetingIsScheduled ? (
+              <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
+                <Link to={'/scheduling'} style={{ textDecoration: 'none' }}>
+                  <Button
+                    id="scheduling"
+                    color="primary"
+                    disabled={done}
+                    className={
+                      done
+                        ? classes.buttonDesktopDisabled
+                        : classes.buttonDesktop
+                    }
+                  >
+                    Termin finden
+                  </Button>
+                </Link>
               </Grid>
             ) : null}
           </Grid>

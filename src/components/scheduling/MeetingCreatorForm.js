@@ -61,6 +61,7 @@ class MeetingCreatorForm extends React.Component {
       'Europe/Berlin'
     );
     let meeting_details = {
+      prById: this.props.prById,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: this.state.location,

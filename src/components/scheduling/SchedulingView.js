@@ -8,16 +8,15 @@ import {
   getAppointments,
   getPrDetail,
   getSelectedDate,
-  getMeeting,
-  getPrById
+  getMeeting
 } from '../../reducers/selector';
 import PersonToggle from './PersonToggle';
 import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import ObjectGet from 'object-get';
-import MeetingView from './MeetingDetailsView';
-import MeetingCreator from './MeetingCreatorForm';
+import MeetingDetailsView from './MeetingDetailsView';
+import MeetingCreatorForm from './MeetingCreatorForm';
 
 export class SchedulingView extends React.Component {
   constructor(props) {
@@ -85,7 +84,10 @@ export class SchedulingView extends React.Component {
               direction="column"
             >
               <Grid item>
-                <MeetingCreator fetchAppointments={this.fetchAppointments} />
+                <MeetingCreatorForm
+                  prById={this.props.prDetail}
+                  fetchAppointments={this.fetchAppointments}
+                />
               </Grid>
               <Grid item>
                 <Grid container direction="column">
@@ -128,19 +130,19 @@ export class SchedulingView extends React.Component {
             </Grid>
           </React.Fragment>
         ) : (
-          <MeetingView />
+          <MeetingDetailsView />
         )}
       </div>
     );
   }
 
   componentDidMount() {
+    this.props.fetchMeeting(this.props.prDetail);
     this.fetchAppointments(
       moment()
         .local()
         .format('YYYY-MM-DD')
     );
-    this.props.fetchMeeting(this.props.prById);
   }
 
   fetchAppointments = date => {
@@ -166,8 +168,7 @@ export default connect(
     appointmentsSearchResults: getAppointments(state),
     prDetail: getPrDetail()(state),
     selectedDate: getSelectedDate(state),
-    meeting: getMeeting(state),
-    prById: getPrById(state)
+    meeting: getMeeting(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch,

@@ -4,7 +4,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 import moment from 'moment';
 import timezone_mock from 'timezone-mock';
 
-describe('MeetingView', () => {
+describe('MeetingDetailsView', () => {
   beforeEach(() => {
     // Only works for US/Pacific, US/Eastern, Brazil/East and UTC according to https://www.npmjs.com/package/timezone-mock
     timezone_mock.register('UTC');

@@ -4,7 +4,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 
 const fetchAppointmentsMock = jest.fn();
 
-describe('MeetingCreator', () => {
+describe('MeetingCreatorForm', () => {
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {

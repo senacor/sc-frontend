@@ -74,7 +74,7 @@ describe('SchedulingView', () => {
     expect(component.instance().state).toEqual(expectedComponentState);
   });
 
-  it('displays a MeetingView if the meeting is not null', () => {
+  it('displays a MeetingDetailsView if the meeting is not null', () => {
     let component = shallow(
       <SchedulingView
         prDetail={testPr}

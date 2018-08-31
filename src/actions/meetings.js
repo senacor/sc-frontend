@@ -3,6 +3,9 @@ import moment from 'moment-timezone';
 
 import * as dispatchTypes from '../helper/dispatchTypes';
 
+import { addPrStatus } from './status';
+import { prStatusEnum } from '../components/pr/PrState';
+
 let validateDateTimeInput = (start, end) => {
   if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
     return false;
@@ -28,12 +31,13 @@ export const addMeeting = meeting_details => async dispatch => {
     });
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/prs/1/meetings`,
+      `${process.env.REACT_APP_API}/api/v1/prs/${
+        meeting_details.prById.id
+      }/meetings`,
       {
         method: 'post',
         mode: 'cors',
         body: JSON.stringify({
-          prId: meeting_details.prId,
           start: meeting_details.start,
           end: meeting_details.end,
           location: meeting_details.location,
@@ -49,6 +53,15 @@ export const addMeeting = meeting_details => async dispatch => {
         type: dispatchTypes.ADD_MEETING_RESPONSE,
         meeting
       });
+      return addPrStatus(meeting_details.prById, prStatusEnum.FIXED_DATE)(
+        dispatch
+      );
+    } else if (response.status === 404) {
+      const meeting = null;
+      dispatch({
+        type: dispatchTypes.ADD_MEETING_RESPONSE,
+        meeting
+      });
     } else {
       dispatch({
         type: dispatchTypes.ERROR_RESPONSE,
@@ -58,13 +71,13 @@ export const addMeeting = meeting_details => async dispatch => {
   }
 };
 
-export const fetchMeeting = () => async dispatch => {
+export const fetchMeeting = prById => async dispatch => {
   dispatch({
     type: dispatchTypes.FETCH_MEETING_REQUEST
   });
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/1/meetings`
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById}/meetings`
   );
   if (response.ok) {
     const meeting = await response.json();
