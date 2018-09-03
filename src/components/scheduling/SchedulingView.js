@@ -23,49 +23,95 @@ export class SchedulingView extends React.Component {
     super(props);
 
     this.state = {
-      reviewer: ''
+      employee: '',
+      supervisor: ''
     };
-
-    this.state = {
-      employee: {
-        id: props.prDetail.employee.login,
-        name:
-          ObjectGet(props, 'prDetail.employee.firstName') +
-          ' ' +
-          ObjectGet(props, 'prDetail.employee.lastName'),
-        role: 'Ich',
-        show: false
-      }
-    };
-    if (
-      props.prDetail.reviewer !== undefined &&
-      props.prDetail.reviewer.id !== ''
-    ) {
-      this.state.reviewer = {
-        id: props.prDetail.reviewer.login,
-        name:
-          ObjectGet(props, 'prDetail.reviewer.firstName') +
-          ' ' +
-          ObjectGet(props, 'prDetail.reviewer.lastName'),
-        role: 'Beurteiler',
-        show: false
-      };
-    }
-    if (
-      props.prDetail.supervisor !== undefined &&
-      props.prDetail.supervisor.id !== ''
-    ) {
-      this.state.supervisor = {
-        id: props.prDetail.supervisor.login,
-        name:
-          ObjectGet(props, 'prDetail.supervisor.firstName') +
-          ' ' +
-          ObjectGet(props, 'prDetail.supervisor.lastName'),
-        role: 'Vorgesetzter',
-        show: false
-      };
-    }
   }
+
+  componentDidMount() {
+    this.props.fetchPrById(this.props.match.params.id).then(() => {
+      this.setEmployeeSupervisorReviewerData();
+      this.props.fetchMeeting(this.props.prDetail);
+      this.fetchAppointments(
+        moment()
+          .local()
+          .format('YYYY-MM-DD')
+      );
+    });
+  }
+
+  setEmployeeSupervisorReviewerData = () => {
+    this.setState(prevState => {
+      return {
+        employee: Object.assign({}, prevState.employee, {
+          id: this.props.prDetail.employee.login,
+          name:
+            ObjectGet(this.props, 'prDetail.employee.firstName') +
+            ' ' +
+            ObjectGet(this.props, 'prDetail.employee.lastName'),
+          role: 'Ich',
+          show: false
+        })
+      };
+    });
+
+    if (
+      this.props.prDetail.supervisor !== undefined &&
+      this.props.prDetail.supervisor.id !== ''
+    ) {
+      this.setState(prevState => {
+        return {
+          supervisor: Object.assign({}, prevState.supervisor, {
+            id: this.props.prDetail.supervisor.login,
+            name:
+              ObjectGet(this.props, 'prDetail.supervisor.firstName') +
+              ' ' +
+              ObjectGet(this.props, 'prDetail.supervisor.lastName'),
+            role: 'Vorgesetzter',
+            show: false
+          })
+        };
+      });
+    }
+
+    if (
+      this.props.prDetail.reviewer !== undefined &&
+      this.props.prDetail.reviewer.id !== ''
+    ) {
+      this.setState(prevState => {
+        return {
+          prevState: Object.assign({}, prevState, {
+            reviewer: {
+              id: this.props.prDetail.reviewer.login,
+              name:
+                ObjectGet(this.props, 'prDetail.reviewer.firstName') +
+                ' ' +
+                ObjectGet(this.props, 'prDetail.reviewer.lastName'),
+              role: 'Beurteiler',
+              show: false
+            }
+          })
+        };
+      });
+    }
+  };
+
+  fetchAppointments = date => {
+    this.props.appointmentsSearch(
+      Object.getOwnPropertyNames(this.state)
+        .map(role => this.state[role].id)
+        .join(),
+      date
+    );
+  };
+
+  onVisibilityChange = attendee => () => {
+    this.setState({
+      [attendee]: Object.assign({}, this.state[attendee], {
+        show: !this.state[attendee].show
+      })
+    });
+  };
 
   render() {
     const allAppointments = this.props.appointmentsSearchResults;
@@ -135,32 +181,6 @@ export class SchedulingView extends React.Component {
       </div>
     );
   }
-
-  componentDidMount() {
-    this.props.fetchMeeting(this.props.prDetail);
-    this.fetchAppointments(
-      moment()
-        .local()
-        .format('YYYY-MM-DD')
-    );
-  }
-
-  fetchAppointments = date => {
-    this.props.appointmentsSearch(
-      Object.getOwnPropertyNames(this.state)
-        .map(role => this.state[role].id)
-        .join(),
-      date
-    );
-  };
-
-  onVisibilityChange = attendee => () => {
-    this.setState({
-      [attendee]: Object.assign({}, this.state[attendee], {
-        show: !this.state[attendee].show
-      })
-    });
-  };
 }
 
 export default connect(
@@ -172,6 +192,7 @@ export default connect(
   }),
   {
     appointmentsSearch: actions.appointmentsSearch,
-    fetchMeeting: actions.fetchMeeting
+    fetchMeeting: actions.fetchMeeting,
+    fetchPrById: actions.fetchPrById
   }
 )(SchedulingView);

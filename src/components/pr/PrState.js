@@ -192,7 +192,10 @@ class PrState extends React.Component {
             ) : null}
             {forEmployee && meetingIsScheduled ? (
               <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
-                <Link to={'/scheduling'} style={{ textDecoration: 'none' }}>
+                <Link
+                  to={`/prs/${this.props.prById.id}/scheduling`}
+                  style={{ textDecoration: 'none' }}
+                >
                   <Button
                     id="scheduling"
                     color="primary"

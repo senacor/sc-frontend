@@ -52,7 +52,7 @@ const App = () => (
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute
         exact
-        path="/scheduling"
+        path="/prs/:id/scheduling"
         component={SchedulingViewWithAppBar}
       />
       <PrivateRoute path="/logout" component={Logout} />
