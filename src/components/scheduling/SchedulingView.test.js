@@ -124,7 +124,6 @@ describe('SchedulingView', () => {
     shallow(
       <SchedulingView
         prDetail={testPr}
-        prById={testPr.id}
         meeting={null}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
@@ -142,7 +141,7 @@ describe('SchedulingView', () => {
         .format('YYYY-MM-DD')
     );
     expect(fetchMeetingMock).toHaveBeenCalledTimes(1);
-    expect(fetchMeetingMock.mock.calls[0][0]).toBe(testPr.id);
+    expect(fetchMeetingMock.mock.calls[0][0]).toBe(testPr);
   });
 
   it('changes the visibility/PersonToggle of the attendee if onVisibilityChange is called.', () => {
