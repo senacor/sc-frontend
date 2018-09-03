@@ -5,11 +5,11 @@ import Slider from '@material-ui/lab/Slider';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 
-const styles = theme => ({
+const styles = {
   root: {
     width: '90%'
   }
-});
+};
 
 class StepSlider extends React.Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class StepSlider extends React.Component {
     this.state = {
       rating: this.props.rating
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange = (event, prActive, targetRoleName, value) => {
@@ -56,8 +55,7 @@ StepSlider.propTypes = {
   value: PropTypes.number,
   min: PropTypes.number,
   max: PropTypes.number,
-  step: PropTypes.number,
-  onChange: PropTypes.func.isRequired
+  step: PropTypes.number
 };
 
 StepSlider.defaultProps = {

@@ -53,9 +53,6 @@ const compareTargetRoles = (() => {
 class TargetRole extends Component {
   constructor(props) {
     super(props);
-    this.buildTargetRoleInformation = this.buildTargetRoleInformation.bind(
-      this
-    );
   }
 
   buildTargetRoleInformation = () => {
