@@ -108,8 +108,9 @@ export const addPr = loginName => async dispatch => {
       mode: 'cors',
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
-        supervisorLogin: '',
-        deadline: moment().format('YYYY-MM-DD'),
+        deadline: moment()
+          .add(1, 'months')
+          .format('YYYY-MM-DD'),
         employeeLogin: loginName
       })
     }
@@ -191,7 +192,7 @@ export const setPrDetail = prId => async dispatch => {
   });
 };
 
-export const fetchTargetRolesById = prsId => async dispatch => {
+export const fetchTargetRolesById = () => async dispatch => {
   const targetRoleNames = [
     'PLATTFORMGESTALTER',
     'IT_SOLUTION_LEADER',

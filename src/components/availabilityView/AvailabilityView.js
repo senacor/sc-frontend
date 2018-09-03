@@ -22,6 +22,11 @@ import MeetingCreator from './MeetingCreator';
 export class AvailabilityView extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      reviewer: ''
+    };
+
     this.state = {
       employee: {
         id: props.prDetail.employee.login,
