@@ -42,7 +42,7 @@ class MeetingCreatorForm extends React.Component {
 
   handleClickOfMeetingButton = event => {
     event.preventDefault();
-    this.addMeeting();
+    this.props.addMeeting(this.addMeeting(this.props.prById));
   };
 
   setDateTime = (date, startTime, endTime) => {
@@ -53,24 +53,32 @@ class MeetingCreatorForm extends React.Component {
     });
   };
 
-  addMeeting() {
+  addMeeting = prById => {
     let startDateTime = moment(`${this.state.date} ${this.state.startTime}`).tz(
       'Europe/Berlin'
     );
     let endDateTime = moment(`${this.state.date} ${this.state.endTime}`).tz(
       'Europe/Berlin'
     );
+
     let meeting_details = {
-      prById: this.props.prById,
+      prById: prById,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: this.state.location,
-      //TODO replace hardcoded values
-      requiredAttendees: ['test.pr.mitarbeiter2'],
+      requiredAttendees: [prById.employee.login],
       optionalAttendees: []
     };
-    this.props.addMeeting(meeting_details);
-  }
+
+    if (prById.hasOwnProperty('reviewer')) {
+      meeting_details.requiredAttendees.push(prById.reviewer.login);
+      meeting_details.optionalAttendees.push(prById.supervisor.login);
+    } else {
+      meeting_details.requiredAttendees.push(prById.supervisor.login);
+    }
+
+    return meeting_details;
+  };
 
   render() {
     const { classes } = this.props;
