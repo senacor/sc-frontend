@@ -51,10 +51,6 @@ const compareTargetRoles = (() => {
 })();
 
 class TargetRole extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   buildTargetRoleInformation = () => {
     let targetRoleInformationOfEmployee =
       objectGet(this.props, 'prActive.prTargetRoleSet') || [];
