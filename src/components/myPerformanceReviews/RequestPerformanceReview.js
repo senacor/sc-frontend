@@ -6,7 +6,11 @@ import Icon from '@material-ui/core/Icon';
 
 export function RequestPerformanceReview(props) {
   return (
-    <Button id="addPrButton" color="primary" onClick={props.addPr}>
+    <Button
+      id="addPrButton"
+      color="primary"
+      onClick={() => props.addPr(props.loginName)}
+    >
       <Icon>add</Icon>
       PR beantragen
     </Button>
@@ -14,6 +18,6 @@ export function RequestPerformanceReview(props) {
 }
 
 export default connect(
-  state => ({}),
+  state => ({ loginName: state.userinfo.userPrincipalName }),
   { addPr: actions.addPr }
 )(RequestPerformanceReview);

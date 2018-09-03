@@ -96,7 +96,7 @@ export const editTask = newTask => async dispatch => {
   });
 };
 
-export const addPr = () => async dispatch => {
+export const addPr = loginName => async dispatch => {
   dispatch({
     type: dispatchTypes.ADD_PR_REQUEST
   });
@@ -108,9 +108,9 @@ export const addPr = () => async dispatch => {
       mode: 'cors',
       body: JSON.stringify({
         occasion: 'ON_DEMAND',
-        supervisorLogin: 'test.pr.vorgesetzter', //TODO Remove hardcoded value
+        supervisorLogin: '',
         deadline: moment().format('YYYY-MM-DD'),
-        employeeLogin: 'test.pr.mitarbeiter1' //TODO Remove hardcoded value
+        employeeLogin: loginName
       })
     }
   );
