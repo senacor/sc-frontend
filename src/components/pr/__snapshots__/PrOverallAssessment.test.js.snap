@@ -177,6 +177,12 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+            "MODIFICATIONS_ACCEPTED_REVIEWER",
+          ],
           "supervisor": "ttran",
         }
       }
@@ -357,6 +363,12 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+            "MODIFICATIONS_ACCEPTED_REVIEWER",
+          ],
           "supervisor": "ttran",
         }
       }
@@ -537,6 +549,12 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+            "MODIFICATIONS_ACCEPTED_REVIEWER",
+          ],
           "supervisor": "ttran",
         }
       }

@@ -6,6 +6,7 @@ export {
   addRating,
   addEmployeeContribution,
   setVisibilityById,
+  setPrFinalizationStatus,
   changeRatingTargetRole
 } from './sheet';
 export { login, logout } from './login';

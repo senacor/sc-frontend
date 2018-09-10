@@ -150,7 +150,10 @@ class PrComment extends React.Component {
                 {this.props.prVisible ? prRating.rating : ''}
               </Typography>
             ) : (
-              <FormControl className={classes.formControl}>
+              <FormControl
+                className={classes.formControl}
+                disabled={this.props.prFinalized}
+              >
                 <Select
                   id={category + '_RatingId'}
                   value={prRating.rating ? prRating.rating : 3}
@@ -199,6 +202,7 @@ class PrComment extends React.Component {
                   value={
                     this.state.comment ? this.state.comment : prRating.comment
                   }
+                  disabled={this.props.prFinalized}
                   onChange={this.handleChangeComment(prById, category)}
                   InputProps={{
                     disableUnderline: true,

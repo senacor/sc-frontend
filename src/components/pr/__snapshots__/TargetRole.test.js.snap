@@ -34,7 +34,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="PLATTFORMGESTALTER"
           prActive={
             Object {
@@ -111,7 +110,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="IT_SOLUTION_LEADER"
           prActive={
             Object {
@@ -188,7 +186,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="TRANSFORMATION_MANAGER"
           prActive={
             Object {
@@ -265,7 +262,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="IT_LIEFERSTEUERER"
           prActive={
             Object {
@@ -342,7 +338,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="ARCHITECT"
           prActive={
             Object {
@@ -419,7 +414,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="TECHNICAL_EXPERT"
           prActive={
             Object {
@@ -496,7 +490,6 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
-          isDisabled={false}
           key="LEAD_DEVELOPER"
           prActive={
             Object {

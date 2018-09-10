@@ -6,6 +6,7 @@ import { prDetailId } from './prDetailId';
 import prById from './getPr';
 import prTargetRole from './getTargetRole';
 import prVisibilityById from './getPrVisibility';
+import prFinalizationStatusById from './getPrFinalizationStatus';
 import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
@@ -32,6 +33,7 @@ const combineReducer = combineReducers({
   prDetailId,
   prTargetRole,
   prVisibilityById,
+  prFinalizationStatusById,
   prRatings,
   prEmployeeContributions,
   search,

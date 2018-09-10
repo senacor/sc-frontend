@@ -1,17 +1,9 @@
 import objectGet from 'object-get';
 import { default as fetch } from '../helper/customFetch';
 import { fetchPrById } from './index';
-import {
-  ADD_COMMENT_REQUEST,
-  ADD_COMMENT_RESPONSE,
-  ADD_TEXT_REQUEST,
-  ADD_TEXT_RESPONSE,
-  CHANGE_RATING_TARGETROLE_REQUEST,
-  CHANGE_RATING_TARGETROLE_RESPONSE,
-  ERROR_RESPONSE
-} from '../helper/dispatchTypes';
 import * as dispatchTypes from '../helper/dispatchTypes';
 import * as visibilityTypes from '../helper/prVisibility';
+import * as finalizationTypes from '../helper/prFinalization';
 
 export const addRating = (
   prById,
@@ -21,7 +13,7 @@ export const addRating = (
   ratingId
 ) => async dispatch => {
   dispatch({
-    type: ADD_COMMENT_REQUEST
+    type: dispatchTypes.ADD_COMMENT_REQUEST
   });
 
   await fetch(
@@ -46,7 +38,7 @@ export const addRating = (
     const prRatings = responseList ? responseList : [];
 
     dispatch({
-      type: ADD_COMMENT_RESPONSE,
+      type: dispatchTypes.ADD_COMMENT_RESPONSE,
       payload: {
         prId: prById.id,
         prRatings
@@ -62,7 +54,7 @@ export const addEmployeeContribution = (
   reflectionSetId
 ) => async dispatch => {
   dispatch({
-    type: ADD_TEXT_REQUEST
+    type: dispatchTypes.ADD_TEXT_REQUEST
   });
 
   await fetch(
@@ -90,7 +82,7 @@ export const addEmployeeContribution = (
     );
     const prReflectionSet = responseList ? responseList : [];
     dispatch({
-      type: ADD_TEXT_RESPONSE,
+      type: dispatchTypes.ADD_TEXT_RESPONSE,
       payload: {
         prReflectionSet,
         prId: prById.id
@@ -128,7 +120,42 @@ export const setVisibilityById = (
     return fetchPrById(prById.id)(dispatch);
   } else {
     return dispatch({
-      type: ERROR_RESPONSE,
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: changeResponse.status
+    });
+  }
+};
+
+export const setPrFinalizationStatus = (
+  prById,
+  isFinalizedByEmployee = false,
+  isFinalizedByReviewer = false
+) => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_PR_FINALIZATION_STATUS_REQUEST
+  });
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/finalization`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        finalizationStatusOfEmployee: isFinalizedByEmployee
+          ? finalizationTypes.FINALIZED
+          : finalizationTypes.NOT_FINALIZED,
+        finalizationStatusOfReviewer: isFinalizedByReviewer
+          ? finalizationTypes.FINALIZED
+          : finalizationTypes.NOT_FINALIZED
+      })
+    }
+  );
+  await changeResponse.json();
+
+  if (changeResponse.ok) {
+    return fetchPrById(prById.id)(dispatch);
+  } else {
+    return dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
       httpCode: changeResponse.status
     });
   }
@@ -140,7 +167,7 @@ export const changeRatingTargetRole = (
   rating
 ) => async dispatch => {
   dispatch({
-    type: CHANGE_RATING_TARGETROLE_REQUEST
+    type: dispatchTypes.CHANGE_RATING_TARGETROLE_REQUEST
   });
 
   const response = await fetch(
@@ -158,7 +185,7 @@ export const changeRatingTargetRole = (
     const result = await response.json();
     const rating = objectGet(result, 'rating');
     dispatch({
-      type: CHANGE_RATING_TARGETROLE_RESPONSE,
+      type: dispatchTypes.CHANGE_RATING_TARGETROLE_RESPONSE,
       payload: {
         prId,
         targetRoleName,
@@ -187,4 +214,18 @@ export const changeVisibilityForReviewer = pr => {
   let isVisibleToReviewer =
     pr.prVisibilityEntry.visibilityToReviewer === visibilityTypes.VISIBLE;
   return setVisibilityById(pr, isVisibleToEmployee, !isVisibleToReviewer);
+};
+
+export const changeFinalizationStatusOfReviewer = pr => {
+  let isFinalizedByEmployee =
+    pr.prFinalizationStatus.finalizationStatusOfEmployee ===
+    finalizationTypes.FINALIZED;
+  let isFinalizedByReviewer =
+    pr.prFinalizationStatus.finalizationStatusOfReviewer ===
+    finalizationTypes.FINALIZED;
+  return setPrFinalizationStatus(
+    pr,
+    isFinalizedByEmployee,
+    !isFinalizedByReviewer
+  );
 };

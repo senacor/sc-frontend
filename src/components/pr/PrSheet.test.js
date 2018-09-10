@@ -24,6 +24,11 @@ describe('PrSheet Component', () => {
     occasion: 'ON_DEMAND',
     status: 'PREPARATION',
     deadline: '2015-05-11',
+    statuses: [
+      'FILLED_SHEET_EMPLOYEE',
+      'FILLED_SHEET_REVIEWER',
+      'ALL_DATES_ACCEPTED'
+    ],
     _links: {
       self: {
         href: 'http://localhost:8010/api/v1/prs/1'
@@ -177,6 +182,10 @@ describe('PrSheet Component', () => {
     prVisibilityEntry: {
       visibilityToEmployee: 'INVISIBLE',
       visibilityToReviewer: 'VISIBLE'
+    },
+    prFinalizationStatus: {
+      finalizationStatusOfEmployee: 'NOT_FINALIZED',
+      finalizationStatusOfReviewer: 'NOT_FINALIZED'
     }
   };
 
@@ -204,7 +213,11 @@ describe('PrSheet Component', () => {
     );
     expect(
       component.contains(
-        <PrOverallAssessment prById={prById} prVisible={false} />
+        <PrOverallAssessment
+          prById={prById}
+          prVisible={false}
+          prFinalized={false}
+        />
       )
     ).toBe(true);
     expect(
@@ -225,5 +238,50 @@ describe('PrSheet Component', () => {
     expect(
       component.find('Connect(WithStyles(PrSheetEmployee))[prVisible=true]')
     ).toHaveLength(2);
+  });
+
+  it("should display the supervisor's comment or ratings as readonly", () => {
+    let statuses = {
+      statuses: [
+        'FILLED_SHEET_EMPLOYEE',
+        'FILLED_SHEET_REVIEWER',
+        'ALL_DATES_ACCEPTED',
+        'MODIFICATIONS_ACCEPTED_REVIEWER'
+      ]
+    };
+
+    let finalization = {
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'FINALIZED'
+      }
+    };
+    let prByIdWhichReviewerFinalized = Object.assign(
+      prById,
+      statuses,
+      finalization
+    );
+    const fetchVisibilityMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prByIdWhichReviewerFinalized}
+        fetchPrVisibilityById={fetchVisibilityMock}
+        userroles={[ROLES.PR_CST_LEITER]}
+      />
+    );
+
+    expect(
+      component.contains(
+        <PrOverallAssessment
+          prById={prById}
+          prVisible={true}
+          prFinalized={true}
+        />
+      )
+    ).toBe(true);
+
+    expect(
+      component.find('Connect(WithStyles(PrComment))[prFinalized=true]')
+    ).toHaveLength(8);
   });
 });

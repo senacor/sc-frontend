@@ -3,6 +3,8 @@ import {
   changeVisibilityForEmployee,
   changeVisibilityForReviewer,
   setVisibilityById,
+  setPrFinalizationStatus,
+  changeFinalizationStatusOfReviewer,
   changeRatingTargetRole
 } from './sheet';
 import configureMockStore from 'redux-mock-store';
@@ -14,6 +16,7 @@ import {
   CHANGE_RATING_TARGETROLE_REQUEST,
   CHANGE_RATING_TARGETROLE_RESPONSE,
   CHANGE_PR_VISIBILITY_REQUEST,
+  CHANGE_PR_FINALIZATION_STATUS_REQUEST,
   FETCH_PR_BY_ID_REQUEST,
   ERROR_GONE,
   FETCH_PR_BY_ID_RESPONSE,
@@ -319,13 +322,13 @@ describe('addRating', () => {
   });
 });
 
-describe('setVisibilityById', () => {
+describe('changeVisibility', () => {
   afterEach(() => {
     fetchMock.reset();
     fetchMock.restore();
   });
 
-  it('should change the visibility for the employee in the PR and database', async () => {
+  it('should change the visibility for the reviewer in the PR and database', async () => {
     const initialVisibility = {
       prVisibilityEntry: {
         visibilityToEmployee: 'INVISIBLE',
@@ -356,13 +359,6 @@ describe('setVisibilityById', () => {
       { type: ERROR_GONE },
       { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
     ]);
-  });
-});
-
-describe('changeVisibilityForEmployee', () => {
-  afterEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
   });
 
   it('should change the visibility for the employee in the PR and database', async () => {
@@ -399,13 +395,6 @@ describe('changeVisibilityForEmployee', () => {
         prById: { id: 1 }
       }
     ]);
-  });
-});
-
-describe('changeVisibilityForReviewer', () => {
-  afterEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
   });
 
   it('should change the visibility for the reviewer', async () => {
@@ -496,6 +485,130 @@ describe('changeRatingTargetRole', () => {
     expect(store.getActions()).toEqual([
       { type: CHANGE_RATING_TARGETROLE_REQUEST },
       { type: ERROR_RESPONSE, httpCode: 404 }
+    ]);
+  });
+});
+
+describe('updateFinalizationStatus', () => {
+  afterEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
+
+  it('should change the finalization status for the reviewer in the PR and database', async () => {
+    const initialFinalizationStatus = {
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'NOT_FINALIZED'
+      }
+    };
+    const finalFinalization = {
+      prFinalizationStatus: {
+        id: 1,
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'FINALIZED'
+      }
+    };
+    let prNotFinalizedByReviewer = Object.assign(
+      {},
+      prById,
+      initialFinalizationStatus
+    );
+    fetchMock.putOnce(
+      `/api/v1/prs/${prById.id}/finalization`,
+      finalFinalization.prFinalizationStatus
+    );
+
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
+    const store = mockStore();
+    await store.dispatch(
+      changeFinalizationStatusOfReviewer(prNotFinalizedByReviewer, false, true)
+    );
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE },
+      { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
+    ]);
+  });
+
+  it('should change the finalization status for the employee in the PR and database', async () => {
+    const initialFinalizationStatus = {
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'NOT_FINALIZED'
+      }
+    };
+    const finalFinalization = {
+      prFinalizationStatus: {
+        id: 1,
+        finalizationStatusOfEmployee: 'FINALIZED',
+        finalizationStatusOfReviewer: 'NOT_FINALIZED'
+      }
+    };
+    let prNotFinalizedByEmployee = Object.assign(
+      {},
+      prById,
+      initialFinalizationStatus
+    );
+    fetchMock.putOnce(
+      `/api/v1/prs/${prById.id}/finalization`,
+      finalFinalization.prFinalizationStatus
+    );
+
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
+    const store = mockStore();
+    await store.dispatch(
+      changeFinalizationStatusOfReviewer(prNotFinalizedByEmployee, true, false)
+    );
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE },
+      { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
+    ]);
+  });
+
+  it('should change the finalization status directly via action', async () => {
+    const initialFinalizationStatus = {
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'NOT_FINALIZED'
+      }
+    };
+    const finalFinalization = {
+      prFinalizationStatus: {
+        id: 1,
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'FINALIZED'
+      }
+    };
+    let prNotFinalizedByReviewer = Object.assign(
+      {},
+      prById,
+      initialFinalizationStatus
+    );
+    fetchMock.putOnce(
+      `/api/v1/prs/${prById.id}/finalization`,
+      finalFinalization.prFinalizationStatus
+    );
+
+    fetchMock.getOnce(`/api/v1/prs/${prById.id}`, { body: { id: 1 } });
+
+    const store = mockStore();
+    await store.dispatch(
+      setPrFinalizationStatus(prNotFinalizedByReviewer, false, true)
+    );
+
+    expect(store.getActions()).toEqual([
+      { type: CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      { type: FETCH_PR_BY_ID_REQUEST },
+      { type: ERROR_GONE },
+      { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
     ]);
   });
 });

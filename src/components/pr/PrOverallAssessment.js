@@ -16,7 +16,7 @@ const styles = {
 
 class PrOverallAssessment extends React.Component {
   render() {
-    const { prById, classes } = this.props;
+    const { prById, classes, prVisible, prFinalized } = this.props;
 
     return (
       <div>
@@ -24,19 +24,21 @@ class PrOverallAssessment extends React.Component {
           <PrOverallFulfillment
             prById={prById}
             category="FULFILLMENT_OF_REQUIREMENT"
-            prVisible={this.props.prVisible}
+            prFinalized={prFinalized}
+            prVisible={prVisible}
           />
         </div>
 
         <div className={classes.containerListItem}>
-          <TargetRole prById={prById} />
+          <TargetRole prById={prById} prFinalized={prFinalized} />
         </div>
 
         <div className={classes.containerListItem}>
           <PrOverallComment
             prById={prById}
             category="FULFILLMENT_OF_REQUIREMENT"
-            prVisible={this.props.prVisible}
+            prFinalized={prFinalized}
+            prVisible={prVisible}
           />
         </div>
       </div>

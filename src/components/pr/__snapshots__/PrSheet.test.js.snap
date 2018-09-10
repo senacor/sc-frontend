@@ -36,6 +36,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -185,6 +189,11 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
@@ -213,6 +222,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -362,6 +375,11 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
@@ -402,6 +420,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -551,9 +573,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
       <Connect(WithStyles(PrComment))
@@ -579,6 +607,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -728,9 +760,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
       <Connect(WithStyles(PrComment))
@@ -756,6 +794,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -905,9 +947,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
@@ -942,6 +990,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           },
           "id": 1,
           "occasion": "ON_DEMAND",
+          "prFinalizationStatus": Object {
+            "finalizationStatusOfEmployee": "NOT_FINALIZED",
+            "finalizationStatusOfReviewer": "NOT_FINALIZED",
+          },
           "prRatingSet": Array [
             Object {
               "_links": Object {
@@ -1091,9 +1143,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+          ],
           "supervisor": "ttran",
         }
       }
+      prFinalized={false}
       prVisible={false}
     />
     <Connect(WithStyles(PrComment))
@@ -1119,6 +1177,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           },
           "id": 1,
           "occasion": "ON_DEMAND",
+          "prFinalizationStatus": Object {
+            "finalizationStatusOfEmployee": "NOT_FINALIZED",
+            "finalizationStatusOfReviewer": "NOT_FINALIZED",
+          },
           "prRatingSet": Array [
             Object {
               "_links": Object {
@@ -1268,9 +1330,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             "visibilityToReviewer": "VISIBLE",
           },
           "status": "PREPARATION",
+          "statuses": Array [
+            "FILLED_SHEET_EMPLOYEE",
+            "FILLED_SHEET_REVIEWER",
+            "ALL_DATES_ACCEPTED",
+          ],
           "supervisor": "ttran",
         }
       }
+      prFinalized={false}
       prVisible={false}
     />
   </WithStyles(List)>
@@ -1307,6 +1375,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -1456,9 +1528,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
       <Connect(WithStyles(PrComment))
@@ -1484,6 +1562,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -1633,9 +1715,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
@@ -1673,6 +1761,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -1822,9 +1914,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
@@ -1861,6 +1959,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             },
             "id": 1,
             "occasion": "ON_DEMAND",
+            "prFinalizationStatus": Object {
+              "finalizationStatusOfEmployee": "NOT_FINALIZED",
+              "finalizationStatusOfReviewer": "NOT_FINALIZED",
+            },
             "prRatingSet": Array [
               Object {
                 "_links": Object {
@@ -2010,9 +2112,15 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               "visibilityToReviewer": "VISIBLE",
             },
             "status": "PREPARATION",
+            "statuses": Array [
+              "FILLED_SHEET_EMPLOYEE",
+              "FILLED_SHEET_REVIEWER",
+              "ALL_DATES_ACCEPTED",
+            ],
             "supervisor": "ttran",
           }
         }
+        prFinalized={false}
         prVisible={false}
       />
     </WithStyles(List)>
