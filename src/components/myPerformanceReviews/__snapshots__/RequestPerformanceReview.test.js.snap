@@ -4,6 +4,7 @@ exports[`RequestPerformanceReview should match snapshot 1`] = `
 <WithStyles(Button)
   color="primary"
   id="addPrButton"
+  onClick={[Function]}
 >
   <WithStyles(Icon)>
     add
