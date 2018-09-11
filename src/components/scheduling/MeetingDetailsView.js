@@ -19,6 +19,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { translateContent } from '../translate/Translate';
+import * as actions from '../../actions';
 
 const styles = theme => ({
   container: {
@@ -51,6 +52,8 @@ class MeetingDetailsView extends React.Component {
       openOptionalAttendees: true
     };
   }
+
+  componentDidMount() {}
 
   handleClickOpenRequiredAttendees = () => {
     this.setState(state => ({
@@ -209,10 +212,7 @@ MeetingDetailsView.propTypes = {
 };
 
 export const StyledComponent = withStyles(styles)(MeetingDetailsView);
-export default connect(
-  state => ({
-    meeting: getMeeting(state),
-    getSelectedDateTime: getSelectedDate(state)
-  }),
-  {}
-)(StyledComponent);
+export default connect(state => ({
+  meeting: getMeeting(state),
+  getSelectedDateTime: getSelectedDate(state)
+}))(StyledComponent);

@@ -46,10 +46,10 @@ const styles = theme => ({
     color: '#FFF',
     marginBottom: '2%'
   },
-  buttonDesktopDisabled: {
+  buttonDesktopSchedulingDone: {
     position: 'relative',
     marginRight: '1%',
-    backgroundColor: theme.palette.primary['50'],
+    backgroundColor: theme.palette.primary['A700'],
     color: '#FFF',
     marginBottom: '2%'
   }
@@ -190,15 +190,13 @@ class PrState extends React.Component {
                 >
                   <Button
                     id="scheduling"
-                    color="primary"
-                    disabled={done}
                     className={
                       done
-                        ? classes.buttonDesktopDisabled
+                        ? classes.buttonDesktopSchedulingDone
                         : classes.buttonDesktop
                     }
                   >
-                    Termin finden
+                    {done ? 'Termindetails' : 'Termin finden'}
                   </Button>
                 </Link>
               </Grid>

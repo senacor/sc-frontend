@@ -59,7 +59,7 @@ PersonToggle.propTypes = {
 
 PersonToggle.defaultProps = {
   displayRole: '',
-  showAttendee: false
+  showAttendee: true
 };
 
 export default PersonToggle;

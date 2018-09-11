@@ -44,8 +44,10 @@ export const addMeeting = meeting_details => async dispatch => {
       }
     );
 
+    let meeting = null;
+
     if (response.ok) {
-      const meeting = await response.json();
+      meeting = await response.json();
       dispatch({
         type: dispatchTypes.ADD_MEETING_RESPONSE,
         meeting
@@ -54,7 +56,6 @@ export const addMeeting = meeting_details => async dispatch => {
         dispatch
       );
     } else if (response.status === 404) {
-      const meeting = null;
       dispatch({
         type: dispatchTypes.ADD_MEETING_RESPONSE,
         meeting
@@ -76,8 +77,16 @@ export const fetchMeeting = prById => async dispatch => {
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/meetings`
   );
+
+  let meeting = null;
+
   if (response.ok) {
-    const meeting = await response.json();
+    meeting = await response.json();
+    dispatch({
+      type: dispatchTypes.FETCH_MEETING_RESPONSE,
+      meeting
+    });
+  } else if (response.status === 404) {
     dispatch({
       type: dispatchTypes.FETCH_MEETING_RESPONSE,
       meeting

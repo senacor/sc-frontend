@@ -17,25 +17,27 @@ import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import ObjectGet from 'object-get';
 import MeetingDetailsView from './MeetingDetailsView';
 import MeetingCreatorForm from './MeetingCreatorForm';
-import withLoading from '../hoc/Loading';
 
 export class SchedulingView extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      employee: ''
+      employee: '',
+      supervisor: ''
     };
   }
 
   componentDidMount() {
-    this.setEmployeeSupervisorReviewerData();
-    this.props.fetchMeeting(this.props.prDetail);
-    this.fetchAppointments(
-      moment()
-        .local()
-        .format('YYYY-MM-DD')
-    );
+    this.props.fetchPrById(this.props.match.params.id).then(() => {
+      this.setEmployeeSupervisorReviewerData();
+      this.props.fetchMeeting(this.props.prDetail);
+      this.fetchAppointments(
+        moment()
+          .local()
+          .format('YYYY-MM-DD')
+      );
+    });
   }
 
   setEmployeeSupervisorReviewerData = () => {
@@ -48,7 +50,7 @@ export class SchedulingView extends React.Component {
             ' ' +
             ObjectGet(this.props, 'prDetail.employee.lastName'),
           role: 'Ich',
-          show: false
+          show: true
         })
       };
     });
@@ -66,7 +68,7 @@ export class SchedulingView extends React.Component {
               ' ' +
               ObjectGet(this.props, 'prDetail.supervisor.lastName'),
             role: 'Vorgesetzter',
-            show: false
+            show: true
           })
         };
       });
@@ -86,7 +88,7 @@ export class SchedulingView extends React.Component {
                 ' ' +
                 ObjectGet(this.props, 'prDetail.reviewer.lastName'),
               role: 'Beurteiler',
-              show: false
+              show: true
             }
           })
         };
@@ -193,6 +195,4 @@ export default connect(
     fetchMeeting: actions.fetchMeeting,
     fetchPrById: actions.fetchPrById
   }
-)(
-  withLoading(props => props.fetchPrById(props.match.params.id))(SchedulingView)
-);
+)(SchedulingView);
