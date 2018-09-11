@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  StyledComponent,
-  prStatusEnum,
-  getFinishedMilestones
-} from './PrState';
+import { StyledComponent, getFinishedMilestones } from './PrState';
+import { prStatusEnum } from '../../helper/prStatus';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrState Component', () => {

@@ -17,27 +17,25 @@ import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import ObjectGet from 'object-get';
 import MeetingDetailsView from './MeetingDetailsView';
 import MeetingCreatorForm from './MeetingCreatorForm';
+import withLoading from '../hoc/Loading';
 
 export class SchedulingView extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      employee: '',
-      supervisor: ''
+      employee: ''
     };
   }
 
   componentDidMount() {
-    this.props.fetchPrById(this.props.match.params.id).then(() => {
-      this.setEmployeeSupervisorReviewerData();
-      this.props.fetchMeeting(this.props.prDetail);
-      this.fetchAppointments(
-        moment()
-          .local()
-          .format('YYYY-MM-DD')
-      );
-    });
+    this.setEmployeeSupervisorReviewerData();
+    this.props.fetchMeeting(this.props.prDetail);
+    this.fetchAppointments(
+      moment()
+        .local()
+        .format('YYYY-MM-DD')
+    );
   }
 
   setEmployeeSupervisorReviewerData = () => {
@@ -195,4 +193,6 @@ export default connect(
     fetchMeeting: actions.fetchMeeting,
     fetchPrById: actions.fetchPrById
   }
-)(SchedulingView);
+)(
+  withLoading(props => props.fetchPrById(props.match.params.id))(SchedulingView)
+);

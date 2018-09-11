@@ -34,7 +34,6 @@ describe('SchedulingView', () => {
     let component = shallow(
       <SchedulingView
         prDetail={testPr}
-        prById={testPr.id}
         meeting={null}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
@@ -49,7 +48,6 @@ describe('SchedulingView', () => {
     let component = shallow(
       <SchedulingView
         prDetail={testPr}
-        prById={testPr.id}
         meeting={null}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
@@ -96,11 +94,11 @@ describe('SchedulingView', () => {
   });
 
   it("only shows the employee's toggle and appointments, if it is the only employee object in the PR.", () => {
-    const newPr = { employee: testPr.employee };
+    const newPr = { id: 3, employee: testPr.employee };
     let component = shallow(
       <SchedulingView
         prDetail={newPr}
-        prById={testPr.id}
+        prById={newPr.id}
         meeting={null}
         appointmentsSearchResults={{
           [newPr.employee.login]: { appointments: [] }
