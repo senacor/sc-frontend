@@ -19,8 +19,9 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { isEmployee } from '../../helper/checkRole';
 import { createSelector } from 'reselect';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
-import { addPrStatus } from '../../actions/status';
+import * as actions from '../../actions';
 import { translationMap } from '../translate/Translate';
+import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
   paper: {
@@ -53,15 +54,6 @@ const styles = theme => ({
     marginBottom: '2%'
   }
 });
-
-export const prStatusEnum = {
-  RELEASED_SHEET_REVIEWER: 'FILLED_SHEET_REVIEWER',
-  RELEASED_SHEET_EMPLOYEE: 'FILLED_SHEET_EMPLOYEE',
-  FIXED_DATE: 'ALL_DATES_ACCEPTED',
-  FINALIZED_REVIEWER: 'MODIFICATIONS_ACCEPTED_REVIEWER',
-  FINALIZED_EMPLOYEE: 'MODIFICATIONS_ACCEPTED_EMPLOYEE',
-  ARCHIVED_HR: 'COMPLETED_PR'
-};
 
 const progressStructure = [
   {
@@ -282,6 +274,6 @@ export default connect(
     userroles: getUserroles(state)
   }),
   {
-    addPrStatus
+    addPrStatus: actions.addPrStatus
   }
 )(StyledComponent);

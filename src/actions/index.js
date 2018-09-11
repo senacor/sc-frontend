@@ -14,10 +14,9 @@ export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { prSearch } from './employeeSearch';
 export { getCstMembers } from './cstMembers';
 export { getEvents } from './events';
-export { appointmentsSearch } from './appointments';
-export { changeDate } from './appointments';
-export { addMeeting } from './meetings';
-export { fetchMeeting } from './meetings';
+export { appointmentsSearch, changeDate } from './appointments';
+export { addMeeting, fetchMeeting } from './meetings';
+export { addPrStatus } from './status';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({

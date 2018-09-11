@@ -1,5 +1,5 @@
 import { addPrStatus } from './status';
-import { prStatusEnum } from '../components/pr/PrState';
+import { prStatusEnum } from '../helper/prStatus';
 import * as dispatchTypes from '../helper/dispatchTypes';
 import * as visibilityTypes from '../helper/prVisibility';
 import thunk from 'redux-thunk';

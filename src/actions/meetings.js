@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
 import { addPrStatus } from './status';
-import { prStatusEnum } from '../components/pr/PrState';
+import { prStatusEnum } from '../helper/prStatus';
 
 let validateDateTimeInput = (start, end) => {
   if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
@@ -13,10 +13,7 @@ let validateDateTimeInput = (start, end) => {
   if (!moment(end, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
     return false;
   }
-  if (moment(end).isBefore(moment(start))) {
-    return false;
-  }
-  return true;
+  return !moment(end).isBefore(moment(start));
 };
 
 export const addMeeting = meeting_details => async dispatch => {
