@@ -54,10 +54,12 @@ class MeetingCreatorForm extends React.Component {
   };
 
   addMeeting = prById => {
-    let startDateTime = moment(`${this.state.date} ${this.state.startTime}`).tz(
+    let startDateTime = moment.tz(
+      `${this.state.date} ${this.state.startTime}`,
       'Europe/Berlin'
     );
-    let endDateTime = moment(`${this.state.date} ${this.state.endTime}`).tz(
+    let endDateTime = moment.tz(
+      `${this.state.date} ${this.state.endTime}`,
       'Europe/Berlin'
     );
 
