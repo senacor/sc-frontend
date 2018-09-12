@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { getSelectedDate, getMeeting } from '../../reducers/selector';
+import { getSelectedDate } from '../../reducers/selector';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
@@ -122,7 +122,6 @@ MeetingCreatorForm.propTypes = {
 export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
 export default connect(
   state => ({
-    meeting: getMeeting(state),
     getSelectedDateTime: getSelectedDate(state)
   }),
   {

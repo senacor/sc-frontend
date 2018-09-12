@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import { getSelectedDate, getMeeting } from '../../reducers/selector';
 import moment from 'moment-timezone';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -19,7 +16,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { translateContent } from '../translate/Translate';
-import * as actions from '../../actions';
 
 const styles = theme => ({
   container: {
@@ -47,13 +43,10 @@ class MeetingDetailsView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: '',
       openRequiredAttendees: true,
       openOptionalAttendees: true
     };
   }
-
-  componentDidMount() {}
 
   handleClickOpenRequiredAttendees = () => {
     this.setState(state => ({
@@ -146,7 +139,7 @@ class MeetingDetailsView extends React.Component {
               })}
             </List>
           </Collapse>
-          {Object.keys(meeting.optionalAttendees).length > 0 ? (
+          {Object.keys(meeting.optionalAttendees).length > 0 && (
             <React.Fragment>
               <ListItem button onClick={this.handleClickOpenOptionalAttendees}>
                 <ListItemIcon>
@@ -197,8 +190,6 @@ class MeetingDetailsView extends React.Component {
                 </List>
               </Collapse>
             </React.Fragment>
-          ) : (
-            ''
           )}
         </List>
       </div>
@@ -206,13 +197,4 @@ class MeetingDetailsView extends React.Component {
   }
 }
 
-MeetingDetailsView.propTypes = {
-  classes: PropTypes.object.isRequired,
-  meeting: PropTypes.object.isRequired
-};
-
 export const StyledComponent = withStyles(styles)(MeetingDetailsView);
-export default connect(state => ({
-  meeting: getMeeting(state),
-  getSelectedDateTime: getSelectedDate(state)
-}))(StyledComponent);
