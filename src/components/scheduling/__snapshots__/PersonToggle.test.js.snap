@@ -36,7 +36,7 @@ exports[`PersonToggle should match snapshot 1`] = `
     xs={1}
   >
     <WithStyles(Switch)
-      checked={false}
+      checked={true}
       className="employeeSwitch"
       color="primary"
       onChange={[Function]}

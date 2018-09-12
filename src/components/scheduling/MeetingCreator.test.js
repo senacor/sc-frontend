@@ -1,118 +1,152 @@
 import React from 'react';
 import { MeetingCreator } from './MeetingCreator';
-import { createShallow } from '@material-ui/core/test-utils';
-
-const fetchAppointmentsMock = jest.fn();
-
-const pr = {
-  id: 1,
-  employee: {
-    id: 1,
-    firstName: 'Max',
-    lastName: 'Mustermann',
-    login: 'mmustermann',
-    dateOfLastPr: '2019-03-14'
-  },
-  supervisor: {
-    id: 3,
-    firstName: 'Michaela',
-    lastName: 'Mitarbeiterin',
-    login: 'test.pr.mitarbeiter1'
-  },
-  dateOfLastPr: '2019-08-30',
-  occasion: 'ON_DEMAND',
-  statuses: ['FILLED_SHEET_EMPLOYEE', 'FILLED_SHEET_REVIEWER'],
-  deadline: '2019-03-14',
-  _links: {
-    self: {
-      href: 'http://localhost:8010/api/v1/prs/1'
-    }
-  }
-};
+import { shallow } from 'enzyme';
+import moment from 'moment';
 
 describe('MeetingCreatorForm', () => {
-  let shallow = createShallow({ dive: true });
+  const pr = {
+    id: 1,
+    employee: {
+      id: 1,
+      firstName: 'Max',
+      lastName: 'Mustermann',
+      login: 'mmustermann',
+      dateOfLastPr: '2019-03-14'
+    },
+    supervisor: {
+      id: 3,
+      firstName: 'Michaela',
+      lastName: 'Mitarbeiterin',
+      login: 'test.pr.mitarbeiter1'
+    },
+    dateOfLastPr: '2019-08-30',
+    occasion: 'ON_DEMAND',
+    statuses: ['FILLED_SHEET_EMPLOYEE', 'FILLED_SHEET_REVIEWER'],
+    deadline: '2019-03-14',
+    _links: {
+      self: {
+        href: 'http://localhost:8010/api/v1/prs/1'
+      }
+    }
+  };
+
+  const appointmentsSearchMock = jest.fn();
+  const appointmentsSearchResults = {};
+
+  beforeEach(() => {
+    appointmentsSearchMock.mockClear();
+  });
 
   it('should match snapshot', () => {
-    let wrapper = shallow(
-      <MeetingCreator fetchAppointments={fetchAppointmentsMock} />
-    );
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should display the create appointment form when meeting does not exist', () => {
-    let shallow = createShallow({ dive: true });
-    let wrapper = shallow(
+    let component = shallow(
       <MeetingCreator
-        meeting={null}
-        fetchAppointments={fetchAppointmentsMock}
+        prDetail={pr}
+        appointmentsSearchResults={appointmentsSearchResults}
+        appointmentsSearch={appointmentsSearchMock}
       />
     );
 
-    expect(wrapper.find('#createMeeting')).toHaveLength(1);
+    expect(component).toMatchSnapshot();
   });
 
-  it('should create the meeting details with two required attendees', () => {
-    let shallow = createShallow({ dive: true });
-    let wrapper = shallow(
+  it('should display the subcomponent MeetingCreatorForm ', () => {
+    let component = shallow(
       <MeetingCreator
-        meeting={null}
-        fetchAppointments={fetchAppointmentsMock}
+        prDetail={pr}
+        appointmentsSearchResults={appointmentsSearchResults}
+        appointmentsSearch={appointmentsSearchMock}
       />
     );
 
-    wrapper.setState({
-      date: '2018-08-01',
-      startTime: '14:00',
-      endTime: '15:00'
-    });
-
-    let expected_result = {
-      prById: pr,
-      start: '2018-08-01T12:00+00:00',
-      end: '2018-08-01T13:00+00:00',
-      location: '',
-      requiredAttendees: ['mmustermann', 'test.pr.mitarbeiter1'],
-      optionalAttendees: []
-    };
-    expect(wrapper.instance().addMeeting(pr)).toEqual(expected_result);
+    expect(
+      component.find('Connect(WithStyles(MeetingCreatorForm))').exists()
+    ).toBeTruthy();
   });
 
-  it('should create the meeting details with two required attendees and one optional attendee', () => {
-    let shallow = createShallow({ dive: true });
-    let wrapper = shallow(
+  it('changes the visibility/PersonToggle of the attendee if onVisibilityChange is called.', () => {
+    let component = shallow(
       <MeetingCreator
-        meeting={null}
-        fetchAppointments={fetchAppointmentsMock}
+        prDetail={pr}
+        appointmentsSearchResults={appointmentsSearchResults}
+        appointmentsSearch={appointmentsSearchMock}
       />
     );
 
-    wrapper.setState({
-      date: '2018-08-01',
-      startTime: '14:00',
-      endTime: '15:00'
-    });
+    component.instance().onVisibilityChange('supervisor')();
 
-    let prWithReviewer = Object.assign({}, pr, {
-      reviewer: {
-        id: 4,
-        firstName: 'John',
-        lastName: 'Doe',
-        login: 'john.doe'
+    expect(component.instance().state.supervisor.show).toBe(false);
+  });
+
+  it('fetches the appointments on mount', () => {
+    let selectedDate = moment()
+      .local()
+      .format('YYYY-MM-DD');
+
+    shallow(
+      <MeetingCreator
+        prDetail={pr}
+        appointmentsSearchResults={appointmentsSearchResults}
+        appointmentsSearch={appointmentsSearchMock}
+        selectedDate={selectedDate}
+      />
+    );
+
+    expect(appointmentsSearchMock).toHaveBeenCalledTimes(1);
+    expect(appointmentsSearchMock.mock.calls[0][0]).toBe(
+      `${pr.employee.login},${pr.supervisor.login}`
+    );
+    expect(appointmentsSearchMock.mock.calls[0][1]).toBe(
+      moment()
+        .local()
+        .format('YYYY-MM-DD')
+    );
+  });
+
+  it('takes the employee and supervisor from the PR and saves it to its state', () => {
+    let component = shallow(
+      <MeetingCreator
+        prDetail={pr}
+        appointmentsSearchResults={appointmentsSearchResults}
+        appointmentsSearch={appointmentsSearchMock}
+      />
+    );
+    const expectedComponentState = {
+      employee: {
+        id: pr.employee.login,
+        name: `${pr.employee.firstName} ${pr.employee.lastName}`,
+        role: 'Ich',
+        show: true
+      },
+      supervisor: {
+        id: pr.supervisor.login,
+        name: `${pr.supervisor.firstName} ${pr.supervisor.lastName}`,
+        role: 'Vorgesetzter',
+        show: true
       }
-    });
-
-    let expected_result = {
-      prById: prWithReviewer,
-      start: '2018-08-01T12:00+00:00',
-      end: '2018-08-01T13:00+00:00',
-      location: '',
-      requiredAttendees: ['mmustermann', 'john.doe'],
-      optionalAttendees: ['test.pr.mitarbeiter1']
     };
-    expect(wrapper.instance().addMeeting(prWithReviewer)).toEqual(
-      expected_result
+
+    expect(component.instance().state).toEqual(expectedComponentState);
+  });
+
+  it("only shows the employee's toggle and appointments if it is the only employee object in the PR.", () => {
+    const newPr = { id: 3, employee: pr.employee };
+    let component = shallow(
+      <MeetingCreator
+        prDetail={newPr}
+        appointmentsSearchResults={{
+          [newPr.employee.login]: { appointments: [] }
+        }}
+        appointmentsSearch={appointmentsSearchMock}
+      />
     );
+
+    expect(component.find('PersonToggle')).toHaveLength(1);
+    expect(
+      component
+        .find('WithStyles(TimeTable)')
+        .dive()
+        .dive()
+        .find('WithStyles(Attendee)')
+    ).toHaveLength(1);
   });
 });

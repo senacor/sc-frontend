@@ -6,15 +6,14 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { getAppointments, getSelectedDate } from '../../reducers/selector';
 import * as actions from '../../actions';
 import ObjectGet from 'object-get';
 
-class MeetingCreator extends Component {
+export class MeetingCreator extends Component {
   constructor(props) {
     super(props);
-    console.log('Constructor: ' + this.props.prDetail.id);
 
     this.state = {
       employee: '',
@@ -23,43 +22,37 @@ class MeetingCreator extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount: ' + this.props.prDetail);
     this.setEmployeeSupervisorReviewerData(this.props.prDetail);
+    this.fetchAppointments(this.props.selectedDate);
   }
 
   setEmployeeSupervisorReviewerData = pr => {
-    this.setState(() => {
+    this.setState(prevState => {
       return {
-        employee: Object.assign(
-          {},
-          {
-            id: pr.employee.login,
-            name:
-              ObjectGet(pr, 'employee.firstName') +
-              ' ' +
-              ObjectGet(pr, 'employee.lastName'),
-            role: 'Ich',
-            show: true
-          }
-        )
+        employee: Object.assign({}, prevState.employee, {
+          id: pr.employee.login,
+          name:
+            ObjectGet(pr, 'employee.firstName') +
+            ' ' +
+            ObjectGet(pr, 'employee.lastName'),
+          role: 'Ich',
+          show: true
+        })
       };
     });
 
     if (pr.supervisor !== undefined && pr.supervisor.id !== '') {
-      this.setState(() => {
+      this.setState(prevState => {
         return {
-          supervisor: Object.assign(
-            {},
-            {
-              id: pr.supervisor.login,
-              name:
-                ObjectGet(pr, 'supervisor.firstName') +
-                ' ' +
-                ObjectGet(pr, 'supervisor.lastName'),
-              role: 'Vorgesetzter',
-              show: true
-            }
-          )
+          supervisor: Object.assign({}, prevState.supervisor, {
+            id: pr.supervisor.login,
+            name:
+              ObjectGet(pr, 'supervisor.firstName') +
+              ' ' +
+              ObjectGet(pr, 'supervisor.lastName'),
+            role: 'Vorgesetzter',
+            show: true
+          })
         };
       });
     }
@@ -69,20 +62,17 @@ class MeetingCreator extends Component {
       pr.reviewer !== undefined &&
       pr.reviewer.id !== ''
     ) {
-      this.setState(() => {
+      this.setState(prevState => {
         return {
-          reviewer: Object.assign(
-            {},
-            {
-              id: pr.reviewer.login,
-              name:
-                ObjectGet(pr, 'reviewer.firstName') +
-                ' ' +
-                ObjectGet(pr, 'reviewer.lastName'),
-              role: 'Beurteiler',
-              show: true
-            }
-          )
+          reviewer: Object.assign({}, prevState.reviewer, {
+            id: pr.reviewer.login,
+            name:
+              ObjectGet(pr, 'reviewer.firstName') +
+              ' ' +
+              ObjectGet(pr, 'reviewer.lastName'),
+            role: 'Beurteiler',
+            show: true
+          })
         };
       });
     }
@@ -121,18 +111,20 @@ class MeetingCreator extends Component {
           </Grid>
           <Grid item>
             <Grid container direction="column">
-              {Object.getOwnPropertyNames(this.state).map(attendee => {
-                return (
-                  <Grid item key={attendee}>
-                    <PersonToggle
-                      displayName={`${this.state[attendee].id}`}
-                      displayRole={`${this.state[attendee].role}`}
-                      onChange={this.onVisibilityChange(attendee)}
-                      showAttendee={this.state[attendee].show}
-                    />
-                  </Grid>
-                );
-              })}
+              {Object.getOwnPropertyNames(this.state)
+                .filter(key => this.state[key] && this.state[key].id)
+                .map(attendee => {
+                  return (
+                    <Grid item key={attendee}>
+                      <PersonToggle
+                        displayName={`${this.state[attendee].id}`}
+                        displayRole={`${this.state[attendee].role}`}
+                        onChange={this.onVisibilityChange(attendee)}
+                        showAttendee={this.state[attendee].show}
+                      />
+                    </Grid>
+                  );
+                })}
             </Grid>
           </Grid>
           <Grid item>

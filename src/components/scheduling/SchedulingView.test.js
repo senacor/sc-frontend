@@ -1,11 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 import { SchedulingView } from './SchedulingView';
-import MeetingView from './MeetingDetailsView';
 
 describe('SchedulingView', () => {
-  let testPr = {
+  let pr = {
     id: 1,
     employee: {
       id: 2,
@@ -21,141 +19,57 @@ describe('SchedulingView', () => {
     }
   };
 
-  const appointmentsSearchMock = jest.fn();
+  const meeting = {
+    start: '2018-09-11T15:18:00.000+0000',
+    end: '2018-09-11T16:18:00.000+0000',
+    location: null,
+    requiredAttendees: {
+      'test.pr.vorgesetzter': {
+        name: 'PR Vorgesetzter',
+        email: 'test.pr.vorgesetzter@senacor.com',
+        status: 'UNKNOWN'
+      },
+      'test.pr.mitarbeiter1': {
+        name: 'PR Mitarbeiter1',
+        email: 'test.pr.mitarbeiter1@senacor.com',
+        status: 'UNKNOWN'
+      }
+    },
+    optionalAttendees: {},
+    _links: {
+      self: {
+        href: 'http://localhost:8010/api/v1/prs/1/meetings'
+      }
+    }
+  };
+
   const fetchMeetingMock = jest.fn();
-  const appointmentsSearchResults = {};
 
   beforeEach(() => {
-    appointmentsSearchMock.mockClear();
     fetchMeetingMock.mockClear();
   });
 
   it('should match snapshot', () => {
-    let component = shallow(
-      <SchedulingView
-        prDetail={testPr}
-        meeting={null}
-        appointmentsSearchResults={appointmentsSearchResults}
-        appointmentsSearch={appointmentsSearchMock}
-        fetchMeeting={fetchMeetingMock}
-      />
-    );
+    let component = shallow(<SchedulingView prDetail={pr} meeting={null} />);
 
     expect(component).toMatchSnapshot();
   });
 
-  it('takes the employee and supervisor from the PR and saves it to its state', () => {
-    let component = shallow(
-      <SchedulingView
-        prDetail={testPr}
-        meeting={null}
-        appointmentsSearchResults={appointmentsSearchResults}
-        appointmentsSearch={appointmentsSearchMock}
-        fetchMeeting={fetchMeetingMock}
-      />
-    );
-    const expectedComponentState = {
-      employee: {
-        id: testPr.employee.login,
-        name: `${testPr.employee.firstName} ${testPr.employee.lastName}`,
-        role: 'Ich',
-        show: false
-      },
-      supervisor: {
-        id: testPr.supervisor.login,
-        name: `${testPr.supervisor.firstName} ${testPr.supervisor.lastName}`,
-        role: 'Vorgesetzter',
-        show: false
-      }
-    };
+  it('should display subcomponent MeetingCreator if meeting is null', () => {
+    let component = shallow(<SchedulingView prDetail={pr} meeting={null} />);
 
-    expect(component.instance().state).toEqual(expectedComponentState);
+    expect(component.find('Connect(MeetingCreator)')).toHaveLength(1);
   });
 
-  it('displays a MeetingDetailsView if the meeting is not null', () => {
-    let component = shallow(
-      <SchedulingView
-        prDetail={testPr}
-        prById={testPr.id}
-        meeting={{
-          start: undefined,
-          end: undefined,
-          location: undefined,
-          requiredAttendees: [],
-          optionalAttendees: []
-        }}
-        appointmentsSearchResults={appointmentsSearchResults}
-        appointmentsSearch={appointmentsSearchMock}
-        fetchMeeting={fetchMeetingMock}
-      />
-    );
+  it('should not display subcomponent MeetingCreator if prDetail is not available', () => {
+    let component = shallow(<SchedulingView prDetail={null} meeting={null} />);
 
-    expect(component.contains(<MeetingView />)).toBeTruthy();
+    expect(component.find('Connect(MeetingCreator)').exists()).toBeFalsy();
   });
 
-  it("only shows the employee's toggle and appointments, if it is the only employee object in the PR.", () => {
-    const newPr = { id: 3, employee: testPr.employee };
-    let component = shallow(
-      <SchedulingView
-        prDetail={newPr}
-        prById={newPr.id}
-        meeting={null}
-        appointmentsSearchResults={{
-          [newPr.employee.login]: { appointments: [] }
-        }}
-        appointmentsSearch={appointmentsSearchMock}
-        fetchMeeting={fetchMeetingMock}
-      />
-    );
+  it('should display subcomponent MeetingViewDetails if meeting is not null', () => {
+    let component = shallow(<SchedulingView prDetail={pr} meeting={meeting} />);
 
-    expect(component.find('PersonToggle')).toHaveLength(1);
-    expect(
-      component
-        .find('WithStyles(TimeTable)')
-        .dive()
-        .dive()
-        .find('WithStyles(Attendee)')
-    ).toHaveLength(1);
-  });
-
-  it('fetches the appointments and meeting on mount', () => {
-    shallow(
-      <SchedulingView
-        prDetail={testPr}
-        meeting={null}
-        appointmentsSearchResults={appointmentsSearchResults}
-        appointmentsSearch={appointmentsSearchMock}
-        fetchMeeting={fetchMeetingMock}
-      />
-    );
-
-    expect(appointmentsSearchMock).toHaveBeenCalledTimes(1);
-    expect(appointmentsSearchMock.mock.calls[0][0]).toBe(
-      `${testPr.employee.login},${testPr.supervisor.login}`
-    );
-    expect(appointmentsSearchMock.mock.calls[0][1]).toBe(
-      moment()
-        .local()
-        .format('YYYY-MM-DD')
-    );
-    expect(fetchMeetingMock).toHaveBeenCalledTimes(1);
-    expect(fetchMeetingMock.mock.calls[0][0]).toBe(testPr);
-  });
-
-  it('changes the visibility/PersonToggle of the attendee if onVisibilityChange is called.', () => {
-    let component = shallow(
-      <SchedulingView
-        prDetail={testPr}
-        prById={testPr.id}
-        meeting={null}
-        appointmentsSearchResults={appointmentsSearchResults}
-        appointmentsSearch={appointmentsSearchMock}
-        fetchMeeting={fetchMeetingMock}
-      />
-    );
-
-    component.instance().onVisibilityChange('supervisor')();
-
-    expect(component.instance().state.supervisor.show).toBe(true);
+    expect(component.find('WithStyles(MeetingDetailsView)')).toHaveLength(1);
   });
 });
