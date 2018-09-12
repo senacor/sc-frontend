@@ -7,22 +7,14 @@ import MeetingCreator from './MeetingCreator';
 import withLoading from '../hoc/Loading';
 
 export class SchedulingView extends React.Component {
-  // componentDidMount() {
-  //   this.props.fetchPrById(this.props.match.params.id).then(() => {
-  //     this.props.fetchMeeting(this.props.prDetail);
-  //   });
-  // }
-
-  componentDidMount() {
-    this.props.fetchMeeting(this.props.prDetail);
-  }
-
   render() {
     const { meeting } = this.props;
     return (
       <div id={'outer'}>
         {meeting == null ? (
-          <MeetingCreator prDetail={this.props.prDetail} />
+          this.props.prDetail && (
+            <MeetingCreator prDetail={this.props.prDetail} />
+          )
         ) : (
           <MeetingDetailsView meeting={this.props.meeting} />
         )}
@@ -41,7 +33,10 @@ export default connect(
     fetchMeeting: actions.fetchMeeting,
     fetchPrById: actions.fetchPrById
   }
-  // )(SchedulingView);
 )(
-  withLoading(props => props.fetchPrById(props.match.params.id))(SchedulingView)
+  withLoading(props => {
+    return props
+      .fetchPrById(props.match.params.id)
+      .then(pr => props.fetchMeeting(pr));
+  })(SchedulingView)
 );

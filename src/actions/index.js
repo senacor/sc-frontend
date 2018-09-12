@@ -140,6 +140,7 @@ export const fetchPrById = prsId => async dispatch => {
       type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE,
       prById
     });
+    return prById;
   } else {
     dispatch({
       type: dispatchTypes.ERROR_RESPONSE,

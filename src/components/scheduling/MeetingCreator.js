@@ -14,6 +14,7 @@ import ObjectGet from 'object-get';
 class MeetingCreator extends Component {
   constructor(props) {
     super(props);
+    console.log('Constructor: ' + this.props.prDetail.id);
 
     this.state = {
       employee: '',
@@ -22,6 +23,7 @@ class MeetingCreator extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount: ' + this.props.prDetail);
     this.setEmployeeSupervisorReviewerData(this.props.prDetail);
   }
 

@@ -268,8 +268,8 @@ describe('fetchMeeting', () => {
         type: dispatchTypes.FETCH_MEETING_REQUEST
       },
       {
-        type: dispatchTypes.ERROR_RESPONSE,
-        httpCode: 404
+        type: dispatchTypes.FETCH_MEETING_RESPONSE,
+        meeting: null
       }
     ]);
   });
