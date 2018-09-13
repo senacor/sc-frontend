@@ -18,10 +18,12 @@ class AppointmentPicker extends React.Component {
   constructor(props) {
     super(props);
     let now = moment.tz('Europe/Berlin');
+    const remainder = 30 - (now.minute() % 30);
+    let start = now.add(remainder, 'minutes');
     this.state = {
       date: now.format('YYYY-MM-DD'),
-      startTime: now.format('HH:mm'),
-      endTime: now.add(1, 'hour').format('HH:mm')
+      startTime: start.format('HH:mm'),
+      endTime: start.add(1, 'hour').format('HH:mm')
     };
   }
 
