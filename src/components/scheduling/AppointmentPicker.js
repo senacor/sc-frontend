@@ -57,11 +57,6 @@ class AppointmentPicker extends React.Component {
     }
   };
 
-  componentDidMount() {
-    const { date, startTime, endTime } = this.state;
-    this.props.onDateTimeChange(date, startTime, endTime);
-  }
-
   render() {
     const { classes } = this.props;
 

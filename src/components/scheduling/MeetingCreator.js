@@ -23,7 +23,6 @@ export class MeetingCreator extends Component {
 
   componentDidMount() {
     this.setEmployeeSupervisorReviewerData(this.props.prDetail);
-    this.fetchAppointments(this.props.selectedDate);
   }
 
   setEmployeeSupervisorReviewerData = pr => {
