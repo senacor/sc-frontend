@@ -127,26 +127,4 @@ describe('MeetingCreatorForm', () => {
 
     expect(component.instance().state).toEqual(expectedComponentState);
   });
-
-  it("only shows the employee's toggle and appointments if it is the only employee object in the PR.", () => {
-    const newPr = { id: 3, employee: pr.employee };
-    let component = shallow(
-      <MeetingCreator
-        prDetail={newPr}
-        appointmentsSearchResults={{
-          [newPr.employee.login]: { appointments: [] }
-        }}
-        appointmentsSearch={appointmentsSearchMock}
-      />
-    );
-
-    expect(component.find('PersonToggle')).toHaveLength(1);
-    expect(
-      component
-        .find('WithStyles(TimeTable)')
-        .dive()
-        .dive()
-        .find('WithStyles(Attendee)')
-    ).toHaveLength(1);
-  });
 });

@@ -23,6 +23,7 @@ export class MeetingCreator extends Component {
 
   componentDidMount() {
     this.setEmployeeSupervisorReviewerData(this.props.prDetail);
+    this.fetchAppointments(this.props.selectedDate);
   }
 
   setEmployeeSupervisorReviewerData = pr => {
@@ -78,12 +79,18 @@ export class MeetingCreator extends Component {
   };
 
   fetchAppointments = date => {
-    this.props.appointmentsSearch(
-      Object.getOwnPropertyNames(this.state)
-        .map(role => this.state[role].id)
-        .join(),
-      date
-    );
+    let pr = this.props.prDetail;
+    let attendees = [pr.employee.login, pr.supervisor.login];
+
+    if (
+      pr.hasOwnProperty('reviewer') &&
+      pr.reviewer !== undefined &&
+      pr.reviewer.id !== ''
+    ) {
+      attendees.push(pr.reviewer.id);
+    }
+
+    this.props.appointmentsSearch(attendees.join(','), date);
   };
 
   onVisibilityChange = attendee => () => {

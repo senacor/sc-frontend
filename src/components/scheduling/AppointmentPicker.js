@@ -25,6 +25,10 @@ class AppointmentPicker extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.changeDate(this.state.date);
+  }
+
   onStartTimeChange = event => {
     this.setState({ startTime: event.target.value });
     this.props.onDateTimeChange(
