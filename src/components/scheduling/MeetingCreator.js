@@ -26,69 +26,54 @@ export class MeetingCreator extends Component {
     this.fetchAppointments(this.props.selectedDate);
   }
 
-  setEmployeeSupervisorReviewerData = pr => {
+  setStateforRole = (pr, role) => {
+    let roleDescription;
+    switch (role) {
+      case 'employee':
+        roleDescription = 'Ich';
+        break;
+      case 'supervisor':
+        roleDescription = 'Vorgesetzter';
+        break;
+      case 'reviewer':
+        roleDescription = 'Beurteiler';
+        break;
+      default:
+        roleDescription = '';
+    }
     this.setState(prevState => {
       return {
-        employee: Object.assign({}, prevState.employee, {
-          id: pr.employee.login,
+        [role]: Object.assign({}, prevState[role], {
+          id: ObjectGet(pr, `${role}.login`),
           name:
-            ObjectGet(pr, 'employee.firstName') +
+            ObjectGet(pr, `${role}.firstName`) +
             ' ' +
-            ObjectGet(pr, 'employee.lastName'),
-          role: 'Ich',
+            ObjectGet(pr, `${role}.lastName`),
+          role: roleDescription,
           show: true
         })
       };
     });
+  };
 
-    if (pr.supervisor !== undefined && pr.supervisor.id !== '') {
-      this.setState(prevState => {
-        return {
-          supervisor: Object.assign({}, prevState.supervisor, {
-            id: pr.supervisor.login,
-            name:
-              ObjectGet(pr, 'supervisor.firstName') +
-              ' ' +
-              ObjectGet(pr, 'supervisor.lastName'),
-            role: 'Vorgesetzter',
-            show: true
-          })
-        };
-      });
-    }
+  setEmployeeSupervisorReviewerData = pr => {
+    this.setStateforRole(pr, 'employee');
+    this.hasSupervisorEntry(pr) && this.setStateforRole(pr, 'supervisor');
+    this.hasReviewerEntry(pr) && this.setStateforRole(pr, 'reviewer');
+  };
 
-    if (
-      pr.hasOwnProperty('reviewer') &&
-      pr.reviewer !== undefined &&
-      pr.reviewer.id !== ''
-    ) {
-      this.setState(prevState => {
-        return {
-          reviewer: Object.assign({}, prevState.reviewer, {
-            id: pr.reviewer.login,
-            name:
-              ObjectGet(pr, 'reviewer.firstName') +
-              ' ' +
-              ObjectGet(pr, 'reviewer.lastName'),
-            role: 'Beurteiler',
-            show: true
-          })
-        };
-      });
-    }
+  hasSupervisorEntry = pr => {
+    return pr.supervisor !== undefined && pr.supervisor.id !== '';
+  };
+
+  hasReviewerEntry = pr => {
+    return pr.reviewer !== undefined && pr.reviewer.id !== '';
   };
 
   fetchAppointments = date => {
     let pr = this.props.prDetail;
     let attendees = [pr.employee.login, pr.supervisor.login];
-
-    if (
-      pr.hasOwnProperty('reviewer') &&
-      pr.reviewer !== undefined &&
-      pr.reviewer.id !== ''
-    ) {
-      attendees.push(pr.reviewer.id);
-    }
+    this.hasReviewerEntry(pr) && attendees.push(pr.reviewer.login);
 
     this.props.appointmentsSearch(attendees.join(','), date);
   };
@@ -150,7 +135,7 @@ export class MeetingCreator extends Component {
                       allAppointments[this.state[attendee].id].appointments
                     )}
                     selectedDate={this.props.selectedDate}
-                    distanceFromLeft={(100 * index) / keyArray.length}
+                    distanceFromLeft={(100 * index) / keyArray.length + 10}
                   />
                 ))}
             </TimeTable>
