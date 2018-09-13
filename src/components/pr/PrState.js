@@ -248,7 +248,7 @@ class PrState extends React.Component {
                 return (
                   <Step key={progressStep.text}>
                     <StepLabel>{progressStep.text}</StepLabel>
-                    <StepContent>
+                    <StepContent TransitionProps={{ in: true }}>
                       {progressStep.statuses.map(status => {
                         return this.getExtraStepContent(status);
                       })}
