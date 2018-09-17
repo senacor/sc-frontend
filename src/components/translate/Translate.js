@@ -10,8 +10,8 @@ export const translationMap = {
   DONE: 'Fertig',
   END_PROBATION: 'Ende der Probezeit',
   EXECUTION: 'In Durchführung',
-  FILLED_SHEET_EMPLOYEE: 'Freigabe Mitarbeiter',
-  FILLED_SHEET_REVIEWER: 'Freigabe Beurteiler',
+  FILLED_SHEET_EMPLOYEE: 'Mitarbeiter',
+  FILLED_SHEET_REVIEWER: 'Beurteiler',
   FULFILLMENT_OF_REQUIREMENT:
     'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:

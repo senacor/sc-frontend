@@ -12,6 +12,7 @@ import PR from './pr/Pr';
 import Logout from './login/Logout';
 import Dashboard from './dashboard/Dashboard';
 import MyPerformanceReviews from './myPerformanceReviews/MyPerformanceReviews';
+import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
 
 const styles = {
   main: {
@@ -35,6 +36,9 @@ const withAppBarExtendedHeader = WrappedComponent => props => (
 const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
 const MyPRListWithAppBar = withAppBar(MyPerformanceReviews);
+const PerformanceReviewDetail2WithAppBar = withAppBarExtendedHeader(
+  PerformanceReviewDetail
+);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);
@@ -49,6 +53,11 @@ const App = () => (
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
+      <PrivateRoute
+        exact
+        path="/prDetail/:id"
+        component={PerformanceReviewDetail2WithAppBar}
+      />
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute
         exact
