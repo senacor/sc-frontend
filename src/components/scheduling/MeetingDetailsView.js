@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import { getSelectedDate, getMeeting } from '../../reducers/selector';
 import moment from 'moment-timezone';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -42,11 +39,10 @@ const styles = theme => ({
   }
 });
 
-class MeetingView extends React.Component {
+class MeetingDetailsView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: '',
       openRequiredAttendees: true,
       openOptionalAttendees: true
     };
@@ -143,7 +139,7 @@ class MeetingView extends React.Component {
               })}
             </List>
           </Collapse>
-          {Object.keys(meeting.optionalAttendees).length > 0 ? (
+          {Object.keys(meeting.optionalAttendees).length > 0 && (
             <React.Fragment>
               <ListItem button onClick={this.handleClickOpenOptionalAttendees}>
                 <ListItemIcon>
@@ -194,8 +190,6 @@ class MeetingView extends React.Component {
                 </List>
               </Collapse>
             </React.Fragment>
-          ) : (
-            ''
           )}
         </List>
       </div>
@@ -203,16 +197,4 @@ class MeetingView extends React.Component {
   }
 }
 
-MeetingView.propTypes = {
-  classes: PropTypes.object.isRequired,
-  meeting: PropTypes.object.isRequired
-};
-
-export const StyledComponent = withStyles(styles)(MeetingView);
-export default connect(
-  state => ({
-    meeting: getMeeting(state),
-    getSelectedDateTime: getSelectedDate(state)
-  }),
-  {}
-)(StyledComponent);
+export const StyledComponent = withStyles(styles)(MeetingDetailsView);

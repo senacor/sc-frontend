@@ -7,6 +7,28 @@ import fetchMock from 'fetch-mock';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+const prById = {
+  id: 1,
+  employee: {
+    id: 1,
+    login: 'lschäfer',
+    firstName: 'Lionel',
+    lastName: 'Schäfer',
+    title: 'DR',
+    email: 'lionel.schäfer@senacor.com',
+    entryDate: '2004-05-10'
+  },
+  supervisor: 'ttran',
+  occasion: 'ON_DEMAND',
+  status: 'PREPARATION',
+  deadline: '2018-03-14',
+  _links: {
+    self: {
+      href: 'http://localhost:8010/api/v1/prs/1'
+    }
+  }
+};
+
 describe('addMeeting', () => {
   afterEach(() => {
     fetchMock.reset();
@@ -15,6 +37,7 @@ describe('addMeeting', () => {
 
   it('adds a new meeting and triggers the actions', async () => {
     const meeting_details = {
+      prById: prById,
       start: '2018-07-31T17:00+02:00',
       end: '2018-07-31T18:00+02:00',
       location: '01 NUE Projekt Office 3 2.41 (6)',
@@ -22,26 +45,52 @@ describe('addMeeting', () => {
       optionalAttendees: []
     };
 
-    fetchMock.postOnce('/api/v1/prs/1/meetings', {
-      start: '2018-07-31T15:00:00.000+0000',
-      end: '2018-07-31T16:00:00.000+0000',
-      location: '01 NUE Projekt Office 3 2.41 (6)',
-      requiredAttendees: [
-        {
-          test_pr_mitarbeiter2: {
-            name: 'PR Mitarbeiter2',
-            email: 'test.pr.mitarbeiter2@senacor.com',
-            status: 'UNKNOWN'
+    fetchMock.postOnce(
+      '/api/v1/prs/' + meeting_details.prById.id + '/meetings',
+      {
+        start: '2018-07-31T15:00:00.000+0000',
+        end: '2018-07-31T16:00:00.000+0000',
+        location: '01 NUE Projekt Office 3 2.41 (6)',
+        requiredAttendees: [
+          {
+            test_pr_mitarbeiter2: {
+              name: 'PR Mitarbeiter2',
+              email: 'test.pr.mitarbeiter2@senacor.com',
+              status: 'UNKNOWN'
+            }
+          }
+        ],
+        optionalAttendees: [],
+        _links: {
+          self: {
+            href:
+              'http://localhost:8010/api/v1/prs/' +
+              meeting_details.prById.id +
+              '/meetings'
           }
         }
+      }
+    );
+
+    fetchMock.putOnce('/api/v1/prs/' + meeting_details.prById.id + '/status', {
+      prId: prById.id,
+      statuses: [
+        'FILLED_SHEET_EMPLOYEE',
+        'FILLED_SHEET_REVIEWER',
+        'ALL_DATES_ACCEPTED'
       ],
-      optionalAttendees: [],
       _links: {
         self: {
-          href: 'http://localhost:8010/api/v1/prs/1/meetings'
+          href:
+            'http://localhost:8010/api/v1/prs/' +
+            meeting_details.prById.id +
+            '/status'
         }
       }
     });
+
+    fetchMock.getOnce('/api/v1/prs/' + meeting_details.prById.id, prById);
+
     const store = mockStore();
 
     await store.dispatch(addMeeting(meeting_details));
@@ -68,10 +117,26 @@ describe('addMeeting', () => {
           optionalAttendees: [],
           _links: {
             self: {
-              href: 'http://localhost:8010/api/v1/prs/1/meetings'
+              href:
+                'http://localhost:8010/api/v1/prs/' +
+                meeting_details.prById.id +
+                '/meetings'
             }
           }
         }
+      },
+      {
+        type: dispatchTypes.ADD_PR_STATUS_REQUEST
+      },
+      {
+        type: dispatchTypes.FETCH_PR_BY_ID_REQUEST
+      },
+      {
+        type: dispatchTypes.ERROR_GONE
+      },
+      {
+        type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE,
+        prById: prById
       }
     ]);
   });
@@ -149,7 +214,7 @@ describe('fetchMeeting', () => {
     });
     const store = mockStore();
 
-    await store.dispatch(fetchMeeting(1));
+    await store.dispatch(fetchMeeting(prById));
 
     expect(store.getActions()).toEqual([
       {
@@ -196,15 +261,15 @@ describe('fetchMeeting', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchMeeting(1));
+    await store.dispatch(fetchMeeting(prById));
 
     expect(store.getActions()).toEqual([
       {
         type: dispatchTypes.FETCH_MEETING_REQUEST
       },
       {
-        type: dispatchTypes.ERROR_RESPONSE,
-        httpCode: 404
+        type: dispatchTypes.FETCH_MEETING_RESPONSE,
+        meeting: null
       }
     ]);
   });
@@ -225,7 +290,7 @@ describe('fetchMeeting', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchMeeting(1));
+    await store.dispatch(fetchMeeting(prById));
 
     expect(store.getActions()).toEqual([
       {

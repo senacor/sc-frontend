@@ -21,25 +21,6 @@ exports[`MyPerformanceReviews should match snapshot 1`] = `
       xs={12}
     >
       <Connect(RequestPerformanceReview) />
-      <Link
-        replace={false}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/availabilityview"
-      >
-        <WithStyles(Button)
-          color="primary"
-          id="appointments"
-        >
-          <WithStyles(Icon)>
-            add
-          </WithStyles(Icon)>
-          Termin finden
-        </WithStyles(Button)>
-      </Link>
       <Hidden
         implementation="js"
         lgDown={false}

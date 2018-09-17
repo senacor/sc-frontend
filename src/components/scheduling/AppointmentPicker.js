@@ -18,11 +18,17 @@ class AppointmentPicker extends React.Component {
   constructor(props) {
     super(props);
     let now = moment.tz('Europe/Berlin');
+    const remainder = 30 - (now.minute() % 30);
+    let start = now.add(remainder, 'minutes');
     this.state = {
       date: now.format('YYYY-MM-DD'),
-      startTime: now.format('HH:mm'),
-      endTime: now.add(1, 'hour').format('HH:mm')
+      startTime: start.format('HH:mm'),
+      endTime: start.add(1, 'hour').format('HH:mm')
     };
+  }
+
+  componentDidMount() {
+    this.props.changeDate(this.state.date);
   }
 
   onStartTimeChange = event => {
@@ -56,11 +62,6 @@ class AppointmentPicker extends React.Component {
       );
     }
   };
-
-  componentDidMount() {
-    const { date, startTime, endTime } = this.state;
-    this.props.onDateTimeChange(date, startTime, endTime);
-  }
 
   render() {
     const { classes } = this.props;

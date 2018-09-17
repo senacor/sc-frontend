@@ -12,14 +12,16 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 import ObjectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
 import { isEmployee } from '../../helper/checkRole';
 import { createSelector } from 'reselect';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
-import { addPrStatus } from '../../actions/status';
+import * as actions from '../../actions';
 import { translationMap } from '../translate/Translate';
+import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
   paper: {
@@ -44,23 +46,14 @@ const styles = theme => ({
     color: '#FFF',
     marginBottom: '2%'
   },
-  buttonDesktopDisabled: {
+  buttonDesktopSchedulingDone: {
     position: 'relative',
     marginRight: '1%',
-    backgroundColor: theme.palette.primary['50'],
+    backgroundColor: theme.palette.primary['A700'],
     color: '#FFF',
     marginBottom: '2%'
   }
 });
-
-export const prStatusEnum = {
-  RELEASED_SHEET_REVIEWER: 'FILLED_SHEET_REVIEWER',
-  RELEASED_SHEET_EMPLOYEE: 'FILLED_SHEET_EMPLOYEE',
-  FIXED_DATE: 'ALL_DATES_ACCEPTED',
-  FINALIZED_REVIEWER: 'MODIFICATIONS_ACCEPTED_REVIEWER',
-  FINALIZED_EMPLOYEE: 'MODIFICATIONS_ACCEPTED_EMPLOYEE',
-  ARCHIVED_HR: 'COMPLETED_PR'
-};
 
 const progressStructure = [
   {
@@ -148,6 +141,7 @@ class PrState extends React.Component {
     let isReleasedByEmployee = status === prStatusEnum.RELEASED_SHEET_EMPLOYEE;
     let isReleasedByReviewer = status === prStatusEnum.RELEASED_SHEET_REVIEWER;
     let supervisorfinalizesPr = status === prStatusEnum.FINALIZED_REVIEWER;
+    let meetingIsScheduled = status === prStatusEnum.FIXED_DATE;
     let done =
       isStatusDoneMap === undefined
         ? false
@@ -186,6 +180,25 @@ class PrState extends React.Component {
                 >
                   PR freigeben
                 </Button>
+              </Grid>
+            ) : null}
+            {forEmployee && meetingIsScheduled ? (
+              <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
+                <Link
+                  to={`/prs/${this.props.prById.id}/scheduling`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    id="scheduling"
+                    className={
+                      done
+                        ? classes.buttonDesktopSchedulingDone
+                        : classes.buttonDesktop
+                    }
+                  >
+                    {done ? 'Termindetails' : 'Termin finden'}
+                  </Button>
+                </Link>
               </Grid>
             ) : null}
           </Grid>
@@ -235,7 +248,7 @@ class PrState extends React.Component {
                 return (
                   <Step key={progressStep.text}>
                     <StepLabel>{progressStep.text}</StepLabel>
-                    <StepContent>
+                    <StepContent TransitionProps={{ in: true }}>
                       {progressStep.statuses.map(status => {
                         return this.getExtraStepContent(status);
                       })}
@@ -259,6 +272,6 @@ export default connect(
     userroles: getUserroles(state)
   }),
   {
-    addPrStatus
+    addPrStatus: actions.addPrStatus
   }
 )(StyledComponent);

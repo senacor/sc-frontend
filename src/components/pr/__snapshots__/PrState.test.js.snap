@@ -23,7 +23,13 @@ exports[`PrState Component displays the PrState 1`] = `
           <WithStyles(StepLabel)>
             Vorbereitung PR
           </WithStyles(StepLabel)>
-          <WithStyles(StepContent)>
+          <WithStyles(StepContent)
+            TransitionProps={
+              Object {
+                "in": true,
+              }
+            }
+          >
             <WithStyles(Grid)
               alignItems="center"
               container={true}
@@ -164,7 +170,13 @@ exports[`PrState Component displays the PrState 1`] = `
           <WithStyles(StepLabel)>
             PR abschließen (Beurteiler)
           </WithStyles(StepLabel)>
-          <WithStyles(StepContent)>
+          <WithStyles(StepContent)
+            TransitionProps={
+              Object {
+                "in": true,
+              }
+            }
+          >
             <div
               key="SubStepGrid_MODIFICATIONS_ACCEPTED_REVIEWER"
             >
@@ -183,7 +195,13 @@ exports[`PrState Component displays the PrState 1`] = `
           <WithStyles(StepLabel)>
             PR abschließen (Mitarbeiter)
           </WithStyles(StepLabel)>
-          <WithStyles(StepContent) />
+          <WithStyles(StepContent)
+            TransitionProps={
+              Object {
+                "in": true,
+              }
+            }
+          />
         </WithStyles(Step)>
         <WithStyles(Step)
           key="PR archivieren (HR)"
@@ -191,7 +209,13 @@ exports[`PrState Component displays the PrState 1`] = `
           <WithStyles(StepLabel)>
             PR archivieren (HR)
           </WithStyles(StepLabel)>
-          <WithStyles(StepContent) />
+          <WithStyles(StepContent)
+            TransitionProps={
+              Object {
+                "in": true,
+              }
+            }
+          />
         </WithStyles(Step)>
       </WithStyles(Stepper)>
     </WithStyles(ListItem)>

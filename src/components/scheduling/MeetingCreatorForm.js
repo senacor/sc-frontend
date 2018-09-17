@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { getSelectedDate, getMeeting } from '../../reducers/selector';
+import { getSelectedDate } from '../../reducers/selector';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-class MeetingCreator extends React.Component {
+class MeetingCreatorForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class MeetingCreator extends React.Component {
 
   handleClickOfMeetingButton = event => {
     event.preventDefault();
-    this.addMeeting();
+    this.props.addMeeting(this.addMeeting(this.props.prById));
   };
 
   setDateTime = (date, startTime, endTime) => {
@@ -53,23 +53,34 @@ class MeetingCreator extends React.Component {
     });
   };
 
-  addMeeting() {
-    let startDateTime = moment(`${this.state.date} ${this.state.startTime}`).tz(
+  addMeeting = prById => {
+    let startDateTime = moment.tz(
+      `${this.state.date} ${this.state.startTime}`,
       'Europe/Berlin'
     );
-    let endDateTime = moment(`${this.state.date} ${this.state.endTime}`).tz(
+    let endDateTime = moment.tz(
+      `${this.state.date} ${this.state.endTime}`,
       'Europe/Berlin'
     );
+
     let meeting_details = {
+      prById: prById,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: this.state.location,
-      //TODO replace hardcoded values
-      requiredAttendees: ['test.pr.mitarbeiter2'],
+      requiredAttendees: [prById.employee.login],
       optionalAttendees: []
     };
-    this.props.addMeeting(meeting_details);
-  }
+
+    if (prById.hasOwnProperty('reviewer')) {
+      meeting_details.requiredAttendees.push(prById.reviewer.login);
+      meeting_details.optionalAttendees.push(prById.supervisor.login);
+    } else {
+      meeting_details.requiredAttendees.push(prById.supervisor.login);
+    }
+
+    return meeting_details;
+  };
 
   render() {
     const { classes } = this.props;
@@ -103,15 +114,14 @@ class MeetingCreator extends React.Component {
   }
 }
 
-MeetingCreator.propTypes = {
+MeetingCreatorForm.propTypes = {
   classes: PropTypes.object.isRequired,
   fetchAppointments: PropTypes.func.isRequired
 };
 
-export const StyledComponent = withStyles(styles)(MeetingCreator);
+export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
 export default connect(
   state => ({
-    meeting: getMeeting(state),
     getSelectedDateTime: getSelectedDate(state)
   }),
   {

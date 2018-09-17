@@ -6,7 +6,7 @@ import {
   changeVisibilityForReviewer,
   changeFinalizationStatusOfReviewer
 } from './sheet';
-import { prStatusEnum } from '../components/pr/PrState';
+import { prStatusEnum } from '../helper/prStatus';
 
 export const addPrStatus = (prById, status) => async dispatch => {
   dispatch({
