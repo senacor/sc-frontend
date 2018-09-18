@@ -7,26 +7,23 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
+import StepConnector from '@material-ui/core/StepConnector';
 import Paper from '@material-ui/core/Paper';
-import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 import ObjectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
-import { isEmployee } from '../../../helper/checkRole';
 import { createSelector } from 'reselect';
 import { getPrDetail, getUserroles } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import withLoading from '../../hoc/Loading';
+import { StyledReleaseButton } from './ReleaseButton';
 
 const styles = theme => ({
   paper: {
     backgroundColor: 'inherit'
   },
-
   stepper: {
     backgroundColor: 'inherit',
     padding: '0',
@@ -51,6 +48,23 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary['A700'],
     color: '#FFF',
     marginBottom: '2%'
+  },
+  gridOffset: {
+    paddingLeft: theme.spacing.unit
+  },
+  mainStepLabel: {
+    color: theme.palette.primary['400']
+  },
+  stepLabelRoot: {
+    display: 'flex',
+    alignItems: 'flex-start'
+  },
+  stepperRoot: {
+    display: 'flex',
+    alignItems: 'flex-start'
+  },
+  stepConnectorRoot: {
+    paddingTop: '10px'
   }
 });
 
@@ -62,11 +76,11 @@ function isDone(prStatuses, status) {
   }
 }
 
-function mainStepIsDone(prStatusesDone, stepId) {
+function mainStepIsDone(prStatusesDone, stepId, stepStructure) {
   if (prStatusesDone !== undefined) {
-    return Object.values(
-      updateStepStructure(prStatusesDone)[stepId].substeps
-    ).every(substep => substep.isCompleted);
+    return Object.values(stepStructure[stepId].substeps).every(
+      substep => substep.isCompleted
+    );
   }
   return false;
 }
@@ -92,37 +106,39 @@ const getCompletedSubsteps = () => {
   );
 };
 
-const updateStepStructure = prStatusesDone => {
-  console.log(prStatusEnum);
+const updateStepStructure = (prStatusesDone, releaseButtonClick) => {
   return [
     {
       mainStepLabel: 'Vorbereitung',
       substeps: {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
-          description: 'RELEASED_SHEET_EMPLOYEE',
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
-          label: 'Mitarbeiter',
+          label: 'Mitarbeiter: ',
           rendering: {
             complete: 'Abgeschlossen',
             incomplete: <div>Nicht abgeschlossen</div>
           }
         },
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
-          description: 'RELEASED_SHEET_REVIEWER',
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
-          label: 'Beurteiler',
+          label: 'Beurteiler: ',
           rendering: {
             complete: <div>Abgeschlossen</div>,
-            incomplete: <div>Nicht abgeschlossen</div>
+            incomplete: (
+              <StyledReleaseButton
+                releaseButtonClick={releaseButtonClick(
+                  prStatusEnum.RELEASED_SHEET_REVIEWER
+                )}
+              />
+            )
           }
         },
         [prStatusEnum.FIXED_DATE]: {
-          description: 'FIXED_DATE',
           isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
-          label: 'Mitarbeiter',
+          label: 'Terminfindung',
           rendering: {
-            complete: <Icon>done</Icon>,
-            incomplete: <Icon>done</Icon>
+            complete: <div>Alle Teilnehmer haben zugesagt</div>,
+            incomplete: <div>Nicht abgeschlossen</div>
           }
         }
       }
@@ -131,9 +147,8 @@ const updateStepStructure = prStatusesDone => {
       mainStepLabel: 'Abschließen (Beurteiler)',
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
-          description: 'FINALIZED_REVIEWER',
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
-          label: 'Beurteiler',
+          label: 'Beurteiler: ',
           rendering: {
             complete: <div>Abgeschlossen</div>,
             incomplete: <div>Nicht abgeschlossen</div>
@@ -145,9 +160,8 @@ const updateStepStructure = prStatusesDone => {
       mainStepLabel: 'Abschließen (Mitarbeiter)',
       substeps: {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
-          description: 'FINALIZED_EMPLOYEE',
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
-          label: 'Mitarbeiter ',
+          label: 'Mitarbeiter:',
           rendering: {
             complete: <div>Abgeschlossen</div>,
             incomplete: <div>Nicht abgeschlossen</div>
@@ -159,12 +173,11 @@ const updateStepStructure = prStatusesDone => {
       mainStepLabel: 'Archivieren (HR)',
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
-          description: 'ARCHIVED_HR',
           isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
-          label: 'HR',
+          label: 'HR: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
-            incomplete: <div>Nicht abgeschlossen</div>
+            complete: <div>Archiviert</div>,
+            incomplete: <div>Nicht archiviert</div>
           }
         }
       }
@@ -178,7 +191,7 @@ class PrState extends React.Component {
     this.state = {};
   }
 
-  changeStateOnButtonClick = status => event => {
+  releaseButtonClick = status => event => {
     let pr = this.props.prById;
     if (!event.disabled) {
       this.props.addPrStatus(pr, status);
@@ -186,86 +199,31 @@ class PrState extends React.Component {
   };
 
   getExtraStepContent(substeps) {
-    let forEmployee = isEmployee(this.props.userroles);
     let { classes } = this.props;
-
-    Object.values(substeps).map((substep, index) => {
-      console.log(
-        'Index: ' +
-          index +
-          ', ' +
-          substep.description +
-          ', ' +
-          'isCompleted: ' +
-          substep.isCompleted +
-          ', ' +
-          substep.label +
-          ' ' +
-          substep.rendering.complete
-      );
+    console.table(substeps);
+    return Object.values(substeps).map((substep, index) => {
       return (
         <Grid
           key={`SubStepGrid_${index}`}
           container
           alignItems="center"
-          spacing={8}
+          spacing={12}
         >
-          <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
-            <Grid container direction="row">
-              <Grid item lg={8} md={6} sm={8} xs={8}>
-                <Typography>{substep.label}</Typography>
-              </Grid>
-              <Grid item lg={4} md={6} sm={4} xs={4}>
-                {console.log('Substep rendern.')}
-                {console.log(
-                  'Substep rendern: IsCompleted: ' + substep.isCompleted
-                )}
-                {console.log(
-                  'Substep rendern: IsCompleted: ' + substep.rendering.complete
-                )}
-                <Typography>
-                  Test
-                  {substep.isCompleted
-                    ? substep.rendering.complete
-                    : substep.rendering.incomplete}
-                </Typography>
-              </Grid>
-            </Grid>
+          <Grid item lg={12} md={6} sm={8} xs={8}>
+            <Typography>{substep.label}</Typography>
           </Grid>
-          {/*{(forEmployee && isReleasedByEmployee) ||*/}
-          {/*(!forEmployee && isReleasedByReviewer) ? (*/}
-          {/*<Grid item xl={6} lg={12} md={12} sm={12} xs={12}>*/}
-          {/*<Button*/}
-          {/*disabled={done}*/}
-          {/*className={*/}
-          {/*done ? classes.buttonDesktopDisabled : classes.buttonDesktop*/}
-          {/*}*/}
-          {/*onClick={this.changeStateOnButtonClick(status)}*/}
-          {/*>*/}
-          {/*PR freigeben*/}
-          {/*</Button>*/}
-          {/*</Grid>*/}
-          {/*) : null}*/}
-
-          {/*{forEmployee && meetingIsScheduled ? (*/}
-          {/*<Grid item xl={6} lg={12} md={12} sm={12} xs={12}>*/}
-          {/*<Link*/}
-          {/*to={`/prs/${this.props.prById.id}/scheduling`}*/}
-          {/*style={{ textDecoration: 'none' }}*/}
-          {/*>*/}
-          {/*<Button*/}
-          {/*id="scheduling"*/}
-          {/*className={*/}
-          {/*done*/}
-          {/*? classes.buttonDesktopSchedulingDone*/}
-          {/*: classes.buttonDesktop*/}
-          {/*}*/}
-          {/*>*/}
-          {/*{done ? 'Termindetails' : 'Termin finden'}*/}
-          {/*</Button>*/}
-          {/*</Link>*/}
-          {/*</Grid>*/}
-          {/*) : null}*/}
+          <Grid
+            className={classes.gridOffset}
+            item
+            lg={12}
+            md={6}
+            sm={4}
+            xs={4}
+          >
+            {substep.isCompleted
+              ? substep.rendering.complete
+              : substep.rendering.incomplete}
+          </Grid>
         </Grid>
       );
     });
@@ -278,7 +236,10 @@ class PrState extends React.Component {
       return null;
     }
 
-    const stepStructure = updateStepStructure(prStatusesDone);
+    const stepStructure = updateStepStructure(
+      prStatusesDone,
+      this.releaseButtonClick
+    );
 
     return (
       <Paper className={classes.paper}>
@@ -292,19 +253,28 @@ class PrState extends React.Component {
               className={classes.stepper}
               activeStep={
                 [...Array(stepStructure.length).keys()].filter(stepId =>
-                  mainStepIsDone(prStatusesDone, stepId)
+                  mainStepIsDone(prStatusesDone, stepId, stepStructure)
                 ).length
               }
               onChange={() => {}}
+              classes={{ root: classes.stepperRoot }}
+              connector={
+                <StepConnector classes={{ root: classes.stepConnectorRoot }} />
+              }
             >
               {stepStructure.map(mainStep => {
-                console.log('MainStep: ' + mainStep.mainStepLabel);
                 return (
                   <Step key={mainStep.mainStepLabel}>
-                    <StepLabel>{mainStep.mainStepLabel}</StepLabel>
-                    <StepContent TransitionProps={{ in: true }}>
+                    <StepLabel classes={{ root: classes.stepLabelRoot }}>
+                      <Typography
+                        variant="subheading"
+                        gutterBottom
+                        className={classes.mainStepLabel}
+                      >
+                        {mainStep.mainStepLabel}
+                      </Typography>
                       {this.getExtraStepContent(mainStep.substeps)}
-                    </StepContent>
+                    </StepLabel>
                   </Step>
                 );
               })}

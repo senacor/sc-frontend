@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import PrState from './PrState';
+import PrTabs from './PrTabs';
 
 class PerformanceReviewDetail extends Component {
   render() {
     return (
       <React.Fragment>
         <PrState />
+        <PrTabs />
       </React.Fragment>
     );
   }

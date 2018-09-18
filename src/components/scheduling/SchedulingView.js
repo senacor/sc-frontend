@@ -35,8 +35,6 @@ export default connect(
   }
 )(
   withLoading(props => {
-    return props
-      .fetchPrById(props.match.params.id)
-      .then(pr => props.fetchMeeting(pr));
+    return props.fetchPrById(1).then(pr => props.fetchMeeting(pr));
   })(SchedulingView)
 );
