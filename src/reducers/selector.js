@@ -9,6 +9,7 @@ export const getUserinfo = state => state.userinfo;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
 export const getMeeting = state => state.meeting;
+export const getPrStatuses = state => state.prDetailId.statuses;
 
 export const getPrDetail = () => {
   return createSelector(

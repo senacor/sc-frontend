@@ -12,11 +12,8 @@ const styles = theme => ({
   sizeSmall: {}
 });
 
-/**
- * @return {null}
- */
-function ReleaseButton(props) {
-  let { classes } = props;
+function PrStatusActionButton(props) {
+  let { classes, label } = props;
   return (
     <Button
       classes={{ sizeSmall: classes.sizeSmall }}
@@ -24,10 +21,9 @@ function ReleaseButton(props) {
       className={classes.buttonDesktop}
       onClick={props.releaseButtonClick}
     >
-      Freigabe
+      {label}
     </Button>
   );
 }
 
-export const StyledReleaseButton = withStyles(styles)(ReleaseButton);
-export default ReleaseButton;
+export default withStyles(styles)(PrStatusActionButton);
