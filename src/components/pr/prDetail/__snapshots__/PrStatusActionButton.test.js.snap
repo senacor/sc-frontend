@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
+<WithStyles(Button)
+  className="PrStatusActionButton-buttonDesktop-1"
+  classes={
+    Object {
+      "sizeSmall": "PrStatusActionButton-sizeSmall-2",
+    }
+  }
+  onClick={[Function]}
+  size="small"
+>
+  Freigabe
+</WithStyles(Button)>
+`;

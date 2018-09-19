@@ -49,25 +49,25 @@ class PrState extends React.Component {
     this.state = {};
   }
 
-  static mainStepIsDone(prStatusesDone, stepId, stepStructure) {
+  mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
     if (prStatusesDone !== undefined) {
       return Object.values(stepStructure[stepId].substeps).every(
         substep => substep.isCompleted
       );
     }
     return false;
-  }
+  };
 
-  calculateActiveStep(stepStructure, prStatusesDone) {
+  calculateActiveStep = (prStatusesDone, stepStructure) => {
     return [...Array(stepStructure.length).keys()].filter(stepId =>
-      PrState.mainStepIsDone(prStatusesDone, stepId, stepStructure)
+      this.mainStepIsDone(prStatusesDone, stepId, stepStructure)
     ).length;
-  }
+  };
 
   getCompletedSubsteps = prStatuses => {
     let isDoneStatusMap = {};
     for (let status in prStatusEnum) {
-      isDoneStatusMap[prStatusEnum[status]] = PrState.isDone(
+      isDoneStatusMap[prStatusEnum[status]] = this.isDone(
         prStatuses,
         prStatusEnum[status]
       );
@@ -75,13 +75,13 @@ class PrState extends React.Component {
     return isDoneStatusMap;
   };
 
-  static isDone(prStatuses, status) {
+  isDone = (prStatuses, status) => {
     if (prStatuses === undefined) {
       return false;
     } else {
       return prStatuses.includes(status);
     }
-  }
+  };
 
   updateStepStructure = (prStatusesDone, releaseButtonClick) => {
     return [
@@ -122,8 +122,8 @@ class PrState extends React.Component {
             isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
             label: 'Terminfindung',
             rendering: {
-              complete: <div>Alle Teilnehmer haben zugesagt</div>,
-              incomplete: <div>Nicht abgeschlossen</div>
+              complete: 'Alle Teilnehmer haben zugesagt',
+              incomplete: 'Nicht abgeschlossen'
             }
           }
         }
@@ -155,8 +155,8 @@ class PrState extends React.Component {
             isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
             label: 'Mitarbeiter:',
             rendering: {
-              complete: <div>Abgeschlossen</div>,
-              incomplete: <div>Nicht abgeschlossen</div>
+              complete: 'Abgeschlossen',
+              incomplete: '>Nicht abgeschlossen'
             }
           }
         }
@@ -168,8 +168,8 @@ class PrState extends React.Component {
             isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
             label: 'HR: ',
             rendering: {
-              complete: <div>Archiviert</div>,
-              incomplete: <div>Nicht archiviert</div>
+              complete: 'Archiviert',
+              incomplete: 'Nicht archiviert'
             }
           }
         }
@@ -197,7 +197,7 @@ class PrState extends React.Component {
       this.releaseButtonClick
     );
 
-    const activeStep = this.calculateActiveStep(stepStructure, prStatusesDone);
+    const activeStep = this.calculateActiveStep(prStatusesDone, stepStructure);
 
     return (
       <Paper className={classes.paper}>

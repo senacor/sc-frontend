@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
+<div
+  className="PrTabs-root-1"
+>
+  <WithStyles(AppBar)
+    position="static"
+  >
+    <WithStyles(Tabs)
+      onChange={[Function]}
+      value={0}
+    >
+      <WithStyles(Tab)
+        label="Details"
+      />
+      <WithStyles(Tab)
+        label="Terminfindung"
+      />
+    </WithStyles(Tabs)>
+  </WithStyles(AppBar)>
+  <TabContainer>
+    <Connect(WithStyles(PrSheet)) />
+  </TabContainer>
+</div>
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrSubstepItem Component should match snapshot 1`] = `
+<WithStyles(ListItem)
+  classes={
+    Object {
+      "root": "PrSubstepItem-listItemRoot-1",
+    }
+  }
+>
+  <WithStyles(ListItemText)
+    classes={
+      Object {
+        "primary": "PrSubstepItem-listItemPrimary-2",
+      }
+    }
+    primary="Terminfindung"
+    secondary="Nicht abgeschlossen"
+  />
+</WithStyles(ListItem)>
+`;

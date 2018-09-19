@@ -6,8 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Stepper from '@material-ui/core/Stepper/Stepper';
 import { withStyles } from '@material-ui/core';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import PrSubstepItem from './PrSubstepItem';
 
 const styles = theme => {
   return {
@@ -32,43 +31,14 @@ const styles = theme => {
     },
     gridOffset: {
       paddingLeft: theme.spacing.unit
-    },
-    listItemRoot: {
-      paddingLeft: '0px',
-      paddingRight: '0px',
-      paddingTop: 0.5 * theme.spacing.unit,
-      paddingBottom: 0.5 * theme.spacing.unit
-    },
-    listItemPrimary: {
-      fontSize: '0.875rem'
     }
   };
 };
 
-class PrStateStepper extends React.Component {
+export class PrStateStepper extends React.Component {
   getExtraStepContent = substeps => {
-    let { classes } = this.props;
     return Object.values(substeps).map((substep, index) => {
-      return (
-        <ListItem
-          key={`SubStepGrid_${index}`}
-          classes={{
-            root: classes.listItemRoot
-          }}
-        >
-          <ListItemText
-            classes={{
-              primary: classes.listItemPrimary
-            }}
-            primary={substep.label}
-            secondary={
-              substep.isCompleted
-                ? substep.rendering.complete
-                : substep.rendering.incomplete
-            }
-          />
-        </ListItem>
-      );
+      return <PrSubstepItem key={`SubStepGrid_${index}`} substep={substep} />;
     });
   };
 

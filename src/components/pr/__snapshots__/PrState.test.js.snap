@@ -56,7 +56,7 @@ exports[`PrState Component displays the PrState 1`] = `
                     xs={8}
                   >
                     <WithStyles(Typography)>
-                      Freigabe Mitarbeiter
+                      Mitarbeiter
                     </WithStyles(Typography)>
                   </WithStyles(Grid)>
                   <WithStyles(Grid)
@@ -95,7 +95,7 @@ exports[`PrState Component displays the PrState 1`] = `
                     xs={8}
                   >
                     <WithStyles(Typography)>
-                      Freigabe Beurteiler
+                      Beurteiler
                     </WithStyles(Typography)>
                   </WithStyles(Grid)>
                   <WithStyles(Grid)

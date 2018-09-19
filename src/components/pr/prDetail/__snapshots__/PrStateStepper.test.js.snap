@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
+<WithStyles(Stepper)
+  activeStep={1}
+  className="PrStateStepper-stepper-1"
+  classes={
+    Object {
+      "root": "PrStateStepper-stepperRoot-4",
+    }
+  }
+  connector={
+    <WithStyles(StepConnector)
+      classes={
+        Object {
+          "root": "PrStateStepper-stepConnectorRoot-5",
+        }
+      }
+    />
+  }
+  orientation="horizontal"
+>
+  <WithStyles(Step)
+    key="Vorbereitung"
+  >
+    <WithStyles(StepLabel)
+      classes={
+        Object {
+          "root": "PrStateStepper-stepLabelRoot-3",
+        }
+      }
+    >
+      <WithStyles(Typography)
+        className="PrStateStepper-mainStepLabel-2"
+        gutterBottom={true}
+        variant="subheading"
+      >
+        Vorbereitung
+      </WithStyles(Typography)>
+      <WithStyles(List)>
+        <WithStyles(PrSubstepItem)
+          key="SubStepGrid_0"
+          substep={
+            Object {
+              "isCompleted": true,
+              "label": "Mitarbeiter: ",
+              "rendering": Object {
+                "complete": "Abgeschlossen",
+                "incomplete": <WithStyles(PrStatusActionButton)
+                  label="Freigabe"
+                  releaseButtonClick={undefined}
+            />,
+              },
+            }
+          }
+        />
+        <WithStyles(PrSubstepItem)
+          key="SubStepGrid_1"
+          substep={
+            Object {
+              "isCompleted": false,
+              "label": "Beurteiler: ",
+              "rendering": Object {
+                "complete": <div>
+                  Abgeschlossen
+            </div>,
+                "incomplete": <WithStyles(PrStatusActionButton)
+                  label="Freigabe"
+                  releaseButtonClick={undefined}
+            />,
+              },
+            }
+          }
+        />
+        <WithStyles(PrSubstepItem)
+          key="SubStepGrid_2"
+          substep={
+            Object {
+              "isCompleted": false,
+              "label": "Terminfindung",
+              "rendering": Object {
+                "complete": <div>
+                  Alle Teilnehmer haben zugesagt
+            </div>,
+                "incomplete": <div>
+                  Nicht abgeschlossen
+            </div>,
+              },
+            }
+          }
+        />
+      </WithStyles(List)>
+    </WithStyles(StepLabel)>
+  </WithStyles(Step)>
+  <WithStyles(Step)
+    key="Gespräch"
+  >
+    <WithStyles(StepLabel)
+      classes={
+        Object {
+          "root": "PrStateStepper-stepLabelRoot-3",
+        }
+      }
+    >
+      <WithStyles(Typography)
+        className="PrStateStepper-mainStepLabel-2"
+        gutterBottom={true}
+        variant="subheading"
+      >
+        Gespräch
+      </WithStyles(Typography)>
+      <WithStyles(List)>
+        <WithStyles(PrSubstepItem)
+          key="SubStepGrid_0"
+          substep={
+            Object {
+              "isCompleted": false,
+              "label": "Beurteiler: ",
+              "rendering": Object {
+                "complete": <div>
+                  Abgeschlossen
+            </div>,
+                "incomplete": <WithStyles(PrStatusActionButton)
+                  label="Abschließen"
+                  releaseButtonClick={undefined}
+            />,
+              },
+            }
+          }
+        />
+      </WithStyles(List)>
+    </WithStyles(StepLabel)>
+  </WithStyles(Step)>
+</WithStyles(Stepper)>
+`;

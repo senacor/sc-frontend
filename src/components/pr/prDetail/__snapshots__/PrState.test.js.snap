@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
+<WithStyles(Paper)
+  className="PrState-paper-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        Fortschritt des Reviewprozesses
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(PrStateStepper)
+        activeStep={0}
+        stepStructure={
+          Array [
+            Object {
+              "mainStepLabel": "Vorbereitung",
+              "substeps": Object {
+                "ALL_DATES_ACCEPTED": Object {
+                  "isCompleted": false,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": "Alle Teilnehmer haben zugesagt",
+                    "incomplete": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_EMPLOYEE": Object {
+                  "isCompleted": false,
+                  "label": "Mitarbeiter: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incomplete": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                  },
+                },
+                "FILLED_SHEET_REVIEWER": Object {
+                  "isCompleted": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": <div>
+                      Abgeschlossen
+          </div>,
+                    "incomplete": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Gespräch",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_REVIEWER": Object {
+                  "isCompleted": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": <div>
+                      Abgeschlossen
+          </div>,
+                    "incomplete": <WithStyles(PrStatusActionButton)
+                      label="Abschließen"
+                      releaseButtonClick={[Function]}
+          />,
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Abschluss",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_EMPLOYEE": Object {
+                  "isCompleted": false,
+                  "label": "Mitarbeiter:",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incomplete": ">Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Archivieren (HR)",
+              "substeps": Object {
+                "COMPLETED_PR": Object {
+                  "isCompleted": false,
+                  "label": "HR: ",
+                  "rendering": Object {
+                    "complete": "Archiviert",
+                    "incomplete": "Nicht archiviert",
+                  },
+                },
+              },
+            },
+          ]
+        }
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;
