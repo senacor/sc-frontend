@@ -13,7 +13,6 @@ import {
 } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
-import withLoading from '../../hoc/Loading';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
 
@@ -107,7 +106,7 @@ class PrState extends React.Component {
             isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
             label: 'Beurteiler: ',
             rendering: {
-              complete: <div>Abgeschlossen</div>,
+              complete: 'Abgeschlossen',
               incomplete: (
                 <PrStatusActionButton
                   label={'Freigabe'}
@@ -156,7 +155,7 @@ class PrState extends React.Component {
             label: 'Mitarbeiter:',
             rendering: {
               complete: 'Abgeschlossen',
-              incomplete: '>Nicht abgeschlossen'
+              incomplete: 'Nicht abgeschlossen'
             }
           }
         }
@@ -185,8 +184,11 @@ class PrState extends React.Component {
   };
 
   render() {
-    const { classes, prStatuses } = this.props;
-    const prStatusesDone = this.getCompletedSubsteps(prStatuses);
+    const { classes, prById } = this.props;
+    if (!prById) {
+      return null;
+    }
+    const prStatusesDone = this.getCompletedSubsteps(prById.statuses);
 
     if (!prStatusesDone) {
       return null;
@@ -225,11 +227,6 @@ export default connect(
     userroles: getUserroles(state)
   }),
   {
-    addPrStatus: actions.addPrStatus,
-    fetchPrById: actions.fetchPrById
+    addPrStatus: actions.addPrStatus
   }
-)(
-  withLoading(props => {
-    return props.fetchPrById(1);
-  })(StyledComponent)
-);
+)(StyledComponent);

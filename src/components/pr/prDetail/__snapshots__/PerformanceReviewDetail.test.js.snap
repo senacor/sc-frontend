@@ -2,7 +2,7 @@
 
 exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
 <React.Fragment>
-  <Connect(WithLoading(WithStyles(PrState))) />
+  <Connect(WithStyles(PrState)) />
   <WithStyles(PrTabs) />
 </React.Fragment>
 `;

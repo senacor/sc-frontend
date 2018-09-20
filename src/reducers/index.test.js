@@ -102,7 +102,10 @@ describe('reducers', () => {
         },
         prs: {},
         search: {
-          prSearchResults: []
+          prSearchResults: {
+            idCollector: '',
+            results: []
+          }
         },
         selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
         sortOrderPrs: 'desc',

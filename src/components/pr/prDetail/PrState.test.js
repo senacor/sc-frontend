@@ -41,7 +41,7 @@ describe('PerformanceReviewDetail Component', () => {
           isCompleted: false,
           label: 'Beurteiler: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
+            complete: 'Abgeschlossen',
             incomplete: (
               <PrStatusActionButton
                 label={'Freigabe'}
@@ -90,7 +90,7 @@ describe('PerformanceReviewDetail Component', () => {
           label: 'Mitarbeiter:',
           rendering: {
             complete: 'Abgeschlossen',
-            incomplete: '>Nicht abgeschlossen'
+            incomplete: 'Nicht abgeschlossen'
           }
         }
       }

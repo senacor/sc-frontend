@@ -11,6 +11,10 @@ import {
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+const mockMath = Object.create(global.Math);
+mockMath.random = () => 0.31522260014322434;
+global.Math = mockMath;
+
 describe('employeeSearch', () => {
   afterEach(() => {
     fetchMock.reset();
@@ -44,14 +48,16 @@ describe('employeeSearch', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: FETCH_EMPLOYEES_REQUEST
+        type: FETCH_EMPLOYEES_REQUEST,
+        id: 0.31522260014322434
       },
       {
         type: ERROR_GONE
       },
       {
         type: FETCH_EMPLOYEES_RESPONSE,
-        employees: [
+        id: 0.31522260014322434,
+        results: [
           {
             id: 1,
             login: 'lschäfer',

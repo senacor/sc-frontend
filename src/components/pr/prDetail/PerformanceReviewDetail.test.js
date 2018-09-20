@@ -1,5 +1,5 @@
 import React from 'react';
-import PerformanceReviewDetail from './PerformanceReviewDetail';
+import { PerformanceReviewDetail } from './PerformanceReviewDetail';
 import { shallow } from 'enzyme';
 
 describe('PerformanceReviewDetail Component', () => {
