@@ -14,7 +14,8 @@ import PrStatusStepper from './PrStateStepper';
 
 const styles = theme => ({
   paper: {
-    backgroundColor: 'inherit'
+    backgroundColor: 'inherit',
+    marginBottom: 2 * theme.spacing.unit
   },
   typography: {
     color: '#FFF',

@@ -25,10 +25,11 @@ export default connect(
     isLoading: state.isLoading
   }),
   {
-    fetchPrById: actions.fetchPrById
+    fetchPrById: actions.fetchPrById,
+    fetchMeeting: actions.fetchMeeting
   }
 )(
   withLoading(props => {
-    return props.fetchPrById(1);
+    return props.fetchPrById(1).then(pr => props.fetchMeeting(pr));
   })(PerformanceReviewDetail)
 );

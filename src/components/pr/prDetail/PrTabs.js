@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import PrSheet from '../PrSheet';
-import SchedulingView from '../../scheduling/SchedulingView';
+import SchedulingView from './SchedulingView';
+import Paper from '@material-ui/core/Paper';
 
 function TabContainer(props) {
   return (
@@ -24,6 +24,15 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper
+  },
+  paper: {
+    backgroundColor: theme.palette.primary['300']
+  },
+  indicator: {
+    backgroundColor: '#FFFFFF'
+  },
+  tabStyle: {
+    color: '#FFFFFF'
   }
 });
 
@@ -42,12 +51,36 @@ class PrTabs extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
-            <Tab label="Details" />
-            <Tab label="Terminfindung" />
+        <Paper className={classes.paper}>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            fullWidth
+            indicatorColor="secondary"
+            classes={{
+              indicator: classes.indicator
+            }}
+          >
+            <Tab
+              classes={{
+                root: classes.tabStyle
+              }}
+              label="Details"
+            />
+            <Tab
+              classes={{
+                root: classes.tabStyle
+              }}
+              label="Terminfindung"
+            />
           </Tabs>
-        </AppBar>
+        </Paper>
+        {/*<AppBar position="static">*/}
+        {/*<Tabs value={value} onChange={this.handleChange}>*/}
+        {/*<Tab label="Details" />*/}
+        {/*<Tab label="Terminfindung" />*/}
+        {/*</Tabs>*/}
+        {/*</AppBar>*/}
         {value === 0 && (
           <TabContainer>
             <PrSheet />

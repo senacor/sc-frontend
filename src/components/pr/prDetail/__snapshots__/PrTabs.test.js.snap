@@ -4,21 +4,38 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
 <div
   className="PrTabs-root-1"
 >
-  <WithStyles(AppBar)
-    position="static"
+  <WithStyles(Paper)
+    className="PrTabs-paper-2"
   >
     <WithStyles(Tabs)
+      classes={
+        Object {
+          "indicator": "PrTabs-indicator-3",
+        }
+      }
+      fullWidth={true}
+      indicatorColor="secondary"
       onChange={[Function]}
       value={0}
     >
       <WithStyles(Tab)
+        classes={
+          Object {
+            "root": "PrTabs-tabStyle-4",
+          }
+        }
         label="Details"
       />
       <WithStyles(Tab)
+        classes={
+          Object {
+            "root": "PrTabs-tabStyle-4",
+          }
+        }
         label="Terminfindung"
       />
     </WithStyles(Tabs)>
-  </WithStyles(AppBar)>
+  </WithStyles(Paper)>
   <TabContainer>
     <Connect(WithStyles(PrSheet)) />
   </TabContainer>

@@ -36,9 +36,7 @@ const withAppBarExtendedHeader = WrappedComponent => props => (
 const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
 const MyPRListWithAppBar = withAppBar(MyPerformanceReviews);
-const PerformanceReviewDetail2WithAppBar = withAppBarExtendedHeader(
-  PerformanceReviewDetail
-);
+const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);

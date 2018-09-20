@@ -27,7 +27,6 @@ const styles = theme => ({
   paper: {
     backgroundColor: 'inherit'
   },
-
   stepper: {
     backgroundColor: 'inherit',
     padding: '0',
