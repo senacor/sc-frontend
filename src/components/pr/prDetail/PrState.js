@@ -6,11 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 
 import { withStyles } from '@material-ui/core/styles/index';
-import {
-  getPrDetail,
-  getUserroles,
-  getPrStatuses
-} from '../../../reducers/selector';
+import { getPrDetail, getUserroles } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
@@ -223,7 +219,6 @@ export const StyledComponent = withStyles(styles)(PrState);
 export default connect(
   state => ({
     prById: getPrDetail()(state),
-    prStatuses: getPrStatuses(state),
     userroles: getUserroles(state)
   }),
   {

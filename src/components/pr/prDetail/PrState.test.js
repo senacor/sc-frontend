@@ -3,8 +3,9 @@ import { StyledComponent } from './PrState';
 import { createShallow } from '@material-ui/core/test-utils';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
+import PrStateStepper from './PrStateStepper';
 
-describe('PerformanceReviewDetail Component', () => {
+describe('PrState Component', () => {
   let shallow = createShallow({ dive: true });
 
   const releaseButtonClickMock = jest.fn();
@@ -117,6 +118,20 @@ describe('PerformanceReviewDetail Component', () => {
     expect(component).toMatchSnapshot();
   });
 
+  it('renders correctly', () => {
+    const prById = {
+      statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE
+    };
+
+    const component = shallow(<StyledComponent prById={prById} />);
+
+    expect(component.find(PrStateStepper)).toHaveLength(1);
+    expect(component.find(PrStateStepper).props().activeStep).toEqual(0);
+    expect(
+      component.find(PrStateStepper).props().stepStructure[0].mainStepLabel
+    ).toEqual('Vorbereitung');
+  });
+
   it('should call mainStepIsDone which returns the complete status of the mainStep', () => {
     const component = shallow(<StyledComponent />);
     const instance = component.instance();
@@ -164,14 +179,15 @@ describe('PerformanceReviewDetail Component', () => {
 
   it('should call releaseButtonClick which triggers the the addPrStatus action', () => {
     const addPrStatusMock = jest.fn();
-
+    const mockedEvent = { disabled: false };
     const prById = {
-      id: 1,
+      id: 999,
       supervisor: 'ttran',
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
       deadline: '2018-03-14'
     };
+
     const component = shallow(
       <StyledComponent prById={prById} addPrStatus={addPrStatusMock} />
     );
@@ -180,10 +196,9 @@ describe('PerformanceReviewDetail Component', () => {
     let result = instance.releaseButtonClick(
       prStatusEnum.RELEASED_SHEET_EMPLOYEE
     );
+    result(mockedEvent);
 
-    expect(result).toEqual(expect.any(Function));
-    // console.log(result.toString());
-    // result = instance.releaseButtonClick(mockedEvent);
-    // console.log(result.toString());
+    expect(addPrStatusMock.mock.calls.length).toBe(1);
+    expect(addPrStatusMock.mock.calls[0][0]).toBe(prById);
   });
 });

@@ -29,7 +29,6 @@ export default connect(
   }
 )(
   withLoading(props => {
-    console.log('PRDetail- WithLoading');
     return props.fetchPrById(1);
   })(PerformanceReviewDetail)
 );
