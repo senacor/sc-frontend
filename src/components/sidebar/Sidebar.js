@@ -56,6 +56,12 @@ const listOfMenuEntries = [
     role: ROLES.PR_CST_LEITER
   },
   {
+    label: 'Alle PRs',
+    icon: <LibraryBooksIcon />,
+    value: '/hr/prs',
+    role: ROLES.PR_HR
+  },
+  {
     label: 'Mitarbeiter Übersicht',
     icon: <GroupIcon />,
     value: '/cstmembers',

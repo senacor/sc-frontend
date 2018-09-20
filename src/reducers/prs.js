@@ -4,7 +4,8 @@ import {
   DELEGATE_REVIEWER_RESPONSE,
   CHANGE_SORT_ORDER,
   FETCH_PR_BY_ID_RESPONSE,
-  CHANGE_RATING_TARGETROLE_RESPONSE
+  CHANGE_RATING_TARGETROLE_RESPONSE,
+  FETCH_PRS_HR_RESPONSE
 } from '../helper/dispatchTypes';
 import generateMapById from '../helper/generateMapById';
 import cloneDeep from '../helper/cloneDeep';
@@ -50,13 +51,11 @@ export const prs = (state = {}, action) => {
         targetRoleInfo => targetRoleInfo.prTargetRoleName === targetRoleName
       );
 
-      const prsUpdated = set(
+      return set(
         prs,
         `${prId}.prTargetRoleSet.${indexChangedRating}.rating`,
         rating
       );
-
-      return prsUpdated;
     }
 
     default:
@@ -70,4 +69,13 @@ export const sortOrderPrs = (state = '', action) => {
   }
 
   return 'desc';
+};
+
+export const humanResourcesPrs = (state = {}, action) => {
+  switch (action.type) {
+    case FETCH_PRS_HR_RESPONSE:
+      return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
+    default:
+      return state;
+  }
 };

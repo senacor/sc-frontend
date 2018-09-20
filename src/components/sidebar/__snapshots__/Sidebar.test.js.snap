@@ -97,6 +97,43 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
+      forRole="PR_HR"
+      key="Alle PRs"
+    >
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
+        }
+        component={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/hr/prs"
+      >
+        <WithStyles(ListItemIcon)>
+          <pure(LibraryBooks) />
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
+              }
+            >
+              Alle PRs
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
+    <Connect(Authorized)
       forRole="PR_CST_Leiter"
       key="Mitarbeiter Übersicht"
     >

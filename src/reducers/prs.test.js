@@ -1,9 +1,10 @@
-import { prs, sortOrderPrs } from './prs';
+import { prs, sortOrderPrs, humanResourcesPrs } from './prs';
 import {
   ADD_PR_RESPONSE,
   CHANGE_RATING_TARGETROLE_RESPONSE,
   CHANGE_SORT_ORDER,
   DELEGATE_REVIEWER_RESPONSE,
+  FETCH_PRS_HR_RESPONSE,
   FETCH_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 
@@ -206,5 +207,30 @@ describe('prs reducer', () => {
     )[0].rating;
 
     expect(newRatingLeadDeveloper).toEqual(2);
+  });
+
+  it('should generate a Map for reducer FETCH_HR_PRS_RESPONSE', () => {
+    const stateBefore = {};
+    const action = {
+      type: FETCH_PRS_HR_RESPONSE,
+      payload: {
+        prTableEntries: [
+          { prId: 1, employee: 'TEST' },
+          { prId: 2, employee: 'TEST' }
+        ]
+      }
+    };
+    const stateAfter = humanResourcesPrs(stateBefore, action);
+
+    expect(stateAfter).toEqual({
+      1: {
+        prId: 1,
+        employee: 'TEST'
+      },
+      2: {
+        prId: 2,
+        employee: 'TEST'
+      }
+    });
   });
 });

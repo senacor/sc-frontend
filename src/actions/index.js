@@ -17,6 +17,7 @@ export { getEvents } from './events';
 export { appointmentsSearch, changeDate } from './appointments';
 export { addMeeting, fetchMeeting } from './meetings';
 export { addPrStatus } from './status';
+export { fetchAllPrsForHumanResource } from './prs';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({

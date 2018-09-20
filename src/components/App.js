@@ -13,6 +13,7 @@ import Logout from './login/Logout';
 import Dashboard from './dashboard/Dashboard';
 import MyPerformanceReviews from './myPerformanceReviews/MyPerformanceReviews';
 import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
+import OverviewPerformanceReviews from './humanResources/OverviewPerformanceReviews';
 
 const styles = {
   main: {
@@ -41,6 +42,7 @@ const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);
 const SchedulingViewWithAppBar = withAppBar(SchedulingView);
+const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
 
 const App = () => (
   <div style={styles.main}>
@@ -57,6 +59,7 @@ const App = () => (
         component={PerformanceReviewDetail2WithAppBar}
       />
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
+      <PrivateRoute exact path="/hr/prs" component={OverviewPrsWithAppBar} />
       <PrivateRoute
         exact
         path="/prs/:id/scheduling"
