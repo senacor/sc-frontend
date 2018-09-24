@@ -54,7 +54,7 @@ export class PrStateStepper extends React.Component {
           <StepConnector classes={{ root: classes.stepConnectorRoot }} />
         }
       >
-        {stepStructure.map(mainStep => {
+        {stepStructure.map((mainStep, index) => {
           return (
             <Step key={mainStep.mainStepLabel}>
               <StepLabel classes={{ root: classes.stepLabelRoot }}>
@@ -65,7 +65,9 @@ export class PrStateStepper extends React.Component {
                 >
                   {mainStep.mainStepLabel}
                 </Typography>
-                <List>{this.getExtraStepContent(mainStep.substeps)}</List>
+                {index <= activeStep && (
+                  <List>{this.getExtraStepContent(mainStep.substeps)}</List>
+                )}
               </StepLabel>
             </Step>
           );

@@ -158,7 +158,7 @@ class PrState extends React.Component {
         }
       },
       {
-        mainStepLabel: 'Archivieren (HR)',
+        mainStepLabel: 'Archivieren',
         substeps: {
           [prStatusEnum.ARCHIVED_HR]: {
             isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
