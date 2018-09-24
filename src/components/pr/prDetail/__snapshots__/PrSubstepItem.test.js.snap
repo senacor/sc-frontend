@@ -14,8 +14,8 @@ exports[`PrSubstepItem Component should match snapshot 1`] = `
         "primary": "PrSubstepItem-listItemPrimary-2",
       }
     }
-    primary="Terminfindung"
-    secondary="Nicht abgeschlossen"
+    primary="Mitarbeiter:"
+    secondary="Abgeschlossen"
   />
 </WithStyles(ListItem)>
 `;

@@ -43,13 +43,15 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
           substep={
             Object {
               "isCompleted": true,
+              "isCurrentUserActionPerformer": false,
               "label": "Mitarbeiter: ",
               "rendering": Object {
                 "complete": "Abgeschlossen",
-                "incomplete": <WithStyles(PrStatusActionButton)
+                "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
                   label="Freigabe"
                   releaseButtonClick={undefined}
             />,
+                "incompleteForNonActionPerformer": "Nicht abgeschlossen",
               },
             }
           }
@@ -59,15 +61,15 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
           substep={
             Object {
               "isCompleted": false,
+              "isCurrentUserActionPerformer": true,
               "label": "Beurteiler: ",
               "rendering": Object {
-                "complete": <div>
-                  Abgeschlossen
-            </div>,
-                "incomplete": <WithStyles(PrStatusActionButton)
+                "complete": "Abgeschlossen",
+                "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
                   label="Freigabe"
                   releaseButtonClick={undefined}
             />,
+                "incompleteForNonActionPerformer": "Nicht abgeschlossen",
               },
             }
           }
@@ -77,14 +79,12 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
           substep={
             Object {
               "isCompleted": false,
+              "isCurrentUserActionPerformer": true,
               "label": "Terminfindung",
               "rendering": Object {
-                "complete": <div>
-                  Alle Teilnehmer haben zugesagt
-            </div>,
-                "incomplete": <div>
-                  Nicht abgeschlossen
-            </div>,
+                "complete": "Alle Teilnehmer haben zugesagt",
+                "incompleteForActionPerformer": "Nicht abgeschlossen",
+                "incompleteForNonActionPerformer": "Nicht abgeschlossen",
               },
             }
           }
@@ -115,20 +115,60 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
           substep={
             Object {
               "isCompleted": false,
+              "isCurrentUserActionPerformer": true,
               "label": "Beurteiler: ",
               "rendering": Object {
                 "complete": <div>
                   Abgeschlossen
             </div>,
-                "incomplete": <WithStyles(PrStatusActionButton)
-                  label="Abschließen"
+                "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                  label="Freigabe"
                   releaseButtonClick={undefined}
             />,
+                "incompleteForNonActionPerformer": "Nicht abgeschlossen",
               },
             }
           }
         />
       </WithStyles(List)>
+    </WithStyles(StepLabel)>
+  </WithStyles(Step)>
+  <WithStyles(Step)
+    key="Abschluss"
+  >
+    <WithStyles(StepLabel)
+      classes={
+        Object {
+          "root": "PrStateStepper-stepLabelRoot-3",
+        }
+      }
+    >
+      <WithStyles(Typography)
+        className="PrStateStepper-mainStepLabel-2"
+        gutterBottom={true}
+        variant="subheading"
+      >
+        Abschluss
+      </WithStyles(Typography)>
+    </WithStyles(StepLabel)>
+  </WithStyles(Step)>
+  <WithStyles(Step)
+    key="Archivieren"
+  >
+    <WithStyles(StepLabel)
+      classes={
+        Object {
+          "root": "PrStateStepper-stepLabelRoot-3",
+        }
+      }
+    >
+      <WithStyles(Typography)
+        className="PrStateStepper-mainStepLabel-2"
+        gutterBottom={true}
+        variant="subheading"
+      >
+        Archivieren
+      </WithStyles(Typography)>
     </WithStyles(StepLabel)>
   </WithStyles(Step)>
 </WithStyles(Stepper)>

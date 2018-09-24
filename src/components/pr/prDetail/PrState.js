@@ -4,9 +4,14 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
+import objectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
-import { getPrDetail, getUserroles } from '../../../reducers/selector';
+import {
+  getPrDetail,
+  getUserroles,
+  getUserinfo
+} from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
@@ -79,17 +84,30 @@ class PrState extends React.Component {
     }
   };
 
-  updateStepStructure = (prStatusesDone, releaseButtonClick) => {
+  hasRoleInPrBasedOnUserName = (pr, userinfo) => roles => {
+    let hasRoleInPr = false;
+    roles.forEach(function(item) {
+      if (objectGet(pr, `${item}.login`) === userinfo.userPrincipalName) {
+        hasRoleInPr = true;
+      }
+    });
+    return hasRoleInPr;
+  };
+
+  updateStepStructure = (pr, userinfo, prStatusesDone, releaseButtonClick) => {
+    let hasRoleInPr = this.hasRoleInPrBasedOnUserName(pr, userinfo);
     return [
       {
         mainStepLabel: 'Vorbereitung',
         substeps: {
           [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
             isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
+            isCurrentUserActionPerformer: hasRoleInPr(['employee']),
             label: 'Mitarbeiter: ',
             rendering: {
               complete: 'Abgeschlossen',
-              incomplete: (
+              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+              incompleteForActionPerformer: (
                 <PrStatusActionButton
                   label={'Freigabe'}
                   releaseButtonClick={releaseButtonClick(
@@ -101,10 +119,15 @@ class PrState extends React.Component {
           },
           [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
             isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
+            isCurrentUserActionPerformer: hasRoleInPr([
+              'supervisor',
+              'reviewer'
+            ]),
             label: 'Beurteiler: ',
             rendering: {
               complete: 'Abgeschlossen',
-              incomplete: (
+              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+              incompleteForActionPerformer: (
                 <PrStatusActionButton
                   label={'Freigabe'}
                   releaseButtonClick={releaseButtonClick(
@@ -116,10 +139,16 @@ class PrState extends React.Component {
           },
           [prStatusEnum.FIXED_DATE]: {
             isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
+            isCurrentUserActionPerformer: hasRoleInPr([
+              'supervisor',
+              'reviewer',
+              'employee'
+            ]),
             label: 'Terminfindung',
             rendering: {
               complete: 'Alle Teilnehmer haben zugesagt',
-              incomplete: 'Nicht abgeschlossen'
+              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+              incompleteForActionPerformer: 'Nicht abgeschlossen'
             }
           }
         }
@@ -129,12 +158,17 @@ class PrState extends React.Component {
         substeps: {
           [prStatusEnum.FINALIZED_REVIEWER]: {
             isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
+            isCurrentUserActionPerformer: hasRoleInPr([
+              'supervisor',
+              'reviewer'
+            ]),
             label: 'Beurteiler: ',
             rendering: {
               complete: <div>Abgeschlossen</div>,
-              incomplete: (
+              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+              incompleteForActionPerformer: (
                 <PrStatusActionButton
-                  label={'Abschließen'}
+                  label={'Freigabe'}
                   releaseButtonClick={releaseButtonClick(
                     prStatusEnum.FINALIZED_REVIEWER
                   )}
@@ -149,10 +183,19 @@ class PrState extends React.Component {
         substeps: {
           [prStatusEnum.FINALIZED_EMPLOYEE]: {
             isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
+            isCurrentUserActionPerformer: hasRoleInPr(['employee']),
             label: 'Mitarbeiter:',
             rendering: {
               complete: 'Abgeschlossen',
-              incomplete: 'Nicht abgeschlossen'
+              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+              incompleteForActionPerformer: (
+                <PrStatusActionButton
+                  label={'Freigabe'}
+                  releaseButtonClick={releaseButtonClick(
+                    prStatusEnum.FINALIZED_EMPLOYEE
+                  )}
+                />
+              )
             }
           }
         }
@@ -165,7 +208,15 @@ class PrState extends React.Component {
             label: 'HR: ',
             rendering: {
               complete: 'Archiviert',
-              incomplete: 'Nicht archiviert'
+              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+              incompleteForActionPerformer: (
+                <PrStatusActionButton
+                  label={'Freigabe'}
+                  releaseButtonClick={releaseButtonClick(
+                    prStatusEnum.ARCHIVED_HR
+                  )}
+                />
+              )
             }
           }
         }
@@ -181,7 +232,7 @@ class PrState extends React.Component {
   };
 
   render() {
-    const { classes, prById } = this.props;
+    const { classes, prById, userinfo } = this.props;
     if (!prById) {
       return null;
     }
@@ -192,6 +243,8 @@ class PrState extends React.Component {
     }
 
     const stepStructure = this.updateStepStructure(
+      prById,
+      userinfo,
       prStatusesDone,
       this.releaseButtonClick
     );
@@ -220,7 +273,8 @@ export const StyledComponent = withStyles(styles)(PrState);
 export default connect(
   state => ({
     prById: getPrDetail()(state),
-    userroles: getUserroles(state)
+    userroles: getUserroles(state),
+    userinfo: getUserinfo(state)
   }),
   {
     addPrStatus: actions.addPrStatus

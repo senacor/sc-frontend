@@ -33,7 +33,9 @@ const PrSubstepItem = props => {
         secondary={
           substep.isCompleted
             ? substep.rendering.complete
-            : substep.rendering.incomplete
+            : substep.isCurrentUserActionPerformer
+              ? substep.rendering.incompleteForActionPerformer
+              : substep.rendering.incompleteForNonActionPerformer
         }
       />
     </ListItem>

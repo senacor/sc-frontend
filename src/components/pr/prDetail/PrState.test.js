@@ -25,10 +25,12 @@ describe('PrState Component', () => {
       substeps: {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: true,
+          isCurrentUserActionPerformer: false,
           label: 'Mitarbeiter: ',
           rendering: {
             complete: 'Abgeschlossen',
-            incomplete: (
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
               <PrStatusActionButton
                 label={'Freigabe'}
                 releaseButtonClick={releaseButtonClickMock(
@@ -40,10 +42,12 @@ describe('PrState Component', () => {
         },
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: true,
           label: 'Beurteiler: ',
           rendering: {
             complete: 'Abgeschlossen',
-            incomplete: (
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
               <PrStatusActionButton
                 label={'Freigabe'}
                 releaseButtonClick={releaseButtonClickMock(
@@ -55,10 +59,12 @@ describe('PrState Component', () => {
         },
         [prStatusEnum.FIXED_DATE]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: true,
           label: 'Terminfindung',
           rendering: {
             complete: 'Alle Teilnehmer haben zugesagt',
-            incomplete: 'Nicht abgeschlossen'
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: 'Nicht abgeschlossen'
           }
         }
       }
@@ -68,12 +74,14 @@ describe('PrState Component', () => {
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: true,
           label: 'Beurteiler: ',
           rendering: {
             complete: <div>Abgeschlossen</div>,
-            incomplete: (
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
               <PrStatusActionButton
-                label={'Abschließen'}
+                label={'Freigabe'}
                 releaseButtonClick={releaseButtonClickMock(
                   prStatusEnum.FINALIZED_REVIEWER
                 )}
@@ -88,23 +96,40 @@ describe('PrState Component', () => {
       substeps: {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: false,
           label: 'Mitarbeiter:',
           rendering: {
             complete: 'Abgeschlossen',
-            incomplete: 'Nicht abgeschlossen'
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClickMock(
+                  prStatusEnum.FINALIZED_EMPLOYEE
+                )}
+              />
+            )
           }
         }
       }
     },
     {
-      mainStepLabel: 'Archivieren (HR)',
+      mainStepLabel: 'Archivieren',
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
           isCompleted: false,
           label: 'HR: ',
           rendering: {
             complete: 'Archiviert',
-            incomplete: 'Nicht archiviert'
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClickMock(
+                  prStatusEnum.ARCHIVED_HR
+                )}
+              />
+            )
           }
         }
       }
@@ -112,6 +137,10 @@ describe('PrState Component', () => {
   ];
 
   const prStatuses = [prStatusEnum.RELEASED_SHEET_EMPLOYEE];
+
+  const userinfo = {
+    userPrincipalName: 'test.pr.vorgesetzter'
+  };
 
   it('should match snapshot', () => {
     const component = shallow(<StyledComponent />);
@@ -123,7 +152,9 @@ describe('PrState Component', () => {
       statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE
     };
 
-    const component = shallow(<StyledComponent prById={prById} />);
+    const component = shallow(
+      <StyledComponent prById={prById} userinfo={userinfo} />
+    );
 
     expect(component.find(PrStateStepper)).toHaveLength(1);
     expect(component.find(PrStateStepper).props().activeStep).toEqual(0);
@@ -167,10 +198,25 @@ describe('PrState Component', () => {
   });
 
   it('should call updateStepStructure which returns the updated stepStructure', () => {
+    const prById = {
+      id: 1,
+      employee: {
+        login: 'ttran'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter'
+      },
+      reviewer: {
+        login: 'test.pr.beurteiler'
+      }
+    };
+
     const component = shallow(<StyledComponent />);
     const instance = component.instance();
 
     const result = instance.updateStepStructure(
+      prById,
+      userinfo,
       prStatusesDone,
       releaseButtonClickMock
     );
@@ -181,15 +227,15 @@ describe('PrState Component', () => {
     const addPrStatusMock = jest.fn();
     const mockedEvent = { disabled: false };
     const prById = {
-      id: 999,
-      supervisor: 'ttran',
-      occasion: 'ON_DEMAND',
-      status: 'PREPARATION',
-      deadline: '2018-03-14'
+      id: 1
     };
 
     const component = shallow(
-      <StyledComponent prById={prById} addPrStatus={addPrStatusMock} />
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        userinfo={userinfo}
+      />
     );
     const instance = component.instance();
 

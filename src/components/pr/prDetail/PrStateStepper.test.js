@@ -8,7 +8,7 @@ import PrSubstepItem from './PrSubstepItem';
 describe('PerformanceReviewDetail Component', () => {
   let shallow = createShallow({ dive: true });
 
-  const mockReleaseButtonClick = jest.fn();
+  const releaseButtonClickMock = jest.fn();
   const activeStep = 1;
   const stepStructure = [
     {
@@ -16,13 +16,15 @@ describe('PerformanceReviewDetail Component', () => {
       substeps: {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: true,
+          isCurrentUserActionPerformer: false,
           label: 'Mitarbeiter: ',
           rendering: {
             complete: 'Abgeschlossen',
-            incomplete: (
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
               <PrStatusActionButton
                 label={'Freigabe'}
-                releaseButtonClick={mockReleaseButtonClick(
+                releaseButtonClick={releaseButtonClickMock(
                   prStatusEnum.RELEASED_SHEET_EMPLOYEE
                 )}
               />
@@ -31,13 +33,15 @@ describe('PerformanceReviewDetail Component', () => {
         },
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: true,
           label: 'Beurteiler: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
-            incomplete: (
+            complete: 'Abgeschlossen',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
               <PrStatusActionButton
                 label={'Freigabe'}
-                releaseButtonClick={mockReleaseButtonClick(
+                releaseButtonClick={releaseButtonClickMock(
                   prStatusEnum.RELEASED_SHEET_REVIEWER
                 )}
               />
@@ -46,10 +50,12 @@ describe('PerformanceReviewDetail Component', () => {
         },
         [prStatusEnum.FIXED_DATE]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: true,
           label: 'Terminfindung',
           rendering: {
-            complete: <div>Alle Teilnehmer haben zugesagt</div>,
-            incomplete: <div>Nicht abgeschlossen</div>
+            complete: 'Alle Teilnehmer haben zugesagt',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: 'Nicht abgeschlossen'
           }
         }
       }
@@ -59,14 +65,59 @@ describe('PerformanceReviewDetail Component', () => {
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: false,
+          isCurrentUserActionPerformer: true,
           label: 'Beurteiler: ',
           rendering: {
             complete: <div>Abgeschlossen</div>,
-            incomplete: (
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
               <PrStatusActionButton
-                label={'Abschließen'}
-                releaseButtonClick={mockReleaseButtonClick(
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClickMock(
                   prStatusEnum.FINALIZED_REVIEWER
+                )}
+              />
+            )
+          }
+        }
+      }
+    },
+    {
+      mainStepLabel: 'Abschluss',
+      substeps: {
+        [prStatusEnum.FINALIZED_EMPLOYEE]: {
+          isCompleted: false,
+          isCurrentUserActionPerformer: false,
+          label: 'Mitarbeiter:',
+          rendering: {
+            complete: 'Abgeschlossen',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClickMock(
+                  prStatusEnum.FINALIZED_EMPLOYEE
+                )}
+              />
+            )
+          }
+        }
+      }
+    },
+    {
+      mainStepLabel: 'Archivieren',
+      substeps: {
+        [prStatusEnum.ARCHIVED_HR]: {
+          isCompleted: false,
+          label: 'HR: ',
+          rendering: {
+            complete: 'Archiviert',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClickMock(
+                  prStatusEnum.ARCHIVED_HR
                 )}
               />
             )
@@ -102,8 +153,15 @@ describe('PerformanceReviewDetail Component', () => {
 
     expect(component.props().activeStep).toBe(1);
     expect(component.find('WithStyles(Stepper)')).toHaveLength(1);
-    expect(component.find('WithStyles(Step)')).toHaveLength(2);
-    expect(component.find('WithStyles(StepLabel)')).toHaveLength(2);
+    expect(component.find('WithStyles(Step)')).toHaveLength(4);
+    expect(component.find('WithStyles(StepLabel)')).toHaveLength(4);
     expect(component.find(PrSubstepItem)).toHaveLength(4);
+  });
+
+  it('renders the correct amount of substeps', () => {
+    const component = shallow(
+      <PrStateStepper stepStructure={stepStructure} activeStep={0} />
+    );
+    expect(component.find(PrSubstepItem)).toHaveLength(3);
   });
 });
