@@ -2,9 +2,11 @@
 
 exports[`MeetingCreatorForm should match snapshot 1`] = `
 <div>
-  <Connect(WithStyles(AppointmentPicker))
-    fetchAppointments={[Function]}
+  <WithStyles(DateTimePicker)
+    date="2018-09-25"
+    endTime="16:00"
     onDateTimeChange={[Function]}
+    startTime="15:00"
   />
   <form
     autoComplete="off"

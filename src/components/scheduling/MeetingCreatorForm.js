@@ -7,7 +7,7 @@ import { getSelectedDate } from '../../reducers/selector';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
-import AppointmentPicker from './AppointmentPicker';
+import DateTimePicker from './DateTimePicker';
 
 const styles = theme => ({
   container: {
@@ -26,11 +26,14 @@ const styles = theme => ({
 class MeetingCreatorForm extends React.Component {
   constructor(props) {
     super(props);
+    let now = moment.tz('Europe/Berlin');
+    const remainder = 30 - (now.minute() % 30);
+    let start = now.add(remainder, 'minutes');
     this.state = {
       location: '',
-      date: null,
-      startTime: null,
-      endTime: null
+      date: now.format('YYYY-MM-DD'),
+      startTime: start.format('HH:mm'),
+      endTime: start.add(1, 'hour').format('HH:mm')
     };
   }
 
@@ -45,11 +48,13 @@ class MeetingCreatorForm extends React.Component {
     this.props.addMeeting(this.addMeeting(this.props.prById));
   };
 
-  setDateTime = (date, startTime, endTime) => {
+  setDateTime = (name, value) => {
+    if (name === 'date' && moment(value, 'YYYY-MM-DD', true).isValid()) {
+      this.props.fetchAppointments(value);
+      this.props.changeDate(value);
+    }
     this.setState({
-      date: date,
-      startTime: startTime,
-      endTime: endTime
+      [name]: value
     });
   };
 
@@ -86,9 +91,11 @@ class MeetingCreatorForm extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <AppointmentPicker
+        <DateTimePicker
+          date={this.state.date}
+          startTime={this.state.startTime}
+          endTime={this.state.endTime}
           onDateTimeChange={this.setDateTime}
-          fetchAppointments={this.props.fetchAppointments}
         />
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
@@ -125,6 +132,7 @@ export default connect(
     getSelectedDateTime: getSelectedDate(state)
   }),
   {
-    addMeeting: actions.addMeeting
+    addMeeting: actions.addMeeting,
+    changeDate: actions.changeDate
   }
 )(StyledComponent);
