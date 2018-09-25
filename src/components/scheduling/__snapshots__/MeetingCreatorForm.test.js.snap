@@ -3,10 +3,10 @@
 exports[`MeetingCreatorForm should match snapshot 1`] = `
 <div>
   <WithStyles(DateTimePicker)
-    date="2018-09-25"
-    endTime="16:00"
+    date="2018-01-01"
+    endTime="10:30"
     onDateTimeChange={[Function]}
-    startTime="15:00"
+    startTime="09:30"
   />
   <form
     autoComplete="off"
