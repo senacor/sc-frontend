@@ -1,3 +1,8 @@
+/*
+ *
+ * DEPRECATED
+ *
+ */
 import React from 'react';
 import { StyledComponent, getFinishedMilestones } from './PrState';
 import { prStatusEnum } from '../../helper/prStatus';

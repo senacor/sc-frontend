@@ -75,12 +75,6 @@ class PrTabs extends React.Component {
             />
           </Tabs>
         </Paper>
-        {/*<AppBar position="static">*/}
-        {/*<Tabs value={value} onChange={this.handleChange}>*/}
-        {/*<Tab label="Details" />*/}
-        {/*<Tab label="Terminfindung" />*/}
-        {/*</Tabs>*/}
-        {/*</AppBar>*/}
         {value === 0 && (
           <TabContainer>
             <PrSheet />
