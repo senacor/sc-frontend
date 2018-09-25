@@ -1,10 +1,9 @@
 import React from 'react';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
 import { connect } from 'react-redux';
-import { getPrDetail, getMeeting } from '../../reducers/selector';
+import { getPrDetail, getMeeting } from '../../../reducers/selector';
 import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
-import MeetingCreator from './MeetingCreator';
-import withLoading from '../hoc/Loading';
+import MeetingCreator from '../../scheduling/MeetingCreator';
 
 export class SchedulingView extends React.Component {
   render() {
@@ -30,11 +29,6 @@ export default connect(
     isLoading: state.isLoading
   }),
   {
-    fetchMeeting: actions.fetchMeeting,
-    fetchPrById: actions.fetchPrById
+    fetchMeeting: actions.fetchMeeting
   }
-)(
-  withLoading(props => {
-    return props.fetchPrById(1).then(pr => props.fetchMeeting(pr));
-  })(SchedulingView)
-);
+)(SchedulingView);
