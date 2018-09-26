@@ -22,9 +22,10 @@ class DateTimePicker extends React.Component {
   }
 
   onDateTimeChange = event => {
-    this.props.onDateTimeChange(event.target.name, event.target.value);
+    let { name, value } = event.target;
+    this.props.onDateTimeChange(name, value);
     this.setState({
-      [event.target.name]: event.target.value
+      [name]: value
     });
   };
 
