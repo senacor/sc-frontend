@@ -34,11 +34,17 @@ describe('MeetingCreatorForm', () => {
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
+    let dateNowSpy = jest
+      .spyOn(Date, 'now')
+      .mockImplementation(() => 1514794500000);
+
     let wrapper = shallow(
       <StyledComponent fetchAppointments={fetchAppointmentsMock} />
     );
 
     expect(wrapper).toMatchSnapshot();
+    dateNowSpy.mockReset();
+    dateNowSpy.mockRestore();
   });
 
   it('should display the create appointment form when meeting does not exist', () => {
