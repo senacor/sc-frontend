@@ -3,7 +3,6 @@ import tasks from './tasks';
 import editTasks from './editTasks';
 import { prs, sortOrderPrs, humanResourcesPrs } from './prs';
 import { prDetailId } from './prDetailId';
-import prById from './getPr';
 import prTargetRole from './getTargetRole';
 import prVisibilityById from './getPrVisibility';
 import prFinalizationStatusById from './getPrFinalizationStatus';
@@ -30,7 +29,6 @@ const combineReducer = combineReducers({
   humanResourcesPrs,
   isLoading,
   meeting,
-  prById,
   prDetailId,
   prTargetRole,
   prVisibilityById,

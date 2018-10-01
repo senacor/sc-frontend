@@ -10,9 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import * as actions from '../../actions';
 import { getFinalCommentEmployee, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
-import { isSupervisor } from '../../helper/checkRole';
-import * as finalizationTypes from '../../helper/prFinalization';
-import objectGet from 'object-get';
 import { translateContent } from '../translate/Translate';
 
 const styles = theme => ({
@@ -39,7 +36,6 @@ class PrFinalCommentEmployee extends Component {
     let { finalCommentEmployee } = this.props;
     let comment = finalCommentEmployee ? finalCommentEmployee : '';
     this.state = {
-      prVisible: this.props.prVisible,
       commentText: comment
     };
   }
@@ -56,17 +52,8 @@ class PrFinalCommentEmployee extends Component {
   };
   sendComment = debounce(this.props.changeFinalCommentEmployee, 500);
 
-  isFinalized() {
-    return (
-      objectGet(
-        this.props,
-        'prById.prFinalizationStatus.finalizationStatusOfEmployee'
-      ) === finalizationTypes.FINALIZED
-    );
-  }
-
   render() {
-    let { prById, classes, prFinalized, finalCommentEmployee } = this.props;
+    let { prById, classes, finalCommentEmployee, readOnly } = this.props;
     let { commentText } = this.state;
 
     return (
@@ -79,9 +66,11 @@ class PrFinalCommentEmployee extends Component {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              {isSupervisor(this.props.userroles) || this.isFinalized() ? (
+              {readOnly ? (
                 <Typography className={classes.comment} variant="body1">
-                  {finalCommentEmployee}
+                  {finalCommentEmployee
+                    ? finalCommentEmployee
+                    : 'Kein Kommentar'}
                 </Typography>
               ) : (
                 <TextField
@@ -91,7 +80,6 @@ class PrFinalCommentEmployee extends Component {
                   rowsMax="10"
                   margin="none"
                   value={commentText}
-                  disabled={prFinalized}
                   onChange={this.handleChangeComment(prById)}
                   InputProps={{
                     disableUnderline: true,

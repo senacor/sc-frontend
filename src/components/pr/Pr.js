@@ -116,6 +116,20 @@ const styles = theme => ({
 });
 
 export class Pr extends React.Component {
+  constructor(props) {
+    super(props);
+
+    let shouldExpand = this.returnExpandState(
+      props.prById ? props.prById.status : 'PREPARATION'
+    );
+
+    this.state = {
+      prById: props.prById,
+      value: 0,
+      expanded: shouldExpand
+    };
+  }
+
   returnExpandState = status => {
     switch (status) {
       case 'PREPARATION':
@@ -131,20 +145,6 @@ export class Pr extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-
-  constructor(props) {
-    super(props);
-
-    let shouldExpand = this.returnExpandState(
-      props.prById ? props.prById.status : 'PREPARATION'
-    );
-
-    this.state = {
-      prById: props.prById,
-      value: 0,
-      expanded: shouldExpand
-    };
-  }
 
   render() {
     const { prById, classes } = this.props;

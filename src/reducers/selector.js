@@ -4,7 +4,7 @@ import moment from 'moment/moment';
 export const getAllPrs = state => Object.values(state.prs);
 export const getAllPrsForHumanResources = state =>
   Object.values(state.humanResourcesPrs);
-export const getPrById = state => state.prDetailId;
+export const getActualPrId = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
 export const getUserroles = state => state.userroles;
 export const getUserinfo = state => state.userinfo;
@@ -14,14 +14,14 @@ export const getMeeting = state => state.meeting;
 
 export const getPrDetail = () => {
   return createSelector(
-    [state => state.prs, getPrById],
+    [state => state.prs, getActualPrId],
     (prs, prDetail) => prs[prDetail]
   );
 };
 
 export const getPrEmployeeContributions = type => {
   return createSelector(
-    [state => state.prEmployeeContributions, getPrById],
+    [state => state.prEmployeeContributions, getActualPrId],
     (employeeContributions, prDetailId) =>
       employeeContributions[prDetailId][type]
   );
@@ -29,14 +29,14 @@ export const getPrEmployeeContributions = type => {
 
 export const getPrRatings = type => {
   return createSelector(
-    [state => state.prRatings, getPrById],
+    [state => state.prRatings, getActualPrId],
     (prRatings, prDetailId) => prRatings[prDetailId][type]
   );
 };
 
 export const getFinalCommentEmployee = () => {
   return createSelector(
-    [state => state.finalCommentEmployee, getPrById],
+    [state => state.finalCommentEmployee, getActualPrId],
     (comment, prById) => comment[prById]
   );
 };

@@ -230,11 +230,9 @@ class PrState extends React.Component {
           <div key={`SubStepGrid_${status}`}>
             {!forReviewer && employeeFinalizesPr ? (
               <Button
-                disabled={done /*|| !isFinalizedByReviewer*/}
+                disabled={done}
                 className={
-                  done /*|| !isFinalizedByReviewer*/
-                    ? classes.buttonDesktopDisabled
-                    : classes.buttonDesktop
+                  done ? classes.buttonDesktopDisabled : classes.buttonDesktop
                 }
                 onClick={this.changeStateOnButtonClick(status)}
               >

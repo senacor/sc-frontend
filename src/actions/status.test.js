@@ -115,4 +115,55 @@ describe('addPrStatus', () => {
       }
     ]);
   });
+
+  it('should add status and update finalization if sheet is finalized by employee', async () => {
+    let prBefore = {
+      id: 1,
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'NOT_FINALIZED',
+        finalizationStatusOfReviewer: 'NOT_FINALIZED'
+      }
+    };
+    let prAfter = {
+      id: 1,
+      prStatusEntries: [prStatusEnum.FINALIZED_EMPLOYEE],
+      prFinalizationStatus: {
+        finalizationStatusOfEmployee: 'FINALIZED',
+        finalizationStatusOfReviewer: 'NOT_FINALIZED'
+      }
+    };
+    fetchMock.putOnce('/api/v1/prs/1/status', {
+      prId: 1,
+      statuses: [prStatusEnum.FINALIZED_EMPLOYEE]
+    });
+    fetchMock.putOnce('/api/v1/prs/1/finalization', {
+      prId: 1,
+      finalizationStatusOfEmployee: 'FINALIZED',
+      finalizationStatusOfReviewer: 'NOT_FINALIZED'
+    });
+    fetchMock.getOnce('/api/v1/prs/1', prAfter);
+
+    const store = mockStore();
+    await store.dispatch(
+      addPrStatus(prBefore, prStatusEnum.FINALIZED_EMPLOYEE)
+    );
+
+    expect(store.getActions()).toEqual([
+      { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
+      { type: dispatchTypes.CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      {
+        prFinalizationStatusById: {
+          finalizationStatusOfEmployee: 'FINALIZED',
+          finalizationStatusOfReviewer: 'NOT_FINALIZED'
+        },
+        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+      },
+      { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
+      { type: dispatchTypes.ERROR_GONE },
+      {
+        type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE,
+        prById: prAfter
+      }
+    ]);
+  });
 });

@@ -113,9 +113,9 @@ class PrSheet extends React.Component {
             <div className={classes.containerListItem}>
               <PrFinalCommentEmployee
                 prById={prById}
-                prFinalized={this.isFinalizedForEmployee()}
-                prVisible={
-                  isEmployee(this.props.userroles) || this.isVisibleToReviewer()
+                readOnly={
+                  isSupervisor(this.props.userroles) ||
+                  this.isFinalizedForEmployee()
                 }
               />
             </div>
