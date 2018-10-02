@@ -16,9 +16,9 @@ import { prRatings } from './rating';
 import isLoading from './isLoading';
 import search from './searchEmployee';
 import { prEmployeeContributions } from './employeeContributions';
-import { appointmentsSearchResults } from './appointments';
-import { selectedDate } from './appointments';
+import { appointmentsSearchResults, selectedDate } from './appointments';
 import { meeting } from './meetings';
+import { finalCommentEmployee } from './finalCommentEmployee';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -36,6 +36,7 @@ const combineReducer = combineReducers({
   prVisibilityById,
   prFinalizationStatusById,
   prRatings,
+  finalCommentEmployee,
   prEmployeeContributions,
   search,
   selectedDate,

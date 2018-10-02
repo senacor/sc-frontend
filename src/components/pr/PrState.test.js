@@ -4,7 +4,7 @@
  *
  */
 import React from 'react';
-import { StyledComponent, getFinishedMilestones } from './PrState';
+import { getFinishedMilestones, StyledComponent } from './PrState';
 import { prStatusEnum } from '../../helper/prStatus';
 import { createShallow } from '@material-ui/core/test-utils';
 
@@ -88,6 +88,10 @@ describe('PrState Component', () => {
           ]
         }
       }
+    },
+    prFinalizationStatus: {
+      finalizationStatusOfEmployee: 'NOT_FINALIZED',
+      finalizationStatusOfReviewer: 'NOT_FINALIZED'
     },
     supervisor: 'ttran',
     occasion: 'ON_DEMAND',

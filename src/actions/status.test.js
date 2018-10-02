@@ -100,6 +100,13 @@ describe('addPrStatus', () => {
     expect(store.getActions()).toEqual([
       { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
       { type: dispatchTypes.CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      {
+        prFinalizationStatusById: {
+          finalizationStatusOfEmployee: 'NOT_FINALIZED',
+          finalizationStatusOfReviewer: 'FINALIZED'
+        },
+        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+      },
       { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
       { type: dispatchTypes.ERROR_GONE },
       {

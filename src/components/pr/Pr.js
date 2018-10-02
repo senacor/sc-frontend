@@ -116,6 +116,22 @@ const styles = theme => ({
 });
 
 export class Pr extends React.Component {
+  returnExpandState = status => {
+    switch (status) {
+      case 'PREPARATION':
+        return 'panel1';
+      case 'EXECUTION':
+        return 'panel2';
+      case 'POST_PROCESSING':
+        return 'panel3';
+      default:
+        return false;
+    }
+  };
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   constructor(props) {
     super(props);
 
@@ -130,22 +146,6 @@ export class Pr extends React.Component {
     };
   }
 
-  returnExpandState = status => {
-    switch (status) {
-      case 'PREPARATION':
-        return 'panel1';
-      case 'EXECUTION':
-        return 'panel2';
-      case 'POST_PROCESSING':
-        return 'panel3';
-      default:
-        return false;
-    }
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
   render() {
     const { prById, classes } = this.props;
     const { value } = this.state;
@@ -232,6 +232,7 @@ export class Pr extends React.Component {
     );
   }
 }
+
 export const StyledComponent = withStyles(styles)(Pr);
 export default connect(
   state => ({

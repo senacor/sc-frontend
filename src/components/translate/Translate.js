@@ -14,6 +14,8 @@ export const translationMap = {
   EXECUTION: 'In Durchführung',
   FILLED_SHEET_EMPLOYEE: 'Mitarbeiter',
   FILLED_SHEET_REVIEWER: 'Beurteiler',
+  FINAL_COMMENT_EMPLOYEE:
+    'Abschließender Kommentar durch Mitarbeiter (optional)',
   FULFILLMENT_OF_REQUIREMENT:
     'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
@@ -26,6 +28,8 @@ export const translationMap = {
   MODIFICATIONS_ACCEPTED_REVIEWER: 'Änderungen Beurteiler',
   NORESPONSERECEIVED: 'Noch keine Antwort erhalten',
   ON_DEMAND: 'Auf Nachfrage',
+  PLACEHOLDER_FINAL_COMMENT_EMPLOYEE:
+    'Möchte ich letzte Anmerkungen zum Performance Review machen? Gibt es noch etwas zu ergänzen?',
   PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
     'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?',
   PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT:

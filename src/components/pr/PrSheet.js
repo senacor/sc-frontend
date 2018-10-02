@@ -14,6 +14,7 @@ import * as visibilityTypes from '../../helper/prVisibility';
 import * as finalizationTypes from '../../helper/prFinalization';
 import objectGet from 'object-get';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
+import PrFinalCommentEmployee from './PrFinalCommentEmployee';
 
 const styles = theme => ({
   containerVertical: {
@@ -69,6 +70,15 @@ class PrSheet extends React.Component {
     );
   };
 
+  isFinalizedForEmployee = () => {
+    return (
+      objectGet(
+        this.props,
+        'prById.prFinalizationStatus.finalizationStatusOfEmployee'
+      ) === finalizationTypes.FINALIZED
+    );
+  };
+
   render() {
     const { prById, classes } = this.props;
 
@@ -85,6 +95,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrSheetEmployee
               prById={prById}
+              prFinalized={this.isFinalizedForEmployee()}
               prVisible={
                 isEmployee(this.props.userroles) || this.isVisibleToReviewer()
               }
@@ -92,11 +103,22 @@ class PrSheet extends React.Component {
             />
             <PrSheetEmployee
               prById={prById}
+              prFinalized={this.isFinalizedForEmployee()}
               prVisible={
                 isEmployee(this.props.userroles) || this.isVisibleToReviewer()
               }
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
+
+            <div className={classes.containerListItem}>
+              <PrFinalCommentEmployee
+                prById={prById}
+                prFinalized={this.isFinalizedForEmployee()}
+                prVisible={
+                  isEmployee(this.props.userroles) || this.isVisibleToReviewer()
+                }
+              />
+            </div>
           </List>
         </List>
         <Divider />

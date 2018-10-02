@@ -24,6 +24,19 @@ export const prFinalizationStatus = (
             'prFinalizationStatusById.finalizationStatusOfReviewer'
           ) === finalizationTypes.FINALIZED
       };
+    case dispatchTypes.FETCH_PR_BY_ID_RESPONSE:
+      return {
+        isFinalizedByEmployee:
+          objectGet(
+            action,
+            'prById.prFinalizationStatus.finalizationStatusOfEmployee'
+          ) === finalizationTypes.FINALIZED,
+        isFinalizedByReviewer:
+          objectGet(
+            action,
+            'prById.prFinalizationStatus.finalizationStatusOfReviewer'
+          ) === finalizationTypes.FINALIZED
+      };
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import withLoading from './Loading';
 
 it('displays a loading symbol, when the loading prop is set', () => {
