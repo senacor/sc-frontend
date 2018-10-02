@@ -34,6 +34,13 @@ export const getPrRatings = type => {
   );
 };
 
+export const getFinalCommentEmployee = () => {
+  return createSelector(
+    [state => state.finalCommentEmployee, getPrById],
+    (comment, prById) => comment[prById]
+  );
+};
+
 export const getSortedPrs = () => {
   return createSelector([getAllPrs, getSortOrder], (prs, sortOrder) =>
     Array.from(prs).sort(dateSort(sortOrder))

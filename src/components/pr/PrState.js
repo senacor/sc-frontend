@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
 import ObjectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
-import { isEmployee } from '../../helper/checkRole';
+import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { createSelector } from 'reselect';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
 import * as actions from '../../actions';
@@ -142,9 +142,11 @@ class PrState extends React.Component {
   getExtraStepContent(status) {
     let isStatusDoneMap = this.props.prStatusesDone;
     let forEmployee = isEmployee(this.props.userroles);
+    let forReviewer = isSupervisor(this.props.userroles);
     let isReleasedByEmployee = status === prStatusEnum.RELEASED_SHEET_EMPLOYEE;
     let isReleasedByReviewer = status === prStatusEnum.RELEASED_SHEET_REVIEWER;
-    let supervisorfinalizesPr = status === prStatusEnum.FINALIZED_REVIEWER;
+    let supervisorFinalizesPr = status === prStatusEnum.FINALIZED_REVIEWER;
+    let employeeFinalizesPr = status === prStatusEnum.FINALIZED_EMPLOYEE;
     let meetingIsScheduled = status === prStatusEnum.FIXED_DATE;
     let done =
       isStatusDoneMap === undefined
@@ -210,11 +212,29 @@ class PrState extends React.Component {
       case prStatusEnum.FINALIZED_REVIEWER:
         return (
           <div key={`SubStepGrid_${status}`}>
-            {!forEmployee && supervisorfinalizesPr ? (
+            {!forEmployee && supervisorFinalizesPr ? (
               <Button
                 disabled={done}
                 className={
                   done ? classes.buttonDesktopDisabled : classes.buttonDesktop
+                }
+                onClick={this.changeStateOnButtonClick(status)}
+              >
+                Abschließen
+              </Button>
+            ) : null}
+          </div>
+        );
+      case prStatusEnum.FINALIZED_EMPLOYEE:
+        return (
+          <div key={`SubStepGrid_${status}`}>
+            {!forReviewer && employeeFinalizesPr ? (
+              <Button
+                disabled={done /*|| !isFinalizedByReviewer*/}
+                className={
+                  done /*|| !isFinalizedByReviewer*/
+                    ? classes.buttonDesktopDisabled
+                    : classes.buttonDesktop
                 }
                 onClick={this.changeStateOnButtonClick(status)}
               >

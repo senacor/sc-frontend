@@ -16,7 +16,7 @@ import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
 import { isEmployee } from '../../helper/checkRole';
 import { translateContent } from '../translate/Translate';
-import { getUserroles, getPrRatings } from '../../reducers/selector';
+import { getPrRatings, getUserroles } from '../../reducers/selector';
 
 const styles = theme => ({
   nestedText: { paddingRight: '27px' },
@@ -64,15 +64,6 @@ const styles = theme => ({
 
 // TODO Rename to PrReviewerRating
 class PrComment extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      prById: this.props.prById,
-      isExpanded: false
-    };
-  }
-
   handleChangeRating = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
 
@@ -86,7 +77,6 @@ class PrComment extends React.Component {
       this.props.prRating.id
     );
   };
-
   handleChangeComment = (prById, category) => event => {
     this.setState({ comment: event.target.value });
     this.props.prRating.comment = event.target.value;
@@ -99,14 +89,21 @@ class PrComment extends React.Component {
       this.props.prRating.id
     );
   };
-
   sendComment = debounce(this.props.addRating, 500);
-
   handleClick = () => {
     this.setState({
       isExpanded: !this.state.isExpanded
     });
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      prById: this.props.prById,
+      isExpanded: false
+    };
+  }
 
   render() {
     const { prById, category, classes, prRating } = this.props;

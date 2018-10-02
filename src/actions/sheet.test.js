@@ -1,11 +1,12 @@
 import { addRating } from './index';
 import {
+  changeFinalizationStatusOfEmployee,
+  changeFinalizationStatusOfReviewer,
+  changeRatingTargetRole,
   changeVisibilityForEmployee,
   changeVisibilityForReviewer,
-  setVisibilityById,
   setPrFinalizationStatus,
-  changeFinalizationStatusOfReviewer,
-  changeRatingTargetRole
+  setVisibilityById
 } from './sheet';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -13,14 +14,14 @@ import fetchMock from 'fetch-mock';
 import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_RESPONSE,
+  CHANGE_PR_FINALIZATION_STATUS_REQUEST,
+  CHANGE_PR_VISIBILITY_REQUEST,
   CHANGE_RATING_TARGETROLE_REQUEST,
   CHANGE_RATING_TARGETROLE_RESPONSE,
-  CHANGE_PR_VISIBILITY_REQUEST,
-  CHANGE_PR_FINALIZATION_STATUS_REQUEST,
-  FETCH_PR_BY_ID_REQUEST,
   ERROR_GONE,
-  FETCH_PR_BY_ID_RESPONSE,
-  ERROR_RESPONSE
+  ERROR_RESPONSE,
+  FETCH_PR_BY_ID_REQUEST,
+  FETCH_PR_BY_ID_RESPONSE
 } from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
@@ -528,6 +529,13 @@ describe('updateFinalizationStatus', () => {
 
     expect(store.getActions()).toEqual([
       { type: CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      {
+        prFinalizationStatusById: {
+          finalizationStatusOfEmployee: 'NOT_FINALIZED',
+          finalizationStatusOfReviewer: 'FINALIZED'
+        },
+        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+      },
       { type: FETCH_PR_BY_ID_REQUEST },
       { type: ERROR_GONE },
       { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
@@ -562,11 +570,18 @@ describe('updateFinalizationStatus', () => {
 
     const store = mockStore();
     await store.dispatch(
-      changeFinalizationStatusOfReviewer(prNotFinalizedByEmployee, true, false)
+      changeFinalizationStatusOfEmployee(prNotFinalizedByEmployee, true, false)
     );
 
     expect(store.getActions()).toEqual([
       { type: CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      {
+        prFinalizationStatusById: {
+          finalizationStatusOfEmployee: 'FINALIZED',
+          finalizationStatusOfReviewer: 'NOT_FINALIZED'
+        },
+        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+      },
       { type: FETCH_PR_BY_ID_REQUEST },
       { type: ERROR_GONE },
       { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }
@@ -606,6 +621,13 @@ describe('updateFinalizationStatus', () => {
 
     expect(store.getActions()).toEqual([
       { type: CHANGE_PR_FINALIZATION_STATUS_REQUEST },
+      {
+        prFinalizationStatusById: {
+          finalizationStatusOfEmployee: 'NOT_FINALIZED',
+          finalizationStatusOfReviewer: 'FINALIZED'
+        },
+        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+      },
       { type: FETCH_PR_BY_ID_REQUEST },
       { type: ERROR_GONE },
       { prById: { id: 1 }, type: FETCH_PR_BY_ID_RESPONSE }

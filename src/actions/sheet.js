@@ -2,6 +2,7 @@ import objectGet from 'object-get';
 import { default as fetch } from '../helper/customFetch';
 import { fetchPrById } from './index';
 import * as dispatchTypes from '../helper/dispatchTypes';
+import { FETCHED_PR_FINALIZATION_STATUS } from '../helper/dispatchTypes';
 import * as visibilityTypes from '../helper/prVisibility';
 import * as finalizationTypes from '../helper/prFinalization';
 
@@ -44,6 +45,43 @@ export const addRating = (
         prRatings
       }
     });
+  }
+};
+
+export const changeFinalCommentEmployee = (
+  id,
+  finalizationStatusOfEmployee,
+  finalizationStatusOfReviewer,
+  finalCommentEmployee
+) => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_FINAL_COMMENT_REQUEST
+  });
+
+  dispatch({
+    type: dispatchTypes.CHANGE_FINAL_COMMENT_RESPONSE,
+    payload: {
+      prId: id,
+      comment: finalCommentEmployee
+    }
+  });
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${id}/finalization`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        finalizationStatusOfEmployee: finalizationStatusOfEmployee,
+        finalizationStatusOfReviewer: finalizationStatusOfReviewer,
+        finalCommentEmployee: finalCommentEmployee
+      })
+    }
+  );
+
+  if (response.ok) {
+  } else {
+    window.alert('Fehler beim Speichern');
   }
 };
 
@@ -145,13 +183,26 @@ export const setPrFinalizationStatus = (
           : finalizationTypes.NOT_FINALIZED,
         finalizationStatusOfReviewer: isFinalizedByReviewer
           ? finalizationTypes.FINALIZED
-          : finalizationTypes.NOT_FINALIZED
+          : finalizationTypes.NOT_FINALIZED,
+        finalCommentEmployee: prById.finalCommentEmployee
       })
     }
   );
   await changeResponse.json();
 
   if (changeResponse.ok) {
+    dispatch({
+      type: FETCHED_PR_FINALIZATION_STATUS,
+      prFinalizationStatusById: {
+        finalizationStatusOfEmployee: isFinalizedByEmployee
+          ? finalizationTypes.FINALIZED
+          : finalizationTypes.NOT_FINALIZED,
+        finalizationStatusOfReviewer: isFinalizedByReviewer
+          ? finalizationTypes.FINALIZED
+          : finalizationTypes.NOT_FINALIZED
+      }
+    });
+
     return fetchPrById(prById.id)(dispatch);
   } else {
     return dispatch({
@@ -227,5 +278,19 @@ export const changeFinalizationStatusOfReviewer = pr => {
     pr,
     isFinalizedByEmployee,
     !isFinalizedByReviewer
+  );
+};
+
+export const changeFinalizationStatusOfEmployee = pr => {
+  let isFinalizedByEmployee =
+    pr.prFinalizationStatus.finalizationStatusOfEmployee ===
+    finalizationTypes.FINALIZED;
+  let isFinalizedByReviewer =
+    pr.prFinalizationStatus.finalizationStatusOfReviewer ===
+    finalizationTypes.FINALIZED;
+  return setPrFinalizationStatus(
+    pr,
+    !isFinalizedByEmployee,
+    isFinalizedByReviewer
   );
 };

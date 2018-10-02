@@ -92,6 +92,7 @@ export class TaskList extends React.Component {
     );
   }
 }
+
 export const StyledComponent = withStyles(styles)(TaskList);
 
 export default connect(

@@ -11,8 +11,8 @@ import { isSupervisor } from '../../helper/checkRole';
 import Typography from '@material-ui/core/Typography';
 import { translateContent } from '../translate/Translate';
 import {
-  getUserroles,
-  getPrEmployeeContributions
+  getPrEmployeeContributions,
+  getUserroles
 } from '../../reducers/selector';
 
 const styles = theme => ({
@@ -61,7 +61,13 @@ class PrSheetEmployee extends React.Component {
   sendComment = debounce(this.props.addEmployeeContribution, 500);
 
   render() {
-    const { prById, category, classes, employeeContribution } = this.props;
+    const {
+      prById,
+      category,
+      classes,
+      employeeContribution,
+      prFinalized
+    } = this.props;
     return (
       <div>
         <List component="div" disablePadding className={classes.nestedText}>
@@ -86,6 +92,7 @@ class PrSheetEmployee extends React.Component {
                 ) : (
                   <TextField
                     id={category + '_CommentId'}
+                    disabled={prFinalized}
                     multiline
                     fullWidth
                     rows="4"

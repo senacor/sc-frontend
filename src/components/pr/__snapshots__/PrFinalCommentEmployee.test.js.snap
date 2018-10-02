@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrFinalCommentEmployee Component displays the PrFinalCommentEmployee 1`] = `
+<WithStyles(List)>
+  <WithStyles(ListItem)>
+    <WithStyles(Grid)
+      container={true}
+      direction="column"
+    >
+      <WithStyles(Grid)
+        item={true}
+        lg={12}
+        md={12}
+        sm={12}
+        xl={12}
+        xs={12}
+      >
+        <WithStyles(Typography)
+          component="p"
+        >
+          Abschließender Kommentar durch Mitarbeiter (optional)
+        </WithStyles(Typography)>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        lg={12}
+        md={12}
+        sm={12}
+        xl={12}
+        xs={12}
+      >
+        <TextField
+          InputLabelProps={
+            Object {
+              "shrink": true,
+            }
+          }
+          InputProps={
+            Object {
+              "classes": Object {
+                "input": "PrFinalCommentEmployee-bootstrapInput-1",
+              },
+              "disableUnderline": true,
+              "name": "comment",
+            }
+          }
+          fullWidth={true}
+          helperText="Möchte ich letzte Anmerkungen zum Performance Review machen?
+                          Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe."
+          margin="none"
+          multiline={true}
+          onChange={[Function]}
+          placeholder="Möchte ich letzte Anmerkungen zum Performance Review machen? Gibt es noch etwas zu ergänzen?"
+          required={false}
+          rows="4"
+          rowsMax="10"
+          select={false}
+          value="text"
+        />
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+  </WithStyles(ListItem)>
+</WithStyles(List)>
+`;

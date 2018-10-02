@@ -201,7 +201,18 @@ exports[`PrState Component displays the PrState 1`] = `
                 "in": true,
               }
             }
-          />
+          >
+            <div
+              key="SubStepGrid_MODIFICATIONS_ACCEPTED_EMPLOYEE"
+            >
+              <WithStyles(Button)
+                className="PrState-buttonDesktop-4"
+                onClick={[Function]}
+              >
+                Abschließen
+              </WithStyles(Button)>
+            </div>
+          </WithStyles(StepContent)>
         </WithStyles(Step)>
         <WithStyles(Step)
           key="PR archivieren (HR)"
