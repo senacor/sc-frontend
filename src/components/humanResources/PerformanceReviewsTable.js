@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import { getAllPrsForHumanResources } from '../../reducers/selector';
 import Translate from '../translate/Translate';
+import { Link } from 'react-router-dom';
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -51,35 +52,35 @@ const rows = [
   {
     id: 'deadline',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'Fälligkeit'
   },
   { id: 'reason', numeric: false, disablePadding: false, label: 'Grund' },
   { id: 'cst', numeric: false, disablePadding: false, label: 'Projektkst' },
-  { id: 'competence', numeric: false, disablePadding: false, label: 'Dev/Con' },
+  { id: 'competence', numeric: false, disablePadding: true, label: 'Dev/Con' },
   {
     id: 'level',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'level'
   },
   {
     id: 'supervisor',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'Vorgesetzte/r'
   },
-  { id: 'reviewer', numeric: false, disablePadding: false, label: 'Bewerter' },
+  { id: 'reviewer', numeric: false, disablePadding: true, label: 'Bewerter' },
   {
     id: 'result',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'Bewertung'
   },
   {
     id: 'employee_filled',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'MA ausgefüllt'
   },
   {
@@ -88,17 +89,17 @@ const rows = [
     disablePadding: false,
     label: 'Beurteiler ausgefüllt'
   },
-  { id: 'appointment', numeric: false, disablePadding: false, label: 'Termin' },
+  { id: 'appointment', numeric: false, disablePadding: true, label: 'Termin' },
   {
     id: 'finalstate',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'Finaler Status'
   },
   {
     id: 'HR verarbeitet',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: 'HR verarbeitet'
   }
 ];
@@ -119,7 +120,7 @@ class EnhancedTableHead extends React.Component {
               <TableCell
                 key={row.id}
                 numeric={row.numeric}
-                padding="none"
+                padding={row.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === row.id ? order : false}
               >
                 <TableSortLabel
@@ -212,8 +213,10 @@ class EnhancedTable extends React.Component {
                 .map(n => {
                   return (
                     <TableRow hover tabIndex={-1} key={n.prId}>
-                      <TableCell padding="none">
-                        {this.getDisplayName(n.employee)}
+                      <TableCell padding="default">
+                        <Link to={`/prs/${n.prId}`}>
+                          {this.getDisplayName(n.employee)}
+                        </Link>
                       </TableCell>
                       <TableCell padding="none">{n.deadline}</TableCell>
                       <TableCell padding="none">

@@ -24,9 +24,14 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
-            padding="none"
+            padding="default"
           >
-            Michaela Mitarbeiterin
+            <Link
+              replace={false}
+              to="/prs/2"
+            >
+              Michaela Mitarbeiterin
+            </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             padding="none"
@@ -98,9 +103,14 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
-            padding="none"
+            padding="default"
           >
-            Michaela Mitarbeiterin
+            <Link
+              replace={false}
+              to="/prs/1"
+            >
+              Michaela Mitarbeiterin
+            </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             padding="none"
