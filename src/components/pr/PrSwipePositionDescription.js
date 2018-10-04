@@ -128,7 +128,7 @@ class PrSwipePositionDescription extends React.Component {
       case 'LEADERSHIP':
         return {
           junior:
-            'Untertstützt Teammitglieder im Rahmen seiner Möglichkeiten, z. B. mit in seinem Projektbereich aufgebautem Spezialwissen',
+            'Unterstützt Teammitglieder im Rahmen seiner Möglichkeiten, z. B. mit in seinem Projektbereich aufgebautem Spezialwissen',
 
           senior:
             'Coached Mitarbeiter im Rahmen ihrer Arbeit und bezüglich der Orientierung in der Firma; gibt Orientierung bezüglich der persönlichen Entwicklung; unterstützt Leads und Partner im Rahmen von Scorecards und PR',
