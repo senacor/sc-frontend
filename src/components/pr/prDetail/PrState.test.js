@@ -112,27 +112,6 @@ describe('PrState Component', () => {
           }
         }
       }
-    },
-    {
-      mainStepLabel: 'Archivieren',
-      substeps: {
-        [prStatusEnum.ARCHIVED_HR]: {
-          isCompleted: false,
-          label: 'HR: ',
-          rendering: {
-            complete: 'Archiviert',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClickMock(
-                  prStatusEnum.ARCHIVED_HR
-                )}
-              />
-            )
-          }
-        }
-      }
     }
   ];
 
