@@ -368,7 +368,7 @@ exports[`PrSwipePositionDescription Component displays the Description of the em
         />
         <WithStyles(ListItemText)
           className="PrSwipePositionDescription-description-3"
-          secondary="Untertstützt Teammitglieder im Rahmen seiner Möglichkeiten, z. B. mit in seinem Projektbereich aufgebautem Spezialwissen"
+          secondary="Unterstützt Teammitglieder im Rahmen seiner Möglichkeiten, z. B. mit in seinem Projektbereich aufgebautem Spezialwissen"
         />
       </div>
       <div
