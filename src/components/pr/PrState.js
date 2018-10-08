@@ -230,6 +230,7 @@ class PrState extends React.Component {
           <div key={`SubStepGrid_${status}`}>
             {!forReviewer && employeeFinalizesPr ? (
               <Button
+                id={'button_finalize_employee'}
                 disabled={done}
                 className={
                   done ? classes.buttonDesktopDisabled : classes.buttonDesktop

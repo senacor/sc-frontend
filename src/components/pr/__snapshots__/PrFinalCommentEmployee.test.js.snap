@@ -47,6 +47,7 @@ exports[`PrFinalCommentEmployee Component displays the PrFinalCommentEmployee 1`
           fullWidth={true}
           helperText="Möchte ich letzte Anmerkungen zum Performance Review machen?
                           Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe."
+          id="finalComment"
           margin="none"
           multiline={true}
           onChange={[Function]}
