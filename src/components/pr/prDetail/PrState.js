@@ -214,7 +214,9 @@ class PrState extends React.Component {
         }
       }
     };
-    if (hasRoleInPr(['hr'])) {
+
+    let userIsMemberOfHr = false;
+    if (userIsMemberOfHr) {
       return [step1, step2, step3, step4];
     } else {
       return [step1, step2, step3];
