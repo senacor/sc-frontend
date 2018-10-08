@@ -33,9 +33,6 @@ describe('reducers', () => {
           isLoggedIn: true,
           isUnauthorized: false
         },
-        prById: {
-          prDetail: [someValue]
-        },
         prDetailId: 0,
         prEmployeeContributions: {
           prEmployeeContribution: [someValue]
@@ -83,9 +80,6 @@ describe('reducers', () => {
           isUnauthorized: false
         },
         meeting: null,
-        prById: {
-          prDetail: []
-        },
         prDetailId: 0,
         prEmployeeContributions: [],
         prRatings: {},

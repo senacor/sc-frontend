@@ -79,8 +79,7 @@ export const changeFinalCommentEmployee = (
     }
   );
 
-  if (response.ok) {
-  } else {
+  if (!response.ok) {
     window.alert('Fehler beim Speichern');
   }
 };

@@ -1,9 +1,11 @@
 import { prs, sortOrderPrs, humanResourcesPrs } from './prs';
 import {
   ADD_PR_RESPONSE,
+  CHANGE_FINAL_COMMENT_RESPONSE,
   CHANGE_RATING_TARGETROLE_RESPONSE,
   CHANGE_SORT_ORDER,
   DELEGATE_REVIEWER_RESPONSE,
+  FETCH_PR_BY_ID_RESPONSE,
   FETCH_PRS_HR_RESPONSE,
   FETCH_PRS_RESPONSE
 } from '../helper/dispatchTypes';
@@ -19,6 +21,7 @@ describe('prs reducer', () => {
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
       deadline: '2019-03-14',
+      finalCommentEmployee: 'comment pr 1',
       prTargetRoleSet: [
         {
           id: idLeadDeveloper,
@@ -44,6 +47,7 @@ describe('prs reducer', () => {
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
       deadline: '2018-03-14',
+      finalCommentEmployee: 'comment pr 2',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/prs/2'
@@ -57,6 +61,7 @@ describe('prs reducer', () => {
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
       deadline: '2020-03-14',
+      finalCommentEmployee: 'comment pr 3',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/prs/3'
@@ -119,6 +124,7 @@ describe('prs reducer', () => {
       occasion: 'ON_DEMAND',
       status: 'PREPARATION',
       deadline: '2021-03-14',
+      finalCommentEmployee: 'new Comment',
       _links: {
         self: {
           href: 'http://localhost:8010/api/v1/prs/3'
@@ -137,26 +143,69 @@ describe('prs reducer', () => {
     expect(Object.keys(stateAfter)).toHaveLength(3);
   });
 
+  it('should add a new PR for FETCH_PR_BY_ID_RESPONSE with id 4', () => {
+    const testdata = {
+      id: 4,
+      employee: 'emp5',
+      supervisor: 'test.pr.vorgesetzter',
+      occasion: 'ON_DEMAND',
+      status: 'PREPARATION',
+      deadline: '2021-03-14',
+      finalCommentEmployee: 'new Comment',
+      _links: {
+        self: {
+          href: 'http://localhost:8010/api/v1/prs/4'
+        }
+      }
+    };
+
+    const action = {
+      type: FETCH_PR_BY_ID_RESPONSE,
+      prById: testdata
+    };
+
+    const stateAfter = prs(stateBefore, action);
+
+    expect(stateAfter[4]).toEqual(testdata);
+    expect(Object.keys(stateAfter)).toHaveLength(4);
+  });
+
+  it('should override PR for FETCH_PR_BY_ID_RESPONSE with id 3', () => {
+    const testdata = {
+      id: 3,
+      employee: 'emp5',
+      supervisor: 'test.pr.vorgesetzter',
+      occasion: 'ON_DEMAND',
+      status: 'PREPARATION',
+      deadline: '2021-03-14',
+      finalCommentEmployee: 'new Comment',
+      _links: {
+        self: {
+          href: 'http://localhost:8010/api/v1/prs/3'
+        }
+      }
+    };
+
+    const action = {
+      type: FETCH_PR_BY_ID_RESPONSE,
+      prById: testdata
+    };
+
+    const stateAfter = prs(stateBefore, action);
+
+    expect(stateAfter[3]).toEqual(testdata);
+    expect(Object.keys(stateAfter)).toHaveLength(3);
+  });
+
   it('should update the reviewer for PR with id 2 for DELEGATE_REVIEWER_RESPONSE', () => {
-    const updatedPrWithNewReviewer = {
-      id: 2,
-      employee: 'emp2',
-      supervisor: 'fukara',
+    var updatedPrWithNewReviewer = Object.assign({}, stateBefore[2], {
       reviewer: {
         id: 1,
         firstName: 'Hänsel',
         lastName: 'Gretel',
         dateOfLastPr: '2018-01-01'
-      },
-      occasion: 'ON_DEMAND',
-      status: 'PREPARATION',
-      deadline: '2018-03-14',
-      _links: {
-        self: {
-          href: 'http://localhost:8010/api/v1/prs/2'
-        }
       }
-    };
+    });
 
     const actionAddingDelegatedSupervisor = {
       type: DELEGATE_REVIEWER_RESPONSE,
@@ -232,5 +281,26 @@ describe('prs reducer', () => {
         employee: 'TEST'
       }
     });
+  });
+
+  it('should override finalCommentEmployee for CHANGE_FINAL_COMMENT_RESPONSE with id 2', () => {
+    const payload = {
+      prId: 2,
+      comment: 'new Comment'
+    };
+
+    const action = {
+      type: CHANGE_FINAL_COMMENT_RESPONSE,
+      payload
+    };
+
+    const stateAfter = prs(stateBefore, action);
+
+    expect(stateAfter[2]).toEqual(
+      Object.assign({}, stateBefore[2], {
+        finalCommentEmployee: 'new Comment'
+      })
+    );
+    expect(Object.keys(stateAfter)).toHaveLength(3);
   });
 });

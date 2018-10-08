@@ -3,6 +3,7 @@ import { StyledComponent } from './PrSheetEmployee';
 import { createShallow } from '@material-ui/core/test-utils';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import ROLES from '../../helper/roles';
 
 describe('PrSheetEmployee Component', () => {
   let shallow = createShallow({ dive: true });
@@ -82,7 +83,7 @@ describe('PrSheetEmployee Component', () => {
           }
         }}
         category="ROLE_AND_PROJECT_ENVIRONMENT"
-        userroles={['PR_CST_Leiter']}
+        userroles={[ROLES.PR_CST_LEITER]}
       />
     );
 
@@ -101,7 +102,7 @@ describe('PrSheetEmployee Component', () => {
             text: 'Comment 111'
           }
         }}
-        userroles={['PR_CST_Leiter']}
+        userroles={[ROLES.PR_CST_LEITER]}
         prVisible={false}
         category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
       />

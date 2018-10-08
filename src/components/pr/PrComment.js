@@ -64,6 +64,14 @@ const styles = theme => ({
 
 // TODO Rename to PrReviewerRating
 class PrComment extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      prById: this.props.prById,
+      isExpanded: false
+    };
+  }
   handleChangeRating = (prById, category) => event => {
     this.setState({ [event.target.name]: event.target.value });
 
@@ -95,15 +103,6 @@ class PrComment extends React.Component {
       isExpanded: !this.state.isExpanded
     });
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      prById: this.props.prById,
-      isExpanded: false
-    };
-  }
 
   render() {
     const { prById, category, classes, prRating } = this.props;

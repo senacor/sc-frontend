@@ -240,6 +240,70 @@ describe('PrSheet Component', () => {
     ).toHaveLength(2);
   });
 
+  it("should show the employees's final comment writeable", () => {
+    const fetchVisibilityMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={{
+          prFinalizationStatus: {
+            finalizationStatusOfEmployee: 'NOT_FINALIZED',
+            finalizationStatusOfReviewer: 'NOT_FINALIZED'
+          }
+        }}
+        fetchPrVisibilityById={fetchVisibilityMock}
+        userroles={[ROLES.PR_MITARBEITER]}
+      />
+    );
+
+    expect(
+      component.find(
+        'Connect(WithStyles(PrFinalCommentEmployee))[readOnly=false]'
+      )
+    ).toHaveLength(1);
+  });
+  it('should show the employees final comment readonly if employee finalized ', () => {
+    const fetchVisibilityMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={{
+          prFinalizationStatus: {
+            finalizationStatusOfEmployee: 'FINALIZED',
+            finalizationStatusOfReviewer: 'NOT_FINALIZED'
+          }
+        }}
+        fetchPrVisibilityById={fetchVisibilityMock}
+        userroles={[ROLES.PR_MITARBEITER]}
+      />
+    );
+
+    expect(
+      component.find(
+        'Connect(WithStyles(PrFinalCommentEmployee))[readOnly=true]'
+      )
+    ).toHaveLength(1);
+  });
+  it('should show the employees final comment readonly if user is supervisor ', () => {
+    const fetchVisibilityMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={{
+          prFinalizationStatus: {
+            finalizationStatusOfEmployee: 'NOT_FINALIZED',
+            finalizationStatusOfReviewer: 'NOT_FINALIZED'
+          }
+        }}
+        fetchPrVisibilityById={fetchVisibilityMock}
+        userroles={[ROLES.PR_CST_LEITER]}
+      />
+    );
+
+    expect(
+      component.find(
+        'Connect(WithStyles(PrFinalCommentEmployee))[readOnly=true]'
+      )
+    ).toHaveLength(1);
+  });
+
   it("should display the supervisor's comment or ratings as readonly", () => {
     let statuses = {
       statuses: [
