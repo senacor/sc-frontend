@@ -16,6 +16,7 @@ import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
+import { isHr } from '../../../helper/checkRole';
 
 const styles = theme => ({
   paper: {
@@ -215,7 +216,7 @@ class PrState extends React.Component {
       }
     };
 
-    let userIsMemberOfHr = false;
+    let userIsMemberOfHr = isHr(this.props.userroles);
     if (userIsMemberOfHr) {
       return [step1, step2, step3, step4];
     } else {
