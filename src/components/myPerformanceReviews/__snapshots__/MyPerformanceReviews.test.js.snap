@@ -56,27 +56,18 @@ exports[`MyPerformanceReviews should match snapshot 1`] = `
         />
       </Hidden>
     </WithStyles(Grid)>
-    <Hidden
-      implementation="js"
-      lgDown={false}
-      lgUp={false}
-      mdDown={true}
-      mdUp={false}
-      smDown={false}
-      smUp={false}
-      xlDown={false}
-      xlUp={false}
-      xsDown={false}
-      xsUp={false}
+    <WithStyles(Grid)
+      item={true}
+      lg={9}
+      md={9}
+      sm={9}
+      xl={9}
+      xs={9}
     >
-      <WithStyles(Grid)
-        item={true}
-        lg={9}
-        xl={9}
-      >
-        <Connect(PerformanceReviewDetail) />
-      </WithStyles(Grid)>
-    </Hidden>
+      <Connect(PrivateRoute)
+        component={[Function]}
+      />
+    </WithStyles(Grid)>
   </WithStyles(Grid)>
 </div>
 `;

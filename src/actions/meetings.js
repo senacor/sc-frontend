@@ -69,13 +69,15 @@ export const addMeeting = meeting_details => async dispatch => {
   }
 };
 
-export const fetchMeeting = prById => async dispatch => {
+export const fetchMeeting = pr => async dispatch => {
   dispatch({
     type: dispatchTypes.FETCH_MEETING_REQUEST
   });
 
+  let id = pr ? pr.id : 0;
+
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/meetings`
+    `${process.env.REACT_APP_API}/api/v1/prs/${id}/meetings`
   );
 
   let meeting = null;

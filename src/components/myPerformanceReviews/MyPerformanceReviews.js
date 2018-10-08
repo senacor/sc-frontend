@@ -5,7 +5,9 @@ import Hidden from '@material-ui/core/Hidden';
 
 import MyPerformanceReviewsList from './MyPerformanceReviewsList';
 import RequestPerformanceReview from './RequestPerformanceReview';
-import PerformanceReviewDetail from '../pr/PerformanceReviewDetail';
+import PerformanceReviewDetail from '../pr/prDetail/PerformanceReviewDetail';
+
+import PrivateRoute from '../privateRoute/PrivateRoute';
 
 class MyPerformanceReviews extends Component {
   render() {
@@ -14,6 +16,7 @@ class MyPerformanceReviews extends Component {
         <Typography variant="display1" paragraph>
           Performance Reviews
         </Typography>
+
         <Grid container spacing={8}>
           <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
             <RequestPerformanceReview />
@@ -24,11 +27,9 @@ class MyPerformanceReviews extends Component {
               <MyPerformanceReviewsList highlightPrDetail={false} />
             </Hidden>
           </Grid>
-          <Hidden mdDown>
-            <Grid item lg={9} xl={9}>
-              <PerformanceReviewDetail />
-            </Grid>
-          </Hidden>
+          <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
+            <PrivateRoute component={PerformanceReviewDetail} />
+          </Grid>
         </Grid>
       </div>
     );
