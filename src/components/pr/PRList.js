@@ -187,7 +187,7 @@ export class PRList extends React.Component {
                         color="primary"
                         className={classes.button}
                         component={Link}
-                        to={`/prs/${pr.id}`}
+                        to={`/prDetail/${pr.id}`}
                       >
                         DETAILS
                       </Button>
