@@ -110,7 +110,7 @@ exports[`PRList Component displays the list of prs 1`] = `
             className="PRList-button-6"
             color="primary"
             component={[Function]}
-            to="/prs/1"
+            to="/prDetail/1"
           >
             DETAILS
           </WithStyles(Button)>
@@ -216,7 +216,7 @@ exports[`PRList Component displays the list of prs 1`] = `
             className="PRList-button-6"
             color="primary"
             component={[Function]}
-            to="/prs/2"
+            to="/prDetail/2"
           >
             DETAILS
           </WithStyles(Button)>

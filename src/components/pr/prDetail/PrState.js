@@ -16,6 +16,7 @@ import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
+import { isHr } from '../../../helper/checkRole';
 
 const styles = theme => ({
   paper: {
@@ -96,132 +97,131 @@ class PrState extends React.Component {
 
   updateStepStructure = (pr, userinfo, prStatusesDone, releaseButtonClick) => {
     let hasRoleInPr = this.hasRoleInPrBasedOnUserName(pr, userinfo);
-    return [
-      {
-        mainStepLabel: 'Vorbereitung',
-        substeps: {
-          [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
-            isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
-            isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-            label: 'Mitarbeiter: ',
-            rendering: {
-              complete: 'Abgeschlossen',
-              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-              incompleteForActionPerformer: (
-                <PrStatusActionButton
-                  label={'Freigabe'}
-                  releaseButtonClick={releaseButtonClick(
-                    prStatusEnum.RELEASED_SHEET_EMPLOYEE
-                  )}
-                />
-              )
-            }
-          },
-          [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
-            isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
-            isCurrentUserActionPerformer: hasRoleInPr([
-              'supervisor',
-              'reviewer'
-            ]),
-            label: 'Beurteiler: ',
-            rendering: {
-              complete: 'Abgeschlossen',
-              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-              incompleteForActionPerformer: (
-                <PrStatusActionButton
-                  label={'Freigabe'}
-                  releaseButtonClick={releaseButtonClick(
-                    prStatusEnum.RELEASED_SHEET_REVIEWER
-                  )}
-                />
-              )
-            }
-          },
-          [prStatusEnum.FIXED_DATE]: {
-            isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
-            isCurrentUserActionPerformer: hasRoleInPr([
-              'supervisor',
-              'reviewer',
-              'employee'
-            ]),
-            label: 'Terminfindung',
-            rendering: {
-              complete: 'Alle Teilnehmer haben zugesagt',
-              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-              incompleteForActionPerformer: 'Nicht abgeschlossen'
-            }
+    let step1 = {
+      mainStepLabel: 'Vorbereitung',
+      substeps: {
+        [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
+          isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
+          isCurrentUserActionPerformer: hasRoleInPr(['employee']),
+          label: 'Mitarbeiter: ',
+          rendering: {
+            complete: 'Abgeschlossen',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClick(
+                  prStatusEnum.RELEASED_SHEET_EMPLOYEE
+                )}
+              />
+            )
           }
-        }
-      },
-      {
-        mainStepLabel: 'Gespräch',
-        substeps: {
-          [prStatusEnum.FINALIZED_REVIEWER]: {
-            isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
-            isCurrentUserActionPerformer: hasRoleInPr([
-              'supervisor',
-              'reviewer'
-            ]),
-            label: 'Beurteiler: ',
-            rendering: {
-              complete: <div>Abgeschlossen</div>,
-              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-              incompleteForActionPerformer: (
-                <PrStatusActionButton
-                  label={'Freigabe'}
-                  releaseButtonClick={releaseButtonClick(
-                    prStatusEnum.FINALIZED_REVIEWER
-                  )}
-                />
-              )
-            }
+        },
+        [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
+          isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
+          isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
+          label: 'Beurteiler: ',
+          rendering: {
+            complete: 'Abgeschlossen',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClick(
+                  prStatusEnum.RELEASED_SHEET_REVIEWER
+                )}
+              />
+            )
           }
-        }
-      },
-      {
-        mainStepLabel: 'Abschluss',
-        substeps: {
-          [prStatusEnum.FINALIZED_EMPLOYEE]: {
-            isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
-            isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-            label: 'Mitarbeiter:',
-            rendering: {
-              complete: 'Abgeschlossen',
-              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-              incompleteForActionPerformer: (
-                <PrStatusActionButton
-                  label={'Freigabe'}
-                  releaseButtonClick={releaseButtonClick(
-                    prStatusEnum.FINALIZED_EMPLOYEE
-                  )}
-                />
-              )
-            }
-          }
-        }
-      },
-      {
-        mainStepLabel: 'Archivieren',
-        substeps: {
-          [prStatusEnum.ARCHIVED_HR]: {
-            isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
-            label: 'HR: ',
-            rendering: {
-              complete: 'Archiviert',
-              incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-              incompleteForActionPerformer: (
-                <PrStatusActionButton
-                  label={'Freigabe'}
-                  releaseButtonClick={releaseButtonClick(
-                    prStatusEnum.ARCHIVED_HR
-                  )}
-                />
-              )
-            }
+        },
+        [prStatusEnum.FIXED_DATE]: {
+          isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
+          isCurrentUserActionPerformer: hasRoleInPr([
+            'supervisor',
+            'reviewer',
+            'employee'
+          ]),
+          label: 'Terminfindung',
+          rendering: {
+            complete: 'Alle Teilnehmer haben zugesagt',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: 'Nicht abgeschlossen'
           }
         }
       }
-    ];
+    };
+    let step2 = {
+      mainStepLabel: 'Gespräch',
+      substeps: {
+        [prStatusEnum.FINALIZED_REVIEWER]: {
+          isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
+          isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
+          label: 'Beurteiler: ',
+          rendering: {
+            complete: <div>Abgeschlossen</div>,
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClick(
+                  prStatusEnum.FINALIZED_REVIEWER
+                )}
+              />
+            )
+          }
+        }
+      }
+    };
+    let step3 = {
+      mainStepLabel: 'Abschluss',
+      substeps: {
+        [prStatusEnum.FINALIZED_EMPLOYEE]: {
+          isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
+          isCurrentUserActionPerformer: hasRoleInPr(['employee']),
+          label: 'Mitarbeiter:',
+          rendering: {
+            complete: 'Abgeschlossen',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClick(
+                  prStatusEnum.FINALIZED_EMPLOYEE
+                )}
+              />
+            )
+          }
+        }
+      }
+    };
+    let step4 = {
+      mainStepLabel: 'Archivieren',
+      substeps: {
+        [prStatusEnum.ARCHIVED_HR]: {
+          isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
+          label: 'HR: ',
+          rendering: {
+            complete: 'Archiviert',
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: (
+              <PrStatusActionButton
+                label={'Freigabe'}
+                releaseButtonClick={releaseButtonClick(
+                  prStatusEnum.ARCHIVED_HR
+                )}
+              />
+            )
+          }
+        }
+      }
+    };
+
+    let userIsMemberOfHr = isHr(this.props.userroles);
+    if (userIsMemberOfHr) {
+      return [step1, step2, step3, step4];
+    } else {
+      return [step1, step2, step3];
+    }
   };
 
   releaseButtonClick = status => event => {
