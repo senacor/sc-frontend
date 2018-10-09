@@ -15,7 +15,6 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
         onRequestSort={[Function]}
         order="desc"
         orderBy="deadline"
-        rowCount={2}
       />
       <WithStyles(TableBody)>
         <WithStyles(TableRow)

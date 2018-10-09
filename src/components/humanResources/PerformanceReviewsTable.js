@@ -4,147 +4,56 @@ import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import withLoading from '../hoc/Loading';
 import { getAllPrsForHumanResources } from '../../reducers/selector';
-import Translate from '../translate/Translate';
+import Translate, { translateContent } from '../translate/Translate';
 import { Link } from 'react-router-dom';
+import HR_ELEMENTS from './hrElements';
+import EnhancedTableHead from './EnhancedTableHead';
 
-function desc(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
+export function getDisplayName(employee) {
+  if (employee) {
+    return `${employee.firstName} ${employee.lastName}`;
+  }
+}
+
+export function descInteger(a, b, orderBy, mapper) {
+  if (mapper(b[orderBy]) < mapper(a[orderBy])) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (mapper(b[orderBy]) > mapper(a[orderBy])) {
     return 1;
   }
   return 0;
 }
 
-function stableSort(array, cmp) {
+export function descString(a, b, orderBy, mapper) {
+  return -mapper(a[orderBy]).localeCompare(mapper(b[orderBy]));
+}
+
+export function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
+    if (order !== 0) {
+      return order;
+    }
     return a[1] - b[1];
   });
+
   return stabilizedThis.map(el => el[0]);
 }
 
-function getSorting(order, orderBy) {
+function getSorting(order, orderBy, sortFunction, mapper) {
   return order === 'desc'
-    ? (a, b) => desc(a, b, orderBy)
-    : (a, b) => -desc(a, b, orderBy);
+    ? (a, b) => sortFunction(a, b, orderBy, mapper)
+    : (a, b) => -sortFunction(a, b, orderBy, mapper);
 }
-
-const rows = [
-  {
-    id: 'employee',
-    numeric: false,
-    disablePadding: false,
-    label: 'Mitarbeiter'
-  },
-  {
-    id: 'deadline',
-    numeric: false,
-    disablePadding: true,
-    label: 'Fälligkeit'
-  },
-  { id: 'reason', numeric: false, disablePadding: false, label: 'Grund' },
-  { id: 'cst', numeric: false, disablePadding: false, label: 'Projektkst' },
-  { id: 'competence', numeric: false, disablePadding: true, label: 'Dev/Con' },
-  {
-    id: 'level',
-    numeric: false,
-    disablePadding: true,
-    label: 'level'
-  },
-  {
-    id: 'supervisor',
-    numeric: false,
-    disablePadding: true,
-    label: 'Vorgesetzte/r'
-  },
-  { id: 'reviewer', numeric: false, disablePadding: true, label: 'Bewerter' },
-  {
-    id: 'result',
-    numeric: false,
-    disablePadding: true,
-    label: 'Bewertung'
-  },
-  {
-    id: 'employee_filled',
-    numeric: false,
-    disablePadding: true,
-    label: 'MA ausgefüllt'
-  },
-  {
-    id: 'reviewer_filled',
-    numeric: false,
-    disablePadding: false,
-    label: 'Beurteiler ausgefüllt'
-  },
-  { id: 'appointment', numeric: false, disablePadding: true, label: 'Termin' },
-  {
-    id: 'finalstate',
-    numeric: false,
-    disablePadding: true,
-    label: 'Finaler Status'
-  },
-  {
-    id: 'HR verarbeitet',
-    numeric: false,
-    disablePadding: true,
-    label: 'HR verarbeitet'
-  }
-];
-
-class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
-    this.props.onRequestSort(event, property);
-  };
-
-  render() {
-    const { order, orderBy } = this.props;
-
-    return (
-      <TableHead>
-        <TableRow>
-          {rows.map(row => {
-            return (
-              <TableCell
-                key={row.id}
-                numeric={row.numeric}
-                padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
-              >
-                <TableSortLabel
-                  active={orderBy === row.id}
-                  direction={order}
-                  onClick={this.createSortHandler(row.id)}
-                >
-                  {row.label}
-                </TableSortLabel>
-              </TableCell>
-            );
-          }, this)}
-        </TableRow>
-      </TableHead>
-    );
-  }
-}
-
-EnhancedTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
-};
 
 const styles = theme => ({
   root: {
@@ -162,9 +71,11 @@ const styles = theme => ({
 class EnhancedTable extends React.Component {
   state = {
     order: 'desc',
-    orderBy: 'deadline',
+    orderBy: HR_ELEMENTS.DEADLINE,
     page: 0,
-    rowsPerPage: 25
+    rowsPerPage: 25,
+    sortFunction: descInteger,
+    mapper: variable => variable
   };
 
   handleRequestSort = (event, property) => {
@@ -174,8 +85,44 @@ class EnhancedTable extends React.Component {
     if (this.state.orderBy === property && this.state.order === 'desc') {
       order = 'asc';
     }
+    var sortFunction = descString;
+    var mapper = variable => variable;
 
-    this.setState({ order, orderBy });
+    switch (orderBy) {
+      case HR_ELEMENTS.EMPLOYEE:
+        mapper = entry => getDisplayName(entry);
+        break;
+      case HR_ELEMENTS.SUPERVISOR:
+        mapper = entry => getDisplayName(entry);
+        break;
+      case HR_ELEMENTS.REVIEWER:
+        mapper = entry => getDisplayName(entry);
+        break;
+      case HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE:
+        mapper = entry => (entry ? 'ja' : 'nein');
+        break;
+      case HR_ELEMENTS.REVIEWER_PREPARATION_DONE:
+        mapper = entry => (entry ? 'ja' : 'nein');
+        break;
+      case HR_ELEMENTS.HR_PROCESSING_DONE:
+        mapper = entry => (entry ? 'ja' : 'nein');
+        break;
+      case HR_ELEMENTS.IN_PROGRESS:
+        mapper = entry => (entry ? 'laufend' : 'abgeschlossen');
+        break;
+
+      case HR_ELEMENTS.PR_OCCASION:
+        mapper = entry => translateContent(entry);
+        break;
+      case HR_ELEMENTS.CST:
+        mapper = variable => variable;
+        break;
+
+      default:
+        sortFunction = descInteger;
+        mapper = variable => variable;
+    }
+    this.setState({ order, orderBy, sortFunction, mapper });
   };
 
   handleChangePage = (event, page) => {
@@ -186,15 +133,16 @@ class EnhancedTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  getDisplayName = employee => {
-    if (employee) {
-      return `${employee.firstName} ${employee.lastName}`;
-    }
-  };
-
   render() {
     const { classes } = this.props;
-    const { order, orderBy, rowsPerPage, page } = this.state;
+    const {
+      order,
+      orderBy,
+      sortFunction,
+      mapper,
+      rowsPerPage,
+      page
+    } = this.state;
     const data = this.props.prs;
 
     return (
@@ -205,47 +153,49 @@ class EnhancedTable extends React.Component {
               order={order}
               orderBy={orderBy}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(
+                data,
+                getSorting(order, orderBy, sortFunction, mapper)
+              )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
+                .map(entry => {
                   return (
-                    <TableRow hover tabIndex={-1} key={n.prId}>
+                    <TableRow hover tabIndex={-1} key={entry.prId}>
                       <TableCell padding="default">
-                        <Link to={`/prDetail/${n.prId}`}>
-                          {this.getDisplayName(n.employee)}
+                        <Link to={`/prDetail/${entry.prId}`}>
+                          {getDisplayName(entry.employee)}
                         </Link>
                       </TableCell>
-                      <TableCell padding="none">{n.deadline}</TableCell>
+                      <TableCell padding="none">{entry.deadline}</TableCell>
                       <TableCell padding="none">
-                        <Translate content={n.prOccasion} />
+                        <Translate content={entry.prOccasion} />
                       </TableCell>
-                      <TableCell padding="none">{n.projectCst}</TableCell>
+                      <TableCell padding="none">{entry.projectCst}</TableCell>
                       <TableCell padding="none">
-                        <Translate content={`COMPETENCE_${n.competence}`} />
+                        <Translate content={`COMPETENCE_${entry.competence}`} />
                       </TableCell>
-                      <TableCell padding="none">{n.level}</TableCell>
+                      <TableCell padding="none">{entry.level}</TableCell>
                       <TableCell padding="none">
-                        {this.getDisplayName(n.supervisor)}
+                        {getDisplayName(entry.supervisor)}
                       </TableCell>
                       <TableCell padding="none">
-                        {this.getDisplayName(n.reviewer)}
+                        {getDisplayName(entry.reviewer)}
                       </TableCell>
                       <TableCell padding="none">result</TableCell>
                       <TableCell padding="none">
-                        {n.employeePreparationDone ? 'ja' : 'nein'}
+                        {entry.employeePreparationDone ? 'ja' : 'nein'}
                       </TableCell>
                       <TableCell padding="none">
-                        {n.reviewerPreparationDone ? 'ja' : 'nein'}
+                        {entry.reviewerPreparationDone ? 'ja' : 'nein'}
                       </TableCell>
-                      <TableCell padding="none">{n.appointment}</TableCell>
+                      <TableCell padding="none">{entry.appointment}</TableCell>
                       <TableCell padding="none">
-                        {n.inProgress ? 'laufend' : 'abgeschlossen'}
+                        {entry.inProgress ? 'laufend' : 'abgeschlossen'}
                       </TableCell>
                       <TableCell padding="none">
-                        {n.humanResourceProcessingDone ? 'ja' : 'nein'}
+                        {entry.humanResourceProcessingDone ? 'ja' : 'nein'}
                       </TableCell>
                     </TableRow>
                   );
