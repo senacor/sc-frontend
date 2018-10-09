@@ -201,6 +201,7 @@ export class PRList extends React.Component {
           open={this.state.open}
           handleClose={this.handleClose}
           selectEmployee={this.selectEmployee}
+          title={'Delegieren an'}
         />
       </div>
     );

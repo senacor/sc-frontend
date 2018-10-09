@@ -2,6 +2,32 @@ import React from 'react';
 import EnhancedTableHead from './EnhancedTableHead';
 import { createShallow } from '@material-ui/core/test-utils';
 import HR_ELEMENTS from './hrElements';
+import { Link } from 'react-router-dom';
+import ExcelLikeSearchMenue from './ExcelLikeSearchMenue';
+import EmployeeFilter from './EmployeeFilter';
+import { getDisplayName } from './OverviewPerformanceReviews';
+
+const rows = [
+  {
+    id: HR_ELEMENTS.EMPLOYEE,
+    numeric: false,
+    disablePadding: false,
+    label: 'Mitarbeiter',
+    mapper: variable => getDisplayName(variable),
+    show: entry => {
+      return (
+        <Link to={`/prDetail/${entry.prId}`}>
+          {getDisplayName(entry[HR_ELEMENTS.EMPLOYEE])}
+        </Link>
+      );
+    },
+    filter: (
+      <ExcelLikeSearchMenue
+        content={<EmployeeFilter filterGroup={'hr'} filterBy={'employee'} />}
+      />
+    )
+  }
+];
 
 describe('EnhancedTableHead component', () => {
   let shallow = createShallow({ dive: true });
@@ -13,6 +39,7 @@ describe('EnhancedTableHead component', () => {
         onRequestSort={mockCallBack}
         order={'asc'}
         orderBy={HR_ELEMENTS.EMPLOYEE}
+        rows={rows}
       />
     );
 
@@ -27,6 +54,7 @@ describe('EnhancedTableHead component', () => {
         order={'asc'}
         orderBy={HR_ELEMENTS.EMPLOYEE}
         onRequestSort={mockCallBack}
+        rows={rows}
       />
     );
     component

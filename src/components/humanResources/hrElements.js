@@ -4,6 +4,7 @@ const HR_ELEMENTS = {
   REVIEWER: 'reviewer',
   DEADLINE: 'deadline',
   PR_OCCASION: 'prOccasion',
+  COMPETENCE: 'competence',
   CST: 'projectCst',
   LEVEL: 'level',
   APPOINTMENT: 'appointment',

@@ -18,6 +18,7 @@ import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults, selectedDate } from './appointments';
 import { meeting } from './meetings';
 import { finalCommentEmployee } from './finalCommentEmployee';
+import { filter } from './filter';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -43,7 +44,8 @@ const combineReducer = combineReducers({
   userphoto,
   userroles,
   cstMembers,
-  events
+  events,
+  filter
 });
 
 const app = (state, action) => {

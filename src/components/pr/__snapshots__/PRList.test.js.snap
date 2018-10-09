@@ -228,6 +228,7 @@ exports[`PRList Component displays the list of prs 1`] = `
     handleClose={[Function]}
     open={false}
     selectEmployee={[Function]}
+    title="Delegieren an"
   />
 </div>
 `;

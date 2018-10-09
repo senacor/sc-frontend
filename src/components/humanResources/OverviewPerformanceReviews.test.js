@@ -1,10 +1,12 @@
 import React from 'react';
-import OverviewPerformanceReviews from './OverviewPerformanceReviews';
-import { shallow } from 'enzyme';
+import { StyledComponent } from './OverviewPerformanceReviews';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('OverviewPerformanceReviews', () => {
+  let shallow = createShallow({ dive: true });
+
   it('should match snapshot', () => {
-    let component = shallow(<OverviewPerformanceReviews />);
+    let component = shallow(<StyledComponent />);
 
     expect(component).toMatchSnapshot();
   });
