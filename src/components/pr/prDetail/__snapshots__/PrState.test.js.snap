@@ -1,3 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrState Component should match snapshot 1`] = `""`;
+exports[`PrState Component for HR should match snapshot 1`] = `""`;
+
+exports[`PrState Component for employee should match snapshot 1`] = `""`;
+
+exports[`PrState Component for reviewer should match snapshot 1`] = `""`;
