@@ -67,13 +67,18 @@ class PrFinalCommentEmployee extends Component {
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               {readOnly ? (
-                <Typography className={classes.comment} variant="body1">
+                <Typography
+                  id={'finalCommentReadonly'}
+                  className={classes.comment}
+                  variant="body1"
+                >
                   {finalCommentEmployee
                     ? finalCommentEmployee
                     : 'Kein Kommentar'}
                 </Typography>
               ) : (
                 <TextField
+                  id={'finalComment'}
                   multiline
                   fullWidth
                   rows="4"

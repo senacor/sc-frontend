@@ -207,6 +207,7 @@ exports[`PrState Component displays the PrState 1`] = `
             >
               <WithStyles(Button)
                 className="PrState-buttonDesktop-4"
+                id="button_finalize_employee"
                 onClick={[Function]}
               >
                 Abschließen
