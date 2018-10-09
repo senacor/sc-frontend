@@ -122,7 +122,28 @@ describe('PrState Component for reviewer', () => {
   };
 
   it('should match snapshot', () => {
-    const component = shallow(<StyledComponent />);
+    const prById = {
+      statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+      id: 1,
+      employee: {
+        login: 'test.pr.mitarbeiter1'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter'
+      },
+      reviewer: {
+        login: 'test.pr.beurteiler'
+      }
+    };
+
+    const addPrStatusMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        userinfo={userinfo}
+      />
+    );
     expect(component).toMatchSnapshot();
   });
 
@@ -345,7 +366,28 @@ describe('PrState Component for employee', () => {
   };
 
   it('should match snapshot', () => {
-    const component = shallow(<StyledComponent />);
+    const prById = {
+      statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+      id: 1,
+      employee: {
+        login: 'test.pr.mitarbeiter1'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter'
+      },
+      reviewer: {
+        login: 'test.pr.beurteiler'
+      }
+    };
+
+    const addPrStatusMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        userinfo={userinfo}
+      />
+    );
     expect(component).toMatchSnapshot();
   });
 
@@ -591,7 +633,29 @@ describe('PrState Component for HR', () => {
   const userroles = ['PR_HR'];
 
   it('should match snapshot', () => {
-    const component = shallow(<StyledComponent />);
+    const prById = {
+      statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+      id: 1,
+      employee: {
+        login: 'test.pr.mitarbeiter1'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter'
+      },
+      reviewer: {
+        login: 'test.pr.beurteiler'
+      }
+    };
+
+    const addPrStatusMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        userinfo={userinfo}
+        userroles={userroles}
+      />
+    );
     expect(component).toMatchSnapshot();
   });
 
