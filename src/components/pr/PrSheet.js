@@ -15,6 +15,8 @@ import * as finalizationTypes from '../../helper/prFinalization';
 import objectGet from 'object-get';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
 import PrFinalCommentEmployee from './PrFinalCommentEmployee';
+import Hidden from '@material-ui/core/Hidden';
+import Grid from '@material-ui/core/Grid/Grid';
 
 const styles = theme => ({
   containerVertical: {
@@ -86,8 +88,8 @@ class PrSheet extends React.Component {
       return null;
     }
 
-    return (
-      <div className={classes.containerVertical}>
+    let step1employee = () => {
+      return (
         <List>
           <ListItem>
             <ListItemText primary="Mitarbeiterrolle" />
@@ -109,7 +111,34 @@ class PrSheet extends React.Component {
               }
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
             />
+          </List>
+        </List>
+      );
+    };
 
+    let overallReviewer = () => {
+      return (
+        <List>
+          <ListItem>
+            <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
+          </ListItem>
+          <List disablePadding>
+            <PrOverallAssessment
+              prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
+              prVisible={
+                isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
+              }
+            />
+          </List>
+        </List>
+      );
+    };
+
+    let finalEmployee = () => {
+      return (
+        <List>
+          <List disablePadding>
             <div className={classes.containerListItem}>
               <PrFinalCommentEmployee
                 prById={prById}
@@ -121,7 +150,11 @@ class PrSheet extends React.Component {
             </div>
           </List>
         </List>
-        <Divider />
+      );
+    };
+
+    let detailReviewer = () => {
+      return (
         <List>
           <ListItem>
             <ListItemText primary="Leistungen im Projekt" />
@@ -152,31 +185,29 @@ class PrSheet extends React.Component {
               category="WORKING_MANNER"
             />
           </List>
-        </List>
-        <Divider />
-        <List>
+          <Divider />
           <ListItem>
             <ListItemText primary="Wirkung beim Kunden" />
           </ListItem>
-          <PrComment
-            prById={prById}
-            prFinalized={this.isFinalizedForReviewer()}
-            prVisible={
-              isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
-            }
-            category="CUSTOMER_INTERACTION"
-          />
-          <PrComment
-            prById={prById}
-            prFinalized={this.isFinalizedForReviewer()}
-            prVisible={
-              isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
-            }
-            category="CUSTOMER_RETENTION"
-          />
-        </List>
-        <Divider />
-        <List>
+          <List disablePadding>
+            <PrComment
+              prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
+              prVisible={
+                isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
+              }
+              category="CUSTOMER_INTERACTION"
+            />
+            <PrComment
+              prById={prById}
+              prFinalized={this.isFinalizedForReviewer()}
+              prVisible={
+                isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
+              }
+              category="CUSTOMER_RETENTION"
+            />
+          </List>
+          <Divider />
           <ListItem>
             <ListItemText primary="Wirkung im Team" />
           </ListItem>
@@ -198,9 +229,7 @@ class PrSheet extends React.Component {
               category="LEADERSHIP"
             />
           </List>
-        </List>
-        <Divider />
-        <List>
+          <Divider />
           <ListItem>
             <ListItemText primary="Wirkung im Unternehmen" />
           </ListItem>
@@ -215,21 +244,30 @@ class PrSheet extends React.Component {
             />
           </List>
         </List>
+      );
+    };
+
+    return (
+      <div>
+        <Grid container spacing={8}>
+          <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+            {step1employee()}
+            <Divider />
+            <Hidden lgUp>
+              {detailReviewer()}
+              <Divider />
+            </Hidden>
+            {overallReviewer()}
+            <Divider />
+            {finalEmployee()}
+          </Grid>
+          <Hidden mdDown>
+            <Grid item lg={6} xl={6}>
+              {detailReviewer()}
+            </Grid>
+          </Hidden>
+        </Grid>
         <Divider />
-        <List>
-          <ListItem>
-            <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
-          </ListItem>
-          <List disablePadding>
-            <PrOverallAssessment
-              prById={prById}
-              prFinalized={this.isFinalizedForReviewer()}
-              prVisible={
-                isSupervisor(this.props.userroles) || this.isVisibleToEmployee()
-              }
-            />
-          </List>
-        </List>
       </div>
     );
   }

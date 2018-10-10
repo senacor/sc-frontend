@@ -222,7 +222,7 @@ describe('PrSheet Component', () => {
     ).toBe(true);
     expect(
       component.find('Connect(WithStyles(PrComment))[prVisible=false]')
-    ).toHaveLength(8);
+    ).toHaveLength(16);
   });
 
   it("should show the employees's contributions", () => {
@@ -346,6 +346,6 @@ describe('PrSheet Component', () => {
 
     expect(
       component.find('Connect(WithStyles(PrComment))[prFinalized=true]')
-    ).toHaveLength(8);
+    ).toHaveLength(16);
   });
 });
