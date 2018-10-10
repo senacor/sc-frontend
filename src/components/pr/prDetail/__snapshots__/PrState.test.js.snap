@@ -64,9 +64,7 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "isCurrentUserActionPerformer": false,
                   "label": "Beurteiler: ",
                   "rendering": Object {
-                    "complete": <div>
-                      Abgeschlossen
-          </div>,
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
                       label="Freigabe"
                       releaseButtonClick={[Function]}
@@ -95,10 +93,129 @@ exports[`PrState Component for HR should match snapshot 1`] = `
               },
             },
             Object {
-              "mainStepLabel": "Archivieren",
+              "mainStepLabel": "PR-Nachbearbeitung",
               "substeps": Object {
-                "COMPLETED_PR": Object {
+                "PR_COMPLETED": Object {
                   "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "HR: ",
+                  "rendering": Object {
+                    "complete": "Archiviert",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+          ]
+        }
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;
+
+exports[`PrState Component for HR should match snapshot when button for HR is present 1`] = `
+<WithStyles(Paper)
+  className="PrState-paper-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        Fortschritt des Reviewprozesses
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(PrStateStepper)
+        activeStep={3}
+        stepStructure={
+          Array [
+            Object {
+              "mainStepLabel": "Vorbereitung",
+              "substeps": Object {
+                "ALL_DATES_ACCEPTED": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": "Alle Teilnehmer haben zugesagt",
+                    "incompleteForActionPerformer": "Nicht abgeschlossen",
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_EMPLOYEE": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Mitarbeiter: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_REVIEWER": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Gespräch",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_REVIEWER": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Abschluss",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_EMPLOYEE": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Mitarbeiter:",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "PR-Nachbearbeitung",
+              "substeps": Object {
+                "PR_COMPLETED": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
                   "label": "HR: ",
                   "rendering": Object {
                     "complete": "Archiviert",
@@ -183,9 +300,7 @@ exports[`PrState Component for employee should match snapshot 1`] = `
                   "isCurrentUserActionPerformer": false,
                   "label": "Beurteiler: ",
                   "rendering": Object {
-                    "complete": <div>
-                      Abgeschlossen
-          </div>,
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
                       label="Freigabe"
                       releaseButtonClick={[Function]}
@@ -285,9 +400,7 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                   "isCurrentUserActionPerformer": true,
                   "label": "Beurteiler: ",
                   "rendering": Object {
-                    "complete": <div>
-                      Abgeschlossen
-          </div>,
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
                       label="Freigabe"
                       releaseButtonClick={[Function]}

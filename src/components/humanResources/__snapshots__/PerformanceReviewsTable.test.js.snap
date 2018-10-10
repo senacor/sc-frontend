@@ -28,7 +28,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           >
             <Link
               replace={false}
-              to="/prs/2"
+              to="/prDetail/2"
             >
               Michaela Mitarbeiterin
             </Link>
@@ -107,7 +107,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           >
             <Link
               replace={false}
-              to="/prs/1"
+              to="/prDetail/1"
             >
               Michaela Mitarbeiterin
             </Link>

@@ -158,7 +158,7 @@ class PrState extends React.Component {
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
           label: 'Beurteiler: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
+            complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
               <PrStatusActionButton
@@ -195,10 +195,11 @@ class PrState extends React.Component {
       }
     };
     let step4 = {
-      mainStepLabel: 'Archivieren',
+      mainStepLabel: 'PR-Nachbearbeitung',
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
           isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
+          isCurrentUserActionPerformer: isHr(this.props.userroles),
           label: 'HR: ',
           rendering: {
             complete: 'Archiviert',
