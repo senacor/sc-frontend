@@ -1,3 +1,324 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrState Component should match snapshot 1`] = `""`;
+exports[`PrState Component for HR should match snapshot 1`] = `
+<WithStyles(Paper)
+  className="PrState-paper-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        Fortschritt des Reviewprozesses
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(PrStateStepper)
+        activeStep={0}
+        stepStructure={
+          Array [
+            Object {
+              "mainStepLabel": "Vorbereitung",
+              "substeps": Object {
+                "ALL_DATES_ACCEPTED": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": "Alle Teilnehmer haben zugesagt",
+                    "incompleteForActionPerformer": "Nicht abgeschlossen",
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_EMPLOYEE": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Mitarbeiter: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_REVIEWER": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Gespräch",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_REVIEWER": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": <div>
+                      Abgeschlossen
+          </div>,
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Abschluss",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_EMPLOYEE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Mitarbeiter:",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Archivieren",
+              "substeps": Object {
+                "COMPLETED_PR": Object {
+                  "isCompleted": false,
+                  "label": "HR: ",
+                  "rendering": Object {
+                    "complete": "Archiviert",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+          ]
+        }
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;
+
+exports[`PrState Component for employee should match snapshot 1`] = `
+<WithStyles(Paper)
+  className="PrState-paper-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        Fortschritt des Reviewprozesses
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(PrStateStepper)
+        activeStep={0}
+        stepStructure={
+          Array [
+            Object {
+              "mainStepLabel": "Vorbereitung",
+              "substeps": Object {
+                "ALL_DATES_ACCEPTED": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": "Alle Teilnehmer haben zugesagt",
+                    "incompleteForActionPerformer": "Nicht abgeschlossen",
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_EMPLOYEE": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Mitarbeiter: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_REVIEWER": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Gespräch",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_REVIEWER": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": <div>
+                      Abgeschlossen
+          </div>,
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Abschluss",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_EMPLOYEE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Mitarbeiter:",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+          ]
+        }
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;
+
+exports[`PrState Component for reviewer should match snapshot 1`] = `
+<WithStyles(Paper)
+  className="PrState-paper-1"
+>
+  <WithStyles(List)>
+    <WithStyles(ListItem)>
+      <WithStyles(ListItemText)>
+        Fortschritt des Reviewprozesses
+      </WithStyles(ListItemText)>
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)>
+      <WithStyles(PrStateStepper)
+        activeStep={0}
+        stepStructure={
+          Array [
+            Object {
+              "mainStepLabel": "Vorbereitung",
+              "substeps": Object {
+                "ALL_DATES_ACCEPTED": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": "Alle Teilnehmer haben zugesagt",
+                    "incompleteForActionPerformer": "Nicht abgeschlossen",
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_EMPLOYEE": Object {
+                  "isCompleted": true,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Mitarbeiter: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "FILLED_SHEET_REVIEWER": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Gespräch",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_REVIEWER": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Beurteiler: ",
+                  "rendering": Object {
+                    "complete": <div>
+                      Abgeschlossen
+          </div>,
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+            Object {
+              "mainStepLabel": "Abschluss",
+              "substeps": Object {
+                "MODIFICATIONS_ACCEPTED_EMPLOYEE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Mitarbeiter:",
+                  "rendering": Object {
+                    "complete": "Abgeschlossen",
+                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
+                      label="Freigabe"
+                      releaseButtonClick={[Function]}
+          />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+              },
+            },
+          ]
+        }
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(List)>
+</WithStyles(Paper)>
+`;

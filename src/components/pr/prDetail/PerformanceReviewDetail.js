@@ -8,10 +8,11 @@ import withLoading from '../../hoc/Loading';
 
 export class PerformanceReviewDetail extends Component {
   render() {
+    let { prById } = this.props;
     return (
       <React.Fragment>
         <PrState />
-        <PrTabs />
+        {prById ? <PrTabs /> : null}
       </React.Fragment>
     );
   }

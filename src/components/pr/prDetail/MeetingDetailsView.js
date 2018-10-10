@@ -61,6 +61,7 @@ class MeetingDetailsView extends React.Component {
 
   render() {
     const { classes, meeting } = this.props;
+
     return (
       <div className={classes.meetingView}>
         <List>
