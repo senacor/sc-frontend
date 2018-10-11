@@ -38,6 +38,7 @@ export const translationMap = {
   POST_PROCESSING: 'Nachbearbeitung',
   PREPARATION: 'In Vorbereitung',
   PROBLEM_ANALYSIS: 'Problemanalyse und -lösung',
+  PR_COMPLETED: 'Nachbearbeitung HR',
   ROLE_AND_PROJECT_ENVIRONMENT: 'Rolle und Projektumfeld',
   TARGET_ROLE: 'Zielrolle (ab Senior Level ausfüllen)',
   TEAMWORK: 'Effektives Arbeiten im Team und Teamführung',

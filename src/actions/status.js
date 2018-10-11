@@ -34,6 +34,8 @@ export const addPrStatus = (prById, status) => async dispatch => {
         return changeFinalizationStatusOfReviewer(prById)(dispatch);
       case prStatusEnum.FINALIZED_EMPLOYEE:
         return changeFinalizationStatusOfEmployee(prById)(dispatch);
+      case prStatusEnum.ARCHIVED_HR:
+        return fetchPrById(prById.id)(dispatch);
       default:
         return fetchPrById(prById.id)(dispatch);
     }

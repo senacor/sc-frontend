@@ -77,7 +77,7 @@ describe('PrState Component for reviewer', () => {
           isCurrentUserActionPerformer: true,
           label: 'Beurteiler: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
+            complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
               <PrStatusActionButton
@@ -321,7 +321,7 @@ describe('PrState Component for employee', () => {
           isCurrentUserActionPerformer: false,
           label: 'Beurteiler: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
+            complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
               <PrStatusActionButton
@@ -565,7 +565,7 @@ describe('PrState Component for HR', () => {
           isCurrentUserActionPerformer: false,
           label: 'Beurteiler: ',
           rendering: {
-            complete: <div>Abgeschlossen</div>,
+            complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
               <PrStatusActionButton
@@ -635,6 +635,39 @@ describe('PrState Component for HR', () => {
   it('should match snapshot', () => {
     const prById = {
       statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+      id: 1,
+      employee: {
+        login: 'test.pr.mitarbeiter1'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter'
+      },
+      reviewer: {
+        login: 'test.pr.beurteiler'
+      }
+    };
+
+    const addPrStatusMock = jest.fn();
+    const component = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        userinfo={userinfo}
+        userroles={userroles}
+      />
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should match snapshot when button for HR is present', () => {
+    const prById = {
+      statuses: [
+        prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+        prStatusEnum.RELEASED_SHEET_REVIEWER,
+        prStatusEnum.FIXED_DATE,
+        prStatusEnum.FINALIZED_REVIEWER,
+        prStatusEnum.FINALIZED_EMPLOYEE
+      ],
       id: 1,
       employee: {
         login: 'test.pr.mitarbeiter1'

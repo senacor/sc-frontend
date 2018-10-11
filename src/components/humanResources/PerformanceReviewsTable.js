@@ -214,7 +214,7 @@ class EnhancedTable extends React.Component {
                   return (
                     <TableRow hover tabIndex={-1} key={n.prId}>
                       <TableCell padding="default">
-                        <Link to={`/prs/${n.prId}`}>
+                        <Link to={`/prDetail/${n.prId}`}>
                           {this.getDisplayName(n.employee)}
                         </Link>
                       </TableCell>
