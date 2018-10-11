@@ -16,7 +16,6 @@ exports[`PrOverallComment Component should match snapshot 1`] = `
         xs={12}
       >
         <WithStyles(Typography)
-          color="textSecondary"
           component="p"
         >
           Gesamteinschätzung Freitext (Pflichtfeld)
@@ -30,36 +29,13 @@ exports[`PrOverallComment Component should match snapshot 1`] = `
         xl={12}
         xs={12}
       >
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrOverallComment-bootstrapInput-1",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          helperText="In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die
-                      Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund
-                      der aktuellen Einstufung? Welche Stärken gilt es auszubauen,
-                      welche Lücken sollten geschlossen werden?"
-          id="FULFILLMENT_OF_REQUIREMENT"
-          margin="none"
-          multiline={true}
-          onChange={[Function]}
-          required={false}
-          rows="4"
-          rowsMax="4"
-          select={false}
-          value="ggg"
-        />
+        <WithStyles(Typography)
+          className="PrOverallComment-comment-2"
+          id="FULFILLMENT_OF_REQUIREMENT_Description"
+          variant="body1"
+        >
+          Noch nicht freigegeben.
+        </WithStyles(Typography)>
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>

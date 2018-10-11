@@ -29,42 +29,20 @@ exports[`PrFinalCommentEmployee Component displays the PrFinalCommentEmployee 1`
         xl={12}
         xs={12}
       >
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrFinalCommentEmployee-bootstrapInput-1",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          helperText="Möchte ich letzte Anmerkungen zum Performance Review machen?
-                          Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe."
-          id="finalComment"
-          margin="none"
-          multiline={true}
-          onChange={[Function]}
-          placeholder="Möchte ich letzte Anmerkungen zum Performance Review machen? Gibt es noch etwas zu ergänzen?"
-          required={false}
-          rows="4"
-          rowsMax="10"
-          select={false}
-          value="text"
-        />
+        <WithStyles(Typography)
+          className="PrFinalCommentEmployee-comment-2"
+          id="finalCommentReadonly"
+          variant="body1"
+        >
+          Bitte nach dem Gespräch ausfüllen.
+        </WithStyles(Typography)>
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>
 </WithStyles(List)>
 `;
 
-exports[`PrFinalCommentEmployee Component displays the text writeable 1`] = `
+exports[`PrFinalCommentEmployee Component displays the text writeable for the employee 1`] = `
 <WithStyles(List)>
   <WithStyles(ListItem)>
     <WithStyles(Grid)
@@ -93,35 +71,13 @@ exports[`PrFinalCommentEmployee Component displays the text writeable 1`] = `
         xl={12}
         xs={12}
       >
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrFinalCommentEmployee-bootstrapInput-1",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          helperText="Möchte ich letzte Anmerkungen zum Performance Review machen?
-                          Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe."
-          id="finalComment"
-          margin="none"
-          multiline={true}
-          onChange={[Function]}
-          placeholder="Möchte ich letzte Anmerkungen zum Performance Review machen? Gibt es noch etwas zu ergänzen?"
-          required={false}
-          rows="4"
-          rowsMax="10"
-          select={false}
-          value="writeable"
-        />
+        <WithStyles(Typography)
+          className="PrFinalCommentEmployee-comment-2"
+          id="finalCommentReadonly"
+          variant="body1"
+        >
+          Bitte nach dem Gespräch ausfüllen.
+        </WithStyles(Typography)>
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>

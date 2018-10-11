@@ -6,6 +6,7 @@ import ROLES from '../../helper/roles';
 
 describe('PrSheet Component', () => {
   let shallow = createShallow({ dive: true });
+  let wantDisabledTextFieldInsteadOfTypography = false;
 
   const prById = {
     id: 1,
@@ -215,8 +216,9 @@ describe('PrSheet Component', () => {
       component.contains(
         <PrOverallAssessment
           prById={prById}
-          prVisible={false}
           prFinalized={false}
+          prVisible={false}
+          disabledText={wantDisabledTextFieldInsteadOfTypography}
         />
       )
     ).toBe(true);
@@ -236,7 +238,7 @@ describe('PrSheet Component', () => {
     );
 
     expect(
-      component.find('Connect(WithStyles(PrSheetEmployee))[prVisible=true]')
+      component.find('Connect(WithStyles(PrSheetEmployee))[readOnly=true]')
     ).toHaveLength(2);
   });
 
@@ -298,9 +300,7 @@ describe('PrSheet Component', () => {
     );
 
     expect(
-      component.find(
-        'Connect(WithStyles(PrFinalCommentEmployee))[readOnly=true]'
-      )
+      component.find('Connect(WithStyles(PrFinalCommentEmployee))')
     ).toHaveLength(1);
   });
 
@@ -320,11 +320,22 @@ describe('PrSheet Component', () => {
         finalizationStatusOfReviewer: 'FINALIZED'
       }
     };
+
+    let prVisibilityEntry = {
+      prVisibilityEntry: {
+        visibilityToEmployee: 'VISIBLE',
+        visibilityToReviewer: 'VISIBLE'
+      }
+    };
+
     let prByIdWhichReviewerFinalized = Object.assign(
+      {},
       prById,
       statuses,
-      finalization
+      finalization,
+      prVisibilityEntry
     );
+
     const fetchVisibilityMock = jest.fn();
     const component = shallow(
       <StyledComponent
@@ -337,9 +348,10 @@ describe('PrSheet Component', () => {
     expect(
       component.contains(
         <PrOverallAssessment
-          prById={prById}
-          prVisible={true}
+          prById={prByIdWhichReviewerFinalized}
           prFinalized={true}
+          prVisible={true}
+          disabledText={wantDisabledTextFieldInsteadOfTypography}
         />
       )
     ).toBe(true);

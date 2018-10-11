@@ -11,6 +11,7 @@ import * as actions from '../../actions';
 import { getFinalCommentEmployee, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
 import { translateContent } from '../translate/Translate';
+import { isEmployee } from '../../helper/checkRole';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -53,8 +54,100 @@ class PrFinalCommentEmployee extends Component {
   sendComment = debounce(this.props.changeFinalCommentEmployee, 500);
 
   render() {
-    let { prById, classes, finalCommentEmployee, readOnly } = this.props;
+    let {
+      prById,
+      classes,
+      finalCommentEmployee,
+      readOnly,
+      open,
+      disabledText
+    } = this.props;
     let { commentText } = this.state;
+
+    let printComment = finalCommentEmployee
+      ? finalCommentEmployee
+      : 'Kein Eintrag.';
+
+    let readOnlyView = () => {
+      return disabledText ? (
+        <TextField
+          id={'finalComment'}
+          multiline
+          fullWidth
+          disabled={true}
+          rows="4"
+          rowsMax="10"
+          margin="none"
+          value={readOnly ? printComment : 'Noch nicht freigegeben.'}
+          onChange={this.handleChangeComment(prById)}
+          InputProps={{
+            disableUnderline: true,
+            name: 'comment',
+            classes: {
+              input: classes.bootstrapInput
+            }
+          }}
+          InputLabelProps={{
+            shrink: true
+          }}
+          helperText={`Möchte ich letzte Anmerkungen zum Performance Review machen?
+                  Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe.`}
+          placeholder={translateContent('PLACEHOLDER_FINAL_COMMENT_EMPLOYEE')}
+        />
+      ) : (
+        <Typography
+          id={'finalCommentReadonly'}
+          className={classes.comment}
+          variant="body1"
+        >
+          {readOnly ? printComment : 'Noch nicht freigegeben.'}
+        </Typography>
+      );
+    };
+
+    let insertText = () => {
+      return (
+        <TextField
+          id={'finalComment'}
+          multiline
+          fullWidth
+          rows="4"
+          rowsMax="10"
+          margin="none"
+          value={commentText}
+          onChange={this.handleChangeComment(prById)}
+          InputProps={{
+            disableUnderline: true,
+            name: 'comment',
+            classes: {
+              input: classes.bootstrapInput
+            }
+          }}
+          InputLabelProps={{
+            shrink: true
+          }}
+          helperText={`Möchte ich letzte Anmerkungen zum Performance Review machen?
+                  Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe.`}
+          placeholder={translateContent('PLACEHOLDER_FINAL_COMMENT_EMPLOYEE')}
+        />
+      );
+    };
+
+    let infoText = () => {
+      return (
+        <Typography
+          id={'finalCommentReadonly'}
+          className={classes.comment}
+          variant="body1"
+        >
+          {readOnly ? printComment : 'Bitte nach dem Gespräch ausfüllen.'}
+        </Typography>
+      );
+    };
+
+    let writingView = () => {
+      return open ? insertText() : infoText();
+    };
 
     return (
       <List>
@@ -66,43 +159,9 @@ class PrFinalCommentEmployee extends Component {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              {readOnly ? (
-                <Typography
-                  id={'finalCommentReadonly'}
-                  className={classes.comment}
-                  variant="body1"
-                >
-                  {finalCommentEmployee
-                    ? finalCommentEmployee
-                    : 'Kein Kommentar'}
-                </Typography>
-              ) : (
-                <TextField
-                  id={'finalComment'}
-                  multiline
-                  fullWidth
-                  rows="4"
-                  rowsMax="10"
-                  margin="none"
-                  value={commentText}
-                  onChange={this.handleChangeComment(prById)}
-                  InputProps={{
-                    disableUnderline: true,
-                    name: 'comment',
-                    classes: {
-                      input: classes.bootstrapInput
-                    }
-                  }}
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                  helperText={`Möchte ich letzte Anmerkungen zum Performance Review machen?
-                  Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe.`}
-                  placeholder={translateContent(
-                    'PLACEHOLDER_FINAL_COMMENT_EMPLOYEE'
-                  )}
-                />
-              )}
+              {isEmployee(this.props.userroles) && !readOnly
+                ? writingView()
+                : readOnlyView()}
             </Grid>
           </Grid>
         </ListItem>
