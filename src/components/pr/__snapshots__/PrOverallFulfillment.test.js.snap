@@ -1,80 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrOverallFulfillment Component should display the fulfillment of requirement 1`] = `
-<WithStyles(ListItem)>
-  <div
-    className="PrOverallFulfillment-simpleBlack-1"
-  >
-    <WithStyles(Typography)>
-      Zielrolle (ab Senior Level ausfüllen)
-    </WithStyles(Typography)>
-  </div>
+<ListItem
+  ContainerComponent="li"
+  button={false}
+  classes={
+    Object {
+      "button": "MuiListItem-button-9",
+      "container": "MuiListItem-container-2",
+      "default": "MuiListItem-default-4",
+      "dense": "MuiListItem-dense-5",
+      "disabled": "MuiListItem-disabled-6",
+      "divider": "MuiListItem-divider-7",
+      "focusVisible": "MuiListItem-focusVisible-3",
+      "gutters": "MuiListItem-gutters-8",
+      "root": "MuiListItem-root-1",
+      "secondaryAction": "MuiListItem-secondaryAction-10",
+      "selected": "MuiListItem-selected-11",
+    }
+  }
+  dense={false}
+  disableGutters={false}
+  disabled={false}
+  divider={false}
+  selected={false}
+>
+  <WithStyles(ListItemText)
+    secondary="Zielrolle (ab Senior Level ausfüllen)"
+  />
   <WithStyles(Typography)
     id="FULFILLMENT_OF_REQUIREMENT_TYPO"
     variant="body1"
   >
     kein Eintrag
   </WithStyles(Typography)>
-</WithStyles(ListItem)>
+</ListItem>
 `;
 
 exports[`PrOverallFulfillment Component should match snapshot 1`] = `
-<WithStyles(ListItem)>
-  <div
-    className="PrOverallFulfillment-simpleBlack-1"
+<ListItem
+  ContainerComponent="li"
+  button={false}
+  classes={
+    Object {
+      "button": "MuiListItem-button-9",
+      "container": "MuiListItem-container-2",
+      "default": "MuiListItem-default-4",
+      "dense": "MuiListItem-dense-5",
+      "disabled": "MuiListItem-disabled-6",
+      "divider": "MuiListItem-divider-7",
+      "focusVisible": "MuiListItem-focusVisible-3",
+      "gutters": "MuiListItem-gutters-8",
+      "root": "MuiListItem-root-1",
+      "secondaryAction": "MuiListItem-secondaryAction-10",
+      "selected": "MuiListItem-selected-11",
+    }
+  }
+  dense={false}
+  disableGutters={false}
+  disabled={false}
+  divider={false}
+  selected={false}
+>
+  <WithStyles(ListItemText)
+    secondary="Zielrolle (ab Senior Level ausfüllen)"
+  />
+  <WithStyles(Typography)
+    id="FULFILLMENT_OF_REQUIREMENT_TYPO"
+    variant="body1"
   >
-    <WithStyles(Typography)>
-      Zielrolle (ab Senior Level ausfüllen)
-    </WithStyles(Typography)>
-  </div>
-  <div
-    className="PrOverallFulfillment-number-2"
-  >
-    <WithStyles(FormControl)>
-      <WithStyles(Select)
-        displayEmpty={true}
-        id="ratingFullfillmentId"
-        name="ratingFulfillment"
-        onChange={[Function]}
-        value={2}
-      >
-        <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue1"
-          key="_ratingFulfillment1"
-          value={1}
-        >
-          nicht erfüllt
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue2"
-          key="_ratingFulfillment2"
-          value={2}
-        >
-          zT. nicht erfüllt
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue3"
-          key="_ratingFulfillment3"
-          value={3}
-        >
-          erfüllt
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue4"
-          key="_ratingFulfillment4"
-          value={4}
-        >
-          zT. übererfüllt
-        </WithStyles(MenuItem)>
-        <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue5"
-          key="_ratingFulfillment5"
-          value={5}
-        >
-          übererfüllt
-        </WithStyles(MenuItem)>
-      </WithStyles(Select)>
-    </WithStyles(FormControl)>
-  </div>
-</WithStyles(ListItem)>
+    kein Eintrag
+  </WithStyles(Typography)>
+</ListItem>
 `;

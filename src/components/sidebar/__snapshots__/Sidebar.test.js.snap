@@ -202,7 +202,7 @@ exports[`Sidebar should match snapshot 1`] = `
             "textDecoration": "none",
           }
         }
-        to="/prDetail/1"
+        to="/prDetail/2"
       >
         <WithStyles(ListItemIcon)>
           <pure(LibraryBooksIcon) />

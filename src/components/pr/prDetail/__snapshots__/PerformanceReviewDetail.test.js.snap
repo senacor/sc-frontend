@@ -1,3 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PerformanceReviewDetail Component should match snapshot 1`] = `<React.Fragment />`;
+exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
+<React.Fragment>
+  <WithStyles(PrDetailInformation) />
+  <Connect(WithStyles(PrState)) />
+</React.Fragment>
+`;
