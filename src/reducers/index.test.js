@@ -27,6 +27,7 @@ describe('reducers', () => {
         },
         events: [someValue],
         humanResourcesPrs: { someValue },
+        filter: { someValue },
         finalCommentEmployee: { someValue },
         isLoading: false,
         login: {
@@ -72,6 +73,7 @@ describe('reducers', () => {
           message: null
         },
         events: [],
+        filter: [],
         finalCommentEmployee: {},
         humanResourcesPrs: {},
         isLoading: false,

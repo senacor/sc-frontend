@@ -1,3 +1,226 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OverviewPerformanceReviews should match snapshot 1`] = `<Connect(WithLoading(WithStyles(EnhancedTable))) />`;
+exports[`OverviewPerformanceReviews should match snapshot 1`] = `
+<div>
+  <WithStyles(ListItem)>
+    <Connect(WithStyles(PerformanceReviewsTable))
+      orderBy={
+        Object {
+          "disablePadding": true,
+          "filter": <WithStyles(ExcelLikeSearchMenue)
+            content={
+                <WithStyles(List)>
+                    <WithStyles(ListItem)>
+                        <TextField
+                            InputLabelProps={
+                                Object {
+                                    "shrink": true,
+                                  }
+                            }
+                            id="date"
+                            label="Fälligkeit von"
+                            required={false}
+                            select={false}
+                            type="date"
+                        />
+                        <TextField
+                            InputLabelProps={
+                                Object {
+                                    "shrink": true,
+                                  }
+                            }
+                            defaultValue="2017-05-24"
+                            id="date"
+                            label="Fälligkeit bis"
+                            required={false}
+                            select={false}
+                            type="date"
+                        />
+                    </WithStyles(ListItem)>
+                </WithStyles(List)>
+            }
+        />,
+          "id": "deadline",
+          "label": "Fälligkeit",
+          "mapper": [Function],
+          "numeric": true,
+          "show": [Function],
+        }
+      }
+      rows={
+        Array [
+          Object {
+            "disablePadding": false,
+            "filter": <WithStyles(ExcelLikeSearchMenue)
+              content={
+                    <Connect(EmployeeFilter)
+                          filterBy="employee"
+                          filterGroup="hr"
+                    />
+              }
+        />,
+            "id": "employee",
+            "label": "Mitarbeiter",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "filter": <WithStyles(ExcelLikeSearchMenue)
+              content={
+                    <WithStyles(List)>
+                          <WithStyles(ListItem)>
+                                <TextField
+                                      InputLabelProps={
+                                            Object {
+                                                  "shrink": true,
+                                                }
+                                      }
+                                      id="date"
+                                      label="Fälligkeit von"
+                                      required={false}
+                                      select={false}
+                                      type="date"
+                                />
+                                <TextField
+                                      InputLabelProps={
+                                            Object {
+                                                  "shrink": true,
+                                                }
+                                      }
+                                      defaultValue="2017-05-24"
+                                      id="date"
+                                      label="Fälligkeit bis"
+                                      required={false}
+                                      select={false}
+                                      type="date"
+                                />
+                          </WithStyles(ListItem)>
+                    </WithStyles(List)>
+              }
+        />,
+            "id": "deadline",
+            "label": "Fälligkeit",
+            "mapper": [Function],
+            "numeric": true,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": false,
+            "id": "prOccasion",
+            "label": "Grund",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": false,
+            "id": "projectCst",
+            "label": "Projektkst",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "competence",
+            "label": "Dev/Con",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "level",
+            "label": "level",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "filter": <WithStyles(ExcelLikeSearchMenue)
+              content={
+                    <Connect(EmployeeFilter)
+                          filterBy="supervisor"
+                          filterGroup="hr"
+                    />
+              }
+        />,
+            "id": "supervisor",
+            "label": "Vorgesetzte/r",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "filter": <WithStyles(ExcelLikeSearchMenue)
+              content={
+                    <Connect(EmployeeFilter)
+                          filterBy="reviewer"
+                          filterGroup="hr"
+                    />
+              }
+        />,
+            "id": "reviewer",
+            "label": "Bewerter",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "result",
+            "label": "Bewertung",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "employeePreparationDone",
+            "label": "MA ausgefüllt",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": false,
+            "id": "reviewerPreparationDone",
+            "label": "Beurteiler ausgefüllt",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "appointment",
+            "label": "Termin",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "inProgress",
+            "label": "Finaler Status",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+          Object {
+            "disablePadding": true,
+            "id": "humanResourceProcessingDone",
+            "label": "HR verarbeitet",
+            "mapper": [Function],
+            "numeric": false,
+            "show": [Function],
+          },
+        ]
+      }
+    />
+  </WithStyles(ListItem)>
+</div>
+`;

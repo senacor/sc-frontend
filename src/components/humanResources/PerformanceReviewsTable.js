@@ -7,13 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import withLoading from '../hoc/Loading';
-import { getAllPrsForHumanResources } from '../../reducers/selector';
-import Translate, { translateContent } from '../translate/Translate';
-import { Link } from 'react-router-dom';
-import HR_ELEMENTS from './hrElements';
 import EnhancedTableHead from './EnhancedTableHead';
 
 export function getDisplayName(employee) {
@@ -68,60 +62,33 @@ const styles = theme => ({
   }
 });
 
-class EnhancedTable extends React.Component {
-  state = {
-    order: 'desc',
-    orderBy: HR_ELEMENTS.DEADLINE,
-    page: 0,
-    rowsPerPage: 25,
-    sortFunction: descInteger,
-    mapper: variable => variable
-  };
+class PerformanceReviewsTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      order: 'desc',
+      orderBy: this.props.orderBy.id,
+      page: 0,
+      rowsPerPage: 25,
+      sortFunction: this.props.orderBy.numeric ? descInteger : descString,
+      mapper: this.props.orderBy.mapper
+    };
+  }
 
   handleRequestSort = (event, property) => {
-    const orderBy = property;
+    const orderBy = property.id;
+    const mapper = property.mapper;
     let order = 'desc';
 
-    if (this.state.orderBy === property && this.state.order === 'desc') {
+    if (this.state.orderBy === orderBy && this.state.order === 'desc') {
       order = 'asc';
     }
     var sortFunction = descString;
-    var mapper = variable => variable;
-
-    switch (orderBy) {
-      case HR_ELEMENTS.EMPLOYEE:
-        mapper = entry => getDisplayName(entry);
-        break;
-      case HR_ELEMENTS.SUPERVISOR:
-        mapper = entry => getDisplayName(entry);
-        break;
-      case HR_ELEMENTS.REVIEWER:
-        mapper = entry => getDisplayName(entry);
-        break;
-      case HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE:
-        mapper = entry => (entry ? 'ja' : 'nein');
-        break;
-      case HR_ELEMENTS.REVIEWER_PREPARATION_DONE:
-        mapper = entry => (entry ? 'ja' : 'nein');
-        break;
-      case HR_ELEMENTS.HR_PROCESSING_DONE:
-        mapper = entry => (entry ? 'ja' : 'nein');
-        break;
-      case HR_ELEMENTS.IN_PROGRESS:
-        mapper = entry => (entry ? 'laufend' : 'abgeschlossen');
-        break;
-
-      case HR_ELEMENTS.PR_OCCASION:
-        mapper = entry => translateContent(entry);
-        break;
-      case HR_ELEMENTS.CST:
-        mapper = variable => variable;
-        break;
-
-      default:
-        sortFunction = descInteger;
-        mapper = variable => variable;
+    if (property.numeric === true) {
+      sortFunction = descInteger;
     }
+
     this.setState({ order, orderBy, sortFunction, mapper });
   };
 
@@ -134,7 +101,7 @@ class EnhancedTable extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, rows } = this.props;
     const {
       order,
       orderBy,
@@ -143,7 +110,7 @@ class EnhancedTable extends React.Component {
       rowsPerPage,
       page
     } = this.state;
-    const data = this.props.prs;
+    const data = this.props.data;
 
     return (
       <Paper className={classes.root}>
@@ -153,6 +120,7 @@ class EnhancedTable extends React.Component {
               order={order}
               orderBy={orderBy}
               onRequestSort={this.handleRequestSort}
+              rows={rows}
             />
             <TableBody>
               {stableSort(
@@ -160,43 +128,16 @@ class EnhancedTable extends React.Component {
                 getSorting(order, orderBy, sortFunction, mapper)
               )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(entry => {
+                .map((entry, index) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={entry.prId}>
-                      <TableCell padding="default">
-                        <Link to={`/prDetail/${entry.prId}`}>
-                          {getDisplayName(entry.employee)}
-                        </Link>
-                      </TableCell>
-                      <TableCell padding="none">{entry.deadline}</TableCell>
-                      <TableCell padding="none">
-                        <Translate content={entry.prOccasion} />
-                      </TableCell>
-                      <TableCell padding="none">{entry.projectCst}</TableCell>
-                      <TableCell padding="none">
-                        <Translate content={`COMPETENCE_${entry.competence}`} />
-                      </TableCell>
-                      <TableCell padding="none">{entry.level}</TableCell>
-                      <TableCell padding="none">
-                        {getDisplayName(entry.supervisor)}
-                      </TableCell>
-                      <TableCell padding="none">
-                        {getDisplayName(entry.reviewer)}
-                      </TableCell>
-                      <TableCell padding="none">result</TableCell>
-                      <TableCell padding="none">
-                        {entry.employeePreparationDone ? 'ja' : 'nein'}
-                      </TableCell>
-                      <TableCell padding="none">
-                        {entry.reviewerPreparationDone ? 'ja' : 'nein'}
-                      </TableCell>
-                      <TableCell padding="none">{entry.appointment}</TableCell>
-                      <TableCell padding="none">
-                        {entry.inProgress ? 'laufend' : 'abgeschlossen'}
-                      </TableCell>
-                      <TableCell padding="none">
-                        {entry.humanResourceProcessingDone ? 'ja' : 'nein'}
-                      </TableCell>
+                    <TableRow hover tabIndex={-1} key={index}>
+                      {rows.map(row => {
+                        return (
+                          <TableCell padding="default" key={row.id}>
+                            {row.show(entry)}
+                          </TableCell>
+                        );
+                      }, this)}
                     </TableRow>
                   );
                 })}
@@ -222,16 +163,10 @@ class EnhancedTable extends React.Component {
   }
 }
 
-EnhancedTable.propTypes = {
-  classes: PropTypes.object.isRequired
+PerformanceReviewsTable.propTypes = {
+  classes: PropTypes.object.isRequired,
+  rows: PropTypes.array.isRequired
 };
 
-export let StyledComponent = withStyles(styles)(EnhancedTable);
-export default connect(
-  state => ({
-    prs: getAllPrsForHumanResources(state)
-  }),
-  {
-    fetchAllPrsForHumanResource: actions.fetchAllPrsForHumanResource
-  }
-)(withLoading(props => props.fetchAllPrsForHumanResource())(StyledComponent));
+export let StyledComponent = withStyles(styles)(PerformanceReviewsTable);
+export default connect()(StyledComponent);

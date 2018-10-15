@@ -41,18 +41,26 @@ class EmployeeSearch extends React.Component {
     super(props);
 
     this.state = {
-      employeeSearchValue: ''
+      employeeSearchValue: this.props.employeeSearchValue
+        ? this.props.employeeSearchValue
+        : '',
+      searchReady: false
     };
   }
 
   handleChange = () => event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({
+      [event.target.name]: event.target.value,
+      searchReady: false
+    });
     if (event.target.value) {
       this.executeSearch(event.target.value);
     }
   };
 
   selectedEmployee = employee => () => {
+    let employeeName = `${employee.firstName} ${employee.lastName}`;
+    this.setState({ employeeSearchValue: employeeName, searchReady: true });
     this.props.selectEmployee(employee);
   };
 
@@ -73,35 +81,41 @@ class EmployeeSearch extends React.Component {
             name: 'employeeSearchValue'
           }}
         />
-        {this.state.employeeSearchValue ? (
-          <List
-            id="employeeSearchResultList"
-            component="nav"
-            className={classes.employeeList}
-          >
-            {prSearchResults.map(employee => {
-              return (
-                <div key={employee.id}>
-                  <ListItem
-                    className={classes.listItem}
-                    onClick={this.selectedEmployee(employee)}
-                  >
-                    <Avatar className={classes.avatar}>
-                      {employee.firstName.charAt(0)}
-                      {employee.lastName.charAt(0)}
-                    </Avatar>
-                    <ListItemText
-                      primary={`${employee.firstName} ${employee.lastName}`}
-                    />
-                  </ListItem>
-                  <Divider />
-                </div>
-              );
-            })}
-          </List>
-        ) : (
-          <p>Keine Suchtreffer</p>
-        )}
+        {!this.state.searchReady ? (
+          this.state.employeeSearchValue ? (
+            <List
+              id="employeeSearchResultList"
+              component="nav"
+              className={classes.employeeList}
+            >
+              {prSearchResults.length > 0 ? (
+                prSearchResults.map(employee => {
+                  return (
+                    <div key={employee.id}>
+                      <ListItem
+                        className={classes.listItem}
+                        onClick={this.selectedEmployee(employee)}
+                      >
+                        <Avatar className={classes.avatar}>
+                          {employee.firstName.charAt(0)}
+                          {employee.lastName.charAt(0)}
+                        </Avatar>
+                        <ListItemText
+                          primary={`${employee.firstName} ${employee.lastName}`}
+                        />
+                      </ListItem>
+                      <Divider />
+                    </div>
+                  );
+                })
+              ) : (
+                <p>Keine Suchtreffer</p>
+              )}
+            </List>
+          ) : (
+            <p>Keine Suchtreffer</p>
+          )
+        ) : null}
       </div>
     );
   }

@@ -7,6 +7,7 @@ export const getAllPrsForHumanResources = state =>
 export const getActualPrId = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
 export const getUserroles = state => state.userroles;
+export const getFilter = state => state.filter;
 export const getUserinfo = state => state.userinfo;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;

@@ -9,7 +9,7 @@ import EmployeeSearch from './EmployeeSearch';
 
 class EmployeeSearchDialog extends Component {
   render() {
-    const { fullScreen, open, handleClose, selectEmployee } = this.props;
+    const { fullScreen, open, handleClose, selectEmployee, title } = this.props;
 
     return (
       <Dialog
@@ -18,7 +18,7 @@ class EmployeeSearchDialog extends Component {
         fullWidth
         fullScreen={fullScreen}
       >
-        <DialogTitle>Delegieren an</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
 
         <DialogContent>
           <EmployeeSearch selectEmployee={selectEmployee} />
