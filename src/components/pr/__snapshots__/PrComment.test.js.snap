@@ -26,51 +26,11 @@ exports[`PrComment Component should display Customer interaction 1`] = `
     <WithStyles(ListItem)
       className="PrComment-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
-        <WithStyles(Select)
-          displayEmpty={true}
-          id="CUSTOMER_INTERACTION_RatingId"
-          name="rating"
-          onChange={[Function]}
-          value={4}
-        >
-          <WithStyles(MenuItem)
-            id="CUSTOMER_INTERACTION_RatingValue1"
-            key="CUSTOMER_INTERACTION_RatingValue1"
-            value={1}
-          >
-            1
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CUSTOMER_INTERACTION_RatingValue2"
-            key="CUSTOMER_INTERACTION_RatingValue2"
-            value={2}
-          >
-            2
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CUSTOMER_INTERACTION_RatingValue3"
-            key="CUSTOMER_INTERACTION_RatingValue3"
-            value={3}
-          >
-            3
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CUSTOMER_INTERACTION_RatingValue4"
-            key="CUSTOMER_INTERACTION_RatingValue4"
-            value={4}
-          >
-            4
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CUSTOMER_INTERACTION_RatingValue5"
-            key="CUSTOMER_INTERACTION_RatingValue5"
-            value={5}
-          >
-            5
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
+      <WithStyles(Typography)
+        className="PrComment-rating-11"
+        id="CUSTOMER_INTERACTION"
+        variant="body2"
+      />
     </WithStyles(ListItem)>
   </div>
   <WithStyles(Collapse)
@@ -84,31 +44,13 @@ exports[`PrComment Component should display Customer interaction 1`] = `
       disablePadding={true}
     >
       <WithStyles(ListItem)>
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrComment-bootstrapInput-2",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          id="CUSTOMER_INTERACTION_CommentId"
-          label="Kommentar"
-          multiline={true}
-          onChange={[Function]}
-          required={false}
-          rowsMax="4"
-          select={false}
-          value="iii"
-        />
+        <WithStyles(Typography)
+          className="PrComment-comment-9"
+          id="CUSTOMER_INTERACTION_TYPO"
+          variant="body1"
+        >
+          Noch nicht freigegeben.
+        </WithStyles(Typography)>
       </WithStyles(ListItem)>
       <WithStyles(PrSwipePositionDescription)
         category="CUSTOMER_INTERACTION"
@@ -144,51 +86,11 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
     <WithStyles(ListItem)
       className="PrComment-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
-        <WithStyles(Select)
-          displayEmpty={true}
-          id="PROBLEM_ANALYSIS_RatingId"
-          name="rating"
-          onChange={[Function]}
-          value={2}
-        >
-          <WithStyles(MenuItem)
-            id="PROBLEM_ANALYSIS_RatingValue1"
-            key="PROBLEM_ANALYSIS_RatingValue1"
-            value={1}
-          >
-            1
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="PROBLEM_ANALYSIS_RatingValue2"
-            key="PROBLEM_ANALYSIS_RatingValue2"
-            value={2}
-          >
-            2
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="PROBLEM_ANALYSIS_RatingValue3"
-            key="PROBLEM_ANALYSIS_RatingValue3"
-            value={3}
-          >
-            3
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="PROBLEM_ANALYSIS_RatingValue4"
-            key="PROBLEM_ANALYSIS_RatingValue4"
-            value={4}
-          >
-            4
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="PROBLEM_ANALYSIS_RatingValue5"
-            key="PROBLEM_ANALYSIS_RatingValue5"
-            value={5}
-          >
-            5
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
+      <WithStyles(Typography)
+        className="PrComment-rating-11"
+        id="PROBLEM_ANALYSIS"
+        variant="body2"
+      />
     </WithStyles(ListItem)>
   </div>
   <WithStyles(Collapse)
@@ -202,31 +104,13 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
       disablePadding={true}
     >
       <WithStyles(ListItem)>
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrComment-bootstrapInput-2",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          id="PROBLEM_ANALYSIS_CommentId"
-          label="Kommentar"
-          multiline={true}
-          onChange={[Function]}
-          required={false}
-          rowsMax="4"
-          select={false}
-          value="ggg"
-        />
+        <WithStyles(Typography)
+          className="PrComment-comment-9"
+          id="PROBLEM_ANALYSIS_TYPO"
+          variant="body1"
+        >
+          Noch nicht freigegeben.
+        </WithStyles(Typography)>
       </WithStyles(ListItem)>
       <WithStyles(PrSwipePositionDescription)
         category="PROBLEM_ANALYSIS"
@@ -262,51 +146,11 @@ exports[`PrComment Component should display Teamwork 1`] = `
     <WithStyles(ListItem)
       className="PrComment-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
-        <WithStyles(Select)
-          displayEmpty={true}
-          id="TEAMWORK_RatingId"
-          name="rating"
-          onChange={[Function]}
-          value={1}
-        >
-          <WithStyles(MenuItem)
-            id="TEAMWORK_RatingValue1"
-            key="TEAMWORK_RatingValue1"
-            value={1}
-          >
-            1
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="TEAMWORK_RatingValue2"
-            key="TEAMWORK_RatingValue2"
-            value={2}
-          >
-            2
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="TEAMWORK_RatingValue3"
-            key="TEAMWORK_RatingValue3"
-            value={3}
-          >
-            3
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="TEAMWORK_RatingValue4"
-            key="TEAMWORK_RatingValue4"
-            value={4}
-          >
-            4
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="TEAMWORK_RatingValue5"
-            key="TEAMWORK_RatingValue5"
-            value={5}
-          >
-            5
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
+      <WithStyles(Typography)
+        className="PrComment-rating-11"
+        id="TEAMWORK"
+        variant="body2"
+      />
     </WithStyles(ListItem)>
   </div>
   <WithStyles(Collapse)
@@ -320,31 +164,13 @@ exports[`PrComment Component should display Teamwork 1`] = `
       disablePadding={true}
     >
       <WithStyles(ListItem)>
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrComment-bootstrapInput-2",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          id="TEAMWORK_CommentId"
-          label="Kommentar"
-          multiline={true}
-          onChange={[Function]}
-          required={false}
-          rowsMax="4"
-          select={false}
-          value="fff"
-        />
+        <WithStyles(Typography)
+          className="PrComment-comment-9"
+          id="TEAMWORK_TYPO"
+          variant="body1"
+        >
+          Noch nicht freigegeben.
+        </WithStyles(Typography)>
       </WithStyles(ListItem)>
       <WithStyles(PrSwipePositionDescription)
         category="TEAMWORK"
@@ -380,51 +206,11 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
     <WithStyles(ListItem)
       className="PrComment-nestedNumber-7"
     >
-      <WithStyles(FormControl)>
-        <WithStyles(Select)
-          displayEmpty={true}
-          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingId"
-          name="rating"
-          onChange={[Function]}
-          value={3}
-        >
-          <WithStyles(MenuItem)
-            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue1"
-            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue1"
-            value={1}
-          >
-            1
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue2"
-            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue2"
-            value={2}
-          >
-            2
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue3"
-            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue3"
-            value={3}
-          >
-            3
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue4"
-            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue4"
-            value={4}
-          >
-            4
-          </WithStyles(MenuItem)>
-          <WithStyles(MenuItem)
-            id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue5"
-            key="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_RatingValue5"
-            value={5}
-          >
-            5
-          </WithStyles(MenuItem)>
-        </WithStyles(Select)>
-      </WithStyles(FormControl)>
+      <WithStyles(Typography)
+        className="PrComment-rating-11"
+        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+        variant="body2"
+      />
     </WithStyles(ListItem)>
   </div>
   <WithStyles(Collapse)
@@ -438,31 +224,13 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
       disablePadding={true}
     >
       <WithStyles(ListItem)>
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrComment-bootstrapInput-2",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
-          label="Kommentar"
-          multiline={true}
-          onChange={[Function]}
-          required={false}
-          rowsMax="4"
-          select={false}
-          value="hhh"
-        />
+        <WithStyles(Typography)
+          className="PrComment-comment-9"
+          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_TYPO"
+          variant="body1"
+        >
+          Noch nicht freigegeben.
+        </WithStyles(Typography)>
       </WithStyles(ListItem)>
       <WithStyles(PrSwipePositionDescription)
         category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"

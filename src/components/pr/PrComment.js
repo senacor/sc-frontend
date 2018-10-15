@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import * as actions from '../../actions';
 import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
-import { isEmployee } from '../../helper/checkRole';
+import { isSupervisor } from '../../helper/checkRole';
 import { translateContent } from '../translate/Translate';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 
@@ -137,7 +137,7 @@ class PrComment extends React.Component {
           </ListItem>
 
           <ListItem className={classes.nestedNumber}>
-            {isEmployee(this.props.userroles) ? (
+            {!isSupervisor(this.props.userroles) ? (
               <Typography
                 id={category}
                 className={classes.rating}
@@ -175,7 +175,7 @@ class PrComment extends React.Component {
         </div>
         <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.nestedText}>
-            {isEmployee(this.props.userroles) ? (
+            {!isSupervisor(this.props.userroles) ? (
               <ListItem>
                 <Typography
                   id={category + '_TYPO'}
@@ -184,7 +184,7 @@ class PrComment extends React.Component {
                 >
                   {prRating.comment && this.props.prVisible
                     ? '»' + prRating.comment + '«'
-                    : ''}
+                    : 'Noch nicht freigegeben.'}
                 </Typography>
               </ListItem>
             ) : (
