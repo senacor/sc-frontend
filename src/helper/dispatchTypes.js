@@ -55,3 +55,4 @@ export const LOGOUT = 'LOGOUT';
 export const SET_PR_DETAIL = 'SET_PR_DETAIL';
 export const ADD_PR_STATUS_REQUEST = 'ADD_PR_STATUS_REQUEST';
 export const ADD_FILTER = 'ADD_FILTER';
+export const ADD_SUBFILTER = 'ADD_SUBFILTER';

@@ -31,24 +31,22 @@ export const fetchAllPrsForHumanResource = () => async dispatch => {
   }
 };
 
-export const fetchFilteredPrsForHumanResource = payload => async dispatch => {
+export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
   dispatch({
     type: dispatchTypes.FETCH_FILTERED_PRS_HR_REQUEST
   });
-  dispatch({
-    type: dispatchTypes.ADD_FILTER,
-    payload
-  });
 
-  let filterString = '';
-  Object.keys(payload.filter).map(key => {
-    filterString += filterString === '' ? '?' : '&';
-    filterString += payload.filter[key].searchString;
-    return filterString;
-  });
-
+  let query = '';
+  if (filter) {
+    let filterString = Object.keys(filter)
+      .map(function(key) {
+        return filter[key].searchString;
+      })
+      .join('&');
+    query = filterString ? '?' + filterString : '';
+  }
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/hr/prs${filterString}`
+    `${process.env.REACT_APP_API}/api/v1/hr/prs${query}`
   );
 
   if (response.ok) {

@@ -1,4 +1,4 @@
-import { ADD_FILTER } from '../helper/dispatchTypes';
+import { ADD_FILTER, ADD_SUBFILTER } from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
 
 export const filter = (state = [], action) => {
@@ -8,6 +8,21 @@ export const filter = (state = [], action) => {
         {},
         state[action.payload.filterGroup],
         action.payload.filter
+      );
+
+      return cloneDeep(
+        Object.assign({}, state, {
+          [action.payload.filterGroup]: newFilterGroup
+        })
+      );
+    }
+    case ADD_SUBFILTER: {
+      let newFilterGroup = Object.assign(
+        {},
+        state[action.payload.filterGroup],
+        {
+          [action.payload.filterBy]: action.payload.filter
+        }
       );
 
       return cloneDeep(

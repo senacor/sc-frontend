@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { connect } from 'react-redux';
 import EnhancedTableHead from './EnhancedTableHead';
 
 export function getDisplayName(employee) {
@@ -30,10 +29,10 @@ export function descString(a, b, orderBy, mapper) {
   return -mapper(a[orderBy]).localeCompare(mapper(b[orderBy]));
 }
 
-export function stableSort(array, cmp) {
+export function stableSort(array, compare) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
+    const order = compare(a[0], b[0]);
     if (order !== 0) {
       return order;
     }
@@ -68,7 +67,7 @@ class PerformanceReviewsTable extends React.Component {
 
     this.state = {
       order: 'desc',
-      orderBy: this.props.orderBy.id,
+      orderBy: this.props.orderBy.key,
       page: 0,
       rowsPerPage: 25,
       sortFunction: this.props.orderBy.numeric ? descInteger : descString,
@@ -77,14 +76,14 @@ class PerformanceReviewsTable extends React.Component {
   }
 
   handleRequestSort = (event, property) => {
-    const orderBy = property.id;
+    const orderBy = property.key;
     const mapper = property.mapper;
     let order = 'desc';
 
     if (this.state.orderBy === orderBy && this.state.order === 'desc') {
       order = 'asc';
     }
-    var sortFunction = descString;
+    let sortFunction = descString;
     if (property.numeric === true) {
       sortFunction = descInteger;
     }
@@ -101,7 +100,7 @@ class PerformanceReviewsTable extends React.Component {
   };
 
   render() {
-    const { classes, rows } = this.props;
+    const { classes, columnDefinition } = this.props;
     const {
       order,
       orderBy,
@@ -120,7 +119,7 @@ class PerformanceReviewsTable extends React.Component {
               order={order}
               orderBy={orderBy}
               onRequestSort={this.handleRequestSort}
-              rows={rows}
+              columnDefinition={columnDefinition}
             />
             <TableBody>
               {stableSort(
@@ -128,13 +127,13 @@ class PerformanceReviewsTable extends React.Component {
                 getSorting(order, orderBy, sortFunction, mapper)
               )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((entry, index) => {
+                .map((line, index) => {
                   return (
                     <TableRow hover tabIndex={-1} key={index}>
-                      {rows.map(row => {
+                      {columnDefinition.map(column => {
                         return (
-                          <TableCell padding="default" key={row.id}>
-                            {row.show(entry)}
+                          <TableCell padding="default" key={column.key}>
+                            {column.show(line)}
                           </TableCell>
                         );
                       }, this)}
@@ -165,8 +164,8 @@ class PerformanceReviewsTable extends React.Component {
 
 PerformanceReviewsTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  rows: PropTypes.array.isRequired
+  columnDefinition: PropTypes.array.isRequired
 };
 
-export let StyledComponent = withStyles(styles)(PerformanceReviewsTable);
-export default connect()(StyledComponent);
+const StyledComponent = withStyles(styles)(PerformanceReviewsTable);
+export default StyledComponent;

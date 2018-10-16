@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopperSearchMenu component should match snapshot 1`] = `
+<div>
+  <WithStyles(IconButton)
+    onClick={[Function]}
+  >
+    <WithStyles(Icon)>
+      search
+    </WithStyles(Icon)>
+  </WithStyles(IconButton)>
+  <WithStyles(Popover)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "bottom",
+      }
+    }
+    id="simple-popper"
+    onClose={[Function]}
+    open={false}
+    transformOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "top",
+      }
+    }
+  >
+    <Connect(EmployeeFilter)
+      filterBy="employee"
+      filterGroup="hr"
+    />
+  </WithStyles(Popover)>
+</div>
+`;

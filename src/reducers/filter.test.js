@@ -1,5 +1,6 @@
 import { filter } from './filter';
 import { ADD_FILTER } from '../helper/dispatchTypes';
+import FILTER_GROUPS from '../components/humanResources/filterGroups';
 
 describe('filter reducer', () => {
   it('should add first filter to hr filter', async () => {
@@ -14,7 +15,7 @@ describe('filter reducer', () => {
 
     const action = {
       type: ADD_FILTER,
-      payload: { filterGroup: 'hr', filter: data }
+      payload: { filterGroup: FILTER_GROUPS.HR, filter: data }
     };
     const stateAfter = filter(stateBefore, action);
 
@@ -47,7 +48,7 @@ describe('filter reducer', () => {
 
     const action = {
       type: ADD_FILTER,
-      payload: { filterGroup: 'hr', filter: data }
+      payload: { filterGroup: FILTER_GROUPS.HR, filter: data }
     };
     const stateAfter = filter(stateBefore, action);
 

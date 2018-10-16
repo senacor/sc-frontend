@@ -1,17 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 
-const styles = theme => ({
-  typography: {
-    margin: theme.spacing.unit * 2
-  }
-});
-
-class ExcelLikeSearchMenue extends React.Component {
+class PopperSearchMenu extends React.Component {
   state = {
     anchorEl: null
   };
@@ -29,7 +21,6 @@ class ExcelLikeSearchMenue extends React.Component {
   };
 
   render() {
-    const { content } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -52,15 +43,11 @@ class ExcelLikeSearchMenue extends React.Component {
             horizontal: 'center'
           }}
         >
-          {content}
+          {this.props.children}
         </Popover>
       </div>
     );
   }
 }
 
-ExcelLikeSearchMenue.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(ExcelLikeSearchMenue);
+export default PopperSearchMenu;

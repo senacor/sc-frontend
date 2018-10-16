@@ -7,7 +7,6 @@ export const getAllPrsForHumanResources = state =>
 export const getActualPrId = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
 export const getUserroles = state => state.userroles;
-export const getFilter = state => state.filter;
 export const getUserinfo = state => state.userinfo;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
@@ -33,6 +32,22 @@ export const getPrRatings = type => {
     [state => state.prRatings, getActualPrId],
     (prRatings, prDetailId) => prRatings[prDetailId][type]
   );
+};
+
+export const getFilter = group => {
+  return createSelector(
+    [state => state.filter],
+    filter => (filter[group] ? filter[group] : '')
+  );
+};
+export const getSubFilter = (group, subfilter) => {
+  return createSelector([state => state.filter], filter => {
+    return filter[group]
+      ? filter[group][subfilter]
+        ? filter[group][subfilter]
+        : ''
+      : '';
+  });
 };
 
 export const getFinalCommentEmployee = () => {

@@ -1,46 +1,39 @@
 import React, { Component } from 'react';
 import * as actions from '../../actions';
 import EmployeeSearch from '../employeeSearch/EmployeeSearch';
-import { getFilter } from '../../reducers/selector';
+import { getSubFilter } from '../../reducers/selector';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class EmployeeFilter extends Component {
+export class EmployeeFilter extends Component {
   constructor(props) {
     super(props);
 
-    let filter;
-    let emptyFilter = {
-      [this.props.filterBy]: { searchString: '', values: '' }
-    };
-    if (!this.props.filter || !this.props.filter[this.props.filterGroup]) {
-      filter = emptyFilter;
-    } else {
-      filter = Object.assign(
-        {},
-        emptyFilter,
-        this.props.filter[this.props.filterGroup]
-      );
-    }
+    let filter = Object.assign(
+      {},
+      { searchString: '', values: '' },
+      this.props.filter
+    );
 
     this.state = {
-      employeeName: filter[this.props.filterBy].values,
+      employeeName: filter.values,
       filter: filter
     };
   }
 
   selectEmployee = employee => {
     if (employee) {
-      let filter = this.state.filter;
-      filter[this.props.filterBy] = {
+      let filter = {
         searchString: `${this.props.filterBy}=${employee.id}`,
         values: `${employee.firstName} ${employee.lastName}`
       };
       let payload = {
         filterGroup: this.props.filterGroup,
+        filterBy: this.props.filterBy,
+
         filter: filter
       };
-      this.props.fetchFilteredPrsForHumanResource(payload);
+      this.props.addFilter(payload);
     }
   };
 
@@ -60,10 +53,10 @@ EmployeeFilter.propTypes = {
 };
 
 export default connect(
-  state => ({
-    filter: getFilter(state)
+  (state, props) => ({
+    filter: getSubFilter(props.filterGroup, props.filterBy)(state)
   }),
   {
-    fetchFilteredPrsForHumanResource: actions.fetchFilteredPrsForHumanResource
+    addFilter: actions.addFilter
   }
 )(EmployeeFilter);
