@@ -6,7 +6,7 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
 >
   <WithStyles(Typography)
     gutterBottom={true}
-    variant="display1"
+    variant="h4"
   >
     Termindetails
   </WithStyles(Typography)>

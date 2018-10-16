@@ -4,7 +4,7 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
 <React.Fragment>
   <WithStyles(Typography)
     gutterBottom={true}
-    variant="display1"
+    variant="h4"
   >
     Terminfindung
   </WithStyles(Typography)>

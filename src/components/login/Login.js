@@ -181,7 +181,7 @@ class Login extends Component {
               <Button
                 color="primary"
                 className={classes.button}
-                variant="raised"
+                variant="contained"
                 onClick={this.handleOnClick}
                 type="submit"
               >
@@ -198,7 +198,7 @@ class Login extends Component {
             <Hidden mdUp>
               <Button
                 className={classes.button}
-                variant="raised"
+                variant="contained"
                 onClick={this.handleOnClick}
                 type="submit"
               >

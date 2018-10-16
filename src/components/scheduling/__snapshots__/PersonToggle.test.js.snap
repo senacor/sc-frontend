@@ -24,7 +24,7 @@ exports[`PersonToggle should match snapshot 1`] = `
     </WithStyles(Typography)>
     <WithStyles(Typography)
       noWrap={true}
-      variant="subheading"
+      variant="subtitle1"
     >
       Michaela Mitarbeiterin
     </WithStyles(Typography)>

@@ -27,7 +27,7 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
       id="createMeeting"
       onClick={[Function]}
       type="submit"
-      variant="raised"
+      variant="contained"
     >
       Termin erstellen
     </WithStyles(Button)>

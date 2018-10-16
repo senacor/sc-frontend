@@ -13,7 +13,7 @@ exports[`Dashboard component should match snapshot 1`] = `
       <WithStyles(CardContent)>
         <WithStyles(Typography)
           component="h2"
-          variant="headline"
+          variant="h5"
         >
           5
         </WithStyles(Typography)>
@@ -30,7 +30,7 @@ exports[`Dashboard component should match snapshot 1`] = `
       <WithStyles(CardContent)>
         <WithStyles(Typography)
           component="h2"
-          variant="headline"
+          variant="h5"
         >
           18
         </WithStyles(Typography)>

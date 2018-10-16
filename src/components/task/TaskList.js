@@ -52,7 +52,7 @@ export class TaskList extends React.Component {
     const { classes, tasks } = this.props;
     return (
       <div>
-        <Typography variant="display1" paragraph>
+        <Typography variant="h4" paragraph>
           Aufgabenliste
         </Typography>
         {tasks.length === 0 ? <p>Keine offenen Aufgaben</p> : ''}
@@ -67,7 +67,7 @@ export class TaskList extends React.Component {
                 }
                 style={{ textDecoration: 'none' }}
               >
-                <Typography variant="headline" component="h2">
+                <Typography variant="h5" component="h2">
                   {task.title}
                 </Typography>
                 <Typography component="p">{task.description}</Typography>

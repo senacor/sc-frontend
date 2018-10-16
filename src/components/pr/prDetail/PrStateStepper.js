@@ -59,7 +59,7 @@ export class PrStateStepper extends React.Component {
             <Step key={mainStep.mainStepLabel}>
               <StepLabel classes={{ root: classes.stepLabelRoot }}>
                 <Typography
-                  variant="subheading"
+                  variant="subtitle1"
                   gutterBottom
                   className={classes.mainStepLabel}
                 >

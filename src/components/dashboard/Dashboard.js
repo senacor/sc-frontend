@@ -37,7 +37,7 @@ class Dashboard extends Component {
         <div className={classes.rowContainer}>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="headline" component="h2">
+              <Typography variant="h5" component="h2">
                 5
               </Typography>
               <Typography className={classes.title} color="textSecondary">
@@ -48,7 +48,7 @@ class Dashboard extends Component {
 
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="headline" component="h2">
+              <Typography variant="h5" component="h2">
                 18
               </Typography>
               <Typography className={classes.title} color="textSecondary">

@@ -64,7 +64,7 @@ class MeetingDetailsView extends React.Component {
     const { classes, meeting } = this.props;
     return (
       <div className={classes.meetingView}>
-        <Typography gutterBottom variant="display1">
+        <Typography gutterBottom variant="h4">
           Termindetails
         </Typography>
         <List>

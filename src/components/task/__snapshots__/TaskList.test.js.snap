@@ -4,7 +4,7 @@ exports[`TaskList Component should display the list of tasks 1`] = `
 <div>
   <WithStyles(Typography)
     paragraph={true}
-    variant="display1"
+    variant="h4"
   >
     Aufgabenliste
   </WithStyles(Typography)>
@@ -24,7 +24,7 @@ exports[`TaskList Component should display the list of tasks 1`] = `
       >
         <WithStyles(Typography)
           component="h2"
-          variant="headline"
+          variant="h5"
         >
           Test title 2
         </WithStyles(Typography)>

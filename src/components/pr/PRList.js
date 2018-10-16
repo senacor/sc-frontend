@@ -98,7 +98,7 @@ export class PRList extends React.Component {
     const { classes, prs } = this.props;
     return (
       <div>
-        <Typography variant="display1" paragraph>
+        <Typography variant="h4" paragraph>
           Performance Reviews
         </Typography>
 
@@ -121,15 +121,15 @@ export class PRList extends React.Component {
                     }}
                   >
                     <CardContent className={classes.content}>
-                      <Typography variant="display1">
+                      <Typography variant="h4">
                         {pr.employee.firstName}
                       </Typography>
-                      <Typography variant="subheading" color="textSecondary">
+                      <Typography variant="subtitle1" color="textSecondary">
                         Performance Review
                       </Typography>
 
                       {pr.deadline ? (
-                        <Typography variant="subheading" color="textSecondary">
+                        <Typography variant="subtitle1" color="textSecondary">
                           Deadline: {moment(pr.deadline).format('DD.MM.YY')}
                         </Typography>
                       ) : (

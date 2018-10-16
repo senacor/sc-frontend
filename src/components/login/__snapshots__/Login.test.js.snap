@@ -95,7 +95,7 @@ exports[`Login Component should match snapshot 1`] = `
           color="primary"
           onClick={[Function]}
           type="submit"
-          variant="raised"
+          variant="contained"
         >
           Log In
         </WithStyles(Button)>
@@ -117,7 +117,7 @@ exports[`Login Component should match snapshot 1`] = `
           className="Login-button-7"
           onClick={[Function]}
           type="submit"
-          variant="raised"
+          variant="contained"
         >
           Log In
         </WithStyles(Button)>
