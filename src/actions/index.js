@@ -5,6 +5,7 @@ import * as dispatchTypes from '../helper/dispatchTypes';
 export {
   addRating,
   changeFinalCommentEmployee,
+  changeFinalCommentHr,
   addEmployeeContribution,
   setVisibilityById,
   setPrFinalizationStatus,
