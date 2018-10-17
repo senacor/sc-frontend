@@ -8,12 +8,16 @@ import PrComment from './PrComment';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
-import { isSupervisor } from '../../helper/checkRole';
+import { isHr, isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';
 import * as finalizationTypes from '../../helper/prFinalization';
 import objectGet from 'object-get';
-import { getPrDetail, getUserroles } from '../../reducers/selector';
+import {
+  getPrDetail,
+  getUserinfo,
+  getUserroles
+} from '../../reducers/selector';
 import PrFinalCommentEmployee from './PrFinalCommentEmployee';
 import PrFinalCommentHr from './PrFinalCommentHr';
 import Hidden from '@material-ui/core/Hidden';
@@ -89,8 +93,18 @@ class PrSheet extends React.Component {
     );
   };
 
+  hasRoleInPrBasedOnUserName = (pr, userinfo) => roles => {
+    let hasRoleInPr = false;
+    roles.forEach(function(item) {
+      if (objectGet(pr, `${item}.login`) === userinfo.userPrincipalName) {
+        hasRoleInPr = true;
+      }
+    });
+    return hasRoleInPr;
+  };
+
   render() {
-    const { prById, classes } = this.props;
+    const { prById, classes, userinfo } = this.props;
 
     if (!prById) {
       return null;
@@ -98,6 +112,17 @@ class PrSheet extends React.Component {
 
     let wantDisabledTextFieldInsteadOfTypography = false;
     let reviewerCanChangeComments = this.isVisibleToEmployee();
+
+    let hasRoleInPr = this.hasRoleInPrBasedOnUserName(prById, userinfo);
+    let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
+    let nonActionPerformerForEmployeeActions =
+      hasRoleInPr(['supervisor', 'reviewer']) || isHr(this.props.userroles);
+    let isActionPerformerForReviewerActions = hasRoleInPr([
+      'supervisor',
+      'reviewer'
+    ]);
+    let nonActionPerformerForReviewerActions =
+      hasRoleInPr(['employee']) || isHr(this.props.userroles);
 
     let step1employee = () => {
       return (
@@ -135,6 +160,8 @@ class PrSheet extends React.Component {
               prFinalized={reviewerCanChangeComments}
               prVisible={this.isVisibleToEmployee()}
               disabledText={wantDisabledTextFieldInsteadOfTypography}
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
             />
           </List>
         </List>
@@ -150,7 +177,8 @@ class PrSheet extends React.Component {
                 prById={prById}
                 readOnly={this.isFinalizedForEmployee()}
                 open={this.isFinalizedForReviewer()}
-                disabledText={wantDisabledTextFieldInsteadOfTypography}
+                isActionPerformer={isActionPerformerForEmployeeActions}
+                nonActionPerformer={nonActionPerformerForEmployeeActions}
               />
             </div>
           </List>
@@ -301,7 +329,8 @@ export const StyledComponent = withStyles(styles)(PrSheet);
 export default connect(
   state => ({
     prById: getPrDetail()(state),
-    userroles: getUserroles(state)
+    userroles: getUserroles(state),
+    userinfo: getUserinfo(state)
   }),
   {
     setVisibilityById: actions.setVisibilityById
