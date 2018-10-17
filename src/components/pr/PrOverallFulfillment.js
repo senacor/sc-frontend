@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { isEmployee } from '../../helper/checkRole';
+import { isSupervisor } from '../../helper/checkRole';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 import { translateContent } from '../translate/Translate';
 import * as actions from '../../actions';
@@ -51,11 +51,11 @@ export class PrOverallFulfillment extends Component {
     return (
       <ListItem>
         <ListItemText secondary={translateContent(category)} />
-        {isEmployee(userroles) ? (
+        {!isSupervisor(userroles) ? (
           <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
             {this.props.prVisible
               ? this.mapRatingFullfilment(prRating.rating)
-              : ''}
+              : 'kein Eintrag'}
           </Typography>
         ) : (
           <FormControl disabled={prFinalized}>

@@ -25,6 +25,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         >
           <Connect(WithStyles(PrSheetEmployee))
             category="ROLE_AND_PROJECT_ENVIRONMENT"
+            disabledText={false}
             prById={
               Object {
                 "_links": Object {
@@ -207,11 +208,11 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 "supervisor": "ttran",
               }
             }
-            prFinalized={false}
-            prVisible={true}
+            readOnly={true}
           />
           <Connect(WithStyles(PrSheetEmployee))
             category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+            disabledText={false}
             prById={
               Object {
                 "_links": Object {
@@ -394,8 +395,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 "supervisor": "ttran",
               }
             }
-            prFinalized={false}
-            prVisible={true}
+            readOnly={true}
           />
         </WithStyles(List)>
       </WithStyles(List)>
@@ -1962,6 +1962,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           disablePadding={true}
         >
           <Connect(WithStyles(PrOverallAssessment))
+            disabledText={false}
             prById={
               Object {
                 "_links": Object {
@@ -2156,6 +2157,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         >
           <div>
             <Connect(WithStyles(PrFinalCommentEmployee))
+              disabledText={false}
+              open={false}
               prById={
                 Object {
                   "_links": Object {

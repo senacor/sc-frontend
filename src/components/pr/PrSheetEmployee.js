@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { isSupervisor } from '../../helper/checkRole';
+import { isEmployee } from '../../helper/checkRole';
 import Typography from '@material-ui/core/Typography';
 import { translateContent } from '../translate/Translate';
 import {
@@ -39,13 +39,6 @@ const styles = theme => ({
 });
 
 class PrSheetEmployee extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prVisible: this.props.prVisible
-    };
-  }
-
   handleChangeComment = (prById, category) => event => {
     this.setState({ text: event.target.value });
 
@@ -66,8 +59,73 @@ class PrSheetEmployee extends React.Component {
       category,
       classes,
       employeeContribution,
-      prFinalized
+      prFinalized,
+      readOnly,
+      disabledText
     } = this.props;
+
+    let readOnlyView = () => {
+      return disabledText ? (
+        <TextField
+          id={category + '_CommentId'}
+          disabled={true}
+          multiline
+          fullWidth
+          rows="4"
+          rowsMax="4"
+          margin="none"
+          helperText={translateContent(`PLACEHOLDER_${category}`)}
+          value={readOnly ? employeeContribution.text : 'Noch kein Eintrag'}
+          onChange={this.handleChangeComment(prById, category)}
+          InputProps={{
+            disableUnderline: true,
+            name: 'comment',
+            classes: {
+              input: classes.bootstrapInput
+            }
+          }}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+      ) : (
+        <Typography
+          id={category + '_Description'}
+          className={classes.comment}
+          variant="body1"
+        >
+          {readOnly ? employeeContribution.text : 'Noch kein Eintrag'}
+        </Typography>
+      );
+    };
+
+    let writingView = () => {
+      return (
+        <TextField
+          id={category + '_CommentId'}
+          disabled={prFinalized}
+          multiline
+          fullWidth
+          rows="4"
+          rowsMax="4"
+          margin="none"
+          helperText={translateContent(`PLACEHOLDER_${category}`)}
+          value={employeeContribution.text ? employeeContribution.text : ''}
+          onChange={this.handleChangeComment(prById, category)}
+          InputProps={{
+            disableUnderline: true,
+            name: 'comment',
+            classes: {
+              input: classes.bootstrapInput
+            }
+          }}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+      );
+    };
+
     return (
       <div>
         <List component="div" disablePadding className={classes.nestedText}>
@@ -79,42 +137,9 @@ class PrSheetEmployee extends React.Component {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                {isSupervisor(this.props.userroles) ? (
-                  <Typography
-                    id={category + '_Description'}
-                    className={classes.comment}
-                    variant="body1"
-                  >
-                    {employeeContribution.text && this.state.prVisible
-                      ? employeeContribution.text
-                      : 'Noch kein Eintrag'}
-                  </Typography>
-                ) : (
-                  <TextField
-                    id={category + '_CommentId'}
-                    disabled={prFinalized}
-                    multiline
-                    fullWidth
-                    rows="4"
-                    rowsMax="4"
-                    margin="none"
-                    helperText={translateContent(`PLACEHOLDER_${category}`)}
-                    value={
-                      employeeContribution.text ? employeeContribution.text : ''
-                    }
-                    onChange={this.handleChangeComment(prById, category)}
-                    InputProps={{
-                      disableUnderline: true,
-                      name: 'comment',
-                      classes: {
-                        input: classes.bootstrapInput
-                      }
-                    }}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                  />
-                )}
+                {isEmployee(this.props.userroles) && !readOnly
+                  ? writingView()
+                  : readOnlyView()}
               </Grid>
             </Grid>
           </ListItem>

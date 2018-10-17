@@ -34,33 +34,13 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
           xl={12}
           xs={12}
         >
-          <TextField
-            InputLabelProps={
-              Object {
-                "shrink": true,
-              }
-            }
-            InputProps={
-              Object {
-                "classes": Object {
-                  "input": "PrSheetEmployee-bootstrapInput-1",
-                },
-                "disableUnderline": true,
-                "name": "comment",
-              }
-            }
-            fullWidth={true}
-            helperText="Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?"
-            id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_CommentId"
-            margin="none"
-            multiline={true}
-            onChange={[Function]}
-            required={false}
-            rows="4"
-            rowsMax="4"
-            select={false}
-            value=""
-          />
+          <WithStyles(Typography)
+            className="PrSheetEmployee-comment-3"
+            id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_Description"
+            variant="body1"
+          >
+            Noch kein Eintrag
+          </WithStyles(Typography)>
         </WithStyles(Grid)>
       </WithStyles(Grid)>
     </WithStyles(ListItem)>
@@ -102,33 +82,13 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE
           xl={12}
           xs={12}
         >
-          <TextField
-            InputLabelProps={
-              Object {
-                "shrink": true,
-              }
-            }
-            InputProps={
-              Object {
-                "classes": Object {
-                  "input": "PrSheetEmployee-bootstrapInput-1",
-                },
-                "disableUnderline": true,
-                "name": "comment",
-              }
-            }
-            fullWidth={true}
-            helperText="Beschreibung Projekt, Aufgabe und Rolle"
-            id="ROLE_AND_PROJECT_ENVIRONMENT_CommentId"
-            margin="none"
-            multiline={true}
-            onChange={[Function]}
-            required={false}
-            rows="4"
-            rowsMax="4"
-            select={false}
-            value=""
-          />
+          <WithStyles(Typography)
+            className="PrSheetEmployee-comment-3"
+            id="ROLE_AND_PROJECT_ENVIRONMENT_Description"
+            variant="body1"
+          >
+            Noch kein Eintrag
+          </WithStyles(Typography)>
         </WithStyles(Grid)>
       </WithStyles(Grid)>
     </WithStyles(ListItem)>

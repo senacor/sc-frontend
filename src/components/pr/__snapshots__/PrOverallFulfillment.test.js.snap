@@ -26,51 +26,12 @@ exports[`PrOverallFulfillment Component should display the fulfillment of requir
   <WithStyles(ListItemText)
     secondary="Zielrolle (ab Senior Level ausfüllen)"
   />
-  <WithStyles(FormControl)>
-    <WithStyles(Select)
-      displayEmpty={true}
-      id="ratingFullfillmentId"
-      name="ratingFulfillment"
-      onChange={[Function]}
-      value={2}
-    >
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue1"
-        key="_ratingFulfillment1"
-        value={1}
-      >
-        nicht erfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue2"
-        key="_ratingFulfillment2"
-        value={2}
-      >
-        zT. nicht erfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue3"
-        key="_ratingFulfillment3"
-        value={3}
-      >
-        erfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue4"
-        key="_ratingFulfillment4"
-        value={4}
-      >
-        zT. übererfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue5"
-        key="_ratingFulfillment5"
-        value={5}
-      >
-        übererfüllt
-      </WithStyles(MenuItem)>
-    </WithStyles(Select)>
-  </WithStyles(FormControl)>
+  <WithStyles(Typography)
+    id="FULFILLMENT_OF_REQUIREMENT_TYPO"
+    variant="body1"
+  >
+    kein Eintrag
+  </WithStyles(Typography)>
 </ListItem>
 `;
 
@@ -100,50 +61,11 @@ exports[`PrOverallFulfillment Component should match snapshot 1`] = `
   <WithStyles(ListItemText)
     secondary="Zielrolle (ab Senior Level ausfüllen)"
   />
-  <WithStyles(FormControl)>
-    <WithStyles(Select)
-      displayEmpty={true}
-      id="ratingFullfillmentId"
-      name="ratingFulfillment"
-      onChange={[Function]}
-      value={2}
-    >
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue1"
-        key="_ratingFulfillment1"
-        value={1}
-      >
-        nicht erfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue2"
-        key="_ratingFulfillment2"
-        value={2}
-      >
-        zT. nicht erfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue3"
-        key="_ratingFulfillment3"
-        value={3}
-      >
-        erfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue4"
-        key="_ratingFulfillment4"
-        value={4}
-      >
-        zT. übererfüllt
-      </WithStyles(MenuItem)>
-      <WithStyles(MenuItem)
-        id="_ratingFulfillmentValue5"
-        key="_ratingFulfillment5"
-        value={5}
-      >
-        übererfüllt
-      </WithStyles(MenuItem)>
-    </WithStyles(Select)>
-  </WithStyles(FormControl)>
+  <WithStyles(Typography)
+    id="FULFILLMENT_OF_REQUIREMENT_TYPO"
+    variant="body1"
+  >
+    kein Eintrag
+  </WithStyles(Typography)>
 </ListItem>
 `;

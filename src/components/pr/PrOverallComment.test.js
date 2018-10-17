@@ -39,11 +39,6 @@ describe('PrOverallComment Component', () => {
       />
     );
 
-    expect(
-      wrapper
-        .find(TextField)
-        .find('[disabled]')
-        .props().disabled
-    ).toEqual(true);
+    expect(wrapper.find(TextField).find('[disabled]')).toHaveLength(0);
   });
 });

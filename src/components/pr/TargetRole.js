@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import StepSlider from './StepSlider';
-import { isEmployee } from '../../helper/checkRole';
+import { isSupervisor } from '../../helper/checkRole';
 import { getUserroles } from '../../reducers/selector';
 import Grid from '@material-ui/core/Grid/index';
 import objectGet from 'object-get';
@@ -115,7 +115,7 @@ export const StyledComponent = withStyles(styles)(TargetRole);
 export default connect(
   state => ({
     prActive: state.prs[state.prDetailId],
-    isDisabled: isEmployee(getUserroles(state)) === true
+    isDisabled: !isSupervisor(getUserroles(state)) === true
   }),
   {
     changeRatingTargetRole: actions.changeRatingTargetRole

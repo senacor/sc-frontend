@@ -16,7 +16,13 @@ const styles = {
 
 class PrOverallAssessment extends React.Component {
   render() {
-    const { prById, classes, prVisible, prFinalized } = this.props;
+    const {
+      prById,
+      classes,
+      prVisible,
+      prFinalized,
+      disabledText
+    } = this.props;
 
     return (
       <div>
@@ -39,6 +45,7 @@ class PrOverallAssessment extends React.Component {
             category="FULFILLMENT_OF_REQUIREMENT"
             prFinalized={prFinalized}
             prVisible={prVisible}
+            disabledText={disabledText}
           />
         </div>
       </div>

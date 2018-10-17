@@ -3,43 +3,66 @@ import { StyledComponent } from './PrFinalCommentEmployee';
 import { createShallow } from '@material-ui/core/test-utils';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import ROLES from '../../helper/roles';
 
 describe('PrFinalCommentEmployee Component', () => {
   let shallow = createShallow({ dive: true });
 
   const prById = {
-    id: 1,
-    supervisor: 'ttran',
-    occasion: 'ON_DEMAND',
-    status: 'PREPARATION',
-    deadline: '2018-03-14',
-    finalCommentEmployee: 'blupp',
     prFinalizationStatus: {
       id: 1,
       finalizationStatusOfEmployee: 'NOT_FINALIZED',
-      finalizationStatusOfReviewer: 'NOT_FINALIZED'
-    },
-    _links: {
-      self: {
-        href: 'http://localhost:8010/api/v1/prs/1'
-      }
+      finalizationStatusOfReviewer: 'FINALIZED'
     }
   };
 
   it('displays the PrFinalCommentEmployee', () => {
     const component = shallow(
-      <StyledComponent prById={prById} finalCommentEmployee={'text'} />
+      <StyledComponent
+        prById={prById}
+        userroles={[ROLES.PR_MITARBEITER]}
+        disabledText={false}
+      />
     );
 
     expect(component).toMatchSnapshot();
   });
 
-  it('displays the text read-only', () => {
+  it('displays the text writeable for the employee', () => {
     const component = shallow(
       <StyledComponent
         prById={prById}
-        finalCommentEmployee={'readonly'}
-        readOnly={true}
+        userroles={[ROLES.PR_MITARBEITER]}
+        disabledText={false}
+      />
+    );
+
+    expect(component.find(Typography)).toHaveLength(2);
+    expect(component.find(TextField)).toHaveLength(0);
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it('displays the text read-only for the reviewer', () => {
+    let changeFinalization = {
+      prFinalizationStatus: {
+        id: 1,
+        finalizationStatusOfEmployee: 'FINALIZED',
+        finalizationStatusOfReviewer: 'FINALIZED'
+      }
+    };
+    let readOnlyText = { finalCommentEmployee: 'readonly' };
+    let readOnlyPr = Object.assign(
+      {},
+      prById,
+      changeFinalization,
+      readOnlyText
+    );
+    const component = shallow(
+      <StyledComponent
+        prById={readOnlyPr}
+        userroles={[ROLES.PR_CST_LEITER]}
+        disabledText={false}
       />
     );
 
@@ -50,21 +73,6 @@ describe('PrFinalCommentEmployee Component', () => {
       component
         .find('WithStyles(Typography)')
         .findWhere(x => x.text() === 'readonly')
-    ).toHaveLength(1);
-  });
-
-  it('displays the text writeable', () => {
-    const component = shallow(
-      <StyledComponent
-        prById={prById}
-        finalCommentEmployee={'writeable'}
-        readOnly={false}
-      />
-    );
-
-    expect(component.find(Typography)).toHaveLength(1);
-    expect(component.find(TextField)).toHaveLength(1);
-
-    expect(component).toMatchSnapshot();
+    ).toHaveLength(0);
   });
 });

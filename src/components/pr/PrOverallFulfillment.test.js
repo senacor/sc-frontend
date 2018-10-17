@@ -55,14 +55,10 @@ describe('PrOverallFulfillment Component', () => {
         }}
         category="TARGET_ROLE"
         prFinalized={true}
+        prVisible={true}
       />
     );
 
-    expect(
-      wrapper
-        .find(FormControl)
-        .find('[disabled]')
-        .props().disabled
-    ).toEqual(true);
+    expect(wrapper.find(FormControl).find('[disabled]')).toHaveLength(0);
   });
 });
