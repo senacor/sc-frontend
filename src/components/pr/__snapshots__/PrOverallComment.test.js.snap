@@ -20,10 +20,9 @@ exports[`PrOverallComment Component should match snapshot 1`] = `
           helperText="Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?"
           label="Gesamteinschätzung Freitext"
           onChange={[Function]}
-          openEditing={true}
-          readOnlyText="ggg"
           required={true}
-          writeableText="ggg"
+          state="DISABLED"
+          value=""
         />
       </WithStyles(Grid)>
     </WithStyles(Grid)>

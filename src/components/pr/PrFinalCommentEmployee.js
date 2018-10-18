@@ -11,6 +11,7 @@ import { debounce } from '../../helper/debounce';
 import { translateContent } from '../translate/Translate';
 
 import PrTextField from './PrTextField';
+import { textFieldsInPrSheetService } from '../../service/textFieldsInPrSheetService';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -63,6 +64,20 @@ class PrFinalCommentEmployee extends Component {
     } = this.props;
     let { commentText } = this.state;
 
+    let textFieldService = textFieldsInPrSheetService(
+      nonActionPerformer,
+      readOnly,
+      isActionPerformer,
+      open,
+      finalCommentEmployee,
+      null,
+      commentText
+    );
+
+    let textFieldState = textFieldService.state;
+
+    let textFieldValue = textFieldService.value;
+
     let helperText =
       'Letzte Anmerkungen und Ergänzungen zum Performance Review.';
 
@@ -74,13 +89,9 @@ class PrFinalCommentEmployee extends Component {
               <PrTextField
                 fieldId={'finalComment'}
                 label={translateContent('FINAL_COMMENT_EMPLOYEE')}
-                isActionPerformer={isActionPerformer}
-                nonActionPerformer={nonActionPerformer}
-                readOnlyFlag={readOnly}
-                openEditing={open}
+                state={textFieldState}
+                value={textFieldValue}
                 helperText={helperText}
-                readOnlyText={finalCommentEmployee}
-                writeableText={commentText}
                 onChange={this.handleChangeComment(prById)}
               />
             </Grid>

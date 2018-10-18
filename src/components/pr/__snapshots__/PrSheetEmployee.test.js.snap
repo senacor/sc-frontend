@@ -25,10 +25,9 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
             helperText="Wichtiges für meine Entwicklung, notwendige Änderungen, mein Beitrag dazu."
             label="Beitrag des Vorgesetzten und des Umfelds"
             onChange={[Function]}
-            openEditing={true}
-            readOnlyText=""
             required={true}
-            writeableText=""
+            state="DISABLED"
+            value=""
           />
         </WithStyles(Grid)>
       </WithStyles(Grid)>
@@ -62,10 +61,9 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE
             helperText=" "
             label="Mein Projekt, Aufgabe, Rolle und Projektumfeld"
             onChange={[Function]}
-            openEditing={true}
-            readOnlyText=""
             required={true}
-            writeableText=""
+            state="DISABLED"
+            value=""
           />
         </WithStyles(Grid)>
       </WithStyles(Grid)>

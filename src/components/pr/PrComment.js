@@ -15,6 +15,7 @@ import { translateContent } from '../translate/Translate';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 import Icon from '@material-ui/core/Icon';
 import PrTextField from './PrTextField';
+import { textFieldsInPrSheetService } from '../../service/textFieldsInPrSheetService';
 
 const styles = theme => ({
   nestedText: { paddingRight: '2%' },
@@ -117,6 +118,20 @@ class PrComment extends React.Component {
 
     let { isExpanded, comment } = this.state;
 
+    let textFieldService = textFieldsInPrSheetService(
+      nonActionPerformer,
+      readOnly,
+      isActionPerformer,
+      true,
+      prRating.comment,
+      null,
+      comment
+    );
+
+    let textFieldState = textFieldService.state;
+
+    let textFieldValue = textFieldService.value;
+
     let ratingPoints = () => {
       if (nonActionPerformer) {
         return (
@@ -161,13 +176,9 @@ class PrComment extends React.Component {
               id={category + '_CommentId'}
               label={translateContent(category)}
               startrows={'2'}
-              openEditing={true}
-              readOnlyText={prRating.comment ? prRating.comment : ''}
-              writeableText={comment}
+              state={textFieldState}
+              value={textFieldValue}
               onChange={this.handleChangeComment(prById, category)}
-              readOnlyFlag={readOnly}
-              isActionPerformer={isActionPerformer}
-              nonActionPerformer={nonActionPerformer}
               helperText={helperText}
             />
           </ListItem>
