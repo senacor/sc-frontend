@@ -24,6 +24,9 @@ const styles = theme => ({
   targetRole: {
     color: theme.palette.primary['300'],
     alignItems: 'flex-end'
+  },
+  simpleBlack: {
+    color: '#000000'
   }
 });
 
@@ -74,9 +77,11 @@ class TargetRole extends Component {
             xl={8}
             className={classes.targetRole}
           >
-            <ListItemText
-              secondary={translateContent(targetRole.prTargetRoleName)}
-            />
+            <div className={classes.simpleBlack}>
+              <typography>
+                {translateContent(targetRole.prTargetRoleName)}
+              </typography>
+            </div>
           </Grid>
 
           <Grid

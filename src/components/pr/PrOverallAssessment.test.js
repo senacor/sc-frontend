@@ -218,46 +218,35 @@ describe('PrOverallAssessment Component', () => {
 
   it('should call subcomponents to be read-only', () => {
     const component = shallow(
-      <StyledComponentOA
-        prById={prById}
-        userroles={[ROLES.PR_CST_LEITER]}
-        prFinalized={true}
-        prVisible={true}
-      />
+      <StyledComponentOA prById={prById} userroles={[ROLES.PR_CST_LEITER]} />
     );
 
     expect(
       component.find('Connect(PrOverallFulfillment)[prFinalized=true]')
-    ).toHaveLength(1);
+    ).toHaveLength(0);
     expect(
       component.find('Connect(WithStyles(TargetRole))[prFinalized=true]')
-    ).toHaveLength(1);
+    ).toHaveLength(0);
     expect(
       component.find('Connect(WithStyles(PrOverallComment))[prFinalized=true]')
-    ).toHaveLength(1);
+    ).toHaveLength(0);
 
     expect(
       component.contains(
         <PrOverallFulfillment
           prById={prById}
           category="FULFILLMENT_OF_REQUIREMENT"
-          prFinalized={true}
-          prVisible={true}
         />
       )
     ).toBe(true);
 
-    expect(
-      component.contains(<TargetRole prById={prById} prFinalized={true} />)
-    ).toBe(true);
+    expect(component.contains(<TargetRole prById={prById} />)).toBe(true);
 
     expect(
       component.contains(
         <PrOverallComment
           prById={prById}
           category="FULFILLMENT_OF_REQUIREMENT"
-          prFinalized={true}
-          prVisible={true}
         />
       )
     ).toBe(true);

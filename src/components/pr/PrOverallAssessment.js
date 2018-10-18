@@ -19,9 +19,9 @@ class PrOverallAssessment extends React.Component {
     const {
       prById,
       classes,
-      prVisible,
-      prFinalized,
-      disabledText
+      readOnly,
+      isActionPerformer,
+      nonActionPerformer
     } = this.props;
 
     return (
@@ -30,22 +30,22 @@ class PrOverallAssessment extends React.Component {
           <PrOverallFulfillment
             prById={prById}
             category="FULFILLMENT_OF_REQUIREMENT"
-            prFinalized={prFinalized}
-            prVisible={prVisible}
+            readOnly={readOnly}
+            isActionPerformer={isActionPerformer}
+            nonActionPerformer={nonActionPerformer}
           />
         </div>
 
         <div className={classes.containerListItem}>
-          <TargetRole prById={prById} prFinalized={prFinalized} />
+          <TargetRole prById={prById} prFinalized={readOnly} />
         </div>
-
-        <div className={classes.containerListItem}>
+        <div>
           <PrOverallComment
             prById={prById}
             category="FULFILLMENT_OF_REQUIREMENT"
-            prFinalized={prFinalized}
-            prVisible={prVisible}
-            disabledText={disabledText}
+            readOnly={readOnly}
+            isActionPerformer={isActionPerformer}
+            nonActionPerformer={nonActionPerformer}
           />
         </div>
       </div>

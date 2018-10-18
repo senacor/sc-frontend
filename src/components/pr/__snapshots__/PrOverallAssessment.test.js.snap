@@ -186,7 +186,6 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           "supervisor": "ttran",
         }
       }
-      prVisible={false}
     />
   </div>
   <div
@@ -374,9 +373,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
       }
     />
   </div>
-  <div
-    className="PrOverallAssessment-containerListItem-1"
-  >
+  <div>
     <Connect(WithStyles(PrOverallComment))
       category="FULFILLMENT_OF_REQUIREMENT"
       prById={
@@ -558,7 +555,6 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
           "supervisor": "ttran",
         }
       }
-      prVisible={false}
     />
   </div>
 </div>

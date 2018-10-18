@@ -72,10 +72,8 @@ class PrFinalCommentEmployee extends Component {
         <ListItem>
           <Grid container direction={'column'}>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              <Typography component="p">
-                {translateContent('FINAL_COMMENT_EMPLOYEE')}
-              </Typography>
               <PrTextField
+                label={translateContent('FINAL_COMMENT_EMPLOYEE')}
                 isActionPerformer={isActionPerformer}
                 nonActionPerformer={nonActionPerformer}
                 readOnlyFlag={readOnly}

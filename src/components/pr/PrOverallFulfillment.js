@@ -8,10 +8,21 @@ import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { isSupervisor } from '../../helper/checkRole';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 import { translateContent } from '../translate/Translate';
 import * as actions from '../../actions';
+import { withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+  simpleBlack: {
+    color: '#000000',
+    width: '80%'
+  },
+  number: {
+    width: '20%',
+    paddingLeft: '5%'
+  }
+});
 
 export class PrOverallFulfillment extends Component {
   mapRatingFullfilment = ratingFulfillemnt => {
@@ -42,49 +53,72 @@ export class PrOverallFulfillment extends Component {
   };
 
   render() {
-    const { category, userroles, prRating, prById, prFinalized } = this.props;
+    const {
+      category,
+      prRating,
+      prById,
+      readOnly,
+      isActionPerformer,
+      nonActionPerformer,
+      classes
+    } = this.props;
 
     if (!prRating) {
       return null;
     }
 
-    return (
-      <ListItem>
-        <ListItemText secondary={translateContent(category)} />
-        {!isSupervisor(userroles) ? (
-          <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
-            {this.props.prVisible
-              ? this.mapRatingFullfilment(prRating.rating)
-              : 'kein Eintrag'}
-          </Typography>
-        ) : (
-          <FormControl disabled={prFinalized}>
-            <Select
-              id="ratingFullfillmentId"
-              value={prRating.rating ? prRating.rating : 3}
-              onChange={this.handleChangeRating(prById)}
-              displayEmpty
-              name="ratingFulfillment"
-            >
-              {[1, 2, 3, 4, 5].map(ratingValue => {
-                return (
-                  <MenuItem
-                    key={'_ratingFulfillment' + ratingValue}
-                    id={'_ratingFulfillmentValue' + ratingValue}
-                    value={ratingValue}
-                  >
-                    {this.mapRatingFullfilment(ratingValue)}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        )}
-      </ListItem>
-    );
+    switch (true) {
+      case nonActionPerformer:
+        return (
+          <ListItem>
+            <div className={classes.simpleBlack}>
+              <typography>{translateContent(category)}</typography>
+            </div>
+            <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
+              {this.props.readOnly
+                ? this.mapRatingFullfilment(prRating.rating)
+                : 'kein Eintrag'}
+            </Typography>
+          </ListItem>
+        );
+      case isActionPerformer:
+        return (
+          <ListItem>
+            <div className={classes.simpleBlack}>
+              <typography>{translateContent(category)}</typography>
+            </div>
+            <div className={classes.number}>
+              <FormControl disabled={readOnly}>
+                <Select
+                  id="ratingFullfillmentId"
+                  value={prRating.rating ? prRating.rating : 3}
+                  onChange={this.handleChangeRating(prById)}
+                  displayEmpty
+                  name="ratingFulfillment"
+                >
+                  {[1, 2, 3, 4, 5].map(ratingValue => {
+                    return (
+                      <MenuItem
+                        key={'_ratingFulfillment' + ratingValue}
+                        id={'_ratingFulfillmentValue' + ratingValue}
+                        value={ratingValue}
+                      >
+                        {this.mapRatingFullfilment(ratingValue)}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </div>
+          </ListItem>
+        );
+      default:
+        return null;
+    }
   }
 }
 
+export const StyledComponent = withStyles(styles)(PrOverallFulfillment);
 export default connect(
   (state, props) => ({
     prRating: getPrRatings(props.category)(state),
@@ -93,4 +127,4 @@ export default connect(
   {
     addRating: actions.addRating
   }
-)(PrOverallFulfillment);
+)(StyledComponent);

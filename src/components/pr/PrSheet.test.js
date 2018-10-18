@@ -3,6 +3,8 @@ import { StyledComponent } from './PrSheet';
 import { default as PrOverallAssessment } from './PrOverallAssessment';
 import { createShallow } from '@material-ui/core/test-utils';
 import ROLES from '../../helper/roles';
+import List from '@material-ui/core/List/List';
+import PrComment from './PrComment';
 
 describe('PrSheet Component', () => {
   let shallow = createShallow({ dive: true });
@@ -190,6 +192,8 @@ describe('PrSheet Component', () => {
     }
   };
 
+  let userinfo = { userPrincipalName: 'lschäfer' };
+
   it('should display the PrSheet', () => {
     const fetchVisibilityMock = jest.fn();
     const component = shallow(
@@ -197,6 +201,7 @@ describe('PrSheet Component', () => {
         prById={prById}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
+        userinfo={userinfo}
       />
     );
 
@@ -205,35 +210,39 @@ describe('PrSheet Component', () => {
 
   it("should not show the supervisor's comment or ratings", () => {
     const fetchVisibilityMock = jest.fn();
+    let userinfo = { userPrincipalName: 'lschäfer' };
     const component = shallow(
       <StyledComponent
         prById={prById}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
+        userinfo={userinfo}
       />
     );
     expect(
       component.contains(
         <PrOverallAssessment
           prById={prById}
-          prFinalized={false}
-          prVisible={false}
-          disabledText={wantDisabledTextFieldInsteadOfTypography}
+          readOnly={false}
+          isActionPerformer={false}
+          nonActionPerformer={true}
         />
       )
     ).toBe(true);
     expect(
       component.find('Connect(WithStyles(PrComment))[prVisible=false]')
-    ).toHaveLength(16);
+    ).toHaveLength(0);
   });
 
   it("should show the employees's contributions", () => {
     const fetchVisibilityMock = jest.fn();
+    let userinfo = { userPrincipalName: 'lschäfer' };
     const component = shallow(
       <StyledComponent
         prById={prById}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
+        userinfo={userinfo}
       />
     );
 
@@ -244,6 +253,7 @@ describe('PrSheet Component', () => {
 
   it("should show the employees's final comment writeable", () => {
     const fetchVisibilityMock = jest.fn();
+    let userinfo = { userPrincipalName: 'lschäfer' };
     const component = shallow(
       <StyledComponent
         prById={{
@@ -254,6 +264,7 @@ describe('PrSheet Component', () => {
         }}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
+        userinfo={userinfo}
       />
     );
 
@@ -265,6 +276,7 @@ describe('PrSheet Component', () => {
   });
   it('should show the employees final comment readonly if employee finalized ', () => {
     const fetchVisibilityMock = jest.fn();
+    let userinfo = { userPrincipalName: 'lschäfer' };
     const component = shallow(
       <StyledComponent
         prById={{
@@ -275,6 +287,7 @@ describe('PrSheet Component', () => {
         }}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
+        userinfo={userinfo}
       />
     );
 
@@ -286,6 +299,7 @@ describe('PrSheet Component', () => {
   });
   it('should show the employees final comment readonly if user is supervisor ', () => {
     const fetchVisibilityMock = jest.fn();
+    let userinfo = { userPrincipalName: 'ttran' };
     const component = shallow(
       <StyledComponent
         prById={{
@@ -296,6 +310,7 @@ describe('PrSheet Component', () => {
         }}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_CST_LEITER]}
+        userinfo={userinfo}
       />
     );
 
@@ -337,27 +352,18 @@ describe('PrSheet Component', () => {
     );
 
     const fetchVisibilityMock = jest.fn();
+    let userinfo = { userPrincipalName: 'ttran' };
     const component = shallow(
       <StyledComponent
         prById={prByIdWhichReviewerFinalized}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_CST_LEITER]}
+        userinfo={userinfo}
       />
     );
 
     expect(
-      component.contains(
-        <PrOverallAssessment
-          prById={prByIdWhichReviewerFinalized}
-          prFinalized={true}
-          prVisible={true}
-          disabledText={wantDisabledTextFieldInsteadOfTypography}
-        />
-      )
-    ).toBe(true);
-
-    expect(
       component.find('Connect(WithStyles(PrComment))[prFinalized=true]')
-    ).toHaveLength(16);
+    ).toHaveLength(0);
   });
 });

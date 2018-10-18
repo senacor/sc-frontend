@@ -29,13 +29,13 @@ exports[`PrOverallComment Component should match snapshot 1`] = `
         xl={12}
         xs={12}
       >
-        <WithStyles(Typography)
-          className="PrOverallComment-comment-2"
-          id="FULFILLMENT_OF_REQUIREMENT_Description"
-          variant="body1"
-        >
-          Noch nicht freigegeben.
-        </WithStyles(Typography)>
+        <WithStyles(PrTextField)
+          helperText="Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?"
+          onChange={[Function]}
+          openEditing={true}
+          readOnlyText="ggg"
+          writeableText="ggg"
+        />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>
