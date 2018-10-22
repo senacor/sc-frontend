@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmployeeSearch Component displays the list of employees on search 1`] = `
+exports[`EmployeeSearch Component should display the search field 1`] = `
 <div
   className="EmployeeSearch-box-1"
 >

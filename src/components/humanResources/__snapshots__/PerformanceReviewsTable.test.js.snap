@@ -16,12 +16,12 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           Array [
             Object {
               "disablePadding": false,
-              "filter": <PopperSearchMenu>
+              "filter": <Connect(PopperSearchMenu)>
                 <Connect(EmployeeFilter)
                       filterBy="employee"
                       filterGroup="hr"
                 />
-          </PopperSearchMenu>,
+          </Connect(PopperSearchMenu)>,
               "key": "employee",
               "label": "Mitarbeiter",
               "mapper": [Function],
@@ -30,7 +30,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <PopperSearchMenu
+              "filter": <Connect(PopperSearchMenu)
                 content={
                       <WithStyles(List)>
                             <WithStyles(ListItem)>
@@ -103,12 +103,12 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <PopperSearchMenu>
+              "filter": <Connect(PopperSearchMenu)>
                 <Connect(EmployeeFilter)
                       filterBy="supervisor"
                       filterGroup="hr"
                 />
-          </PopperSearchMenu>,
+          </Connect(PopperSearchMenu)>,
               "key": "supervisor",
               "label": "Vorgesetzte/r",
               "mapper": [Function],
@@ -117,12 +117,12 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <PopperSearchMenu>
+              "filter": <Connect(PopperSearchMenu)>
                 <Connect(EmployeeFilter)
                       filterBy="reviewer"
                       filterGroup="hr"
                 />
-          </PopperSearchMenu>,
+          </Connect(PopperSearchMenu)>,
               "key": "reviewer",
               "label": "Bewerter",
               "mapper": [Function],
@@ -202,7 +202,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="deadline"
-            padding="default"
+            padding="none"
           >
             2018-02-01
           </WithStyles(TableCell)>
@@ -220,7 +220,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           />
           <WithStyles(TableCell)
             key="competence"
-            padding="default"
+            padding="none"
           >
             <Translate
               content="COMPETENCE_CONSULTANT"
@@ -228,29 +228,29 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="level"
-            padding="default"
+            padding="none"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="supervisor"
-            padding="default"
+            padding="none"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="reviewer"
-            padding="default"
+            padding="none"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="result"
-            padding="default"
+            padding="none"
           />
           <WithStyles(TableCell)
             key="employeePreparationDone"
-            padding="default"
+            padding="none"
           >
             ja
           </WithStyles(TableCell)>
@@ -262,17 +262,17 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="appointment"
-            padding="default"
+            padding="none"
           />
           <WithStyles(TableCell)
             key="inProgress"
-            padding="default"
+            padding="none"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="humanResourceProcessingDone"
-            padding="default"
+            padding="none"
           >
             nein
           </WithStyles(TableCell)>
@@ -295,7 +295,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="deadline"
-            padding="default"
+            padding="none"
           >
             2018-01-01
           </WithStyles(TableCell)>
@@ -313,7 +313,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           />
           <WithStyles(TableCell)
             key="competence"
-            padding="default"
+            padding="none"
           >
             <Translate
               content="COMPETENCE_DEVELOPMENT"
@@ -321,29 +321,29 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="level"
-            padding="default"
+            padding="none"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="supervisor"
-            padding="default"
+            padding="none"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="reviewer"
-            padding="default"
+            padding="none"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="result"
-            padding="default"
+            padding="none"
           />
           <WithStyles(TableCell)
             key="employeePreparationDone"
-            padding="default"
+            padding="none"
           >
             ja
           </WithStyles(TableCell)>
@@ -355,17 +355,17 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="appointment"
-            padding="default"
+            padding="none"
           />
           <WithStyles(TableCell)
             key="inProgress"
-            padding="default"
+            padding="none"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="humanResourceProcessingDone"
-            padding="default"
+            padding="none"
           >
             nein
           </WithStyles(TableCell)>

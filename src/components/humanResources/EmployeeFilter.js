@@ -4,6 +4,10 @@ import EmployeeSearch from '../employeeSearch/EmployeeSearch';
 import { getSubFilter } from '../../reducers/selector';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField/TextField';
+import Icon from '@material-ui/core/Icon/Icon';
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 
 export class EmployeeFilter extends Component {
   constructor(props) {
@@ -30,11 +34,20 @@ export class EmployeeFilter extends Component {
       let payload = {
         filterGroup: this.props.filterGroup,
         filterBy: this.props.filterBy,
-
         filter: filter
       };
       this.props.addFilter(payload);
+      this.props.closeFilter();
     }
+  };
+
+  onDelete = () => {
+    let payload = {
+      filterGroup: this.props.filterGroup,
+      filterBy: this.props.filterBy
+    };
+    this.props.deleteFilter(payload);
+    this.props.closeFilter();
   };
 
   render() {
@@ -42,6 +55,27 @@ export class EmployeeFilter extends Component {
       <EmployeeSearch
         employeeSearchValue={this.state.employeeName}
         selectEmployee={this.selectEmployee}
+        inputElement={(value, onChange) => (
+          <TextField
+            id="outlined-adornment-filter"
+            variant="outlined"
+            label="Name"
+            value={value}
+            onChange={onChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <Icon id="adornmentIcon" onClick={this.onDelete}>
+                      clear
+                    </Icon>
+                  </IconButton>
+                </InputAdornment>
+              ),
+              name: 'employeeSearchValue'
+            }}
+          />
+        )}
       />
     );
   }
@@ -57,6 +91,7 @@ export default connect(
     filter: getSubFilter(props.filterGroup, props.filterBy)(state)
   }),
   {
-    addFilter: actions.addFilter
+    addFilter: actions.addFilter,
+    deleteFilter: actions.deleteFilter
   }
 )(EmployeeFilter);

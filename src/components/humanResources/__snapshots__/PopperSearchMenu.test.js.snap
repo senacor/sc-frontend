@@ -5,9 +5,7 @@ exports[`PopperSearchMenu component should match snapshot 1`] = `
   <WithStyles(IconButton)
     onClick={[Function]}
   >
-    <WithStyles(Icon)>
-      search
-    </WithStyles(Icon)>
+    <WithStyles(Icon) />
   </WithStyles(IconButton)>
   <WithStyles(Popover)
     anchorEl={null}
@@ -27,10 +25,20 @@ exports[`PopperSearchMenu component should match snapshot 1`] = `
       }
     }
   >
-    <Connect(EmployeeFilter)
-      filterBy="employee"
-      filterGroup="hr"
-    />
+    <div>
+      <Connect(EmployeeFilter)
+        closeFilter={[Function]}
+        filterBy="employee"
+        filterGroup="hr"
+        icon="search"
+      >
+        <Connect(EmployeeFilter)
+          filterBy="employee"
+          filterGroup="hr"
+          icon="search"
+        />
+      </Connect(EmployeeFilter)>
+    </div>
   </WithStyles(Popover)>
 </div>
 `;

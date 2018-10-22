@@ -1,11 +1,6 @@
 import React from 'react';
 import PerformanceReviewsTable from './PerformanceReviewsTable';
-import {
-  getDisplayName,
-  descInteger,
-  descString,
-  stableSort
-} from './PerformanceReviewsTable';
+import { descInteger, descString, stableSort } from './PerformanceReviewsTable';
 import { createShallow } from '@material-ui/core/test-utils';
 import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
@@ -17,6 +12,7 @@ import TextField from '@material-ui/core/TextField/TextField';
 import { translateContent } from '../translate/Translate';
 import Translate from '../translate/Translate';
 import FILTER_GROUPS from './filterGroups';
+import getDisplayName from '../../helper/getDisplayName';
 
 const rows = [
   {
@@ -213,18 +209,6 @@ describe('PerformanceReviewsTable component', () => {
     );
 
     expect(component).toMatchSnapshot();
-  });
-});
-
-describe('getDisplayName', () => {
-  let employee = {
-    firstName: 'Michaela',
-    lastName: 'Mitarbeiterin'
-  };
-
-  it('should return the full Name', () => {
-    let fullName = getDisplayName(employee);
-    expect(fullName).toEqual('Michaela Mitarbeiterin');
   });
 });
 

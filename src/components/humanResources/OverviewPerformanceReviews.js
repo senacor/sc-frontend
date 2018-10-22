@@ -3,24 +3,18 @@ import PerformanceReviewsTable from './PerformanceReviewsTable';
 import HR_ELEMENTS from './hrElements';
 import { translateContent } from '../translate/Translate';
 import { Link } from 'react-router-dom';
-import Translate from '../translate/Translate';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { getAllPrsForHumanResources, getFilter } from '../../reducers/selector';
 import * as actions from '../../actions';
 import withLoading from '../hoc/Loading';
-import ListItem from '@material-ui/core/ListItem/ListItem';
 import PopperSearchMenu from './PopperSearchMenu';
-import TextField from '@material-ui/core/TextField/TextField';
-import List from '@material-ui/core/List/List';
 import EmployeeFilter from './EmployeeFilter';
 import FILTER_GROUPS from './filterGroups';
-
-export function getDisplayName(employee) {
-  if (employee) {
-    return `${employee.firstName} ${employee.lastName}`;
-  }
-}
+import getDisplayName from '../../helper/getDisplayName';
+import ListFilter from './ListFilter';
+import DateFilter from './DateFilter';
+import { formatDateForFrontend } from '../../helper/date';
 
 const styles = theme => ({
   root: {
@@ -52,11 +46,11 @@ class OverviewPerformanceReviews extends Component {
           );
         },
         filter: (
-          <PopperSearchMenu>
-            <EmployeeFilter
-              filterGroup={FILTER_GROUPS.HR}
-              filterBy={HR_ELEMENTS.EMPLOYEE}
-            />
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={HR_ELEMENTS.EMPLOYEE}
+          >
+            <EmployeeFilter />
           </PopperSearchMenu>
         )
       },
@@ -65,31 +59,13 @@ class OverviewPerformanceReviews extends Component {
         numeric: true,
         disablePadding: true,
         label: 'Fälligkeit',
-        mapper: variable => variable,
-        show: entry => entry[HR_ELEMENTS.DEADLINE],
+        show: entry => formatDateForFrontend(entry[HR_ELEMENTS.DEADLINE]),
         filter: (
-          <PopperSearchMenu>
-            <List>
-              <ListItem>
-                <TextField
-                  id="startDate"
-                  label="Fälligkeit von"
-                  type="date"
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                />
-                <TextField
-                  id="endDate"
-                  label="Fälligkeit bis"
-                  type="date"
-                  defaultValue="2017-05-24"
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                />
-              </ListItem>
-            </List>
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={HR_ELEMENTS.DEADLINE}
+          >
+            <DateFilter />
           </PopperSearchMenu>
         )
       },
@@ -99,15 +75,26 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: false,
         label: 'Grund',
         mapper: entry => translateContent(entry),
-        show: entry => <Translate content={entry[HR_ELEMENTS.PR_OCCASION]} />
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={'occasion'}
+          >
+            <ListFilter
+              content={{
+                [translateContent('ON_DEMAND')]: 'ON_DEMAND',
+                [translateContent('END_PROBATION')]: 'END_PROBATION',
+                [translateContent('YEARLY')]: 'YEARLY'
+              }}
+            />
+          </PopperSearchMenu>
+        )
       },
       {
         key: HR_ELEMENTS.CST,
         numeric: false,
         disablePadding: false,
-        label: 'Projektkst',
-        mapper: variable => variable,
-        show: entry => entry[HR_ELEMENTS.CST]
+        label: 'Projektkst'
       },
       {
         key: HR_ELEMENTS.COMPETENCE,
@@ -115,17 +102,38 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: true,
         label: 'Dev/Con',
         mapper: variable => translateContent(`COMPETENCE_${variable}`),
-        show: entry => (
-          <Translate content={`COMPETENCE_${entry[HR_ELEMENTS.COMPETENCE]}`} />
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={HR_ELEMENTS.COMPETENCE}
+          >
+            <ListFilter
+              content={{
+                [translateContent('COMPETENCE_DEVELOPMENT')]: 'DEVELOPMENT',
+                [translateContent('COMPETENCE_CONSULTING')]: 'CONSULTING'
+              }}
+            />
+          </PopperSearchMenu>
         )
       },
       {
         key: HR_ELEMENTS.LEVEL,
-        numeric: false,
+        numeric: true,
         disablePadding: true,
         label: 'level',
-        mapper: variable => variable,
-        show: entry => entry[HR_ELEMENTS.LEVEL]
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={HR_ELEMENTS.LEVEL}
+          >
+            <ListFilter
+              content={{
+                1: 1,
+                2: 2
+              }}
+            />
+          </PopperSearchMenu>
+        )
       },
       {
         key: HR_ELEMENTS.SUPERVISOR,
@@ -133,13 +141,12 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: true,
         label: 'Vorgesetzte/r',
         mapper: variable => getDisplayName(variable),
-        show: entry => getDisplayName(entry[HR_ELEMENTS.SUPERVISOR]),
         filter: (
-          <PopperSearchMenu>
-            <EmployeeFilter
-              filterGroup={FILTER_GROUPS.HR}
-              filterBy={HR_ELEMENTS.SUPERVISOR}
-            />
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={HR_ELEMENTS.SUPERVISOR}
+          >
+            <EmployeeFilter />
           </PopperSearchMenu>
         )
       },
@@ -149,13 +156,12 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: true,
         label: 'Bewerter',
         mapper: variable => getDisplayName(variable),
-        show: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
         filter: (
-          <PopperSearchMenu>
-            <EmployeeFilter
-              filterGroup={FILTER_GROUPS.HR}
-              filterBy={HR_ELEMENTS.REVIEWER}
-            />
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={HR_ELEMENTS.REVIEWER}
+          >
+            <EmployeeFilter />
           </PopperSearchMenu>
         )
       },
@@ -163,9 +169,7 @@ class OverviewPerformanceReviews extends Component {
         key: HR_ELEMENTS.RESULT,
         numeric: false,
         disablePadding: true,
-        label: 'Bewertung',
-        mapper: variable => variable,
-        show: entry => entry[HR_ELEMENTS.RESULT]
+        label: 'Bewertung'
       },
       {
         key: HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE,
@@ -173,8 +177,14 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: true,
         label: 'MA ausgefüllt',
         mapper: entry => (entry ? 'ja' : 'nein'),
-        show: entry =>
-          entry[HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein'
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={'isEmployeePreparationDone'}
+          >
+            <ListFilter content={{ ja: true, nein: false }} />
+          </PopperSearchMenu>
+        )
       },
       {
         key: HR_ELEMENTS.REVIEWER_PREPARATION_DONE,
@@ -182,16 +192,20 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: false,
         label: 'Beurteiler ausgefüllt',
         mapper: entry => (entry ? 'ja' : 'nein'),
-        show: entry =>
-          entry[HR_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein'
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={'isReviewerPreparationDone'}
+          >
+            <ListFilter content={{ ja: true, nein: false }} />
+          </PopperSearchMenu>
+        )
       },
       {
         key: HR_ELEMENTS.APPOINTMENT,
         numeric: false,
         disablePadding: true,
-        label: 'Termin',
-        mapper: variable => variable,
-        show: entry => entry[HR_ELEMENTS.APPOINTMENT]
+        label: 'Termin'
       },
       {
         key: HR_ELEMENTS.IN_PROGRESS,
@@ -199,8 +213,14 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: true,
         label: 'Finaler Status',
         mapper: entry => (entry ? 'laufend' : 'abgeschlossen'),
-        show: entry =>
-          entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen'
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={'isInProgress'}
+          >
+            <ListFilter content={{ laufend: true, abgeschlossen: false }} />
+          </PopperSearchMenu>
+        )
       },
       {
         key: HR_ELEMENTS.HR_PROCESSING_DONE,
@@ -208,7 +228,14 @@ class OverviewPerformanceReviews extends Component {
         disablePadding: true,
         label: 'HR verarbeitet',
         mapper: entry => (entry ? 'ja' : 'nein'),
-        show: entry => (entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein')
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.HR}
+            filterBy={'isHumanResourceProcessingDone'}
+          >
+            <ListFilter content={{ ja: true, nein: false }} />
+          </PopperSearchMenu>
+        )
       }
     ];
   };
@@ -238,7 +265,10 @@ export default connect(
     filter: getFilter(FILTER_GROUPS.HR)(state)
   }),
   {
-    fetchAllPrsForHumanResource: actions.fetchAllPrsForHumanResource,
     fetchFilteredPrsForHumanResource: actions.fetchFilteredPrsForHumanResource
   }
-)(withLoading(props => props.fetchAllPrsForHumanResource())(StyledComponent));
+)(
+  withLoading(props => props.fetchFilteredPrsForHumanResource(props.filter))(
+    StyledComponent
+  )
+);

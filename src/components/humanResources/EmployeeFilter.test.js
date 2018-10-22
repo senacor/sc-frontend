@@ -10,20 +10,19 @@ describe('EmployeeFilter Component', () => {
   it('should match snapshot', () => {
     const mockCallBack = jest.fn();
 
-    let cut = shallow(
+    let component = shallow(
       <EmployeeFilter
         filterGroup={FILTER_GROUPS.HR}
         filterBy={HR_ELEMENTS.EMPLOYEE}
         filter={{
-          employee: {
-            searchString: 'employee=502',
-            values: 'Michaela Mitarbeiterin'
-          }
+          searchString: 'employee=502',
+          values: 'Michaela Mitarbeiterin'
         }}
         addFilter={mockCallBack}
+        deleteFilter={mockCallBack}
       />
     );
 
-    expect(cut).toMatchSnapshot();
+    expect(component).toMatchSnapshot();
   });
 });

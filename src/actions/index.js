@@ -23,7 +23,7 @@ export {
   fetchAllPrsForHumanResource,
   fetchFilteredPrsForHumanResource
 } from './prs';
-export { addFilter } from './filter';
+export { addFilter, deleteFilter } from './filter';
 
 export const fetchTasks = () => async dispatch => {
   dispatch({
