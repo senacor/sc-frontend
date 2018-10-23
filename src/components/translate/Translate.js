@@ -16,6 +16,7 @@ export const translationMap = {
   FILLED_SHEET_REVIEWER: 'Beurteiler',
   FINAL_COMMENT_EMPLOYEE:
     'Abschließender Kommentar durch Mitarbeiter (optional)',
+  FINAL_COMMENT_HR: 'Abschließender Kommentar durch HR-Mitarbeiter (optional)',
   FULFILLMENT_OF_REQUIREMENT:
     'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:

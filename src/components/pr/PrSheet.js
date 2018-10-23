@@ -15,8 +15,10 @@ import * as finalizationTypes from '../../helper/prFinalization';
 import objectGet from 'object-get';
 import { getPrDetail, getUserroles } from '../../reducers/selector';
 import PrFinalCommentEmployee from './PrFinalCommentEmployee';
+import PrFinalCommentHr from './PrFinalCommentHr';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
+import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
   containerVertical: {
@@ -81,6 +83,12 @@ class PrSheet extends React.Component {
     );
   };
 
+  isArchived = () => {
+    return (
+      objectGet(this.props, 'prById.statuses.5') === prStatusEnum.ARCHIVED_HR
+    );
+  };
+
   render() {
     const { prById, classes } = this.props;
 
@@ -142,6 +150,23 @@ class PrSheet extends React.Component {
                 prById={prById}
                 readOnly={this.isFinalizedForEmployee()}
                 open={this.isFinalizedForReviewer()}
+                disabledText={wantDisabledTextFieldInsteadOfTypography}
+              />
+            </div>
+          </List>
+        </List>
+      );
+    };
+
+    let finalHr = () => {
+      return (
+        <List>
+          <List disablePadding>
+            <div className={classes.containerListItem}>
+              <PrFinalCommentHr
+                prById={prById}
+                open={this.isFinalizedForEmployee()}
+                readOnly={this.isArchived()}
                 disabledText={wantDisabledTextFieldInsteadOfTypography}
               />
             </div>
@@ -261,6 +286,8 @@ class PrSheet extends React.Component {
           <Hidden mdDown>
             <Grid item lg={6} xl={6}>
               {detailReviewer()}
+              <Divider />
+              {finalHr()}
             </Grid>
           </Hidden>
         </Grid>

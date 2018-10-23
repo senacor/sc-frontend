@@ -42,6 +42,13 @@ export const getFinalCommentEmployee = () => {
   );
 };
 
+export const getFinalCommentHr = () => {
+  return createSelector(
+    [state => state.finalCommentHr, getActualPrId],
+    (comment, prById) => comment[prById]
+  );
+};
+
 export const getSortedPrs = () => {
   return createSelector([getAllPrs, getSortOrder], (prs, sortOrder) =>
     Array.from(prs).sort(dateSort(sortOrder))

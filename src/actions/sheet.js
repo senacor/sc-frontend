@@ -48,6 +48,35 @@ export const addRating = (
   }
 };
 
+export const changeFinalCommentHr = (id, finalCommentHr) => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_HR_COMMENT_REQUEST
+  });
+
+  dispatch({
+    type: dispatchTypes.CHANGE_HR_COMMENT_RESPONSE,
+    payload: {
+      prId: id,
+      comment: finalCommentHr
+    }
+  });
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${id}/hrcomment`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        finalCommentHr: finalCommentHr
+      })
+    }
+  );
+
+  if (!response.ok) {
+    window.alert('Fehler beim Speichern');
+  }
+};
+
 export const changeFinalCommentEmployee = (
   id,
   finalizationStatusOfEmployee,
