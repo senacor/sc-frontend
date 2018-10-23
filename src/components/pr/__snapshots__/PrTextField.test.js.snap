@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrTextField Component should be disabled for ActionPerformer before editing is enabled 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-disabled-1",
+      },
+      "disableUnderline": true,
+    }
+  }
+  disabled={true}
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value=""
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be disabled for ActionPerformer when it is released as read-only, but there is no entry 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-disabled-1",
+      },
+      "disableUnderline": true,
+    }
+  }
+  disabled={true}
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value=""
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be disabled for nonActionPerformer before it is released as read-only 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-disabled-1",
+      },
+      "disableUnderline": true,
+    }
+  }
+  disabled={true}
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value=""
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be disabled for nonActionPerformer when it is released as read-only, but there is a null-entry 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-disabled-1",
+      },
+      "disableUnderline": true,
+    }
+  }
+  disabled={true}
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value=""
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be in error-mode for ActionPerformer when it has an errorFlag and there is no entry 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-error-4",
+      },
+      "disableUnderline": true,
+    }
+  }
+  error={true}
+  fullWidth={true}
+  helperText="Error: Bitte fülle das Pflichtfeld aus, bevor du das PR freigibst."
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value=""
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be in read-only-mode for ActionPerformer when it is released as read-only and the entry is non-zero 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-readonly-3",
+      },
+      "disableUnderline": true,
+      "readOnly": true,
+    }
+  }
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value="this is only to be read"
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be in read-only-mode for nonActionPerformer when it is released as read-only and the entry is non-zero 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-readonly-3",
+      },
+      "disableUnderline": true,
+      "readOnly": true,
+    }
+  }
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value="this is only to be read"
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should be in standard enabled mode for ActionPerformer when editing is open and it is not released as read-only 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-enabled-2",
+      },
+      "disableUnderline": true,
+    }
+  }
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value="we can write on this"
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should not be in error-mode but in standard enabled mode for ActionPerformer when it has an errorFlag and there is an entry 1`] = `
+<TextField
+  InputProps={
+    Object {
+      "classes": Object {
+        "input": "PrTextField-enabled-2",
+      },
+      "disableUnderline": true,
+    }
+  }
+  fullWidth={true}
+  margin="normal"
+  multiline={true}
+  required={false}
+  rows="6"
+  rowsMax="10"
+  select={false}
+  value="we can write on this"
+  variant="outlined"
+/>
+`;
+
+exports[`PrTextField Component should not show anything if the user is neither ActionPerformer nor nonActionPerformer 1`] = `""`;

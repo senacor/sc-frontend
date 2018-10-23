@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import Typography from '@material-ui/core/Typography';
 import { translateContent } from '../translate/Translate';
 import {
   getPrEmployeeContributions,
@@ -41,7 +40,7 @@ class PrSheetEmployee extends React.Component {
   constructor(props) {
     super(props);
     let { employeeContribution } = this.props;
-    let comment = employeeContribution ? employeeContribution.text : '';
+    let comment = employeeContribution.text ? employeeContribution.text : '';
     this.state = {
       commentText: comment
     };
@@ -68,7 +67,8 @@ class PrSheetEmployee extends React.Component {
       employeeContribution,
       readOnly,
       isActionPerformer,
-      nonActionPerformer
+      nonActionPerformer,
+      errorFlag
     } = this.props;
     const { commentText } = this.state;
 
@@ -79,9 +79,12 @@ class PrSheetEmployee extends React.Component {
             <Grid container direction={'column'}>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <PrTextField
+                  fieldId={category + '_CommentId'}
                   isActionPerformer={isActionPerformer}
                   nonActionPerformer={nonActionPerformer}
                   readOnlyFlag={readOnly}
+                  errorFlag={errorFlag}
+                  required
                   label={translateContent(category)}
                   helperText={translateContent(`PLACEHOLDER_${category}`)}
                   openEditing={true}

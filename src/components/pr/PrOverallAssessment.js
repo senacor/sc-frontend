@@ -21,7 +21,8 @@ class PrOverallAssessment extends React.Component {
       classes,
       readOnly,
       isActionPerformer,
-      nonActionPerformer
+      nonActionPerformer,
+      errorFlag
     } = this.props;
 
     return (
@@ -37,7 +38,12 @@ class PrOverallAssessment extends React.Component {
         </div>
 
         <div className={classes.containerListItem}>
-          <TargetRole prById={prById} prFinalized={readOnly} />
+          <TargetRole
+            prById={prById}
+            prFinalized={readOnly}
+            isActionPerformer={isActionPerformer}
+            nonActionPerformer={nonActionPerformer}
+          />
         </div>
         <div>
           <PrOverallComment
@@ -46,6 +52,7 @@ class PrOverallAssessment extends React.Component {
             readOnly={readOnly}
             isActionPerformer={isActionPerformer}
             nonActionPerformer={nonActionPerformer}
+            errorFlag={errorFlag}
           />
         </div>
       </div>

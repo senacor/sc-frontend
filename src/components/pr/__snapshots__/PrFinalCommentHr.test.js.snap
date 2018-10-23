@@ -15,27 +15,15 @@ exports[`PrFinalCommentHr Component displays an info text before the employee ha
         xl={12}
         xs={12}
       >
-        <WithStyles(Typography)
-          component="p"
-        >
-          Abschließender Kommentar durch HR-Mitarbeiter (optional)
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        lg={12}
-        md={12}
-        sm={12}
-        xl={12}
-        xs={12}
-      >
-        <WithStyles(Typography)
-          className="PrFinalCommentHr-comment-2"
-          id="finalCommentHrReadonly"
-          variant="body1"
-        >
-          Bitte nach Abschluss durch den Mitarbeiter ausfüllen.
-        </WithStyles(Typography)>
+        <WithStyles(PrTextField)
+          fieldId="finalCommentHr"
+          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
+          onChange={[Function]}
+          openEditing={false}
+          readOnlyFlag={false}
+          writeableText=""
+        />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>
@@ -57,48 +45,14 @@ exports[`PrFinalCommentHr Component displays the PrFinalCommentHr 1`] = `
         xl={12}
         xs={12}
       >
-        <WithStyles(Typography)
-          component="p"
-        >
-          Abschließender Kommentar durch HR-Mitarbeiter (optional)
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        lg={12}
-        md={12}
-        sm={12}
-        xl={12}
-        xs={12}
-      >
-        <TextField
-          InputLabelProps={
-            Object {
-              "shrink": true,
-            }
-          }
-          InputProps={
-            Object {
-              "classes": Object {
-                "input": "PrFinalCommentHr-bootstrapInput-1",
-              },
-              "disableUnderline": true,
-              "name": "comment",
-            }
-          }
-          fullWidth={true}
-          helperText="Möchte ich letzte Anmerkungen zum Performance Review machen?
-                          Gibt es noch etwas zu ergänzen? Ich bestätige, dass ich das Review zur Kenntnis genommen habe."
-          id="finalCommentHr"
-          margin="none"
-          multiline={true}
+        <WithStyles(PrTextField)
+          fieldId="finalCommentHr"
+          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
-          placeholder="Möchte ich letzte Anmerkungen zum Performance Review machen? Gibt es noch etwas zu ergänzen?"
-          required={false}
-          rows="4"
-          rowsMax="10"
-          select={false}
-          value=""
+          openEditing={true}
+          readOnlyFlag={false}
+          writeableText=""
         />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
@@ -121,27 +75,15 @@ exports[`PrFinalCommentHr Component displays the text read-only after HR has fin
         xl={12}
         xs={12}
       >
-        <WithStyles(Typography)
-          component="p"
-        >
-          Abschließender Kommentar durch HR-Mitarbeiter (optional)
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        lg={12}
-        md={12}
-        sm={12}
-        xl={12}
-        xs={12}
-      >
-        <WithStyles(Typography)
-          className="PrFinalCommentHr-comment-2"
-          id="finalCommentHrReadonly"
-          variant="body1"
-        >
-          Kein Eintrag.
-        </WithStyles(Typography)>
+        <WithStyles(PrTextField)
+          fieldId="finalCommentHr"
+          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
+          onChange={[Function]}
+          openEditing={true}
+          readOnlyFlag={true}
+          writeableText=""
+        />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>

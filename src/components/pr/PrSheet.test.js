@@ -3,12 +3,9 @@ import { StyledComponent } from './PrSheet';
 import { default as PrOverallAssessment } from './PrOverallAssessment';
 import { createShallow } from '@material-ui/core/test-utils';
 import ROLES from '../../helper/roles';
-import List from '@material-ui/core/List/List';
-import PrComment from './PrComment';
 
 describe('PrSheet Component', () => {
   let shallow = createShallow({ dive: true });
-  let wantDisabledTextFieldInsteadOfTypography = false;
 
   const prById = {
     id: 1,
@@ -189,8 +186,11 @@ describe('PrSheet Component', () => {
     prFinalizationStatus: {
       finalizationStatusOfEmployee: 'NOT_FINALIZED',
       finalizationStatusOfReviewer: 'NOT_FINALIZED'
-    }
+    },
+    requiredFields: { reviewer: true, employee: true }
   };
+
+  let requiredFields = { reviewer: true, employee: true };
 
   let userinfo = { userPrincipalName: 'lschäfer' };
 
@@ -202,6 +202,7 @@ describe('PrSheet Component', () => {
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
 
@@ -217,6 +218,7 @@ describe('PrSheet Component', () => {
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
     expect(
@@ -226,6 +228,7 @@ describe('PrSheet Component', () => {
           readOnly={false}
           isActionPerformer={false}
           nonActionPerformer={true}
+          errorFlag={false}
         />
       )
     ).toBe(true);
@@ -243,6 +246,7 @@ describe('PrSheet Component', () => {
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
 
@@ -260,11 +264,13 @@ describe('PrSheet Component', () => {
           prFinalizationStatus: {
             finalizationStatusOfEmployee: 'NOT_FINALIZED',
             finalizationStatusOfReviewer: 'NOT_FINALIZED'
-          }
+          },
+          statuses: []
         }}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
 
@@ -283,11 +289,13 @@ describe('PrSheet Component', () => {
           prFinalizationStatus: {
             finalizationStatusOfEmployee: 'FINALIZED',
             finalizationStatusOfReviewer: 'NOT_FINALIZED'
-          }
+          },
+          statuses: []
         }}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_MITARBEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
 
@@ -306,11 +314,13 @@ describe('PrSheet Component', () => {
           prFinalizationStatus: {
             finalizationStatusOfEmployee: 'NOT_FINALIZED',
             finalizationStatusOfReviewer: 'NOT_FINALIZED'
-          }
+          },
+          statuses: []
         }}
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_CST_LEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
 
@@ -359,6 +369,7 @@ describe('PrSheet Component', () => {
         fetchPrVisibilityById={fetchVisibilityMock}
         userroles={[ROLES.PR_CST_LEITER]}
         userinfo={userinfo}
+        requiredFields={requiredFields}
       />
     );
 

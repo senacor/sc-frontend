@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles/index';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import * as actions from '../../actions';
 import { getFinalCommentEmployee, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
@@ -73,6 +72,7 @@ class PrFinalCommentEmployee extends Component {
           <Grid container direction={'column'}>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
+                fieldId={'finalComment'}
                 label={translateContent('FINAL_COMMENT_EMPLOYEE')}
                 isActionPerformer={isActionPerformer}
                 nonActionPerformer={nonActionPerformer}

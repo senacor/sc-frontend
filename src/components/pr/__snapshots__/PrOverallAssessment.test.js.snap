@@ -5,7 +5,7 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
   <div
     className="PrOverallAssessment-containerListItem-1"
   >
-    <Connect(PrOverallFulfillment)
+    <Connect(WithStyles(PrOverallFulfillment))
       category="FULFILLMENT_OF_REQUIREMENT"
       prById={
         Object {

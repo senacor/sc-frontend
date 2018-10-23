@@ -2,30 +2,39 @@
 
 exports[`PrComment Component should display Customer interaction 1`] = `
 <div
-  className=""
+  className="PrComment-collapsen-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
     <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <WithStyles(PrTextField)
+        id="CUSTOMER_INTERACTION_CommentId"
+        label="Kundeninteraktion und -veränderung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="iii"
+        startrows="2"
+        writeableText="iii"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
+    <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="CUSTOMER_INTERACTION_CommentDescription"
-        secondary="Kundeninteraktion und -veränderung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconComment-5"
+        className="PrComment-iconComment-4"
         id="CUSTOMER_INTERACTION_CommentIconId"
       >
         info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    />
   </div>
   <div>
     <WithStyles(List)
@@ -33,15 +42,6 @@ exports[`PrComment Component should display Customer interaction 1`] = `
       component="div"
       disablePadding={true}
     >
-      <WithStyles(PrTextField)
-        id="CUSTOMER_INTERACTION_CommentId"
-        label="Kommentar"
-        onChange={[Function]}
-        openEditing={true}
-        readOnlyText="iii"
-        startrows="2"
-        writeableText="iii"
-      />
       <WithStyles(Collapse)
         in={false}
         timeout="auto"
@@ -58,30 +58,39 @@ exports[`PrComment Component should display Customer interaction 1`] = `
 
 exports[`PrComment Component should display ProblemAnalysis 1`] = `
 <div
-  className=""
+  className="PrComment-collapsen-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
     <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <WithStyles(PrTextField)
+        id="PROBLEM_ANALYSIS_CommentId"
+        label="Problemanalyse und -lösung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="ggg"
+        startrows="2"
+        writeableText="ggg"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
+    <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="PROBLEM_ANALYSIS_CommentDescription"
-        secondary="Problemanalyse und -lösung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconComment-5"
+        className="PrComment-iconComment-4"
         id="PROBLEM_ANALYSIS_CommentIconId"
       >
         info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    />
   </div>
   <div>
     <WithStyles(List)
@@ -89,15 +98,6 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
       component="div"
       disablePadding={true}
     >
-      <WithStyles(PrTextField)
-        id="PROBLEM_ANALYSIS_CommentId"
-        label="Kommentar"
-        onChange={[Function]}
-        openEditing={true}
-        readOnlyText="ggg"
-        startrows="2"
-        writeableText="ggg"
-      />
       <WithStyles(Collapse)
         in={false}
         timeout="auto"
@@ -114,30 +114,39 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
 
 exports[`PrComment Component should display Teamwork 1`] = `
 <div
-  className=""
+  className="PrComment-collapsen-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
     <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <WithStyles(PrTextField)
+        id="TEAMWORK_CommentId"
+        label="Effektives Arbeiten im Team und Teamführung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="fff"
+        startrows="2"
+        writeableText="fff"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
+    <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="TEAMWORK_CommentDescription"
-        secondary="Effektives Arbeiten im Team und Teamführung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconComment-5"
+        className="PrComment-iconComment-4"
         id="TEAMWORK_CommentIconId"
       >
         info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    />
   </div>
   <div>
     <WithStyles(List)
@@ -145,15 +154,6 @@ exports[`PrComment Component should display Teamwork 1`] = `
       component="div"
       disablePadding={true}
     >
-      <WithStyles(PrTextField)
-        id="TEAMWORK_CommentId"
-        label="Kommentar"
-        onChange={[Function]}
-        openEditing={true}
-        readOnlyText="fff"
-        startrows="2"
-        writeableText="fff"
-      />
       <WithStyles(Collapse)
         in={false}
         timeout="auto"
@@ -170,30 +170,39 @@ exports[`PrComment Component should display Teamwork 1`] = `
 
 exports[`PrComment Component should display the ContributionToCompanyDevelopment 1`] = `
 <div
-  className=""
+  className="PrComment-collapsen-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
     <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <WithStyles(PrTextField)
+        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
+        label="Beitrag zur Unternehmensentwicklung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="hhh"
+        startrows="2"
+        writeableText="hhh"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
+    <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentDescription"
-        secondary="Beitrag zur Unternehmensentwicklung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconComment-5"
+        className="PrComment-iconComment-4"
         id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentIconId"
       >
         info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    />
   </div>
   <div>
     <WithStyles(List)
@@ -201,15 +210,6 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
       component="div"
       disablePadding={true}
     >
-      <WithStyles(PrTextField)
-        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
-        label="Kommentar"
-        onChange={[Function]}
-        openEditing={true}
-        readOnlyText="hhh"
-        startrows="2"
-        writeableText="hhh"
-      />
       <WithStyles(Collapse)
         in={false}
         timeout="auto"

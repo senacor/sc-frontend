@@ -41,6 +41,7 @@ class PrOverallComment extends Component {
 
   handleChangeComment = prById => event => {
     this.setState({ comment: event.target.value });
+    console.log('Kategorie: ' + this.props.category);
 
     this.sendComment(
       prById,
@@ -59,7 +60,9 @@ class PrOverallComment extends Component {
       prById,
       isActionPerformer,
       readOnly,
-      nonActionPerformer
+      nonActionPerformer,
+      errorFlag,
+      category
     } = this.props;
     let { comment } = this.state;
 
@@ -72,15 +75,18 @@ class PrOverallComment extends Component {
           <Grid container direction={'column'}>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
+                fieldId={category}
                 isActionPerformer={isActionPerformer}
                 nonActionPerformer={nonActionPerformer}
                 readOnlyFlag={readOnly}
                 openEditing={true}
-                label={'Gesamteinschätzung Freitext (Pflichtfeld)'}
+                required
+                label={'Gesamteinschätzung Freitext'}
                 helperText={helperText}
                 readOnlyText={prRating.comment}
                 writeableText={comment}
                 onChange={this.handleChangeComment(prById)}
+                errorFlag={errorFlag}
               />
             </Grid>
           </Grid>

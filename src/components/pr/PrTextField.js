@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const styles = theme => ({
   disabled: {
     borderRadius: 4, //abgerundete Ecken
-    border: '2px solid #b3c8cb', //Randfarbe und Dicke
+    border: '1px solid rgba(77,79,92,0.2)', //Randfarbe und Dicke
     fontSize: 16,
     padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
     textAlign: 'justify', //Blocksatz
@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   enabled: {
     borderRadius: 4, //abgerundete Ecken
-    border: '2px solid #4d8087', //Randfarbe und Dicke
+    border: '2px solid rgba(77,79,92,0.5)', //Randfarbe und Dicke
     fontSize: 16,
     padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
     textAlign: 'justify', //Blocksatz
@@ -36,10 +36,24 @@ const styles = theme => ({
   },
   readonly: {
     borderRadius: 4, //abgerundete Ecken
-    border: '2px solid #b3c8cb', //Randfarbe und Dicke
+    border: '1px solid rgba(77,79,92,0.2)', //Randfarbe und Dicke
     fontSize: 16,
     padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
     textAlign: 'justify', //Blocksatz
+    marginLeft: -8,
+    marginTop: -8
+  },
+  error: {
+    borderRadius: 4, //abgerundete Ecken
+    border: '2px solid #ff0000', //Randfarbe und Dicke
+    fontSize: 16,
+    padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
+    textAlign: 'justify', //Blocksatz
+    '&:focus': {
+      //reinklicken
+      borderColor: '#ff0000', //Randfarbe beim reinklicken
+      boxShadow: '0 0 0 0.9rem rgba(256,0,0,.15)' //Farbschattierung beim Reinklicken
+    },
     marginLeft: -8,
     marginTop: -8
   }
@@ -59,6 +73,8 @@ class PrTextField extends Component {
       fieldId,
       label,
       startrows,
+      errorFlag,
+      required,
       classes
     } = this.props;
 
@@ -69,14 +85,14 @@ class PrTextField extends Component {
           multiline
           fullWidth
           disabled
-          rows={startrows ? startrows : '4'}
+          required={required}
+          rows={startrows ? startrows : '6'}
           rowsMax="10"
           margin="normal"
           variant="outlined"
           label={label}
           InputProps={{
             disableUnderline: true,
-            name: 'comment',
             classes: {
               input: classes.disabled
             }
@@ -93,7 +109,8 @@ class PrTextField extends Component {
           id={fieldId}
           multiline
           fullWidth
-          rows={startrows ? startrows : '4'}
+          required={required}
+          rows={startrows ? startrows : '6'}
           rowsMax="10"
           variant="outlined"
           margin="normal"
@@ -111,13 +128,42 @@ class PrTextField extends Component {
       );
     };
 
+    let errorTextField = value => {
+      return (
+        <TextField
+          error
+          id={fieldId}
+          multiline
+          fullWidth
+          required={required}
+          rows={startrows ? startrows : '6'}
+          rowsMax="10"
+          variant="outlined"
+          margin="normal"
+          label={label}
+          InputProps={{
+            disableUnderline: true,
+            classes: {
+              input: classes.error
+            }
+          }}
+          value={value}
+          onChange={onChange}
+          helperText={
+            'Error: Bitte fülle das Pflichtfeld aus, bevor du das PR freigibst.'
+          }
+        />
+      );
+    };
+
     let readOnlyField = value => {
       return (
         <TextField
           id={fieldId}
           multiline
           fullWidth
-          rows={startrows ? startrows : '4'}
+          required={required}
+          rows={startrows ? startrows : '6'}
           rowsMax="10"
           margin="normal"
           variant="outlined"
@@ -139,15 +185,30 @@ class PrTextField extends Component {
     switch (true) {
       case nonActionPerformer && !readOnlyFlag:
         return disabledTextField('');
-      case isActionPerformer && !openEditing:
+      case isActionPerformer && !openEditing && !readOnlyFlag:
         return disabledTextField('');
-      case readOnlyFlag && readOnlyText === null:
+      case isActionPerformer && readOnlyFlag && readOnlyText === null:
+        return disabledTextField('');
+      case nonActionPerformer && readOnlyFlag && readOnlyText === null:
+        return disabledTextField('');
+      case isActionPerformer && readOnlyFlag && readOnlyText === '':
+        return disabledTextField('');
+      case nonActionPerformer && readOnlyFlag && readOnlyText === '':
         return disabledTextField('');
       case isActionPerformer && readOnlyFlag:
         return readOnlyField(readOnlyText);
       case nonActionPerformer && readOnlyFlag:
         return readOnlyField(readOnlyText);
-      case isActionPerformer && openEditing && !readOnlyFlag:
+      case isActionPerformer &&
+        openEditing &&
+        !readOnlyFlag &&
+        errorFlag &&
+        writeableText !== null &&
+        writeableText !== '':
+        return enabledTextField(writeableText);
+      case isActionPerformer && openEditing && !readOnlyFlag && errorFlag:
+        return errorTextField(writeableText);
+      case isActionPerformer && openEditing && !readOnlyFlag && !errorFlag:
         return enabledTextField(writeableText);
       default:
         return null;

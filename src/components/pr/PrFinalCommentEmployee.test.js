@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledComponent } from './PrFinalCommentEmployee';
 import { createShallow } from '@material-ui/core/test-utils';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import ROLES from '../../helper/roles';
 
@@ -37,7 +36,6 @@ describe('PrFinalCommentEmployee Component', () => {
       />
     );
 
-    expect(component.find(Typography)).toHaveLength(2);
     expect(component.find(TextField)).toHaveLength(0);
 
     expect(component).toMatchSnapshot();
@@ -66,7 +64,6 @@ describe('PrFinalCommentEmployee Component', () => {
       />
     );
 
-    expect(component.find(Typography)).toHaveLength(2);
     expect(component.find(TextField)).toHaveLength(0);
 
     expect(

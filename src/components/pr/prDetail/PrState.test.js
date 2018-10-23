@@ -156,6 +156,10 @@ describe('PrState Component for reviewer', () => {
       <StyledComponent prById={prById} userinfo={userinfo} />
     );
 
+    expect(
+      component.find(PrStateStepper).map(field => field.get(0))[0].props
+        .stepStructure
+    ).toHaveLength(3);
     expect(component.find(PrStateStepper)).toHaveLength(1);
     expect(component.find(PrStateStepper).props().activeStep).toEqual(0);
     expect(
@@ -225,6 +229,7 @@ describe('PrState Component for reviewer', () => {
 
   it('should call releaseButtonClick which triggers the the addPrStatus action', () => {
     const addPrStatusMock = jest.fn();
+    const checkRequiredMock = jest.fn();
     const mockedEvent = { disabled: false };
     const prById = {
       id: 1
@@ -235,6 +240,7 @@ describe('PrState Component for reviewer', () => {
         prById={prById}
         addPrStatus={addPrStatusMock}
         userinfo={userinfo}
+        checkRequired={checkRequiredMock}
       />
     );
     const instance = component.instance();
@@ -469,7 +475,10 @@ describe('PrState Component for employee', () => {
 
   it('should call releaseButtonClick which triggers the the addPrStatus action', () => {
     const addPrStatusMock = jest.fn();
+    let checkRequiredMock = jest.fn();
     const mockedEvent = { disabled: false };
+    let employeeContributionRole = 'test';
+    let employeeContributionLeader = 'test';
     const prById = {
       id: 1
     };
@@ -479,6 +488,9 @@ describe('PrState Component for employee', () => {
         prById={prById}
         addPrStatus={addPrStatusMock}
         userinfo={userinfo}
+        checkRequired={checkRequiredMock}
+        employeeContributionRole={employeeContributionRole}
+        employeeContributionLeader={employeeContributionLeader}
       />
     );
     const instance = component.instance();
@@ -744,5 +756,153 @@ describe('PrState Component for HR', () => {
       prStatusEnum.FINALIZED_EMPLOYEE
     ]);
     expect(result).toBeFalsy();
+  });
+});
+
+describe('functions that check required fields', () => {
+  let shallow = createShallow({ dive: true });
+  const component = shallow(<StyledComponent />);
+  const instance = component.instance();
+  const addPrStatusMock = jest.fn();
+  const checkRequiredMock = jest.fn();
+  const mockedEvent = { disabled: false };
+  const addPrStatusMock2 = jest.fn();
+  const checkRequiredMock2 = jest.fn();
+  const mockedEvent2 = { disabled: false };
+  const prById = {
+    id: 1
+  };
+  let role = 'Junior';
+  let leader = 'helpful';
+  let comment = 'Good worker';
+  let statusEmployee = prStatusEnum.RELEASED_SHEET_EMPLOYEE;
+  let statusReviewer = prStatusEnum.RELEASED_SHEET_REVIEWER;
+  let statusHr = prStatusEnum.ARCHIVED_HR;
+  it('should check the textfield inputs of the employee and return true if required fields are filled', () => {
+    let requiredFields1 = instance.checkRequiredFields(
+      role,
+      leader,
+      comment,
+      statusEmployee
+    );
+    expect(requiredFields1).toEqual({ employee: true, reviewer: true });
+  });
+
+  it('should return true if the state is not one of these where there are required fields', () => {
+    let requiredFields2 = instance.checkRequiredFields(
+      role,
+      leader,
+      comment,
+      statusHr
+    );
+    expect(requiredFields2).toEqual({ employee: true, reviewer: true });
+  });
+
+  it('should check the employee fields and return false for the employee if one of these fields is not filled', () => {
+    let requiredFields3 = instance.checkRequiredFields(
+      role,
+      null,
+      comment,
+      statusEmployee
+    );
+    expect(requiredFields3).toEqual({ employee: false, reviewer: true });
+  });
+
+  it('should check the reviewer fields and return false for the reviewer if one of these fields is not filled', () => {
+    let requiredFields4 = instance.checkRequiredFields(
+      role,
+      null,
+      null,
+      statusReviewer
+    );
+    expect(requiredFields4).toEqual({ employee: true, reviewer: false });
+  });
+
+  it('should not return anything if the employee tries to hit the button without filling all required fields', () => {
+    const componentEmployee = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        checkRequired={checkRequiredMock}
+        userinfo={{
+          userPrincipalName: 'test.pr.mitarbeiter1'
+        }}
+        employeeContributionRole={null}
+        employeeContributionLeader={null}
+      />
+    );
+    const instanceEmployee = componentEmployee.instance();
+    let checkEmployeeCanRelease = instanceEmployee.releaseButtonClick(
+      prStatusEnum.RELEASED_SHEET_EMPLOYEE
+    );
+    checkEmployeeCanRelease(mockedEvent);
+
+    expect(addPrStatusMock.mock.calls.length).toBe(0);
+  });
+
+  it('should trigger the addStatus Action if all required fields are filled and the employee than hits the release button', () => {
+    const componentEmployee = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock}
+        checkRequired={checkRequiredMock}
+        userinfo={{
+          userPrincipalName: 'test.pr.mitarbeiter1'
+        }}
+        employeeContributionRole={role}
+        employeeContributionLeader={leader}
+      />
+    );
+    const instanceEmployee = componentEmployee.instance();
+    let checkEmployeeCanRelease = instanceEmployee.releaseButtonClick(
+      prStatusEnum.RELEASED_SHEET_EMPLOYEE
+    );
+    checkEmployeeCanRelease(mockedEvent);
+
+    expect(addPrStatusMock.mock.calls.length).toBe(1);
+    expect(addPrStatusMock.mock.calls[0][1]).toEqual('FILLED_SHEET_EMPLOYEE');
+  });
+
+  it('should not return anything if the reviewer tries to hit the button without filling all required fields', () => {
+    const componentReviewer = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock2}
+        checkRequired={checkRequiredMock2}
+        userinfo={{
+          userPrincipalName: 'test.pr.vorgesetzter'
+        }}
+        overallComment={null}
+      />
+    );
+    const instanceReviewer = componentReviewer.instance();
+    let checkReviewerCanRelease = instanceReviewer.releaseButtonClick(
+      prStatusEnum.RELEASED_SHEET_REVIEWER
+    );
+    checkReviewerCanRelease(mockedEvent2);
+
+    expect(addPrStatusMock2.mock.calls.length).toBe(0);
+  });
+
+  it('should trigger the addStatus Action if all required fields are filled and the reviewer than hits the release button', () => {
+    const componentReviewer = shallow(
+      <StyledComponent
+        prById={prById}
+        addPrStatus={addPrStatusMock2}
+        checkRequired={checkRequiredMock2}
+        userinfo={{
+          userPrincipalName: 'test.pr.vorgesetzter'
+        }}
+        overallComment={comment}
+      />
+    );
+    const instanceReviewer = componentReviewer.instance();
+    let checkReviewerCanRelease = instanceReviewer.releaseButtonClick(
+      prStatusEnum.RELEASED_SHEET_REVIEWER
+    );
+    checkReviewerCanRelease(mockedEvent2);
+
+    expect(addPrStatusMock2.mock.calls.length).toBe(1);
+    expect(addPrStatusMock2.mock.calls[0][1]).toEqual('FILLED_SHEET_REVIEWER');
   });
 });

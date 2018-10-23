@@ -11,7 +11,7 @@ export class PerformanceReviewDetail extends Component {
     let { prById } = this.props;
     return (
       <React.Fragment>
-        <PrState />
+        {prById ? <PrState /> : null}
         {prById ? <PrTabs /> : null}
       </React.Fragment>
     );

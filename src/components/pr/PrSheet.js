@@ -16,12 +16,14 @@ import objectGet from 'object-get';
 import {
   getPrDetail,
   getUserinfo,
-  getUserroles
+  getUserroles,
+  getRequiredFields
 } from '../../reducers/selector';
 import PrFinalCommentEmployee from './PrFinalCommentEmployee';
 import PrFinalCommentHr from './PrFinalCommentHr';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
+import Typography from '@material-ui/core/Typography';
 import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
@@ -36,7 +38,9 @@ const styles = theme => ({
     paddingLeft: '3%'
   },
   rightAlignText: {
-    textAlign: 'right'
+    textAlign: 'right',
+    marginRight: '3%',
+    color: '#6E6E6E'
   },
   buttonDesktop: {
     position: 'relative',
@@ -54,7 +58,8 @@ const styles = theme => ({
   },
   marginDown: {
     marginBottom: '-10pt'
-  }
+  },
+  red: { color: '#ff0000' }
 });
 
 class PrSheet extends React.Component {
@@ -91,9 +96,7 @@ class PrSheet extends React.Component {
   };
 
   isArchived = () => {
-    return (
-      objectGet(this.props, 'prById.statuses.5') === prStatusEnum.ARCHIVED_HR
-    );
+    return this.props.prById.statuses.includes(prStatusEnum.ARCHIVED_HR);
   };
 
   hasRoleInPrBasedOnUserName = (pr, userinfo) => roles => {
@@ -107,7 +110,11 @@ class PrSheet extends React.Component {
   };
 
   render() {
-    const { prById, classes, userinfo } = this.props;
+    const { prById, classes, userinfo, requiredFields } = this.props;
+
+    let errorFlagReviewer = !requiredFields.reviewer;
+    let errorFlagEmployee = !requiredFields.employee;
+    let globalErrorFlag = errorFlagEmployee || errorFlagReviewer;
 
     if (!prById) {
       return null;
@@ -133,6 +140,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrSheetEmployee
               prById={prById}
+              errorFlag={errorFlagEmployee}
               readOnly={this.isVisibleToReviewer()}
               category="ROLE_AND_PROJECT_ENVIRONMENT"
               isActionPerformer={isActionPerformerForEmployeeActions}
@@ -140,6 +148,7 @@ class PrSheet extends React.Component {
             />
             <PrSheetEmployee
               prById={prById}
+              errorFlag={errorFlagEmployee}
               readOnly={this.isVisibleToReviewer()}
               category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
               isActionPerformer={isActionPerformerForEmployeeActions}
@@ -159,6 +168,7 @@ class PrSheet extends React.Component {
           <List disablePadding>
             <PrOverallAssessment
               prById={prById}
+              errorFlag={errorFlagReviewer}
               readOnly={this.isVisibleToEmployee()}
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -195,7 +205,7 @@ class PrSheet extends React.Component {
                 prById={prById}
                 open={this.isFinalizedForEmployee()}
                 readOnly={this.isArchived()}
-                disabledText={wantDisabledTextFieldInsteadOfTypography}
+                isActionPerformer={isHr(this.props.userroles)}
               />
             </div>
           </List>
@@ -286,8 +296,31 @@ class PrSheet extends React.Component {
       );
     };
 
+    let requiredInfo = () => {
+      return (
+        <List>
+          <ListItem>
+            <ListItemText secondary={'*Pflichtfelder'} />
+          </ListItem>
+        </List>
+      );
+    };
+
+    let errorText = () => {
+      return (
+        <List>
+          <ListItem>
+            <Typography className={classes.red}>
+              Bitte alle Pflichtfelder ausfüllen!
+            </Typography>
+          </ListItem>
+        </List>
+      );
+    };
+
     return (
       <div>
+        {globalErrorFlag ? errorText() : null}
         <Grid container spacing={40}>
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
             {step1employee()}
@@ -299,6 +332,7 @@ class PrSheet extends React.Component {
             {overallReviewer()}
             <Divider />
             {finalEmployee()}
+            {requiredInfo()}
           </Grid>
           <Hidden mdDown>
             <Grid item lg={6} xl={6}>
@@ -319,7 +353,8 @@ export default connect(
   state => ({
     prById: getPrDetail()(state),
     userroles: getUserroles(state),
-    userinfo: getUserinfo(state)
+    userinfo: getUserinfo(state),
+    requiredFields: getRequiredFields(state)
   }),
   {
     setVisibilityById: actions.setVisibilityById

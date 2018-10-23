@@ -19,7 +19,7 @@ export const translationMap = {
   FINAL_COMMENT_HR: 'Abschließender Kommentar durch HR-Mitarbeiter (optional)',
   FULFILLMENT_OF_REQUIREMENT: 'Erfüllung der Anforderungen für aktuelle Stufe:',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
-    'Beitrag des Vorgesetzten und des Umfelds zur eigenen Entwicklung',
+    'Beitrag des Vorgesetzten und des Umfelds',
   IT_LIEFERSTEUERER: 'IT Liefersteuerer',
   IT_SOLUTION_LEADER: 'IT Solution Leader',
   LEADERSHIP: 'Coaching, Leadership und Personalführung',

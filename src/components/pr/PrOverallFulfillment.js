@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
@@ -72,7 +71,7 @@ export class PrOverallFulfillment extends Component {
         return (
           <ListItem>
             <div className={classes.simpleBlack}>
-              <typography>{translateContent(category)}</typography>
+              <Typography>{translateContent(category)}</Typography>
             </div>
             <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
               {this.props.readOnly
@@ -85,7 +84,7 @@ export class PrOverallFulfillment extends Component {
         return (
           <ListItem>
             <div className={classes.simpleBlack}>
-              <typography>{translateContent(category)}</typography>
+              <Typography>{translateContent(category)}</Typography>
             </div>
             <div className={classes.number}>
               <FormControl disabled={readOnly}>
