@@ -60,7 +60,7 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      forRole="PR_CST_Leiter"
+      forRole="PR_Reviewer"
       key="PR Übersicht"
     >
       <WithStyles(ListItem)

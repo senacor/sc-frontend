@@ -20,6 +20,7 @@ import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import * as actions from '../../actions';
 import { getUserroles } from '../../reducers/selector';
+import { fetchReviewerInfo } from '../../actions/reviewerInfo';
 
 const styles = () => ({
   root: {
@@ -53,7 +54,7 @@ const listOfMenuEntries = [
     label: 'PR Übersicht',
     icon: <LibraryBooksIcon />,
     value: '/prs',
-    role: ROLES.PR_CST_LEITER
+    role: ROLES.PR_REVIEWER
   },
   {
     label: 'Alle PRs',
@@ -93,6 +94,7 @@ export class Sidebar extends Component {
     }
     this.props.getUserInfo();
     this.props.getUserRoles();
+    this.props.getReviewerInfo();
   }
 
   render() {
@@ -166,6 +168,7 @@ export default connect(
   {
     getUserInfo: actions.getUserInfo,
     getUserPhoto: actions.getUserPhoto,
-    getUserRoles: actions.getUserRoles
+    getUserRoles: actions.getUserRoles,
+    getReviewerInfo: fetchReviewerInfo
   }
 )(StyledComponent);

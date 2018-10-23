@@ -1,8 +1,20 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import ROLES from '../../helper/roles';
+import { getReviewerInfo } from '../../reducers/selector';
 
 export class Authorized extends Component {
-  userHasRole = role => this.props.userroles.includes(role);
+  userHasRole = role => {
+    if (
+      role === ROLES.PR_REVIEWER &&
+      (this.props.numberOfPrsToReview > 0 ||
+        this.props.userroles.includes(ROLES.PR_CST_LEITER))
+    ) {
+      return true;
+    } else {
+      return this.props.userroles.includes(role);
+    }
+  };
 
   render() {
     const { forRole, children } = this.props;
@@ -16,5 +28,6 @@ export class Authorized extends Component {
 }
 
 export default connect(state => ({
-  userroles: state.userroles
+  userroles: state.userroles,
+  numberOfPrsToReview: getReviewerInfo(state).numberOfPrsToReview
 }))(Authorized);

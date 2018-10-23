@@ -71,6 +71,8 @@ export const getSortedPrs = () => {
 
 export const getRequiredFields = state => state.requiredFields;
 
+export const getReviewerInfo = state => state.reviewerInfo;
+
 function dateSort(sortOrder) {
   return (firstPR, secondPR) => {
     let comparison = 0;

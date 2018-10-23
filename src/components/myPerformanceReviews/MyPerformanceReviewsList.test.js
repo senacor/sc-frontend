@@ -15,7 +15,8 @@ describe('MyPerformanceReviewsList', () => {
           login: 'test.pr.vorgesetzter',
           firstName: 'Volker',
           lastName: 'Vorgesetzter'
-        }
+        },
+        employee: { login: 'test.pr.mitarbeiter1' }
       },
       {
         id: 2,
@@ -25,7 +26,8 @@ describe('MyPerformanceReviewsList', () => {
           login: 'test.pr.vorgesetzter',
           firstName: 'Volker',
           lastName: 'Vorgesetzter'
-        }
+        },
+        employee: { login: 'test.pr.mitarbeiter1' }
       },
       {
         id: 3,
@@ -35,7 +37,8 @@ describe('MyPerformanceReviewsList', () => {
           login: 'test.pr.mrx',
           firstName: 'Mister',
           lastName: 'Xavier'
-        }
+        },
+        employee: { login: 'test.pr.mitarbeiter1' }
       }
     ];
   });
