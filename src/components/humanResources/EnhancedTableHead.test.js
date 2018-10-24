@@ -3,7 +3,7 @@ import EnhancedTableHead from './EnhancedTableHead';
 import { createShallow } from '@material-ui/core/test-utils';
 import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
-import PopperSearchMenu from './PopperSearchMenu.js';
+import PopperSearchMenu from './PopperSearchMenu';
 import EmployeeFilter from './EmployeeFilter';
 import { getDisplayName } from './OverviewPerformanceReviews';
 import FILTER_GROUPS from './filterGroups';

@@ -10,7 +10,7 @@ import { getAllPrsForHumanResources, getFilter } from '../../reducers/selector';
 import * as actions from '../../actions';
 import withLoading from '../hoc/Loading';
 import ListItem from '@material-ui/core/ListItem/ListItem';
-import PopperSearchMenu from './PopperSearchMenu.js';
+import PopperSearchMenu from './PopperSearchMenu';
 import TextField from '@material-ui/core/TextField/TextField';
 import List from '@material-ui/core/List/List';
 import EmployeeFilter from './EmployeeFilter';

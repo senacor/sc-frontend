@@ -1,6 +1,6 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import PopperSearchMenu from './PopperSearchMenu.js';
+import PopperSearchMenu from './PopperSearchMenu';
 import EmployeeFilter from './EmployeeFilter';
 import FILTER_GROUPS from './filterGroups';
 
