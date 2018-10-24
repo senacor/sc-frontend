@@ -12,22 +12,17 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
       className="PerformanceReviewsTable-table-2"
     >
       <EnhancedTableHead
-        onRequestSort={[Function]}
-        order="desc"
-        orderBy="deadline"
-        rows={
+        columnDefinition={
           Array [
             Object {
               "disablePadding": false,
-              "filter": <WithStyles(ExcelLikeSearchMenue)
-                content={
-                      <Connect(EmployeeFilter)
-                            filterBy="employee"
-                            filterGroup="hr"
-                      />
-                }
-          />,
-              "id": "employee",
+              "filter": <PopperSearchMenu>
+                <Connect(EmployeeFilter)
+                      filterBy="employee"
+                      filterGroup="hr"
+                />
+          </PopperSearchMenu>,
+              "key": "employee",
               "label": "Mitarbeiter",
               "mapper": [Function],
               "numeric": false,
@@ -35,7 +30,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <WithStyles(ExcelLikeSearchMenue)
+              "filter": <PopperSearchMenu
                 content={
                       <WithStyles(List)>
                             <WithStyles(ListItem)>
@@ -45,7 +40,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                                     "shrink": true,
                                                   }
                                         }
-                                        id="date"
+                                        id="dateBegin"
                                         label="Fälligkeit von"
                                         required={false}
                                         select={false}
@@ -58,7 +53,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                                   }
                                         }
                                         defaultValue="2017-05-24"
-                                        id="date"
+                                        id="dateEnd"
                                         label="Fälligkeit bis"
                                         required={false}
                                         select={false}
@@ -68,7 +63,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                       </WithStyles(List)>
                 }
           />,
-              "id": "deadline",
+              "key": "deadline",
               "label": "Fälligkeit",
               "mapper": [Function],
               "numeric": true,
@@ -76,7 +71,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": false,
-              "id": "prOccasion",
+              "key": "prOccasion",
               "label": "Grund",
               "mapper": [Function],
               "numeric": false,
@@ -84,7 +79,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": false,
-              "id": "projectCst",
+              "key": "projectCst",
               "label": "Projektkst",
               "mapper": [Function],
               "numeric": false,
@@ -92,7 +87,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "competence",
+              "key": "competence",
               "label": "Dev/Con",
               "mapper": [Function],
               "numeric": false,
@@ -100,7 +95,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "level",
+              "key": "level",
               "label": "level",
               "mapper": [Function],
               "numeric": false,
@@ -108,15 +103,13 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <WithStyles(ExcelLikeSearchMenue)
-                content={
-                      <Connect(EmployeeFilter)
-                            filterBy="supervisor"
-                            filterGroup="hr"
-                      />
-                }
-          />,
-              "id": "supervisor",
+              "filter": <PopperSearchMenu>
+                <Connect(EmployeeFilter)
+                      filterBy="supervisor"
+                      filterGroup="hr"
+                />
+          </PopperSearchMenu>,
+              "key": "supervisor",
               "label": "Vorgesetzte/r",
               "mapper": [Function],
               "numeric": false,
@@ -124,15 +117,13 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <WithStyles(ExcelLikeSearchMenue)
-                content={
-                      <Connect(EmployeeFilter)
-                            filterBy="reviewer"
-                            filterGroup="hr"
-                      />
-                }
-          />,
-              "id": "reviewer",
+              "filter": <PopperSearchMenu>
+                <Connect(EmployeeFilter)
+                      filterBy="reviewer"
+                      filterGroup="hr"
+                />
+          </PopperSearchMenu>,
+              "key": "reviewer",
               "label": "Bewerter",
               "mapper": [Function],
               "numeric": false,
@@ -140,7 +131,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "result",
+              "key": "result",
               "label": "Bewertung",
               "mapper": [Function],
               "numeric": false,
@@ -148,7 +139,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "employeePreparationDone",
+              "key": "employeePreparationDone",
               "label": "MA ausgefüllt",
               "mapper": [Function],
               "numeric": false,
@@ -156,7 +147,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": false,
-              "id": "reviewerPreparationDone",
+              "key": "reviewerPreparationDone",
               "label": "Beurteiler ausgefüllt",
               "mapper": [Function],
               "numeric": false,
@@ -164,7 +155,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "appointment",
+              "key": "appointment",
               "label": "Termin",
               "mapper": [Function],
               "numeric": false,
@@ -172,7 +163,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "inProgress",
+              "key": "inProgress",
               "label": "Finaler Status",
               "mapper": [Function],
               "numeric": false,
@@ -180,7 +171,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "id": "humanResourceProcessingDone",
+              "key": "humanResourceProcessingDone",
               "label": "HR verarbeitet",
               "mapper": [Function],
               "numeric": false,
@@ -188,6 +179,9 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
           ]
         }
+        onRequestSort={[Function]}
+        order="desc"
+        orderBy="deadline"
       />
       <WithStyles(TableBody)>
         <WithStyles(TableRow)

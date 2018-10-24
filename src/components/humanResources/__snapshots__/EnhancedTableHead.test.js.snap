@@ -18,14 +18,12 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
     >
       <WithStyles(List)>
         <WithStyles(ListItem)>
-          <WithStyles(ExcelLikeSearchMenue)
-            content={
-              <Connect(EmployeeFilter)
-                filterBy="employee"
-                filterGroup="hr"
-              />
-            }
-          />
+          <PopperSearchMenu>
+            <Connect(EmployeeFilter)
+              filterBy="employee"
+              filterGroup="hr"
+            />
+          </PopperSearchMenu>
           <WithStyles(TableSortLabel)
             active={true}
             className="employee"

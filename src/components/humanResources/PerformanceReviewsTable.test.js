@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledComponent as PerformanceReviewsTable } from './PerformanceReviewsTable';
+import PerformanceReviewsTable from './PerformanceReviewsTable';
 import {
   getDisplayName,
   descInteger,
@@ -9,17 +9,18 @@ import {
 import { createShallow } from '@material-ui/core/test-utils';
 import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
-import ExcelLikeSearchMenue from './ExcelLikeSearchMenue';
+import PopperSearchMenu from './PopperSearchMenu';
 import EmployeeFilter from './EmployeeFilter';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import TextField from '@material-ui/core/TextField/TextField';
 import { translateContent } from '../translate/Translate';
 import Translate from '../translate/Translate';
+import FILTER_GROUPS from './filterGroups';
 
 const rows = [
   {
-    id: HR_ELEMENTS.EMPLOYEE,
+    key: HR_ELEMENTS.EMPLOYEE,
     numeric: false,
     disablePadding: false,
     label: 'Mitarbeiter',
@@ -32,25 +33,28 @@ const rows = [
       );
     },
     filter: (
-      <ExcelLikeSearchMenue
-        content={<EmployeeFilter filterGroup={'hr'} filterBy={'employee'} />}
-      />
+      <PopperSearchMenu>
+        <EmployeeFilter
+          filterGroup={FILTER_GROUPS.HR}
+          filterBy={HR_ELEMENTS.EMPLOYEE}
+        />
+      </PopperSearchMenu>
     )
   },
   {
-    id: HR_ELEMENTS.DEADLINE,
+    key: HR_ELEMENTS.DEADLINE,
     numeric: true,
     disablePadding: true,
     label: 'Fälligkeit',
     mapper: variable => variable,
     show: entry => entry[HR_ELEMENTS.DEADLINE],
     filter: (
-      <ExcelLikeSearchMenue
+      <PopperSearchMenu
         content={
           <List>
             <ListItem>
               <TextField
-                id="date"
+                id="dateBegin"
                 label="Fälligkeit von"
                 type="date"
                 InputLabelProps={{
@@ -58,7 +62,7 @@ const rows = [
                 }}
               />
               <TextField
-                id="date"
+                id="dateEnd"
                 label="Fälligkeit bis"
                 type="date"
                 defaultValue="2017-05-24"
@@ -73,7 +77,7 @@ const rows = [
     )
   },
   {
-    id: HR_ELEMENTS.PR_OCCASION,
+    key: HR_ELEMENTS.PR_OCCASION,
     numeric: false,
     disablePadding: false,
     label: 'Grund',
@@ -81,7 +85,7 @@ const rows = [
     show: entry => <Translate content={entry[HR_ELEMENTS.PR_OCCASION]} />
   },
   {
-    id: HR_ELEMENTS.CST,
+    key: HR_ELEMENTS.CST,
     numeric: false,
     disablePadding: false,
     label: 'Projektkst',
@@ -89,7 +93,7 @@ const rows = [
     show: entry => entry[HR_ELEMENTS.CST]
   },
   {
-    id: HR_ELEMENTS.COMPETENCE,
+    key: HR_ELEMENTS.COMPETENCE,
     numeric: false,
     disablePadding: true,
     label: 'Dev/Con',
@@ -99,7 +103,7 @@ const rows = [
     )
   },
   {
-    id: HR_ELEMENTS.LEVEL,
+    key: HR_ELEMENTS.LEVEL,
     numeric: false,
     disablePadding: true,
     label: 'level',
@@ -107,33 +111,39 @@ const rows = [
     show: entry => entry[HR_ELEMENTS.LEVEL]
   },
   {
-    id: HR_ELEMENTS.SUPERVISOR,
+    key: HR_ELEMENTS.SUPERVISOR,
     numeric: false,
     disablePadding: true,
     label: 'Vorgesetzte/r',
     mapper: variable => getDisplayName(variable),
     show: entry => getDisplayName(entry[HR_ELEMENTS.SUPERVISOR]),
     filter: (
-      <ExcelLikeSearchMenue
-        content={<EmployeeFilter filterGroup={'hr'} filterBy={'supervisor'} />}
-      />
+      <PopperSearchMenu>
+        <EmployeeFilter
+          filterGroup={FILTER_GROUPS.HR}
+          filterBy={HR_ELEMENTS.SUPERVISOR}
+        />
+      </PopperSearchMenu>
     )
   },
   {
-    id: HR_ELEMENTS.REVIEWER,
+    key: HR_ELEMENTS.REVIEWER,
     numeric: false,
     disablePadding: true,
     label: 'Bewerter',
     mapper: variable => getDisplayName(variable),
     show: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
     filter: (
-      <ExcelLikeSearchMenue
-        content={<EmployeeFilter filterGroup={'hr'} filterBy={'reviewer'} />}
-      />
+      <PopperSearchMenu>
+        <EmployeeFilter
+          filterGroup={FILTER_GROUPS.HR}
+          filterBy={HR_ELEMENTS.REVIEWER}
+        />
+      </PopperSearchMenu>
     )
   },
   {
-    id: HR_ELEMENTS.RESULT,
+    key: HR_ELEMENTS.RESULT,
     numeric: false,
     disablePadding: true,
     label: 'Bewertung',
@@ -141,7 +151,7 @@ const rows = [
     show: entry => entry[HR_ELEMENTS.RESULT]
   },
   {
-    id: HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE,
+    key: HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE,
     numeric: false,
     disablePadding: true,
     label: 'MA ausgefüllt',
@@ -150,7 +160,7 @@ const rows = [
       entry[HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein'
   },
   {
-    id: HR_ELEMENTS.REVIEWER_PREPARATION_DONE,
+    key: HR_ELEMENTS.REVIEWER_PREPARATION_DONE,
     numeric: false,
     disablePadding: false,
     label: 'Beurteiler ausgefüllt',
@@ -159,7 +169,7 @@ const rows = [
       entry[HR_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein'
   },
   {
-    id: HR_ELEMENTS.APPOINTMENT,
+    key: HR_ELEMENTS.APPOINTMENT,
     numeric: false,
     disablePadding: true,
     label: 'Termin',
@@ -167,7 +177,7 @@ const rows = [
     show: entry => entry[HR_ELEMENTS.APPOINTMENT]
   },
   {
-    id: HR_ELEMENTS.IN_PROGRESS,
+    key: HR_ELEMENTS.IN_PROGRESS,
     numeric: false,
     disablePadding: true,
     label: 'Finaler Status',
@@ -176,7 +186,7 @@ const rows = [
       entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen'
   },
   {
-    id: HR_ELEMENTS.HR_PROCESSING_DONE,
+    key: HR_ELEMENTS.HR_PROCESSING_DONE,
     numeric: false,
     disablePadding: true,
     label: 'HR verarbeitet',
@@ -195,7 +205,11 @@ describe('PerformanceReviewsTable component', () => {
     ];
 
     let component = shallow(
-      <PerformanceReviewsTable data={prs} rows={rows} orderBy={rows[1]} />
+      <PerformanceReviewsTable
+        data={prs}
+        columnDefinition={rows}
+        orderBy={rows[1]}
+      />
     );
 
     expect(component).toMatchSnapshot();

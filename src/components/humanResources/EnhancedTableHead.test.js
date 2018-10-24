@@ -3,13 +3,14 @@ import EnhancedTableHead from './EnhancedTableHead';
 import { createShallow } from '@material-ui/core/test-utils';
 import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
-import ExcelLikeSearchMenue from './ExcelLikeSearchMenue';
+import PopperSearchMenu from './PopperSearchMenu';
 import EmployeeFilter from './EmployeeFilter';
 import { getDisplayName } from './OverviewPerformanceReviews';
+import FILTER_GROUPS from './filterGroups';
 
 const rows = [
   {
-    id: HR_ELEMENTS.EMPLOYEE,
+    key: HR_ELEMENTS.EMPLOYEE,
     numeric: false,
     disablePadding: false,
     label: 'Mitarbeiter',
@@ -22,9 +23,12 @@ const rows = [
       );
     },
     filter: (
-      <ExcelLikeSearchMenue
-        content={<EmployeeFilter filterGroup={'hr'} filterBy={'employee'} />}
-      />
+      <PopperSearchMenu>
+        <EmployeeFilter
+          filterGroup={FILTER_GROUPS.HR}
+          filterBy={HR_ELEMENTS.EMPLOYEE}
+        />
+      </PopperSearchMenu>
     )
   }
 ];
@@ -39,7 +43,7 @@ describe('EnhancedTableHead component', () => {
         onRequestSort={mockCallBack}
         order={'asc'}
         orderBy={HR_ELEMENTS.EMPLOYEE}
-        rows={rows}
+        columnDefinition={rows}
       />
     );
 
@@ -54,7 +58,7 @@ describe('EnhancedTableHead component', () => {
         order={'asc'}
         orderBy={HR_ELEMENTS.EMPLOYEE}
         onRequestSort={mockCallBack}
-        rows={rows}
+        columnDefinition={rows}
       />
     );
     component

@@ -13,29 +13,29 @@ class EnhancedTableHead extends React.Component {
   };
 
   render() {
-    const { order, orderBy, rows } = this.props;
+    const { order, orderBy, columnDefinition } = this.props;
 
     return (
       <TableHead>
         <TableRow>
-          {rows.map(row => {
+          {columnDefinition.map(column => {
             return (
               <TableCell
-                key={row.id}
+                key={column.key}
                 numeric={false}
-                padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
+                padding={column.disablePadding ? 'none' : 'default'}
+                sortDirection={orderBy === column.key ? order : false}
               >
                 <List>
                   <ListItem>
-                    {row.filter ? row.filter : null}
+                    {column.filter ? column.filter : null}
                     <TableSortLabel
-                      className={row.id}
-                      active={orderBy === row.id}
+                      className={column.key}
+                      active={orderBy === column.key}
                       direction={order}
-                      onClick={this.createSortHandler(row)}
+                      onClick={this.createSortHandler(column)}
                     >
-                      {row.label}
+                      {column.label}
                     </TableSortLabel>
                   </ListItem>
                 </List>
@@ -52,7 +52,7 @@ EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rows: PropTypes.array.isRequired
+  columnDefinition: PropTypes.array.isRequired
 };
 
 export default EnhancedTableHead;
