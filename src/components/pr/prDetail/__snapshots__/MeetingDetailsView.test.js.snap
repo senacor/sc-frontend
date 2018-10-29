@@ -9,7 +9,7 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
       id="date"
     >
       <WithStyles(ListItemIcon)>
-        <pure(Today) />
+        <pure(TodayIcon) />
       </WithStyles(ListItemIcon)>
       <WithStyles(ListItemText)
         primary="06.08.2018"
@@ -19,7 +19,7 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
       id="startAndEndTime"
     >
       <WithStyles(ListItemIcon)>
-        <pure(Schedule) />
+        <pure(ScheduleIcon) />
       </WithStyles(ListItemIcon)>
       <WithStyles(ListItemText)
         primary="09:51 - 10:51"
@@ -29,7 +29,7 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
       id="location"
     >
       <WithStyles(ListItemIcon)>
-        <pure(LocationOn) />
+        <pure(LocationOnIcon) />
       </WithStyles(ListItemIcon)>
       <WithStyles(ListItemText)
         primary="Test"
@@ -40,12 +40,12 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ListItemIcon)>
-        <pure(People) />
+        <pure(PeopleIcon) />
       </WithStyles(ListItemIcon)>
       <WithStyles(ListItemText)
         primary="Benötigte Teilnehmer"
       />
-      <pure(ExpandLess) />
+      <pure(ExpandLessIcon) />
     </WithStyles(ListItem)>
     <WithStyles(Collapse)
       in={true}
@@ -63,7 +63,7 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
           key="test.pr.mitarbeiter2@senacor.com"
         >
           <WithStyles(ListItemIcon)>
-            <pure(Person) />
+            <pure(PersonIcon) />
           </WithStyles(ListItemIcon)>
           <WithStyles(ListItemText)
             inset={true}

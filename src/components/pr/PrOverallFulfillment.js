@@ -66,53 +66,52 @@ export class PrOverallFulfillment extends Component {
       return null;
     }
 
-    switch (true) {
-      case nonActionPerformer:
-        return (
-          <ListItem>
-            <div className={classes.simpleBlack}>
-              <Typography>{translateContent(category)}</Typography>
-            </div>
-            <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
-              {this.props.readOnly
-                ? this.mapRatingFullfilment(prRating.rating)
-                : 'kein Eintrag'}
-            </Typography>
-          </ListItem>
-        );
-      case isActionPerformer:
-        return (
-          <ListItem>
-            <div className={classes.simpleBlack}>
-              <Typography>{translateContent(category)}</Typography>
-            </div>
-            <div className={classes.number}>
-              <FormControl disabled={readOnly}>
-                <Select
-                  id="ratingFullfillmentId"
-                  value={prRating.rating ? prRating.rating : 3}
-                  onChange={this.handleChangeRating(prById)}
-                  displayEmpty
-                  name="ratingFulfillment"
-                >
-                  {[1, 2, 3, 4, 5].map(ratingValue => {
-                    return (
-                      <MenuItem
-                        key={'_ratingFulfillment' + ratingValue}
-                        id={'_ratingFulfillmentValue' + ratingValue}
-                        value={ratingValue}
-                      >
-                        {this.mapRatingFullfilment(ratingValue)}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </div>
-          </ListItem>
-        );
-      default:
-        return null;
+    if (nonActionPerformer) {
+      return (
+        <ListItem>
+          <div className={classes.simpleBlack}>
+            <Typography>{translateContent(category)}</Typography>
+          </div>
+          <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
+            {this.props.readOnly
+              ? this.mapRatingFullfilment(prRating.rating)
+              : 'kein Eintrag'}
+          </Typography>
+        </ListItem>
+      );
+    } else if (isActionPerformer) {
+      return (
+        <ListItem>
+          <div className={classes.simpleBlack}>
+            <Typography>{translateContent(category)}</Typography>
+          </div>
+          <div className={classes.number}>
+            <FormControl disabled={readOnly}>
+              <Select
+                id="ratingFullfillmentId"
+                value={prRating.rating ? prRating.rating : 3}
+                onChange={this.handleChangeRating(prById)}
+                displayEmpty
+                name="ratingFulfillment"
+              >
+                {[1, 2, 3, 4, 5].map(ratingValue => {
+                  return (
+                    <MenuItem
+                      key={'_ratingFulfillment' + ratingValue}
+                      id={'_ratingFulfillmentValue' + ratingValue}
+                      value={ratingValue}
+                    >
+                      {this.mapRatingFullfilment(ratingValue)}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+        </ListItem>
+      );
+    } else {
+      return null;
     }
   }
 }

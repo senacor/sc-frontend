@@ -16,6 +16,7 @@ exports[`DateFilter Component should match snapshot 1`] = `
       required={false}
       select={false}
       type="date"
+      variant="standard"
     />
     <TextField
       InputLabelProps={
@@ -30,6 +31,7 @@ exports[`DateFilter Component should match snapshot 1`] = `
       required={false}
       select={false}
       type="date"
+      variant="standard"
     />
   </WithStyles(ListItem)>
 </WithStyles(List)>

@@ -15,7 +15,7 @@ exports[`PrFinalCommentHr Component displays an info text before the employee ha
         xl={12}
         xs={12}
       >
-        <WithStyles(PrTextField)
+        <PrTextField
           fieldId="finalCommentHr"
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
@@ -45,7 +45,7 @@ exports[`PrFinalCommentHr Component displays the PrFinalCommentHr 1`] = `
         xl={12}
         xs={12}
       >
-        <WithStyles(PrTextField)
+        <PrTextField
           fieldId="finalCommentHr"
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
@@ -75,7 +75,7 @@ exports[`PrFinalCommentHr Component displays the text read-only after HR has fin
         xl={12}
         xs={12}
       >
-        <WithStyles(PrTextField)
+        <PrTextField
           fieldId="finalCommentHr"
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"

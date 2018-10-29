@@ -15,7 +15,7 @@ exports[`PrFinalCommentEmployee Component displays the PrFinalCommentEmployee 1`
         xl={12}
         xs={12}
       >
-        <WithStyles(PrTextField)
+        <PrTextField
           fieldId="finalComment"
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch Mitarbeiter (optional)"
@@ -43,7 +43,7 @@ exports[`PrFinalCommentEmployee Component displays the text writeable for the em
         xl={12}
         xs={12}
       >
-        <WithStyles(PrTextField)
+        <PrTextField
           fieldId="finalComment"
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch Mitarbeiter (optional)"

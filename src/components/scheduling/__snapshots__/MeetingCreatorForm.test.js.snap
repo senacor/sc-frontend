@@ -21,6 +21,7 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
       required={false}
       select={false}
       value=""
+      variant="standard"
     />
     <WithStyles(Button)
       id="createMeeting"

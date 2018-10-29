@@ -20,7 +20,7 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
           xl={12}
           xs={12}
         >
-          <WithStyles(PrTextField)
+          <PrTextField
             fieldId="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_CommentId"
             helperText="Wichtiges für meine Entwicklung, notwendige Änderungen, mein Beitrag dazu."
             label="Beitrag des Vorgesetzten und des Umfelds"
@@ -57,7 +57,7 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE
           xl={12}
           xs={12}
         >
-          <WithStyles(PrTextField)
+          <PrTextField
             fieldId="ROLE_AND_PROJECT_ENVIRONMENT_CommentId"
             helperText=" "
             label="Mein Projekt, Aufgabe, Rolle und Projektumfeld"

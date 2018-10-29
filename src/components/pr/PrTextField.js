@@ -1,63 +1,6 @@
 import React, { Component } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
-import PropTypes from 'prop-types';
-
-const styles = theme => ({
-  disabled: {
-    borderRadius: 4, //abgerundete Ecken
-    border: '1px solid rgba(77,79,92,0.2)', //Randfarbe und Dicke
-    fontSize: 16,
-    padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
-    textAlign: 'justify', //Blocksatz
-    '&:focus': {
-      //reinklicken
-      borderColor: '#26646d', //Randfarbe beim reinklicken
-      boxShadow: '0 0 0 0.2rem rgba(128,164,169,.25)' //Farbschattierung beim Reinklicken
-    },
-    marginLeft: -8,
-    marginTop: -8
-  },
-  enabled: {
-    borderRadius: 4, //abgerundete Ecken
-    border: '2px solid rgba(77,79,92,0.5)', //Randfarbe und Dicke
-    fontSize: 16,
-    padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
-    textAlign: 'justify', //Blocksatz
-    '&:focus': {
-      //reinklicken
-      borderColor: '#26646d', //Randfarbe beim reinklicken
-      boxShadow: '0 0 0 0.9rem rgba(128,164,169,.15)' //Farbschattierung beim Reinklicken
-    },
-    marginLeft: -8,
-    marginTop: -8
-  },
-  readonly: {
-    borderRadius: 4, //abgerundete Ecken
-    border: '1px solid rgba(77,79,92,0.2)', //Randfarbe und Dicke
-    fontSize: 16,
-    padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
-    textAlign: 'justify', //Blocksatz
-    marginLeft: -8,
-    marginTop: -8
-  },
-  error: {
-    borderRadius: 4, //abgerundete Ecken
-    border: '2px solid #ff0000', //Randfarbe und Dicke
-    fontSize: 16,
-    padding: '7pt 8pt', //schiebt Feldrand nach außen, erst oben, dann Seite, dadurch Randabstand
-    textAlign: 'justify', //Blocksatz
-    '&:focus': {
-      //reinklicken
-      borderColor: '#ff0000', //Randfarbe beim reinklicken
-      boxShadow: '0 0 0 0.9rem rgba(256,0,0,.15)' //Farbschattierung beim Reinklicken
-    },
-    marginLeft: -8,
-    marginTop: -8
-  }
-});
 
 class PrTextField extends Component {
   render() {
@@ -74,8 +17,7 @@ class PrTextField extends Component {
       label,
       startrows,
       errorFlag,
-      required,
-      classes
+      required
     } = this.props;
 
     let disabledTextField = value => {
@@ -91,12 +33,6 @@ class PrTextField extends Component {
           margin="normal"
           variant="outlined"
           label={label}
-          InputProps={{
-            disableUnderline: true,
-            classes: {
-              input: classes.disabled
-            }
-          }}
           value={value}
           helperText={helperText}
         />
@@ -115,12 +51,6 @@ class PrTextField extends Component {
           variant="outlined"
           margin="normal"
           label={label}
-          InputProps={{
-            disableUnderline: true,
-            classes: {
-              input: classes.enabled
-            }
-          }}
           value={value}
           onChange={onChange}
           helperText={helperText}
@@ -141,12 +71,6 @@ class PrTextField extends Component {
           variant="outlined"
           margin="normal"
           label={label}
-          InputProps={{
-            disableUnderline: true,
-            classes: {
-              input: classes.error
-            }
-          }}
           value={value}
           onChange={onChange}
           helperText={
@@ -169,10 +93,6 @@ class PrTextField extends Component {
           variant="outlined"
           label={label}
           InputProps={{
-            disableUnderline: true,
-            classes: {
-              input: classes.readonly
-            },
             readOnly: true
           }}
           value={value}
@@ -216,8 +136,4 @@ class PrTextField extends Component {
   }
 }
 
-PrTextField.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(PrTextField);
+export default PrTextField;

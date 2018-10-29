@@ -2,7 +2,7 @@
 
 exports[`PrComment Component should display Customer interaction 1`] = `
 <div
-  className="PrComment-collapsen-10"
+  className="PrComment-collapsed-10"
 >
   <div
     className="PrComment-containerListItem-2"
@@ -10,7 +10,7 @@ exports[`PrComment Component should display Customer interaction 1`] = `
     <WithStyles(ListItem)
       className="PrComment-nestedTextSelect-8"
     >
-      <WithStyles(PrTextField)
+      <PrTextField
         id="CUSTOMER_INTERACTION_CommentId"
         label="Kundeninteraktion und -veränderung"
         onChange={[Function]}
@@ -58,7 +58,7 @@ exports[`PrComment Component should display Customer interaction 1`] = `
 
 exports[`PrComment Component should display ProblemAnalysis 1`] = `
 <div
-  className="PrComment-collapsen-10"
+  className="PrComment-collapsed-10"
 >
   <div
     className="PrComment-containerListItem-2"
@@ -66,7 +66,7 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
     <WithStyles(ListItem)
       className="PrComment-nestedTextSelect-8"
     >
-      <WithStyles(PrTextField)
+      <PrTextField
         id="PROBLEM_ANALYSIS_CommentId"
         label="Problemanalyse und -lösung"
         onChange={[Function]}
@@ -114,7 +114,7 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
 
 exports[`PrComment Component should display Teamwork 1`] = `
 <div
-  className="PrComment-collapsen-10"
+  className="PrComment-collapsed-10"
 >
   <div
     className="PrComment-containerListItem-2"
@@ -122,7 +122,7 @@ exports[`PrComment Component should display Teamwork 1`] = `
     <WithStyles(ListItem)
       className="PrComment-nestedTextSelect-8"
     >
-      <WithStyles(PrTextField)
+      <PrTextField
         id="TEAMWORK_CommentId"
         label="Effektives Arbeiten im Team und Teamführung"
         onChange={[Function]}
@@ -170,7 +170,7 @@ exports[`PrComment Component should display Teamwork 1`] = `
 
 exports[`PrComment Component should display the ContributionToCompanyDevelopment 1`] = `
 <div
-  className="PrComment-collapsen-10"
+  className="PrComment-collapsed-10"
 >
   <div
     className="PrComment-containerListItem-2"
@@ -178,7 +178,7 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
     <WithStyles(ListItem)
       className="PrComment-nestedTextSelect-8"
     >
-      <WithStyles(PrTextField)
+      <PrTextField
         id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
         label="Beitrag zur Unternehmensentwicklung"
         onChange={[Function]}

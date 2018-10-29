@@ -15,7 +15,7 @@ exports[`PrOverallComment Component should match snapshot 1`] = `
         xl={12}
         xs={12}
       >
-        <WithStyles(PrTextField)
+        <PrTextField
           fieldId="FULFILLMENT_OF_REQUIREMENT"
           helperText="Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?"
           label="Gesamteinschätzung Freitext"

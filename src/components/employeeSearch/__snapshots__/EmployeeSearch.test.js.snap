@@ -15,6 +15,7 @@ exports[`EmployeeSearch Component should display the search field 1`] = `
     required={false}
     select={false}
     value=""
+    variant="standard"
   />
   <p>
     Keine Suchtreffer

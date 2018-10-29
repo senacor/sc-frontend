@@ -46,7 +46,7 @@ const styles = theme => ({
     marginTop: '-10pt',
     marginBottom: '10pt'
   },
-  collapsen: {
+  collapsed: {
     marginTop: '-10pt',
     marginBottom: '10pt'
   },
@@ -118,48 +118,43 @@ class PrComment extends React.Component {
     let { isExpanded, comment } = this.state;
 
     let ratingPoints = () => {
-      switch (true) {
-        case nonActionPerformer:
-          return (
-            <Typography
-              id={category}
-              className={classes.rating}
-              variant="body2"
+      if (nonActionPerformer) {
+        return (
+          <Typography id={category} className={classes.rating} variant="body2">
+            {readOnly ? prRating.rating : ''}
+          </Typography>
+        );
+      } else if (isActionPerformer) {
+        return (
+          <FormControl className={classes.formControl} disabled={readOnly}>
+            <Select
+              id={category + '_RatingId'}
+              value={prRating.rating ? prRating.rating : 3}
+              onChange={this.handleChangeRating(prById, category)}
+              displayEmpty
+              name="rating"
             >
-              {readOnly ? prRating.rating : ''}
-            </Typography>
-          );
-        case isActionPerformer:
-          return (
-            <FormControl className={classes.formControl} disabled={readOnly}>
-              <Select
-                id={category + '_RatingId'}
-                value={prRating.rating ? prRating.rating : 3}
-                onChange={this.handleChangeRating(prById, category)}
-                displayEmpty
-                name="rating"
-              >
-                {[1, 2, 3, 4, 5].map(ratingValue => {
-                  return (
-                    <MenuItem
-                      key={category + '_RatingValue' + ratingValue}
-                      id={category + '_RatingValue' + ratingValue}
-                      value={ratingValue}
-                    >
-                      {ratingValue}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          );
-        default:
-          return null;
+              {[1, 2, 3, 4, 5].map(ratingValue => {
+                return (
+                  <MenuItem
+                    key={category + '_RatingValue' + ratingValue}
+                    id={category + '_RatingValue' + ratingValue}
+                    value={ratingValue}
+                  >
+                    {ratingValue}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        );
+      } else {
+        return null;
       }
     };
 
     return (
-      <div className={isExpanded ? classes.expanded : classes.collapsen}>
+      <div className={isExpanded ? classes.expanded : classes.collapsed}>
         <div className={classes.containerListItem}>
           <ListItem className={classes.nestedTextSelect}>
             <PrTextField
