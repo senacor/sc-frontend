@@ -5,7 +5,9 @@ exports[`PopperSearchMenu component should match snapshot 1`] = `
   <WithStyles(IconButton)
     onClick={[Function]}
   >
-    <WithStyles(Icon) />
+    <WithStyles(Icon)>
+      filter_list
+    </WithStyles(Icon)>
   </WithStyles(IconButton)>
   <WithStyles(Popover)
     anchorEl={null}

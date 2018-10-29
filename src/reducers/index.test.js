@@ -73,7 +73,7 @@ describe('reducers', () => {
           message: null
         },
         events: [],
-        filter: [],
+        filter: {},
         finalCommentEmployee: {},
         finalCommentHr: {},
         humanResourcesPrs: {},

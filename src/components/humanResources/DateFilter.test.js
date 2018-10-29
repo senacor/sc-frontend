@@ -4,7 +4,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 import FILTER_GROUPS from './filterGroups';
 import HR_ELEMENTS from './hrElements';
 
-describe('EmployeeFilter Component', () => {
+describe('DateFilter Component', () => {
   let shallow = createShallow({ dive: false });
 
   it('should match snapshot', () => {

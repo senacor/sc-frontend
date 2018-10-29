@@ -22,10 +22,15 @@ export class PopperSearchMenu extends React.Component {
     });
   };
 
+  getIcon = subfilter => {
+    return subfilter === '' ? 'search' : 'filter_list';
+  };
+
   render() {
     const { anchorEl } = this.state;
-    const { icon } = this.props;
     const open = Boolean(anchorEl);
+
+    const icon = this.getIcon(this.props.subfilter);
 
     return (
       <div>
@@ -60,10 +65,7 @@ export class PopperSearchMenu extends React.Component {
 
 export default connect(
   (state, props) => ({
-    icon:
-      getSubFilter(props.filterGroup, props.filterBy)(state) === ''
-        ? 'search'
-        : 'filter_list'
+    subfilter: getSubFilter(props.filterGroup, props.filterBy)(state)
   }),
   {}
 )(PopperSearchMenu);

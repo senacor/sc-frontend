@@ -62,7 +62,7 @@ export const filter = (state = { hr: hr_initDate }, action) => {
       return newFilterGroup;
     }
     case LOGOUT:
-      return [];
+      return {};
     default:
       return state;
   }
