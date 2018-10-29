@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PROverviewReviewer Component should match snapshot 1`] = `
+<WithStyles(PerformanceReviewsTable)
+  columnDefinition={
+    Array [
+      Object {
+        "disablePadding": false,
+        "key": "employee",
+        "label": "Mitarbeiter",
+        "mapper": [Function],
+        "numeric": false,
+        "show": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "key": "deadline",
+        "label": "Fälligkeit",
+        "numeric": true,
+        "show": [Function],
+      },
+      Object {
+        "disablePadding": false,
+        "key": "occasion",
+        "label": "Grund",
+        "mapper": [Function],
+        "numeric": false,
+      },
+      Object {
+        "disablePadding": true,
+        "key": "supervisor",
+        "label": "Vorgesetzte/r",
+        "mapper": [Function],
+        "numeric": false,
+      },
+      Object {
+        "disablePadding": true,
+        "key": "reviewer",
+        "label": "Bewerter",
+        "mapper": [Function],
+        "numeric": false,
+      },
+      Object {
+        "disablePadding": true,
+        "key": "employeePreparationDone",
+        "label": "MA ausgefüllt",
+        "mapper": [Function],
+        "numeric": false,
+        "storeVariable": "statuses",
+      },
+      Object {
+        "disablePadding": true,
+        "key": "reviewerPreparationDone",
+        "label": "Beurteiler ausgefüllt",
+        "mapper": [Function],
+        "numeric": false,
+        "storeVariable": "statuses",
+      },
+    ]
+  }
+  orderBy={
+    Object {
+      "disablePadding": true,
+      "key": "deadline",
+      "label": "Fälligkeit",
+      "numeric": true,
+      "show": [Function],
+    }
+  }
+/>
+`;

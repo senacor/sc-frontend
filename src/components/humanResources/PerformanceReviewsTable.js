@@ -101,7 +101,11 @@ class PerformanceReviewsTable extends React.Component {
     if (column.show) {
       return column.show(line);
     } else {
-      return this.getMapper(column)(line[column.key]);
+      if (column.storeVariable) {
+        return this.getMapper(column)(line[column.storeVariable]);
+      } else {
+        return this.getMapper(column)(line[column.key]);
+      }
     }
   };
 
