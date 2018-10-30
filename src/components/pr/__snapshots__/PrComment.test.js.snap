@@ -2,240 +2,224 @@
 
 exports[`PrComment Component should display Customer interaction 1`] = `
 <div
-  className=""
+  className="PrComment-collapsed-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
+    <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <PrTextField
+        id="CUSTOMER_INTERACTION_CommentId"
+        label="Kundeninteraktion und -veränderung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="iii"
+        startrows="2"
+        writeableText="iii"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
     <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="CUSTOMER_INTERACTION_CommentDescription"
-        secondary="Kundeninteraktion und -veränderung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconNoComment-6"
+        className="PrComment-iconComment-4"
         id="CUSTOMER_INTERACTION_CommentIconId"
       >
-        comment
+        info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    >
-      <WithStyles(Typography)
-        className="PrComment-rating-11"
-        id="CUSTOMER_INTERACTION"
-        variant="body2"
-      />
-    </WithStyles(ListItem)>
   </div>
-  <WithStyles(Collapse)
-    in={false}
-    timeout="auto"
-    unmountOnExit={true}
-  >
+  <div>
     <WithStyles(List)
       className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
-      <WithStyles(ListItem)>
-        <WithStyles(Typography)
-          className="PrComment-comment-9"
-          id="CUSTOMER_INTERACTION_TYPO"
-          variant="body1"
-        >
-          Noch nicht freigegeben.
-        </WithStyles(Typography)>
-      </WithStyles(ListItem)>
-      <WithStyles(PrSwipePositionDescription)
-        category="CUSTOMER_INTERACTION"
-      />
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(PrSwipePositionDescription)
+          category="CUSTOMER_INTERACTION"
+        />
+      </WithStyles(Collapse)>
     </WithStyles(List)>
-  </WithStyles(Collapse)>
+  </div>
 </div>
 `;
 
 exports[`PrComment Component should display ProblemAnalysis 1`] = `
 <div
-  className=""
+  className="PrComment-collapsed-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
+    <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <PrTextField
+        id="PROBLEM_ANALYSIS_CommentId"
+        label="Problemanalyse und -lösung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="ggg"
+        startrows="2"
+        writeableText="ggg"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
     <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="PROBLEM_ANALYSIS_CommentDescription"
-        secondary="Problemanalyse und -lösung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconNoComment-6"
+        className="PrComment-iconComment-4"
         id="PROBLEM_ANALYSIS_CommentIconId"
       >
-        comment
+        info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    >
-      <WithStyles(Typography)
-        className="PrComment-rating-11"
-        id="PROBLEM_ANALYSIS"
-        variant="body2"
-      />
-    </WithStyles(ListItem)>
   </div>
-  <WithStyles(Collapse)
-    in={false}
-    timeout="auto"
-    unmountOnExit={true}
-  >
+  <div>
     <WithStyles(List)
       className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
-      <WithStyles(ListItem)>
-        <WithStyles(Typography)
-          className="PrComment-comment-9"
-          id="PROBLEM_ANALYSIS_TYPO"
-          variant="body1"
-        >
-          Noch nicht freigegeben.
-        </WithStyles(Typography)>
-      </WithStyles(ListItem)>
-      <WithStyles(PrSwipePositionDescription)
-        category="PROBLEM_ANALYSIS"
-      />
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(PrSwipePositionDescription)
+          category="PROBLEM_ANALYSIS"
+        />
+      </WithStyles(Collapse)>
     </WithStyles(List)>
-  </WithStyles(Collapse)>
+  </div>
 </div>
 `;
 
 exports[`PrComment Component should display Teamwork 1`] = `
 <div
-  className=""
+  className="PrComment-collapsed-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
+    <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <PrTextField
+        id="TEAMWORK_CommentId"
+        label="Effektives Arbeiten im Team und Teamführung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="fff"
+        startrows="2"
+        writeableText="fff"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
     <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="TEAMWORK_CommentDescription"
-        secondary="Effektives Arbeiten im Team und Teamführung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconNoComment-6"
+        className="PrComment-iconComment-4"
         id="TEAMWORK_CommentIconId"
       >
-        comment
+        info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    >
-      <WithStyles(Typography)
-        className="PrComment-rating-11"
-        id="TEAMWORK"
-        variant="body2"
-      />
-    </WithStyles(ListItem)>
   </div>
-  <WithStyles(Collapse)
-    in={false}
-    timeout="auto"
-    unmountOnExit={true}
-  >
+  <div>
     <WithStyles(List)
       className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
-      <WithStyles(ListItem)>
-        <WithStyles(Typography)
-          className="PrComment-comment-9"
-          id="TEAMWORK_TYPO"
-          variant="body1"
-        >
-          Noch nicht freigegeben.
-        </WithStyles(Typography)>
-      </WithStyles(ListItem)>
-      <WithStyles(PrSwipePositionDescription)
-        category="TEAMWORK"
-      />
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(PrSwipePositionDescription)
+          category="TEAMWORK"
+        />
+      </WithStyles(Collapse)>
     </WithStyles(List)>
-  </WithStyles(Collapse)>
+  </div>
 </div>
 `;
 
 exports[`PrComment Component should display the ContributionToCompanyDevelopment 1`] = `
 <div
-  className=""
+  className="PrComment-collapsed-10"
 >
   <div
-    className="PrComment-containerListItem-3"
+    className="PrComment-containerListItem-2"
   >
+    <WithStyles(ListItem)
+      className="PrComment-nestedTextSelect-8"
+    >
+      <PrTextField
+        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
+        label="Beitrag zur Unternehmensentwicklung"
+        onChange={[Function]}
+        openEditing={true}
+        readOnlyText="hhh"
+        startrows="2"
+        writeableText="hhh"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      className="PrComment-nestedNumber-6"
+    />
     <WithStyles(ListItem)
       button={true}
-      className="PrComment-nestedListItem-4"
+      className="PrComment-nestedInfo-7"
       onClick={[Function]}
     >
-      <WithStyles(ListItemText)
-        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentDescription"
-        secondary="Beitrag zur Unternehmensentwicklung"
-      />
       <WithStyles(Icon)
-        className="PrComment-iconNoComment-6"
+        className="PrComment-iconComment-4"
         id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentIconId"
       >
-        comment
+        info
       </WithStyles(Icon)>
     </WithStyles(ListItem)>
-    <WithStyles(ListItem)
-      className="PrComment-nestedNumber-7"
-    >
-      <WithStyles(Typography)
-        className="PrComment-rating-11"
-        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-        variant="body2"
-      />
-    </WithStyles(ListItem)>
   </div>
-  <WithStyles(Collapse)
-    in={false}
-    timeout="auto"
-    unmountOnExit={true}
-  >
+  <div>
     <WithStyles(List)
       className="PrComment-nestedText-1"
       component="div"
       disablePadding={true}
     >
-      <WithStyles(ListItem)>
-        <WithStyles(Typography)
-          className="PrComment-comment-9"
-          id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_TYPO"
-          variant="body1"
-        >
-          Noch nicht freigegeben.
-        </WithStyles(Typography)>
-      </WithStyles(ListItem)>
-      <WithStyles(PrSwipePositionDescription)
-        category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-      />
+      <WithStyles(Collapse)
+        in={false}
+        timeout="auto"
+        unmountOnExit={true}
+      >
+        <WithStyles(PrSwipePositionDescription)
+          category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+        />
+      </WithStyles(Collapse)>
     </WithStyles(List)>
-  </WithStyles(Collapse)>
+  </div>
 </div>
 `;

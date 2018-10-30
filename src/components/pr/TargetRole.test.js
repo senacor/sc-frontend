@@ -1,8 +1,8 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import { StyledComponent as TargetRole } from './TargetRole';
 import StepSlider from './StepSlider';
+import Typography from '@material-ui/core/Typography';
 
 const prTargetRoleSet = [
   {
@@ -66,7 +66,7 @@ describe('TargetRole Component', () => {
       />
     );
 
-    expect(wrapper.find(ListItemText)).toHaveLength(countTargetRoles);
+    expect(wrapper.find(Typography)).toHaveLength(countTargetRoles);
   });
 
   it('should show the target roles in the designated order', () => {
@@ -79,8 +79,8 @@ describe('TargetRole Component', () => {
     );
 
     let actualRoles = wrapper
-      .find(ListItemText)
-      .map(role => role.get(0).props.secondary);
+      .find(Typography)
+      .map(role => role.get(0).props.children);
     expect(actualRoles).toEqual([
       'Plattformgestalter',
       'IT Solution Leader',

@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles/index';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
-import { isSupervisor } from '../../helper/checkRole';
 import * as actions from '../../actions';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
+import PrTextField from './PrTextField';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -32,10 +30,18 @@ const styles = theme => ({
 });
 
 class PrOverallComment extends Component {
-  handleChangeComment = prById => event => {
-    this.props.prRating.comment = event.target.value;
+  constructor(props) {
+    super(props);
+    let { prRating } = this.props;
+    let overallComment = prRating.comment ? prRating.comment : '';
+    this.state = {
+      comment: overallComment
+    };
+  }
 
-    this.setState({ text: event.target.value });
+  handleChangeComment = prById => event => {
+    this.setState({ comment: event.target.value });
+    console.log('Kategorie: ' + this.props.category);
 
     this.sendComment(
       prById,
@@ -50,99 +56,38 @@ class PrOverallComment extends Component {
 
   render() {
     let {
-      category,
       prRating,
       prById,
-      classes,
-      prVisible,
-      prFinalized,
-      disabledText
+      isActionPerformer,
+      readOnly,
+      nonActionPerformer,
+      errorFlag,
+      category
     } = this.props;
+    let { comment } = this.state;
 
-    let readOnlyView = () => {
-      return disabledText ? (
-        <TextField
-          id={category}
-          disabled={true}
-          multiline
-          fullWidth
-          rows="4"
-          rowsMax="4"
-          margin="none"
-          value={prVisible ? prRating.comment : 'Noch nicht freigegeben.'}
-          onChange={this.handleChangeComment(prById)}
-          InputProps={{
-            disableUnderline: true,
-            name: 'comment',
-            classes: {
-              input: classes.bootstrapInput
-            }
-          }}
-          InputLabelProps={{
-            shrink: true
-          }}
-          helperText={`In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die
-              Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund
-              der aktuellen Einstufung? Welche Stärken gilt es auszubauen,
-              welche Lücken sollten geschlossen werden?`}
-        />
-      ) : (
-        <Typography
-          id={category + '_Description'}
-          className={classes.comment}
-          variant="body1"
-        >
-          {prVisible ? prRating.comment : 'Noch nicht freigegeben.'}
-        </Typography>
-      );
-    };
-
-    let insertText = () => {
-      return (
-        <TextField
-          id={category}
-          multiline
-          fullWidth
-          rows="4"
-          rowsMax="4"
-          margin="none"
-          value={prRating.comment ? prRating.comment : ''}
-          onChange={this.handleChangeComment(prById)}
-          InputProps={{
-            disableUnderline: true,
-            name: 'comment',
-            classes: {
-              input: classes.bootstrapInput
-            }
-          }}
-          InputLabelProps={{
-            shrink: true
-          }}
-          helperText={`In welchem Umfang erfüllt die Mitarbeiterin/der Mitarbeiter die
-              Anforderungen an seine aktuelle Laufbahnstufe vor dem Hintergrund
-              der aktuellen Einstufung? Welche Stärken gilt es auszubauen,
-              welche Lücken sollten geschlossen werden?`}
-        />
-      );
-    };
-
-    let writingView = () => {
-      return prFinalized ? null : insertText();
-    };
+    let helperText =
+      'Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?';
 
     return (
       <List>
         <ListItem>
           <Grid container direction={'column'}>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              <Typography component="p">
-                Gesamteinschätzung Freitext (Pflichtfeld)
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              {isSupervisor(this.props.userroles) && !prFinalized
-                ? writingView()
-                : readOnlyView()}
+              <PrTextField
+                fieldId={category}
+                isActionPerformer={isActionPerformer}
+                nonActionPerformer={nonActionPerformer}
+                readOnlyFlag={readOnly}
+                openEditing={true}
+                required
+                label={'Gesamteinschätzung Freitext'}
+                helperText={helperText}
+                readOnlyText={prRating.comment}
+                writeableText={comment}
+                onChange={this.handleChangeComment(prById)}
+                errorFlag={errorFlag}
+              />
             </Grid>
           </Grid>
         </ListItem>

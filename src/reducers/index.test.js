@@ -46,6 +46,7 @@ describe('reducers', () => {
           }
         },
         prs: { someValue },
+        requiredFields: { employee: false, reviewer: true },
         search: {
           prSearchResults: [someValue]
         },
@@ -102,6 +103,7 @@ describe('reducers', () => {
           }
         },
         prs: {},
+        requiredFields: { employee: true, reviewer: true },
         search: {
           prSearchResults: []
         },

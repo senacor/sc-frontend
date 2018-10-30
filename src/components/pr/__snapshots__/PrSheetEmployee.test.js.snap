@@ -20,27 +20,16 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: INFL
           xl={12}
           xs={12}
         >
-          <WithStyles(Typography)
-            component="p"
-          >
-            Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung
-          </WithStyles(Typography)>
-        </WithStyles(Grid)>
-        <WithStyles(Grid)
-          item={true}
-          lg={12}
-          md={12}
-          sm={12}
-          xl={12}
-          xs={12}
-        >
-          <WithStyles(Typography)
-            className="PrSheetEmployee-comment-3"
-            id="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_Description"
-            variant="body1"
-          >
-            Noch kein Eintrag
-          </WithStyles(Typography)>
+          <PrTextField
+            fieldId="INFLUENCE_OF_LEADER_AND_ENVIRONMENT_CommentId"
+            helperText="Wichtiges für meine Entwicklung, notwendige Änderungen, mein Beitrag dazu."
+            label="Beitrag des Vorgesetzten und des Umfelds"
+            onChange={[Function]}
+            openEditing={true}
+            readOnlyText=""
+            required={true}
+            writeableText=""
+          />
         </WithStyles(Grid)>
       </WithStyles(Grid)>
     </WithStyles(ListItem)>
@@ -68,27 +57,16 @@ exports[`PrSheetEmployee Component displays the PrSheetEmployee, component: ROLE
           xl={12}
           xs={12}
         >
-          <WithStyles(Typography)
-            component="p"
-          >
-            Rolle und Projektumfeld
-          </WithStyles(Typography)>
-        </WithStyles(Grid)>
-        <WithStyles(Grid)
-          item={true}
-          lg={12}
-          md={12}
-          sm={12}
-          xl={12}
-          xs={12}
-        >
-          <WithStyles(Typography)
-            className="PrSheetEmployee-comment-3"
-            id="ROLE_AND_PROJECT_ENVIRONMENT_Description"
-            variant="body1"
-          >
-            Noch kein Eintrag
-          </WithStyles(Typography)>
+          <PrTextField
+            fieldId="ROLE_AND_PROJECT_ENVIRONMENT_CommentId"
+            helperText=" "
+            label="Mein Projekt, Aufgabe, Rolle und Projektumfeld"
+            onChange={[Function]}
+            openEditing={true}
+            readOnlyText=""
+            required={true}
+            writeableText=""
+          />
         </WithStyles(Grid)>
       </WithStyles(Grid)>
     </WithStyles(ListItem)>

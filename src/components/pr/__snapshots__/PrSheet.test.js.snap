@@ -4,7 +4,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
 <div>
   <WithStyles(Grid)
     container={true}
-    spacing={8}
+    spacing={40}
   >
     <WithStyles(Grid)
       item={true}
@@ -15,7 +15,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       xs={12}
     >
       <WithStyles(List)>
-        <WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="PrSheet-marginDown-6"
+        >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
           />
@@ -25,7 +27,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         >
           <Connect(WithStyles(PrSheetEmployee))
             category="ROLE_AND_PROJECT_ENVIRONMENT"
-            disabledText={false}
+            errorFlag={false}
+            isActionPerformer={true}
+            nonActionPerformer={false}
             prById={
               Object {
                 "_links": Object {
@@ -198,6 +202,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 "prVisibilityEntry": Object {
                   "visibilityToEmployee": "INVISIBLE",
                   "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
                 },
                 "status": "PREPARATION",
                 "statuses": Array [
@@ -212,7 +220,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           />
           <Connect(WithStyles(PrSheetEmployee))
             category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
-            disabledText={false}
+            errorFlag={false}
+            isActionPerformer={true}
+            nonActionPerformer={false}
             prById={
               Object {
                 "_links": Object {
@@ -385,6 +395,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 "prVisibilityEntry": Object {
                   "visibilityToEmployee": "INVISIBLE",
                   "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
                 },
                 "status": "PREPARATION",
                 "statuses": Array [
@@ -414,7 +428,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Leistungen im Projekt"
             />
@@ -424,6 +440,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="PROBLEM_ANALYSIS"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -597,6 +615,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -606,11 +628,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="WORK_RESULTS"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -784,6 +807,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -793,11 +820,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="WORKING_MANNER"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -971,6 +999,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -980,12 +1012,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
-          <WithStyles(Divider) />
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
             />
@@ -995,6 +1027,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="CUSTOMER_INTERACTION"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1168,6 +1202,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -1177,11 +1215,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="CUSTOMER_RETENTION"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1355,6 +1394,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -1364,12 +1407,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
-          <WithStyles(Divider) />
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
             />
@@ -1379,6 +1422,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="TEAMWORK"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1552,6 +1597,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -1561,11 +1610,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="LEADERSHIP"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1739,6 +1789,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -1748,12 +1802,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
-          <WithStyles(Divider) />
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
             />
@@ -1763,6 +1817,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1936,6 +1992,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -1945,15 +2005,16 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
         </WithStyles(List)>
         <WithStyles(Divider) />
       </Hidden>
       <WithStyles(List)>
-        <WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="PrSheet-marginDown-6"
+        >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
           />
@@ -1962,7 +2023,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           disablePadding={true}
         >
           <Connect(WithStyles(PrOverallAssessment))
-            disabledText={false}
+            errorFlag={false}
+            isActionPerformer={false}
+            nonActionPerformer={true}
             prById={
               Object {
                 "_links": Object {
@@ -2136,6 +2199,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "visibilityToEmployee": "INVISIBLE",
                   "visibilityToReviewer": "VISIBLE",
                 },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
                 "status": "PREPARATION",
                 "statuses": Array [
                   "FILLED_SHEET_EMPLOYEE",
@@ -2145,8 +2212,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 "supervisor": "ttran",
               }
             }
-            prFinalized={false}
-            prVisible={false}
+            readOnly={false}
           />
         </WithStyles(List)>
       </WithStyles(List)>
@@ -2157,7 +2223,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         >
           <div>
             <Connect(WithStyles(PrFinalCommentEmployee))
-              disabledText={false}
+              isActionPerformer={true}
+              nonActionPerformer={false}
               open={false}
               prById={
                 Object {
@@ -2332,6 +2399,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -2345,6 +2416,13 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </div>
         </WithStyles(List)>
+      </WithStyles(List)>
+      <WithStyles(List)>
+        <WithStyles(ListItem)>
+          <WithStyles(ListItemText)
+            secondary="*Pflichtfelder"
+          />
+        </WithStyles(ListItem)>
       </WithStyles(List)>
     </WithStyles(Grid)>
     <Hidden
@@ -2366,7 +2444,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Leistungen im Projekt"
             />
@@ -2376,6 +2456,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="PROBLEM_ANALYSIS"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -2549,6 +2631,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -2558,11 +2644,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="WORK_RESULTS"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -2736,6 +2823,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -2745,11 +2836,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="WORKING_MANNER"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -2923,6 +3015,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -2932,12 +3028,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
-          <WithStyles(Divider) />
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
             />
@@ -2947,6 +3043,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="CUSTOMER_INTERACTION"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3120,6 +3218,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -3129,11 +3231,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="CUSTOMER_RETENTION"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3307,6 +3410,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -3316,12 +3423,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
-          <WithStyles(Divider) />
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
             />
@@ -3331,6 +3438,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="TEAMWORK"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3504,6 +3613,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -3513,11 +3626,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
             <Connect(WithStyles(PrComment))
               category="LEADERSHIP"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3691,6 +3805,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -3700,12 +3818,12 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
-          <WithStyles(Divider) />
-          <WithStyles(ListItem)>
+          <WithStyles(ListItem)
+            className="PrSheet-marginDown-6"
+          >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
             />
@@ -3715,6 +3833,8 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <Connect(WithStyles(PrComment))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+              isActionPerformer={false}
+              nonActionPerformer={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3888,6 +4008,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "visibilityToEmployee": "INVISIBLE",
                     "visibilityToReviewer": "VISIBLE",
                   },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
                   "status": "PREPARATION",
                   "statuses": Array [
                     "FILLED_SHEET_EMPLOYEE",
@@ -3897,8 +4021,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                   "supervisor": "ttran",
                 }
               }
-              prFinalized={false}
-              prVisible={false}
+              readOnly={false}
             />
           </WithStyles(List)>
         </WithStyles(List)>
@@ -3909,7 +4032,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           >
             <div>
               <Connect(WithStyles(PrFinalCommentHr))
-                disabledText={false}
+                isActionPerformer={false}
                 open={false}
                 prById={
                   Object {
@@ -4083,6 +4206,10 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                     "prVisibilityEntry": Object {
                       "visibilityToEmployee": "INVISIBLE",
                       "visibilityToReviewer": "VISIBLE",
+                    },
+                    "requiredFields": Object {
+                      "employee": true,
+                      "reviewer": true,
                     },
                     "status": "PREPARATION",
                     "statuses": Array [

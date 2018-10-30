@@ -17,10 +17,9 @@ export const translationMap = {
   FINAL_COMMENT_EMPLOYEE:
     'Abschließender Kommentar durch Mitarbeiter (optional)',
   FINAL_COMMENT_HR: 'Abschließender Kommentar durch HR-Mitarbeiter (optional)',
-  FULFILLMENT_OF_REQUIREMENT:
-    'Gesamteinschätzung; Erfüllung der Anforderungen für aktuelle Stufe',
+  FULFILLMENT_OF_REQUIREMENT: 'Erfüllung der Anforderungen für aktuelle Stufe:',
   INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
-    'Reflektion Beitrag des Vorgesetzten und Umfeld zur eigenen Entwicklung',
+    'Beitrag des Vorgesetzten und des Umfelds',
   IT_LIEFERSTEUERER: 'IT Liefersteuerer',
   IT_SOLUTION_LEADER: 'IT Solution Leader',
   LEADERSHIP: 'Coaching, Leadership und Personalführung',
@@ -32,15 +31,15 @@ export const translationMap = {
   PLACEHOLDER_FINAL_COMMENT_EMPLOYEE:
     'Möchte ich letzte Anmerkungen zum Performance Review machen? Gibt es noch etwas zu ergänzen?',
   PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT:
-    'Was ist mir für meine Entwicklung wichtig? Welchen Beitrag leistet mein Umfeld und mein Vorgesetzter, was sollte sich ändern und wie kann ich dazu beitragen?',
-  PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT:
-    'Beschreibung Projekt, Aufgabe und Rolle',
+    'Wichtiges für meine Entwicklung, notwendige Änderungen, mein Beitrag dazu.',
+  PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT: ' ',
   PLATTFORMGESTALTER: 'Plattformgestalter',
   POST_PROCESSING: 'Nachbearbeitung',
   PREPARATION: 'In Vorbereitung',
   PROBLEM_ANALYSIS: 'Problemanalyse und -lösung',
   PR_COMPLETED: 'Nachbearbeitung HR',
-  ROLE_AND_PROJECT_ENVIRONMENT: 'Rolle und Projektumfeld',
+  ROLE_AND_PROJECT_ENVIRONMENT:
+    'Mein Projekt, Aufgabe, Rolle und Projektumfeld',
   TARGET_ROLE: 'Zielrolle (ab Senior Level ausfüllen)',
   TEAMWORK: 'Effektives Arbeiten im Team und Teamführung',
   TECHNICAL_EXPERT: 'Technischer Experte',

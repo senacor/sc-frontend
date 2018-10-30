@@ -101,7 +101,6 @@ describe('PrComment Component', () => {
         userroles={[ROLES.PR_MITARBEITER]}
       />
     );
-    expect(wrapper.find(Typography)).toHaveLength(2);
     expect(wrapper.find(TextField)).toHaveLength(0);
     expect(wrapper.find(Select)).toHaveLength(0);
   });
@@ -123,7 +122,6 @@ describe('PrComment Component', () => {
       />
     );
 
-    expect(wrapper.find(Typography)).toHaveLength(2);
     expect(wrapper.find(TextField)).toHaveLength(0);
     expect(wrapper.find(Select)).toHaveLength(0);
 
@@ -147,24 +145,14 @@ describe('PrComment Component', () => {
           comment: 'fff'
         }}
         category="TEAMWORK"
-        userroles={[ROLES.PR_CST_LEITER]}
-        prFinalized={true}
-        prVisible={true}
+        isActionPerformer={true}
+        nonActionPerformer={false}
+        readOnly={true}
       />
     );
 
     expect(
-      wrapper
-        .find(FormControl)
-        .find('[disabled]')
-        .props().disabled
-    ).toEqual(true);
-
-    expect(
-      wrapper
-        .find(TextField)
-        .find('[disabled]')
-        .props().disabled
-    ).toEqual(true);
+      wrapper.find(FormControl).map(role => role.get(0).props.disabled)
+    ).toEqual([true]);
   });
 });

@@ -10,13 +10,17 @@ import { withStyles } from '@material-ui/core/styles/index';
 import {
   getPrDetail,
   getUserroles,
-  getUserinfo
+  getUserinfo,
+  getRequiredFields,
+  getPrRatings,
+  getPrEmployeeContributions
 } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
 import { isHr } from '../../../helper/checkRole';
+import { changeRequiredFields } from '../../../actions/sheet';
 
 const styles = theme => ({
   paper: {
@@ -225,15 +229,89 @@ class PrState extends React.Component {
     }
   };
 
+  checkRequiredFields = (
+    employeeContributionRole,
+    employeeContributionLeader,
+    overallComment,
+    status
+  ) => {
+    let filledEmployee =
+      employeeContributionRole !== null &&
+      employeeContributionLeader !== null &&
+      employeeContributionRole !== '' &&
+      employeeContributionLeader !== '';
+    let filledReviewer = overallComment !== null && overallComment !== '';
+    let required = { employee: true, reviewer: true };
+    switch (status) {
+      case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
+        return Object.assign({}, required, {
+          employee: filledEmployee
+        });
+      case prStatusEnum.RELEASED_SHEET_REVIEWER:
+        return Object.assign({}, required, {
+          reviewer: filledReviewer
+        });
+      default:
+        return required;
+    }
+  };
+
   releaseButtonClick = status => event => {
+    let employeeContributionRole = this.props.employeeContributionRole;
+    let employeeContributionLeader = this.props.employeeContributionLeader;
+    let prOverallComment = this.props.overallComment;
     let pr = this.props.prById;
     if (!event.disabled) {
-      this.props.addPrStatus(pr, status);
+      this.props.checkRequired(
+        this.checkRequiredFields(
+          employeeContributionRole,
+          employeeContributionLeader,
+          prOverallComment,
+          status
+        )
+      );
+      let employeeFilledRequired = this.checkRequiredFields(
+        employeeContributionRole,
+        employeeContributionLeader,
+        prOverallComment,
+        status
+      ).employee;
+      let reviewerFilledRequired = this.checkRequiredFields(
+        employeeContributionRole,
+        employeeContributionLeader,
+        prOverallComment,
+        status
+      ).reviewer;
+      switch (status) {
+        case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
+          if (employeeFilledRequired === false) {
+            break;
+          } else if (employeeFilledRequired === true) {
+            this.props.addPrStatus(pr, status);
+            break;
+          } else break;
+        case prStatusEnum.RELEASED_SHEET_REVIEWER:
+          if (reviewerFilledRequired === false) {
+            break;
+          } else if (reviewerFilledRequired === true) {
+            this.props.addPrStatus(pr, status);
+            break;
+          } else break;
+        case prStatusEnum.FIXED_DATE:
+        case prStatusEnum.FINALIZED_REVIEWER:
+        case prStatusEnum.FINALIZED_EMPLOYEE:
+        case prStatusEnum.ARCHIVED_HR:
+          this.props.addPrStatus(pr, status);
+          break;
+        default:
+          break;
+      }
     }
   };
 
   render() {
     const { classes, prById, userinfo } = this.props;
+
     if (!prById) {
       return null;
     }
@@ -275,9 +353,18 @@ export default connect(
   state => ({
     prById: getPrDetail()(state),
     userroles: getUserroles(state),
-    userinfo: getUserinfo(state)
+    userinfo: getUserinfo(state),
+    overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
+    employeeContributionRole: getPrEmployeeContributions(
+      'ROLE_AND_PROJECT_ENVIRONMENT'
+    )(state).text,
+    employeeContributionLeader: getPrEmployeeContributions(
+      'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+    )(state).text,
+    requiredFields: getRequiredFields(state)
   }),
   {
+    checkRequired: changeRequiredFields,
     addPrStatus: actions.addPrStatus
   }
 )(StyledComponent);

@@ -70,6 +70,8 @@ export const getSortedPrs = () => {
   );
 };
 
+export const getRequiredFields = state => state.requiredFields;
+
 function dateSort(sortOrder) {
   return (firstPR, secondPR) => {
     let comparison = 0;

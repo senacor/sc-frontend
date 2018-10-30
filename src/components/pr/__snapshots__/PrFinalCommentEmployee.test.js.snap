@@ -15,27 +15,13 @@ exports[`PrFinalCommentEmployee Component displays the PrFinalCommentEmployee 1`
         xl={12}
         xs={12}
       >
-        <WithStyles(Typography)
-          component="p"
-        >
-          Abschließender Kommentar durch Mitarbeiter (optional)
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        lg={12}
-        md={12}
-        sm={12}
-        xl={12}
-        xs={12}
-      >
-        <WithStyles(Typography)
-          className="PrFinalCommentEmployee-comment-2"
-          id="finalCommentReadonly"
-          variant="body1"
-        >
-          Bitte nach dem Gespräch ausfüllen.
-        </WithStyles(Typography)>
+        <PrTextField
+          fieldId="finalComment"
+          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          label="Abschließender Kommentar durch Mitarbeiter (optional)"
+          onChange={[Function]}
+          writeableText=""
+        />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>
@@ -57,27 +43,13 @@ exports[`PrFinalCommentEmployee Component displays the text writeable for the em
         xl={12}
         xs={12}
       >
-        <WithStyles(Typography)
-          component="p"
-        >
-          Abschließender Kommentar durch Mitarbeiter (optional)
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        lg={12}
-        md={12}
-        sm={12}
-        xl={12}
-        xs={12}
-      >
-        <WithStyles(Typography)
-          className="PrFinalCommentEmployee-comment-2"
-          id="finalCommentReadonly"
-          variant="body1"
-        >
-          Bitte nach dem Gespräch ausfüllen.
-        </WithStyles(Typography)>
+        <PrTextField
+          fieldId="finalComment"
+          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          label="Abschließender Kommentar durch Mitarbeiter (optional)"
+          onChange={[Function]}
+          writeableText=""
+        />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(ListItem)>

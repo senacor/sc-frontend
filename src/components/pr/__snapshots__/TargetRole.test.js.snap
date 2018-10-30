@@ -19,9 +19,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="Plattformgestalter"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            Plattformgestalter
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -34,6 +38,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="PLATTFORMGESTALTER"
           prActive={
             Object {
@@ -95,9 +100,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="IT Solution Leader"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            IT Solution Leader
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -110,6 +119,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="IT_SOLUTION_LEADER"
           prActive={
             Object {
@@ -171,9 +181,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="Transformation Manager"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            Transformation Manager
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -186,6 +200,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="TRANSFORMATION_MANAGER"
           prActive={
             Object {
@@ -247,9 +262,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="IT Liefersteuerer"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            IT Liefersteuerer
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -262,6 +281,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="IT_LIEFERSTEUERER"
           prActive={
             Object {
@@ -323,9 +343,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="Architekt"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            Architekt
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -338,6 +362,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="ARCHITECT"
           prActive={
             Object {
@@ -399,9 +424,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="Technischer Experte"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            Technischer Experte
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -414,6 +443,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="TECHNICAL_EXPERT"
           prActive={
             Object {
@@ -475,9 +505,13 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xl={8}
         xs={8}
       >
-        <WithStyles(ListItemText)
-          secondary="Lead Developer"
-        />
+        <div
+          className="TargetRole-simpleBlack-4"
+        >
+          <WithStyles(Typography)>
+            Lead Developer
+          </WithStyles(Typography)>
+        </div>
       </WithStyles(Grid)>
       <WithStyles(Grid)
         className="TargetRole-ratingTargetRole-2"
@@ -490,6 +524,7 @@ exports[`TargetRole Component should match snapshot 1`] = `
         xs={4}
       >
         <Connect(WithStyles(StepSlider))
+          isDisabled={true}
           key="LEAD_DEVELOPER"
           prActive={
             Object {

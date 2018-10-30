@@ -6,7 +6,8 @@ import {
   CHANGE_FINAL_COMMENT_RESPONSE,
   FETCH_PR_BY_ID_RESPONSE,
   CHANGE_RATING_TARGETROLE_RESPONSE,
-  FETCH_PRS_HR_RESPONSE
+  FETCH_PRS_HR_RESPONSE,
+  ADD_TEXT_RESPONSE
 } from '../helper/dispatchTypes';
 import generateMapById from '../helper/generateMapById';
 import cloneDeep from '../helper/cloneDeep';
@@ -39,6 +40,12 @@ export const prs = (state = {}, action) => {
           [action.prById.id]: action.prById
         })
       );
+    }
+    case ADD_TEXT_RESPONSE: {
+      const prReflectionSet = action.payload.prReflectionSet;
+      const prId = action.payload.prId;
+
+      return set(cloneDeep(state), `${prId}.prReflectionSet`, prReflectionSet);
     }
     case CHANGE_RATING_TARGETROLE_RESPONSE: {
       const prId = action.payload.prId;

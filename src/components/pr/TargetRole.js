@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles/index';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import StepSlider from './StepSlider';
-import { isSupervisor } from '../../helper/checkRole';
-import { getUserroles } from '../../reducers/selector';
 import Grid from '@material-ui/core/Grid/index';
 import objectGet from 'object-get';
 import * as actions from '../../actions';
 import { translateContent } from '../translate/Translate';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   outerGrid: {
@@ -24,6 +22,9 @@ const styles = theme => ({
   targetRole: {
     color: theme.palette.primary['300'],
     alignItems: 'flex-end'
+  },
+  simpleBlack: {
+    color: '#000000'
   }
 });
 
@@ -56,7 +57,8 @@ class TargetRole extends Component {
       objectGet(this.props, 'prActive.prTargetRoleSet') || [];
     targetRoleInformationOfEmployee.sort(compareTargetRoles);
 
-    const { prActive, isDisabled, classes, prFinalized } = this.props;
+    const { prActive, classes, prFinalized, isActionPerformer } = this.props;
+    let isDisabled = !isActionPerformer;
 
     return targetRoleInformationOfEmployee.map(targetRole => {
       return (
@@ -74,9 +76,11 @@ class TargetRole extends Component {
             xl={8}
             className={classes.targetRole}
           >
-            <ListItemText
-              secondary={translateContent(targetRole.prTargetRoleName)}
-            />
+            <div className={classes.simpleBlack}>
+              <Typography>
+                {translateContent(targetRole.prTargetRoleName)}
+              </Typography>
+            </div>
           </Grid>
 
           <Grid
@@ -114,8 +118,7 @@ class TargetRole extends Component {
 export const StyledComponent = withStyles(styles)(TargetRole);
 export default connect(
   state => ({
-    prActive: state.prs[state.prDetailId],
-    isDisabled: !isSupervisor(getUserroles(state)) === true
+    prActive: state.prs[state.prDetailId]
   }),
   {
     changeRatingTargetRole: actions.changeRatingTargetRole

@@ -41,7 +41,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/dashboard"
       >
         <WithStyles(ListItemIcon)>
-          <pure(Dashboard) />
+          <pure(DashboardIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
@@ -78,7 +78,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/prs"
       >
         <WithStyles(ListItemIcon)>
-          <pure(LibraryBooks) />
+          <pure(LibraryBooksIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
@@ -115,7 +115,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/hr/prs"
       >
         <WithStyles(ListItemIcon)>
-          <pure(LibraryBooks) />
+          <pure(LibraryBooksIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
@@ -152,7 +152,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/cstmembers"
       >
         <WithStyles(ListItemIcon)>
-          <pure(Group) />
+          <pure(GroupIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
@@ -189,7 +189,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/myPrs"
       >
         <WithStyles(ListItemIcon)>
-          <pure(AssignmentInd) />
+          <pure(AssignmentIndIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
@@ -226,7 +226,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/prDetail/1"
       >
         <WithStyles(ListItemIcon)>
-          <pure(LibraryBooks) />
+          <pure(LibraryBooksIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
@@ -262,7 +262,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/logout"
       >
         <WithStyles(ListItemIcon)>
-          <pure(PowerSettingsNew) />
+          <pure(PowerSettingsNewIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
