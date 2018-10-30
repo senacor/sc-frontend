@@ -9,6 +9,7 @@ import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
 import { translateContent } from '../translate/Translate';
 import { withStyles } from '@material-ui/core';
+import PrOverviewReviewerDelegate from './PrOverviewReviewerDelegate';
 
 const styles = theme => ({
   root: {
@@ -85,6 +86,16 @@ export class PROverviewReviewer extends React.Component {
         label: 'Beurteiler ausgefüllt',
         mapper: entry =>
           entry.includes('FILLED_SHEET_REVIEWER') ? 'ja' : 'nein'
+      },
+      {
+        key: 'delegieren',
+        numeric: false,
+        disablePadding: true,
+        label: '',
+        mapper: entry => '',
+        show: entry => {
+          return <PrOverviewReviewerDelegate prId={entry.id} />;
+        }
       }
     ];
   };

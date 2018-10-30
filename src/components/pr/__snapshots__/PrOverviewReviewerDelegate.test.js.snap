@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrOverviewReviewerDelegate Component should match snapshot 1`] = `
+<div>
+  <WithStyles(Button)
+    className="PrOverviewReviewerDelegate-button-1"
+    color="primary"
+    id="DelegateButton"
+    onClick={[Function]}
+  >
+    DELEGIEREN
+  </WithStyles(Button)>
+  <WithTheme(WithWidth(WithMobileDialog))
+    handleClose={[Function]}
+    open={false}
+    selectEmployee={[Function]}
+    title="Delegieren an"
+  />
+</div>
+`;

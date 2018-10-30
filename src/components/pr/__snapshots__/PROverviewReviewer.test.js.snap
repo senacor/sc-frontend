@@ -56,6 +56,14 @@ exports[`PROverviewReviewer Component should match snapshot 1`] = `
         "numeric": false,
         "storeVariable": "statuses",
       },
+      Object {
+        "disablePadding": true,
+        "key": "delegieren",
+        "label": "",
+        "mapper": [Function],
+        "numeric": false,
+        "show": [Function],
+      },
     ]
   }
   orderBy={
