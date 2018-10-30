@@ -158,7 +158,6 @@ export class PrOverviewReviewer extends React.Component {
         )
       },
       {
-        key: REVIEWER_ELEMENTS.RESULT,
         numeric: false,
         disablePadding: true,
         label: 'Bewertung',
