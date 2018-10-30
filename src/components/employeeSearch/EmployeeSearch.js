@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
+import getDisplayName from '../../helper/getDisplayName';
 
 const styles = theme => ({
   box: {
@@ -36,7 +37,7 @@ const styles = theme => ({
   }
 });
 
-class EmployeeSearch extends React.Component {
+export class EmployeeSearch extends React.Component {
   constructor(props) {
     super(props);
 
@@ -48,7 +49,7 @@ class EmployeeSearch extends React.Component {
     };
   }
 
-  handleChange = () => event => {
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
       searchReady: false
@@ -71,16 +72,10 @@ class EmployeeSearch extends React.Component {
 
     return (
       <div className={classes.box}>
-        <TextField
-          label="Name, Email, ..."
-          value={
-            this.state.employeeSearchValue ? this.state.employeeSearchValue : ''
-          }
-          onChange={this.handleChange()}
-          InputProps={{
-            name: 'employeeSearchValue'
-          }}
-        />
+        {this.props.inputElement(
+          this.state.employeeSearchValue,
+          this.handleChange
+        )}
         {!this.state.searchReady ? (
           this.state.employeeSearchValue ? (
             <List
@@ -100,9 +95,7 @@ class EmployeeSearch extends React.Component {
                           {employee.firstName.charAt(0)}
                           {employee.lastName.charAt(0)}
                         </Avatar>
-                        <ListItemText
-                          primary={`${employee.firstName} ${employee.lastName}`}
-                        />
+                        <ListItemText primary={getDisplayName(employee)} />
                       </ListItem>
                       <Divider />
                     </div>
@@ -120,6 +113,19 @@ class EmployeeSearch extends React.Component {
     );
   }
 }
+
+EmployeeSearch.defaultProps = {
+  inputElement: (value, onChange) => (
+    <TextField
+      label="Name, Email, ..."
+      value={value}
+      InputProps={{
+        name: 'employeeSearchValue'
+      }}
+      onChange={onChange}
+    />
+  )
+};
 
 export const StyledComponent = withStyles(styles)(EmployeeSearch);
 export default connect(

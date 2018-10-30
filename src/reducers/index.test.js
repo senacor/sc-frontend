@@ -23,7 +23,7 @@ describe('reducers', () => {
         },
         errors: {
           hasErrors: false,
-          message: null
+          message: { someValue }
         },
         events: [someValue],
         humanResourcesPrs: { someValue },
@@ -34,7 +34,7 @@ describe('reducers', () => {
           isLoggedIn: true,
           isUnauthorized: false
         },
-        prDetailId: 0,
+        prDetailId: 21,
         prEmployeeContributions: {
           prEmployeeContribution: [someValue]
         },
@@ -73,7 +73,7 @@ describe('reducers', () => {
           message: null
         },
         events: [],
-        filter: [],
+        filter: {},
         finalCommentEmployee: {},
         finalCommentHr: {},
         humanResourcesPrs: {},

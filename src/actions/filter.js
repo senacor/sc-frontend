@@ -6,3 +6,10 @@ export const addFilter = payload => async dispatch => {
     payload
   });
 };
+
+export const deleteFilter = payload => async dispatch => {
+  dispatch({
+    type: dispatchTypes.DELETE_SUBFILTER,
+    payload
+  });
+};

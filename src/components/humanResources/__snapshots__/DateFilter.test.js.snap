@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateFilter Component should match snapshot 1`] = `
+<WithStyles(List)>
+  <WithStyles(ListItem)>
+    <TextField
+      InputLabelProps={
+        Object {
+          "shrink": true,
+        }
+      }
+      defaultValue="2018-01-01"
+      id="startDate"
+      label="von"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      type="date"
+    />
+    <TextField
+      InputLabelProps={
+        Object {
+          "shrink": true,
+        }
+      }
+      defaultValue="2018-12-31"
+      id="endDate"
+      label="bis"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      type="date"
+    />
+  </WithStyles(ListItem)>
+</WithStyles(List)>
+`;

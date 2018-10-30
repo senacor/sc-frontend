@@ -9,12 +9,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EnhancedTableHead from './EnhancedTableHead';
 
-export function getDisplayName(employee) {
-  if (employee) {
-    return `${employee.firstName} ${employee.lastName}`;
-  }
-}
-
 export function descInteger(a, b, orderBy, mapper) {
   if (mapper(b[orderBy]) < mapper(a[orderBy])) {
     return -1;
@@ -71,13 +65,14 @@ class PerformanceReviewsTable extends React.Component {
       page: 0,
       rowsPerPage: 25,
       sortFunction: this.props.orderBy.numeric ? descInteger : descString,
-      mapper: this.props.orderBy.mapper
+      mapper: this.getMapper(this.props.orderBy)
     };
   }
 
   handleRequestSort = (event, property) => {
     const orderBy = property.key;
-    const mapper = property.mapper;
+
+    const mapper = this.getMapper(property);
     let order = 'desc';
 
     if (this.state.orderBy === orderBy && this.state.order === 'desc') {
@@ -97,6 +92,17 @@ class PerformanceReviewsTable extends React.Component {
 
   handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
+  };
+
+  getMapper = column => (column.mapper ? column.mapper : this.defaultMapper);
+  defaultMapper = variable => (variable ? variable : '');
+
+  show = (column, line) => {
+    if (column.show) {
+      return column.show(line);
+    } else {
+      return this.getMapper(column)(line[column.key]);
+    }
   };
 
   render() {
@@ -132,8 +138,11 @@ class PerformanceReviewsTable extends React.Component {
                     <TableRow hover tabIndex={-1} key={index}>
                       {columnDefinition.map(column => {
                         return (
-                          <TableCell padding="default" key={column.key}>
-                            {column.show(line)}
+                          <TableCell
+                            padding={column.disablePadding ? 'none' : 'default'}
+                            key={column.key}
+                          >
+                            {this.show(column, line)}
                           </TableCell>
                         );
                       }, this)}

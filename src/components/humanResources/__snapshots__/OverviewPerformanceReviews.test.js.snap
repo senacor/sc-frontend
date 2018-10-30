@@ -6,12 +6,12 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
     Array [
       Object {
         "disablePadding": false,
-        "filter": <PopperSearchMenu>
-          <Connect(EmployeeFilter)
-                filterBy="employee"
-                filterGroup="hr"
-          />
-    </PopperSearchMenu>,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="employee"
+          filterGroup="hr"
+    >
+          <Connect(EmployeeFilter) />
+    </Connect(PopperSearchMenu)>,
         "key": "employee",
         "label": "Mitarbeiter",
         "mapper": [Function],
@@ -20,190 +20,214 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       },
       Object {
         "disablePadding": true,
-        "filter": <PopperSearchMenu>
-          <WithStyles(List)>
-                <WithStyles(ListItem)>
-                      <TextField
-                            InputLabelProps={
-                                  Object {
-                                        "shrink": true,
-                                      }
-                            }
-                            id="startDate"
-                            label="Fälligkeit von"
-                            required={false}
-                            select={false}
-                            type="date"
-                      />
-                      <TextField
-                            InputLabelProps={
-                                  Object {
-                                        "shrink": true,
-                                      }
-                            }
-                            defaultValue="2017-05-24"
-                            id="endDate"
-                            label="Fälligkeit bis"
-                            required={false}
-                            select={false}
-                            type="date"
-                      />
-                </WithStyles(ListItem)>
-          </WithStyles(List)>
-    </PopperSearchMenu>,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="deadline"
+          filterGroup="hr"
+    >
+          <Connect(DateFilter) />
+    </Connect(PopperSearchMenu)>,
         "key": "deadline",
         "label": "Fälligkeit",
-        "mapper": [Function],
         "numeric": true,
         "show": [Function],
       },
       Object {
         "disablePadding": false,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="occasion"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "Auf Nachfrage": "ON_DEMAND",
+                            "Ende der Probezeit": "END_PROBATION",
+                            "Jährlich": "YEARLY",
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "prOccasion",
         "label": "Grund",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": false,
         "key": "projectCst",
         "label": "Projektkst",
-        "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="competence"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "CON": "CONSULTING",
+                            "DEV": "DEVELOPMENT",
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "competence",
         "label": "Dev/Con",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="level"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "1": 1,
+                            "2": 2,
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "level",
         "label": "level",
-        "mapper": [Function],
-        "numeric": false,
-        "show": [Function],
+        "numeric": true,
       },
       Object {
         "disablePadding": true,
-        "filter": <PopperSearchMenu>
-          <Connect(EmployeeFilter)
-                filterBy="supervisor"
-                filterGroup="hr"
-          />
-    </PopperSearchMenu>,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="supervisor"
+          filterGroup="hr"
+    >
+          <Connect(EmployeeFilter) />
+    </Connect(PopperSearchMenu)>,
         "key": "supervisor",
         "label": "Vorgesetzte/r",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
-        "filter": <PopperSearchMenu>
-          <Connect(EmployeeFilter)
-                filterBy="reviewer"
-                filterGroup="hr"
-          />
-    </PopperSearchMenu>,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="reviewer"
+          filterGroup="hr"
+    >
+          <Connect(EmployeeFilter) />
+    </Connect(PopperSearchMenu)>,
         "key": "reviewer",
         "label": "Bewerter",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
         "key": "result",
         "label": "Bewertung",
-        "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="isEmployeePreparationDone"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "ja": true,
+                            "nein": false,
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "employeePreparationDone",
         "label": "MA ausgefüllt",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": false,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="isReviewerPreparationDone"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "ja": true,
+                            "nein": false,
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "reviewerPreparationDone",
         "label": "Beurteiler ausgefüllt",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
         "key": "appointment",
         "label": "Termin",
-        "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="isInProgress"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "abgeschlossen": false,
+                            "laufend": true,
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "inProgress",
         "label": "Finaler Status",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
       Object {
         "disablePadding": true,
+        "filter": <Connect(PopperSearchMenu)
+          filterBy="isHumanResourceProcessingDone"
+          filterGroup="hr"
+    >
+          <Connect(ListFilter)
+                content={
+                      Object {
+                            "ja": true,
+                            "nein": false,
+                          }
+                }
+          />
+    </Connect(PopperSearchMenu)>,
         "key": "humanResourceProcessingDone",
         "label": "HR verarbeitet",
         "mapper": [Function],
         "numeric": false,
-        "show": [Function],
       },
     ]
   }
   orderBy={
     Object {
       "disablePadding": true,
-      "filter": <PopperSearchMenu>
-        <WithStyles(List)>
-            <WithStyles(ListItem)>
-                <TextField
-                    InputLabelProps={
-                        Object {
-                            "shrink": true,
-                          }
-                    }
-                    id="startDate"
-                    label="Fälligkeit von"
-                    required={false}
-                    select={false}
-                    type="date"
-                />
-                <TextField
-                    InputLabelProps={
-                        Object {
-                            "shrink": true,
-                          }
-                    }
-                    defaultValue="2017-05-24"
-                    id="endDate"
-                    label="Fälligkeit bis"
-                    required={false}
-                    select={false}
-                    type="date"
-                />
-            </WithStyles(ListItem)>
-        </WithStyles(List)>
-    </PopperSearchMenu>,
+      "filter": <Connect(PopperSearchMenu)
+        filterBy="deadline"
+        filterGroup="hr"
+    >
+        <Connect(DateFilter) />
+    </Connect(PopperSearchMenu)>,
       "key": "deadline",
       "label": "Fälligkeit",
-      "mapper": [Function],
       "numeric": true,
       "show": [Function],
     }

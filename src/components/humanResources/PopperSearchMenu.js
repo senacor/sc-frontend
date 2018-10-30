@@ -2,8 +2,10 @@ import React from 'react';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
+import { getSubFilter } from '../../reducers/selector';
+import { connect } from 'react-redux';
 
-class PopperSearchMenu extends React.Component {
+export class PopperSearchMenu extends React.Component {
   state = {
     anchorEl: null
   };
@@ -20,14 +22,20 @@ class PopperSearchMenu extends React.Component {
     });
   };
 
+  getIcon = subfilter => {
+    return subfilter === '' ? 'search' : 'filter_list';
+  };
+
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
+    const icon = this.getIcon(this.props.subfilter);
+
     return (
       <div>
         <IconButton onClick={this.handleClick}>
-          <Icon>search</Icon>
+          <Icon>{icon}</Icon>
         </IconButton>
         <Popover
           id="simple-popper"
@@ -43,11 +51,21 @@ class PopperSearchMenu extends React.Component {
             horizontal: 'center'
           }}
         >
-          {this.props.children}
+          <div>
+            {React.cloneElement(this.props.children, {
+              closeFilter: this.handleClose,
+              ...this.props
+            })}
+          </div>
         </Popover>
       </div>
     );
   }
 }
 
-export default PopperSearchMenu;
+export default connect(
+  (state, props) => ({
+    subfilter: getSubFilter(props.filterGroup, props.filterBy)(state)
+  }),
+  {}
+)(PopperSearchMenu);

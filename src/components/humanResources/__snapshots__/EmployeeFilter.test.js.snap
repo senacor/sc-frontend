@@ -2,7 +2,8 @@
 
 exports[`EmployeeFilter Component should match snapshot 1`] = `
 <Connect(WithStyles(EmployeeSearch))
-  employeeSearchValue=""
+  employeeSearchValue="Michaela Mitarbeiterin"
+  inputElement={[Function]}
   selectEmployee={[Function]}
 />
 `;
