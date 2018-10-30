@@ -15,6 +15,7 @@ import Dashboard from './dashboard/Dashboard';
 import MyPerformanceReviews from './myPerformanceReviews/MyPerformanceReviews';
 import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
 import OverviewPerformanceReviews from './humanResources/OverviewPerformanceReviews';
+import PrOverviewEmployee from './myPerformanceReviews/PrOverviewEmployee';
 
 const styles = {
   main: {
@@ -37,7 +38,8 @@ const withAppBarExtendedHeader = WrappedComponent => props => (
 
 const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
-const PrOverviewWithAppBar = withAppBar(PrOverviewReviewer);
+const PrOverviewReviewerAppBar = withAppBar(PrOverviewReviewer);
+const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
 const MyPRListWithAppBar = withAppBar(MyPerformanceReviews);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
@@ -51,10 +53,11 @@ const App = () => (
     <Switch>
       <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
       <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
-      <PrivateRoute exact path="/myPrs" component={MyPRListWithAppBar} />
+      <PrivateRoute exact path="/myPrs" component={PrOverviewEmployeeAppBar} />
+      <PrivateRoute exact path="/myPrs_old" component={MyPRListWithAppBar} />
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/prs_old" component={PRListWithAppBar} />
-      <PrivateRoute exact path="/prs" component={PrOverviewWithAppBar} />
+      <PrivateRoute exact path="/prs" component={PrOverviewReviewerAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <PrivateRoute
         exact

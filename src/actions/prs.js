@@ -70,3 +70,41 @@ export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
     });
   }
 };
+
+export const fetchFilteredPrs = (filter, role) => async dispatch => {
+  dispatch({
+    type: dispatchTypes.FETCH_FILTERED_OWN_PRS_REQUEST
+  });
+
+  let query = '';
+  if (filter) {
+    let filterString = Object.keys(filter)
+      .map(function(key) {
+        return filter[key].searchString;
+      })
+      .join('&');
+    query = filterString ? '&' + filterString : '';
+  }
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs?role=${role}${query}`
+  );
+
+  if (response.ok) {
+    const result = await response.json();
+    const responseList = objectGet(result, '_embedded.ownPrResponseList');
+    const prTableEntries = responseList ? responseList : [];
+
+    dispatch({
+      type: dispatchTypes.FETCH_OWN_PRS_RESPONSE,
+      payload: {
+        prTableEntries
+      }
+    });
+  } else {
+    return dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: response.status
+    });
+  }
+};

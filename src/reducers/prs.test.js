@@ -1,4 +1,4 @@
-import { prs, sortOrderPrs, humanResourcesPrs } from './prs';
+import { prs, sortOrderPrs, humanResourcesPrs, tablePrs } from './prs';
 import {
   ADD_PR_RESPONSE,
   CHANGE_FINAL_COMMENT_RESPONSE,
@@ -7,7 +7,8 @@ import {
   DELEGATE_REVIEWER_RESPONSE,
   FETCH_PR_BY_ID_RESPONSE,
   FETCH_PRS_HR_RESPONSE,
-  FETCH_PRS_RESPONSE
+  FETCH_PRS_RESPONSE,
+  FETCH_OWN_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 
 describe('prs reducer', () => {
@@ -270,6 +271,31 @@ describe('prs reducer', () => {
       }
     };
     const stateAfter = humanResourcesPrs(stateBefore, action);
+
+    expect(stateAfter).toEqual({
+      1: {
+        prId: 1,
+        employee: 'TEST'
+      },
+      2: {
+        prId: 2,
+        employee: 'TEST'
+      }
+    });
+  });
+
+  it('should generate a Map for reducer FETCH_OWN_PRS_RESPONSE', () => {
+    const stateBefore = {};
+    const action = {
+      type: FETCH_OWN_PRS_RESPONSE,
+      payload: {
+        prTableEntries: [
+          { prId: 1, employee: 'TEST' },
+          { prId: 2, employee: 'TEST' }
+        ]
+      }
+    };
+    const stateAfter = tablePrs(stateBefore, action);
 
     expect(stateAfter).toEqual({
       1: {

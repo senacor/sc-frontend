@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import tasks from './tasks';
 import editTasks from './editTasks';
-import { prs, sortOrderPrs, humanResourcesPrs } from './prs';
+import { prs, sortOrderPrs, humanResourcesPrs, tablePrs } from './prs';
 import { prDetailId } from './prDetailId';
 import prTargetRole from './getTargetRole';
 import prVisibilityById from './getPrVisibility';
@@ -30,6 +30,7 @@ const combineReducer = combineReducers({
   prs,
   login,
   humanResourcesPrs,
+  tablePrs,
   isLoading,
   meeting,
   prDetailId,
