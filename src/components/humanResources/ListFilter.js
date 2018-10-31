@@ -106,10 +106,14 @@ export class ListFilter extends Component {
 
   showSelectAll = () => {
     return (
-      <ListItem key={'selectAll'} dense button>
+      <ListItem
+        key={'selectAll'}
+        dense
+        button
+        onClick={this.handleToggleSelectAll}
+      >
         <Checkbox
           id={'selectAll'}
-          onChange={this.handleToggleSelectAll}
           checked={this.state.isAllSelected}
           color={'primary'}
         />
@@ -119,10 +123,9 @@ export class ListFilter extends Component {
   };
   showContent = value => {
     return (
-      <ListItem key={value} dense button>
+      <ListItem key={value} dense button onClick={this.handleToggle(value)}>
         <Checkbox
           id={value}
-          onChange={this.handleToggle(value)}
           checked={this.state.checked.indexOf(value) !== -1}
           color={'primary'}
         />

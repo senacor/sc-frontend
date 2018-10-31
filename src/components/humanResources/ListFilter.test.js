@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import FILTER_GROUPS from './filterGroups';
 import HR_ELEMENTS from './hrElements';
 
-describe('EmployeeFilter Component', () => {
+describe('ListFilter Component', () => {
   it('should match snapshot', () => {
     const mockAddFilter = jest.fn();
     const mockDeleteFilter = jest.fn();

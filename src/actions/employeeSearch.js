@@ -33,3 +33,13 @@ export const prSearch = searchEmployee => async dispatch => {
     });
   }
 };
+
+export const prSearchClear = () => async dispatch => {
+  dispatch({
+    type: FETCH_EMPLOYEES_RESPONSE,
+    employees: []
+  });
+  dispatch({
+    type: ERROR_GONE
+  });
+};

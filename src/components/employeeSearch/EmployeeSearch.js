@@ -40,12 +40,13 @@ const styles = theme => ({
 export class EmployeeSearch extends React.Component {
   constructor(props) {
     super(props);
+    this.props.prSearchClear();
 
     this.state = {
       employeeSearchValue: this.props.employeeSearchValue
         ? this.props.employeeSearchValue
         : '',
-      searchReady: false
+      searchReady: this.props.employeeSearchValue === '' ? false : true
     };
   }
 
@@ -63,51 +64,48 @@ export class EmployeeSearch extends React.Component {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     this.setState({ employeeSearchValue: employeeName, searchReady: true });
     this.props.selectEmployee(employee);
+    this.props.prSearchClear();
   };
 
   executeSearch = debounce(this.props.prSearch, 500);
 
   render() {
     const { classes, prSearchResults } = this.props;
+    const { employeeSearchValue, searchReady } = this.state;
 
+    console.log('employeeSearchValue: ' + employeeSearchValue);
     return (
       <div className={classes.box}>
-        {this.props.inputElement(
-          this.state.employeeSearchValue,
-          this.handleChange
-        )}
-        {!this.state.searchReady ? (
-          this.state.employeeSearchValue ? (
-            <List
-              id="employeeSearchResultList"
-              component="nav"
-              className={classes.employeeList}
-            >
-              {prSearchResults.length > 0 ? (
-                prSearchResults.map(employee => {
-                  return (
-                    <div key={employee.id}>
-                      <ListItem
-                        className={classes.listItem}
-                        onClick={this.selectedEmployee(employee)}
-                      >
-                        <Avatar className={classes.avatar}>
-                          {employee.firstName.charAt(0)}
-                          {employee.lastName.charAt(0)}
-                        </Avatar>
-                        <ListItemText primary={getDisplayName(employee)} />
-                      </ListItem>
-                      <Divider />
-                    </div>
-                  );
-                })
-              ) : (
-                <p>Keine Suchtreffer</p>
-              )}
-            </List>
-          ) : (
-            <p>Keine Suchtreffer</p>
-          )
+        {this.props.inputElement(employeeSearchValue, this.handleChange)}
+        {employeeSearchValue !== '' ? (
+          <List
+            id="employeeSearchResultList"
+            component="nav"
+            className={classes.employeeList}
+          >
+            {prSearchResults.length > 0 ? (
+              prSearchResults.map(employee => {
+                return (
+                  <div key={employee.id}>
+                    <ListItem
+                      button
+                      className={classes.listItem}
+                      onClick={this.selectedEmployee(employee)}
+                    >
+                      <Avatar className={classes.avatar}>
+                        {employee.firstName.charAt(0)}
+                        {employee.lastName.charAt(0)}
+                      </Avatar>
+                      <ListItemText primary={getDisplayName(employee)} />
+                    </ListItem>
+                    <Divider />
+                  </div>
+                );
+              })
+            ) : searchReady ? null : (
+              <p>Keine Suchtreffer</p>
+            )}
+          </List>
         ) : null}
       </div>
     );
@@ -133,6 +131,7 @@ export default connect(
     prSearchResults: state.search.prSearchResults
   }),
   {
-    prSearch: actions.prSearch
+    prSearch: actions.prSearch,
+    prSearchClear: actions.prSearchClear
   }
 )(StyledComponent);
