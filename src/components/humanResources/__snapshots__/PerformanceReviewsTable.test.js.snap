@@ -45,6 +45,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                         required={false}
                                         select={false}
                                         type="date"
+                                        variant="standard"
                                   />
                                   <TextField
                                         InputLabelProps={
@@ -58,6 +59,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                         required={false}
                                         select={false}
                                         type="date"
+                                        variant="standard"
                                   />
                             </WithStyles(ListItem)>
                       </WithStyles(List)>
