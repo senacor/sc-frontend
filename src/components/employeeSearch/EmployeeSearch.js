@@ -40,7 +40,7 @@ const styles = theme => ({
 export class EmployeeSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.props.prSearchClear();
+    this.props.employeeSearchClear();
 
     this.state = {
       employeeSearchValue: this.props.employeeSearchValue
@@ -64,16 +64,15 @@ export class EmployeeSearch extends React.Component {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     this.setState({ employeeSearchValue: employeeName, searchReady: true });
     this.props.selectEmployee(employee);
-    this.props.prSearchClear();
+    this.props.employeeSearchClear();
   };
 
-  executeSearch = debounce(this.props.prSearch, 500);
+  executeSearch = debounce(this.props.employeeSearch, 500);
 
   render() {
-    const { classes, prSearchResults } = this.props;
+    const { classes, employeeSearchResults } = this.props;
     const { employeeSearchValue, searchReady } = this.state;
 
-    console.log('employeeSearchValue: ' + employeeSearchValue);
     return (
       <div className={classes.box}>
         {this.props.inputElement(employeeSearchValue, this.handleChange)}
@@ -83,8 +82,8 @@ export class EmployeeSearch extends React.Component {
             component="nav"
             className={classes.employeeList}
           >
-            {prSearchResults.length > 0 ? (
-              prSearchResults.map(employee => {
+            {employeeSearchResults.length > 0 ? (
+              employeeSearchResults.map(employee => {
                 return (
                   <div key={employee.id}>
                     <ListItem
@@ -128,10 +127,10 @@ EmployeeSearch.defaultProps = {
 export const StyledComponent = withStyles(styles)(EmployeeSearch);
 export default connect(
   state => ({
-    prSearchResults: state.search.prSearchResults
+    employeeSearchResults: state.employeeSearchResults
   }),
   {
-    prSearch: actions.prSearch,
-    prSearchClear: actions.prSearchClear
+    employeeSearch: actions.employeeSearch,
+    employeeSearchClear: actions.employeeSearchClear
   }
 )(StyledComponent);

@@ -6,7 +6,7 @@ import {
   ERROR_RESPONSE
 } from '../helper/dispatchTypes';
 
-export const prSearch = searchEmployee => async dispatch => {
+export const employeeSearch = searchEmployee => async dispatch => {
   dispatch({
     type: FETCH_EMPLOYEES_REQUEST
   });
@@ -34,7 +34,7 @@ export const prSearch = searchEmployee => async dispatch => {
   }
 };
 
-export const prSearchClear = () => async dispatch => {
+export const employeeSearchClear = () => async dispatch => {
   dispatch({
     type: FETCH_EMPLOYEES_RESPONSE,
     employees: []

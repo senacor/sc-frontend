@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListFilter Component should match snapshot 1`] = `
+<WithStyles(List)>
+  <WithStyles(ListItem)
+    button={true}
+    dense={true}
+    key="selectAll"
+    onClick={[Function]}
+  >
+    <WithStyles(Checkbox)
+      checked={true}
+      color="primary"
+      id="selectAll"
+    />
+    <WithStyles(ListItemText)
+      primary="selectAll"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    button={true}
+    dense={true}
+    key="ja"
+    onClick={[Function]}
+  >
+    <WithStyles(Checkbox)
+      checked={true}
+      color="primary"
+      id="ja"
+    />
+    <WithStyles(ListItemText)
+      primary="ja"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    button={true}
+    dense={true}
+    key="nein"
+    onClick={[Function]}
+  >
+    <WithStyles(Checkbox)
+      checked={true}
+      color="primary"
+      id="nein"
+    />
+    <WithStyles(ListItemText)
+      primary="nein"
+    />
+  </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    button={true}
+    dense={true}
+    key="vielleicht"
+    onClick={[Function]}
+  >
+    <WithStyles(Checkbox)
+      checked={true}
+      color="primary"
+      id="vielleicht"
+    />
+    <WithStyles(ListItemText)
+      primary="vielleicht"
+    />
+  </WithStyles(ListItem)>
+</WithStyles(List)>
+`;

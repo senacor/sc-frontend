@@ -90,7 +90,10 @@ describe('ListFilter Component', () => {
       />
     );
 
-    component.find('WithStyles(Checkbox) [id="vielleicht"]').simulate('change');
+    component
+      .find('WithStyles(ListItemText) [primary="vielleicht"]')
+      .parent()
+      .simulate('click');
 
     let payload = {
       filterGroup: FILTER_GROUPS.HR,
@@ -137,8 +140,14 @@ describe('ListFilter Component', () => {
       />
     );
 
-    component.find('WithStyles(Checkbox) [id="ja"]').simulate('change');
-    component.find('WithStyles(Checkbox) [id="vielleicht"]').simulate('change');
+    component
+      .find('WithStyles(ListItemText) [primary="ja"]')
+      .parent()
+      .simulate('click');
+    component
+      .find('WithStyles(ListItemText) [primary="vielleicht"]')
+      .parent()
+      .simulate('click');
 
     expect(
       component.find('WithStyles(Checkbox) [id="ja"]').props().checked
@@ -147,7 +156,10 @@ describe('ListFilter Component', () => {
       component.find('WithStyles(Checkbox) [id="vielleicht"]').props().checked
     ).toEqual(false);
 
-    component.find('WithStyles(Checkbox) [id="nein"]').simulate('change');
+    component
+      .find('WithStyles(ListItemText) [primary="nein"]')
+      .parent()
+      .simulate('click');
 
     expect(
       component.find('WithStyles(Checkbox) [id="selectAll"]').props().checked

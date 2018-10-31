@@ -33,6 +33,15 @@ exports[`DateFilter Component should match snapshot 1`] = `
       type="date"
       variant="standard"
     />
+    <WithStyles(IconButton)
+      aria-label="forward"
+      id="forwardButton"
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        forward
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
   </WithStyles(ListItem)>
 </WithStyles(List)>
 `;

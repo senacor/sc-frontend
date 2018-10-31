@@ -90,7 +90,11 @@ export class DateFilter extends Component {
             }}
             onChange={this.onChange('To')}
           />
-          <IconButton aria-label="forward" onClick={this.execute}>
+          <IconButton
+            id="forwardButton"
+            aria-label="forward"
+            onClick={this.execute}
+          >
             <Icon>forward</Icon>
           </IconButton>
         </ListItem>

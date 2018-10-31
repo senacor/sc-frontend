@@ -13,7 +13,7 @@ import { cstMembers } from './cstMembers';
 import { events } from './events';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
-import search from './searchEmployee';
+import { employeeSearchResults } from './searchEmployee';
 import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults, selectedDate } from './appointments';
 import { meeting } from './meetings';
@@ -40,7 +40,7 @@ const combineReducer = combineReducers({
   finalCommentEmployee,
   finalCommentHr,
   prEmployeeContributions,
-  search,
+  employeeSearchResults,
   selectedDate,
   sortOrderPrs,
   userinfo,
