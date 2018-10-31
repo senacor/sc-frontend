@@ -24,7 +24,7 @@ const styles = theme => ({
   }
 });
 
-export class PROverviewReviewer extends React.Component {
+export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
     return [
       {
@@ -112,7 +112,7 @@ export class PROverviewReviewer extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(PROverviewReviewer);
+export const StyledComponent = withStyles(styles)(PrOverviewReviewer);
 export default connect(
   state => ({
     data: getAllPrs(state),

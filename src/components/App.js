@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
-import PROverviewReviewer from './pr/PROverviewReviewer';
+import PROverviewReviewer from './pr/PrOverviewReviewer';
 import AppBar from './AppBar/AppBar';
 import CstMembers from './cstmembers/CstMembers';
 import SchedulingView from './scheduling/SchedulingView';
