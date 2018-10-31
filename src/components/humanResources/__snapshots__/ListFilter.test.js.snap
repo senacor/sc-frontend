@@ -10,20 +10,13 @@ exports[`ListFilter Component should match snapshot 1`] = `
   >
     <WithStyles(Checkbox)
       checked={true}
-      checkedIcon={
-        <WithStyles(Icon)>
-          check
-        </WithStyles(Icon)>
-      }
       color="primary"
-      icon={<WithStyles(Icon) />}
       id="selectAll"
     />
     <WithStyles(ListItemText)
       primary="selectAll"
     />
   </WithStyles(ListItem)>
-  <WithStyles(Divider) />
   <WithStyles(ListItem)
     button={true}
     dense={true}
@@ -32,13 +25,7 @@ exports[`ListFilter Component should match snapshot 1`] = `
   >
     <WithStyles(Checkbox)
       checked={true}
-      checkedIcon={
-        <WithStyles(Icon)>
-          check
-        </WithStyles(Icon)>
-      }
       color="primary"
-      icon={<WithStyles(Icon) />}
       id="ja"
     />
     <WithStyles(ListItemText)
@@ -53,13 +40,7 @@ exports[`ListFilter Component should match snapshot 1`] = `
   >
     <WithStyles(Checkbox)
       checked={true}
-      checkedIcon={
-        <WithStyles(Icon)>
-          check
-        </WithStyles(Icon)>
-      }
       color="primary"
-      icon={<WithStyles(Icon) />}
       id="nein"
     />
     <WithStyles(ListItemText)
@@ -74,13 +55,7 @@ exports[`ListFilter Component should match snapshot 1`] = `
   >
     <WithStyles(Checkbox)
       checked={true}
-      checkedIcon={
-        <WithStyles(Icon)>
-          check
-        </WithStyles(Icon)>
-      }
       color="primary"
-      icon={<WithStyles(Icon) />}
       id="vielleicht"
     />
     <WithStyles(ListItemText)
