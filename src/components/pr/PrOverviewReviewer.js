@@ -228,13 +228,9 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: true,
         label: 'Delegieren',
-        sortValue: entry =>
-          entry[REVIEWER_ELEMENTS.SUPERVISOR].login === this.props.username
-            ? 'Delegieren'
-            : '',
+        sortValue: entry => (this.prDelegable(entry) ? 'Delegieren' : ''),
         render: entry => {
-          return entry[REVIEWER_ELEMENTS.SUPERVISOR].login ===
-            this.props.username ? (
+          return this.prDelegable(entry) ? (
             <PrOverviewReviewerDelegate prId={entry.id} />
           ) : null;
         }
@@ -242,6 +238,12 @@ export class PrOverviewReviewer extends React.Component {
     ];
   };
 
+  prDelegable = pr => {
+    return (
+      pr.supervisor.login === this.props.username &&
+      pr[REVIEWER_ELEMENTS.REVIEWER_PREPARATION_DONE] === false
+    );
+  };
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
       this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.REVIEWER);

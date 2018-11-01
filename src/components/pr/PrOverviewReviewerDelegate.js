@@ -3,59 +3,74 @@ import * as actions from '../../actions';
 import EmployeeSearchDialog from '../employeeSearch/EmployeeSearchDialog';
 import { connect } from 'react-redux';
 import PrStatusActionButton from './prDetail/PrStatusActionButton';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
+import EmployeeSearch from '../employeeSearch/EmployeeSearch';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import TextField from '@material-ui/core/TextField/TextField';
+import Button from '@material-ui/core/Button/Button';
+import { withStyles } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import Icon from '@material-ui/core/Icon/Icon';
+
+const styles = {
+  button: {
+    padding: '0px 0px'
+  },
+  errorMessage: {
+    color: '#ff0000'
+  }
+};
 
 export class PrOverviewReviewerDelegate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentPr: props.prId,
-      open: false
+      open: false,
+      errorMessage: ''
     };
   }
 
-  addReviewer = prId => () => {
-    this.handleClickOpen();
-
-    this.setState({
-      currentPr: prId
-    });
-  };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   selectEmployee = employee => {
-    this.handleClose();
-    this.props.delegateReviewer(this.state.currentPr, employee.id);
+    this.props.onSelectEmployee(employee);
   };
 
   render() {
-    let { prId } = this.props;
+    let { employeeName, classes } = this.props;
     return (
-      <div>
-        <PrStatusActionButton
-          label={'DELEGIEREN'}
-          releaseButtonClick={this.addReviewer(prId)}
-        />
-
-        <EmployeeSearchDialog
-          open={this.state.open}
-          handleClose={this.handleClose}
-          selectEmployee={this.selectEmployee}
-          title={'Delegieren an'}
-        />
-      </div>
+      <EmployeeSearch
+        employeeSearchValue={employeeName}
+        selectEmployee={this.selectEmployee}
+        inputElement={(value, onChange) => (
+          <TextField
+            id="adornment-filter"
+            label="Name"
+            value={value}
+            onChange={onChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Icon id="adornmentIcon">edit</Icon>
+                </InputAdornment>
+              ),
+              name: 'employeeSearchValue',
+              shrink: true
+            }}
+          />
+        )}
+      />
     );
   }
 }
+const StyledComponent = withStyles(styles)(PrOverviewReviewerDelegate);
+
 export default connect(
   state => ({}),
   {
-    delegateReviewer: actions.delegateReviewer
+    delegateReviewer: actions.delegateReviewer,
+    stackedAction: actions.stackedAction
   }
-)(PrOverviewReviewerDelegate);
+)(StyledComponent);

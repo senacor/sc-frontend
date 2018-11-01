@@ -23,6 +23,7 @@ export {
   fetchFilteredPrs
 } from './prs';
 export { addFilter, deleteFilter } from './filter';
+export { stackedAction } from './stackedAction';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({
