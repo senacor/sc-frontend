@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
+import Divider from '@material-ui/core/Divider/Divider';
 
 export class ListFilter extends Component {
   constructor(props) {
@@ -138,6 +139,7 @@ export class ListFilter extends Component {
     return (
       <List>
         {this.showSelectAll()}
+        <Divider />
         {Object.keys(this.props.content).map(this.showContent, this)}
       </List>
     );

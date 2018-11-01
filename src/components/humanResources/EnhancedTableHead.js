@@ -6,6 +6,13 @@ import TableSortLabel from '@material-ui/core/TableSortLabel/TableSortLabel';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
+import { withStyles } from '@material-ui/core';
+
+const styles = {
+  tableCell: {
+    textAlign: 'center'
+  }
+};
 
 class EnhancedTableHead extends React.Component {
   createSortHandler = index => event => {
@@ -13,7 +20,7 @@ class EnhancedTableHead extends React.Component {
   };
 
   render() {
-    const { order, orderBy, columnDefinition } = this.props;
+    const { order, orderBy, columnDefinition, classes } = this.props;
 
     return (
       <TableHead>
@@ -23,11 +30,14 @@ class EnhancedTableHead extends React.Component {
               <TableCell
                 key={index}
                 numeric={false}
-                padding={column.disablePadding ? 'none' : 'default'}
+                padding={'none'}
                 sortDirection={orderBy === index ? order : false}
               >
                 <List>
-                  <ListItem>
+                  <ListItem
+                    className={classes.tableCell}
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                  >
                     {column.filter ? column.filter : null}
                     <TableSortLabel
                       active={orderBy === index}
@@ -54,4 +64,5 @@ EnhancedTableHead.propTypes = {
   columnDefinition: PropTypes.array.isRequired
 };
 
-export default EnhancedTableHead;
+const StyledComponent = withStyles(styles)(EnhancedTableHead);
+export default StyledComponent;

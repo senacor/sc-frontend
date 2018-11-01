@@ -11,7 +11,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
       aria-labelledby="tableTitle"
       className="PerformanceReviewsTable-table-2"
     >
-      <EnhancedTableHead
+      <WithStyles(EnhancedTableHead)
         columnDefinition={
           Array [
             Object {
@@ -192,8 +192,9 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="employee"
-            padding="default"
+            padding="checkbox"
           >
             <Link
               replace={false}
@@ -203,78 +204,91 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="deadline"
-            padding="none"
+            padding="checkbox"
           >
             2018-02-01
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="prOccasion"
-            padding="default"
+            padding="checkbox"
           >
             <Translate
               content="ON_DEMAND"
             />
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="projectCst"
-            padding="default"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="competence"
-            padding="none"
+            padding="checkbox"
           >
             <Translate
               content="COMPETENCE_CONSULTANT"
             />
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="level"
-            padding="none"
+            padding="checkbox"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="supervisor"
-            padding="none"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="reviewer"
-            padding="none"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="result"
-            padding="none"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="employeePreparationDone"
-            padding="none"
+            padding="checkbox"
           >
             ja
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="reviewerPreparationDone"
-            padding="default"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="appointment"
-            padding="none"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="inProgress"
-            padding="none"
+            padding="checkbox"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="humanResourceProcessingDone"
-            padding="none"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
@@ -285,8 +299,9 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="employee"
-            padding="default"
+            padding="checkbox"
           >
             <Link
               replace={false}
@@ -296,78 +311,91 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="deadline"
-            padding="none"
+            padding="checkbox"
           >
             2018-01-01
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="prOccasion"
-            padding="default"
+            padding="checkbox"
           >
             <Translate
               content="ON_DEMAND"
             />
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="projectCst"
-            padding="default"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="competence"
-            padding="none"
+            padding="checkbox"
           >
             <Translate
               content="COMPETENCE_DEVELOPMENT"
             />
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="level"
-            padding="none"
+            padding="checkbox"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="supervisor"
-            padding="none"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="reviewer"
-            padding="none"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="result"
-            padding="none"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="employeePreparationDone"
-            padding="none"
+            padding="checkbox"
           >
             ja
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="reviewerPreparationDone"
-            padding="default"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="appointment"
-            padding="none"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="inProgress"
-            padding="none"
+            padding="checkbox"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
+            className="PerformanceReviewsTable-tableCell-4"
             key="humanResourceProcessingDone"
-            padding="none"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>

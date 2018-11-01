@@ -52,6 +52,9 @@ const styles = theme => ({
   },
   tableWrapper: {
     overflowX: 'auto'
+  },
+  tableCell: {
+    textAlign: 'center'
   }
 });
 
@@ -98,7 +101,7 @@ class PerformanceReviewsTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition } = this.props;
+    const { classes, columnDefinition, data } = this.props;
     const {
       order,
       orderBy,
@@ -107,7 +110,6 @@ class PerformanceReviewsTable extends React.Component {
       rowsPerPage,
       page
     } = this.state;
-    const data = this.props.data;
 
     return (
       <Paper className={classes.root}>
@@ -128,7 +130,8 @@ class PerformanceReviewsTable extends React.Component {
                       {columnDefinition.map((column, columnIndex) => {
                         return (
                           <TableCell
-                            padding={column.disablePadding ? 'none' : 'default'}
+                            className={classes.tableCell}
+                            padding={'checkbox'}
                             key={columnIndex}
                           >
                             {column.render(line)}
