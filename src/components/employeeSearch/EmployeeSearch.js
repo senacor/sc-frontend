@@ -46,7 +46,7 @@ export class EmployeeSearch extends React.Component {
       employeeSearchValue: this.props.employeeSearchValue
         ? this.props.employeeSearchValue
         : '',
-      searchReady: this.props.employeeSearchValue === '' ? false : true
+      searchReady: this.props.employeeSearchValue !== '' ? true : false
     };
   }
 
