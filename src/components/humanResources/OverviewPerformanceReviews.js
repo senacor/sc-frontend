@@ -5,7 +5,7 @@ import { translateContent } from '../translate/Translate';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { getAllPrsForHumanResources, getFilter } from '../../reducers/selector';
+import { getAllPrsForTable, getFilter } from '../../reducers/selector';
 import * as actions from '../../actions';
 import withLoading from '../hoc/Loading';
 import PopperSearchMenu from './PopperSearchMenu';
@@ -274,8 +274,8 @@ class OverviewPerformanceReviews extends Component {
 
 export const StyledComponent = withStyles(styles)(OverviewPerformanceReviews);
 export default connect(
-  (state, props) => ({
-    data: getAllPrsForHumanResources(state),
+  state => ({
+    data: getAllPrsForTable(state),
     filter: getFilter(FILTER_GROUPS.HR)(state)
   }),
   {

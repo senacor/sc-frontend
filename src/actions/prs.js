@@ -73,7 +73,7 @@ export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
 
 export const fetchFilteredPrs = (filter, role) => async dispatch => {
   dispatch({
-    type: dispatchTypes.FETCH_FILTERED_OWN_PRS_REQUEST
+    type: dispatchTypes.FETCH_OWN_PRS_REQUEST
   });
 
   let query = '';

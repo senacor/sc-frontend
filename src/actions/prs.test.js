@@ -11,7 +11,7 @@ import {
   FETCH_PRS_HR_RESPONSE,
   FETCH_PRS_HR_REQUEST,
   FETCH_FILTERED_PRS_HR_REQUEST,
-  FETCH_FILTERED_OWN_PRS_REQUEST,
+  FETCH_OWN_PRS_REQUEST,
   FETCH_OWN_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 import FILTER_GROUPS from '../components/humanResources/filterGroups';
@@ -176,7 +176,7 @@ describe('fetchFilteredPrs redux action', () => {
     fetchMock.restore();
   });
 
-  it('should dispatch FETCH_FILTERED_OWN_PRS_REQUEST', async () => {
+  it('should dispatch FETCH_OWN_PRS_REQUEST', async () => {
     const testdata = {
       _embedded: {
         ownPrResponseList: [
@@ -213,7 +213,7 @@ describe('fetchFilteredPrs redux action', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: FETCH_FILTERED_OWN_PRS_REQUEST
+        type: FETCH_OWN_PRS_REQUEST
       },
       {
         type: FETCH_OWN_PRS_RESPONSE,

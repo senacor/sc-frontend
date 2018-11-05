@@ -73,24 +73,6 @@ export const prs = (state = {}, action) => {
 
       return set(cloneDeep(state), `${prId}.finalCommentEmployee`, comment);
     }
-
-    case FETCH_OWN_PRS_RESPONSE: {
-      const entities = action.payload.prTableEntries;
-      let result = {};
-
-      entities.forEach(entity => {
-        result[entity['prId']] = {
-          id: entity.prId,
-          employee: entity.employee,
-          reviewer: entity.reviewer,
-          supervisor: entity.supervisor,
-          occasion: entity.prOccasion,
-          deadline: entity.deadline
-        };
-      });
-      return Object.assign({}, state, result);
-    }
-
     default:
       return state;
   }
@@ -104,18 +86,11 @@ export const sortOrderPrs = (state = '', action) => {
   return 'desc';
 };
 
-export const humanResourcesPrs = (state = {}, action) => {
-  switch (action.type) {
-    case FETCH_PRS_HR_RESPONSE:
-      return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
-    default:
-      return state;
-  }
-};
-
 export const tablePrs = (state = {}, action) => {
   switch (action.type) {
     case FETCH_OWN_PRS_RESPONSE:
+      return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
+    case FETCH_PRS_HR_RESPONSE:
       return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
     default:
       return state;

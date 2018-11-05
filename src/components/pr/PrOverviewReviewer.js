@@ -16,7 +16,6 @@ import PopperSearchMenu from '../humanResources/PopperSearchMenu';
 import EmployeeFilter from '../humanResources/EmployeeFilter';
 import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
-import HR_ELEMENTS from '../humanResources/hrElements';
 
 const styles = theme => ({
   root: {
@@ -60,7 +59,8 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: true,
         label: 'Fälligkeit',
         sortValue: entry => entry[REVIEWER_ELEMENTS.DEADLINE],
-        render: entry => formatDateForFrontend(entry[REVIEWER_ELEMENTS.DEADLINE]),
+        render: entry =>
+          formatDateForFrontend(entry[REVIEWER_ELEMENTS.DEADLINE]),
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.REVIEWER}
@@ -74,8 +74,9 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: false,
         label: 'Grund',
-        sortValue: entry => translateContent(entry['occasion']),
-        render: entry => translateContent(entry['occasion']),
+        sortValue: entry =>
+          translateContent(entry[REVIEWER_ELEMENTS.PR_OCCASION]),
+        render: entry => translateContent(entry[REVIEWER_ELEMENTS.PR_OCCASION]),
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.REVIEWER}
@@ -96,14 +97,16 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: false,
         label: 'Projektkst',
         sortValue: entry => entry[REVIEWER_ELEMENTS.CST],
-        render: entry => entry[REVIEWER_ELEMENTS.CST],
+        render: entry => entry[REVIEWER_ELEMENTS.CST]
       },
       {
         numeric: false,
         disablePadding: true,
         label: 'Dev/Con',
-        sortValue: entry => translateContent(`COMPETENCE_${entry[REVIEWER_ELEMENTS.COMPETENCE]}`),
-        render: entry => translateContent(`COMPETENCE_${entry[REVIEWER_ELEMENTS.COMPETENCE]}`),
+        sortValue: entry =>
+          translateContent(`COMPETENCE_${entry[REVIEWER_ELEMENTS.COMPETENCE]}`),
+        render: entry =>
+          translateContent(`COMPETENCE_${entry[REVIEWER_ELEMENTS.COMPETENCE]}`),
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.REVIEWER}
@@ -142,8 +145,8 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: true,
         label: 'Vorgesetzte/r',
-        sortValue: entry => getDisplayName(entry['supervisor']),
-        render: entry => getDisplayName(entry['supervisor'])
+        sortValue: entry => getDisplayName(entry[REVIEWER_ELEMENTS.SUPERVISOR]),
+        render: entry => getDisplayName(entry[REVIEWER_ELEMENTS.SUPERVISOR]),
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.REVIEWER}
@@ -158,7 +161,7 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: true,
         label: 'Bewerter',
         sortValue: entry => getDisplayName(entry[REVIEWER_ELEMENTS.REVIEWER]),
-        render: entry => getDisplayName(entry[REVIEWER_ELEMENTS.REVIEWER])
+        render: entry => getDisplayName(entry[REVIEWER_ELEMENTS.REVIEWER]),
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.REVIEWER}
@@ -173,10 +176,8 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: true,
         label: 'Bewertung',
-        sortValue: entry =>
-          entry[REVIEWER_ELEMENTS.RESULT],
-        render: entry =>
-          entry[REVIEWER_ELEMENTS.RESULT]
+        sortValue: entry => entry[REVIEWER_ELEMENTS.RESULT],
+        render: entry => entry[REVIEWER_ELEMENTS.RESULT]
       },
       {
         key: REVIEWER_ELEMENTS.REVIEWER_PREPARATION_DONE,
@@ -201,7 +202,8 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: true,
         label: 'Termin',
         sortValue: entry => entry[REVIEWER_ELEMENTS.APPOINTMENT],
-        render: entry => formatDateForFrontend(entry[REVIEWER_ELEMENTS.APPOINTMENT]),
+        render: entry =>
+          formatDateForFrontend(entry[REVIEWER_ELEMENTS.APPOINTMENT])
       },
       {
         numeric: false,
@@ -219,16 +221,21 @@ export class PrOverviewReviewer extends React.Component {
             <ListFilter content={{ laufend: true, abgeschlossen: false }} />
           </PopperSearchMenu>
         )
-
       },
       {
         numeric: false,
         disablePadding: true,
         label: 'Delegieren',
-        sortValue: entry => entry[REVIEWER_ELEMENTS.SUPERVISOR].login === this.props.username ? 'Delegieren' : '',
-        render: entry => {return entry[REVIEWER_ELEMENTS.SUPERVISOR].login === this.props.username ? (
-          <PrOverviewReviewerDelegate prId={entry.id} />
-        ) : null;}
+        sortValue: entry =>
+          entry[REVIEWER_ELEMENTS.SUPERVISOR].login === this.props.username
+            ? 'Delegieren'
+            : '',
+        render: entry => {
+          return entry[REVIEWER_ELEMENTS.SUPERVISOR].login ===
+            this.props.username ? (
+            <PrOverviewReviewerDelegate prId={entry.id} />
+          ) : null;
+        }
       }
     ];
   };

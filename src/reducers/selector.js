@@ -2,8 +2,6 @@ import { createSelector } from 'reselect';
 import moment from 'moment/moment';
 
 export const getAllPrs = state => Object.values(state.prs);
-export const getAllPrsForHumanResources = state =>
-  Object.values(state.humanResourcesPrs);
 export const getAllPrsForTable = state => Object.values(state.tablePrs);
 export const getActualPrId = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
