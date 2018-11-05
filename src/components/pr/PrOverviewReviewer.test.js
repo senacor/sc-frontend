@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrOverviewReviewer } from './PrOverviewReviewer';
+import { StyledComponent as PrOverviewReviewer } from './PrOverviewReviewer';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrOverviewReviewer Component', () => {
