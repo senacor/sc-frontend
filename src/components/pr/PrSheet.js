@@ -56,6 +56,9 @@ const styles = theme => ({
     color: '#FFF',
     marginBottom: '2%'
   },
+  required: {
+    color: 'rgba(0, 0, 0, 0.42)'
+  },
   marginDown: {
     marginBottom: '-10pt'
   },
@@ -300,7 +303,9 @@ class PrSheet extends React.Component {
       return (
         <List>
           <ListItem>
-            <ListItemText secondary={'*Pflichtfelder'} />
+            <Typography className={classes.required} variant="caption">
+              *Pflichtfeld
+            </Typography>
           </ListItem>
         </List>
       );
