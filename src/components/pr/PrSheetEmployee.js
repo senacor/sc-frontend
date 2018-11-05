@@ -12,7 +12,7 @@ import {
   getUserroles
 } from '../../reducers/selector';
 import PrTextField from './PrTextField';
-import { textFieldsInPrSheetService } from '../../service/textFieldsInPrSheetService';
+import TextFieldService from '../../service/TextFieldService';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -72,19 +72,13 @@ class PrSheetEmployee extends React.Component {
     } = this.props;
     const { commentText } = this.state;
 
-    let textFieldService = textFieldsInPrSheetService(
-      nonActionPerformer,
-      readOnly,
-      isActionPerformer,
-      true,
-      employeeContribution.text,
-      null,
-      commentText
-    );
-
-    let textFieldState = textFieldService.state;
-
-    let textFieldValue = textFieldService.value;
+    let service = new TextFieldService();
+    service.setNonActionPerformer(nonActionPerformer);
+    service.setIsActionPerformer(isActionPerformer);
+    service.setReadOnlyFlag(readOnly);
+    service.setOpenEditing(true);
+    service.setReadOnlyText(employeeContribution.text);
+    service.setWriteableText(commentText);
 
     return (
       <div>
@@ -94,8 +88,8 @@ class PrSheetEmployee extends React.Component {
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <PrTextField
                   fieldId={category + '_CommentId'}
-                  state={textFieldState}
-                  value={textFieldValue}
+                  state={service.getState()}
+                  value={service.getValue()}
                   required
                   label={translateContent(category)}
                   helperText={translateContent(`PLACEHOLDER_${category}`)}

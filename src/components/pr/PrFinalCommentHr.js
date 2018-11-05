@@ -10,7 +10,7 @@ import { getFinalCommentHr, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
 import { translateContent } from '../translate/Translate';
 import PrTextField from './PrTextField';
-import { textFieldsInPrSheetService } from '../../service/textFieldsInPrSheetService';
+import TextFieldService from '../../service/TextFieldService';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -57,19 +57,12 @@ class PrFinalCommentHr extends Component {
     } = this.props;
     let { commentText } = this.state;
 
-    let textFieldService = textFieldsInPrSheetService(
-      null,
-      readOnly,
-      isActionPerformer,
-      open,
-      finalCommentHr,
-      null,
-      commentText
-    );
-
-    let textFieldState = textFieldService.state;
-
-    let textFieldValue = textFieldService.value;
+    let service = new TextFieldService();
+    service.setIsActionPerformer(isActionPerformer);
+    service.setReadOnlyFlag(readOnly);
+    service.setOpenEditing(open);
+    service.setReadOnlyText(finalCommentHr);
+    service.setWriteableText(commentText);
 
     let helperText =
       'Letzte Anmerkungen und Ergänzungen zum Performance Review.';
@@ -82,8 +75,8 @@ class PrFinalCommentHr extends Component {
               <PrTextField
                 fieldId={'finalCommentHr'}
                 label={translateContent('FINAL_COMMENT_HR')}
-                state={textFieldState}
-                value={textFieldValue}
+                state={service.getState()}
+                value={service.getValue()}
                 helperText={helperText}
                 onChange={this.handleChangeComment(prById)}
               />
