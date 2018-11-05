@@ -10,6 +10,7 @@ import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
 import { translateContent } from '../translate/Translate';
 import { withStyles } from '@material-ui/core';
 import PrOverviewReviewerDelegate from './PrOverviewReviewerDelegate';
+import HR_ELEMENTS from '../humanResources/hrElements';
 
 const styles = theme => ({
   root: {
