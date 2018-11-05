@@ -24,7 +24,7 @@ describe('filter reducer', () => {
     expect(stateAfter).toEqual({
       hr: {
         deadline: {
-          searchString: `deadline_from=${hr_initDateFrom}&deadline_to=${hr_initDateTo}`,
+          searchString: `deadlineFrom=${hr_initDateFrom}&deadlineTo=${hr_initDateTo}`,
           values: {
             from: '2018-01-01',
             to: '2018-12-31'

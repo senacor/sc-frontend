@@ -1,15 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button/Button';
 import * as actions from '../../actions';
 import EmployeeSearchDialog from '../employeeSearch/EmployeeSearchDialog';
-import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-
-const styles = theme => ({
-  button: {
-    padding: '0px 0px'
-  }
-});
+import PrStatusActionButton from './prDetail/PrStatusActionButton';
 
 export class PrOverviewReviewerDelegate extends React.Component {
   constructor(props) {
@@ -20,8 +13,9 @@ export class PrOverviewReviewerDelegate extends React.Component {
     };
   }
 
-  addReviewer = prId => {
+  addReviewer = prId => () => {
     this.handleClickOpen();
+
     this.setState({
       currentPr: prId
     });
@@ -41,19 +35,14 @@ export class PrOverviewReviewerDelegate extends React.Component {
   };
 
   render() {
-    let { classes, prId } = this.props;
+    let { prId } = this.props;
     return (
       <div>
-        <Button
-          id={'DelegateButton'}
-          color="primary"
-          className={classes.button}
-          onClick={() => {
-            this.addReviewer(prId);
-          }}
-        >
-          DELEGIEREN
-        </Button>
+        <PrStatusActionButton
+          label={'DELEGIEREN'}
+          releaseButtonClick={this.addReviewer(prId)}
+        />
+
         <EmployeeSearchDialog
           open={this.state.open}
           handleClose={this.handleClose}
@@ -64,11 +53,9 @@ export class PrOverviewReviewerDelegate extends React.Component {
     );
   }
 }
-export const StyledComponent = withStyles(styles)(PrOverviewReviewerDelegate);
-
 export default connect(
   state => ({}),
   {
     delegateReviewer: actions.delegateReviewer
   }
-)(StyledComponent);
+)(PrOverviewReviewerDelegate);

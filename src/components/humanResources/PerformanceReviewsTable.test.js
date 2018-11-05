@@ -6,22 +6,20 @@ import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
 import PopperSearchMenu from './PopperSearchMenu';
 import EmployeeFilter from './EmployeeFilter';
-import List from '@material-ui/core/List/List';
-import ListItem from '@material-ui/core/ListItem/ListItem';
-import TextField from '@material-ui/core/TextField/TextField';
 import { translateContent } from '../translate/Translate';
-import Translate from '../translate/Translate';
 import FILTER_GROUPS from './filterGroups';
 import getDisplayName from '../../helper/getDisplayName';
+import { formatDateForFrontend } from '../../helper/date';
+import DateFilter from './DateFilter';
+import ListFilter from './ListFilter';
 
 const rows = [
   {
-    key: HR_ELEMENTS.EMPLOYEE,
     numeric: false,
     disablePadding: false,
     label: 'Mitarbeiter',
-    mapper: variable => getDisplayName(variable),
-    show: entry => {
+    sortValue: entry => getDisplayName(entry[HR_ELEMENTS.EMPLOYEE]),
+    render: entry => {
       return (
         <Link to={`/prDetail/${entry.prId}`}>
           {getDisplayName(entry[HR_ELEMENTS.EMPLOYEE])}
@@ -29,165 +27,206 @@ const rows = [
       );
     },
     filter: (
-      <PopperSearchMenu>
-        <EmployeeFilter
-          filterGroup={FILTER_GROUPS.HR}
-          filterBy={HR_ELEMENTS.EMPLOYEE}
-        />
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.EMPLOYEE}
+      >
+        <EmployeeFilter />
       </PopperSearchMenu>
     )
   },
   {
-    key: HR_ELEMENTS.DEADLINE,
     numeric: true,
     disablePadding: true,
     label: 'Fälligkeit',
-    mapper: variable => variable,
-    show: entry => entry[HR_ELEMENTS.DEADLINE],
+    sortValue: entry => entry[HR_ELEMENTS.DEADLINE],
+    render: entry => formatDateForFrontend(entry[HR_ELEMENTS.DEADLINE]),
     filter: (
       <PopperSearchMenu
-        content={
-          <List>
-            <ListItem>
-              <TextField
-                id="dateBegin"
-                label="Fälligkeit von"
-                type="date"
-                InputLabelProps={{
-                  shrink: true
-                }}
-              />
-              <TextField
-                id="dateEnd"
-                label="Fälligkeit bis"
-                type="date"
-                defaultValue="2017-05-24"
-                InputLabelProps={{
-                  shrink: true
-                }}
-              />
-            </ListItem>
-          </List>
-        }
-      />
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.DEADLINE}
+      >
+        <DateFilter />
+      </PopperSearchMenu>
     )
   },
   {
-    key: HR_ELEMENTS.PR_OCCASION,
     numeric: false,
     disablePadding: false,
     label: 'Grund',
-    mapper: entry => translateContent(entry),
-    show: entry => <Translate content={entry[HR_ELEMENTS.PR_OCCASION]} />
+    sortValue: entry => translateContent(entry[HR_ELEMENTS.PR_OCCASION]),
+    render: entry => translateContent(entry[HR_ELEMENTS.PR_OCCASION]),
+    filter: (
+      <PopperSearchMenu filterGroup={FILTER_GROUPS.HR} filterBy={'occasion'}>
+        <ListFilter
+          content={{
+            [translateContent('ON_DEMAND')]: 'ON_DEMAND',
+            [translateContent('END_PROBATION')]: 'END_PROBATION',
+            [translateContent('YEARLY')]: 'YEARLY'
+          }}
+        />
+      </PopperSearchMenu>
+    )
   },
   {
-    key: HR_ELEMENTS.CST,
     numeric: false,
     disablePadding: false,
     label: 'Projektkst',
-    mapper: variable => variable,
-    show: entry => entry[HR_ELEMENTS.CST]
+    sortValue: entry => entry[HR_ELEMENTS.CST],
+    render: entry => entry[HR_ELEMENTS.CST]
   },
   {
-    key: HR_ELEMENTS.COMPETENCE,
     numeric: false,
     disablePadding: true,
     label: 'Dev/Con',
-    mapper: variable => translateContent(`COMPETENCE_${variable}`),
-    show: entry => (
-      <Translate content={`COMPETENCE_${entry[HR_ELEMENTS.COMPETENCE]}`} />
+    sortValue: entry =>
+      translateContent(`COMPETENCE_${entry[HR_ELEMENTS.COMPETENCE]}`),
+    render: entry =>
+      translateContent(`COMPETENCE_${entry[HR_ELEMENTS.COMPETENCE]}`),
+    filter: (
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.COMPETENCE}
+      >
+        <ListFilter
+          content={{
+            [translateContent('COMPETENCE_DEVELOPMENT')]: 'DEVELOPMENT',
+            [translateContent('COMPETENCE_CONSULTING')]: 'CONSULTING'
+          }}
+        />
+      </PopperSearchMenu>
     )
   },
   {
-    key: HR_ELEMENTS.LEVEL,
-    numeric: false,
+    numeric: true,
     disablePadding: true,
     label: 'level',
-    mapper: variable => variable,
-    show: entry => entry[HR_ELEMENTS.LEVEL]
+    sortValue: entry => entry[HR_ELEMENTS.LEVEL],
+    render: entry => entry[HR_ELEMENTS.LEVEL],
+    filter: (
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.LEVEL}
+      >
+        <ListFilter
+          content={{
+            1: 1,
+            2: 2
+          }}
+        />
+      </PopperSearchMenu>
+    )
   },
   {
-    key: HR_ELEMENTS.SUPERVISOR,
     numeric: false,
     disablePadding: true,
     label: 'Vorgesetzte/r',
-    mapper: variable => getDisplayName(variable),
-    show: entry => getDisplayName(entry[HR_ELEMENTS.SUPERVISOR]),
+    sortValue: entry => getDisplayName(entry[HR_ELEMENTS.SUPERVISOR]),
+    render: entry => getDisplayName(entry[HR_ELEMENTS.SUPERVISOR]),
     filter: (
-      <PopperSearchMenu>
-        <EmployeeFilter
-          filterGroup={FILTER_GROUPS.HR}
-          filterBy={HR_ELEMENTS.SUPERVISOR}
-        />
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.SUPERVISOR}
+      >
+        <EmployeeFilter />
       </PopperSearchMenu>
     )
   },
   {
-    key: HR_ELEMENTS.REVIEWER,
     numeric: false,
     disablePadding: true,
     label: 'Bewerter',
-    mapper: variable => getDisplayName(variable),
-    show: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
+    sortValue: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
+    render: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
     filter: (
-      <PopperSearchMenu>
-        <EmployeeFilter
-          filterGroup={FILTER_GROUPS.HR}
-          filterBy={HR_ELEMENTS.REVIEWER}
-        />
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.REVIEWER}
+      >
+        <EmployeeFilter />
       </PopperSearchMenu>
     )
   },
   {
-    key: HR_ELEMENTS.RESULT,
     numeric: false,
     disablePadding: true,
     label: 'Bewertung',
-    mapper: variable => variable,
-    show: entry => entry[HR_ELEMENTS.RESULT]
+    sortValue: entry => entry[HR_ELEMENTS.RESULT],
+    render: entry => entry[HR_ELEMENTS.RESULT]
   },
   {
-    key: HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE,
     numeric: false,
     disablePadding: true,
     label: 'MA ausgefüllt',
-    mapper: entry => (entry ? 'ja' : 'nein'),
-    show: entry =>
-      entry[HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein'
+    sortValue: entry =>
+      entry[HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+    render: entry =>
+      entry[HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+    filter: (
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={'isEmployeePreparationDone'}
+      >
+        <ListFilter content={{ ja: true, nein: false }} />
+      </PopperSearchMenu>
+    )
   },
   {
-    key: HR_ELEMENTS.REVIEWER_PREPARATION_DONE,
     numeric: false,
     disablePadding: false,
     label: 'Beurteiler ausgefüllt',
-    mapper: entry => (entry ? 'ja' : 'nein'),
-    show: entry =>
-      entry[HR_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein'
+    sortValue: entry =>
+      entry[HR_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
+    render: entry =>
+      entry[HR_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
+    filter: (
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={'isReviewerPreparationDone'}
+      >
+        <ListFilter content={{ ja: true, nein: false }} />
+      </PopperSearchMenu>
+    )
   },
   {
     key: HR_ELEMENTS.APPOINTMENT,
     numeric: false,
     disablePadding: true,
     label: 'Termin',
-    mapper: variable => variable,
-    show: entry => entry[HR_ELEMENTS.APPOINTMENT]
+    sortValue: entry => entry[HR_ELEMENTS.APPOINTMENT],
+    render: entry => entry[HR_ELEMENTS.APPOINTMENT]
   },
   {
-    key: HR_ELEMENTS.IN_PROGRESS,
     numeric: false,
     disablePadding: true,
     label: 'Finaler Status',
-    mapper: entry => (entry ? 'laufend' : 'abgeschlossen'),
-    show: entry =>
-      entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen'
+    sortValue: entry =>
+      entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+    render: entry =>
+      entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+    filter: (
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={'isInProgress'}
+      >
+        <ListFilter content={{ laufend: true, abgeschlossen: false }} />
+      </PopperSearchMenu>
+    )
   },
   {
-    key: HR_ELEMENTS.HR_PROCESSING_DONE,
     numeric: false,
     disablePadding: true,
     label: 'HR verarbeitet',
-    mapper: entry => (entry ? 'ja' : 'nein'),
-    show: entry => (entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein')
+    sortValue: entry => (entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein'),
+    render: entry => (entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein'),
+    filter: (
+      <PopperSearchMenu
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={'isHumanResourceProcessingDone'}
+      >
+        <ListFilter content={{ ja: true, nein: false }} />
+      </PopperSearchMenu>
+    )
   }
 ];
 
@@ -197,15 +236,11 @@ describe('PerformanceReviewsTable component', () => {
   it('should match snapshot', () => {
     let prs = [
       getTestdataEntry(1, '2018-01-01', 'DEVELOPMENT', 'ON_DEMAND'),
-      getTestdataEntry(2, '2018-02-01', 'CONSULTANT', 'ON_DEMAND')
+      getTestdataEntry(2, '2018-02-01', 'CONSULTING', 'ON_DEMAND')
     ];
 
     let component = shallow(
-      <PerformanceReviewsTable
-        data={prs}
-        columnDefinition={rows}
-        orderBy={rows[1]}
-      />
+      <PerformanceReviewsTable data={prs} columnDefinition={rows} orderBy={1} />
     );
 
     expect(component).toMatchSnapshot();
@@ -215,43 +250,43 @@ describe('PerformanceReviewsTable component', () => {
 describe('descInteger', () => {
   let prs = [
     getTestdataEntry(1, '2018-01-01', 'DEVELOPMENT', 'ON_DEMAND'),
-    getTestdataEntry(2, '2018-01-01', 'CONSULTANT', 'ON_DEMAND'),
-    getTestdataEntry(3, '2018-02-10', 'CONSULTANT', 'ON_DEMAND'),
-    getTestdataEntry(4, '2018-01-11', 'CONSULTANT', 'ON_DEMAND')
+    getTestdataEntry(2, '2018-01-01', 'CONSULTING', 'ON_DEMAND'),
+    getTestdataEntry(3, '2018-02-10', 'CONSULTING', 'ON_DEMAND'),
+    getTestdataEntry(4, '2018-01-11', 'CONSULTING', 'ON_DEMAND')
   ];
 
   it('should return 0: equal', () => {
-    const result = descInteger(prs[0], prs[1], 'deadline', entity => entity);
+    const result = descInteger(prs[0], prs[1], entity => entity['deadline']);
     expect(result).toEqual(0);
   });
   it('should return 1: asc', () => {
-    const result = descInteger(prs[1], prs[2], 'deadline', entity => entity);
+    const result = descInteger(prs[1], prs[2], entity => entity['deadline']);
     expect(result).toEqual(1);
   });
   it('should return -1: desc', () => {
-    const result = descInteger(prs[2], prs[3], 'deadline', entity => entity);
+    const result = descInteger(prs[2], prs[3], entity => entity['deadline']);
     expect(result).toEqual(-1);
   });
 });
 
 describe('descString', () => {
   let prs = [
-    getTestdataEntry(1, '2018-01-01', 'CONSULTANT', 'ON_DEMAND'),
-    getTestdataEntry(2, '2018-01-01', 'CONSULTANT', 'ON_DEMAND'),
+    getTestdataEntry(1, '2018-01-01', 'CONSULTING', 'ON_DEMAND'),
+    getTestdataEntry(2, '2018-01-01', 'CONSULTING', 'ON_DEMAND'),
     getTestdataEntry(3, '2018-02-10', 'DEVELOPMENT', 'ON_DEMAND'),
-    getTestdataEntry(4, '2018-01-11', 'CONSULTANT', 'ON_DEMAND')
+    getTestdataEntry(4, '2018-01-11', 'CONSULTING', 'ON_DEMAND')
   ];
 
   it('should return 0: equal', () => {
-    const result = descString(prs[0], prs[1], 'competence', entity => entity);
+    const result = descString(prs[0], prs[1], entity => entity['competence']);
     expect(result).toBe(0);
   });
   it('should return 1: asc', () => {
-    const result = descString(prs[1], prs[2], 'competence', entity => entity);
+    const result = descString(prs[1], prs[2], entity => entity['competence']);
     expect(result).toEqual(1);
   });
   it('should return -1: desc', () => {
-    const result = descString(prs[2], prs[3], 'competence', entity => entity);
+    const result = descString(prs[2], prs[3], entity => entity['competence']);
     expect(result).toEqual(-1);
   });
 });
@@ -259,14 +294,14 @@ describe('descString', () => {
 describe('stableSort', () => {
   let prs = [
     getTestdataEntry(1, '2018-02-01', 'DEVELOPMENT', 'ON_DEMAND'),
-    getTestdataEntry(2, '2018-01-11', 'CONSULTANT', 'ON_DEMAND'),
-    getTestdataEntry(3, '2018-02-10', 'CONSULTANT', 'ON_DEMAND'),
-    getTestdataEntry(4, '2019-01-01', 'CONSULTANT', 'ON_DEMAND')
+    getTestdataEntry(2, '2018-01-11', 'CONSULTING', 'ON_DEMAND'),
+    getTestdataEntry(3, '2018-02-10', 'CONSULTING', 'ON_DEMAND'),
+    getTestdataEntry(4, '2019-01-01', 'CONSULTING', 'ON_DEMAND')
   ];
 
   it('should return a asc array', () => {
     const result = stableSort(prs, (a, b) =>
-      descInteger(a, b, 'deadline', variable => variable)
+      descInteger(a, b, entry => entry['deadline'])
     );
     expect(result[0].prId).toEqual(4);
     expect(result[1].prId).toEqual(3);
@@ -277,7 +312,7 @@ describe('stableSort', () => {
   it('should return a desc array', () => {
     const result = stableSort(
       prs,
-      (a, b) => -descInteger(a, b, 'deadline', variable => variable)
+      (a, b) => -descInteger(a, b, entry => entry['deadline'])
     );
     expect(result[0].prId).toEqual(2);
     expect(result[1].prId).toEqual(1);

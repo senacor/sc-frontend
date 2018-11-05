@@ -28,12 +28,11 @@ export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
     return [
       {
-        key: 'employee',
         numeric: false,
         disablePadding: false,
         label: 'Mitarbeiter',
-        mapper: variable => getDisplayName(variable),
-        show: entry => {
+        sortValue: entry => getDisplayName(entry['employee']),
+        render: entry => {
           return (
             <Link to={`/prDetail/${entry.id}`}>
               {getDisplayName(entry['employee'])}
@@ -42,58 +41,57 @@ export class PrOverviewReviewer extends React.Component {
         }
       },
       {
-        key: 'deadline',
         numeric: true,
         disablePadding: true,
         label: 'Fälligkeit',
-        show: entry => formatDateForFrontend(entry['deadline'])
+        sortValue: entry => entry['deadline'],
+        render: entry => formatDateForFrontend(entry['deadline'])
       },
       {
-        key: 'occasion',
         numeric: false,
         disablePadding: false,
         label: 'Grund',
-        mapper: entry => translateContent(entry)
+        sortValue: entry => translateContent(entry['occasion']),
+        render: entry => translateContent(entry['occasion'])
       },
       {
-        key: 'supervisor',
         numeric: false,
         disablePadding: true,
         label: 'Vorgesetzte/r',
-        mapper: variable => getDisplayName(variable)
+        sortValue: entry => getDisplayName(entry['supervisor']),
+        render: entry => getDisplayName(entry['supervisor'])
       },
       {
-        key: 'reviewer',
         numeric: false,
         disablePadding: true,
         label: 'Bewerter',
-        mapper: variable => getDisplayName(variable)
+        sortValue: entry => getDisplayName(entry['reviewer']),
+        render: entry => getDisplayName(entry['reviewer'])
       },
       {
-        key: 'employeePreparationDone',
-        storeVariable: 'statuses',
         numeric: false,
         disablePadding: true,
         label: 'MA ausgefüllt',
-        mapper: entry =>
-          entry.includes('FILLED_SHEET_EMPLOYEE') ? 'ja' : 'nein'
+        sortValue: entry =>
+          entry['statuses'].includes('FILLED_SHEET_EMPLOYEE') ? 'ja' : 'nein',
+        render: entry =>
+          entry['statuses'].includes('FILLED_SHEET_EMPLOYEE') ? 'ja' : 'nein'
       },
       {
-        key: 'reviewerPreparationDone',
-        storeVariable: 'statuses',
         numeric: false,
         disablePadding: true,
         label: 'Beurteiler ausgefüllt',
-        mapper: entry =>
-          entry.includes('FILLED_SHEET_REVIEWER') ? 'ja' : 'nein'
+        sortValue: entry =>
+          entry['statuses'].includes('FILLED_SHEET_REVIEWER') ? 'ja' : 'nein',
+        render: entry =>
+          entry['statuses'].includes('FILLED_SHEET_REVIEWER') ? 'ja' : 'nein'
       },
       {
-        key: 'delegieren',
         numeric: false,
         disablePadding: true,
         label: '',
-        mapper: entry => '',
-        show: entry => {
+        sortValue: entry => '',
+        render: entry => {
           return <PrOverviewReviewerDelegate prId={entry.id} />;
         }
       }
@@ -105,7 +103,7 @@ export class PrOverviewReviewer extends React.Component {
     return (
       <PerformanceReviewsTable
         columnDefinition={columns}
-        orderBy={columns[1]}
+        orderBy={1}
         data={this.props.data}
       />
     );

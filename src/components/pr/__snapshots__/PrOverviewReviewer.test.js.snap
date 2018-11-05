@@ -6,74 +6,62 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
     Array [
       Object {
         "disablePadding": false,
-        "key": "employee",
         "label": "Mitarbeiter",
-        "mapper": [Function],
         "numeric": false,
-        "show": [Function],
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "deadline",
         "label": "Fälligkeit",
         "numeric": true,
-        "show": [Function],
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": false,
-        "key": "occasion",
         "label": "Grund",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "supervisor",
         "label": "Vorgesetzte/r",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "reviewer",
         "label": "Bewerter",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "employeePreparationDone",
         "label": "MA ausgefüllt",
-        "mapper": [Function],
         "numeric": false,
-        "storeVariable": "statuses",
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "reviewerPreparationDone",
         "label": "Beurteiler ausgefüllt",
-        "mapper": [Function],
         "numeric": false,
-        "storeVariable": "statuses",
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "delegieren",
         "label": "",
-        "mapper": [Function],
         "numeric": false,
-        "show": [Function],
+        "render": [Function],
+        "sortValue": [Function],
       },
     ]
   }
-  orderBy={
-    Object {
-      "disablePadding": true,
-      "key": "deadline",
-      "label": "Fälligkeit",
-      "numeric": true,
-      "show": [Function],
-    }
-  }
+  orderBy={1}
 />
 `;

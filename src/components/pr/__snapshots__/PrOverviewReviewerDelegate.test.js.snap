@@ -2,14 +2,10 @@
 
 exports[`PrOverviewReviewerDelegate Component should match snapshot 1`] = `
 <div>
-  <WithStyles(Button)
-    className="PrOverviewReviewerDelegate-button-1"
-    color="primary"
-    id="DelegateButton"
-    onClick={[Function]}
-  >
-    DELEGIEREN
-  </WithStyles(Button)>
+  <WithStyles(PrStatusActionButton)
+    label="DELEGIEREN"
+    releaseButtonClick={[Function]}
+  />
   <WithTheme(WithWidth(WithMobileDialog))
     handleClose={[Function]}
     open={false}

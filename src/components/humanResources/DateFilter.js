@@ -25,7 +25,7 @@ export class DateFilter extends Component {
   setFilter = values => {
     let searchString = Object.keys(values)
       .map(function(key) {
-        return `${this.props.filterBy}_${key}=${values[key]}`;
+        return `${this.props.filterBy}${key}=${values[key]}`;
       }, this)
       .join('&');
 
@@ -66,21 +66,21 @@ export class DateFilter extends Component {
             id="startDate"
             label="von"
             type="date"
-            defaultValue={values.from}
+            defaultValue={values.From}
             InputLabelProps={{
               shrink: true
             }}
-            onChange={this.onChange('from')}
+            onChange={this.onChange('From')}
           />
           <TextField
             id="endDate"
             label="bis"
             type="date"
-            defaultValue={values.to}
+            defaultValue={values.To}
             InputLabelProps={{
               shrink: true
             }}
-            onChange={this.onChange('to')}
+            onChange={this.onChange('To')}
           />
         </ListItem>
       </List>

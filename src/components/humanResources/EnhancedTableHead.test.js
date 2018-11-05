@@ -42,7 +42,7 @@ describe('EnhancedTableHead component', () => {
       <EnhancedTableHead
         onRequestSort={mockCallBack}
         order={'asc'}
-        orderBy={HR_ELEMENTS.EMPLOYEE}
+        orderBy={0}
         columnDefinition={rows}
       />
     );
@@ -56,14 +56,13 @@ describe('EnhancedTableHead component', () => {
     const component = shallow(
       <EnhancedTableHead
         order={'asc'}
-        orderBy={HR_ELEMENTS.EMPLOYEE}
+        orderBy={0}
         onRequestSort={mockCallBack}
         columnDefinition={rows}
       />
     );
-    component
-      .find('WithStyles(TableSortLabel).' + HR_ELEMENTS.EMPLOYEE)
-      .simulate('click');
+
+    component.find('WithStyles(TableSortLabel)').simulate('click');
     expect(mockCallBack.mock.calls.length).toEqual(1);
   });
 });

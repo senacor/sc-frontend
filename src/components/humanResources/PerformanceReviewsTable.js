@@ -9,18 +9,18 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EnhancedTableHead from './EnhancedTableHead';
 
-export function descInteger(a, b, orderBy, mapper) {
-  if (mapper(b[orderBy]) < mapper(a[orderBy])) {
+export function descInteger(a, b, mapper) {
+  if (mapper(b) < mapper(a)) {
     return -1;
   }
-  if (mapper(b[orderBy]) > mapper(a[orderBy])) {
+  if (mapper(b) > mapper(a)) {
     return 1;
   }
   return 0;
 }
 
-export function descString(a, b, orderBy, mapper) {
-  return -mapper(a[orderBy]).localeCompare(mapper(b[orderBy]));
+export function descString(a, b, mapper) {
+  return -mapper(a).localeCompare(mapper(b));
 }
 
 export function stableSort(array, compare) {
@@ -36,10 +36,10 @@ export function stableSort(array, compare) {
   return stabilizedThis.map(el => el[0]);
 }
 
-function getSorting(order, orderBy, sortFunction, mapper) {
+function getSorting(order, sortFunction, mapper) {
   return order === 'desc'
-    ? (a, b) => sortFunction(a, b, orderBy, mapper)
-    : (a, b) => -sortFunction(a, b, orderBy, mapper);
+    ? (a, b) => sortFunction(a, b, mapper)
+    : (a, b) => -sortFunction(a, b, mapper);
 }
 
 const styles = theme => ({
@@ -61,29 +61,32 @@ class PerformanceReviewsTable extends React.Component {
 
     this.state = {
       order: 'desc',
-      orderBy: this.props.orderBy.key,
+      orderBy: this.props.orderBy,
       page: 0,
       rowsPerPage: 25,
-      sortFunction: this.props.orderBy.numeric ? descInteger : descString,
-      mapper: this.getMapper(this.props.orderBy)
+      sortFunction: this.props.columnDefinition[this.props.orderBy].numeric
+        ? descInteger
+        : descString,
+      sortMapper: this.props.columnDefinition[this.props.orderBy].sortValue
     };
   }
 
-  handleRequestSort = (event, property) => {
-    const orderBy = property.key;
+  handleRequestSort = (event, index) => {
+    const orderBy = index;
+    const column = this.props.columnDefinition[index];
 
-    const mapper = this.getMapper(property);
+    const sortMapper = column.sortValue;
     let order = 'desc';
 
-    if (this.state.orderBy === orderBy && this.state.order === 'desc') {
+    if (this.state.orderBy === index && this.state.order === 'desc') {
       order = 'asc';
     }
     let sortFunction = descString;
-    if (property.numeric === true) {
+    if (column.numeric === true) {
       sortFunction = descInteger;
     }
 
-    this.setState({ order, orderBy, sortFunction, mapper });
+    this.setState({ order, orderBy, sortFunction, sortMapper });
   };
 
   handleChangePage = (event, page) => {
@@ -94,28 +97,13 @@ class PerformanceReviewsTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  getMapper = column => (column.mapper ? column.mapper : this.defaultMapper);
-  defaultMapper = variable => (variable ? variable : '');
-
-  show = (column, line) => {
-    if (column.show) {
-      return column.show(line);
-    } else {
-      if (column.storeVariable) {
-        return this.getMapper(column)(line[column.storeVariable]);
-      } else {
-        return this.getMapper(column)(line[column.key]);
-      }
-    }
-  };
-
   render() {
     const { classes, columnDefinition } = this.props;
     const {
       order,
       orderBy,
       sortFunction,
-      mapper,
+      sortMapper,
       rowsPerPage,
       page
     } = this.state;
@@ -132,21 +120,18 @@ class PerformanceReviewsTable extends React.Component {
               columnDefinition={columnDefinition}
             />
             <TableBody>
-              {stableSort(
-                data,
-                getSorting(order, orderBy, sortFunction, mapper)
-              )
+              {stableSort(data, getSorting(order, sortFunction, sortMapper))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((line, index) => {
+                .map((line, lineIndex) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={index}>
-                      {columnDefinition.map(column => {
+                    <TableRow hover tabIndex={-1} key={lineIndex}>
+                      {columnDefinition.map((column, columnIndex) => {
                         return (
                           <TableCell
                             padding={column.disablePadding ? 'none' : 'default'}
-                            key={column.key}
+                            key={columnIndex}
                           >
-                            {this.show(column, line)}
+                            {column.render(line)}
                           </TableCell>
                         );
                       }, this)}

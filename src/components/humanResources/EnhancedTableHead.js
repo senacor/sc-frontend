@@ -8,8 +8,8 @@ import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 
 class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
-    this.props.onRequestSort(event, property);
+  createSortHandler = index => event => {
+    this.props.onRequestSort(event, index);
   };
 
   render() {
@@ -18,22 +18,21 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-          {columnDefinition.map(column => {
+          {columnDefinition.map((column, index) => {
             return (
               <TableCell
-                key={column.key}
+                key={index}
                 numeric={false}
                 padding={column.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === column.key ? order : false}
+                sortDirection={orderBy === index ? order : false}
               >
                 <List>
                   <ListItem>
                     {column.filter ? column.filter : null}
                     <TableSortLabel
-                      className={column.key}
-                      active={orderBy === column.key}
+                      active={orderBy === index}
                       direction={order}
-                      onClick={this.createSortHandler(column)}
+                      onClick={this.createSortHandler(index)}
                     >
                       {column.label}
                     </TableSortLabel>
@@ -51,7 +50,7 @@ class EnhancedTableHead extends React.Component {
 EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
+  orderBy: PropTypes.number.isRequired,
   columnDefinition: PropTypes.array.isRequired
 };
 
