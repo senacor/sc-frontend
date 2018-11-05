@@ -1,24 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrOverviewReviewer Component should match snapshot 1`] = `
-<PerformanceReviewsTable
-  classes={
-    Object {
-      "root": "PerformanceReviewsTable-root-1",
-      "table": "PerformanceReviewsTable-table-2",
-      "tableWrapper": "PerformanceReviewsTable-tableWrapper-3",
-    }
-  }
+<WithStyles(PerformanceReviewsTable)
   columnDefinition={
     Array [
       Object {
         "disablePadding": false,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="employee"
-          filterGroup="REVIEWER"
-    >
-          <Connect(EmployeeFilter) />
-    </Connect(PopperSearchMenu)>,
         "label": "Mitarbeiter",
         "numeric": false,
         "render": [Function],
@@ -26,12 +13,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="deadline"
-          filterGroup="REVIEWER"
-    >
-          <Connect(DateFilter) />
-    </Connect(PopperSearchMenu)>,
         "label": "Fälligkeit",
         "numeric": true,
         "render": [Function],
@@ -39,80 +20,13 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "disablePadding": false,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="occasion"
-          filterGroup="REVIEWER"
-    >
-          <Connect(ListFilter)
-                content={
-                      Object {
-                            "Auf Nachfrage": "ON_DEMAND",
-                            "Ende der Probezeit": "END_PROBATION",
-                            "Jährlich": "YEARLY",
-                          }
-                }
-          />
-    </Connect(PopperSearchMenu)>,
         "label": "Grund",
         "numeric": false,
         "render": [Function],
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": false,
-        "label": "Projektkst",
-        "numeric": false,
-        "render": [Function],
-        "sortValue": [Function],
-      },
-      Object {
         "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="competence"
-          filterGroup="REVIEWER"
-    >
-          <Connect(ListFilter)
-                content={
-                      Object {
-                            "CON": "CONSULTING",
-                            "DEV": "DEVELOPMENT",
-                          }
-                }
-          />
-    </Connect(PopperSearchMenu)>,
-        "label": "Dev/Con",
-        "numeric": false,
-        "render": [Function],
-        "sortValue": [Function],
-      },
-      Object {
-        "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="level"
-          filterGroup="REVIEWER"
-    >
-          <Connect(ListFilter)
-                content={
-                      Object {
-                            "1": 1,
-                            "2": 2,
-                          }
-                }
-          />
-    </Connect(PopperSearchMenu)>,
-        "label": "level",
-        "numeric": true,
-        "render": [Function],
-        "sortValue": [Function],
-      },
-      Object {
-        "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="supervisor"
-          filterGroup="REVIEWER"
-    >
-          <Connect(EmployeeFilter) />
-    </Connect(PopperSearchMenu)>,
         "label": "Vorgesetzte/r",
         "numeric": false,
         "render": [Function],
@@ -120,12 +34,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="reviewer"
-          filterGroup="REVIEWER"
-    >
-          <Connect(EmployeeFilter) />
-    </Connect(PopperSearchMenu)>,
         "label": "Bewerter",
         "numeric": false,
         "render": [Function],
@@ -133,28 +41,13 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "disablePadding": true,
-        "key": "result",
-        "label": "Bewertung",
+        "label": "MA ausgefüllt",
         "numeric": false,
         "render": [Function],
         "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="reviewerPreparationDone"
-          filterGroup="REVIEWER"
-    >
-          <Connect(ListFilter)
-                content={
-                      Object {
-                            "ja": true,
-                            "nein": false,
-                          }
-                }
-          />
-    </Connect(PopperSearchMenu)>,
-        "key": "reviewerPreparationDone",
         "label": "Beurteiler ausgefüllt",
         "numeric": false,
         "render": [Function],
@@ -162,34 +55,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "disablePadding": true,
-        "label": "Termin",
-        "numeric": false,
-        "render": [Function],
-        "sortValue": [Function],
-      },
-      Object {
-        "disablePadding": true,
-        "filter": <Connect(PopperSearchMenu)
-          filterBy="inProgress"
-          filterGroup="REVIEWER"
-    >
-          <Connect(ListFilter)
-                content={
-                      Object {
-                            "abgeschlossen": false,
-                            "laufend": true,
-                          }
-                }
-          />
-    </Connect(PopperSearchMenu)>,
-        "label": "Finaler Status",
-        "numeric": false,
-        "render": [Function],
-        "sortValue": [Function],
-      },
-      Object {
-        "disablePadding": true,
-        "label": "Delegieren",
+        "label": "",
         "numeric": false,
         "render": [Function],
         "sortValue": [Function],
