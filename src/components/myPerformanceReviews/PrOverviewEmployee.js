@@ -258,7 +258,6 @@ export class PrOverviewEmployee extends React.Component {
     );
   }
 }
-
 export default connect(
   state => ({
     isLoading: state.isLoading,
