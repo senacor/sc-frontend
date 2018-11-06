@@ -10,6 +10,7 @@ import * as actions from '../../actions';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
 import PrTextField from './PrTextField';
+import TextFieldService from '../../service/TextFieldService';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -41,7 +42,6 @@ class PrOverallComment extends Component {
 
   handleChangeComment = prById => event => {
     this.setState({ comment: event.target.value });
-    console.log('Kategorie: ' + this.props.category);
 
     this.sendComment(
       prById,
@@ -66,6 +66,15 @@ class PrOverallComment extends Component {
     } = this.props;
     let { comment } = this.state;
 
+    let service = new TextFieldService();
+    service.setNonActionPerformer(nonActionPerformer);
+    service.setIsActionPerformer(isActionPerformer);
+    service.setReadOnlyFlag(readOnly);
+    service.setOpenEditing(true);
+    service.setReadOnlyText(prRating.comment);
+    service.setWriteableText(comment);
+    service.setErrorFlag(errorFlag);
+
     let helperText =
       'Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?';
 
@@ -76,17 +85,12 @@ class PrOverallComment extends Component {
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
                 fieldId={category}
-                isActionPerformer={isActionPerformer}
-                nonActionPerformer={nonActionPerformer}
-                readOnlyFlag={readOnly}
-                openEditing={true}
+                state={service.getState()}
+                value={service.getValue()}
                 required
                 label={'Gesamteinschätzung Freitext'}
                 helperText={helperText}
-                readOnlyText={prRating.comment}
-                writeableText={comment}
                 onChange={this.handleChangeComment(prById)}
-                errorFlag={errorFlag}
               />
             </Grid>
           </Grid>

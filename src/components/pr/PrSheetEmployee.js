@@ -12,6 +12,7 @@ import {
   getUserroles
 } from '../../reducers/selector';
 import PrTextField from './PrTextField';
+import TextFieldService from '../../service/TextFieldService';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -67,10 +68,17 @@ class PrSheetEmployee extends React.Component {
       employeeContribution,
       readOnly,
       isActionPerformer,
-      nonActionPerformer,
-      errorFlag
+      nonActionPerformer
     } = this.props;
     const { commentText } = this.state;
+
+    let service = new TextFieldService();
+    service.setNonActionPerformer(nonActionPerformer);
+    service.setIsActionPerformer(isActionPerformer);
+    service.setReadOnlyFlag(readOnly);
+    service.setOpenEditing(true);
+    service.setReadOnlyText(employeeContribution.text);
+    service.setWriteableText(commentText);
 
     return (
       <div>
@@ -80,18 +88,11 @@ class PrSheetEmployee extends React.Component {
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <PrTextField
                   fieldId={category + '_CommentId'}
-                  isActionPerformer={isActionPerformer}
-                  nonActionPerformer={nonActionPerformer}
-                  readOnlyFlag={readOnly}
-                  errorFlag={errorFlag}
+                  state={service.getState()}
+                  value={service.getValue()}
                   required
                   label={translateContent(category)}
                   helperText={translateContent(`PLACEHOLDER_${category}`)}
-                  openEditing={true}
-                  readOnlyText={
-                    employeeContribution.text ? employeeContribution.text : ''
-                  }
-                  writeableText={commentText}
                   onChange={this.handleChangeComment(prById, category)}
                 />
               </Grid>

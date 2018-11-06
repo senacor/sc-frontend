@@ -14,10 +14,9 @@ exports[`PrComment Component should display Customer interaction 1`] = `
         id="CUSTOMER_INTERACTION_CommentId"
         label="Kundeninteraktion und -veränderung"
         onChange={[Function]}
-        openEditing={true}
-        readOnlyText="iii"
         startrows="2"
-        writeableText="iii"
+        state="DISABLED"
+        value=""
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
@@ -70,10 +69,9 @@ exports[`PrComment Component should display ProblemAnalysis 1`] = `
         id="PROBLEM_ANALYSIS_CommentId"
         label="Problemanalyse und -lösung"
         onChange={[Function]}
-        openEditing={true}
-        readOnlyText="ggg"
         startrows="2"
-        writeableText="ggg"
+        state="DISABLED"
+        value=""
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
@@ -126,10 +124,9 @@ exports[`PrComment Component should display Teamwork 1`] = `
         id="TEAMWORK_CommentId"
         label="Effektives Arbeiten im Team und Teamführung"
         onChange={[Function]}
-        openEditing={true}
-        readOnlyText="fff"
         startrows="2"
-        writeableText="fff"
+        state="DISABLED"
+        value=""
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
@@ -182,10 +179,9 @@ exports[`PrComment Component should display the ContributionToCompanyDevelopment
         id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
         label="Beitrag zur Unternehmensentwicklung"
         onChange={[Function]}
-        openEditing={true}
-        readOnlyText="hhh"
         startrows="2"
-        writeableText="hhh"
+        state="DISABLED"
+        value=""
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)

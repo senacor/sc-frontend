@@ -20,9 +20,8 @@ exports[`PrFinalCommentHr Component displays an info text before the employee ha
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
-          openEditing={false}
-          readOnlyFlag={false}
-          writeableText=""
+          state="DISABLED"
+          value=""
         />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
@@ -50,9 +49,8 @@ exports[`PrFinalCommentHr Component displays the PrFinalCommentHr 1`] = `
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
-          openEditing={true}
-          readOnlyFlag={false}
-          writeableText=""
+          state="DISABLED"
+          value=""
         />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
@@ -80,9 +78,8 @@ exports[`PrFinalCommentHr Component displays the text read-only after HR has fin
           helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
-          openEditing={true}
-          readOnlyFlag={true}
-          writeableText=""
+          state="DISABLED"
+          value=""
         />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
