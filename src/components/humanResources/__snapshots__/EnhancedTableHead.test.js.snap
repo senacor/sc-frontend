@@ -12,27 +12,24 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
   <WithStyles(TableRow)>
     <WithStyles(TableCell)
       key="0"
-      numeric={false}
-      padding="default"
+      numeric={true}
+      padding="none"
       sortDirection="asc"
+      variant="head"
     >
-      <WithStyles(List)>
-        <WithStyles(ListItem)>
-          <Connect(PopperSearchMenu)>
-            <Connect(EmployeeFilter)
-              filterBy="employee"
-              filterGroup="hr"
-            />
-          </Connect(PopperSearchMenu)>
-          <WithStyles(TableSortLabel)
-            active={true}
-            direction="asc"
-            onClick={[Function]}
-          >
-            Mitarbeiter
-          </WithStyles(TableSortLabel)>
-        </WithStyles(ListItem)>
-      </WithStyles(List)>
+      <WithStyles(TableSortLabel)
+        active={true}
+        direction="asc"
+        onClick={[Function]}
+      >
+        <Connect(WithStyles(PopperSearchMenu))>
+          <Connect(EmployeeFilter)
+            filterBy="employee"
+            filterGroup="hr"
+          />
+        </Connect(WithStyles(PopperSearchMenu))>
+        Mitarbeiter
+      </WithStyles(TableSortLabel)>
     </WithStyles(TableCell)>
   </WithStyles(TableRow)>
 </TableHead>

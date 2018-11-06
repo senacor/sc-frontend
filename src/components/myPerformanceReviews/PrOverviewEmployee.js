@@ -173,7 +173,23 @@ export class PrOverviewEmployee extends React.Component {
         render: entry => entry[TABLE_PRS_ELEMENTS.RESULT]
       },
       {
-        key: TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE,
+        numeric: false,
+        disablePadding: true,
+        label: 'MA ausgefüllt',
+        sortValue: entry =>
+          entry[TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+        render: entry =>
+          entry[TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={'isReviewerPreparationDone'}
+          >
+            <ListFilter content={{ ja: true, nein: false }} />
+          </PopperSearchMenu>
+        )
+      },
+      {
         numeric: false,
         disablePadding: true,
         label: 'Beurteiler ausgefüllt',
@@ -242,7 +258,6 @@ export class PrOverviewEmployee extends React.Component {
     );
   }
 }
-
 export default connect(
   state => ({
     isLoading: state.isLoading,

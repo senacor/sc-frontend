@@ -164,6 +164,24 @@ export class PrOverviewReviewer extends React.Component {
         sortValue: entry => entry[REVIEWER_ELEMENTS.RESULT],
         render: entry => entry[REVIEWER_ELEMENTS.RESULT]
       },
+
+      {
+        numeric: false,
+        disablePadding: true,
+        label: 'MA ausgefüllt',
+        sortValue: entry =>
+          entry[REVIEWER_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+        render: entry =>
+          entry[REVIEWER_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.REVIEWER}
+            filterBy={REVIEWER_ELEMENTS.EMPLOYEE_PREPARATION_DONE}
+          >
+            <ListFilter content={{ ja: true, nein: false }} />
+          </PopperSearchMenu>
+        )
+      },
       {
         numeric: false,
         disablePadding: true,

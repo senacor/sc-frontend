@@ -61,8 +61,7 @@ describe('EnhancedTableHead component', () => {
         columnDefinition={rows}
       />
     );
-
-    component.find('WithStyles(TableSortLabel)').simulate('click');
+    component.find(`WithStyles(TableSortLabel)`).simulate('click');
     expect(mockCallBack.mock.calls.length).toEqual(1);
   });
 });

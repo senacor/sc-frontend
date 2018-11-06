@@ -67,15 +67,20 @@ class PerformanceReviewsTable extends React.Component {
       sortFunction: this.props.columnDefinition[this.props.orderBy].numeric
         ? descInteger
         : descString,
-      sortMapper: this.props.columnDefinition[this.props.orderBy].sortValue
+      sortMapper: this.getSortMapper(
+        this.props.columnDefinition[this.props.orderBy]
+      )
     };
   }
+
+  getSortMapper = column => entry =>
+    column.sortValue(entry) ? column.sortValue(entry) : '';
 
   handleRequestSort = (event, index) => {
     const orderBy = index;
     const column = this.props.columnDefinition[index];
 
-    const sortMapper = column.sortValue;
+    const sortMapper = this.getSortMapper(column);
     let order = 'desc';
 
     if (this.state.orderBy === index && this.state.order === 'desc') {
@@ -98,7 +103,7 @@ class PerformanceReviewsTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition } = this.props;
+    const { classes, columnDefinition, data } = this.props;
     const {
       order,
       orderBy,
@@ -107,7 +112,6 @@ class PerformanceReviewsTable extends React.Component {
       rowsPerPage,
       page
     } = this.state;
-    const data = this.props.data;
 
     return (
       <Paper className={classes.root}>
@@ -127,10 +131,7 @@ class PerformanceReviewsTable extends React.Component {
                     <TableRow hover tabIndex={-1} key={lineIndex}>
                       {columnDefinition.map((column, columnIndex) => {
                         return (
-                          <TableCell
-                            padding={column.disablePadding ? 'none' : 'default'}
-                            key={columnIndex}
-                          >
+                          <TableCell padding={'checkbox'} key={columnIndex}>
                             {column.render(line)}
                           </TableCell>
                         );
