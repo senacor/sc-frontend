@@ -12,11 +12,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
     >
           <Connect(EmployeeFilter) />
     </Connect(PopperSearchMenu)>,
-        "key": "employee",
         "label": "Mitarbeiter",
-        "mapper": [Function],
         "numeric": false,
-        "show": [Function],
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -26,10 +25,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
     >
           <Connect(DateFilter) />
     </Connect(PopperSearchMenu)>,
-        "key": "deadline",
         "label": "Fälligkeit",
         "numeric": true,
-        "show": [Function],
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": false,
@@ -47,16 +46,17 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "prOccasion",
         "label": "Grund",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": false,
-        "key": "projectCst",
         "label": "Projektkst",
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -73,10 +73,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "competence",
         "label": "Dev/Con",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -93,9 +93,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "level",
         "label": "level",
         "numeric": true,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -105,10 +106,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
     >
           <Connect(EmployeeFilter) />
     </Connect(PopperSearchMenu)>,
-        "key": "supervisor",
         "label": "Vorgesetzte/r",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -118,16 +119,17 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
     >
           <Connect(EmployeeFilter) />
     </Connect(PopperSearchMenu)>,
-        "key": "reviewer",
         "label": "Bewerter",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
-        "key": "result",
         "label": "Bewertung",
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -144,10 +146,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "employeePreparationDone",
         "label": "MA ausgefüllt",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": false,
@@ -164,16 +166,18 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "reviewerPreparationDone",
         "label": "Beurteiler ausgefüllt",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
         "key": "appointment",
         "label": "Termin",
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -190,10 +194,10 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "inProgress",
         "label": "Finaler Status",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
       Object {
         "disablePadding": true,
@@ -210,27 +214,13 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "humanResourceProcessingDone",
         "label": "HR verarbeitet",
-        "mapper": [Function],
         "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
       },
     ]
   }
-  orderBy={
-    Object {
-      "disablePadding": true,
-      "filter": <Connect(PopperSearchMenu)
-        filterBy="deadline"
-        filterGroup="hr"
-    >
-        <Connect(DateFilter) />
-    </Connect(PopperSearchMenu)>,
-      "key": "deadline",
-      "label": "Fälligkeit",
-      "numeric": true,
-      "show": [Function],
-    }
-  }
+  orderBy={1}
 />
 `;

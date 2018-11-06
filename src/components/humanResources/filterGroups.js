@@ -1,4 +1,5 @@
 const FILTER_GROUPS = {
-  HR: 'hr'
+  HR: 'hr',
+  REVIEWER: 'reviewer'
 };
 export default FILTER_GROUPS;

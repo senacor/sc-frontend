@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import TaskList from './task/TaskList';
 import PRList from './pr/PRList';
+import PrOverviewReviewer from './pr/PrOverviewReviewer';
 import AppBar from './AppBar/AppBar';
 import CstMembers from './cstmembers/CstMembers';
 import SchedulingView from './scheduling/SchedulingView';
@@ -36,6 +37,7 @@ const withAppBarExtendedHeader = WrappedComponent => props => (
 
 const TaskListWithAppBar = withAppBar(TaskList);
 const PRListWithAppBar = withAppBar(PRList);
+const PrOverviewWithAppBar = withAppBar(PrOverviewReviewer);
 const MyPRListWithAppBar = withAppBar(MyPerformanceReviews);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
 const PRWithAppBar = withAppBarExtendedHeader(PR);
@@ -51,7 +53,8 @@ const App = () => (
       <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
       <PrivateRoute exact path="/myPrs" component={MyPRListWithAppBar} />
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
-      <PrivateRoute exact path="/prs" component={PRListWithAppBar} />
+      <PrivateRoute exact path="/prs_old" component={PRListWithAppBar} />
+      <PrivateRoute exact path="/prs" component={PrOverviewWithAppBar} />
       <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
       <PrivateRoute
         exact

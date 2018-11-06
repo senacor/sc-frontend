@@ -11,9 +11,9 @@ const hr_initDateFrom = new Date().getFullYear() + '-01-01';
 const hr_initDateTo = new Date().getFullYear() + '-12-31';
 const hr_initDate = {
   [HR_ELEMENTS.DEADLINE]: {
-    searchString: `${HR_ELEMENTS.DEADLINE}_from=${hr_initDateFrom}&${
+    searchString: `${HR_ELEMENTS.DEADLINE}From=${hr_initDateFrom}&${
       HR_ELEMENTS.DEADLINE
-    }_to=${hr_initDateTo}`,
+    }To=${hr_initDateTo}`,
     values: {
       from: hr_initDateFrom,
       to: hr_initDateTo

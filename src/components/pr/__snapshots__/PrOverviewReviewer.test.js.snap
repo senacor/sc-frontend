@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrOverviewReviewer Component should match snapshot 1`] = `
+<WithStyles(PerformanceReviewsTable)
+  columnDefinition={
+    Array [
+      Object {
+        "disablePadding": false,
+        "label": "Mitarbeiter",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "label": "Fälligkeit",
+        "numeric": true,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": false,
+        "label": "Grund",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "label": "Vorgesetzte/r",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "label": "Bewerter",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "label": "MA ausgefüllt",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "label": "Beurteiler ausgefüllt",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+      Object {
+        "disablePadding": true,
+        "label": "",
+        "numeric": false,
+        "render": [Function],
+        "sortValue": [Function],
+      },
+    ]
+  }
+  orderBy={1}
+/>
+`;

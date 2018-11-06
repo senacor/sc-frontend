@@ -15,8 +15,8 @@ describe('DateFilter Component', () => {
         filterGroup={FILTER_GROUPS.HR}
         filterBy={HR_ELEMENTS.EMPLOYEE}
         filter={{
-          searchString: 'deadline_from=2018-01-01&deadline_to=2018-12-31',
-          values: { from: '2018-01-01', to: '2018-12-31' }
+          searchString: 'deadlineFrom=2018-01-01&deadlineTo=2018-12-31',
+          values: { From: '2018-01-01', To: '2018-12-31' }
         }}
         addFilter={mockCallBack}
         deleteFilter={mockCallBack}
@@ -35,24 +35,24 @@ describe('DateFilter Component', () => {
         filterGroup={FILTER_GROUPS.HR}
         filterBy={HR_ELEMENTS.DEADLINE}
         filter={{
-          searchString: 'deadline_from=2018-01-01&deadline_to=2018-12-31',
-          values: { from: '2018-01-01', to: '2018-12-31' }
+          searchString: 'deadlineFrom=2018-01-01&deadlineTo=2018-12-31',
+          values: { From: '2018-01-01', To: '2018-12-31' }
         }}
         addFilter={addFilter}
         deleteFilter={deleteFilter}
       />
     );
     let event = { target: { value: '2018-01-13' } };
-    component.find('#startDate').simulate('change', event, 'from');
+    component.find('#startDate').simulate('change', event, 'From');
 
     let payload = {
       filterGroup: FILTER_GROUPS.HR,
       filterBy: HR_ELEMENTS.DEADLINE,
       filter: {
-        searchString: `${HR_ELEMENTS.DEADLINE}_from=2018-01-13&${
+        searchString: `${HR_ELEMENTS.DEADLINE}From=2018-01-13&${
           HR_ELEMENTS.DEADLINE
-        }_to=2018-12-31`,
-        values: { from: '2018-01-13', to: '2018-12-31' }
+        }To=2018-12-31`,
+        values: { From: '2018-01-13', To: '2018-12-31' }
       }
     };
 
@@ -75,8 +75,8 @@ describe('DateFilter Component', () => {
         filterGroup={FILTER_GROUPS.HR}
         filterBy={HR_ELEMENTS.DEADLINE}
         filter={{
-          searchString: 'deadline_from=2018-01-01&deadline_to=2018-12-31',
-          values: { from: '2018-01-01', to: '2018-12-31' }
+          searchString: 'deadlineFrom=2018-01-01&deadlineTo=2018-12-31',
+          values: { From: '2018-01-01', To: '2018-12-31' }
         }}
         addFilter={addFilter}
         deleteFilter={deleteFilter}
@@ -89,10 +89,10 @@ describe('DateFilter Component', () => {
       filterGroup: FILTER_GROUPS.HR,
       filterBy: HR_ELEMENTS.DEADLINE,
       filter: {
-        searchString: `${HR_ELEMENTS.DEADLINE}_from=2018-01-01&${
+        searchString: `${HR_ELEMENTS.DEADLINE}From=2018-01-01&${
           HR_ELEMENTS.DEADLINE
-        }_to=2018-05-30`,
-        values: { from: '2018-01-01', to: '2018-05-30' }
+        }To=2018-05-30`,
+        values: { From: '2018-01-01', To: '2018-05-30' }
       }
     };
 
