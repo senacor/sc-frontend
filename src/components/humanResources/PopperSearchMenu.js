@@ -4,6 +4,19 @@ import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import { getSubFilter } from '../../reducers/selector';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
+import { PrOverviewReviewer } from '../pr/PrOverviewReviewer';
+
+const styles = theme => ({
+  iconFilterSet: {
+    color: theme.palette.primary['500'],
+    margin: '0px'
+  },
+  iconFilterUnset: {
+    color: '#dddddd',
+    margin: '0px'
+  }
+});
 
 export class PopperSearchMenu extends React.Component {
   state = {
@@ -23,19 +36,23 @@ export class PopperSearchMenu extends React.Component {
   };
 
   getIcon = subfilter => {
-    return subfilter === '' ? 'search' : 'filter_list';
+    const classes = this.props.classes;
+
+    return subfilter === '' ? (
+      <Icon className={classes.iconFilterUnset}>filter_list</Icon>
+    ) : (
+      <Icon className={classes.iconFilterSet}>filter_list</Icon>
+    );
   };
 
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
-    const icon = this.getIcon(this.props.subfilter);
-
     return (
       <div>
         <IconButton onClick={this.handleClick}>
-          <Icon>{icon}</Icon>
+          {this.getIcon(this.props.subfilter)}
         </IconButton>
         <Popover
           id="simple-popper"
@@ -62,10 +79,11 @@ export class PopperSearchMenu extends React.Component {
     );
   }
 }
+export const StyledComponent = withStyles(styles)(PopperSearchMenu);
 
 export default connect(
   (state, props) => ({
     subfilter: getSubFilter(props.filterGroup, props.filterBy)(state)
   }),
   {}
-)(PopperSearchMenu);
+)(StyledComponent);

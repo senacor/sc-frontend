@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core';
 
 const styles = {
   tableCell: {
-    textAlign: 'center'
+    textAlign: 'left'
   }
 };
 
@@ -29,25 +29,19 @@ class EnhancedTableHead extends React.Component {
             return (
               <TableCell
                 key={index}
-                numeric={false}
                 padding={'none'}
                 sortDirection={orderBy === index ? order : false}
+                variant={'head'}
+                numeric={true}
               >
-                <List>
-                  <ListItem
-                    className={classes.tableCell}
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                  >
-                    {column.filter ? column.filter : null}
-                    <TableSortLabel
-                      active={orderBy === index}
-                      direction={order}
-                      onClick={this.createSortHandler(index)}
-                    >
-                      {column.label}
-                    </TableSortLabel>
-                  </ListItem>
-                </List>
+                <TableSortLabel
+                  active={orderBy === index}
+                  direction={order}
+                  onClick={this.createSortHandler(index)}
+                >
+                  {column.filter ? column.filter : null}
+                  {column.label}
+                </TableSortLabel>
               </TableCell>
             );
           }, this)}

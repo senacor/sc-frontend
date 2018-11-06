@@ -70,15 +70,20 @@ class PerformanceReviewsTable extends React.Component {
       sortFunction: this.props.columnDefinition[this.props.orderBy].numeric
         ? descInteger
         : descString,
-      sortMapper: this.props.columnDefinition[this.props.orderBy].sortValue
+      sortMapper: this.getSortMapper(
+        this.props.columnDefinition[this.props.orderBy]
+      )
     };
   }
+
+  getSortMapper = column => entry =>
+    column.sortValue(entry) ? column.sortValue(entry) : '';
 
   handleRequestSort = (event, index) => {
     const orderBy = index;
     const column = this.props.columnDefinition[index];
 
-    const sortMapper = column.sortValue;
+    const sortMapper = this.getSortMapper(column);
     let order = 'desc';
 
     if (this.state.orderBy === index && this.state.order === 'desc') {

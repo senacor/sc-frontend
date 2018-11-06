@@ -103,11 +103,11 @@ describe('DateFilter Component', () => {
       '2018-01-01'
     );
     expect(component.find('#endDate').props().defaultValue).toEqual(
-      '2018-05-30'
+      '2018-12-31'
     );
   });
 
-  it('should able to change Date to and change Filter', () => {
+  it('should able to click forward Button', () => {
     const deleteFilter = jest.fn();
     const addFilter = jest.fn();
     const closeFilter = jest.fn();
@@ -117,8 +117,8 @@ describe('DateFilter Component', () => {
         filterGroup={FILTER_GROUPS.HR}
         filterBy={HR_ELEMENTS.DEADLINE}
         filter={{
-          searchString: 'deadline_from=2018-01-01&deadline_to=2018-12-31',
-          values: { from: '2018-01-01', to: '2018-12-31' }
+          searchString: 'deadlineFrom=2018-01-01&deadlineTo=2018-12-31',
+          values: { From: '2018-01-01', To: '2018-12-31' }
         }}
         addFilter={addFilter}
         deleteFilter={deleteFilter}

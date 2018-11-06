@@ -1,23 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EnhancedTableHead component should match snapshot 1`] = `
-<TableHead
-  classes={
-    Object {
-      "root": "MuiTableHead-root-1",
-    }
-  }
-  component="thead"
->
+<WithStyles(TableHead)>
   <WithStyles(TableRow)>
     <WithStyles(TableCell)
       key="0"
       numeric={false}
-      padding="default"
-      sortDirection={false}
+      padding="none"
+      sortDirection="asc"
     >
       <WithStyles(List)>
-        <WithStyles(ListItem)>
+        <WithStyles(ListItem)
+          className="EnhancedTableHead-tableCell-1"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "center",
+            }
+          }
+        >
           <Connect(PopperSearchMenu)>
             <Connect(EmployeeFilter)
               filterBy="employee"
@@ -25,7 +26,7 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
             />
           </Connect(PopperSearchMenu)>
           <WithStyles(TableSortLabel)
-            active={false}
+            active={true}
             direction="asc"
             onClick={[Function]}
           >
@@ -35,5 +36,5 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
       </WithStyles(List)>
     </WithStyles(TableCell)>
   </WithStyles(TableRow)>
-</TableHead>
+</WithStyles(TableHead)>
 `;
