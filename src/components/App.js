@@ -54,6 +54,9 @@ const App = () => (
       <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
       <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
       <PrivateRoute exact path="/myPrs" component={PrOverviewEmployeeAppBar} />
+      {
+        //TODO PR594 delete old Routes
+      }
       <PrivateRoute exact path="/myPrs_old" component={MyPRListWithAppBar} />
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
       <PrivateRoute exact path="/prs_old" component={PRListWithAppBar} />
