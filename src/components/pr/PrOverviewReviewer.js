@@ -231,7 +231,6 @@ export class PrOverviewReviewer extends React.Component {
       this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.REVIEWER);
     }
   }
-
   render() {
     const columns = this.getColumnDefinitions();
     return (
