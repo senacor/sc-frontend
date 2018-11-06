@@ -82,7 +82,7 @@ class CustomAppBar extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
+            <Typography variant="h6" color="inherit" noWrap>
               Senacor Portal
             </Typography>
           </Toolbar>

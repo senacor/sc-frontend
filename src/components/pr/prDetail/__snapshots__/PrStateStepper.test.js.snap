@@ -33,7 +33,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
       <WithStyles(Typography)
         className="PrStateStepper-mainStepLabel-2"
         gutterBottom={true}
-        variant="subheading"
+        variant="subtitle1"
       >
         Vorbereitung
       </WithStyles(Typography)>
@@ -105,7 +105,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
       <WithStyles(Typography)
         className="PrStateStepper-mainStepLabel-2"
         gutterBottom={true}
-        variant="subheading"
+        variant="subtitle1"
       >
         Gespräch
       </WithStyles(Typography)>
@@ -146,7 +146,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
       <WithStyles(Typography)
         className="PrStateStepper-mainStepLabel-2"
         gutterBottom={true}
-        variant="subheading"
+        variant="subtitle1"
       >
         Abschluss
       </WithStyles(Typography)>
@@ -165,7 +165,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
       <WithStyles(Typography)
         className="PrStateStepper-mainStepLabel-2"
         gutterBottom={true}
-        variant="subheading"
+        variant="subtitle1"
       >
         Archivieren
       </WithStyles(Typography)>

@@ -19,6 +19,9 @@ const senacorColorPalette = {
 };
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
   palette: {
     primary: senacorColorPalette,
     contrastThreshold: 3,

@@ -4,7 +4,7 @@ exports[`PRList Component displays the list of prs 1`] = `
 <div>
   <WithStyles(Typography)
     paragraph={true}
-    variant="display1"
+    variant="h4"
   >
     Performance Reviews
   </WithStyles(Typography)>
@@ -33,11 +33,11 @@ exports[`PRList Component displays the list of prs 1`] = `
           className="PRList-content-7"
         >
           <WithStyles(Typography)
-            variant="display1"
+            variant="h4"
           />
           <WithStyles(Typography)
             color="textSecondary"
-            variant="subheading"
+            variant="subtitle1"
           >
             Performance Review
           </WithStyles(Typography)>
@@ -139,11 +139,11 @@ exports[`PRList Component displays the list of prs 1`] = `
           className="PRList-content-7"
         >
           <WithStyles(Typography)
-            variant="display1"
+            variant="h4"
           />
           <WithStyles(Typography)
             color="textSecondary"
-            variant="subheading"
+            variant="subtitle1"
           >
             Performance Review
           </WithStyles(Typography)>

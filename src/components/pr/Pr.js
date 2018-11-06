@@ -205,21 +205,21 @@ export class Pr extends React.Component {
         <Hidden smDown>
           <div className={classes.cardContainerRow}>
             <Card className={classes.cardColumnSheet}>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body1" className={classes.title}>
                 SHEET
               </Typography>
               <PrSheet />
             </Card>
 
             <Card className={classes.cardColumnStatus}>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body1" className={classes.title}>
                 STATUS
               </Typography>
               <PrState expanded={this.state.expanded} />
             </Card>
 
             <Card className={classes.cardColumn}>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body1" className={classes.title}>
                 GEHALT UND ANSTELLUNG
               </Typography>
 

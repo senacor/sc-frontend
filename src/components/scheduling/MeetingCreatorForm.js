@@ -109,7 +109,7 @@ class MeetingCreatorForm extends React.Component {
           <Button
             id="createMeeting"
             className={classes.button}
-            variant="raised"
+            variant="contained"
             onClick={this.handleClickOfMeetingButton}
             type="submit"
           >

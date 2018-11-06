@@ -26,7 +26,7 @@ export class PersonToggle extends React.Component {
           <Typography variant="caption" color="textSecondary">
             {this.props.displayRole}
           </Typography>
-          <Typography variant="subheading" noWrap>
+          <Typography variant="subtitle1" noWrap>
             {this.props.displayName}
           </Typography>
         </Grid>

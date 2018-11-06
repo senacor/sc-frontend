@@ -13,7 +13,7 @@ class MyPerformanceReviews extends Component {
   render() {
     return (
       <div>
-        <Typography variant="display1" paragraph>
+        <Typography variant="h4" paragraph>
           Performance Reviews
         </Typography>
 

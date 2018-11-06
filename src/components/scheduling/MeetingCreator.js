@@ -90,7 +90,7 @@ export class MeetingCreator extends Component {
     const allAppointments = this.props.appointmentsSearchResults;
     return (
       <React.Fragment>
-        <Typography gutterBottom variant="display1">
+        <Typography gutterBottom variant="h4">
           Terminfindung
         </Typography>
         <Grid id={'tableRolePick'} container spacing={24} direction="column">
