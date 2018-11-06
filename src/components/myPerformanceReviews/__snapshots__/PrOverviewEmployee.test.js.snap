@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrOverviewReviewer Component should match snapshot 1`] = `
-<WithStyles(List)>
+<List
+  classes={
+    Object {
+      "dense": "MuiList-dense-3",
+      "padding": "MuiList-padding-2",
+      "root": "MuiList-root-1",
+      "subheader": "MuiList-subheader-4",
+    }
+  }
+  component="ul"
+  dense={false}
+  disablePadding={false}
+>
   <WithStyles(ListItem)>
     <Connect(RequestPerformanceReview) />
   </WithStyles(ListItem)>
@@ -189,5 +201,5 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       orderBy={1}
     />
   </WithStyles(ListItem)>
-</WithStyles(List)>
+</List>
 `;

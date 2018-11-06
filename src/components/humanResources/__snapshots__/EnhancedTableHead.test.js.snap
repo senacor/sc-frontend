@@ -14,7 +14,7 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
       key="0"
       numeric={false}
       padding="default"
-      sortDirection={false}
+      sortDirection="asc"
     >
       <WithStyles(List)>
         <WithStyles(ListItem)>
@@ -25,7 +25,7 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
             />
           </Connect(PopperSearchMenu)>
           <WithStyles(TableSortLabel)
-            active={false}
+            active={true}
             direction="asc"
             onClick={[Function]}
           >
