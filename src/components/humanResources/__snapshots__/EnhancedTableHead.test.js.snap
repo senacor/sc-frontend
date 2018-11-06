@@ -1,40 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EnhancedTableHead component should match snapshot 1`] = `
-<WithStyles(TableHead)>
+<TableHead
+  classes={
+    Object {
+      "root": "MuiTableHead-root-1",
+    }
+  }
+  component="thead"
+>
   <WithStyles(TableRow)>
     <WithStyles(TableCell)
       key="0"
-      numeric={false}
+      numeric={true}
       padding="none"
       sortDirection="asc"
+      variant="head"
     >
-      <WithStyles(List)>
-        <WithStyles(ListItem)
-          className="EnhancedTableHead-tableCell-1"
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Connect(PopperSearchMenu)>
-            <Connect(EmployeeFilter)
-              filterBy="employee"
-              filterGroup="hr"
-            />
-          </Connect(PopperSearchMenu)>
-          <WithStyles(TableSortLabel)
-            active={true}
-            direction="asc"
-            onClick={[Function]}
-          >
-            Mitarbeiter
-          </WithStyles(TableSortLabel)>
-        </WithStyles(ListItem)>
-      </WithStyles(List)>
+      <WithStyles(TableSortLabel)
+        active={true}
+        direction="asc"
+        onClick={[Function]}
+      >
+        <Connect(WithStyles(PopperSearchMenu))>
+          <Connect(EmployeeFilter)
+            filterBy="employee"
+            filterGroup="hr"
+          />
+        </Connect(WithStyles(PopperSearchMenu))>
+        Mitarbeiter
+      </WithStyles(TableSortLabel)>
     </WithStyles(TableCell)>
   </WithStyles(TableRow)>
-</WithStyles(TableHead)>
+</TableHead>
 `;

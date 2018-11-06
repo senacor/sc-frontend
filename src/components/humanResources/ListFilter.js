@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import Divider from '@material-ui/core/Divider/Divider';
+import Icon from '@material-ui/core/Icon/Icon';
 
 export class ListFilter extends Component {
   constructor(props) {
@@ -117,6 +118,8 @@ export class ListFilter extends Component {
           id={'selectAll'}
           checked={this.state.isAllSelected}
           color={'primary'}
+          checkedIcon={<Icon>check</Icon>}
+          icon={<Icon />}
         />
         <ListItemText primary={'selectAll'} />
       </ListItem>
@@ -129,6 +132,8 @@ export class ListFilter extends Component {
           id={value}
           checked={this.state.checked.indexOf(value) !== -1}
           color={'primary'}
+          checkedIcon={<Icon>check</Icon>}
+          icon={<Icon />}
         />
         <ListItemText primary={value} />
       </ListItem>

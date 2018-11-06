@@ -52,9 +52,6 @@ const styles = theme => ({
   },
   tableWrapper: {
     overflowX: 'auto'
-  },
-  tableCell: {
-    textAlign: 'center'
   }
 });
 
@@ -134,11 +131,7 @@ class PerformanceReviewsTable extends React.Component {
                     <TableRow hover tabIndex={-1} key={lineIndex}>
                       {columnDefinition.map((column, columnIndex) => {
                         return (
-                          <TableCell
-                            className={classes.tableCell}
-                            padding={'checkbox'}
-                            key={columnIndex}
-                          >
+                          <TableCell padding={'checkbox'} key={columnIndex}>
                             {column.render(line)}
                           </TableCell>
                         );

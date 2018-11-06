@@ -11,17 +11,17 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
       aria-labelledby="tableTitle"
       className="PerformanceReviewsTable-table-2"
     >
-      <WithStyles(EnhancedTableHead)
+      <EnhancedTableHead
         columnDefinition={
           Array [
             Object {
               "disablePadding": false,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="employee"
                 filterGroup="hr"
           >
                 <Connect(EmployeeFilter) />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Mitarbeiter",
               "numeric": false,
               "render": [Function],
@@ -29,12 +29,12 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="deadline"
                 filterGroup="hr"
           >
                 <Connect(DateFilter) />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Fälligkeit",
               "numeric": true,
               "render": [Function],
@@ -42,7 +42,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": false,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="occasion"
                 filterGroup="hr"
           >
@@ -55,7 +55,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Grund",
               "numeric": false,
               "render": [Function],
@@ -70,7 +70,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="competence"
                 filterGroup="hr"
           >
@@ -82,7 +82,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Dev/Con",
               "numeric": false,
               "render": [Function],
@@ -90,7 +90,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="level"
                 filterGroup="hr"
           >
@@ -102,7 +102,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "level",
               "numeric": true,
               "render": [Function],
@@ -110,12 +110,12 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="supervisor"
                 filterGroup="hr"
           >
                 <Connect(EmployeeFilter) />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Vorgesetzte/r",
               "numeric": false,
               "render": [Function],
@@ -123,12 +123,12 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="reviewer"
                 filterGroup="hr"
           >
                 <Connect(EmployeeFilter) />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Bewerter",
               "numeric": false,
               "render": [Function],
@@ -143,7 +143,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="isEmployeePreparationDone"
                 filterGroup="hr"
           >
@@ -155,7 +155,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "MA ausgefüllt",
               "numeric": false,
               "render": [Function],
@@ -163,7 +163,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": false,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="isReviewerPreparationDone"
                 filterGroup="hr"
           >
@@ -175,7 +175,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Beurteiler ausgefüllt",
               "numeric": false,
               "render": [Function],
@@ -191,7 +191,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="isInProgress"
                 filterGroup="hr"
           >
@@ -203,7 +203,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Finaler Status",
               "numeric": false,
               "render": [Function],
@@ -211,7 +211,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
+              "filter": <Connect(WithStyles(PopperSearchMenu))
                 filterBy="isHumanResourceProcessingDone"
                 filterGroup="hr"
           >
@@ -223,7 +223,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
                                 }
                       }
                 />
-          </Connect(PopperSearchMenu)>,
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "HR verarbeitet",
               "numeric": false,
               "render": [Function],
@@ -242,7 +242,6 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="0"
             padding="checkbox"
           >
@@ -254,85 +253,72 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="1"
             padding="checkbox"
           >
             01.02.2018
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="2"
             padding="checkbox"
           >
             Auf Nachfrage
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="3"
             padding="checkbox"
           />
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="4"
             padding="checkbox"
           >
             CON
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="5"
             padding="checkbox"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="6"
             padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="7"
             padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="8"
             padding="checkbox"
           />
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="9"
             padding="checkbox"
           >
             ja
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="10"
             padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="11"
             padding="checkbox"
           />
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="12"
             padding="checkbox"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="13"
             padding="checkbox"
           >
@@ -345,7 +331,6 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="0"
             padding="checkbox"
           >
@@ -357,85 +342,72 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="1"
             padding="checkbox"
           >
             01.01.2018
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="2"
             padding="checkbox"
           >
             Auf Nachfrage
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="3"
             padding="checkbox"
           />
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="4"
             padding="checkbox"
           >
             DEV
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="5"
             padding="checkbox"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="6"
             padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="7"
             padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="8"
             padding="checkbox"
           />
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="9"
             padding="checkbox"
           >
             ja
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="10"
             padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="11"
             padding="checkbox"
           />
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="12"
             padding="checkbox"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            className="PerformanceReviewsTable-tableCell-4"
             key="13"
             padding="checkbox"
           >

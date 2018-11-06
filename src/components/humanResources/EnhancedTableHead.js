@@ -4,23 +4,14 @@ import TableRow from '@material-ui/core/TableRow/TableRow';
 import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel/TableSortLabel';
 import PropTypes from 'prop-types';
-import List from '@material-ui/core/List/List';
-import ListItem from '@material-ui/core/ListItem/ListItem';
-import { withStyles } from '@material-ui/core';
 
-const styles = {
-  tableCell: {
-    textAlign: 'left'
-  }
-};
-
-class EnhancedTableHead extends React.Component {
+export default class EnhancedTableHead extends React.Component {
   createSortHandler = index => event => {
     this.props.onRequestSort(event, index);
   };
 
   render() {
-    const { order, orderBy, columnDefinition, classes } = this.props;
+    const { order, orderBy, columnDefinition } = this.props;
 
     return (
       <TableHead>
@@ -57,6 +48,3 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.number.isRequired,
   columnDefinition: PropTypes.array.isRequired
 };
-
-const StyledComponent = withStyles(styles)(EnhancedTableHead);
-export default StyledComponent;

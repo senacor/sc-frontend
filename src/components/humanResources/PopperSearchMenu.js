@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import { getSubFilter } from '../../reducers/selector';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import { PrOverviewReviewer } from '../pr/PrOverviewReviewer';
 
 const styles = theme => ({
   iconFilterSet: {
