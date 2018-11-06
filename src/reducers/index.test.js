@@ -26,7 +26,6 @@ describe('reducers', () => {
           message: { someValue }
         },
         events: [someValue],
-        humanResourcesPrs: { someValue },
         filter: { someValue },
         finalCommentEmployee: { someValue },
         isLoading: false,
@@ -47,6 +46,7 @@ describe('reducers', () => {
         },
         prs: { someValue },
         requiredFields: { employee: false, reviewer: true },
+        tablePrs: { someValue },
         search: {
           prSearchResults: [someValue]
         },
@@ -77,7 +77,6 @@ describe('reducers', () => {
         filter: {},
         finalCommentEmployee: {},
         finalCommentHr: {},
-        humanResourcesPrs: {},
         isLoading: false,
         login: {
           isLoggedIn: false,
@@ -104,6 +103,7 @@ describe('reducers', () => {
         },
         prs: {},
         requiredFields: { employee: true, reviewer: true },
+        tablePrs: {},
         search: {
           prSearchResults: []
         },

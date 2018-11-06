@@ -7,7 +7,8 @@ import {
   FETCH_PR_BY_ID_RESPONSE,
   CHANGE_RATING_TARGETROLE_RESPONSE,
   FETCH_PRS_HR_RESPONSE,
-  ADD_TEXT_RESPONSE
+  ADD_TEXT_RESPONSE,
+  FETCH_OWN_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 import generateMapById from '../helper/generateMapById';
 import cloneDeep from '../helper/cloneDeep';
@@ -72,7 +73,6 @@ export const prs = (state = {}, action) => {
 
       return set(cloneDeep(state), `${prId}.finalCommentEmployee`, comment);
     }
-
     default:
       return state;
   }
@@ -86,8 +86,10 @@ export const sortOrderPrs = (state = '', action) => {
   return 'desc';
 };
 
-export const humanResourcesPrs = (state = {}, action) => {
+export const tablePrs = (state = {}, action) => {
   switch (action.type) {
+    case FETCH_OWN_PRS_RESPONSE:
+      return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
     case FETCH_PRS_HR_RESPONSE:
       return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
     default:

@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OverviewPerformanceReviews should match snapshot 1`] = `
-<WithStyles(PerformanceReviewsTable)
+<PerformanceReviewsTable
+  classes={
+    Object {
+      "root": "PerformanceReviewsTable-root-1",
+      "table": "PerformanceReviewsTable-table-2",
+      "tableWrapper": "PerformanceReviewsTable-tableWrapper-3",
+    }
+  }
   columnDefinition={
     Array [
       Object {

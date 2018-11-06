@@ -8,33 +8,35 @@ import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
 import { translateContent } from '../translate/Translate';
-import PrOverviewReviewerDelegate from './PrOverviewReviewerDelegate';
-import REVIEWER_ELEMENTS from './tablePrsElements';
-import FILTER_GROUPS from '../humanResources/filterGroups';
+import RequestPerformanceReview from './RequestPerformanceReview';
+import List from '@material-ui/core/List/List';
+import ListItem from '@material-ui/core/ListItem/ListItem';
+import TABLE_PRS_ELEMENTS from '../pr/tablePrsElements';
 import PopperSearchMenu from '../humanResources/PopperSearchMenu';
+import FILTER_GROUPS from '../humanResources/filterGroups';
 import EmployeeFilter from '../humanResources/EmployeeFilter';
 import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
 
-export class PrOverviewReviewer extends React.Component {
+export class PrOverviewEmployee extends React.Component {
   getColumnDefinitions = () => {
     return [
       {
         numeric: false,
         disablePadding: false,
         label: 'Mitarbeiter',
-        sortValue: entry => getDisplayName(entry[REVIEWER_ELEMENTS.EMPLOYEE]),
+        sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
         render: entry => {
           return (
             <Link to={`/prDetail/${entry.prId}`}>
-              {getDisplayName(entry[REVIEWER_ELEMENTS.EMPLOYEE])}
+              {getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE])}
             </Link>
           );
         },
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.EMPLOYEE}
+            filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE}
           >
             <EmployeeFilter />
           </PopperSearchMenu>
@@ -44,13 +46,13 @@ export class PrOverviewReviewer extends React.Component {
         numeric: true,
         disablePadding: true,
         label: 'Fälligkeit',
-        sortValue: entry => entry[REVIEWER_ELEMENTS.DEADLINE],
+        sortValue: entry => entry[TABLE_PRS_ELEMENTS.DEADLINE],
         render: entry =>
-          formatDateForFrontend(entry[REVIEWER_ELEMENTS.DEADLINE]),
+          formatDateForFrontend(entry[TABLE_PRS_ELEMENTS.DEADLINE]),
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.DEADLINE}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={TABLE_PRS_ELEMENTS.DEADLINE}
           >
             <DateFilter />
           </PopperSearchMenu>
@@ -61,11 +63,12 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: false,
         label: 'Grund',
         sortValue: entry =>
-          translateContent(entry[REVIEWER_ELEMENTS.PR_OCCASION]),
-        render: entry => translateContent(entry[REVIEWER_ELEMENTS.PR_OCCASION]),
+          translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
+        render: entry =>
+          translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
             filterBy={'occasion'}
           >
             <ListFilter
@@ -82,21 +85,25 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: false,
         label: 'Projektkst',
-        sortValue: entry => entry[REVIEWER_ELEMENTS.CST],
-        render: entry => entry[REVIEWER_ELEMENTS.CST]
+        sortValue: entry => entry[TABLE_PRS_ELEMENTS.CST],
+        render: entry => entry[TABLE_PRS_ELEMENTS.CST]
       },
       {
         numeric: false,
         disablePadding: true,
         label: 'Dev/Con',
         sortValue: entry =>
-          translateContent(`COMPETENCE_${entry[REVIEWER_ELEMENTS.COMPETENCE]}`),
+          translateContent(
+            `COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`
+          ),
         render: entry =>
-          translateContent(`COMPETENCE_${entry[REVIEWER_ELEMENTS.COMPETENCE]}`),
+          translateContent(
+            `COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`
+          ),
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.COMPETENCE}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={TABLE_PRS_ELEMENTS.COMPETENCE}
           >
             <ListFilter
               content={{
@@ -111,12 +118,12 @@ export class PrOverviewReviewer extends React.Component {
         numeric: true,
         disablePadding: true,
         label: 'level',
-        sortValue: entry => entry[REVIEWER_ELEMENTS.LEVEL],
-        render: entry => entry[REVIEWER_ELEMENTS.LEVEL],
+        sortValue: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
+        render: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.LEVEL}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={TABLE_PRS_ELEMENTS.LEVEL}
           >
             <ListFilter
               content={{
@@ -131,12 +138,13 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: true,
         label: 'Vorgesetzte/r',
-        sortValue: entry => getDisplayName(entry[REVIEWER_ELEMENTS.SUPERVISOR]),
-        render: entry => getDisplayName(entry[REVIEWER_ELEMENTS.SUPERVISOR]),
+        sortValue: entry =>
+          getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
+        render: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.SUPERVISOR}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={TABLE_PRS_ELEMENTS.SUPERVISOR}
           >
             <EmployeeFilter />
           </PopperSearchMenu>
@@ -146,38 +154,37 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: true,
         label: 'Bewerter',
-        sortValue: entry => getDisplayName(entry[REVIEWER_ELEMENTS.REVIEWER]),
-        render: entry => getDisplayName(entry[REVIEWER_ELEMENTS.REVIEWER]),
+        sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER]),
+        render: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER]),
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.REVIEWER}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={TABLE_PRS_ELEMENTS.REVIEWER}
           >
             <EmployeeFilter />
           </PopperSearchMenu>
         )
       },
       {
-        key: REVIEWER_ELEMENTS.RESULT,
         numeric: false,
         disablePadding: true,
         label: 'Bewertung',
-        sortValue: entry => entry[REVIEWER_ELEMENTS.RESULT],
-        render: entry => entry[REVIEWER_ELEMENTS.RESULT]
+        sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
+        render: entry => entry[TABLE_PRS_ELEMENTS.RESULT]
       },
       {
-        key: REVIEWER_ELEMENTS.REVIEWER_PREPARATION_DONE,
+        key: TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE,
         numeric: false,
         disablePadding: true,
         label: 'Beurteiler ausgefüllt',
         sortValue: entry =>
-          entry[REVIEWER_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
+          entry[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
         render: entry =>
-          entry[REVIEWER_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
+          entry[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.REVIEWER_PREPARATION_DONE}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={'isReviewerPreparationDone'}
           >
             <ListFilter content={{ ja: true, nein: false }} />
           </PopperSearchMenu>
@@ -187,74 +194,66 @@ export class PrOverviewReviewer extends React.Component {
         numeric: false,
         disablePadding: true,
         label: 'Termin',
-        sortValue: entry => entry[REVIEWER_ELEMENTS.APPOINTMENT],
+        sortValue: entry => entry[TABLE_PRS_ELEMENTS.APPOINTMENT],
         render: entry =>
-          formatDateForFrontend(entry[REVIEWER_ELEMENTS.APPOINTMENT])
+          formatDateForFrontend(entry[TABLE_PRS_ELEMENTS.APPOINTMENT])
       },
       {
         numeric: false,
         disablePadding: true,
         label: 'Finaler Status',
         sortValue: entry =>
-          entry[REVIEWER_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+          entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
         render: entry =>
-          entry[REVIEWER_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+          entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
         filter: (
           <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={REVIEWER_ELEMENTS.IN_PROGRESS}
+            filterGroup={FILTER_GROUPS.EMPLOYEE}
+            filterBy={'isInProgress'}
           >
             <ListFilter content={{ laufend: true, abgeschlossen: false }} />
           </PopperSearchMenu>
         )
-      },
-      {
-        numeric: false,
-        disablePadding: true,
-        label: 'Delegieren',
-        sortValue: entry =>
-          entry[REVIEWER_ELEMENTS.SUPERVISOR].login === this.props.username
-            ? 'Delegieren'
-            : '',
-        render: entry => {
-          return entry[REVIEWER_ELEMENTS.SUPERVISOR].login ===
-            this.props.username ? (
-            <PrOverviewReviewerDelegate prId={entry.id} />
-          ) : null;
-        }
       }
     ];
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
-      this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.REVIEWER);
+      this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.EMPLOYEE);
     }
   }
+
   render() {
     const columns = this.getColumnDefinitions();
     return (
-      <PerformanceReviewsTable
-        columnDefinition={columns}
-        orderBy={1}
-        data={this.props.data}
-      />
+      <List>
+        <ListItem>
+          <RequestPerformanceReview />
+        </ListItem>
+        <ListItem>
+          <PerformanceReviewsTable
+            columnDefinition={columns}
+            orderBy={1}
+            data={this.props.data}
+          />
+        </ListItem>
+      </List>
     );
   }
 }
 
 export default connect(
   state => ({
-    data: getAllPrsForTable(state),
     isLoading: state.isLoading,
-    username: state.userinfo.userPrincipalName,
-    filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
+    data: getAllPrsForTable(state),
+    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
   }),
   {
     fetchFilteredPrs: actions.fetchFilteredPrs
   }
 )(
   withLoading(props =>
-    props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER)
-  )(PrOverviewReviewer)
+    props.fetchFilteredPrs(props.filter, FILTER_GROUPS.EMPLOYEE)
+  )(PrOverviewEmployee)
 );

@@ -26,8 +26,8 @@ describe('filter reducer', () => {
         deadline: {
           searchString: `deadlineFrom=${hr_initDateFrom}&deadlineTo=${hr_initDateTo}`,
           values: {
-            from: '2018-01-01',
-            to: '2018-12-31'
+            From: '2018-01-01',
+            To: '2018-12-31'
           }
         }
       }

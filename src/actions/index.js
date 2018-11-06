@@ -21,7 +21,8 @@ export { addMeeting, fetchMeeting } from './meetings';
 export { addPrStatus } from './status';
 export {
   fetchAllPrsForHumanResource,
-  fetchFilteredPrsForHumanResource
+  fetchFilteredPrsForHumanResource,
+  fetchFilteredPrs
 } from './prs';
 export { addFilter, deleteFilter } from './filter';
 

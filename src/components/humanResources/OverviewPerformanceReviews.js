@@ -3,9 +3,8 @@ import PerformanceReviewsTable from './PerformanceReviewsTable';
 import HR_ELEMENTS from './hrElements';
 import { translateContent } from '../translate/Translate';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { getAllPrsForHumanResources, getFilter } from '../../reducers/selector';
+import { getAllPrsForTable, getFilter } from '../../reducers/selector';
 import * as actions from '../../actions';
 import withLoading from '../hoc/Loading';
 import PopperSearchMenu from './PopperSearchMenu';
@@ -16,20 +15,7 @@ import ListFilter from './ListFilter';
 import DateFilter from './DateFilter';
 import { formatDateForFrontend } from '../../helper/date';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3
-  },
-  table: {
-    minWidth: 1020
-  },
-  tableWrapper: {
-    overflowX: 'auto'
-  }
-});
-
-class OverviewPerformanceReviews extends Component {
+export class OverviewPerformanceReviews extends Component {
   getColumnDefinitions = () => {
     return [
       {
@@ -272,10 +258,9 @@ class OverviewPerformanceReviews extends Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(OverviewPerformanceReviews);
 export default connect(
-  (state, props) => ({
-    data: getAllPrsForHumanResources(state),
+  state => ({
+    data: getAllPrsForTable(state),
     filter: getFilter(FILTER_GROUPS.HR)(state)
   }),
   {
@@ -283,6 +268,6 @@ export default connect(
   }
 )(
   withLoading(props => props.fetchFilteredPrsForHumanResource(props.filter))(
-    StyledComponent
+    OverviewPerformanceReviews
   )
 );

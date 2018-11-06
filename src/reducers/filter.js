@@ -15,8 +15,8 @@ const hr_initDate = {
       HR_ELEMENTS.DEADLINE
     }To=${hr_initDateTo}`,
     values: {
-      from: hr_initDateFrom,
-      to: hr_initDateTo
+      From: hr_initDateFrom,
+      To: hr_initDateTo
     }
   }
 };
