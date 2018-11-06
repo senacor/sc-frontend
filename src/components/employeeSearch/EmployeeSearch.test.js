@@ -25,22 +25,33 @@ describe('EmployeeSearch Component', () => {
 
   it('should display the search field', () => {
     let shallow = createShallow({ dive: true });
-    let prSearchMock = jest.fn();
+    let employeeSearchMock = jest.fn();
+    let employeeSearchClearMock = jest.fn();
 
     const component = shallow(
-      <EmployeeSearch prSearch={prSearchMock} prSearchResults={searchResults} />
+      <EmployeeSearch
+        employeeSearch={employeeSearchMock}
+        employeeSearchClear={employeeSearchClearMock}
+        employeeSearchResults={searchResults}
+      />
     );
 
     expect(component).toMatchSnapshot();
   });
 
-  it('should send an search for employees onChange', () => {
-    let prSearchMock = jest.fn();
+  it('should clear the searchStore and send a search for employees onChange', () => {
+    let employeeSearchMock = jest.fn();
+    let employeeSearchClearMock = jest.fn();
     jest.useFakeTimers();
 
     const component = shallow(
-      <EmployeeSearch prSearch={prSearchMock} prSearchResults={searchResults} />
+      <EmployeeSearch
+        employeeSearch={employeeSearchMock}
+        employeeSearchClear={employeeSearchClearMock}
+        employeeSearchResults={searchResults}
+      />
     );
+    expect(employeeSearchClearMock).toHaveBeenCalledTimes(1);
 
     let event = {
       target: { value: 'Ma' }
@@ -51,17 +62,19 @@ describe('EmployeeSearch Component', () => {
     component.find('TextField').simulate('change', event);
     jest.runAllTimers();
 
-    expect(prSearchMock).toHaveBeenCalledTimes(1);
-    expect(prSearchMock).toHaveBeenCalledWith(payload);
+    expect(employeeSearchMock).toHaveBeenCalledTimes(1);
+    expect(employeeSearchMock).toHaveBeenCalledWith(payload);
   });
 
   it('should show the employeeList', () => {
-    let prSearchMock = jest.fn();
+    let employeeSearchMock = jest.fn();
+    let employeeSearchClearMock = jest.fn();
 
     const component = shallow(
       <EmployeeSearch
-        prSearch={prSearchMock}
-        prSearchResults={searchResults}
+        employeeSearch={employeeSearchMock}
+        employeeSearchResults={searchResults}
+        employeeSearchClear={employeeSearchClearMock}
         employeeSearchValue={'M'}
       />
     );
@@ -70,13 +83,15 @@ describe('EmployeeSearch Component', () => {
   });
 
   it('should be able to select an employee from the List', () => {
-    let prSearchMock = jest.fn();
+    let employeeSearchMock = jest.fn();
     let selectEmployeeMock = jest.fn();
+    let employeeSearchClearMock = jest.fn();
 
     const component = shallow(
       <EmployeeSearch
-        prSearch={prSearchMock}
-        prSearchResults={searchResults}
+        employeeSearch={employeeSearchMock}
+        employeeSearchResults={searchResults}
+        employeeSearchClear={employeeSearchClearMock}
         employeeSearchValue={'M'}
         selectEmployee={selectEmployeeMock}
       />
@@ -93,6 +108,7 @@ describe('EmployeeSearch Component', () => {
 
     let payload = searchResults[2];
     expect(selectEmployeeMock).toHaveBeenCalledTimes(1);
+    expect(employeeSearchClearMock).toHaveBeenCalledTimes(2);
     expect(selectEmployeeMock).toHaveBeenCalledWith(payload);
     expect(component.find('TextField').props().value).toEqual(
       'Manuela Vorgesetzter'

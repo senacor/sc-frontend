@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock';
-import { prSearch } from './employeeSearch';
+import { employeeSearch } from './employeeSearch';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -40,7 +40,7 @@ describe('employeeSearch', () => {
 
     const store = mockStore();
 
-    await store.dispatch(prSearch('lionel'));
+    await store.dispatch(employeeSearch('lionel'));
 
     expect(store.getActions()).toEqual([
       {

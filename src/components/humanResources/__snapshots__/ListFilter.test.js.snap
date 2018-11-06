@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmployeeFilter Component should match snapshot 1`] = `
+exports[`ListFilter Component should match snapshot 1`] = `
 <WithStyles(List)>
   <WithStyles(ListItem)
     button={true}
     dense={true}
     key="selectAll"
+    onClick={[Function]}
   >
     <WithStyles(Checkbox)
       checked={true}
       color="primary"
       id="selectAll"
-      onChange={[Function]}
     />
     <WithStyles(ListItemText)
       primary="selectAll"
@@ -21,12 +21,12 @@ exports[`EmployeeFilter Component should match snapshot 1`] = `
     button={true}
     dense={true}
     key="ja"
+    onClick={[Function]}
   >
     <WithStyles(Checkbox)
       checked={true}
       color="primary"
       id="ja"
-      onChange={[Function]}
     />
     <WithStyles(ListItemText)
       primary="ja"
@@ -36,12 +36,12 @@ exports[`EmployeeFilter Component should match snapshot 1`] = `
     button={true}
     dense={true}
     key="nein"
+    onClick={[Function]}
   >
     <WithStyles(Checkbox)
       checked={true}
       color="primary"
       id="nein"
-      onChange={[Function]}
     />
     <WithStyles(ListItemText)
       primary="nein"
@@ -51,12 +51,12 @@ exports[`EmployeeFilter Component should match snapshot 1`] = `
     button={true}
     dense={true}
     key="vielleicht"
+    onClick={[Function]}
   >
     <WithStyles(Checkbox)
       checked={true}
       color="primary"
       id="vielleicht"
-      onChange={[Function]}
     />
     <WithStyles(ListItemText)
       primary="vielleicht"

@@ -17,8 +17,5 @@ exports[`EmployeeSearch Component should display the search field 1`] = `
     value=""
     variant="standard"
   />
-  <p>
-    Keine Suchtreffer
-  </p>
 </div>
 `;

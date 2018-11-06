@@ -13,7 +13,7 @@ export {
 } from './sheet';
 export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
-export { prSearch } from './employeeSearch';
+export { employeeSearch, employeeSearchClear } from './employeeSearch';
 export { getCstMembers } from './cstMembers';
 export { getEvents } from './events';
 export { appointmentsSearch, changeDate } from './appointments';

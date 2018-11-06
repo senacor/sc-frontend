@@ -26,7 +26,7 @@ describe('DateFilter Component', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should able to change Date from and change Filter', () => {
+  it('should able to change Date from', () => {
     const deleteFilter = jest.fn();
     const addFilter = jest.fn();
 
@@ -45,19 +45,6 @@ describe('DateFilter Component', () => {
     let event = { target: { value: '2018-01-13' } };
     component.find('#startDate').simulate('change', event, 'From');
 
-    let payload = {
-      filterGroup: FILTER_GROUPS.HR,
-      filterBy: HR_ELEMENTS.DEADLINE,
-      filter: {
-        searchString: `${HR_ELEMENTS.DEADLINE}From=2018-01-13&${
-          HR_ELEMENTS.DEADLINE
-        }To=2018-12-31`,
-        values: { From: '2018-01-13', To: '2018-12-31' }
-      }
-    };
-
-    expect(addFilter).toHaveBeenCalledTimes(1);
-    expect(addFilter).toHaveBeenCalledWith(payload);
     expect(component.find('#startDate').props().defaultValue).toEqual(
       '2018-01-13'
     );
@@ -66,7 +53,7 @@ describe('DateFilter Component', () => {
     );
   });
 
-  it('should able to change Date to and change Filter', () => {
+  it('should able to change Date to', () => {
     const deleteFilter = jest.fn();
     const addFilter = jest.fn();
 
@@ -83,7 +70,34 @@ describe('DateFilter Component', () => {
       />
     );
     let event = { target: { value: '2018-05-30' } };
-    component.find('#endDate').simulate('change', event, 'to');
+    component.find('#endDate').simulate('change', event, 'To');
+
+    expect(component.find('#startDate').props().defaultValue).toEqual(
+      '2018-01-01'
+    );
+    expect(component.find('#endDate').props().defaultValue).toEqual(
+      '2018-05-30'
+    );
+  });
+
+  it('should able to change Date to and change Filter', () => {
+    const deleteFilter = jest.fn();
+    const addFilter = jest.fn();
+    const closeFilter = jest.fn();
+
+    let component = shallow(
+      <DateFilter
+        filterGroup={FILTER_GROUPS.HR}
+        filterBy={HR_ELEMENTS.DEADLINE}
+        filter={{
+          searchString: 'deadlineFrom=2018-01-01&deadlineTo=2018-12-31',
+          values: { From: '2018-01-01', To: '2018-12-31' }
+        }}
+        addFilter={addFilter}
+        deleteFilter={deleteFilter}
+        closeFilter={closeFilter}
+      />
+    );
 
     let payload = {
       filterGroup: FILTER_GROUPS.HR,
@@ -91,18 +105,13 @@ describe('DateFilter Component', () => {
       filter: {
         searchString: `${HR_ELEMENTS.DEADLINE}From=2018-01-01&${
           HR_ELEMENTS.DEADLINE
-        }To=2018-05-30`,
-        values: { From: '2018-01-01', To: '2018-05-30' }
+        }To=2018-12-31`,
+        values: { From: '2018-01-01', To: '2018-12-31' }
       }
     };
 
+    component.find('#forwardButton').simulate('click');
     expect(addFilter).toHaveBeenCalledTimes(1);
     expect(addFilter).toHaveBeenCalledWith(payload);
-    expect(component.find('#startDate').props().defaultValue).toEqual(
-      '2018-01-01'
-    );
-    expect(component.find('#endDate').props().defaultValue).toEqual(
-      '2018-05-30'
-    );
   });
 });

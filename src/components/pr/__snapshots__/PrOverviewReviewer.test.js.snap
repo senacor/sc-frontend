@@ -133,7 +133,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "disablePadding": true,
-        "key": "result",
         "label": "Bewertung",
         "numeric": false,
         "render": [Function],
@@ -154,7 +153,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
                 }
           />
     </Connect(PopperSearchMenu)>,
-        "key": "reviewerPreparationDone",
         "label": "Beurteiler ausgefüllt",
         "numeric": false,
         "render": [Function],

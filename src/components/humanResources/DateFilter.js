@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import TextField from '@material-ui/core/TextField/TextField';
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import Icon from '@material-ui/core/Icon/Icon';
 
 export class DateFilter extends Component {
   constructor(props) {
@@ -51,10 +53,16 @@ export class DateFilter extends Component {
     let newValues = Object.assign({}, this.state.values, {
       [key]: event.target.value
     });
-    if (newValues[key] === '') delete newValues[key];
+    if (newValues[key] === '') {
+      delete newValues[key];
+    }
 
-    this.setFilter(newValues);
     this.setState({ values: newValues });
+  };
+
+  execute = () => {
+    this.setFilter(this.state.values);
+    this.props.closeFilter();
   };
 
   render() {
@@ -82,6 +90,13 @@ export class DateFilter extends Component {
             }}
             onChange={this.onChange('To')}
           />
+          <IconButton
+            id="forwardButton"
+            aria-label="forward"
+            onClick={this.execute}
+          >
+            <Icon>forward</Icon>
+          </IconButton>
         </ListItem>
       </List>
     );

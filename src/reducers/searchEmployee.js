@@ -1,7 +1,6 @@
-import { combineReducers } from 'redux';
 import { FETCH_EMPLOYEES_RESPONSE } from '../helper/dispatchTypes';
 
-const prSearchResults = (state = [], action) => {
+export const employeeSearchResults = (state = [], action) => {
   switch (action.type) {
     case FETCH_EMPLOYEES_RESPONSE:
       return action.employees;
@@ -9,7 +8,3 @@ const prSearchResults = (state = [], action) => {
       return state;
   }
 };
-
-const search = combineReducers({ prSearchResults });
-
-export default search;

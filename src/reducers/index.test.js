@@ -46,10 +46,8 @@ describe('reducers', () => {
         },
         prs: { someValue },
         requiredFields: { employee: false, reviewer: true },
+        employeeSearchResults: [someValue],
         tablePrs: { someValue },
-        search: {
-          prSearchResults: [someValue]
-        },
         selectedDate: 'someValue',
         sortOrderPrs: 'des',
         tasks: {
@@ -103,10 +101,8 @@ describe('reducers', () => {
         },
         prs: {},
         requiredFields: { employee: true, reviewer: true },
+        employeeSearchResults: [],
         tablePrs: {},
-        search: {
-          prSearchResults: []
-        },
         selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
         sortOrderPrs: 'desc',
         tasks: {
