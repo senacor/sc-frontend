@@ -8,7 +8,6 @@ import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
 import { translateContent } from '../translate/Translate';
-import { withStyles } from '@material-ui/core';
 import RequestPerformanceReview from './RequestPerformanceReview';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
@@ -18,19 +17,6 @@ import FILTER_GROUPS from '../humanResources/filterGroups';
 import EmployeeFilter from '../humanResources/EmployeeFilter';
 import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3
-  },
-  table: {
-    minWidth: 1020
-  },
-  tableWrapper: {
-    overflowX: 'auto'
-  }
-});
 
 export class PrOverviewEmployee extends React.Component {
   getColumnDefinitions = () => {
@@ -257,7 +243,6 @@ export class PrOverviewEmployee extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(PrOverviewEmployee);
 export default connect(
   state => ({
     isLoading: state.isLoading,
@@ -270,5 +255,5 @@ export default connect(
 )(
   withLoading(props =>
     props.fetchFilteredPrs(props.filter, FILTER_GROUPS.EMPLOYEE)
-  )(StyledComponent)
+  )(PrOverviewEmployee)
 );

@@ -8,7 +8,6 @@ import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
 import { translateContent } from '../translate/Translate';
-import { withStyles } from '@material-ui/core';
 import PrOverviewReviewerDelegate from './PrOverviewReviewerDelegate';
 import REVIEWER_ELEMENTS from './tablePrsElements';
 import FILTER_GROUPS from '../humanResources/filterGroups';
@@ -16,19 +15,6 @@ import PopperSearchMenu from '../humanResources/PopperSearchMenu';
 import EmployeeFilter from '../humanResources/EmployeeFilter';
 import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3
-  },
-  table: {
-    minWidth: 1020
-  },
-  tableWrapper: {
-    overflowX: 'auto'
-  }
-});
 
 export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
@@ -258,7 +244,6 @@ export class PrOverviewReviewer extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(PrOverviewReviewer);
 export default connect(
   state => ({
     data: getAllPrsForTable(state),
@@ -272,5 +257,5 @@ export default connect(
 )(
   withLoading(props =>
     props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER)
-  )(StyledComponent)
+  )(PrOverviewReviewer)
 );
