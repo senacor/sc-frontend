@@ -40,16 +40,13 @@ export const getFilter = group => {
   );
 };
 export const getSubFilter = (group, subfilter) => {
-  return createSelector(
-    [state => state.filter],
-    filter => {
-      return filter[group]
+  return createSelector([state => state.filter], filter => {
+    return filter[group]
+      ? filter[group][subfilter]
         ? filter[group][subfilter]
-          ? filter[group][subfilter]
-          : ''
-        : '';
-    }
-  );
+        : ''
+      : '';
+  });
 };
 
 export const getFinalCommentEmployee = () => {
@@ -67,9 +64,8 @@ export const getFinalCommentHr = () => {
 };
 
 export const getSortedPrs = () => {
-  return createSelector(
-    [getAllPrs, getSortOrder],
-    (prs, sortOrder) => Array.from(prs).sort(dateSort(sortOrder))
+  return createSelector([getAllPrs, getSortOrder], (prs, sortOrder) =>
+    Array.from(prs).sort(dateSort(sortOrder))
   );
 };
 

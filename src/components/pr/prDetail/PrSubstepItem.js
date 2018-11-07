@@ -34,8 +34,8 @@ const PrSubstepItem = props => {
           substep.isCompleted
             ? substep.rendering.complete
             : substep.isCurrentUserActionPerformer
-            ? substep.rendering.incompleteForActionPerformer
-            : substep.rendering.incompleteForNonActionPerformer
+              ? substep.rendering.incompleteForActionPerformer
+              : substep.rendering.incompleteForNonActionPerformer
         }
       />
     </ListItem>
