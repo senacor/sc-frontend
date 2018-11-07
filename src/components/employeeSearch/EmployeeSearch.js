@@ -15,17 +15,14 @@ const styles = theme => ({
   box: {
     display: 'flex',
     padding: '20px',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    width: '200px'
   },
   listItem: {
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: '0',
+      paddingLeft: '5px',
       paddingRight: '0'
     },
-    textAlign: 'center'
-  },
-
-  insideList: {
     textAlign: 'center'
   },
   employeeList: {
@@ -34,6 +31,10 @@ const styles = theme => ({
 
   avatar: {
     backgroundColor: theme.palette.primary['500']
+  },
+  menu: {
+    height: '400px',
+    align: 'stretch'
   }
 });
 
@@ -45,15 +46,13 @@ export class EmployeeSearch extends React.Component {
     this.state = {
       employeeSearchValue: this.props.employeeSearchValue
         ? this.props.employeeSearchValue
-        : '',
-      searchReady: this.props.employeeSearchValue !== '' ? true : false
+        : ''
     };
   }
 
   handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value,
-      searchReady: false
+      employeeSearchValue: event.target.value
     });
     if (event.target.value) {
       this.executeSearch(event.target.value);
@@ -62,46 +61,59 @@ export class EmployeeSearch extends React.Component {
 
   selectedEmployee = employee => () => {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
-    this.setState({ employeeSearchValue: employeeName, searchReady: true });
+    this.setState({ employeeSearchValue: employeeName });
     this.props.selectEmployee(employee);
     this.props.employeeSearchClear();
   };
 
   executeSearch = debounce(this.props.employeeSearch, 500);
 
+  plotSearchEntry = (employee, classes) => {
+    return (
+      <div key={employee.id}>
+        <ListItem
+          button
+          className={classes.listItem}
+          onClick={this.selectedEmployee(employee)}
+        >
+          <Avatar className={classes.avatar}>
+            {employee.firstName.charAt(0)}
+            {employee.lastName.charAt(0)}
+          </Avatar>
+          <ListItemText primary={getDisplayName(employee)} />
+        </ListItem>
+        <Divider />
+      </div>
+    );
+  };
+
   render() {
-    const { classes, employeeSearchResults } = this.props;
-    const { employeeSearchValue, searchReady } = this.state;
+    const {
+      classes,
+      extClasses,
+      employeeSearchResults,
+      excludeList
+    } = this.props;
+    const { employeeSearchValue } = this.state;
 
     return (
-      <div className={classes.box}>
+      <div className={extClasses.root ? extClasses.root : classes.box}>
         {this.props.inputElement(employeeSearchValue, this.handleChange)}
         {employeeSearchValue !== '' ? (
           <List
+            dense
             id="employeeSearchResultList"
             component="nav"
             className={classes.employeeList}
           >
+            <ListItem />
             {employeeSearchResults.length > 0 ? (
               employeeSearchResults.map(employee => {
-                return (
-                  <div key={employee.id}>
-                    <ListItem
-                      button
-                      className={classes.listItem}
-                      onClick={this.selectedEmployee(employee)}
-                    >
-                      <Avatar className={classes.avatar}>
-                        {employee.firstName.charAt(0)}
-                        {employee.lastName.charAt(0)}
-                      </Avatar>
-                      <ListItemText primary={getDisplayName(employee)} />
-                    </ListItem>
-                    <Divider />
-                  </div>
-                );
+                return excludeList.includes(employee.id)
+                  ? null
+                  : this.plotSearchEntry(employee, classes);
               })
-            ) : searchReady ? null : (
+            ) : (
               <p>Keine Suchtreffer</p>
             )}
           </List>
@@ -121,7 +133,9 @@ EmployeeSearch.defaultProps = {
       }}
       onChange={onChange}
     />
-  )
+  ),
+  extClasses: {},
+  excludeList: []
 };
 
 export const StyledComponent = withStyles(styles)(EmployeeSearch);

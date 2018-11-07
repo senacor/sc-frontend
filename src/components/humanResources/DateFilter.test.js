@@ -130,7 +130,7 @@ describe('DateFilter Component', () => {
       '2018-01-01'
     );
     expect(component.find('#endDate').props().defaultValue).toEqual(
-      '2018-05-30'
+      '2018-12-31'
     );
   });
 

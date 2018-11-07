@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrDelegate Component should match snapshot 1`] = `
+<div
+  className="PrDelegate-box-1"
+>
+  <TextField
+    InputProps={
+      Object {
+        "classes": Object {
+          "focused": "PrDelegate-focused-8",
+          "input": "PrDelegate-input-6",
+        },
+        "disableUnderline": true,
+      }
+    }
+    className="PrDelegate-textField-5"
+    onChange={[Function]}
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Nicht übergeben"
+    required={false}
+    select={false}
+    value="Nicht übergeben"
+    variant="standard"
+  />
+  <WithStyles(Popover)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "bottom",
+      }
+    }
+    className="PrDelegate-menu-4"
+    disableAutoFocus={true}
+    id="simple-popper"
+    onClose={[Function]}
+    open={false}
+    transformOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "top",
+      }
+    }
+  >
+    <WithStyles(List)
+      component="nav"
+      dense={true}
+      id="employeeSearchResultList"
+    >
+      <div
+        key="502"
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrDelegate-listItem-2"
+          onClick={[Function]}
+        >
+          <WithStyles(Avatar)
+            className="PrDelegate-avatar-3"
+          >
+            M
+            M
+          </WithStyles(Avatar)>
+          <WithStyles(ListItemText)
+            primary="Michaela Mitarbeiterin"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(Divider) />
+      </div>
+      <div
+        key="499"
+      >
+        <WithStyles(ListItem)
+          button={true}
+          className="PrDelegate-listItem-2"
+          onClick={[Function]}
+        >
+          <WithStyles(Avatar)
+            className="PrDelegate-avatar-3"
+          >
+            M
+            N
+          </WithStyles(Avatar)>
+          <WithStyles(ListItemText)
+            primary="Markus None"
+          />
+        </WithStyles(ListItem)>
+        <WithStyles(Divider) />
+      </div>
+    </WithStyles(List)>
+  </WithStyles(Popover)>
+</div>
+`;

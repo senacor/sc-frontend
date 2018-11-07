@@ -283,56 +283,6 @@ describe('prs reducer', () => {
     });
   });
 
-  it('should generate a Map for reducer FETCH_OWN_PRS_RESPONSE', () => {
-    const stateBefore = {};
-    const action = {
-      type: FETCH_OWN_PRS_RESPONSE,
-      payload: {
-        prTableEntries: [
-          { prId: 1, employee: 'TEST' },
-          { prId: 2, employee: 'TEST' }
-        ]
-      }
-    };
-    const stateAfter = tablePrs(stateBefore, action);
-
-    expect(stateAfter).toEqual({
-      1: {
-        prId: 1,
-        employee: 'TEST'
-      },
-      2: {
-        prId: 2,
-        employee: 'TEST'
-      }
-    });
-  });
-
-  it('should generate a Map for reducer FETCH_OWN_PRS_RESPONSE', () => {
-    const stateBefore = {};
-    const action = {
-      type: FETCH_OWN_PRS_RESPONSE,
-      payload: {
-        prTableEntries: [
-          { prId: 1, employee: 'TEST' },
-          { prId: 2, employee: 'TEST' }
-        ]
-      }
-    };
-    const stateAfter = tablePrs(stateBefore, action);
-
-    expect(stateAfter).toEqual({
-      1: {
-        prId: 1,
-        employee: 'TEST'
-      },
-      2: {
-        prId: 2,
-        employee: 'TEST'
-      }
-    });
-  });
-
   it('should override finalCommentEmployee for CHANGE_FINAL_COMMENT_RESPONSE with id 2', () => {
     const payload = {
       prId: 2,

@@ -174,7 +174,7 @@ export class OverviewPerformanceReviews extends Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.HR}
-            filterBy={'isEmployeePreparationDone'}
+            filterBy={HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE}
           >
             <ListFilter content={{ ja: true, nein: false }} />
           </PopperSearchMenu>
@@ -191,7 +191,7 @@ export class OverviewPerformanceReviews extends Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.HR}
-            filterBy={'isReviewerPreparationDone'}
+            filterBy={HR_ELEMENTS.REVIEWER_PREPARATION_DONE}
           >
             <ListFilter content={{ ja: true, nein: false }} />
           </PopperSearchMenu>
@@ -216,7 +216,7 @@ export class OverviewPerformanceReviews extends Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.HR}
-            filterBy={'isInProgress'}
+            filterBy={HR_ELEMENTS.IN_PROGRESS}
           >
             <ListFilter content={{ laufend: true, abgeschlossen: false }} />
           </PopperSearchMenu>
@@ -233,7 +233,7 @@ export class OverviewPerformanceReviews extends Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.HR}
-            filterBy={'isHumanResourceProcessingDone'}
+            filterBy={HR_ELEMENTS.HR_PROCESSING_DONE}
           >
             <ListFilter content={{ ja: true, nein: false }} />
           </PopperSearchMenu>

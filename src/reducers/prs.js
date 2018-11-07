@@ -102,6 +102,16 @@ export const tablePrs = (state = {}, action) => {
       return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
     case FETCH_PRS_HR_RESPONSE:
       return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
+    case DELEGATE_REVIEWER_RESPONSE: {
+      let newPr = Object.assign({}, state[action.prNewReviewer.id], {
+        reviewer: action.prNewReviewer.reviewer
+      });
+      return cloneDeep(
+        Object.assign({}, state, {
+          [action.prNewReviewer.id]: newPr
+        })
+      );
+    }
     default:
       return state;
   }

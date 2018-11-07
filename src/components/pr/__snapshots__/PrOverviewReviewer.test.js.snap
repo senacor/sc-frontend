@@ -205,13 +205,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "render": [Function],
         "sortValue": [Function],
       },
-      Object {
-        "disablePadding": true,
-        "label": "Delegieren",
-        "numeric": false,
-        "render": [Function],
-        "sortValue": [Function],
-      },
     ]
   }
   orderBy={1}
