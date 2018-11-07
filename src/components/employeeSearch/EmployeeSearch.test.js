@@ -93,4 +93,5 @@ describe('EmployeeSearch Component', () => {
       'Manuela Vorgesetzter'
     );
   });
+
 });
