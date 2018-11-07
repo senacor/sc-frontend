@@ -16,174 +16,224 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           Array [
             Object {
               "disablePadding": false,
-              "filter": <Connect(PopperSearchMenu)>
-                <Connect(EmployeeFilter)
-                      filterBy="employee"
-                      filterGroup="hr"
-                />
-          </Connect(PopperSearchMenu)>,
-              "key": "employee",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="employee"
+                filterGroup="hr"
+          >
+                <Connect(EmployeeFilter) />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Mitarbeiter",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)
-                content={
-                      <WithStyles(List)>
-                            <WithStyles(ListItem)>
-                                  <TextField
-                                        InputLabelProps={
-                                              Object {
-                                                    "shrink": true,
-                                                  }
-                                        }
-                                        id="dateBegin"
-                                        label="Fälligkeit von"
-                                        required={false}
-                                        select={false}
-                                        type="date"
-                                        variant="standard"
-                                  />
-                                  <TextField
-                                        InputLabelProps={
-                                              Object {
-                                                    "shrink": true,
-                                                  }
-                                        }
-                                        defaultValue="2017-05-24"
-                                        id="dateEnd"
-                                        label="Fälligkeit bis"
-                                        required={false}
-                                        select={false}
-                                        type="date"
-                                        variant="standard"
-                                  />
-                            </WithStyles(ListItem)>
-                      </WithStyles(List)>
-                }
-          />,
-              "key": "deadline",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="deadline"
+                filterGroup="hr"
+          >
+                <Connect(DateFilter) />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Fälligkeit",
-              "mapper": [Function],
               "numeric": true,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": false,
-              "key": "prOccasion",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="occasion"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "Auf Nachfrage": "ON_DEMAND",
+                                  "Ende der Probezeit": "END_PROBATION",
+                                  "Jährlich": "YEARLY",
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Grund",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": false,
-              "key": "projectCst",
               "label": "Projektkst",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "key": "competence",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="competence"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "CON": "CONSULTING",
+                                  "DEV": "DEVELOPMENT",
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Dev/Con",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "key": "level",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="level"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "1": 1,
+                                  "2": 2,
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "level",
-              "mapper": [Function],
-              "numeric": false,
-              "show": [Function],
+              "numeric": true,
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)>
-                <Connect(EmployeeFilter)
-                      filterBy="supervisor"
-                      filterGroup="hr"
-                />
-          </Connect(PopperSearchMenu)>,
-              "key": "supervisor",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="supervisor"
+                filterGroup="hr"
+          >
+                <Connect(EmployeeFilter) />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Vorgesetzte/r",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "filter": <Connect(PopperSearchMenu)>
-                <Connect(EmployeeFilter)
-                      filterBy="reviewer"
-                      filterGroup="hr"
-                />
-          </Connect(PopperSearchMenu)>,
-              "key": "reviewer",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="reviewer"
+                filterGroup="hr"
+          >
+                <Connect(EmployeeFilter) />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Bewerter",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "key": "result",
               "label": "Bewertung",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "key": "employeePreparationDone",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="isEmployeePreparationDone"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "ja": true,
+                                  "nein": false,
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "MA ausgefüllt",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": false,
-              "key": "reviewerPreparationDone",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="isReviewerPreparationDone"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "ja": true,
+                                  "nein": false,
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Beurteiler ausgefüllt",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
               "key": "appointment",
               "label": "Termin",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "key": "inProgress",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="isInProgress"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "abgeschlossen": false,
+                                  "laufend": true,
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "Finaler Status",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
             Object {
               "disablePadding": true,
-              "key": "humanResourceProcessingDone",
+              "filter": <Connect(WithStyles(PopperSearchMenu))
+                filterBy="isHumanResourceProcessingDone"
+                filterGroup="hr"
+          >
+                <Connect(ListFilter)
+                      content={
+                            Object {
+                                  "ja": true,
+                                  "nein": false,
+                                }
+                      }
+                />
+          </Connect(WithStyles(PopperSearchMenu))>,
               "label": "HR verarbeitet",
-              "mapper": [Function],
               "numeric": false,
-              "show": [Function],
+              "render": [Function],
+              "sortValue": [Function],
             },
           ]
         }
         onRequestSort={[Function]}
         order="desc"
-        orderBy="deadline"
+        orderBy={1}
       />
       <WithStyles(TableBody)>
         <WithStyles(TableRow)
@@ -192,8 +242,8 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
-            key="employee"
-            padding="default"
+            key="0"
+            padding="checkbox"
           >
             <Link
               replace={false}
@@ -203,78 +253,74 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="deadline"
-            padding="none"
+            key="1"
+            padding="checkbox"
           >
-            2018-02-01
+            01.02.2018
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="prOccasion"
-            padding="default"
+            key="2"
+            padding="checkbox"
           >
-            <Translate
-              content="ON_DEMAND"
-            />
+            Auf Nachfrage
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="projectCst"
-            padding="default"
+            key="3"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
-            key="competence"
-            padding="none"
+            key="4"
+            padding="checkbox"
           >
-            <Translate
-              content="COMPETENCE_CONSULTANT"
-            />
+            CON
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="level"
-            padding="none"
+            key="5"
+            padding="checkbox"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="supervisor"
-            padding="none"
+            key="6"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="reviewer"
-            padding="none"
+            key="7"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="result"
-            padding="none"
+            key="8"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
-            key="employeePreparationDone"
-            padding="none"
+            key="9"
+            padding="checkbox"
           >
             ja
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="reviewerPreparationDone"
-            padding="default"
+            key="10"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="appointment"
-            padding="none"
+            key="11"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
-            key="inProgress"
-            padding="none"
+            key="12"
+            padding="checkbox"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="humanResourceProcessingDone"
-            padding="none"
+            key="13"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
@@ -285,8 +331,8 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
           tabIndex={-1}
         >
           <WithStyles(TableCell)
-            key="employee"
-            padding="default"
+            key="0"
+            padding="checkbox"
           >
             <Link
               replace={false}
@@ -296,78 +342,74 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
             </Link>
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="deadline"
-            padding="none"
+            key="1"
+            padding="checkbox"
           >
-            2018-01-01
+            01.01.2018
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="prOccasion"
-            padding="default"
+            key="2"
+            padding="checkbox"
           >
-            <Translate
-              content="ON_DEMAND"
-            />
+            Auf Nachfrage
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="projectCst"
-            padding="default"
+            key="3"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
-            key="competence"
-            padding="none"
+            key="4"
+            padding="checkbox"
           >
-            <Translate
-              content="COMPETENCE_DEVELOPMENT"
-            />
+            DEV
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="level"
-            padding="none"
+            key="5"
+            padding="checkbox"
           >
             1
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="supervisor"
-            padding="none"
+            key="6"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="reviewer"
-            padding="none"
+            key="7"
+            padding="checkbox"
           >
             Volker Vorgesetzter
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="result"
-            padding="none"
+            key="8"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
-            key="employeePreparationDone"
-            padding="none"
+            key="9"
+            padding="checkbox"
           >
             ja
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="reviewerPreparationDone"
-            padding="default"
+            key="10"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="appointment"
-            padding="none"
+            key="11"
+            padding="checkbox"
           />
           <WithStyles(TableCell)
-            key="inProgress"
-            padding="none"
+            key="12"
+            padding="checkbox"
           >
             abgeschlossen
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
-            key="humanResourceProcessingDone"
-            padding="none"
+            key="13"
+            padding="checkbox"
           >
             nein
           </WithStyles(TableCell)>

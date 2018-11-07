@@ -10,10 +10,10 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 import Grid from '@material-ui/core/Grid';
 
-import moment from 'moment';
-
 import { translateContent } from '../../translate/Translate';
 import PrHistory from './PrHistory';
+import getDisplayName from '../../../helper/getDisplayName';
+import { formatDateForFrontend } from '../../../helper/date';
 
 const styles = theme => ({
   root: {
@@ -22,19 +22,6 @@ const styles = theme => ({
   media: {
     height: 0,
     paddingTop: '56.25%' // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    }),
-    marginLeft: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      marginRight: -8
-    }
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
   },
   avatarContainer: {
     flex: '0 0 auto',
@@ -59,10 +46,24 @@ export class PrDetailInformation extends Component {
     }
 
     const { firstName, lastName } = pr.employee;
-    const fullName = `${firstName} ${lastName}`;
-    const subheader = `Fälligkeit: ${moment(pr.deadline).format(
-      'DD.MM.YY'
-    )}, ACD_BOOT, Developer, ${translateContent(pr.occasion)}`;
+    const termin = formatDateForFrontend(pr.appointment)
+      ? pr.appointment
+      : 'noch nicht vereinbart';
+    const competence = translateContent('COMPETENCE_' + pr.competence);
+    const reviewer =
+      pr.supervisor.id === pr.reviewer.id
+        ? ''
+        : `, Beurteiler: ${getDisplayName(pr.reviewer)}`;
+
+    const subheader = `Fälligkeit: ${formatDateForFrontend(
+      pr.deadline
+    )}, ACD_BOOT, ${competence}, ${translateContent(
+      pr.occasion
+    )}, Termin: ${termin}`;
+
+    const reviewerHeader = `Vorgesetzter: ${getDisplayName(
+      pr.supervisor
+    )}${reviewer}`;
 
     return (
       <div className={classes.root}>
@@ -74,9 +75,14 @@ export class PrDetailInformation extends Component {
               </Avatar>
             </div>
             <div className={classes.heading}>
-              <Typography variant={'body2'}>{fullName}</Typography>
+              <Typography variant={'body2'}>
+                {getDisplayName(pr.employee)}
+              </Typography>
               <Typography variant={'body2'} color={'textSecondary'}>
                 {subheader}
+              </Typography>
+              <Typography variant={'body2'} color={'textSecondary'}>
+                {reviewerHeader}
               </Typography>
             </div>
           </ExpansionPanelSummary>

@@ -51,7 +51,6 @@ exports[`PrFinalCommentHr Component displays the PrFinalCommentHr 1`] = `
           onChange={[Function]}
           state="DISABLED"
           value=""
-          variant="standard"
         />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
