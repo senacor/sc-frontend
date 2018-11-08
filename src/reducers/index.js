@@ -21,7 +21,6 @@ import { finalCommentEmployee } from './finalCommentEmployee';
 import { finalCommentHr } from './finalCommentHr';
 import { filter } from './filter';
 import { requiredFields } from './requiredFields';
-import { reviewerInfo } from './reviewerInfo';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -50,8 +49,7 @@ const combineReducer = combineReducers({
   cstMembers,
   events,
   filter,
-  requiredFields,
-  reviewerInfo
+  requiredFields
 });
 
 const app = (state, action) => {
