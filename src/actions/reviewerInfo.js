@@ -11,8 +11,7 @@ export const fetchReviewerInfo = () => {
 
     if (response.ok) {
       const result = await response.json();
-      const responseList = result;
-      const reviewerInfo = responseList ? responseList : [];
+      const reviewerInfo = result ? result : [];
 
       dispatch({
         type: dispatchTypes.REVIEWER_INFO_RESPONSE,
