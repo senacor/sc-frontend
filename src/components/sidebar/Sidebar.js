@@ -136,7 +136,9 @@ export class Sidebar extends Component {
           {listOfMenuEntries.map(
             entry =>
               !entry.reviewerCheck ||
-              (entry.reviewerCheck && userinfo.numberOfPrsToReview > 0) ? (
+              (entry.reviewerCheck &&
+                userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
+                  0) ? (
                 <Authorized roles={entry.roles} key={entry.label}>
                   <ListItem
                     component={NavLink}
