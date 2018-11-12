@@ -96,6 +96,7 @@ export class PRList extends React.Component {
 
   render() {
     const { classes, prs } = this.props;
+
     return (
       <div>
         <Typography variant="h4" paragraph>
@@ -104,7 +105,11 @@ export class PRList extends React.Component {
 
         <div className={classes.container}>
           {prs
-            .filter(pr => pr.supervisor.login === this.props.username)
+            .filter(pr =>
+              [pr.reviewer.login, pr.supervisor.login].includes(
+                this.props.username
+              )
+            )
             .map(pr => {
               return (
                 <Card className={classes.prs} key={pr.id}>
@@ -173,15 +178,17 @@ export class PRList extends React.Component {
                     </CardContent>
                     <Divider />
                     <CardActions>
-                      <Button
-                        color="primary"
-                        className={classes.button}
-                        onClick={() => {
-                          this.addReviewer(pr.id);
-                        }}
-                      >
-                        DELEGIEREN
-                      </Button>
+                      {pr.supervisor.login === this.props.username ? (
+                        <Button
+                          color="primary"
+                          className={classes.button}
+                          onClick={() => {
+                            this.addReviewer(pr.id);
+                          }}
+                        >
+                          DELEGIEREN
+                        </Button>
+                      ) : null}
 
                       <Button
                         color="primary"

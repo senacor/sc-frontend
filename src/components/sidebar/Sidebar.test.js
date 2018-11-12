@@ -7,12 +7,14 @@ describe('Sidebar', () => {
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
+    let getReviewerInfoMock = jest.fn();
     const element = shallow(
       <StyledComponent
         userinfo={{ givenName: 'Maria', surname: 'Mueller' }}
         userroles={['PR_MITARBEITER']}
         getUserInfo={() => {}}
         getUserRoles={() => {}}
+        getReviewerInfo={getReviewerInfoMock}
       />
     );
 
@@ -20,12 +22,14 @@ describe('Sidebar', () => {
   });
 
   it('should contain composition number', () => {
+    let getReviewerInfoMock = jest.fn();
     const element = shallow(
       <StyledComponent
         userinfo={{ givenName: 'Maria', surname: 'Mueller' }}
         getUserInfo={() => {}}
         getUserRoles={() => {}}
         userroles={['PR_MITARBEITER']}
+        getReviewerInfo={getReviewerInfoMock}
       />
     );
 

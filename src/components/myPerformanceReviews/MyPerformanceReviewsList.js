@@ -36,45 +36,47 @@ class MyPerformanceReviewsList extends Component {
 
     return (
       <List>
-        {prs.map(pr => {
-          return (
-            <div key={pr.id}>
-              <ListItem
-                button
-                className={
-                  highlightPrDetail && pr.id === prDetail.id
-                    ? classes.button_highlight
-                    : ''
-                }
-                onClick={this.selectPerformanceReview(
-                  pr.id,
-                  !highlightPrDetail
-                )}
-              >
-                <ListItemText
-                  primary={<Translate content={pr.occasion} />}
-                  primaryTypographyProps={{ component: 'div' }}
-                  secondaryTypographyProps={{ component: 'div' }}
-                  secondary={
-                    <div>
-                      <div>
-                        Fälligkeitsdatum: {formatDateForFrontend(pr.deadline)}
-                      </div>
-                      <div>
-                        Bewerter:
-                        {' ' +
-                          pr.supervisor.firstName +
-                          ' ' +
-                          pr.supervisor.lastName}
-                      </div>
-                    </div>
+        {prs
+          .filter(pr => [pr.employee.login].includes(this.props.username))
+          .map(pr => {
+            return (
+              <div key={pr.id}>
+                <ListItem
+                  button
+                  className={
+                    highlightPrDetail && pr.id === prDetail.id
+                      ? classes.button_highlight
+                      : ''
                   }
-                />
-              </ListItem>
-              <Divider />
-            </div>
-          );
-        })}
+                  onClick={this.selectPerformanceReview(
+                    pr.id,
+                    !highlightPrDetail
+                  )}
+                >
+                  <ListItemText
+                    primary={<Translate content={pr.occasion} />}
+                    primaryTypographyProps={{ component: 'div' }}
+                    secondaryTypographyProps={{ component: 'div' }}
+                    secondary={
+                      <div>
+                        <div>
+                          Fälligkeitsdatum: {formatDateForFrontend(pr.deadline)}
+                        </div>
+                        <div>
+                          Bewerter:
+                          {' ' +
+                            pr.supervisor.firstName +
+                            ' ' +
+                            pr.supervisor.lastName}
+                        </div>
+                      </div>
+                    }
+                  />
+                </ListItem>
+                <Divider />
+              </div>
+            );
+          })}
       </List>
     );
   }
@@ -89,7 +91,8 @@ export const StyledComponent = withStyles(styles)(MyPerformanceReviewsList);
 export default connect(
   state => ({
     prs: getSortedPrs()(state),
-    prDetail: getPrDetail()(state)
+    prDetail: getPrDetail()(state),
+    username: state.userinfo.userPrincipalName
   }),
   {
     fetchPrs: actions.fetchPrs,

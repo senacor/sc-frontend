@@ -20,6 +20,7 @@ import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import * as actions from '../../actions';
 import { getUserroles } from '../../reducers/selector';
+import { fetchReviewerInfo } from '../../actions/reviewerInfo';
 
 const styles = () => ({
   root: {
@@ -53,31 +54,32 @@ const listOfMenuEntries = [
     label: 'PR Übersicht',
     icon: <LibraryBooksIcon />,
     value: '/prs',
-    role: ROLES.PR_CST_LEITER
+    roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
+    reviewerCheck: true
   },
   {
     label: 'Alle PRs',
     icon: <LibraryBooksIcon />,
     value: '/hr/prs',
-    role: ROLES.PR_HR
+    roles: [ROLES.PR_HR]
   },
   {
     label: 'Mitarbeiter Übersicht',
     icon: <GroupIcon />,
     value: '/cstmembers',
-    role: ROLES.PR_CST_LEITER
+    roles: [ROLES.PR_CST_LEITER]
   },
   {
     label: 'Eigene PRs',
     icon: <AssignmentIndIcon />,
     value: '/myPrs',
-    role: ROLES.PR_MITARBEITER
+    roles: [ROLES.PR_MITARBEITER]
   },
   {
     label: 'Neue PR-Detailansicht',
     icon: <LibraryBooksIcon />,
     value: '/prDetail/1',
-    role: ROLES.PR_CST_LEITER
+    roles: [ROLES.PR_CST_LEITER]
   },
   {
     label: 'Logout',
@@ -93,6 +95,7 @@ export class Sidebar extends Component {
     }
     this.props.getUserInfo();
     this.props.getUserRoles();
+    this.props.getReviewerInfo();
   }
 
   render() {
@@ -130,24 +133,30 @@ export class Sidebar extends Component {
         <Divider />
 
         <List component="nav">
-          {listOfMenuEntries.map(entry => (
-            <Authorized forRole={entry.role} key={entry.label}>
-              <ListItem
-                component={NavLink}
-                to={entry.value}
-                style={{ textDecoration: 'none' }}
-                activeStyle={{
-                  backgroundColor: '#DDD'
-                }}
-              >
-                <ListItemIcon>{entry.icon}</ListItemIcon>
-                <ListItemText
-                  disableTypography
-                  primary={<div style={{ color: '#000' }}>{entry.label}</div>}
-                />
-              </ListItem>
-            </Authorized>
-          ))}
+          {listOfMenuEntries.map(
+            entry =>
+              !entry.reviewerCheck ||
+              (entry.reviewerCheck && userinfo.numberOfPrsToReview > 0) ? (
+                <Authorized roles={entry.roles} key={entry.label}>
+                  <ListItem
+                    component={NavLink}
+                    to={entry.value}
+                    style={{ textDecoration: 'none' }}
+                    activeStyle={{
+                      backgroundColor: '#DDD'
+                    }}
+                  >
+                    <ListItemIcon>{entry.icon}</ListItemIcon>
+                    <ListItemText
+                      disableTypography
+                      primary={
+                        <div style={{ color: '#000' }}>{entry.label}</div>
+                      }
+                    />
+                  </ListItem>
+                </Authorized>
+              ) : null
+          )}
         </List>
         <Divider />
         <CompositionNumber />
@@ -166,6 +175,7 @@ export default connect(
   {
     getUserInfo: actions.getUserInfo,
     getUserPhoto: actions.getUserPhoto,
-    getUserRoles: actions.getUserRoles
+    getUserRoles: actions.getUserRoles,
+    getReviewerInfo: fetchReviewerInfo
   }
 )(StyledComponent);

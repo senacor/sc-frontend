@@ -11,6 +11,7 @@ describe('PRList Component', () => {
       employee: 'Employee1',
       occasion: 'ON_DEMAND',
       supervisor: 'fukara',
+      reviewer: '',
       _links: {
         self: {
           href: '/api/v1/prs/1'
@@ -22,6 +23,7 @@ describe('PRList Component', () => {
       employee: 'Employee2',
       occasion: 'ON_DEMAND',
       supervisor: 'ttran',
+      reviewer: '',
       _links: {
         self: {
           href: '/api/v1/prs/2'
