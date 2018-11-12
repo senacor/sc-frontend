@@ -6,10 +6,20 @@ export class Authorized extends Component {
     return this.props.userroles.includes(role);
   };
 
-  render() {
-    const { forRole, children } = this.props;
+  userHasOneOfTheRoles = roles => {
+    let i = 0;
+    for (let role in roles) {
+      if (this.userHasRole(roles[role])) {
+        i++;
+      }
+    }
+    return i > 0;
+  };
 
-    if (!forRole || this.userHasRole(forRole)) {
+  render() {
+    const { roles, children } = this.props;
+
+    if (!roles || this.userHasOneOfTheRoles(roles)) {
       return children;
     }
 

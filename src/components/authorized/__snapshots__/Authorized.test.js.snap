@@ -40,5 +40,9 @@ exports[`Authorized component should not display child element if user does not 
       "PR_Mitarbeiter",
     ]
   }
-/>
+>
+  <div>
+    invisible
+  </div>
+</Authorized>
 `;

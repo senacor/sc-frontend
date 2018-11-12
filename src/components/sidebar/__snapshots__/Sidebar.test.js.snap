@@ -60,45 +60,12 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      forRole="PR_Reviewer"
-      key="PR Übersicht"
-    >
-      <WithStyles(ListItem)
-        activeStyle={
-          Object {
-            "backgroundColor": "#DDD",
-          }
-        }
-        component={[Function]}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/prs"
-      >
-        <WithStyles(ListItemIcon)>
-          <pure(LibraryBooksIcon) />
-        </WithStyles(ListItemIcon)>
-        <WithStyles(ListItemText)
-          disableTypography={true}
-          primary={
-            <div
-              style={
-                Object {
-                  "color": "#000",
-                }
-              }
-            >
-              PR Übersicht
-            </div>
-          }
-        />
-      </WithStyles(ListItem)>
-    </Connect(Authorized)>
-    <Connect(Authorized)
-      forRole="PR_HR"
       key="Alle PRs"
+      roles={
+        Array [
+          "PR_HR",
+        ]
+      }
     >
       <WithStyles(ListItem)
         activeStyle={
@@ -134,8 +101,12 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      forRole="PR_CST_Leiter"
       key="Mitarbeiter Übersicht"
+      roles={
+        Array [
+          "PR_CST_Leiter",
+        ]
+      }
     >
       <WithStyles(ListItem)
         activeStyle={
@@ -171,8 +142,12 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      forRole="PR_Mitarbeiter"
       key="Eigene PRs"
+      roles={
+        Array [
+          "PR_Mitarbeiter",
+        ]
+      }
     >
       <WithStyles(ListItem)
         activeStyle={
@@ -208,8 +183,12 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      forRole="PR_CST_Leiter"
       key="Neue PR-Detailansicht"
+      roles={
+        Array [
+          "PR_CST_Leiter",
+        ]
+      }
     >
       <WithStyles(ListItem)
         activeStyle={
