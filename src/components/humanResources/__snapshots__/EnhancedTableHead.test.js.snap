@@ -1,16 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EnhancedTableHead component should match snapshot 1`] = `
-<TableHead
-  classes={
-    Object {
-      "root": "MuiTableHead-root-1",
-    }
-  }
-  component="thead"
->
+<WithStyles(TableHead)>
   <WithStyles(TableRow)>
     <WithStyles(TableCell)
+      className="EnhancedTableHead-cell-1"
       key="0"
       numeric={true}
       padding="none"
@@ -32,5 +26,5 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
       </WithStyles(TableSortLabel)>
     </WithStyles(TableCell)>
   </WithStyles(TableRow)>
-</TableHead>
+</WithStyles(TableHead)>
 `;

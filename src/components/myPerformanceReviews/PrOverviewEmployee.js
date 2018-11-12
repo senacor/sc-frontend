@@ -32,15 +32,7 @@ export class PrOverviewEmployee extends React.Component {
               {getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE])}
             </Link>
           );
-        },
-        filter: (
-          <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.REVIEWER}
-            filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE}
-          >
-            <EmployeeFilter />
-          </PopperSearchMenu>
-        )
+        }
       },
       {
         numeric: true,

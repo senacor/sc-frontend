@@ -11,7 +11,7 @@ exports[`PerformanceReviewsTable component should match snapshot 1`] = `
       aria-labelledby="tableTitle"
       className="PerformanceReviewsTable-table-2"
     >
-      <EnhancedTableHead
+      <WithStyles(EnhancedTableHead)
         columnDefinition={
           Array [
             Object {

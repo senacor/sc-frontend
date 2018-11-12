@@ -23,12 +23,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         Array [
           Object {
             "disablePadding": false,
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="employee"
-              filterGroup="REVIEWER"
-        >
-              <Connect(EmployeeFilter) />
-        </Connect(WithStyles(PopperSearchMenu))>,
             "label": "Mitarbeiter",
             "numeric": false,
             "render": [Function],
