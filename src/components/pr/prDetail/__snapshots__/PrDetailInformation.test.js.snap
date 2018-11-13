@@ -6,7 +6,6 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
 >
   <WithStyles(ExpansionPanel)>
     <WithStyles(ExpansionPanelSummary)
-      className="PrDetailInformation-summary-6"
       expandIcon={<pure(ExpandMoreIcon) />}
     >
       <div

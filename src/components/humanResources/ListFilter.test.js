@@ -54,18 +54,10 @@ describe('ListFilter Component', () => {
       />
     );
 
-    expect(
-      component.find('WithStyles(Checkbox) [id="ja"]').props().checked
-    ).toEqual(true);
-    expect(
-      component.find('WithStyles(Checkbox) [id="nein"]').props().checked
-    ).toEqual(true);
-    expect(
-      component.find('WithStyles(Checkbox) [id="vielleicht"]').props().checked
-    ).toEqual(false);
-    expect(
-      component.find('WithStyles(Checkbox) [id="selectAll"]').props().checked
-    ).toEqual(false);
+    expect(component.find('[id="ja"]').props().checked).toEqual(true);
+    expect(component.find('[id="nein"]').props().checked).toEqual(true);
+    expect(component.find('[id="vielleicht"]').props().checked).toEqual(false);
+    expect(component.find('[id="selectAll"]').props().checked).toEqual(false);
   });
 
   it('should update the Filter if one checkbox is clicked', () => {
@@ -91,7 +83,7 @@ describe('ListFilter Component', () => {
     );
 
     component
-      .find('WithStyles(ListItemText) [primary="vielleicht"]')
+      .find('[primary="vielleicht"]')
       .parent()
       .simulate('click');
 
@@ -109,13 +101,9 @@ describe('ListFilter Component', () => {
     expect(mockAddFilter).toHaveBeenCalledTimes(1);
     expect(mockAddFilter).toHaveBeenCalledWith(payload);
 
-    expect(
-      component.find('WithStyles(Checkbox) [id="vielleicht"]').props().checked
-    ).toEqual(false);
+    expect(component.find('[id="vielleicht"]').props().checked).toEqual(false);
 
-    expect(
-      component.find('WithStyles(Checkbox) [id="selectAll"]').props().checked
-    ).toEqual(false);
+    expect(component.find('[id="selectAll"]').props().checked).toEqual(false);
   });
 
   it('should set all Checkboxes if the last is unchecked clicked', () => {
@@ -141,38 +129,26 @@ describe('ListFilter Component', () => {
     );
 
     component
-      .find('WithStyles(ListItemText) [primary="ja"]')
+      .find('[primary="ja"]')
       .parent()
       .simulate('click');
     component
-      .find('WithStyles(ListItemText) [primary="vielleicht"]')
+      .find('[primary="vielleicht"]')
       .parent()
       .simulate('click');
 
-    expect(
-      component.find('WithStyles(Checkbox) [id="ja"]').props().checked
-    ).toEqual(false);
-    expect(
-      component.find('WithStyles(Checkbox) [id="vielleicht"]').props().checked
-    ).toEqual(false);
+    expect(component.find('[id="ja"]').props().checked).toEqual(false);
+    expect(component.find('[id="vielleicht"]').props().checked).toEqual(false);
 
     component
-      .find('WithStyles(ListItemText) [primary="nein"]')
+      .find('[primary="nein"]')
       .parent()
       .simulate('click');
 
-    expect(
-      component.find('WithStyles(Checkbox) [id="selectAll"]').props().checked
-    ).toEqual(true);
-    expect(
-      component.find('WithStyles(Checkbox) [id="ja"]').props().checked
-    ).toEqual(true);
+    expect(component.find('[id="selectAll"]').props().checked).toEqual(true);
+    expect(component.find('[id="ja"]').props().checked).toEqual(true);
 
-    expect(
-      component.find('WithStyles(Checkbox) [id="vielleicht"]').props().checked
-    ).toEqual(true);
-    expect(
-      component.find('WithStyles(Checkbox) [id="nein"]').props().checked
-    ).toEqual(true);
+    expect(component.find('[id="vielleicht"]').props().checked).toEqual(true);
+    expect(component.find('[id="nein"]').props().checked).toEqual(true);
   });
 });

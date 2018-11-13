@@ -56,38 +56,40 @@ export class TaskList extends React.Component {
           Aufgabenliste
         </Typography>
         {tasks.length === 0 ? <p>Keine offenen Aufgaben</p> : ''}
-        {tasks.filter(task => task.status === 'IN_PROGRESS').map(task => (
-          <Card key={task.id} className={classes.task}>
-            <CardContent>
-              <Link
-                to={
-                  task.type === 'PR'
-                    ? `/prs/${task.linkToDetails}`
-                    : `${task.linkToDetails}`
-                }
-                style={{ textDecoration: 'none' }}
-              >
-                <Typography variant="h5" component="h2">
-                  {task.title}
-                </Typography>
-                <Typography component="p">{task.description}</Typography>
-                <Deadline deadline={task.deadline} />
-              </Link>
-            </CardContent>
-            <CardActions>
-              <Button
-                className={classes.button}
-                color="primary"
-                onClick={() => {
-                  this.handleClick(task);
-                }}
-              >
-                <Hidden smDown>Als erledigt markieren</Hidden>
-                <Icon className={classes.rightIcon}>check</Icon>
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+        {tasks
+          .filter(task => task.status === 'IN_PROGRESS')
+          .map(task => (
+            <Card key={task.id} className={classes.task}>
+              <CardContent>
+                <Link
+                  to={
+                    task.type === 'PR'
+                      ? `/prs/${task.linkToDetails}`
+                      : `${task.linkToDetails}`
+                  }
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Typography variant="h5" component="h2">
+                    {task.title}
+                  </Typography>
+                  <Typography component="p">{task.description}</Typography>
+                  <Deadline deadline={task.deadline} />
+                </Link>
+              </CardContent>
+              <CardActions>
+                <Button
+                  className={classes.button}
+                  color="primary"
+                  onClick={() => {
+                    this.handleClick(task);
+                  }}
+                >
+                  <Hidden smDown>Als erledigt markieren</Hidden>
+                  <Icon className={classes.rightIcon}>check</Icon>
+                </Button>
+              </CardActions>
+            </Card>
+          ))}
       </div>
     );
   }

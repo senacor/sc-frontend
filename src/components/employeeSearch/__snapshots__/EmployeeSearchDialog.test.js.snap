@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EmployeeSearchDialog Component should match snapshot 1`] = `
-<React.Fragment>
+<Fragment>
   <WithMobileDialog
     width="md"
   />
@@ -9,5 +9,5 @@ exports[`EmployeeSearchDialog Component should match snapshot 1`] = `
     onResize={[Function]}
     target="window"
   />
-</React.Fragment>
+</Fragment>
 `;

@@ -133,31 +133,28 @@ export class Sidebar extends Component {
         <Divider />
 
         <List component="nav">
-          {listOfMenuEntries.map(
-            entry =>
-              !entry.reviewerCheck ||
-              (entry.reviewerCheck &&
-                userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
-                  0) ? (
-                <Authorized roles={entry.roles} key={entry.label}>
-                  <ListItem
-                    component={NavLink}
-                    to={entry.value}
-                    style={{ textDecoration: 'none' }}
-                    activeStyle={{
-                      backgroundColor: '#DDD'
-                    }}
-                  >
-                    <ListItemIcon>{entry.icon}</ListItemIcon>
-                    <ListItemText
-                      disableTypography
-                      primary={
-                        <div style={{ color: '#000' }}>{entry.label}</div>
-                      }
-                    />
-                  </ListItem>
-                </Authorized>
-              ) : null
+          {listOfMenuEntries.map(entry =>
+            !entry.reviewerCheck ||
+            (entry.reviewerCheck &&
+              userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
+                0) ? (
+              <Authorized roles={entry.roles} key={entry.label}>
+                <ListItem
+                  component={NavLink}
+                  to={entry.value}
+                  style={{ textDecoration: 'none' }}
+                  activeStyle={{
+                    backgroundColor: '#DDD'
+                  }}
+                >
+                  <ListItemIcon>{entry.icon}</ListItemIcon>
+                  <ListItemText
+                    disableTypography
+                    primary={<div style={{ color: '#000' }}>{entry.label}</div>}
+                  />
+                </ListItem>
+              </Authorized>
+            ) : null
           )}
         </List>
         <Divider />
