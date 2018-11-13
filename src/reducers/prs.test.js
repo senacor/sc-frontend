@@ -273,11 +273,11 @@ describe('prs reducer', () => {
 
     expect(stateAfter).toEqual({
       1: {
-        prId: 1,
+        id: 1,
         employee: 'TEST'
       },
       2: {
-        prId: 2,
+        id: 2,
         employee: 'TEST'
       }
     });

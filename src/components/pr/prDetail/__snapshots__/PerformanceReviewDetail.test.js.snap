@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
-<React.Fragment>
-  <WithStyles(PrDetailInformation)
+<Fragment>
+  <Connect(WithStyles(PrDetailInformation))
     pr={
       Object {
         "appointment": "2018-12-04",
@@ -28,5 +28,5 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
   />
   <Connect(WithStyles(PrState)) />
   <WithStyles(PrTabs) />
-</React.Fragment>
+</Fragment>
 `;

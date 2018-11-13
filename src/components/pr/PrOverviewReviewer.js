@@ -26,7 +26,7 @@ export class PrOverviewReviewer extends React.Component {
         sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
         render: entry => {
           return (
-            <Link to={`/prDetail/${entry.prId}`}>
+            <Link to={`/prDetail/${entry.id}`}>
               {getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE])}
             </Link>
           );

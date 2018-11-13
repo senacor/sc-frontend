@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledComponent from './PrDetailInformation';
+import { StyledComponent as PrDetailInformation } from './PrDetailInformation';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('PrDetailInformation Component', () => {
@@ -21,13 +21,14 @@ describe('PrDetailInformation Component', () => {
     deadline: '2018-12-06',
     meeting: { start: '2018-12-04' },
     competence: 'DEVELOPMENT',
-    occasion: 'ON_DEMAND'
+    occasion: 'ON_DEMAND',
+    statuses: []
   };
 
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
-    const component = shallow(<StyledComponent pr={pr} />);
+    const component = shallow(<PrDetailInformation pr={pr} />);
     expect(component).toMatchSnapshot();
   });
 });

@@ -75,6 +75,7 @@ export class PrDelegate extends React.Component {
     event.target.select();
     this.props.employeeSearchClear();
     this.executeSearch(' ');
+    event.stopPropagation();
   };
 
   onKeyDown = event => {
@@ -82,7 +83,7 @@ export class PrDelegate extends React.Component {
       if (this.state.employeeSearchValue === '') {
         this.resetToSupervisor();
       } else {
-        this.handleClose();
+        this.handleClose(event);
       }
     }
   };
@@ -96,23 +97,24 @@ export class PrDelegate extends React.Component {
     this.executeSearch(event.target.value === '' ? ' ' : event.target.value);
   };
 
-  selectedEmployee = employee => () => {
+  selectedEmployee = employee => event => {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     this.setState({ employeeSearchValue: employeeName });
-    this.props.delegateReviewer(this.state.currentPr.prId, employee.id);
+    this.props.delegateReviewer(this.state.currentPr.id, employee.id);
     this.props.employeeSearchClear();
-    this.handleClose();
+    this.handleClose(event);
   };
 
   executeSearch = debounce(this.props.employeeSearch, 500);
 
-  handleClose = () => {
+  handleClose = event => {
     const searchValue = this.props.startValue;
     this.setState({
       anchorEl: null,
       showDefault: false,
       employeeSearchValue: searchValue
     });
+    event.stopPropagation();
   };
 
   resetToSupervisor = () => {
@@ -122,7 +124,7 @@ export class PrDelegate extends React.Component {
       anchorEl: null,
       showDefault: false
     });
-    this.props.delegateReviewer(currentPr.prId, currentPr.supervisor.id);
+    this.props.delegateReviewer(currentPr.id, currentPr.supervisor.id);
   };
 
   componentDidUpdate(prevProps) {

@@ -38,6 +38,38 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
           Vorgesetzter: Manuela Bock, Beurteiler: Martin Mitarbeiter
         </WithStyles(Typography)>
       </div>
+      <div>
+        <Connect(WithStyles(PrDelegate))
+          defaultText="Nicht übergeben"
+          isDelegated={true}
+          pr={
+            Object {
+              "competence": "DEVELOPMENT",
+              "deadline": "2018-12-06",
+              "employee": Object {
+                "firstName": "Michaela",
+                "lastName": "Mitarbeiterin",
+              },
+              "meeting": Object {
+                "start": "2018-12-04",
+              },
+              "occasion": "ON_DEMAND",
+              "reviewer": Object {
+                "firstName": "Martin",
+                "id": 503,
+                "lastName": "Mitarbeiter",
+              },
+              "statuses": Array [],
+              "supervisor": Object {
+                "firstName": "Manuela",
+                "id": 54,
+                "lastName": "Bock",
+              },
+            }
+          }
+          startValue="Martin Mitarbeiter"
+        />
+      </div>
     </WithStyles(ExpansionPanelSummary)>
     <WithStyles(ExpansionPanelDetails)>
       <WithStyles(Grid)

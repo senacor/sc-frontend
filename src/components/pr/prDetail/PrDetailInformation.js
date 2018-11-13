@@ -14,6 +14,9 @@ import { translateContent } from '../../translate/Translate';
 import PrHistory from './PrHistory';
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
+import PrDelegate from '../PrDelegate';
+import { prStatusEnum } from '../../../helper/prStatus';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -36,7 +39,19 @@ const styles = theme => ({
 });
 
 export class PrDetailInformation extends Component {
-  state = { expanded: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false
+    };
+  }
+
+  prDelegable = pr => {
+    return (
+      pr.supervisor.login === this.props.username &&
+      pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) === false
+    );
+  };
 
   render() {
     const { classes, pr } = this.props;
@@ -85,6 +100,20 @@ export class PrDetailInformation extends Component {
                 {reviewerHeader}
               </Typography>
             </div>
+            <div>
+              {this.prDelegable(pr) ? (
+                <PrDelegate
+                  pr={pr}
+                  startValue={
+                    pr.supervisor.id !== pr.reviewer.id
+                      ? getDisplayName(pr.reviewer)
+                      : ''
+                  }
+                  defaultText={'Nicht übergeben'}
+                  isDelegated={pr.supervisor.id !== pr.reviewer.id}
+                />
+              ) : null}
+            </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
             <Grid container spacing={24}>
@@ -100,4 +129,11 @@ export class PrDetailInformation extends Component {
   }
 }
 
-export default withStyles(styles)(PrDetailInformation);
+export const StyledComponent = withStyles(styles)(PrDetailInformation);
+
+export default connect(
+  state => ({
+    username: state.userinfo.userPrincipalName
+  }),
+  {}
+)(StyledComponent);
