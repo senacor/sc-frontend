@@ -20,6 +20,7 @@ exports[`PopperSearchMenu component should match snapshot 1`] = `
       }
     }
     id="simple-popper"
+    onClick={[Function]}
     onClose={[Function]}
     open={false}
     transformOrigin={

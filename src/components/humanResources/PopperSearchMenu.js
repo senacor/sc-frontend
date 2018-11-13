@@ -26,12 +26,16 @@ export class PopperSearchMenu extends React.Component {
     this.setState({
       anchorEl: event.currentTarget
     });
+    event.stopPropagation();
   };
 
-  handleClose = () => {
+  handleClose = event => {
     this.setState({
       anchorEl: null
     });
+    if (event) {
+      event.stopPropagation();
+    }
   };
 
   getIcon = subfilter => {
@@ -66,6 +70,7 @@ export class PopperSearchMenu extends React.Component {
             vertical: 'top',
             horizontal: 'center'
           }}
+          onClick={event => event.stopPropagation()}
         >
           <div>
             {React.cloneElement(this.props.children, {
