@@ -1,8 +1,8 @@
 import React from 'react';
-import { PerformanceReviewDetail } from './PerformanceReviewDetail';
-import { shallow } from 'enzyme';
+import StyledComponent from './PrDetailInformation';
+import { createShallow } from '@material-ui/core/test-utils';
 
-describe('PerformanceReviewDetail Component', () => {
+describe('PrDetailInformation Component', () => {
   const pr = {
     employee: {
       firstName: 'Michaela',
@@ -24,8 +24,10 @@ describe('PerformanceReviewDetail Component', () => {
     occasion: 'ON_DEMAND'
   };
 
+  let shallow = createShallow({ dive: true });
+
   it('should match snapshot', () => {
-    const component = shallow(<PerformanceReviewDetail prById={pr} />);
+    const component = shallow(<StyledComponent pr={pr} />);
     expect(component).toMatchSnapshot();
   });
 });

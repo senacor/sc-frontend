@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrDetailInformation Component should match snapshot 1`] = `
+<div
+  className="PrDetailInformation-root-1"
+>
+  <WithStyles(ExpansionPanel)>
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMoreIcon) />}
+    >
+      <div
+        className="PrDetailInformation-avatarContainer-3"
+      >
+        <WithStyles(Avatar)
+          className="PrDetailInformation-avatar-4"
+        >
+          MM
+        </WithStyles(Avatar)>
+      </div>
+      <div
+        className="PrDetailInformation-heading-5"
+      >
+        <WithStyles(Typography)
+          variant="body2"
+        >
+          Michaela Mitarbeiterin
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+          variant="body2"
+        >
+          Fälligkeit: 06.12.2018, ACD_BOOT, DEV, Auf Nachfrage, Termin: 2018-12-04
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          color="textSecondary"
+          variant="body2"
+        >
+          Vorgesetzter: Manuela Bock, Beurteiler: Martin Mitarbeiter
+        </WithStyles(Typography)>
+      </div>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(Grid)
+        container={true}
+        spacing={24}
+      >
+        <WithStyles(Grid)
+          item={true}
+          xs={4}
+        >
+          <PrHistory />
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          xs={4}
+        />
+      </WithStyles(Grid)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+</div>
+`;

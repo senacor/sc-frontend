@@ -1,3 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PerformanceReviewDetail Component should match snapshot 1`] = `<React.Fragment />`;
+exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
+<Fragment>
+  <WithStyles(PrDetailInformation)
+    pr={
+      Object {
+        "appointment": "2018-12-04",
+        "competence": "DEVELOPMENT",
+        "deadline": "2018-12-06",
+        "employee": Object {
+          "firstName": "Michaela",
+          "lastName": "Mitarbeiterin",
+        },
+        "occasion": "ON_DEMAND",
+        "reviewer": Object {
+          "firstName": "Martin",
+          "id": 503,
+          "lastName": "Mitarbeiter",
+        },
+        "supervisor": Object {
+          "firstName": "Manuela",
+          "id": 54,
+          "lastName": "Bock",
+        },
+      }
+    }
+  />
+  <Connect(WithStyles(PrState)) />
+  <WithStyles(PrTabs) />
+</Fragment>
+`;

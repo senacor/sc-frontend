@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrHistory Component should match snapshot 1`] = `
+<div>
+  <WithStyles(Table)
+    padding="none"
+  >
+    <WithStyles(TableHead)>
+      <WithStyles(TableRow)>
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          Datum
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          Link
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+    </WithStyles(TableHead)>
+    <WithStyles(TableBody)>
+      <WithStyles(TableRow)
+        key="5"
+      >
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          2018-01-01
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          ON_DEMAND
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        key="6"
+      >
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          Excel
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          Download Excel 20170101_Michaela_Mitarbeiterin.xls
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+      <WithStyles(TableRow)
+        key="7"
+      >
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          Excel
+        </WithStyles(TableCell)>
+        <WithStyles(TableCell)
+          padding="none"
+        >
+          Download Excel 20160101_Michaela_Mitarbeiterin.xls
+        </WithStyles(TableCell)>
+      </WithStyles(TableRow)>
+    </WithStyles(TableBody)>
+  </WithStyles(Table)>
+</div>
+`;

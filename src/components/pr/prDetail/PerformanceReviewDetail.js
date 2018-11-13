@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 import { getPrDetail } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import withLoading from '../../hoc/Loading';
+import PrDetailInformation from './PrDetailInformation';
 
 export class PerformanceReviewDetail extends Component {
   render() {
-    let { prById } = this.props;
+    const { prById: pr } = this.props;
+
     return (
       <React.Fragment>
-        {prById ? <PrState /> : null}
-        {prById ? <PrTabs /> : null}
+        <PrDetailInformation pr={pr} />
+        {pr ? <PrState /> : null}
+        {pr ? <PrTabs /> : null}
       </React.Fragment>
     );
   }
