@@ -183,47 +183,6 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      key="Neue PR-Detailansicht"
-      roles={
-        Array [
-          "PR_CST_Leiter",
-        ]
-      }
-    >
-      <WithStyles(ListItem)
-        activeStyle={
-          Object {
-            "backgroundColor": "#DDD",
-          }
-        }
-        component={[Function]}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/prDetail/1"
-      >
-        <WithStyles(ListItemIcon)>
-          <pure(LibraryBooksIcon) />
-        </WithStyles(ListItemIcon)>
-        <WithStyles(ListItemText)
-          disableTypography={true}
-          primary={
-            <div
-              style={
-                Object {
-                  "color": "#000",
-                }
-              }
-            >
-              Neue PR-Detailansicht
-            </div>
-          }
-        />
-      </WithStyles(ListItem)>
-    </Connect(Authorized)>
-    <Connect(Authorized)
       key="Logout"
     >
       <WithStyles(ListItem)

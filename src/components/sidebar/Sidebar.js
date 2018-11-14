@@ -76,12 +76,6 @@ const listOfMenuEntries = [
     roles: [ROLES.PR_MITARBEITER]
   },
   {
-    label: 'Neue PR-Detailansicht',
-    icon: <LibraryBooksIcon />,
-    value: '/prDetail/1',
-    roles: [ROLES.PR_CST_LEITER]
-  },
-  {
     label: 'Logout',
     icon: <PowerSettingsNewIcon />,
     value: '/logout'
