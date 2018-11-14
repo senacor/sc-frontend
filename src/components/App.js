@@ -7,7 +7,6 @@ import CstMembers from './cstmembers/CstMembers';
 import SchedulingView from './scheduling/SchedulingView';
 import './App.css';
 import Login from './login/Login';
-import PR from './pr/Pr';
 import Logout from './login/Logout';
 import Dashboard from './dashboard/Dashboard';
 import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
@@ -27,16 +26,9 @@ const withAppBar = WrappedComponent => props => (
   </AppBar>
 );
 
-const withAppBarExtendedHeader = WrappedComponent => props => (
-  <AppBar extendedHeader={true}>
-    <WrappedComponent {...props} />
-  </AppBar>
-);
-
 const PrOverviewReviewerAppBar = withAppBar(PrOverviewReviewer);
 const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
-const PRWithAppBar = withAppBarExtendedHeader(PR);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);
 const SchedulingViewWithAppBar = withAppBar(SchedulingView);
@@ -47,9 +39,17 @@ const App = () => (
     <Switch>
       <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
       <PrivateRoute exact path="/myPrs" component={PrOverviewEmployeeAppBar} />
-      <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
+      <PrivateRoute
+        exact
+        path="/myPrs/:id"
+        component={PerformanceReviewDetail2WithAppBar}
+      />
       <PrivateRoute exact path="/prs" component={PrOverviewReviewerAppBar} />
-      <PrivateRoute exact path="/prs/:id" component={PRWithAppBar} />
+      <PrivateRoute
+        exact
+        path="/prs/:id"
+        component={PerformanceReviewDetail2WithAppBar}
+      />
       <PrivateRoute
         exact
         path="/prDetail/:id"
