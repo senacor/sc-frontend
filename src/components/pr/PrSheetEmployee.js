@@ -68,7 +68,8 @@ class PrSheetEmployee extends React.Component {
       employeeContribution,
       readOnly,
       isActionPerformer,
-      nonActionPerformer
+      nonActionPerformer,
+      errorFlag
     } = this.props;
     const { commentText } = this.state;
 
@@ -79,6 +80,7 @@ class PrSheetEmployee extends React.Component {
     service.setOpenEditing(true);
     service.setReadOnlyText(employeeContribution.text);
     service.setWriteableText(commentText);
+    service.setErrorFlag(errorFlag);
 
     return (
       <div>
