@@ -54,9 +54,6 @@
     "/oauth2": {
       "target": "http://localhost:8000"
     },
-    "/api/v1/tasks": {
-      "target": "http://localhost:8000"
-    },
     "/api/v1/prs": {
       "target": "http://localhost:8010"
     },

@@ -26,30 +26,6 @@ export {
 } from './prs';
 export { addFilter, deleteFilter } from './filter';
 
-export const fetchTasks = () => async dispatch => {
-  dispatch({
-    type: dispatchTypes.FETCH_TASKS_REQUEST
-  });
-  dispatch({
-    type: dispatchTypes.ERROR_GONE
-  });
-
-  const response = await fetch(process.env.REACT_APP_API + '/api/v1/tasks');
-  if (response.ok) {
-    const data = await response.json();
-    const tasks = data._embedded ? data._embedded.taskResponseList : [];
-    dispatch({
-      type: dispatchTypes.FETCH_TASKS_RESPONSE,
-      tasks
-    });
-  } else {
-    dispatch({
-      type: dispatchTypes.ERROR_RESPONSE,
-      httpCode: response.status
-    });
-  }
-};
-
 export const fetchPrs = () => async dispatch => {
   dispatch({
     type: dispatchTypes.FETCH_PRS_REQUEST
@@ -73,35 +49,6 @@ export const fetchPrs = () => async dispatch => {
       httpCode: response.status
     });
   }
-};
-
-export const editTask = newTask => async dispatch => {
-  dispatch({
-    type: dispatchTypes.EDIT_TASK_REQUEST
-  });
-
-  const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/tasks/${newTask.id}`,
-    {
-      method: 'put',
-      mode: 'cors',
-      body: JSON.stringify({
-        description: newTask.description,
-        title: newTask.title,
-        username: newTask.username,
-        deadline: newTask.deadline,
-        type: newTask.type,
-        linkToDetails: newTask.linkToDetails,
-        status: newTask.status
-      })
-    }
-  );
-  const task = await changeResponse.json();
-
-  dispatch({
-    type: dispatchTypes.EDIT_TASK_RESPONSE,
-    task
-  });
 };
 
 export const addPr = loginName => async dispatch => {
