@@ -34,7 +34,7 @@ export function createSingleAppointmentDiv(
   endTime,
   date,
   className,
-  i
+  keySuffix
 ) {
   let timeStart = moment(startTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
     .tz('Europe/Berlin')
@@ -47,7 +47,7 @@ export function createSingleAppointmentDiv(
   return (
     <div
       id={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}`}
-      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${i}`} //needs an unique key
+      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${keySuffix}`} //needs an unique key
       className={className}
       style={{
         left: distanceFromLeft.toString() + '%',

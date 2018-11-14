@@ -34,7 +34,7 @@ describe('createSingleAppointmentDiv', () => {
       <div
         key={`appointmentDiv15.5_${germanTimeFrom(
           startAppointment
-        )}-${germanTimeFrom(endAppointment)}`} //not visible, but necessary for equality
+        )}-${germanTimeFrom(endAppointment)}-1`} //not visible, but necessary for equality
         className={classes.appointmentDiv}
         id={`appointmentDiv15.5_${germanTimeFrom(
           startAppointment
@@ -52,7 +52,8 @@ describe('createSingleAppointmentDiv', () => {
         startAppointment,
         endAppointment,
         properties.selectedDate,
-        classes.appointmentDiv
+        classes.appointmentDiv,
+        1
       )
     ).toEqual(singleAppointmentDiv);
   });
@@ -62,9 +63,11 @@ describe('createAppointmentDivs', () => {
   it('should create two appointmentDivs for two appointments.', () => {
     let startAppointment = '2018-03-08T09:45Z[UTC]';
     let endAppointment = '2018-03-08T15:15Z[UTC]';
+    let appointmentStatus = 'Tentative';
     let appointment = [];
     appointment.push(startAppointment);
     appointment.push(endAppointment);
+    appointment.push(appointmentStatus);
     let appointmentsEmployee = [];
     appointmentsEmployee.push(appointment);
     appointmentsEmployee.push(appointment);
@@ -86,9 +89,11 @@ describe('Attendee', () => {
   it('renders appointments if show is set to true.', () => {
     let startAppointment = '2018-03-08T09:45Z[UTC]';
     let endAppointment = '2018-03-08T15:15Z[UTC]';
+    let appointmentStatus = 'Tentative';
     let appointment = [];
     appointment.push(startAppointment);
     appointment.push(endAppointment);
+    appointment.push(appointmentStatus);
     let appointmentsEmployee = [];
     appointmentsEmployee.push(appointment);
     appointmentsEmployee.push(appointment);
