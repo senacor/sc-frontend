@@ -59,21 +59,27 @@ export class MeetingCreator extends Component {
   setEmployeeSupervisorReviewerData = pr => {
     this.setStateforRole(pr, 'employee');
     this.hasSupervisorEntry(pr) && this.setStateforRole(pr, 'supervisor');
-    this.hasReviewerEntry(pr) && this.setStateforRole(pr, 'reviewer');
+    this.hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
+      this.setStateforRole(pr, 'reviewer');
   };
 
   hasSupervisorEntry = pr => {
     return pr.supervisor !== undefined && pr.supervisor.id !== '';
   };
 
-  hasReviewerEntry = pr => {
-    return pr.reviewer !== undefined && pr.reviewer.id !== '';
+  hasReviewerEntryThatIsDifferentFromSupervisor = pr => {
+    return (
+      pr.reviewer !== undefined &&
+      pr.reviewer.id !== '' &&
+      pr.reviewer.id !== pr.supervisor.id
+    );
   };
 
   fetchAppointments = date => {
     let pr = this.props.prDetail;
     let attendees = [pr.employee.login, pr.supervisor.login];
-    this.hasReviewerEntry(pr) && attendees.push(pr.reviewer.login);
+    this.hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
+      attendees.push(pr.reviewer.login);
 
     this.props.appointmentsSearch(attendees.join(','), date);
   };

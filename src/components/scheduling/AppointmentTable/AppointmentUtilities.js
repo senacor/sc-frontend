@@ -66,7 +66,8 @@ export function appointmentsFilter(appointments, selectedDate) {
 
     return (
       startAppointmentUtc.isBefore(endSelectedDay) &&
-      endAppointmentUtc.isAfter(startSelectedDay)
+      endAppointmentUtc.isAfter(startSelectedDay) &&
+      appointment[2]
     );
   });
 }
@@ -79,7 +80,8 @@ export function extractAppointments(personAppointmentResults) {
     for (let j = 0; j < personAppointmentResults.length; j++) {
       appointments[j] = [
         personAppointmentResults[j].appointmentStartTime,
-        personAppointmentResults[j].appointmentEndTime
+        personAppointmentResults[j].appointmentEndTime,
+        personAppointmentResults[j].appointmentStatus
       ];
     }
   }

@@ -4,16 +4,37 @@ import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
 import {
   appointmentsFilter,
-  transformAppointmentTimeToPercent,
-  styles
+  transformAppointmentTimeToPercent
 } from './AppointmentUtilities';
+
+export const styles = () => ({
+  appointmentDivBusy: {
+    width: '21.5%',
+    borderRadius: 10,
+    background: '#FA5858',
+    position: 'absolute'
+  },
+  appointmentDivTentative: {
+    width: '21.5%',
+    borderRadius: 10,
+    background: '#BFFF00',
+    position: 'absolute'
+  },
+  appointmentDiv: {
+    width: '21.5%',
+    borderRadius: 10,
+    background: '#4d8087',
+    position: 'absolute'
+  }
+});
 
 export function createSingleAppointmentDiv(
   distanceFromLeft,
   startTime,
   endTime,
   date,
-  className
+  className,
+  i
 ) {
   let timeStart = moment(startTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
     .tz('Europe/Berlin')
@@ -26,7 +47,7 @@ export function createSingleAppointmentDiv(
   return (
     <div
       id={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}`}
-      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}`} //needs an unique key
+      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${i}`} //needs an unique key
       className={className}
       style={{
         left: distanceFromLeft.toString() + '%',
@@ -35,6 +56,16 @@ export function createSingleAppointmentDiv(
       }}
     />
   );
+}
+
+function appointmentClass(state, classes) {
+  if (state === 'Busy') {
+    return classes.appointmentDivBusy;
+  } else if (state === 'Tentative') {
+    return classes.appointmentDivTentative;
+  } else {
+    return classes.appointmentDiv;
+  }
 }
 
 class Attendee extends React.Component {
@@ -47,13 +78,16 @@ class Attendee extends React.Component {
     for (let i = 0; i < filteredAppointments.length; i++) {
       const startTime = filteredAppointments[i][0];
       const endTime = filteredAppointments[i][1];
+      const appointmentState = filteredAppointments[i][2];
+      const className = appointmentClass(appointmentState, this.props.classes);
       appointmentDivs.push(
         createSingleAppointmentDiv(
           this.props.distanceFromLeft,
           startTime,
           endTime,
           this.props.selectedDate,
-          this.props.classes.appointmentDiv
+          className,
+          i
         )
       );
     }
