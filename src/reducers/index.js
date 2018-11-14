@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-import tasks from './tasks';
-import editTasks from './editTasks';
 import { prs, sortOrderPrs, tablePrs } from './prs';
 import { prDetailId } from './prDetailId';
 import prTargetRole from './getTargetRole';
@@ -24,8 +22,6 @@ import { requiredFields } from './requiredFields';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
-  tasks,
-  editTasks,
   errors,
   prs,
   login,

@@ -17,10 +17,6 @@ describe('reducers', () => {
       const stateBefore = {
         appointmentsSearchResults: [someValue],
         cstMembers: [someValue],
-        editTasks: {
-          isChanging: false,
-          list: [someValue]
-        },
         errors: {
           hasErrors: false,
           message: { someValue }
@@ -50,9 +46,6 @@ describe('reducers', () => {
         tablePrs: { someValue },
         selectedDate: 'someValue',
         sortOrderPrs: 'des',
-        tasks: {
-          list: [someValue]
-        },
         userinfo: { someValue },
         userphoto: '',
         userroles: [someValue]
@@ -63,10 +56,6 @@ describe('reducers', () => {
       expect(stateAfter).toEqual({
         appointmentsSearchResults: [],
         cstMembers: [],
-        editTasks: {
-          isChanging: false,
-          list: []
-        },
         errors: {
           hasErrors: false,
           message: null
@@ -105,9 +94,6 @@ describe('reducers', () => {
         tablePrs: {},
         selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
         sortOrderPrs: 'desc',
-        tasks: {
-          list: []
-        },
         userinfo: {},
         userphoto: '',
         userroles: []

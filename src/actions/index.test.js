@@ -5,108 +5,14 @@ import moment from 'moment';
 import {
   addPr,
   delegateReviewer,
-  editTask,
   fetchPrById,
   fetchPrs,
-  fetchTasks,
   changePrSortOrder
 } from './index';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-describe('fetchTasks', () => {
-  afterEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
-  });
-
-  it('fetches the tasks and triggers the actions', async () => {
-    fetchMock.getOnce('/api/v1/tasks', {
-      body: {
-        _embedded: {
-          taskResponseList: [
-            {
-              id: 1,
-              title: 'Test title',
-              description: 'Test Description',
-              username: 'ttran',
-              deadline: '2017-12-31',
-              _links: {
-                self: {
-                  href: '/api/v1/tasks/1'
-                }
-              }
-            }
-          ]
-        },
-        _links: {
-          self: {
-            href: 'http://localhost:8080/api/v1/tasks'
-          }
-        }
-      }
-    });
-    const store = mockStore();
-
-    await store.dispatch(fetchTasks());
-
-    expect(store.getActions()).toEqual([
-      {
-        type: dispatchTypes.FETCH_TASKS_REQUEST
-      },
-      {
-        type: dispatchTypes.ERROR_GONE
-      },
-      {
-        type: dispatchTypes.FETCH_TASKS_RESPONSE,
-        tasks: [
-          {
-            id: 1,
-            title: 'Test title',
-            description: 'Test Description',
-            username: 'ttran',
-            deadline: '2017-12-31',
-            _links: {
-              self: {
-                href: '/api/v1/tasks/1'
-              }
-            }
-          }
-        ]
-      }
-    ]);
-  });
-
-  it('handles an empty task list', async () => {
-    fetchMock.getOnce('/api/v1/tasks', {
-      body: {
-        _links: {
-          self: {
-            href: 'http://localhost:8080/api/v1/tasks'
-          }
-        }
-      }
-    });
-    const store = mockStore();
-
-    await store.dispatch(fetchTasks());
-
-    expect(store.getActions()).toEqual([
-      {
-        type: dispatchTypes.FETCH_TASKS_REQUEST
-      },
-      {
-        type: dispatchTypes.ERROR_GONE
-      },
-      {
-        type: dispatchTypes.FETCH_TASKS_RESPONSE,
-        tasks: []
-      }
-    ]);
-  });
-});
 
 describe('fetchPrs', () => {
   afterEach(() => {
@@ -213,74 +119,6 @@ describe('fetchPrs', () => {
       {
         type: dispatchTypes.FETCH_PRS_RESPONSE,
         prs: []
-      }
-    ]);
-  });
-});
-
-describe('editTask', () => {
-  afterEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
-  });
-
-  it('edits the task and triggers the actions', async () => {
-    fetchMock.putOnce('/api/v1/tasks/1', {
-      id: 1,
-      title: 'Test title',
-      description: 'Test Description',
-      username: 'ttran',
-      deadline: '2017-12-31',
-      linkToDetails: 1,
-      status: 'IN_PROGRESS',
-      type: 'PR',
-      _links: {
-        self: {
-          href: '/api/v1/tasks/1'
-        }
-      }
-    });
-    const store = mockStore();
-
-    await store.dispatch(
-      editTask({
-        id: 1,
-        title: 'Test title',
-        description: 'Test Description',
-        username: 'ttran',
-        deadline: '2017-12-31',
-        linkToDetails: 1,
-        status: 'IN_PROGRESS',
-        type: 'PR',
-        _links: {
-          self: {
-            href: '/api/v1/tasks/1'
-          }
-        }
-      })
-    );
-
-    expect(store.getActions()).toEqual([
-      {
-        type: dispatchTypes.EDIT_TASK_REQUEST
-      },
-      {
-        type: dispatchTypes.EDIT_TASK_RESPONSE,
-        task: {
-          id: 1,
-          title: 'Test title',
-          description: 'Test Description',
-          username: 'ttran',
-          deadline: '2017-12-31',
-          linkToDetails: 1,
-          status: 'IN_PROGRESS',
-          type: 'PR',
-          _links: {
-            self: {
-              href: '/api/v1/tasks/1'
-            }
-          }
-        }
       }
     ]);
   });
