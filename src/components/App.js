@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './privateRoute/PrivateRoute';
-import TaskList from './task/TaskList';
 import PrOverviewReviewer from './pr/PrOverviewReviewer';
 import AppBar from './AppBar/AppBar';
 import CstMembers from './cstmembers/CstMembers';
@@ -34,7 +33,6 @@ const withAppBarExtendedHeader = WrappedComponent => props => (
   </AppBar>
 );
 
-const TaskListWithAppBar = withAppBar(TaskList);
 const PrOverviewReviewerAppBar = withAppBar(PrOverviewReviewer);
 const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
@@ -47,7 +45,6 @@ const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
 const App = () => (
   <div style={styles.main}>
     <Switch>
-      <PrivateRoute path="/tasks" component={TaskListWithAppBar} />
       <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
       <PrivateRoute exact path="/myPrs" component={PrOverviewEmployeeAppBar} />
       <PrivateRoute exact path="/myPrs/:id" component={PRWithAppBar} />
