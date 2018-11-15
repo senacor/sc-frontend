@@ -1,8 +1,8 @@
 import reducers from './index';
 import app from './index';
-import { LOGOUT } from '../helper/dispatchTypes';
 import moment from 'moment-timezone';
 import * as dispatchTypes from '../helper/dispatchTypes';
+
 
 describe('reducers', () => {
   it('should return combined reducers', () => {
@@ -17,7 +17,7 @@ describe('reducers', () => {
       it(`should wipe state if ${state.type} is dispatched`, () => {
         let someValue = 'someValue';
         const action = {
-          type: LOGOUT
+          type: state.type
         };
         const stateBefore = {
           appointmentsSearchResults: [someValue],
@@ -32,6 +32,7 @@ describe('reducers', () => {
             isLoggedIn: true,
             isUnauthorized: false
           },
+          newPrId: 22,
           prDetailId: 21,
           prEmployeeContributions: {
             prEmployeeContribution: [someValue]
@@ -71,6 +72,7 @@ describe('reducers', () => {
             isUnauthorized: false
           },
           meeting: null,
+          newPrId: null,
           prDetailId: 0,
           prEmployeeContributions: [],
           prRatings: {},

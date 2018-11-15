@@ -9,8 +9,6 @@ import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
 import { translateContent } from '../translate/Translate';
 import RequestPerformanceReview from './RequestPerformanceReview';
-import List from '@material-ui/core/List/List';
-import ListItem from '@material-ui/core/ListItem/ListItem';
 import TABLE_PRS_ELEMENTS from '../pr/tablePrsElements';
 import PopperSearchMenu from '../humanResources/PopperSearchMenu';
 import FILTER_GROUPS from '../humanResources/filterGroups';
@@ -235,18 +233,14 @@ export class PrOverviewEmployee extends React.Component {
   render() {
     const columns = this.getColumnDefinitions();
     return (
-      <List>
-        <ListItem>
-          <RequestPerformanceReview />
-        </ListItem>
-        <ListItem>
-          <PerformanceReviewsTable
-            columnDefinition={columns}
-            orderBy={1}
-            data={this.props.data}
-          />
-        </ListItem>
-      </List>
+      <div>
+        <RequestPerformanceReview />
+        <PerformanceReviewsTable
+          columnDefinition={columns}
+          orderBy={1}
+          data={this.props.data}
+        />
+      </div>
     );
   }
 }
