@@ -141,7 +141,7 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       Object {
         "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
-          filterBy="isEmployeePreparationDone"
+          filterBy="employeePreparationDone"
           filterGroup="hr"
     >
           <Connect(ListFilter)
@@ -161,7 +161,7 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       Object {
         "disablePadding": false,
         "filter": <Connect(WithStyles(PopperSearchMenu))
-          filterBy="isReviewerPreparationDone"
+          filterBy="reviewerPreparationDone"
           filterGroup="hr"
     >
           <Connect(ListFilter)
@@ -189,7 +189,7 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       Object {
         "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
-          filterBy="isInProgress"
+          filterBy="inProgress"
           filterGroup="hr"
     >
           <Connect(ListFilter)
@@ -209,7 +209,7 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       Object {
         "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
-          filterBy="isHumanResourceProcessingDone"
+          filterBy="humanResourceProcessingDone"
           filterGroup="hr"
     >
           <Connect(ListFilter)

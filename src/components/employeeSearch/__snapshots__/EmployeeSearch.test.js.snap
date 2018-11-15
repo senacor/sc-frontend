@@ -18,72 +18,34 @@ exports[`EmployeeSearch Component should display the search field 1`] = `
     variant="standard"
   />
   <WithStyles(List)
-    className="EmployeeSearch-employeeList-3"
+    className="EmployeeSearch-employeeList-2"
     component="nav"
     dense={true}
     id="employeeSearchResultList"
   >
-    <WithStyles(ListItem) />
-    <div
-      key="502"
-    >
-      <WithStyles(ListItem)
-        button={true}
-        className="EmployeeSearch-listItem-2"
-        onClick={[Function]}
-      >
-        <WithStyles(Avatar)
-          className="EmployeeSearch-avatar-4"
-        >
-          M
-          M
-        </WithStyles(Avatar)>
-        <WithStyles(ListItemText)
-          primary="Michaela Mitarbeiterin"
-        />
-      </WithStyles(ListItem)>
-      <WithStyles(Divider) />
-    </div>
-    <div
-      key="503"
-    >
-      <WithStyles(ListItem)
-        button={true}
-        className="EmployeeSearch-listItem-2"
-        onClick={[Function]}
-      >
-        <WithStyles(Avatar)
-          className="EmployeeSearch-avatar-4"
-        >
-          M
-          M
-        </WithStyles(Avatar)>
-        <WithStyles(ListItemText)
-          primary="Martin Mitarbeiter"
-        />
-      </WithStyles(ListItem)>
-      <WithStyles(Divider) />
-    </div>
-    <div
-      key="501"
-    >
-      <WithStyles(ListItem)
-        button={true}
-        className="EmployeeSearch-listItem-2"
-        onClick={[Function]}
-      >
-        <WithStyles(Avatar)
-          className="EmployeeSearch-avatar-4"
-        >
-          M
-          V
-        </WithStyles(Avatar)>
-        <WithStyles(ListItemText)
-          primary="Manuela Vorgesetzter"
-        />
-      </WithStyles(ListItem)>
-      <WithStyles(Divider) />
-    </div>
+    <WithStyles(PlotEmployeeSearchList)
+      excludeList={Array []}
+      searchResults={
+        Array [
+          Object {
+            "firstName": "Michaela",
+            "id": 502,
+            "lastName": "Mitarbeiterin",
+          },
+          Object {
+            "firstName": "Martin",
+            "id": 503,
+            "lastName": "Mitarbeiter",
+          },
+          Object {
+            "firstName": "Manuela",
+            "id": 501,
+            "lastName": "Vorgesetzter",
+          },
+        ]
+      }
+      selectEmployee={[Function]}
+    />
   </WithStyles(List)>
 </div>
 `;

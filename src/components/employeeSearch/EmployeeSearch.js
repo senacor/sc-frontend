@@ -1,42 +1,24 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
-import getDisplayName from '../../helper/getDisplayName';
+import PlotEmployeeSearchList from './PlotEmployeeSearchList';
 
-const styles = theme => ({
+const styles = {
   box: {
     display: 'flex',
     padding: '20px',
     flexDirection: 'column',
     width: '200px'
   },
-  listItem: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: '5px',
-      paddingRight: '0'
-    },
-    textAlign: 'center'
-  },
   employeeList: {
-    width: '100%'
-  },
-
-  avatar: {
-    backgroundColor: theme.palette.primary['500']
-  },
-  menu: {
-    height: '400px',
-    align: 'stretch'
+    width: '100%',
+    height: '300px'
   }
-});
+};
 
 export class EmployeeSearch extends React.Component {
   constructor(props) {
@@ -68,25 +50,6 @@ export class EmployeeSearch extends React.Component {
 
   executeSearch = debounce(this.props.employeeSearch, 500);
 
-  plotSearchEntry = (employee, classes) => {
-    return (
-      <div key={employee.id}>
-        <ListItem
-          button
-          className={classes.listItem}
-          onClick={this.selectedEmployee(employee)}
-        >
-          <Avatar className={classes.avatar}>
-            {employee.firstName.charAt(0)}
-            {employee.lastName.charAt(0)}
-          </Avatar>
-          <ListItemText primary={getDisplayName(employee)} />
-        </ListItem>
-        <Divider />
-      </div>
-    );
-  };
-
   render() {
     const {
       classes,
@@ -106,16 +69,11 @@ export class EmployeeSearch extends React.Component {
             component="nav"
             className={classes.employeeList}
           >
-            <ListItem />
-            {employeeSearchResults.length > 0 ? (
-              employeeSearchResults.map(employee => {
-                return excludeList.includes(employee.id)
-                  ? null
-                  : this.plotSearchEntry(employee, classes);
-              })
-            ) : (
-              <p>Keine Suchtreffer</p>
-            )}
+            <PlotEmployeeSearchList
+              searchResults={employeeSearchResults}
+              excludeList={excludeList}
+              selectEmployee={this.selectedEmployee}
+            />
           </List>
         ) : null}
       </div>

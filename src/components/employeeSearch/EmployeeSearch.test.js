@@ -67,23 +67,6 @@ describe('EmployeeSearch Component', () => {
     expect(employeeSearchMock).toHaveBeenCalledWith(payload);
   });
 
-  it('should show the employeeList', () => {
-    let employeeSearchMock = jest.fn();
-    let employeeSearchClearMock = jest.fn();
-    let shallow = createShallow({ dive: true });
-
-    const component = shallow(
-      <EmployeeSearch
-        employeeSearch={employeeSearchMock}
-        employeeSearchResults={searchResults}
-        employeeSearchClear={employeeSearchClearMock}
-        employeeSearchValue={'M'}
-      />
-    );
-
-    expect(component.find('WithStyles(ListItemText)')).toHaveLength(3);
-  });
-
   it('should be able to select an employee from the List', () => {
     let employeeSearchMock = jest.fn();
     let selectEmployeeMock = jest.fn();
@@ -100,54 +83,7 @@ describe('EmployeeSearch Component', () => {
       />
     );
 
-    expect(
-      component.find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-    ).toHaveLength(1);
-
-    component
-      .find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-      .parent()
-      .simulate('click');
-
-    let payload = searchResults[2];
-    expect(selectEmployeeMock).toHaveBeenCalledTimes(1);
-    expect(employeeSearchClearMock).toHaveBeenCalledTimes(2);
-    expect(selectEmployeeMock).toHaveBeenCalledWith(payload);
-    expect(component.find('TextField').props().value).toEqual(
-      'Manuela Vorgesetzter'
-    );
-  });
-
-  it('should exclude employees by excludeList', () => {
-    let employeeSearchMock = jest.fn();
-    let selectEmployeeMock = jest.fn();
-    let employeeSearchClearMock = jest.fn();
-
-    let shallow = createShallow({ dive: true });
-
-    let component = shallow(
-      <EmployeeSearch
-        employeeSearch={employeeSearchMock}
-        employeeSearchResults={searchResults}
-        employeeSearchClear={employeeSearchClearMock}
-        employeeSearchValue={'M'}
-        excludeList={[503]}
-        selectEmployee={selectEmployeeMock}
-      />
-    ).setState({ searchReady: false });
-
-    expect(
-      component.find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-    ).toHaveLength(1);
-
-    expect(
-      component.find('WithStyles(ListItemText)[primary="Martin Mitarbeiter"]')
-    ).toHaveLength(0);
-
-    component
-      .find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-      .parent()
-      .simulate('click');
+    component.instance().selectedEmployee(searchResults[2])();
 
     let payload = searchResults[2];
     expect(selectEmployeeMock).toHaveBeenCalledTimes(1);

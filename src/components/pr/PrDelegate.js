@@ -2,16 +2,14 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
-import getDisplayName from '../../helper/getDisplayName';
 import Popover from '@material-ui/core/Popover/Popover';
 import PropTypes from 'prop-types';
+import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
 
 const styles = theme => ({
   box: {
@@ -28,10 +26,7 @@ const styles = theme => ({
     textAlign: 'left',
     width: '200px'
   },
-  avatar: {
-    backgroundColor: theme.palette.primary['500']
-  },
-  menu: {
+  popover: {
     height: '300px',
     align: 'stretch'
   },
@@ -39,9 +34,8 @@ const styles = theme => ({
     marginLeft: '0px',
     marginRight: theme.spacing.unit,
     '&:hover': {
-      backgroundColor: '#dddddd',
-      border: '1px solid #111111',
-      borderRadius: '5px'
+      border: '1px solid rgba(0,0,0,0.235)',
+      borderRadius: '4px'
     }
   },
   input: {
@@ -56,9 +50,8 @@ const styles = theme => ({
     marginLeft: '5px'
   },
   focused: {
-    backgroundColor: '#dddddd',
-    border: '1px solid #111111',
-    borderRadius: '5px',
+    border: '2px solid rgba(0,73,83)',
+    borderRadius: '4px',
     '&:hover': {
       border: '0px'
     }
@@ -98,7 +91,7 @@ export class PrDelegate extends React.Component {
     this.setState({
       employeeSearchValue: event.target.value,
       anchorEl: event.currentTarget,
-      showDefault: event.target.value === '' ? true : false
+      showDefault: event.target.value === ''
     });
     this.executeSearch(event.target.value === '' ? ' ' : event.target.value);
   };
@@ -112,25 +105,6 @@ export class PrDelegate extends React.Component {
   };
 
   executeSearch = debounce(this.props.employeeSearch, 500);
-
-  plotSearchEntry = (employee, classes) => {
-    return (
-      <div key={employee.id}>
-        <ListItem
-          button
-          className={classes.listItem}
-          onClick={this.selectedEmployee(employee)}
-        >
-          <Avatar className={classes.avatar}>
-            {employee.firstName.charAt(0)}
-            {employee.lastName.charAt(0)}
-          </Avatar>
-          <ListItemText primary={getDisplayName(employee)} />
-        </ListItem>
-        <Divider />
-      </div>
-    );
-  };
 
   handleClose = () => {
     const searchValue = this.props.startValue;
@@ -207,15 +181,10 @@ export class PrDelegate extends React.Component {
               vertical: 'top',
               horizontal: 'center'
             }}
-            className={classes.menu}
+            className={classes.popover}
             disableAutoFocus={true}
           >
-            <List
-              dense
-              id="employeeSearchResultList"
-              component="nav"
-              className={classes.list}
-            >
+            <List dense id="employeeSearchResultList">
               {showDefault ? (
                 <ListItem
                   button
@@ -225,15 +194,11 @@ export class PrDelegate extends React.Component {
                   <ListItemText primary={defaultText} />
                 </ListItem>
               ) : null}
-              {employeeSearchResults.length > 0 ? (
-                employeeSearchResults.map(employee => {
-                  return excludeList.includes(employee.id)
-                    ? null
-                    : this.plotSearchEntry(employee, classes);
-                })
-              ) : (
-                <p>Keine Suchtreffer</p>
-              )}
+              <PlotEmployeeSearchList
+                searchResults={employeeSearchResults}
+                excludeList={excludeList}
+                selectEmployee={this.selectedEmployee}
+              />
             </List>
           </Popover>
         }

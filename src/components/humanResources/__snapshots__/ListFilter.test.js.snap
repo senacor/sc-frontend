@@ -23,6 +23,7 @@ exports[`ListFilter Component should match snapshot 1`] = `
       primary="selectAll"
     />
   </WithStyles(ListItem)>
+  <WithStyles(Divider) />
   <WithStyles(ListItem)
     button={true}
     dense={true}

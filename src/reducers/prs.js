@@ -106,11 +106,9 @@ export const tablePrs = (state = {}, action) => {
       let newPr = Object.assign({}, state[action.prNewReviewer.id], {
         reviewer: action.prNewReviewer.reviewer
       });
-      return cloneDeep(
-        Object.assign({}, state, {
-          [action.prNewReviewer.id]: newPr
-        })
-      );
+      return Object.assign({}, state, {
+        [action.prNewReviewer.id]: newPr
+      });
     }
     default:
       return state;

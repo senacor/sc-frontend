@@ -8,13 +8,13 @@ exports[`PrDelegate Component should match snapshot 1`] = `
     InputProps={
       Object {
         "classes": Object {
-          "focused": "PrDelegate-focused-8",
-          "input": "PrDelegate-input-6",
+          "focused": "PrDelegate-focused-7",
+          "input": "PrDelegate-input-5",
         },
         "disableUnderline": true,
       }
     }
-    className="PrDelegate-textField-5"
+    className="PrDelegate-textField-4"
     onChange={[Function]}
     onClick={[Function]}
     onKeyDown={[Function]}
@@ -32,7 +32,7 @@ exports[`PrDelegate Component should match snapshot 1`] = `
         "vertical": "bottom",
       }
     }
-    className="PrDelegate-menu-4"
+    className="PrDelegate-popover-3"
     disableAutoFocus={true}
     id="simple-popper"
     onClose={[Function]}
@@ -45,50 +45,48 @@ exports[`PrDelegate Component should match snapshot 1`] = `
     }
   >
     <WithStyles(List)
-      component="nav"
       dense={true}
       id="employeeSearchResultList"
     >
-      <div
-        key="502"
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrDelegate-listItem-2"
-          onClick={[Function]}
-        >
-          <WithStyles(Avatar)
-            className="PrDelegate-avatar-3"
-          >
-            M
-            M
-          </WithStyles(Avatar)>
-          <WithStyles(ListItemText)
-            primary="Michaela Mitarbeiterin"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(Divider) />
-      </div>
-      <div
-        key="499"
-      >
-        <WithStyles(ListItem)
-          button={true}
-          className="PrDelegate-listItem-2"
-          onClick={[Function]}
-        >
-          <WithStyles(Avatar)
-            className="PrDelegate-avatar-3"
-          >
-            M
-            N
-          </WithStyles(Avatar)>
-          <WithStyles(ListItemText)
-            primary="Markus None"
-          />
-        </WithStyles(ListItem)>
-        <WithStyles(Divider) />
-      </div>
+      <WithStyles(PlotEmployeeSearchList)
+        excludeList={
+          Array [
+            503,
+            500,
+            501,
+          ]
+        }
+        searchResults={
+          Array [
+            Object {
+              "firstName": "Michaela",
+              "id": 502,
+              "lastName": "Mitarbeiterin",
+            },
+            Object {
+              "firstName": "Martin",
+              "id": 503,
+              "lastName": "Mitarbeiter",
+            },
+            Object {
+              "firstName": "Manuela",
+              "id": 501,
+              "lastName": "Vorgesetzter",
+            },
+            Object {
+              "firstName": "Ulla",
+              "id": 500,
+              "lastName": "Schmidt",
+            },
+            Object {
+              "firstName": "Markus",
+              "id": 499,
+              "lastName": "None",
+            },
+          ]
+        }
+        selectEmployee={[Function]}
+      />
     </WithStyles(List)>
   </WithStyles(Popover)>
 </div>

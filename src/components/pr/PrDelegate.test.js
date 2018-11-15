@@ -152,12 +152,9 @@ describe('PrDelegate Component', () => {
         employeeSearch={jest.fn()}
         employeeSearchClear={jest.fn()}
       />
-    ).setState({ showDefault: true });
+    );
 
-    component
-      .find('WithStyles(ListItemText)[primary="Michaela Mitarbeiterin"]')
-      .parent()
-      .simulate('click');
+    component.instance().selectedEmployee(searchResults[0])();
 
     expect(mockDelegateReviewer).toHaveBeenCalledTimes(1);
     expect(mockDelegateReviewer).toHaveBeenCalledWith(42, 502);
