@@ -1,4 +1,4 @@
-export const LOADING_EVENTS = {
+export const LoadingEvents = {
   ADD_PR: 'ADD_PR',
   FETCH_PR_BY_ID: 'FETCH_PR_BY_ID',
   FETCH_PRS: 'FETCH_PRS',

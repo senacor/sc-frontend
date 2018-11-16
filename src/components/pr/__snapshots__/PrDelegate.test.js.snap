@@ -8,13 +8,13 @@ exports[`PrDelegate Component should match snapshot 1`] = `
     InputProps={
       Object {
         "classes": Object {
-          "focused": "PrDelegate-focused-7",
-          "input": "PrDelegate-input-5",
+          "focused": "PrDelegate-focused-8",
+          "input": "PrDelegate-input-6",
         },
         "disableUnderline": true,
       }
     }
-    className="PrDelegate-textField-4"
+    className="PrDelegate-textField-5"
     onChange={[Function]}
     onClick={[Function]}
     onKeyDown={[Function]}
@@ -45,44 +45,16 @@ exports[`PrDelegate Component should match snapshot 1`] = `
     }
   >
     <WithStyles(List)
+      className="PrDelegate-list-4"
       dense={true}
       id="employeeSearchResultList"
     >
-      <WithStyles(PlotEmployeeSearchList)
+      <Connect(WithLoading(WithStyles(PlotEmployeeSearchList)))
         excludeList={
           Array [
             503,
             500,
             501,
-          ]
-        }
-        searchResults={
-          Array [
-            Object {
-              "firstName": "Michaela",
-              "id": 502,
-              "lastName": "Mitarbeiterin",
-            },
-            Object {
-              "firstName": "Martin",
-              "id": 503,
-              "lastName": "Mitarbeiter",
-            },
-            Object {
-              "firstName": "Manuela",
-              "id": 501,
-              "lastName": "Vorgesetzter",
-            },
-            Object {
-              "firstName": "Ulla",
-              "id": 500,
-              "lastName": "Schmidt",
-            },
-            Object {
-              "firstName": "Markus",
-              "id": 499,
-              "lastName": "None",
-            },
           ]
         }
         selectEmployee={[Function]}

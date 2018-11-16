@@ -5,8 +5,8 @@ import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
 import PopperSearchMenu from './PopperSearchMenu';
 import EmployeeFilter from './EmployeeFilter';
-import { getDisplayName } from './OverviewPerformanceReviews';
 import FILTER_GROUPS from './filterGroups';
+import getDisplayName from '../../helper/getDisplayName';
 
 const rows = [
   {

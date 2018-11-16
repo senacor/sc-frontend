@@ -1,7 +1,7 @@
 import * as dispatchTypes from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
 
-export const isLoading = (state = { load: false, action: [] }, action) => {
+export const isLoading = (state = { isLoading: false, action: [] }, action) => {
   const startLoading = [
     dispatchTypes.ADD_PR_REQUEST,
     dispatchTypes.FETCH_PR_BY_ID_REQUEST,

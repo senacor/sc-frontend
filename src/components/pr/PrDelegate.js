@@ -30,6 +30,10 @@ const styles = theme => ({
     height: '300px',
     align: 'stretch'
   },
+  list: {
+    width: '200px',
+    maxHeight: '300px'
+  },
   textField: {
     marginLeft: '0px',
     marginRight: theme.spacing.unit,
@@ -134,12 +138,7 @@ export class PrDelegate extends React.Component {
   }
 
   render() {
-    const {
-      classes,
-      employeeSearchResults,
-      defaultText,
-      isDelegated
-    } = this.props;
+    const { classes, defaultText, isDelegated } = this.props;
     const {
       employeeSearchValue,
       anchorEl,
@@ -186,7 +185,7 @@ export class PrDelegate extends React.Component {
             className={classes.popover}
             disableAutoFocus={true}
           >
-            <List dense id="employeeSearchResultList">
+            <List dense id="employeeSearchResultList" className={classes.list}>
               {showDefault ? (
                 <ListItem
                   button
@@ -197,7 +196,6 @@ export class PrDelegate extends React.Component {
                 </ListItem>
               ) : null}
               <PlotEmployeeSearchList
-                searchResults={employeeSearchResults}
                 excludeList={excludeList}
                 selectEmployee={this.selectedEmployee}
               />
@@ -217,9 +215,7 @@ PrDelegate.propTypes = {
 
 export const StyledComponent = withStyles(styles)(PrDelegate);
 export default connect(
-  state => ({
-    employeeSearchResults: state.employeeSearchResults
-  }),
+  state => ({}),
   {
     employeeSearch: actions.employeeSearch,
     employeeSearchClear: actions.employeeSearchClear,

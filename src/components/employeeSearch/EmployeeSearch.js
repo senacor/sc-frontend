@@ -51,12 +51,7 @@ export class EmployeeSearch extends React.Component {
   executeSearch = debounce(this.props.employeeSearch, 500);
 
   render() {
-    const {
-      classes,
-      extClasses,
-      employeeSearchResults,
-      excludeList
-    } = this.props;
+    const { classes, extClasses, excludeList } = this.props;
     const { employeeSearchValue } = this.state;
 
     return (
@@ -70,7 +65,6 @@ export class EmployeeSearch extends React.Component {
             className={classes.employeeList}
           >
             <PlotEmployeeSearchList
-              searchResults={employeeSearchResults}
               excludeList={excludeList}
               selectEmployee={this.selectedEmployee}
             />
@@ -98,9 +92,7 @@ EmployeeSearch.defaultProps = {
 
 export const StyledComponent = withStyles(styles)(EmployeeSearch);
 export default connect(
-  state => ({
-    employeeSearchResults: state.employeeSearchResults
-  }),
+  state => ({}),
   {
     employeeSearch: actions.employeeSearch,
     employeeSearchClear: actions.employeeSearchClear
