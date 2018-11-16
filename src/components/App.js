@@ -4,7 +4,6 @@ import PrivateRoute from './privateRoute/PrivateRoute';
 import PrOverviewReviewer from './pr/PrOverviewReviewer';
 import AppBar from './AppBar/AppBar';
 import CstMembers from './cstmembers/CstMembers';
-import SchedulingView from './scheduling/SchedulingView';
 import './App.css';
 import Login from './login/Login';
 import Logout from './login/Logout';
@@ -31,7 +30,6 @@ const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
 const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);
-const SchedulingViewWithAppBar = withAppBar(SchedulingView);
 const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
 
 const App = () => (
@@ -57,11 +55,7 @@ const App = () => (
       />
       <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute exact path="/hr/prs" component={OverviewPrsWithAppBar} />
-      <PrivateRoute
-        exact
-        path="/prs/:id/scheduling"
-        component={SchedulingViewWithAppBar}
-      />
+
       <PrivateRoute path="/logout" component={Logout} />
       <Route path="/login" component={Login} />
       <Route render={() => <Redirect to="/dashboard" />} />
