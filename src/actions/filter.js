@@ -13,3 +13,10 @@ export const deleteFilter = payload => async dispatch => {
     payload
   });
 };
+
+export const resetFilterGroup = filterGroup => async dispatch => {
+  dispatch({
+    type: dispatchTypes.RESET_FILTERGROUP,
+    payload: { filterGroup: filterGroup }
+  });
+};

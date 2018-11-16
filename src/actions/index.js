@@ -17,12 +17,8 @@ export { employeeSearch, employeeSearchClear } from './employeeSearch';
 export { appointmentsSearch, changeDate } from './appointments';
 export { addMeeting, fetchMeeting } from './meetings';
 export { addPrStatus } from './status';
-export {
-  fetchAllPrsForHumanResource,
-  fetchFilteredPrsForHumanResource,
-  fetchFilteredPrs
-} from './prs';
-export { addFilter, deleteFilter } from './filter';
+export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';
+export { addFilter, deleteFilter, resetFilterGroup } from './filter';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({

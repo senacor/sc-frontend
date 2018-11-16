@@ -20,6 +20,7 @@ import ROLES from '../../helper/roles';
 import * as actions from '../../actions';
 import { getUserroles } from '../../reducers/selector';
 import { fetchReviewerInfo } from '../../actions/reviewerInfo';
+import FILTER_GROUPS from '../humanResources/filterGroups';
 
 const styles = () => ({
   root: {
@@ -43,38 +44,6 @@ const styles = () => ({
   }
 });
 
-const listOfMenuEntries = [
-  {
-    label: 'Dashboard',
-    icon: <DashboardIcon />,
-    value: '/dashboard'
-  },
-  {
-    label: 'PR Übersicht',
-    icon: <LibraryBooksIcon />,
-    value: '/prs',
-    roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
-    reviewerCheck: true
-  },
-  {
-    label: 'Alle PRs',
-    icon: <LibraryBooksIcon />,
-    value: '/hr/prs',
-    roles: [ROLES.PR_HR]
-  },
-  {
-    label: 'Eigene PRs',
-    icon: <AssignmentIndIcon />,
-    value: '/myPrs',
-    roles: [ROLES.PR_MITARBEITER]
-  },
-  {
-    label: 'Logout',
-    icon: <PowerSettingsNewIcon />,
-    value: '/logout'
-  }
-];
-
 export class Sidebar extends Component {
   componentDidMount() {
     if (this.props.userphoto === '') {
@@ -84,6 +53,51 @@ export class Sidebar extends Component {
     this.props.getUserRoles();
     this.props.getReviewerInfo();
   }
+
+  getListOfMenuItems = () => {
+    return [
+      {
+        label: 'Dashboard',
+        icon: <DashboardIcon />,
+        value: '/dashboard',
+        onClick: () => {}
+      },
+      {
+        label: 'PR Übersicht',
+        icon: <LibraryBooksIcon />,
+        value: '/prs',
+        roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
+        reviewerCheck: true,
+        onClick: () => {
+          this.props.resetFilterGroup(FILTER_GROUPS.REVIEWER);
+        }
+      },
+      {
+        label: 'Alle PRs',
+        icon: <LibraryBooksIcon />,
+        value: '/hr/prs',
+        roles: [ROLES.PR_HR],
+        onClick: () => {
+          this.props.resetFilterGroup(FILTER_GROUPS.HR);
+        }
+      },
+      {
+        label: 'Eigene PRs',
+        icon: <AssignmentIndIcon />,
+        value: '/myPrs',
+        roles: [ROLES.PR_MITARBEITER],
+        onClick: () => {
+          this.props.resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
+        }
+      },
+      {
+        label: 'Logout',
+        icon: <PowerSettingsNewIcon />,
+        value: '/logout',
+        onClick: () => {}
+      }
+    ];
+  };
 
   render() {
     let { classes, userphoto, userinfo, userroles } = this.props;
@@ -120,7 +134,7 @@ export class Sidebar extends Component {
         <Divider />
 
         <List component="nav">
-          {listOfMenuEntries.map(entry =>
+          {this.getListOfMenuItems().map(entry =>
             !entry.reviewerCheck ||
             (entry.reviewerCheck &&
               userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
@@ -133,6 +147,7 @@ export class Sidebar extends Component {
                   activeStyle={{
                     backgroundColor: '#DDD'
                   }}
+                  onClick={entry.onClick}
                 >
                   <ListItemIcon>{entry.icon}</ListItemIcon>
                   <ListItemText
@@ -162,6 +177,7 @@ export default connect(
     getUserInfo: actions.getUserInfo,
     getUserPhoto: actions.getUserPhoto,
     getUserRoles: actions.getUserRoles,
-    getReviewerInfo: fetchReviewerInfo
+    getReviewerInfo: fetchReviewerInfo,
+    resetFilterGroup: actions.resetFilterGroup
   }
 )(StyledComponent);
