@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import { Link } from 'react-router-dom';
-import { getAllPrsForTable, getFilter } from '../../reducers/selector';
+import {
+  getAllPrsForTable,
+  getFilter,
+  isLoading
+} from '../../reducers/selector';
 import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
@@ -246,7 +250,7 @@ export class PrOverviewEmployee extends React.Component {
 }
 export default connect(
   state => ({
-    isLoading: state.isLoading,
+    isLoading: isLoading(state),
     data: getAllPrsForTable(state),
     filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
   }),

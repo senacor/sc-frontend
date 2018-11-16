@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import {
   getAllPrsForTable,
   getFilter,
+  isLoading,
+  isLoadingAction,
   getUserPrincipalName
 } from '../../reducers/selector';
 import getDisplayName from '../../helper/getDisplayName';
@@ -19,6 +21,7 @@ import PopperSearchMenu from '../humanResources/PopperSearchMenu';
 import EmployeeFilter from '../humanResources/EmployeeFilter';
 import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
+import { LOADING_EVENTS } from '../../helper/LOADING_EVENTS';
 
 export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
@@ -281,7 +284,7 @@ export class PrOverviewReviewer extends React.Component {
 export default connect(
   state => ({
     data: getAllPrsForTable(state),
-    isLoading: state.isLoading,
+    isLoading: isLoadingAction(state, LOADING_EVENTS.FETCH_OWN_PRS),
     username: getUserPrincipalName(state),
     filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
   }),

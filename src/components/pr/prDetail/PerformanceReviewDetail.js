@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import { connect } from 'react-redux';
-import { getPrDetail } from '../../../reducers/selector';
+import { getPrDetail, isLoading } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import withLoading from '../../hoc/Loading';
 import PrDetailInformation from './PrDetailInformation';
@@ -26,7 +26,7 @@ PerformanceReviewDetail.propTypes = {};
 export default connect(
   state => ({
     prById: getPrDetail()(state),
-    isLoading: state.isLoading
+    isLoading: isLoading(state)
   }),
   {
     fetchPrById: actions.fetchPrById,

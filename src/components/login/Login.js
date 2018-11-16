@@ -17,6 +17,7 @@ import senacorLogo from './senacor_transparent.png';
 import senacorLogoMobile from './senacor_transparent_white.png';
 import * as actions from '../../actions/index';
 import { connect } from 'react-redux';
+import { isLoading } from '../../reducers/selector';
 
 const styles = theme => ({
   hero: {
@@ -229,7 +230,7 @@ export const StyledComponent = withStyles(styles)(Login);
 export default connect(
   state => ({
     isLoggedIn: state.login.isLoggedIn,
-    isLoading: state.isLoading,
+    isLoading: isLoading(state),
     isUnauthorized: state.login.isUnauthorized
   }),
   {

@@ -11,6 +11,10 @@ export const getUserPrincipalName = state => state.userinfo.userPrincipalName;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
 export const getMeeting = state => state.meeting;
+export const isLoading = state => state.isLoading.isLoading;
+export const isLoadingAction = (state, start) =>
+  state.isLoading.action.includes(start);
+
 export const getPrDetail = () => {
   return createSelector(
     [state => state.prs, getActualPrId],
