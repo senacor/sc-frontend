@@ -16,7 +16,8 @@ const styles = theme => ({
     display: 'flex',
     padding: '0px',
     flexDirection: 'column',
-    width: '200px'
+    width: '200px',
+    height: '20px'
   },
   listItem: {
     [theme.breakpoints.up('sm')]: {
@@ -43,13 +44,19 @@ const styles = theme => ({
     }
   },
   input: {
-    fontSize: 'small',
+    fontSize: '0.875rem',
     cursor: 'pointer',
     color: '#9d9d9d',
     marginLeft: '5px'
   },
   delegatedInput: {
-    fontSize: 'small',
+    fontSize: '0.8125rem',
+    cursor: 'pointer',
+    marginLeft: '5px'
+  },
+  delegatedInputSecondary: {
+    fontSize: '0.875rem',
+    color: 'rgba(0, 0, 0, 0.54)',
     cursor: 'pointer',
     marginLeft: '5px'
   },
@@ -137,6 +144,15 @@ export class PrDelegate extends React.Component {
     }
   }
 
+  getDelegatedInputStyle = classes => {
+    switch (this.props.color) {
+      case 'textSecondary':
+        return classes.delegatedInputSecondary;
+      default:
+        return classes.delegatedInput;
+    }
+  };
+
   render() {
     const { classes, defaultText, isDelegated } = this.props;
     const {
@@ -162,7 +178,9 @@ export class PrDelegate extends React.Component {
           onKeyDown={this.onKeyDown}
           InputProps={{
             classes: {
-              input: isDelegated ? classes.delegatedInput : classes.input,
+              input: isDelegated
+                ? this.getDelegatedInputStyle(classes)
+                : classes.input,
               focused: classes.focused
             },
             disableUnderline: true

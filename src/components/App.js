@@ -10,6 +10,7 @@ import Dashboard from './dashboard/Dashboard';
 import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
 import OverviewPerformanceReviews from './humanResources/OverviewPerformanceReviews';
 import PrOverviewEmployee from './myPerformanceReviews/PrOverviewEmployee';
+import ROUTES from '../helper/routes';
 
 const styles = {
   main: {
@@ -33,14 +34,26 @@ const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
 const App = () => (
   <div style={styles.main}>
     <Switch>
-      <PrivateRoute exact path="/dashboard" component={DashboardWithAppBar} />
-      <PrivateRoute exact path="/myPrs" component={PrOverviewEmployeeAppBar} />
+      <PrivateRoute
+        exact
+        path={ROUTES.DASHBOARD}
+        component={DashboardWithAppBar}
+      />
+      <PrivateRoute
+        exact
+        path={ROUTES.OWN_PR_TABLE}
+        component={PrOverviewEmployeeAppBar}
+      />
       <PrivateRoute
         exact
         path="/myPrs/:id"
         component={PerformanceReviewDetail2WithAppBar}
       />
-      <PrivateRoute exact path="/prs" component={PrOverviewReviewerAppBar} />
+      <PrivateRoute
+        exact
+        path={ROUTES.PR_TO_REVIEW_TABLE}
+        component={PrOverviewReviewerAppBar}
+      />
       <PrivateRoute
         exact
         path="/prs/:id"
@@ -51,11 +64,15 @@ const App = () => (
         path="/prDetail/:id"
         component={PerformanceReviewDetail2WithAppBar}
       />
-      <PrivateRoute exact path="/hr/prs" component={OverviewPrsWithAppBar} />
+      <PrivateRoute
+        exact
+        path={ROUTES.HR_PR_TABLE}
+        component={OverviewPrsWithAppBar}
+      />
 
-      <PrivateRoute path="/logout" component={Logout} />
-      <Route path="/login" component={Login} />
-      <Route render={() => <Redirect to="/dashboard" />} />
+      <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
+      <Route path={ROUTES.LOGIN} component={Login} />
+      <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
     </Switch>
   </div>
 );
