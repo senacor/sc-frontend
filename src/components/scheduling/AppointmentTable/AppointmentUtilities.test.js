@@ -349,9 +349,11 @@ describe('appointmentsFilter', () => {
   it('excludes appointments that are completely before or after the time window.', () => {
     let startAppointment = '2018-03-08T02:00Z[UTC]';
     let endAppointment = '2018-03-08T03:00Z[UTC]';
+    let appointmentStatus = 'Tentative';
     let appointment = [];
     appointment.push(startAppointment);
     appointment.push(endAppointment);
+    appointment.push(appointmentStatus);
     let appointments = [];
     appointments.push(appointment);
     expect(utils.appointmentsFilter(appointments, selectedDate)).toEqual([]);
@@ -360,7 +362,8 @@ describe('appointmentsFilter', () => {
   it('includes appointments that are inside the time window.', () => {
     let startAppointment = '2018-03-08T12:00Z[UTC]';
     let endAppointment = '2018-03-08T13:00Z[UTC]';
-    let appointment = [startAppointment, endAppointment];
+    let appointmentStatus = 'Tentative';
+    let appointment = [startAppointment, endAppointment, appointmentStatus];
     let appointments = [appointment];
     expect(utils.appointmentsFilter(appointments, selectedDate)).toEqual(
       appointments
@@ -370,9 +373,11 @@ describe('appointmentsFilter', () => {
   it('includes appointments that are inside and outside the time window.', () => {
     let startAppointment = '2018-03-08T00:00Z[UTC]';
     let endAppointment = '2018-03-08T13:00Z[UTC]';
+    let appointmentStatus = 'Tentative';
     let appointment = [];
     appointment.push(startAppointment);
     appointment.push(endAppointment);
+    appointment.push(appointmentStatus);
     let appointments = [];
     appointments.push(appointment);
     expect(utils.appointmentsFilter(appointments, selectedDate)).toEqual(
@@ -387,19 +392,22 @@ describe('extractAppointments', () => {
       name: 'Michaela Mitarbeiterin',
       type: 'Party!',
       appointmentStartTime: '2018-03-08T00:00Z[UTC]',
-      appointmentEndTime: '2018-03-08T02:00Z[UTC]'
+      appointmentEndTime: '2018-03-08T02:00Z[UTC]',
+      appointmentStatus: 'Tentative'
     },
     {
       name: 'Michaela Mitarbeiterin',
       type: 'Schlafen...',
       appointmentStartTime: '2018-03-09T05:00Z[UTC]',
-      appointmentEndTime: '2018-03-09T10:00Z[UTC]'
+      appointmentEndTime: '2018-03-09T10:00Z[UTC]',
+      appointmentStatus: 'Tentative'
     },
     {
       name: 'Michaela Mitarbeiterin',
       type: 'Treffen mit dem Chef',
       appointmentStartTime: '2018-03-09T14:30Z[UTC]',
-      appointmentEndTime: '2018-03-09T15:00Z[UTC]'
+      appointmentEndTime: '2018-03-09T15:00Z[UTC]',
+      appointmentStatus: 'Tentative'
     }
   ];
 
@@ -409,9 +417,9 @@ describe('extractAppointments', () => {
 
   it('extracts start and end times of all appointments.', () => {
     const expectedResult = [
-      ['2018-03-08T00:00Z[UTC]', '2018-03-08T02:00Z[UTC]'],
-      ['2018-03-09T05:00Z[UTC]', '2018-03-09T10:00Z[UTC]'],
-      ['2018-03-09T14:30Z[UTC]', '2018-03-09T15:00Z[UTC]']
+      ['2018-03-08T00:00Z[UTC]', '2018-03-08T02:00Z[UTC]', 'Tentative'],
+      ['2018-03-09T05:00Z[UTC]', '2018-03-09T10:00Z[UTC]', 'Tentative'],
+      ['2018-03-09T14:30Z[UTC]', '2018-03-09T15:00Z[UTC]', 'Tentative']
     ];
 
     expect(utils.extractAppointments(testAppointments)).toEqual(expectedResult);

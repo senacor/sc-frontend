@@ -3,13 +3,8 @@
 exports[`Attendee renders appointments if show is set to true. 1`] = `
 <Fragment>
   <div
-    className={
-      Object {
-        "color": "#AABBCC",
-      }
-    }
     id="appointmentDiv15.5_10:45-16:15"
-    key="appointmentDiv15.5_10:45-16:15"
+    key="appointmentDiv15.5_10:45-16:15-0"
     style={
       Object {
         "height": "50%",
@@ -19,13 +14,8 @@ exports[`Attendee renders appointments if show is set to true. 1`] = `
     }
   />
   <div
-    className={
-      Object {
-        "color": "#AABBCC",
-      }
-    }
     id="appointmentDiv15.5_10:45-16:15"
-    key="appointmentDiv15.5_10:45-16:15"
+    key="appointmentDiv15.5_10:45-16:15-1"
     style={
       Object {
         "height": "50%",

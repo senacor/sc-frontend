@@ -8,7 +8,8 @@ import {
   CHANGE_DATE_FOR_APPOINTMENT
 } from '../helper/dispatchTypes';
 
-export const appointmentsSearch = (employeeIds, day) => async dispatch => {
+export const appointmentsSearch = (employeeIds, inputDay) => async dispatch => {
+  let day = moment.utc(inputDay).format('YYYY-MM-DD');
   //argument true makes sure that Moment doesn't try to parse the input if it doesn't _exactly_
   //conform the format provided:
   if (!moment(day, 'YYYY-MM-DD', true).isValid()) {
