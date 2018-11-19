@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import PrOverviewReviewer from './pr/PrOverviewReviewer';
 import AppBar from './AppBar/AppBar';
-import CstMembers from './cstmembers/CstMembers';
 import './App.css';
 import Login from './login/Login';
 import Logout from './login/Logout';
@@ -28,7 +27,6 @@ const withAppBar = WrappedComponent => props => (
 const PrOverviewReviewerAppBar = withAppBar(PrOverviewReviewer);
 const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
-const CstMembersWithAppBar = withAppBar(CstMembers);
 const DashboardWithAppBar = withAppBar(Dashboard);
 const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
 
@@ -53,7 +51,6 @@ const App = () => (
         path="/prDetail/:id"
         component={PerformanceReviewDetail2WithAppBar}
       />
-      <PrivateRoute exact path="/cstmembers" component={CstMembersWithAppBar} />
       <PrivateRoute exact path="/hr/prs" component={OverviewPrsWithAppBar} />
 
       <PrivateRoute path="/logout" component={Logout} />

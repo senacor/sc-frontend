@@ -101,47 +101,6 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
-      key="Mitarbeiter Übersicht"
-      roles={
-        Array [
-          "PR_CST_Leiter",
-        ]
-      }
-    >
-      <WithStyles(ListItem)
-        activeStyle={
-          Object {
-            "backgroundColor": "#DDD",
-          }
-        }
-        component={[Function]}
-        style={
-          Object {
-            "textDecoration": "none",
-          }
-        }
-        to="/cstmembers"
-      >
-        <WithStyles(ListItemIcon)>
-          <pure(GroupIcon) />
-        </WithStyles(ListItemIcon)>
-        <WithStyles(ListItemText)
-          disableTypography={true}
-          primary={
-            <div
-              style={
-                Object {
-                  "color": "#000",
-                }
-              }
-            >
-              Mitarbeiter Übersicht
-            </div>
-          }
-        />
-      </WithStyles(ListItem)>
-    </Connect(Authorized)>
-    <Connect(Authorized)
       key="Eigene PRs"
       roles={
         Array [

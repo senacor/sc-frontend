@@ -7,7 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import GroupIcon from '@material-ui/icons/Group';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
@@ -62,12 +61,6 @@ const listOfMenuEntries = [
     icon: <LibraryBooksIcon />,
     value: '/hr/prs',
     roles: [ROLES.PR_HR]
-  },
-  {
-    label: 'Mitarbeiter Übersicht',
-    icon: <GroupIcon />,
-    value: '/cstmembers',
-    roles: [ROLES.PR_CST_LEITER]
   },
   {
     label: 'Eigene PRs',

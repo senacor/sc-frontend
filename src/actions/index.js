@@ -14,7 +14,6 @@ export {
 export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { employeeSearch, employeeSearchClear } from './employeeSearch';
-export { getCstMembers } from './cstMembers';
 export { getEvents } from './events';
 export { appointmentsSearch, changeDate } from './appointments';
 export { addMeeting, fetchMeeting } from './meetings';
