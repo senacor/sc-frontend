@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core/styles/index';
-import withLoading from '../hoc/Loading';
-import EventList from './EventList';
 
 let styles = {
   rowContainer: {
@@ -30,7 +26,7 @@ let styles = {
 
 class Dashboard extends Component {
   render() {
-    const { classes, events } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.columnContainer}>
@@ -57,25 +53,10 @@ class Dashboard extends Component {
             </CardContent>
           </Card>
         </div>
-
-        <EventList events={events} />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    events: Object.values(state.events)
-  };
-}
-
-let dispatchToProps = {
-  getEvents: actions.getEvents
-};
-
 export const StyledComponent = withStyles(styles)(Dashboard);
-export default connect(
-  mapStateToProps,
-  dispatchToProps
-)(withLoading(props => props.getEvents())(StyledComponent));
+export default StyledComponent;
