@@ -228,6 +228,7 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       },
     ]
   }
+  isHr={false}
   orderBy={1}
 />
 `;

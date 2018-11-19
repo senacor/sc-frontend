@@ -8,6 +8,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EnhancedTableHead from './EnhancedTableHead';
+import { downloadExcel } from '../../actions/excelView';
+import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 
 export function descInteger(a, b, mapper) {
   if (mapper(b) < mapper(a)) {
@@ -103,7 +105,7 @@ class PerformanceReviewsTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition, data } = this.props;
+    const { classes, columnDefinition, data, isHr } = this.props;
     const {
       order,
       orderBy,
@@ -156,6 +158,12 @@ class PerformanceReviewsTable extends React.Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        {isHr ? (
+          <PrStatusActionButton
+            label={'Download Excel'}
+            releaseButtonClick={downloadExcel(this.props.filter)}
+          />
+        ) : null}
       </Paper>
     );
   }

@@ -23,3 +23,7 @@ export const formatDateTimeForFrontend = input => {
   }
   return null;
 };
+
+export const dateString = () => {
+  return moment().format('YYYY-MM-DD');
+};

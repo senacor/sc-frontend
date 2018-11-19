@@ -14,6 +14,8 @@ import getDisplayName from '../../helper/getDisplayName';
 import ListFilter from './ListFilter';
 import DateFilter from './DateFilter';
 import { formatDateForFrontend } from '../../helper/date';
+import { getUserroles } from '../../reducers/selector';
+import { isHr } from '../../helper/checkRole';
 
 export class OverviewPerformanceReviews extends Component {
   getColumnDefinitions = () => {
@@ -248,11 +250,14 @@ export class OverviewPerformanceReviews extends Component {
 
   render() {
     let columns = this.getColumnDefinitions();
+    let isHrMember = isHr(this.props.userroles);
     return (
       <PerformanceReviewsTable
         columnDefinition={columns}
         orderBy={1}
         data={this.props.data}
+        filter={this.props.filter}
+        isHr={isHrMember}
       />
     );
   }
@@ -261,7 +266,8 @@ export class OverviewPerformanceReviews extends Component {
 export default connect(
   state => ({
     data: getAllPrsForTable(state),
-    filter: getFilter(FILTER_GROUPS.HR)(state)
+    filter: getFilter(FILTER_GROUPS.HR)(state),
+    userroles: getUserroles(state)
   }),
   {
     fetchFilteredPrsForHumanResource: actions.fetchFilteredPrsForHumanResource
