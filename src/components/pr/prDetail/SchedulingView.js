@@ -15,7 +15,10 @@ export class SchedulingView extends React.Component {
             <MeetingCreator prDetail={this.props.prDetail} />
           )
         ) : (
-          <MeetingDetailsView meeting={this.props.meeting} />
+          <MeetingDetailsView
+            meeting={this.props.meeting}
+            pr={this.props.prDetail}
+          />
         )}
       </div>
     );

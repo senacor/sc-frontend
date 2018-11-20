@@ -13,6 +13,7 @@ describe('PrState Component for reviewer', () => {
   const prStatusesDone = {
     [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: true,
     [prStatusEnum.RELEASED_SHEET_REVIEWER]: false,
+    [prStatusEnum.REQUESTED_DATE]: true,
     [prStatusEnum.FIXED_DATE]: false,
     [prStatusEnum.FINALIZED_REVIEWER]: false,
     [prStatusEnum.FINALIZED_EMPLOYEE]: false,
@@ -57,14 +58,24 @@ describe('PrState Component for reviewer', () => {
             )
           }
         },
+        [prStatusEnum.REQUESTED_DATE]: {
+          isCompleted: true,
+          isCurrentUserActionPerformer: false,
+          label: 'Terminfindung',
+          rendering: {
+            complete: null,
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: 'Bitte einen Termin vereinbaren'
+          }
+        },
         [prStatusEnum.FIXED_DATE]: {
           isCompleted: false,
           isCurrentUserActionPerformer: true,
-          label: 'Terminfindung',
+          label: null,
           rendering: {
-            complete: 'Alle Teilnehmer haben zugesagt',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: 'Nicht abgeschlossen'
+            complete: 'Alle Teilnehmer haben die Anfrage beantwortet',
+            incompleteForNonActionPerformer: 'Terminvorschlag verschickt',
+            incompleteForActionPerformer: 'Bitte Terminvorschlag beantworten'
           }
         }
       }
@@ -115,7 +126,10 @@ describe('PrState Component for reviewer', () => {
     }
   ];
 
-  const prStatuses = [prStatusEnum.RELEASED_SHEET_EMPLOYEE];
+  const prStatuses = [
+    prStatusEnum.RELEASED_SHEET_EMPLOYEE,
+    prStatusEnum.REQUESTED_DATE
+  ];
 
   const userinfo = {
     userPrincipalName: 'test.pr.vorgesetzter'
@@ -263,6 +277,7 @@ describe('PrState Component for employee', () => {
   const prStatusesDone = {
     [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: true,
     [prStatusEnum.RELEASED_SHEET_REVIEWER]: false,
+    [prStatusEnum.REQUESTED_DATE]: false,
     [prStatusEnum.FIXED_DATE]: false,
     [prStatusEnum.FINALIZED_REVIEWER]: false,
     [prStatusEnum.FINALIZED_EMPLOYEE]: false,
@@ -307,14 +322,24 @@ describe('PrState Component for employee', () => {
             )
           }
         },
-        [prStatusEnum.FIXED_DATE]: {
+        [prStatusEnum.REQUESTED_DATE]: {
           isCompleted: false,
           isCurrentUserActionPerformer: true,
           label: 'Terminfindung',
           rendering: {
-            complete: 'Alle Teilnehmer haben zugesagt',
+            complete: null,
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: 'Nicht abgeschlossen'
+            incompleteForActionPerformer: 'Bitte einen Termin vereinbaren'
+          }
+        },
+        [prStatusEnum.FIXED_DATE]: {
+          isCompleted: false,
+          isCurrentUserActionPerformer: false,
+          label: null,
+          rendering: {
+            complete: 'Alle Teilnehmer haben die Anfrage beantwortet',
+            incompleteForNonActionPerformer: null,
+            incompleteForActionPerformer: null
           }
         }
       }
@@ -513,6 +538,7 @@ describe('PrState Component for HR', () => {
   const prStatusesDone = {
     [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: true,
     [prStatusEnum.RELEASED_SHEET_REVIEWER]: false,
+    [prStatusEnum.REQUESTED_DATE]: false,
     [prStatusEnum.FIXED_DATE]: false,
     [prStatusEnum.FINALIZED_REVIEWER]: false,
     [prStatusEnum.FINALIZED_EMPLOYEE]: false,

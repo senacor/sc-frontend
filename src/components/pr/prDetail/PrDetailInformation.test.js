@@ -19,7 +19,7 @@ describe('PrDetailInformation Component', () => {
       lastName: 'Mitarbeiter'
     },
     deadline: '2018-12-06',
-    appointment: '2018-12-04',
+    meeting: { start: '2018-12-04' },
     competence: 'DEVELOPMENT',
     occasion: 'ON_DEMAND'
   };

@@ -23,14 +23,11 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
       value=""
       variant="standard"
     />
-    <WithStyles(Button)
-      id="createMeeting"
-      onClick={[Function]}
-      type="submit"
-      variant="contained"
-    >
-      Termin erstellen
-    </WithStyles(Button)>
+    <WithStyles(PrStatusActionButton)
+      inputClass="MeetingCreatorForm-buttonPosition-3"
+      label="Termin erstellen"
+      releaseButtonClick={[Function]}
+    />
   </form>
 </div>
 `;

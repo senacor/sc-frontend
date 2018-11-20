@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledComponent } from './MeetingCreatorForm';
 import { createShallow } from '@material-ui/core/test-utils';
+import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 
 const fetchAppointmentsMock = jest.fn();
 
@@ -30,6 +31,8 @@ const pr = {
   }
 };
 
+const userinfo = { userPrincipalName: 'mmustermann' };
+
 describe('MeetingCreatorForm', () => {
   let shallow = createShallow({ dive: true });
 
@@ -39,7 +42,11 @@ describe('MeetingCreatorForm', () => {
       .mockImplementation(() => 1514794500000);
 
     let wrapper = shallow(
-      <StyledComponent fetchAppointments={fetchAppointmentsMock} />
+      <StyledComponent
+        fetchAppointments={fetchAppointmentsMock}
+        pr={pr}
+        userinfo={userinfo}
+      />
     );
 
     expect(wrapper).toMatchSnapshot();
@@ -53,10 +60,12 @@ describe('MeetingCreatorForm', () => {
       <StyledComponent
         meeting={null}
         fetchAppointments={fetchAppointmentsMock}
+        pr={pr}
+        userinfo={userinfo}
       />
     );
 
-    expect(wrapper.find('#createMeeting')).toHaveLength(1);
+    expect(wrapper.find(PrStatusActionButton)).toHaveLength(1);
   });
 
   it('should create the meeting details with two required attendees', () => {
@@ -65,6 +74,8 @@ describe('MeetingCreatorForm', () => {
       <StyledComponent
         meeting={null}
         fetchAppointments={fetchAppointmentsMock}
+        pr={pr}
+        userinfo={userinfo}
       />
     );
 
@@ -91,6 +102,8 @@ describe('MeetingCreatorForm', () => {
       <StyledComponent
         meeting={null}
         fetchAppointments={fetchAppointmentsMock}
+        pr={pr}
+        userinfo={userinfo}
       />
     );
 

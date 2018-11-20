@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { StyledComponent as Attendee } from './Attendee';
 import { createSingleAppointmentDiv } from './Attendee';
 import moment from 'moment-timezone';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const germanTimeFrom = dateTimeString =>
   moment
@@ -30,21 +31,30 @@ describe('createSingleAppointmentDiv', () => {
     let appointment = [];
     appointment.push(startAppointment);
     appointment.push(endAppointment);
+    let name = 'Michaela Mitarbeiterin';
+    let appointmentState = 'Busy';
     let singleAppointmentDiv = (
-      <div
+      <Tooltip
         key={`appointmentDiv15.5_${germanTimeFrom(
           startAppointment
-        )}-${germanTimeFrom(endAppointment)}-1`} //not visible, but necessary for equality
-        className={classes.appointmentDiv}
-        id={`appointmentDiv15.5_${germanTimeFrom(
-          startAppointment
-        )}-${germanTimeFrom(endAppointment)}`}
-        style={{
-          left: '15.5%',
-          top: '25%',
-          height: '50%'
-        }}
-      />
+        )}-${germanTimeFrom(endAppointment)}-1`}
+        title={name + ': fester Termin'}
+      >
+        <div
+          key={`appointmentDiv15.5_${germanTimeFrom(
+            startAppointment
+          )}-${germanTimeFrom(endAppointment)}-1`} //not visible, but necessary for equality
+          className={classes.appointmentDiv}
+          id={`appointmentDiv15.5_${germanTimeFrom(
+            startAppointment
+          )}-${germanTimeFrom(endAppointment)}`}
+          style={{
+            left: '15.5%',
+            top: '25%',
+            height: '50%'
+          }}
+        />
+      </Tooltip>
     );
     expect(
       createSingleAppointmentDiv(
@@ -53,7 +63,9 @@ describe('createSingleAppointmentDiv', () => {
         endAppointment,
         properties.selectedDate,
         classes.appointmentDiv,
-        1
+        1,
+        name,
+        appointmentState
       )
     ).toEqual(singleAppointmentDiv);
   });
@@ -97,6 +109,7 @@ describe('Attendee', () => {
     let appointmentsEmployee = [];
     appointmentsEmployee.push(appointment);
     appointmentsEmployee.push(appointment);
+    let name = 'Michaela Mitarbeiterin';
     const component = shallow(
       <Attendee
         appointments={appointmentsEmployee}
@@ -105,7 +118,7 @@ describe('Attendee', () => {
         show={true}
       />
     ).dive();
-    component.setProps({ classes });
+    component.setProps({ classes, name });
 
     expect(component).toMatchSnapshot();
   });

@@ -1,46 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PersonToggle should match snapshot 1`] = `
-<WithStyles(Grid)
-  alignContent="space-between"
-  alignItems="center"
-  container={true}
-  direction="row"
-  spacing={24}
->
-  <WithStyles(Grid)
-    item={true}
-    lg={2}
-    md={2}
-    sm={4}
-    xl={2}
-    xs={8}
-  >
-    <WithStyles(Typography)
-      color="textSecondary"
-      variant="caption"
-    >
-      Mitarbeiter
-    </WithStyles(Typography)>
-    <WithStyles(Typography)
-      noWrap={true}
-      variant="subtitle1"
-    >
-      Michaela Mitarbeiterin
-    </WithStyles(Typography)>
-  </WithStyles(Grid)>
-  <WithStyles(Grid)
-    item={true}
-    md={1}
-    sm={1}
-    xs={1}
-  >
-    <WithStyles(Switch)
-      checked={true}
-      className="employeeSwitch"
-      color="primary"
-      onChange={[Function]}
-    />
-  </WithStyles(Grid)>
-</WithStyles(Grid)>
+<PersonToggle
+  classes={
+    Object {
+      "colorSwitchBaseEmployee": "PersonToggle-colorSwitchBaseEmployee-2",
+      "colorSwitchBaseReviewer": "PersonToggle-colorSwitchBaseReviewer-1",
+      "colorSwitchBaseSupervisor": "PersonToggle-colorSwitchBaseSupervisor-3",
+    }
+  }
+  displayName="Michaela Mitarbeiterin"
+  displayRole="Mitarbeiter"
+  showAttendee={true}
+/>
 `;

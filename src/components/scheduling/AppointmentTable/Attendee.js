@@ -6,24 +6,31 @@ import {
   appointmentsFilter,
   transformAppointmentTimeToPercent
 } from './AppointmentUtilities';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export const styles = () => ({
-  appointmentDivBusy: {
-    width: '21.5%',
-    borderRadius: 10,
-    background: '#FA5858',
-    position: 'absolute'
-  },
-  appointmentDivTentative: {
-    width: '21.5%',
-    borderRadius: 10,
-    background: '#BFFF00',
-    position: 'absolute'
-  },
   appointmentDiv: {
     width: '21.5%',
     borderRadius: 10,
     background: '#4d8087',
+    position: 'absolute'
+  },
+  appointmentDivEmployee: {
+    width: '21.5%',
+    borderRadius: 10,
+    background: '#3D8E99',
+    position: 'absolute'
+  },
+  appointmentDivReviewer: {
+    width: '21.5%',
+    borderRadius: 10,
+    background: '#004953',
+    position: 'absolute'
+  },
+  appointmentDivSupervisor: {
+    width: '21.5%',
+    borderRadius: 10,
+    background: '#00FF90',
     position: 'absolute'
   }
 });
@@ -34,7 +41,9 @@ export function createSingleAppointmentDiv(
   endTime,
   date,
   className,
-  keySuffix
+  keySuffix,
+  name,
+  appointmentState
 ) {
   let timeStart = moment(startTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
     .tz('Europe/Berlin')
@@ -44,27 +53,42 @@ export function createSingleAppointmentDiv(
     .format('HH:mm');
   let topPosition = transformAppointmentTimeToPercent(startTime, date);
   let length = transformAppointmentTimeToPercent(endTime, date) - topPosition;
+  let infoOnMouseOver = name;
+  if (appointmentState === 'Busy') {
+    infoOnMouseOver = name + ': fester Termin';
+  }
+  if (appointmentState === 'Tentative') {
+    infoOnMouseOver = name + ': Termin mit Vorbehalt';
+  }
   return (
-    <div
-      id={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}`}
-      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${keySuffix}`} //needs an unique key
-      className={className}
-      style={{
-        left: distanceFromLeft.toString() + '%',
-        top: topPosition.toString() + '%',
-        height: length.toString() + '%'
-      }}
-    />
+    <Tooltip
+      title={infoOnMouseOver}
+      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${keySuffix}`}
+    >
+      <div
+        id={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}`}
+        key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${keySuffix}`} //needs an unique key
+        className={className}
+        style={{
+          left: distanceFromLeft.toString() + '%',
+          top: topPosition.toString() + '%',
+          height: length.toString() + '%'
+        }}
+      />
+    </Tooltip>
   );
 }
 
-function appointmentClass(state, classes) {
-  if (state === 'Busy') {
-    return classes.appointmentDivBusy;
-  } else if (state === 'Tentative') {
-    return classes.appointmentDivTentative;
-  } else {
-    return classes.appointmentDiv;
+function attendeeAppointmentClass(attendee, classes) {
+  switch (attendee) {
+    case 'employee':
+      return classes.appointmentDivEmployee;
+    case 'reviewer':
+      return classes.appointmentDivReviewer;
+    case 'supervisor':
+      return classes.appointmentDivSupervisor;
+    default:
+      return classes.appointmentDiv;
   }
 }
 
@@ -75,11 +99,18 @@ class Attendee extends React.Component {
       this.props.appointments,
       this.props.selectedDate
     );
-    for (let i = 0; i < filteredAppointments.length; i++) {
-      const startTime = filteredAppointments[i][0];
-      const endTime = filteredAppointments[i][1];
-      const appointmentState = filteredAppointments[i][2];
-      const className = appointmentClass(appointmentState, this.props.classes);
+    for (
+      let appointmentCounter = 0;
+      appointmentCounter < filteredAppointments.length;
+      appointmentCounter++
+    ) {
+      const startTime = filteredAppointments[appointmentCounter][0];
+      const endTime = filteredAppointments[appointmentCounter][1];
+      const appointmentState = filteredAppointments[appointmentCounter][2];
+      const className = attendeeAppointmentClass(
+        this.props.attendee,
+        this.props.classes
+      );
       appointmentDivs.push(
         createSingleAppointmentDiv(
           this.props.distanceFromLeft,
@@ -87,7 +118,9 @@ class Attendee extends React.Component {
           endTime,
           this.props.selectedDate,
           className,
-          i
+          appointmentCounter,
+          this.props.name,
+          appointmentState
         )
       );
     }
@@ -107,7 +140,8 @@ Attendee.propTypes = {
   appointments: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   distanceFromLeft: PropTypes.number.isRequired,
-  show: PropTypes.bool.isRequired
+  show: PropTypes.bool.isRequired,
+  attendee: PropTypes.string
 };
 
 Attendee.defaultProps = {

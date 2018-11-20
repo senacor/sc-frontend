@@ -4,6 +4,12 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
 <div
   className="MeetingDetailsView-meetingView-4"
 >
+  <WithStyles(Typography)
+    gutterBottom={true}
+    variant="h4"
+  >
+    Termindetails
+  </WithStyles(Typography)>
   <WithStyles(List)>
     <WithStyles(ListItem)
       id="date"

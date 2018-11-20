@@ -25,6 +25,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
 import { prStatusEnum } from '../../helper/prStatus';
+import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 
 const styles = theme => ({
   containerVertical: {
@@ -102,16 +103,6 @@ class PrSheet extends React.Component {
     return this.props.prById.statuses.includes(prStatusEnum.ARCHIVED_HR);
   };
 
-  hasRoleInPrBasedOnUserName = (pr, userinfo) => roles => {
-    let hasRoleInPr = false;
-    roles.forEach(function(item) {
-      if (objectGet(pr, `${item}.login`) === userinfo.userPrincipalName) {
-        hasRoleInPr = true;
-      }
-    });
-    return hasRoleInPr;
-  };
-
   render() {
     const { prById, classes, userinfo, requiredFields } = this.props;
 
@@ -123,7 +114,7 @@ class PrSheet extends React.Component {
       return null;
     }
 
-    let hasRoleInPr = this.hasRoleInPrBasedOnUserName(prById, userinfo);
+    let hasRoleInPr = hasRoleInPrBasedOnUserName(prById, userinfo);
     let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
     let nonActionPerformerForEmployeeActions =
       hasRoleInPr(['supervisor', 'reviewer']) || isHr(this.props.userroles);

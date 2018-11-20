@@ -62,8 +62,9 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
           item={true}
           key="employee"
         >
-          <PersonToggle
-            displayName="mmustermann"
+          <WithStyles(PersonToggle)
+            attendee="employee"
+            displayName="Max Mustermann"
             displayRole="Ich"
             onChange={[Function]}
             showAttendee={true}
@@ -73,9 +74,10 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
           item={true}
           key="supervisor"
         >
-          <PersonToggle
-            displayName="test.pr.mitarbeiter1"
-            displayRole="Vorgesetzter"
+          <WithStyles(PersonToggle)
+            attendee="supervisor"
+            displayName="Michaela Mitarbeiterin"
+            displayRole="Vorgesetzte/r"
             onChange={[Function]}
             showAttendee={true}
           />

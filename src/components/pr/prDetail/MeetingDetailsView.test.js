@@ -39,7 +39,25 @@ describe('MeetingDetailsView', () => {
       }
     };
 
-    let wrapper = shallow(<StyledComponent meeting={meeting} />);
+    const pr = {
+      reviewer: {
+        login: 'test.pr.mitarbeiter1',
+        firstName: 'Michaela',
+        lastName: 'Mitarbeiterin'
+      },
+      employee: {
+        login: 'test.pr.mitarbeiter2',
+        firstName: 'Martin',
+        lastName: 'Mitarbeiter'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter',
+        firstName: 'Volker',
+        lastName: 'Vorgesetzter'
+      }
+    };
+
+    let wrapper = shallow(<StyledComponent meeting={meeting} pr={pr} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -64,6 +82,24 @@ describe('MeetingDetailsView', () => {
       }
     };
 
+    const pr = {
+      reviewer: {
+        login: 'test.pr.mitarbeiter1',
+        firstName: 'Michaela',
+        lastName: 'Mitarbeiterin'
+      },
+      employee: {
+        login: 'test.pr.mitarbeiter2',
+        firstName: 'Martin',
+        lastName: 'Mitarbeiter'
+      },
+      supervisor: {
+        login: 'test.pr.vorgesetzter',
+        firstName: 'Volker',
+        lastName: 'Vorgesetzter'
+      }
+    };
+
     let startDateAsLocal = moment(meeting.start)
       .local()
       .format('DD.MM.YYYY');
@@ -76,7 +112,7 @@ describe('MeetingDetailsView', () => {
       .local()
       .format('HH:mm');
 
-    let wrapper = shallow(<StyledComponent meeting={meeting} />);
+    let wrapper = shallow(<StyledComponent meeting={meeting} pr={pr} />);
 
     expect(wrapper.find({ primary: startDateAsLocal })).toHaveLength(1);
 

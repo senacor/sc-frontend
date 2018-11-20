@@ -15,6 +15,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { translateContent } from '../../translate/Translate';
+import Typography from '@material-ui/core/Typography/Typography';
 
 const styles = theme => ({
   container: {
@@ -59,11 +60,23 @@ class MeetingDetailsView extends React.Component {
     }));
   };
 
+  findDisplayState = (employee, pr) => {
+    let login = employee.email.replace('@senacor.com', '');
+    if (pr.employee.login === login && employee.status === 'UNKNOWN') {
+      return 'Einladung verschickt';
+    } else {
+      return translateContent(employee.status);
+    }
+  };
+
   render() {
-    const { classes, meeting } = this.props;
+    const { classes, meeting, pr } = this.props;
 
     return (
       <div className={classes.meetingView}>
+        <Typography gutterBottom variant="h4">
+          Termindetails
+        </Typography>
         <List>
           <ListItem id={'date'}>
             <ListItemIcon>
@@ -128,8 +141,9 @@ class MeetingDetailsView extends React.Component {
                       }>`}
                       secondary={
                         'Status: ' +
-                        translateContent(
-                          meeting.requiredAttendees[employee].status
+                        this.findDisplayState(
+                          meeting.requiredAttendees[employee],
+                          pr
                         )
                       }
                     />
@@ -145,7 +159,7 @@ class MeetingDetailsView extends React.Component {
                   <PeopleIcon className={classes.icon} />
                 </ListItemIcon>
                 <ListItemText primary={'Optionale Teilnehmer'} />
-                {this.state.openOptionalAttendeesAttendees ? (
+                {this.state.openOptionalAttendees ? (
                   <ExpandLess />
                 ) : (
                   <ExpandMore />
@@ -178,8 +192,9 @@ class MeetingDetailsView extends React.Component {
                           } <${meeting.optionalAttendees[employee].email}>`}
                           secondary={
                             'Status: ' +
-                            translateContent(
-                              meeting.optionalAttendees[employee].status
+                            this.findDisplayState(
+                              meeting.optionalAttendees[employee],
+                              pr
                             )
                           }
                         />

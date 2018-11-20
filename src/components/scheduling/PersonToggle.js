@@ -3,6 +3,19 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = () => ({
+  colorSwitchBaseReviewer: {
+    color: '#004953'
+  },
+  colorSwitchBaseEmployee: {
+    color: '#3D8E99'
+  },
+  colorSwitchBaseSupervisor: {
+    color: '#00FF90'
+  }
+});
 
 export class PersonToggle extends React.Component {
   constructor(props) {
@@ -12,6 +25,19 @@ export class PersonToggle extends React.Component {
       showAttendee: props.showAttendee
     };
   }
+
+  findSwitchBase = (attendee, classes) => {
+    switch (attendee) {
+      case 'employee':
+        return classes.colorSwitchBaseEmployee;
+      case 'reviewer':
+        return classes.colorSwitchBaseReviewer;
+      case 'supervisor':
+        return classes.colorSwitchBaseSupervisor;
+      default:
+        return classes.colorSwitchBaseEmployee;
+    }
+  };
 
   render() {
     return (
@@ -37,7 +63,18 @@ export class PersonToggle extends React.Component {
             onChange={() => {
               this.handleToggle();
             }}
-            color="primary"
+            classes={{
+              switchBase: this.findSwitchBase(
+                this.props.attendee,
+                this.props.classes
+              ),
+              iconChecked: this.findSwitchBase(
+                this.props.attendee,
+                this.props.classes
+              ),
+              root: this.props.classes.colorSwitchBaseEmployee
+            }}
+            color={'primary'}
           />
         </Grid>
       </Grid>
@@ -54,7 +91,9 @@ export class PersonToggle extends React.Component {
 PersonToggle.propTypes = {
   displayName: PropTypes.string.isRequired,
   displayRole: PropTypes.string,
-  showAttendee: PropTypes.bool
+  showAttendee: PropTypes.bool,
+  color: PropTypes.string,
+  attendee: PropTypes.string
 };
 
 PersonToggle.defaultProps = {
@@ -62,4 +101,4 @@ PersonToggle.defaultProps = {
   showAttendee: true
 };
 
-export default PersonToggle;
+export default withStyles(styles)(PersonToggle);

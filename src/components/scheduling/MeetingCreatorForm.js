@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { getSelectedDate } from '../../reducers/selector';
-import Button from '@material-ui/core/Button';
+import {
+  getPrDetail,
+  getSelectedDate,
+  getUserinfo,
+  getUserroles
+} from '../../reducers/selector';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
+import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
+import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 
 const styles = theme => ({
   container: {
@@ -20,6 +26,14 @@ const styles = theme => ({
     '& ListItemText span': {
       fontSize: '0.875rem'
     }
+  },
+  buttonPosition: {
+    marginTop: '1.5%',
+    position: 'relative',
+    backgroundColor: theme.palette.primary['400'],
+    color: '#FFF',
+    marginBottom: '2%',
+    marginLeft: '1.5%'
   }
 });
 
@@ -88,34 +102,43 @@ class MeetingCreatorForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, pr, userinfo } = this.props;
+    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
+    let isEmployee = hasRoleInPr(['employee']);
+
     return (
       <div>
+        {!isEmployee ? (
+          <p>
+            Bitte auf die Terminanfrage zeitnah im Kalender antworten. Zur
+            besseren Übersicht sind hier die nicht mehr verfügbaren Termine für
+            alle Teilnehmer angezeigt.
+          </p>
+        ) : null}
         <DateTimePicker
           date={this.state.date}
           startTime={this.state.startTime}
           endTime={this.state.endTime}
           onDateTimeChange={this.setDateTime}
         />
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="location"
-            label="Ort"
-            className={classes.textField}
-            value={this.state.location}
-            onChange={this.handleChange('location')}
-            margin="normal"
-          />
-          <Button
-            id="createMeeting"
-            className={classes.button}
-            variant="contained"
-            onClick={this.handleClickOfMeetingButton}
-            type="submit"
-          >
-            Termin erstellen
-          </Button>
-        </form>
+        {isEmployee ? (
+          <form className={classes.container} noValidate autoComplete="off">
+            <TextField
+              id="location"
+              label="Ort"
+              className={classes.textField}
+              value={this.state.location}
+              onChange={this.handleChange('location')}
+              margin="normal"
+            />
+
+            <PrStatusActionButton
+              releaseButtonClick={this.handleClickOfMeetingButton}
+              label={'Termin erstellen'}
+              inputClass={classes.buttonPosition}
+            />
+          </form>
+        ) : null}
       </div>
     );
   }
@@ -129,6 +152,9 @@ MeetingCreatorForm.propTypes = {
 export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
 export default connect(
   state => ({
+    pr: getPrDetail()(state),
+    userinfo: getUserinfo(state),
+    userroles: getUserroles(state),
     getSelectedDateTime: getSelectedDate(state)
   }),
   {

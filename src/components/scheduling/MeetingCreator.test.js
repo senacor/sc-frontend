@@ -30,6 +30,8 @@ describe('MeetingCreatorForm', () => {
     }
   };
 
+  const userinfo = { userPrincipalName: 'mmustermann' };
+
   const appointmentsSearchMock = jest.fn();
   const appointmentsSearchResults = {};
 
@@ -43,6 +45,7 @@ describe('MeetingCreatorForm', () => {
         prDetail={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
+        userinfo={userinfo}
       />
     );
 
@@ -55,6 +58,7 @@ describe('MeetingCreatorForm', () => {
         prDetail={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
+        userinfo={userinfo}
       />
     );
 
@@ -69,6 +73,7 @@ describe('MeetingCreatorForm', () => {
         prDetail={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
+        userinfo={userinfo}
       />
     );
 
@@ -88,6 +93,7 @@ describe('MeetingCreatorForm', () => {
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
         selectedDate={selectedDate}
+        userinfo={userinfo}
       />
     );
 
@@ -108,6 +114,7 @@ describe('MeetingCreatorForm', () => {
         prDetail={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
+        userinfo={userinfo}
       />
     );
     const expectedComponentState = {
@@ -120,7 +127,7 @@ describe('MeetingCreatorForm', () => {
       supervisor: {
         id: pr.supervisor.login,
         name: `${pr.supervisor.firstName} ${pr.supervisor.lastName}`,
-        role: 'Vorgesetzter',
+        role: 'Vorgesetzte/r',
         show: true
       }
     };

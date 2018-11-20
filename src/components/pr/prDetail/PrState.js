@@ -4,7 +4,6 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
-import objectGet from 'object-get';
 
 import { withStyles } from '@material-ui/core/styles/index';
 import {
@@ -21,6 +20,7 @@ import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
 import { isHr } from '../../../helper/checkRole';
 import { changeRequiredFields } from '../../../actions/sheet';
+import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 
 const styles = theme => ({
   paper: {
@@ -89,18 +89,18 @@ class PrState extends React.Component {
     }
   };
 
-  hasRoleInPrBasedOnUserName = (pr, userinfo) => roles => {
-    let hasRoleInPr = false;
-    roles.forEach(function(item) {
-      if (objectGet(pr, `${item}.login`) === userinfo.userPrincipalName) {
-        hasRoleInPr = true;
-      }
-    });
-    return hasRoleInPr;
-  };
-
   updateStepStructure = (pr, userinfo, prStatusesDone, releaseButtonClick) => {
-    let hasRoleInPr = this.hasRoleInPrBasedOnUserName(pr, userinfo);
+    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
+    let requestedDate = prStatusesDone[prStatusEnum.REQUESTED_DATE];
+    let fixedDate = prStatusesDone[prStatusEnum.FIXED_DATE];
+    let requestDateLabel = fixedDate ? null : 'Terminfindung';
+    let fixedDateLabel = fixedDate ? 'Terminfindung' : null;
+    let dateNotRequestedText = requestedDate
+      ? 'Terminvorschlag verschickt'
+      : null;
+    let noRequestedDateForReviewerText = requestedDate
+      ? 'Bitte Terminvorschlag beantworten'
+      : null;
     let step1 = {
       mainStepLabel: 'Vorbereitung',
       substeps: {
@@ -138,18 +138,24 @@ class PrState extends React.Component {
             )
           }
         },
+        [prStatusEnum.REQUESTED_DATE]: {
+          isCompleted: prStatusesDone[prStatusEnum.REQUESTED_DATE],
+          isCurrentUserActionPerformer: hasRoleInPr(['employee']),
+          label: requestDateLabel,
+          rendering: {
+            complete: null,
+            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            incompleteForActionPerformer: 'Bitte einen Termin vereinbaren'
+          }
+        },
         [prStatusEnum.FIXED_DATE]: {
           isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
-          isCurrentUserActionPerformer: hasRoleInPr([
-            'supervisor',
-            'reviewer',
-            'employee'
-          ]),
-          label: 'Terminfindung',
+          isCurrentUserActionPerformer: hasRoleInPr(['reviewer', 'supervisor']),
+          label: fixedDateLabel,
           rendering: {
-            complete: 'Alle Teilnehmer haben zugesagt',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: 'Nicht abgeschlossen'
+            complete: 'Alle Teilnehmer haben die Anfrage beantwortet',
+            incompleteForNonActionPerformer: dateNotRequestedText,
+            incompleteForActionPerformer: noRequestedDateForReviewerText
           }
         }
       }

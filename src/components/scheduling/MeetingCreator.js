@@ -7,9 +7,15 @@ import Grid from '@material-ui/core/Grid/Grid';
 import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import { connect } from 'react-redux';
-import { getAppointments, getSelectedDate } from '../../reducers/selector';
+import {
+  getAppointments,
+  getPrDetail,
+  getSelectedDate,
+  getUserinfo
+} from '../../reducers/selector';
 import * as actions from '../../actions';
 import ObjectGet from 'object-get';
+import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 
 export class MeetingCreator extends Component {
   constructor(props) {
@@ -22,24 +28,32 @@ export class MeetingCreator extends Component {
   }
 
   componentDidMount() {
-    this.setEmployeeSupervisorReviewerData(this.props.prDetail);
+    this.setEmployeeSupervisorReviewerData(
+      this.props.prDetail,
+      this.props.userinfo
+    );
     this.fetchAppointments(this.props.selectedDate);
   }
 
-  setStateforRole = (pr, role) => {
+  setStateforRole = (pr, role, userinfo) => {
+    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let roleDescription;
-    switch (role) {
-      case 'employee':
-        roleDescription = 'Ich';
-        break;
-      case 'supervisor':
-        roleDescription = 'Vorgesetzter';
-        break;
-      case 'reviewer':
-        roleDescription = 'Beurteiler';
-        break;
-      default:
-        roleDescription = '';
+    if (hasRoleInPr([role])) {
+      roleDescription = 'Ich';
+    } else {
+      switch (role) {
+        case 'employee':
+          roleDescription = 'Mitarbeiter/in';
+          break;
+        case 'supervisor':
+          roleDescription = 'Vorgesetzte/r';
+          break;
+        case 'reviewer':
+          roleDescription = 'Beurteiler/in';
+          break;
+        default:
+          roleDescription = '';
+      }
     }
     this.setState(prevState => {
       return {
@@ -56,11 +70,12 @@ export class MeetingCreator extends Component {
     });
   };
 
-  setEmployeeSupervisorReviewerData = pr => {
-    this.setStateforRole(pr, 'employee');
-    this.hasSupervisorEntry(pr) && this.setStateforRole(pr, 'supervisor');
+  setEmployeeSupervisorReviewerData = (pr, userinfo) => {
+    this.setStateforRole(pr, 'employee', userinfo);
+    this.hasSupervisorEntry(pr) &&
+      this.setStateforRole(pr, 'supervisor', userinfo);
     this.hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
-      this.setStateforRole(pr, 'reviewer');
+      this.setStateforRole(pr, 'reviewer', userinfo);
   };
 
   hasSupervisorEntry = pr => {
@@ -114,10 +129,11 @@ export class MeetingCreator extends Component {
                   return (
                     <Grid item key={attendee}>
                       <PersonToggle
-                        displayName={`${this.state[attendee].id}`}
+                        displayName={`${this.state[attendee].name}`}
                         displayRole={`${this.state[attendee].role}`}
                         onChange={this.onVisibilityChange(attendee)}
                         showAttendee={this.state[attendee].show}
+                        attendee={attendee}
                       />
                     </Grid>
                   );
@@ -142,6 +158,8 @@ export class MeetingCreator extends Component {
                     )}
                     selectedDate={this.props.selectedDate}
                     distanceFromLeft={(100 * index) / keyArray.length + 10}
+                    name={this.state[attendee].name}
+                    attendee={attendee}
                   />
                 ))}
             </TimeTable>
@@ -155,7 +173,9 @@ export class MeetingCreator extends Component {
 export default connect(
   state => ({
     appointmentsSearchResults: getAppointments(state),
-    selectedDate: getSelectedDate(state)
+    selectedDate: getSelectedDate(state),
+    userinfo: getUserinfo(state),
+    pr: getPrDetail()(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch

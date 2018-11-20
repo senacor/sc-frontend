@@ -13,12 +13,13 @@ const styles = theme => ({
 });
 
 function PrStatusActionButton(props) {
-  let { classes, label } = props;
+  let { classes, label, inputClass } = props;
+  let finalClass = inputClass ? inputClass : classes.buttonDesktop;
   return (
     <Button
       classes={{ sizeSmall: classes.sizeSmall }}
       size="small"
-      className={classes.buttonDesktop}
+      className={finalClass}
       onClick={props.releaseButtonClick}
     >
       {label}

@@ -21,11 +21,11 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                 "ALL_DATES_ACCEPTED": Object {
                   "isCompleted": false,
                   "isCurrentUserActionPerformer": false,
-                  "label": "Terminfindung",
+                  "label": null,
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben zugesagt",
-                    "incompleteForActionPerformer": "Nicht abgeschlossen",
-                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "incompleteForActionPerformer": null,
+                    "incompleteForNonActionPerformer": null,
                   },
                 },
                 "FILLED_SHEET_EMPLOYEE": Object {
@@ -51,6 +51,16 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                       label="Freigabe"
                       releaseButtonClick={[Function]}
           />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "REQUESTED_DATE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": null,
+                    "incompleteForActionPerformer": "Bitte einen Termin vereinbaren",
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -130,7 +140,7 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
     </WithStyles(ListItem)>
     <WithStyles(ListItem)>
       <WithStyles(PrStateStepper)
-        activeStep={3}
+        activeStep={2}
         stepStructure={
           Array [
             Object {
@@ -141,9 +151,9 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "isCurrentUserActionPerformer": false,
                   "label": "Terminfindung",
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben zugesagt",
-                    "incompleteForActionPerformer": "Nicht abgeschlossen",
-                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "incompleteForActionPerformer": null,
+                    "incompleteForNonActionPerformer": null,
                   },
                 },
                 "FILLED_SHEET_EMPLOYEE": Object {
@@ -169,6 +179,16 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                       label="Freigabe"
                       releaseButtonClick={[Function]}
           />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "REQUESTED_DATE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": null,
+                  "rendering": Object {
+                    "complete": null,
+                    "incompleteForActionPerformer": "Bitte einen Termin vereinbaren",
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -256,12 +276,12 @@ exports[`PrState Component for employee should match snapshot 1`] = `
               "substeps": Object {
                 "ALL_DATES_ACCEPTED": Object {
                   "isCompleted": false,
-                  "isCurrentUserActionPerformer": true,
-                  "label": "Terminfindung",
+                  "isCurrentUserActionPerformer": false,
+                  "label": null,
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben zugesagt",
-                    "incompleteForActionPerformer": "Nicht abgeschlossen",
-                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "incompleteForActionPerformer": null,
+                    "incompleteForNonActionPerformer": null,
                   },
                 },
                 "FILLED_SHEET_EMPLOYEE": Object {
@@ -287,6 +307,16 @@ exports[`PrState Component for employee should match snapshot 1`] = `
                       label="Freigabe"
                       releaseButtonClick={[Function]}
           />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "REQUESTED_DATE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": true,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": null,
+                    "incompleteForActionPerformer": "Bitte einen Termin vereinbaren",
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -357,11 +387,11 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                 "ALL_DATES_ACCEPTED": Object {
                   "isCompleted": false,
                   "isCurrentUserActionPerformer": true,
-                  "label": "Terminfindung",
+                  "label": null,
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben zugesagt",
-                    "incompleteForActionPerformer": "Nicht abgeschlossen",
-                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "incompleteForActionPerformer": null,
+                    "incompleteForNonActionPerformer": null,
                   },
                 },
                 "FILLED_SHEET_EMPLOYEE": Object {
@@ -387,6 +417,16 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                       label="Freigabe"
                       releaseButtonClick={[Function]}
           />,
+                    "incompleteForNonActionPerformer": "Nicht abgeschlossen",
+                  },
+                },
+                "REQUESTED_DATE": Object {
+                  "isCompleted": false,
+                  "isCurrentUserActionPerformer": false,
+                  "label": "Terminfindung",
+                  "rendering": Object {
+                    "complete": null,
+                    "incompleteForActionPerformer": "Bitte einen Termin vereinbaren",
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },

@@ -3,6 +3,7 @@ import * as dispatchTypes from '../helper/dispatchTypes';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
+import { prStatusEnum } from '../helper/prStatus';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -18,7 +19,7 @@ const prById = {
     email: 'lionel.schäfer@senacor.com',
     entryDate: '2004-05-10'
   },
-  supervisor: 'ttran',
+  supervisor: { login: 'ttran' },
   occasion: 'ON_DEMAND',
   status: 'PREPARATION',
   deadline: '2018-03-14',
@@ -26,7 +27,8 @@ const prById = {
     self: {
       href: 'http://localhost:8010/api/v1/prs/1'
     }
-  }
+  },
+  reviewer: { login: 'skunze' }
 };
 
 describe('addMeeting', () => {
@@ -214,6 +216,15 @@ describe('fetchMeeting', () => {
     });
     const store = mockStore();
 
+    fetchMock.putOnce('/api/v1/prs/1/status', {
+      prId: 1,
+      statuses: [prStatusEnum.FIXED_DATE]
+    });
+
+    fetchMock.getOnce('/api/v1/prs/1', {
+      id: 1
+    });
+
     await store.dispatch(fetchMeeting(prById));
 
     expect(store.getActions()).toEqual([
@@ -242,7 +253,11 @@ describe('fetchMeeting', () => {
             }
           }
         }
-      }
+      },
+      { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
+      { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
+      { type: dispatchTypes.ERROR_GONE },
+      { prById: { id: 1 }, type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE }
     ]);
   });
 
