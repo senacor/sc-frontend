@@ -2,6 +2,7 @@ import {
   ADD_FILTER,
   ADD_SUBFILTER,
   DELETE_SUBFILTER,
+  LOGIN_UNAUTHORIZED,
   LOGOUT
 } from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
@@ -62,6 +63,8 @@ export const filter = (state = { hr: hr_initDate }, action) => {
       return newFilterGroup;
     }
     case LOGOUT:
+      return {};
+    case LOGIN_UNAUTHORIZED:
       return {};
     default:
       return state;

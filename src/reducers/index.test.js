@@ -3,7 +3,6 @@ import app from './index';
 import moment from 'moment-timezone';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
-
 describe('reducers', () => {
   it('should return combined reducers', () => {
     expect(reducers).toBeInstanceOf(Function);
@@ -11,8 +10,8 @@ describe('reducers', () => {
 
   describe('LOGOUT and LOGIN_UNAUTHORIZED dispatch', () => {
     [
-      { type: dispatchTypes.LOGIN_UNAUTHORIZED },
-      { type: dispatchTypes.LOGOUT }
+      { type: dispatchTypes.LOGIN_UNAUTHORIZED, isUnautherized: true },
+      { type: dispatchTypes.LOGOUT, isUnautherized: false }
     ].forEach(state => {
       it(`should wipe state if ${state.type} is dispatched`, () => {
         let someValue = 'someValue';
@@ -69,7 +68,7 @@ describe('reducers', () => {
           isLoading: false,
           login: {
             isLoggedIn: false,
-            isUnauthorized: false
+            isUnauthorized: state.isUnautherized
           },
           meeting: null,
           newPrId: null,
