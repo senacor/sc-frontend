@@ -1,7 +1,7 @@
 import { prFinalizationStatus } from './getPrFinalizationStatus';
 import {
   FETCHED_PR_FINALIZATION_STATUS,
-  FETCHED_EVENTS
+  FETCHED_USERINFO
 } from '../helper/dispatchTypes';
 import { FINALIZED } from '../helper/prFinalization';
 
@@ -30,7 +30,7 @@ describe('prFinalizationStatus', () => {
 
   it('should return state as it was before when non-matching action is dispatched', () => {
     let action = {
-      type: FETCHED_EVENTS,
+      type: FETCHED_USERINFO,
       prFinalizationStatus: {
         isFinalizedByEmployee: FINALIZED,
         isFinalizedByReviewer: FINALIZED

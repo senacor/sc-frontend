@@ -20,7 +20,6 @@ describe('reducers', () => {
           hasErrors: false,
           message: { someValue }
         },
-        events: [someValue],
         filter: { someValue },
         finalCommentEmployee: { someValue },
         isLoading: false,
@@ -58,7 +57,6 @@ describe('reducers', () => {
           hasErrors: false,
           message: null
         },
-        events: [],
         filter: {},
         finalCommentEmployee: {},
         finalCommentHr: {},
