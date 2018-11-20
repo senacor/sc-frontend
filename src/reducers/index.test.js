@@ -16,7 +16,6 @@ describe('reducers', () => {
       };
       const stateBefore = {
         appointmentsSearchResults: [someValue],
-        cstMembers: [someValue],
         errors: {
           hasErrors: false,
           message: { someValue }
@@ -55,7 +54,6 @@ describe('reducers', () => {
 
       expect(stateAfter).toEqual({
         appointmentsSearchResults: [],
-        cstMembers: [],
         errors: {
           hasErrors: false,
           message: null

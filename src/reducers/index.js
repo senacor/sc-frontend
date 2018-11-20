@@ -7,7 +7,6 @@ import prFinalizationStatusById from './getPrFinalizationStatus';
 import errors from './errors';
 import login from './login';
 import { userinfo, userphoto, userroles } from './userinfo';
-import { cstMembers } from './cstMembers';
 import { events } from './events';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
@@ -42,7 +41,6 @@ const combineReducer = combineReducers({
   userinfo,
   userphoto,
   userroles,
-  cstMembers,
   events,
   filter,
   requiredFields
