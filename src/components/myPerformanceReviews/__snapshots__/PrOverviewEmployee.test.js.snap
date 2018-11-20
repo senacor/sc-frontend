@@ -19,7 +19,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
             filterBy="deadline"
             filterGroup="EMPLOYEE"
       >
-            <Connect(DateFilter) />
+            <Connect(WithStyles(DateFilter)) />
       </Connect(WithStyles(PopperSearchMenu))>,
           "label": "Fälligkeit",
           "numeric": true,

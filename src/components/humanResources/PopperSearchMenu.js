@@ -33,9 +33,6 @@ export class PopperSearchMenu extends React.Component {
     this.setState({
       anchorEl: null
     });
-    if (event) {
-      event.stopPropagation();
-    }
   };
 
   getIcon = subfilter => {
@@ -51,7 +48,6 @@ export class PopperSearchMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
     return (
       <div>
         <IconButton onClick={this.handleClick}>
@@ -70,12 +66,16 @@ export class PopperSearchMenu extends React.Component {
             vertical: 'top',
             horizontal: 'center'
           }}
-          onClick={event => event.stopPropagation()}
+          onClick={event => {
+            event.stopPropagation();
+          }}
+          onKeyDown={this.handleKeyDown}
         >
           <div>
             {React.cloneElement(this.props.children, {
               closeFilter: this.handleClose,
-              ...this.props
+              filterBy: this.props.filterBy,
+              filterGroup: this.props.filterGroup
             })}
           </div>
         </Popover>

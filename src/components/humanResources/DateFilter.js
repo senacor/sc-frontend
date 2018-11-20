@@ -8,6 +8,15 @@ import List from '@material-ui/core/List/List';
 import TextField from '@material-ui/core/TextField/TextField';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import Icon from '@material-ui/core/Icon/Icon';
+import moment from 'moment';
+import { withStyles } from '@material-ui/core';
+
+let styles = {
+  error: {
+    font: 'small',
+    color: '#ff0000'
+  }
+};
 
 export class DateFilter extends Component {
   constructor(props) {
@@ -20,9 +29,18 @@ export class DateFilter extends Component {
 
     this.state = {
       filter: filter,
-      values: filter.values
+      values: filter.values,
+      error: false
     };
   }
+
+  showError = () => {
+    this.setState({ error: true });
+  };
+
+  isValidFilter = values => {
+    return moment(values.From).isBefore(moment(values.To));
+  };
 
   setFilter = values => {
     let searchString = Object.keys(values)
@@ -44,9 +62,12 @@ export class DateFilter extends Component {
 
     if (searchString === '') {
       this.props.deleteFilter(payload);
+    } else if (!this.isValidFilter(values)) {
+      return false;
     } else {
       this.props.addFilter(payload);
     }
+    return true;
   };
 
   onChange = key => event => {
@@ -57,15 +78,19 @@ export class DateFilter extends Component {
       delete newValues[key];
     }
 
-    this.setState({ values: newValues });
+    this.setState({ values: newValues, error: false });
   };
 
   execute = () => {
-    this.setFilter(this.state.values);
-    this.props.closeFilter();
+    if (this.setFilter(this.state.values)) {
+      this.props.closeFilter();
+    } else {
+      this.showError();
+    }
   };
 
   render() {
+    const { classes } = this.props;
     let { values } = this.state;
     return (
       <List>
@@ -98,6 +123,11 @@ export class DateFilter extends Component {
             <Icon>forward</Icon>
           </IconButton>
         </ListItem>
+        <ListItem className={classes.error}>
+          {this.state.error === true ? (
+            <div>Falsche Eingabe: von nach bis</div>
+          ) : null}
+        </ListItem>
       </List>
     );
   }
@@ -108,6 +138,7 @@ DateFilter.propTypes = {
   filterBy: PropTypes.string.isRequired
 };
 
+export const StyledComponent = withStyles(styles)(DateFilter);
 export default connect(
   (state, props) => ({
     filter: getSubFilter(props.filterGroup, props.filterBy)(state)
@@ -116,4 +147,4 @@ export default connect(
     addFilter: actions.addFilter,
     deleteFilter: actions.deleteFilter
   }
-)(DateFilter);
+)(StyledComponent);

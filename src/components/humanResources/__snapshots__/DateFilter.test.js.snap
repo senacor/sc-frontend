@@ -43,5 +43,8 @@ exports[`DateFilter Component should match snapshot 1`] = `
       </WithStyles(Icon)>
     </WithStyles(IconButton)>
   </WithStyles(ListItem)>
+  <WithStyles(ListItem)
+    className="DateFilter-error-1"
+  />
 </WithStyles(List)>
 `;
