@@ -12,7 +12,6 @@ import {
   FETCH_MEETING_RESPONSE
 } from '../helper/dispatchTypes';
 import generateMapById from '../helper/generateMapById';
-import { generateMapByIdAndRenameId } from '../helper/generateMapById';
 import cloneDeep from '../helper/cloneDeep';
 import objectGet from 'object-get';
 import set from 'object-set';
@@ -100,13 +99,9 @@ export const sortOrderPrs = (state = '', action) => {
 export const tablePrs = (state = {}, action) => {
   switch (action.type) {
     case FETCH_OWN_PRS_RESPONSE:
-      return cloneDeep(
-        generateMapByIdAndRenameId(action.payload.prTableEntries, 'prId')
-      );
+      return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
     case FETCH_PRS_HR_RESPONSE:
-      return cloneDeep(
-        generateMapByIdAndRenameId(action.payload.prTableEntries, 'prId')
-      );
+      return cloneDeep(generateMapById(action.payload.prTableEntries, 'prId'));
     case DELEGATE_REVIEWER_RESPONSE: {
       let newPr = Object.assign({}, state[action.prNewReviewer.id], {
         reviewer: action.prNewReviewer.reviewer

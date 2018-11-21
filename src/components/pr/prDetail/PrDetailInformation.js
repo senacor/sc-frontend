@@ -17,6 +17,7 @@ import { formatDateForFrontend } from '../../../helper/date';
 import PrDelegate from '../PrDelegate';
 import { prStatusEnum } from '../../../helper/prStatus';
 import { connect } from 'react-redux';
+import { getUserPrincipalName } from '../../../reducers/selector';
 
 const styles = theme => ({
   root: {
@@ -133,7 +134,7 @@ export const StyledComponent = withStyles(styles)(PrDetailInformation);
 
 export default connect(
   state => ({
-    username: state.userinfo.userPrincipalName
+    username: getUserPrincipalName(state)
   }),
   {}
 )(StyledComponent);

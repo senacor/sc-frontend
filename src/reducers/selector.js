@@ -7,10 +7,10 @@ export const getActualPrId = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
 export const getUserroles = state => state.userroles;
 export const getUserinfo = state => state.userinfo;
+export const getUserPrincipalName = state => state.userinfo.userPrincipalName;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
 export const getMeeting = state => state.meeting;
-
 export const getPrDetail = () => {
   return createSelector(
     [state => state.prs, getActualPrId],

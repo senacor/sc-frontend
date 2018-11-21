@@ -1,15 +1,4 @@
-export default function generateMapById(entities, customIdAttribute) {
-  let idAttribute = customIdAttribute ? customIdAttribute : 'id';
-
-  const result = {};
-  entities.forEach(entity => {
-    result[entity[idAttribute]] = entity;
-  });
-
-  return result;
-}
-
-export function generateMapByIdAndRenameId(
+export default function generateMapById(
   entities,
   customIdAttribute,
   newIdAttribute
@@ -17,12 +6,18 @@ export function generateMapByIdAndRenameId(
   let idAttribute = customIdAttribute ? customIdAttribute : 'id';
   let newId = newIdAttribute ? newIdAttribute : 'id';
 
+  let remove =
+    newId === idAttribute
+      ? () => {}
+      : (result, entity) => delete result[entity[idAttribute]][idAttribute];
+
   const result = {};
   entities.forEach(entity => {
     result[entity[idAttribute]] = Object.assign(entity, {
       [newId]: entity[idAttribute]
     });
-    delete result[entity[idAttribute]][idAttribute];
+
+    remove(result, entity);
   });
 
   return result;
