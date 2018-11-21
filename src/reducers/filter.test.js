@@ -2,7 +2,8 @@ import { filter } from './filter';
 import {
   ADD_FILTER,
   ADD_SUBFILTER,
-  DELETE_SUBFILTER
+  DELETE_SUBFILTER,
+  RESET_FILTERGROUP
 } from '../helper/dispatchTypes';
 import FILTER_GROUPS from '../components/humanResources/filterGroups';
 import HR_ELEMENTS from '../components/humanResources/hrElements';
@@ -170,6 +171,53 @@ describe('filter reducer', () => {
         employee: {
           searchString: 'employee=502',
           values: 'Michaela Mitarbeiterin'
+        }
+      }
+    });
+  });
+
+  it('should reset the filter to default', async () => {
+    let stateBefore = {
+      hr: {
+        employee: {
+          searchString: 'employee=502',
+          values: 'Michaela Mitarbeiterin'
+        },
+        supervisor: {
+          searchString: 'employee=503',
+          values: 'Volker Vorgesetzter'
+        }
+      },
+      EMPLOYEE: {
+        supervisor: {
+          searchString: 'employee=504',
+          values: 'Ronald Martins'
+        }
+      }
+    };
+
+    const action = {
+      type: RESET_FILTERGROUP,
+      payload: { filterGroup: FILTER_GROUPS.HR }
+    };
+    const stateAfter = filter(stateBefore, action);
+    const hr_initDateFrom = new Date().getFullYear() + '-01-01';
+    const hr_initDateTo = new Date().getFullYear() + '-12-31';
+
+    expect(stateAfter).toEqual({
+      hr: {
+        deadline: {
+          searchString: `deadlineFrom=${hr_initDateFrom}&deadlineTo=${hr_initDateTo}`,
+          values: {
+            From: '2018-01-01',
+            To: '2018-12-31'
+          }
+        }
+      },
+      EMPLOYEE: {
+        supervisor: {
+          searchString: 'employee=504',
+          values: 'Ronald Martins'
         }
       }
     });

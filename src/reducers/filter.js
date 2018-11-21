@@ -2,6 +2,7 @@ import {
   ADD_FILTER,
   ADD_SUBFILTER,
   DELETE_SUBFILTER,
+  RESET_FILTERGROUP,
   LOGIN_UNAUTHORIZED,
   LOGOUT
 } from '../helper/dispatchTypes';
@@ -21,8 +22,9 @@ const hr_initDate = {
     }
   }
 };
+const initState = { hr: hr_initDate };
 
-export const filter = (state = { hr: hr_initDate }, action) => {
+export const filter = (state = initState, action) => {
   switch (action.type) {
     case ADD_FILTER: {
       let newFilterGroup = Object.assign(
@@ -61,6 +63,21 @@ export const filter = (state = { hr: hr_initDate }, action) => {
         ];
       }
       return newFilterGroup;
+    }
+    case RESET_FILTERGROUP: {
+      if (state[action.payload.filterGroup]) {
+        let newFilterGroup = cloneDeep(state);
+
+        delete newFilterGroup[action.payload.filterGroup];
+
+        let filter = initState[action.payload.filterGroup]
+          ? initState[action.payload.filterGroup]
+          : {};
+        return Object.assign({}, newFilterGroup, {
+          [action.payload.filterGroup]: filter
+        });
+      }
+      return state;
     }
     case LOGOUT:
       return {};
