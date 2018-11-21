@@ -245,6 +245,20 @@ describe('PerformanceReviewsTable component', () => {
 
     expect(component).toMatchSnapshot();
   });
+
+  it('should show "no Entrys" if Table is Empty', () => {
+    let prs = [];
+
+    let component = shallow(
+      <PerformanceReviewsTable data={prs} columnDefinition={rows} orderBy={1} />
+    );
+
+    expect(
+      component.containsMatchingElement(
+        <div>Zu deiner Filterung ist leider kein Eintrag vorhanden.</div>
+      )
+    ).toBeTruthy();
+  });
 });
 
 describe('descInteger', () => {

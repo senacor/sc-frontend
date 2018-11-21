@@ -158,6 +158,9 @@ class PerformanceReviewsTable extends React.Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        {data.length === 0 ? (
+          <div>Zu deiner Filterung ist leider kein Eintrag vorhanden.</div>
+        ) : null}
         {isHr ? (
           <PrStatusActionButton
             label={'Download Excel'}
