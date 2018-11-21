@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
 import { Link } from 'react-router-dom';
-import { getAllPrsForTable, getFilter } from '../../reducers/selector';
+import {
+  getAllPrsForTable,
+  getFilter,
+  getUserPrincipalName
+} from '../../reducers/selector';
 import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
@@ -26,7 +30,7 @@ export class PrOverviewReviewer extends React.Component {
         sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
         render: entry => {
           return (
-            <Link to={`/prDetail/${entry.prId}`}>
+            <Link to={`/prDetail/${entry.id}`}>
               {getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE])}
             </Link>
           );
@@ -278,7 +282,7 @@ export default connect(
   state => ({
     data: getAllPrsForTable(state),
     isLoading: state.isLoading,
-    username: state.userinfo.userPrincipalName,
+    username: getUserPrincipalName(state),
     filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
   }),
   {

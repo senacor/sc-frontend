@@ -2,7 +2,7 @@
 
 exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
 <Fragment>
-  <WithStyles(PrDetailInformation)
+  <Connect(WithStyles(PrDetailInformation))
     pr={
       Object {
         "appointment": "2018-12-04",

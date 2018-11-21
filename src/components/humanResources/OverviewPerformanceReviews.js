@@ -27,7 +27,7 @@ export class OverviewPerformanceReviews extends Component {
         sortValue: entry => getDisplayName(entry[HR_ELEMENTS.EMPLOYEE]),
         render: entry => {
           return (
-            <Link to={`/prDetail/${entry.prId}`}>
+            <Link to={`/prDetail/${entry.id}`}>
               {getDisplayName(entry[HR_ELEMENTS.EMPLOYEE])}
             </Link>
           );

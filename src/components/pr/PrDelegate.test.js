@@ -32,7 +32,7 @@ describe('PrDelegate Component', () => {
   ];
 
   let pr = {
-    prId: 42,
+    id: 42,
     employee: {
       id: 503,
       firstName: 'Martin',
@@ -153,8 +153,8 @@ describe('PrDelegate Component', () => {
         employeeSearchClear={jest.fn()}
       />
     );
-
-    component.instance().selectedEmployee(searchResults[0])();
+    let event = { stopPropagation: jest.fn() };
+    component.instance().selectedEmployee(searchResults[0])(event);
 
     expect(mockDelegateReviewer).toHaveBeenCalledTimes(1);
     expect(mockDelegateReviewer).toHaveBeenCalledWith(42, 502);
@@ -177,7 +177,8 @@ describe('PrDelegate Component', () => {
       />
     ).setState({ employeeSearchValue: 'Test User' });
 
-    component.find('WithStyles(Popover)').simulate('close');
+    let event = { stopPropagation: jest.fn() };
+    component.find('WithStyles(Popover)').simulate('close', event);
 
     expect(component.state().employeeSearchValue).toEqual(
       'Michaela Mitarbeiterin'
