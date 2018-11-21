@@ -173,7 +173,7 @@ export class PrOverviewEmployee extends React.Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.EMPLOYEE}
-            filterBy={'isReviewerPreparationDone'}
+            filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE}
           >
             <ListFilter content={{ ja: true, nein: false }} />
           </PopperSearchMenu>
@@ -190,7 +190,7 @@ export class PrOverviewEmployee extends React.Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.EMPLOYEE}
-            filterBy={'isReviewerPreparationDone'}
+            filterBy={TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE}
           >
             <ListFilter content={{ ja: true, nein: false }} />
           </PopperSearchMenu>
@@ -215,7 +215,7 @@ export class PrOverviewEmployee extends React.Component {
         filter: (
           <PopperSearchMenu
             filterGroup={FILTER_GROUPS.EMPLOYEE}
-            filterBy={'isInProgress'}
+            filterBy={TABLE_PRS_ELEMENTS.IN_PROGRESS}
           >
             <ListFilter content={{ laufend: true, abgeschlossen: false }} />
           </PopperSearchMenu>

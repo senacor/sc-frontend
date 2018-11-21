@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrDelegate Component should match snapshot 1`] = `
+<div
+  className="PrDelegate-box-1"
+>
+  <TextField
+    InputProps={
+      Object {
+        "classes": Object {
+          "focused": "PrDelegate-focused-7",
+          "input": "PrDelegate-input-5",
+        },
+        "disableUnderline": true,
+      }
+    }
+    className="PrDelegate-textField-4"
+    onChange={[Function]}
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Nicht übergeben"
+    required={false}
+    select={false}
+    value="Nicht übergeben"
+    variant="standard"
+  />
+  <WithStyles(Popover)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "bottom",
+      }
+    }
+    className="PrDelegate-popover-3"
+    disableAutoFocus={true}
+    id="simple-popper"
+    onClose={[Function]}
+    open={false}
+    transformOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "top",
+      }
+    }
+  >
+    <WithStyles(List)
+      dense={true}
+      id="employeeSearchResultList"
+    >
+      <WithStyles(PlotEmployeeSearchList)
+        excludeList={
+          Array [
+            503,
+            500,
+            501,
+          ]
+        }
+        searchResults={
+          Array [
+            Object {
+              "firstName": "Michaela",
+              "id": 502,
+              "lastName": "Mitarbeiterin",
+            },
+            Object {
+              "firstName": "Martin",
+              "id": 503,
+              "lastName": "Mitarbeiter",
+            },
+            Object {
+              "firstName": "Manuela",
+              "id": 501,
+              "lastName": "Vorgesetzter",
+            },
+            Object {
+              "firstName": "Ulla",
+              "id": 500,
+              "lastName": "Schmidt",
+            },
+            Object {
+              "firstName": "Markus",
+              "id": 499,
+              "lastName": "None",
+            },
+          ]
+        }
+        selectEmployee={[Function]}
+      />
+    </WithStyles(List)>
+  </WithStyles(Popover)>
+</div>
+`;

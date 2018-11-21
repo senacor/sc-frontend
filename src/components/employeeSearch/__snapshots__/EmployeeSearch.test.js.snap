@@ -14,8 +14,38 @@ exports[`EmployeeSearch Component should display the search field 1`] = `
     onChange={[Function]}
     required={false}
     select={false}
-    value=""
+    value="Ma"
     variant="standard"
   />
+  <WithStyles(List)
+    className="EmployeeSearch-employeeList-2"
+    component="nav"
+    dense={true}
+    id="employeeSearchResultList"
+  >
+    <WithStyles(PlotEmployeeSearchList)
+      excludeList={Array []}
+      searchResults={
+        Array [
+          Object {
+            "firstName": "Michaela",
+            "id": 502,
+            "lastName": "Mitarbeiterin",
+          },
+          Object {
+            "firstName": "Martin",
+            "id": 503,
+            "lastName": "Mitarbeiter",
+          },
+          Object {
+            "firstName": "Manuela",
+            "id": 501,
+            "lastName": "Vorgesetzter",
+          },
+        ]
+      }
+      selectEmployee={[Function]}
+    />
+  </WithStyles(List)>
 </div>
 `;

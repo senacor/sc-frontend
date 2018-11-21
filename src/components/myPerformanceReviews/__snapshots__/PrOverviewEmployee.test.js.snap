@@ -130,7 +130,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         Object {
           "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
-            filterBy="isReviewerPreparationDone"
+            filterBy="employeePreparationDone"
             filterGroup="EMPLOYEE"
       >
             <Connect(ListFilter)
@@ -150,7 +150,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         Object {
           "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
-            filterBy="isReviewerPreparationDone"
+            filterBy="reviewerPreparationDone"
             filterGroup="EMPLOYEE"
       >
             <Connect(ListFilter)
@@ -177,7 +177,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         Object {
           "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
-            filterBy="isInProgress"
+            filterBy="inProgress"
             filterGroup="EMPLOYEE"
       >
             <Connect(ListFilter)

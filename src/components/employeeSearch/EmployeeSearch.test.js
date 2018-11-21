@@ -21,8 +21,6 @@ describe('EmployeeSearch Component', () => {
     }
   ];
 
-  let shallow = createShallow({ dive: true });
-
   it('should display the search field', () => {
     let shallow = createShallow({ dive: true });
     let employeeSearchMock = jest.fn();
@@ -33,6 +31,7 @@ describe('EmployeeSearch Component', () => {
         employeeSearch={employeeSearchMock}
         employeeSearchClear={employeeSearchClearMock}
         employeeSearchResults={searchResults}
+        employeeSearchValue={'Ma'}
       />
     );
 
@@ -42,6 +41,8 @@ describe('EmployeeSearch Component', () => {
   it('should clear the searchStore and send a search for employees onChange', () => {
     let employeeSearchMock = jest.fn();
     let employeeSearchClearMock = jest.fn();
+    let shallow = createShallow({ dive: true });
+
     jest.useFakeTimers();
 
     const component = shallow(
@@ -66,26 +67,11 @@ describe('EmployeeSearch Component', () => {
     expect(employeeSearchMock).toHaveBeenCalledWith(payload);
   });
 
-  it('should show the employeeList', () => {
-    let employeeSearchMock = jest.fn();
-    let employeeSearchClearMock = jest.fn();
-
-    const component = shallow(
-      <EmployeeSearch
-        employeeSearch={employeeSearchMock}
-        employeeSearchResults={searchResults}
-        employeeSearchClear={employeeSearchClearMock}
-        employeeSearchValue={'M'}
-      />
-    );
-
-    expect(component.find('WithStyles(ListItemText)')).toHaveLength(3);
-  });
-
   it('should be able to select an employee from the List', () => {
     let employeeSearchMock = jest.fn();
     let selectEmployeeMock = jest.fn();
     let employeeSearchClearMock = jest.fn();
+    let shallow = createShallow({ dive: true });
 
     const component = shallow(
       <EmployeeSearch
@@ -97,14 +83,7 @@ describe('EmployeeSearch Component', () => {
       />
     );
 
-    expect(
-      component.find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-    ).toHaveLength(1);
-
-    component
-      .find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-      .parent()
-      .simulate('click');
+    component.instance().selectedEmployee(searchResults[2])();
 
     let payload = searchResults[2];
     expect(selectEmployeeMock).toHaveBeenCalledTimes(1);
