@@ -17,6 +17,7 @@ import { finalCommentEmployee } from './finalCommentEmployee';
 import { finalCommentHr } from './finalCommentHr';
 import { filter } from './filter';
 import { requiredFields } from './requiredFields';
+import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -45,7 +46,7 @@ const combineReducer = combineReducers({
 });
 
 const app = (state, action) => {
-  if (action.type === 'LOGOUT') {
+  if (action.type === LOGOUT || action.type === LOGIN_UNAUTHORIZED) {
     state = undefined;
   }
 

@@ -6,6 +6,7 @@ import {
   REVIEWER_INFO_RESPONSE
 } from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
+import ROLES from '../helper/roles';
 
 export const userinfo = (state = {}, action) => {
   switch (action.type) {
@@ -46,16 +47,7 @@ export const userphoto = (state = '', action) => {
 export const userroles = (state = [], action) => {
   switch (action.type) {
     case FETCHED_USERROLES:
-      let stateForFetch = cloneDeep(state);
-      let fetchedRoles = convertGroupsToArray(action.roles);
-      return stateForFetch.concat(fetchedRoles);
-    case REVIEWER_INFO_RESPONSE:
-      let stateForReviewer = cloneDeep(state);
-      let isReviewer = action.payload.reviewerInfo.numberOfPrsToReview > 0;
-      if (isReviewer) {
-        return stateForReviewer.concat(['PR_Reviewer']);
-      }
-      return stateForReviewer;
+      return convertGroupsToArray(action.roles);
     case LOGOUT:
       return [];
     default:
@@ -68,5 +60,5 @@ function convertGroupsToArray(adGroups) {
     return adGroups.value.map(group => group.displayName);
   }
 
-  return ['PR_MITARBEITER'];
+  return [ROLES.PR_MITARBEITER];
 }
