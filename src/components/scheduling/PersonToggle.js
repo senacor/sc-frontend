@@ -14,6 +14,18 @@ const styles = () => ({
   },
   colorSwitchBaseSupervisor: {
     color: '#00FF90'
+  },
+  colorSwitchBaseReviewerOff: {
+    color: 'rgba(0, 73, 83, 0.62)'
+  },
+  colorSwitchBaseEmployeeOff: {
+    color: 'rgba(61, 142, 153, 0.62)'
+  },
+  colorSwitchBaseSupervisorOff: {
+    color: 'rgba(0, 255, 144, 0.62)'
+  },
+  bar: {
+    backgroundColor: 'rgba(0, 0, 0, 0.15)'
   }
 });
 
@@ -36,6 +48,19 @@ export class PersonToggle extends React.Component {
         return classes.colorSwitchBaseSupervisor;
       default:
         return classes.colorSwitchBaseEmployee;
+    }
+  };
+
+  findSwitchBaseOff = (attendee, classes) => {
+    switch (attendee) {
+      case 'employee':
+        return classes.colorSwitchBaseEmployeeOff;
+      case 'reviewer':
+        return classes.colorSwitchBaseReviewerOff;
+      case 'supervisor':
+        return classes.colorSwitchBaseSupervisorOff;
+      default:
+        return classes.colorSwitchBaseEmployeeOff;
     }
   };
 
@@ -64,7 +89,7 @@ export class PersonToggle extends React.Component {
               this.handleToggle();
             }}
             classes={{
-              switchBase: this.findSwitchBase(
+              switchBase: this.findSwitchBaseOff(
                 this.props.attendee,
                 this.props.classes
               ),
@@ -72,7 +97,7 @@ export class PersonToggle extends React.Component {
                 this.props.attendee,
                 this.props.classes
               ),
-              root: this.props.classes.colorSwitchBaseEmployee
+              bar: this.props.classes.bar
             }}
             color={'primary'}
           />
