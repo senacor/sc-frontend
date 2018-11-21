@@ -5,8 +5,13 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 
 import { getUserinfo } from '../../reducers/selector';
+import { Redirect } from 'react-router-dom';
 
 export function RequestPerformanceReview(props) {
+  if (props.newPrId) {
+    return <Redirect to={`/prDetail/${props.newPrId}`} />;
+  }
+
   return (
     <Button
       id="addPrButton"
@@ -20,6 +25,9 @@ export function RequestPerformanceReview(props) {
 }
 
 export default connect(
-  state => ({ userinfo: getUserinfo(state) }),
+  state => ({
+    userinfo: getUserinfo(state),
+    newPrId: state.newPrId
+  }),
   { addPr: actions.addPr }
 )(RequestPerformanceReview);

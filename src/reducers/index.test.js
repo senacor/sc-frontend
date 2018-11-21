@@ -1,6 +1,5 @@
 import reducers from './index';
 import app from './index';
-import { LOGOUT } from '../helper/dispatchTypes';
 import moment from 'moment-timezone';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
@@ -11,13 +10,13 @@ describe('reducers', () => {
 
   describe('LOGOUT and LOGIN_UNAUTHORIZED dispatch', () => {
     [
-      { type: dispatchTypes.LOGIN_UNAUTHORIZED },
-      { type: dispatchTypes.LOGOUT }
+      { type: dispatchTypes.LOGIN_UNAUTHORIZED, isUnautherized: true },
+      { type: dispatchTypes.LOGOUT, isUnautherized: false }
     ].forEach(state => {
       it(`should wipe state if ${state.type} is dispatched`, () => {
         let someValue = 'someValue';
         const action = {
-          type: LOGOUT
+          type: state.type
         };
         const stateBefore = {
           appointmentsSearchResults: [someValue],
@@ -32,6 +31,7 @@ describe('reducers', () => {
             isLoggedIn: true,
             isUnauthorized: false
           },
+          newPrId: 22,
           prDetailId: 21,
           prEmployeeContributions: {
             prEmployeeContribution: [someValue]
@@ -68,9 +68,10 @@ describe('reducers', () => {
           isLoading: false,
           login: {
             isLoggedIn: false,
-            isUnauthorized: false
+            isUnauthorized: state.isUnautherized
           },
           meeting: null,
+          newPrId: null,
           prDetailId: 0,
           prEmployeeContributions: [],
           prRatings: {},
