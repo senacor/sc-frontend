@@ -38,29 +38,13 @@ describe('rating reducer', () => {
 
   it('should add the ratings for ADD_COMMENT_RESPONSE to the store', () => {
     let ratings = {
-      prRatings: [
-        {
-          id: 51,
-          prRatingDescription: 'WORKING_MANNER',
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          rating: 1,
-          comment: 'nestojjkfgjdkghjrighjfkr'
-        },
-        {
-          id: 52,
-          prRatingDescription: 'PROBLEM_ANALYSIS',
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          rating: 5,
-          comment: 'kvvvuierkfjrfhkrehghfj'
-        },
-        {
-          id: 53,
-          prRatingDescription: 'WORK_RESULTS',
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          rating: 2,
-          comment: 'kköhhjcsss'
-        }
-      ],
+      prRating: {
+        id: 51,
+        prRatingDescription: 'WORKING_MANNER',
+        prRatingCategory: 'PERFORMANCE_IN_PROJECT',
+        rating: 1,
+        comment: 'nestojjkfgjdkghjrighjfkr'
+      },
       prId: 5
     };
 
@@ -102,20 +86,6 @@ describe('rating reducer', () => {
           prRatingCategory: 'PERFORMANCE_IN_PROJECT',
           prRatingDescription: 'WORKING_MANNER',
           rating: 1
-        },
-        PROBLEM_ANALYSIS: {
-          comment: 'kvvvuierkfjrfhkrehghfj',
-          id: 52,
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          prRatingDescription: 'PROBLEM_ANALYSIS',
-          rating: 5
-        },
-        WORK_RESULTS: {
-          comment: 'kköhhjcsss',
-          id: 53,
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          prRatingDescription: 'WORK_RESULTS',
-          rating: 2
         }
       }
     });
@@ -123,29 +93,13 @@ describe('rating reducer', () => {
 
   it('should override the ratings for ADD_COMMENT_RESPONSE if dataset is present', () => {
     let ratings = {
-      prRatings: [
-        {
-          id: 3,
-          prRatingDescription: 'WORKING_MANNER',
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          rating: 1,
-          comment: 'nestojjkfgjdkghjrighjfkr'
-        },
-        {
-          id: 5,
-          prRatingDescription: 'PROBLEM_ANALYSIS',
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          rating: 5,
-          comment: 'kvvvuierkfjrfhkrehghfj'
-        },
-        {
-          id: 1,
-          prRatingDescription: 'WORK_RESULTS',
-          prRatingCategory: 'PERFORMANCE_IN_PROJECT',
-          rating: 2,
-          comment: 'kköhhjcsss'
-        }
-      ],
+      prRating: {
+        id: 3,
+        prRatingDescription: 'WORKING_MANNER',
+        prRatingCategory: 'PERFORMANCE_IN_PROJECT',
+        rating: 1,
+        comment: 'new working manner entry iuasdhkudashijioa'
+      },
       prId: 1
     };
 
@@ -163,21 +117,21 @@ describe('rating reducer', () => {
           prRatingDescription: 'WORKING_MANNER',
           prRatingCategory: 'PERFORMANCE_IN_PROJECT',
           rating: 1,
-          comment: 'nestojjkfgjdkghjrighjfkr'
+          comment: 'new working manner entry iuasdhkudashijioa'
         },
         PROBLEM_ANALYSIS: {
           id: 5,
           prRatingDescription: 'PROBLEM_ANALYSIS',
           prRatingCategory: 'PERFORMANCE_IN_PROJECT',
           rating: 5,
-          comment: 'kvvvuierkfjrfhkrehghfj'
+          comment: 'problem analysis'
         },
         WORK_RESULTS: {
           id: 1,
           prRatingDescription: 'WORK_RESULTS',
           prRatingCategory: 'PERFORMANCE_IN_PROJECT',
           rating: 2,
-          comment: 'kköhhjcsss'
+          comment: 'work results'
         }
       }
     });
