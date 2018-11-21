@@ -18,7 +18,12 @@ export { appointmentsSearch, changeDate } from './appointments';
 export { addMeeting, fetchMeeting } from './meetings';
 export { addPrStatus } from './status';
 export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';
-export { addFilter, deleteFilter, resetFilterGroup } from './filter';
+export {
+  addFilter,
+  deleteFilter,
+  resetFilterGroup,
+  getFilterPossibilities
+} from './filter';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({

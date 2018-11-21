@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import {
   getAllPrsForTable,
   getFilter,
-  getUserPrincipalName
+  getUserPrincipalName,
+  getFilterPossibilities
 } from '../../reducers/selector';
 import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
@@ -23,6 +24,7 @@ import withLoadingAction from '../hoc/LoadingWithAction';
 
 export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
+    const { filterPossibilities } = this.props;
     return [
       {
         numeric: false,
@@ -75,11 +77,10 @@ export class PrOverviewReviewer extends React.Component {
             filterBy={'occasion'}
           >
             <ListFilter
-              content={{
-                [translateContent('ON_DEMAND')]: 'ON_DEMAND',
-                [translateContent('END_PROBATION')]: 'END_PROBATION',
-                [translateContent('YEARLY')]: 'YEARLY'
-              }}
+              content={filterPossibilities.occasions.reduce((obj, item) => {
+                obj[translateContent(`${item}`)] = item;
+                return obj;
+              }, {})}
             />
           </PopperSearchMenu>
         )
@@ -89,7 +90,20 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: false,
         label: 'Projektkst',
         sortValue: entry => entry[TABLE_PRS_ELEMENTS.CST],
-        render: entry => entry[TABLE_PRS_ELEMENTS.CST]
+        render: entry => entry[TABLE_PRS_ELEMENTS.CST],
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.REVIEWER}
+            filterBy={TABLE_PRS_ELEMENTS.CST}
+          >
+            <ListFilter
+              content={filterPossibilities.projectCsts.reduce((obj, item) => {
+                obj[item] = item;
+                return obj;
+              }, {})}
+            />
+          </PopperSearchMenu>
+        )
       },
       {
         numeric: false,
@@ -109,10 +123,10 @@ export class PrOverviewReviewer extends React.Component {
             filterBy={TABLE_PRS_ELEMENTS.COMPETENCE}
           >
             <ListFilter
-              content={{
-                [translateContent('COMPETENCE_DEVELOPMENT')]: 'DEVELOPMENT',
-                [translateContent('COMPETENCE_CONSULTING')]: 'CONSULTING'
-              }}
+              content={filterPossibilities.competences.reduce((obj, item) => {
+                obj[translateContent(`COMPETENCE_${item}`)] = item;
+                return obj;
+              }, {})}
             />
           </PopperSearchMenu>
         )
@@ -129,10 +143,10 @@ export class PrOverviewReviewer extends React.Component {
             filterBy={TABLE_PRS_ELEMENTS.LEVEL}
           >
             <ListFilter
-              content={{
-                1: 1,
-                2: 2
-              }}
+              content={filterPossibilities.levels.reduce((obj, item) => {
+                obj[item] = item;
+                return obj;
+              }, {})}
             />
           </PopperSearchMenu>
         )
@@ -187,9 +201,24 @@ export class PrOverviewReviewer extends React.Component {
         disablePadding: true,
         label: 'Bewertung',
         sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
-        render: entry => entry[TABLE_PRS_ELEMENTS.RESULT]
+        render: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
+        filter: (
+          <PopperSearchMenu
+            filterGroup={FILTER_GROUPS.REVIEWER}
+            filterBy={TABLE_PRS_ELEMENTS.RESULT}
+          >
+            <ListFilter
+              content={filterPossibilities.overallAssessments.reduce(
+                (obj, item) => {
+                  obj[item] = item;
+                  return obj;
+                },
+                {}
+              )}
+            />
+          </PopperSearchMenu>
+        )
       },
-
       {
         numeric: false,
         disablePadding: true,
@@ -268,6 +297,9 @@ export class PrOverviewReviewer extends React.Component {
     }
   }
   render() {
+    if (!this.props.filterPossibilities.levels) {
+      return null;
+    }
     const columns = this.getColumnDefinitions();
     return (
       <PerformanceReviewsTable
@@ -283,13 +315,18 @@ export default connect(
   state => ({
     data: getAllPrsForTable(state),
     username: getUserPrincipalName(state),
-    filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
+    filter: getFilter(FILTER_GROUPS.REVIEWER)(state),
+    filterPossibilities: getFilterPossibilities(state)
   }),
   {
-    fetchFilteredPrs: actions.fetchFilteredPrs
+    fetchFilteredPrs: actions.fetchFilteredPrs,
+    getFilterPossibilities: actions.getFilterPossibilities
   }
 )(
-  withLoadingAction(props =>
-    props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER)
-  )([LoadingEvents.FETCH_OWN_PRS])(PrOverviewReviewer)
+  withLoadingAction(props => {
+    props.getFilterPossibilities();
+    props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER);
+  })([LoadingEvents.FETCH_OWN_PRS, LoadingEvents.FILTER_POSSIBILITIES])(
+    PrOverviewReviewer
+  )
 );
