@@ -6,6 +6,10 @@ import getDisplayName from '../../helper/getDisplayName';
 import Divider from '@material-ui/core/Divider/Divider';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
+import { isLoadingAction } from '../../reducers/selector';
+import { LoadingEvents } from '../../helper/loadingEvents';
+import withLoading from '../hoc/Loading';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   avatar: {
@@ -57,9 +61,15 @@ export class PlotEmployeeSearchList extends React.Component {
 }
 
 PlotEmployeeSearchList.propTypes = {
-  searchResults: PropTypes.array.isRequired,
-  excludeList: PropTypes.array
+  excludeList: PropTypes.array,
+  selectEmployee: PropTypes.func
 };
 
 export const StyledComponent = withStyles(styles)(PlotEmployeeSearchList);
-export default StyledComponent;
+export default connect(
+  state => ({
+    searchResults: state.employeeSearchResults,
+    isLoading: isLoadingAction(state, LoadingEvents.FETCH_EMPLOYEES)
+  }),
+  {}
+)(withLoading()(StyledComponent));

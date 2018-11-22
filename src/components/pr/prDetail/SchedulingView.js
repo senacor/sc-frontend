@@ -1,7 +1,7 @@
 import React from 'react';
 import * as actions from '../../../actions';
 import { connect } from 'react-redux';
-import { getPrDetail, getMeeting } from '../../../reducers/selector';
+import { getPrDetail, getMeeting, isLoading } from '../../../reducers/selector';
 import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
 import MeetingCreator from '../../scheduling/MeetingCreator';
 
@@ -29,7 +29,7 @@ export default connect(
   state => ({
     prDetail: getPrDetail()(state),
     meeting: getMeeting(state),
-    isLoading: state.isLoading
+    isLoading: isLoading(state)
   }),
   {
     fetchMeeting: actions.fetchMeeting

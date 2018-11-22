@@ -26,7 +26,7 @@ describe('reducers', () => {
           },
           filter: { someValue },
           finalCommentEmployee: { someValue },
-          isLoading: false,
+          isLoading: [someValue],
           login: {
             isLoggedIn: true,
             isUnauthorized: false
@@ -65,7 +65,7 @@ describe('reducers', () => {
           filter: {},
           finalCommentEmployee: {},
           finalCommentHr: {},
-          isLoading: false,
+          isLoading: [],
           login: {
             isLoggedIn: false,
             isUnauthorized: state.isUnautherized
