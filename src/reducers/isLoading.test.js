@@ -20,33 +20,37 @@ describe('isLoading', () => {
 
   requestList.forEach(state => {
     it(`sets loading on ${state.type}`, () => {
-      const stateBefore = { isLoading: false, action: [] };
+      const stateBefore = [];
       const action = {
         type: state.type
       };
 
       const stateAfter = isLoading(stateBefore, action);
 
-      expect(stateAfter).toEqual({
-        isLoading: true,
-        action: [state.action]
-      });
+      expect(stateAfter).toEqual([state.action]);
     });
   });
 
   responseList.forEach(state => {
-    it(`sets loading on ${state.type}`, () => {
-      const stateBefore = { isLoading: true, action: [state.action] };
+    it(`removes loading on ${state.type}`, () => {
+      const stateBefore = [state.action];
       const action = {
         type: state.type
       };
 
       const stateAfter = isLoading(stateBefore, action);
 
-      expect(stateAfter).toEqual({
-        isLoading: false,
-        action: []
-      });
+      expect(stateAfter).toEqual([]);
     });
+  });
+
+  it(`removes only same Action`, () => {
+    const stateBefore = ['other', 'ADD_PR'];
+    const action = {
+      type: dispatchTypes.ADD_PR_RESPONSE
+    };
+
+    const stateAfter = isLoading(stateBefore, action);
+    expect(stateAfter).toEqual(['other']);
   });
 });

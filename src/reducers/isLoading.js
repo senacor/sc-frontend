@@ -1,7 +1,7 @@
 import * as dispatchTypes from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
 
-export const isLoading = (state = { isLoading: false, action: [] }, action) => {
+export const isLoading = (state = [], action) => {
   const startLoading = [
     dispatchTypes.ADD_PR_REQUEST,
     dispatchTypes.FETCH_PR_BY_ID_REQUEST,
@@ -32,18 +32,17 @@ export const isLoading = (state = { isLoading: false, action: [] }, action) => {
 
   if (findInArray(startLoading, action.type)) {
     let newState = cloneDeep(state);
-    newState.action.push(action.type.replace('_REQUEST', ''));
-    newState.isLoading = true;
+
+    newState.push(action.type.replace('_REQUEST', ''));
     return newState;
   } else if (findInArray(stopLoading, action.type)) {
     let newState = cloneDeep(state);
-    var index = newState.action.indexOf(action.type.replace('_RESPONSE', ''));
-    if (index > -1) {
-      newState.action = [];
+    var index = newState.indexOf(action.type.replace('_RESPONSE', ''));
+    if (index < 0) {
+      newState = [];
     } else {
-      newState.action.splice(index, 1);
+      newState.splice(index, 1);
     }
-    newState.isLoading = false;
     return newState;
   }
 
