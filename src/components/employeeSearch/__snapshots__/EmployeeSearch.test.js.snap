@@ -23,7 +23,7 @@ exports[`EmployeeSearch Component should display the search field 1`] = `
     dense={true}
     id="employeeSearchResultList"
   >
-    <Connect(WithLoading(WithStyles(PlotEmployeeSearchList)))
+    <Connect(WithLoadingAction(WithStyles(PlotEmployeeSearchList)))
       excludeList={Array []}
       selectEmployee={[Function]}
     />

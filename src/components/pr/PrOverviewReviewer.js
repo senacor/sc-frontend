@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
-import withLoading from '../hoc/Loading';
 import { Link } from 'react-router-dom';
 import {
   getAllPrsForTable,
   getFilter,
-  isLoadingAction,
   getUserPrincipalName
 } from '../../reducers/selector';
 import getDisplayName from '../../helper/getDisplayName';
@@ -21,6 +19,7 @@ import EmployeeFilter from '../humanResources/EmployeeFilter';
 import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
 import { LoadingEvents } from '../../helper/loadingEvents';
+import withLoadingAction from '../hoc/LoadingWithAction';
 
 export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
@@ -283,7 +282,6 @@ export class PrOverviewReviewer extends React.Component {
 export default connect(
   state => ({
     data: getAllPrsForTable(state),
-    isLoading: isLoadingAction(state, LoadingEvents.FETCH_OWN_PRS),
     username: getUserPrincipalName(state),
     filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
   }),
@@ -291,7 +289,7 @@ export default connect(
     fetchFilteredPrs: actions.fetchFilteredPrs
   }
 )(
-  withLoading(props =>
+  withLoadingAction(props =>
     props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER)
-  )(PrOverviewReviewer)
+  )([LoadingEvents.FETCH_OWN_PRS])(PrOverviewReviewer)
 );

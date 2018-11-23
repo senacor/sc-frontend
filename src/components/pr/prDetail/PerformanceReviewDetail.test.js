@@ -25,7 +25,7 @@ describe('PerformanceReviewDetail Component', () => {
   };
 
   it('should match snapshot', () => {
-    const component = shallow(<PerformanceReviewDetail prById={pr} />);
+    const component = shallow(<PerformanceReviewDetail pr={pr} />);
     expect(component).toMatchSnapshot();
   });
 });
