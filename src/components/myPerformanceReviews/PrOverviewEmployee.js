@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import withLoading from '../hoc/Loading';
-import { Link } from 'react-router-dom';
 import {
   getAllPrsForTable,
   getFilter,
@@ -17,41 +16,18 @@ import TABLE_PRS_ELEMENTS from '../pr/tablePrsElements';
 import PopperSearchMenu from '../humanResources/PopperSearchMenu';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import EmployeeFilter from '../humanResources/EmployeeFilter';
-import DateFilter from '../humanResources/DateFilter';
 import ListFilter from '../humanResources/ListFilter';
+import PerformanceReviewsTableService from '../humanResources/PerformanceReviewsTableService';
 
 export class PrOverviewEmployee extends React.Component {
   getColumnDefinitions = () => {
+    const prTableService = new PerformanceReviewsTableService(
+      FILTER_GROUPS.EMPLOYEE
+    );
+
     return [
-      {
-        numeric: false,
-        disablePadding: false,
-        label: 'Mitarbeiter',
-        sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
-        render: entry => {
-          return (
-            <Link to={`/prDetail/${entry.id}`}>
-              {getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE])}
-            </Link>
-          );
-        }
-      },
-      {
-        numeric: true,
-        disablePadding: true,
-        label: 'Fälligkeit',
-        sortValue: entry => entry[TABLE_PRS_ELEMENTS.DEADLINE],
-        render: entry =>
-          formatDateForFrontend(entry[TABLE_PRS_ELEMENTS.DEADLINE]),
-        filter: (
-          <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.EMPLOYEE}
-            filterBy={TABLE_PRS_ELEMENTS.DEADLINE}
-          >
-            <DateFilter />
-          </PopperSearchMenu>
-        )
-      },
+      prTableService.employee(),
+      prTableService.deadline(),
       {
         numeric: false,
         disablePadding: false,
@@ -144,21 +120,7 @@ export class PrOverviewEmployee extends React.Component {
           </PopperSearchMenu>
         )
       },
-      {
-        numeric: false,
-        disablePadding: true,
-        label: 'Bewerter',
-        sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER]),
-        render: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER]),
-        filter: (
-          <PopperSearchMenu
-            filterGroup={FILTER_GROUPS.EMPLOYEE}
-            filterBy={TABLE_PRS_ELEMENTS.REVIEWER}
-          >
-            <EmployeeFilter />
-          </PopperSearchMenu>
-        )
-      },
+      prTableService.reviewer(),
       {
         numeric: false,
         disablePadding: true,
