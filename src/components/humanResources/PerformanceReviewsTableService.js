@@ -9,6 +9,7 @@ import { formatDateForFrontend } from '../../helper/date';
 import DateFilter from './DateFilter';
 import { translateContent } from '../translate/Translate';
 import ListFilter from './ListFilter';
+import HR_ELEMENTS from './hrElements';
 
 export default class PerformanceReviewsTableService {
   constructor(filterGroup, filterPossibilities) {
@@ -18,7 +19,6 @@ export default class PerformanceReviewsTableService {
   employee() {
     return {
       numeric: false,
-      disablePadding: false,
       label: 'Mitarbeiter',
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
       render: entry => {
@@ -42,7 +42,6 @@ export default class PerformanceReviewsTableService {
   supervisor() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Vorgesetzte/r',
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
       render: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
@@ -60,7 +59,6 @@ export default class PerformanceReviewsTableService {
   reviewer(username) {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Bewerter',
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER]),
       render: entry => {
@@ -92,7 +90,6 @@ export default class PerformanceReviewsTableService {
   deadline() {
     return {
       numeric: true,
-      disablePadding: true,
       label: 'Fälligkeit',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.DEADLINE],
       render: entry =>
@@ -111,7 +108,6 @@ export default class PerformanceReviewsTableService {
   occasion() {
     return {
       numeric: false,
-      disablePadding: false,
       label: 'Grund',
       sortValue: entry =>
         translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
@@ -132,7 +128,6 @@ export default class PerformanceReviewsTableService {
   projectCst() {
     return {
       numeric: false,
-      disablePadding: false,
       label: 'Projektkst',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.CST],
       render: entry => entry[TABLE_PRS_ELEMENTS.CST],
@@ -158,7 +153,6 @@ export default class PerformanceReviewsTableService {
   competence() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Dev/Con',
       sortValue: entry =>
         translateContent(`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`),
@@ -186,7 +180,6 @@ export default class PerformanceReviewsTableService {
   level() {
     return {
       numeric: true,
-      disablePadding: true,
       label: 'level',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
       render: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
@@ -209,7 +202,6 @@ export default class PerformanceReviewsTableService {
   result() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Bewertung',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
       render: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
@@ -235,7 +227,6 @@ export default class PerformanceReviewsTableService {
   employeePreparation() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'MA ausgefüllt',
       sortValue: entry =>
         entry[TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
@@ -255,7 +246,6 @@ export default class PerformanceReviewsTableService {
   reviewerPreparation() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Beurteiler ausgefüllt',
       sortValue: entry =>
         entry[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
@@ -274,7 +264,6 @@ export default class PerformanceReviewsTableService {
   meeting() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Termin',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.APPOINTMENT],
       render: entry =>
@@ -285,7 +274,6 @@ export default class PerformanceReviewsTableService {
   finalState() {
     return {
       numeric: false,
-      disablePadding: true,
       label: 'Finaler Status',
       sortValue: entry =>
         entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
@@ -297,6 +285,24 @@ export default class PerformanceReviewsTableService {
           filterBy={TABLE_PRS_ELEMENTS.IN_PROGRESS}
         >
           <ListFilter content={{ laufend: true, abgeschlossen: false }} />
+        </PopperSearchMenu>
+      )
+    };
+  }
+
+  hrDone() {
+    return {
+      numeric: false,
+      label: 'HR verarbeitet',
+      sortValue: entry =>
+        entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein',
+      render: entry => (entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein'),
+      filter: (
+        <PopperSearchMenu
+          filterGroup={this.filterGroup}
+          filterBy={HR_ELEMENTS.HR_PROCESSING_DONE}
+        >
+          <ListFilter content={{ ja: true, nein: false }} />
         </PopperSearchMenu>
       )
     };

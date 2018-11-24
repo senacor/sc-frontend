@@ -8,7 +8,6 @@ import {
   getFilterPossibilities
 } from '../../reducers/selector';
 import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
-import TABLE_PRS_ELEMENTS from './tablePrsElements';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import { LoadingEvents } from '../../helper/loadingEvents';
 import PerformanceReviewsTableService from '../humanResources/PerformanceReviewsTableService';
@@ -38,16 +37,6 @@ export class PrOverviewReviewer extends React.Component {
     ];
   };
 
-  prAlreadyDelegated = pr => {
-    return pr.supervisor.login !== pr.reviewer.login;
-  };
-
-  prDelegable = pr => {
-    return (
-      pr.supervisor.login === this.props.username &&
-      pr[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] === false
-    );
-  };
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
       this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.REVIEWER);
