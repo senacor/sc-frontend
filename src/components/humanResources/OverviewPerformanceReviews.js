@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PerformanceReviewsTable from './PerformanceReviewsTable';
+import PerformanceReviewTable from './PerformanceReviewTable';
 import { connect } from 'react-redux';
 import {
   getAllPrsForTable,
@@ -12,12 +12,12 @@ import withLoading from '../hoc/Loading';
 import FILTER_GROUPS from './filterGroups';
 import { getUserroles } from '../../reducers/selector';
 import { isHr } from '../../helper/checkRole';
-import PerformanceReviewsTableService from './PerformanceReviewsTableService';
+import PerformanceReviewTableService from './PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
 
 export class OverviewPerformanceReviews extends Component {
   getColumnDefinitions = () => {
-    const prTableService = new PerformanceReviewsTableService(
+    const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.HR,
       this.props.filterPossibilities
     );
@@ -54,7 +54,7 @@ export class OverviewPerformanceReviews extends Component {
     let columns = this.getColumnDefinitions();
     let isHrMember = isHr(this.props.userroles);
     return (
-      <PerformanceReviewsTable
+      <PerformanceReviewTable
         columnDefinition={columns}
         orderBy={1}
         data={this.props.data}

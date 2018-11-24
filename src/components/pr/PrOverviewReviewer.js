@@ -7,15 +7,15 @@ import {
   getUserPrincipalName,
   getFilterPossibilities
 } from '../../reducers/selector';
-import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
+import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import { LoadingEvents } from '../../helper/loadingEvents';
-import PerformanceReviewsTableService from '../humanResources/PerformanceReviewsTableService';
+import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import withLoadingAction from '../hoc/LoadingWithAction';
 
 export class PrOverviewReviewer extends React.Component {
   getColumnDefinitions = () => {
-    const prTableService = new PerformanceReviewsTableService(
+    const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.REVIEWER,
       this.props.filterPossibilities
     );
@@ -48,7 +48,7 @@ export class PrOverviewReviewer extends React.Component {
     }
     const columns = this.getColumnDefinitions();
     return (
-      <PerformanceReviewsTable
+      <PerformanceReviewTable
         columnDefinition={columns}
         orderBy={1}
         data={this.props.data}

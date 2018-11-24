@@ -57,7 +57,7 @@ const styles = theme => ({
   }
 });
 
-class PerformanceReviewsTable extends React.Component {
+class PerformanceReviewTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -172,10 +172,10 @@ class PerformanceReviewsTable extends React.Component {
   }
 }
 
-PerformanceReviewsTable.propTypes = {
+PerformanceReviewTable.propTypes = {
   classes: PropTypes.object.isRequired,
   columnDefinition: PropTypes.array.isRequired
 };
 
-const StyledComponent = withStyles(styles)(PerformanceReviewsTable);
+const StyledComponent = withStyles(styles)(PerformanceReviewTable);
 export default StyledComponent;

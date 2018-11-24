@@ -8,15 +8,15 @@ import {
   getFilterPossibilities,
   isLoadingAction
 } from '../../reducers/selector';
-import PerformanceReviewsTable from '../humanResources/PerformanceReviewsTable';
+import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
 import FILTER_GROUPS from '../humanResources/filterGroups';
-import PerformanceReviewsTableService from '../humanResources/PerformanceReviewsTableService';
+import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
 
 export class PrOverviewEmployee extends React.Component {
   getColumnDefinitions = () => {
-    const prTableService = new PerformanceReviewsTableService(
+    const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.EMPLOYEE,
       this.props.filterPossibilities
     );
@@ -53,7 +53,7 @@ export class PrOverviewEmployee extends React.Component {
     return (
       <div>
         <RequestPerformanceReview />
-        <PerformanceReviewsTable
+        <PerformanceReviewTable
           columnDefinition={columns}
           orderBy={1}
           data={this.props.data}

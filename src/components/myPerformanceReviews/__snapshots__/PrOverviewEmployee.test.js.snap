@@ -3,11 +3,10 @@
 exports[`PrOverviewReviewer Component should match snapshot 1`] = `
 <div>
   <Connect(RequestPerformanceReview) />
-  <WithStyles(PerformanceReviewsTable)
+  <WithStyles(PerformanceReviewTable)
     columnDefinition={
       Array [
         Object {
-          "disablePadding": false,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="employee"
             filterGroup="EMPLOYEE"
@@ -20,7 +19,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="deadline"
             filterGroup="EMPLOYEE"
@@ -33,7 +31,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": false,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="occasion"
             filterGroup="EMPLOYEE"
@@ -54,7 +51,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": false,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="projectCst"
             filterGroup="EMPLOYEE"
@@ -74,7 +70,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="competence"
             filterGroup="EMPLOYEE"
@@ -94,7 +89,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="level"
             filterGroup="EMPLOYEE"
@@ -114,7 +108,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="supervisor"
             filterGroup="EMPLOYEE"
@@ -127,7 +120,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="reviewer"
             filterGroup="EMPLOYEE"
@@ -140,9 +132,8 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
-            filterBy="prOccasion"
+            filterBy="result"
             filterGroup="EMPLOYEE"
       >
             <Connect(ListFilter)
@@ -163,7 +154,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="employeePreparationDone"
             filterGroup="EMPLOYEE"
@@ -183,7 +173,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="reviewerPreparationDone"
             filterGroup="EMPLOYEE"
@@ -203,14 +192,12 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "label": "Termin",
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="inProgress"
             filterGroup="EMPLOYEE"

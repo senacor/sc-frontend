@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PerformanceReviewsTable component should match snapshot 1`] = `
+exports[`PerformanceReviewTable component should match snapshot 1`] = `
 <WithStyles(Paper)
-  className="PerformanceReviewsTable-root-1"
+  className="PerformanceReviewTable-root-1"
 >
   <div
-    className="PerformanceReviewsTable-tableWrapper-3"
+    className="PerformanceReviewTable-tableWrapper-3"
   >
     <WithStyles(Table)
       aria-labelledby="tableTitle"
-      className="PerformanceReviewsTable-table-2"
+      className="PerformanceReviewTable-table-2"
     >
       <WithStyles(EnhancedTableHead)
         columnDefinition={

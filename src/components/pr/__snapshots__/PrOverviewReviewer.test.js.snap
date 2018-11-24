@@ -1,18 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrOverviewReviewer Component should match snapshot 1`] = `
-<PerformanceReviewsTable
+<PerformanceReviewTable
   classes={
     Object {
-      "root": "PerformanceReviewsTable-root-1",
-      "table": "PerformanceReviewsTable-table-2",
-      "tableWrapper": "PerformanceReviewsTable-tableWrapper-3",
+      "root": "PerformanceReviewTable-root-1",
+      "table": "PerformanceReviewTable-table-2",
+      "tableWrapper": "PerformanceReviewTable-tableWrapper-3",
     }
   }
   columnDefinition={
     Array [
       Object {
-        "disablePadding": false,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="employee"
           filterGroup="REVIEWER"
@@ -25,7 +24,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="deadline"
           filterGroup="REVIEWER"
@@ -38,7 +36,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": false,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="occasion"
           filterGroup="REVIEWER"
@@ -59,7 +56,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": false,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="projectCst"
           filterGroup="REVIEWER"
@@ -79,7 +75,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="competence"
           filterGroup="REVIEWER"
@@ -99,7 +94,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="level"
           filterGroup="REVIEWER"
@@ -119,7 +113,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="supervisor"
           filterGroup="REVIEWER"
@@ -132,7 +125,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="reviewer"
           filterGroup="REVIEWER"
@@ -145,7 +137,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="result"
           filterGroup="REVIEWER"
@@ -168,7 +159,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="employeePreparationDone"
           filterGroup="REVIEWER"
@@ -188,7 +178,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="reviewerPreparationDone"
           filterGroup="REVIEWER"
@@ -208,14 +197,12 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "label": "Termin",
         "numeric": false,
         "render": [Function],
         "sortValue": [Function],
       },
       Object {
-        "disablePadding": true,
         "filter": <Connect(WithStyles(PopperSearchMenu))
           filterBy="inProgress"
           filterGroup="REVIEWER"

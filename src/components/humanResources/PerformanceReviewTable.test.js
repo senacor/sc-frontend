@@ -1,6 +1,6 @@
 import React from 'react';
-import PerformanceReviewsTable from './PerformanceReviewsTable';
-import { descInteger, descString, stableSort } from './PerformanceReviewsTable';
+import PerformanceReviewTable from './PerformanceReviewTable';
+import { descInteger, descString, stableSort } from './PerformanceReviewTable';
 import { createShallow } from '@material-ui/core/test-utils';
 import HR_ELEMENTS from './hrElements';
 import { Link } from 'react-router-dom';
@@ -230,7 +230,7 @@ const rows = [
   }
 ];
 
-describe('PerformanceReviewsTable component', () => {
+describe('PerformanceReviewTable component', () => {
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
@@ -240,7 +240,7 @@ describe('PerformanceReviewsTable component', () => {
     ];
 
     let component = shallow(
-      <PerformanceReviewsTable data={prs} columnDefinition={rows} orderBy={1} />
+      <PerformanceReviewTable data={prs} columnDefinition={rows} orderBy={1} />
     );
 
     expect(component).toMatchSnapshot();
@@ -250,7 +250,7 @@ describe('PerformanceReviewsTable component', () => {
     let prs = [];
 
     let component = shallow(
-      <PerformanceReviewsTable data={prs} columnDefinition={rows} orderBy={1} />
+      <PerformanceReviewTable data={prs} columnDefinition={rows} orderBy={1} />
     );
 
     expect(

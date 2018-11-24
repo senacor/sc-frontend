@@ -11,7 +11,7 @@ import { translateContent } from '../translate/Translate';
 import ListFilter from './ListFilter';
 import HR_ELEMENTS from './hrElements';
 
-export default class PerformanceReviewsTableService {
+export default class PerformanceReviewTableService {
   constructor(filterGroup, filterPossibilities) {
     this.filterGroup = filterGroup;
     this.filterPossibilities = filterPossibilities;
@@ -208,7 +208,7 @@ export default class PerformanceReviewsTableService {
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
-          filterBy={TABLE_PRS_ELEMENTS.PR_OCCASION}
+          filterBy={TABLE_PRS_ELEMENTS.RESULT}
         >
           <ListFilter
             content={this.filterPossibilities.overallAssessments.reduce(
