@@ -9,13 +9,16 @@ import cloneDeep from '../helper/cloneDeep';
 export const prRatings = (state = {}, action) => {
   switch (action.type) {
     case ADD_COMMENT_RESPONSE: {
-      return cloneDeep(
-        generateRatingsForOnePr(
-          state,
-          action.payload.prId,
-          action.payload.prRatings
-        )
-      );
+      const { prRating, prId } = action.payload;
+
+      let newPrRatings = Object.assign({}, state[prId]);
+      newPrRatings[prRating.prRatingDescription] = prRating;
+
+      const value = Object.assign({}, state, {
+        [prId]: newPrRatings
+      });
+
+      return value;
     }
 
     case FETCH_PR_BY_ID_RESPONSE: {

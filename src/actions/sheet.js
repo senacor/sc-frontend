@@ -13,7 +13,7 @@ export const addRating = (
     type: dispatchTypes.ADD_COMMENT_REQUEST
   });
 
-  await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/ratings/${ratingId}`,
     {
       method: 'put',
@@ -25,20 +25,14 @@ export const addRating = (
     }
   );
 
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prById.id}/ratings`
-  );
-
   if (response.ok) {
-    const result = await response.json();
-    const responseList = objectGet(result, '_embedded.prRatingResponseList');
-    const prRatings = responseList ? responseList : [];
+    const prRating = await response.json();
 
     dispatch({
       type: dispatchTypes.ADD_COMMENT_RESPONSE,
       payload: {
         prId: prById.id,
-        prRatings
+        prRating
       }
     });
   }
