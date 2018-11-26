@@ -59,7 +59,9 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
                 "id": 503,
                 "lastName": "Mitarbeiter",
               },
-              "statuses": Array [],
+              "statuses": Array [
+                "ALL_DATES_ACCEPTED",
+              ],
               "supervisor": Object {
                 "firstName": "Manuela",
                 "id": 54,

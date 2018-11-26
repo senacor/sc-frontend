@@ -44,12 +44,7 @@ class PrFinalCommentEmployee extends Component {
   handleChangeComment = prById => event => {
     this.setState({ commentText: event.target.value });
 
-    this.sendComment(
-      prById.id,
-      prById.prFinalizationStatus.finalizationStatusOfEmployee,
-      prById.prFinalizationStatus.finalizationStatusOfReviewer,
-      event.target.value
-    );
+    this.sendComment(prById.id, event.target.value);
   };
   sendComment = debounce(this.props.changeFinalCommentEmployee, 500);
 

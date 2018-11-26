@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledComponent as PrDetailInformation } from './PrDetailInformation';
 import { createShallow } from '@material-ui/core/test-utils';
+import { prStatusEnum } from '../../../helper/prStatus';
 
 describe('PrDetailInformation Component', () => {
   const pr = {
@@ -22,7 +23,7 @@ describe('PrDetailInformation Component', () => {
     meeting: { start: '2018-12-04' },
     competence: 'DEVELOPMENT',
     occasion: 'ON_DEMAND',
-    statuses: []
+    statuses: [prStatusEnum.FIXED_DATE]
   };
 
   let shallow = createShallow({ dive: true });

@@ -54,6 +54,9 @@
     "/oauth2": {
       "target": "http://localhost:8000"
     },
+    "/api/v2/prs": {
+      "target": "http://localhost:8010"
+    },
     "/api/v1/prs": {
       "target": "http://localhost:8010"
     },

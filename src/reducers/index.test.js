@@ -37,12 +37,6 @@ describe('reducers', () => {
             prEmployeeContribution: [someValue]
           },
           prRatings: { someValue },
-          prVisibilityById: {
-            prVisibility: {
-              toEmployee: false,
-              toSupervisor: false
-            }
-          },
           prs: { someValue },
           requiredFields: { employee: false, reviewer: true },
           employeeSearchResults: [someValue],
@@ -77,12 +71,6 @@ describe('reducers', () => {
           prRatings: {},
           prTargetRole: {
             prGetTargetRole: []
-          },
-          prVisibilityById: {
-            prVisibility: {
-              toEmployee: false,
-              toSupervisor: false
-            }
           },
           prFinalizationStatusById: {
             prFinalizationStatus: {

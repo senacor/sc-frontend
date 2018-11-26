@@ -5,7 +5,6 @@ import * as dispatchTypes from '../helper/dispatchTypes';
 
 import { addPrStatus } from './status';
 import { prStatusEnum } from '../helper/prStatus';
-import { dateFixed } from '../service/requiredAttendeesCounterService';
 
 let validateDateTimeInput = (start, end) => {
   if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
@@ -89,10 +88,6 @@ export const fetchMeeting = pr => async dispatch => {
       type: dispatchTypes.FETCH_MEETING_RESPONSE,
       meeting
     });
-
-    if (dateFixed(meeting.requiredAttendees, pr)) {
-      return addPrStatus(pr, prStatusEnum.FIXED_DATE)(dispatch);
-    }
   } else if (response.status === 404) {
     dispatch({
       type: dispatchTypes.FETCH_MEETING_RESPONSE,

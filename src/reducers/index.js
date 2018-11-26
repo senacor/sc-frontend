@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import { prs, sortOrderPrs, tablePrs } from './prs';
 import { prDetailId, newPrId } from './prDetailId';
 import prTargetRole from './getTargetRole';
-import prVisibilityById from './getPrVisibility';
 import prFinalizationStatusById from './getPrFinalizationStatus';
 import errors from './errors';
 import login from './login';
@@ -30,7 +29,6 @@ const combineReducer = combineReducers({
   prDetailId,
   newPrId,
   prTargetRole,
-  prVisibilityById,
   prFinalizationStatusById,
   prRatings,
   finalCommentEmployee,

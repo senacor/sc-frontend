@@ -34,14 +34,9 @@ describe('addPrStatus', () => {
         }
       }
     );
-    fetchMock.putOnce('/api/v1/prs/1/status', {
+    fetchMock.putOnce('/api/v2/prs/1/status', {
       prId: 1,
       statuses: [prStatusEnum.RELEASED_SHEET_REVIEWER]
-    });
-    fetchMock.putOnce('/api/v1/prs/1/visibility', {
-      prId: 1,
-      visibilityToEmployee: visibilityTypes.VISIBLE,
-      visibilityToReviewer: visibilityTypes.INVISIBLE
     });
     fetchMock.getOnce('/api/v1/prs/1', prAfter);
 
@@ -52,7 +47,10 @@ describe('addPrStatus', () => {
 
     expect(store.getActions()).toEqual([
       { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
-      { type: dispatchTypes.CHANGE_PR_VISIBILITY_REQUEST },
+      {
+        type: dispatchTypes.ADD_PR_STATUS_RESPONSE,
+        payload: { prId: 1, statuses: [prStatusEnum.RELEASED_SHEET_REVIEWER] }
+      },
       { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
       { type: dispatchTypes.ERROR_GONE },
       {
@@ -81,14 +79,9 @@ describe('addPrStatus', () => {
         }
       }
     );
-    fetchMock.putOnce('/api/v1/prs/1/status', {
+    fetchMock.putOnce('/api/v2/prs/1/status', {
       prId: 1,
       statuses: [prStatusEnum.FINALIZED_REVIEWER]
-    });
-    fetchMock.putOnce('/api/v1/prs/1/finalization', {
-      prId: 1,
-      finalizationStatusOfEmployee: 'NOT_FINALIZED',
-      finalizationStatusOfReviewer: 'FINALIZED'
     });
     fetchMock.getOnce('/api/v1/prs/1', prAfter);
 
@@ -99,13 +92,9 @@ describe('addPrStatus', () => {
 
     expect(store.getActions()).toEqual([
       { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
-      { type: dispatchTypes.CHANGE_PR_FINALIZATION_STATUS_REQUEST },
       {
-        prFinalizationStatusById: {
-          finalizationStatusOfEmployee: 'NOT_FINALIZED',
-          finalizationStatusOfReviewer: 'FINALIZED'
-        },
-        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+        type: dispatchTypes.ADD_PR_STATUS_RESPONSE,
+        payload: { prId: 1, statuses: [prStatusEnum.FINALIZED_REVIEWER] }
       },
       { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
       { type: dispatchTypes.ERROR_GONE },
@@ -132,14 +121,9 @@ describe('addPrStatus', () => {
         finalizationStatusOfReviewer: 'NOT_FINALIZED'
       }
     };
-    fetchMock.putOnce('/api/v1/prs/1/status', {
+    fetchMock.putOnce('/api/v2/prs/1/status', {
       prId: 1,
       statuses: [prStatusEnum.FINALIZED_EMPLOYEE]
-    });
-    fetchMock.putOnce('/api/v1/prs/1/finalization', {
-      prId: 1,
-      finalizationStatusOfEmployee: 'FINALIZED',
-      finalizationStatusOfReviewer: 'NOT_FINALIZED'
     });
     fetchMock.getOnce('/api/v1/prs/1', prAfter);
 
@@ -150,13 +134,9 @@ describe('addPrStatus', () => {
 
     expect(store.getActions()).toEqual([
       { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
-      { type: dispatchTypes.CHANGE_PR_FINALIZATION_STATUS_REQUEST },
       {
-        prFinalizationStatusById: {
-          finalizationStatusOfEmployee: 'FINALIZED',
-          finalizationStatusOfReviewer: 'NOT_FINALIZED'
-        },
-        type: 'FETCHED_PR_FINALIZATION_STATUS_RESPONSE'
+        type: dispatchTypes.ADD_PR_STATUS_RESPONSE,
+        payload: { prId: 1, statuses: [prStatusEnum.FINALIZED_EMPLOYEE] }
       },
       { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
       { type: dispatchTypes.ERROR_GONE },

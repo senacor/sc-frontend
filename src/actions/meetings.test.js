@@ -74,17 +74,17 @@ describe('addMeeting', () => {
       }
     );
 
-    fetchMock.putOnce('/api/v1/prs/' + meeting_details.prById.id + '/status', {
+    fetchMock.putOnce('/api/v2/prs/' + meeting_details.prById.id + '/status', {
       prId: prById.id,
       statuses: [
         'FILLED_SHEET_EMPLOYEE',
         'FILLED_SHEET_REVIEWER',
-        'ALL_DATES_ACCEPTED'
+        'REQUESTED_DATE'
       ],
       _links: {
         self: {
           href:
-            'http://localhost:8010/api/v1/prs/' +
+            'http://localhost:8010/api/v2/prs/' +
             meeting_details.prById.id +
             '/status'
         }
@@ -129,6 +129,25 @@ describe('addMeeting', () => {
       },
       {
         type: dispatchTypes.ADD_PR_STATUS_REQUEST
+      },
+      {
+        type: dispatchTypes.ADD_PR_STATUS_RESPONSE,
+        payload: {
+          prId: prById.id,
+          statuses: [
+            'FILLED_SHEET_EMPLOYEE',
+            'FILLED_SHEET_REVIEWER',
+            'REQUESTED_DATE'
+          ],
+          _links: {
+            self: {
+              href:
+                'http://localhost:8010/api/v2/prs/' +
+                meeting_details.prById.id +
+                '/status'
+            }
+          }
+        }
       },
       {
         type: dispatchTypes.FETCH_PR_BY_ID_REQUEST
@@ -253,11 +272,7 @@ describe('fetchMeeting', () => {
             }
           }
         }
-      },
-      { type: dispatchTypes.ADD_PR_STATUS_REQUEST },
-      { type: dispatchTypes.FETCH_PR_BY_ID_REQUEST },
-      { type: dispatchTypes.ERROR_GONE },
-      { prById: { id: 1 }, type: dispatchTypes.FETCH_PR_BY_ID_RESPONSE }
+      }
     ]);
   });
 

@@ -62,9 +62,11 @@ export class PrDetailInformation extends Component {
     }
 
     const { firstName, lastName } = pr.employee;
-    const termin = pr.meeting
-      ? formatDateForFrontend(pr.meeting.start)
-      : 'noch nicht vereinbart';
+    let dateAccepted = pr.statuses.includes(prStatusEnum.FIXED_DATE);
+    const termin =
+      pr.meeting && dateAccepted
+        ? formatDateForFrontend(pr.meeting.start)
+        : 'noch nicht vereinbart';
     const competence = translateContent('COMPETENCE_' + pr.competence);
     const reviewer =
       pr.supervisor.id === pr.reviewer.id
