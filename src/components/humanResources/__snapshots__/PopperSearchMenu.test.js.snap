@@ -32,23 +32,9 @@ exports[`PopperSearchMenu component should match snapshot 1`] = `
   >
     <div>
       <Connect(EmployeeFilter)
-        classes={
-          Object {
-            "iconFilterSet": "PopperSearchMenu-iconFilterSet-1",
-            "iconFilterUnset": "PopperSearchMenu-iconFilterUnset-2",
-          }
-        }
         closeFilter={[Function]}
-        filterBy="employee"
-        filterGroup="hr"
         icon="search"
-      >
-        <Connect(EmployeeFilter)
-          filterBy="employee"
-          filterGroup="hr"
-          icon="search"
-        />
-      </Connect(EmployeeFilter)>
+      />
     </div>
   </WithStyles(Popover)>
 </div>
