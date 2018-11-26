@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableColumnSelectorMenu component should match snapshot 1`] = `
+<div>
+  <WithStyles(IconButton)
+    onClick={[Function]}
+  >
+    <WithStyles(Icon)>
+      visibility
+    </WithStyles(Icon)>
+  </WithStyles(IconButton)>
+  <WithStyles(Popover)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "bottom",
+      }
+    }
+    onClose={[Function]}
+    open={false}
+  >
+    <WithStyles(TableColumnSelector)
+      onChange={[Function]}
+      selectedContent={
+        Array [
+          Object {
+            "checked": true,
+            "label": "Mitarbeiter",
+            "value": "dummy_mitarbeiter",
+          },
+          Object {
+            "checked": true,
+            "label": "Reviewer",
+            "value": "dummy_reviewer",
+          },
+        ]
+      }
+    />
+  </WithStyles(Popover)>
+</div>
+`;

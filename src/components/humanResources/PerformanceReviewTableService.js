@@ -107,6 +107,11 @@ export default class PerformanceReviewTableService {
   }
 
   occasion() {
+    let filterContent = {};
+    this.filterPossibilities.occasions.forEach(item => {
+      filterContent[translateContent(`${item}`)] = item;
+    });
+
     return {
       numeric: false,
       label: 'Grund',
@@ -115,18 +120,17 @@ export default class PerformanceReviewTableService {
       render: entry => translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
       filter: (
         <PopperSearchMenu filterGroup={this.filterGroup} filterBy={'occasion'}>
-          <ListFilter
-            content={this.filterPossibilities.occasions.reduce((obj, item) => {
-              obj[translateContent(`${item}`)] = item;
-              return obj;
-            }, {})}
-          />
+          <ListFilter content={filterContent} />
         </PopperSearchMenu>
       )
     };
   }
 
   projectCst() {
+    let filterContent = {};
+    this.filterPossibilities.projectCsts.forEach(item => {
+      filterContent[item] = item;
+    });
     return {
       numeric: false,
       label: 'Projektkst',
@@ -137,21 +141,18 @@ export default class PerformanceReviewTableService {
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.CST}
         >
-          <ListFilter
-            content={this.filterPossibilities.projectCsts.reduce(
-              (obj, item) => {
-                obj[item] = item;
-                return obj;
-              },
-              {}
-            )}
-          />
+          <ListFilter content={filterContent} />
         </PopperSearchMenu>
       )
     };
   }
 
   competence() {
+    let filterContent = {};
+    this.filterPossibilities.competences.forEach(item => {
+      filterContent[translateContent(`COMPETENCE_${item}`)] = item;
+    });
+
     return {
       numeric: false,
       label: 'Dev/Con',
@@ -164,21 +165,18 @@ export default class PerformanceReviewTableService {
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.COMPETENCE}
         >
-          <ListFilter
-            content={this.filterPossibilities.competences.reduce(
-              (obj, item) => {
-                obj[translateContent(`COMPETENCE_${item}`)] = item;
-                return obj;
-              },
-              {}
-            )}
-          />
+          <ListFilter content={filterContent} />
         </PopperSearchMenu>
       )
     };
   }
 
   level() {
+    let filterContent = {};
+    this.filterPossibilities.levels.forEach(item => {
+      filterContent[item] = item;
+    });
+
     return {
       numeric: true,
       label: 'level',
@@ -189,20 +187,20 @@ export default class PerformanceReviewTableService {
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.LEVEL}
         >
-          <ListFilter
-            content={this.filterPossibilities.levels.reduce((obj, item) => {
-              obj[item] = item;
-              return obj;
-            }, {})}
-          />
+          <ListFilter content={filterContent} />
         </PopperSearchMenu>
       )
     };
   }
 
   result() {
+    let filterContent = {};
+    this.filterPossibilities.overallAssessments.forEach(item => {
+      filterContent[mapRatingFullfilment(parseInt(item, 10))] = item;
+    });
+
     return {
-      numeric: false,
+      numeric: true,
       label: 'Bewertung',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
       render: entry => mapRatingFullfilment(entry[TABLE_PRS_ELEMENTS.RESULT]),
@@ -211,15 +209,7 @@ export default class PerformanceReviewTableService {
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.RESULT}
         >
-          <ListFilter
-            content={this.filterPossibilities.overallAssessments.reduce(
-              (obj, item) => {
-                obj[item] = item;
-                return obj;
-              },
-              {}
-            )}
-          />
+          <ListFilter content={filterContent} />
         </PopperSearchMenu>
       )
     };
