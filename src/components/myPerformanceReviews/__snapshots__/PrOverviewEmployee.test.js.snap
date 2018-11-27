@@ -3,18 +3,22 @@
 exports[`PrOverviewReviewer Component should match snapshot 1`] = `
 <div>
   <Connect(RequestPerformanceReview) />
-  <WithStyles(PerformanceReviewsTable)
+  <WithStyles(PerformanceReviewTable)
     columnDefinition={
       Array [
         Object {
-          "disablePadding": false,
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="employee"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(EmployeeFilter) />
+      </Connect(WithStyles(PopperSearchMenu))>,
           "label": "Mitarbeiter",
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="deadline"
             filterGroup="EMPLOYEE"
@@ -27,7 +31,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": false,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="occasion"
             filterGroup="EMPLOYEE"
@@ -48,14 +51,25 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": false,
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="projectCst"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "ACD_BOOT": "ACD_BOOT",
+                              "DEV_CAMP": "DEV_CAMP",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
           "label": "Projektkst",
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="competence"
             filterGroup="EMPLOYEE"
@@ -75,7 +89,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="level"
             filterGroup="EMPLOYEE"
@@ -83,8 +96,8 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
             <Connect(ListFilter)
                   content={
                         Object {
-                              "1": 1,
-                              "2": 2,
+                              "1": "1",
+                              "2": "2",
                             }
                   }
             />
@@ -95,7 +108,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="supervisor"
             filterGroup="EMPLOYEE"
@@ -108,7 +120,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="reviewer"
             filterGroup="EMPLOYEE"
@@ -121,14 +132,28 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="result"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "1": "1",
+                              "2": "2",
+                              "3": "3",
+                              "4": "4",
+                              "5": "5",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
           "label": "Bewertung",
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="employeePreparationDone"
             filterGroup="EMPLOYEE"
@@ -148,7 +173,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="reviewerPreparationDone"
             filterGroup="EMPLOYEE"
@@ -168,14 +192,12 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "label": "Termin",
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "disablePadding": true,
           "filter": <Connect(WithStyles(PopperSearchMenu))
             filterBy="inProgress"
             filterGroup="EMPLOYEE"
