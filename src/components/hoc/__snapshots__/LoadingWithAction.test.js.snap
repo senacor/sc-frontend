@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withLoadingAction Function should call the loadingFunction 1`] = `
+<Connect(LoadingActionRender)
+  loadingAction={Array []}
+>
+  <Component />
+</Connect(LoadingActionRender)>
+`;

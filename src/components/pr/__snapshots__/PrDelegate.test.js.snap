@@ -49,7 +49,7 @@ exports[`PrDelegate Component should match snapshot 1`] = `
       dense={true}
       id="employeeSearchResultList"
     >
-      <Connect(WithLoading(WithStyles(PlotEmployeeSearchList)))
+      <Connect(WithLoadingAction(WithStyles(PlotEmployeeSearchList)))
         excludeList={
           Array [
             503,
