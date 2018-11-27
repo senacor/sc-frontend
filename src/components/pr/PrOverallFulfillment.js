@@ -11,8 +11,9 @@ import { getPrRatings, getUserroles } from '../../reducers/selector';
 import { translateContent } from '../translate/Translate';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core';
+import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
 
-const styles = theme => ({
+const styles = {
   simpleBlack: {
     color: '#000000',
     width: '80%'
@@ -21,26 +22,9 @@ const styles = theme => ({
     width: '20%',
     paddingLeft: '5%'
   }
-});
+};
 
 export class PrOverallFulfillment extends Component {
-  mapRatingFullfilment = ratingFulfillemnt => {
-    switch (ratingFulfillemnt) {
-      case 1:
-        return 'nicht erfüllt';
-      case 2:
-        return 'zT. nicht erfüllt';
-      case 3:
-        return 'erfüllt';
-      case 4:
-        return 'zT. übererfüllt';
-      case 5:
-        return 'übererfüllt';
-      default:
-        return 'keine Auswahl';
-    }
-  };
-
   handleChangeRating = prById => event => {
     this.props.addRating(
       prById,
@@ -74,7 +58,7 @@ export class PrOverallFulfillment extends Component {
           </div>
           <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
             {this.props.readOnly
-              ? this.mapRatingFullfilment(prRating.rating)
+              ? mapRatingFullfilment(prRating.rating)
               : 'kein Eintrag'}
           </Typography>
         </ListItem>
@@ -101,7 +85,7 @@ export class PrOverallFulfillment extends Component {
                       id={'_ratingFulfillmentValue' + ratingValue}
                       value={ratingValue}
                     >
-                      {this.mapRatingFullfilment(ratingValue)}
+                      {mapRatingFullfilment(ratingValue)}
                     </MenuItem>
                   );
                 })}
