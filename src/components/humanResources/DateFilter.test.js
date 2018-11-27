@@ -215,9 +215,7 @@ describe('DateFilter Component', () => {
     expect(addFilter).toHaveBeenCalledTimes(0);
 
     expect(
-      component.containsMatchingElement(
-        <div>Falsche Eingabe: von nach bis</div>
-      )
+      component.containsMatchingElement(<div>Ungültige Eingabe</div>)
     ).toBeTruthy();
   });
 });

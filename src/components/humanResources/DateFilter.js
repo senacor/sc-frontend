@@ -124,9 +124,7 @@ export class DateFilter extends Component {
           </IconButton>
         </ListItem>
         <ListItem className={classes.error}>
-          {this.state.error === true ? (
-            <div>Falsche Eingabe: von nach bis</div>
-          ) : null}
+          {this.state.error === true ? <div>Ungültige Eingabe</div> : null}
         </ListItem>
       </List>
     );
