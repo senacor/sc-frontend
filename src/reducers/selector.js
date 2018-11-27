@@ -15,6 +15,7 @@ export const getFilterPossibilities = state => state.filterPossibilities;
 export const isLoading = state => state.isLoading.length > 0;
 export const isLoadingAction = (state, start) =>
   state.isLoading.some(entry => start.includes(entry));
+export const getPrTab = state => state.prTabs;
 
 export const getPrDetail = () => {
   return createSelector(

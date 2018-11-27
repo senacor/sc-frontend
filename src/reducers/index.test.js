@@ -2,6 +2,7 @@ import reducers from './index';
 import app from './index';
 import moment from 'moment-timezone';
 import * as dispatchTypes from '../helper/dispatchTypes';
+import { prTabEnum } from '../helper/prTabEnum';
 
 describe('reducers', () => {
   it('should return combined reducers', () => {
@@ -38,6 +39,7 @@ describe('reducers', () => {
             prEmployeeContribution: [someValue]
           },
           prRatings: { someValue },
+          prTabs: prTabEnum.SCHEDULE_VIEW,
           prs: { someValue },
           requiredFields: { employee: false, reviewer: true },
           employeeSearchResults: [someValue],
@@ -71,6 +73,7 @@ describe('reducers', () => {
           prDetailId: 0,
           prEmployeeContributions: [],
           prRatings: {},
+          prTabs: prTabEnum.DETAIL_VIEW,
           prTargetRole: {
             prGetTargetRole: []
           },

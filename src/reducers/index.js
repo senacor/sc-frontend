@@ -17,6 +17,7 @@ import { finalCommentHr } from './finalCommentHr';
 import { filter } from './filter';
 import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
+import { prTabs } from './prTabs';
 import { filterPossibilities } from './filterPossibilities';
 
 const combineReducer = combineReducers({
@@ -42,8 +43,9 @@ const combineReducer = combineReducers({
   userphoto,
   userroles,
   filter,
+  requiredFields,
   filterPossibilities,
-  requiredFields
+  prTabs
 });
 
 const app = (state, action) => {

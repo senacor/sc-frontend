@@ -16,7 +16,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
       fullWidth={true}
       indicatorColor="secondary"
       onChange={[Function]}
-      value={0}
+      value="SCHEDULE_VIEW"
     >
       <WithStyles(Tab)
         classes={
@@ -25,6 +25,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
           }
         }
         label="Details"
+        value="DETAIL_VIEW"
       />
       <WithStyles(Tab)
         classes={
@@ -33,11 +34,12 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
           }
         }
         label="Terminfindung"
+        value="SCHEDULE_VIEW"
       />
     </WithStyles(Tabs)>
   </WithStyles(Paper)>
   <TabContainer>
-    <Connect(WithStyles(PrSheet)) />
+    <Connect(SchedulingView) />
   </TabContainer>
 </div>
 `;
