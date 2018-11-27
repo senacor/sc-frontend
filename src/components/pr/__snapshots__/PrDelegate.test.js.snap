@@ -8,7 +8,7 @@ exports[`PrDelegate Component should match snapshot 1`] = `
     InputProps={
       Object {
         "classes": Object {
-          "focused": "PrDelegate-focused-8",
+          "focused": "PrDelegate-focused-9",
           "input": "PrDelegate-input-6",
         },
         "disableUnderline": true,

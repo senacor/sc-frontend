@@ -6,16 +6,20 @@ import { prStatusEnum } from '../../../helper/prStatus';
 describe('PrDetailInformation Component', () => {
   const pr = {
     employee: {
+      id: 501,
+      login: 'mmitarbeiterin',
       firstName: 'Michaela',
       lastName: 'Mitarbeiterin'
     },
     supervisor: {
       id: 54,
+      login: 'mbock',
       firstName: 'Manuela',
       lastName: 'Bock'
     },
     reviewer: {
       id: 503,
+      login: 'mmitarbeiter',
       firstName: 'Martin',
       lastName: 'Mitarbeiter'
     },
@@ -29,7 +33,9 @@ describe('PrDetailInformation Component', () => {
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
-    const component = shallow(<PrDetailInformation pr={pr} />);
+    const component = shallow(
+      <PrDetailInformation pr={pr} username={'mmitarbeiterin'} />
+    );
     expect(component).toMatchSnapshot();
   });
 });

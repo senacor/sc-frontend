@@ -9,16 +9,16 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
       expandIcon={<pure(ExpandMoreIcon) />}
     >
       <div
-        className="PrDetailInformation-avatarContainer-3"
+        className="PrDetailInformation-avatarContainer-2"
       >
         <WithStyles(Avatar)
-          className="PrDetailInformation-avatar-4"
+          className="PrDetailInformation-avatar-3"
         >
           MM
         </WithStyles(Avatar)>
       </div>
       <div
-        className="PrDetailInformation-heading-5"
+        className="PrDetailInformation-heading-4"
       >
         <WithStyles(Typography)
           variant="body2"
@@ -31,24 +31,67 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
         >
           Fälligkeit: 06.12.2018, ACD_BOOT, DEV, Auf Nachfrage, Termin: 04.12.2018
         </WithStyles(Typography)>
-        <WithStyles(Typography)
-          color="textSecondary"
-          variant="body2"
+        <WithStyles(List)
+          className="PrDetailInformation-list-5"
         >
-          Vorgesetzter: Manuela Bock, Beurteiler: Martin Mitarbeiter
-        </WithStyles(Typography)>
+          <WithStyles(ListItem)
+            className="PrDetailInformation-list-5"
+          >
+            <WithStyles(Typography)
+              color="textSecondary"
+              variant="body2"
+            >
+              Vorgesetzter: Manuela Bock
+            </WithStyles(Typography)>
+            <WithStyles(ShowReviewer)
+              pr={
+                Object {
+                  "competence": "DEVELOPMENT",
+                  "deadline": "2018-12-06",
+                  "employee": Object {
+                    "firstName": "Michaela",
+                    "id": 501,
+                    "lastName": "Mitarbeiterin",
+                    "login": "mmitarbeiterin",
+                  },
+                  "meeting": Object {
+                    "start": "2018-12-04",
+                  },
+                  "occasion": "ON_DEMAND",
+                  "reviewer": Object {
+                    "firstName": "Martin",
+                    "id": 503,
+                    "lastName": "Mitarbeiter",
+                    "login": "mmitarbeiter",
+                  },
+                  "statuses": Array [
+                    "ALL_DATES_ACCEPTED",
+                  ],
+                  "supervisor": Object {
+                    "firstName": "Manuela",
+                    "id": 54,
+                    "lastName": "Bock",
+                    "login": "mbock",
+                  },
+                }
+              }
+              prefix=", Beurteiler: "
+              username="mmitarbeiterin"
+            />
+          </WithStyles(ListItem)>
+        </WithStyles(List)>
       </div>
       <div>
-        <Connect(WithStyles(PrDelegate))
-          defaultText="Nicht übergeben"
-          isDelegated={true}
+        <Connect(BackToTableButton)
           pr={
             Object {
               "competence": "DEVELOPMENT",
               "deadline": "2018-12-06",
               "employee": Object {
                 "firstName": "Michaela",
+                "id": 501,
                 "lastName": "Mitarbeiterin",
+                "login": "mmitarbeiterin",
               },
               "meeting": Object {
                 "start": "2018-12-04",
@@ -58,6 +101,7 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
                 "firstName": "Martin",
                 "id": 503,
                 "lastName": "Mitarbeiter",
+                "login": "mmitarbeiter",
               },
               "statuses": Array [
                 "ALL_DATES_ACCEPTED",
@@ -66,10 +110,10 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
                 "firstName": "Manuela",
                 "id": 54,
                 "lastName": "Bock",
+                "login": "mbock",
               },
             }
           }
-          startValue="Martin Mitarbeiter"
         />
       </div>
     </WithStyles(ExpansionPanelSummary)>

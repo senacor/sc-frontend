@@ -14,18 +14,17 @@ import { translateContent } from '../../translate/Translate';
 import PrHistory from './PrHistory';
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
-import PrDelegate from '../PrDelegate';
-import { prStatusEnum } from '../../../helper/prStatus';
 import { connect } from 'react-redux';
+import List from '@material-ui/core/List/List';
+import ListItem from '@material-ui/core/ListItem/ListItem';
+import BackToTableButton from './BackToTableButton';
 import { getUserPrincipalName } from '../../../reducers/selector';
+import ShowReviewer from './ShowReviewer';
+import { prStatusEnum } from '../../../helper/prStatus';
 
 const styles = theme => ({
   root: {
     marginBottom: 2 * theme.spacing.unit
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%' // 16:9
   },
   avatarContainer: {
     flex: '0 0 auto',
@@ -36,6 +35,10 @@ const styles = theme => ({
   },
   heading: {
     flex: '1 1 auto'
+  },
+  list: {
+    margin: '0px',
+    padding: '0px'
   }
 });
 
@@ -47,15 +50,8 @@ export class PrDetailInformation extends Component {
     };
   }
 
-  prDelegable = pr => {
-    return (
-      pr.supervisor.login === this.props.username &&
-      pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) === false
-    );
-  };
-
   render() {
-    const { classes, pr } = this.props;
+    const { classes, pr, username } = this.props;
 
     if (!pr) {
       return null;
@@ -68,10 +64,6 @@ export class PrDetailInformation extends Component {
         ? formatDateForFrontend(pr.meeting.start)
         : 'noch nicht vereinbart';
     const competence = translateContent('COMPETENCE_' + pr.competence);
-    const reviewer =
-      pr.supervisor.id === pr.reviewer.id
-        ? ''
-        : `, Beurteiler: ${getDisplayName(pr.reviewer)}`;
 
     const subheader = `Fälligkeit: ${formatDateForFrontend(
       pr.deadline
@@ -79,9 +71,7 @@ export class PrDetailInformation extends Component {
       pr.occasion
     )}, Termin: ${termin}`;
 
-    const reviewerHeader = `Vorgesetzter: ${getDisplayName(
-      pr.supervisor
-    )}${reviewer}`;
+    const supervisorHeader = `Vorgesetzter: ${getDisplayName(pr.supervisor)}`;
 
     return (
       <div className={classes.root}>
@@ -99,23 +89,21 @@ export class PrDetailInformation extends Component {
               <Typography variant={'body2'} color={'textSecondary'}>
                 {subheader}
               </Typography>
-              <Typography variant={'body2'} color={'textSecondary'}>
-                {reviewerHeader}
-              </Typography>
+              <List className={classes.list}>
+                <ListItem className={classes.list}>
+                  <Typography variant={'body2'} color={'textSecondary'}>
+                    {supervisorHeader}
+                  </Typography>
+                  <ShowReviewer
+                    pr={pr}
+                    prefix={', Beurteiler: '}
+                    username={username}
+                  />
+                </ListItem>
+              </List>
             </div>
             <div>
-              {this.prDelegable(pr) ? (
-                <PrDelegate
-                  pr={pr}
-                  startValue={
-                    pr.supervisor.id !== pr.reviewer.id
-                      ? getDisplayName(pr.reviewer)
-                      : ''
-                  }
-                  defaultText={'Nicht übergeben'}
-                  isDelegated={pr.supervisor.id !== pr.reviewer.id}
-                />
-              ) : null}
+              <BackToTableButton pr={pr} />
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
