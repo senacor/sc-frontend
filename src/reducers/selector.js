@@ -11,6 +11,7 @@ export const getUserPrincipalName = state => state.userinfo.userPrincipalName;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
 export const getMeeting = state => state.meeting;
+export const getFilterPossibilities = state => state.filterPossibilities;
 export const isLoading = state => state.isLoading.length > 0;
 export const isLoadingAction = (state, start) =>
   state.isLoading.some(entry => start.includes(entry));

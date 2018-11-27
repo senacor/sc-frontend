@@ -17,6 +17,7 @@ import { finalCommentHr } from './finalCommentHr';
 import { filter } from './filter';
 import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
+import { filterPossibilities } from './filterPossibilities';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -41,6 +42,7 @@ const combineReducer = combineReducers({
   userphoto,
   userroles,
   filter,
+  filterPossibilities,
   requiredFields
 });
 

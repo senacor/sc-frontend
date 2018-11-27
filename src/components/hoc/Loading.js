@@ -7,9 +7,10 @@ const getDisplayName = WrappedComponent => {
 
 const withLoading = onComponentDidMount => WrappedComponent => {
   class WithLoading extends Component {
-    componentDidMount() {
+    constructor(props) {
+      super(props);
       if (onComponentDidMount) {
-        onComponentDidMount(this.props);
+        onComponentDidMount(props);
       }
     }
 

@@ -11,6 +11,7 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_TARGETROLE_REQUEST,
     dispatchTypes.LOGIN_REQUEST,
     dispatchTypes.FETCH_MEETING_REQUEST,
+    dispatchTypes.FILTER_POSSIBILITIES_REQUEST,
     dispatchTypes.FETCH_EMPLOYEES_REQUEST
   ];
   const stopLoading = [
@@ -25,6 +26,7 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_TARGETROLE_RESPONSE,
     dispatchTypes.FETCH_MEETING_RESPONSE,
     dispatchTypes.FETCH_EMPLOYEES_RESPONSE,
+    dispatchTypes.FILTER_POSSIBILITIES_RESPONSE,
     dispatchTypes.LOGIN_RESPONSE,
     dispatchTypes.LOGIN_UNAUTHORIZED,
     dispatchTypes.LOGOUT
@@ -37,7 +39,7 @@ export const isLoading = (state = [], action) => {
     return newState;
   } else if (findInArray(stopLoading, action.type)) {
     let newState = cloneDeep(state);
-    var index = newState.indexOf(action.type.replace('_RESPONSE', ''));
+    let index = newState.indexOf(action.type.replace('_RESPONSE', ''));
     if (index < 0) {
       newState = [];
     } else {

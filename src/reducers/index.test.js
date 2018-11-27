@@ -25,6 +25,7 @@ describe('reducers', () => {
             message: { someValue }
           },
           filter: { someValue },
+          filterPossibilities: { someValue },
           finalCommentEmployee: { someValue },
           isLoading: [someValue],
           login: {
@@ -57,6 +58,7 @@ describe('reducers', () => {
             message: null
           },
           filter: {},
+          filterPossibilities: {},
           finalCommentEmployee: {},
           finalCommentHr: {},
           isLoading: [],
