@@ -54,6 +54,14 @@ const styles = theme => ({
   },
   tableWrapper: {
     overflowX: 'auto'
+  },
+  emptyListMessage: {
+    paddingLeft: '25px',
+    paddingBottom: '5px'
+  },
+  downloadExcelButton: {
+    paddingLeft: '25px',
+    paddingBottom: '5px'
   }
 });
 
@@ -159,13 +167,17 @@ class PerformanceReviewTable extends React.Component {
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
         {data.length === 0 ? (
-          <div>Zu deiner Filterung ist leider kein Eintrag vorhanden.</div>
+          <div className={classes.emptyListMessage}>
+            Zu deiner Filterung ist leider kein Eintrag vorhanden.
+          </div>
         ) : null}
-        {isHr ? (
-          <PrStatusActionButton
-            label={'Download Excel'}
-            releaseButtonClick={downloadExcel(this.props.filter)}
-          />
+        {isHr && data.length !== 0 ? (
+          <div className={classes.downloadExcelButton}>
+            <PrStatusActionButton
+              label={'Download Excel'}
+              releaseButtonClick={downloadExcel(this.props.filter)}
+            />
+          </div>
         ) : null}
       </Paper>
     );
