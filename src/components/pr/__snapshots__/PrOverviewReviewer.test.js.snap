@@ -140,7 +140,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
       },
       Object {
         "filter": <Connect(WithStyles(PopperSearchMenu))
-          filterBy="result"
+          filterBy="overallAssessment"
           filterGroup="REVIEWER"
     >
           <Connect(ListFilter)

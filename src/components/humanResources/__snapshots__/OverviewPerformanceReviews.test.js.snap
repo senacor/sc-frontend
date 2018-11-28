@@ -140,7 +140,7 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       },
       Object {
         "filter": <Connect(WithStyles(PopperSearchMenu))
-          filterBy="result"
+          filterBy="overallAssessment"
           filterGroup="hr"
     >
           <Connect(ListFilter)

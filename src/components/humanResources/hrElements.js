@@ -8,7 +8,7 @@ const HR_ELEMENTS = {
   CST: 'projectCst',
   LEVEL: 'level',
   APPOINTMENT: 'appointment',
-  RESULT: 'result',
+  RESULT: 'overallAssessment',
   EMPLOYEE_PREPARATION_DONE: 'employeePreparationDone',
   REVIEWER_PREPARATION_DONE: 'reviewerPreparationDone',
   HR_PROCESSING_DONE: 'humanResourceProcessingDone',

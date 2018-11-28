@@ -10,6 +10,7 @@ import DateFilter from './DateFilter';
 import { translateContent } from '../translate/Translate';
 import ListFilter from './ListFilter';
 import HR_ELEMENTS from './hrElements';
+import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
 
 export default class PerformanceReviewTableService {
   constructor(filterGroup, filterPossibilities) {
@@ -204,7 +205,7 @@ export default class PerformanceReviewTableService {
       numeric: false,
       label: 'Bewertung',
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
-      render: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
+      render: entry => mapRatingFullfilment(entry[TABLE_PRS_ELEMENTS.RESULT]),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
