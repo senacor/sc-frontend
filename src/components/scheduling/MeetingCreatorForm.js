@@ -14,6 +14,7 @@ import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
   container: {
@@ -102,9 +103,13 @@ class MeetingCreatorForm extends React.Component {
   };
 
   render() {
-    const { classes, pr, userinfo } = this.props;
+    const { classes, pr, userinfo, addPrStatus } = this.props;
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let isEmployee = hasRoleInPr(['employee']);
+    let bothFilledInFirstStep =
+      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_REVIEWER) &&
+      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_EMPLOYEE);
+    let findMeetingFinished = pr.statuses.includes(prStatusEnum.FIXED_DATE);
 
     return (
       <div>
@@ -139,6 +144,13 @@ class MeetingCreatorForm extends React.Component {
             />
           </form>
         ) : null}
+        {!isEmployee && bothFilledInFirstStep && !findMeetingFinished ? (
+          <PrStatusActionButton
+            label={'Terminfindung überspringen'}
+            releaseButtonClick={() => addPrStatus(pr, prStatusEnum.FIXED_DATE)}
+            inputClass={classes.buttonPosition}
+          />
+        ) : null}
       </div>
     );
   }
@@ -159,6 +171,7 @@ export default connect(
   }),
   {
     addMeeting: actions.addMeeting,
-    changeDate: actions.changeDate
+    changeDate: actions.changeDate,
+    addPrStatus: actions.addPrStatus
   }
 )(StyledComponent);

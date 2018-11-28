@@ -333,8 +333,8 @@ class PrSheet extends React.Component {
           <Hidden mdDown>
             <Grid item lg={6} xl={6}>
               {detailReviewer()}
-              <Divider />
-              {finalHr()}
+              {isHr(this.props.userroles) ? <Divider /> : null}
+              {isHr(this.props.userroles) ? finalHr() : null}
             </Grid>
           </Hidden>
         </Grid>

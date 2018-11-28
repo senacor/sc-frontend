@@ -56,7 +56,7 @@ describe('PrSheet Fill-in', () => {
     switch (true) {
       case element.includes({ readOnly: true }):
         return true;
-      case subelement.readOnly === true:
+      case subelement && subelement.readOnly === true:
         return true;
       default:
         return false;
