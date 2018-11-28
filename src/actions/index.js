@@ -24,6 +24,7 @@ export {
   resetFilterGroup,
   getFilterPossibilities
 } from './filter';
+export { setPrTabs } from './prTabs';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({

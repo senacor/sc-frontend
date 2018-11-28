@@ -27,6 +27,6 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
     }
   />
   <Connect(WithStyles(PrState)) />
-  <WithStyles(PrTabs) />
+  <Connect(WithStyles(PrTabs)) />
 </Fragment>
 `;

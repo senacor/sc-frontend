@@ -7,6 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import PrSheet from '../PrSheet';
 import SchedulingView from './SchedulingView';
 import Paper from '@material-ui/core/Paper';
+import { getPrTab } from '../../../reducers/selector';
+import { prTabEnum } from '../../../helper/prTabEnum';
+import * as actions from '../../../actions';
+import { connect } from 'react-redux';
 
 function TabContainer(props) {
   return (
@@ -37,23 +41,18 @@ const styles = theme => ({
 });
 
 class PrTabs extends React.Component {
-  state = {
-    value: 0
-  };
-
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.props.setTabValue(value);
   };
 
   render() {
-    const { classes } = this.props;
-    const { value } = this.state;
+    const { classes, tabValue } = this.props;
 
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <Tabs
-            value={this.state.value}
+            value={tabValue}
             onChange={this.handleChange}
             fullWidth
             indicatorColor="secondary"
@@ -62,12 +61,14 @@ class PrTabs extends React.Component {
             }}
           >
             <Tab
+              value={prTabEnum.DETAIL_VIEW}
               classes={{
                 root: classes.tabStyle
               }}
               label="Details"
             />
             <Tab
+              value={prTabEnum.SCHEDULE_VIEW}
               classes={{
                 root: classes.tabStyle
               }}
@@ -75,12 +76,12 @@ class PrTabs extends React.Component {
             />
           </Tabs>
         </Paper>
-        {value === 0 && (
+        {tabValue === prTabEnum.DETAIL_VIEW && (
           <TabContainer>
             <PrSheet />
           </TabContainer>
         )}
-        {value === 1 && (
+        {tabValue === prTabEnum.SCHEDULE_VIEW && (
           <TabContainer>
             <SchedulingView />
           </TabContainer>
@@ -94,4 +95,13 @@ PrTabs.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(PrTabs);
+export const StyledComponent = withStyles(styles)(PrTabs);
+
+export default connect(
+  state => ({
+    tabValue: getPrTab(state)
+  }),
+  {
+    setTabValue: actions.setPrTabs
+  }
+)(StyledComponent);
