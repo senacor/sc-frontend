@@ -77,13 +77,6 @@ describe('PrSubstepItem Component', () => {
         .props().primary
     ).toEqual('Mitarbeiter:');
 
-    expect(
-      component
-        .find(ListItemText)
-        .find('[secondary]')
-        .props().secondary
-    ).toEqual(
-      <PrStatusActionButton label={'Freigabe'} releaseButtonClick={undefined} />
-    );
+    expect(component.find('WithStyles(PrStatusActionButton)')).toHaveLength(1);
   });
 });

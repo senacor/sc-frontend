@@ -21,6 +21,7 @@ import PrStatusStepper from './PrStateStepper';
 import { isHr } from '../../../helper/checkRole';
 import { changeRequiredFields } from '../../../actions/sheet';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
+import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 
 const styles = theme => ({
   paper: {
@@ -53,6 +54,7 @@ class PrState extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    props.checkRequired({ employee: true, reviewer: true });
   }
 
   mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
@@ -89,7 +91,7 @@ class PrState extends React.Component {
     }
   };
 
-  updateStepStructure = (pr, userinfo, prStatusesDone, releaseButtonClick) => {
+  updateStepStructure = (pr, userinfo, prStatusesDone) => {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let requestedDate = prStatusesDone[prStatusEnum.REQUESTED_DATE];
     let fixedDate = prStatusesDone[prStatusEnum.FIXED_DATE];
@@ -111,13 +113,9 @@ class PrState extends React.Component {
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClick(
-                  prStatusEnum.RELEASED_SHEET_EMPLOYEE
-                )}
-              />
+            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+              pr,
+              prStatusEnum.RELEASED_SHEET_EMPLOYEE
             )
           }
         },
@@ -128,13 +126,9 @@ class PrState extends React.Component {
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClick(
-                  prStatusEnum.RELEASED_SHEET_REVIEWER
-                )}
-              />
+            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+              pr,
+              prStatusEnum.RELEASED_SHEET_REVIEWER
             )
           }
         },
@@ -170,13 +164,9 @@ class PrState extends React.Component {
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClick(
-                  prStatusEnum.FINALIZED_REVIEWER
-                )}
-              />
+            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+              pr,
+              prStatusEnum.FINALIZED_REVIEWER
             )
           }
         }
@@ -192,13 +182,9 @@ class PrState extends React.Component {
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClick(
-                  prStatusEnum.FINALIZED_EMPLOYEE
-                )}
-              />
+            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+              pr,
+              prStatusEnum.FINALIZED_EMPLOYEE
             )
           }
         }
@@ -214,13 +200,9 @@ class PrState extends React.Component {
           rendering: {
             complete: 'Archiviert',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClick(
-                  prStatusEnum.ARCHIVED_HR
-                )}
-              />
+            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+              pr,
+              prStatusEnum.ARCHIVED_HR
             )
           }
         }
@@ -247,6 +229,7 @@ class PrState extends React.Component {
       employeeContributionRole !== '' &&
       employeeContributionLeader !== '';
     let filledReviewer = overallComment !== null && overallComment !== '';
+
     let required = { employee: true, reviewer: true };
     switch (status) {
       case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
@@ -262,57 +245,49 @@ class PrState extends React.Component {
     }
   };
 
-  releaseButtonClick = status => event => {
-    let employeeContributionRole = this.props.employeeContributionRole;
-    let employeeContributionLeader = this.props.employeeContributionLeader;
-    let prOverallComment = this.props.overallComment;
-    let pr = this.props.prById;
-    if (!event.disabled) {
-      this.props.checkRequired(
-        this.checkRequiredFields(
-          employeeContributionRole,
-          employeeContributionLeader,
-          prOverallComment,
-          status
-        )
-      );
-      let employeeFilledRequired = this.checkRequiredFields(
-        employeeContributionRole,
-        employeeContributionLeader,
-        prOverallComment,
-        status
-      ).employee;
-      let reviewerFilledRequired = this.checkRequiredFields(
-        employeeContributionRole,
-        employeeContributionLeader,
-        prOverallComment,
-        status
-      ).reviewer;
-      switch (status) {
-        case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
-          if (employeeFilledRequired === false) {
-            break;
-          } else if (employeeFilledRequired === true) {
-            this.props.addPrStatus(pr, status);
-            break;
-          } else break;
-        case prStatusEnum.RELEASED_SHEET_REVIEWER:
-          if (reviewerFilledRequired === false) {
-            break;
-          } else if (reviewerFilledRequired === true) {
-            this.props.addPrStatus(pr, status);
-            break;
-          } else break;
-        case prStatusEnum.FIXED_DATE:
-        case prStatusEnum.FINALIZED_REVIEWER:
-        case prStatusEnum.FINALIZED_EMPLOYEE:
-        case prStatusEnum.ARCHIVED_HR:
-          this.props.addPrStatus(pr, status);
-          break;
-        default:
-          break;
-      }
+  requiredFieldsEmpty = status => {
+    let {
+      employeeContributionRole,
+      employeeContributionLeader,
+      overallComment
+    } = this.props;
+
+    let fieldFilled = this.checkRequiredFields(
+      employeeContributionRole,
+      employeeContributionLeader,
+      overallComment,
+      status
+    );
+
+    this.props.checkRequired(fieldFilled);
+
+    if (
+      prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
+      false === fieldFilled.employee
+    ) {
+      return true;
+    } else if (
+      prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
+      false === fieldFilled.reviewer
+    ) {
+      return true;
+    } else {
+      return false;
     }
+  };
+
+  getIncompleteActionPerformerButton = (pr, status) => {
+    return (
+      <CheckRequiredClick
+        onClick={() => {
+          this.props.addPrStatus(pr, status);
+        }}
+        check={() => !this.requiredFieldsEmpty(status)}
+        message={'Bitte alle Pflichtfelder ausfüllen.'}
+      >
+        <PrStatusActionButton label={'Freigabe'} />
+      </CheckRequiredClick>
+    );
   };
 
   render() {
@@ -330,8 +305,7 @@ class PrState extends React.Component {
     const stepStructure = this.updateStepStructure(
       prById,
       userinfo,
-      prStatusesDone,
-      this.releaseButtonClick
+      prStatusesDone
     );
 
     const activeStep = this.calculateActiveStep(prStatusesDone, stepStructure);

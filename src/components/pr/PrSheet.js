@@ -108,7 +108,6 @@ class PrSheet extends React.Component {
 
     let errorFlagReviewer = !requiredFields.reviewer;
     let errorFlagEmployee = !requiredFields.employee;
-    let globalErrorFlag = errorFlagEmployee || errorFlagReviewer;
 
     if (!prById) {
       return null;
@@ -302,21 +301,8 @@ class PrSheet extends React.Component {
       );
     };
 
-    let errorText = () => {
-      return (
-        <List>
-          <ListItem>
-            <Typography className={classes.red}>
-              Bitte alle Pflichtfelder ausfüllen!
-            </Typography>
-          </ListItem>
-        </List>
-      );
-    };
-
     return (
       <div>
-        {globalErrorFlag ? errorText() : null}
         <Grid container spacing={40}>
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
             {step1employee()}

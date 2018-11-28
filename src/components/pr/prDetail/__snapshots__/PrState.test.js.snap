@@ -34,10 +34,15 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "label": "Mitarbeiter: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -47,10 +52,15 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -75,10 +85,15 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -93,10 +108,15 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "label": "Mitarbeiter:",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -111,10 +131,15 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "label": "HR: ",
                   "rendering": Object {
                     "complete": "Archiviert",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -162,10 +187,15 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "label": "Mitarbeiter: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -175,10 +205,15 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -203,10 +238,15 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -221,10 +261,15 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "label": "Mitarbeiter:",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -239,10 +284,15 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "label": "HR: ",
                   "rendering": Object {
                     "complete": "Archiviert",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -290,10 +340,15 @@ exports[`PrState Component for employee should match snapshot 1`] = `
                   "label": "Mitarbeiter: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -303,10 +358,15 @@ exports[`PrState Component for employee should match snapshot 1`] = `
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -331,10 +391,15 @@ exports[`PrState Component for employee should match snapshot 1`] = `
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -349,10 +414,15 @@ exports[`PrState Component for employee should match snapshot 1`] = `
                   "label": "Mitarbeiter:",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -400,10 +470,15 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                   "label": "Mitarbeiter: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -413,10 +488,15 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -441,10 +521,15 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                   "label": "Beurteiler: ",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },
@@ -459,10 +544,15 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                   "label": "Mitarbeiter:",
                   "rendering": Object {
                     "complete": "Abgeschlossen",
-                    "incompleteForActionPerformer": <WithStyles(PrStatusActionButton)
-                      label="Freigabe"
-                      releaseButtonClick={[Function]}
-          />,
+                    "incompleteForActionPerformer": <CheckRequiredClick
+                      check={[Function]}
+                      message="Bitte alle Pflichtfelder ausfüllen."
+                      onClick={[Function]}
+          >
+                      <WithStyles(PrStatusActionButton)
+                                  label="Freigabe"
+                      />
+          </CheckRequiredClick>,
                     "incompleteForNonActionPerformer": "Nicht abgeschlossen",
                   },
                 },

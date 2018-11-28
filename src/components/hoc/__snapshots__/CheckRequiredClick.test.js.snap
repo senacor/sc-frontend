@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckRequiredClick Component should match Snapshot 1`] = `
+<div>
+  <WithStyles(PrStatusActionButton)
+    label="Freigabe"
+    releaseButtonClick={[Function]}
+  />
+  <SimpleErrorDialog
+    message="Fehlermeldung."
+    onClose={[Function]}
+    open={false}
+  />
+</div>
+`;

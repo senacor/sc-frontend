@@ -3,7 +3,6 @@ import { StyledComponent } from './PrSheet';
 import { createShallow } from '@material-ui/core/test-utils';
 import ROLES from '../../helper/roles';
 import { prStatusEnum } from '../../helper/prStatus';
-import Typography from '@material-ui/core/Typography';
 import PrSheetEmployee from './PrSheetEmployee';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrFinalCommentHr from './PrFinalCommentHr';
@@ -16,13 +15,6 @@ describe('PrSheet Fill-in', () => {
   const prById = { id: 1 };
 
   const fetchVisibilityMock = jest.fn();
-
-  let errorState = pr => {
-    return pr
-      .find(Typography)
-      .map(field => field.get(0).props.children)
-      .includes('Bitte alle Pflichtfelder ausfüllen!');
-  };
 
   let isActionPerformer = (pr, component) => {
     let element = pr.find(component).map(field => field.get(0).props);
@@ -197,12 +189,11 @@ describe('PrSheet Fill-in', () => {
     );
   };
 
-  it('should give the employee an errorState, mark the reflection fields as error elements, identify the employee correctly as Action- or non-Action-Performer, and not be in Read-only state for anything', () => {
+  it('should mark the reflection fields as error elements, identify the employee correctly as Action- or non-Action-Performer, and not be in Read-only state for anything', () => {
     let pr1 = prComponent(statusEmptyEmployee, userEmployee);
 
     expect(pr1).toMatchSnapshot();
 
-    expect(errorState(pr1)).toBe(true);
     expect(errorElement(pr1, PrSheetEmployee)).toBe(true);
     expect(isActionPerformer(pr1, PrSheetEmployee)).toBe(true);
     expect(isActionPerformer(pr1, PrFinalCommentEmployee)).toBe(true);
@@ -233,7 +224,6 @@ describe('PrSheet Fill-in', () => {
 
   it('should be completely the same view for the supervisor as it was for the reviewer', () => {
     let pr3 = prComponent(statusEmptyEmployee, userCst);
-
     expect(pr3).toMatchSnapshot();
 
     expect(nonActionPerformer(pr3, PrSheetEmployee)).toBe(true);
@@ -300,7 +290,6 @@ describe('PrSheet Fill-in', () => {
 
     expect(pr2).toMatchSnapshot();
 
-    expect(errorState(pr2)).toBe(true);
     expect(errorElement(pr2, PrOverallAssessment)).toBe(true);
     expect(nonActionPerformer(pr2, PrSheetEmployee)).toBe(true);
     expect(nonActionPerformer(pr2, PrFinalCommentEmployee)).toBe(true);
@@ -313,7 +302,7 @@ describe('PrSheet Fill-in', () => {
     expect(readOnly(pr2, PrSheetEmployee)).toBe(true);
   });
 
-  it('should be completely the same view for the supervisor as it was for the reviewer', () => {
+  it('should be completely the same view for the supervisor as it was for the reviewer statusFilledEmployee', () => {
     let pr3 = prComponent(statusFilledEmployee, userCst);
 
     expect(pr3).toMatchSnapshot();
@@ -329,12 +318,11 @@ describe('PrSheet Fill-in', () => {
     expect(readOnly(pr3, PrSheetEmployee)).toBe(true);
   });
 
-  it('should be completely the same view for the supervisor as it was for the reviewer', () => {
+  it('should be completely the same view for the supervisor as it was for the reviewer statusEmptyReviewer', () => {
     let pr3 = prComponent(statusEmptyReviewer, userCst);
 
     expect(pr3).toMatchSnapshot();
 
-    expect(errorState(pr3)).toBe(true);
     expect(errorElement(pr3, PrOverallAssessment)).toBe(true);
     expect(nonActionPerformer(pr3, PrSheetEmployee)).toBe(true);
     expect(nonActionPerformer(pr3, PrFinalCommentEmployee)).toBe(true);
@@ -395,7 +383,7 @@ describe('PrSheet Fill-in', () => {
     expect(readOnly(pr2, PrSheetEmployee)).toBe(true);
   });
 
-  it('should be completely the same view for the supervisor as it was for the reviewer', () => {
+  it('should be completely the same view for the supervisor as it was for the reviewer statusFilledReviewer', () => {
     let pr3 = prComponent(statusFilledReviewer, userCst);
 
     expect(pr3).toMatchSnapshot();
@@ -459,7 +447,7 @@ describe('PrSheet Fill-in', () => {
     expect(readOnly(pr2, PrSheetEmployee)).toBe(true);
   });
 
-  it('should be completely the same view for the supervisor as it was for the reviewer', () => {
+  it('should be completely the same view for the supervisor as it was for the reviewer statusFinalizedReviewer', () => {
     let pr3 = prComponent(statusFinalizedReviewer, userCst);
 
     expect(pr3).toMatchSnapshot();
@@ -523,7 +511,7 @@ describe('PrSheet Fill-in', () => {
     expect(readOnly(pr2, PrSheetEmployee)).toBe(true);
   });
 
-  it('should be completely the same view for the supervisor as it was for the reviewer', () => {
+  it('should be completely the same view for the supervisor as it was for the reviewer statusFinalizedEmployee', () => {
     let pr3 = prComponent(statusFinalizedEmployee, userCst);
 
     expect(pr3).toMatchSnapshot();

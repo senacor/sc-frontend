@@ -4,11 +4,13 @@ import { createShallow } from '@material-ui/core/test-utils';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStateStepper from './PrStateStepper';
+import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 
 describe('PrState Component for reviewer', () => {
   let shallow = createShallow({ dive: true });
 
-  const releaseButtonClickMock = jest.fn();
+  const onClickMock = jest.fn();
+  const checkMock = jest.fn();
 
   const prStatusesDone = {
     [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: true,
@@ -32,12 +34,13 @@ describe('PrState Component for reviewer', () => {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClickMock(
-                  prStatusEnum.RELEASED_SHEET_EMPLOYEE
-                )}
-              />
+              <CheckRequiredClick
+                onClick={jest.fn()}
+                check={jest.fn()}
+                message={'Bitte alle Pflichtfelder ausfüllen.'}
+              >
+                <PrStatusActionButton label={'Freigabe'} />
+              </CheckRequiredClick>
             )
           }
         },
@@ -49,12 +52,13 @@ describe('PrState Component for reviewer', () => {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClickMock(
-                  prStatusEnum.RELEASED_SHEET_REVIEWER
-                )}
-              />
+              <CheckRequiredClick
+                onClick={onClickMock}
+                check={checkMock}
+                message={'Bitte alle Pflichtfelder ausfüllen.'}
+              >
+                <PrStatusActionButton label={'Freigabe'} />
+              </CheckRequiredClick>
             )
           }
         },
@@ -91,12 +95,13 @@ describe('PrState Component for reviewer', () => {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClickMock(
-                  prStatusEnum.FINALIZED_REVIEWER
-                )}
-              />
+              <CheckRequiredClick
+                onClick={onClickMock}
+                check={checkMock}
+                message={'Bitte alle Pflichtfelder ausfüllen.'}
+              >
+                <PrStatusActionButton label={'Freigabe'} />
+              </CheckRequiredClick>
             )
           }
         }
@@ -113,12 +118,13 @@ describe('PrState Component for reviewer', () => {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
             incompleteForActionPerformer: (
-              <PrStatusActionButton
-                label={'Freigabe'}
-                releaseButtonClick={releaseButtonClickMock(
-                  prStatusEnum.FINALIZED_EMPLOYEE
-                )}
-              />
+              <CheckRequiredClick
+                onClick={onClickMock}
+                check={checkMock}
+                message={'Bitte alle Pflichtfelder ausfüllen.'}
+              >
+                <PrStatusActionButton label={'Freigabe'} />
+              </CheckRequiredClick>
             )
           }
         }
@@ -156,6 +162,7 @@ describe('PrState Component for reviewer', () => {
         prById={prById}
         addPrStatus={addPrStatusMock}
         userinfo={userinfo}
+        checkRequired={jest.fn()}
       />
     );
     expect(component).toMatchSnapshot();
@@ -167,7 +174,11 @@ describe('PrState Component for reviewer', () => {
     };
 
     const component = shallow(
-      <StyledComponent prById={prById} userinfo={userinfo} />
+      <StyledComponent
+        prById={prById}
+        userinfo={userinfo}
+        checkRequired={jest.fn()}
+      />
     );
 
     expect(
@@ -182,7 +193,7 @@ describe('PrState Component for reviewer', () => {
   });
 
   it('should call mainStepIsDone which returns the complete status of the mainStep', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.mainStepIsDone(prStatusesDone, 1, stepStructure);
@@ -190,7 +201,7 @@ describe('PrState Component for reviewer', () => {
   });
 
   it('should call calculateActiveStep which calculates the active step', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.calculateActiveStep(prStatusesDone, stepStructure);
@@ -198,7 +209,7 @@ describe('PrState Component for reviewer', () => {
   });
 
   it('should call getCompletedSubsteps which returns an object with the status substeps', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.getCompletedSubsteps(prStatuses);
@@ -206,66 +217,13 @@ describe('PrState Component for reviewer', () => {
   });
 
   it('should call isDone which checks for a single status whether it is completed', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.isDone(prStatuses, [
       prStatusEnum.FINALIZED_EMPLOYEE
     ]);
     expect(result).toBeFalsy();
-  });
-
-  it('should call updateStepStructure which returns the updated stepStructure', () => {
-    const prById = {
-      id: 1,
-      employee: {
-        login: 'ttran'
-      },
-      supervisor: {
-        login: 'test.pr.vorgesetzter'
-      },
-      reviewer: {
-        login: 'test.pr.beurteiler'
-      }
-    };
-
-    const component = shallow(<StyledComponent />);
-    const instance = component.instance();
-
-    const result = instance.updateStepStructure(
-      prById,
-      userinfo,
-      prStatusesDone,
-      releaseButtonClickMock
-    );
-    expect(result).toEqual(stepStructure);
-  });
-
-  it('should call releaseButtonClick which triggers the the addPrStatus action', () => {
-    const addPrStatusMock = jest.fn();
-    const checkRequiredMock = jest.fn();
-    const mockedEvent = { disabled: false };
-    const prById = {
-      id: 1
-    };
-
-    const component = shallow(
-      <StyledComponent
-        prById={prById}
-        addPrStatus={addPrStatusMock}
-        userinfo={userinfo}
-        checkRequired={checkRequiredMock}
-      />
-    );
-    const instance = component.instance();
-
-    let result = instance.releaseButtonClick(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    result(mockedEvent);
-
-    expect(addPrStatusMock.mock.calls.length).toBe(1);
-    expect(addPrStatusMock.mock.calls[0][0]).toBe(prById);
   });
 });
 
@@ -417,6 +375,7 @@ describe('PrState Component for employee', () => {
         prById={prById}
         addPrStatus={addPrStatusMock}
         userinfo={userinfo}
+        checkRequired={jest.fn()}
       />
     );
     expect(component).toMatchSnapshot();
@@ -428,7 +387,11 @@ describe('PrState Component for employee', () => {
     };
 
     const component = shallow(
-      <StyledComponent prById={prById} userinfo={userinfo} />
+      <StyledComponent
+        prById={prById}
+        userinfo={userinfo}
+        checkRequired={jest.fn()}
+      />
     );
 
     expect(component.find(PrStateStepper)).toHaveLength(1);
@@ -439,7 +402,7 @@ describe('PrState Component for employee', () => {
   });
 
   it('should call mainStepIsDone which returns the complete status of the mainStep', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.mainStepIsDone(prStatusesDone, 1, stepStructure);
@@ -447,7 +410,7 @@ describe('PrState Component for employee', () => {
   });
 
   it('should call calculateActiveStep which calculates the active step', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.calculateActiveStep(prStatusesDone, stepStructure);
@@ -455,7 +418,7 @@ describe('PrState Component for employee', () => {
   });
 
   it('should call getCompletedSubsteps which returns an object with the status substeps', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.getCompletedSubsteps(prStatuses);
@@ -463,70 +426,13 @@ describe('PrState Component for employee', () => {
   });
 
   it('should call isDone which checks for a single status whether it is completed', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.isDone(prStatuses, [
       prStatusEnum.FINALIZED_EMPLOYEE
     ]);
     expect(result).toBeFalsy();
-  });
-
-  it('should call updateStepStructure which returns the updated stepStructure', () => {
-    const prById = {
-      id: 1,
-      employee: {
-        login: 'test.pr.mitarbeiter1'
-      },
-      supervisor: {
-        login: 'ttran'
-      },
-      reviewer: {
-        login: 'test.pr.beurteiler'
-      }
-    };
-
-    const component = shallow(<StyledComponent />);
-    const instance = component.instance();
-
-    const result = instance.updateStepStructure(
-      prById,
-      userinfo,
-      prStatusesDone,
-      releaseButtonClickMock
-    );
-    expect(result).toEqual(stepStructure);
-  });
-
-  it('should call releaseButtonClick which triggers the the addPrStatus action', () => {
-    const addPrStatusMock = jest.fn();
-    let checkRequiredMock = jest.fn();
-    const mockedEvent = { disabled: false };
-    let employeeContributionRole = 'test';
-    let employeeContributionLeader = 'test';
-    const prById = {
-      id: 1
-    };
-
-    const component = shallow(
-      <StyledComponent
-        prById={prById}
-        addPrStatus={addPrStatusMock}
-        userinfo={userinfo}
-        checkRequired={checkRequiredMock}
-        employeeContributionRole={employeeContributionRole}
-        employeeContributionLeader={employeeContributionLeader}
-      />
-    );
-    const instance = component.instance();
-
-    let result = instance.releaseButtonClick(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    result(mockedEvent);
-
-    expect(addPrStatusMock.mock.calls.length).toBe(1);
-    expect(addPrStatusMock.mock.calls[0][0]).toBe(prById);
   });
 });
 
@@ -692,6 +598,7 @@ describe('PrState Component for HR', () => {
         addPrStatus={addPrStatusMock}
         userinfo={userinfo}
         userroles={userroles}
+        checkRequired={jest.fn()}
       />
     );
     expect(component).toMatchSnapshot();
@@ -725,6 +632,7 @@ describe('PrState Component for HR', () => {
         addPrStatus={addPrStatusMock}
         userinfo={userinfo}
         userroles={userroles}
+        checkRequired={jest.fn()}
       />
     );
     expect(component).toMatchSnapshot();
@@ -740,6 +648,7 @@ describe('PrState Component for HR', () => {
         prById={prById}
         userinfo={userinfo}
         userroles={userroles}
+        checkRequired={jest.fn()}
       />
     );
 
@@ -751,7 +660,7 @@ describe('PrState Component for HR', () => {
   });
 
   it('should call mainStepIsDone which returns the complete status of the mainStep', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.mainStepIsDone(prStatusesDone, 1, stepStructure);
@@ -759,7 +668,7 @@ describe('PrState Component for HR', () => {
   });
 
   it('should call calculateActiveStep which calculates the active step', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.calculateActiveStep(prStatusesDone, stepStructure);
@@ -767,7 +676,7 @@ describe('PrState Component for HR', () => {
   });
 
   it('should call getCompletedSubsteps which returns an object with the status substeps', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.getCompletedSubsteps(prStatuses);
@@ -775,7 +684,7 @@ describe('PrState Component for HR', () => {
   });
 
   it('should call isDone which checks for a single status whether it is completed', () => {
-    const component = shallow(<StyledComponent />);
+    const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
     const instance = component.instance();
 
     const result = instance.isDone(prStatuses, [
@@ -787,14 +696,10 @@ describe('PrState Component for HR', () => {
 
 describe('functions that check required fields', () => {
   let shallow = createShallow({ dive: true });
-  const component = shallow(<StyledComponent />);
+  const component = shallow(<StyledComponent checkRequired={jest.fn()} />);
   const instance = component.instance();
   const addPrStatusMock = jest.fn();
   const checkRequiredMock = jest.fn();
-  const mockedEvent = { disabled: false };
-  const addPrStatusMock2 = jest.fn();
-  const checkRequiredMock2 = jest.fn();
-  const mockedEvent2 = { disabled: false };
   const prById = {
     id: 1
   };
@@ -844,11 +749,11 @@ describe('functions that check required fields', () => {
     expect(requiredFields4).toEqual({ employee: true, reviewer: false });
   });
 
-  it('should not return anything if the employee tries to hit the button without filling all required fields', () => {
+  it('should call requiredFieldsEmpty for employee with empty fields', () => {
     const componentEmployee = shallow(
       <StyledComponent
         prById={prById}
-        addPrStatus={addPrStatusMock}
+        addPrStatus={jest.fn()}
         checkRequired={checkRequiredMock}
         userinfo={{
           userPrincipalName: 'test.pr.mitarbeiter1'
@@ -857,21 +762,25 @@ describe('functions that check required fields', () => {
         employeeContributionLeader={null}
       />
     );
-    const instanceEmployee = componentEmployee.instance();
-    let checkEmployeeCanRelease = instanceEmployee.releaseButtonClick(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    checkEmployeeCanRelease(mockedEvent);
+    expect(checkRequiredMock.mock.calls.length).toBe(1);
+
+    expect(
+      componentEmployee
+        .instance()
+        .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_EMPLOYEE)
+    ).toBe(true);
 
     expect(addPrStatusMock.mock.calls.length).toBe(0);
+    expect(checkRequiredMock.mock.calls.length).toBe(2);
   });
 
-  it('should trigger the addStatus Action if all required fields are filled and the employee than hits the release button', () => {
+  it('should call requiredFieldsEmpty for employee with filled fields', () => {
+    const checkMock = jest.fn();
     const componentEmployee = shallow(
       <StyledComponent
         prById={prById}
-        addPrStatus={addPrStatusMock}
-        checkRequired={checkRequiredMock}
+        addPrStatus={jest.fn()}
+        checkRequired={checkMock}
         userinfo={{
           userPrincipalName: 'test.pr.mitarbeiter1'
         }}
@@ -879,56 +788,64 @@ describe('functions that check required fields', () => {
         employeeContributionLeader={leader}
       />
     );
-    const instanceEmployee = componentEmployee.instance();
-    let checkEmployeeCanRelease = instanceEmployee.releaseButtonClick(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    checkEmployeeCanRelease(mockedEvent);
+    expect(checkMock.mock.calls.length).toBe(1);
 
-    expect(addPrStatusMock.mock.calls.length).toBe(1);
-    expect(addPrStatusMock.mock.calls[0][1]).toEqual('FILLED_SHEET_EMPLOYEE');
+    expect(
+      componentEmployee
+        .instance()
+        .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_EMPLOYEE)
+    ).toBe(false);
+
+    expect(checkMock.mock.calls.length).toBe(2);
   });
 
-  it('should not return anything if the reviewer tries to hit the button without filling all required fields', () => {
+  it('should call requiredFieldsEmpty for reviewer with empty fields', () => {
+    const checkMock = jest.fn();
+
     const componentReviewer = shallow(
       <StyledComponent
         prById={prById}
-        addPrStatus={addPrStatusMock2}
-        checkRequired={checkRequiredMock2}
+        addPrStatus={jest.fn()}
+        checkRequired={checkMock}
         userinfo={{
           userPrincipalName: 'test.pr.vorgesetzter'
         }}
         overallComment={null}
       />
     );
-    const instanceReviewer = componentReviewer.instance();
-    let checkReviewerCanRelease = instanceReviewer.releaseButtonClick(
-      prStatusEnum.RELEASED_SHEET_REVIEWER
-    );
-    checkReviewerCanRelease(mockedEvent2);
+    expect(checkMock.mock.calls.length).toBe(1);
 
-    expect(addPrStatusMock2.mock.calls.length).toBe(0);
+    expect(
+      componentReviewer
+        .instance()
+        .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_REVIEWER)
+    ).toBe(true);
+
+    expect(checkMock.mock.calls.length).toBe(2);
   });
 
-  it('should trigger the addStatus Action if all required fields are filled and the reviewer than hits the release button', () => {
+  it('should call requiredFieldsEmpty for reviewer with filled fields', () => {
+    const checkMock = jest.fn();
+
     const componentReviewer = shallow(
       <StyledComponent
         prById={prById}
-        addPrStatus={addPrStatusMock2}
-        checkRequired={checkRequiredMock2}
+        addPrStatus={jest.fn()}
+        checkRequired={checkMock}
         userinfo={{
           userPrincipalName: 'test.pr.vorgesetzter'
         }}
         overallComment={comment}
       />
     );
-    const instanceReviewer = componentReviewer.instance();
-    let checkReviewerCanRelease = instanceReviewer.releaseButtonClick(
-      prStatusEnum.RELEASED_SHEET_REVIEWER
-    );
-    checkReviewerCanRelease(mockedEvent2);
+    expect(checkMock.mock.calls.length).toBe(1);
 
-    expect(addPrStatusMock2.mock.calls.length).toBe(1);
-    expect(addPrStatusMock2.mock.calls[0][1]).toEqual('FILLED_SHEET_REVIEWER');
+    expect(
+      componentReviewer
+        .instance()
+        .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_REVIEWER)
+    ).toBe(false);
+
+    expect(checkMock.mock.calls.length).toBe(2);
   });
 });
