@@ -54,12 +54,22 @@ export function createSingleAppointmentDiv(
   let topPosition = transformAppointmentTimeToPercent(startTime, date);
   let length = transformAppointmentTimeToPercent(endTime, date) - topPosition;
   let infoOnMouseOver = name;
-  if (appointmentState === 'Busy') {
-    infoOnMouseOver = name + ': fester Termin';
+  switch (appointmentState) {
+    case 'Busy':
+      infoOnMouseOver = name + ': fester Termin';
+      break;
+    case 'Tentative':
+      infoOnMouseOver = name + ': Termin mit Vorbehalt';
+      break;
+    case 'OOF':
+      infoOnMouseOver = name + ': abwesend';
+      break;
+    case 'Free':
+      infoOnMouseOver = name + ': frei';
+      break;
+    default:
   }
-  if (appointmentState === 'Tentative') {
-    infoOnMouseOver = name + ': Termin mit Vorbehalt';
-  }
+
   return (
     <Tooltip
       title={infoOnMouseOver}
