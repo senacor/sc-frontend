@@ -7,7 +7,7 @@ const TABLE_PRS_ELEMENTS = {
   COMPETENCE: 'competence',
   CST: 'projectCst',
   LEVEL: 'level',
-  APPOINTMENT: 'appointment',
+  APPOINTMENT: 'meetingDay',
   RESULT: 'overallAssessment',
   EMPLOYEE_PREPARATION_DONE: 'employeePreparationDone',
   REVIEWER_PREPARATION_DONE: 'reviewerPreparationDone',
