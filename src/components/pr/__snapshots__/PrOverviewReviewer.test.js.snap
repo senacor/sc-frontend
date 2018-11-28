@@ -4,6 +4,8 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
 <PerformanceReviewTable
   classes={
     Object {
+      "downloadExcelButton": "PerformanceReviewTable-downloadExcelButton-5",
+      "emptyListMessage": "PerformanceReviewTable-emptyListMessage-4",
       "root": "PerformanceReviewTable-root-1",
       "table": "PerformanceReviewTable-table-2",
       "tableWrapper": "PerformanceReviewTable-tableWrapper-3",
