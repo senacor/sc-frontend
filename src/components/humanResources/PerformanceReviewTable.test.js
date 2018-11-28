@@ -21,7 +21,7 @@ const rows = [
     sortValue: entry => getDisplayName(entry[HR_ELEMENTS.EMPLOYEE]),
     render: entry => {
       return (
-        <Link to={`/prDetail/${entry.prId}`}>
+        <Link to={`/prDetail/${entry.id}`}>
           {getDisplayName(entry[HR_ELEMENTS.EMPLOYEE])}
         </Link>
       );
@@ -306,38 +306,63 @@ describe('descString', () => {
 });
 
 describe('stableSort', () => {
-  let prs = [
-    getTestdataEntry(1, '2018-02-01', 'DEVELOPMENT', 'ON_DEMAND'),
-    getTestdataEntry(2, '2018-01-11', 'CONSULTING', 'ON_DEMAND'),
-    getTestdataEntry(3, '2018-02-10', 'CONSULTING', 'ON_DEMAND'),
-    getTestdataEntry(4, '2019-01-01', 'CONSULTING', 'ON_DEMAND')
-  ];
-
   it('should return a asc array', () => {
+    let prs = [
+      getTestdataEntry(1, '2018-02-01', 'DEVELOPMENT', 'ON_DEMAND'),
+      getTestdataEntry(2, '2018-01-11', 'CONSULTING', 'ON_DEMAND'),
+      getTestdataEntry(3, '2018-02-10', 'CONSULTING', 'ON_DEMAND'),
+      getTestdataEntry(4, '2019-01-01', 'CONSULTING', 'ON_DEMAND')
+    ];
+
     const result = stableSort(prs, (a, b) =>
       descInteger(a, b, entry => entry['deadline'])
     );
-    expect(result[0].prId).toEqual(4);
-    expect(result[1].prId).toEqual(3);
-    expect(result[2].prId).toEqual(1);
-    expect(result[3].prId).toEqual(2);
+    expect(result[0].id).toEqual(4);
+    expect(result[1].id).toEqual(3);
+    expect(result[2].id).toEqual(1);
+    expect(result[3].id).toEqual(2);
   });
 
   it('should return a desc array', () => {
+    let prs = [
+      getTestdataEntry(1, '2018-02-01', 'DEVELOPMENT', 'ON_DEMAND'),
+      getTestdataEntry(2, '2018-01-11', 'CONSULTING', 'ON_DEMAND'),
+      getTestdataEntry(3, '2018-02-10', 'CONSULTING', 'ON_DEMAND'),
+      getTestdataEntry(4, '2019-01-01', 'CONSULTING', 'ON_DEMAND')
+    ];
+
     const result = stableSort(
       prs,
       (a, b) => -descInteger(a, b, entry => entry['deadline'])
     );
-    expect(result[0].prId).toEqual(2);
-    expect(result[1].prId).toEqual(1);
-    expect(result[2].prId).toEqual(3);
-    expect(result[3].prId).toEqual(4);
+    expect(result[0].id).toEqual(2);
+    expect(result[1].id).toEqual(1);
+    expect(result[2].id).toEqual(3);
+    expect(result[3].id).toEqual(4);
+  });
+
+  it('should return a desc array. If columnEntrys are equal, sort by id desc', () => {
+    let prs = [
+      getTestdataEntry(1, '2018-02-01', 'DEVELOPMENT', 'ON_DEMAND'),
+      getTestdataEntry(2, '2018-01-11', 'CONSULTING', 'ON_DEMAND'),
+      getTestdataEntry(3, '2018-02-10', 'DEVELOPMENT', 'ON_DEMAND'),
+      getTestdataEntry(4, '2019-01-01', 'CONSULTING', 'ON_DEMAND')
+    ];
+
+    const result = stableSort(
+      prs,
+      (a, b) => -descInteger(a, b, entry => entry['competence'])
+    );
+    expect(result[0].id).toEqual(4);
+    expect(result[1].id).toEqual(2);
+    expect(result[2].id).toEqual(3);
+    expect(result[3].id).toEqual(1);
   });
 });
 
 function getTestdataEntry(id, deadline, competence, occasion) {
   return {
-    prId: id,
+    id: id,
     employee: {
       id: 502,
       firstName: 'Michaela',

@@ -32,7 +32,7 @@ export function stableSort(array, compare) {
     if (order !== 0) {
       return order;
     }
-    return a[1] - b[1];
+    return b[0].id - a[0].id;
   });
 
   return stabilizedThis.map(el => el[0]);
