@@ -24,7 +24,7 @@ describe('PrDetailInformation Component', () => {
       lastName: 'Mitarbeiter'
     },
     deadline: '2018-12-06',
-    meeting: { start: '2018-12-04' },
+    meetingDay: '2018-12-04',
     competence: 'DEVELOPMENT',
     occasion: 'ON_DEMAND',
     statuses: [prStatusEnum.FIXED_DATE]

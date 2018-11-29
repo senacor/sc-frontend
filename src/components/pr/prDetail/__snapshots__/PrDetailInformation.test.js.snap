@@ -54,9 +54,7 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
                     "lastName": "Mitarbeiterin",
                     "login": "mmitarbeiterin",
                   },
-                  "meeting": Object {
-                    "start": "2018-12-04",
-                  },
+                  "meetingDay": "2018-12-04",
                   "occasion": "ON_DEMAND",
                   "reviewer": Object {
                     "firstName": "Martin",
@@ -93,9 +91,7 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
                 "lastName": "Mitarbeiterin",
                 "login": "mmitarbeiterin",
               },
-              "meeting": Object {
-                "start": "2018-12-04",
-              },
+              "meetingDay": "2018-12-04",
               "occasion": "ON_DEMAND",
               "reviewer": Object {
                 "firstName": "Martin",

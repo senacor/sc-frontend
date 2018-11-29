@@ -59,10 +59,11 @@ export class PrDetailInformation extends Component {
 
     const { firstName, lastName } = pr.employee;
     let dateAccepted = pr.statuses.includes(prStatusEnum.FIXED_DATE);
-    const termin =
-      pr.meeting && dateAccepted
-        ? formatDateForFrontend(pr.meeting.start)
-        : 'noch nicht vereinbart';
+    const termin = pr.meetingDay
+      ? dateAccepted
+        ? formatDateForFrontend(pr.meetingDay)
+        : formatDateForFrontend(pr.meetingDay) + ' (noch nicht bestätigt)'
+      : 'noch nicht vereinbart';
     const competence = translateContent('COMPETENCE_' + pr.competence);
 
     const subheader = `Fälligkeit: ${formatDateForFrontend(
