@@ -139,17 +139,17 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
             <Connect(ListFilter)
                   content={
                         Object {
-                              "1": "1",
-                              "2": "2",
-                              "3": "3",
-                              "4": "4",
-                              "5": "5",
+                              "erfüllt": "3",
+                              "nicht erfüllt": "1",
+                              "zT. nicht erfüllt": "2",
+                              "zT. übererfüllt": "4",
+                              "übererfüllt": "5",
                             }
                   }
             />
       </Connect(WithStyles(PopperSearchMenu))>,
           "label": "Bewertung",
-          "numeric": false,
+          "numeric": true,
           "render": [Function],
           "sortValue": [Function],
         },

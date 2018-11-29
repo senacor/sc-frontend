@@ -12,8 +12,17 @@ import FILTER_GROUPS from '../humanResources/filterGroups';
 import { LoadingEvents } from '../../helper/loadingEvents';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import withLoadingAction from '../hoc/LoadingWithAction';
+import Paper from '@material-ui/core/Paper/Paper';
+import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 
 export class PrOverviewReviewer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      columnsToView: null
+    };
+  }
+
   getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.REVIEWER,
@@ -37,6 +46,21 @@ export class PrOverviewReviewer extends React.Component {
     ];
   };
 
+  getSelectorContent = () => {
+    let columns = this.getColumnDefinitions();
+    let result = [];
+
+    columns.forEach(column => {
+      result.push({ label: column.label, value: column });
+    });
+
+    return result;
+  };
+
+  handleChange = content => {
+    this.setState({ columnsToView: content });
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
       this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.REVIEWER);
@@ -46,13 +70,20 @@ export class PrOverviewReviewer extends React.Component {
     if (!this.props.filterPossibilities.levels) {
       return null;
     }
-    const columns = this.getColumnDefinitions();
+    const { columnsToView } = this.state;
+    const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
     return (
-      <PerformanceReviewTable
-        columnDefinition={columns}
-        orderBy={1}
-        data={this.props.data}
-      />
+      <Paper>
+        <TableColumnSelectorMenu
+          onChange={this.handleChange}
+          content={this.getSelectorContent()}
+        />
+        <PerformanceReviewTable
+          columnDefinition={columns}
+          orderBy={1}
+          data={this.props.data}
+        />
+      </Paper>
     );
   }
 }
