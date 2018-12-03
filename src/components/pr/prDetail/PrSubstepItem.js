@@ -19,25 +19,39 @@ const styles = theme => {
 
 const PrSubstepItem = props => {
   const { classes, substep } = props;
+
+  const entryToRender = substep.isCompleted
+    ? substep.rendering.complete
+    : substep.isCurrentUserActionPerformer
+    ? substep.rendering.incompleteForActionPerformer
+    : substep.rendering.incompleteForNonActionPerformer;
+  const isText = typeof entryToRender === 'string';
+
   return (
     <ListItem
       classes={{
         root: classes.listItemRoot
       }}
     >
-      <ListItemText
-        classes={{
-          primary: classes.listItemPrimary
-        }}
-        primary={substep.label}
-        secondary={
-          substep.isCompleted
-            ? substep.rendering.complete
-            : substep.isCurrentUserActionPerformer
-            ? substep.rendering.incompleteForActionPerformer
-            : substep.rendering.incompleteForNonActionPerformer
-        }
-      />
+      {isText ? (
+        <ListItemText
+          classes={{
+            primary: classes.listItemPrimary
+          }}
+          primary={substep.label}
+          secondary={entryToRender}
+        />
+      ) : (
+        <div>
+          <ListItemText
+            classes={{
+              primary: classes.listItemPrimary
+            }}
+            primary={substep.label}
+          />
+          {entryToRender}
+        </div>
+      )}
     </ListItem>
   );
 };
