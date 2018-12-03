@@ -6,6 +6,8 @@ import {
   ERROR_RESPONSE
 } from '../helper/dispatchTypes';
 
+let employeeSearchRequestCounter = 0;
+
 export const employeeSearch = searchEmployee => async dispatch => {
   dispatch({
     type: FETCH_EMPLOYEES_REQUEST
@@ -14,23 +16,27 @@ export const employeeSearch = searchEmployee => async dispatch => {
     type: ERROR_GONE
   });
 
+  employeeSearchRequestCounter++;
+  let currentRequest = employeeSearchRequestCounter;
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v1/employees?query=${searchEmployee}`
   );
-  if (response.ok) {
-    const data = await response.json();
-    const employees = data._embedded
-      ? data._embedded.personSearchResponseList
-      : [];
-    dispatch({
-      type: FETCH_EMPLOYEES_RESPONSE,
-      employees
-    });
-  } else {
-    dispatch({
-      type: ERROR_RESPONSE,
-      httpCode: response.status
-    });
+  if (currentRequest === employeeSearchRequestCounter) {
+    if (response.ok) {
+      const data = await response.json();
+      const employees = data._embedded
+        ? data._embedded.personSearchResponseList
+        : [];
+      dispatch({
+        type: FETCH_EMPLOYEES_RESPONSE,
+        employees
+      });
+    } else {
+      dispatch({
+        type: ERROR_RESPONSE,
+        httpCode: response.status
+      });
+    }
   }
 };
 

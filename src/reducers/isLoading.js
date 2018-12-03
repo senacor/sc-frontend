@@ -32,7 +32,11 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.LOGOUT
   ];
 
-  if (findInArray(startLoading, action.type)) {
+  let actionTrigger = action.type.replace('_REQUEST', '');
+  if (
+    findInArray(startLoading, action.type) &&
+    !findInArray(state, actionTrigger)
+  ) {
     let newState = cloneDeep(state);
 
     newState.push(action.type.replace('_REQUEST', ''));

@@ -53,4 +53,14 @@ describe('isLoading', () => {
     const stateAfter = isLoading(stateBefore, action);
     expect(stateAfter).toEqual(['other']);
   });
+
+  it(`adds action only once`, () => {
+    const stateBefore = ['other', 'ADD_PR'];
+    const action = {
+      type: dispatchTypes.ADD_PR_REQUEST
+    };
+
+    const stateAfter = isLoading(stateBefore, action);
+    expect(stateAfter).toEqual(['other', 'ADD_PR']);
+  });
 });
