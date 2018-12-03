@@ -38,7 +38,7 @@ describe('createSingleAppointmentDiv', () => {
         key={`appointmentDiv15.5_${germanTimeFrom(
           startAppointment
         )}-${germanTimeFrom(endAppointment)}-1`}
-        title={name + ': fester Termin'}
+        title={name + ': beschäftigt'}
       >
         <div
           key={`appointmentDiv15.5_${germanTimeFrom(

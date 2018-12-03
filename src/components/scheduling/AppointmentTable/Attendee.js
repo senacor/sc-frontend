@@ -56,10 +56,10 @@ export function createSingleAppointmentDiv(
   let infoOnMouseOver = name;
   switch (appointmentState) {
     case 'Busy':
-      infoOnMouseOver = name + ': fester Termin';
+      infoOnMouseOver = name + ': beschäftigt';
       break;
     case 'Tentative':
-      infoOnMouseOver = name + ': Termin mit Vorbehalt';
+      infoOnMouseOver = name + ': vorläufig';
       break;
     case 'OOF':
       infoOnMouseOver = name + ': abwesend';
