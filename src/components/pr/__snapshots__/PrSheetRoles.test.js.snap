@@ -9,7 +9,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -131,9 +131,9 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -716,9 +716,9 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -1172,6 +1172,19 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -1184,7 +1197,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -1296,9 +1309,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -1831,9 +1844,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -2299,6 +2312,72 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <div>
+          <Connect(WithStyles(PrFinalCommentHr))
+            isActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "INVISIBLE",
+                },
+                "requiredFields": Object {
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
+              }
+            }
+            readOnly={false}
+          />
+        </div>
+      </WithStyles(List)>
+    </WithStyles(List)>
+  </Hidden>
 </div>
 `;
 
@@ -2311,7 +2390,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -2435,9 +2514,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -3030,9 +3109,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -3552,6 +3631,78 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <div>
+          <Connect(WithStyles(PrFinalCommentHr))
+            isActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
+              }
+            }
+            readOnly={false}
+          />
+        </div>
+      </WithStyles(List)>
+    </WithStyles(List)>
+  </Hidden>
 </div>
 `;
 
@@ -3564,7 +3715,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -3686,9 +3837,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -4271,9 +4422,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -4784,6 +4935,77 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <div>
+          <Connect(WithStyles(PrFinalCommentHr))
+            isActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
+              }
+            }
+            readOnly={false}
+          />
+        </div>
+      </WithStyles(List)>
+    </WithStyles(List)>
+  </Hidden>
 </div>
 `;
 
@@ -4796,7 +5018,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -4914,9 +5136,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -5479,9 +5701,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -5974,6 +6196,75 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <div>
+          <Connect(WithStyles(PrFinalCommentHr))
+            isActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
+              }
+            }
+            readOnly={false}
+          />
+        </div>
+      </WithStyles(List)>
+    </WithStyles(List)>
+  </Hidden>
 </div>
 `;
 
@@ -5986,7 +6277,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -6106,9 +6397,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -6681,9 +6972,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -7185,6 +7476,76 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  >
+    <WithStyles(Divider) />
+    <WithStyles(List)>
+      <WithStyles(List)
+        disablePadding={true}
+      >
+        <div>
+          <Connect(WithStyles(PrFinalCommentHr))
+            isActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
+              }
+            }
+            readOnly={false}
+          />
+        </div>
+      </WithStyles(List)>
+    </WithStyles(List)>
+  </Hidden>
 </div>
 `;
 
@@ -7197,7 +7558,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -7309,9 +7670,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -7844,9 +8205,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -8260,6 +8621,19 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -8272,7 +8646,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -8388,9 +8762,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -8943,9 +9317,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -9375,6 +9749,19 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -9387,7 +9774,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -9505,9 +9892,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -10070,9 +10457,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -10510,6 +10897,19 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -10522,7 +10922,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -10642,9 +11042,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -11217,9 +11617,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -11665,6 +12065,19 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -11677,7 +12090,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -11801,9 +12214,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -12396,9 +12809,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -12860,6 +13273,19 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -12872,7 +13298,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -12994,9 +13420,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -13579,9 +14005,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -14035,6 +14461,19 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -14047,7 +14486,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -14171,9 +14610,9 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -14766,9 +15205,9 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -15230,6 +15669,19 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -15242,7 +15694,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -15354,9 +15806,9 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -15889,9 +16341,9 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -16305,6 +16757,19 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -16317,7 +16782,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -16437,9 +16902,9 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -17012,9 +17477,9 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -17460,6 +17925,19 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -17472,7 +17950,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -17592,9 +18070,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -18167,9 +18645,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -18615,6 +19093,19 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -18627,7 +19118,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -18749,9 +19240,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -19334,9 +19825,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -19790,6 +20281,19 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -19802,7 +20306,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -19926,9 +20430,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -20521,9 +21025,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -20985,6 +21489,19 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -20997,7 +21514,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -21115,9 +21632,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -21680,9 +22197,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -22120,6 +22637,19 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -22132,7 +22662,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -22244,9 +22774,9 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -22779,9 +23309,9 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -23195,6 +23725,19 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -23207,7 +23750,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -23325,9 +23868,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -23890,9 +24433,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -24330,6 +24873,19 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
 
@@ -24342,7 +24898,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -24458,9 +25014,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -25013,9 +25569,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -25445,5 +26001,18 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;

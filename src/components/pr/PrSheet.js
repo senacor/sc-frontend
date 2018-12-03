@@ -304,10 +304,10 @@ class PrSheet extends React.Component {
     return (
       <div>
         <Grid container spacing={40}>
-          <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             {step1employee()}
             <Divider />
-            <Hidden lgUp>
+            <Hidden mdUp>
               {detailReviewer()}
               <Divider />
             </Hidden>
@@ -316,7 +316,7 @@ class PrSheet extends React.Component {
             {finalEmployee()}
             {requiredInfo()}
           </Grid>
-          <Hidden mdDown>
+          <Hidden smDown>
             <Grid item lg={6} xl={6}>
               {detailReviewer()}
               {isHr(this.props.userroles) ? <Divider /> : null}
@@ -325,6 +325,10 @@ class PrSheet extends React.Component {
           </Hidden>
         </Grid>
         <Divider />
+        <Hidden mdUp>
+          {isHr(this.props.userroles) ? <Divider /> : null}
+          {isHr(this.props.userroles) ? finalHr() : null}
+        </Hidden>
       </div>
     );
   }

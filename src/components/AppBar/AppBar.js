@@ -11,7 +11,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Sidebar from '../sidebar/Sidebar';
 import ErrorMessage from './ErrorMessage';
 
-const drawerWidth = 300;
+const drawerWidth = 250;
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -22,20 +22,33 @@ const styles = theme => ({
   },
   appBar: {
     marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${drawerWidth}px)`
     }
   },
   navIconHide: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'none'
     }
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      position: 'relative'
+    [theme.breakpoints.up('lg')]: {
+      position: 'fixed'
+    }
+  },
+  desktopContent: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit,
+
+    [theme.breakpoints.up('lg')]: {
+      padding: 3 * theme.spacing.unit
+    },
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('lg')]: {
+      width: `calc(100% - ${drawerWidth}px)`
     }
   },
   content: {
@@ -43,7 +56,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit,
 
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       padding: 3 * theme.spacing.unit
     }
   }
@@ -83,7 +96,7 @@ class CustomAppBar extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Hidden mdUp>
+        <Hidden lgUp>
           <Drawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -98,8 +111,13 @@ class CustomAppBar extends Component {
           >
             <Sidebar />
           </Drawer>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <ErrorMessage />
+            {children}
+          </main>
         </Hidden>
-        <Hidden smDown implementation="css">
+        <Hidden mdDown implementation="css">
           <Drawer
             variant="permanent"
             open
@@ -109,12 +127,12 @@ class CustomAppBar extends Component {
           >
             <Sidebar />
           </Drawer>
+          <main className={classes.desktopContent}>
+            <div className={classes.toolbar} />
+            <ErrorMessage />
+            {children}
+          </main>
         </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <ErrorMessage />
-          {children}
-        </main>
       </div>
     );
   }

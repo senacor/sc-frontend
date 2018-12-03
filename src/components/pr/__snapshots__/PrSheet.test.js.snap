@@ -9,7 +9,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
     <WithStyles(Grid)
       item={true}
       lg={6}
-      md={12}
+      md={6}
       sm={12}
       xl={6}
       xs={12}
@@ -417,9 +417,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       <Hidden
         implementation="js"
         lgDown={false}
-        lgUp={true}
+        lgUp={false}
         mdDown={false}
-        mdUp={false}
+        mdUp={true}
         smDown={false}
         smUp={false}
         xlDown={false}
@@ -2432,9 +2432,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       implementation="js"
       lgDown={false}
       lgUp={false}
-      mdDown={true}
+      mdDown={false}
       mdUp={false}
-      smDown={false}
+      smDown={true}
       smUp={false}
       xlDown={false}
       xlUp={false}
@@ -4032,5 +4032,18 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
     </Hidden>
   </WithStyles(Grid)>
   <WithStyles(Divider) />
+  <Hidden
+    implementation="js"
+    lgDown={false}
+    lgUp={false}
+    mdDown={false}
+    mdUp={true}
+    smDown={false}
+    smUp={false}
+    xlDown={false}
+    xlUp={false}
+    xsDown={false}
+    xsUp={false}
+  />
 </div>
 `;
