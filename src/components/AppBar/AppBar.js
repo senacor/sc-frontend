@@ -17,8 +17,7 @@ const styles = theme => ({
     flexGrow: 1,
     zIndex: 1,
     position: 'relative',
-    display: 'flex',
-    width: '100%'
+    width: '99%'
   },
   appBar: {
     marginLeft: drawerWidth,
