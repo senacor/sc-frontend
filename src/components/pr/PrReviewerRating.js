@@ -4,10 +4,6 @@ import { withStyles } from '@material-ui/core/styles/index';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import Typography from '@material-ui/core/Typography';
 import * as actions from '../../actions';
 import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
@@ -16,6 +12,7 @@ import { getPrRatings, getUserroles } from '../../reducers/selector';
 import Icon from '@material-ui/core/Icon';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import PrRatingPoints from './PrRatingPoints';
 
 const styles = theme => ({
   nestedText: { paddingRight: '2%' },
@@ -53,11 +50,13 @@ const styles = theme => ({
   },
   rating: {
     color: theme.palette.primary['400']
+  },
+  center: {
+    textAlign: 'center'
   }
 });
 
-// TODO Rename to PrReviewerRating
-class PrComment extends React.Component {
+class PrReviewerRating extends React.Component {
   constructor(props) {
     super(props);
     let { prRating } = this.props;
@@ -126,41 +125,13 @@ class PrComment extends React.Component {
     service.setReadOnlyText(prRating.comment);
     service.setWriteableText(comment);
 
-    let ratingPoints = () => {
-      if (nonActionPerformer) {
-        return (
-          <Typography id={category} className={classes.rating} variant="body2">
-            {readOnly ? prRating.rating : ''}
-          </Typography>
-        );
-      } else if (isActionPerformer) {
-        return (
-          <FormControl className={classes.formControl} disabled={readOnly}>
-            <Select
-              id={category + '_RatingId'}
-              value={prRating.rating ? prRating.rating : 3}
-              onChange={this.handleChangeRating(prById, category)}
-              displayEmpty
-              name="rating"
-            >
-              {[1, 2, 3, 4, 5].map(ratingValue => {
-                return (
-                  <MenuItem
-                    key={category + '_RatingValue' + ratingValue}
-                    id={category + '_RatingValue' + ratingValue}
-                    value={ratingValue}
-                  >
-                    {ratingValue}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        );
-      } else {
-        return null;
-      }
-    };
+    let numberService = new TextFieldService();
+    numberService.setNonActionPerformer(nonActionPerformer);
+    numberService.setIsActionPerformer(isActionPerformer);
+    numberService.setReadOnlyFlag(readOnly);
+    numberService.setOpenEditing(true);
+    numberService.setReadOnlyText(prRating.rating ? prRating.rating : '-');
+    numberService.setWriteableText(prRating.rating ? prRating.rating : '-');
 
     return (
       <div className={isExpanded ? classes.expanded : classes.collapsed}>
@@ -176,7 +147,18 @@ class PrComment extends React.Component {
               helperText={helperText}
             />
           </ListItem>
-          <ListItem className={classes.nestedNumber}>{ratingPoints()}</ListItem>
+          <ListItem className={classes.nestedNumber}>
+            {
+              <PrRatingPoints
+                state={numberService.getState()}
+                readOnly={readOnly}
+                value={prRating.rating ? prRating.rating : '-'}
+                classes={classes}
+                category={category}
+                onChange={this.handleChangeRating(prById, category)}
+              />
+            }
+          </ListItem>
           <ListItem
             button
             className={classes.nestedInfo}
@@ -204,7 +186,7 @@ class PrComment extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(PrComment);
+export const StyledComponent = withStyles(styles)(PrReviewerRating);
 export default connect(
   (state, props) => ({
     userroles: getUserroles(state),

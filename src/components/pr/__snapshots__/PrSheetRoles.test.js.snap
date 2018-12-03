@@ -152,7 +152,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -201,7 +201,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -250,7 +250,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -310,7 +310,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -359,7 +359,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -419,7 +419,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -468,7 +468,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -528,7 +528,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -741,7 +741,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -790,7 +790,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -839,7 +839,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -899,7 +899,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -948,7 +948,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -1008,7 +1008,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -1057,7 +1057,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -1117,7 +1117,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -1326,7 +1326,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1370,7 +1370,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1414,7 +1414,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1469,7 +1469,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1513,7 +1513,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1568,7 +1568,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1612,7 +1612,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1667,7 +1667,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1865,7 +1865,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1909,7 +1909,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1953,7 +1953,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2008,7 +2008,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2052,7 +2052,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2107,7 +2107,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2151,7 +2151,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2206,7 +2206,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2465,7 +2465,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2515,7 +2515,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2565,7 +2565,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2626,7 +2626,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2676,7 +2676,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2737,7 +2737,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2787,7 +2787,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2848,7 +2848,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3064,7 +3064,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3114,7 +3114,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3164,7 +3164,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3225,7 +3225,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3275,7 +3275,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3336,7 +3336,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3386,7 +3386,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3447,7 +3447,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3716,7 +3716,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3765,7 +3765,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3814,7 +3814,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3874,7 +3874,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3923,7 +3923,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3983,7 +3983,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4032,7 +4032,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4092,7 +4092,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4305,7 +4305,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4354,7 +4354,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4403,7 +4403,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4463,7 +4463,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4512,7 +4512,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4572,7 +4572,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4621,7 +4621,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4681,7 +4681,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4944,7 +4944,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4991,7 +4991,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5038,7 +5038,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5096,7 +5096,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5143,7 +5143,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5201,7 +5201,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5248,7 +5248,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5306,7 +5306,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5513,7 +5513,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5560,7 +5560,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5607,7 +5607,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5665,7 +5665,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5712,7 +5712,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5770,7 +5770,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5817,7 +5817,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5875,7 +5875,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6136,7 +6136,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6184,7 +6184,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6232,7 +6232,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6291,7 +6291,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6339,7 +6339,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6398,7 +6398,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6446,7 +6446,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6505,7 +6505,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6715,7 +6715,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6763,7 +6763,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6811,7 +6811,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6870,7 +6870,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6918,7 +6918,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6977,7 +6977,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -7025,7 +7025,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -7084,7 +7084,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -7348,7 +7348,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7392,7 +7392,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7436,7 +7436,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7491,7 +7491,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7535,7 +7535,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7590,7 +7590,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7634,7 +7634,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7689,7 +7689,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7887,7 +7887,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7931,7 +7931,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -7975,7 +7975,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8030,7 +8030,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8074,7 +8074,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8129,7 +8129,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8173,7 +8173,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8228,7 +8228,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8429,7 +8429,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8476,7 +8476,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8523,7 +8523,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8581,7 +8581,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8628,7 +8628,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8686,7 +8686,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8733,7 +8733,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8791,7 +8791,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -8998,7 +8998,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9045,7 +9045,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9092,7 +9092,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9150,7 +9150,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9197,7 +9197,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9255,7 +9255,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9302,7 +9302,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9360,7 +9360,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9571,7 +9571,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9617,7 +9617,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9663,7 +9663,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9720,7 +9720,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9766,7 +9766,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9823,7 +9823,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9869,7 +9869,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -9926,7 +9926,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10130,7 +10130,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10176,7 +10176,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10222,7 +10222,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10279,7 +10279,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10325,7 +10325,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10382,7 +10382,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10428,7 +10428,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10485,7 +10485,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10690,7 +10690,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10738,7 +10738,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10786,7 +10786,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10845,7 +10845,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10893,7 +10893,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -10952,7 +10952,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11000,7 +11000,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11059,7 +11059,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11269,7 +11269,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11317,7 +11317,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11365,7 +11365,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11424,7 +11424,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11472,7 +11472,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11531,7 +11531,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11579,7 +11579,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11638,7 +11638,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11847,7 +11847,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11896,7 +11896,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -11945,7 +11945,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12005,7 +12005,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12054,7 +12054,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12114,7 +12114,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12163,7 +12163,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12223,7 +12223,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12436,7 +12436,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12485,7 +12485,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12534,7 +12534,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12594,7 +12594,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12643,7 +12643,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12703,7 +12703,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12752,7 +12752,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -12812,7 +12812,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13024,7 +13024,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13074,7 +13074,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13124,7 +13124,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13185,7 +13185,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13235,7 +13235,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13296,7 +13296,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13346,7 +13346,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13407,7 +13407,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13623,7 +13623,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13673,7 +13673,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13723,7 +13723,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13784,7 +13784,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13834,7 +13834,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13895,7 +13895,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -13945,7 +13945,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14006,7 +14006,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14219,7 +14219,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14269,7 +14269,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14319,7 +14319,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14380,7 +14380,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14430,7 +14430,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14491,7 +14491,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14541,7 +14541,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14602,7 +14602,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14818,7 +14818,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14868,7 +14868,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14918,7 +14918,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -14979,7 +14979,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15029,7 +15029,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15090,7 +15090,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15140,7 +15140,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15201,7 +15201,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15411,7 +15411,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15455,7 +15455,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15499,7 +15499,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15554,7 +15554,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15598,7 +15598,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15653,7 +15653,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15697,7 +15697,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15752,7 +15752,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15950,7 +15950,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -15994,7 +15994,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16038,7 +16038,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16093,7 +16093,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16137,7 +16137,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16192,7 +16192,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16236,7 +16236,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16291,7 +16291,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16494,7 +16494,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16542,7 +16542,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16590,7 +16590,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16649,7 +16649,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16697,7 +16697,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16756,7 +16756,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16804,7 +16804,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -16863,7 +16863,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17073,7 +17073,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17121,7 +17121,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17169,7 +17169,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17228,7 +17228,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17276,7 +17276,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17335,7 +17335,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17383,7 +17383,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17442,7 +17442,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -17650,7 +17650,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17694,7 +17694,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17738,7 +17738,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17793,7 +17793,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17837,7 +17837,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17892,7 +17892,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17936,7 +17936,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17991,7 +17991,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18189,7 +18189,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18233,7 +18233,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18277,7 +18277,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18332,7 +18332,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18376,7 +18376,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18431,7 +18431,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18475,7 +18475,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18530,7 +18530,7 @@ exports[`PrSheet Fill-in should give the employee an errorState, mark the reflec
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18733,7 +18733,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18781,7 +18781,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18829,7 +18829,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18888,7 +18888,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18936,7 +18936,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -18995,7 +18995,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19043,7 +19043,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19102,7 +19102,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19312,7 +19312,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19360,7 +19360,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19408,7 +19408,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19467,7 +19467,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19515,7 +19515,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19574,7 +19574,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19622,7 +19622,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19681,7 +19681,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19890,7 +19890,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19939,7 +19939,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -19988,7 +19988,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20048,7 +20048,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20097,7 +20097,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20157,7 +20157,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20206,7 +20206,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20266,7 +20266,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20479,7 +20479,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20528,7 +20528,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20577,7 +20577,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20637,7 +20637,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20686,7 +20686,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20746,7 +20746,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20795,7 +20795,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -20855,7 +20855,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21067,7 +21067,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21117,7 +21117,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21167,7 +21167,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21228,7 +21228,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21278,7 +21278,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21339,7 +21339,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21389,7 +21389,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21450,7 +21450,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21666,7 +21666,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21716,7 +21716,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21766,7 +21766,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21827,7 +21827,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21877,7 +21877,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21938,7 +21938,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -21988,7 +21988,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={true}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22049,7 +22049,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22256,7 +22256,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22303,7 +22303,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22350,7 +22350,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22408,7 +22408,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22455,7 +22455,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22513,7 +22513,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22560,7 +22560,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22618,7 +22618,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22825,7 +22825,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22872,7 +22872,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22919,7 +22919,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -22977,7 +22977,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -23024,7 +23024,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -23082,7 +23082,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -23129,7 +23129,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -23187,7 +23187,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -23391,7 +23391,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23438,7 +23438,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23485,7 +23485,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23543,7 +23543,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23590,7 +23590,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23648,7 +23648,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23695,7 +23695,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23753,7 +23753,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23960,7 +23960,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24007,7 +24007,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24054,7 +24054,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24112,7 +24112,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24159,7 +24159,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24217,7 +24217,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24264,7 +24264,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24322,7 +24322,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24533,7 +24533,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24579,7 +24579,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24625,7 +24625,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24682,7 +24682,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24728,7 +24728,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24785,7 +24785,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24831,7 +24831,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -24888,7 +24888,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25092,7 +25092,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25138,7 +25138,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25184,7 +25184,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25241,7 +25241,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25287,7 +25287,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25344,7 +25344,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25390,7 +25390,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -25447,7 +25447,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={true}
               nonActionPerformer={false}

@@ -4,7 +4,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
-import PrComment from './PrComment';
+import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
@@ -214,21 +214,21 @@ class PrSheet extends React.Component {
             <ListItemText primary="Leistungen im Projekt" />
           </ListItem>
           <List disablePadding>
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="PROBLEM_ANALYSIS"
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
             />
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="WORK_RESULTS"
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
             />
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="WORKING_MANNER"
               isActionPerformer={isActionPerformerForReviewerActions}
@@ -240,14 +240,14 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung beim Kunden" />
           </ListItem>
           <List disablePadding>
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="CUSTOMER_INTERACTION"
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
             />
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="CUSTOMER_RETENTION"
               isActionPerformer={isActionPerformerForReviewerActions}
@@ -259,14 +259,14 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Team" />
           </ListItem>
           <List disablePadding>
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="TEAMWORK"
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
             />
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="LEADERSHIP"
               isActionPerformer={isActionPerformerForReviewerActions}
@@ -278,7 +278,7 @@ class PrSheet extends React.Component {
             <ListItemText primary="Wirkung im Unternehmen" />
           </ListItem>
           <List disablePadding>
-            <PrComment
+            <PrReviewerRating
               prById={prById}
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={isActionPerformerForReviewerActions}

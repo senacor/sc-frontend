@@ -233,7 +233,7 @@ describe('PrSheet Component', () => {
       )
     ).toBe(true);
     expect(
-      component.find('Connect(WithStyles(PrComment))[prVisible=false]')
+      component.find('Connect(WithStyles(PrReviewerRating))[prVisible=false]')
     ).toHaveLength(0);
   });
 
@@ -374,7 +374,7 @@ describe('PrSheet Component', () => {
     );
 
     expect(
-      component.find('Connect(WithStyles(PrComment))[prFinalized=true]')
+      component.find('Connect(WithStyles(PrReviewerRating))[prFinalized=true]')
     ).toHaveLength(0);
   });
 });

@@ -438,7 +438,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -630,7 +630,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -822,7 +822,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1025,7 +1025,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1217,7 +1217,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1420,7 +1420,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1612,7 +1612,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1815,7 +1815,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2457,7 +2457,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2649,7 +2649,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -2841,7 +2841,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3044,7 +3044,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3236,7 +3236,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3439,7 +3439,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3631,7 +3631,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               }
               readOnly={false}
             />
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3834,7 +3834,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
           <WithStyles(List)
             disablePadding={true}
           >
-            <Connect(WithStyles(PrComment))
+            <Connect(WithStyles(PrReviewerRating))
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}

@@ -73,12 +73,12 @@ export class PrOverallFulfillment extends Component {
             <FormControl disabled={readOnly}>
               <Select
                 id="ratingFullfillmentId"
-                value={prRating.rating ? prRating.rating : 3}
+                value={prRating.rating ? prRating.rating : 0}
                 onChange={this.handleChangeRating(prById)}
                 displayEmpty
                 name="ratingFulfillment"
               >
-                {[1, 2, 3, 4, 5].map(ratingValue => {
+                {[0, 1, 2, 3, 4, 5].map(ratingValue => {
                   return (
                     <MenuItem
                       key={'_ratingFulfillment' + ratingValue}

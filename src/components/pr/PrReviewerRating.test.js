@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyledComponent } from './PrComment';
+import { StyledComponent } from './PrReviewerRating';
 import { createShallow } from '@material-ui/core/test-utils';
 import ROLES from '../../helper/roles';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
+import PrTextField from './PrTextField';
+import PrRatingPoints from './PrRatingPoints';
 
-describe('PrComment Component', () => {
+describe('PrReviewerRating Component', () => {
   let shallow = createShallow({ dive: true });
 
   const prById = {
@@ -122,15 +122,12 @@ describe('PrComment Component', () => {
       />
     );
 
-    expect(wrapper.find(TextField)).toHaveLength(0);
-    expect(wrapper.find(Select)).toHaveLength(0);
-
     expect(
-      wrapper.find(Typography).findWhere(element => element.text() === '1')
-    ).toHaveLength(0);
+      wrapper.find(PrTextField).map(role => role.get(0).props.state)
+    ).toEqual(['DISABLED']);
     expect(
-      wrapper.find(Typography).findWhere(element => element.text() === '1')
-    ).toHaveLength(0);
+      wrapper.find(PrRatingPoints).map(role => role.get(0).props.state)
+    ).toEqual(['DISABLED']);
   });
 
   it('should display inputs as read-only if the supervisor has finalized the PR', () => {
@@ -152,7 +149,10 @@ describe('PrComment Component', () => {
     );
 
     expect(
-      wrapper.find(FormControl).map(role => role.get(0).props.disabled)
-    ).toEqual([true]);
+      wrapper.find(PrTextField).map(role => role.get(0).props.state)
+    ).toEqual(['READONLY']);
+    expect(
+      wrapper.find(PrRatingPoints).map(role => role.get(0).props.state)
+    ).toEqual(['READONLY']);
   });
 });

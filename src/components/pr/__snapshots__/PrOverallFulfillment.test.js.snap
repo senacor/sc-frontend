@@ -39,6 +39,13 @@ exports[`PrOverallFulfillment Component should match snapshot 1`] = `
         value={2}
       >
         <WithStyles(MenuItem)
+          id="_ratingFulfillmentValue0"
+          key="_ratingFulfillment0"
+          value={0}
+        >
+          kein Eintrag
+        </WithStyles(MenuItem)>
+        <WithStyles(MenuItem)
           id="_ratingFulfillmentValue1"
           key="_ratingFulfillment1"
           value={1}

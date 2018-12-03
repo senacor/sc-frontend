@@ -1,5 +1,7 @@
-export const mapRatingFullfilment = ratingFulfillemnt => {
-  switch (ratingFulfillemnt) {
+export const mapRatingFullfilment = ratingFulfillment => {
+  switch (ratingFulfillment) {
+    case 0:
+      return 'kein Eintrag';
     case 1:
       return 'nicht erfüllt';
     case 2:
