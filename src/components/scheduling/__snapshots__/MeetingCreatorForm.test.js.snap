@@ -2,6 +2,10 @@
 
 exports[`MeetingCreatorForm should match snapshot 1`] = `
 <div>
+  <WithStyles(PrStatusActionButton)
+    label="Terminfindung überspringen"
+    releaseButtonClick={[Function]}
+  />
   <WithStyles(DateTimePicker)
     date="2018-01-01"
     endTime="10:30"

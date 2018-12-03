@@ -97,12 +97,7 @@ class PrState extends React.Component {
     let fixedDate = prStatusesDone[prStatusEnum.FIXED_DATE];
     let requestDateLabel = fixedDate ? null : 'Terminfindung';
     let fixedDateLabel = fixedDate ? 'Terminfindung' : null;
-    let dateNotRequestedText = requestedDate
-      ? 'Terminvorschlag verschickt'
-      : null;
-    let noRequestedDateForReviewerText = requestedDate
-      ? 'Bitte Terminvorschlag beantworten'
-      : null;
+    let dateRequestedText = requestedDate ? 'Terminvorschlag verschickt' : null;
     let step1 = {
       mainStepLabel: 'Vorbereitung',
       substeps: {
@@ -134,7 +129,11 @@ class PrState extends React.Component {
         },
         [prStatusEnum.REQUESTED_DATE]: {
           isCompleted: prStatusesDone[prStatusEnum.REQUESTED_DATE],
-          isCurrentUserActionPerformer: hasRoleInPr(['employee']),
+          isCurrentUserActionPerformer: hasRoleInPr([
+            'employee',
+            'reviewer',
+            'supervisor'
+          ]),
           label: requestDateLabel,
           rendering: {
             complete: null,
@@ -144,12 +143,16 @@ class PrState extends React.Component {
         },
         [prStatusEnum.FIXED_DATE]: {
           isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
-          isCurrentUserActionPerformer: hasRoleInPr(['reviewer', 'supervisor']),
+          isCurrentUserActionPerformer: hasRoleInPr([
+            'reviewer',
+            'supervisor',
+            'employee'
+          ]),
           label: fixedDateLabel,
           rendering: {
-            complete: 'Alle Teilnehmer haben die Anfrage beantwortet',
-            incompleteForNonActionPerformer: dateNotRequestedText,
-            incompleteForActionPerformer: noRequestedDateForReviewerText
+            complete: 'Abgeschlossen',
+            incompleteForNonActionPerformer: dateRequestedText,
+            incompleteForActionPerformer: dateRequestedText
           }
         }
       }

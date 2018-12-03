@@ -54,7 +54,7 @@ describe('MeetingCreatorForm', () => {
     dateNowSpy.mockRestore();
   });
 
-  it('should display the create appointment form when meeting does not exist', () => {
+  it('should display the create appointment form when meeting does not exist, and the extra button for skipping the meeting planning if the sheet is filled', () => {
     let shallow = createShallow({ dive: true });
     let wrapper = shallow(
       <StyledComponent
@@ -65,7 +65,7 @@ describe('MeetingCreatorForm', () => {
       />
     );
 
-    expect(wrapper.find(PrStatusActionButton)).toHaveLength(1);
+    expect(wrapper.find(PrStatusActionButton)).toHaveLength(2);
   });
 
   it('should create the meeting details with two required attendees', () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { SchedulingView } from './SchedulingView';
+import { prStatusEnum } from '../../../helper/prStatus';
 
 describe('SchedulingView', () => {
   let pr = {
@@ -16,7 +17,8 @@ describe('SchedulingView', () => {
       login: 'test.pr.vorgesetzter',
       firstName: 'Volker',
       lastName: 'Vorgesetzter'
-    }
+    },
+    statuses: [prStatusEnum.REQUESTED_DATE]
   };
 
   const meeting = {

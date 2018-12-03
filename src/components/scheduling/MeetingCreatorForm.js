@@ -13,8 +13,9 @@ import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
-import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import { prStatusEnum } from '../../helper/prStatus';
+import Typography from '@material-ui/core/Typography/Typography';
+import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 
 const styles = theme => ({
   container: {
@@ -35,6 +36,10 @@ const styles = theme => ({
     color: '#FFF',
     marginBottom: '2%',
     marginLeft: '1.5%'
+  },
+  hrInfo: {
+    marginTop: '2%',
+    marginBottom: '4%'
   }
 });
 
@@ -103,22 +108,35 @@ class MeetingCreatorForm extends React.Component {
   };
 
   render() {
-    const { classes, pr, userinfo, addPrStatus } = this.props;
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-    let isEmployee = hasRoleInPr(['employee']);
-    let bothFilledInFirstStep =
-      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_REVIEWER) &&
-      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_EMPLOYEE);
-    let findMeetingFinished = pr.statuses.includes(prStatusEnum.FIXED_DATE);
+    const { classes, pr, userinfo, addPrStatus, userroles } = this.props;
+    let visibilityService = new meetingDetailVisibilityService();
+    visibilityService.setPr(pr);
+    visibilityService.setUserinfo(userinfo);
+    visibilityService.setUserroles(userroles);
 
     return (
       <div>
-        {!isEmployee ? (
-          <p>
-            Bitte auf die Terminanfrage zeitnah im Kalender antworten. Zur
-            besseren Übersicht sind hier die nicht mehr verfügbaren Termine für
-            alle Teilnehmer angezeigt.
-          </p>
+        {visibilityService.getJump() ? (
+          <PrStatusActionButton
+            label={'Terminfindung überspringen'}
+            releaseButtonClick={() => addPrStatus(pr, prStatusEnum.FIXED_DATE)}
+          />
+        ) : null}
+        {visibilityService.getEvaluationExternal() ? (
+          <Typography variant={'button'} className={classes.hrInfo}>
+            Termin wurde außerhalb des Portals vereinbart.
+          </Typography>
+        ) : null}
+        {visibilityService.getHrInfoNotSent() ? (
+          <Typography variant={'button'} className={classes.hrInfo}>
+            Termin muss noch vereinbart werden.
+          </Typography>
+        ) : null}
+        {visibilityService.getReadOnly() ? (
+          <Typography className={classes.hrInfo}>
+            Zur besseren Übersicht sind unten die verfügbaren Termine der
+            Teilnehmer angezeigt.
+          </Typography>
         ) : null}
         <DateTimePicker
           date={this.state.date}
@@ -126,7 +144,7 @@ class MeetingCreatorForm extends React.Component {
           endTime={this.state.endTime}
           onDateTimeChange={this.setDateTime}
         />
-        {isEmployee ? (
+        {visibilityService.getAction() ? (
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
               id="location"
@@ -143,13 +161,6 @@ class MeetingCreatorForm extends React.Component {
               inputClass={classes.buttonPosition}
             />
           </form>
-        ) : null}
-        {!isEmployee && bothFilledInFirstStep && !findMeetingFinished ? (
-          <PrStatusActionButton
-            label={'Terminfindung überspringen'}
-            releaseButtonClick={() => addPrStatus(pr, prStatusEnum.FIXED_DATE)}
-            inputClass={classes.buttonPosition}
-          />
         ) : null}
       </div>
     );

@@ -23,7 +23,7 @@ exports[`PrState Component for HR should match snapshot 1`] = `
                   "isCurrentUserActionPerformer": false,
                   "label": null,
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": null,
                     "incompleteForNonActionPerformer": null,
                   },
@@ -176,7 +176,7 @@ exports[`PrState Component for HR should match snapshot when button for HR is pr
                   "isCurrentUserActionPerformer": false,
                   "label": "Terminfindung",
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": null,
                     "incompleteForNonActionPerformer": null,
                   },
@@ -326,10 +326,10 @@ exports[`PrState Component for employee should match snapshot 1`] = `
               "substeps": Object {
                 "ALL_DATES_ACCEPTED": Object {
                   "isCompleted": false,
-                  "isCurrentUserActionPerformer": false,
+                  "isCurrentUserActionPerformer": true,
                   "label": null,
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": null,
                     "incompleteForNonActionPerformer": null,
                   },
@@ -459,7 +459,7 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                   "isCurrentUserActionPerformer": true,
                   "label": null,
                   "rendering": Object {
-                    "complete": "Alle Teilnehmer haben die Anfrage beantwortet",
+                    "complete": "Abgeschlossen",
                     "incompleteForActionPerformer": null,
                     "incompleteForNonActionPerformer": null,
                   },
@@ -502,7 +502,7 @@ exports[`PrState Component for reviewer should match snapshot 1`] = `
                 },
                 "REQUESTED_DATE": Object {
                   "isCompleted": false,
-                  "isCurrentUserActionPerformer": false,
+                  "isCurrentUserActionPerformer": true,
                   "label": "Terminfindung",
                   "rendering": Object {
                     "complete": null,

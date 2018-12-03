@@ -3,6 +3,7 @@ import { StyledComponent } from './MeetingDetailsView';
 import { createShallow } from '@material-ui/core/test-utils';
 import moment from 'moment';
 import timezone_mock from 'timezone-mock';
+import { prStatusEnum } from '../../../helper/prStatus';
 
 describe('MeetingDetailsView', () => {
   beforeEach(() => {
@@ -54,10 +55,15 @@ describe('MeetingDetailsView', () => {
         login: 'test.pr.vorgesetzter',
         firstName: 'Volker',
         lastName: 'Vorgesetzter'
-      }
+      },
+      statuses: [prStatusEnum.REQUESTED_DATE, prStatusEnum.FIXED_DATE]
     };
 
-    let wrapper = shallow(<StyledComponent meeting={meeting} pr={pr} />);
+    const userinfo = { userPrincipalName: 'test.pr.mitarbeiter1' };
+
+    let wrapper = shallow(
+      <StyledComponent meeting={meeting} pr={pr} userinfo={userinfo} />
+    );
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -97,8 +103,11 @@ describe('MeetingDetailsView', () => {
         login: 'test.pr.vorgesetzter',
         firstName: 'Volker',
         lastName: 'Vorgesetzter'
-      }
+      },
+      statuses: [prStatusEnum.REQUESTED_DATE, prStatusEnum.FIXED_DATE]
     };
+
+    const userinfo = { userPrincipalName: 'test.pr.mitarbeiter1' };
 
     let startDateAsLocal = moment(meeting.start)
       .local()
@@ -112,7 +121,9 @@ describe('MeetingDetailsView', () => {
       .local()
       .format('HH:mm');
 
-    let wrapper = shallow(<StyledComponent meeting={meeting} pr={pr} />);
+    let wrapper = shallow(
+      <StyledComponent meeting={meeting} pr={pr} userinfo={userinfo} />
+    );
 
     expect(wrapper.find({ primary: startDateAsLocal })).toHaveLength(1);
 

@@ -14,6 +14,9 @@ exports[`SchedulingView should match snapshot 1`] = `
           "login": "test.pr.mitarbeiter1",
         },
         "id": 1,
+        "statuses": Array [
+          "REQUESTED_DATE",
+        ],
         "supervisor": Object {
           "firstName": "Volker",
           "id": 1,

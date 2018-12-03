@@ -16,6 +16,8 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import { translateContent } from '../../translate/Translate';
 import Typography from '@material-ui/core/Typography/Typography';
+import PrStatusActionButton from './PrStatusActionButton';
+import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
 
 const styles = theme => ({
   container: {
@@ -36,6 +38,10 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: '50%'
     }
+  },
+  info: {
+    marginTop: '4%',
+    marginBottom: '4%'
   }
 });
 
@@ -60,23 +66,44 @@ class MeetingDetailsView extends React.Component {
     }));
   };
 
-  findDisplayState = (employee, pr) => {
-    let login = employee.email.replace('@senacor.com', '');
-    if (pr.employee.login === login && employee.status === 'UNKNOWN') {
-      return 'Einladung verschickt';
-    } else {
-      return translateContent(employee.status);
-    }
+  findDisplayState = employee => {
+    return translateContent(employee.status);
   };
 
-  render() {
-    const { classes, meeting, pr } = this.props;
-
+  informationTypography = (classes, visibilityService, click) => {
     return (
-      <div className={classes.meetingView}>
+      <div>
         <Typography gutterBottom variant="h4">
           Termindetails
         </Typography>
+        {visibilityService.getAccept() ? (
+          <Typography variant={'button'} className={classes.info}>
+            Bitte den Termin zeitnah im Kalender bestätigen.
+          </Typography>
+        ) : null}
+        {visibilityService.getJump() ? (
+          <PrStatusActionButton
+            label={'Terminfindung überspringen'}
+            releaseButtonClick={click}
+          />
+        ) : null}
+        {visibilityService.getEvaluationExternal() ? (
+          <Typography variant={'button'} className={classes.info}>
+            Termin wurde außerhalb des Portals vereinbart.
+          </Typography>
+        ) : null}
+        {visibilityService.getHrInfoNotAccepted() ? (
+          <Typography variant={'button'} className={classes.info}>
+            Termin muss noch bestätigt werden.
+          </Typography>
+        ) : null}
+      </div>
+    );
+  };
+
+  meetingInformation = (meeting, state, classes) => {
+    return (
+      <div>
         <List>
           <ListItem id={'date'}>
             <ListItemIcon>
@@ -117,10 +144,10 @@ class MeetingDetailsView extends React.Component {
               <PeopleIcon className={classes.icon} />
             </ListItemIcon>
             <ListItemText primary={'Benötigte Teilnehmer'} />
-            {this.state.openRequiredAttendees ? <ExpandLess /> : <ExpandMore />}
+            {state.openRequiredAttendees ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse
-            in={this.state.openRequiredAttendees}
+            in={state.openRequiredAttendees}
             timeout="auto"
             unmountOnExit
           >
@@ -142,8 +169,7 @@ class MeetingDetailsView extends React.Component {
                       secondary={
                         'Status: ' +
                         this.findDisplayState(
-                          meeting.requiredAttendees[employee],
-                          pr
+                          meeting.requiredAttendees[employee]
                         )
                       }
                     />
@@ -159,14 +185,10 @@ class MeetingDetailsView extends React.Component {
                   <PeopleIcon className={classes.icon} />
                 </ListItemIcon>
                 <ListItemText primary={'Optionale Teilnehmer'} />
-                {this.state.openOptionalAttendees ? (
-                  <ExpandLess />
-                ) : (
-                  <ExpandMore />
-                )}
+                {state.openOptionalAttendees ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
               <Collapse
-                in={this.state.openOptionalAttendees}
+                in={state.openOptionalAttendees}
                 timeout="auto"
                 unmountOnExit
               >
@@ -193,8 +215,7 @@ class MeetingDetailsView extends React.Component {
                           secondary={
                             'Status: ' +
                             this.findDisplayState(
-                              meeting.optionalAttendees[employee],
-                              pr
+                              meeting.optionalAttendees[employee]
                             )
                           }
                         />
@@ -206,6 +227,22 @@ class MeetingDetailsView extends React.Component {
             </React.Fragment>
           )}
         </List>
+      </div>
+    );
+  };
+
+  render() {
+    const { classes, meeting, pr, userroles, userinfo, click } = this.props;
+    let visibilityService = new MeetingDetailVisibilityService();
+    visibilityService.setMeeting(meeting);
+    visibilityService.setPr(pr);
+    visibilityService.setUserinfo(userinfo);
+    visibilityService.setUserroles(userroles);
+
+    return (
+      <div className={classes.meetingView}>
+        {this.informationTypography(classes, visibilityService, click)}
+        {meeting ? this.meetingInformation(meeting, this.state, classes) : null}
       </div>
     );
   }

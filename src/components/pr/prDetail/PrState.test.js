@@ -64,7 +64,7 @@ describe('PrState Component for reviewer', () => {
         },
         [prStatusEnum.REQUESTED_DATE]: {
           isCompleted: true,
-          isCurrentUserActionPerformer: false,
+          isCurrentUserActionPerformer: true,
           label: 'Terminfindung',
           rendering: {
             complete: null,
@@ -77,9 +77,9 @@ describe('PrState Component for reviewer', () => {
           isCurrentUserActionPerformer: true,
           label: null,
           rendering: {
-            complete: 'Alle Teilnehmer haben die Anfrage beantwortet',
+            complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Terminvorschlag verschickt',
-            incompleteForActionPerformer: 'Bitte Terminvorschlag beantworten'
+            incompleteForActionPerformer: 'Terminvorschlag verschickt'
           }
         }
       }
@@ -292,10 +292,10 @@ describe('PrState Component for employee', () => {
         },
         [prStatusEnum.FIXED_DATE]: {
           isCompleted: false,
-          isCurrentUserActionPerformer: false,
+          isCurrentUserActionPerformer: true,
           label: null,
           rendering: {
-            complete: 'Alle Teilnehmer haben die Anfrage beantwortet',
+            complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: null,
             incompleteForActionPerformer: null
           }
