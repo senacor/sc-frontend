@@ -216,6 +216,7 @@ export class PrDelegate extends React.Component {
               <PlotEmployeeSearchList
                 excludeList={excludeList}
                 selectEmployee={this.selectedEmployee}
+                searchValue={employeeSearchValue}
               />
             </List>
           </Popover>

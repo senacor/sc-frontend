@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core';
 import { LoadingEvents } from '../../helper/loadingEvents';
 import { connect } from 'react-redux';
 import withLoadingAction from '../hoc/LoadingWithAction';
+import Highlighter from 'react-highlight-words';
 
 const styles = theme => ({
   avatar: {
@@ -24,7 +25,8 @@ const styles = theme => ({
 });
 export class PlotEmployeeSearchList extends React.Component {
   plotSearchEntry = employee => {
-    const { classes } = this.props;
+    const { classes, searchValue } = this.props;
+    console.log(this.props);
     return (
       <div key={employee.id}>
         <ListItem
@@ -36,7 +38,16 @@ export class PlotEmployeeSearchList extends React.Component {
             {employee.firstName.charAt(0)}
             {employee.lastName.charAt(0)}
           </Avatar>
-          <ListItemText primary={getDisplayName(employee)} />
+          <ListItemText
+            primary={
+              <Highlighter
+                highlightStyle={{ fontWeight: 'bold', background: 'none' }}
+                searchWords={searchValue ? searchValue.split(' ') : []}
+                autoEscape={true}
+                textToHighlight={getDisplayName(employee)}
+              />
+            }
+          />
         </ListItem>
         <Divider />
       </div>
@@ -61,7 +72,8 @@ export class PlotEmployeeSearchList extends React.Component {
 
 PlotEmployeeSearchList.propTypes = {
   excludeList: PropTypes.array,
-  selectEmployee: PropTypes.func
+  selectEmployee: PropTypes.func,
+  searchValue: PropTypes.string
 };
 
 export const StyledComponent = withStyles(styles)(PlotEmployeeSearchList);

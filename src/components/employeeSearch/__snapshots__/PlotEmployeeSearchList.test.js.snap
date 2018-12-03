@@ -16,7 +16,19 @@ Array [
             M
         </WithStyles(Avatar)>
         <WithStyles(ListItemText)
-            primary="Michaela Mitarbeiterin"
+            primary={
+                <Highlighter
+                    autoEscape={true}
+                    highlightStyle={
+                        Object {
+                            "background": "none",
+                            "fontWeight": "bold",
+                          }
+                    }
+                    searchWords={Array []}
+                    textToHighlight="Michaela Mitarbeiterin"
+                />
+            }
         />
     </WithStyles(ListItem)>
     <WithStyles(Divider) />
@@ -35,7 +47,19 @@ Array [
             M
         </WithStyles(Avatar)>
         <WithStyles(ListItemText)
-            primary="Martin Mitarbeiter"
+            primary={
+                <Highlighter
+                    autoEscape={true}
+                    highlightStyle={
+                        Object {
+                            "background": "none",
+                            "fontWeight": "bold",
+                          }
+                    }
+                    searchWords={Array []}
+                    textToHighlight="Martin Mitarbeiter"
+                />
+            }
         />
     </WithStyles(ListItem)>
     <WithStyles(Divider) />
@@ -54,7 +78,19 @@ Array [
             V
         </WithStyles(Avatar)>
         <WithStyles(ListItemText)
-            primary="Manuela Vorgesetzter"
+            primary={
+                <Highlighter
+                    autoEscape={true}
+                    highlightStyle={
+                        Object {
+                            "background": "none",
+                            "fontWeight": "bold",
+                          }
+                    }
+                    searchWords={Array []}
+                    textToHighlight="Manuela Vorgesetzter"
+                />
+            }
         />
     </WithStyles(ListItem)>
     <WithStyles(Divider) />

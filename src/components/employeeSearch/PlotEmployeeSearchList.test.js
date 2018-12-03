@@ -48,17 +48,6 @@ describe('PlotEmployeeSearchList Component', () => {
       />
     );
 
-    expect(
-      component.find(
-        'WithStyles(ListItemText)[primary="Michaela Mitarbeiterin"]'
-      )
-    ).toHaveLength(0);
-    expect(
-      component.find('WithStyles(ListItemText)[primary="Manuela Vorgesetzter"]')
-    ).toHaveLength(1);
-    expect(
-      component.find('WithStyles(ListItemText)[primary="Martin Mitarbeiter"]')
-    ).toHaveLength(1);
     expect(component.find('WithStyles(ListItemText)')).toHaveLength(2);
   });
 });

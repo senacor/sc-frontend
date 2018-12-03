@@ -57,6 +57,7 @@ exports[`PrDelegate Component should match snapshot 1`] = `
             501,
           ]
         }
+        searchValue="Nicht übergeben"
         selectEmployee={[Function]}
       />
     </WithStyles(List)>
