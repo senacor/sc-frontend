@@ -64,8 +64,7 @@ class PrFinalCommentHr extends Component {
     service.setReadOnlyText(finalCommentHr);
     service.setWriteableText(commentText);
 
-    let helperText =
-      'Letzte Anmerkungen und Ergänzungen zum Performance Review.';
+    let helperText = 'Nur sichtbar für HR-Mitarbeiter.';
 
     return (
       <List>

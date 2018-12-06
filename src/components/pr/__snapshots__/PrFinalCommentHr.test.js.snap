@@ -17,7 +17,7 @@ exports[`PrFinalCommentHr Component displays an info text before the employee ha
       >
         <PrTextField
           fieldId="finalCommentHr"
-          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          helperText="Nur sichtbar für HR-Mitarbeiter."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
           state="DISABLED"
@@ -46,7 +46,7 @@ exports[`PrFinalCommentHr Component displays the PrFinalCommentHr 1`] = `
       >
         <PrTextField
           fieldId="finalCommentHr"
-          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          helperText="Nur sichtbar für HR-Mitarbeiter."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
           state="DISABLED"
@@ -75,7 +75,7 @@ exports[`PrFinalCommentHr Component displays the text read-only after HR has fin
       >
         <PrTextField
           fieldId="finalCommentHr"
-          helperText="Letzte Anmerkungen und Ergänzungen zum Performance Review."
+          helperText="Nur sichtbar für HR-Mitarbeiter."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
           state="DISABLED"

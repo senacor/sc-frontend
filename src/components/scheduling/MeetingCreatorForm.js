@@ -34,7 +34,7 @@ const styles = theme => ({
     position: 'relative',
     backgroundColor: theme.palette.primary['400'],
     color: '#FFF',
-    marginBottom: '2%',
+    marginBottom: '1.5%',
     marginLeft: '1.5%'
   },
   hrInfo: {
