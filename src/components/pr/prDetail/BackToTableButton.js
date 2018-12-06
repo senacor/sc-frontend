@@ -1,12 +1,11 @@
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import Icon from '@material-ui/core/Icon/Icon';
-import IconButton from '@material-ui/core/IconButton/IconButton';
 import React from 'react';
 import ROUTES from '../../../helper/routes';
 import { isHr } from '../../../helper/checkRole';
 import { getUserPrincipalName, getUserroles } from '../../../reducers/selector';
 import { connect } from 'react-redux';
+import PrStatusActionButton from './PrStatusActionButton';
 
 export class BackToTableButton extends Component {
   getBackJumpPoint = (pr, userroles, username) => {
@@ -28,13 +27,13 @@ export class BackToTableButton extends Component {
     const { pr, userroles, username } = this.props;
 
     return (
-      <IconButton
-        aria-label="Links"
+      <PrStatusActionButton
+        label={'zurück zur Liste'}
+        inputClass={this.props.classes}
         component={NavLink}
         to={this.getBackJumpPoint(pr, userroles, username)}
-      >
-        <Icon fontSize={'small'}>close</Icon>
-      </IconButton>
+        link
+      />
     );
   }
 }

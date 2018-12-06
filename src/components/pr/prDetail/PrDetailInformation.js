@@ -39,6 +39,13 @@ const styles = theme => ({
   list: {
     margin: '0px',
     padding: '0px'
+  },
+  buttonDesktop: {
+    position: 'relative',
+    backgroundColor: theme.palette.primary['400'],
+    color: '#FFF',
+    marginBottom: '2%',
+    marginTop: '12%'
   }
 });
 
@@ -104,7 +111,7 @@ export class PrDetailInformation extends Component {
               </List>
             </div>
             <div>
-              <BackToTableButton pr={pr} />
+              <BackToTableButton pr={pr} classes={classes.buttonDesktop} />
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>

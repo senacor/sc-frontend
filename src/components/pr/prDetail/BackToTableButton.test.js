@@ -45,7 +45,7 @@ describe('BackToTableButton Component', () => {
       <BackToTableButton pr={pr} username={'mbock'} userroles={['']} />
     );
 
-    expect(component.find('IconButton').props().to).toEqual('/prs');
+    expect(component.find('PrStatusActionButton').props().to).toEqual('/prs');
   });
 
   it('should go back to table "prs" if clicked on close and user is reviewer of pr', () => {
@@ -53,7 +53,7 @@ describe('BackToTableButton Component', () => {
       <BackToTableButton pr={pr} username={'mmitarbeiter'} userroles={['']} />
     );
 
-    expect(component.find('IconButton').props().to).toEqual('/prs');
+    expect(component.find('PrStatusActionButton').props().to).toEqual('/prs');
   });
 
   it('should go back to table "myPrs" if clicked on close and user is employee', () => {
@@ -61,7 +61,7 @@ describe('BackToTableButton Component', () => {
       <BackToTableButton pr={pr} username={'mmitarbeiterin'} userroles={['']} />
     );
 
-    expect(component.find('IconButton').props().to).toEqual(
+    expect(component.find('PrStatusActionButton').props().to).toEqual(
       ROUTES.OWN_PR_TABLE
     );
   });
@@ -74,6 +74,8 @@ describe('BackToTableButton Component', () => {
       />
     );
 
-    expect(component.find('IconButton').props().to).toEqual(ROUTES.HR_PR_TABLE);
+    expect(component.find('PrStatusActionButton').props().to).toEqual(
+      ROUTES.HR_PR_TABLE
+    );
   });
 });

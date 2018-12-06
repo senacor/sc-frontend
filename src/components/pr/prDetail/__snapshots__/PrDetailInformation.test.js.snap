@@ -81,6 +81,7 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
       </div>
       <div>
         <Connect(BackToTableButton)
+          classes="PrDetailInformation-buttonDesktop-6"
           pr={
             Object {
               "competence": "DEVELOPMENT",
