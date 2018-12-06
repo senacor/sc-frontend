@@ -24,7 +24,8 @@ const styles = theme => ({
     alignItems: 'flex-end'
   },
   simpleBlack: {
-    color: '#000000'
+    color: '#000000',
+    marginBottom: '3%'
   }
 });
 

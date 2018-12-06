@@ -7,7 +7,9 @@ import { connect } from 'react-redux';
 
 const styles = {
   root: {
-    width: '90%'
+    width: '90%',
+    marginTop: '6%',
+    marginBottom: '-6%'
   }
 };
 
