@@ -6,6 +6,9 @@ exports[`Dashboard component should match snapshot 1`] = `
 >
   <div
     className="Dashboard-rowContainer-1"
+  />
+  <div
+    className="Dashboard-rowContainer-1"
   >
     <WithStyles(Card)
       className="Dashboard-card-3"
@@ -15,29 +18,12 @@ exports[`Dashboard component should match snapshot 1`] = `
           component="h2"
           variant="h5"
         >
-          5
+          Achtung: Beta-Phase!
         </WithStyles(Typography)>
         <WithStyles(Typography)
           color="textSecondary"
         >
-          offene PRs
-        </WithStyles(Typography)>
-      </WithStyles(CardContent)>
-    </WithStyles(Card)>
-    <WithStyles(Card)
-      className="Dashboard-card-3"
-    >
-      <WithStyles(CardContent)>
-        <WithStyles(Typography)
-          component="h2"
-          variant="h5"
-        >
-          18
-        </WithStyles(Typography)>
-        <WithStyles(Typography)
-          color="textSecondary"
-        >
-          Kollegen im CST
+          Willkommen im Performance-Review-Portal. Dies ist die erste Testphase. Wir haben nach bestem Wissen und Gewissen alle Funktionalitäten getestet. Bitte meldet alle dennoch auftretenden Auffälligkeiten an Tuan-Si.Tran@senacor.com, damit wir uns zeitnah darum kümmern können. Wir wünschen viel Spaß beim Testen!
         </WithStyles(Typography)>
       </WithStyles(CardContent)>
     </WithStyles(Card)>
