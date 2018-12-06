@@ -1,4 +1,5 @@
 import {
+  ADD_PR_STATUS_RESPONSE,
   REQUIRED_FIELDS,
   REVIEWER_INFO_RESPONSE,
   SET_PR_TAB
@@ -13,6 +14,8 @@ export const prTabs = (state = prTabEnum.DETAIL_VIEW, action) => {
     case REVIEWER_INFO_RESPONSE:
       return prTabEnum.DETAIL_VIEW;
     case REQUIRED_FIELDS:
+      return prTabEnum.DETAIL_VIEW;
+    case ADD_PR_STATUS_RESPONSE:
       return prTabEnum.DETAIL_VIEW;
     default:
       return state;

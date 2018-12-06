@@ -54,7 +54,6 @@ class PrState extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.checkRequired({ employee: true, reviewer: true });
   }
 
   mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
@@ -262,17 +261,17 @@ class PrState extends React.Component {
       status
     );
 
-    this.props.checkRequired(fieldFilled);
-
     if (
       prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
       false === fieldFilled.employee
     ) {
+      this.props.checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
+      this.props.checkRequired(fieldFilled);
       return true;
     } else {
       return false;

@@ -762,7 +762,6 @@ describe('functions that check required fields', () => {
         employeeContributionLeader={null}
       />
     );
-    expect(checkRequiredMock.mock.calls.length).toBe(1);
 
     expect(
       componentEmployee
@@ -771,15 +770,16 @@ describe('functions that check required fields', () => {
     ).toBe(true);
 
     expect(addPrStatusMock.mock.calls.length).toBe(0);
-    expect(checkRequiredMock.mock.calls.length).toBe(2);
+    expect(checkRequiredMock.mock.calls.length).toBe(1);
   });
 
   it('should call requiredFieldsEmpty for employee with filled fields', () => {
     const checkMock = jest.fn();
+
     const componentEmployee = shallow(
       <StyledComponent
         prById={prById}
-        addPrStatus={jest.fn()}
+        addPrStatus={addPrStatusMock}
         checkRequired={checkMock}
         userinfo={{
           userPrincipalName: 'test.pr.mitarbeiter1'
@@ -788,7 +788,6 @@ describe('functions that check required fields', () => {
         employeeContributionLeader={leader}
       />
     );
-    expect(checkMock.mock.calls.length).toBe(1);
 
     expect(
       componentEmployee
@@ -796,7 +795,7 @@ describe('functions that check required fields', () => {
         .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_EMPLOYEE)
     ).toBe(false);
 
-    expect(checkMock.mock.calls.length).toBe(2);
+    expect(checkMock.mock.calls.length).toBe(0);
   });
 
   it('should call requiredFieldsEmpty for reviewer with empty fields', () => {
@@ -813,7 +812,6 @@ describe('functions that check required fields', () => {
         overallComment={null}
       />
     );
-    expect(checkMock.mock.calls.length).toBe(1);
 
     expect(
       componentReviewer
@@ -821,7 +819,7 @@ describe('functions that check required fields', () => {
         .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_REVIEWER)
     ).toBe(true);
 
-    expect(checkMock.mock.calls.length).toBe(2);
+    expect(checkMock.mock.calls.length).toBe(1);
   });
 
   it('should call requiredFieldsEmpty for reviewer with filled fields', () => {
@@ -838,7 +836,6 @@ describe('functions that check required fields', () => {
         overallComment={comment}
       />
     );
-    expect(checkMock.mock.calls.length).toBe(1);
 
     expect(
       componentReviewer
@@ -846,6 +843,6 @@ describe('functions that check required fields', () => {
         .requiredFieldsEmpty(prStatusEnum.RELEASED_SHEET_REVIEWER)
     ).toBe(false);
 
-    expect(checkMock.mock.calls.length).toBe(2);
+    expect(checkMock.mock.calls.length).toBe(0);
   });
 });
