@@ -132,18 +132,14 @@ class MeetingCreatorForm extends React.Component {
             Termin muss noch vereinbart werden.
           </Typography>
         ) : null}
-        {visibilityService.getReadOnly() ? (
-          <Typography className={classes.hrInfo}>
-            Zur besseren Übersicht sind unten die verfügbaren Termine der
-            Teilnehmer angezeigt.
-          </Typography>
+        {visibilityService.getAction() ? (
+          <DateTimePicker
+            date={this.state.date}
+            startTime={this.state.startTime}
+            endTime={this.state.endTime}
+            onDateTimeChange={this.setDateTime}
+          />
         ) : null}
-        <DateTimePicker
-          date={this.state.date}
-          startTime={this.state.startTime}
-          endTime={this.state.endTime}
-          onDateTimeChange={this.setDateTime}
-        />
         {visibilityService.getAction() ? (
           <form className={classes.container} noValidate autoComplete="off">
             <TextField

@@ -106,13 +106,6 @@ describe('MeetingDetailVisibilityService', () => {
     expect(service.getReadOnly()).toBeTruthy();
   });
 
-  it('should not be possible to request a meeting if it does not exist, but the user is HrMember', () => {
-    let service = new MeetingDetailVisibilityService();
-    service.setUserroles(userroleHr);
-
-    expect(service.getReadOnly()).toBeTruthy();
-  });
-
   it('should be possible to request a meeting if it is not yet requested and the user is logged in as actionPerformer of PR', () => {
     let pr = {
       employee: { login: 'test.pr.mitarbeiter1' },

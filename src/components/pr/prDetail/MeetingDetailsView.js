@@ -242,7 +242,9 @@ class MeetingDetailsView extends React.Component {
     return (
       <div className={classes.meetingView}>
         {this.informationTypography(classes, visibilityService, click)}
-        {meeting ? this.meetingInformation(meeting, this.state, classes) : null}
+        {meeting && !visibilityService.getEvaluationExternal()
+          ? this.meetingInformation(meeting, this.state, classes)
+          : null}
       </div>
     );
   }

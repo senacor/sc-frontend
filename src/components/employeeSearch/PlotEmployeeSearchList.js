@@ -26,7 +26,6 @@ const styles = theme => ({
 export class PlotEmployeeSearchList extends React.Component {
   plotSearchEntry = employee => {
     const { classes, searchValue } = this.props;
-    console.log(this.props);
     return (
       <div key={employee.id}>
         <ListItem

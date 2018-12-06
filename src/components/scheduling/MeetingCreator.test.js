@@ -42,10 +42,11 @@ describe('MeetingCreatorForm', () => {
   it('should match snapshot', () => {
     let component = shallow(
       <MeetingCreator
-        prDetail={pr}
+        pr={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
         userinfo={userinfo}
+        meeting={null}
       />
     );
 
@@ -55,7 +56,7 @@ describe('MeetingCreatorForm', () => {
   it('should display the subcomponent MeetingCreatorForm ', () => {
     let component = shallow(
       <MeetingCreator
-        prDetail={pr}
+        pr={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
         userinfo={userinfo}
@@ -70,7 +71,7 @@ describe('MeetingCreatorForm', () => {
   it('changes the visibility/PersonToggle of the attendee if onVisibilityChange is called.', () => {
     let component = shallow(
       <MeetingCreator
-        prDetail={pr}
+        pr={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
         userinfo={userinfo}
@@ -89,7 +90,7 @@ describe('MeetingCreatorForm', () => {
 
     shallow(
       <MeetingCreator
-        prDetail={pr}
+        pr={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
         selectedDate={selectedDate}
@@ -111,7 +112,7 @@ describe('MeetingCreatorForm', () => {
   it('takes the employee and supervisor from the PR and saves it to its state', () => {
     let component = shallow(
       <MeetingCreator
-        prDetail={pr}
+        pr={pr}
         appointmentsSearchResults={appointmentsSearchResults}
         appointmentsSearch={appointmentsSearchMock}
         userinfo={userinfo}

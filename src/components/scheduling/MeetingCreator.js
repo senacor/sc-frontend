@@ -11,11 +11,13 @@ import {
   getAppointments,
   getPrDetail,
   getSelectedDate,
-  getUserinfo
+  getUserinfo,
+  getUserroles
 } from '../../reducers/selector';
 import * as actions from '../../actions';
 import ObjectGet from 'object-get';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 
 export class MeetingCreator extends Component {
   constructor(props) {
@@ -28,16 +30,13 @@ export class MeetingCreator extends Component {
   }
 
   componentDidMount() {
-    this.setEmployeeSupervisorReviewerData(
-      this.props.prDetail,
-      this.props.userinfo
-    );
+    this.setEmployeeSupervisorReviewerData(this.props.pr, this.props.userinfo);
     this.fetchAppointments(this.props.selectedDate);
   }
 
   setStateforRole = (pr, role, userinfo) => {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-    let roleDescription;
+    let roleDescription = '';
     if (hasRoleInPr([role])) {
       roleDescription = 'Ich';
     } else {
@@ -91,7 +90,7 @@ export class MeetingCreator extends Component {
   };
 
   fetchAppointments = date => {
-    let pr = this.props.prDetail;
+    let pr = this.props.pr;
     let attendees = [pr.employee.login, pr.supervisor.login];
     this.hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
       attendees.push(pr.reviewer.login);
@@ -108,6 +107,11 @@ export class MeetingCreator extends Component {
   };
 
   render() {
+    let { pr, userinfo, userroles } = this.props;
+    let visibilityService = new meetingDetailVisibilityService();
+    visibilityService.setPr(pr);
+    visibilityService.setUserinfo(userinfo);
+    visibilityService.setUserroles(userroles);
     const allAppointments = this.props.appointmentsSearchResults;
     return (
       <React.Fragment>
@@ -117,53 +121,57 @@ export class MeetingCreator extends Component {
         <Grid id={'tableRolePick'} container spacing={24} direction="column">
           <Grid item>
             <MeetingCreatorForm
-              prById={this.props.prDetail}
+              prById={pr}
               fetchAppointments={this.fetchAppointments}
             />
           </Grid>
-          <Grid item>
-            <Grid container direction="column">
-              {Object.getOwnPropertyNames(this.state)
-                .filter(key => this.state[key] && this.state[key].id)
-                .map(attendee => {
-                  return (
-                    <Grid item key={attendee}>
-                      <PersonToggle
-                        displayName={`${this.state[attendee].name}`}
-                        displayRole={`${this.state[attendee].role}`}
-                        onChange={this.onVisibilityChange(attendee)}
-                        showAttendee={this.state[attendee].show}
-                        attendee={attendee}
-                      />
-                    </Grid>
-                  );
-                })}
+          {visibilityService.getAction() ? (
+            <Grid item>
+              <Grid container direction="column">
+                {Object.getOwnPropertyNames(this.state)
+                  .filter(key => this.state[key] && this.state[key].id)
+                  .map(attendee => {
+                    return (
+                      <Grid item key={attendee}>
+                        <PersonToggle
+                          displayName={`${this.state[attendee].name}`}
+                          displayRole={`${this.state[attendee].role}`}
+                          onChange={this.onVisibilityChange(attendee)}
+                          showAttendee={this.state[attendee].show}
+                          attendee={attendee}
+                        />
+                      </Grid>
+                    );
+                  })}
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <TimeTable>
-              {Object.getOwnPropertyNames(this.state)
-                .filter(
-                  key =>
-                    this.state[key] &&
-                    this.state[key].id &&
-                    allAppointments[this.state[key].id]
-                )
-                .map((attendee, index, keyArray) => (
-                  <Attendee
-                    key={attendee}
-                    show={this.state[attendee].show}
-                    appointments={extractAppointments(
-                      allAppointments[this.state[attendee].id].appointments
-                    )}
-                    selectedDate={this.props.selectedDate}
-                    distanceFromLeft={(100 * index) / keyArray.length + 10}
-                    name={this.state[attendee].name}
-                    attendee={attendee}
-                  />
-                ))}
-            </TimeTable>
-          </Grid>
+          ) : null}
+          {visibilityService.getAction() ? (
+            <Grid item>
+              <TimeTable>
+                {Object.getOwnPropertyNames(this.state)
+                  .filter(
+                    key =>
+                      this.state[key] &&
+                      this.state[key].id &&
+                      allAppointments[this.state[key].id]
+                  )
+                  .map((attendee, index, keyArray) => (
+                    <Attendee
+                      key={attendee}
+                      show={this.state[attendee].show}
+                      appointments={extractAppointments(
+                        allAppointments[this.state[attendee].id].appointments
+                      )}
+                      selectedDate={this.props.selectedDate}
+                      distanceFromLeft={(100 * index) / keyArray.length + 10}
+                      name={this.state[attendee].name}
+                      attendee={attendee}
+                    />
+                  ))}
+              </TimeTable>
+            </Grid>
+          ) : null}
         </Grid>
       </React.Fragment>
     );
@@ -175,7 +183,8 @@ export default connect(
     appointmentsSearchResults: getAppointments(state),
     selectedDate: getSelectedDate(state),
     userinfo: getUserinfo(state),
-    pr: getPrDetail()(state)
+    pr: getPrDetail()(state),
+    userroles: getUserroles(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch

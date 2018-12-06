@@ -70,9 +70,6 @@ class MeetingDetailVisibilityService {
     let isHrMember = isHr(userroles);
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let canMakeAction = hasRoleInPr(['supervisor', 'reviewer', 'employee']);
-    let bothFilledInFirstStep =
-      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_REVIEWER) &&
-      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_EMPLOYEE);
     let meetingStateOfSelf = meeting
       ? this.findMeetingStateOfSelf(userinfo, meeting)
       : ['UNKNOWN'];
@@ -89,7 +86,7 @@ class MeetingDetailVisibilityService {
     ) {
       evaluation.pleaseAccept = true;
     }
-    if (bothFilledInFirstStep && !findMeetingFinished && canMakeAction) {
+    if (!findMeetingFinished && canMakeAction) {
       evaluation.jump = true;
     }
     if (meetingRequestSent && !findMeetingFinished && isHrMember) {
@@ -101,7 +98,7 @@ class MeetingDetailVisibilityService {
     if (findMeetingFinished && notAllRequiredAttendeesHaveAccepted) {
       evaluation.evaluationExternal = true;
     }
-    if (!meeting && (isHrMember || findMeetingFinished)) {
+    if (!meeting && findMeetingFinished) {
       evaluation.readOnly = true;
     }
     if (!meetingRequestSent && canMakeAction) {
