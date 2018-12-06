@@ -53,7 +53,7 @@ class PrRatingPoints extends Component {
                 <MenuItem
                   key={category + '_RatingValue' + ratingValue}
                   id={category + '_RatingValue' + ratingValue}
-                  value={ratingValue}
+                  value={this.ratingValue(ratingValue)}
                 >
                   {this.ratingValue(ratingValue)}
                 </MenuItem>

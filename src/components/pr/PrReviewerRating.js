@@ -70,15 +70,17 @@ class PrReviewerRating extends React.Component {
   }
 
   handleChangeRating = (prById, category) => event => {
+    let chooseInDropdown =
+      event.target.value !== '-' ? event.target.value : null;
     this.setState({ [event.target.name]: event.target.value });
 
-    this.props.prRating.rating = event.target.value;
+    this.props.prRating.rating = chooseInDropdown;
 
     this.props.addRating(
       prById,
       category,
       this.props.prRating.comment,
-      event.target.value,
+      chooseInDropdown,
       this.props.prRating.id
     );
   };
