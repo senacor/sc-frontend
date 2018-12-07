@@ -9,9 +9,10 @@ import {
 } from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
 import HR_ELEMENTS from '../components/humanResources/hrElements';
+import { dateStringFormat } from '../helper/date';
 
-const hr_initDateFrom = new Date().getFullYear() + '-01-01';
-const hr_initDateTo = new Date().getFullYear() + '-12-31';
+const hr_initDateFrom = dateStringFormat(-6);
+const hr_initDateTo = dateStringFormat(6);
 const hr_initDate = {
   [HR_ELEMENTS.DEADLINE]: {
     searchString: `${HR_ELEMENTS.DEADLINE}From=${hr_initDateFrom}&${

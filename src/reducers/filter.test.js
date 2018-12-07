@@ -7,14 +7,15 @@ import {
 } from '../helper/dispatchTypes';
 import FILTER_GROUPS from '../components/humanResources/filterGroups';
 import HR_ELEMENTS from '../components/humanResources/hrElements';
+import { dateStringFormat } from '../helper/date';
 
 describe('filter reducer', () => {
   it('should have default value actual Year for deadline if store is empty', async () => {
     let stateBefore;
 
     let data = {};
-    const hr_initDateFrom = new Date().getFullYear() + '-01-01';
-    const hr_initDateTo = new Date().getFullYear() + '-12-31';
+    const hr_initDateFrom = dateStringFormat(-6);
+    const hr_initDateTo = dateStringFormat(6);
 
     const action = {
       type: ADD_FILTER,
@@ -27,8 +28,8 @@ describe('filter reducer', () => {
         deadline: {
           searchString: `deadlineFrom=${hr_initDateFrom}&deadlineTo=${hr_initDateTo}`,
           values: {
-            From: '2018-01-01',
-            To: '2018-12-31'
+            From: hr_initDateFrom,
+            To: hr_initDateTo
           }
         }
       }
@@ -201,16 +202,16 @@ describe('filter reducer', () => {
       payload: { filterGroup: FILTER_GROUPS.HR }
     };
     const stateAfter = filter(stateBefore, action);
-    const hr_initDateFrom = new Date().getFullYear() + '-01-01';
-    const hr_initDateTo = new Date().getFullYear() + '-12-31';
+    const hr_initDateFrom = dateStringFormat(-6);
+    const hr_initDateTo = dateStringFormat(6);
 
     expect(stateAfter).toEqual({
       hr: {
         deadline: {
           searchString: `deadlineFrom=${hr_initDateFrom}&deadlineTo=${hr_initDateTo}`,
           values: {
-            From: '2018-01-01',
-            To: '2018-12-31'
+            From: hr_initDateFrom,
+            To: hr_initDateTo
           }
         }
       },

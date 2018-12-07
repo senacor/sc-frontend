@@ -27,3 +27,9 @@ export const formatDateTimeForFrontend = input => {
 export const dateString = () => {
   return moment().format('YYYY-MM-DD');
 };
+
+export const dateStringFormat = offset => {
+  return moment()
+    .add(offset, 'months')
+    .format('YYYY-MM-DD');
+};
