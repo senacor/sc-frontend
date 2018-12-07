@@ -22,7 +22,7 @@ export class PrOverviewEmployee extends React.Component {
     );
 
     return [
-      prTableService.employee(),
+      prTableService.employee(false),
       prTableService.deadline(),
       prTableService.occasion(),
       prTableService.projectCst(),
