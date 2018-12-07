@@ -77,7 +77,7 @@ class MeetingDetailsView extends React.Component {
           Termindetails
         </Typography>
         {visibilityService.getAccept() ? (
-          <Typography variant={'button'} className={classes.info}>
+          <Typography variant={'body2'} className={classes.info}>
             Bitte den Termin zeitnah im Kalender bestätigen.
           </Typography>
         ) : null}
@@ -88,12 +88,12 @@ class MeetingDetailsView extends React.Component {
           />
         ) : null}
         {visibilityService.getEvaluationExternal() ? (
-          <Typography variant={'button'} className={classes.info}>
+          <Typography variant={'body2'} className={classes.info}>
             Termin wurde außerhalb des Portals vereinbart.
           </Typography>
         ) : null}
         {visibilityService.getHrInfoNotAccepted() ? (
-          <Typography variant={'button'} className={classes.info}>
+          <Typography variant={'body2'} className={classes.info}>
             Termin muss noch bestätigt werden.
           </Typography>
         ) : null}

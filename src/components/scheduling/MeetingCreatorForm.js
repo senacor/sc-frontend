@@ -123,12 +123,12 @@ class MeetingCreatorForm extends React.Component {
           />
         ) : null}
         {visibilityService.getEvaluationExternal() ? (
-          <Typography variant={'button'} className={classes.hrInfo}>
+          <Typography variant={'body2'} className={classes.hrInfo}>
             Termin wurde außerhalb des Portals vereinbart.
           </Typography>
         ) : null}
         {visibilityService.getHrInfoNotSent() ? (
-          <Typography variant={'button'} className={classes.hrInfo}>
+          <Typography variant={'body2'} className={classes.hrInfo}>
             Termin muss noch vereinbart werden.
           </Typography>
         ) : null}
