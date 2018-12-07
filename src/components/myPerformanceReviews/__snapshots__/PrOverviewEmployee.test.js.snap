@@ -7,12 +7,6 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
     columnDefinition={
       Array [
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
-            filterBy="employee"
-            filterGroup="EMPLOYEE"
-      >
-            <Connect(EmployeeFilter) />
-      </Connect(WithStyles(PopperSearchMenu))>,
           "label": "Mitarbeiter",
           "numeric": false,
           "render": [Function],

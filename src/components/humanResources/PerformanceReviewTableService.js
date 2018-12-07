@@ -17,8 +17,8 @@ export default class PerformanceReviewTableService {
     this.filterGroup = filterGroup;
     this.filterPossibilities = filterPossibilities;
   }
-  employee() {
-    return {
+  employee(withFilter = true) {
+    let columnDefinition = {
       numeric: false,
       label: 'Mitarbeiter',
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
@@ -28,16 +28,24 @@ export default class PerformanceReviewTableService {
             {getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE])}
           </Link>
         );
-      },
-      filter: (
-        <PopperSearchMenu
-          filterGroup={this.filterGroup}
-          filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE}
-        >
-          <EmployeeFilter />
-        </PopperSearchMenu>
-      )
+      }
     };
+    let returnValue;
+    if (withFilter) {
+      returnValue = Object.assign({}, columnDefinition, {
+        filter: (
+          <PopperSearchMenu
+            filterGroup={this.filterGroup}
+            filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE}
+          >
+            <EmployeeFilter />
+          </PopperSearchMenu>
+        )
+      });
+    } else {
+      returnValue = columnDefinition;
+    }
+    return returnValue;
   }
 
   supervisor() {
