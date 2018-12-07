@@ -24,9 +24,15 @@ export const userinfo = (state = {}, action) => {
       let numberOfPrsToReview = action.payload.reviewerInfo.numberOfPrsToReview;
       let numberOfPrsToSupervise =
         action.payload.reviewerInfo.numberOfPrsToSupervise;
+      let prsNotFilledByReviewer =
+        action.payload.reviewerInfo.prsNotFilledByReviewer;
+      let prsNotFilledByEmployee =
+        action.payload.reviewerInfo.prsNotFilledByEmployee;
       return Object.assign({}, userinfostate, {
         numberOfPrsToReview: numberOfPrsToReview,
-        numberOfPrsToSupervise: numberOfPrsToSupervise
+        numberOfPrsToSupervise: numberOfPrsToSupervise,
+        prsNotFilledByReviewer: prsNotFilledByReviewer,
+        prsNotFilledByEmployee: prsNotFilledByEmployee
       });
     default:
       return state;

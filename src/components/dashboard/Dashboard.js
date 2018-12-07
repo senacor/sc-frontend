@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getUserinfo, getUserroles } from '../../reducers/selector';
 import * as actions from '../../actions';
 import { NavLink } from 'react-router-dom';
-import { isEmployee } from '../../helper/checkRole';
+import { isEmployee, isSupervisor } from '../../helper/checkRole';
 
 let styles = {
   rowContainer: {
@@ -31,9 +31,12 @@ let styles = {
 
 class Dashboard extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, userroles } = this.props;
     let numberOfPrsToReview = this.props.userinfo
       ? this.props.userinfo.numberOfPrsToReview
+      : 0;
+    let numberOfPrsToSupervise = this.props.userinfo
+      ? this.props.userinfo.numberOfPrsToSupervise
       : 0;
     let filterPrsToReview = {
       searchString: 'reviewerPreparationDone=false',
@@ -53,11 +56,17 @@ class Dashboard extends Component {
       filterBy: 'employeePreparationDone',
       filter: filterOwnPrs
     };
+    let prsNotFilledByReviewer = this.props.userinfo
+      ? this.props.userinfo.prsNotFilledByReviewer
+      : 0;
+    let prsNotFilledByEmployee = this.props.userinfo
+      ? this.props.userinfo.prsNotFilledByEmployee
+      : 0;
 
     return this.props.userinfo ? (
       <div className={classes.columnContainer}>
         <div className={classes.rowContainer}>
-          {numberOfPrsToReview > 0 ? (
+          {numberOfPrsToReview > 0 && isEmployee(userroles) ? (
             <Card
               className={classes.card}
               component={NavLink}
@@ -69,13 +78,31 @@ class Dashboard extends Component {
                   {numberOfPrsToReview}
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
-                  PRs im Review (inkl. Archiv)
+                  PRs mit mir als Bewerter insgesamt (inkl. Archiv)
                 </Typography>
               </CardContent>
             </Card>
           ) : null}
 
-          {numberOfPrsToReview > 0 ? (
+          {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
+            <Card
+              className={classes.card}
+              component={NavLink}
+              to={'/prs'}
+              style={{ textDecoration: 'none' }}
+            >
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {numberOfPrsToSupervise}
+                </Typography>
+                <Typography className={classes.title} color="textSecondary">
+                  PRs mit mir als Vorgesetzter insgesamt (inkl. Archiv)
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : null}
+
+          {prsNotFilledByReviewer > 0 && isEmployee(userroles) ? (
             <Card
               className={classes.card}
               component={NavLink}
@@ -85,16 +112,35 @@ class Dashboard extends Component {
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
-                  Shortlink:
+                  {prsNotFilledByReviewer}
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
-                  unbearbeitete PRs im Review
+                  Unbearbeitete PRs mit mir als Bewerter
                 </Typography>
               </CardContent>
             </Card>
           ) : null}
 
-          {isEmployee(this.props.userroles) ? (
+          {prsNotFilledByReviewer > 0 && isSupervisor(userroles) ? (
+            <Card
+              className={classes.card}
+              component={NavLink}
+              to={'/prs'}
+              style={{ textDecoration: 'none' }}
+              onClick={() => this.props.addFilter(payloadPrsToReviewFilter)}
+            >
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {prsNotFilledByReviewer}
+                </Typography>
+                <Typography className={classes.title} color="textSecondary">
+                  Unbearbeitete PRs mit mir als Bewerter oder Vorgesetzter
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : null}
+
+          {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
             <Card
               className={classes.card}
               component={NavLink}
@@ -104,10 +150,10 @@ class Dashboard extends Component {
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
-                  Shortlink:
+                  {prsNotFilledByEmployee}
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
-                  unbearbeitete eigene PRs
+                  Unbearbeitete eigene PRs
                 </Typography>
               </CardContent>
             </Card>
