@@ -21,6 +21,7 @@ export const userinfo = (state = {}, action) => {
       return Object.assign({}, userinfostateForFetch, fetchedUserinfo);
     case REVIEWER_INFO_RESPONSE:
       const userinfostate = cloneDeep(state);
+      let userId = action.payload.reviewerInfo.userId;
       let numberOfPrsToReview = action.payload.reviewerInfo.numberOfPrsToReview;
       let numberOfPrsToSupervise =
         action.payload.reviewerInfo.numberOfPrsToSupervise;
@@ -29,6 +30,7 @@ export const userinfo = (state = {}, action) => {
       let prsNotFilledByEmployee =
         action.payload.reviewerInfo.prsNotFilledByEmployee;
       return Object.assign({}, userinfostate, {
+        userId: userId,
         numberOfPrsToReview: numberOfPrsToReview,
         numberOfPrsToSupervise: numberOfPrsToSupervise,
         prsNotFilledByReviewer: prsNotFilledByReviewer,

@@ -38,8 +38,9 @@ class Dashboard extends Component {
     let numberOfPrsToSupervise = this.props.userinfo
       ? this.props.userinfo.numberOfPrsToSupervise
       : 0;
+    let userId = this.props.userinfo.userId;
     let filterPrsToReview = {
-      searchString: 'reviewerPreparationDone=false',
+      searchString: 'reviewerPreparationDone=false&reviewer=' + userId,
       values: ['nein']
     };
     let payloadPrsToReviewFilter = {
@@ -102,7 +103,7 @@ class Dashboard extends Component {
             </Card>
           ) : null}
 
-          {prsNotFilledByReviewer > 0 && isEmployee(userroles) ? (
+          {prsNotFilledByReviewer > 0 ? (
             <Card
               className={classes.card}
               component={NavLink}
@@ -116,25 +117,6 @@ class Dashboard extends Component {
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
                   Unbearbeitete PRs mit mir als Bewerter
-                </Typography>
-              </CardContent>
-            </Card>
-          ) : null}
-
-          {prsNotFilledByReviewer > 0 && isSupervisor(userroles) ? (
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={'/prs'}
-              style={{ textDecoration: 'none' }}
-              onClick={() => this.props.addFilter(payloadPrsToReviewFilter)}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {prsNotFilledByReviewer}
-                </Typography>
-                <Typography className={classes.title} color="textSecondary">
-                  Unbearbeitete PRs mit mir als Bewerter oder Vorgesetzter
                 </Typography>
               </CardContent>
             </Card>
