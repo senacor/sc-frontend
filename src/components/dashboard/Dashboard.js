@@ -152,9 +152,12 @@ class Dashboard extends Component {
                 Willkommen im Performance-Review-Portal. Dies ist die erste
                 Testphase. Wir haben nach bestem Wissen und Gewissen alle
                 Funktionalitäten getestet. Bitte meldet alle dennoch
-                auftretenden Auffälligkeiten an Tuan-Si.Tran@senacor.com, damit
-                wir uns zeitnah darum kümmern können. Wir wünschen viel Spaß
-                beim Testen!
+                auftretenden Auffälligkeiten an{' '}
+                <a href="mailto:Tuan-Si.Tran@senacor.com">
+                  Si (Tuan-Si.Tran@senacor.com)
+                </a>
+                , damit wir uns zeitnah darum kümmern können. Wir wünschen viel
+                Spaß beim Testen!
               </Typography>
             </CardContent>
           </Card>
