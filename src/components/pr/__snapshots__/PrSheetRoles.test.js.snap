@@ -16,7 +16,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -142,13 +142,32 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -301,7 +320,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -410,7 +429,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -519,7 +538,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -583,7 +602,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -648,7 +667,9 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -704,7 +725,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -731,13 +752,32 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -890,7 +930,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -999,7 +1039,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -1108,7 +1148,7 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -1204,7 +1244,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -1320,13 +1360,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -1464,7 +1523,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -1563,7 +1622,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -1662,7 +1721,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -1721,7 +1780,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -1781,7 +1840,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -1832,7 +1893,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -1859,13 +1920,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -2003,7 +2083,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -2102,7 +2182,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -2201,7 +2281,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -2261,7 +2341,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div>
+            <div
+              className="PrSheet-containerListItem-2"
+            >
               <Connect(WithStyles(PrFinalCommentHr))
                 isActionPerformer={true}
                 open={false}
@@ -2330,7 +2412,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div>
+        <div
+          className="PrSheet-containerListItem-2"
+        >
           <Connect(WithStyles(PrFinalCommentHr))
             isActionPerformer={true}
             open={false}
@@ -2397,7 +2481,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -2525,13 +2609,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -2687,7 +2790,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -2798,7 +2901,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -2909,7 +3012,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -2974,7 +3077,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -3040,7 +3143,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -3097,7 +3202,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -3124,13 +3229,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -3286,7 +3410,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -3397,7 +3521,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -3508,7 +3632,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -3574,7 +3698,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div>
+            <div
+              className="PrSheet-containerListItem-2"
+            >
               <Connect(WithStyles(PrFinalCommentHr))
                 isActionPerformer={true}
                 open={true}
@@ -3649,7 +3775,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div>
+        <div
+          className="PrSheet-containerListItem-2"
+        >
           <Connect(WithStyles(PrFinalCommentHr))
             isActionPerformer={true}
             open={true}
@@ -3722,7 +3850,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -3848,13 +3976,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -4007,7 +4154,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -4116,7 +4263,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -4225,7 +4372,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -4289,7 +4436,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -4354,7 +4501,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -4410,7 +4559,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -4437,13 +4586,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -4596,7 +4764,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -4705,7 +4873,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -4814,7 +4982,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -4879,7 +5047,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div>
+            <div
+              className="PrSheet-containerListItem-2"
+            >
               <Connect(WithStyles(PrFinalCommentHr))
                 isActionPerformer={true}
                 open={false}
@@ -4953,7 +5123,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div>
+        <div
+          className="PrSheet-containerListItem-2"
+        >
           <Connect(WithStyles(PrFinalCommentHr))
             isActionPerformer={true}
             open={false}
@@ -5025,7 +5197,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -5147,13 +5319,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -5300,7 +5491,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -5405,7 +5596,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -5510,7 +5701,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -5572,7 +5763,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -5635,7 +5826,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -5689,7 +5882,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -5716,13 +5909,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -5869,7 +6081,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -5974,7 +6186,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -6079,7 +6291,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -6142,7 +6354,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div>
+            <div
+              className="PrSheet-containerListItem-2"
+            >
               <Connect(WithStyles(PrFinalCommentHr))
                 isActionPerformer={true}
                 open={false}
@@ -6214,7 +6428,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div>
+        <div
+          className="PrSheet-containerListItem-2"
+        >
           <Connect(WithStyles(PrFinalCommentHr))
             isActionPerformer={true}
             open={false}
@@ -6284,7 +6500,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -6408,13 +6624,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -6564,7 +6799,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -6671,7 +6906,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -6778,7 +7013,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -6841,7 +7076,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -6905,7 +7140,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -6960,7 +7197,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -6987,13 +7224,32 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -7143,7 +7399,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -7250,7 +7506,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -7357,7 +7613,7 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -7421,7 +7677,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div>
+            <div
+              className="PrSheet-containerListItem-2"
+            >
               <Connect(WithStyles(PrFinalCommentHr))
                 isActionPerformer={true}
                 open={false}
@@ -7494,7 +7752,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div>
+        <div
+          className="PrSheet-containerListItem-2"
+        >
           <Connect(WithStyles(PrFinalCommentHr))
             isActionPerformer={true}
             open={false}
@@ -7565,7 +7825,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -7681,13 +7941,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -7825,7 +8104,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -7924,7 +8203,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -8023,7 +8302,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -8082,7 +8361,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -8142,7 +8421,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -8193,7 +8474,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -8220,13 +8501,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -8364,7 +8664,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -8463,7 +8763,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -8562,7 +8862,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -8653,7 +8953,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -8773,13 +9073,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -8923,7 +9242,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -9026,7 +9345,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -9129,7 +9448,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -9190,7 +9509,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -9252,7 +9571,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -9305,7 +9626,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -9332,13 +9653,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -9482,7 +9822,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -9585,7 +9925,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -9688,7 +10028,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -9781,7 +10121,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -9903,13 +10243,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -10056,7 +10415,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -10161,7 +10520,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -10266,7 +10625,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -10328,7 +10687,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -10391,7 +10750,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -10445,7 +10806,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -10472,13 +10833,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -10625,7 +11005,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -10730,7 +11110,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -10835,7 +11215,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -10929,7 +11309,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -11053,13 +11433,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -11209,7 +11608,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -11316,7 +11715,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -11423,7 +11822,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -11486,7 +11885,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -11550,7 +11949,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -11605,7 +12006,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -11632,13 +12033,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -11788,7 +12208,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -11895,7 +12315,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -12002,7 +12422,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -12097,7 +12517,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -12225,13 +12645,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -12387,7 +12826,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -12498,7 +12937,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -12609,7 +13048,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -12674,7 +13113,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -12740,7 +13179,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -12797,7 +13238,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -12824,13 +13265,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -12986,7 +13446,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -13097,7 +13557,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -13208,7 +13668,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -13305,7 +13765,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -13431,13 +13891,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -13590,7 +14069,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -13699,7 +14178,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -13808,7 +14287,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -13872,7 +14351,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -13937,7 +14416,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -13993,7 +14474,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -14020,13 +14501,32 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -14179,7 +14679,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -14288,7 +14788,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -14397,7 +14897,7 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -14493,7 +14993,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -14621,13 +15121,32 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -14783,7 +15302,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -14894,7 +15413,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -15005,7 +15524,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -15070,7 +15589,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -15136,7 +15655,9 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -15193,7 +15714,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -15220,13 +15741,32 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -15382,7 +15922,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -15493,7 +16033,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -15604,7 +16144,7 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -15701,7 +16241,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -15817,13 +16357,32 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -15961,7 +16520,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -16060,7 +16619,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -16159,7 +16718,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -16218,7 +16777,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -16278,7 +16837,9 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -16329,7 +16890,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -16356,13 +16917,32 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -16500,7 +17080,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -16599,7 +17179,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -16698,7 +17278,7 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -16789,7 +17369,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -16913,13 +17493,32 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -17069,7 +17668,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -17176,7 +17775,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -17283,7 +17882,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -17346,7 +17945,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -17410,7 +18009,9 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -17465,7 +18066,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -17492,13 +18093,32 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -17648,7 +18268,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -17755,7 +18375,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -17862,7 +18482,7 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -17957,7 +18577,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -18081,13 +18701,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -18237,7 +18876,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -18344,7 +18983,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -18451,7 +19090,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -18514,7 +19153,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -18578,7 +19217,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -18633,7 +19274,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -18660,13 +19301,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -18816,7 +19476,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -18923,7 +19583,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -19030,7 +19690,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -19125,7 +19785,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -19251,13 +19911,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -19410,7 +20089,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -19519,7 +20198,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -19628,7 +20307,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -19692,7 +20371,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -19757,7 +20436,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -19813,7 +20494,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -19840,13 +20521,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -19999,7 +20699,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -20108,7 +20808,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -20217,7 +20917,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -20313,7 +21013,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -20441,13 +21141,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -20603,7 +21322,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -20714,7 +21433,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -20825,7 +21544,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -20890,7 +21609,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -20956,7 +21675,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -21013,7 +21734,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -21040,13 +21761,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -21202,7 +21942,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -21313,7 +22053,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -21424,7 +22164,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -21521,7 +22261,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -21643,13 +22383,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -21796,7 +22555,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -21901,7 +22660,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -22006,7 +22765,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -22068,7 +22827,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -22131,7 +22890,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -22185,7 +22946,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -22212,13 +22973,32 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -22365,7 +23145,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -22470,7 +23250,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -22575,7 +23355,7 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -22669,7 +23449,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -22785,13 +23565,32 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -22929,7 +23728,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -23028,7 +23827,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -23127,7 +23926,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -23186,7 +23985,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -23246,7 +24045,9 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -23297,7 +24098,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -23324,13 +24125,32 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -23468,7 +24288,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -23567,7 +24387,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -23666,7 +24486,7 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -23757,7 +24577,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -23879,13 +24699,32 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -24032,7 +24871,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -24137,7 +24976,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -24242,7 +25081,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -24304,7 +25143,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -24367,7 +25206,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -24421,7 +25262,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -24448,13 +25289,32 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -24601,7 +25461,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -24706,7 +25566,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -24811,7 +25671,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -24905,7 +25765,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -25025,13 +25885,32 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -25175,7 +26054,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -25278,7 +26157,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -25381,7 +26260,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -25442,7 +26321,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -25504,7 +26383,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={false}
               nonActionPerformer={true}
@@ -25557,7 +26438,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -25584,13 +26465,32 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -25734,7 +26634,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -25837,7 +26737,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -25940,7 +26840,7 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"

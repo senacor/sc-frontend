@@ -16,7 +16,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
     >
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Mitarbeiterrolle"
@@ -428,13 +428,32 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         xsUp={false}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -1016,7 +1035,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -1411,7 +1430,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -1806,7 +1825,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"
@@ -2013,7 +2032,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       </Hidden>
       <WithStyles(List)>
         <WithStyles(ListItem)
-          className="PrSheet-marginDown-7"
+          className="PrSheet-marginDown-8"
         >
           <WithStyles(ListItemText)
             primary="Gesamtschätzung und Entwicklungsbedarfe"
@@ -2221,7 +2240,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         <WithStyles(List)
           disablePadding={true}
         >
-          <div>
+          <div
+            className="PrSheet-containerListItem-2"
+          >
             <Connect(WithStyles(PrFinalCommentEmployee))
               isActionPerformer={true}
               nonActionPerformer={false}
@@ -2420,7 +2441,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
       <WithStyles(List)>
         <WithStyles(ListItem)>
           <WithStyles(Typography)
-            className="PrSheet-required-6"
+            className="PrSheet-required-7"
             variant="caption"
           >
             *Pflichtfeld
@@ -2447,13 +2468,32 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
         xl={6}
       >
         <WithStyles(List)>
-          <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+          <div
+            className="PrSheet-containerListItem-2"
           >
-            <WithStyles(ListItemText)
-              primary="Leistungen im Projekt"
-            />
-          </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDown-8"
+            >
+              <WithStyles(ListItemText)
+                primary="Leistungen im Projekt"
+              />
+            </WithStyles(ListItem)>
+            <WithStyles(ListItem)
+              className="PrSheet-marginDownSmall-9"
+            >
+              <WithStyles(Typography)
+                className="PrSheet-legend-11"
+                color="textSecondary"
+                variant="caption"
+              >
+                Punkteskala:
+                <br />
+                 1 - nicht erfüllt 
+                <br />
+                 5 - excellent
+              </WithStyles(Typography)>
+            </WithStyles(ListItem)>
+          </div>
           <WithStyles(List)
             disablePadding={true}
           >
@@ -3035,7 +3075,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung beim Kunden"
@@ -3430,7 +3470,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Team"
@@ -3825,7 +3865,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             />
           </WithStyles(List)>
           <WithStyles(ListItem)
-            className="PrSheet-marginDown-7"
+            className="PrSheet-marginDown-8"
           >
             <WithStyles(ListItemText)
               primary="Wirkung im Unternehmen"

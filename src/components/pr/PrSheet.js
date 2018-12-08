@@ -35,6 +35,9 @@ const styles = theme => ({
     boxShadow:
       '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
   },
+  containerListItem: {
+    display: 'flex'
+  },
   nested: {
     paddingLeft: '3%'
   },
@@ -61,9 +64,18 @@ const styles = theme => ({
     color: 'rgba(0, 0, 0, 0.42)'
   },
   marginDown: {
-    marginBottom: '-10pt'
+    marginBottom: '-10pt',
+    width: '80%'
   },
-  red: { color: '#ff0000' }
+  marginDownSmall: {
+    marginBottom: '-10pt',
+    width: '23%'
+  },
+  red: { color: '#ff0000' },
+  legend: {
+    textAlign: 'blockscope',
+    fontSize: '9pt'
+  }
 });
 
 class PrSheet extends React.Component {
@@ -209,9 +221,21 @@ class PrSheet extends React.Component {
     let detailReviewer = () => {
       return (
         <List>
-          <ListItem className={classes.marginDown}>
-            <ListItemText primary="Leistungen im Projekt" />
-          </ListItem>
+          <div className={classes.containerListItem}>
+            <ListItem className={classes.marginDown}>
+              <ListItemText primary="Leistungen im Projekt" />
+            </ListItem>
+            <ListItem className={classes.marginDownSmall}>
+              <Typography
+                variant={'caption'}
+                color={'textSecondary'}
+                className={classes.legend}
+              >
+                Punkteskala:
+                <br /> 1 - nicht erfüllt <br /> 5 - excellent
+              </Typography>
+            </ListItem>
+          </div>
           <List disablePadding>
             <PrReviewerRating
               prById={prById}
