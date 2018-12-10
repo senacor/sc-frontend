@@ -24,6 +24,7 @@ class PrRatingPoints extends Component {
         <TextField
           disabled
           InputProps={{ classes: { input: classes.center } }}
+          value={'-'}
         />
       );
     };
