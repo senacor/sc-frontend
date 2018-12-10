@@ -58,7 +58,7 @@ class TargetRole extends Component {
       objectGet(this.props, 'prActive.prTargetRoleSet') || [];
     targetRoleInformationOfEmployee.sort(compareTargetRoles);
 
-    const { prActive, classes, prFinalized, isActionPerformer } = this.props;
+    const { prActive, classes, readOnly, isActionPerformer } = this.props;
     let isDisabled = !isActionPerformer;
 
     return targetRoleInformationOfEmployee.map(targetRole => {
@@ -96,9 +96,9 @@ class TargetRole extends Component {
           >
             <StepSlider
               key={targetRole.prTargetRoleName}
-              isDisabled={isDisabled || prFinalized}
+              isDisabled={isDisabled || readOnly}
               prActive={prActive}
-              rating={targetRole.rating}
+              rating={isActionPerformer || readOnly ? targetRole.rating : 2}
               targetRoleName={targetRole.prTargetRoleName}
             />
           </Grid>

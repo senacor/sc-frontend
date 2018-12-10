@@ -40,7 +40,7 @@ class PrOverallAssessment extends React.Component {
         <div className={classes.containerListItem}>
           <TargetRole
             prById={prById}
-            prFinalized={readOnly}
+            readOnly={readOnly}
             isActionPerformer={isActionPerformer}
             nonActionPerformer={nonActionPerformer}
           />
