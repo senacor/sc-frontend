@@ -15,13 +15,12 @@ import PerformanceReviewTableService from '../humanResources/PerformanceReviewTa
 import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
-import { getColumnState } from '../../reducers/selector';
 
 export class PrOverviewEmployee extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      columnsToView: this.props.columnState
+      columnsToView: null
     };
   }
 
@@ -56,10 +55,8 @@ export class PrOverviewEmployee extends React.Component {
     });
     return result;
   };
-
   handleChange = content => {
     this.setState({ columnsToView: content });
-    this.props.changeColumnState(FILTER_GROUPS.EMPLOYEE, content);
   };
 
   componentDidUpdate(prevProps) {
@@ -74,7 +71,6 @@ export class PrOverviewEmployee extends React.Component {
     }
 
     const { columnsToView } = this.state;
-
     const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
 
     return (
@@ -103,13 +99,11 @@ export default connect(
     ]),
     filterPossibilities: getFilterPossibilities(state),
     data: getAllPrsForTable(state),
-    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state),
-    columnState: getColumnState(FILTER_GROUPS.EMPLOYEE)(state)
+    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
   }),
   {
     fetchFilteredPrs: actions.fetchFilteredPrs,
-    getFilterPossibilities: actions.getFilterPossibilities,
-    changeColumnState: actions.changeColumnState
+    getFilterPossibilities: actions.getFilterPossibilities
   }
 )(
   withLoading(props => {
