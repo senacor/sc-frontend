@@ -667,59 +667,55 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -1840,54 +1836,50 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "INVISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "INVISIBLE",
+                },
+                "requiredFields": Object {
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -2341,53 +2333,49 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div
-              className="PrSheet-containerListItem-2"
-            >
-              <Connect(WithStyles(PrFinalCommentHr))
-                isActionPerformer={true}
-                open={false}
-                prById={
-                  Object {
-                    "employee": Object {
-                      "login": "test.pr.mitarbeiter1",
-                      "userPrincipalName": "test.pr.mitarbeiter1",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "id": 1,
-                    "prFinalizationStatus": Object {
-                      "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                      "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                    },
-                    "prVisibilityEntry": Object {
-                      "visibilityToEmployee": "INVISIBLE",
-                      "visibilityToReviewer": "INVISIBLE",
-                    },
-                    "requiredFields": Object {
-                      "reviewer": true,
-                    },
-                    "reviewer": Object {
-                      "login": "test.pr.mitarbeiter2",
-                      "userPrincipalName": "test.pr.mitarbeiter2",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "statuses": Array [],
-                    "supervisor": Object {
-                      "login": "test.pr.vorgesetzter",
-                      "userPrincipalName": "test.pr.vorgesetzter",
-                      "userroles": Array [
-                        "PR_CST_Leiter",
-                      ],
-                    },
-                  }
+            <Connect(WithStyles(PrFinalCommentHr))
+              isActionPerformer={true}
+              open={false}
+              prById={
+                Object {
+                  "employee": Object {
+                    "login": "test.pr.mitarbeiter1",
+                    "userPrincipalName": "test.pr.mitarbeiter1",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
+                    ],
+                  },
+                  "id": 1,
+                  "prFinalizationStatus": Object {
+                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                  },
+                  "prVisibilityEntry": Object {
+                    "visibilityToEmployee": "INVISIBLE",
+                    "visibilityToReviewer": "INVISIBLE",
+                  },
+                  "requiredFields": Object {
+                    "reviewer": true,
+                  },
+                  "reviewer": Object {
+                    "login": "test.pr.mitarbeiter2",
+                    "userPrincipalName": "test.pr.mitarbeiter2",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
+                    ],
+                  },
+                  "statuses": Array [],
+                  "supervisor": Object {
+                    "login": "test.pr.vorgesetzter",
+                    "userPrincipalName": "test.pr.vorgesetzter",
+                    "userroles": Array [
+                      "PR_CST_Leiter",
+                    ],
+                  },
                 }
-                readOnly={false}
-              />
-            </div>
+              }
+              readOnly={false}
+            />
           </WithStyles(List)>
         </WithStyles(List)>
       </WithStyles(Grid)>
@@ -2412,53 +2400,49 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div
-          className="PrSheet-containerListItem-2"
-        >
-          <Connect(WithStyles(PrFinalCommentHr))
-            isActionPerformer={true}
-            open={false}
-            prById={
-              Object {
-                "employee": Object {
-                  "login": "test.pr.mitarbeiter1",
-                  "userPrincipalName": "test.pr.mitarbeiter1",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "id": 1,
-                "prFinalizationStatus": Object {
-                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                },
-                "prVisibilityEntry": Object {
-                  "visibilityToEmployee": "INVISIBLE",
-                  "visibilityToReviewer": "INVISIBLE",
-                },
-                "requiredFields": Object {
-                  "reviewer": true,
-                },
-                "reviewer": Object {
-                  "login": "test.pr.mitarbeiter2",
-                  "userPrincipalName": "test.pr.mitarbeiter2",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "statuses": Array [],
-                "supervisor": Object {
-                  "login": "test.pr.vorgesetzter",
-                  "userPrincipalName": "test.pr.vorgesetzter",
-                  "userroles": Array [
-                    "PR_CST_Leiter",
-                  ],
-                },
-              }
+        <Connect(WithStyles(PrFinalCommentHr))
+          isActionPerformer={true}
+          open={false}
+          prById={
+            Object {
+              "employee": Object {
+                "login": "test.pr.mitarbeiter1",
+                "userPrincipalName": "test.pr.mitarbeiter1",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
+                ],
+              },
+              "id": 1,
+              "prFinalizationStatus": Object {
+                "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                "finalizationStatusOfReviewer": "NOT_FINALIZED",
+              },
+              "prVisibilityEntry": Object {
+                "visibilityToEmployee": "INVISIBLE",
+                "visibilityToReviewer": "INVISIBLE",
+              },
+              "requiredFields": Object {
+                "reviewer": true,
+              },
+              "reviewer": Object {
+                "login": "test.pr.mitarbeiter2",
+                "userPrincipalName": "test.pr.mitarbeiter2",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
+                ],
+              },
+              "statuses": Array [],
+              "supervisor": Object {
+                "login": "test.pr.vorgesetzter",
+                "userPrincipalName": "test.pr.vorgesetzter",
+                "userroles": Array [
+                  "PR_CST_Leiter",
+                ],
+              },
             }
-            readOnly={false}
-          />
-        </div>
+          }
+          readOnly={false}
+        />
       </WithStyles(List)>
     </WithStyles(List)>
   </Hidden>
@@ -3143,60 +3127,56 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={true}
-            />
-          </div>
+            }
+            readOnly={true}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -3698,59 +3678,55 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div
-              className="PrSheet-containerListItem-2"
-            >
-              <Connect(WithStyles(PrFinalCommentHr))
-                isActionPerformer={true}
-                open={true}
-                prById={
-                  Object {
-                    "employee": Object {
-                      "login": "test.pr.mitarbeiter1",
-                      "userPrincipalName": "test.pr.mitarbeiter1",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "id": 1,
-                    "prFinalizationStatus": Object {
-                      "finalizationStatusOfEmployee": "FINALIZED",
-                      "finalizationStatusOfReviewer": "FINALIZED",
-                    },
-                    "prVisibilityEntry": Object {
-                      "visibilityToEmployee": "VISIBLE",
-                      "visibilityToReviewer": "VISIBLE",
-                    },
-                    "requiredFields": Object {
-                      "employee": true,
-                      "reviewer": true,
-                    },
-                    "reviewer": Object {
-                      "login": "test.pr.mitarbeiter2",
-                      "userPrincipalName": "test.pr.mitarbeiter2",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "statuses": Array [
-                      "FILLED_SHEET_EMPLOYEE",
-                      "FILLED_SHEET_REVIEWER",
-                      "MODIFICATIONS_ACCEPTED_REVIEWER",
-                      "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+            <Connect(WithStyles(PrFinalCommentHr))
+              isActionPerformer={true}
+              open={true}
+              prById={
+                Object {
+                  "employee": Object {
+                    "login": "test.pr.mitarbeiter1",
+                    "userPrincipalName": "test.pr.mitarbeiter1",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
                     ],
-                    "supervisor": Object {
-                      "login": "test.pr.vorgesetzter",
-                      "userPrincipalName": "test.pr.vorgesetzter",
-                      "userroles": Array [
-                        "PR_CST_Leiter",
-                      ],
-                    },
-                  }
+                  },
+                  "id": 1,
+                  "prFinalizationStatus": Object {
+                    "finalizationStatusOfEmployee": "FINALIZED",
+                    "finalizationStatusOfReviewer": "FINALIZED",
+                  },
+                  "prVisibilityEntry": Object {
+                    "visibilityToEmployee": "VISIBLE",
+                    "visibilityToReviewer": "VISIBLE",
+                  },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
+                  "reviewer": Object {
+                    "login": "test.pr.mitarbeiter2",
+                    "userPrincipalName": "test.pr.mitarbeiter2",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
+                    ],
+                  },
+                  "statuses": Array [
+                    "FILLED_SHEET_EMPLOYEE",
+                    "FILLED_SHEET_REVIEWER",
+                    "MODIFICATIONS_ACCEPTED_REVIEWER",
+                    "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+                  ],
+                  "supervisor": Object {
+                    "login": "test.pr.vorgesetzter",
+                    "userPrincipalName": "test.pr.vorgesetzter",
+                    "userroles": Array [
+                      "PR_CST_Leiter",
+                    ],
+                  },
                 }
-                readOnly={false}
-              />
-            </div>
+              }
+              readOnly={false}
+            />
           </WithStyles(List)>
         </WithStyles(List)>
       </WithStyles(Grid)>
@@ -3775,59 +3751,55 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div
-          className="PrSheet-containerListItem-2"
-        >
-          <Connect(WithStyles(PrFinalCommentHr))
-            isActionPerformer={true}
-            open={true}
-            prById={
-              Object {
-                "employee": Object {
-                  "login": "test.pr.mitarbeiter1",
-                  "userPrincipalName": "test.pr.mitarbeiter1",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "id": 1,
-                "prFinalizationStatus": Object {
-                  "finalizationStatusOfEmployee": "FINALIZED",
-                  "finalizationStatusOfReviewer": "FINALIZED",
-                },
-                "prVisibilityEntry": Object {
-                  "visibilityToEmployee": "VISIBLE",
-                  "visibilityToReviewer": "VISIBLE",
-                },
-                "requiredFields": Object {
-                  "employee": true,
-                  "reviewer": true,
-                },
-                "reviewer": Object {
-                  "login": "test.pr.mitarbeiter2",
-                  "userPrincipalName": "test.pr.mitarbeiter2",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "statuses": Array [
-                  "FILLED_SHEET_EMPLOYEE",
-                  "FILLED_SHEET_REVIEWER",
-                  "MODIFICATIONS_ACCEPTED_REVIEWER",
-                  "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+        <Connect(WithStyles(PrFinalCommentHr))
+          isActionPerformer={true}
+          open={true}
+          prById={
+            Object {
+              "employee": Object {
+                "login": "test.pr.mitarbeiter1",
+                "userPrincipalName": "test.pr.mitarbeiter1",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
                 ],
-                "supervisor": Object {
-                  "login": "test.pr.vorgesetzter",
-                  "userPrincipalName": "test.pr.vorgesetzter",
-                  "userroles": Array [
-                    "PR_CST_Leiter",
-                  ],
-                },
-              }
+              },
+              "id": 1,
+              "prFinalizationStatus": Object {
+                "finalizationStatusOfEmployee": "FINALIZED",
+                "finalizationStatusOfReviewer": "FINALIZED",
+              },
+              "prVisibilityEntry": Object {
+                "visibilityToEmployee": "VISIBLE",
+                "visibilityToReviewer": "VISIBLE",
+              },
+              "requiredFields": Object {
+                "employee": true,
+                "reviewer": true,
+              },
+              "reviewer": Object {
+                "login": "test.pr.mitarbeiter2",
+                "userPrincipalName": "test.pr.mitarbeiter2",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
+                ],
+              },
+              "statuses": Array [
+                "FILLED_SHEET_EMPLOYEE",
+                "FILLED_SHEET_REVIEWER",
+                "MODIFICATIONS_ACCEPTED_REVIEWER",
+                "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+              ],
+              "supervisor": Object {
+                "login": "test.pr.vorgesetzter",
+                "userPrincipalName": "test.pr.vorgesetzter",
+                "userroles": Array [
+                  "PR_CST_Leiter",
+                ],
+              },
             }
-            readOnly={false}
-          />
-        </div>
+          }
+          readOnly={false}
+        />
       </WithStyles(List)>
     </WithStyles(List)>
   </Hidden>
@@ -4501,59 +4473,55 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -5047,58 +5015,54 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div
-              className="PrSheet-containerListItem-2"
-            >
-              <Connect(WithStyles(PrFinalCommentHr))
-                isActionPerformer={true}
-                open={false}
-                prById={
-                  Object {
-                    "employee": Object {
-                      "login": "test.pr.mitarbeiter1",
-                      "userPrincipalName": "test.pr.mitarbeiter1",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "id": 1,
-                    "prFinalizationStatus": Object {
-                      "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                      "finalizationStatusOfReviewer": "FINALIZED",
-                    },
-                    "prVisibilityEntry": Object {
-                      "visibilityToEmployee": "VISIBLE",
-                      "visibilityToReviewer": "VISIBLE",
-                    },
-                    "requiredFields": Object {
-                      "employee": true,
-                      "reviewer": true,
-                    },
-                    "reviewer": Object {
-                      "login": "test.pr.mitarbeiter2",
-                      "userPrincipalName": "test.pr.mitarbeiter2",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "statuses": Array [
-                      "FILLED_SHEET_EMPLOYEE",
-                      "FILLED_SHEET_REVIEWER",
-                      "MODIFICATIONS_ACCEPTED_REVIEWER",
+            <Connect(WithStyles(PrFinalCommentHr))
+              isActionPerformer={true}
+              open={false}
+              prById={
+                Object {
+                  "employee": Object {
+                    "login": "test.pr.mitarbeiter1",
+                    "userPrincipalName": "test.pr.mitarbeiter1",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
                     ],
-                    "supervisor": Object {
-                      "login": "test.pr.vorgesetzter",
-                      "userPrincipalName": "test.pr.vorgesetzter",
-                      "userroles": Array [
-                        "PR_CST_Leiter",
-                      ],
-                    },
-                  }
+                  },
+                  "id": 1,
+                  "prFinalizationStatus": Object {
+                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                    "finalizationStatusOfReviewer": "FINALIZED",
+                  },
+                  "prVisibilityEntry": Object {
+                    "visibilityToEmployee": "VISIBLE",
+                    "visibilityToReviewer": "VISIBLE",
+                  },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
+                  "reviewer": Object {
+                    "login": "test.pr.mitarbeiter2",
+                    "userPrincipalName": "test.pr.mitarbeiter2",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
+                    ],
+                  },
+                  "statuses": Array [
+                    "FILLED_SHEET_EMPLOYEE",
+                    "FILLED_SHEET_REVIEWER",
+                    "MODIFICATIONS_ACCEPTED_REVIEWER",
+                  ],
+                  "supervisor": Object {
+                    "login": "test.pr.vorgesetzter",
+                    "userPrincipalName": "test.pr.vorgesetzter",
+                    "userroles": Array [
+                      "PR_CST_Leiter",
+                    ],
+                  },
                 }
-                readOnly={false}
-              />
-            </div>
+              }
+              readOnly={false}
+            />
           </WithStyles(List)>
         </WithStyles(List)>
       </WithStyles(Grid)>
@@ -5123,58 +5087,54 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div
-          className="PrSheet-containerListItem-2"
-        >
-          <Connect(WithStyles(PrFinalCommentHr))
-            isActionPerformer={true}
-            open={false}
-            prById={
-              Object {
-                "employee": Object {
-                  "login": "test.pr.mitarbeiter1",
-                  "userPrincipalName": "test.pr.mitarbeiter1",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "id": 1,
-                "prFinalizationStatus": Object {
-                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                  "finalizationStatusOfReviewer": "FINALIZED",
-                },
-                "prVisibilityEntry": Object {
-                  "visibilityToEmployee": "VISIBLE",
-                  "visibilityToReviewer": "VISIBLE",
-                },
-                "requiredFields": Object {
-                  "employee": true,
-                  "reviewer": true,
-                },
-                "reviewer": Object {
-                  "login": "test.pr.mitarbeiter2",
-                  "userPrincipalName": "test.pr.mitarbeiter2",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "statuses": Array [
-                  "FILLED_SHEET_EMPLOYEE",
-                  "FILLED_SHEET_REVIEWER",
-                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+        <Connect(WithStyles(PrFinalCommentHr))
+          isActionPerformer={true}
+          open={false}
+          prById={
+            Object {
+              "employee": Object {
+                "login": "test.pr.mitarbeiter1",
+                "userPrincipalName": "test.pr.mitarbeiter1",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
                 ],
-                "supervisor": Object {
-                  "login": "test.pr.vorgesetzter",
-                  "userPrincipalName": "test.pr.vorgesetzter",
-                  "userroles": Array [
-                    "PR_CST_Leiter",
-                  ],
-                },
-              }
+              },
+              "id": 1,
+              "prFinalizationStatus": Object {
+                "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                "finalizationStatusOfReviewer": "FINALIZED",
+              },
+              "prVisibilityEntry": Object {
+                "visibilityToEmployee": "VISIBLE",
+                "visibilityToReviewer": "VISIBLE",
+              },
+              "requiredFields": Object {
+                "employee": true,
+                "reviewer": true,
+              },
+              "reviewer": Object {
+                "login": "test.pr.mitarbeiter2",
+                "userPrincipalName": "test.pr.mitarbeiter2",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
+                ],
+              },
+              "statuses": Array [
+                "FILLED_SHEET_EMPLOYEE",
+                "FILLED_SHEET_REVIEWER",
+                "MODIFICATIONS_ACCEPTED_REVIEWER",
+              ],
+              "supervisor": Object {
+                "login": "test.pr.vorgesetzter",
+                "userPrincipalName": "test.pr.vorgesetzter",
+                "userroles": Array [
+                  "PR_CST_Leiter",
+                ],
+              },
             }
-            readOnly={false}
-          />
-        </div>
+          }
+          readOnly={false}
+        />
       </WithStyles(List)>
     </WithStyles(List)>
   </Hidden>
@@ -5826,57 +5786,53 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -6354,56 +6310,52 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div
-              className="PrSheet-containerListItem-2"
-            >
-              <Connect(WithStyles(PrFinalCommentHr))
-                isActionPerformer={true}
-                open={false}
-                prById={
-                  Object {
-                    "employee": Object {
-                      "login": "test.pr.mitarbeiter1",
-                      "userPrincipalName": "test.pr.mitarbeiter1",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "id": 1,
-                    "prFinalizationStatus": Object {
-                      "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                      "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                    },
-                    "prVisibilityEntry": Object {
-                      "visibilityToEmployee": "INVISIBLE",
-                      "visibilityToReviewer": "VISIBLE",
-                    },
-                    "requiredFields": Object {
-                      "employee": true,
-                      "reviewer": true,
-                    },
-                    "reviewer": Object {
-                      "login": "test.pr.mitarbeiter2",
-                      "userPrincipalName": "test.pr.mitarbeiter2",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "statuses": Array [
-                      "FILLED_SHEET_EMPLOYEE",
+            <Connect(WithStyles(PrFinalCommentHr))
+              isActionPerformer={true}
+              open={false}
+              prById={
+                Object {
+                  "employee": Object {
+                    "login": "test.pr.mitarbeiter1",
+                    "userPrincipalName": "test.pr.mitarbeiter1",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
                     ],
-                    "supervisor": Object {
-                      "login": "test.pr.vorgesetzter",
-                      "userPrincipalName": "test.pr.vorgesetzter",
-                      "userroles": Array [
-                        "PR_CST_Leiter",
-                      ],
-                    },
-                  }
+                  },
+                  "id": 1,
+                  "prFinalizationStatus": Object {
+                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                  },
+                  "prVisibilityEntry": Object {
+                    "visibilityToEmployee": "INVISIBLE",
+                    "visibilityToReviewer": "VISIBLE",
+                  },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
+                  "reviewer": Object {
+                    "login": "test.pr.mitarbeiter2",
+                    "userPrincipalName": "test.pr.mitarbeiter2",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
+                    ],
+                  },
+                  "statuses": Array [
+                    "FILLED_SHEET_EMPLOYEE",
+                  ],
+                  "supervisor": Object {
+                    "login": "test.pr.vorgesetzter",
+                    "userPrincipalName": "test.pr.vorgesetzter",
+                    "userroles": Array [
+                      "PR_CST_Leiter",
+                    ],
+                  },
                 }
-                readOnly={false}
-              />
-            </div>
+              }
+              readOnly={false}
+            />
           </WithStyles(List)>
         </WithStyles(List)>
       </WithStyles(Grid)>
@@ -6428,56 +6380,52 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div
-          className="PrSheet-containerListItem-2"
-        >
-          <Connect(WithStyles(PrFinalCommentHr))
-            isActionPerformer={true}
-            open={false}
-            prById={
-              Object {
-                "employee": Object {
-                  "login": "test.pr.mitarbeiter1",
-                  "userPrincipalName": "test.pr.mitarbeiter1",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "id": 1,
-                "prFinalizationStatus": Object {
-                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                },
-                "prVisibilityEntry": Object {
-                  "visibilityToEmployee": "INVISIBLE",
-                  "visibilityToReviewer": "VISIBLE",
-                },
-                "requiredFields": Object {
-                  "employee": true,
-                  "reviewer": true,
-                },
-                "reviewer": Object {
-                  "login": "test.pr.mitarbeiter2",
-                  "userPrincipalName": "test.pr.mitarbeiter2",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "statuses": Array [
-                  "FILLED_SHEET_EMPLOYEE",
+        <Connect(WithStyles(PrFinalCommentHr))
+          isActionPerformer={true}
+          open={false}
+          prById={
+            Object {
+              "employee": Object {
+                "login": "test.pr.mitarbeiter1",
+                "userPrincipalName": "test.pr.mitarbeiter1",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
                 ],
-                "supervisor": Object {
-                  "login": "test.pr.vorgesetzter",
-                  "userPrincipalName": "test.pr.vorgesetzter",
-                  "userroles": Array [
-                    "PR_CST_Leiter",
-                  ],
-                },
-              }
+              },
+              "id": 1,
+              "prFinalizationStatus": Object {
+                "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                "finalizationStatusOfReviewer": "NOT_FINALIZED",
+              },
+              "prVisibilityEntry": Object {
+                "visibilityToEmployee": "INVISIBLE",
+                "visibilityToReviewer": "VISIBLE",
+              },
+              "requiredFields": Object {
+                "employee": true,
+                "reviewer": true,
+              },
+              "reviewer": Object {
+                "login": "test.pr.mitarbeiter2",
+                "userPrincipalName": "test.pr.mitarbeiter2",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
+                ],
+              },
+              "statuses": Array [
+                "FILLED_SHEET_EMPLOYEE",
+              ],
+              "supervisor": Object {
+                "login": "test.pr.vorgesetzter",
+                "userPrincipalName": "test.pr.vorgesetzter",
+                "userroles": Array [
+                  "PR_CST_Leiter",
+                ],
+              },
             }
-            readOnly={false}
-          />
-        </div>
+          }
+          readOnly={false}
+        />
       </WithStyles(List)>
     </WithStyles(List)>
   </Hidden>
@@ -7140,58 +7088,54 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -7677,57 +7621,53 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
           <WithStyles(List)
             disablePadding={true}
           >
-            <div
-              className="PrSheet-containerListItem-2"
-            >
-              <Connect(WithStyles(PrFinalCommentHr))
-                isActionPerformer={true}
-                open={false}
-                prById={
-                  Object {
-                    "employee": Object {
-                      "login": "test.pr.mitarbeiter1",
-                      "userPrincipalName": "test.pr.mitarbeiter1",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "id": 1,
-                    "prFinalizationStatus": Object {
-                      "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                      "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                    },
-                    "prVisibilityEntry": Object {
-                      "visibilityToEmployee": "VISIBLE",
-                      "visibilityToReviewer": "VISIBLE",
-                    },
-                    "requiredFields": Object {
-                      "employee": true,
-                      "reviewer": true,
-                    },
-                    "reviewer": Object {
-                      "login": "test.pr.mitarbeiter2",
-                      "userPrincipalName": "test.pr.mitarbeiter2",
-                      "userroles": Array [
-                        "PR_Mitarbeiter",
-                      ],
-                    },
-                    "statuses": Array [
-                      "FILLED_SHEET_EMPLOYEE",
-                      "FILLED_SHEET_REVIEWER",
+            <Connect(WithStyles(PrFinalCommentHr))
+              isActionPerformer={true}
+              open={false}
+              prById={
+                Object {
+                  "employee": Object {
+                    "login": "test.pr.mitarbeiter1",
+                    "userPrincipalName": "test.pr.mitarbeiter1",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
                     ],
-                    "supervisor": Object {
-                      "login": "test.pr.vorgesetzter",
-                      "userPrincipalName": "test.pr.vorgesetzter",
-                      "userroles": Array [
-                        "PR_CST_Leiter",
-                      ],
-                    },
-                  }
+                  },
+                  "id": 1,
+                  "prFinalizationStatus": Object {
+                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                  },
+                  "prVisibilityEntry": Object {
+                    "visibilityToEmployee": "VISIBLE",
+                    "visibilityToReviewer": "VISIBLE",
+                  },
+                  "requiredFields": Object {
+                    "employee": true,
+                    "reviewer": true,
+                  },
+                  "reviewer": Object {
+                    "login": "test.pr.mitarbeiter2",
+                    "userPrincipalName": "test.pr.mitarbeiter2",
+                    "userroles": Array [
+                      "PR_Mitarbeiter",
+                    ],
+                  },
+                  "statuses": Array [
+                    "FILLED_SHEET_EMPLOYEE",
+                    "FILLED_SHEET_REVIEWER",
+                  ],
+                  "supervisor": Object {
+                    "login": "test.pr.vorgesetzter",
+                    "userPrincipalName": "test.pr.vorgesetzter",
+                    "userroles": Array [
+                      "PR_CST_Leiter",
+                    ],
+                  },
                 }
-                readOnly={false}
-              />
-            </div>
+              }
+              readOnly={false}
+            />
           </WithStyles(List)>
         </WithStyles(List)>
       </WithStyles(Grid)>
@@ -7752,57 +7692,53 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
       <WithStyles(List)
         disablePadding={true}
       >
-        <div
-          className="PrSheet-containerListItem-2"
-        >
-          <Connect(WithStyles(PrFinalCommentHr))
-            isActionPerformer={true}
-            open={false}
-            prById={
-              Object {
-                "employee": Object {
-                  "login": "test.pr.mitarbeiter1",
-                  "userPrincipalName": "test.pr.mitarbeiter1",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "id": 1,
-                "prFinalizationStatus": Object {
-                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                },
-                "prVisibilityEntry": Object {
-                  "visibilityToEmployee": "VISIBLE",
-                  "visibilityToReviewer": "VISIBLE",
-                },
-                "requiredFields": Object {
-                  "employee": true,
-                  "reviewer": true,
-                },
-                "reviewer": Object {
-                  "login": "test.pr.mitarbeiter2",
-                  "userPrincipalName": "test.pr.mitarbeiter2",
-                  "userroles": Array [
-                    "PR_Mitarbeiter",
-                  ],
-                },
-                "statuses": Array [
-                  "FILLED_SHEET_EMPLOYEE",
-                  "FILLED_SHEET_REVIEWER",
+        <Connect(WithStyles(PrFinalCommentHr))
+          isActionPerformer={true}
+          open={false}
+          prById={
+            Object {
+              "employee": Object {
+                "login": "test.pr.mitarbeiter1",
+                "userPrincipalName": "test.pr.mitarbeiter1",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
                 ],
-                "supervisor": Object {
-                  "login": "test.pr.vorgesetzter",
-                  "userPrincipalName": "test.pr.vorgesetzter",
-                  "userroles": Array [
-                    "PR_CST_Leiter",
-                  ],
-                },
-              }
+              },
+              "id": 1,
+              "prFinalizationStatus": Object {
+                "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                "finalizationStatusOfReviewer": "NOT_FINALIZED",
+              },
+              "prVisibilityEntry": Object {
+                "visibilityToEmployee": "VISIBLE",
+                "visibilityToReviewer": "VISIBLE",
+              },
+              "requiredFields": Object {
+                "employee": true,
+                "reviewer": true,
+              },
+              "reviewer": Object {
+                "login": "test.pr.mitarbeiter2",
+                "userPrincipalName": "test.pr.mitarbeiter2",
+                "userroles": Array [
+                  "PR_Mitarbeiter",
+                ],
+              },
+              "statuses": Array [
+                "FILLED_SHEET_EMPLOYEE",
+                "FILLED_SHEET_REVIEWER",
+              ],
+              "supervisor": Object {
+                "login": "test.pr.vorgesetzter",
+                "userPrincipalName": "test.pr.vorgesetzter",
+                "userroles": Array [
+                  "PR_CST_Leiter",
+                ],
+              },
             }
-            readOnly={false}
-          />
-        </div>
+          }
+          readOnly={false}
+        />
       </WithStyles(List)>
     </WithStyles(List)>
   </Hidden>
@@ -8421,54 +8357,50 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "INVISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "INVISIBLE",
+                },
+                "requiredFields": Object {
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -9571,56 +9503,52 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -10750,57 +10678,53 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -11949,58 +11873,54 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -13179,60 +13099,56 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={true}
-            />
-          </div>
+            }
+            readOnly={true}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -14416,59 +14332,55 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -15655,60 +15567,56 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={true}
-            />
-          </div>
+            }
+            readOnly={true}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -16837,54 +16745,50 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "INVISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "INVISIBLE",
+                },
+                "requiredFields": Object {
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -18009,58 +17913,54 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -19217,58 +19117,54 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={true}
-              nonActionPerformer={false}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={true}
+            nonActionPerformer={false}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -20436,59 +20332,55 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={true}
-              nonActionPerformer={false}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={true}
+            nonActionPerformer={false}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -21675,60 +21567,56 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={true}
-              nonActionPerformer={false}
-              open={true}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "FINALIZED",
-                    "finalizationStatusOfReviewer": "FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "VISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
-                    "FILLED_SHEET_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_REVIEWER",
-                    "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={true}
+            nonActionPerformer={false}
+            open={true}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "FINALIZED",
+                  "finalizationStatusOfReviewer": "FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "VISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                  "FILLED_SHEET_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_REVIEWER",
+                  "MODIFICATIONS_ACCEPTED_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={true}
-            />
-          </div>
+            }
+            readOnly={true}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -22890,57 +22778,53 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={true}
-              nonActionPerformer={false}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={true}
+            nonActionPerformer={false}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -24045,54 +23929,50 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={true}
-              nonActionPerformer={false}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "INVISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={true}
+            nonActionPerformer={false}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "INVISIBLE",
+                },
+                "requiredFields": Object {
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -25206,57 +25086,53 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                    "reviewer": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                  "reviewer": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>
@@ -26383,56 +26259,52 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
         <WithStyles(List)
           disablePadding={true}
         >
-          <div
-            className="PrSheet-containerListItem-2"
-          >
-            <Connect(WithStyles(PrFinalCommentEmployee))
-              isActionPerformer={false}
-              nonActionPerformer={true}
-              open={false}
-              prById={
-                Object {
-                  "employee": Object {
-                    "login": "test.pr.mitarbeiter1",
-                    "userPrincipalName": "test.pr.mitarbeiter1",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "id": 1,
-                  "prFinalizationStatus": Object {
-                    "finalizationStatusOfEmployee": "NOT_FINALIZED",
-                    "finalizationStatusOfReviewer": "NOT_FINALIZED",
-                  },
-                  "prVisibilityEntry": Object {
-                    "visibilityToEmployee": "INVISIBLE",
-                    "visibilityToReviewer": "VISIBLE",
-                  },
-                  "requiredFields": Object {
-                    "employee": true,
-                  },
-                  "reviewer": Object {
-                    "login": "test.pr.mitarbeiter2",
-                    "userPrincipalName": "test.pr.mitarbeiter2",
-                    "userroles": Array [
-                      "PR_Mitarbeiter",
-                    ],
-                  },
-                  "statuses": Array [
-                    "FILLED_SHEET_EMPLOYEE",
+          <Connect(WithStyles(PrFinalCommentEmployee))
+            isActionPerformer={false}
+            nonActionPerformer={true}
+            open={false}
+            prById={
+              Object {
+                "employee": Object {
+                  "login": "test.pr.mitarbeiter1",
+                  "userPrincipalName": "test.pr.mitarbeiter1",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
                   ],
-                  "supervisor": Object {
-                    "login": "test.pr.vorgesetzter",
-                    "userPrincipalName": "test.pr.vorgesetzter",
-                    "userroles": Array [
-                      "PR_CST_Leiter",
-                    ],
-                  },
-                }
+                },
+                "id": 1,
+                "prFinalizationStatus": Object {
+                  "finalizationStatusOfEmployee": "NOT_FINALIZED",
+                  "finalizationStatusOfReviewer": "NOT_FINALIZED",
+                },
+                "prVisibilityEntry": Object {
+                  "visibilityToEmployee": "INVISIBLE",
+                  "visibilityToReviewer": "VISIBLE",
+                },
+                "requiredFields": Object {
+                  "employee": true,
+                },
+                "reviewer": Object {
+                  "login": "test.pr.mitarbeiter2",
+                  "userPrincipalName": "test.pr.mitarbeiter2",
+                  "userroles": Array [
+                    "PR_Mitarbeiter",
+                  ],
+                },
+                "statuses": Array [
+                  "FILLED_SHEET_EMPLOYEE",
+                ],
+                "supervisor": Object {
+                  "login": "test.pr.vorgesetzter",
+                  "userPrincipalName": "test.pr.vorgesetzter",
+                  "userroles": Array [
+                    "PR_CST_Leiter",
+                  ],
+                },
               }
-              readOnly={false}
-            />
-          </div>
+            }
+            readOnly={false}
+          />
         </WithStyles(List)>
       </WithStyles(List)>
       <WithStyles(List)>

@@ -187,15 +187,13 @@ class PrSheet extends React.Component {
       return (
         <List>
           <List disablePadding>
-            <div className={classes.containerListItem}>
-              <PrFinalCommentEmployee
-                prById={prById}
-                readOnly={this.isFinalizedForEmployee()}
-                open={this.isFinalizedForReviewer()}
-                isActionPerformer={isActionPerformerForEmployeeActions}
-                nonActionPerformer={nonActionPerformerForEmployeeActions}
-              />
-            </div>
+            <PrFinalCommentEmployee
+              prById={prById}
+              readOnly={this.isFinalizedForEmployee()}
+              open={this.isFinalizedForReviewer()}
+              isActionPerformer={isActionPerformerForEmployeeActions}
+              nonActionPerformer={nonActionPerformerForEmployeeActions}
+            />
           </List>
         </List>
       );
@@ -205,14 +203,12 @@ class PrSheet extends React.Component {
       return (
         <List>
           <List disablePadding>
-            <div className={classes.containerListItem}>
-              <PrFinalCommentHr
-                prById={prById}
-                open={this.isFinalizedForEmployee()}
-                readOnly={this.isArchived()}
-                isActionPerformer={isHr(this.props.userroles)}
-              />
-            </div>
+            <PrFinalCommentHr
+              prById={prById}
+              open={this.isFinalizedForEmployee()}
+              readOnly={this.isArchived()}
+              isActionPerformer={isHr(this.props.userroles)}
+            />
           </List>
         </List>
       );
