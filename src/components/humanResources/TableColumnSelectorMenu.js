@@ -3,6 +3,7 @@ import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import TableColumnSelector from './TableColumSelector';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default class TableColumnSelectorMenu extends React.Component {
   constructor(props) {
@@ -65,9 +66,11 @@ export default class TableColumnSelectorMenu extends React.Component {
 
     return (
       <div>
-        <IconButton onClick={this.handleClick}>
-          {this.getIcon(this.props.subfilter)}
-        </IconButton>
+        <Tooltip title={'Spalten ein-/ausblenden'} key={'column-visibility'}>
+          <IconButton onClick={this.handleClick}>
+            {this.getIcon(this.props.subfilter)}
+          </IconButton>
+        </Tooltip>
         <Popover
           open={open}
           anchorEl={anchorEl}

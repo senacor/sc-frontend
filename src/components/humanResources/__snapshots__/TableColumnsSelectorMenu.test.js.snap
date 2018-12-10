@@ -2,13 +2,18 @@
 
 exports[`TableColumnSelectorMenu component should match snapshot 1`] = `
 <div>
-  <WithStyles(IconButton)
-    onClick={[Function]}
+  <WithStyles(Tooltip)
+    key="column-visibility"
+    title="Spalten ein-/ausblenden"
   >
-    <WithStyles(Icon)>
-      visibility
-    </WithStyles(Icon)>
-  </WithStyles(IconButton)>
+    <WithStyles(IconButton)
+      onClick={[Function]}
+    >
+      <WithStyles(Icon)>
+        visibility
+      </WithStyles(Icon)>
+    </WithStyles(IconButton)>
+  </WithStyles(Tooltip)>
   <WithStyles(Popover)
     anchorEl={null}
     anchorOrigin={

@@ -45,6 +45,14 @@ export const getFilter = group => {
     filter => (filter[group] ? filter[group] : '')
   );
 };
+
+export const getColumnState = group => {
+  return createSelector(
+    [state => state.columnState],
+    columnState => (columnState[group] ? columnState[group] : null)
+  );
+};
+
 export const getSubFilter = (group, subfilter) => {
   return createSelector(
     [state => state.filter],
@@ -80,6 +88,8 @@ export const getSortedPrs = () => {
 };
 
 export const getRequiredFields = state => state.requiredFields;
+
+//export const getColumnState = state => state.columnState;
 
 function dateSort(sortOrder) {
   return (firstPR, secondPR) => {

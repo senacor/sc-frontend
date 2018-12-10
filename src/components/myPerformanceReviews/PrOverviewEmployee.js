@@ -13,8 +13,18 @@ import RequestPerformanceReview from './RequestPerformanceReview';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
+import Paper from '@material-ui/core/Paper/Paper';
+import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
+import { getColumnState } from '../../reducers/selector';
 
 export class PrOverviewEmployee extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      columnsToView: this.props.columnState
+    };
+  }
+
   getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.EMPLOYEE,
@@ -38,6 +48,20 @@ export class PrOverviewEmployee extends React.Component {
     ];
   };
 
+  getSelectorContent = () => {
+    let columns = this.getColumnDefinitions();
+    let result = [];
+    columns.forEach(column => {
+      result.push({ label: column.label, value: column });
+    });
+    return result;
+  };
+
+  handleChange = content => {
+    this.setState({ columnsToView: content });
+    this.props.changeColumnState(FILTER_GROUPS.EMPLOYEE, content);
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
       this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.EMPLOYEE);
@@ -49,15 +73,24 @@ export class PrOverviewEmployee extends React.Component {
       return null;
     }
 
-    const columns = this.getColumnDefinitions();
+    const { columnsToView } = this.state;
+
+    const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
+
     return (
       <div>
         <RequestPerformanceReview />
-        <PerformanceReviewTable
-          columnDefinition={columns}
-          orderBy={1}
-          data={this.props.data}
-        />
+        <Paper>
+          <TableColumnSelectorMenu
+            onChange={this.handleChange}
+            content={this.getSelectorContent()}
+          />
+          <PerformanceReviewTable
+            columnDefinition={columns}
+            orderBy={1}
+            data={this.props.data}
+          />
+        </Paper>
       </div>
     );
   }
@@ -70,11 +103,13 @@ export default connect(
     ]),
     filterPossibilities: getFilterPossibilities(state),
     data: getAllPrsForTable(state),
-    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
+    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state),
+    columnState: getColumnState(FILTER_GROUPS.EMPLOYEE)(state)
   }),
   {
     fetchFilteredPrs: actions.fetchFilteredPrs,
-    getFilterPossibilities: actions.getFilterPossibilities
+    getFilterPossibilities: actions.getFilterPossibilities,
+    changeColumnState: actions.changeColumnState
   }
 )(
   withLoading(props => {

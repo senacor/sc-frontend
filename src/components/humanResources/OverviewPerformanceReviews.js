@@ -14,8 +14,17 @@ import { getUserroles } from '../../reducers/selector';
 import { isHr } from '../../helper/checkRole';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
+import Paper from '@material-ui/core/Paper/Paper';
+import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 
 export class OverviewPerformanceReviews extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      columnsToView: null
+    };
+  }
+
   getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.HR,
@@ -40,6 +49,18 @@ export class OverviewPerformanceReviews extends Component {
     ];
   };
 
+  getSelectorContent = () => {
+    let columns = this.getColumnDefinitions();
+    let result = [];
+    columns.forEach(column => {
+      result.push({ label: column.label, value: column });
+    });
+    return result;
+  };
+  handleChange = content => {
+    this.setState({ columnsToView: content });
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.filter !== prevProps.filter) {
       this.props.fetchFilteredPrsForHumanResource(this.props.filter);
@@ -51,16 +72,24 @@ export class OverviewPerformanceReviews extends Component {
       return null;
     }
 
-    let columns = this.getColumnDefinitions();
+    const { columnsToView } = this.state;
+    const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
+
     let isHrMember = isHr(this.props.userroles);
     return (
-      <PerformanceReviewTable
-        columnDefinition={columns}
-        orderBy={1}
-        data={this.props.data}
-        filter={this.props.filter}
-        isHr={isHrMember}
-      />
+      <Paper>
+        <TableColumnSelectorMenu
+          onChange={this.handleChange}
+          content={this.getSelectorContent()}
+        />
+        <PerformanceReviewTable
+          columnDefinition={columns}
+          orderBy={1}
+          data={this.props.data}
+          filter={this.props.filter}
+          isHr={isHrMember}
+        />
+      </Paper>
     );
   }
 }
