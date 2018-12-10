@@ -123,10 +123,9 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
           item={true}
           xs={4}
         >
-          <img
-            alt="Funny comic about history, shall be replaced with real PR history"
-            src="https://imgs.xkcd.com/comics/data_pipeline.png"
-          />
+          <WithStyles(Typography)>
+            Details zum Mitarbeiter werden in Zukunft zur Verfügung stehen.
+          </WithStyles(Typography)>
         </WithStyles(Grid)>
         <WithStyles(Grid)
           item={true}

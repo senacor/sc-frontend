@@ -116,12 +116,10 @@ export class PrDetailInformation extends Component {
           <ExpansionPanelDetails className={classes.details}>
             <Grid container spacing={24}>
               <Grid item xs={4}>
-                <img
-                  src={'https://imgs.xkcd.com/comics/data_pipeline.png'}
-                  alt={
-                    'Funny comic about history, shall be replaced with real PR history'
-                  }
-                />
+                <Typography>
+                  Details zum Mitarbeiter werden in Zukunft zur Verfügung
+                  stehen.
+                </Typography>
               </Grid>
               <Grid item xs={4} />
             </Grid>
