@@ -19,7 +19,6 @@ import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { prTabs } from './prTabs';
 import { filterPossibilities } from './filterPossibilities';
-import { columnState } from './columnState';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -46,8 +45,7 @@ const combineReducer = combineReducers({
   filter,
   requiredFields,
   filterPossibilities,
-  prTabs,
-  columnState
+  prTabs
 });
 
 const app = (state, action) => {

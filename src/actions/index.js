@@ -25,7 +25,6 @@ export {
   getFilterPossibilities
 } from './filter';
 export { setPrTabs } from './prTabs';
-export { changeColumnState } from './columnState';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({

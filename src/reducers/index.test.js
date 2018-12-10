@@ -21,7 +21,6 @@ describe('reducers', () => {
         };
         const stateBefore = {
           appointmentsSearchResults: [someValue],
-          columnState: { employee: {}, hr: {}, reviewer: {} },
           errors: {
             hasErrors: false,
             message: { someValue }
@@ -56,7 +55,6 @@ describe('reducers', () => {
 
         expect(stateAfter).toEqual({
           appointmentsSearchResults: [],
-          columnState: { employee: {}, hr: {}, reviewer: {} },
           errors: {
             hasErrors: false,
             message: null
