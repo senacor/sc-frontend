@@ -34,6 +34,7 @@ class PrOverallAssessment extends React.Component {
             readOnly={readOnly}
             isActionPerformer={isActionPerformer}
             nonActionPerformer={nonActionPerformer}
+            openEditing={this.props.openEditing}
           />
         </div>
 
@@ -43,6 +44,7 @@ class PrOverallAssessment extends React.Component {
             readOnly={readOnly}
             isActionPerformer={isActionPerformer}
             nonActionPerformer={nonActionPerformer}
+            openEditing={this.props.openEditing}
           />
         </div>
         <div>
@@ -53,6 +55,7 @@ class PrOverallAssessment extends React.Component {
             isActionPerformer={isActionPerformer}
             nonActionPerformer={nonActionPerformer}
             errorFlag={errorFlag}
+            openEditing={this.props.openEditing}
           />
         </div>
       </div>

@@ -8,7 +8,8 @@ class TextFieldService {
     openEditing = false,
     readOnlyText = null,
     errorFlag = false,
-    writeableText = null
+    writeableText = null,
+    closeEditingExplicitly = false
   ) {
     this.nonActionPerformer = nonActionPerformer;
     this.readOnlyFlag = readOnlyFlag;
@@ -17,6 +18,7 @@ class TextFieldService {
     this.readOnlyText = readOnlyText;
     this.errorFlag = errorFlag;
     this.writeableText = writeableText;
+    this.closeEditingExplicitly = closeEditingExplicitly;
   }
 
   setNonActionPerformer = nonActionPerformer => {
@@ -40,6 +42,9 @@ class TextFieldService {
   setWriteableText = writeableText => {
     this.writeableText = writeableText;
   };
+  setCloseEditingExplicitly = closeEditingExplicitly => {
+    this.closeEditingExplicitly = closeEditingExplicitly;
+  };
 
   execute = () => {
     let {
@@ -49,10 +54,13 @@ class TextFieldService {
       openEditing,
       readOnlyText,
       errorFlag,
-      writeableText
+      writeableText,
+      closeEditingExplicitly
     } = this;
 
-    if (nonActionPerformer && !readOnlyFlag) {
+    if (closeEditingExplicitly && isActionPerformer) {
+      return { state: textFieldEnum.ENABLED, value: writeableText };
+    } else if (nonActionPerformer && !readOnlyFlag) {
       return { state: textFieldEnum.DISABLED, value: '' };
     } else if (isActionPerformer && !openEditing && !readOnlyFlag) {
       return { state: textFieldEnum.DISABLED, value: '' };

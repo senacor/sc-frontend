@@ -114,7 +114,8 @@ class PrReviewerRating extends React.Component {
       nonActionPerformer,
       isActionPerformer,
       readOnly,
-      helperText
+      helperText,
+      openEditing
     } = this.props;
 
     let { isExpanded, comment } = this.state;
@@ -126,6 +127,7 @@ class PrReviewerRating extends React.Component {
     service.setOpenEditing(true);
     service.setReadOnlyText(prRating.comment);
     service.setWriteableText(comment);
+    service.setCloseEditingExplicitly(openEditing);
 
     let numberService = new TextFieldService();
     numberService.setNonActionPerformer(nonActionPerformer);
@@ -134,6 +136,7 @@ class PrReviewerRating extends React.Component {
     numberService.setOpenEditing(true);
     numberService.setReadOnlyText(prRating.rating ? prRating.rating : '-');
     numberService.setWriteableText(prRating.rating ? prRating.rating : '-');
+    numberService.setCloseEditingExplicitly(openEditing);
 
     return (
       <div className={isExpanded ? classes.expanded : classes.collapsed}>

@@ -242,6 +242,10 @@ class PrState extends React.Component {
         return Object.assign({}, required, {
           reviewer: filledReviewer
         });
+      case prStatusEnum.FINALIZED_REVIEWER:
+        return Object.assign({}, required, {
+          reviewer: filledReviewer
+        });
       default:
         return required;
     }
@@ -269,6 +273,12 @@ class PrState extends React.Component {
       return true;
     } else if (
       prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
+      false === fieldFilled.reviewer
+    ) {
+      this.props.checkRequired(fieldFilled);
+      return true;
+    } else if (
+      prStatusEnum.FINALIZED_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
       this.props.checkRequired(fieldFilled);

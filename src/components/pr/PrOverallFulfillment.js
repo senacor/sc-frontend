@@ -43,6 +43,7 @@ export class PrOverallFulfillment extends Component {
       readOnly,
       isActionPerformer,
       nonActionPerformer,
+      openEditing,
       classes
     } = this.props;
 
@@ -57,9 +58,7 @@ export class PrOverallFulfillment extends Component {
             <Typography>{translateContent(category)}</Typography>
           </div>
           <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
-            {this.props.readOnly
-              ? mapRatingFullfilment(prRating.rating)
-              : 'kein Eintrag'}
+            {readOnly ? mapRatingFullfilment(prRating.rating) : 'kein Eintrag'}
           </Typography>
         </ListItem>
       );
@@ -70,7 +69,7 @@ export class PrOverallFulfillment extends Component {
             <Typography>{translateContent(category)}</Typography>
           </div>
           <div className={classes.number}>
-            <FormControl disabled={readOnly}>
+            <FormControl disabled={!openEditing}>
               <Select
                 id="ratingFullfillmentId"
                 value={prRating.rating ? prRating.rating : 0}

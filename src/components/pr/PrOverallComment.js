@@ -74,6 +74,7 @@ class PrOverallComment extends Component {
     service.setReadOnlyText(prRating.comment);
     service.setWriteableText(comment);
     service.setErrorFlag(errorFlag);
+    service.setCloseEditingExplicitly(this.props.openEditing);
 
     let helperText =
       'Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?';

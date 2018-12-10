@@ -30,7 +30,9 @@ exports[`PrOverallFulfillment Component should match snapshot 1`] = `
   <div
     className="PrOverallFulfillment-number-2"
   >
-    <WithStyles(FormControl)>
+    <WithStyles(FormControl)
+      disabled={true}
+    >
       <WithStyles(Select)
         displayEmpty={true}
         id="ratingFullfillmentId"

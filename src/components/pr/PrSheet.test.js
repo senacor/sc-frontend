@@ -229,6 +229,7 @@ describe('PrSheet Component', () => {
           isActionPerformer={false}
           nonActionPerformer={true}
           errorFlag={false}
+          openEditing={true}
         />
       )
     ).toBe(true);

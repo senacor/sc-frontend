@@ -461,6 +461,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -653,6 +654,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -845,6 +847,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1048,6 +1051,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1240,6 +1244,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1443,6 +1448,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1635,6 +1641,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -1838,6 +1845,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -2045,6 +2053,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
             errorFlag={false}
             isActionPerformer={false}
             nonActionPerformer={true}
+            openEditing={true}
             prById={
               Object {
                 "_links": Object {
@@ -2497,6 +2506,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="PROBLEM_ANALYSIS"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -2689,6 +2699,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="WORK_RESULTS"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -2881,6 +2892,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="WORKING_MANNER"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3084,6 +3096,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="CUSTOMER_INTERACTION"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3276,6 +3289,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="CUSTOMER_RETENTION"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3479,6 +3493,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="TEAMWORK"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3671,6 +3686,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="LEADERSHIP"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {
@@ -3874,6 +3890,7 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
               isActionPerformer={false}
               nonActionPerformer={true}
+              openEditing={true}
               prById={
                 Object {
                   "_links": Object {

@@ -177,6 +177,7 @@ class PrSheet extends React.Component {
               readOnly={this.isVisibleToEmployee()}
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
+              openEditing={!this.isFinalizedForReviewer()}
             />
           </List>
         </List>
@@ -239,6 +240,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
             <PrReviewerRating
               prById={prById}
@@ -246,6 +248,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
             <PrReviewerRating
               prById={prById}
@@ -253,6 +256,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
           </List>
           <ListItem className={classes.marginDown}>
@@ -265,6 +269,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
             <PrReviewerRating
               prById={prById}
@@ -272,6 +277,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
           </List>
           <ListItem className={classes.marginDown}>
@@ -284,6 +290,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
             <PrReviewerRating
               prById={prById}
@@ -291,6 +298,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
           </List>
           <ListItem className={classes.marginDown}>
@@ -303,6 +311,7 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               readOnly={this.isVisibleToEmployee()}
+              openEditing={!this.isFinalizedForReviewer()}
             />
           </List>
         </List>
