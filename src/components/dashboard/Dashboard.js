@@ -8,6 +8,7 @@ import { getUserinfo, getUserroles } from '../../reducers/selector';
 import * as actions from '../../actions';
 import { NavLink } from 'react-router-dom';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
+import DefaultFilterService from '../../service/DefaultFilterService';
 
 let styles = {
   rowContainer: {
@@ -30,7 +31,15 @@ let styles = {
 };
 
 class Dashboard extends Component {
+  handleClick = payload => () => {
+    this.props.resetFilterGroup(payload.filterGroup);
+    this.props.addFilter(payload);
+  };
   render() {
+    let defaultFilterService = new DefaultFilterService(
+      this.props.userinfo.userId
+    );
+
     const { classes, userroles } = this.props;
     let numberOfPrsToReview = this.props.userinfo
       ? this.props.userinfo.numberOfPrsToReview
@@ -38,25 +47,7 @@ class Dashboard extends Component {
     let numberOfPrsToSupervise = this.props.userinfo
       ? this.props.userinfo.numberOfPrsToSupervise
       : 0;
-    let userId = this.props.userinfo.userId;
-    let filterPrsToReview = {
-      searchString: 'reviewerPreparationDone=false&reviewer=' + userId,
-      values: ['nein']
-    };
-    let payloadPrsToReviewFilter = {
-      filterGroup: 'REVIEWER',
-      filterBy: 'reviewerPreparationDone',
-      filter: filterPrsToReview
-    };
-    let filterOwnPrs = {
-      searchString: 'employeePreparationDone=false',
-      values: ['nein']
-    };
-    let payloadOwnPrsFilter = {
-      filterGroup: 'EMPLOYEE',
-      filterBy: 'employeePreparationDone',
-      filter: filterOwnPrs
-    };
+
     let prsNotFilledByReviewer = this.props.userinfo
       ? this.props.userinfo.prsNotFilledByReviewer
       : 0;
@@ -73,6 +64,9 @@ class Dashboard extends Component {
               component={NavLink}
               to={'/prs'}
               style={{ textDecoration: 'none' }}
+              onClick={this.handleClick(
+                defaultFilterService.prsAsReviewerFilter()
+              )}
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
@@ -91,6 +85,9 @@ class Dashboard extends Component {
               component={NavLink}
               to={'/prs'}
               style={{ textDecoration: 'none' }}
+              onClick={this.handleClick(
+                defaultFilterService.prsAsSupervisorFilter()
+              )}
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
@@ -109,7 +106,9 @@ class Dashboard extends Component {
               component={NavLink}
               to={'/prs'}
               style={{ textDecoration: 'none' }}
-              onClick={() => this.props.addFilter(payloadPrsToReviewFilter)}
+              onClick={this.handleClick(
+                defaultFilterService.prsToReviewFilter()
+              )}
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
@@ -128,7 +127,9 @@ class Dashboard extends Component {
               component={NavLink}
               to={'/myPrs'}
               style={{ textDecoration: 'none' }}
-              onClick={() => this.props.addFilter(payloadOwnPrsFilter)}
+              onClick={this.handleClick(
+                defaultFilterService.ownIncompletePrsFilter()
+              )}
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
@@ -173,5 +174,5 @@ export default connect(
     userinfo: getUserinfo(state),
     userroles: getUserroles(state)
   }),
-  { addFilter: actions.addFilter }
+  { addFilter: actions.addFilter, resetFilterGroup: actions.resetFilterGroup }
 )(StyledComponent);
