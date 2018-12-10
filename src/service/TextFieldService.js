@@ -58,8 +58,26 @@ class TextFieldService {
       closeEditingExplicitly
     } = this;
 
-    if (closeEditingExplicitly && isActionPerformer) {
+    if (closeEditingExplicitly && isActionPerformer && !errorFlag) {
       return { state: textFieldEnum.ENABLED, value: writeableText };
+    } else if (
+      closeEditingExplicitly &&
+      isActionPerformer &&
+      openEditing &&
+      !readOnlyFlag &&
+      errorFlag &&
+      writeableText !== null &&
+      writeableText !== ''
+    ) {
+      return { state: textFieldEnum.ENABLED, value: writeableText };
+    } else if (
+      isActionPerformer &&
+      openEditing &&
+      !readOnlyFlag &&
+      errorFlag &&
+      closeEditingExplicitly
+    ) {
+      return { state: textFieldEnum.ERROR, value: writeableText };
     } else if (nonActionPerformer && !readOnlyFlag) {
       return { state: textFieldEnum.DISABLED, value: '' };
     } else if (isActionPerformer && !openEditing && !readOnlyFlag) {
