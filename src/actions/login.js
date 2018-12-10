@@ -17,12 +17,14 @@ export const login = credentials => async dispatch => {
     body: JSON.stringify(credentials)
   });
 
-  const data = await response.json();
+  if (response.ok) {
+    const data = await response.json();
 
-  dispatch({
-    type: LOGIN_RESPONSE,
-    data
-  });
+    dispatch({
+      type: LOGIN_RESPONSE,
+      data
+    });
+  }
 };
 
 export const logout = () => async dispatch => {
