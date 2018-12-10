@@ -75,6 +75,10 @@ const styles = theme => ({
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
+  },
+  legendSlider: {
+    textAlign: 'right',
+    fontSize: '8pt'
   }
 });
 
@@ -170,6 +174,7 @@ class PrSheet extends React.Component {
           <ListItem className={classes.marginDown}>
             <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
           </ListItem>
+
           <List disablePadding>
             <PrOverallAssessment
               prById={prById}
@@ -228,8 +233,7 @@ class PrSheet extends React.Component {
                 color={'textSecondary'}
                 className={classes.legend}
               >
-                Punkteskala:
-                <br /> 1 - nicht erfüllt <br /> 5 - excellent
+                1 - nicht erfüllt <br /> 5 - exzellent
               </Typography>
             </ListItem>
           </div>

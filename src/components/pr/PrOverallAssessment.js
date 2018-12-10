@@ -7,10 +7,17 @@ import { getPrRatings, getUserroles } from '../../reducers/selector';
 import PrOverallFulfillment from './PrOverallFulfillment';
 import PrOverallComment from './PrOverallComment';
 import TargetRole from './TargetRole';
+import Typography from '@material-ui/core/Typography/Typography';
 
 const styles = {
   containerListItem: {
-    display: 'flex'
+    display: 'flex',
+    clear: 'right'
+  },
+  rightLegend: {
+    marginRight: '6%',
+    float: 'right',
+    textAlign: 'blockscope'
   }
 };
 
@@ -37,7 +44,15 @@ class PrOverallAssessment extends React.Component {
             openEditing={this.props.openEditing}
           />
         </div>
-
+        <div className={classes.rightLegend}>
+          <Typography
+            variant={'caption'}
+            color={'textSecondary'}
+            className={classes.legendSlider}
+          >
+            niedrige Eignung ------ hohe Eignung
+          </Typography>
+        </div>
         <div className={classes.containerListItem}>
           <TargetRole
             prById={prById}

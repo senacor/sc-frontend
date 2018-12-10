@@ -160,11 +160,9 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -775,11 +773,9 @@ exports[`PrSheet Fill-in should be  in Read-only state for reflections and ratin
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -1391,11 +1387,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -1956,11 +1950,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -2645,11 +2637,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -3270,11 +3260,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -4017,11 +4005,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -4632,11 +4618,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -5365,11 +5349,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -5960,11 +5942,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -6675,11 +6655,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -7280,11 +7258,9 @@ exports[`PrSheet Fill-in should be assigned to HR that they see everything as no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -7997,11 +7973,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -8562,11 +8536,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -9142,11 +9114,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -9727,11 +9697,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -10325,11 +10293,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -10920,11 +10886,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -11528,11 +11492,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -12133,11 +12095,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -12753,11 +12713,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -13378,11 +13336,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -14012,11 +13968,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -14627,11 +14581,9 @@ exports[`PrSheet Fill-in should be completely the same view for the supervisor a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -15255,11 +15207,9 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -15880,11 +15830,9 @@ exports[`PrSheet Fill-in should be in Read-only state for reflections, ratings a
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -16504,11 +16452,9 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -17069,11 +17015,9 @@ exports[`PrSheet Fill-in should be nothing released as read-only, and the review
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -17653,11 +17597,9 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -18258,11 +18200,9 @@ exports[`PrSheet Fill-in should be the reflections and ratings released as read-
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -18874,11 +18814,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -19479,11 +19417,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -20097,11 +20033,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -20712,11 +20646,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -21340,11 +21272,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -21965,11 +21895,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -22595,11 +22523,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -23190,11 +23116,9 @@ exports[`PrSheet Fill-in should identify the employee correctly as Action- or no
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -23790,11 +23714,9 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -24355,11 +24277,9 @@ exports[`PrSheet Fill-in should mark the reflection fields as error elements, id
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -24937,11 +24857,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -25532,11 +25450,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -26136,11 +26052,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -26721,11 +26635,9 @@ exports[`PrSheet Fill-in should see reflection fields released as read-only, and
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>

@@ -189,6 +189,16 @@ exports[`PrOverallAssessment Component should display fulfillment of requirement
     />
   </div>
   <div
+    className="PrOverallAssessment-rightLegend-2"
+  >
+    <WithStyles(Typography)
+      color="textSecondary"
+      variant="caption"
+    >
+      niedrige Eignung ------ hohe Eignung
+    </WithStyles(Typography)>
+  </div>
+  <div
     className="PrOverallAssessment-containerListItem-1"
   >
     <Connect(WithStyles(TargetRole))

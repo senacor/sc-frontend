@@ -446,11 +446,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
@@ -2491,11 +2489,9 @@ exports[`PrSheet Component should display the PrSheet 1`] = `
                 color="textSecondary"
                 variant="caption"
               >
-                Punkteskala:
+                1 - nicht erfüllt 
                 <br />
-                 1 - nicht erfüllt 
-                <br />
-                 5 - excellent
+                 5 - exzellent
               </WithStyles(Typography)>
             </WithStyles(ListItem)>
           </div>
