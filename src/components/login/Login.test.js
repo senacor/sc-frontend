@@ -10,7 +10,9 @@ describe('Login Component', () => {
       token: true
     };
 
-    const eut = shallow(<StyledComponent token={token} />);
+    const eut = shallow(
+      <StyledComponent token={token} location={{ state: '/previous' }} />
+    );
 
     expect(eut).toMatchSnapshot();
   });

@@ -11,7 +11,9 @@ const PrivateRoute = ({ component: Component, isUnauthorized, ...rest }) => {
         return tokenExistent && !isUnauthorized ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: '/login' }} />
+          <Redirect
+            to={{ pathname: '/login', state: { from: props.location } }}
+          />
         );
       }}
     />

@@ -1,6 +1,11 @@
 import { default as fetch } from '../helper/customFetch';
 
-import { LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT } from '../helper/dispatchTypes';
+import {
+  LOGIN_REQUEST,
+  LOGIN_RESPONSE,
+  LOGIN_UNAUTHORIZED,
+  LOGOUT
+} from '../helper/dispatchTypes';
 
 export const login = credentials => async dispatch => {
   if (credentials.username === '' || credentials.password === '') {
@@ -23,6 +28,11 @@ export const login = credentials => async dispatch => {
     dispatch({
       type: LOGIN_RESPONSE,
       data
+    });
+  } else {
+    dispatch({
+      type: LOGIN_UNAUTHORIZED,
+      payload: response.status
     });
   }
 };

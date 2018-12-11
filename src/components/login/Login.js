@@ -134,9 +134,10 @@ class Login extends Component {
 
   render() {
     const { classes, isLoggedIn, isUnauthorized, isLoading } = this.props;
+    let { from } = this.props.location.state || { from: { pathname: '/' } };
 
     if (isLoggedIn) {
-      return <Redirect push to="/" />;
+      return <Redirect push to={from} />;
     }
 
     return (
