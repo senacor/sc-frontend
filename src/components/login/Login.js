@@ -113,8 +113,8 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: 'test.pr.mitarbeiter1',
-      password: 'K!ckst4rter',
+      username: '',
+      password: '',
       token: props.token
     };
   }

@@ -58,7 +58,7 @@ exports[`Login Component should match snapshot 1`] = `
           onChange={[Function]}
           placeholder="Nutzername"
           startAdornment={<UserIcon />}
-          value="test.pr.mitarbeiter1"
+          value=""
         />
       </WithStyles(FormControl)>
       <WithStyles(FormControl)
@@ -71,7 +71,7 @@ exports[`Login Component should match snapshot 1`] = `
           placeholder="Passwort"
           startAdornment={<PasswordIcon />}
           type="password"
-          value="K!ckst4rter"
+          value=""
         />
         <WithStyles(FormHelperText)
           id="name-error-text"
