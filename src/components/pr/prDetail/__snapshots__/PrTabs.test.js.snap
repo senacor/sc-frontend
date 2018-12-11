@@ -24,6 +24,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
             "root": "PrTabs-tabStyle-4",
           }
         }
+        id="TabDetails"
         label="Details"
         value="DETAIL_VIEW"
       />
@@ -33,6 +34,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
             "root": "PrTabs-tabStyle-4",
           }
         }
+        id="TabTerminfindung"
         label="Terminfindung"
         value="SCHEDULE_VIEW"
       />

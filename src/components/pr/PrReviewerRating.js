@@ -143,7 +143,7 @@ class PrReviewerRating extends React.Component {
         <div className={classes.containerListItem}>
           <ListItem className={classes.nestedTextSelect}>
             <PrTextField
-              id={category + '_CommentId'}
+              fieldId={category + '_CommentId'}
               label={translateContent(category)}
               startrows={'2'}
               state={service.getState()}

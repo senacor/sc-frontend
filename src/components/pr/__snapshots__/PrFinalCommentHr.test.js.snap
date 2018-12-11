@@ -16,7 +16,7 @@ exports[`PrFinalCommentHr Component displays an info text before the employee ha
         xs={12}
       >
         <PrTextField
-          fieldId="finalCommentHr"
+          fieldId="FINAL_COMMENT_HR"
           helperText="Nur sichtbar für HR-Mitarbeiter."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
@@ -45,7 +45,7 @@ exports[`PrFinalCommentHr Component displays the PrFinalCommentHr 1`] = `
         xs={12}
       >
         <PrTextField
-          fieldId="finalCommentHr"
+          fieldId="FINAL_COMMENT_HR"
           helperText="Nur sichtbar für HR-Mitarbeiter."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}
@@ -74,7 +74,7 @@ exports[`PrFinalCommentHr Component displays the text read-only after HR has fin
         xs={12}
       >
         <PrTextField
-          fieldId="finalCommentHr"
+          fieldId="FINAL_COMMENT_HR"
           helperText="Nur sichtbar für HR-Mitarbeiter."
           label="Abschließender Kommentar durch HR-Mitarbeiter (optional)"
           onChange={[Function]}

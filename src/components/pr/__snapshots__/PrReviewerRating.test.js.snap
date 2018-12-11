@@ -11,7 +11,7 @@ exports[`PrReviewerRating Component should display Customer interaction 1`] = `
       className="PrReviewerRating-nestedTextSelect-8"
     >
       <PrTextField
-        id="CUSTOMER_INTERACTION_CommentId"
+        fieldId="CUSTOMER_INTERACTION_CommentId"
         label="Kundeninteraktion und -veränderung"
         onChange={[Function]}
         startrows="2"
@@ -89,7 +89,7 @@ exports[`PrReviewerRating Component should display ProblemAnalysis 1`] = `
       className="PrReviewerRating-nestedTextSelect-8"
     >
       <PrTextField
-        id="PROBLEM_ANALYSIS_CommentId"
+        fieldId="PROBLEM_ANALYSIS_CommentId"
         label="Problemanalyse und -lösung"
         onChange={[Function]}
         startrows="2"
@@ -167,7 +167,7 @@ exports[`PrReviewerRating Component should display Teamwork 1`] = `
       className="PrReviewerRating-nestedTextSelect-8"
     >
       <PrTextField
-        id="TEAMWORK_CommentId"
+        fieldId="TEAMWORK_CommentId"
         label="Effektives Arbeiten im Team und Teamführung"
         onChange={[Function]}
         startrows="2"
@@ -245,7 +245,7 @@ exports[`PrReviewerRating Component should display the ContributionToCompanyDeve
       className="PrReviewerRating-nestedTextSelect-8"
     >
       <PrTextField
-        id="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
+        fieldId="CONTRIBUTION_TO_COMPANY_DEVELOPMENT_CommentId"
         label="Beitrag zur Unternehmensentwicklung"
         onChange={[Function]}
         startrows="2"

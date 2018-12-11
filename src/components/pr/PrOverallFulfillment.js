@@ -71,7 +71,7 @@ export class PrOverallFulfillment extends Component {
           <div className={classes.number}>
             <FormControl disabled={!openEditing}>
               <Select
-                id="ratingFullfillmentId"
+                id="FULFILLMENT_OF_REQUIREMENT_RatingId"
                 value={prRating.rating ? prRating.rating : 0}
                 onChange={this.handleChangeRating(prById)}
                 displayEmpty
@@ -80,8 +80,16 @@ export class PrOverallFulfillment extends Component {
                 {[0, 1, 2, 3, 4, 5].map(ratingValue => {
                   return (
                     <MenuItem
-                      key={'_ratingFulfillment' + ratingValue}
-                      id={'_ratingFulfillmentValue' + ratingValue}
+                      key={
+                        'FULFILLMENT_OF_REQUIREMENT' +
+                        '_RatingValue' +
+                        ratingValue
+                      }
+                      id={
+                        'FULFILLMENT_OF_REQUIREMENT' +
+                        '_RatingValue' +
+                        ratingValue
+                      }
                       value={ratingValue}
                     >
                       {mapRatingFullfilment(ratingValue)}

@@ -170,6 +170,7 @@ export class PrDelegate extends React.Component {
     return (
       <div className={classes.box}>
         <TextField
+          id={'PrDelegate' + currentPr.id}
           value={employeeSearchValue}
           onChange={this.handleChange}
           onClick={this.onClick}
