@@ -66,6 +66,7 @@ class PrTabs extends React.Component {
                 root: classes.tabStyle
               }}
               label="Details"
+              id={'TabDetails'}
             />
             <Tab
               value={prTabEnum.SCHEDULE_VIEW}
@@ -73,6 +74,7 @@ class PrTabs extends React.Component {
                 root: classes.tabStyle
               }}
               label="Terminfindung"
+              id={'TabTerminfindung'}
             />
           </Tabs>
         </Paper>

@@ -35,49 +35,49 @@ exports[`PrOverallFulfillment Component should match snapshot 1`] = `
     >
       <WithStyles(Select)
         displayEmpty={true}
-        id="ratingFullfillmentId"
+        id="FULFILLMENT_OF_REQUIREMENT_RatingId"
         name="ratingFulfillment"
         onChange={[Function]}
         value={2}
       >
         <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue0"
-          key="_ratingFulfillment0"
+          id="FULFILLMENT_OF_REQUIREMENT_RatingValue0"
+          key="FULFILLMENT_OF_REQUIREMENT_RatingValue0"
           value={0}
         >
           kein Eintrag
         </WithStyles(MenuItem)>
         <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue1"
-          key="_ratingFulfillment1"
+          id="FULFILLMENT_OF_REQUIREMENT_RatingValue1"
+          key="FULFILLMENT_OF_REQUIREMENT_RatingValue1"
           value={1}
         >
           nicht erfüllt
         </WithStyles(MenuItem)>
         <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue2"
-          key="_ratingFulfillment2"
+          id="FULFILLMENT_OF_REQUIREMENT_RatingValue2"
+          key="FULFILLMENT_OF_REQUIREMENT_RatingValue2"
           value={2}
         >
           zT. nicht erfüllt
         </WithStyles(MenuItem)>
         <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue3"
-          key="_ratingFulfillment3"
+          id="FULFILLMENT_OF_REQUIREMENT_RatingValue3"
+          key="FULFILLMENT_OF_REQUIREMENT_RatingValue3"
           value={3}
         >
           erfüllt
         </WithStyles(MenuItem)>
         <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue4"
-          key="_ratingFulfillment4"
+          id="FULFILLMENT_OF_REQUIREMENT_RatingValue4"
+          key="FULFILLMENT_OF_REQUIREMENT_RatingValue4"
           value={4}
         >
           zT. übererfüllt
         </WithStyles(MenuItem)>
         <WithStyles(MenuItem)
-          id="_ratingFulfillmentValue5"
-          key="_ratingFulfillment5"
+          id="FULFILLMENT_OF_REQUIREMENT_RatingValue5"
+          key="FULFILLMENT_OF_REQUIREMENT_RatingValue5"
           value={5}
         >
           übererfüllt
