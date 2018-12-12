@@ -23,14 +23,21 @@ exports[`Dashboard component should match snapshot 1`] = `
         <WithStyles(Typography)
           color="textSecondary"
         >
-          Willkommen im Performance-Review-Portal. Dies ist die erste Testphase. Wir haben nach bestem Wissen und Gewissen alle Funktionalitäten getestet. Bitte meldet alle dennoch auftretenden Auffälligkeiten an
-           
+          Willkommen im Performance-Review-Portal. 
+          <br />
+          Dies ist die erste Testphase. Bugs, Feedback und Fragen gerne an
           <a
             href="mailto:Tuan-Si.Tran@senacor.com"
           >
-            Si (Tuan-Si.Tran@senacor.com)
+            Si Tran (Tuan-Si.Tran@senacor.com)
           </a>
-          , damit wir uns zeitnah darum kümmern können. Wir wünschen viel Spaß beim Testen!
+          richten, damit wir uns zeitnah darum kümmern können. 
+          <br />
+          <br />
+          Da wir parallel am Portal weiterentwickeln, werden wir unter der Woche immer zwischen 9-10 Uhr das System updaten. Im Normalfall solltet ihr keine Beeinträchtigung bemerken. 
+          <br />
+          <br />
+          Wir wünschen viel Spaß beim Testen!
         </WithStyles(Typography)>
       </WithStyles(CardContent)>
     </WithStyles(Card)>
