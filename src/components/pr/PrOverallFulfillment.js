@@ -29,7 +29,7 @@ export class PrOverallFulfillment extends Component {
     this.props.addRating(
       prById,
       this.props.category,
-      this.props.comment,
+      this.props.prRating.comment,
       event.target.value,
       this.props.prRating.id
     );
