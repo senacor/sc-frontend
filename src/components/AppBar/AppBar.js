@@ -11,7 +11,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Sidebar from '../sidebar/Sidebar';
 import ErrorMessage from './ErrorMessage';
 
-const drawerWidth = 250;
+const drawerWidth = 270;
 const styles = theme => ({
   root: {
     flexGrow: 1,

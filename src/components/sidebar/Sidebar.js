@@ -63,7 +63,7 @@ export class Sidebar extends Component {
         onClick: () => {}
       },
       {
-        label: 'PR Übersicht',
+        label: 'PRs zur Umsetzung',
         icon: <LibraryBooksIcon />,
         value: '/prs',
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
