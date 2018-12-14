@@ -47,7 +47,7 @@ describe('SchedulingView', () => {
   };
 
   const emptyMeeting = {
-    status: 'NO_REQUEST'
+    status: 'NOT_REQUESTED'
   };
 
   const fetchMeetingMock = jest.fn();

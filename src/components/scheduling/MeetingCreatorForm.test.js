@@ -32,7 +32,7 @@ const pr = {
 };
 
 const emptyMeeting = {
-  status: 'NO_REQUEST'
+  status: 'NOT_REQUESTED'
 };
 
 const userinfo = { userPrincipalName: 'mmustermann' };
