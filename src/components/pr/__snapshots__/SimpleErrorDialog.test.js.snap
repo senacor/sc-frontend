@@ -24,7 +24,7 @@ exports[`SimpleErrorDialog Component should match Snapshot 1`] = `
   disableBackdropClick={false}
   disableEscapeKeyDown={false}
   fullScreen={false}
-  fullWidth={false}
+  fullWidth={true}
   maxWidth="sm"
   onClose={[Function]}
   open={true}
@@ -37,12 +37,15 @@ exports[`SimpleErrorDialog Component should match Snapshot 1`] = `
   }
 >
   <WithStyles(DialogTitle)>
-    Fehlermeldung
+    <WithStyles(Typography)
+      variant="body2"
+    >
+      Fehlermeldung
+    </WithStyles(Typography)>
   </WithStyles(DialogTitle)>
-  <WithStyles(Button)
-    onClick={[Function]}
-  >
-    Ok
-  </WithStyles(Button)>
+  <WithStyles(PrStatusActionButton)
+    label="Ok"
+    releaseButtonClick={[Function]}
+  />
 </Dialog>
 `;

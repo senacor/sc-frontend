@@ -9,7 +9,6 @@ import PrOverallAssessment from './PrOverallAssessment';
 import PrSheetEmployee from './PrSheetEmployee';
 import { withStyles } from '@material-ui/core/styles/index';
 import { isHr } from '../../helper/checkRole';
-import * as actions from '../../actions';
 import * as visibilityTypes from '../../helper/prVisibility';
 import * as finalizationTypes from '../../helper/prFinalization';
 import objectGet from 'object-get';
@@ -26,6 +25,7 @@ import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
 import { prStatusEnum } from '../../helper/prStatus';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
 
 const styles = theme => ({
   containerVertical: {
@@ -350,18 +350,22 @@ class PrSheet extends React.Component {
             {requiredInfo()}
           </Grid>
           <Hidden smDown>
-            <Grid item lg={6} xl={6}>
+            <Grid item md={6} lg={6} xl={6}>
               {detailReviewer()}
               {isHr(this.props.userroles) ? <Divider /> : null}
               {isHr(this.props.userroles) ? finalHr() : null}
             </Grid>
           </Hidden>
+          <Hidden mdUp>
+            <Grid item xs={12} sm={12}>
+              {isHr(this.props.userroles) ? <Divider /> : null}
+              {isHr(this.props.userroles) ? finalHr() : null}
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <ButtonsBelowSheet />
+          </Grid>
         </Grid>
-        <Divider />
-        <Hidden mdUp>
-          {isHr(this.props.userroles) ? <Divider /> : null}
-          {isHr(this.props.userroles) ? finalHr() : null}
-        </Hidden>
       </div>
     );
   }
@@ -375,7 +379,5 @@ export default connect(
     userinfo: getUserinfo(state),
     requiredFields: getRequiredFields(state)
   }),
-  {
-    setVisibilityById: actions.setVisibilityById
-  }
+  {}
 )(StyledComponent);

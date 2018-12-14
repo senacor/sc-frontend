@@ -4,6 +4,7 @@ import { SimpleErrorDialog } from './SimpleErrorDialog';
 
 describe('SimpleErrorDialog Component', () => {
   let shallow = createShallow({ dive: true });
+  let textClass = {};
 
   it('should match Snapshot', () => {
     let component = shallow(
@@ -11,6 +12,7 @@ describe('SimpleErrorDialog Component', () => {
         onClose={jest.fn()}
         open={true}
         message={'Fehlermeldung'}
+        classes={textClass}
       />
     );
 
@@ -24,10 +26,10 @@ describe('SimpleErrorDialog Component', () => {
         onClose={closeMock}
         open={true}
         message={'Fehlermeldung'}
+        classes={textClass}
       />
     );
 
-    component.find('WithStyles(Button)').simulate('click');
-    expect(closeMock).toHaveBeenCalledTimes(1);
+    expect(component.find('WithStyles(PrStatusActionButton)')).toHaveLength(1);
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleErrorDialog } from '../pr/SimpleErrorDialog';
+import { StyledComponent as SimpleErrorDialog } from '../pr/SimpleErrorDialog';
 import PropTypes from 'prop-types';
 
 export class CheckRequiredClick extends React.Component {
@@ -26,8 +26,9 @@ export class CheckRequiredClick extends React.Component {
   };
 
   render() {
+    let { inputClass } = this.props;
     return (
-      <div>
+      <div className={inputClass}>
         {React.cloneElement(this.props.children, {
           releaseButtonClick: this.handleClick
         })}

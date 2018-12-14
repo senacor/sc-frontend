@@ -6,7 +6,7 @@ exports[`CheckRequiredClick Component should match Snapshot 1`] = `
     label="Freigabe"
     releaseButtonClick={[Function]}
   />
-  <SimpleErrorDialog
+  <WithStyles(SimpleErrorDialog)
     message="Fehlermeldung."
     onClose={[Function]}
     open={false}

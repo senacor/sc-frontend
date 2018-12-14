@@ -92,6 +92,8 @@ class PrState extends React.Component {
   };
 
   updateStepStructure = (pr, userinfo, prStatusesDone, meeting) => {
+    let userIsMemberOfHr = isHr(this.props.userroles);
+
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let meetingInfoText = (status, statuses) => {
       if (
@@ -104,10 +106,16 @@ class PrState extends React.Component {
           case 'ACCEPTED':
             return 'Teilnehmer haben zugesagt';
           case 'DECLINED':
+            if (userIsMemberOfHr) {
+              return 'Termin wurde abgesagt';
+            }
             return 'Termin wurde abgesagt, bitte neuen Termin vereinbaren';
           case 'NO_ANSWER':
             return 'Terminvorschlag verschickt';
           case 'NOT_REQUESTED':
+            if (userIsMemberOfHr) {
+              return 'noch kein Termin vereinbart';
+            }
             return 'Bitte zeitnah Termin vereinbaren';
           default:
             return 'Keine Information verfügbar';
@@ -207,7 +215,6 @@ class PrState extends React.Component {
       }
     };
 
-    let userIsMemberOfHr = isHr(this.props.userroles);
     if (userIsMemberOfHr) {
       return [step1, step2, step3, step4];
     } else {
@@ -285,6 +292,11 @@ class PrState extends React.Component {
   };
 
   getIncompleteActionPerformerButton = (pr, status) => {
+    let label =
+      status === prStatusEnum.RELEASED_SHEET_REVIEWER ||
+      status === prStatusEnum.RELEASED_SHEET_EMPLOYEE
+        ? 'Freigeben'
+        : 'Abschliessen';
     return (
       <CheckRequiredClick
         onClick={() => {
@@ -293,7 +305,7 @@ class PrState extends React.Component {
         check={() => !this.requiredFieldsEmpty(status)}
         message={'Bitte alle Pflichtfelder ausfüllen.'}
       >
-        <PrStatusActionButton label={'Freigabe'} />
+        <PrStatusActionButton label={label} />
       </CheckRequiredClick>
     );
   };
