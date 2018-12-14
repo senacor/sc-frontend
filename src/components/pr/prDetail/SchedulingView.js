@@ -17,7 +17,6 @@ export class SchedulingView extends React.Component {
   constructor(props) {
     super(props);
     if (isHr(this.props.userroles)) {
-      console.log('isHr');
       this.state = {
         canRequestMeeting: false
       };
@@ -26,16 +25,10 @@ export class SchedulingView extends React.Component {
       (this.props.meeting.status === 'NOT_REQUESTED' &&
         !this.props.prDetail.statuses.includes(prStatusEnum.FINALIZED_REVIEWER))
     ) {
-      console.log(this.props.meeting.status);
       this.state = {
         canRequestMeeting: true
       };
     } else {
-      console.log('else');
-      console.log(this.props.meeting.status);
-      console.log(
-        !this.props.prDetail.statuses.includes(prStatusEnum.FINALIZED_REVIEWER)
-      );
       this.state = {
         canRequestMeeting: false
       };
