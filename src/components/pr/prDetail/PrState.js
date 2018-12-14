@@ -12,7 +12,8 @@ import {
   getUserinfo,
   getRequiredFields,
   getPrRatings,
-  getPrEmployeeContributions
+  getPrEmployeeContributions,
+  getMeeting
 } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
@@ -90,13 +91,29 @@ class PrState extends React.Component {
     }
   };
 
-  updateStepStructure = (pr, userinfo, prStatusesDone) => {
+  updateStepStructure = (pr, userinfo, prStatusesDone, meeting) => {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-    let requestedDate = prStatusesDone[prStatusEnum.REQUESTED_DATE];
-    let fixedDate = prStatusesDone[prStatusEnum.FIXED_DATE];
-    let requestDateLabel = fixedDate ? null : 'Terminfindung';
-    let fixedDateLabel = fixedDate ? 'Terminfindung' : null;
-    let dateRequestedText = requestedDate ? 'Terminvorschlag verschickt' : null;
+    let meetingInfoText = (status, statuses) => {
+      if (
+        statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
+        !(status === 'ACCEPTED')
+      ) {
+        return 'Termin wurde außerhalb des Portals vereinbart';
+      } else {
+        switch (status) {
+          case 'ACCEPTED':
+            return 'Teilnehmer haben zugesagt';
+          case 'DECLINED':
+            return 'Termin wurde abgesagt, bitte neuen Termin vereinbaren';
+          case 'NO_ANSWER':
+            return 'Terminvorschlag verschickt';
+          case 'NOT_REQUESTED':
+            return 'Bitte zeitnah Termin vereinbaren';
+          default:
+            return 'Keine Information verfügbar';
+        }
+      }
+    };
     let step1 = {
       mainStepLabel: 'Vorbereitung',
       substeps: {
@@ -127,31 +144,10 @@ class PrState extends React.Component {
           }
         },
         [prStatusEnum.REQUESTED_DATE]: {
-          isCompleted: prStatusesDone[prStatusEnum.REQUESTED_DATE],
-          isCurrentUserActionPerformer: hasRoleInPr([
-            'employee',
-            'reviewer',
-            'supervisor'
-          ]),
-          label: requestDateLabel,
+          isCompleted: true,
+          label: 'Terminfindung:',
           rendering: {
-            complete: null,
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
-            incompleteForActionPerformer: 'Bitte einen Termin vereinbaren'
-          }
-        },
-        [prStatusEnum.FIXED_DATE]: {
-          isCompleted: prStatusesDone[prStatusEnum.FIXED_DATE],
-          isCurrentUserActionPerformer: hasRoleInPr([
-            'reviewer',
-            'supervisor',
-            'employee'
-          ]),
-          label: fixedDateLabel,
-          rendering: {
-            complete: 'Abgeschlossen',
-            incompleteForNonActionPerformer: dateRequestedText,
-            incompleteForActionPerformer: dateRequestedText
+            complete: meetingInfoText(meeting.status, pr.statuses)
           }
         }
       }
@@ -303,9 +299,9 @@ class PrState extends React.Component {
   };
 
   render() {
-    const { classes, prById, userinfo } = this.props;
+    const { classes, prById, userinfo, meeting } = this.props;
 
-    if (!prById) {
+    if (!(prById && meeting)) {
       return null;
     }
     const prStatusesDone = this.getCompletedSubsteps(prById.statuses);
@@ -317,7 +313,8 @@ class PrState extends React.Component {
     const stepStructure = this.updateStepStructure(
       prById,
       userinfo,
-      prStatusesDone
+      prStatusesDone,
+      meeting
     );
 
     const activeStep = this.calculateActiveStep(prStatusesDone, stepStructure);
@@ -353,7 +350,8 @@ export default connect(
     employeeContributionLeader: getPrEmployeeContributions(
       'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
     )(state).text,
-    requiredFields: getRequiredFields(state)
+    requiredFields: getRequiredFields(state),
+    meeting: getMeeting(state)
   }),
   {
     checkRequired: changeRequiredFields,

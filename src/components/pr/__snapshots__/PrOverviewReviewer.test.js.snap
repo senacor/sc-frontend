@@ -277,7 +277,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
               <Connect(ListFilter)
                       content={
                               Object {
-                                      "abgeschlossen": false,
+                                      "beendet": false,
                                       "laufend": true,
                                     }
                       }
@@ -495,7 +495,7 @@ exports[`PrOverviewReviewer Component should match snapshot 1`] = `
             <Connect(ListFilter)
                   content={
                         Object {
-                              "abgeschlossen": false,
+                              "beendet": false,
                               "laufend": true,
                             }
                   }

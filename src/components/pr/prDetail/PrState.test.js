@@ -173,11 +173,14 @@ describe('PrState Component for reviewer', () => {
       statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE
     };
 
+    const meeting = { status: '' };
+
     const component = shallow(
       <StyledComponent
         prById={prById}
         userinfo={userinfo}
         checkRequired={jest.fn()}
+        meeting={meeting}
       />
     );
 
@@ -385,12 +388,14 @@ describe('PrState Component for employee', () => {
     const prById = {
       statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE
     };
+    const meeting = { status: '' };
 
     const component = shallow(
       <StyledComponent
         prById={prById}
         userinfo={userinfo}
         checkRequired={jest.fn()}
+        meeting={meeting}
       />
     );
 
@@ -643,12 +648,15 @@ describe('PrState Component for HR', () => {
       statuses: prStatusEnum.RELEASED_SHEET_EMPLOYEE
     };
 
+    const meeting = { status: '' };
+
     const component = shallow(
       <StyledComponent
         prById={prById}
         userinfo={userinfo}
         userroles={userroles}
         checkRequired={jest.fn()}
+        meeting={meeting}
       />
     );
 

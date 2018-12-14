@@ -46,63 +46,71 @@ class MeetingDetailVisibilityService {
     });
   };
 
-  findAllMeetingStatesOfRequired = meeting => {
-    return Object.keys(meeting.requiredAttendees).map(employee => {
-      return meeting.requiredAttendees[employee].status;
-    });
-  };
-
   execute() {
     let { pr, userroles, userinfo, meeting } = this;
 
     let evaluation = {
       pleaseAccept: false,
-      jump: false,
       hrInfoNotAccepted: false,
       hrInfoNotSent: false,
       evaluationExternal: false,
-      readOnly: false,
-      action: false
+      meetingDeclined: false,
+      action: false,
+      meetingExists: false
     };
 
-    let meetingRequestSent = pr.statuses.includes(prStatusEnum.REQUESTED_DATE);
-    let findMeetingFinished = pr.statuses.includes(prStatusEnum.FIXED_DATE);
+    let reviewerHasFinished = pr.statuses.includes(
+      prStatusEnum.FINALIZED_REVIEWER
+    );
     let isHrMember = isHr(userroles);
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let canMakeAction = hasRoleInPr(['supervisor', 'reviewer', 'employee']);
-    let meetingStateOfSelf = meeting
-      ? this.findMeetingStateOfSelf(userinfo, meeting)
-      : ['UNKNOWN'];
+    let meetingStateOfSelf =
+      meeting && !(meeting.status === 'NOT_REQUESTED') && !isHrMember
+        ? this.findMeetingStateOfSelf(userinfo, meeting)
+        : ['UNKNOWN'];
     let meetingStateOfSelfUnknown = meetingStateOfSelf.includes('UNKNOWN');
-    let notAllRequiredAttendeesHaveAccepted = meeting
-      ? this.findAllMeetingStatesOfRequired(meeting).includes('UNKNOWN')
-      : true;
+    let meetingStateDeclined = meeting && meeting.status === 'DECLINED';
 
     if (
-      meetingRequestSent &&
-      !findMeetingFinished &&
+      !reviewerHasFinished &&
       meetingStateOfSelfUnknown &&
-      canMakeAction
+      canMakeAction &&
+      !meetingStateDeclined
     ) {
       evaluation.pleaseAccept = true;
     }
-    if (!findMeetingFinished && canMakeAction) {
-      evaluation.jump = true;
+    if (meetingStateDeclined && !reviewerHasFinished) {
+      evaluation.meetingDeclined = true;
     }
-    if (meetingRequestSent && !findMeetingFinished && isHrMember) {
+    if (
+      !reviewerHasFinished &&
+      meeting != null &&
+      meeting.status === 'NO_ANSWER' &&
+      isHrMember
+    ) {
       evaluation.hrInfoNotAccepted = true;
     }
-    if (!meetingRequestSent && !findMeetingFinished && isHrMember) {
+    if (
+      !reviewerHasFinished &&
+      meeting != null &&
+      meeting.status === 'NOT_REQUESTED' &&
+      isHrMember
+    ) {
       evaluation.hrInfoNotSent = true;
     }
-    if (findMeetingFinished && notAllRequiredAttendeesHaveAccepted) {
+    if (
+      reviewerHasFinished &&
+      meeting != null &&
+      meeting.status !== 'ACCEPTED'
+    ) {
       evaluation.evaluationExternal = true;
     }
-    if (!meeting && findMeetingFinished) {
-      evaluation.readOnly = true;
-    }
-    if (!meetingRequestSent && canMakeAction) {
+    if (!reviewerHasFinished && canMakeAction) {
       evaluation.action = true;
+    }
+    if (meeting != null && !(meeting.status === 'NOT_REQUESTED')) {
+      evaluation.meetingExists = true;
     }
 
     return evaluation;
@@ -110,10 +118,6 @@ class MeetingDetailVisibilityService {
 
   getAccept = () => {
     return this.execute().pleaseAccept;
-  };
-
-  getJump = () => {
-    return this.execute().jump;
   };
 
   getHrInfoNotAccepted = () => {
@@ -127,12 +131,14 @@ class MeetingDetailVisibilityService {
   getEvaluationExternal = () => {
     return this.execute().evaluationExternal;
   };
-
-  getReadOnly = () => {
-    return this.execute().readOnly;
-  };
   getAction = () => {
     return this.execute().action;
+  };
+  getMeetingExists = () => {
+    return this.execute().meetingExists;
+  };
+  getMeetingDeclined = () => {
+    return this.execute().meetingDeclined;
   };
 }
 

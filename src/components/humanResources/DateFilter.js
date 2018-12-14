@@ -100,6 +100,7 @@ export class DateFilter extends Component {
             label="von"
             type="date"
             defaultValue={values.From}
+            placeholder={'JJJJ-MM-TT'}
             InputLabelProps={{
               shrink: true
             }}
@@ -110,6 +111,7 @@ export class DateFilter extends Component {
             label="bis"
             type="date"
             defaultValue={values.To}
+            placeholder={'JJJJ-MM-TT'}
             InputLabelProps={{
               shrink: true
             }}

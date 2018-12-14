@@ -1,6 +1,7 @@
 import MeetingDetailVisibilityService from './MeetingDetailVisibilityService';
 import ROLES from '../helper/roles';
 import { prStatusEnum } from '../helper/prStatus';
+import { userinfo } from '../reducers/userinfo';
 
 describe('MeetingDetailVisibilityService', () => {
   let userroleHr = [ROLES.PR_HR];
@@ -28,47 +29,48 @@ describe('MeetingDetailVisibilityService', () => {
     expect(service.getAccept()).toBeTruthy();
   });
 
-  it('should show a skip meeting button', () => {
-    let pr = {
-      statuses: [
-        prStatusEnum.RELEASED_SHEET_EMPLOYEE,
-        prStatusEnum.RELEASED_SHEET_REVIEWER
-      ],
-      employee: { login: 'test.pr.mitarbeiter1' }
-    };
-    let userinfo = { userPrincipalName: 'test.pr.mitarbeiter1' };
-
-    let service = new MeetingDetailVisibilityService();
-    service.setPr(pr);
-    service.setUserinfo(userinfo);
-
-    expect(service.getJump()).toBeTruthy();
-  });
-
   it('should inform HR that the meeting is not yet accepted', () => {
-    let pr = {
-      statuses: [prStatusEnum.REQUESTED_DATE]
-    };
+    let meeting = { status: 'NO_ANSWER' };
+    let userinfo = { userPrincipalName: 'test.pr.hr' };
 
     let service = new MeetingDetailVisibilityService();
-    service.setPr(pr);
+    service.setMeeting(meeting);
     service.setUserroles(userroleHr);
+    service.setUserinfo(userinfo);
 
     expect(service.getHrInfoNotAccepted()).toBeTruthy();
   });
 
   it('should inform HR that the meeting is not requested', () => {
+    let meeting = { status: 'NOT_REQUESTED' };
+
     let service = new MeetingDetailVisibilityService();
     service.setUserroles(userroleHr);
+    service.setMeeting(meeting);
 
     expect(service.getHrInfoNotSent()).toBeTruthy();
   });
 
   it('should know that the meeting was fixed outside the app because it is not accepted but finished', () => {
     let pr = {
-      statuses: [prStatusEnum.REQUESTED_DATE, prStatusEnum.FIXED_DATE]
+      statuses: [prStatusEnum.FINALIZED_REVIEWER]
+    };
+    let meeting = { status: 'NOT_REQUESTED' };
+
+    let service = new MeetingDetailVisibilityService();
+    service.setPr(pr);
+    service.setMeeting(meeting);
+    service.setUserinfo(userinfo);
+
+    expect(service.getEvaluationExternal()).toBeTruthy();
+  });
+
+  it('should know that the meeting was fixed outside the app because it does not exist but is finished', () => {
+    let pr = {
+      statuses: [prStatusEnum.FINALIZED_REVIEWER]
     };
     let meeting = {
+      status: 'DECLINED',
       requiredAttendees: {
         'test.pr.mitarbeiter1': {
           email: 'test.pr.mitarbeiter1@senacor.com',
@@ -79,31 +81,10 @@ describe('MeetingDetailVisibilityService', () => {
 
     let service = new MeetingDetailVisibilityService();
     service.setPr(pr);
+    service.setUserinfo(userinfo);
     service.setMeeting(meeting);
 
     expect(service.getEvaluationExternal()).toBeTruthy();
-  });
-
-  it('should know that the meeting was fixed outside the app because it does not exist but is finished', () => {
-    let pr = {
-      statuses: [prStatusEnum.REQUESTED_DATE, prStatusEnum.FIXED_DATE]
-    };
-
-    let service = new MeetingDetailVisibilityService();
-    service.setPr(pr);
-
-    expect(service.getEvaluationExternal()).toBeTruthy();
-  });
-
-  it('should not be possible to request a meeting if it does not exist, but the meeting progress already has finished', () => {
-    let pr = {
-      statuses: [prStatusEnum.REQUESTED_DATE, prStatusEnum.FIXED_DATE]
-    };
-
-    let service = new MeetingDetailVisibilityService();
-    service.setPr(pr);
-
-    expect(service.getReadOnly()).toBeTruthy();
   });
 
   it('should be possible to request a meeting if it is not yet requested and the user is logged in as actionPerformer of PR', () => {

@@ -38,11 +38,16 @@ describe('SchedulingView', () => {
       }
     },
     optionalAttendees: {},
+    status: 'NO_ANSWER',
     _links: {
       self: {
         href: 'http://localhost:8010/api/v1/prs/1/meetings'
       }
     }
+  };
+
+  const emptyMeeting = {
+    status: 'NO_REQUEST'
   };
 
   const fetchMeetingMock = jest.fn();
@@ -52,21 +57,19 @@ describe('SchedulingView', () => {
   });
 
   it('should match snapshot', () => {
-    let component = shallow(<SchedulingView prDetail={pr} meeting={null} />);
+    let component = shallow(
+      <SchedulingView prDetail={pr} meeting={emptyMeeting} />
+    );
 
     expect(component).toMatchSnapshot();
   });
 
   it('should display subcomponent MeetingCreator if meeting is null', () => {
-    let component = shallow(<SchedulingView prDetail={pr} meeting={null} />);
+    let component = shallow(
+      <SchedulingView prDetail={pr} meeting={emptyMeeting} />
+    );
 
     expect(component.find('Connect(MeetingCreator)')).toHaveLength(1);
-  });
-
-  it('should not display subcomponent MeetingCreator if prDetail is not available', () => {
-    let component = shallow(<SchedulingView prDetail={null} meeting={null} />);
-
-    expect(component.find('Connect(MeetingCreator)').exists()).toBeFalsy();
   });
 
   it('should display subcomponent MeetingViewDetails if meeting is not null', () => {

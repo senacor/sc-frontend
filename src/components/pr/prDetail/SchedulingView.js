@@ -11,18 +11,41 @@ import {
 import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
 import MeetingCreator from '../../scheduling/MeetingCreator';
 import { prStatusEnum } from '../../../helper/prStatus';
+import { isHr } from '../../../helper/checkRole';
 
 export class SchedulingView extends React.Component {
+  constructor(props) {
+    super(props);
+    if (isHr(this.props.userroles)) {
+      this.state = {
+        canRequestMeeting: false
+      };
+    } else if (
+      this.props.meeting.status === 'DECLINED' ||
+      (this.props.meeting.status === 'NO_REQUEST' &&
+        !this.props.prDetail.statuses.includes(prStatusEnum.FINALIZED_REVIEWER))
+    ) {
+      this.state = {
+        canRequestMeeting: true
+      };
+    } else {
+      this.state = {
+        canRequestMeeting: false
+      };
+    }
+  }
+
+  handleChange = () => {
+    this.state.canRequestMeeting
+      ? this.setState({ canRequestMeeting: false })
+      : this.setState({ canRequestMeeting: true });
+  };
+
   render() {
-    const { meeting, prDetail } = this.props;
     return (
       <div id={'outer'}>
-        {meeting == null &&
-        prDetail &&
-        !prDetail.statuses.includes(prStatusEnum.FIXED_DATE) ? (
-          this.props.prDetail && (
-            <MeetingCreator prDetail={this.props.prDetail} />
-          )
+        {this.state.canRequestMeeting ? (
+          <MeetingCreator handleChange={() => this.handleChange()} />
         ) : (
           <MeetingDetailsView
             meeting={this.props.meeting}
@@ -35,6 +58,7 @@ export class SchedulingView extends React.Component {
                 prStatusEnum.FIXED_DATE
               )
             }
+            handleChange={() => this.handleChange()}
           />
         )}
       </div>

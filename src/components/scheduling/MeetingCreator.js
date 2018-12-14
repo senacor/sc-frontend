@@ -18,6 +18,8 @@ import * as actions from '../../actions';
 import ObjectGet from 'object-get';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
+import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
+import { getMeeting } from '../../reducers/selector';
 
 export class MeetingCreator extends Component {
   constructor(props) {
@@ -107,11 +109,12 @@ export class MeetingCreator extends Component {
   };
 
   render() {
-    let { pr, userinfo, userroles } = this.props;
+    let { pr, userinfo, userroles, meeting } = this.props;
     let visibilityService = new meetingDetailVisibilityService();
     visibilityService.setPr(pr);
     visibilityService.setUserinfo(userinfo);
     visibilityService.setUserroles(userroles);
+    visibilityService.setMeeting(meeting);
     const allAppointments = this.props.appointmentsSearchResults;
     return (
       <React.Fragment>
@@ -170,6 +173,12 @@ export class MeetingCreator extends Component {
                     />
                   ))}
               </TimeTable>
+              {visibilityService.getMeetingExists() ? (
+                <PrStatusActionButton
+                  label={'Termin-Detailansicht'}
+                  releaseButtonClick={this.props.handleChange}
+                />
+              ) : null}
             </Grid>
           ) : null}
         </Grid>
@@ -184,7 +193,8 @@ export default connect(
     selectedDate: getSelectedDate(state),
     userinfo: getUserinfo(state),
     pr: getPrDetail()(state),
-    userroles: getUserroles(state)
+    userroles: getUserroles(state),
+    meeting: getMeeting(state)
   }),
   {
     appointmentsSearch: actions.appointmentsSearch

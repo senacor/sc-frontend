@@ -151,10 +151,10 @@ class Dashboard extends Component {
               </Typography>
               <Typography className={classes.title} color="textSecondary">
                 Willkommen im Performance-Review-Portal. <br />
-                Dies ist die erste Testphase. Bugs, Feedback und Fragen gerne an
+                Dies ist die erste Testphase. Bugs, Feedback und Fragen gerne an{' '}
                 <a href="mailto:Tuan-Si.Tran@senacor.com">
                   Si Tran (Tuan-Si.Tran@senacor.com)
-                </a>
+                </a>{' '}
                 richten, damit wir uns zeitnah darum kümmern können. <br />
                 <br />
                 Da wir parallel am Portal weiterentwickeln, werden wir unter der

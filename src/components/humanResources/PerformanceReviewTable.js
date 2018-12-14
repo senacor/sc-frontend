@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import EnhancedTableHead from './EnhancedTableHead';
 import { downloadExcel } from '../../actions/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
+import Typography from '@material-ui/core/Typography/Typography';
 
 export function descInteger(a, b, mapper) {
   if (mapper(b) < mapper(a)) {
@@ -166,7 +167,10 @@ class PerformanceReviewTable extends React.Component {
         />
         {data.length === 0 ? (
           <div className={classes.emptyListMessage}>
-            Zu deiner Filterung ist leider kein Eintrag vorhanden.
+            <Typography variant={'body2'}>
+              {' '}
+              Zu deiner Filterung ist leider kein Eintrag vorhanden.
+            </Typography>
           </div>
         ) : null}
         {isHr && data.length !== 0 ? (

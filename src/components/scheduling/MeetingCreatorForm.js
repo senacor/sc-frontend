@@ -13,8 +13,6 @@ import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
-import { prStatusEnum } from '../../helper/prStatus';
-import Typography from '@material-ui/core/Typography/Typography';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 
 const styles = theme => ({
@@ -108,7 +106,7 @@ class MeetingCreatorForm extends React.Component {
   };
 
   render() {
-    const { classes, pr, userinfo, addPrStatus, userroles } = this.props;
+    const { classes, pr, userinfo, userroles } = this.props;
     let visibilityService = new meetingDetailVisibilityService();
     visibilityService.setPr(pr);
     visibilityService.setUserinfo(userinfo);
@@ -116,22 +114,6 @@ class MeetingCreatorForm extends React.Component {
 
     return (
       <div>
-        {visibilityService.getJump() ? (
-          <PrStatusActionButton
-            label={'Terminfindung überspringen'}
-            releaseButtonClick={() => addPrStatus(pr, prStatusEnum.FIXED_DATE)}
-          />
-        ) : null}
-        {visibilityService.getEvaluationExternal() ? (
-          <Typography variant={'body2'} className={classes.hrInfo}>
-            Termin wurde außerhalb des Portals vereinbart.
-          </Typography>
-        ) : null}
-        {visibilityService.getHrInfoNotSent() ? (
-          <Typography variant={'body2'} className={classes.hrInfo}>
-            Termin muss noch vereinbart werden.
-          </Typography>
-        ) : null}
         {visibilityService.getAction() ? (
           <DateTimePicker
             date={this.state.date}

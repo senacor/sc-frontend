@@ -27,14 +27,20 @@ describe('PrDetailInformation Component', () => {
     meetingDay: '2018-12-04',
     competence: 'DEVELOPMENT',
     occasion: 'ON_DEMAND',
-    statuses: [prStatusEnum.FIXED_DATE]
+    statuses: [prStatusEnum.FINALIZED_REVIEWER]
   };
+
+  let meeting = {};
 
   let shallow = createShallow({ dive: true });
 
   it('should match snapshot', () => {
     const component = shallow(
-      <PrDetailInformation pr={pr} username={'mmitarbeiterin'} />
+      <PrDetailInformation
+        pr={pr}
+        username={'mmitarbeiterin'}
+        meeting={meeting}
+      />
     );
     expect(component).toMatchSnapshot();
   });

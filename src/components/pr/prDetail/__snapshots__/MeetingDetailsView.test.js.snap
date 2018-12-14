@@ -84,5 +84,9 @@ exports[`MeetingDetailsView should match snapshot 1`] = `
       </WithStyles(Collapse)>
     </WithStyles(List)>
   </div>
+  <WithStyles(PrStatusActionButton)
+    inputClass="MeetingDetailsView-buttonPosition-5"
+    label="neuen Termin erstellen"
+  />
 </div>
 `;

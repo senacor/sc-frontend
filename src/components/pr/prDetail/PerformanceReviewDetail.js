@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import { connect } from 'react-redux';
-import { getPrDetail } from '../../../reducers/selector';
+import { getMeeting, getPrDetail } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import PrDetailInformation from './PrDetailInformation';
 import { LoadingEvents } from '../../../helper/loadingEvents';
@@ -10,11 +10,13 @@ import withLoadingAction from '../../hoc/LoadingWithAction';
 
 export class PerformanceReviewDetail extends Component {
   render() {
-    const { pr } = this.props;
+    const { pr, meeting } = this.props;
 
     return (
       <React.Fragment>
-        {pr ? <PrDetailInformation pr={pr} /> : null}
+        {pr && meeting ? (
+          <PrDetailInformation pr={pr} meeting={meeting} />
+        ) : null}
         {pr ? <PrState /> : null}
         {pr ? <PrTabs /> : null}
       </React.Fragment>
@@ -26,7 +28,8 @@ PerformanceReviewDetail.propTypes = {};
 
 export default connect(
   state => ({
-    pr: getPrDetail()(state)
+    pr: getPrDetail()(state),
+    meeting: getMeeting(state)
   }),
   {
     fetchPrById: actions.fetchPrById,

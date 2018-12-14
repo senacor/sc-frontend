@@ -18,6 +18,7 @@ import { translateContent } from '../../translate/Translate';
 import Typography from '@material-ui/core/Typography/Typography';
 import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
+import { formatDateForFrontend } from '../../../helper/date';
 
 const styles = theme => ({
   container: {
@@ -38,6 +39,14 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: '50%'
     }
+  },
+  buttonPosition: {
+    marginTop: '3.5%',
+    position: 'relative',
+    backgroundColor: theme.palette.primary['400'],
+    color: '#FFF',
+    marginBottom: '1.5%',
+    marginLeft: '3%'
   },
   info: {
     marginTop: '4%',
@@ -70,7 +79,7 @@ class MeetingDetailsView extends React.Component {
     return translateContent(employee.status);
   };
 
-  informationTypography = (classes, visibilityService, click) => {
+  informationTypography = (classes, visibilityService) => {
     return (
       <div>
         <Typography gutterBottom variant="h4">
@@ -81,11 +90,10 @@ class MeetingDetailsView extends React.Component {
             Bitte den Termin zeitnah im Kalender bestätigen.
           </Typography>
         ) : null}
-        {visibilityService.getJump() ? (
-          <PrStatusActionButton
-            label={'Terminfindung überspringen'}
-            releaseButtonClick={click}
-          />
+        {visibilityService.getMeetingDeclined() ? (
+          <Typography variant={'body2'} className={classes.info}>
+            Termin wurde abgesagt, bitte neuen Termin vereinbaren.
+          </Typography>
         ) : null}
         {visibilityService.getEvaluationExternal() ? (
           <Typography variant={'body2'} className={classes.info}>
@@ -97,6 +105,26 @@ class MeetingDetailsView extends React.Component {
             Termin muss noch bestätigt werden.
           </Typography>
         ) : null}
+        {visibilityService.getHrInfoNotSent() ? (
+          <Typography variant={'body2'} className={classes.info}>
+            Termin muss noch vereinbart werden.
+          </Typography>
+        ) : null}
+      </div>
+    );
+  };
+
+  meetingInformationExternal = (classes, pr) => {
+    return (
+      <div>
+        <List>
+          <ListItem id={'date'}>
+            <ListItemIcon>
+              <TodayIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText primary={formatDateForFrontend(pr.meetingDay)} />
+          </ListItem>
+        </List>
       </div>
     );
   };
@@ -242,9 +270,20 @@ class MeetingDetailsView extends React.Component {
     return (
       <div className={classes.meetingView}>
         {this.informationTypography(classes, visibilityService, click)}
-        {meeting && !visibilityService.getEvaluationExternal()
+        {visibilityService.getEvaluationExternal()
+          ? this.meetingInformationExternal(classes, pr)
+          : null}
+        {visibilityService.getMeetingExists() &&
+        !visibilityService.getEvaluationExternal()
           ? this.meetingInformation(meeting, this.state, classes)
           : null}
+        {visibilityService.getAction() ? (
+          <PrStatusActionButton
+            label={'neuen Termin erstellen'}
+            releaseButtonClick={this.props.handleChange}
+            inputClass={classes.buttonPosition}
+          />
+        ) : null}
       </div>
     );
   }

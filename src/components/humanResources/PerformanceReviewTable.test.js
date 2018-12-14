@@ -12,6 +12,7 @@ import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import DateFilter from './DateFilter';
 import ListFilter from './ListFilter';
+import Typography from '@material-ui/core/Typography/Typography';
 
 const rows = [
   {
@@ -201,15 +202,14 @@ const rows = [
     disablePadding: true,
     label: 'Finaler Status',
     sortValue: entry =>
-      entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
-    render: entry =>
-      entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+      entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'beendet',
+    render: entry => (entry[HR_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'beendet'),
     filter: (
       <PopperSearchMenu
         filterGroup={FILTER_GROUPS.HR}
         filterBy={'isInProgress'}
       >
-        <ListFilter content={{ laufend: true, abgeschlossen: false }} />
+        <ListFilter content={{ laufend: true, beendet: false }} />
       </PopperSearchMenu>
     )
   },
@@ -255,7 +255,12 @@ describe('PerformanceReviewTable component', () => {
 
     expect(
       component.containsMatchingElement(
-        <div>Zu deiner Filterung ist leider kein Eintrag vorhanden.</div>
+        <div>
+          <Typography variant={'body2'}>
+            {' '}
+            Zu deiner Filterung ist leider kein Eintrag vorhanden.
+          </Typography>
+        </div>
       )
     ).toBeTruthy();
   });

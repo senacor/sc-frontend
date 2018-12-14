@@ -5,26 +5,7 @@ exports[`SchedulingView should match snapshot 1`] = `
   id="outer"
 >
   <Connect(MeetingCreator)
-    prDetail={
-      Object {
-        "employee": Object {
-          "firstName": "Michaela",
-          "id": 2,
-          "lastName": "Mitarbeiterin",
-          "login": "test.pr.mitarbeiter1",
-        },
-        "id": 1,
-        "statuses": Array [
-          "REQUESTED_DATE",
-        ],
-        "supervisor": Object {
-          "firstName": "Volker",
-          "id": 1,
-          "lastName": "Vorgesetzter",
-          "login": "test.pr.vorgesetzter",
-        },
-      }
-    }
+    handleChange={[Function]}
   />
 </div>
 `;

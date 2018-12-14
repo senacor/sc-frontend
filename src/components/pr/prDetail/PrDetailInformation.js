@@ -20,6 +20,7 @@ import BackToTableButton from './BackToTableButton';
 import { getUserPrincipalName } from '../../../reducers/selector';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
+import moment from 'moment-timezone';
 
 const styles = theme => ({
   root: {
@@ -57,19 +58,35 @@ export class PrDetailInformation extends Component {
   }
 
   render() {
-    const { classes, pr, username } = this.props;
+    const { classes, pr, username, meeting } = this.props;
 
     if (!pr) {
       return null;
     }
 
     const { firstName, lastName } = pr.employee;
-    let dateAccepted = pr.statuses.includes(prStatusEnum.FIXED_DATE);
-    const termin = pr.meetingDay
-      ? dateAccepted
-        ? formatDateForFrontend(pr.meetingDay)
-        : formatDateForFrontend(pr.meetingDay) + ' (noch nicht bestätigt)'
-      : 'noch nicht vereinbart';
+    const meetingDate = meeting.start
+      ? moment(meeting.start)
+          .local()
+          .format('DD.MM.YYYY')
+      : null;
+    const meetingDay = formatDateForFrontend(pr.meetingDay);
+    let termin = 'noch nicht vereinbart';
+    if (meeting.status === 'ACCEPTED') {
+      termin = meetingDate;
+    }
+    if (meeting.status === 'NO_ANSWER') {
+      termin = meetingDate + ' (noch nicht bestätigt)';
+    }
+    if (meeting.status === 'DECLINED') {
+      termin = meetingDate + ' (abgesagt)';
+    }
+    if (
+      pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
+      meeting.status !== 'ACCEPTED'
+    ) {
+      termin = meetingDay + ' (außerhalb des Portals vereinbart)';
+    }
     const competence = translateContent('COMPETENCE_' + pr.competence);
 
     const subheader = `Fälligkeit: ${formatDateForFrontend(

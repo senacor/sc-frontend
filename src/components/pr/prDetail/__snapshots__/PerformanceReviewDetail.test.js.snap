@@ -3,6 +3,7 @@
 exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
 <Fragment>
   <Connect(WithStyles(PrDetailInformation))
+    meeting={Object {}}
     pr={
       Object {
         "appointment": "2018-12-04",

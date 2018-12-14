@@ -24,8 +24,12 @@ describe('PerformanceReviewDetail Component', () => {
     occasion: 'ON_DEMAND'
   };
 
+  const meeting = {};
+
   it('should match snapshot', () => {
-    const component = shallow(<PerformanceReviewDetail pr={pr} />);
+    const component = shallow(
+      <PerformanceReviewDetail pr={pr} meeting={meeting} />
+    );
     expect(component).toMatchSnapshot();
   });
 });

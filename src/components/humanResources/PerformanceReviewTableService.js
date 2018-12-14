@@ -275,15 +275,15 @@ export default class PerformanceReviewTableService {
       numeric: false,
       label: 'Finaler Status',
       sortValue: entry =>
-        entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+        entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'beendet',
       render: entry =>
-        entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'abgeschlossen',
+        entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'beendet',
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.IN_PROGRESS}
         >
-          <ListFilter content={{ laufend: true, abgeschlossen: false }} />
+          <ListFilter content={{ laufend: true, beendet: false }} />
         </PopperSearchMenu>
       )
     };

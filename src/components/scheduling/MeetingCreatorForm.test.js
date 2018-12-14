@@ -31,6 +31,10 @@ const pr = {
   }
 };
 
+const emptyMeeting = {
+  status: 'NO_REQUEST'
+};
+
 const userinfo = { userPrincipalName: 'mmustermann' };
 
 describe('MeetingCreatorForm', () => {
@@ -54,18 +58,18 @@ describe('MeetingCreatorForm', () => {
     dateNowSpy.mockRestore();
   });
 
-  it('should display the create appointment form when meeting does not exist, and the extra button for skipping the meeting planning if the sheet is filled', () => {
+  it('should display the create appointment form when meeting does not exist', () => {
     let shallow = createShallow({ dive: true });
     let wrapper = shallow(
       <StyledComponent
-        meeting={null}
+        meeting={emptyMeeting}
         fetchAppointments={fetchAppointmentsMock}
         pr={pr}
         userinfo={userinfo}
       />
     );
 
-    expect(wrapper.find(PrStatusActionButton)).toHaveLength(2);
+    expect(wrapper.find(PrStatusActionButton)).toHaveLength(1);
   });
 
   it('should create the meeting details with two required attendees', () => {
