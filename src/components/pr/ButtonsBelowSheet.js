@@ -40,7 +40,7 @@ const styles = theme => ({
     marginTop: '2%'
   },
   container: {
-    marginRight: '6%'
+    marginRight: '0%'
   }
 });
 
@@ -209,7 +209,7 @@ class ButtonsBelowSheet extends React.Component {
           'Freigeben'
         )
       : null;
-    let finalizeButtonDisabled = !employeeReleased
+    let finalizeButtonDisabled = !(employeeReleased && reviewerReleased)
       ? this.getDisabledButton(
           pr,
           prStatusEnum.FINALIZED_REVIEWER,
@@ -217,7 +217,7 @@ class ButtonsBelowSheet extends React.Component {
         )
       : null;
     let finalizeButtonEnabled =
-      employeeReleased && !reviewerFinalized
+      employeeReleased && reviewerReleased && !reviewerFinalized
         ? this.getActionPerformerButton(
             pr,
             prStatusEnum.FINALIZED_REVIEWER,
