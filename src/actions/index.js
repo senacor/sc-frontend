@@ -26,6 +26,14 @@ export {
   getFilterPossibilities
 } from './filter';
 export { setPrTabs } from './prTabs';
+export {
+  uploadFiles,
+  downloadFile,
+  resetUploadedFiles,
+  resetDownloadedFile,
+  downloadFilesInformation,
+  downloadAllFilesInformation
+} from './fileStorage';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({

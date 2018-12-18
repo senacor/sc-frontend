@@ -14,9 +14,7 @@ export class PerformanceReviewDetail extends Component {
 
     return (
       <React.Fragment>
-        {pr && meeting ? (
-          <PrDetailInformation pr={pr} meeting={meeting} />
-        ) : null}
+        {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
         {pr ? <PrState /> : null}
         {pr ? <PrTabs /> : null}
       </React.Fragment>

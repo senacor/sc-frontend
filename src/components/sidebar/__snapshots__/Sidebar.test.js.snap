@@ -103,6 +103,50 @@ exports[`Sidebar should match snapshot 1`] = `
       </WithStyles(ListItem)>
     </Connect(Authorized)>
     <Connect(Authorized)
+      key="Archivierte PRs"
+      roles={
+        Array [
+          "PR_HR",
+        ]
+      }
+    >
+      <WithStyles(ListItem)
+        activeStyle={
+          Object {
+            "backgroundColor": "#DDD",
+          }
+        }
+        component={[Function]}
+        onClick={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+        to="/hr/archivedPrs"
+      >
+        <WithStyles(ListItemIcon)>
+          <WithStyles(Icon)>
+            save
+          </WithStyles(Icon)>
+        </WithStyles(ListItemIcon)>
+        <WithStyles(ListItemText)
+          disableTypography={true}
+          primary={
+            <div
+              style={
+                Object {
+                  "color": "#000",
+                }
+              }
+            >
+              Archivierte PRs
+            </div>
+          }
+        />
+      </WithStyles(ListItem)>
+    </Connect(Authorized)>
+    <Connect(Authorized)
       key="Eigene PRs"
       roles={
         Array [

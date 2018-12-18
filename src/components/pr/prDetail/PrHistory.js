@@ -5,30 +5,24 @@ import TableRow from '@material-ui/core/TableRow/TableRow';
 import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableBody from '@material-ui/core/TableBody/TableBody';
 import Table from '@material-ui/core/Table/Table';
+import { getArchivedFiles } from '../../../reducers/selector';
+import { LoadingEvents } from '../../../helper/loadingEvents';
+import withLoadingAction from '../../hoc/LoadingWithAction';
+import * as actions from '../../../actions';
+import { connect } from 'react-redux';
+import DownloadFile from '../../fileStorage/DownloadFile';
 
-class PrHistory extends Component {
+export class PrHistory extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      prHistory: [
-        { id: 5, appointment: '2018-01-01', occassion: 'ON_DEMAND' },
-        {
-          id: 6,
-          isExcel: true,
-          filename: '20170101_Michaela_Mitarbeiterin.xls'
-        },
-        {
-          id: 7,
-          isExcel: true,
-          filename: '20160101_Michaela_Mitarbeiterin.xls'
-        }
-      ]
+      prHistory: [{ id: 5, appointment: '2018-01-01', occassion: 'ON_DEMAND' }]
     };
   }
   render() {
     return (
-      <div>
+      <div style={{ overflow: 'auto', maxHeight: '200px' }}>
         <Table padding={'none'}>
           <TableHead>
             <TableRow>
@@ -37,16 +31,15 @@ class PrHistory extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.prHistory.map(row => {
+            {this.props.archivedFiles.map(row => {
               return (
                 <TableRow key={row.id}>
+                  <TableCell padding={'none'}>{row.date}</TableCell>
                   <TableCell padding={'none'}>
-                    {row.appointment ? row.appointment : 'Excel'}
-                  </TableCell>
-                  <TableCell padding={'none'}>
-                    {row.occassion
-                      ? row.occassion
-                      : `Download Excel ${row.filename}`}
+                    <DownloadFile
+                      employeeId={row.employeeId}
+                      fileId={row.fileId}
+                    />
                   </TableCell>
                 </TableRow>
               );
@@ -58,4 +51,15 @@ class PrHistory extends Component {
   }
 }
 
-export default PrHistory;
+export default connect(
+  (state, props) => ({
+    archivedFiles: getArchivedFiles(state)
+  }),
+  {
+    downloadFiles: actions.downloadFilesInformation
+  }
+)(
+  withLoadingAction(props => {
+    props.downloadFiles(props.employeeId);
+  })([LoadingEvents.DOWNLOAD_FILES])(PrHistory)
+);

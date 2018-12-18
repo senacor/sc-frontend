@@ -21,6 +21,7 @@ import { getUserPrincipalName } from '../../../reducers/selector';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
 import moment from 'moment-timezone';
+import PrHistory from './PrHistory';
 
 const styles = theme => ({
   root: {
@@ -65,27 +66,31 @@ export class PrDetailInformation extends Component {
     }
 
     const { firstName, lastName } = pr.employee;
-    const meetingDate = meeting.start
-      ? moment(meeting.start)
-          .local()
-          .format('DD.MM.YYYY')
-      : null;
-    const meetingDay = formatDateForFrontend(pr.meetingDay);
     let termin = 'noch nicht vereinbart';
-    if (meeting.status === 'ACCEPTED') {
-      termin = meetingDate;
-    }
-    if (meeting.status === 'NO_ANSWER') {
-      termin = meetingDate + ' (noch nicht bestätigt)';
-    }
-    if (meeting.status === 'DECLINED') {
-      termin = meetingDate + ' (abgesagt)';
-    }
-    if (
-      pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
-      meeting.status !== 'ACCEPTED'
-    ) {
-      termin = meetingDay + ' (außerhalb des Portals vereinbart)';
+
+    if (meeting) {
+      const meetingDate = meeting.start
+        ? moment(meeting.start)
+            .local()
+            .format('DD.MM.YYYY')
+        : null;
+      const meetingDay = formatDateForFrontend(pr.meetingDay);
+
+      if (meeting.status === 'ACCEPTED') {
+        termin = meetingDate;
+      }
+      if (meeting.status === 'NO_ANSWER') {
+        termin = meetingDate + ' (noch nicht bestätigt)';
+      }
+      if (meeting.status === 'DECLINED') {
+        termin = meetingDate + ' (abgesagt)';
+      }
+      if (
+        pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
+        meeting.status !== 'ACCEPTED'
+      ) {
+        termin = meetingDay + ' (außerhalb des Portals vereinbart)';
+      }
     }
     const competence = translateContent('COMPETENCE_' + pr.competence);
 
@@ -133,10 +138,7 @@ export class PrDetailInformation extends Component {
           <ExpansionPanelDetails className={classes.details}>
             <Grid container spacing={24}>
               <Grid item xs={4}>
-                <Typography>
-                  Details zum Mitarbeiter werden in Zukunft zur Verfügung
-                  stehen.
-                </Typography>
+                <PrHistory employeeId={pr.employee.id} />
               </Grid>
               <Grid item xs={4} />
             </Grid>

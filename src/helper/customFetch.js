@@ -30,3 +30,22 @@ export default function customFetch(url, config = {}) {
     return response;
   });
 }
+
+export function fileFetch(url, config = {}) {
+  let access_token = localStorage.getItem('access_token');
+
+  let authenticationConfig = Object.assign({}, config);
+  authenticationConfig.headers = Object.assign({}, config.headers, {
+    Authorization: `Bearer ${access_token}`
+  });
+  return fetch(url, authenticationConfig).then(response => {
+    if (response.status === 401) {
+      store.dispatch({
+        type: LOGIN_UNAUTHORIZED,
+        payload: response.status
+      });
+    }
+
+    return response;
+  });
+}

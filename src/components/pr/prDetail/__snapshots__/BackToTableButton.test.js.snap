@@ -10,7 +10,6 @@ exports[`BackToTableButton Component should match snapshot 1`] = `
   }
   component={[Function]}
   label="zurück zur Liste"
-  link={true}
   to="/myPrs"
 />
 `;

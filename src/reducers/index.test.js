@@ -22,6 +22,8 @@ describe('reducers', () => {
         const stateBefore = {
           advancementStrategies: { someValue },
           appointmentsSearchResults: [someValue],
+          archivedFiles: [someValue],
+          downloadedFile: { someValue },
           errors: {
             hasErrors: false,
             message: { someValue }
@@ -47,6 +49,7 @@ describe('reducers', () => {
           tablePrs: { someValue },
           selectedDate: 'someValue',
           sortOrderPrs: 'des',
+          uploadedFiles: [someValue],
           userinfo: { someValue },
           userphoto: '',
           userroles: [someValue]
@@ -57,6 +60,8 @@ describe('reducers', () => {
         expect(stateAfter).toEqual({
           advancementStrategies: {},
           appointmentsSearchResults: [],
+          archivedFiles: [],
+          downloadedFile: {},
           errors: {
             hasErrors: false,
             message: null
@@ -91,6 +96,7 @@ describe('reducers', () => {
           tablePrs: {},
           selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),
           sortOrderPrs: 'desc',
+          uploadedFiles: [],
           userinfo: {},
           userphoto: '',
           userroles: []
