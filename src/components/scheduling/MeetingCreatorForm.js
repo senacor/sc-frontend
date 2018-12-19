@@ -14,6 +14,7 @@ import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
+import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 
 const styles = theme => ({
   container: {
@@ -59,6 +60,18 @@ class MeetingCreatorForm extends React.Component {
     this.setState({
       [name]: event.target.value
     });
+  };
+
+  validateDateTimeInput = () => {
+    let start = this.addMeeting(this.props.prById).start;
+    let end = this.addMeeting(this.props.prById).end;
+    if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
+      return false;
+    }
+    if (!moment(end, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
+      return false;
+    }
+    return !moment(end).isBefore(moment(start));
   };
 
   handleClickOfMeetingButton = event => {
@@ -132,12 +145,16 @@ class MeetingCreatorForm extends React.Component {
               onChange={this.handleChange('location')}
               margin="normal"
             />
-
-            <PrStatusActionButton
-              releaseButtonClick={this.handleClickOfMeetingButton}
-              label={'Termin erstellen'}
-              inputClass={classes.buttonPosition}
-            />
+            <CheckRequiredClick
+              onClick={this.handleClickOfMeetingButton}
+              check={() => this.validateDateTimeInput()}
+              message={'Die Startzeit liegt nach der Endzeit des Termins.'}
+            >
+              <PrStatusActionButton
+                label={'Termin erstellen'}
+                inputClass={classes.buttonPosition}
+              />
+            </CheckRequiredClick>
           </form>
         ) : null}
       </div>

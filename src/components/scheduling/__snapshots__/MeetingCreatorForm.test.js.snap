@@ -23,11 +23,16 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
       value=""
       variant="standard"
     />
-    <WithStyles(PrStatusActionButton)
-      inputClass="MeetingCreatorForm-buttonPosition-3"
-      label="Termin erstellen"
-      releaseButtonClick={[Function]}
-    />
+    <CheckRequiredClick
+      check={[Function]}
+      message="Die Startzeit liegt nach der Endzeit des Termins."
+      onClick={[Function]}
+    >
+      <WithStyles(PrStatusActionButton)
+        inputClass="MeetingCreatorForm-buttonPosition-3"
+        label="Termin erstellen"
+      />
+    </CheckRequiredClick>
   </form>
 </div>
 `;
