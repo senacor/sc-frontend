@@ -29,12 +29,17 @@ export const userinfo = (state = {}, action) => {
         action.payload.reviewerInfo.prsNotFilledByReviewer;
       let prsNotFilledByEmployee =
         action.payload.reviewerInfo.prsNotFilledByEmployee;
+      let idOfNewestOpenPr = action.payload.reviewerInfo.idOfNewestOpenPr;
+      let deadlineOfNewestOpenPr =
+        action.payload.reviewerInfo.deadlineOfNewestPr;
       return Object.assign({}, userinfostate, {
         userId: userId,
         numberOfPrsToReview: numberOfPrsToReview,
         numberOfPrsToSupervise: numberOfPrsToSupervise,
         prsNotFilledByReviewer: prsNotFilledByReviewer,
-        prsNotFilledByEmployee: prsNotFilledByEmployee
+        prsNotFilledByEmployee: prsNotFilledByEmployee,
+        idOfNewestOpenPr: idOfNewestOpenPr,
+        deadlineOfNewestOpenPr: deadlineOfNewestOpenPr
       });
     default:
       return state;

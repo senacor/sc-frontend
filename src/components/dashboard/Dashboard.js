@@ -9,6 +9,7 @@ import * as actions from '../../actions';
 import { NavLink } from 'react-router-dom';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import DefaultFilterService from '../../service/DefaultFilterService';
+import { formatDateForFrontend } from '../../helper/date';
 
 let styles = {
   rowContainer: {
@@ -58,7 +59,27 @@ class Dashboard extends Component {
     return this.props.userinfo ? (
       <div className={classes.columnContainer}>
         <div className={classes.rowContainer}>
-          {numberOfPrsToReview > 0 && isEmployee(userroles) ? (
+          {this.props.userinfo.idOfNewestOpenPr && isEmployee(userroles) ? (
+            <Card
+              className={classes.card}
+              component={NavLink}
+              to={'/prs/' + this.props.userinfo.idOfNewestOpenPr}
+              style={{ textDecoration: 'none' }}
+            >
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {formatDateForFrontend(
+                    this.props.userinfo.deadlineOfNewestOpenPr
+                  )}
+                </Typography>
+                <Typography className={classes.title} color="textSecondary">
+                  Offenes eigenes PR
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : null}
+
+          {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
             <Card
               className={classes.card}
               component={NavLink}
