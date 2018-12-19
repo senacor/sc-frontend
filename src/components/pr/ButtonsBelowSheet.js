@@ -237,16 +237,18 @@ class ButtonsBelowSheet extends React.Component {
     let employeeFinalized = pr.statuses.includes(
       prStatusEnum.FINALIZED_EMPLOYEE
     );
+    let hrFinalized = pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
     let releaseButtonDisabled = !employeeFinalized
       ? this.getDisabledButton(pr, prStatusEnum.ARCHIVED_HR, 'Abschliessen')
       : null;
-    let releaseButtonEnabled = employeeFinalized
-      ? this.getActionPerformerButton(
-          pr,
-          prStatusEnum.ARCHIVED_HR,
-          'Abschliessen'
-        )
-      : null;
+    let releaseButtonEnabled =
+      employeeFinalized && !hrFinalized
+        ? this.getActionPerformerButton(
+            pr,
+            prStatusEnum.ARCHIVED_HR,
+            'Abschliessen'
+          )
+        : null;
     return (
       <div>
         {releaseButtonEnabled}
