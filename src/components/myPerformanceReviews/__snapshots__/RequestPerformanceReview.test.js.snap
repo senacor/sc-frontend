@@ -1,14 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RequestPerformanceReview should match snapshot 1`] = `
-<WithStyles(Button)
-  color="primary"
-  id="addPrButton"
-  onClick={[Function]}
+<WithStyles(Tooltip)
+  title="Du hast keinen Vorgesetzten"
 >
-  <WithStyles(Icon)>
-    add
-  </WithStyles(Icon)>
-  PR beantragen
-</WithStyles(Button)>
+  <span>
+    <WithStyles(Button)
+      disabled={true}
+    >
+      <WithStyles(Icon)>
+        add
+      </WithStyles(Icon)>
+      PR beantragen
+    </WithStyles(Button)>
+  </span>
+</WithStyles(Tooltip)>
 `;

@@ -39,7 +39,9 @@ export const userinfo = (state = {}, action) => {
         prsNotFilledByReviewer: prsNotFilledByReviewer,
         prsNotFilledByEmployee: prsNotFilledByEmployee,
         idOfNewestOpenPr: idOfNewestOpenPr,
-        deadlineOfNewestOpenPr: deadlineOfNewestOpenPr
+        deadlineOfNewestOpenPr: deadlineOfNewestOpenPr,
+        hasSupervisor: action.payload.reviewerInfo.hasSupervisor,
+        hasPrInProgress: action.payload.reviewerInfo.hasPrInProgress
       });
     default:
       return state;

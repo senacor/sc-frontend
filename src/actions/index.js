@@ -71,12 +71,22 @@ export const addPr = loginName => async dispatch => {
       })
     }
   );
-  const pr = await changeResponse.json();
 
-  dispatch({
-    type: dispatchTypes.ADD_PR_RESPONSE,
-    pr
-  });
+  if (changeResponse.ok) {
+    const pr = await changeResponse.json();
+
+    dispatch({
+      type: dispatchTypes.ADD_PR_RESPONSE,
+      pr
+    });
+  } else {
+    const error = await changeResponse.json();
+    dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: changeResponse.status,
+      message: error.message
+    });
+  }
 };
 
 export const fetchPrById = prsId => async dispatch => {

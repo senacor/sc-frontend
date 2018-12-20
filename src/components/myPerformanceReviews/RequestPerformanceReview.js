@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import Tooltip from '@material-ui/core/Tooltip';
+import objectGet from 'object-get';
 
 import { getUserinfo } from '../../reducers/selector';
 import { Redirect } from 'react-router-dom';
@@ -12,15 +14,37 @@ export function RequestPerformanceReview(props) {
     return <Redirect to={`/prDetail/${props.newPrId}`} />;
   }
 
+  const hasSupervisor = objectGet(props, 'userinfo.hasSupervisor');
+  const hasPrInProgress = objectGet(props, 'userinfo.hasPrInProgress');
+
+  if (!hasSupervisor || hasPrInProgress) {
+    let tooltipText = !hasSupervisor
+      ? 'Du hast keinen Vorgesetzten'
+      : 'Du hast bereits ein offenes PR';
+
+    return (
+      <Tooltip title={tooltipText}>
+        <span>
+          <Button disabled>
+            <Icon>add</Icon>PR beantragen
+          </Button>
+        </span>
+      </Tooltip>
+    );
+  }
+
   return (
-    <Button
-      id="addPrButton"
-      color="primary"
-      onClick={() => props.addPr(props.userinfo.userPrincipalName)}
-    >
-      <Icon>add</Icon>
-      PR beantragen
-    </Button>
+    <React.Fragment>
+      <Button
+        id="addPrButton"
+        color="primary"
+        onClick={() => props.addPr(props.userinfo.userPrincipalName)}
+        disabled={!hasSupervisor || hasPrInProgress}
+      >
+        <Icon>add</Icon>
+        PR beantragen
+      </Button>
+    </React.Fragment>
   );
 }
 
