@@ -65,6 +65,13 @@ export const getFinalCommentEmployee = () => {
   );
 };
 
+export const getAdvancementStrategies = () => {
+  return createSelector(
+    [state => state.advancementStrategies, getActualPrId],
+    (comment, prById) => comment[prById]
+  );
+};
+
 export const getFinalCommentHr = () => {
   return createSelector(
     [state => state.finalCommentHr, getActualPrId],

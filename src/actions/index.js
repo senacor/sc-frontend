@@ -6,6 +6,7 @@ export {
   addRating,
   changeFinalCommentEmployee,
   changeFinalCommentHr,
+  changeAdvancementStrategies,
   addEmployeeContribution,
   setVisibilityById,
   setPrFinalizationStatus,

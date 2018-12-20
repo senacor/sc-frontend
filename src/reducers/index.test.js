@@ -20,6 +20,7 @@ describe('reducers', () => {
           type: state.type
         };
         const stateBefore = {
+          advancementStrategies: { someValue },
           appointmentsSearchResults: [someValue],
           errors: {
             hasErrors: false,
@@ -54,6 +55,7 @@ describe('reducers', () => {
         const stateAfter = app(stateBefore, action);
 
         expect(stateAfter).toEqual({
+          advancementStrategies: {},
           appointmentsSearchResults: [],
           errors: {
             hasErrors: false,

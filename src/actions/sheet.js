@@ -70,6 +70,41 @@ export const changeFinalCommentHr = (id, finalCommentHr) => async dispatch => {
   }
 };
 
+export const changeAdvancementStrategies = (
+  id,
+  advancementStrategies
+) => async dispatch => {
+  dispatch({
+    type: dispatchTypes.CHANGE_ADVANCEMENT_STRATEGIES_REQUEST
+  });
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v1/prs/${id}/advancement`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        advancementStrategies: advancementStrategies
+      })
+    }
+  );
+
+  if (response.ok) {
+    dispatch({
+      type: dispatchTypes.CHANGE_ADVANCEMENT_STRATEGIES_RESPONSE,
+      payload: {
+        prId: id,
+        advancementStrategies: advancementStrategies
+      }
+    });
+  } else {
+    dispatch({
+      type: dispatchTypes.ERROR_RESPONSE,
+      httpCode: response.status
+    });
+  }
+};
+
 export const changeFinalCommentEmployee = (
   id,
   finalCommentEmployee

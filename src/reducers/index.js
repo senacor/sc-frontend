@@ -19,6 +19,7 @@ import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { prTabs } from './prTabs';
 import { filterPossibilities } from './filterPossibilities';
+import { advancementStrategies } from './advancementStrategies';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -35,6 +36,7 @@ const combineReducer = combineReducers({
   prRatings,
   finalCommentEmployee,
   finalCommentHr,
+  advancementStrategies,
   prEmployeeContributions,
   employeeSearchResults,
   selectedDate,

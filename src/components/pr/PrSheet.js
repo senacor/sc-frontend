@@ -20,6 +20,7 @@ import {
 } from '../../reducers/selector';
 import PrFinalCommentEmployee from './PrFinalCommentEmployee';
 import PrFinalCommentHr from './PrFinalCommentHr';
+import PrAdvancementStrategies from './PrAdvancementStrategies';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -183,6 +184,20 @@ class PrSheet extends React.Component {
               isActionPerformer={isActionPerformerForReviewerActions}
               nonActionPerformer={nonActionPerformerForReviewerActions}
               openEditing={!this.isFinalizedForReviewer()}
+            />
+          </List>
+
+          <Divider />
+          <ListItem className={classes.marginDown}>
+            <ListItemText primary="Maßnahmen zur Weiterentwicklung und Entwicklungsziele" />
+          </ListItem>
+          <List disablePadding>
+            <PrAdvancementStrategies
+              prById={prById}
+              readOnly={this.isVisibleToEmployee()}
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              open={!this.isFinalizedForReviewer()}
             />
           </List>
         </List>
