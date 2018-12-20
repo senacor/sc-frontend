@@ -64,7 +64,6 @@ class TextFieldService {
       closeEditingExplicitly &&
       isActionPerformer &&
       openEditing &&
-      !readOnlyFlag &&
       errorFlag &&
       writeableText !== null &&
       writeableText !== ''
@@ -73,7 +72,6 @@ class TextFieldService {
     } else if (
       isActionPerformer &&
       openEditing &&
-      !readOnlyFlag &&
       errorFlag &&
       closeEditingExplicitly
     ) {
