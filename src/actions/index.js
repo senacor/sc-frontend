@@ -31,8 +31,8 @@ export {
   downloadFile,
   resetUploadedFiles,
   resetDownloadedFile,
-  downloadFilesInformation,
-  downloadAllFilesInformation
+  loadArchivedFilesList,
+  loadAllArchivedFilesList
 } from './fileStorage';
 
 export const fetchPrs = () => async dispatch => {

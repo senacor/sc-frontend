@@ -1,14 +1,14 @@
 import {
-  DOWNLOAD_ALL_FILES_INFORMATION_RESPONSE,
-  DOWNLOAD_FILES_INFORMATION_RESPONSE
+  LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
+  LOAD_ARCHIVED_FILES_LIST_RESPONSE
 } from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
 
 export const archivedFiles = (state = [], action) => {
   switch (action.type) {
-    case DOWNLOAD_FILES_INFORMATION_RESPONSE:
+    case LOAD_ARCHIVED_FILES_LIST_RESPONSE:
       return cloneDeep(action.payload);
-    case DOWNLOAD_ALL_FILES_INFORMATION_RESPONSE:
+    case LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE:
       return cloneDeep(action.payload);
     default:
       return state;

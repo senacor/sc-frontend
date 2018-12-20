@@ -13,7 +13,7 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_MEETING_REQUEST,
     dispatchTypes.FILTER_POSSIBILITIES_REQUEST,
     dispatchTypes.FETCH_EMPLOYEES_REQUEST,
-    dispatchTypes.DOWNLOAD_FILES_INFORMATION_REQUEST,
+    dispatchTypes.LOAD_ARCHIVED_FILES_LIST_REQUEST,
     dispatchTypes.UPLOAD_FILES_REQUEST
   ];
   const stopLoading = [
@@ -32,7 +32,7 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.LOGIN_RESPONSE,
     dispatchTypes.LOGIN_UNAUTHORIZED,
     dispatchTypes.LOGOUT,
-    dispatchTypes.DOWNLOAD_FILES_INFORMATION_RESPONSE,
+    dispatchTypes.LOAD_ARCHIVED_FILES_LIST_RESPONSE,
     dispatchTypes.UPLOAD_FILES_RESPONSE
   ];
 

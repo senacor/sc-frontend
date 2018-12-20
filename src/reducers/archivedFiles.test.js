@@ -1,8 +1,8 @@
-import { DOWNLOAD_FILES_INFORMATION_RESPONSE } from '../helper/dispatchTypes';
+import { LOAD_ARCHIVED_FILES_LIST_RESPONSE } from '../helper/dispatchTypes';
 import { archivedFiles } from './archivedFiles';
 
 describe('archivedFiles reducer', () => {
-  it('should save the state on DOWNLOAD_FILES_INFORMATION_RESPONSE', async () => {
+  it('should save the state on LOAD_ARCHIVED_FILES_LIST_RESPONSE', async () => {
     let stateBefore = ['data1', 'data2'];
 
     let payload = [
@@ -24,7 +24,7 @@ describe('archivedFiles reducer', () => {
       }
     ];
     const action = {
-      type: DOWNLOAD_FILES_INFORMATION_RESPONSE,
+      type: LOAD_ARCHIVED_FILES_LIST_RESPONSE,
       payload: payload
     };
     const stateAfter = archivedFiles(stateBefore, action);
@@ -32,7 +32,7 @@ describe('archivedFiles reducer', () => {
     expect(stateAfter).toEqual(payload);
   });
 
-  it('should save the state on DOWNLOAD_ALL_FILES_INFORMATION_RESPONSE', async () => {
+  it('should save the state on LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE', async () => {
     let stateBefore = ['data1', 'data2'];
 
     let payload = [
@@ -62,7 +62,7 @@ describe('archivedFiles reducer', () => {
       }
     ];
     const action = {
-      type: DOWNLOAD_FILES_INFORMATION_RESPONSE,
+      type: LOAD_ARCHIVED_FILES_LIST_RESPONSE,
       payload: payload
     };
     const stateAfter = archivedFiles(stateBefore, action);

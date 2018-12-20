@@ -1,5 +1,5 @@
 import * as dispatchTypes from '../helper/dispatchTypes';
-import { default as fetch, fileFetch } from '../helper/customFetch';
+import { default as fetch } from '../helper/customFetch';
 import objectGet from 'object-get';
 
 export const uploadFiles = files => async dispatch => {
@@ -13,13 +13,14 @@ export const uploadFiles = files => async dispatch => {
     data.append('files', file);
   });
 
-  const response = await fileFetch(
+  const response = await fetch(
     `${process.env.REACT_APP_API}/api/v1/hr/upload`,
     {
       method: 'post',
       mode: 'cors',
       body: data
-    }
+    },
+    {}
   );
 
   if (response.ok) {
@@ -66,9 +67,9 @@ export const resetDownloadedFile = () => async dispatch => {
   });
 };
 
-export const downloadFilesInformation = employeeId => async dispatch => {
+export const loadArchivedFilesList = employeeId => async dispatch => {
   dispatch({
-    type: dispatchTypes.DOWNLOAD_FILES_INFORMATION_REQUEST
+    type: dispatchTypes.LOAD_ARCHIVED_FILES_LIST_REQUEST
   });
 
   const response = await fetch(
@@ -83,15 +84,15 @@ export const downloadFilesInformation = employeeId => async dispatch => {
     );
 
     dispatch({
-      type: dispatchTypes.DOWNLOAD_FILES_INFORMATION_RESPONSE,
+      type: dispatchTypes.LOAD_ARCHIVED_FILES_LIST_RESPONSE,
       payload: responseList ? responseList : []
     });
   }
 };
 
-export const downloadAllFilesInformation = () => async dispatch => {
+export const loadAllArchivedFilesList = () => async dispatch => {
   dispatch({
-    type: dispatchTypes.DOWNLOAD_ALL_FILES_INFORMATION_REQUEST
+    type: dispatchTypes.LOAD_ALL_ARCHIVED_FILES_LIST_REQUEST
   });
 
   const response = await fetch(
@@ -106,7 +107,7 @@ export const downloadAllFilesInformation = () => async dispatch => {
     );
 
     dispatch({
-      type: dispatchTypes.DOWNLOAD_ALL_FILES_INFORMATION_RESPONSE,
+      type: dispatchTypes.LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
       payload: responseList ? responseList : []
     });
   }

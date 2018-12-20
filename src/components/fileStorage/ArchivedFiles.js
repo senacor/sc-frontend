@@ -65,7 +65,7 @@ export default connect(
     archivedFiles: getArchivedFiles(state)
   }),
   {
-    downloadFiles: actions.downloadAllFilesInformation
+    downloadFiles: actions.loadAllArchivedFilesList
   }
 )(
   withLoadingAction(props => {

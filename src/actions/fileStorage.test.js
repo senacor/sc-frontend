@@ -1,11 +1,11 @@
 import fetchMock from 'fetch-mock';
 import {
-  DOWNLOAD_ALL_FILES_INFORMATION_REQUEST,
-  DOWNLOAD_ALL_FILES_INFORMATION_RESPONSE,
+  LOAD_ALL_ARCHIVED_FILES_LIST_REQUEST,
+  LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
   DOWNLOAD_FILE_REQUEST,
   DOWNLOAD_FILE_RESPONSE,
-  DOWNLOAD_FILES_INFORMATION_REQUEST,
-  DOWNLOAD_FILES_INFORMATION_RESPONSE,
+  LOAD_ARCHIVED_FILES_LIST_REQUEST,
+  LOAD_ARCHIVED_FILES_LIST_RESPONSE,
   RESET_DOWNLOADED_FILE,
   RESET_UPLOADED_FILES,
   UPLOAD_FILES_REQUEST,
@@ -14,9 +14,9 @@ import {
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import {
-  downloadAllFilesInformation,
+  loadAllArchivedFilesList,
   downloadFile,
-  downloadFilesInformation,
+  loadArchivedFilesList,
   resetDownloadedFile,
   resetUploadedFiles,
   uploadFiles
@@ -148,14 +148,14 @@ describe('uploadFiles', () => {
     });
     const store = mockStore();
 
-    await store.dispatch(downloadFilesInformation(1));
+    await store.dispatch(loadArchivedFilesList(1));
 
     expect(store.getActions()).toEqual([
       {
-        type: DOWNLOAD_FILES_INFORMATION_REQUEST
+        type: LOAD_ARCHIVED_FILES_LIST_REQUEST
       },
       {
-        type: DOWNLOAD_FILES_INFORMATION_RESPONSE,
+        type: LOAD_ARCHIVED_FILES_LIST_RESPONSE,
         payload: testData
       }
     ]);
@@ -192,14 +192,14 @@ describe('uploadFiles', () => {
     });
     const store = mockStore();
 
-    await store.dispatch(downloadAllFilesInformation());
+    await store.dispatch(loadAllArchivedFilesList());
 
     expect(store.getActions()).toEqual([
       {
-        type: DOWNLOAD_ALL_FILES_INFORMATION_REQUEST
+        type: LOAD_ALL_ARCHIVED_FILES_LIST_REQUEST
       },
       {
-        type: DOWNLOAD_ALL_FILES_INFORMATION_RESPONSE,
+        type: LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
         payload: testData
       }
     ]);

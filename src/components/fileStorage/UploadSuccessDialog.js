@@ -21,12 +21,10 @@ const styles = {
 
 export class UploadSuccessDialog extends React.Component {
   getUnstoredFiles = uploadedFiles => {
-    return uploadedFiles.filter(function(value) {
-      return value.isStored === false;
-    });
+    return uploadedFiles.filter(value => value.isStored === false);
   };
   render() {
-    const { onClose, open, uploadedFiles, classes, ...other } = this.props;
+    const { onClose, open, uploadedFiles, classes } = this.props;
     const unstoredFiles = this.getUnstoredFiles(uploadedFiles);
     const numberOfSuccessfulUploadedFiles =
       uploadedFiles.length - unstoredFiles.length;
@@ -37,7 +35,6 @@ export class UploadSuccessDialog extends React.Component {
         open={open}
         fullWidth={true}
         aria-labelledby="simple-dialog-title"
-        {...other}
         style={{ height: '400px' }}
         scroll={'paper'}
       >

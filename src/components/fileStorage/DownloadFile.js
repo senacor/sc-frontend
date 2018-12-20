@@ -12,9 +12,11 @@ export class DownloadFile extends React.Component {
       employeeId: props.employeeId,
       fileId: props.fileId
     };
+    this.downloadTab = null;
   }
 
   handleClick = (employeeId, fileId) => () => {
+    this.downloadTab = window.open();
     this.props.downloadFile(employeeId, fileId);
   };
 
@@ -22,12 +24,13 @@ export class DownloadFile extends React.Component {
     let { employeeId, fileId } = this.state;
     return file.id && file.employeeId === employeeId && file.fileId === fileId;
   }
+
   render() {
     let { employeeId, fileId } = this.state;
 
     if (this.checkDownloadFile(this.props.downloadedFile)) {
       this.props.resetDownloadedFile();
-      window.open(this.props.downloadedFile.url);
+      this.downloadTab.location = this.props.downloadedFile.url;
     }
 
     return (

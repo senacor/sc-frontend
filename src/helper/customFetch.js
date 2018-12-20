@@ -11,33 +11,24 @@ import { LOGIN_UNAUTHORIZED } from './dispatchTypes';
  *     body
  *   }
  */
-export default function customFetch(url, config = {}) {
+export default function customFetch(
+  url,
+  config = {},
+  contentType = { 'Content-Type': 'application/json' }
+) {
   let access_token = localStorage.getItem('access_token');
 
   let authenticationConfig = Object.assign({}, config);
-  authenticationConfig.headers = Object.assign({}, config.headers, {
-    Authorization: `Bearer ${access_token}`,
-    'Content-Type': 'application/json'
-  });
-  return fetch(url, authenticationConfig).then(response => {
-    if (response.status === 401) {
-      store.dispatch({
-        type: LOGIN_UNAUTHORIZED,
-        payload: response.status
-      });
-    }
-
-    return response;
-  });
-}
-
-export function fileFetch(url, config = {}) {
-  let access_token = localStorage.getItem('access_token');
-
-  let authenticationConfig = Object.assign({}, config);
-  authenticationConfig.headers = Object.assign({}, config.headers, {
-    Authorization: `Bearer ${access_token}`
-  });
+  let additionalHeaders = Object.assign(
+    {},
+    { Authorization: `Bearer ${access_token}` },
+    contentType
+  );
+  authenticationConfig.headers = Object.assign(
+    {},
+    config.headers,
+    additionalHeaders
+  );
   return fetch(url, authenticationConfig).then(response => {
     if (response.status === 401) {
       store.dispatch({
