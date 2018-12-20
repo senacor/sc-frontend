@@ -30,7 +30,7 @@ export default class TableColumnSelectorMenu extends React.Component {
     });
   };
 
-  handleClose = event => {
+  handleClose = () => {
     this.setState({
       anchorEl: null
     });

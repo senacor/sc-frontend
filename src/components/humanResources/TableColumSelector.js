@@ -12,6 +12,9 @@ const styles = {
   list: {
     width: '100%',
     maxHeight: '300px'
+  },
+  densed: {
+    padding: '0px'
   }
 };
 
@@ -91,6 +94,7 @@ export class TableColumnSelector extends Component {
       >
         {
           <Checkbox
+            className={this.props.classes.densed}
             id={'selectAll'}
             checked={this.isAllSelected()}
             color={'primary'}
@@ -111,6 +115,7 @@ export class TableColumnSelector extends Component {
         onClick={this.handleToggle(value)}
       >
         <Checkbox
+          className={this.props.classes.densed}
           id={value.label}
           checked={value.checked}
           color={'primary'}

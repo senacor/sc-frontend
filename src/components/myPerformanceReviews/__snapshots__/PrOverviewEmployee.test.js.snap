@@ -1,470 +1,483 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrOverviewReviewer Component should match snapshot 1`] = `
-<div>
-  <Connect(RequestPerformanceReview) />
-  <WithStyles(Paper)>
-    <TableColumnSelectorMenu
-      content={
-        Array [
-          Object {
-            "label": "Mitarbeiter",
-            "value": Object {
+<WithStyles(Paper)>
+  <WithStyles(Grid)
+    alignItems="center"
+    container={true}
+    direction="row"
+    justify="flex-end"
+  >
+    <WithStyles(Grid)
+      item={true}
+    >
+      <Connect(RequestPerformanceReview) />
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      item={true}
+    >
+      <TableColumnSelectorMenu
+        content={
+          Array [
+            Object {
               "label": "Mitarbeiter",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "label": "Mitarbeiter",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Fälligkeit",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="deadline"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(WithStyles(DateFilter)) />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Fälligkeit",
-              "numeric": true,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="deadline"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(WithStyles(DateFilter)) />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Fälligkeit",
+                "numeric": true,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Grund",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="occasion"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "Auf Nachfrage": "ON_DEMAND",
-                                        "Ende der Probezeit": "END_PROBATION",
-                                        "Jährlich": "YEARLY",
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Grund",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="occasion"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "Auf Nachfrage": "ON_DEMAND",
+                                          "Ende der Probezeit": "END_PROBATION",
+                                          "Jährlich": "YEARLY",
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Grund",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Projektkst",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="projectCst"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "ACD_BOOT": "ACD_BOOT",
-                                        "DEV_CAMP": "DEV_CAMP",
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Projektkst",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="projectCst"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "ACD_BOOT": "ACD_BOOT",
+                                          "DEV_CAMP": "DEV_CAMP",
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Projektkst",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Dev/Con",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="competence"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "CON": "CONSULTING",
-                                        "DEV": "DEVELOPMENT",
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Dev/Con",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="competence"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "CON": "CONSULTING",
+                                          "DEV": "DEVELOPMENT",
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Dev/Con",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "level",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="level"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "1": "1",
-                                        "2": "2",
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "level",
-              "numeric": true,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="level"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "1": "1",
+                                          "2": "2",
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "level",
+                "numeric": true,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Vorgesetzte/r",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="supervisor"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(EmployeeFilter) />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Vorgesetzte/r",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="supervisor"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(EmployeeFilter) />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Vorgesetzte/r",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Bewerter",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="reviewer"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(EmployeeFilter) />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Bewerter",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="reviewer"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(EmployeeFilter) />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Bewerter",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Bewertung",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="overallAssessment"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "erfüllt": "3",
-                                        "nicht erfüllt": "1",
-                                        "zT. nicht erfüllt": "2",
-                                        "zT. übererfüllt": "4",
-                                        "übererfüllt": "5",
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Bewertung",
-              "numeric": true,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="overallAssessment"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "erfüllt": "3",
+                                          "nicht erfüllt": "1",
+                                          "zT. nicht erfüllt": "2",
+                                          "zT. übererfüllt": "4",
+                                          "übererfüllt": "5",
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Bewertung",
+                "numeric": true,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "MA ausgefüllt",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="employeePreparationDone"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "ja": true,
-                                        "nein": false,
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "MA ausgefüllt",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="employeePreparationDone"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "ja": true,
+                                          "nein": false,
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "MA ausgefüllt",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Beurteiler ausgefüllt",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="reviewerPreparationDone"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "ja": true,
-                                        "nein": false,
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Beurteiler ausgefüllt",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="reviewerPreparationDone"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "ja": true,
+                                          "nein": false,
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Beurteiler ausgefüllt",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Termin",
-            "value": Object {
+            Object {
               "label": "Termin",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "label": "Termin",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-          Object {
-            "label": "Finaler Status",
-            "value": Object {
-              "filter": <Connect(WithStyles(PopperSearchMenu))
-                filterBy="inProgress"
-                filterGroup="EMPLOYEE"
-        >
-                <Connect(ListFilter)
-                        content={
-                                Object {
-                                        "beendet": false,
-                                        "laufend": true,
-                                      }
-                        }
-                />
-        </Connect(WithStyles(PopperSearchMenu))>,
+            Object {
               "label": "Finaler Status",
-              "numeric": false,
-              "render": [Function],
-              "sortValue": [Function],
+              "value": Object {
+                "filter": <Connect(WithStyles(PopperSearchMenu))
+                  filterBy="inProgress"
+                  filterGroup="EMPLOYEE"
+          >
+                  <Connect(ListFilter)
+                          content={
+                                  Object {
+                                          "beendet": false,
+                                          "laufend": true,
+                                        }
+                          }
+                  />
+          </Connect(WithStyles(PopperSearchMenu))>,
+                "label": "Finaler Status",
+                "numeric": false,
+                "render": [Function],
+                "sortValue": [Function],
+              },
             },
-          },
-        ]
-      }
-      onChange={[Function]}
-    />
-    <WithStyles(PerformanceReviewTable)
-      columnDefinition={
-        Array [
-          Object {
-            "label": "Mitarbeiter",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="deadline"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(WithStyles(DateFilter)) />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Fälligkeit",
-            "numeric": true,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="occasion"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "Auf Nachfrage": "ON_DEMAND",
-                                "Ende der Probezeit": "END_PROBATION",
-                                "Jährlich": "YEARLY",
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Grund",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="projectCst"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "ACD_BOOT": "ACD_BOOT",
-                                "DEV_CAMP": "DEV_CAMP",
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Projektkst",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="competence"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "CON": "CONSULTING",
-                                "DEV": "DEVELOPMENT",
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Dev/Con",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="level"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "1": "1",
-                                "2": "2",
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "level",
-            "numeric": true,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="supervisor"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(EmployeeFilter) />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Vorgesetzte/r",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="reviewer"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(EmployeeFilter) />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Bewerter",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="overallAssessment"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "erfüllt": "3",
-                                "nicht erfüllt": "1",
-                                "zT. nicht erfüllt": "2",
-                                "zT. übererfüllt": "4",
-                                "übererfüllt": "5",
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Bewertung",
-            "numeric": true,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="employeePreparationDone"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "ja": true,
-                                "nein": false,
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "MA ausgefüllt",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="reviewerPreparationDone"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "ja": true,
-                                "nein": false,
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Beurteiler ausgefüllt",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "label": "Termin",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-          Object {
-            "filter": <Connect(WithStyles(PopperSearchMenu))
-              filterBy="inProgress"
-              filterGroup="EMPLOYEE"
-        >
-              <Connect(ListFilter)
-                    content={
-                          Object {
-                                "beendet": false,
-                                "laufend": true,
-                              }
-                    }
-              />
-        </Connect(WithStyles(PopperSearchMenu))>,
-            "label": "Finaler Status",
-            "numeric": false,
-            "render": [Function],
-            "sortValue": [Function],
-          },
-        ]
-      }
-      orderBy={1}
-    />
-  </WithStyles(Paper)>
-</div>
+          ]
+        }
+        onChange={[Function]}
+      />
+    </WithStyles(Grid)>
+  </WithStyles(Grid)>
+  <WithStyles(PerformanceReviewTable)
+    columnDefinition={
+      Array [
+        Object {
+          "label": "Mitarbeiter",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="deadline"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(WithStyles(DateFilter)) />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Fälligkeit",
+          "numeric": true,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="occasion"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "Auf Nachfrage": "ON_DEMAND",
+                              "Ende der Probezeit": "END_PROBATION",
+                              "Jährlich": "YEARLY",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Grund",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="projectCst"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "ACD_BOOT": "ACD_BOOT",
+                              "DEV_CAMP": "DEV_CAMP",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Projektkst",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="competence"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "CON": "CONSULTING",
+                              "DEV": "DEVELOPMENT",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Dev/Con",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="level"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "1": "1",
+                              "2": "2",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "level",
+          "numeric": true,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="supervisor"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(EmployeeFilter) />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Vorgesetzte/r",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="reviewer"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(EmployeeFilter) />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Bewerter",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="overallAssessment"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "erfüllt": "3",
+                              "nicht erfüllt": "1",
+                              "zT. nicht erfüllt": "2",
+                              "zT. übererfüllt": "4",
+                              "übererfüllt": "5",
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Bewertung",
+          "numeric": true,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="employeePreparationDone"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "ja": true,
+                              "nein": false,
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "MA ausgefüllt",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="reviewerPreparationDone"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "ja": true,
+                              "nein": false,
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Beurteiler ausgefüllt",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "label": "Termin",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+        Object {
+          "filter": <Connect(WithStyles(PopperSearchMenu))
+            filterBy="inProgress"
+            filterGroup="EMPLOYEE"
+      >
+            <Connect(ListFilter)
+                  content={
+                        Object {
+                              "beendet": false,
+                              "laufend": true,
+                            }
+                  }
+            />
+      </Connect(WithStyles(PopperSearchMenu))>,
+          "label": "Finaler Status",
+          "numeric": false,
+          "render": [Function],
+          "sortValue": [Function],
+        },
+      ]
+    }
+    orderBy={1}
+  />
+</WithStyles(Paper)>
 `;

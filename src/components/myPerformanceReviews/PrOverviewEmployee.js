@@ -14,6 +14,7 @@ import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
+import Grid from '@material-ui/core/Grid';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 
 export class PrOverviewEmployee extends React.Component {
@@ -74,20 +75,30 @@ export class PrOverviewEmployee extends React.Component {
     const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
 
     return (
-      <div>
-        <RequestPerformanceReview />
-        <Paper>
-          <TableColumnSelectorMenu
-            onChange={this.handleChange}
-            content={this.getSelectorContent()}
-          />
-          <PerformanceReviewTable
-            columnDefinition={columns}
-            orderBy={1}
-            data={this.props.data}
-          />
-        </Paper>
-      </div>
+      <Paper>
+        <Grid
+          container
+          direction={'row'}
+          justify={'flex-end'}
+          alignItems={'center'}
+        >
+          <Grid item>
+            <RequestPerformanceReview />
+          </Grid>
+          <Grid item>
+            <TableColumnSelectorMenu
+              onChange={this.handleChange}
+              content={this.getSelectorContent()}
+            />
+          </Grid>
+        </Grid>
+
+        <PerformanceReviewTable
+          columnDefinition={columns}
+          orderBy={1}
+          data={this.props.data}
+        />
+      </Paper>
     );
   }
 }
