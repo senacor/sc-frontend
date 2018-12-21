@@ -13,7 +13,8 @@ import {
   getRequiredFields,
   getPrRatings,
   getPrEmployeeContributions,
-  getMeeting
+  getMeeting,
+  getSavingThreads
 } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
@@ -23,6 +24,7 @@ import { isHr } from '../../../helper/checkRole';
 import { changeRequiredFields } from '../../../actions/sheet';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   paper: {
@@ -331,11 +333,17 @@ class PrState extends React.Component {
 
     const activeStep = this.calculateActiveStep(prStatusesDone, stepStructure);
 
+    let savingInfo =
+      this.props.savingThreads > 0
+        ? '...speichert...'
+        : 'Alle Änderungen gespeichert.';
+
     return (
       <Paper className={classes.paper}>
         <List>
           <ListItem>
-            <ListItemText>Fortschritt des Reviewprozesses</ListItemText>
+            <ListItemText>{'Fortschritt des Reviewprozesses'}</ListItemText>
+            <Typography>{savingInfo}</Typography>
           </ListItem>
           <ListItem>
             <PrStatusStepper
@@ -363,7 +371,8 @@ export default connect(
       'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
     )(state).text,
     requiredFields: getRequiredFields(state),
-    meeting: getMeeting(state)
+    meeting: getMeeting(state),
+    savingThreads: getSavingThreads(state)
   }),
   {
     checkRequired: changeRequiredFields,
