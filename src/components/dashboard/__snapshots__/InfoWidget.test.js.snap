@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfoWidget component should match snapshot 1`] = `
+<WithStyles(Card)
+  component={[Function]}
+  onClick={[Function]}
+  style={
+    Object {
+      "alignItems": "stretch",
+      "height": "100%",
+      "margin": "20px",
+      "padding": "0",
+      "textDecoration": "none",
+    }
+  }
+  to="/prs"
+>
+  <WithStyles(CardContent)
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+        "padding": "0",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignSelf": "center",
+          "flexGrow": "1",
+          "fontSize": 30,
+          "padding": "16px",
+        }
+      }
+    >
+      <WithStyles(Icon)
+        color="primary"
+        fontSize="large"
+      >
+        library_books
+      </WithStyles(Icon)>
+    </div>
+    <div
+      style={
+        Object {
+          "flexGrow": "3",
+          "padding": "16px 24px 16px 0px",
+        }
+      }
+    >
+      <WithStyles(Typography)
+        color="textSecondary"
+      >
+        PRs mit mir als Vorgesetzter insgesamt (inkl. Archiv)
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        component="h2"
+        variant="h5"
+      >
+        3
+      </WithStyles(Typography)>
+    </div>
+  </WithStyles(CardContent)>
+</WithStyles(Card)>
+`;

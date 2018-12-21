@@ -39,6 +39,17 @@ class DefaultFilterService {
     };
   };
 
+  prsAsSupervisorAndInProgressFilter = () => {
+    return {
+      filterGroup: FILTER_GROUPS.REVIEWER,
+      filterBy: TABLE_PRS_ELEMENTS.SUPERVISOR,
+      filter: {
+        searchString: `supervisor=${this.userId}&inProgress=true`,
+        values: ''
+      }
+    };
+  };
+
   prsAsReviewerFilter = () => {
     return {
       filterGroup: FILTER_GROUPS.REVIEWER,

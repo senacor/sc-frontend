@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import DefaultFilterService from '../../service/DefaultFilterService';
 import { formatDateForFrontend } from '../../helper/date';
+import InfoWidget from './InfoWidget';
 
 let styles = {
   rowContainer: {
@@ -49,9 +50,6 @@ class Dashboard extends Component {
       ? this.props.userinfo.numberOfPrsToSupervise
       : 0;
 
-    let prsNotFilledByReviewer = this.props.userinfo
-      ? this.props.userinfo.prsNotFilledByReviewer
-      : 0;
     let prsNotFilledByEmployee = this.props.userinfo
       ? this.props.userinfo.prsNotFilledByEmployee
       : 0;
@@ -100,46 +98,28 @@ class Dashboard extends Component {
             </Card>
           ) : null}
 
-          {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={'/prs'}
-              style={{ textDecoration: 'none' }}
-              onClick={this.handleClick(
-                defaultFilterService.prsAsSupervisorFilter()
-              )}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {numberOfPrsToSupervise}
-                </Typography>
-                <Typography className={classes.title} color="textSecondary">
-                  PRs mit mir als Vorgesetzter insgesamt (inkl. Archiv)
-                </Typography>
-              </CardContent>
-            </Card>
-          ) : null}
-
-          {prsNotFilledByReviewer > 0 ? (
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={'/prs'}
-              style={{ textDecoration: 'none' }}
+          {numberOfPrsToReview > 0 ? (
+            <InfoWidget
+              label={'Offene PRs als Beurteiler'}
+              value={numberOfPrsToReview}
+              linkTo={'/prs'}
               onClick={this.handleClick(
                 defaultFilterService.prsToReviewFilter()
               )}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {prsNotFilledByReviewer}
-                </Typography>
-                <Typography className={classes.title} color="textSecondary">
-                  Unbearbeitete PRs mit mir als Bewerter
-                </Typography>
-              </CardContent>
-            </Card>
+              icon={'library_books'}
+            />
+          ) : null}
+
+          {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
+            <InfoWidget
+              label={'Offener PRs als Vorgesetzter'}
+              value={numberOfPrsToSupervise}
+              linkTo={'/prs'}
+              onClick={this.handleClick(
+                defaultFilterService.prsAsSupervisorAndInProgressFilter()
+              )}
+              icon={'library_books'}
+            />
           ) : null}
 
           {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
