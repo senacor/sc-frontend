@@ -16,6 +16,7 @@ import PerformanceReviewTableService from './PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
+import Grid from '@material-ui/core/Grid/Grid';
 
 export class OverviewPerformanceReviews extends Component {
   constructor(props) {
@@ -78,10 +79,19 @@ export class OverviewPerformanceReviews extends Component {
     let isHrMember = isHr(this.props.userroles);
     return (
       <Paper>
-        <TableColumnSelectorMenu
-          onChange={this.handleChange}
-          content={this.getSelectorContent()}
-        />
+        <Grid
+          container
+          direction={'row'}
+          justify={'flex-end'}
+          alignItems={'center'}
+        >
+          <Grid item>
+            <TableColumnSelectorMenu
+              onChange={this.handleChange}
+              content={this.getSelectorContent()}
+            />
+          </Grid>
+        </Grid>
         <PerformanceReviewTable
           columnDefinition={columns}
           orderBy={1}
