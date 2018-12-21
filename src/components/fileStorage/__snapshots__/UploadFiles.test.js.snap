@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadFiles Component should match snapshot with loading 1`] = `
+<div>
+  <WithStyles(UploadSuccessDialog)
+    onClose={[Function]}
+    open={false}
+    uploadedFiles={Array []}
+  />
+  <input
+    id="upload-button-file"
+    multiple={true}
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+  <label
+    htmlFor="upload-button-file"
+  >
+    <WithStyles(PrStatusActionButton)
+      component="span"
+      label={
+        <WithStyles(CircularProgress)
+          className="UploadFiles-buttonProgress-1"
+          size={24}
+        />
+      }
+    />
+  </label>
+</div>
+`;
+
+exports[`UploadFiles Component should match snapshot with uploadedFiles 1`] = `
+<div>
+  <WithStyles(UploadSuccessDialog)
+    onClose={[Function]}
+    open={true}
+    uploadedFiles={
+      Array [
+        Object {
+          "fileName": "20170213_PeterLustig.xlsx",
+          "isStored": false,
+        },
+        Object {
+          "fileName": "20170926_mbock.xlsx",
+          "isStored": false,
+        },
+      ]
+    }
+  />
+  <input
+    id="upload-button-file"
+    multiple={true}
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+  <label
+    htmlFor="upload-button-file"
+  >
+    <WithStyles(PrStatusActionButton)
+      component="span"
+      label="Upload"
+    />
+  </label>
+</div>
+`;
+
+exports[`UploadFiles Component should match snapshot without loading 1`] = `
+<div>
+  <WithStyles(UploadSuccessDialog)
+    onClose={[Function]}
+    open={false}
+    uploadedFiles={Array []}
+  />
+  <input
+    id="upload-button-file"
+    multiple={true}
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+  <label
+    htmlFor="upload-button-file"
+  >
+    <WithStyles(PrStatusActionButton)
+      component="span"
+      label="Upload"
+    />
+  </label>
+</div>
+`;

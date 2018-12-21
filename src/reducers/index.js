@@ -19,10 +19,16 @@ import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { prTabs } from './prTabs';
 import { filterPossibilities } from './filterPossibilities';
+import { archivedFiles } from './archivedFiles';
+import { uploadedFiles } from './uploadedFiles';
+import { downloadedFile } from './downloadedFile';
 import { advancementStrategies } from './advancementStrategies';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
+  archivedFiles,
+  uploadedFiles,
+  downloadedFile,
   errors,
   prs,
   login,

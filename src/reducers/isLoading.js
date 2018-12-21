@@ -12,7 +12,9 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.LOGIN_REQUEST,
     dispatchTypes.FETCH_MEETING_REQUEST,
     dispatchTypes.FILTER_POSSIBILITIES_REQUEST,
-    dispatchTypes.FETCH_EMPLOYEES_REQUEST
+    dispatchTypes.FETCH_EMPLOYEES_REQUEST,
+    dispatchTypes.LOAD_ARCHIVED_FILES_LIST_REQUEST,
+    dispatchTypes.UPLOAD_FILES_REQUEST
   ];
   const stopLoading = [
     dispatchTypes.ADD_COMMENT_RESPONSE,
@@ -29,7 +31,9 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FILTER_POSSIBILITIES_RESPONSE,
     dispatchTypes.LOGIN_RESPONSE,
     dispatchTypes.LOGIN_UNAUTHORIZED,
-    dispatchTypes.LOGOUT
+    dispatchTypes.LOGOUT,
+    dispatchTypes.LOAD_ARCHIVED_FILES_LIST_RESPONSE,
+    dispatchTypes.UPLOAD_FILES_RESPONSE
   ];
 
   let actionTrigger = action.type.replace('_REQUEST', '');

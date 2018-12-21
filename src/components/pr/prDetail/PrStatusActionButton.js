@@ -13,26 +13,23 @@ const styles = theme => ({
 });
 
 function PrStatusActionButton(props) {
-  let { classes, label, inputClass, link, to, component, disabled } = props;
+  let {
+    classes,
+    label,
+    inputClass,
+    disabled,
+    releaseButtonClick,
+    ...otherProps
+  } = props;
   let finalClass = inputClass ? inputClass : classes.buttonDesktop;
-  return link ? (
+  return (
     <Button
       classes={{ sizeSmall: classes.sizeSmall }}
       size="small"
       className={finalClass}
-      onClick={props.releaseButtonClick}
-      component={component}
-      to={to}
-    >
-      {label}
-    </Button>
-  ) : (
-    <Button
-      classes={{ sizeSmall: classes.sizeSmall }}
-      size="small"
-      className={finalClass}
-      onClick={props.releaseButtonClick}
+      onClick={releaseButtonClick}
       disabled={disabled}
+      {...otherProps}
     >
       {label}
     </Button>

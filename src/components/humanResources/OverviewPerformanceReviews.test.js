@@ -3,7 +3,7 @@ import { OverviewPerformanceReviews } from './OverviewPerformanceReviews';
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('OverviewPerformanceReviews', () => {
-  let shallow = createShallow({ dive: true });
+  let shallow = createShallow({ dive: false });
 
   let filterPossibilities = {
     competences: ['DEVELOPMENT', 'CONSULTING'],

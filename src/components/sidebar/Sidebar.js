@@ -21,6 +21,7 @@ import * as actions from '../../actions';
 import { getUserroles } from '../../reducers/selector';
 import { fetchReviewerInfo } from '../../actions/reviewerInfo';
 import FILTER_GROUPS from '../humanResources/filterGroups';
+import Icon from '@material-ui/core/Icon';
 
 const styles = () => ({
   root: {
@@ -80,6 +81,13 @@ export class Sidebar extends Component {
         onClick: () => {
           this.props.resetFilterGroup(FILTER_GROUPS.HR);
         }
+      },
+      {
+        label: 'Archivierte PRs',
+        icon: <Icon>save</Icon>,
+        value: '/hr/archivedPrs',
+        roles: [ROLES.PR_HR],
+        onClick: () => {}
       },
       {
         label: 'Eigene PRs',

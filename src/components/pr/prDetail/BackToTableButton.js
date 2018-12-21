@@ -32,7 +32,6 @@ export class BackToTableButton extends Component {
         inputClass={this.props.classes}
         component={NavLink}
         to={this.getBackJumpPoint(pr, userroles, username)}
-        link
       />
     );
   }

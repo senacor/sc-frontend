@@ -1,8 +1,10 @@
+import { createShallow } from '@material-ui/core/test-utils';
 import React from 'react';
-import { PrHistory } from './PrHistory';
-import { shallow } from 'enzyme';
+import { ArchivedFiles } from './ArchivedFiles';
 
-describe('PrHistory Component', () => {
+describe('ArchivedFiles Component', () => {
+  let shallow = createShallow({ dive: false });
+
   it('should match snapshot', () => {
     let archivedFiles = [
       {
@@ -22,7 +24,10 @@ describe('PrHistory Component', () => {
         url: 'https://url_24.com'
       }
     ];
-    const component = shallow(<PrHistory archivedFiles={archivedFiles} />);
+    let component = shallow(
+      <ArchivedFiles archivedFiles={archivedFiles} downloadFiles={jest.fn()} />
+    );
+
     expect(component).toMatchSnapshot();
   });
 });

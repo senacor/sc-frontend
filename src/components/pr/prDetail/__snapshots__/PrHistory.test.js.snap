@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrHistory Component should match snapshot 1`] = `
-<div>
+<div
+  style={
+    Object {
+      "maxHeight": "200px",
+      "overflow": "auto",
+    }
+  }
+>
   <WithStyles(Table)
     padding="none"
   >
@@ -21,45 +28,31 @@ exports[`PrHistory Component should match snapshot 1`] = `
     </WithStyles(TableHead)>
     <WithStyles(TableBody)>
       <WithStyles(TableRow)
-        key="5"
+        key="15"
       >
         <WithStyles(TableCell)
           padding="none"
         >
-          2018-01-01
+          2017-11-11
         </WithStyles(TableCell)>
         <WithStyles(TableCell)
           padding="none"
         >
-          ON_DEMAND
+          <Connect(DownloadFile) />
         </WithStyles(TableCell)>
       </WithStyles(TableRow)>
       <WithStyles(TableRow)
-        key="6"
+        key="24"
       >
         <WithStyles(TableCell)
           padding="none"
         >
-          Excel
+          2017-02-10
         </WithStyles(TableCell)>
         <WithStyles(TableCell)
           padding="none"
         >
-          Download Excel 20170101_Michaela_Mitarbeiterin.xls
-        </WithStyles(TableCell)>
-      </WithStyles(TableRow)>
-      <WithStyles(TableRow)
-        key="7"
-      >
-        <WithStyles(TableCell)
-          padding="none"
-        >
-          Excel
-        </WithStyles(TableCell)>
-        <WithStyles(TableCell)
-          padding="none"
-        >
-          Download Excel 20160101_Michaela_Mitarbeiterin.xls
+          <Connect(DownloadFile) />
         </WithStyles(TableCell)>
       </WithStyles(TableRow)>
     </WithStyles(TableBody)>

@@ -11,6 +11,7 @@ import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
 import OverviewPerformanceReviews from './humanResources/OverviewPerformanceReviews';
 import PrOverviewEmployee from './myPerformanceReviews/PrOverviewEmployee';
 import ROUTES from '../helper/routes';
+import ArchivedFiles from './fileStorage/ArchivedFiles';
 
 const styles = {
   main: {
@@ -30,6 +31,7 @@ const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
 const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
 const DashboardWithAppBar = withAppBar(Dashboard);
 const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
+const ArchivedFilesWithAppBar = withAppBar(ArchivedFiles);
 
 const App = () => (
   <div style={styles.main}>
@@ -68,6 +70,11 @@ const App = () => (
         exact
         path={ROUTES.HR_PR_TABLE}
         component={OverviewPrsWithAppBar}
+      />
+      <PrivateRoute
+        exact
+        path={ROUTES.ARCHIVED_PR_TABLE}
+        component={ArchivedFilesWithAppBar}
       />
 
       <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />

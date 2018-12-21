@@ -123,9 +123,9 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
           item={true}
           xs={4}
         >
-          <WithStyles(Typography)>
-            Details zum Mitarbeiter werden in Zukunft zur Verfügung stehen.
-          </WithStyles(Typography)>
+          <Connect(WithLoadingAction(PrHistory))
+            employeeId={501}
+          />
         </WithStyles(Grid)>
         <WithStyles(Grid)
           item={true}
