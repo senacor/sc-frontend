@@ -28,8 +28,7 @@ export class DownloadFile extends React.Component {
   render() {
     let { employeeId, fileId } = this.state;
 
-    if (this.checkDownloadFile(this.props.downloadedFile)) {
-      this.props.resetDownloadedFile();
+    if (this.checkDownloadFile(this.props.downloadedFile) && this.downloadTab) {
       this.downloadTab.location = this.props.downloadedFile.url;
     }
 
