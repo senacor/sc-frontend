@@ -23,6 +23,7 @@ import { archivedFiles } from './archivedFiles';
 import { uploadedFiles } from './uploadedFiles';
 import { downloadedFile } from './downloadedFile';
 import { advancementStrategies } from './advancementStrategies';
+import { savingThreads } from './savingThreads';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -52,6 +53,7 @@ const combineReducer = combineReducers({
   userroles,
   filter,
   requiredFields,
+  savingThreads,
   filterPossibilities,
   prTabs
 });
