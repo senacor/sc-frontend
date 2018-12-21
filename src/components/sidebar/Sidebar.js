@@ -10,6 +10,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import SaveIcon from '@material-ui/icons/Save';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink } from 'react-router-dom';
@@ -21,7 +22,6 @@ import * as actions from '../../actions';
 import { getUserroles } from '../../reducers/selector';
 import { fetchReviewerInfo } from '../../actions/reviewerInfo';
 import FILTER_GROUPS from '../humanResources/filterGroups';
-import Icon from '@material-ui/core/Icon';
 
 const styles = () => ({
   root: {
@@ -84,7 +84,7 @@ export class Sidebar extends Component {
       },
       {
         label: 'Archivierte PRs',
-        icon: <Icon>save</Icon>,
+        icon: <SaveIcon />,
         value: '/hr/archivedPrs',
         roles: [ROLES.PR_HR],
         onClick: () => {}

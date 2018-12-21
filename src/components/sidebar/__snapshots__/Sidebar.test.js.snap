@@ -126,9 +126,7 @@ exports[`Sidebar should match snapshot 1`] = `
         to="/hr/archivedPrs"
       >
         <WithStyles(ListItemIcon)>
-          <WithStyles(Icon)>
-            save
-          </WithStyles(Icon)>
+          <pure(SaveIcon) />
         </WithStyles(ListItemIcon)>
         <WithStyles(ListItemText)
           disableTypography={true}
