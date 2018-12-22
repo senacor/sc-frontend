@@ -38,5 +38,7 @@ export default connect(
     return props
       .fetchPrById(props.match.params.id)
       .then(pr => props.fetchMeeting(pr));
-  })([LoadingEvents.FETCH_PR_BY_ID])(PerformanceReviewDetail)
+  })([LoadingEvents.FETCH_PR_BY_ID, LoadingEvents.FETCH_MEETING])(
+    PerformanceReviewDetail
+  )
 );
