@@ -29,7 +29,7 @@ describe('PrState Component for reviewer', () => {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: true,
           isCurrentUserActionPerformer: false,
-          label: 'Mitarbeiter: ',
+          label: 'Mitarbeiter/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -47,7 +47,7 @@ describe('PrState Component for reviewer', () => {
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: false,
           isCurrentUserActionPerformer: true,
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -85,12 +85,12 @@ describe('PrState Component for reviewer', () => {
       }
     },
     {
-      mainStepLabel: 'Gespräch',
+      mainStepLabel: 'Termin',
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: false,
           isCurrentUserActionPerformer: true,
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -113,7 +113,7 @@ describe('PrState Component for reviewer', () => {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: false,
           isCurrentUserActionPerformer: false,
-          label: 'Mitarbeiter:',
+          label: 'Mitarbeiter/-in:',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -252,7 +252,7 @@ describe('PrState Component for employee', () => {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: true,
           isCurrentUserActionPerformer: true,
-          label: 'Mitarbeiter: ',
+          label: 'Mitarbeiter/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -269,7 +269,7 @@ describe('PrState Component for employee', () => {
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: false,
           isCurrentUserActionPerformer: false,
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -306,12 +306,12 @@ describe('PrState Component for employee', () => {
       }
     },
     {
-      mainStepLabel: 'Gespräch',
+      mainStepLabel: 'Termin',
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: false,
           isCurrentUserActionPerformer: false,
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -333,7 +333,7 @@ describe('PrState Component for employee', () => {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: false,
           isCurrentUserActionPerformer: true,
-          label: 'Mitarbeiter:',
+          label: 'Mitarbeiter/-in:',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -463,7 +463,7 @@ describe('PrState Component for HR', () => {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: true,
           isCurrentUserActionPerformer: false,
-          label: 'Mitarbeiter: ',
+          label: 'Mitarbeiter/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -480,7 +480,7 @@ describe('PrState Component for HR', () => {
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: false,
           isCurrentUserActionPerformer: false,
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -507,12 +507,12 @@ describe('PrState Component for HR', () => {
       }
     },
     {
-      mainStepLabel: 'Gespräch',
+      mainStepLabel: 'Termin',
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: false,
           isCurrentUserActionPerformer: false,
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -534,7 +534,7 @@ describe('PrState Component for HR', () => {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: false,
           isCurrentUserActionPerformer: false,
-          label: 'Mitarbeiter:',
+          label: 'Mitarbeiter/-in:',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',

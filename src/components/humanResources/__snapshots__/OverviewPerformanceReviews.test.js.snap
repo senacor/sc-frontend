@@ -99,8 +99,8 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                   <Connect(ListFilter)
                           content={
                                   Object {
-                                          "CON": "CONSULTING",
-                                          "DEV": "DEVELOPMENT",
+                                          "Con.": "CONSULTING",
+                                          "Dev.": "DEVELOPMENT",
                                         }
                           }
                   />
@@ -365,8 +365,8 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
             <Connect(ListFilter)
                   content={
                         Object {
-                              "CON": "CONSULTING",
-                              "DEV": "DEVELOPMENT",
+                              "Con.": "CONSULTING",
+                              "Dev.": "DEVELOPMENT",
                             }
                   }
             />
