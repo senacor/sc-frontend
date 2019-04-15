@@ -22,7 +22,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
           >
                 <Connect(EmployeeFilter) />
           </Connect(WithStyles(PopperSearchMenu))>,
-              "label": "Mitarbeiter",
+              "label": "Mitarbeiter/-in",
               "numeric": false,
               "render": [Function],
               "sortValue": [Function],
@@ -63,7 +63,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
             },
             Object {
               "disablePadding": false,
-              "label": "Projektkst",
+              "label": "Projektkst.",
               "numeric": false,
               "render": [Function],
               "sortValue": [Function],
@@ -77,13 +77,13 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
                 <Connect(ListFilter)
                       content={
                             Object {
-                                  "CON": "CONSULTING",
-                                  "DEV": "DEVELOPMENT",
+                                  "Con.": "CONSULTING",
+                                  "Dev.": "DEVELOPMENT",
                                 }
                       }
                 />
           </Connect(WithStyles(PopperSearchMenu))>,
-              "label": "Dev/Con",
+              "label": "Dev./Con.",
               "numeric": false,
               "render": [Function],
               "sortValue": [Function],
@@ -103,7 +103,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
                       }
                 />
           </Connect(WithStyles(PopperSearchMenu))>,
-              "label": "level",
+              "label": "Level",
               "numeric": true,
               "render": [Function],
               "sortValue": [Function],
@@ -129,7 +129,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
           >
                 <Connect(EmployeeFilter) />
           </Connect(WithStyles(PopperSearchMenu))>,
-              "label": "Bewerter",
+              "label": "Beurteiler/-in",
               "numeric": false,
               "render": [Function],
               "sortValue": [Function],
@@ -156,7 +156,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
                       }
                 />
           </Connect(WithStyles(PopperSearchMenu))>,
-              "label": "MA ausgefüllt",
+              "label": "Mitarbeiter/-in ausgefüllt",
               "numeric": false,
               "render": [Function],
               "sortValue": [Function],
@@ -176,7 +176,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
                       }
                 />
           </Connect(WithStyles(PopperSearchMenu))>,
-              "label": "Beurteiler ausgefüllt",
+              "label": "Beurteiler/-in ausgefüllt",
               "numeric": false,
               "render": [Function],
               "sortValue": [Function],
@@ -272,7 +272,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
             key="4"
             padding="checkbox"
           >
-            CON
+            Con.
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="5"
@@ -361,7 +361,7 @@ exports[`PerformanceReviewTable component should match snapshot 1`] = `
             key="4"
             padding="checkbox"
           >
-            DEV
+            Dev.
           </WithStyles(TableCell)>
           <WithStyles(TableCell)
             key="5"

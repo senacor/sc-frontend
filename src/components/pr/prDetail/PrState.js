@@ -128,7 +128,7 @@ class PrState extends React.Component {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
           isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-          label: 'Mitarbeiter: ',
+          label: 'Mitarbeiter/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -141,7 +141,7 @@ class PrState extends React.Component {
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -161,12 +161,12 @@ class PrState extends React.Component {
       }
     };
     let step2 = {
-      mainStepLabel: 'Gespräch',
+      mainStepLabel: 'Termin',
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
-          label: 'Beurteiler: ',
+          label: 'Beurteiler/-in: ',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',
@@ -184,7 +184,7 @@ class PrState extends React.Component {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
           isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-          label: 'Mitarbeiter:',
+          label: 'Mitarbeiter/-in:',
           rendering: {
             complete: 'Abgeschlossen',
             incompleteForNonActionPerformer: 'Nicht abgeschlossen',

@@ -18,7 +18,7 @@ const rows = [
   {
     numeric: false,
     disablePadding: false,
-    label: 'Mitarbeiter',
+    label: 'Mitarbeiter/-in',
     sortValue: entry => getDisplayName(entry[HR_ELEMENTS.EMPLOYEE]),
     render: entry => {
       return (
@@ -72,14 +72,14 @@ const rows = [
   {
     numeric: false,
     disablePadding: false,
-    label: 'Projektkst',
+    label: 'Projektkst.',
     sortValue: entry => entry[HR_ELEMENTS.CST],
     render: entry => entry[HR_ELEMENTS.CST]
   },
   {
     numeric: false,
     disablePadding: true,
-    label: 'Dev/Con',
+    label: 'Dev./Con.',
     sortValue: entry =>
       translateContent(`COMPETENCE_${entry[HR_ELEMENTS.COMPETENCE]}`),
     render: entry =>
@@ -101,7 +101,7 @@ const rows = [
   {
     numeric: true,
     disablePadding: true,
-    label: 'level',
+    label: 'Level',
     sortValue: entry => entry[HR_ELEMENTS.LEVEL],
     render: entry => entry[HR_ELEMENTS.LEVEL],
     filter: (
@@ -136,7 +136,7 @@ const rows = [
   {
     numeric: false,
     disablePadding: true,
-    label: 'Bewerter',
+    label: 'Beurteiler/-in',
     sortValue: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
     render: entry => getDisplayName(entry[HR_ELEMENTS.REVIEWER]),
     filter: (
@@ -158,7 +158,7 @@ const rows = [
   {
     numeric: false,
     disablePadding: true,
-    label: 'MA ausgefüllt',
+    label: 'Mitarbeiter/-in ausgefüllt',
     sortValue: entry =>
       entry[HR_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
     render: entry =>
@@ -175,7 +175,7 @@ const rows = [
   {
     numeric: false,
     disablePadding: false,
-    label: 'Beurteiler ausgefüllt',
+    label: 'Beurteiler/-in ausgefüllt',
     sortValue: entry =>
       entry[HR_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
     render: entry =>

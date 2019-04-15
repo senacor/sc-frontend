@@ -29,7 +29,7 @@ exports[`PrDetailInformation Component should match snapshot 1`] = `
           color="textSecondary"
           variant="body2"
         >
-          Fälligkeit: 06.12.2018, ACD_BOOT, DEV, Auf Nachfrage, Termin: 04.12.2018 (außerhalb des Portals vereinbart)
+          Fälligkeit: 06.12.2018, ACD_BOOT, Dev., Auf Nachfrage, Termin: 04.12.2018 (außerhalb des Portals vereinbart)
         </WithStyles(Typography)>
         <WithStyles(List)
           className="PrDetailInformation-list-5"
