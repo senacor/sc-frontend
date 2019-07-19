@@ -4,7 +4,7 @@ import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import { getSubFilter } from '../../reducers/selector';
 import { connect } from 'react-redux';
-import { Button, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   iconFilterSet: {

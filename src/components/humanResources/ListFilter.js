@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
-import {Button} from "@material-ui/core";
+import { Button } from '@material-ui/core';
 
 export class ListFilter extends Component {
   constructor(props) {
@@ -30,13 +30,15 @@ export class ListFilter extends Component {
   }
 
   isFilterSet = checked => {
-    return !(checked.length === Object.keys(this.props.content).length ||
-              checked.length === 0);
+    return !(
+      checked.length === Object.keys(this.props.content).length ||
+      this.isFilterEmpty(checked)
+    );
   };
 
   isFilterEmpty = checked => {
     return checked.length === 0;
-  }
+  };
 
   handleToggleSelectAll = () => {
     const newAllSelect = !this.state.isAllSelected;
@@ -72,7 +74,6 @@ export class ListFilter extends Component {
       });
     } else if (this.isFilterEmpty(newChecked)) {
       // nothing is set in filter
-      console.log('new', newChecked)
       this.setState({
         checked: newChecked,
         isAllSelected: false
@@ -148,13 +149,17 @@ export class ListFilter extends Component {
         <Divider />
         {Object.keys(this.props.content).map(this.showContent, this)}
         <Divider />
-        <Button onClick={this.setFilter}
-                style={{backgroundColor: '#06A781', float: 'right'}}
+        <Button
+          onClick={this.setFilter}
+          style={{
+            backgroundColor: '#26646D',
+            color: '#FFFFFF',
+            float: 'right'
+          }}
         >
           OK
         </Button>
       </List>
-
     );
   }
 }
