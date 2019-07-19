@@ -49,6 +49,7 @@ export const fetchFilteredPrs = (filter, role) => async dispatch => {
 
   let query = '';
   if (filter) {
+    console.log('filter: ', filter)
     let filterString = Object.keys(filter)
       .map(function(key) {
         return filter[key].searchString;

@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
+import {Button} from "@material-ui/core";
 
 export class ListFilter extends Component {
   constructor(props) {
@@ -28,13 +29,13 @@ export class ListFilter extends Component {
     };
   }
 
-  clearFilter = () => {
+  /*clearFilter = () => {
     let payload = {
       filterGroup: this.props.filterGroup,
       filterBy: this.props.filterBy
     };
     this.props.deleteFilter(payload);
-  };
+  };*/
 
   isFilterSet = checked => {
     return !(
@@ -44,7 +45,7 @@ export class ListFilter extends Component {
   };
 
   handleToggleSelectAll = () => {
-    this.clearFilter();
+    //this.clearFilter();
     const newAllSelect = !this.state.isAllSelected;
     let newChecked;
 
@@ -71,13 +72,15 @@ export class ListFilter extends Component {
     }
 
     if (this.isFilterSet(newChecked)) {
+      console.log('prvy')
       this.setState({
         checked: newChecked,
         isAllSelected: false
       });
-      this.setFilter(newChecked);
+      //this.setFilter(newChecked);
     } else {
-      this.clearFilter();
+      //this.clearFilter();
+      console.log('druhy')
       this.setState({
         checked: Object.keys(this.props.content),
         isAllSelected: true
@@ -85,9 +88,9 @@ export class ListFilter extends Component {
     }
   };
 
-  setFilter = checked => {
+  setFilter = () => {
     let searchString = `${this.props.filterBy}=`;
-    searchString += checked
+    searchString += this.state.checked
       .map(value => {
         return this.props.content[value];
       })
@@ -95,7 +98,7 @@ export class ListFilter extends Component {
 
     let filter = {
       searchString,
-      values: checked
+      values: this.state.checked
     };
     let payload = {
       filterGroup: this.props.filterGroup,
@@ -146,7 +149,14 @@ export class ListFilter extends Component {
         {this.showSelectAll()}
         <Divider />
         {Object.keys(this.props.content).map(this.showContent, this)}
+        <Divider />
+        <Button onClick={this.setFilter}
+                style={{backgroundColor: '#06A781', float: 'right'}}
+        >
+          OK
+        </Button>
       </List>
+
     );
   }
 }
