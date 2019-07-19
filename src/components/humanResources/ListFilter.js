@@ -29,23 +29,16 @@ export class ListFilter extends Component {
     };
   }
 
-  /*clearFilter = () => {
-    let payload = {
-      filterGroup: this.props.filterGroup,
-      filterBy: this.props.filterBy
-    };
-    this.props.deleteFilter(payload);
-  };*/
-
   isFilterSet = checked => {
-    return !(
-      checked.length === Object.keys(this.props.content).length ||
-      checked.length === 0
-    );
+    return !(checked.length === Object.keys(this.props.content).length ||
+              checked.length === 0);
   };
 
+  isFilterEmpty = checked => {
+    return checked.length === 0;
+  }
+
   handleToggleSelectAll = () => {
-    //this.clearFilter();
     const newAllSelect = !this.state.isAllSelected;
     let newChecked;
 
@@ -72,15 +65,20 @@ export class ListFilter extends Component {
     }
 
     if (this.isFilterSet(newChecked)) {
-      console.log('prvy')
+      // something is set in filter, but not everything
       this.setState({
         checked: newChecked,
         isAllSelected: false
       });
-      //this.setFilter(newChecked);
+    } else if (this.isFilterEmpty(newChecked)) {
+      // nothing is set in filter
+      console.log('new', newChecked)
+      this.setState({
+        checked: newChecked,
+        isAllSelected: false
+      });
     } else {
-      //this.clearFilter();
-      console.log('druhy')
+      // everything is set in filter
       this.setState({
         checked: Object.keys(this.props.content),
         isAllSelected: true

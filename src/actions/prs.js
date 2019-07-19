@@ -49,7 +49,6 @@ export const fetchFilteredPrs = (filter, role) => async dispatch => {
 
   let query = '';
   if (filter) {
-    console.log('filter: ', filter)
     let filterString = Object.keys(filter)
       .map(function(key) {
         return filter[key].searchString;
@@ -65,7 +64,13 @@ export const fetchFilteredPrs = (filter, role) => async dispatch => {
   if (response.ok) {
     const result = await response.json();
     const responseList = objectGet(result, '_embedded.ownPrResponseList');
-    const prTableEntries = responseList ? responseList : [];
+    let prTableEntries = responseList ? responseList : [];
+
+    // if query contains '=&' or ends with '=', that means in some filter there is nothing selected
+    // so table entries will be empty
+    if (query.includes('=&') || query.endsWith('=')) {
+      prTableEntries = [];
+    }
 
     dispatch({
       type: dispatchTypes.FETCH_OWN_PRS_RESPONSE,
