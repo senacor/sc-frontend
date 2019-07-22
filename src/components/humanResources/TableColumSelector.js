@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
-import {withStyles} from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 
 const styles = {
   list: {
