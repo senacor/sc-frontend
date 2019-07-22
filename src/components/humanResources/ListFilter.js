@@ -151,6 +151,7 @@ export class ListFilter extends Component {
         <Divider />
         <Button
           onClick={this.setFilter}
+          id={'filterButton'}
           style={{
             backgroundColor: '#26646D',
             color: '#FFFFFF',
