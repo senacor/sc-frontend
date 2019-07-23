@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { LoadingEvents } from '../../helper/loadingEvents';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   buttonProgress: {
@@ -29,7 +30,7 @@ export class UploadFiles extends React.Component {
   };
 
   render() {
-    let { uploadedFiles, isLoading, classes } = this.props;
+    let { uploadedFiles, isLoading, classes, intl } = this.props;
     return (
       <div>
         <UploadSuccessDialog
@@ -53,7 +54,9 @@ export class UploadFiles extends React.Component {
                   className={classes.buttonProgress}
                 />
               ) : (
-                'Upload'
+                intl.formatMessage({
+                  id: 'uploadfiles.upload'
+                })
               )
             }
             component="span"
@@ -66,13 +69,15 @@ export class UploadFiles extends React.Component {
 
 export const StyledComponent = withStyles(styles)(UploadFiles);
 
-export default connect(
-  state => ({
-    uploadedFiles: getUploadedFiles(state),
-    isLoading: isLoadingAction(state, [LoadingEvents.UPLOAD_FILES])
-  }),
-  {
-    uploadFiles: actions.uploadFiles,
-    resetUploadedFiles: actions.resetUploadedFiles
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      uploadedFiles: getUploadedFiles(state),
+      isLoading: isLoadingAction(state, [LoadingEvents.UPLOAD_FILES])
+    }),
+    {
+      uploadFiles: actions.uploadFiles,
+      resetUploadedFiles: actions.resetUploadedFiles
+    }
+  )(StyledComponent)
+);

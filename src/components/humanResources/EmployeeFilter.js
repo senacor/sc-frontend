@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField/TextField';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
+import { injectIntl } from 'react-intl';
 
 export class EmployeeFilter extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ export class EmployeeFilter extends Component {
   };
 
   render() {
+    const { intl } = this.props;
     return (
       <EmployeeSearch
         employeeSearchValue={this.state.employeeName}
@@ -59,7 +61,9 @@ export class EmployeeFilter extends Component {
           <TextField
             id="outlined-adornment-filter"
             variant="outlined"
-            label="Name"
+            label={intl.formatMessage({
+              id: 'employeefilter.name'
+            })}
             value={value}
             onChange={onChange}
             InputProps={{
@@ -67,7 +71,9 @@ export class EmployeeFilter extends Component {
                 <InputAdornment position="end">
                   <IconButton>
                     <Icon id="adornmentIcon" onClick={this.onDelete}>
-                      clear
+                      {intl.formatMessage({
+                        id: 'employeefilter.delete'
+                      })}
                     </Icon>
                   </IconButton>
                 </InputAdornment>
@@ -86,12 +92,14 @@ EmployeeFilter.propTypes = {
   filterBy: PropTypes.string.isRequired
 };
 
-export default connect(
-  (state, props) => ({
-    filter: getSubFilter(props.filterGroup, props.filterBy)(state)
-  }),
-  {
-    addFilter: actions.addFilter,
-    deleteFilter: actions.deleteFilter
-  }
-)(EmployeeFilter);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      filter: getSubFilter(props.filterGroup, props.filterBy)(state)
+    }),
+    {
+      addFilter: actions.addFilter,
+      deleteFilter: actions.deleteFilter
+    }
+  )(EmployeeFilter)
+);

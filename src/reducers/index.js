@@ -5,6 +5,7 @@ import prTargetRole from './getTargetRole';
 import prFinalizationStatusById from './getPrFinalizationStatus';
 import errors from './errors';
 import login from './login';
+import { language } from './language';
 import { userinfo, userphoto, userroles } from './userinfo';
 import { prRatings } from './rating';
 import isLoading from './isLoading';
@@ -32,6 +33,7 @@ const combineReducer = combineReducers({
   errors,
   prs,
   login,
+  language,
   tablePrs,
   isLoading,
   meeting,

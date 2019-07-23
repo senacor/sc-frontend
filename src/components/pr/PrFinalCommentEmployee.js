@@ -12,6 +12,7 @@ import { translateContent } from '../translate/Translate';
 
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -55,7 +56,8 @@ class PrFinalCommentEmployee extends Component {
       readOnly,
       open,
       isActionPerformer,
-      nonActionPerformer
+      nonActionPerformer,
+      intl
     } = this.props;
     let { commentText } = this.state;
 
@@ -67,8 +69,9 @@ class PrFinalCommentEmployee extends Component {
     service.setReadOnlyText(finalCommentEmployee);
     service.setWriteableText(commentText);
 
-    let helperText =
-      'Letzte Anmerkungen und Ergänzungen zum Performance Review.';
+    let helperText = intl.formatMessage({
+      id: 'prfinalcommentemployee.notes'
+    });
 
     return (
       <List>
@@ -92,12 +95,14 @@ class PrFinalCommentEmployee extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrFinalCommentEmployee);
-export default connect(
-  state => ({
-    finalCommentEmployee: getFinalCommentEmployee()(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    changeFinalCommentEmployee: actions.changeFinalCommentEmployee
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      finalCommentEmployee: getFinalCommentEmployee()(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      changeFinalCommentEmployee: actions.changeFinalCommentEmployee
+    }
+  )(StyledComponent)
+);

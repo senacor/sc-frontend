@@ -12,6 +12,7 @@ export {
   setPrFinalizationStatus,
   changeRatingTargetRole
 } from './sheet';
+export { changeLanguage } from './language';
 export { login, logout } from './login';
 export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { employeeSearch, employeeSearchClear } from './employeeSearch';

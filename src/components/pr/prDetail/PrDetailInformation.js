@@ -22,6 +22,7 @@ import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
 import moment from 'moment-timezone';
 import PrHistory from './PrHistory';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   root: {
@@ -59,14 +60,16 @@ export class PrDetailInformation extends Component {
   }
 
   render() {
-    const { classes, pr, username, meeting } = this.props;
+    const { classes, pr, username, meeting, intl } = this.props;
 
     if (!pr) {
       return null;
     }
 
     const { firstName, lastName } = pr.employee;
-    let termin = 'noch nicht vereinbart';
+    let termin = intl.formatMessage({
+      id: 'prdetailinformation.notarranged'
+    });
 
     if (meeting) {
       const meetingDate = meeting.start
@@ -80,27 +83,45 @@ export class PrDetailInformation extends Component {
         termin = meetingDate;
       }
       if (meeting.status === 'NO_ANSWER') {
-        termin = meetingDate + ' (noch nicht bestätigt)';
+        termin =
+          meetingDate +
+          ` ${intl.formatMessage({
+            id: 'prdetailinformation.notconfirmed'
+          })}`;
       }
       if (meeting.status === 'DECLINED') {
-        termin = meetingDate + ' (abgesagt)';
+        termin =
+          meetingDate +
+          ` ${intl.formatMessage({
+            id: 'prdetailinformation.cancelled'
+          })}`;
       }
       if (
         pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
         meeting.status !== 'ACCEPTED'
       ) {
-        termin = meetingDay + ' (außerhalb des Portals vereinbart)';
+        termin =
+          meetingDay +
+          ` ${intl.formatMessage({
+            id: 'prdetailinformation.arrangedoffportal'
+          })}`;
       }
     }
     const competence = translateContent('COMPETENCE_' + pr.competence);
 
-    const subheader = `Fälligkeit: ${formatDateForFrontend(
+    const subheader = `${intl.formatMessage({
+      id: 'prdetailinformation.duedate'
+    })} ${formatDateForFrontend(
       pr.deadline
     )}, ACD_BOOT, ${competence}, ${translateContent(
       pr.occasion
-    )}, Termin: ${termin}`;
+    )}, ${intl.formatMessage({
+      id: 'prdetailinformation.termin'
+    })} ${termin}`;
 
-    const supervisorHeader = `Vorgesetzter: ${getDisplayName(pr.supervisor)}`;
+    const supervisorHeader = `${intl.formatMessage({
+      id: 'prdetailinformation.supervisor'
+    })} ${getDisplayName(pr.supervisor)}`;
 
     return (
       <div className={classes.root}>
@@ -125,7 +146,9 @@ export class PrDetailInformation extends Component {
                   </Typography>
                   <ShowReviewer
                     pr={pr}
-                    prefix={', Beurteiler: '}
+                    prefix={`, ${intl.formatMessage({
+                      id: 'prdetailinformation.reviewer'
+                    })} `}
                     username={username}
                   />
                 </ListItem>
@@ -151,9 +174,11 @@ export class PrDetailInformation extends Component {
 
 export const StyledComponent = withStyles(styles)(PrDetailInformation);
 
-export default connect(
-  state => ({
-    username: getUserPrincipalName(state)
-  }),
-  {}
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      username: getUserPrincipalName(state)
+    }),
+    {}
+  )(StyledComponent)
+);

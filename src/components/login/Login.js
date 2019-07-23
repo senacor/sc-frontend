@@ -11,6 +11,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import LockIcon from '@material-ui/icons/Lock';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import officeMuenchen from './officeM.jpg';
 import senacorLogo from './senacor_transparent.png';
@@ -18,6 +19,7 @@ import senacorLogoMobile from './senacor_transparent_white.png';
 import * as actions from '../../actions/index';
 import { connect } from 'react-redux';
 import { isLoading } from '../../reducers/selector';
+import LanguageButton from '../AppBar/LanguageButton';
 
 const styles = theme => ({
   hero: {
@@ -31,7 +33,6 @@ const styles = theme => ({
     backgroundImage: `url(${officeMuenchen})`
   },
   login: {
-    display: 'flex',
     flexDirection: 'row',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -48,7 +49,10 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    width: '33%',
+    margin: 0,
+    position: 'absolute',
+    top: '31%',
     paddingBottom: '100px'
   },
   formControl: {
@@ -143,6 +147,7 @@ class Login extends Component {
     return (
       <div className={classes.hero}>
         <div className={classes.login}>
+          <LanguageButton color="primary" />
           <form className={classes.form} onSubmit={this.handleOnClick}>
             <Hidden smDown>
               <img src={senacorLogo} className={classes.logo} alt="Senacor" />
@@ -158,7 +163,9 @@ class Login extends Component {
               <Input
                 name="username"
                 value={this.state.username}
-                placeholder="Nutzername"
+                placeholder={this.props.intl.formatMessage({
+                  id: 'login.username'
+                })}
                 className={classes.input}
                 onChange={this.handleChange}
                 startAdornment={<UserIcon />}
@@ -169,7 +176,9 @@ class Login extends Component {
                 name="password"
                 type="password"
                 value={this.state.password}
-                placeholder="Passwort"
+                placeholder={this.props.intl.formatMessage({
+                  id: 'login.password'
+                })}
                 className={classes.input}
                 onChange={this.handleChange}
                 startAdornment={<PasswordIcon />}
@@ -193,7 +202,7 @@ class Login extends Component {
                     className={classes.buttonProgress}
                   />
                 ) : (
-                  'Log In'
+                  <FormattedMessage id="login.login" />
                 )}
               </Button>
             </Hidden>
@@ -204,7 +213,7 @@ class Login extends Component {
                 onClick={this.handleOnClick}
                 type="submit"
               >
-                Log In
+                {<FormattedMessage id="login.login" />}
               </Button>
             </Hidden>
           </form>
@@ -228,13 +237,15 @@ const PasswordIcon = () => (
 
 export const StyledComponent = withStyles(styles)(Login);
 
-export default connect(
-  state => ({
-    isLoggedIn: state.login.isLoggedIn,
-    isLoading: isLoading(state),
-    isUnauthorized: state.login.isUnauthorized
-  }),
-  {
-    login: actions.login
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      isLoggedIn: state.login.isLoggedIn,
+      isLoading: isLoading(state),
+      isUnauthorized: state.login.isUnauthorized
+    }),
+    {
+      login: actions.login
+    }
+  )(StyledComponent)
+);
