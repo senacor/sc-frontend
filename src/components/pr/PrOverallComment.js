@@ -11,6 +11,7 @@ import { getPrRatings, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -62,7 +63,8 @@ class PrOverallComment extends Component {
       readOnly,
       nonActionPerformer,
       errorFlag,
-      category
+      category,
+      intl
     } = this.props;
     let { comment } = this.state;
 
@@ -76,8 +78,9 @@ class PrOverallComment extends Component {
     service.setErrorFlag(errorFlag);
     service.setCloseEditingExplicitly(this.props.openEditing);
 
-    let helperText =
-      'Erfüllung der Anforderungen, welche Stärken ausbauen, welche Lücken schließen?';
+    let helperText = intl.formatMessage({
+      id: 'proverallcomment.requirements'
+    });
 
     return (
       <List>
@@ -89,7 +92,9 @@ class PrOverallComment extends Component {
                 state={service.getState()}
                 value={service.getValue()}
                 required
-                label={'Gesamteinschätzung Freitext'}
+                label={intl.formatMessage({
+                  id: 'proverallcomment.overall'
+                })}
                 helperText={helperText}
                 onChange={this.handleChangeComment(prById)}
               />
@@ -102,12 +107,14 @@ class PrOverallComment extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrOverallComment);
-export default connect(
-  (state, props) => ({
-    prRating: getPrRatings(props.category)(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    addRating: actions.addRating
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      prRating: getPrRatings(props.category)(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      addRating: actions.addRating
+    }
+  )(StyledComponent)
+);

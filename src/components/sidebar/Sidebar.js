@@ -22,6 +22,7 @@ import * as actions from '../../actions';
 import { getUserroles } from '../../reducers/selector';
 import { fetchReviewerInfo } from '../../actions/reviewerInfo';
 import FILTER_GROUPS from '../humanResources/filterGroups';
+import { injectIntl } from 'react-intl';
 
 const styles = () => ({
   root: {
@@ -58,13 +59,17 @@ export class Sidebar extends Component {
   getListOfMenuItems = () => {
     return [
       {
-        label: 'Dashboard',
+        label: this.props.intl.formatMessage({
+          id: 'sidebar.dashboard'
+        }),
         icon: <DashboardIcon />,
         value: '/dashboard',
         onClick: () => {}
       },
       {
-        label: 'PRs zur Umsetzung',
+        label: this.props.intl.formatMessage({
+          id: 'sidebar.prs'
+        }),
         icon: <LibraryBooksIcon />,
         value: '/prs',
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
@@ -74,7 +79,9 @@ export class Sidebar extends Component {
         }
       },
       {
-        label: 'Alle PRs',
+        label: this.props.intl.formatMessage({
+          id: 'sidebar.allprs'
+        }),
         icon: <LibraryBooksIcon />,
         value: '/hr/prs',
         roles: [ROLES.PR_HR],
@@ -83,14 +90,18 @@ export class Sidebar extends Component {
         }
       },
       {
-        label: 'Archivierte PRs',
+        label: this.props.intl.formatMessage({
+          id: 'sidebar.archivedprs'
+        }),
         icon: <SaveIcon />,
         value: '/hr/archivedPrs',
         roles: [ROLES.PR_HR],
         onClick: () => {}
       },
       {
-        label: 'Eigene PRs',
+        label: this.props.intl.formatMessage({
+          id: 'sidebar.myprs'
+        }),
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
@@ -99,7 +110,9 @@ export class Sidebar extends Component {
         }
       },
       {
-        label: 'Logout',
+        label: this.props.intl.formatMessage({
+          id: 'sidebar.logout'
+        }),
         icon: <PowerSettingsNewIcon />,
         value: '/logout',
         onClick: () => {}
@@ -175,17 +188,19 @@ export class Sidebar extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(Sidebar);
-export default connect(
-  state => ({
-    userinfo: state.userinfo,
-    userphoto: state.userphoto,
-    userroles: getUserroles(state)
-  }),
-  {
-    getUserInfo: actions.getUserInfo,
-    getUserPhoto: actions.getUserPhoto,
-    getUserRoles: actions.getUserRoles,
-    getReviewerInfo: fetchReviewerInfo,
-    resetFilterGroup: actions.resetFilterGroup
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      userinfo: state.userinfo,
+      userphoto: state.userphoto,
+      userroles: getUserroles(state)
+    }),
+    {
+      getUserInfo: actions.getUserInfo,
+      getUserPhoto: actions.getUserPhoto,
+      getUserRoles: actions.getUserRoles,
+      getReviewerInfo: fetchReviewerInfo,
+      resetFilterGroup: actions.resetFilterGroup
+    }
+  )(StyledComponent)
+);

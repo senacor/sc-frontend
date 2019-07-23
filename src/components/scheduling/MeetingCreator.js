@@ -20,6 +20,7 @@ import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { getMeeting } from '../../reducers/selector';
+import { injectIntl } from 'react-intl';
 
 export class MeetingCreator extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ export class MeetingCreator extends Component {
   };
 
   render() {
-    let { pr, userinfo, userroles, meeting } = this.props;
+    let { pr, userinfo, userroles, meeting, intl } = this.props;
     let visibilityService = new meetingDetailVisibilityService();
     visibilityService.setPr(pr);
     visibilityService.setUserinfo(userinfo);
@@ -175,7 +176,9 @@ export class MeetingCreator extends Component {
               </TimeTable>
               {visibilityService.getMeetingExists() ? (
                 <PrStatusActionButton
-                  label={'Termin-Detailansicht'}
+                  label={intl.formatMessage({
+                    id: 'meetingcreator.termindetail'
+                  })}
                   releaseButtonClick={this.props.handleChange}
                 />
               ) : null}
@@ -187,16 +190,18 @@ export class MeetingCreator extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    appointmentsSearchResults: getAppointments(state),
-    selectedDate: getSelectedDate(state),
-    userinfo: getUserinfo(state),
-    pr: getPrDetail()(state),
-    userroles: getUserroles(state),
-    meeting: getMeeting(state)
-  }),
-  {
-    appointmentsSearch: actions.appointmentsSearch
-  }
-)(MeetingCreator);
+export default injectIntl(
+  connect(
+    state => ({
+      appointmentsSearchResults: getAppointments(state),
+      selectedDate: getSelectedDate(state),
+      userinfo: getUserinfo(state),
+      pr: getPrDetail()(state),
+      userroles: getUserroles(state),
+      meeting: getMeeting(state)
+    }),
+    {
+      appointmentsSearch: actions.appointmentsSearch
+    }
+  )(MeetingCreator)
+);

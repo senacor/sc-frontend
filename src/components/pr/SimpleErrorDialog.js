@@ -4,6 +4,7 @@ import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import PrStatusActionButton from './prDetail/PrStatusActionButton';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
+import { injectIntl } from 'react-intl';
 let styles = theme => ({
   inputClass: {
     position: 'relative',
@@ -22,7 +23,7 @@ let styles = theme => ({
 
 export class SimpleErrorDialog extends React.Component {
   render() {
-    const { classes, onClose, open, message, ...other } = this.props;
+    const { classes, onClose, open, message, intl, ...other } = this.props;
 
     return (
       <Dialog
@@ -39,7 +40,9 @@ export class SimpleErrorDialog extends React.Component {
         </DialogTitle>
         <PrStatusActionButton
           releaseButtonClick={onClose}
-          label={'Ok'}
+          label={intl.formatMessage({
+            id: 'simpleerrordialog.ok'
+          })}
           inputClass={classes.inputClass}
         />
       </Dialog>
@@ -47,4 +50,6 @@ export class SimpleErrorDialog extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(SimpleErrorDialog);
+export const StyledComponent = injectIntl(
+  withStyles(styles)(SimpleErrorDialog)
+);

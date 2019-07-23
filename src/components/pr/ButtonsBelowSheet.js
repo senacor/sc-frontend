@@ -16,6 +16,7 @@ import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 import { prStatusEnum } from '../../helper/prStatus';
 import { isHr } from '../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   rightFloat: {
@@ -121,7 +122,9 @@ class ButtonsBelowSheet extends React.Component {
           this.props.addPrStatus(pr, status);
         }}
         check={() => !this.requiredFieldsEmpty(status)}
-        message={'Bitte alle Pflichtfelder ausfüllen.'}
+        message={this.props.intl.formatMessage({
+          id: 'buttonsbelowsheet.fillrequired'
+        })}
         inputClass={this.props.classes.rightFloat}
       >
         <PrStatusActionButton
@@ -139,7 +142,9 @@ class ButtonsBelowSheet extends React.Component {
           this.props.addPrStatus(pr, status);
         }}
         check={() => !this.requiredFieldsEmpty(status)}
-        message={'Bitte alle Pflichtfelder ausfüllen.'}
+        message={this.props.intl.formatMessage({
+          id: 'buttonsbelowsheet.fillrequired'
+        })}
         inputClass={this.props.classes.rightFloat}
       >
         <PrStatusActionButton
@@ -165,14 +170,18 @@ class ButtonsBelowSheet extends React.Component {
       ? this.getActionPerformerButton(
           pr,
           prStatusEnum.RELEASED_SHEET_EMPLOYEE,
-          'Freigeben'
+          `${this.props.intl.formatMessage({
+            id: 'buttonsbelowsheet.release'
+          })}`
         )
       : null;
     let finalizeButtonDisabled = !reviewerFinalized
       ? this.getDisabledButton(
           pr,
           prStatusEnum.FINALIZED_EMPLOYEE,
-          'Abschliessen'
+          `${this.props.intl.formatMessage({
+            id: 'buttonsbelowsheet.finish'
+          })}`
         )
       : null;
     let finalizeButtonEnabled =
@@ -180,7 +189,9 @@ class ButtonsBelowSheet extends React.Component {
         ? this.getActionPerformerButton(
             pr,
             prStatusEnum.FINALIZED_EMPLOYEE,
-            'Abschliessen'
+            `${this.props.intl.formatMessage({
+              id: 'buttonsbelowsheet.finish'
+            })}`
           )
         : null;
     return (
@@ -206,14 +217,18 @@ class ButtonsBelowSheet extends React.Component {
       ? this.getActionPerformerButton(
           pr,
           prStatusEnum.RELEASED_SHEET_REVIEWER,
-          'Freigeben'
+          `${this.props.intl.formatMessage({
+            id: 'buttonsbelowsheet.release'
+          })}`
         )
       : null;
     let finalizeButtonDisabled = !(employeeReleased && reviewerReleased)
       ? this.getDisabledButton(
           pr,
           prStatusEnum.FINALIZED_REVIEWER,
-          'Abschliessen'
+          `${this.props.intl.formatMessage({
+            id: 'buttonsbelowsheet.finish'
+          })}`
         )
       : null;
     let finalizeButtonEnabled =
@@ -221,7 +236,9 @@ class ButtonsBelowSheet extends React.Component {
         ? this.getActionPerformerButton(
             pr,
             prStatusEnum.FINALIZED_REVIEWER,
-            'Abschliessen'
+            `${this.props.intl.formatMessage({
+              id: 'buttonsbelowsheet.finish'
+            })}`
           )
         : null;
     return (
@@ -239,14 +256,22 @@ class ButtonsBelowSheet extends React.Component {
     );
     let hrFinalized = pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
     let releaseButtonDisabled = !employeeFinalized
-      ? this.getDisabledButton(pr, prStatusEnum.ARCHIVED_HR, 'Abschliessen')
+      ? this.getDisabledButton(
+          pr,
+          prStatusEnum.ARCHIVED_HR,
+          `${this.props.intl.formatMessage({
+            id: 'buttonsbelowsheet.finish'
+          })}`
+        )
       : null;
     let releaseButtonEnabled =
       employeeFinalized && !hrFinalized
         ? this.getActionPerformerButton(
             pr,
             prStatusEnum.ARCHIVED_HR,
-            'Abschliessen'
+            `${this.props.intl.formatMessage({
+              id: 'buttonsbelowsheet.finish'
+            })}`
           )
         : null;
     return (
@@ -283,22 +308,24 @@ class ButtonsBelowSheet extends React.Component {
 }
 
 export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
-export default connect(
-  state => ({
-    pr: getPrDetail()(state),
-    userroles: getUserroles(state),
-    userinfo: getUserinfo(state),
-    overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
-    employeeContributionRole: getPrEmployeeContributions(
-      'ROLE_AND_PROJECT_ENVIRONMENT'
-    )(state).text,
-    employeeContributionLeader: getPrEmployeeContributions(
-      'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
-    )(state).text,
-    requiredFields: getRequiredFields(state)
-  }),
-  {
-    checkRequired: changeRequiredFields,
-    addPrStatus: actions.addPrStatus
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      pr: getPrDetail()(state),
+      userroles: getUserroles(state),
+      userinfo: getUserinfo(state),
+      overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
+      employeeContributionRole: getPrEmployeeContributions(
+        'ROLE_AND_PROJECT_ENVIRONMENT'
+      )(state).text,
+      employeeContributionLeader: getPrEmployeeContributions(
+        'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+      )(state).text,
+      requiredFields: getRequiredFields(state)
+    }),
+    {
+      checkRequired: changeRequiredFields,
+      addPrStatus: actions.addPrStatus
+    }
+  )(StyledComponent)
+);

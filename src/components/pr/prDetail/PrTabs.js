@@ -11,6 +11,7 @@ import { getPrTab } from '../../../reducers/selector';
 import { prTabEnum } from '../../../helper/prTabEnum';
 import * as actions from '../../../actions';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 
 function TabContainer(props) {
   return (
@@ -46,7 +47,7 @@ class PrTabs extends React.Component {
   };
 
   render() {
-    const { classes, tabValue } = this.props;
+    const { classes, tabValue, intl } = this.props;
 
     return (
       <div className={classes.root}>
@@ -65,7 +66,9 @@ class PrTabs extends React.Component {
               classes={{
                 root: classes.tabStyle
               }}
-              label="Details"
+              label={intl.formatMessage({
+                id: 'prtabs.details'
+              })}
               id={'TabDetails'}
             />
             <Tab
@@ -73,7 +76,9 @@ class PrTabs extends React.Component {
               classes={{
                 root: classes.tabStyle
               }}
-              label="Terminfindung"
+              label={intl.formatMessage({
+                id: 'prtabs.findtermin'
+              })}
               id={'TabTerminfindung'}
             />
           </Tabs>
@@ -99,11 +104,13 @@ PrTabs.propTypes = {
 
 export const StyledComponent = withStyles(styles)(PrTabs);
 
-export default connect(
-  state => ({
-    tabValue: getPrTab(state)
-  }),
-  {
-    setTabValue: actions.setPrTabs
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      tabValue: getPrTab(state)
+    }),
+    {
+      setTabValue: actions.setPrTabs
+    }
+  )(StyledComponent)
+);

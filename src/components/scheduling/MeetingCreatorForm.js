@@ -15,6 +15,7 @@ import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   container: {
@@ -119,7 +120,7 @@ class MeetingCreatorForm extends React.Component {
   };
 
   render() {
-    const { classes, pr, userinfo, userroles } = this.props;
+    const { classes, pr, userinfo, userroles, intl } = this.props;
     let visibilityService = new meetingDetailVisibilityService();
     visibilityService.setPr(pr);
     visibilityService.setUserinfo(userinfo);
@@ -139,7 +140,9 @@ class MeetingCreatorForm extends React.Component {
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
               id="location"
-              label="Ort"
+              label={intl.formatMessage({
+                id: 'meetingcreatorform.place'
+              })}
               className={classes.textField}
               value={this.state.location}
               onChange={this.handleChange('location')}
@@ -148,10 +151,14 @@ class MeetingCreatorForm extends React.Component {
             <CheckRequiredClick
               onClick={this.handleClickOfMeetingButton}
               check={() => this.validateDateTimeInput()}
-              message={'Die Startzeit liegt nach der Endzeit des Termins.'}
+              message={intl.formatMessage({
+                id: 'meetingcreatorform.starttime'
+              })}
             >
               <PrStatusActionButton
-                label={'Termin erstellen'}
+                label={intl.formatMessage({
+                  id: 'meetingcreatorform.createtermin'
+                })}
                 inputClass={classes.buttonPosition}
               />
             </CheckRequiredClick>
@@ -168,16 +175,18 @@ MeetingCreatorForm.propTypes = {
 };
 
 export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
-export default connect(
-  state => ({
-    pr: getPrDetail()(state),
-    userinfo: getUserinfo(state),
-    userroles: getUserroles(state),
-    getSelectedDateTime: getSelectedDate(state)
-  }),
-  {
-    addMeeting: actions.addMeeting,
-    changeDate: actions.changeDate,
-    addPrStatus: actions.addPrStatus
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      pr: getPrDetail()(state),
+      userinfo: getUserinfo(state),
+      userroles: getUserroles(state),
+      getSelectedDateTime: getSelectedDate(state)
+    }),
+    {
+      addMeeting: actions.addMeeting,
+      changeDate: actions.changeDate,
+      addPrStatus: actions.addPrStatus
+    }
+  )(StyledComponent)
+);

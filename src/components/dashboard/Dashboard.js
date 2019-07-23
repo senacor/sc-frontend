@@ -11,6 +11,7 @@ import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import DefaultFilterService from '../../service/DefaultFilterService';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
+import { injectIntl } from 'react-intl';
 
 let styles = {
   rowContainer: {
@@ -42,7 +43,7 @@ class Dashboard extends Component {
       this.props.userinfo.userId
     );
 
-    const { classes, userroles } = this.props;
+    const { classes, userroles, intl } = this.props;
     let numberOfPrsToReview = this.props.userinfo
       ? this.props.userinfo.numberOfPrsToReview
       : 0;
@@ -71,7 +72,9 @@ class Dashboard extends Component {
                   )}
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
-                  Offenes eigenes PR
+                  {intl.formatMessage({
+                    id: 'dashboard.opened'
+                  })}
                 </Typography>
               </CardContent>
             </Card>
@@ -92,7 +95,9 @@ class Dashboard extends Component {
                   {numberOfPrsToReview}
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
-                  PRs mit mir als Bewerter insgesamt (inkl. Archiv)
+                  {intl.formatMessage({
+                    id: 'dashboard.evaluator'
+                  })}
                 </Typography>
               </CardContent>
             </Card>
@@ -100,7 +105,9 @@ class Dashboard extends Component {
 
           {numberOfPrsToReview > 0 ? (
             <InfoWidget
-              label={'Offene PRs als Beurteiler'}
+              label={intl.formatMessage({
+                id: 'dashboard.reviewer'
+              })}
               value={numberOfPrsToReview}
               linkTo={'/prs'}
               onClick={this.handleClick(
@@ -112,7 +119,9 @@ class Dashboard extends Component {
 
           {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
             <InfoWidget
-              label={'Offener PRs als Vorgesetzter'}
+              label={intl.formatMessage({
+                id: 'dashboard.supervisor'
+              })}
               value={numberOfPrsToSupervise}
               linkTo={'/prs'}
               onClick={this.handleClick(
@@ -137,7 +146,9 @@ class Dashboard extends Component {
                   {prsNotFilledByEmployee}
                 </Typography>
                 <Typography className={classes.title} color="textSecondary">
-                  Unbearbeitete eigene PRs
+                  {intl.formatMessage({
+                    id: 'dashboard.unprocessed'
+                  })}
                 </Typography>
               </CardContent>
             </Card>
@@ -148,21 +159,35 @@ class Dashboard extends Component {
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h5" component="h2">
-                Achtung: Beta-Phase!
+                {intl.formatMessage({
+                  id: 'dashboard.beta'
+                })}
               </Typography>
               <Typography className={classes.title} color="textSecondary">
-                Willkommen im Performance-Review-Portal. <br />
-                Dies ist die erste Testphase. Bugs, Feedback und Fragen gerne an{' '}
+                {intl.formatMessage({
+                  id: 'dashboard.welcome'
+                })}
+                <br />
+                <br />
+                {`${intl.formatMessage({
+                  id: 'dashboard.testphase'
+                })} `}
                 <a href="mailto:Tuan-Si.Tran@senacor.com">
                   Si Tran (Tuan-Si.Tran@senacor.com)
-                </a>{' '}
-                richten, damit wir uns zeitnah darum kümmern können. <br />
+                </a>
+                {` ${intl.formatMessage({
+                  id: 'dashboard.concern'
+                })}`}
                 <br />
-                Da wir parallel am Portal weiterentwickeln, werden wir unter der
-                Woche immer zwischen 9-10 Uhr das System updaten. Im Normalfall
-                solltet ihr keine Beeinträchtigung bemerken. <br />
                 <br />
-                Wir wünschen viel Spaß beim Testen!
+                {intl.formatMessage({
+                  id: 'dashboard.update'
+                })}
+                <br />
+                <br />
+                {intl.formatMessage({
+                  id: 'dashboard.testing'
+                })}
               </Typography>
             </CardContent>
           </Card>
@@ -173,10 +198,12 @@ class Dashboard extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(Dashboard);
-export default connect(
-  state => ({
-    userinfo: getUserinfo(state),
-    userroles: getUserroles(state)
-  }),
-  { addFilter: actions.addFilter, resetFilterGroup: actions.resetFilterGroup }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      userinfo: getUserinfo(state),
+      userroles: getUserroles(state)
+    }),
+    { addFilter: actions.addFilter, resetFilterGroup: actions.resetFilterGroup }
+  )(StyledComponent)
+);

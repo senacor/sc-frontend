@@ -11,6 +11,7 @@ import EnhancedTableHead from './EnhancedTableHead';
 import { downloadExcel } from '../../actions/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import Typography from '@material-ui/core/Typography/Typography';
+import { injectIntl } from 'react-intl';
 
 export function descInteger(a, b, mapper) {
   if (mapper(b) < mapper(a)) {
@@ -112,7 +113,7 @@ class PerformanceReviewTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition, data, isHr } = this.props;
+    const { classes, columnDefinition, data, isHr, intl } = this.props;
     const {
       order,
       orderBy,
@@ -157,26 +158,41 @@ class PerformanceReviewTable extends React.Component {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            'aria-label': 'Previous Page'
+            'aria-label': `${intl.formatMessage({
+              id: 'performancereviewtable.previouspage'
+            })}`
           }}
           nextIconButtonProps={{
-            'aria-label': 'Next Page'
+            'aria-label': `${intl.formatMessage({
+              id: 'performancereviewtable.nextpage'
+            })}`
           }}
+          labelRowsPerPage={intl.formatMessage({
+            id: 'performancereviewtable.rowsperpage'
+          })}
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}-${to} ${intl.formatMessage({
+              id: 'performancereviewtable.from'
+            })} ${count}`
+          }
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
         {data.length === 0 ? (
           <div className={classes.emptyListMessage}>
             <Typography variant={'body2'}>
-              {' '}
-              Zu deiner Filterung ist leider kein Eintrag vorhanden.
+              {` ${intl.formatMessage({
+                id: 'performancereviewtable.noentry'
+              })}`}
             </Typography>
           </div>
         ) : null}
         {isHr && data.length !== 0 ? (
           <div className={classes.downloadExcelButton}>
             <PrStatusActionButton
-              label={'Download Excel'}
+              label={intl.formatMessage({
+                id: 'performancereviewtable.excel'
+              })}
               releaseButtonClick={downloadExcel(this.props.filter)}
             />
           </div>
@@ -191,5 +207,5 @@ PerformanceReviewTable.propTypes = {
   columnDefinition: PropTypes.array.isRequired
 };
 
-const StyledComponent = withStyles(styles)(PerformanceReviewTable);
+const StyledComponent = injectIntl(withStyles(styles)(PerformanceReviewTable));
 export default StyledComponent;
