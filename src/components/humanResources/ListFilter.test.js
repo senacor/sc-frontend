@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListFilter } from './ListFilter';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import FILTER_GROUPS from './filterGroups';
 import HR_ELEMENTS from './hrElements';
 
@@ -60,7 +60,7 @@ describe('ListFilter Component', () => {
     expect(component.find('[id="selectAll"]').props().checked).toEqual(false);
   });
 
-  it('should update the Filter if one checkbox is clicked', () => {
+  it('should update the Filter if OK button is clicked', () => {
     const mockAddFilter = jest.fn();
     const mockDeleteFilter = jest.fn();
 
@@ -81,7 +81,6 @@ describe('ListFilter Component', () => {
         deleteFilter={mockDeleteFilter}
       />
     );
-
     component
       .find('[primary="vielleicht"]')
       .parent()

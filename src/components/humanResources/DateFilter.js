@@ -34,6 +34,19 @@ export class DateFilter extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+  }
+
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.execute();
+    }
+  };
   showError = () => {
     this.setState({ error: true });
   };
@@ -79,6 +92,10 @@ export class DateFilter extends Component {
     }
 
     this.setState({ values: newValues, error: false });
+    const button = document.getElementById('forwardButton');
+    if (button) {
+      button.focus();
+    }
   };
 
   execute = () => {

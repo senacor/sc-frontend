@@ -29,6 +29,20 @@ export class ListFilter extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+  }
+
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.setFilter();
+    }
+  }
+
   isFilterSet = checked => {
     return !(
       checked.length === Object.keys(this.props.content).length ||
@@ -53,6 +67,10 @@ export class ListFilter extends Component {
       isAllSelected: newAllSelect,
       checked: newChecked
     });
+    const button = document.getElementById('filterButton');
+    if (button) {
+      button.focus();
+    }
   };
 
   handleToggle = value => () => {
@@ -84,6 +102,10 @@ export class ListFilter extends Component {
         checked: Object.keys(this.props.content),
         isAllSelected: true
       });
+    }
+    const button = document.getElementById('filterButton');
+    if (button) {
+      button.focus();
     }
   };
 
@@ -122,6 +144,7 @@ export class ListFilter extends Component {
           color={'primary'}
           checkedIcon={<Icon>check</Icon>}
           icon={<Icon />}
+          ref={'check'}
         />
         <ListItemText primary={'selectAll'} />
       </ListItem>
@@ -144,7 +167,7 @@ export class ListFilter extends Component {
 
   render() {
     return (
-      <List>
+      <List onKeyPress={this.keyPress}>
         {this.showSelectAll()}
         <Divider />
         {Object.keys(this.props.content).map(this.showContent, this)}
