@@ -6,7 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function InfoWidget(props) {
+const InfoWidget = props => {
   const style = {
     margin: '20px',
     textDecoration: 'none',
@@ -55,7 +55,7 @@ function InfoWidget(props) {
       </CardContent>
     </Card>
   );
-}
+};
 
 InfoWidget.propTypes = {
   onClick: PropTypes.func,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +13,7 @@ import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { injectIntl } from 'react-intl';
 
-let styles = {
+const styles = {
   rowContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -33,169 +33,157 @@ let styles = {
   }
 };
 
-class Dashboard extends Component {
-  handleClick = payload => () => {
-    this.props.resetFilterGroup(payload.filterGroup);
-    this.props.addFilter(payload);
+const Dashboard = props => {
+  const handleClick = payload => () => {
+    props.resetFilterGroup(payload.filterGroup);
+    props.addFilter(payload);
   };
-  render() {
-    let defaultFilterService = new DefaultFilterService(
-      this.props.userinfo.userId
-    );
 
-    const { classes, userroles, intl } = this.props;
-    let numberOfPrsToReview = this.props.userinfo
-      ? this.props.userinfo.numberOfPrsToReview
-      : 0;
-    let numberOfPrsToSupervise = this.props.userinfo
-      ? this.props.userinfo.numberOfPrsToSupervise
-      : 0;
+  const defaultFilterService = new DefaultFilterService(props.userinfo.userId);
 
-    let prsNotFilledByEmployee = this.props.userinfo
-      ? this.props.userinfo.prsNotFilledByEmployee
-      : 0;
+  const numberOfPrsToReview = props.userinfo
+    ? props.userinfo.numberOfPrsToReview
+    : 0;
+  const numberOfPrsToSupervise = props.userinfo
+    ? props.userinfo.numberOfPrsToSupervise
+    : 0;
 
-    return this.props.userinfo ? (
-      <div className={classes.columnContainer}>
-        <div className={classes.rowContainer}>
-          {this.props.userinfo.idOfNewestOpenPr && isEmployee(userroles) ? (
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={'/prs/' + this.props.userinfo.idOfNewestOpenPr}
-              style={{ textDecoration: 'none' }}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {formatDateForFrontend(
-                    this.props.userinfo.deadlineOfNewestOpenPr
-                  )}
-                </Typography>
-                <Typography className={classes.title} color="textSecondary">
-                  {intl.formatMessage({
-                    id: 'dashboard.opened'
-                  })}
-                </Typography>
-              </CardContent>
-            </Card>
-          ) : null}
+  let prsNotFilledByEmployee = props.userinfo
+    ? props.userinfo.prsNotFilledByEmployee
+    : 0;
 
-          {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={'/prs'}
-              style={{ textDecoration: 'none' }}
-              onClick={this.handleClick(
-                defaultFilterService.prsAsReviewerFilter()
-              )}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {numberOfPrsToReview}
-                </Typography>
-                <Typography className={classes.title} color="textSecondary">
-                  {intl.formatMessage({
-                    id: 'dashboard.evaluator'
-                  })}
-                </Typography>
-              </CardContent>
-            </Card>
-          ) : null}
-
-          {numberOfPrsToReview > 0 ? (
-            <InfoWidget
-              label={intl.formatMessage({
-                id: 'dashboard.reviewer'
-              })}
-              value={numberOfPrsToReview}
-              linkTo={'/prs'}
-              onClick={this.handleClick(
-                defaultFilterService.prsToReviewFilter()
-              )}
-              icon={'library_books'}
-            />
-          ) : null}
-
-          {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
-            <InfoWidget
-              label={intl.formatMessage({
-                id: 'dashboard.supervisor'
-              })}
-              value={numberOfPrsToSupervise}
-              linkTo={'/prs'}
-              onClick={this.handleClick(
-                defaultFilterService.prsAsSupervisorAndInProgressFilter()
-              )}
-              icon={'library_books'}
-            />
-          ) : null}
-
-          {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={'/myPrs'}
-              style={{ textDecoration: 'none' }}
-              onClick={this.handleClick(
-                defaultFilterService.ownIncompletePrsFilter()
-              )}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {prsNotFilledByEmployee}
-                </Typography>
-                <Typography className={classes.title} color="textSecondary">
-                  {intl.formatMessage({
-                    id: 'dashboard.unprocessed'
-                  })}
-                </Typography>
-              </CardContent>
-            </Card>
-          ) : null}
-        </div>
-
-        <div className={classes.rowContainer}>
-          <Card className={classes.card}>
+  return props.userinfo ? (
+    <div className={props.classes.columnContainer}>
+      <div className={props.classes.rowContainer}>
+        {props.userinfo.idOfNewestOpenPr && isEmployee(props.userroles) ? (
+          <Card
+            className={props.classes.card}
+            component={NavLink}
+            to={'/prs/' + props.userinfo.idOfNewestOpenPr}
+            style={{ textDecoration: 'none' }}
+          >
             <CardContent>
               <Typography variant="h5" component="h2">
-                {intl.formatMessage({
-                  id: 'dashboard.beta'
-                })}
+                {formatDateForFrontend(props.userinfo.deadlineOfNewestOpenPr)}
               </Typography>
-              <Typography className={classes.title} color="textSecondary">
-                {intl.formatMessage({
-                  id: 'dashboard.welcome'
-                })}
-                <br />
-                <br />
-                {`${intl.formatMessage({
-                  id: 'dashboard.testphase'
-                })} `}
-                <a href="mailto:Tuan-Si.Tran@senacor.com">
-                  Si Tran (Tuan-Si.Tran@senacor.com)
-                </a>
-                {` ${intl.formatMessage({
-                  id: 'dashboard.concern'
-                })}`}
-                <br />
-                <br />
-                {intl.formatMessage({
-                  id: 'dashboard.update'
-                })}
-                <br />
-                <br />
-                {intl.formatMessage({
-                  id: 'dashboard.testing'
+              <Typography className={props.classes.title} color="textSecondary">
+                {props.intl.formatMessage({
+                  id: 'dashboard.opened'
                 })}
               </Typography>
             </CardContent>
           </Card>
-        </div>
+        ) : null}
+
+        {numberOfPrsToReview > 1 && isEmployee(props.userroles) ? (
+          <Card
+            className={props.classes.card}
+            component={NavLink}
+            to={'/prs'}
+            style={{ textDecoration: 'none' }}
+            onClick={handleClick(defaultFilterService.prsAsReviewerFilter())}
+          >
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                {numberOfPrsToReview}
+              </Typography>
+              <Typography className={props.classes.title} color="textSecondary">
+                {props.intl.formatMessage({
+                  id: 'dashboard.evaluator'
+                })}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : null}
+
+        {numberOfPrsToReview > 0 ? (
+          <InfoWidget
+            label={props.intl.formatMessage({
+              id: 'dashboard.reviewer'
+            })}
+            value={numberOfPrsToReview}
+            linkTo={'/prs'}
+            onClick={handleClick(defaultFilterService.prsToReviewFilter())}
+            icon={'library_books'}
+          />
+        ) : null}
+
+        {numberOfPrsToSupervise > 0 && isSupervisor(props.userroles) ? (
+          <InfoWidget
+            label={props.intl.formatMessage({
+              id: 'dashboard.supervisor'
+            })}
+            value={numberOfPrsToSupervise}
+            linkTo={'/prs'}
+            onClick={handleClick(
+              defaultFilterService.prsAsSupervisorAndInProgressFilter()
+            )}
+            icon={'library_books'}
+          />
+        ) : null}
+
+        {isEmployee(props.userroles) && prsNotFilledByEmployee > 0 ? (
+          <Card
+            className={props.classes.card}
+            component={NavLink}
+            to={'/myPrs'}
+            style={{ textDecoration: 'none' }}
+            onClick={handleClick(defaultFilterService.ownIncompletePrsFilter())}
+          >
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                {prsNotFilledByEmployee}
+              </Typography>
+              <Typography className={props.classes.title} color="textSecondary">
+                {props.intl.formatMessage({
+                  id: 'dashboard.unprocessed'
+                })}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : null}
       </div>
-    ) : null;
-  }
-}
+
+      <div className={props.classes.rowContainer}>
+        <Card className={props.classes.card}>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              {props.intl.formatMessage({
+                id: 'dashboard.beta'
+              })}
+            </Typography>
+            <Typography className={props.classes.title} color="textSecondary">
+              {props.intl.formatMessage({
+                id: 'dashboard.welcome'
+              })}
+              <br />
+              <br />
+              {`${props.intl.formatMessage({
+                id: 'dashboard.testphase'
+              })} `}
+              <a href="mailto:Tuan-Si.Tran@senacor.com">
+                Si Tran (Tuan-Si.Tran@senacor.com)
+              </a>
+              {` ${props.intl.formatMessage({
+                id: 'dashboard.concern'
+              })}`}
+              <br />
+              <br />
+              {props.intl.formatMessage({
+                id: 'dashboard.update'
+              })}
+              <br />
+              <br />
+              {props.intl.formatMessage({
+                id: 'dashboard.testing'
+              })}
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  ) : null;
+};
 
 export const StyledComponent = withStyles(styles)(Dashboard);
 export default injectIntl(

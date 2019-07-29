@@ -24,17 +24,17 @@ const styles = theme => ({
     textAlign: 'left'
   }
 });
-export class PlotEmployeeSearchList extends React.Component {
-  plotSearchEntry = employee => {
-    const { classes, searchValue } = this.props;
+
+const PlotEmployeeSearchList = props => {
+  const plotSearchEntry = employee => {
     return (
       <div key={employee.id}>
         <ListItem
           button
-          className={classes.listItem}
-          onClick={this.props.selectEmployee(employee)}
+          className={props.classes.listItem}
+          onClick={props.selectEmployee(employee)}
         >
-          <Avatar className={classes.avatar}>
+          <Avatar className={props.classes.avatar}>
             {employee.firstName.charAt(0)}
             {employee.lastName.charAt(0)}
           </Avatar>
@@ -42,7 +42,9 @@ export class PlotEmployeeSearchList extends React.Component {
             primary={
               <Highlighter
                 highlightStyle={{ fontWeight: 'bold', background: 'none' }}
-                searchWords={searchValue ? searchValue.split(' ') : []}
+                searchWords={
+                  props.searchValue ? props.searchValue.split(' ') : []
+                }
                 autoEscape={true}
                 textToHighlight={getDisplayName(employee)}
               />
@@ -54,25 +56,22 @@ export class PlotEmployeeSearchList extends React.Component {
     );
   };
 
-  render() {
-    const { searchResults, excludeList, intl } = this.props;
-    let searchResultsWithoutExclude = searchResults.filter(
-      employee => !excludeList.includes(employee.id)
-    );
+  let searchResultsWithoutExclude = props.searchResults.filter(
+    employee => !props.excludeList.includes(employee.id)
+  );
 
-    return searchResultsWithoutExclude.length > 0 ? (
-      searchResultsWithoutExclude.map(employee => {
-        return this.plotSearchEntry(employee);
-      })
-    ) : (
-      <p>
-        {intl.formatMessage({
-          id: 'plotemployeesearchList.noresults'
-        })}
-      </p>
-    );
-  }
-}
+  return searchResultsWithoutExclude.length > 0 ? (
+    searchResultsWithoutExclude.map(employee => {
+      return plotSearchEntry(employee);
+    })
+  ) : (
+    <p>
+      {props.intl.formatMessage({
+        id: 'plotemployeesearchList.noresults'
+      })}
+    </p>
+  );
+};
 
 PlotEmployeeSearchList.propTypes = {
   excludeList: PropTypes.array,

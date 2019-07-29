@@ -12,43 +12,39 @@ const styles = {
   }
 };
 
-export class EnhancedTableHead extends React.Component {
-  createSortHandler = index => event => {
-    this.props.onRequestSort(event, index);
+const EnhancedTableHead = props => {
+  const createSortHandler = index => event => {
+    props.onRequestSort(event, index);
   };
 
-  render() {
-    const { order, orderBy, columnDefinition, classes } = this.props;
-
-    return (
-      <TableHead>
-        <TableRow>
-          {columnDefinition.map((column, index) => {
-            return (
-              <TableCell
-                key={index}
-                padding={'none'}
-                sortDirection={orderBy === index ? order : false}
-                variant={'head'}
-                numeric={true}
-                className={classes.cell}
+  return (
+    <TableHead>
+      <TableRow>
+        {props.columnDefinition.map((column, index) => {
+          return (
+            <TableCell
+              key={index}
+              padding={'none'}
+              sortDirection={props.orderBy === index ? props.order : false}
+              variant={'head'}
+              numeric={true}
+              className={props.classes.cell}
+            >
+              <TableSortLabel
+                active={props.orderBy === index}
+                direction={props.order}
+                onClick={createSortHandler(index)}
               >
-                <TableSortLabel
-                  active={orderBy === index}
-                  direction={order}
-                  onClick={this.createSortHandler(index)}
-                >
-                  {column.filter ? column.filter : null}
-                  {column.label}
-                </TableSortLabel>
-              </TableCell>
-            );
-          }, this)}
-        </TableRow>
-      </TableHead>
-    );
-  }
-}
+                {column.filter ? column.filter : null}
+                {column.label}
+              </TableSortLabel>
+            </TableCell>
+          );
+        }, this)}
+      </TableRow>
+    </TableHead>
+  );
+};
 
 EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
