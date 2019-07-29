@@ -20,66 +20,64 @@ const styles = {
   }
 };
 
-export class UploadSuccessDialog extends React.Component {
-  getUnstoredFiles = uploadedFiles => {
+export const UploadSuccessDialog = props => {
+  const getUnstoredFiles = uploadedFiles => {
     return uploadedFiles.filter(value => value.isStored === false);
   };
-  render() {
-    const { onClose, open, uploadedFiles, classes, intl } = this.props;
-    const unstoredFiles = this.getUnstoredFiles(uploadedFiles);
-    const numberOfSuccessfulUploadedFiles =
-      uploadedFiles.length - unstoredFiles.length;
 
-    return (
-      <Dialog
-        onClose={onClose}
-        open={open}
-        fullWidth={true}
-        aria-labelledby="simple-dialog-title"
-        style={{ height: '400px' }}
-        scroll={'paper'}
-      >
-        <DialogTitle>
-          <Typography variant={'body2'}>
-            {intl.formatMessage({
-              id: 'uploadsuccessdialog.files'
-            })}
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <Typography variant={'body2'}>
-            {`${numberOfSuccessfulUploadedFiles} ${intl.formatMessage({
-              id: 'uploadsuccessdialog.success'
-            })}`}
-          </Typography>
-          <Typography variant={'body2'}>
-            {`${unstoredFiles.length} ${intl.formatMessage({
-              id: 'uploadsuccessdialog.error'
-            })}`}
-          </Typography>
+  const unstoredFiles = getUnstoredFiles(props.uploadedFiles);
+  const numberOfSuccessfulUploadedFiles =
+    props.uploadedFiles.length - unstoredFiles.length;
 
-          <List className={classes.list}>
-            {unstoredFiles.map((file, index) => {
-              return (
-                <ListItem key={index} className={classes.listItem}>
-                  <Typography variant={'body2'}>{file.fileName}</Typography>
-                </ListItem>
-              );
-            })}
-          </List>
-        </DialogContent>
-        <DialogActions>
-          <PrStatusActionButton
-            releaseButtonClick={onClose}
-            label={intl.formatMessage({
-              id: 'uploadsuccessdialog.ok'
-            })}
-          />
-        </DialogActions>
-      </Dialog>
-    );
-  }
-}
+  return (
+    <Dialog
+      onClose={props.onClose}
+      open={props.open}
+      fullWidth={true}
+      aria-labelledby="simple-dialog-title"
+      style={{ height: '400px' }}
+      scroll={'paper'}
+    >
+      <DialogTitle>
+        <Typography variant={'body2'}>
+          {props.intl.formatMessage({
+            id: 'uploadsuccessdialog.files'
+          })}
+        </Typography>
+      </DialogTitle>
+      <DialogContent>
+        <Typography variant={'body2'}>
+          {`${numberOfSuccessfulUploadedFiles} ${props.intl.formatMessage({
+            id: 'uploadsuccessdialog.success'
+          })}`}
+        </Typography>
+        <Typography variant={'body2'}>
+          {`${unstoredFiles.length} ${props.intl.formatMessage({
+            id: 'uploadsuccessdialog.error'
+          })}`}
+        </Typography>
+
+        <List className={props.classes.list}>
+          {unstoredFiles.map((file, index) => {
+            return (
+              <ListItem key={index} className={props.classes.listItem}>
+                <Typography variant={'body2'}>{file.fileName}</Typography>
+              </ListItem>
+            );
+          })}
+        </List>
+      </DialogContent>
+      <DialogActions>
+        <PrStatusActionButton
+          releaseButtonClick={props.onClose}
+          label={props.intl.formatMessage({
+            id: 'uploadsuccessdialog.ok'
+          })}
+        />
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 const StyledComponent = withStyles(styles)(UploadSuccessDialog);
 export default injectIntl(StyledComponent);

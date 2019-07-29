@@ -1,46 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyledComponent as SimpleErrorDialog } from '../pr/SimpleErrorDialog';
 import PropTypes from 'prop-types';
 
-export class CheckRequiredClick extends React.Component {
-  state = {
-    open: false
+export const CheckRequiredClick = props => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = event => {
+    setOpen(true);
   };
 
-  handleOpen = event => {
-    this.setState({ open: true });
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  handleClick = event => {
-    if (this.props.check()) {
-      this.props.onClick(event);
+  const handleClick = event => {
+    if (props.check()) {
+      props.onClick(event);
     } else {
       if (!event.disabled) {
-        this.handleOpen(event);
+        handleOpen(event);
       }
     }
   };
 
-  render() {
-    let { inputClass } = this.props;
-    return (
-      <div className={inputClass}>
-        {React.cloneElement(this.props.children, {
-          releaseButtonClick: this.handleClick
-        })}
-        <SimpleErrorDialog
-          onClose={this.handleClose}
-          open={this.state.open}
-          message={this.props.message}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={props.inputClass}>
+      {React.cloneElement(props.children, {
+        releaseButtonClick: handleClick
+      })}
+      <SimpleErrorDialog
+        onClose={handleClose}
+        open={open}
+        message={props.message}
+      />
+    </div>
+  );
+};
 
 CheckRequiredClick.propTypes = {
   onClick: PropTypes.func.isRequired,

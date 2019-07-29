@@ -5,40 +5,30 @@ import * as actions from '../../actions';
 import { getDownloadedFile } from '../../reducers/selector';
 import { connect } from 'react-redux';
 
-export class DownloadFile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      employeeId: props.employeeId,
-      fileId: props.fileId
-    };
-    this.downloadTab = null;
-  }
+export const DownloadFile = props => {
+  const employeeId = props.employeeId;
+  const fileId = props.fileId;
+  let downloadTab = null;
 
-  handleClick = (employeeId, fileId) => () => {
-    this.downloadTab = window.open();
-    this.props.downloadFile(employeeId, fileId);
+  const handleClick = (employeeId, fileId) => () => {
+    downloadTab = window.open();
+    props.downloadFile(employeeId, fileId);
   };
 
-  checkDownloadFile(file) {
-    let { employeeId, fileId } = this.state;
+  const checkDownloadFile = file => {
     return file.id && file.employeeId === employeeId && file.fileId === fileId;
+  };
+
+  if (checkDownloadFile(props.downloadedFile) && downloadTab) {
+    downloadTab.location = props.downloadedFile.url;
   }
 
-  render() {
-    let { employeeId, fileId } = this.state;
-
-    if (this.checkDownloadFile(this.props.downloadedFile) && this.downloadTab) {
-      this.downloadTab.location = this.props.downloadedFile.url;
-    }
-
-    return (
-      <IconButton onClick={this.handleClick(employeeId, fileId)}>
-        <Icon>get_app</Icon>
-      </IconButton>
-    );
-  }
-}
+  return (
+    <IconButton onClick={handleClick(employeeId, fileId)}>
+      <Icon>get_app</Icon>
+    </IconButton>
+  );
+};
 
 export default connect(
   state => ({

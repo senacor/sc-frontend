@@ -25,7 +25,7 @@ const EmployeeSearch = props => {
   props.employeeSearchClear();
 
   const [employeeSearchValue, setEmployeeSearchValue] = useState(
-    this.props.employeeSearchValue ? this.props.employeeSearchValue : ''
+    props.employeeSearchValue ? props.employeeSearchValue : ''
   );
 
   const handleChange = event => {
