@@ -14,7 +14,6 @@ import TodayIcon from '@material-ui/icons/Today';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
-import { translateContent } from '../../translate/Translate';
 import Typography from '@material-ui/core/Typography/Typography';
 import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
@@ -77,7 +76,9 @@ class MeetingDetailsView extends React.Component {
   };
 
   findDisplayState = employee => {
-    return translateContent(employee.status);
+    return this.props.intl.formatMessage({
+      id: `${employee.status}`
+    });
   };
 
   informationTypography = (classes, visibilityService) => {

@@ -20,7 +20,6 @@ import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { getMeeting } from '../../reducers/selector';
-import { injectIntl } from 'react-intl';
 
 export class MeetingCreator extends Component {
   constructor(props) {
@@ -41,17 +40,25 @@ export class MeetingCreator extends Component {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let roleDescription = '';
     if (hasRoleInPr([role])) {
-      roleDescription = 'Ich';
+      roleDescription = `${this.props.intl.formatMessage({
+        id: 'meetingcreator.me'
+      })}`;
     } else {
       switch (role) {
         case 'employee':
-          roleDescription = 'Mitarbeiter/in';
+          roleDescription = `${this.props.intl.formatMessage({
+            id: 'meetingcreator.employee'
+          })}`;
           break;
         case 'supervisor':
-          roleDescription = 'Vorgesetzte/r';
+          roleDescription = `${this.props.intl.formatMessage({
+            id: 'meetingcreator.supervisor'
+          })}`;
           break;
         case 'reviewer':
-          roleDescription = 'Beurteiler/in';
+          roleDescription = `${this.props.intl.formatMessage({
+            id: 'meetingcreator.reviewer'
+          })}`;
           break;
         default:
           roleDescription = '';
@@ -120,13 +127,16 @@ export class MeetingCreator extends Component {
     return (
       <React.Fragment>
         <Typography gutterBottom variant="h4">
-          Terminfindung
+          {intl.formatMessage({
+            id: 'meetingcreator.datescheduling'
+          })}
         </Typography>
         <Grid id={'tableRolePick'} container spacing={24} direction="column">
           <Grid item>
             <MeetingCreatorForm
               prById={pr}
               fetchAppointments={this.fetchAppointments}
+              intl={intl}
             />
           </Grid>
           {visibilityService.getAction() ? (
@@ -190,18 +200,16 @@ export class MeetingCreator extends Component {
   }
 }
 
-export default injectIntl(
-  connect(
-    state => ({
-      appointmentsSearchResults: getAppointments(state),
-      selectedDate: getSelectedDate(state),
-      userinfo: getUserinfo(state),
-      pr: getPrDetail()(state),
-      userroles: getUserroles(state),
-      meeting: getMeeting(state)
-    }),
-    {
-      appointmentsSearch: actions.appointmentsSearch
-    }
-  )(MeetingCreator)
-);
+export default connect(
+  state => ({
+    appointmentsSearchResults: getAppointments(state),
+    selectedDate: getSelectedDate(state),
+    userinfo: getUserinfo(state),
+    pr: getPrDetail()(state),
+    userroles: getUserroles(state),
+    meeting: getMeeting(state)
+  }),
+  {
+    appointmentsSearch: actions.appointmentsSearch
+  }
+)(MeetingCreator);

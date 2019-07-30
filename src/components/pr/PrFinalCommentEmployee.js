@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { getFinalCommentEmployee, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
-import { translateContent } from '../translate/Translate';
 
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
@@ -80,7 +79,9 @@ class PrFinalCommentEmployee extends Component {
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
                 fieldId={'finalComment'}
-                label={translateContent('FINAL_COMMENT_EMPLOYEE')}
+                label={intl.formatMessage({
+                  id: 'FINAL_COMMENT_EMPLOYEE'
+                })}
                 state={service.getState()}
                 value={service.getValue()}
                 helperText={helperText}

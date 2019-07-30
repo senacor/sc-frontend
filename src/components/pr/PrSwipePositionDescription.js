@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ReactSwipe from 'react-swipe';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 const styles = theme => ({
   swipe: {
@@ -35,49 +35,43 @@ class PrSwipePositionDescription extends React.Component {
   positionText = (position, intl) => {
     switch (position) {
       case 'PROBLEM_ANALYSIS':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.problemanalysis'
-        });
+        return (
+          <FormattedMessage id="prswipepositiondescription.problemanalysis" />
+        );
 
       case 'WORK_RESULTS':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.workresults'
-        });
+        return <FormattedMessage id="prswipepositiondescription.workresults" />;
 
       case 'WORKING_MANNER':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.workingmanner'
-        });
+        return (
+          <FormattedMessage id="prswipepositiondescription.workingmanner" />
+        );
 
       case 'TEAMWORK':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.teamwork'
-        });
+        return <FormattedMessage id="prswipepositiondescription.teamwork" />;
 
       case 'LEADERSHIP':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.leadership'
-        });
+        return <FormattedMessage id="prswipepositiondescription.leadership" />;
 
       case 'CUSTOMER_INTERACTION':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.customerinteraction'
-        });
+        return (
+          <FormattedMessage id="prswipepositiondescription.customerinteraction" />
+        );
 
       case 'CUSTOMER_RETENTION':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.customerretention'
-        });
+        return (
+          <FormattedMessage id="prswipepositiondescription.customerretention" />
+        );
 
       case 'FULFILLMENT_OF_REQUIREMENT':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.fulfillmentofrequirement'
-        });
+        return (
+          <FormattedMessage id="prswipepositiondescription.fulfillmentofrequirement" />
+        );
 
       case 'CONTRIBUTION_TO_COMPANY_DEVELOPMENT':
-        return intl.formatMessage({
-          id: 'prswipepositiondescription.contributiontocompanydevelopment'
-        });
+        return (
+          <FormattedMessage id="prswipepositiondescription.contributiontocompanydevelopment" />
+        );
 
       default:
         return;
@@ -334,4 +328,4 @@ class PrSwipePositionDescription extends React.Component {
     );
   }
 }
-export default injectIntl(withStyles(styles)(PrSwipePositionDescription));
+export default withStyles(styles)(PrSwipePositionDescription);

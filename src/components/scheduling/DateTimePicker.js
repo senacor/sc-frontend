@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import 'moment/locale/de';
 import TextField from '@material-ui/core/TextField';
-import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   textField: {
@@ -84,4 +83,4 @@ class DateTimePicker extends React.Component {
   }
 }
 
-export default injectIntl(withStyles(styles)(DateTimePicker));
+export default withStyles(styles)(DateTimePicker);

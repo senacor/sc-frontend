@@ -12,6 +12,7 @@ import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
 import MeetingCreator from '../../scheduling/MeetingCreator';
 import { prStatusEnum } from '../../../helper/prStatus';
 import { isHr } from '../../../helper/checkRole';
+import { injectIntl } from 'react-intl';
 
 export class SchedulingView extends React.Component {
   constructor(props) {
@@ -45,7 +46,10 @@ export class SchedulingView extends React.Component {
     return (
       <div id={'outer'}>
         {this.state.canRequestMeeting ? (
-          <MeetingCreator handleChange={() => this.handleChange()} />
+          <MeetingCreator
+            handleChange={() => this.handleChange()}
+            intl={this.props.intl}
+          />
         ) : (
           <MeetingDetailsView
             meeting={this.props.meeting}
@@ -66,16 +70,18 @@ export class SchedulingView extends React.Component {
   }
 }
 
-export default connect(
-  state => ({
-    prDetail: getPrDetail()(state),
-    meeting: getMeeting(state),
-    isLoading: isLoading(state),
-    userinfo: getUserinfo(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    fetchMeeting: actions.fetchMeeting,
-    addPrStatus: actions.addPrStatus
-  }
-)(SchedulingView);
+export default injectIntl(
+  connect(
+    state => ({
+      prDetail: getPrDetail()(state),
+      meeting: getMeeting(state),
+      isLoading: isLoading(state),
+      userinfo: getUserinfo(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      fetchMeeting: actions.fetchMeeting,
+      addPrStatus: actions.addPrStatus
+    }
+  )(SchedulingView)
+);

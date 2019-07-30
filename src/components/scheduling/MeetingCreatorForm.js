@@ -15,7 +15,6 @@ import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
-import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   container: {
@@ -134,6 +133,7 @@ class MeetingCreatorForm extends React.Component {
             startTime={this.state.startTime}
             endTime={this.state.endTime}
             onDateTimeChange={this.setDateTime}
+            intl={intl}
           />
         ) : null}
         {visibilityService.getAction() ? (
@@ -175,7 +175,7 @@ MeetingCreatorForm.propTypes = {
 };
 
 export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
-export default injectIntl(
+export default
   connect(
     state => ({
       pr: getPrDetail()(state),
@@ -188,5 +188,4 @@ export default injectIntl(
       changeDate: actions.changeDate,
       addPrStatus: actions.addPrStatus
     }
-  )(StyledComponent)
-);
+  )(StyledComponent);

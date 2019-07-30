@@ -137,7 +137,7 @@ class Login extends Component {
   };
 
   render() {
-    const { classes, isLoggedIn, isUnauthorized, isLoading } = this.props;
+    const { classes, isLoggedIn, isUnauthorized, isLoading, intl } = this.props;
     let { from } = this.props.location.state || { from: { pathname: '/' } };
 
     if (isLoggedIn) {
@@ -163,7 +163,7 @@ class Login extends Component {
               <Input
                 name="username"
                 value={this.state.username}
-                placeholder={this.props.intl.formatMessage({
+                placeholder={intl.formatMessage({
                   id: 'login.username'
                 })}
                 className={classes.input}
@@ -176,7 +176,7 @@ class Login extends Component {
                 name="password"
                 type="password"
                 value={this.state.password}
-                placeholder={this.props.intl.formatMessage({
+                placeholder={intl.formatMessage({
                   id: 'login.password'
                 })}
                 className={classes.input}
@@ -184,7 +184,10 @@ class Login extends Component {
                 startAdornment={<PasswordIcon />}
               />
               <FormHelperText id="name-error-text">
-                {isUnauthorized && 'Anmeldung fehlgeschlagen'}
+                {isUnauthorized &&
+                  `${intl.formatMessage({
+                    id: 'login.failed'
+                  })}`}
               </FormHelperText>
             </FormControl>
 

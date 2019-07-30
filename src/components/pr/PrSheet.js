@@ -377,7 +377,9 @@ class PrSheet extends React.Component {
         <List>
           <ListItem>
             <Typography className={classes.required} variant="caption">
-              *Pflichtfeld
+              {intl.formatMessage({
+                id: 'prsheet.required'
+              })}
             </Typography>
           </ListItem>
         </List>

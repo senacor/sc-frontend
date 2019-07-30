@@ -1,18 +1,21 @@
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
 export const mapRatingFullfilment = ratingFulfillment => {
   switch (ratingFulfillment) {
     case 0:
-      return 'kein Eintrag';
+      return <FormattedMessage id="mapratingfullfilment.noentry" />;
     case 1:
-      return 'nicht erfüllt';
+      return <FormattedMessage id="mapratingfullfilment.notfulfilled" />;
     case 2:
-      return 'zT. nicht erfüllt';
+      return <FormattedMessage id="mapratingfullfilment.partlynotfulfilled" />;
     case 3:
-      return 'erfüllt';
+      return <FormattedMessage id="mapratingfullfilment.fulfilled" />;
     case 4:
-      return 'zT. übererfüllt';
+      return <FormattedMessage id="mapratingfullfilment.partlyoverfulfilled" />;
     case 5:
-      return 'übererfüllt';
+      return <FormattedMessage id="mapratingfullfilment.overfulfilled" />;
     default:
-      return 'keine Auswahl';
+      return <FormattedMessage id="mapratingfullfilment.notselected" />;
   }
 };

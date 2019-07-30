@@ -10,7 +10,6 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 import Grid from '@material-ui/core/Grid';
 
-import { translateContent } from '../../translate/Translate';
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
 import { connect } from 'react-redux';
@@ -107,15 +106,18 @@ export class PrDetailInformation extends Component {
           })}`;
       }
     }
-    const competence = translateContent('COMPETENCE_' + pr.competence);
+
+    const competence = intl.formatMessage({
+      id: `COMPETENCE_${pr.competence}`
+    });
 
     const subheader = `${intl.formatMessage({
       id: 'prdetailinformation.duedate'
     })} ${formatDateForFrontend(
       pr.deadline
-    )}, ACD_BOOT, ${competence}, ${translateContent(
-      pr.occasion
-    )}, ${intl.formatMessage({
+    )}, ACD_BOOT, ${competence}, ${intl.formatMessage({
+      id: `${pr.occasion}`
+    })}, ${intl.formatMessage({
       id: 'prdetailinformation.termin'
     })} ${termin}`;
 

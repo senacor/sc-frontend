@@ -8,7 +8,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { getPrRatings, getUserroles } from '../../reducers/selector';
-import { translateContent } from '../translate/Translate';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
@@ -57,7 +56,11 @@ export class PrOverallFulfillment extends Component {
       return (
         <ListItem>
           <div className={classes.simpleBlack}>
-            <Typography>{translateContent(category)}</Typography>
+            <Typography>
+              {intl.formatMessage({
+                id: `${category}`
+              })}
+            </Typography>
           </div>
           <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
             {readOnly
@@ -72,7 +75,11 @@ export class PrOverallFulfillment extends Component {
       return (
         <ListItem>
           <div className={classes.simpleBlack}>
-            <Typography>{translateContent(category)}</Typography>
+            <Typography>
+              {intl.formatMessage({
+                id: `${category}`
+              })}
+            </Typography>
           </div>
           <div className={classes.number}>
             <FormControl disabled={!openEditing}>
