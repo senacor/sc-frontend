@@ -173,11 +173,9 @@ class PrState extends React.Component {
             complete: this.props.intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.RELEASED_SHEET_REVIEWER
@@ -210,11 +208,9 @@ class PrState extends React.Component {
             complete: this.props.intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.FINALIZED_REVIEWER
@@ -238,11 +234,9 @@ class PrState extends React.Component {
             complete: this.props.intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.FINALIZED_EMPLOYEE
@@ -266,11 +260,9 @@ class PrState extends React.Component {
             complete: this.props.intl.formatMessage({
               id: 'prstate.archived'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.ARCHIVED_HR
@@ -359,15 +351,13 @@ class PrState extends React.Component {
   getIncompleteActionPerformerButton = (pr, status) => {
     let label =
       status === prStatusEnum.RELEASED_SHEET_REVIEWER ||
-      status === prStatusEnum.RELEASED_SHEET_EMPLOYEE ? (
-        this.props.intl.formatMessage({
-          id: 'prstate.release'
-        })
-      ) : (
-        this.props.intl.formatMessage({
-          id: 'prstate.finish'
-        })
-      );
+      status === prStatusEnum.RELEASED_SHEET_EMPLOYEE
+        ? this.props.intl.formatMessage({
+            id: 'prstate.release'
+          })
+        : this.props.intl.formatMessage({
+            id: 'prstate.finish'
+          });
     return (
       <CheckRequiredClick
         onClick={() => {

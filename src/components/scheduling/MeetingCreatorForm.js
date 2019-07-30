@@ -175,17 +175,16 @@ MeetingCreatorForm.propTypes = {
 };
 
 export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
-export default
-  connect(
-    state => ({
-      pr: getPrDetail()(state),
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state),
-      getSelectedDateTime: getSelectedDate(state)
-    }),
-    {
-      addMeeting: actions.addMeeting,
-      changeDate: actions.changeDate,
-      addPrStatus: actions.addPrStatus
-    }
-  )(StyledComponent);
+export default connect(
+  state => ({
+    pr: getPrDetail()(state),
+    userinfo: getUserinfo(state),
+    userroles: getUserroles(state),
+    getSelectedDateTime: getSelectedDate(state)
+  }),
+  {
+    addMeeting: actions.addMeeting,
+    changeDate: actions.changeDate,
+    addPrStatus: actions.addPrStatus
+  }
+)(StyledComponent);
