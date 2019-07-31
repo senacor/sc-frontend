@@ -6,6 +6,7 @@ import {
   getPrEmployeeContributions,
   getPrRatings,
   getRequiredFields,
+  getSavingThreads,
   getUserinfo,
   getUserroles
 } from '../../reducers/selector';
@@ -16,6 +17,7 @@ import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 import { prStatusEnum } from '../../helper/prStatus';
 import { isHr } from '../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
@@ -299,8 +301,17 @@ class ButtonsBelowSheet extends React.Component {
 
   render() {
     let { classes, pr, userroles, userinfo } = this.props;
+    let savingInfo =
+      this.props.savingThreads > 0
+        ? this.props.intl.formatMessage({
+            id: 'prstate.saving'
+          })
+        : this.props.intl.formatMessage({
+            id: 'prstate.saved'
+          });
     return (
       <div className={classes.container}>
+        <Typography>{savingInfo}</Typography>
         {this.findButtonsForRole(pr, userroles, userinfo)}
       </div>
     );
@@ -321,7 +332,8 @@ export default injectIntl(
       employeeContributionLeader: getPrEmployeeContributions(
         'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
       )(state).text,
-      requiredFields: getRequiredFields(state)
+      requiredFields: getRequiredFields(state),
+      savingThreads: getSavingThreads(state)
     }),
     {
       checkRequired: changeRequiredFields,

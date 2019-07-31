@@ -47,6 +47,7 @@ describe('reducers', () => {
           prs: { someValue },
           requiredFields: { employee: false, reviewer: true },
           employeeSearchResults: [someValue],
+          savingThreads: 10,
           tablePrs: { someValue },
           selectedDate: 'someValue',
           sortOrderPrs: 'des',
@@ -92,6 +93,7 @@ describe('reducers', () => {
               isFinalizedByReviewer: false
             }
           },
+          savingThreads: 0,
           prs: {},
           requiredFields: { employee: true, reviewer: true },
           employeeSearchResults: [],

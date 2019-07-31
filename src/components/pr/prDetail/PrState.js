@@ -13,7 +13,8 @@ import {
   getRequiredFields,
   getPrRatings,
   getPrEmployeeContributions,
-  getMeeting
+  getMeeting,
+  getSavingThreads
 } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
@@ -23,6 +24,7 @@ import { isHr } from '../../../helper/checkRole';
 import { changeRequiredFields } from '../../../actions/sheet';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
+import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
@@ -394,6 +396,15 @@ class PrState extends React.Component {
 
     const activeStep = this.calculateActiveStep(prStatusesDone, stepStructure);
 
+    let savingInfo =
+      this.props.savingThreads > 0
+        ? this.props.intl.formatMessage({
+            id: 'prstate.saving'
+          })
+        : this.props.intl.formatMessage({
+            id: 'prstate.saved'
+          });
+
     return (
       <Paper className={classes.paper}>
         <List>
@@ -403,6 +414,7 @@ class PrState extends React.Component {
                 id: 'prstate.progress'
               })}
             </ListItemText>
+            <Typography>{savingInfo}</Typography>
           </ListItem>
           <ListItem>
             <PrStatusStepper
@@ -431,7 +443,8 @@ export default injectIntl(
         'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
       )(state).text,
       requiredFields: getRequiredFields(state),
-      meeting: getMeeting(state)
+      meeting: getMeeting(state),
+      savingThreads: getSavingThreads(state)
     }),
     {
       checkRequired: changeRequiredFields,

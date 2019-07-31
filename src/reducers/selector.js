@@ -19,6 +19,7 @@ export const getPrTab = state => state.prTabs;
 export const getArchivedFiles = state => state.archivedFiles;
 export const getUploadedFiles = state => state.uploadedFiles;
 export const getDownloadedFile = state => state.downloadedFile;
+export const getSavingThreads = state => state.savingThreads;
 
 export const getPrDetail = () => {
   return createSelector(
