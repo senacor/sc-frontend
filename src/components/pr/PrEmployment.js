@@ -8,6 +8,7 @@ import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import ObjectGet from 'object-get';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   title: {
@@ -20,7 +21,7 @@ const styles = theme => ({
 
 class PrEmployment extends React.Component {
   render() {
-    const { prById, classes } = this.props;
+    const { prById, classes, intl } = this.props;
 
     if (ObjectGet(this.props, 'prById.employee.employment') == null) {
       return null;
@@ -34,7 +35,9 @@ class PrEmployment extends React.Component {
               <ListItemText>
                 <div>
                   <Typography className={classes.title}>
-                    Ende der Probezeit:
+                    {intl.formatMessage({
+                      id: 'premployment.endofprobationperiod'
+                    })}
                   </Typography>
                   <Typography className={classes.listItems}>
                     {`${moment(
@@ -54,7 +57,9 @@ class PrEmployment extends React.Component {
               <ListItemText>
                 <div>
                   <Typography className={classes.title}>
-                    Mutterschutz:
+                    {intl.formatMessage({
+                      id: 'premployment.maternityprotection'
+                    })}
                   </Typography>
 
                   {prById.employee.employment.leaves.maternityLeave.map(
@@ -67,7 +72,9 @@ class PrEmployment extends React.Component {
                       >
                         {`${moment(maternityLeave.from).format(
                           'DD.MM.YY'
-                        )} bis ${moment(maternityLeave.to).format('DD.MM.YY')}`}
+                        )} ${this.props.intl.formatMessage({
+                          id: 'datefilter.to'
+                        })} ${moment(maternityLeave.to).format('DD.MM.YY')}`}
                       </Typography>
                     )
                   )}
@@ -83,7 +90,11 @@ class PrEmployment extends React.Component {
             <ListItem>
               <ListItemText>
                 <div>
-                  <Typography className={classes.title}>Elternzeit:</Typography>
+                  <Typography className={classes.title}>
+                    {intl.formatMessage({
+                      id: 'premployment.parentalleave'
+                    })}
+                  </Typography>
 
                   {prById.employee.employment.leaves.parentalLeave.map(
                     parentalLeave => (
@@ -95,7 +106,9 @@ class PrEmployment extends React.Component {
                       >
                         {` ${moment(parentalLeave.from).format(
                           'DD.MM.YY'
-                        )} bis ${moment(parentalLeave.to).format('DD.MM.YY')}`}
+                        )} ${this.props.intl.formatMessage({
+                          id: 'datefilter.to'
+                        })} ${moment(parentalLeave.to).format('DD.MM.YY')}`}
                       </Typography>
                     )
                   )}
@@ -111,7 +124,11 @@ class PrEmployment extends React.Component {
             <ListItem>
               <ListItemText>
                 <div>
-                  <Typography className={classes.title}>Sabbatical:</Typography>
+                  <Typography className={classes.title}>
+                    {intl.formatMessage({
+                      id: 'premployment.sabbatical'
+                    })}
+                  </Typography>
                   {prById.employee.employment.leaves.sabbatical.map(
                     sabbatical => (
                       <Typography
@@ -122,7 +139,9 @@ class PrEmployment extends React.Component {
                       >
                         {` ${moment(sabbatical.from).format(
                           'DD.MM.YY'
-                        )} bis ${moment(sabbatical.to).format('DD.MM.YY')}`}
+                        )} ${this.props.intl.formatMessage({
+                          id: 'datefilter.to'
+                        })} ${moment(sabbatical.to).format('DD.MM.YY')}`}
                       </Typography>
                     )
                   )}
@@ -139,7 +158,9 @@ class PrEmployment extends React.Component {
               <ListItemText>
                 <div>
                   <Typography className={classes.title}>
-                    Unbezahlter Urlaub:
+                    {intl.formatMessage({
+                      id: 'premployment.unpaid'
+                    })}
                   </Typography>
                   {prById.employee.employment.leaves.unpaidLeave.map(
                     unpaidLeave => (
@@ -151,7 +172,9 @@ class PrEmployment extends React.Component {
                       >
                         {` ${moment(unpaidLeave.from).format(
                           'DD.MM.YY'
-                        )} bis ${moment(unpaidLeave.to).format('DD.MM.YY')}`}
+                        )} ${this.props.intl.formatMessage({
+                          id: 'datefilter.to'
+                        })} ${moment(unpaidLeave.to).format('DD.MM.YY')}`}
                       </Typography>
                     )
                   )}
@@ -164,4 +187,4 @@ class PrEmployment extends React.Component {
     );
   }
 }
-export default withStyles(styles)(PrEmployment);
+export default injectIntl(withStyles(styles)(PrEmployment));

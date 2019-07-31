@@ -7,6 +7,7 @@ import {
   transformAppointmentTimeToPercent
 } from './AppointmentUtilities';
 import Tooltip from '@material-ui/core/Tooltip';
+import { injectIntl } from 'react-intl';
 
 export const styles = () => ({
   appointmentDiv: {
@@ -43,7 +44,8 @@ export function createSingleAppointmentDiv(
   className,
   keySuffix,
   name,
-  appointmentState
+  appointmentState,
+  intl
 ) {
   let timeStart = moment(startTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
     .tz('Europe/Berlin')
@@ -56,16 +58,24 @@ export function createSingleAppointmentDiv(
   let infoOnMouseOver = name;
   switch (appointmentState) {
     case 'Busy':
-      infoOnMouseOver = name + ': beschäftigt';
+      infoOnMouseOver = `${name}: ${intl.formatMessage({
+        id: 'attendee.busy'
+      })}`;
       break;
     case 'Tentative':
-      infoOnMouseOver = name + ': vorläufig';
+      infoOnMouseOver = `${name}: ${intl.formatMessage({
+        id: 'attendee.tentative'
+      })}`;
       break;
     case 'OOF':
-      infoOnMouseOver = name + ': abwesend';
+      infoOnMouseOver = `${name}: ${intl.formatMessage({
+        id: 'attendee.absent'
+      })}`;
       break;
     case 'Free':
-      infoOnMouseOver = name + ': frei';
+      infoOnMouseOver = `${name}: ${intl.formatMessage({
+        id: 'attendee.free'
+      })}`;
       break;
     default:
   }
@@ -130,7 +140,8 @@ class Attendee extends React.Component {
           className,
           appointmentCounter,
           this.props.name,
-          appointmentState
+          appointmentState,
+          this.props.intl
         )
       );
     }
@@ -159,4 +170,4 @@ Attendee.defaultProps = {
 };
 
 export const StyledComponent = withStyles(styles)(Attendee);
-export default StyledComponent;
+export default injectIntl(StyledComponent);

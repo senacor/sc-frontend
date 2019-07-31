@@ -8,10 +8,10 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { getPrRatings, getUserroles } from '../../reducers/selector';
-import { translateContent } from '../translate/Translate';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
+import { injectIntl } from 'react-intl';
 
 const styles = {
   simpleBlack: {
@@ -44,7 +44,8 @@ export class PrOverallFulfillment extends Component {
       isActionPerformer,
       nonActionPerformer,
       openEditing,
-      classes
+      classes,
+      intl
     } = this.props;
 
     if (!prRating) {
@@ -55,10 +56,18 @@ export class PrOverallFulfillment extends Component {
       return (
         <ListItem>
           <div className={classes.simpleBlack}>
-            <Typography>{translateContent(category)}</Typography>
+            <Typography>
+              {intl.formatMessage({
+                id: `${category}`
+              })}
+            </Typography>
           </div>
           <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
-            {readOnly ? mapRatingFullfilment(prRating.rating) : 'kein Eintrag'}
+            {readOnly
+              ? mapRatingFullfilment(prRating.rating)
+              : intl.formatMessage({
+                  id: 'proverallfulfillment.noentry'
+                })}
           </Typography>
         </ListItem>
       );
@@ -66,7 +75,11 @@ export class PrOverallFulfillment extends Component {
       return (
         <ListItem>
           <div className={classes.simpleBlack}>
-            <Typography>{translateContent(category)}</Typography>
+            <Typography>
+              {intl.formatMessage({
+                id: `${category}`
+              })}
+            </Typography>
           </div>
           <div className={classes.number}>
             <FormControl disabled={!openEditing}>
@@ -108,12 +121,14 @@ export class PrOverallFulfillment extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrOverallFulfillment);
-export default connect(
-  (state, props) => ({
-    prRating: getPrRatings(props.category)(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    addRating: actions.addRating
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      prRating: getPrRatings(props.category)(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      addRating: actions.addRating
+    }
+  )(StyledComponent)
+);

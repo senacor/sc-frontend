@@ -32,6 +32,7 @@ describe('reducers', () => {
           filterPossibilities: { someValue },
           finalCommentEmployee: { someValue },
           isLoading: [someValue],
+          language: '',
           login: {
             isLoggedIn: true,
             isUnauthorized: false
@@ -71,6 +72,7 @@ describe('reducers', () => {
           finalCommentEmployee: {},
           finalCommentHr: {},
           isLoading: [],
+          language: 'de',
           login: {
             isLoggedIn: false,
             isUnauthorized: state.isUnautherized

@@ -10,6 +10,7 @@ import { LoadingEvents } from '../../helper/loadingEvents';
 import { connect } from 'react-redux';
 import withLoadingAction from '../hoc/LoadingWithAction';
 import Highlighter from 'react-highlight-words';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   avatar: {
@@ -54,7 +55,7 @@ export class PlotEmployeeSearchList extends React.Component {
   };
 
   render() {
-    const { searchResults, excludeList } = this.props;
+    const { searchResults, excludeList, intl } = this.props;
     let searchResultsWithoutExclude = searchResults.filter(
       employee => !excludeList.includes(employee.id)
     );
@@ -64,7 +65,11 @@ export class PlotEmployeeSearchList extends React.Component {
         return this.plotSearchEntry(employee);
       })
     ) : (
-      <p>Keine Suchtreffer</p>
+      <p>
+        {intl.formatMessage({
+          id: 'plotemployeesearchList.noresults'
+        })}
+      </p>
     );
   }
 }
@@ -76,9 +81,11 @@ PlotEmployeeSearchList.propTypes = {
 };
 
 export const StyledComponent = withStyles(styles)(PlotEmployeeSearchList);
-export default connect(
-  state => ({
-    searchResults: state.employeeSearchResults
-  }),
-  {}
-)(withLoadingAction()([LoadingEvents.FETCH_EMPLOYEES])(StyledComponent));
+export default injectIntl(
+  connect(
+    state => ({
+      searchResults: state.employeeSearchResults
+    }),
+    {}
+  )(withLoadingAction()([LoadingEvents.FETCH_EMPLOYEES])(StyledComponent))
+);

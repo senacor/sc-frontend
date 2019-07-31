@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   version: {
@@ -32,15 +33,17 @@ class CompositionNumber extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, intl } = this.props;
     return (
       <div id="composition-number" className={classes.version}>
         <Typography color="textSecondary">
-          version {this.state.composition}
+          {`${intl.formatMessage({
+            id: 'compositionnumber.version'
+          })} ${this.state.composition}`}
         </Typography>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(CompositionNumber);
+export default injectIntl(withStyles(styles)(CompositionNumber));

@@ -7,12 +7,12 @@ import Collapse from '@material-ui/core/Collapse';
 import * as actions from '../../actions';
 import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
-import { translateContent } from '../translate/Translate';
 import { getPrRatings, getUserroles } from '../../reducers/selector';
 import Icon from '@material-ui/core/Icon';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
 import PrRatingPoints from './PrRatingPoints';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   nestedText: { paddingRight: '2%' },
@@ -115,7 +115,8 @@ class PrReviewerRating extends React.Component {
       isActionPerformer,
       readOnly,
       helperText,
-      openEditing
+      openEditing,
+      intl
     } = this.props;
 
     let { isExpanded, comment } = this.state;
@@ -144,7 +145,9 @@ class PrReviewerRating extends React.Component {
           <ListItem className={classes.nestedTextSelect}>
             <PrTextField
               fieldId={category + '_CommentId'}
-              label={translateContent(category)}
+              label={intl.formatMessage({
+                id: `${category}`
+              })}
               startrows={'2'}
               state={service.getState()}
               value={service.getValue()}
@@ -192,12 +195,14 @@ class PrReviewerRating extends React.Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrReviewerRating);
-export default connect(
-  (state, props) => ({
-    userroles: getUserroles(state),
-    prRating: getPrRatings(props.category)(state)
-  }),
-  {
-    addRating: actions.addRating
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      userroles: getUserroles(state),
+      prRating: getPrRatings(props.category)(state)
+    }),
+    {
+      addRating: actions.addRating
+    }
+  )(StyledComponent)
+);

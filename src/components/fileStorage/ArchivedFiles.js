@@ -11,31 +11,40 @@ import getDisplayName from '../../helper/getDisplayName';
 import UploadFiles from './UploadFiles';
 import { connect } from 'react-redux';
 import DownloadFile from './DownloadFile';
+import { injectIntl } from 'react-intl';
 
 export class ArchivedFiles extends Component {
-  getColumnDefinitions = () => {
+  getColumnDefinitions = intl => {
     return [
       {
         numeric: false,
-        label: 'Mitarbeiter',
+        label: intl.formatMessage({
+          id: 'archivedfiles.employee'
+        }),
         sortValue: entry => getDisplayName(entry),
         render: entry => getDisplayName(entry)
       },
       {
         numeric: true,
-        label: 'Datum',
+        label: intl.formatMessage({
+          id: 'archivedfiles.date'
+        }),
         sortValue: entry => entry.date,
         render: entry => formatDateForFrontend(entry.date)
       },
       {
         numeric: false,
-        label: 'Dateinamen',
+        label: intl.formatMessage({
+          id: 'archivedfiles.filename'
+        }),
         sortValue: entry => entry.fileName,
         render: entry => entry.fileName
       },
       {
         numeric: false,
-        label: 'Download',
+        label: intl.formatMessage({
+          id: 'archivedfiles.download'
+        }),
         sortValue: entry => entry.fileName,
         render: entry => (
           <DownloadFile employeeId={entry.employeeId} fileId={entry.fileId} />
@@ -45,12 +54,13 @@ export class ArchivedFiles extends Component {
   };
 
   render() {
+    const { intl } = this.props;
     return (
       <div>
         <Paper>
           <UploadFiles />
           <PerformanceReviewTable
-            columnDefinition={this.getColumnDefinitions()}
+            columnDefinition={this.getColumnDefinitions(intl)}
             orderBy={1}
             data={this.props.archivedFiles}
           />
@@ -60,15 +70,17 @@ export class ArchivedFiles extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    archivedFiles: getArchivedFiles(state)
-  }),
-  {
-    downloadFiles: actions.loadAllArchivedFilesList
-  }
-)(
-  withLoadingAction(props => {
-    props.downloadFiles(props.employeeId);
-  })([LoadingEvents.DOWNLOAD_FILES])(ArchivedFiles)
+export default injectIntl(
+  connect(
+    state => ({
+      archivedFiles: getArchivedFiles(state)
+    }),
+    {
+      downloadFiles: actions.loadAllArchivedFilesList
+    }
+  )(
+    withLoadingAction(props => {
+      props.downloadFiles(props.employeeId);
+    })([LoadingEvents.DOWNLOAD_FILES])(ArchivedFiles)
+  )
 );

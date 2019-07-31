@@ -7,9 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
+import { injectIntl } from 'react-intl';
 
 import Sidebar from '../sidebar/Sidebar';
 import ErrorMessage from './ErrorMessage';
+import LanguageButton from './LanguageButton';
 
 const drawerWidth = 270;
 const styles = theme => ({
@@ -76,7 +78,7 @@ class CustomAppBar extends Component {
   };
 
   render() {
-    const { classes, theme, children } = this.props;
+    const { classes, theme, children, intl } = this.props;
 
     return (
       <div className={classes.root}>
@@ -84,15 +86,20 @@ class CustomAppBar extends Component {
           <Toolbar>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label={intl.formatMessage({
+                id: 'appbar.drawer'
+              })}
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              Senacor Portal
+              {intl.formatMessage({
+                id: 'appbar.portal'
+              })}
             </Typography>
+            <LanguageButton color="secondary" />
           </Toolbar>
         </AppBar>
         <Hidden lgUp>
@@ -137,4 +144,6 @@ class CustomAppBar extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(CustomAppBar);
+export default injectIntl(
+  withStyles(styles, { withTheme: true })(CustomAppBar)
+);

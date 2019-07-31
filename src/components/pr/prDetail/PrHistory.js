@@ -11,6 +11,7 @@ import withLoadingAction from '../../hoc/LoadingWithAction';
 import * as actions from '../../../actions';
 import { connect } from 'react-redux';
 import DownloadFile from '../../fileStorage/DownloadFile';
+import { injectIntl } from 'react-intl';
 
 export class PrHistory extends Component {
   constructor(props) {
@@ -21,13 +22,22 @@ export class PrHistory extends Component {
     };
   }
   render() {
+    const { intl } = this.props;
     return (
       <div style={{ overflow: 'auto', maxHeight: '200px' }}>
         <Table padding={'none'}>
           <TableHead>
             <TableRow>
-              <TableCell padding={'none'}>Datum</TableCell>
-              <TableCell padding={'none'}>Link</TableCell>
+              <TableCell padding={'none'}>
+                {intl.formatMessage({
+                  id: 'prhistory.date'
+                })}
+              </TableCell>
+              <TableCell padding={'none'}>
+                {intl.formatMessage({
+                  id: 'prhistory.link'
+                })}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -51,15 +61,17 @@ export class PrHistory extends Component {
   }
 }
 
-export default connect(
-  (state, props) => ({
-    archivedFiles: getArchivedFiles(state)
-  }),
-  {
-    downloadFiles: actions.loadArchivedFilesList
-  }
-)(
-  withLoadingAction(props => {
-    props.downloadFiles(props.employeeId);
-  })([LoadingEvents.DOWNLOAD_FILES])(PrHistory)
+export default injectIntl(
+  connect(
+    state => ({
+      archivedFiles: getArchivedFiles(state)
+    }),
+    {
+      downloadFiles: actions.loadArchivedFilesList
+    }
+  )(
+    withLoadingAction(props => {
+      props.downloadFiles(props.employeeId);
+    })([LoadingEvents.DOWNLOAD_FILES])(PrHistory)
+  )
 );

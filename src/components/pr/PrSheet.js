@@ -27,6 +27,7 @@ import Typography from '@material-ui/core/Typography';
 import { prStatusEnum } from '../../helper/prStatus';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   containerVertical: {
@@ -121,7 +122,7 @@ class PrSheet extends React.Component {
   };
 
   render() {
-    const { prById, classes, userinfo, requiredFields } = this.props;
+    const { prById, classes, userinfo, requiredFields, intl } = this.props;
 
     let errorFlagReviewer = !requiredFields.reviewer;
     let errorFlagEmployee = !requiredFields.employee;
@@ -145,7 +146,11 @@ class PrSheet extends React.Component {
       return (
         <List>
           <ListItem className={classes.marginDown}>
-            <ListItemText primary="Mitarbeiterrolle" />
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'prsheet.employeerole'
+              })}
+            />
           </ListItem>
           <List disablePadding>
             <PrSheetEmployee
@@ -173,7 +178,11 @@ class PrSheet extends React.Component {
       return (
         <List>
           <ListItem className={classes.marginDown}>
-            <ListItemText primary="Gesamtschätzung und Entwicklungsbedarfe" />
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'prsheet.overall'
+              })}
+            />
           </ListItem>
 
           <List disablePadding>
@@ -189,7 +198,11 @@ class PrSheet extends React.Component {
 
           <Divider />
           <ListItem className={classes.marginDown}>
-            <ListItemText primary="Maßnahmen zur Weiterentwicklung und Entwicklungsziele" />
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'prsheet.measures'
+              })}
+            />
           </ListItem>
           <List disablePadding>
             <PrAdvancementStrategies
@@ -240,7 +253,11 @@ class PrSheet extends React.Component {
         <List>
           <div className={classes.containerListItem}>
             <ListItem className={classes.marginDown}>
-              <ListItemText primary="Leistungen im Projekt" />
+              <ListItemText
+                primary={intl.formatMessage({
+                  id: 'prsheet.performance'
+                })}
+              />
             </ListItem>
             <ListItem className={classes.marginDownSmall}>
               <Typography
@@ -248,7 +265,13 @@ class PrSheet extends React.Component {
                 color={'textSecondary'}
                 className={classes.legend}
               >
-                1 - nicht erfüllt <br /> 5 - exzellent
+                {intl.formatMessage({
+                  id: 'prsheet.notfulfilled'
+                })}{' '}
+                <br />
+                {intl.formatMessage({
+                  id: 'prsheet.excellent'
+                })}
               </Typography>
             </ListItem>
           </div>
@@ -279,7 +302,11 @@ class PrSheet extends React.Component {
             />
           </List>
           <ListItem className={classes.marginDown}>
-            <ListItemText primary="Wirkung beim Kunden" />
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'prsheet.customerimpact'
+              })}
+            />
           </ListItem>
           <List disablePadding>
             <PrReviewerRating
@@ -300,7 +327,11 @@ class PrSheet extends React.Component {
             />
           </List>
           <ListItem className={classes.marginDown}>
-            <ListItemText primary="Wirkung im Team" />
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'prsheet.teamimpact'
+              })}
+            />
           </ListItem>
           <List disablePadding>
             <PrReviewerRating
@@ -321,7 +352,11 @@ class PrSheet extends React.Component {
             />
           </List>
           <ListItem className={classes.marginDown}>
-            <ListItemText primary="Wirkung im Unternehmen" />
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'prsheet.companyimpact'
+              })}
+            />
           </ListItem>
           <List disablePadding>
             <PrReviewerRating
@@ -342,7 +377,9 @@ class PrSheet extends React.Component {
         <List>
           <ListItem>
             <Typography className={classes.required} variant="caption">
-              *Pflichtfeld
+              {intl.formatMessage({
+                id: 'prsheet.required'
+              })}
             </Typography>
           </ListItem>
         </List>
@@ -387,12 +424,14 @@ class PrSheet extends React.Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrSheet);
-export default connect(
-  state => ({
-    prById: getPrDetail()(state),
-    userroles: getUserroles(state),
-    userinfo: getUserinfo(state),
-    requiredFields: getRequiredFields(state)
-  }),
-  {}
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      prById: getPrDetail()(state),
+      userroles: getUserroles(state),
+      userinfo: getUserinfo(state),
+      requiredFields: getRequiredFields(state)
+    }),
+    {}
+  )(StyledComponent)
+);
