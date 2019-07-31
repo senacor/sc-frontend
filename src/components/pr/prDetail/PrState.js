@@ -398,8 +398,12 @@ class PrState extends React.Component {
 
     let savingInfo =
       this.props.savingThreads > 0
-        ? '...speichert...'
-        : 'Alle Änderungen gespeichert.';
+        ? this.props.intl.formatMessage({
+            id: 'prstate.saving'
+          })
+        : this.props.intl.formatMessage({
+            id: 'prstate.saved'
+          });
 
     return (
       <Paper className={classes.paper}>

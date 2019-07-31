@@ -303,8 +303,12 @@ class ButtonsBelowSheet extends React.Component {
     let { classes, pr, userroles, userinfo } = this.props;
     let savingInfo =
       this.props.savingThreads > 0
-        ? '...speichert...'
-        : 'Alle Änderungen gespeichert.';
+        ? this.props.intl.formatMessage({
+            id: 'prstate.saving'
+          })
+        : this.props.intl.formatMessage({
+            id: 'prstate.saved'
+          });
     return (
       <div className={classes.container}>
         <Typography>{savingInfo}</Typography>
