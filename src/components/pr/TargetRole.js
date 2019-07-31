@@ -6,8 +6,8 @@ import StepSlider from './StepSlider';
 import Grid from '@material-ui/core/Grid/index';
 import objectGet from 'object-get';
 import * as actions from '../../actions';
-import { translateContent } from '../translate/Translate';
 import Typography from '@material-ui/core/Typography';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   outerGrid: {
@@ -63,7 +63,8 @@ class TargetRole extends Component {
       classes,
       readOnly,
       isActionPerformer,
-      openEditing
+      openEditing,
+      intl
     } = this.props;
     let isDisabled = !isActionPerformer;
 
@@ -85,7 +86,9 @@ class TargetRole extends Component {
           >
             <div className={classes.simpleBlack}>
               <Typography>
-                {translateContent(targetRole.prTargetRoleName)}
+                {intl.formatMessage({
+                  id: `${targetRole.prTargetRoleName}`
+                })}
               </Typography>
             </div>
           </Grid>
@@ -123,11 +126,13 @@ class TargetRole extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(TargetRole);
-export default connect(
-  state => ({
-    prActive: state.prs[state.prDetailId]
-  }),
-  {
-    changeRatingTargetRole: actions.changeRatingTargetRole
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      prActive: state.prs[state.prDetailId]
+    }),
+    {
+      changeRatingTargetRole: actions.changeRatingTargetRole
+    }
+  )(StyledComponent)
+);

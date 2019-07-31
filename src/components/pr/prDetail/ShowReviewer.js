@@ -7,6 +7,7 @@ import { prStatusEnum } from '../../../helper/prStatus';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import { withStyles } from '@material-ui/core';
+import { injectIntl } from 'react-intl';
 
 const styles = {
   list: {
@@ -24,7 +25,7 @@ export class ShowReviewer extends Component {
   };
 
   render() {
-    let { prefix, pr, classes } = this.props;
+    let { prefix, pr, classes, intl } = this.props;
     return this.prDelegable(pr) ? (
       <List className={classes.list}>
         <ListItem className={classes.list}>
@@ -38,7 +39,9 @@ export class ShowReviewer extends Component {
                 ? getDisplayName(pr.reviewer)
                 : ''
             }
-            defaultText={'Nicht übergeben'}
+            defaultText={intl.formatMessage({
+              id: 'showreviewer.nothandedover'
+            })}
             isDelegated={pr.supervisor.id !== pr.reviewer.id}
             color={'textSecondary'}
           />
@@ -55,4 +58,4 @@ export class ShowReviewer extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(ShowReviewer);
-export default StyledComponent;
+export default injectIntl(StyledComponent);

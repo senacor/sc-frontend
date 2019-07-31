@@ -14,6 +14,7 @@ import { debounce } from '../../helper/debounce';
 
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -57,7 +58,8 @@ class PrAdvancementStrategies extends Component {
       readOnly,
       open,
       isActionPerformer,
-      nonActionPerformer
+      nonActionPerformer,
+      intl
     } = this.props;
     let { commentText } = this.state;
 
@@ -70,8 +72,9 @@ class PrAdvancementStrategies extends Component {
     service.setWriteableText(commentText);
     service.setCloseEditingExplicitly(open);
 
-    let helperText =
-      'Bezüglich Rolle, Projekteinsatz, Potential Case und Opportunity Window';
+    let helperText = intl.formatMessage({
+      id: 'pradvancementstrategies.helpertext'
+    });
 
     return (
       <List>
@@ -80,7 +83,9 @@ class PrAdvancementStrategies extends Component {
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
                 fieldId={'advancementStrategiees'}
-                label={'Maßnahmen und Empfehlung (optional)'}
+                label={intl.formatMessage({
+                  id: 'pradvancementstrategies.measures'
+                })}
                 state={service.getState()}
                 value={service.getValue()}
                 helperText={helperText}
@@ -95,12 +100,14 @@ class PrAdvancementStrategies extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrAdvancementStrategies);
-export default connect(
-  state => ({
-    advancementStrategies: getAdvancementStrategies()(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    changeAdvancementStrategies: actions.changeAdvancementStrategies
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      advancementStrategies: getAdvancementStrategies()(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      changeAdvancementStrategies: actions.changeAdvancementStrategies
+    }
+  )(StyledComponent)
+);

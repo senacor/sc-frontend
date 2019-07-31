@@ -8,6 +8,7 @@ import PrOverallFulfillment from './PrOverallFulfillment';
 import PrOverallComment from './PrOverallComment';
 import TargetRole from './TargetRole';
 import Typography from '@material-ui/core/Typography/Typography';
+import { injectIntl } from 'react-intl';
 
 const styles = {
   containerListItem: {
@@ -29,7 +30,8 @@ class PrOverallAssessment extends React.Component {
       readOnly,
       isActionPerformer,
       nonActionPerformer,
-      errorFlag
+      errorFlag,
+      intl
     } = this.props;
 
     return (
@@ -50,7 +52,9 @@ class PrOverallAssessment extends React.Component {
             color={'textSecondary'}
             className={classes.legendSlider}
           >
-            niedrige Eignung ------ hohe Eignung
+            {intl.formatMessage({
+              id: 'proverallassessment.suitability'
+            })}
           </Typography>
         </div>
         <div className={classes.containerListItem}>
@@ -79,13 +83,15 @@ class PrOverallAssessment extends React.Component {
 }
 
 export const StyledComponentOA = withStyles(styles)(PrOverallAssessment);
-export default connect(
-  (state, props) => ({
-    userroles: getUserroles(state),
-    prRating: getPrRatings(props.category)(state)
-  }),
-  {
-    addRating: actions.addRating,
-    fetchTargetRolesById: actions.fetchTargetRolesById
-  }
-)(StyledComponentOA);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      userroles: getUserroles(state),
+      prRating: getPrRatings(props.category)(state)
+    }),
+    {
+      addRating: actions.addRating,
+      fetchTargetRolesById: actions.fetchTargetRolesById
+    }
+  )(StyledComponentOA)
+);

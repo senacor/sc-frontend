@@ -30,7 +30,7 @@ class DateTimePicker extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, intl } = this.props;
 
     return (
       <form>
@@ -38,7 +38,9 @@ class DateTimePicker extends React.Component {
           id="date"
           name="date"
           type="date"
-          label="Datumsvorschlag"
+          label={intl.formatMessage({
+            id: 'datetimepicker.date'
+          })}
           value={this.state.date}
           className={classes.textField}
           onChange={this.onDateTimeChange}
@@ -55,7 +57,9 @@ class DateTimePicker extends React.Component {
           id="appt-start-time"
           min="00:00"
           max="24:00"
-          label="Von"
+          label={intl.formatMessage({
+            id: 'datetimepicker.from'
+          })}
           value={this.state.startTime}
           onChange={this.onDateTimeChange}
           required
@@ -67,7 +71,9 @@ class DateTimePicker extends React.Component {
           id="appt-end-time"
           min="00:00"
           max="24:00"
-          label="Bis"
+          label={intl.formatMessage({
+            id: 'datetimepicker.to'
+          })}
           value={this.state.endTime}
           onChange={this.onDateTimeChange}
           required

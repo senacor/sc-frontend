@@ -48,6 +48,7 @@ export class PopperSearchMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+
     return (
       <div>
         <IconButton onClick={this.handleClick}>
