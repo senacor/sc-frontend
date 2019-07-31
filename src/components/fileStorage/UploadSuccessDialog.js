@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 import ListItem from '@material-ui/core/ListItem';
 import DialogActions from '@material-ui/core/DialogActions';
+import { injectIntl } from 'react-intl';
 
 const styles = {
   list: {
@@ -24,7 +25,7 @@ export class UploadSuccessDialog extends React.Component {
     return uploadedFiles.filter(value => value.isStored === false);
   };
   render() {
-    const { onClose, open, uploadedFiles, classes } = this.props;
+    const { onClose, open, uploadedFiles, classes, intl } = this.props;
     const unstoredFiles = this.getUnstoredFiles(uploadedFiles);
     const numberOfSuccessfulUploadedFiles =
       uploadedFiles.length - unstoredFiles.length;
@@ -39,15 +40,22 @@ export class UploadSuccessDialog extends React.Component {
         scroll={'paper'}
       >
         <DialogTitle>
-          <Typography variant={'body2'}>Uploaded Files</Typography>
+          <Typography variant={'body2'}>
+            {intl.formatMessage({
+              id: 'uploadsuccessdialog.files'
+            })}
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <Typography variant={'body2'}>
-            {numberOfSuccessfulUploadedFiles} Dateien wurden erfolgreich
-            gespeichert.
+            {`${numberOfSuccessfulUploadedFiles} ${intl.formatMessage({
+              id: 'uploadsuccessdialog.success'
+            })}`}
           </Typography>
           <Typography variant={'body2'}>
-            {unstoredFiles.length} Dateien konnten nicht gespeichert werden.
+            {`${unstoredFiles.length} ${intl.formatMessage({
+              id: 'uploadsuccessdialog.error'
+            })}`}
           </Typography>
 
           <List className={classes.list}>
@@ -61,7 +69,12 @@ export class UploadSuccessDialog extends React.Component {
           </List>
         </DialogContent>
         <DialogActions>
-          <PrStatusActionButton releaseButtonClick={onClose} label={'Ok'} />
+          <PrStatusActionButton
+            releaseButtonClick={onClose}
+            label={intl.formatMessage({
+              id: 'uploadsuccessdialog.ok'
+            })}
+          />
         </DialogActions>
       </Dialog>
     );
@@ -69,4 +82,4 @@ export class UploadSuccessDialog extends React.Component {
 }
 
 const StyledComponent = withStyles(styles)(UploadSuccessDialog);
-export default StyledComponent;
+export default injectIntl(StyledComponent);

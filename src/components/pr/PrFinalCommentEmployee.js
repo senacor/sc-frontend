@@ -8,10 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { getFinalCommentEmployee, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
-import { translateContent } from '../translate/Translate';
 
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -55,7 +55,8 @@ class PrFinalCommentEmployee extends Component {
       readOnly,
       open,
       isActionPerformer,
-      nonActionPerformer
+      nonActionPerformer,
+      intl
     } = this.props;
     let { commentText } = this.state;
 
@@ -67,8 +68,9 @@ class PrFinalCommentEmployee extends Component {
     service.setReadOnlyText(finalCommentEmployee);
     service.setWriteableText(commentText);
 
-    let helperText =
-      'Letzte Anmerkungen und Ergänzungen zum Performance Review.';
+    let helperText = intl.formatMessage({
+      id: 'prfinalcommentemployee.notes'
+    });
 
     return (
       <List>
@@ -77,7 +79,9 @@ class PrFinalCommentEmployee extends Component {
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
                 fieldId={'finalComment'}
-                label={translateContent('FINAL_COMMENT_EMPLOYEE')}
+                label={intl.formatMessage({
+                  id: 'FINAL_COMMENT_EMPLOYEE'
+                })}
                 state={service.getState()}
                 value={service.getValue()}
                 helperText={helperText}
@@ -92,12 +96,14 @@ class PrFinalCommentEmployee extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrFinalCommentEmployee);
-export default connect(
-  state => ({
-    finalCommentEmployee: getFinalCommentEmployee()(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    changeFinalCommentEmployee: actions.changeFinalCommentEmployee
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      finalCommentEmployee: getFinalCommentEmployee()(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      changeFinalCommentEmployee: actions.changeFinalCommentEmployee
+    }
+  )(StyledComponent)
+);

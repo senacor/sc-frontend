@@ -14,11 +14,11 @@ import TodayIcon from '@material-ui/icons/Today';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
-import { translateContent } from '../../translate/Translate';
 import Typography from '@material-ui/core/Typography/Typography';
 import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../../helper/date';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   container: {
@@ -76,38 +76,52 @@ class MeetingDetailsView extends React.Component {
   };
 
   findDisplayState = employee => {
-    return translateContent(employee.status);
+    return this.props.intl.formatMessage({
+      id: `${employee.status}`
+    });
   };
 
   informationTypography = (classes, visibilityService) => {
     return (
       <div>
         <Typography gutterBottom variant="h4">
-          Termindetails
+          {this.props.intl.formatMessage({
+            id: 'meetingdetailsview.termindetails'
+          })}
         </Typography>
         {visibilityService.getAccept() ? (
           <Typography variant={'body2'} className={classes.info}>
-            Bitte den Termin zeitnah im Kalender bestätigen.
+            {this.props.intl.formatMessage({
+              id: 'meetingdetailsview.confirmation'
+            })}
           </Typography>
         ) : null}
         {visibilityService.getMeetingDeclined() ? (
           <Typography variant={'body2'} className={classes.info}>
-            Termin wurde abgesagt, bitte neuen Termin vereinbaren.
+            {this.props.intl.formatMessage({
+              id: 'meetingdetailsview.cancelled'
+            })}
           </Typography>
         ) : null}
         {visibilityService.getEvaluationExternal() ? (
           <Typography variant={'body2'} className={classes.info}>
-            Termin wurde außerhalb des Portals vereinbart.
+            {this.props.intl.formatMessage({
+              id: 'meetingdetailsview.arrangedoffportal'
+            })}
           </Typography>
         ) : null}
         {visibilityService.getHrInfoNotAccepted() ? (
           <Typography variant={'body2'} className={classes.info}>
-            Termin muss noch bestätigt werden.
+            {this.props.intl.formatMessage({
+              id: 'meetingdetailsview.confirmationneeded'
+            })}
           </Typography>
         ) : null}
         {visibilityService.getHrInfoNotSent() ? (
           <Typography variant={'body2'} className={classes.info}>
-            Termin muss noch vereinbart werden.
+            {this.props.intl.formatMessage({
+              id: 'meetingdetailsview.arrangemendneeded'
+            })}
           </Typography>
         ) : null}
       </div>
@@ -163,7 +177,9 @@ class MeetingDetailsView extends React.Component {
               primary={
                 meeting.location !== null
                   ? meeting.location
-                  : 'Kein Ort angegeben'
+                  : this.props.intl.formatMessage({
+                      id: 'meetingdetailsview.noplace'
+                    })
               }
             />
           </ListItem>
@@ -171,7 +187,11 @@ class MeetingDetailsView extends React.Component {
             <ListItemIcon>
               <PeopleIcon className={classes.icon} />
             </ListItemIcon>
-            <ListItemText primary={'Benötigte Teilnehmer'} />
+            <ListItemText
+              primary={this.props.intl.formatMessage({
+                id: 'meetingdetailsview.memberneeded'
+              })}
+            />
             {state.openRequiredAttendees ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse
@@ -194,12 +214,11 @@ class MeetingDetailsView extends React.Component {
                       primary={`${meeting.requiredAttendees[employee].name} <${
                         meeting.requiredAttendees[employee].email
                       }>`}
-                      secondary={
-                        'Status: ' +
-                        this.findDisplayState(
-                          meeting.requiredAttendees[employee]
-                        )
-                      }
+                      secondary={`${this.props.intl.formatMessage({
+                        id: 'meetingdetailsview.status'
+                      })} ${this.findDisplayState(
+                        meeting.requiredAttendees[employee]
+                      )}`}
                     />
                   </ListItem>
                 );
@@ -212,7 +231,11 @@ class MeetingDetailsView extends React.Component {
                 <ListItemIcon>
                   <PeopleIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText primary={'Optionale Teilnehmer'} />
+                <ListItemText
+                  primary={this.props.intl.formatMessage({
+                    id: 'meetingdetailsview.optionalmember'
+                  })}
+                />
                 {state.openOptionalAttendees ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
               <Collapse
@@ -240,12 +263,11 @@ class MeetingDetailsView extends React.Component {
                           primary={`${
                             meeting.optionalAttendees[employee].name
                           } <${meeting.optionalAttendees[employee].email}>`}
-                          secondary={
-                            'Status: ' +
-                            this.findDisplayState(
-                              meeting.optionalAttendees[employee]
-                            )
-                          }
+                          secondary={`${this.props.intl.formatMessage({
+                            id: 'meetingdetailsview.status'
+                          })} ${this.findDisplayState(
+                            meeting.optionalAttendees[employee]
+                          )}`}
                         />
                       </ListItem>
                     );
@@ -279,7 +301,9 @@ class MeetingDetailsView extends React.Component {
           : null}
         {visibilityService.getAction() ? (
           <PrStatusActionButton
-            label={'neuen Termin erstellen'}
+            label={this.props.intl.formatMessage({
+              id: 'meetingdetailsview.newtermin'
+            })}
             releaseButtonClick={this.props.handleChange}
             inputClass={classes.buttonPosition}
           />
@@ -289,4 +313,6 @@ class MeetingDetailsView extends React.Component {
   }
 }
 
-export const StyledComponent = withStyles(styles)(MeetingDetailsView);
+export const StyledComponent = injectIntl(
+  withStyles(styles)(MeetingDetailsView)
+);

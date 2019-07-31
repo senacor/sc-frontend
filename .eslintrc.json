@@ -5,6 +5,7 @@
       "es6": true
     },
     "rules": {
-        "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "linebreak-style": 0
     }
 }

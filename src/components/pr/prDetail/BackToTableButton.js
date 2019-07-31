@@ -6,6 +6,7 @@ import { isHr } from '../../../helper/checkRole';
 import { getUserPrincipalName, getUserroles } from '../../../reducers/selector';
 import { connect } from 'react-redux';
 import PrStatusActionButton from './PrStatusActionButton';
+import { injectIntl } from 'react-intl';
 
 export class BackToTableButton extends Component {
   getBackJumpPoint = (pr, userroles, username) => {
@@ -24,11 +25,13 @@ export class BackToTableButton extends Component {
   };
 
   render() {
-    const { pr, userroles, username } = this.props;
+    const { pr, userroles, username, intl } = this.props;
 
     return (
       <PrStatusActionButton
-        label={'zurück zur Liste'}
+        label={intl.formatMessage({
+          id: 'backtotablebutton.back'
+        })}
         inputClass={this.props.classes}
         component={NavLink}
         to={this.getBackJumpPoint(pr, userroles, username)}
@@ -37,10 +40,12 @@ export class BackToTableButton extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    username: getUserPrincipalName(state),
-    userroles: getUserroles(state)
-  }),
-  {}
-)(BackToTableButton);
+export default injectIntl(
+  connect(
+    state => ({
+      username: getUserPrincipalName(state),
+      userroles: getUserroles(state)
+    }),
+    {}
+  )(BackToTableButton)
+);

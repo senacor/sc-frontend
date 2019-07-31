@@ -8,9 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import * as actions from '../../actions';
 import { getFinalCommentHr, getUserroles } from '../../reducers/selector';
 import { debounce } from '../../helper/debounce';
-import { translateContent } from '../translate/Translate';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -53,7 +53,8 @@ class PrFinalCommentHr extends Component {
       finalCommentHr,
       readOnly,
       open,
-      isActionPerformer
+      isActionPerformer,
+      intl
     } = this.props;
     let { commentText } = this.state;
 
@@ -64,7 +65,9 @@ class PrFinalCommentHr extends Component {
     service.setReadOnlyText(finalCommentHr);
     service.setWriteableText(commentText);
 
-    let helperText = 'Nur sichtbar für HR-Mitarbeiter.';
+    let helperText = intl.formatMessage({
+      id: 'prfinalcommenthr.hronly'
+    });
 
     return (
       <List>
@@ -73,7 +76,9 @@ class PrFinalCommentHr extends Component {
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <PrTextField
                 fieldId={'FINAL_COMMENT_HR'}
-                label={translateContent('FINAL_COMMENT_HR')}
+                label={intl.formatMessage({
+                  id: 'FINAL_COMMENT_HR'
+                })}
                 state={service.getState()}
                 value={service.getValue()}
                 helperText={helperText}
@@ -88,12 +93,14 @@ class PrFinalCommentHr extends Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrFinalCommentHr);
-export default connect(
-  state => ({
-    finalCommentHr: getFinalCommentHr()(state),
-    userroles: getUserroles(state)
-  }),
-  {
-    changeFinalCommentHr: actions.changeFinalCommentHr
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      finalCommentHr: getFinalCommentHr()(state),
+      userroles: getUserroles(state)
+    }),
+    {
+      changeFinalCommentHr: actions.changeFinalCommentHr
+    }
+  )(StyledComponent)
+);

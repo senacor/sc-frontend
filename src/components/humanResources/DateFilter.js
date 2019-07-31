@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import Icon from '@material-ui/core/Icon/Icon';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core';
+import { injectIntl } from 'react-intl';
 
 let styles = {
   error: {
@@ -107,14 +108,16 @@ export class DateFilter extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, intl } = this.props;
     let { values } = this.state;
     return (
       <List>
         <ListItem>
           <TextField
             id="startDate"
-            label="von"
+            label={intl.formatMessage({
+              id: 'datefilter.from'
+            })}
             type="date"
             defaultValue={values.From}
             placeholder={'JJJJ-MM-TT'}
@@ -125,7 +128,9 @@ export class DateFilter extends Component {
           />
           <TextField
             id="endDate"
-            label="bis"
+            label={intl.formatMessage({
+              id: 'datefilter.to'
+            })}
             type="date"
             defaultValue={values.To}
             placeholder={'JJJJ-MM-TT'}
@@ -136,14 +141,22 @@ export class DateFilter extends Component {
           />
           <IconButton
             id="forwardButton"
-            aria-label="forward"
+            aria-label={intl.formatMessage({
+              id: 'datefilter.forward'
+            })}
             onClick={this.execute}
           >
             <Icon>forward</Icon>
           </IconButton>
         </ListItem>
         <ListItem className={classes.error}>
-          {this.state.error === true ? <div>Ungültige Eingabe</div> : null}
+          {this.state.error === true ? (
+            <div>
+              {intl.formatMessage({
+                id: 'datefilter.invalid'
+              })}
+            </div>
+          ) : null}
         </ListItem>
       </List>
     );
@@ -156,12 +169,14 @@ DateFilter.propTypes = {
 };
 
 export const StyledComponent = withStyles(styles)(DateFilter);
-export default connect(
-  (state, props) => ({
-    filter: getSubFilter(props.filterGroup, props.filterBy)(state)
-  }),
-  {
-    addFilter: actions.addFilter,
-    deleteFilter: actions.deleteFilter
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      filter: getSubFilter(props.filterGroup, props.filterBy)(state)
+    }),
+    {
+      addFilter: actions.addFilter,
+      deleteFilter: actions.deleteFilter
+    }
+  )(StyledComponent)
+);

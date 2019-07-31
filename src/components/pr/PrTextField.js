@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import { textFieldEnum } from '../../helper/textFieldEnum';
+import { injectIntl } from 'react-intl';
 
 class PrTextField extends Component {
   render() {
@@ -14,7 +15,8 @@ class PrTextField extends Component {
       startrows,
       required,
       state,
-      value
+      value,
+      intl
     } = this.props;
 
     let disabledTextField = value => {
@@ -70,9 +72,9 @@ class PrTextField extends Component {
           label={label}
           value={value}
           onChange={onChange}
-          helperText={
-            'Error: Bitte fülle das Pflichtfeld aus, bevor du das PR freigibst.'
-          }
+          helperText={intl.formatMessage({
+            id: 'prtextfield.error'
+          })}
         />
       );
     };
@@ -114,4 +116,4 @@ class PrTextField extends Component {
   }
 }
 
-export default PrTextField;
+export default injectIntl(PrTextField);

@@ -7,10 +7,10 @@ import PopperSearchMenu from './PopperSearchMenu';
 import PrDelegate from '../pr/PrDelegate';
 import { formatDateForFrontend } from '../../helper/date';
 import DateFilter from './DateFilter';
-import { translateContent } from '../translate/Translate';
 import ListFilter from './ListFilter';
 import HR_ELEMENTS from './hrElements';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
+import { FormattedMessage } from 'react-intl';
 
 export default class PerformanceReviewTableService {
   constructor(filterGroup, filterPossibilities) {
@@ -20,7 +20,7 @@ export default class PerformanceReviewTableService {
   employee(withFilter = true) {
     let columnDefinition = {
       numeric: false,
-      label: 'Mitarbeiter',
+      label: <FormattedMessage id="performancereviewtableservice.employee" />,
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.EMPLOYEE]),
       render: entry => {
         return (
@@ -51,7 +51,7 @@ export default class PerformanceReviewTableService {
   supervisor() {
     return {
       numeric: false,
-      label: 'Vorgesetzte/r',
+      label: <FormattedMessage id="performancereviewtableservice.supervisor" />,
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
       render: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
       filter: (
@@ -68,7 +68,7 @@ export default class PerformanceReviewTableService {
   reviewer(username) {
     return {
       numeric: false,
-      label: 'Bewerter',
+      label: <FormattedMessage id="performancereviewtableservice.reviewer" />,
       sortValue: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER]),
       render: entry => {
         const text = this.prAlreadyDelegated(entry)
@@ -99,7 +99,7 @@ export default class PerformanceReviewTableService {
   deadline() {
     return {
       numeric: true,
-      label: 'Fälligkeit',
+      label: <FormattedMessage id="performancereviewtableservice.duedate" />,
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.DEADLINE],
       render: entry =>
         formatDateForFrontend(entry[TABLE_PRS_ELEMENTS.DEADLINE]),
@@ -114,18 +114,25 @@ export default class PerformanceReviewTableService {
     };
   }
 
-  occasion() {
+  occasion(intl) {
     let filterContent = {};
     this.filterPossibilities.occasions.forEach(item => {
-      filterContent[translateContent(`${item}`)] = item;
+      filterContent[
+        intl.formatMessage({
+          id: `${item}`
+        })
+      ] = item;
     });
 
     return {
       numeric: false,
-      label: 'Grund',
-      sortValue: entry =>
-        translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
-      render: entry => translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
+      label: <FormattedMessage id="performancereviewtableservice.reason" />,
+      sortValue: entry => (
+        <FormattedMessage id={`${entry[TABLE_PRS_ELEMENTS.PR_OCCASION]}`} />
+      ),
+      render: entry => (
+        <FormattedMessage id={`${entry[TABLE_PRS_ELEMENTS.PR_OCCASION]}`} />
+      ),
       filter: (
         <PopperSearchMenu filterGroup={this.filterGroup} filterBy={'occasion'}>
           <ListFilter content={filterContent} />
@@ -141,7 +148,7 @@ export default class PerformanceReviewTableService {
     });
     return {
       numeric: false,
-      label: 'Projektkst',
+      label: <FormattedMessage id="performancereviewtableservice.projectcst" />,
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.CST],
       render: entry => entry[TABLE_PRS_ELEMENTS.CST],
       filter: (
@@ -155,19 +162,29 @@ export default class PerformanceReviewTableService {
     };
   }
 
-  competence() {
+  competence(intl) {
     let filterContent = {};
     this.filterPossibilities.competences.forEach(item => {
-      filterContent[translateContent(`COMPETENCE_${item}`)] = item;
+      filterContent[
+        intl.formatMessage({
+          id: `COMPETENCE_${item}`
+        })
+      ] = item;
     });
 
     return {
       numeric: false,
-      label: 'Dev/Con',
-      sortValue: entry =>
-        translateContent(`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`),
-      render: entry =>
-        translateContent(`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`),
+      label: <FormattedMessage id="performancereviewtableservice.devcon" />,
+      sortValue: entry => (
+        <FormattedMessage
+          id={`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`}
+        />
+      ),
+      render: entry => (
+        <FormattedMessage
+          id={`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`}
+        />
+      ),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
@@ -187,7 +204,7 @@ export default class PerformanceReviewTableService {
 
     return {
       numeric: true,
-      label: 'level',
+      label: <FormattedMessage id="performancereviewtableservice.level" />,
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
       render: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
       filter: (
@@ -209,7 +226,7 @@ export default class PerformanceReviewTableService {
 
     return {
       numeric: true,
-      label: 'Bewertung',
+      label: <FormattedMessage id="performancereviewtableservice.rating" />,
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
       render: entry => mapRatingFullfilment(entry[TABLE_PRS_ELEMENTS.RESULT]),
       filter: (
@@ -226,11 +243,17 @@ export default class PerformanceReviewTableService {
   employeePreparation() {
     return {
       numeric: false,
-      label: 'MA ausgefüllt',
+      label: (
+        <FormattedMessage id="performancereviewtableservice.employeefilled" />
+      ),
       sortValue: entry =>
         entry[TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
       render: entry =>
-        entry[TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? 'ja' : 'nein',
+        entry[TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE] ? (
+          <FormattedMessage id="performancereviewtableservice.yes" />
+        ) : (
+          <FormattedMessage id="performancereviewtableservice.no" />
+        ),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
@@ -245,11 +268,17 @@ export default class PerformanceReviewTableService {
   reviewerPreparation() {
     return {
       numeric: false,
-      label: 'Beurteiler ausgefüllt',
+      label: (
+        <FormattedMessage id="performancereviewtableservice.reviewerfilled" />
+      ),
       sortValue: entry =>
         entry[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
       render: entry =>
-        entry[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] ? 'ja' : 'nein',
+        entry[TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE] ? (
+          <FormattedMessage id="performancereviewtableservice.yes" />
+        ) : (
+          <FormattedMessage id="performancereviewtableservice.no" />
+        ),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
@@ -263,7 +292,7 @@ export default class PerformanceReviewTableService {
   meeting() {
     return {
       numeric: false,
-      label: 'Termin',
+      label: <FormattedMessage id="performancereviewtableservice.termin" />,
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.APPOINTMENT],
       render: entry =>
         formatDateForFrontend(entry[TABLE_PRS_ELEMENTS.APPOINTMENT])
@@ -273,11 +302,15 @@ export default class PerformanceReviewTableService {
   finalState() {
     return {
       numeric: false,
-      label: 'Finaler Status',
+      label: <FormattedMessage id="performancereviewtableservice.final" />,
       sortValue: entry =>
         entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'beendet',
       render: entry =>
-        entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? 'laufend' : 'beendet',
+        entry[TABLE_PRS_ELEMENTS.IN_PROGRESS] ? (
+          <FormattedMessage id="performancereviewtableservice.inprogress" />
+        ) : (
+          <FormattedMessage id="performancereviewtableservice.ended" />
+        ),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
@@ -292,10 +325,17 @@ export default class PerformanceReviewTableService {
   hrDone() {
     return {
       numeric: false,
-      label: 'HR verarbeitet',
+      label: (
+        <FormattedMessage id="performancereviewtableservice.hrverarbeitet" />
+      ),
       sortValue: entry =>
         entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein',
-      render: entry => (entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? 'ja' : 'nein'),
+      render: entry =>
+        entry[HR_ELEMENTS.HR_PROCESSING_DONE] ? (
+          <FormattedMessage id="performancereviewtableservice.yes" />
+        ) : (
+          <FormattedMessage id="performancereviewtableservice.no" />
+        ),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}

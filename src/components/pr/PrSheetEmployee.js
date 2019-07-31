@@ -6,13 +6,13 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { translateContent } from '../translate/Translate';
 import {
   getPrEmployeeContributions,
   getUserroles
 } from '../../reducers/selector';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   bootstrapInput: {
@@ -69,7 +69,8 @@ class PrSheetEmployee extends React.Component {
       readOnly,
       isActionPerformer,
       nonActionPerformer,
-      errorFlag
+      errorFlag,
+      intl
     } = this.props;
     const { commentText } = this.state;
 
@@ -93,8 +94,12 @@ class PrSheetEmployee extends React.Component {
                   state={service.getState()}
                   value={service.getValue()}
                   required
-                  label={translateContent(category)}
-                  helperText={translateContent(`PLACEHOLDER_${category}`)}
+                  label={intl.formatMessage({
+                    id: `${category}`
+                  })}
+                  helperText={intl.formatMessage({
+                    id: `PLACEHOLDER_${category}`
+                  })}
                   onChange={this.handleChangeComment(prById, category)}
                 />
               </Grid>
@@ -107,12 +112,14 @@ class PrSheetEmployee extends React.Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrSheetEmployee);
-export default connect(
-  (state, props) => ({
-    userroles: getUserroles(state),
-    employeeContribution: getPrEmployeeContributions(props.category)(state)
-  }),
-  {
-    addEmployeeContribution: actions.addEmployeeContribution
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    (state, props) => ({
+      userroles: getUserroles(state),
+      employeeContribution: getPrEmployeeContributions(props.category)(state)
+    }),
+    {
+      addEmployeeContribution: actions.addEmployeeContribution
+    }
+  )(StyledComponent)
+);

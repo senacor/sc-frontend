@@ -20,5 +20,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+Logging.html
+Logging.html.lck
+
 .idea/
 *.iml
+.prettierrc.yml

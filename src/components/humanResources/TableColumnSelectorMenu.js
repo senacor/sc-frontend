@@ -4,8 +4,9 @@ import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import TableColumnSelector from './TableColumSelector';
 import Tooltip from '@material-ui/core/Tooltip';
+import { injectIntl } from 'react-intl';
 
-export default class TableColumnSelectorMenu extends React.Component {
+class TableColumnSelectorMenu extends React.Component {
   constructor(props) {
     super(props);
 
@@ -61,12 +62,18 @@ export default class TableColumnSelectorMenu extends React.Component {
   };
 
   render() {
+    const { intl } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
       <div>
-        <Tooltip title={'Spalten ein-/ausblenden'} key={'column-visibility'}>
+        <Tooltip
+          title={intl.formatMessage({
+            id: 'tablecolumnselectormenu.columnvisibility'
+          })}
+          key={'column-visibility'}
+        >
           <IconButton onClick={this.handleClick}>
             {this.getIcon(this.props.subfilter)}
           </IconButton>
@@ -89,3 +96,5 @@ export default class TableColumnSelectorMenu extends React.Component {
     );
   }
 }
+
+export default injectIntl(TableColumnSelectorMenu);

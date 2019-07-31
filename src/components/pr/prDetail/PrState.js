@@ -23,6 +23,7 @@ import { isHr } from '../../../helper/checkRole';
 import { changeRequiredFields } from '../../../actions/sheet';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
+import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   paper: {
@@ -100,38 +101,62 @@ class PrState extends React.Component {
         statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
         !(status === 'ACCEPTED')
       ) {
-        return 'Termin wurde außerhalb des Portals vereinbart';
+        return this.props.intl.formatMessage({
+          id: 'prstate.offportalarranged'
+        });
       } else {
         switch (status) {
           case 'ACCEPTED':
-            return 'Teilnehmer haben zugesagt';
+            return this.props.intl.formatMessage({
+              id: 'prstate.agreed'
+            });
           case 'DECLINED':
             if (userIsMemberOfHr) {
-              return 'Termin wurde abgesagt';
+              return this.props.intl.formatMessage({
+                id: 'prstate.cancelled'
+              });
             }
-            return 'Termin wurde abgesagt, bitte neuen Termin vereinbaren';
+            return this.props.intl.formatMessage({
+              id: 'prstate.newtermin'
+            });
           case 'NO_ANSWER':
-            return 'Terminvorschlag verschickt';
+            return this.props.intl.formatMessage({
+              id: 'prstate.terminsent'
+            });
           case 'NOT_REQUESTED':
             if (userIsMemberOfHr) {
-              return 'noch kein Termin vereinbart';
+              return this.props.intl.formatMessage({
+                id: 'prstate.notermin'
+              });
             }
-            return 'Bitte zeitnah Termin vereinbaren';
+            return this.props.intl.formatMessage({
+              id: 'prstate.arrangetermin'
+            });
           default:
-            return 'Keine Information verfügbar';
+            return this.props.intl.formatMessage({
+              id: 'prstate.noinfo'
+            });
         }
       }
     };
     let step1 = {
-      mainStepLabel: 'Vorbereitung',
+      mainStepLabel: this.props.intl.formatMessage({
+        id: 'prstate.preparation'
+      }),
       substeps: {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
           isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-          label: 'Mitarbeiter/-in: ',
+          label: `${this.props.intl.formatMessage({
+            id: 'prstate.employee'
+          })} `,
           rendering: {
-            complete: 'Abgeschlossen',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            complete: this.props.intl.formatMessage({
+              id: 'prstate.finished'
+            }),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.RELEASED_SHEET_EMPLOYEE
@@ -141,10 +166,16 @@ class PrState extends React.Component {
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
-          label: 'Beurteiler/-in: ',
+          label: `${this.props.intl.formatMessage({
+            id: 'prstate.reviewer'
+          })} `,
           rendering: {
-            complete: 'Abgeschlossen',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            complete: this.props.intl.formatMessage({
+              id: 'prstate.finished'
+            }),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.RELEASED_SHEET_REVIEWER
@@ -153,7 +184,9 @@ class PrState extends React.Component {
         },
         [prStatusEnum.REQUESTED_DATE]: {
           isCompleted: true,
-          label: 'Terminfindung:',
+          label: `${this.props.intl.formatMessage({
+            id: 'prstate.findtermin'
+          })} `,
           rendering: {
             complete: meetingInfoText(meeting.status, pr.statuses)
           }
@@ -161,15 +194,23 @@ class PrState extends React.Component {
       }
     };
     let step2 = {
-      mainStepLabel: 'Termin',
+      mainStepLabel: this.props.intl.formatMessage({
+        id: 'prstate.termin'
+      }),
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
-          label: 'Beurteiler/-in: ',
+          label: `${this.props.intl.formatMessage({
+            id: 'prstate.reviewer'
+          })} `,
           rendering: {
-            complete: 'Abgeschlossen',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            complete: this.props.intl.formatMessage({
+              id: 'prstate.finished'
+            }),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.FINALIZED_REVIEWER
@@ -179,15 +220,23 @@ class PrState extends React.Component {
       }
     };
     let step3 = {
-      mainStepLabel: 'Abschluss',
+      mainStepLabel: this.props.intl.formatMessage({
+        id: 'prstate.conclusion'
+      }),
       substeps: {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
           isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-          label: 'Mitarbeiter/-in:',
+          label: `${this.props.intl.formatMessage({
+            id: 'prstate.employee'
+          })} `,
           rendering: {
-            complete: 'Abgeschlossen',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            complete: this.props.intl.formatMessage({
+              id: 'prstate.finished'
+            }),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.FINALIZED_EMPLOYEE
@@ -197,15 +246,23 @@ class PrState extends React.Component {
       }
     };
     let step4 = {
-      mainStepLabel: 'PR-Nachbearbeitung',
+      mainStepLabel: this.props.intl.formatMessage({
+        id: 'prstate.postprocessing'
+      }),
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
           isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
           isCurrentUserActionPerformer: isHr(this.props.userroles),
-          label: 'HR: ',
+          label: `${this.props.intl.formatMessage({
+            id: 'prstate.hr'
+          })} `,
           rendering: {
-            complete: 'Archiviert',
-            incompleteForNonActionPerformer: 'Nicht abgeschlossen',
+            complete: this.props.intl.formatMessage({
+              id: 'prstate.archived'
+            }),
+            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
             incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.ARCHIVED_HR
@@ -295,15 +352,21 @@ class PrState extends React.Component {
     let label =
       status === prStatusEnum.RELEASED_SHEET_REVIEWER ||
       status === prStatusEnum.RELEASED_SHEET_EMPLOYEE
-        ? 'Freigeben'
-        : 'Abschliessen';
+        ? this.props.intl.formatMessage({
+            id: 'prstate.release'
+          })
+        : this.props.intl.formatMessage({
+            id: 'prstate.finish'
+          });
     return (
       <CheckRequiredClick
         onClick={() => {
           this.props.addPrStatus(pr, status);
         }}
         check={() => !this.requiredFieldsEmpty(status)}
-        message={'Bitte alle Pflichtfelder ausfüllen.'}
+        message={this.props.intl.formatMessage({
+          id: 'prstate.fillrequired'
+        })}
       >
         <PrStatusActionButton label={label} />
       </CheckRequiredClick>
@@ -335,7 +398,11 @@ class PrState extends React.Component {
       <Paper className={classes.paper}>
         <List>
           <ListItem>
-            <ListItemText>Fortschritt des Reviewprozesses</ListItemText>
+            <ListItemText>
+              {this.props.intl.formatMessage({
+                id: 'prstate.progress'
+              })}
+            </ListItemText>
           </ListItem>
           <ListItem>
             <PrStatusStepper
@@ -350,23 +417,25 @@ class PrState extends React.Component {
 }
 
 export const StyledComponent = withStyles(styles)(PrState);
-export default connect(
-  state => ({
-    prById: getPrDetail()(state),
-    userroles: getUserroles(state),
-    userinfo: getUserinfo(state),
-    overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
-    employeeContributionRole: getPrEmployeeContributions(
-      'ROLE_AND_PROJECT_ENVIRONMENT'
-    )(state).text,
-    employeeContributionLeader: getPrEmployeeContributions(
-      'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
-    )(state).text,
-    requiredFields: getRequiredFields(state),
-    meeting: getMeeting(state)
-  }),
-  {
-    checkRequired: changeRequiredFields,
-    addPrStatus: actions.addPrStatus
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({
+      prById: getPrDetail()(state),
+      userroles: getUserroles(state),
+      userinfo: getUserinfo(state),
+      overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
+      employeeContributionRole: getPrEmployeeContributions(
+        'ROLE_AND_PROJECT_ENVIRONMENT'
+      )(state).text,
+      employeeContributionLeader: getPrEmployeeContributions(
+        'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+      )(state).text,
+      requiredFields: getRequiredFields(state),
+      meeting: getMeeting(state)
+    }),
+    {
+      checkRequired: changeRequiredFields,
+      addPrStatus: actions.addPrStatus
+    }
+  )(StyledComponent)
+);
