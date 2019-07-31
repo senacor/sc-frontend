@@ -138,7 +138,7 @@ const Login = props => {
   if (props.isLoggedIn) {
     return <Redirect push to={from} />;
   }
-  console.log('isloading', isLoading);
+
   return (
     <div className={props.classes.hero}>
       <div className={props.classes.login}>

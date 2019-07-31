@@ -56,6 +56,7 @@ export class PrOverviewEmployee extends React.Component {
     });
     return result;
   };
+
   handleChange = content => {
     this.setState({ columnsToView: content });
   };
