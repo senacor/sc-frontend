@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListFilter } from './ListFilter';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import FILTER_GROUPS from './filterGroups';
 import HR_ELEMENTS from './hrElements';
 

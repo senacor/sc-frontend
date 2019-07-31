@@ -41,7 +41,7 @@ export class ListFilter extends Component {
     if (event.key === 'Enter') {
       this.setFilter();
     }
-  }
+  };
 
   isFilterSet = checked => {
     return !(
