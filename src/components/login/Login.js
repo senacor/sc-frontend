@@ -138,7 +138,7 @@ const Login = props => {
   if (props.isLoggedIn) {
     return <Redirect push to={from} />;
   }
-  //console.log('isloading', isLoading);
+  console.log('isloading', isLoading);
   return (
     <div className={props.classes.hero}>
       <div className={props.classes.login}>
@@ -201,7 +201,7 @@ const Login = props => {
               onClick={handleOnClick}
               type="submit"
             >
-              {isLoading ? (
+              {props.isLoading ? (
                 <CircularProgress
                   size={24}
                   className={props.classes.buttonProgress}

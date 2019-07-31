@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 export const DownloadFile = props => {
   const employeeId = props.employeeId;
   const fileId = props.fileId;
-  const [downloadTab, setDownloadTab] = useState(null);
+  let downloadTab = null;
 
   const handleClick = (employeeId, fileId) => () => {
-    setDownloadTab(window.open());
+    downloadTab = window.open();
     props.downloadFile(employeeId, fileId);
   };
 
