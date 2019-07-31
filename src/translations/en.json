@@ -32,7 +32,6 @@
   "datefilter.forward": "forward",
   "datefilter.invalid": "Invalid input",
   "employeefilter.name": "Name",
-  "employeefilter.delete": "delete",
   "performancereviewtable.noentry": "No results matched your filter criteria.",
   "performancereviewtable.nextpage": "Next page",
   "performancereviewtable.previouspage": "Previous page",

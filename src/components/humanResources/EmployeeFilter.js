@@ -71,9 +71,7 @@ export class EmployeeFilter extends Component {
                 <InputAdornment position="end">
                   <IconButton>
                     <Icon id="adornmentIcon" onClick={this.onDelete}>
-                      {intl.formatMessage({
-                        id: 'employeefilter.delete'
-                      })}
+                      clear
                     </Icon>
                   </IconButton>
                 </InputAdornment>
