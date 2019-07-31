@@ -4,7 +4,7 @@ exports[`SchedulingView should match snapshot 1`] = `
 <div
   id="outer"
 >
-  <Connect(MeetingCreator)
+  <InjectIntl(Connect(MeetingCreator))
     handleChange={[Function]}
   />
 </div>

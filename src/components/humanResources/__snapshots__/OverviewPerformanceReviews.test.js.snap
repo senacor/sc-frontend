@@ -11,47 +11,62 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
     <WithStyles(Grid)
       item={true}
     >
-      <TableColumnSelectorMenu
+      <InjectIntl(TableColumnSelectorMenu)
         content={
           Array [
             Object {
-              "label": "Mitarbeiter",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.employee"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="employee"
                   filterGroup="hr"
           >
-                  <Connect(EmployeeFilter) />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Mitarbeiter",
+                  <InjectIntl(Connect(EmployeeFilter)) />
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.employee"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Fälligkeit",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.duedate"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="deadline"
                   filterGroup="hr"
           >
-                  <Connect(WithStyles(DateFilter)) />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Fälligkeit",
+                  <InjectIntl(Connect(WithStyles(Component))) />
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.duedate"
+                  values={Object {}}
+          />,
                 "numeric": true,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Grund",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.reason"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="occasion"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "Auf Nachfrage": "ON_DEMAND",
@@ -60,21 +75,27 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Grund",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.reason"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Projektkst",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.projectcst"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="projectCst"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "ACD_BOOT": "ACD_BOOT",
@@ -82,21 +103,27 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Projektkst",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.projectcst"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Dev/Con",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.devcon"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="competence"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "Con.": "CONSULTING",
@@ -104,21 +131,27 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Dev/Con",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.devcon"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "level",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.level"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="level"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "1": "1",
@@ -126,51 +159,69 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "level",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.level"
+                  values={Object {}}
+          />,
                 "numeric": true,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Vorgesetzte/r",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.supervisor"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="supervisor"
                   filterGroup="hr"
           >
-                  <Connect(EmployeeFilter) />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Vorgesetzte/r",
+                  <InjectIntl(Connect(EmployeeFilter)) />
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.supervisor"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Bewerter",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.reviewer"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="reviewer"
                   filterGroup="hr"
           >
-                  <Connect(EmployeeFilter) />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Bewerter",
+                  <InjectIntl(Connect(EmployeeFilter)) />
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.reviewer"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Bewertung",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.rating"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="overallAssessment"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "erfüllt": "3",
@@ -181,21 +232,27 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Bewertung",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.rating"
+                  values={Object {}}
+          />,
                 "numeric": true,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "MA ausgefüllt",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.employeefilled"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="employeePreparationDone"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "ja": true,
@@ -203,21 +260,27 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "MA ausgefüllt",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.employeefilled"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Beurteiler ausgefüllt",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.reviewerfilled"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="reviewerPreparationDone"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "ja": true,
@@ -225,30 +288,42 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Beurteiler ausgefüllt",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.reviewerfilled"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Termin",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.termin"
+                values={Object {}}
+          />,
               "value": Object {
-                "label": "Termin",
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.termin"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "Finaler Status",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.final"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="inProgress"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "beendet": false,
@@ -256,21 +331,27 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "Finaler Status",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.final"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
               },
             },
             Object {
-              "label": "HR verarbeitet",
+              "label": <FormattedMessage
+                id="performancereviewtableservice.hrverarbeitet"
+                values={Object {}}
+          />,
               "value": Object {
-                "filter": <Connect(WithStyles(PopperSearchMenu))
+                "filter": <Connect(WithStyles(Component))
                   filterBy="humanResourceProcessingDone"
                   filterGroup="hr"
           >
-                  <Connect(ListFilter)
+                  <Connect(Component)
                           content={
                                   Object {
                                           "ja": true,
@@ -278,8 +359,11 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                                         }
                           }
                   />
-          </Connect(WithStyles(PopperSearchMenu))>,
-                "label": "HR verarbeitet",
+          </Connect(WithStyles(Component))>,
+                "label": <FormattedMessage
+                  id="performancereviewtableservice.hrverarbeitet"
+                  values={Object {}}
+          />,
                 "numeric": false,
                 "render": [Function],
                 "sortValue": [Function],
@@ -291,39 +375,45 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
       />
     </WithStyles(Grid)>
   </WithStyles(Grid)>
-  <WithStyles(PerformanceReviewTable)
+  <InjectIntl(WithStyles(PerformanceReviewTable))
     columnDefinition={
       Array [
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="employee"
             filterGroup="hr"
       >
-            <Connect(EmployeeFilter) />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Mitarbeiter",
+            <InjectIntl(Connect(EmployeeFilter)) />
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.employee"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="deadline"
             filterGroup="hr"
       >
-            <Connect(WithStyles(DateFilter)) />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Fälligkeit",
+            <InjectIntl(Connect(WithStyles(Component))) />
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.duedate"
+            values={Object {}}
+      />,
           "numeric": true,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="occasion"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "Auf Nachfrage": "ON_DEMAND",
@@ -332,18 +422,21 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Grund",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.reason"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="projectCst"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "ACD_BOOT": "ACD_BOOT",
@@ -351,18 +444,21 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Projektkst",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.projectcst"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="competence"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "Con.": "CONSULTING",
@@ -370,18 +466,21 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Dev/Con",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.devcon"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="level"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "1": "1",
@@ -389,42 +488,51 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "level",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.level"
+            values={Object {}}
+      />,
           "numeric": true,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="supervisor"
             filterGroup="hr"
       >
-            <Connect(EmployeeFilter) />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Vorgesetzte/r",
+            <InjectIntl(Connect(EmployeeFilter)) />
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.supervisor"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="reviewer"
             filterGroup="hr"
       >
-            <Connect(EmployeeFilter) />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Bewerter",
+            <InjectIntl(Connect(EmployeeFilter)) />
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.reviewer"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="overallAssessment"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "erfüllt": "3",
@@ -435,18 +543,21 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Bewertung",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.rating"
+            values={Object {}}
+      />,
           "numeric": true,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="employeePreparationDone"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "ja": true,
@@ -454,18 +565,21 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "MA ausgefüllt",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.employeefilled"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="reviewerPreparationDone"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "ja": true,
@@ -473,24 +587,30 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Beurteiler ausgefüllt",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.reviewerfilled"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "label": "Termin",
+          "label": <FormattedMessage
+            id="performancereviewtableservice.termin"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="inProgress"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "beendet": false,
@@ -498,18 +618,21 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "Finaler Status",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.final"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],
         },
         Object {
-          "filter": <Connect(WithStyles(PopperSearchMenu))
+          "filter": <Connect(WithStyles(Component))
             filterBy="humanResourceProcessingDone"
             filterGroup="hr"
       >
-            <Connect(ListFilter)
+            <Connect(Component)
                   content={
                         Object {
                               "ja": true,
@@ -517,8 +640,11 @@ exports[`OverviewPerformanceReviews should match snapshot 1`] = `
                             }
                   }
             />
-      </Connect(WithStyles(PopperSearchMenu))>,
-          "label": "HR verarbeitet",
+      </Connect(WithStyles(Component))>,
+          "label": <FormattedMessage
+            id="performancereviewtableservice.hrverarbeitet"
+            values={Object {}}
+      />,
           "numeric": false,
           "render": [Function],
           "sortValue": [Function],

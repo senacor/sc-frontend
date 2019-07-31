@@ -17,7 +17,7 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
     <WithStyles(Grid)
       item={true}
     >
-      <Connect(WithStyles(MeetingCreatorForm))
+      <InjectIntl(Connect(WithStyles(MeetingCreatorForm)))
         fetchAppointments={[Function]}
         prById={
           Object {
@@ -62,7 +62,7 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
           item={true}
           key="employee"
         >
-          <WithStyles(PersonToggle)
+          <WithStyles(Component)
             attendee="employee"
             displayName="Max Mustermann"
             displayRole="Ich"
@@ -74,7 +74,7 @@ exports[`MeetingCreatorForm should match snapshot 1`] = `
           item={true}
           key="supervisor"
         >
-          <WithStyles(PersonToggle)
+          <WithStyles(Component)
             attendee="supervisor"
             displayName="Michaela Mitarbeiterin"
             displayRole="Vorgesetzte/r"

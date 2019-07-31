@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -112,116 +112,120 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = props => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-    this.state = {
-      username: '',
-      password: '',
-      token: props.token
-    };
-  }
-
-  handleOnClick = event => {
+  const handleOnClick = event => {
     event.preventDefault();
 
-    this.props.login({
-      username: this.state.username,
-      password: this.state.password
+    props.login({
+      username: username,
+      password: password
     });
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  const handleChange = event => {
+    if (event.target.name === 'username') {
+      setUsername(event.target.value);
+    } else if (event.target.name === 'password') {
+      setPassword(event.target.value);
+    }
   };
 
-  render() {
-    const { classes, isLoggedIn, isUnauthorized, isLoading } = this.props;
-    let { from } = this.props.location.state || { from: { pathname: '/' } };
+  let { from } = props.location.state || { from: { pathname: '/' } };
 
-    if (isLoggedIn) {
-      return <Redirect push to={from} />;
-    }
-
-    return (
-      <div className={classes.hero}>
-        <div className={classes.login}>
-          <LanguageButton color="primary" />
-          <form className={classes.form} onSubmit={this.handleOnClick}>
-            <Hidden smDown>
-              <img src={senacorLogo} className={classes.logo} alt="Senacor" />
-            </Hidden>
-            <Hidden mdUp>
-              <img
-                src={senacorLogoMobile}
-                className={classes.logo}
-                alt="Senacor"
-              />
-            </Hidden>
-            <FormControl className={classes.formControl} error={isUnauthorized}>
-              <Input
-                name="username"
-                value={this.state.username}
-                placeholder={this.props.intl.formatMessage({
-                  id: 'login.username'
-                })}
-                className={classes.input}
-                onChange={this.handleChange}
-                startAdornment={<UserIcon />}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl} error={isUnauthorized}>
-              <Input
-                name="password"
-                type="password"
-                value={this.state.password}
-                placeholder={this.props.intl.formatMessage({
-                  id: 'login.password'
-                })}
-                className={classes.input}
-                onChange={this.handleChange}
-                startAdornment={<PasswordIcon />}
-              />
-              <FormHelperText id="name-error-text">
-                {isUnauthorized && 'Anmeldung fehlgeschlagen'}
-              </FormHelperText>
-            </FormControl>
-
-            <Hidden smDown>
-              <Button
-                color="primary"
-                className={classes.button}
-                variant="contained"
-                onClick={this.handleOnClick}
-                type="submit"
-              >
-                {isLoading ? (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                ) : (
-                  <FormattedMessage id="login.login" />
-                )}
-              </Button>
-            </Hidden>
-            <Hidden mdUp>
-              <Button
-                className={classes.button}
-                variant="contained"
-                onClick={this.handleOnClick}
-                type="submit"
-              >
-                {<FormattedMessage id="login.login" />}
-              </Button>
-            </Hidden>
-          </form>
-        </div>
-      </div>
-    );
+  if (props.isLoggedIn) {
+    return <Redirect push to={from} />;
   }
-}
+  //console.log('isloading', isLoading);
+  return (
+    <div className={props.classes.hero}>
+      <div className={props.classes.login}>
+        <LanguageButton color="primary" />
+        <form className={props.classes.form} onSubmit={handleOnClick}>
+          <Hidden smDown>
+            <img
+              src={senacorLogo}
+              className={props.classes.logo}
+              alt="Senacor"
+            />
+          </Hidden>
+          <Hidden mdUp>
+            <img
+              src={senacorLogoMobile}
+              className={props.classes.logo}
+              alt="Senacor"
+            />
+          </Hidden>
+          <FormControl
+            className={props.classes.formControl}
+            error={props.isUnauthorized}
+          >
+            <Input
+              name="username"
+              value={username}
+              placeholder={props.intl.formatMessage({
+                id: 'login.username'
+              })}
+              className={props.classes.input}
+              onChange={handleChange}
+              startAdornment={<UserIcon />}
+            />
+          </FormControl>
+          <FormControl
+            className={props.classes.formControl}
+            error={props.isUnauthorized}
+          >
+            <Input
+              name="password"
+              type="password"
+              value={password}
+              placeholder={props.intl.formatMessage({
+                id: 'login.password'
+              })}
+              className={props.classes.input}
+              onChange={handleChange}
+              startAdornment={<PasswordIcon />}
+            />
+            <FormHelperText id="name-error-text">
+              {props.isUnauthorized && 'Anmeldung fehlgeschlagen'}
+            </FormHelperText>
+          </FormControl>
+
+          <Hidden smDown>
+            <Button
+              color="primary"
+              className={props.classes.button}
+              variant="contained"
+              onClick={handleOnClick}
+              type="submit"
+            >
+              {isLoading ? (
+                <CircularProgress
+                  size={24}
+                  className={props.classes.buttonProgress}
+                />
+              ) : (
+                <FormattedMessage id="login.login" />
+              )}
+            </Button>
+          </Hidden>
+          <Hidden mdUp>
+            <Button
+              className={props.classes.button}
+              variant="contained"
+              onClick={handleOnClick}
+              type="submit"
+            >
+              {<FormattedMessage id="login.login" />}
+            </Button>
+          </Hidden>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 const UserIcon = () => (
   <InputAdornment position="start">

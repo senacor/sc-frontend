@@ -2,7 +2,7 @@
 
 exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
 <Fragment>
-  <Connect(WithStyles(PrDetailInformation))
+  <InjectIntl(Connect(WithStyles(PrDetailInformation)))
     meeting={Object {}}
     pr={
       Object {
@@ -27,7 +27,7 @@ exports[`PerformanceReviewDetail Component should match snapshot 1`] = `
       }
     }
   />
-  <Connect(WithStyles(PrState)) />
-  <Connect(WithStyles(PrTabs)) />
+  <InjectIntl(Connect(WithStyles(PrState))) />
+  <InjectIntl(Connect(WithStyles(PrTabs))) />
 </Fragment>
 `;

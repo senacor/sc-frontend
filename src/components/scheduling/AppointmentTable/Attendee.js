@@ -36,7 +36,7 @@ export const styles = () => ({
   }
 });
 
-export function createSingleAppointmentDiv(
+export const createSingleAppointmentDiv = (
   distanceFromLeft,
   startTime,
   endTime,
@@ -46,7 +46,7 @@ export function createSingleAppointmentDiv(
   name,
   appointmentState,
   intl
-) {
+) => {
   let timeStart = moment(startTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
     .tz('Europe/Berlin')
     .format('HH:mm');
@@ -97,9 +97,9 @@ export function createSingleAppointmentDiv(
       />
     </Tooltip>
   );
-}
+};
 
-function attendeeAppointmentClass(attendee, classes) {
+const attendeeAppointmentClass = (attendee, classes) => {
   switch (attendee) {
     case 'employee':
       return classes.appointmentDivEmployee;
@@ -110,14 +110,14 @@ function attendeeAppointmentClass(attendee, classes) {
     default:
       return classes.appointmentDiv;
   }
-}
+};
 
-class Attendee extends React.Component {
-  createAppointmentDivs() {
+const Attendee = props => {
+  const createAppointmentDivs = () => {
     let appointmentDivs = [];
     let filteredAppointments = appointmentsFilter(
-      this.props.appointments,
-      this.props.selectedDate
+      props.appointments,
+      props.selectedDate
     );
     for (
       let appointmentCounter = 0;
@@ -127,35 +127,30 @@ class Attendee extends React.Component {
       const startTime = filteredAppointments[appointmentCounter][0];
       const endTime = filteredAppointments[appointmentCounter][1];
       const appointmentState = filteredAppointments[appointmentCounter][2];
-      const className = attendeeAppointmentClass(
-        this.props.attendee,
-        this.props.classes
-      );
+      const className = attendeeAppointmentClass(props.attendee, props.classes);
       appointmentDivs.push(
         createSingleAppointmentDiv(
-          this.props.distanceFromLeft,
+          props.distanceFromLeft,
           startTime,
           endTime,
-          this.props.selectedDate,
+          props.selectedDate,
           className,
           appointmentCounter,
-          this.props.name,
+          props.name,
           appointmentState,
-          this.props.intl
+          props.intl
         )
       );
     }
     return appointmentDivs;
-  }
+  };
 
-  render() {
-    return (
-      <React.Fragment>
-        {this.props.show ? this.createAppointmentDivs() : null}
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      {props.show ? createAppointmentDivs() : null}
+    </React.Fragment>
+  );
+};
 
 Attendee.propTypes = {
   appointments: PropTypes.array.isRequired,

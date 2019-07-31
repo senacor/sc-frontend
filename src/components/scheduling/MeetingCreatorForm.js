@@ -125,7 +125,6 @@ class MeetingCreatorForm extends React.Component {
     visibilityService.setPr(pr);
     visibilityService.setUserinfo(userinfo);
     visibilityService.setUserroles(userroles);
-
     return (
       <div>
         {visibilityService.getAction() ? (

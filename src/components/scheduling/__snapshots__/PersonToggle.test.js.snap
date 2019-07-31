@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PersonToggle should match snapshot 1`] = `
-<PersonToggle
+<Component
   classes={
     Object {
-      "bar": "PersonToggle-bar-7",
-      "colorSwitchBaseEmployee": "PersonToggle-colorSwitchBaseEmployee-2",
-      "colorSwitchBaseEmployeeOff": "PersonToggle-colorSwitchBaseEmployeeOff-5",
-      "colorSwitchBaseReviewer": "PersonToggle-colorSwitchBaseReviewer-1",
-      "colorSwitchBaseReviewerOff": "PersonToggle-colorSwitchBaseReviewerOff-4",
-      "colorSwitchBaseSupervisor": "PersonToggle-colorSwitchBaseSupervisor-3",
-      "colorSwitchBaseSupervisorOff": "PersonToggle-colorSwitchBaseSupervisorOff-6",
+      "bar": "Component-bar-7",
+      "colorSwitchBaseEmployee": "Component-colorSwitchBaseEmployee-2",
+      "colorSwitchBaseEmployeeOff": "Component-colorSwitchBaseEmployeeOff-5",
+      "colorSwitchBaseReviewer": "Component-colorSwitchBaseReviewer-1",
+      "colorSwitchBaseReviewerOff": "Component-colorSwitchBaseReviewerOff-4",
+      "colorSwitchBaseSupervisor": "Component-colorSwitchBaseSupervisor-3",
+      "colorSwitchBaseSupervisorOff": "Component-colorSwitchBaseSupervisorOff-6",
     }
   }
   displayName="Michaela Mitarbeiterin"

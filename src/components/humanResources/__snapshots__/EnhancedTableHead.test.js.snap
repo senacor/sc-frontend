@@ -16,12 +16,12 @@ exports[`EnhancedTableHead component should match snapshot 1`] = `
         direction="asc"
         onClick={[Function]}
       >
-        <Connect(WithStyles(PopperSearchMenu))>
-          <Connect(EmployeeFilter)
+        <Connect(WithStyles(Component))>
+          <InjectIntl(Connect(EmployeeFilter))
             filterBy="employee"
             filterGroup="hr"
           />
-        </Connect(WithStyles(PopperSearchMenu))>
+        </Connect(WithStyles(Component))>
         Mitarbeiter
       </WithStyles(TableSortLabel)>
     </WithStyles(TableCell)>

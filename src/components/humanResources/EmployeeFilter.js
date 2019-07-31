@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as actions from '../../actions';
 import EmployeeSearch from '../employeeSearch/EmployeeSearch';
 import { getSubFilter } from '../../reducers/selector';
@@ -10,82 +10,71 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 import { injectIntl } from 'react-intl';
 
-export class EmployeeFilter extends Component {
-  constructor(props) {
-    super(props);
+export const EmployeeFilter = props => {
+  const defaultFilter = Object.assign(
+    {},
+    { searchString: '', values: '' },
+    props.filter
+  );
+  const employeeName = defaultFilter.values;
 
-    let filter = Object.assign(
-      {},
-      { searchString: '', values: '' },
-      this.props.filter
-    );
-
-    this.state = {
-      employeeName: filter.values,
-      filter: filter
-    };
-  }
-
-  selectEmployee = employee => {
+  const selectEmployee = employee => {
     if (employee) {
       let filter = {
-        searchString: `${this.props.filterBy}=${employee.id}`,
+        searchString: `${props.filterBy}=${employee.id}`,
         values: `${employee.firstName} ${employee.lastName}`
       };
       let payload = {
-        filterGroup: this.props.filterGroup,
-        filterBy: this.props.filterBy,
+        filterGroup: props.filterGroup,
+        filterBy: props.filterBy,
         filter: filter
       };
-      this.props.addFilter(payload);
-      this.props.closeFilter();
+      props.addFilter(payload);
+      props.closeFilter();
     }
   };
 
-  onDelete = () => {
+  const onDelete = () => {
     let payload = {
-      filterGroup: this.props.filterGroup,
-      filterBy: this.props.filterBy
+      filterGroup: props.filterGroup,
+      filterBy: props.filterBy
     };
-    this.props.deleteFilter(payload);
-    this.props.closeFilter();
+    props.deleteFilter(payload);
+    props.closeFilter();
   };
 
-  render() {
-    const { intl } = this.props;
-    return (
-      <EmployeeSearch
-        employeeSearchValue={this.state.employeeName}
-        selectEmployee={this.selectEmployee}
-        inputElement={(value, onChange) => (
-          <TextField
-            id="outlined-adornment-filter"
-            variant="outlined"
-            label={intl.formatMessage({
-              id: 'employeefilter.name'
-            })}
-            value={value}
-            onChange={onChange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton>
-                    <Icon id="adornmentIcon" onClick={this.onDelete}>
-                      {intl.formatMessage({
-                        id: 'employeefilter.delete'
-                      })}
-                    </Icon>
-                  </IconButton>
-                </InputAdornment>
-              ),
-              name: 'employeeSearchValue'
-            }}
-          />
-        )}
-      />
-    );
-  }
-}
+  return (
+    <EmployeeSearch
+      employeeSearchValue={employeeName}
+      selectEmployee={selectEmployee}
+      inputElement={(value, onChange) => (
+        <TextField
+          id="outlined-adornment-filter"
+          variant="outlined"
+          label={props.intl.formatMessage({
+            id: 'employeefilter.name'
+          })}
+          value={value}
+          onChange={onChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton>
+                  <Icon id="adornmentIcon" onClick={onDelete}>
+                    {props.intl.formatMessage({
+                      id: 'employeefilter.delete'
+                    })}
+                  </Icon>
+                </IconButton>
+              </InputAdornment>
+            ),
+            name: 'employeeSearchValue'
+          }}
+        />
+      )}
+    />
+  );
+};
 
 EmployeeFilter.propTypes = {
   filterGroup: PropTypes.string.isRequired,

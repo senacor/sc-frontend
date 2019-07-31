@@ -6,11 +6,10 @@ import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import objectGet from 'object-get';
 import { injectIntl } from 'react-intl';
-
 import { getUserinfo } from '../../reducers/selector';
 import { Redirect } from 'react-router-dom';
 
-export function RequestPerformanceReview(props) {
+export const RequestPerformanceReview = props => {
   if (props.newPrId) {
     return <Redirect to={`/prDetail/${props.newPrId}`} />;
   }
@@ -56,7 +55,7 @@ export function RequestPerformanceReview(props) {
       </Button>
     </React.Fragment>
   );
-}
+};
 
 export default injectIntl(
   connect(

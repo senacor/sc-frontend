@@ -40,7 +40,7 @@ const EnhancedTableHead = props => {
               </TableSortLabel>
             </TableCell>
           );
-        }, this)}
+        })}
       </TableRow>
     </TableHead>
   );

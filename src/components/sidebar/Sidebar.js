@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,7 +14,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink } from 'react-router-dom';
-
 import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
@@ -46,20 +45,20 @@ const styles = () => ({
   }
 });
 
-export class Sidebar extends Component {
-  componentDidMount() {
-    if (this.props.userphoto === '') {
-      this.props.getUserPhoto();
+export const Sidebar = props => {
+  useEffect(() => {
+    if (props.userphoto === '') {
+      props.getUserPhoto();
     }
-    this.props.getUserInfo();
-    this.props.getUserRoles();
-    this.props.getReviewerInfo();
-  }
+    props.getUserInfo();
+    props.getUserRoles();
+    props.getReviewerInfo();
+  }, []);
 
-  getListOfMenuItems = () => {
+  const getListOfMenuItems = () => {
     return [
       {
-        label: this.props.intl.formatMessage({
+        label: props.intl.formatMessage({
           id: 'sidebar.dashboard'
         }),
         icon: <DashboardIcon />,
@@ -67,7 +66,7 @@ export class Sidebar extends Component {
         onClick: () => {}
       },
       {
-        label: this.props.intl.formatMessage({
+        label: props.intl.formatMessage({
           id: 'sidebar.prs'
         }),
         icon: <LibraryBooksIcon />,
@@ -75,22 +74,22 @@ export class Sidebar extends Component {
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
         reviewerCheck: true,
         onClick: () => {
-          this.props.resetFilterGroup(FILTER_GROUPS.REVIEWER);
+          props.resetFilterGroup(FILTER_GROUPS.REVIEWER);
         }
       },
       {
-        label: this.props.intl.formatMessage({
+        label: props.intl.formatMessage({
           id: 'sidebar.allprs'
         }),
         icon: <LibraryBooksIcon />,
         value: '/hr/prs',
         roles: [ROLES.PR_HR],
         onClick: () => {
-          this.props.resetFilterGroup(FILTER_GROUPS.HR);
+          props.resetFilterGroup(FILTER_GROUPS.HR);
         }
       },
       {
-        label: this.props.intl.formatMessage({
+        label: props.intl.formatMessage({
           id: 'sidebar.archivedprs'
         }),
         icon: <SaveIcon />,
@@ -99,18 +98,18 @@ export class Sidebar extends Component {
         onClick: () => {}
       },
       {
-        label: this.props.intl.formatMessage({
+        label: props.intl.formatMessage({
           id: 'sidebar.myprs'
         }),
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
         onClick: () => {
-          this.props.resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
+          props.resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
         }
       },
       {
-        label: this.props.intl.formatMessage({
+        label: props.intl.formatMessage({
           id: 'sidebar.logout'
         }),
         icon: <PowerSettingsNewIcon />,
@@ -120,72 +119,69 @@ export class Sidebar extends Component {
     ];
   };
 
-  render() {
-    let { classes, userphoto, userinfo, userroles } = this.props;
+  const givenName = props.userinfo.givenName ? props.userinfo.givenName : '';
+  const surname = props.userinfo.surname ? props.userinfo.surname : '';
 
-    let givenName = userinfo.givenName ? userinfo.givenName : '';
-    let surname = userinfo.surname ? userinfo.surname : '';
+  const fullName = `${givenName} ${surname}`;
 
-    const fullName = `${givenName} ${surname}`;
-
-    if (!userroles.length) {
-      return null;
-    }
-
-    return (
-      <div className={classes.root}>
-        <div className={classes.row}>
-          <div className={classes.column}>
-            {userphoto === '' ? (
-              <Avatar
-                alt={fullName}
-                className={classes.avatar}
-              >{`${givenName.charAt(0)}${surname.charAt(0)}`}</Avatar>
-            ) : (
-              <Avatar
-                alt={fullName}
-                src={userphoto}
-                className={classes.avatar}
-              />
-            )}
-
-            <Typography>{fullName}</Typography>
-          </div>
-        </div>
-        <Divider />
-
-        <List component="nav">
-          {this.getListOfMenuItems().map(entry =>
-            !entry.reviewerCheck ||
-            (entry.reviewerCheck &&
-              userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
-                0) ? (
-              <Authorized roles={entry.roles} key={entry.label}>
-                <ListItem
-                  component={NavLink}
-                  to={entry.value}
-                  style={{ textDecoration: 'none' }}
-                  activeStyle={{
-                    backgroundColor: '#DDD'
-                  }}
-                  onClick={entry.onClick}
-                >
-                  <ListItemIcon>{entry.icon}</ListItemIcon>
-                  <ListItemText
-                    disableTypography
-                    primary={<div style={{ color: '#000' }}>{entry.label}</div>}
-                  />
-                </ListItem>
-              </Authorized>
-            ) : null
-          )}
-        </List>
-        <Divider />
-        <CompositionNumber />
-      </div>
-    );
+  if (!props.userroles.length) {
+    return null;
   }
-}
+
+  return (
+    <div className={props.classes.root}>
+      <div className={props.classes.row}>
+        <div className={props.classes.column}>
+          {props.userphoto === '' ? (
+            <Avatar
+              alt={fullName}
+              className={props.classes.avatar}
+            >{`${givenName.charAt(0)}${surname.charAt(0)}`}</Avatar>
+          ) : (
+            <Avatar
+              alt={fullName}
+              src={props.userphoto}
+              className={props.classes.avatar}
+            />
+          )}
+
+          <Typography>{fullName}</Typography>
+        </div>
+      </div>
+      <Divider />
+
+      <List component="nav">
+        {getListOfMenuItems().map(entry =>
+          !entry.reviewerCheck ||
+          (entry.reviewerCheck &&
+            props.userinfo.numberOfPrsToReview +
+              props.userinfo.numberOfPrsToSupervise >
+              0) ? (
+            <Authorized roles={entry.roles} key={entry.label}>
+              <ListItem
+                component={NavLink}
+                to={entry.value}
+                style={{ textDecoration: 'none' }}
+                activeStyle={{
+                  backgroundColor: '#DDD'
+                }}
+                onClick={entry.onClick}
+              >
+                <ListItemIcon>{entry.icon}</ListItemIcon>
+                <ListItemText
+                  disableTypography
+                  primary={<div style={{ color: '#000' }}>{entry.label}</div>}
+                />
+              </ListItem>
+            </Authorized>
+          ) : null
+        )}
+      </List>
+      <Divider />
+      <CompositionNumber />
+    </div>
+  );
+};
 
 export const StyledComponent = withStyles(styles)(Sidebar);
 export default injectIntl(

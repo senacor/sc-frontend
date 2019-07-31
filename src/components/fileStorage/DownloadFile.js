@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import * as actions from '../../actions';
@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 export const DownloadFile = props => {
   const employeeId = props.employeeId;
   const fileId = props.fileId;
-  let downloadTab = null;
+  const [downloadTab, setDownloadTab] = useState(null);
 
   const handleClick = (employeeId, fileId) => () => {
-    downloadTab = window.open();
+    setDownloadTab(window.open());
     props.downloadFile(employeeId, fileId);
   };
 
