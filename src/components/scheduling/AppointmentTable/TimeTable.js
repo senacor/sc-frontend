@@ -24,23 +24,8 @@ const startHour = moment
   .utc()
   .minutes(0);
 
-class TimeTable extends React.Component {
-  render() {
-    const { classes } = this.props;
-
-    const dividers = TimeTable.createDividers(classes);
-    const hourLabels = TimeTable.createHourLabels(classes);
-
-    return (
-      <div className={classes.timeTableDiv}>
-        {dividers}
-        {hourLabels}
-        {this.props.children}
-      </div>
-    );
-  }
-
-  static createDividers(classes) {
+const TimeTable = props => {
+  const createDividers = classes => {
     const dividers = [];
 
     for (
@@ -56,9 +41,9 @@ class TimeTable extends React.Component {
       );
     }
     return dividers;
-  }
+  };
 
-  static createHourLabels(classes) {
+  const createHourLabels = classes => {
     const hourLabels = [];
     for (
       let hour = moment(startHour);
@@ -82,8 +67,19 @@ class TimeTable extends React.Component {
       );
     }
     return hourLabels;
-  }
-}
+  };
+
+  const dividers = createDividers(props.classes);
+  const hourLabels = createHourLabels(props.classes);
+
+  return (
+    <div className={props.classes.timeTableDiv}>
+      {dividers}
+      {hourLabels}
+      {props.children}
+    </div>
+  );
+};
 
 TimeTable.propTypes = {
   appointmentsEmployee: PropTypes.array.isRequired,
