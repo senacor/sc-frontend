@@ -112,13 +112,19 @@ const attendeeAppointmentClass = (attendee, classes) => {
   }
 };
 
-const Attendee = props => {
+const Attendee = ({
+  appointments,
+  selectedDate,
+  attendee,
+  classes,
+  distanceFromLeft,
+  name,
+  intl,
+  show
+}) => {
   const createAppointmentDivs = () => {
     let appointmentDivs = [];
-    let filteredAppointments = appointmentsFilter(
-      props.appointments,
-      props.selectedDate
-    );
+    let filteredAppointments = appointmentsFilter(appointments, selectedDate);
     for (
       let appointmentCounter = 0;
       appointmentCounter < filteredAppointments.length;
@@ -127,18 +133,18 @@ const Attendee = props => {
       const startTime = filteredAppointments[appointmentCounter][0];
       const endTime = filteredAppointments[appointmentCounter][1];
       const appointmentState = filteredAppointments[appointmentCounter][2];
-      const className = attendeeAppointmentClass(props.attendee, props.classes);
+      const className = attendeeAppointmentClass(attendee, classes);
       appointmentDivs.push(
         createSingleAppointmentDiv(
-          props.distanceFromLeft,
+          distanceFromLeft,
           startTime,
           endTime,
-          props.selectedDate,
+          selectedDate,
           className,
           appointmentCounter,
-          props.name,
+          name,
           appointmentState,
-          props.intl
+          intl
         )
       );
     }
@@ -146,9 +152,7 @@ const Attendee = props => {
   };
 
   return (
-    <React.Fragment>
-      {props.show ? createAppointmentDivs() : null}
-    </React.Fragment>
+    <React.Fragment>{show ? createAppointmentDivs() : null}</React.Fragment>
   );
 };
 

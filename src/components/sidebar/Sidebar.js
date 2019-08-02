@@ -45,20 +45,31 @@ const styles = () => ({
   }
 });
 
-export const Sidebar = props => {
+export const Sidebar = ({
+  userphoto,
+  getUserPhoto,
+  getUserInfo,
+  getUserRoles,
+  getReviewerInfo,
+  intl,
+  resetFilterGroup,
+  userinfo,
+  userroles,
+  classes
+}) => {
   useEffect(() => {
-    if (props.userphoto === '') {
-      props.getUserPhoto();
+    if (userphoto === '') {
+      getUserPhoto();
     }
-    props.getUserInfo();
-    props.getUserRoles();
-    props.getReviewerInfo();
+    getUserInfo();
+    getUserRoles();
+    getReviewerInfo();
   }, []);
 
   const getListOfMenuItems = () => {
     return [
       {
-        label: props.intl.formatMessage({
+        label: intl.formatMessage({
           id: 'sidebar.dashboard'
         }),
         icon: <DashboardIcon />,
@@ -66,7 +77,7 @@ export const Sidebar = props => {
         onClick: () => {}
       },
       {
-        label: props.intl.formatMessage({
+        label: intl.formatMessage({
           id: 'sidebar.prs'
         }),
         icon: <LibraryBooksIcon />,
@@ -74,22 +85,22 @@ export const Sidebar = props => {
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
         reviewerCheck: true,
         onClick: () => {
-          props.resetFilterGroup(FILTER_GROUPS.REVIEWER);
+          resetFilterGroup(FILTER_GROUPS.REVIEWER);
         }
       },
       {
-        label: props.intl.formatMessage({
+        label: intl.formatMessage({
           id: 'sidebar.allprs'
         }),
         icon: <LibraryBooksIcon />,
         value: '/hr/prs',
         roles: [ROLES.PR_HR],
         onClick: () => {
-          props.resetFilterGroup(FILTER_GROUPS.HR);
+          resetFilterGroup(FILTER_GROUPS.HR);
         }
       },
       {
-        label: props.intl.formatMessage({
+        label: intl.formatMessage({
           id: 'sidebar.archivedprs'
         }),
         icon: <SaveIcon />,
@@ -98,18 +109,18 @@ export const Sidebar = props => {
         onClick: () => {}
       },
       {
-        label: props.intl.formatMessage({
+        label: intl.formatMessage({
           id: 'sidebar.myprs'
         }),
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
         onClick: () => {
-          props.resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
+          resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
         }
       },
       {
-        label: props.intl.formatMessage({
+        label: intl.formatMessage({
           id: 'sidebar.logout'
         }),
         icon: <PowerSettingsNewIcon />,
@@ -119,30 +130,26 @@ export const Sidebar = props => {
     ];
   };
 
-  const givenName = props.userinfo.givenName ? props.userinfo.givenName : '';
-  const surname = props.userinfo.surname ? props.userinfo.surname : '';
+  const givenName = userinfo.givenName ? userinfo.givenName : '';
+  const surname = userinfo.surname ? userinfo.surname : '';
 
   const fullName = `${givenName} ${surname}`;
 
-  if (!props.userroles.length) {
+  if (!userroles.length) {
     return null;
   }
 
   return (
-    <div className={props.classes.root}>
-      <div className={props.classes.row}>
-        <div className={props.classes.column}>
-          {props.userphoto === '' ? (
+    <div className={classes.root}>
+      <div className={classes.row}>
+        <div className={classes.column}>
+          {userphoto === '' ? (
             <Avatar
               alt={fullName}
-              className={props.classes.avatar}
+              className={classes.avatar}
             >{`${givenName.charAt(0)}${surname.charAt(0)}`}</Avatar>
           ) : (
-            <Avatar
-              alt={fullName}
-              src={props.userphoto}
-              className={props.classes.avatar}
-            />
+            <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
           )}
 
           <Typography>{fullName}</Typography>
@@ -154,8 +161,7 @@ export const Sidebar = props => {
         {getListOfMenuItems().map(entry =>
           !entry.reviewerCheck ||
           (entry.reviewerCheck &&
-            props.userinfo.numberOfPrsToReview +
-              props.userinfo.numberOfPrsToSupervise >
+            userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
               0) ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem

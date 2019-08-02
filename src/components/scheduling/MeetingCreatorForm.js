@@ -43,7 +43,17 @@ const styles = theme => ({
   }
 });
 
-const MeetingCreatorForm = props => {
+const MeetingCreatorForm = ({
+  prById,
+  addMeeting,
+  fetchAppointments,
+  changeDate,
+  pr,
+  userinfo,
+  userroles,
+  classes,
+  intl
+}) => {
   let now = moment.tz('Europe/Berlin');
   const remainder = 30 - (now.minute() % 30);
   let start = now.add(remainder, 'minutes');
@@ -70,7 +80,7 @@ const MeetingCreatorForm = props => {
     }
   };
 
-  const addMeeting = prById => {
+  const createMeeting = prById => {
     let startDateTime = moment.tz(`${date} ${startTime}`, 'Europe/Berlin');
     let endDateTime = moment.tz(`${date} ${endTime}`, 'Europe/Berlin');
 
@@ -94,8 +104,8 @@ const MeetingCreatorForm = props => {
   };
 
   const validateDateTimeInput = () => {
-    let start = addMeeting(props.prById).start;
-    let end = addMeeting(props.prById).end;
+    let start = createMeeting(prById).start;
+    let end = createMeeting(prById).end;
     if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
       return false;
     }
@@ -107,13 +117,13 @@ const MeetingCreatorForm = props => {
 
   const handleClickOfMeetingButton = event => {
     event.preventDefault();
-    props.addMeeting(addMeeting(props.prById));
+    addMeeting(createMeeting(prById));
   };
 
   const setDateTime = (name, value) => {
     if (name === 'date' && moment(value, 'YYYY-MM-DD', true).isValid()) {
-      props.fetchAppointments(value);
-      props.changeDate(value);
+      fetchAppointments(value);
+      changeDate(value);
     }
     switch (name) {
       case 'location':
@@ -133,9 +143,9 @@ const MeetingCreatorForm = props => {
   };
 
   let visibilityService = new meetingDetailVisibilityService();
-  visibilityService.setPr(props.pr);
-  visibilityService.setUserinfo(props.userinfo);
-  visibilityService.setUserroles(props.userroles);
+  visibilityService.setPr(pr);
+  visibilityService.setUserinfo(userinfo);
+  visibilityService.setUserroles(userroles);
   return (
     <div>
       {visibilityService.getAction() ? (
@@ -147,13 +157,13 @@ const MeetingCreatorForm = props => {
         />
       ) : null}
       {visibilityService.getAction() ? (
-        <form className={props.classes.container} noValidate autoComplete="off">
+        <form className={classes.container} noValidate autoComplete="off">
           <TextField
             id="location"
-            label={props.intl.formatMessage({
+            label={intl.formatMessage({
               id: 'meetingcreatorform.place'
             })}
-            className={props.classes.textField}
+            className={classes.textField}
             value={location}
             onChange={handleChange('location')}
             margin="normal"
@@ -161,15 +171,15 @@ const MeetingCreatorForm = props => {
           <CheckRequiredClick
             onClick={handleClickOfMeetingButton}
             check={() => validateDateTimeInput()}
-            message={props.intl.formatMessage({
+            message={intl.formatMessage({
               id: 'meetingcreatorform.starttime'
             })}
           >
             <PrStatusActionButton
-              label={props.intl.formatMessage({
+              label={intl.formatMessage({
                 id: 'meetingcreatorform.createtermin'
               })}
-              inputClass={props.classes.buttonPosition}
+              inputClass={classes.buttonPosition}
             />
           </CheckRequiredClick>
         </form>

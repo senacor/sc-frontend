@@ -10,8 +10,9 @@ import { getUserinfo } from '../../reducers/selector';
 import { Redirect } from 'react-router-dom';
 
 export const RequestPerformanceReview = props => {
-  if (props.newPrId) {
-    return <Redirect to={`/prDetail/${props.newPrId}`} />;
+  let { newPrId, intl, addPr, userinfo } = props;
+  if (newPrId) {
+    return <Redirect to={`/prDetail/${newPrId}`} />;
   }
 
   const hasSupervisor = objectGet(props, 'userinfo.hasSupervisor');
@@ -19,10 +20,10 @@ export const RequestPerformanceReview = props => {
 
   if (!hasSupervisor || hasPrInProgress) {
     let tooltipText = !hasSupervisor
-      ? props.intl.formatMessage({
+      ? intl.formatMessage({
           id: 'requestperformancereview.nosupervisor'
         })
-      : props.intl.formatMessage({
+      : intl.formatMessage({
           id: 'requestperformancereview.alreadyopened'
         });
 
@@ -31,7 +32,7 @@ export const RequestPerformanceReview = props => {
         <span>
           <Button disabled>
             <Icon>add</Icon>
-            {props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'requestperformancereview.requestpr'
             })}
           </Button>
@@ -45,11 +46,11 @@ export const RequestPerformanceReview = props => {
       <Button
         id="addPrButton"
         color="primary"
-        onClick={() => props.addPr(props.userinfo.userPrincipalName)}
+        onClick={() => addPr(userinfo.userPrincipalName)}
         disabled={!hasSupervisor || hasPrInProgress}
       >
         <Icon>add</Icon>
-        {props.intl.formatMessage({
+        {intl.formatMessage({
           id: 'requestperformancereview.requestpr'
         })}
       </Button>

@@ -20,22 +20,13 @@ const styles = {
   }
 };
 
-export const EmployeeSearch = ({
-  employeeSearchClear,
-  employeeSearchValue,
-  selectEmployee,
-  employeeSearch,
-  extClasses,
-  classes,
-  excludeList,
-  inputElement
-}) => {
+export const EmployeeSearch = props => {
   useEffect(() => {
-    employeeSearchClear();
+    props.employeeSearchClear();
   }, []);
 
   const [employeeSearchVal, setEmployeeSearchVal] = useState(
-    employeeSearchValue ? employeeSearchValue : ''
+    props.employeeSearchValue ? props.employeeSearchValue : ''
   );
 
   const handleChange = event => {
@@ -48,24 +39,28 @@ export const EmployeeSearch = ({
   const selectedEmployee = employee => () => {
     const employeeName = `${employee.firstName} ${employee.lastName}`;
     setEmployeeSearchVal(employeeName);
-    selectEmployee(employee);
-    employeeSearchClear();
+    props.selectEmployee(employee);
+    props.employeeSearchClear();
   };
 
-  const executeSearch = debounce(employeeSearch, 500);
+  const executeSearch = debounce(props.employeeSearch, 500);
 
   return (
-    <div className={extClasses.root ? extClasses.root : classes.box}>
-      {inputElement(employeeSearchVal, handleChange)}
+    <div
+      className={
+        props.extClasses.root ? props.extClasses.root : props.classes.box
+      }
+    >
+      {props.inputElement(employeeSearchVal, handleChange)}
       {employeeSearchVal !== '' ? (
         <List
           dense
           id="employeeSearchResultList"
           component="nav"
-          className={classes.employeeList}
+          className={props.classes.employeeList}
         >
           <PlotEmployeeSearchList
-            excludeList={excludeList}
+            excludeList={props.excludeList}
             selectEmployee={selectedEmployee}
           />
         </List>

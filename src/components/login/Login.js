@@ -112,14 +112,22 @@ const styles = theme => ({
   }
 });
 
-const Login = props => {
+const Login = ({
+  login,
+  location,
+  isLoggedIn,
+  classes,
+  isUnauthorized,
+  intl,
+  isLoading
+}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleOnClick = event => {
     event.preventDefault();
 
-    props.login({
+    login({
       username: username,
       password: password
     });
@@ -133,78 +141,68 @@ const Login = props => {
     }
   };
 
-  let { from } = props.location.state || { from: { pathname: '/' } };
+  let { from } = location.state || { from: { pathname: '/' } };
 
-  if (props.isLoggedIn) {
+  if (isLoggedIn) {
     return <Redirect push to={from} />;
   }
 
   return (
-    <div className={props.classes.hero}>
-      <div className={props.classes.login}>
+    <div className={classes.hero}>
+      <div className={classes.login}>
         <LanguageButton color="primary" />
-        <form className={props.classes.form} onSubmit={handleOnClick}>
+        <form className={classes.form} onSubmit={handleOnClick}>
           <Hidden smDown>
-            <img
-              src={senacorLogo}
-              className={props.classes.logo}
-              alt="Senacor"
-            />
+            <img src={senacorLogo} className={classes.logo} alt="Senacor" />
           </Hidden>
           <Hidden mdUp>
             <img
               src={senacorLogoMobile}
-              className={props.classes.logo}
+              className={classes.logo}
               alt="Senacor"
             />
           </Hidden>
-          <FormControl
-            className={props.classes.formControl}
-            error={props.isUnauthorized}
-          >
+          <FormControl className={classes.formControl} error={isUnauthorized}>
             <Input
               name="username"
               value={username}
-              placeholder={props.intl.formatMessage({
+              placeholder={intl.formatMessage({
                 id: 'login.username'
               })}
-              className={props.classes.input}
+              className={classes.input}
               onChange={handleChange}
               startAdornment={<UserIcon />}
             />
           </FormControl>
-          <FormControl
-            className={props.classes.formControl}
-            error={props.isUnauthorized}
-          >
+          <FormControl className={classes.formControl} error={isUnauthorized}>
             <Input
               name="password"
               type="password"
               value={password}
-              placeholder={props.intl.formatMessage({
+              placeholder={intl.formatMessage({
                 id: 'login.password'
               })}
-              className={props.classes.input}
+              className={classes.input}
               onChange={handleChange}
               startAdornment={<PasswordIcon />}
             />
             <FormHelperText id="name-error-text">
-              {props.isUnauthorized && 'Anmeldung fehlgeschlagen'}
+              {isUnauthorized && 'Anmeldung fehlgeschlagen'}
             </FormHelperText>
           </FormControl>
 
           <Hidden smDown>
             <Button
               color="primary"
-              className={props.classes.button}
+              className={classes.button}
               variant="contained"
               onClick={handleOnClick}
               type="submit"
             >
-              {props.isLoading ? (
+              {isLoading ? (
                 <CircularProgress
                   size={24}
-                  className={props.classes.buttonProgress}
+                  className={classes.buttonProgress}
                 />
               ) : (
                 <FormattedMessage id="login.login" />
@@ -213,7 +211,7 @@ const Login = props => {
           </Hidden>
           <Hidden mdUp>
             <Button
-              className={props.classes.button}
+              className={classes.button}
               variant="contained"
               onClick={handleOnClick}
               type="submit"

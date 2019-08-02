@@ -29,8 +29,15 @@ const styles = () => ({
   }
 });
 
-export const PersonToggle = props => {
-  const [showAttendee, setShowAttendee] = useState(props.showAttendee);
+export const PersonToggle = ({
+  showAttendee,
+  onChange,
+  displayRole,
+  displayName,
+  attendee,
+  classes
+}) => {
+  const [showAtt, setShowAtt] = useState(showAttendee);
 
   const findSwitchBase = (attendee, classes) => {
     switch (attendee) {
@@ -59,8 +66,8 @@ export const PersonToggle = props => {
   };
 
   const handleToggle = () => {
-    setShowAttendee(!showAttendee);
-    props.onChange(!showAttendee);
+    setShowAtt(!showAtt);
+    onChange(!showAtt);
   };
 
   return (
@@ -73,23 +80,23 @@ export const PersonToggle = props => {
     >
       <Grid item xs={8} sm={4} md={2} lg={2} xl={2}>
         <Typography variant="caption" color="textSecondary">
-          {props.displayRole}
+          {displayRole}
         </Typography>
         <Typography variant="subtitle1" noWrap>
-          {props.displayName}
+          {displayName}
         </Typography>
       </Grid>
       <Grid item xs={1} sm={1} md={1}>
         <Switch
           className="employeeSwitch"
-          checked={showAttendee}
+          checked={showAtt}
           onChange={() => {
             handleToggle();
           }}
           classes={{
-            switchBase: findSwitchBaseOff(props.attendee, props.classes),
-            iconChecked: findSwitchBase(props.attendee, props.classes),
-            bar: props.classes.bar
+            switchBase: findSwitchBaseOff(attendee, classes),
+            iconChecked: findSwitchBase(attendee, classes),
+            bar: classes.bar
           }}
           color={'primary'}
         />

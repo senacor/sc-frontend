@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-const Logout = props => {
-  props.logout();
+const Logout = ({ logout }) => {
+  logout();
 
   return <Route render={() => <Redirect to="/login" />} />;
 };

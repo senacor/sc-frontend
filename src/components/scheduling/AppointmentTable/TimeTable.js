@@ -24,7 +24,7 @@ const startHour = moment
   .utc()
   .minutes(0);
 
-const TimeTable = props => {
+const TimeTable = ({ classes, children }) => {
   const createDividers = classes => {
     const dividers = [];
 
@@ -69,14 +69,14 @@ const TimeTable = props => {
     return hourLabels;
   };
 
-  const dividers = createDividers(props.classes);
-  const hourLabels = createHourLabels(props.classes);
+  const dividers = createDividers(classes);
+  const hourLabels = createHourLabels(classes);
 
   return (
-    <div className={props.classes.timeTableDiv}>
+    <div className={classes.timeTableDiv}>
       {dividers}
       {hourLabels}
-      {props.children}
+      {children}
     </div>
   );
 };

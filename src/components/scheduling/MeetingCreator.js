@@ -22,7 +22,17 @@ import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { getMeeting } from '../../reducers/selector';
 import { injectIntl } from 'react-intl';
 
-export const MeetingCreator = props => {
+export const MeetingCreator = ({
+  pr,
+  appointmentsSearch,
+  userinfo,
+  selectedDate,
+  userroles,
+  meeting,
+  appointmentsSearchResults,
+  intl,
+  handleChange
+}) => {
   const [employee, setEmployee] = useState('');
   const [supervisor, setSupervisor] = useState('');
   const [reviewer, setReviewer] = useState('');
@@ -112,17 +122,16 @@ export const MeetingCreator = props => {
   };
 
   const fetchAppointments = date => {
-    let pr = props.pr;
     let attendees = [pr.employee.login, pr.supervisor.login];
     hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
       attendees.push(pr.reviewer.login);
 
-    props.appointmentsSearch(attendees.join(','), date);
+    appointmentsSearch(attendees.join(','), date);
   };
 
   useEffect(() => {
-    setEmployeeSupervisorReviewerData(props.pr, props.userinfo);
-    fetchAppointments(props.selectedDate);
+    setEmployeeSupervisorReviewerData(pr, userinfo);
+    fetchAppointments(selectedDate);
   }, []);
 
   const onVisibilityChange = attendee => () => {
@@ -183,11 +192,11 @@ export const MeetingCreator = props => {
   };
 
   let visibilityService = new meetingDetailVisibilityService();
-  visibilityService.setPr(props.pr);
-  visibilityService.setUserinfo(props.userinfo);
-  visibilityService.setUserroles(props.userroles);
-  visibilityService.setMeeting(props.meeting);
-  const allAppointments = props.appointmentsSearchResults;
+  visibilityService.setPr(pr);
+  visibilityService.setUserinfo(userinfo);
+  visibilityService.setUserroles(userroles);
+  visibilityService.setMeeting(meeting);
+  const allAppointments = appointmentsSearchResults;
   return (
     <React.Fragment>
       <Typography gutterBottom variant="h4">
@@ -196,7 +205,7 @@ export const MeetingCreator = props => {
       <Grid id={'tableRolePick'} container spacing={24} direction="column">
         <Grid item>
           <MeetingCreatorForm
-            prById={props.pr}
+            prById={pr}
             fetchAppointments={fetchAppointments}
           />
         </Grid>
@@ -236,7 +245,7 @@ export const MeetingCreator = props => {
                       allAppointments[getStateOfAttendee(attendee).id]
                         .appointments
                     )}
-                    selectedDate={props.selectedDate}
+                    selectedDate={selectedDate}
                     distanceFromLeft={(100 * index) / keyArray.length + 10}
                     name={getStateOfAttendee(attendee).name}
                     attendee={attendee}
@@ -245,10 +254,10 @@ export const MeetingCreator = props => {
             </TimeTable>
             {visibilityService.getMeetingExists() ? (
               <PrStatusActionButton
-                label={props.intl.formatMessage({
+                label={intl.formatMessage({
                   id: 'meetingcreator.termindetail'
                 })}
-                releaseButtonClick={props.handleChange}
+                releaseButtonClick={handleChange}
               />
             ) : null}
           </Grid>

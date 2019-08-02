@@ -10,7 +10,7 @@ const styles = theme => ({
   }
 });
 
-const CompositionNumber = props => {
+const CompositionNumber = ({ classes, intl }) => {
   const [composition, setComposition] = useState('unknown');
 
   useEffect(() => {
@@ -26,9 +26,9 @@ const CompositionNumber = props => {
   }, []);
 
   return (
-    <div id="composition-number" className={props.classes.version}>
+    <div id="composition-number" className={classes.version}>
       <Typography color="textSecondary">
-        {`${props.intl.formatMessage({
+        {`${intl.formatMessage({
           id: 'compositionnumber.version'
         })} ${composition}`}
       </Typography>
