@@ -20,17 +20,26 @@ const styles = {
   }
 };
 
-export const EmployeeSearch = props => {
+export const EmployeeSearch = ({
+  employeeSearchClear,
+  employeeSearchValue,
+  selectEmployee,
+  employeeSearch,
+  extClasses,
+  classes,
+  excludeList,
+  inputElement
+}) => {
   useEffect(() => {
-    props.employeeSearchClear();
+    employeeSearchClear();
   }, []);
 
-  const [employeeSearchValue, setEmployeeSearchValue] = useState(
-    props.employeeSearchValue ? props.employeeSearchValue : ''
+  const [employeeSearchVal, setEmployeeSearchVal] = useState(
+    employeeSearchValue ? employeeSearchValue : ''
   );
 
   const handleChange = event => {
-    setEmployeeSearchValue(event.target.value);
+    setEmployeeSearchVal(event.target.value);
     if (event.target.value) {
       executeSearch(event.target.value);
     }
@@ -38,29 +47,25 @@ export const EmployeeSearch = props => {
 
   const selectedEmployee = employee => () => {
     const employeeName = `${employee.firstName} ${employee.lastName}`;
-    setEmployeeSearchValue(employeeName);
-    props.selectEmployee(employee);
-    props.employeeSearchClear();
+    setEmployeeSearchVal(employeeName);
+    selectEmployee(employee);
+    employeeSearchClear();
   };
 
-  const executeSearch = debounce(props.employeeSearch, 500);
+  const executeSearch = debounce(employeeSearch, 500);
 
   return (
-    <div
-      className={
-        props.extClasses.root ? props.extClasses.root : props.classes.box
-      }
-    >
-      {props.inputElement(employeeSearchValue, handleChange)}
-      {employeeSearchValue !== '' ? (
+    <div className={extClasses.root ? extClasses.root : classes.box}>
+      {inputElement(employeeSearchVal, handleChange)}
+      {employeeSearchVal !== '' ? (
         <List
           dense
           id="employeeSearchResultList"
           component="nav"
-          className={props.classes.employeeList}
+          className={classes.employeeList}
         >
           <PlotEmployeeSearchList
-            excludeList={props.excludeList}
+            excludeList={excludeList}
             selectEmployee={selectedEmployee}
           />
         </List>

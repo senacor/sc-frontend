@@ -63,7 +63,7 @@ const styles = theme => ({
   }
 });
 
-const CustomAppBar = props => {
+const CustomAppBar = ({ classes, intl, theme, children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -71,21 +71,21 @@ const CustomAppBar = props => {
   };
 
   return (
-    <div className={props.classes.root}>
-      <AppBar className={props.classes.appBar}>
+    <div className={classes.root}>
+      <AppBar className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label={props.intl.formatMessage({
+            aria-label={intl.formatMessage({
               id: 'appbar.drawer'
             })}
             onClick={handleDrawerToggle}
-            className={props.classes.navIconHide}
+            className={classes.navIconHide}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
-            {props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'appbar.portal'
             })}
           </Typography>
@@ -95,11 +95,11 @@ const CustomAppBar = props => {
       <Hidden lgUp>
         <Drawer
           variant="temporary"
-          anchor={props.theme.direction === 'rtl' ? 'right' : 'left'}
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
           open={mobileOpen}
           onClose={handleDrawerToggle}
           classes={{
-            paper: props.classes.drawerPaper
+            paper: classes.drawerPaper
           }}
           ModalProps={{
             keepMounted: true // Better open performance on mobile.
@@ -107,10 +107,10 @@ const CustomAppBar = props => {
         >
           <Sidebar />
         </Drawer>
-        <main className={props.classes.content}>
-          <div className={props.classes.toolbar} />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
           <ErrorMessage />
-          {props.children}
+          {children}
         </main>
       </Hidden>
       <Hidden mdDown implementation="css">
@@ -118,15 +118,15 @@ const CustomAppBar = props => {
           variant="permanent"
           open
           classes={{
-            paper: props.classes.drawerPaper
+            paper: classes.drawerPaper
           }}
         >
           <Sidebar />
         </Drawer>
-        <main className={props.classes.desktopContent}>
-          <div className={props.classes.toolbar} />
+        <main className={classes.desktopContent}>
+          <div className={classes.toolbar} />
           <ErrorMessage />
-          {props.children}
+          {children}
         </main>
       </Hidden>
     </div>

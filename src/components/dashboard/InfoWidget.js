@@ -6,7 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InfoWidget = props => {
+const InfoWidget = ({ linkTo, onClick, icon, label, value }) => {
   const style = {
     margin: '20px',
     textDecoration: 'none',
@@ -17,10 +17,10 @@ const InfoWidget = props => {
 
   return (
     <Card
-      component={props.linkTo ? NavLink : null}
-      to={props.linkTo}
+      component={linkTo ? NavLink : null}
+      to={linkTo}
       style={style}
-      onClick={props.onClick}
+      onClick={onClick}
     >
       <CardContent
         style={{
@@ -38,7 +38,7 @@ const InfoWidget = props => {
           }}
         >
           <Icon fontSize={'large'} color={'primary'}>
-            {props.icon}
+            {icon}
           </Icon>
         </div>
         <div
@@ -47,9 +47,9 @@ const InfoWidget = props => {
             padding: '16px 24px 16px 0px'
           }}
         >
-          <Typography color="textSecondary">{props.label}</Typography>
+          <Typography color="textSecondary">{label}</Typography>
           <Typography variant="h5" component="h2">
-            {props.value}
+            {value}
           </Typography>
         </div>
       </CardContent>

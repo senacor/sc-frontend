@@ -17,7 +17,13 @@ const styles = theme => ({
   }
 });
 
-export const PopperSearchMenu = props => {
+export const PopperSearchMenu = ({
+  classes,
+  subfilter,
+  children,
+  filterBy,
+  filterGroup
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -30,8 +36,6 @@ export const PopperSearchMenu = props => {
   };
 
   const getIcon = subfilter => {
-    const classes = props.classes;
-
     return subfilter === '' ? (
       <Icon className={classes.iconFilterUnset}>filter_list</Icon>
     ) : (
@@ -42,7 +46,7 @@ export const PopperSearchMenu = props => {
   const open = Boolean(anchorEl);
   return (
     <div>
-      <IconButton onClick={handleClick}>{getIcon(props.subfilter)}</IconButton>
+      <IconButton onClick={handleClick}>{getIcon(subfilter)}</IconButton>
       <Popover
         id="simple-popper"
         open={open}
@@ -61,10 +65,10 @@ export const PopperSearchMenu = props => {
         }}
       >
         <div>
-          {React.cloneElement(props.children, {
+          {React.cloneElement(children, {
             closeFilter: handleClose,
-            filterBy: props.filterBy,
-            filterGroup: props.filterGroup
+            filterBy: filterBy,
+            filterGroup: filterGroup
           })}
         </div>
       </Popover>

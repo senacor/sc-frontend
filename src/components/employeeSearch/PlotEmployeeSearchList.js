@@ -25,16 +25,23 @@ const styles = theme => ({
   }
 });
 
-const PlotEmployeeSearchList = props => {
+const PlotEmployeeSearchList = ({
+  classes,
+  selectEmployee,
+  searchValue,
+  searchResults,
+  excludeList,
+  intl
+}) => {
   const plotSearchEntry = employee => {
     return (
       <div key={employee.id}>
         <ListItem
           button
-          className={props.classes.listItem}
-          onClick={props.selectEmployee(employee)}
+          className={classes.listItem}
+          onClick={selectEmployee(employee)}
         >
-          <Avatar className={props.classes.avatar}>
+          <Avatar className={classes.avatar}>
             {employee.firstName.charAt(0)}
             {employee.lastName.charAt(0)}
           </Avatar>
@@ -42,9 +49,7 @@ const PlotEmployeeSearchList = props => {
             primary={
               <Highlighter
                 highlightStyle={{ fontWeight: 'bold', background: 'none' }}
-                searchWords={
-                  props.searchValue ? props.searchValue.split(' ') : []
-                }
+                searchWords={searchValue ? searchValue.split(' ') : []}
                 autoEscape={true}
                 textToHighlight={getDisplayName(employee)}
               />
@@ -56,8 +61,8 @@ const PlotEmployeeSearchList = props => {
     );
   };
 
-  let searchResultsWithoutExclude = props.searchResults.filter(
-    employee => !props.excludeList.includes(employee.id)
+  let searchResultsWithoutExclude = searchResults.filter(
+    employee => !excludeList.includes(employee.id)
   );
 
   return searchResultsWithoutExclude.length > 0 ? (
@@ -66,7 +71,7 @@ const PlotEmployeeSearchList = props => {
     })
   ) : (
     <p>
-      {props.intl.formatMessage({
+      {intl.formatMessage({
         id: 'plotemployeesearchList.noresults'
       })}
     </p>

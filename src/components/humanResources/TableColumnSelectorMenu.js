@@ -6,7 +6,7 @@ import TableColumnSelector from './TableColumSelector';
 import Tooltip from '@material-ui/core/Tooltip';
 import { injectIntl } from 'react-intl';
 
-const TableColumnSelectorMenu = props => {
+const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   const createSelectedContent = content => {
     let result = [];
     content.forEach(entry => {
@@ -17,7 +17,7 @@ const TableColumnSelectorMenu = props => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedContent, setSelectedContent] = useState(
-    createSelectedContent(props.content)
+    createSelectedContent(content)
   );
   const [isUnselectedContent, setIsUnselectedContent] = useState(false);
 
@@ -40,7 +40,7 @@ const TableColumnSelectorMenu = props => {
     setSelectedContent(content);
     setIsUnselectedContent(content.length !== result.length);
 
-    props.onChange(result);
+    onChange(result);
   };
 
   const getIcon = () => {
@@ -55,14 +55,12 @@ const TableColumnSelectorMenu = props => {
   return (
     <div>
       <Tooltip
-        title={props.intl.formatMessage({
+        title={intl.formatMessage({
           id: 'tablecolumnselectormenu.columnvisibility'
         })}
         key={'column-visibility'}
       >
-        <IconButton onClick={handleClick}>
-          {getIcon(props.subfilter)}
-        </IconButton>
+        <IconButton onClick={handleClick}>{getIcon(subfilter)}</IconButton>
       </Tooltip>
       <Popover
         open={open}

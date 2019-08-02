@@ -20,21 +20,28 @@ const styles = theme => ({
   }
 });
 
-export const UploadFiles = props => {
+export const UploadFiles = ({
+  uploadFiles,
+  resetUploadedFiles,
+  uploadedFiles,
+  isLoading,
+  classes,
+  intl
+}) => {
   const handleChange = event => {
-    props.uploadFiles(event.target.files);
+    uploadFiles(event.target.files);
   };
 
   const handleClose = () => {
-    props.resetUploadedFiles();
+    resetUploadedFiles();
   };
 
   return (
     <div>
       <UploadSuccessDialog
-        open={props.uploadedFiles.length > 0}
+        open={uploadedFiles.length > 0}
         onClose={handleClose}
-        uploadedFiles={props.uploadedFiles}
+        uploadedFiles={uploadedFiles}
       />
       <input
         style={{ display: 'none' }}
@@ -46,13 +53,10 @@ export const UploadFiles = props => {
       <label htmlFor="upload-button-file">
         <PrStatusActionButton
           label={
-            props.isLoading ? (
-              <CircularProgress
-                size={24}
-                className={props.classes.buttonProgress}
-              />
+            isLoading ? (
+              <CircularProgress size={24} className={classes.buttonProgress} />
             ) : (
-              props.intl.formatMessage({
+              intl.formatMessage({
                 id: 'uploadfiles.upload'
               })
             )

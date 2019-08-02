@@ -21,16 +21,16 @@ const styles = theme => ({
   }
 });
 
-export const Error = props => {
+export const Error = ({ errors, classes }) => {
   return (
     <Paper
-      style={{ display: props.errors.hasErrors ? 'flex' : 'none' }}
-      className={props.classes.error}
+      style={{ display: errors.hasErrors ? 'flex' : 'none' }}
+      className={classes.error}
       elevation={8}
     >
-      <ErrorIcon className={props.classes.icon} />
-      <Typography component="span" className={props.classes.message}>
-        {props.errors.message}
+      <ErrorIcon className={classes.icon} />
+      <Typography component="span" className={classes.message}>
+        {errors.message}
       </Typography>
     </Paper>
   );

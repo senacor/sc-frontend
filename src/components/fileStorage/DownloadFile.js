@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import * as actions from '../../actions';
 import { getDownloadedFile } from '../../reducers/selector';
 import { connect } from 'react-redux';
 
-export const DownloadFile = props => {
-  const employeeId = props.employeeId;
-  const fileId = props.fileId;
-  let downloadTab = null;
-
+let downloadTab = null;
+export const DownloadFile = ({
+  employeeId,
+  fileId,
+  downloadFile,
+  downloadedFile
+}) => {
   const handleClick = (employeeId, fileId) => () => {
     downloadTab = window.open();
-    props.downloadFile(employeeId, fileId);
+    downloadFile(employeeId, fileId);
   };
 
   const checkDownloadFile = file => {
     return file.id && file.employeeId === employeeId && file.fileId === fileId;
   };
 
-  if (checkDownloadFile(props.downloadedFile) && downloadTab) {
-    downloadTab.location = props.downloadedFile.url;
+  if (checkDownloadFile(downloadedFile) && downloadTab) {
+    downloadTab.location = downloadedFile.url;
   }
 
   return (

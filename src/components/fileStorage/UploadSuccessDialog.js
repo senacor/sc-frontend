@@ -20,19 +20,25 @@ const styles = {
   }
 };
 
-export const UploadSuccessDialog = props => {
+export const UploadSuccessDialog = ({
+  uploadedFiles,
+  onClose,
+  open,
+  intl,
+  classes
+}) => {
   const getUnstoredFiles = uploadedFiles => {
     return uploadedFiles.filter(value => value.isStored === false);
   };
 
-  const unstoredFiles = getUnstoredFiles(props.uploadedFiles);
+  const unstoredFiles = getUnstoredFiles(uploadedFiles);
   const numberOfSuccessfulUploadedFiles =
-    props.uploadedFiles.length - unstoredFiles.length;
+    uploadedFiles.length - unstoredFiles.length;
 
   return (
     <Dialog
-      onClose={props.onClose}
-      open={props.open}
+      onClose={onClose}
+      open={open}
       fullWidth={true}
       aria-labelledby="simple-dialog-title"
       style={{ height: '400px' }}
@@ -40,27 +46,27 @@ export const UploadSuccessDialog = props => {
     >
       <DialogTitle>
         <Typography variant={'body2'}>
-          {props.intl.formatMessage({
+          {intl.formatMessage({
             id: 'uploadsuccessdialog.files'
           })}
         </Typography>
       </DialogTitle>
       <DialogContent>
         <Typography variant={'body2'}>
-          {`${numberOfSuccessfulUploadedFiles} ${props.intl.formatMessage({
+          {`${numberOfSuccessfulUploadedFiles} ${intl.formatMessage({
             id: 'uploadsuccessdialog.success'
           })}`}
         </Typography>
         <Typography variant={'body2'}>
-          {`${unstoredFiles.length} ${props.intl.formatMessage({
+          {`${unstoredFiles.length} ${intl.formatMessage({
             id: 'uploadsuccessdialog.error'
           })}`}
         </Typography>
 
-        <List className={props.classes.list}>
+        <List className={classes.list}>
           {unstoredFiles.map((file, index) => {
             return (
-              <ListItem key={index} className={props.classes.listItem}>
+              <ListItem key={index} className={classes.listItem}>
                 <Typography variant={'body2'}>{file.fileName}</Typography>
               </ListItem>
             );
@@ -69,8 +75,8 @@ export const UploadSuccessDialog = props => {
       </DialogContent>
       <DialogActions>
         <PrStatusActionButton
-          releaseButtonClick={props.onClose}
-          label={props.intl.formatMessage({
+          releaseButtonClick={onClose}
+          label={intl.formatMessage({
             id: 'uploadsuccessdialog.ok'
           })}
         />

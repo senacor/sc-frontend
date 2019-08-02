@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import DownloadFile from './DownloadFile';
 import { injectIntl } from 'react-intl';
 
-export const ArchivedFiles = props => {
+export const ArchivedFiles = ({ archivedFiles, intl }) => {
   const getColumnDefinitions = intl => {
     return [
       {
@@ -57,9 +57,9 @@ export const ArchivedFiles = props => {
       <Paper>
         <UploadFiles />
         <PerformanceReviewTable
-          columnDefinition={getColumnDefinitions(props.intl)}
+          columnDefinition={getColumnDefinitions(intl)}
           orderBy={1}
-          data={props.archivedFiles}
+          data={archivedFiles}
         />
       </Paper>
     </div>

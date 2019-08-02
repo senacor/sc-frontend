@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 
-const Authorized = props => {
+const Authorized = ({ userroles, roles, children }) => {
   const userHasRole = role => {
-    return props.userroles.includes(role);
+    return userroles.includes(role);
   };
 
   const userHasOneOfTheRoles = roles => {
@@ -15,8 +15,8 @@ const Authorized = props => {
     return i > 0;
   };
 
-  if (!props.roles || userHasOneOfTheRoles(props.roles)) {
-    return props.children;
+  if (!roles || userHasOneOfTheRoles(roles)) {
+    return children;
   }
 
   return null;

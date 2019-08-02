@@ -10,37 +10,45 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 import { injectIntl } from 'react-intl';
 
-export const EmployeeFilter = props => {
+export const EmployeeFilter = ({
+  filter,
+  filterBy,
+  filterGroup,
+  addFilter,
+  closeFilter,
+  deleteFilter,
+  intl
+}) => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    props.filter
+    filter
   );
   const employeeName = defaultFilter.values;
 
   const selectEmployee = employee => {
     if (employee) {
       let filter = {
-        searchString: `${props.filterBy}=${employee.id}`,
+        searchString: `${filterBy}=${employee.id}`,
         values: `${employee.firstName} ${employee.lastName}`
       };
       let payload = {
-        filterGroup: props.filterGroup,
-        filterBy: props.filterBy,
+        filterGroup: filterGroup,
+        filterBy: filterBy,
         filter: filter
       };
-      props.addFilter(payload);
-      props.closeFilter();
+      addFilter(payload);
+      closeFilter();
     }
   };
 
   const onDelete = () => {
     let payload = {
-      filterGroup: props.filterGroup,
-      filterBy: props.filterBy
+      filterGroup: filterGroup,
+      filterBy: filterBy
     };
-    props.deleteFilter(payload);
-    props.closeFilter();
+    deleteFilter(payload);
+    closeFilter();
   };
 
   return (
@@ -51,7 +59,7 @@ export const EmployeeFilter = props => {
         <TextField
           id="outlined-adornment-filter"
           variant="outlined"
-          label={props.intl.formatMessage({
+          label={intl.formatMessage({
             id: 'employeefilter.name'
           })}
           value={value}
@@ -61,7 +69,7 @@ export const EmployeeFilter = props => {
               <InputAdornment position="end">
                 <IconButton>
                   <Icon id="adornmentIcon" onClick={onDelete}>
-                    {props.intl.formatMessage({
+                    {intl.formatMessage({
                       id: 'employeefilter.delete'
                     })}
                   </Icon>

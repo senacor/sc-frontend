@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { StyledComponent as SimpleErrorDialog } from '../pr/SimpleErrorDialog';
 import PropTypes from 'prop-types';
 
-export const CheckRequiredClick = props => {
+export const CheckRequiredClick = ({
+  check,
+  onClick,
+  inputClass,
+  children,
+  message
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = event => {
@@ -14,8 +20,8 @@ export const CheckRequiredClick = props => {
   };
 
   const handleClick = event => {
-    if (props.check()) {
-      props.onClick(event);
+    if (check()) {
+      onClick(event);
     } else {
       if (!event.disabled) {
         handleOpen(event);
@@ -24,15 +30,11 @@ export const CheckRequiredClick = props => {
   };
 
   return (
-    <div className={props.inputClass}>
-      {React.cloneElement(props.children, {
+    <div className={inputClass}>
+      {React.cloneElement(children, {
         releaseButtonClick: handleClick
       })}
-      <SimpleErrorDialog
-        onClose={handleClose}
-        open={open}
-        message={props.message}
-      />
+      <SimpleErrorDialog onClose={handleClose} open={open} message={message} />
     </div>
   );
 };

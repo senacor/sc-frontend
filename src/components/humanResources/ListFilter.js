@@ -10,33 +10,37 @@ import List from '@material-ui/core/List/List';
 import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
 
-export const ListFilter = props => {
+export const ListFilter = ({
+  filter,
+  content,
+  filterGroup,
+  filterBy,
+  deleteFilter,
+  addFilter
+}) => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    props.filter
+    filter
   );
   const [checked, setChecked] = useState(
-    defaultFilter.values === ''
-      ? Object.keys(props.content)
-      : defaultFilter.values
+    defaultFilter.values === '' ? Object.keys(content) : defaultFilter.values
   );
   const [isAllSelected, setIsAllSelected] = useState(
-    checked.length === Object.keys(props.content).length
+    checked.length === Object.keys(content).length
   );
 
   const clearFilter = () => {
     const payload = {
-      filterGroup: props.filterGroup,
-      filterBy: props.filterBy
+      filterGroup: filterGroup,
+      filterBy: filterBy
     };
-    props.deleteFilter(payload);
+    deleteFilter(payload);
   };
 
   const isFilterSet = checked => {
     return !(
-      checked.length === Object.keys(props.content).length ||
-      checked.length === 0
+      checked.length === Object.keys(content).length || checked.length === 0
     );
   };
 
@@ -46,7 +50,7 @@ export const ListFilter = props => {
     let newChecked;
 
     if (newAllSelect === true) {
-      newChecked = Object.keys(props.content);
+      newChecked = Object.keys(content);
     } else {
       newChecked = [];
     }
@@ -71,29 +75,29 @@ export const ListFilter = props => {
       setFilter(newChecked);
     } else {
       clearFilter();
-      setChecked(Object.keys(props.content));
+      setChecked(Object.keys(content));
       setIsAllSelected(true);
     }
   };
 
   const setFilter = checked => {
-    let searchString = `${props.filterBy}=`;
+    let searchString = `${filterBy}=`;
     searchString += checked
       .map(value => {
-        return props.content[value];
+        return content[value];
       })
-      .join(`&${props.filterBy}=`);
+      .join(`&${filterBy}=`);
 
     const filter = {
       searchString,
       values: checked
     };
     const payload = {
-      filterGroup: props.filterGroup,
-      filterBy: props.filterBy,
+      filterGroup: filterGroup,
+      filterBy: filterBy,
       filter: filter
     };
-    props.addFilter(payload);
+    addFilter(payload);
   };
 
   const showSelectAll = () => {
@@ -130,7 +134,7 @@ export const ListFilter = props => {
     <List>
       {showSelectAll()}
       <Divider />
-      {Object.keys(props.content).map(showContent)}
+      {Object.keys(content).map(showContent)}
     </List>
   );
 };

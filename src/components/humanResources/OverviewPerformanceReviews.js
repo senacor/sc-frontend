@@ -18,13 +18,19 @@ import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 
-export const OverviewPerformanceReviews = props => {
+export const OverviewPerformanceReviews = ({
+  filterPossibilities,
+  fetchFilteredPrsForHumanResource,
+  filter,
+  userroles,
+  data
+}) => {
   const [columnsToView, setColumnsToView] = useState(null);
 
   const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.HR,
-      props.filterPossibilities
+      filterPossibilities
     );
 
     return [
@@ -60,17 +66,17 @@ export const OverviewPerformanceReviews = props => {
 
   useEffect(
     () => {
-      props.fetchFilteredPrsForHumanResource(props.filter);
+      fetchFilteredPrsForHumanResource(filter);
     },
-    [props.filter]
+    [filter]
   );
 
-  if (!props.filterPossibilities.levels) {
+  if (!filterPossibilities.levels) {
     return null;
   }
 
   const columns = columnsToView ? columnsToView : getColumnDefinitions();
-  let isHrMember = isHr(props.userroles);
+  let isHrMember = isHr(userroles);
   return (
     <Paper>
       <Grid
@@ -89,8 +95,8 @@ export const OverviewPerformanceReviews = props => {
       <PerformanceReviewTable
         columnDefinition={columns}
         orderBy={1}
-        data={props.data}
-        filter={props.filter}
+        data={data}
+        filter={filter}
         isHr={isHrMember}
       />
     </Paper>

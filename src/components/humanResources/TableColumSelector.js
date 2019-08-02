@@ -18,7 +18,7 @@ const styles = {
   }
 };
 
-export const TableColumnSelector = props => {
+export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
   const getNumberOfSelectedContent = content => {
     let selectedItems = 0;
     content.forEach(entry => {
@@ -29,48 +29,48 @@ export const TableColumnSelector = props => {
     return selectedItems;
   };
 
-  const [selectedContent, setSelectedContent] = useState(props.selectedContent);
+  const [selectedCont, setSelectedCont] = useState(selectedContent);
   const [selectedItems, setSelectedItems] = useState(
-    getNumberOfSelectedContent(props.selectedContent)
+    getNumberOfSelectedContent(selectedCont)
   );
 
   const isAllSelected = () => {
-    return selectedItems === selectedContent.length;
+    return selectedItems === selectedCont.length;
   };
 
   const handleToggleSelectAll = () => {
     if (isAllSelected()) {
-      selectedContent.forEach(entry => {
+      selectedCont.forEach(entry => {
         entry.checked = false;
       });
-      setSelectedContent(selectedContent);
+      setSelectedCont(selectedCont);
       setSelectedItems(0);
     } else {
-      selectedContent.forEach(entry => {
+      selectedCont.forEach(entry => {
         entry.checked = true;
       });
-      setSelectedContent(selectedContent);
-      setSelectedItems(selectedContent.length);
+      setSelectedCont(selectedCont);
+      setSelectedItems(selectedCont.length);
     }
 
-    props.onChange(selectedContent);
+    onChange(selectedCont);
   };
 
   const handleToggle = value => () => {
-    const currentIndex = selectedContent.indexOf(value);
+    const currentIndex = selectedCont.indexOf(value);
 
     if (value.checked === true) {
-      selectedContent[currentIndex].checked = false;
+      selectedCont[currentIndex].checked = false;
       setSelectedItems(selectedItems - 1);
     } else {
-      selectedContent[currentIndex].checked = true;
+      selectedCont[currentIndex].checked = true;
       setSelectedItems(selectedItems + 1);
     }
     // ??? //
-    setSelectedContent(selectedContent);
+    setSelectedCont(selectedCont);
     setSelectedItems(selectedItems);
     // ??? //
-    props.onChange(selectedContent);
+    onChange(selectedCont);
   };
 
   const showSelectAll = () => {
@@ -78,7 +78,7 @@ export const TableColumnSelector = props => {
       <ListItem key={'selectAll'} dense button onClick={handleToggleSelectAll}>
         {
           <Checkbox
-            className={props.classes.densed}
+            className={classes.densed}
             id={'selectAll'}
             checked={isAllSelected()}
             color={'primary'}
@@ -95,7 +95,7 @@ export const TableColumnSelector = props => {
     return (
       <ListItem key={value.label} dense button onClick={handleToggle(value)}>
         <Checkbox
-          className={props.classes.densed}
+          className={classes.densed}
           id={value.label}
           checked={value.checked}
           color={'primary'}
@@ -108,10 +108,10 @@ export const TableColumnSelector = props => {
   };
 
   return (
-    <List className={props.classes.list}>
+    <List className={classes.list}>
       {showSelectAll()}
       <Divider />
-      {props.selectedContent.map(content => {
+      {selectedCont.map(content => {
         return showContent(content);
       })}
     </List>

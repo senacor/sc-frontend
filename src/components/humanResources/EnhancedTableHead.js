@@ -12,27 +12,33 @@ const styles = {
   }
 };
 
-const EnhancedTableHead = props => {
+const EnhancedTableHead = ({
+  onRequestSort,
+  columnDefinition,
+  orderBy,
+  order,
+  classes
+}) => {
   const createSortHandler = index => event => {
-    props.onRequestSort(event, index);
+    onRequestSort(event, index);
   };
 
   return (
     <TableHead>
       <TableRow>
-        {props.columnDefinition.map((column, index) => {
+        {columnDefinition.map((column, index) => {
           return (
             <TableCell
               key={index}
               padding={'none'}
-              sortDirection={props.orderBy === index ? props.order : false}
+              sortDirection={orderBy === index ? order : false}
               variant={'head'}
               numeric={true}
-              className={props.classes.cell}
+              className={classes.cell}
             >
               <TableSortLabel
-                active={props.orderBy === index}
-                direction={props.order}
+                active={orderBy === index}
+                direction={order}
                 onClick={createSortHandler(index)}
               >
                 {column.filter ? column.filter : null}

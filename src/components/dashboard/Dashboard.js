@@ -33,41 +33,42 @@ const styles = {
   }
 };
 
-const Dashboard = props => {
+const Dashboard = ({
+  resetFilterGroup,
+  addFilter,
+  userinfo,
+  classes,
+  userroles,
+  intl
+}) => {
   const handleClick = payload => () => {
-    props.resetFilterGroup(payload.filterGroup);
-    props.addFilter(payload);
+    resetFilterGroup(payload.filterGroup);
+    addFilter(payload);
   };
 
-  const defaultFilterService = new DefaultFilterService(props.userinfo.userId);
+  const defaultFilterService = new DefaultFilterService(userinfo.userId);
 
-  const numberOfPrsToReview = props.userinfo
-    ? props.userinfo.numberOfPrsToReview
-    : 0;
-  const numberOfPrsToSupervise = props.userinfo
-    ? props.userinfo.numberOfPrsToSupervise
-    : 0;
+  const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
+  const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
 
-  let prsNotFilledByEmployee = props.userinfo
-    ? props.userinfo.prsNotFilledByEmployee
-    : 0;
+  let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
-  return props.userinfo ? (
-    <div className={props.classes.columnContainer}>
-      <div className={props.classes.rowContainer}>
-        {props.userinfo.idOfNewestOpenPr && isEmployee(props.userroles) ? (
+  return userinfo ? (
+    <div className={classes.columnContainer}>
+      <div className={classes.rowContainer}>
+        {userinfo.idOfNewestOpenPr && isEmployee(userroles) ? (
           <Card
-            className={props.classes.card}
+            className={classes.card}
             component={NavLink}
-            to={'/prs/' + props.userinfo.idOfNewestOpenPr}
+            to={'/prs/' + userinfo.idOfNewestOpenPr}
             style={{ textDecoration: 'none' }}
           >
             <CardContent>
               <Typography variant="h5" component="h2">
-                {formatDateForFrontend(props.userinfo.deadlineOfNewestOpenPr)}
+                {formatDateForFrontend(userinfo.deadlineOfNewestOpenPr)}
               </Typography>
-              <Typography className={props.classes.title} color="textSecondary">
-                {props.intl.formatMessage({
+              <Typography className={classes.title} color="textSecondary">
+                {intl.formatMessage({
                   id: 'dashboard.opened'
                 })}
               </Typography>
@@ -75,9 +76,9 @@ const Dashboard = props => {
           </Card>
         ) : null}
 
-        {numberOfPrsToReview > 1 && isEmployee(props.userroles) ? (
+        {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
           <Card
-            className={props.classes.card}
+            className={classes.card}
             component={NavLink}
             to={'/prs'}
             style={{ textDecoration: 'none' }}
@@ -87,8 +88,8 @@ const Dashboard = props => {
               <Typography variant="h5" component="h2">
                 {numberOfPrsToReview}
               </Typography>
-              <Typography className={props.classes.title} color="textSecondary">
-                {props.intl.formatMessage({
+              <Typography className={classes.title} color="textSecondary">
+                {intl.formatMessage({
                   id: 'dashboard.evaluator'
                 })}
               </Typography>
@@ -98,7 +99,7 @@ const Dashboard = props => {
 
         {numberOfPrsToReview > 0 ? (
           <InfoWidget
-            label={props.intl.formatMessage({
+            label={intl.formatMessage({
               id: 'dashboard.reviewer'
             })}
             value={numberOfPrsToReview}
@@ -108,9 +109,9 @@ const Dashboard = props => {
           />
         ) : null}
 
-        {numberOfPrsToSupervise > 0 && isSupervisor(props.userroles) ? (
+        {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
           <InfoWidget
-            label={props.intl.formatMessage({
+            label={intl.formatMessage({
               id: 'dashboard.supervisor'
             })}
             value={numberOfPrsToSupervise}
@@ -122,9 +123,9 @@ const Dashboard = props => {
           />
         ) : null}
 
-        {isEmployee(props.userroles) && prsNotFilledByEmployee > 0 ? (
+        {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
           <Card
-            className={props.classes.card}
+            className={classes.card}
             component={NavLink}
             to={'/myPrs'}
             style={{ textDecoration: 'none' }}
@@ -134,8 +135,8 @@ const Dashboard = props => {
               <Typography variant="h5" component="h2">
                 {prsNotFilledByEmployee}
               </Typography>
-              <Typography className={props.classes.title} color="textSecondary">
-                {props.intl.formatMessage({
+              <Typography className={classes.title} color="textSecondary">
+                {intl.formatMessage({
                   id: 'dashboard.unprocessed'
                 })}
               </Typography>
@@ -144,37 +145,37 @@ const Dashboard = props => {
         ) : null}
       </div>
 
-      <div className={props.classes.rowContainer}>
-        <Card className={props.classes.card}>
+      <div className={classes.rowContainer}>
+        <Card className={classes.card}>
           <CardContent>
             <Typography variant="h5" component="h2">
-              {props.intl.formatMessage({
+              {intl.formatMessage({
                 id: 'dashboard.beta'
               })}
             </Typography>
-            <Typography className={props.classes.title} color="textSecondary">
-              {props.intl.formatMessage({
+            <Typography className={classes.title} color="textSecondary">
+              {intl.formatMessage({
                 id: 'dashboard.welcome'
               })}
               <br />
               <br />
-              {`${props.intl.formatMessage({
+              {`${intl.formatMessage({
                 id: 'dashboard.testphase'
               })} `}
               <a href="mailto:Tuan-Si.Tran@senacor.com">
                 Si Tran (Tuan-Si.Tran@senacor.com)
               </a>
-              {` ${props.intl.formatMessage({
+              {` ${intl.formatMessage({
                 id: 'dashboard.concern'
               })}`}
               <br />
               <br />
-              {props.intl.formatMessage({
+              {intl.formatMessage({
                 id: 'dashboard.update'
               })}
               <br />
               <br />
-              {props.intl.formatMessage({
+              {intl.formatMessage({
                 id: 'dashboard.testing'
               })}
             </Typography>

@@ -19,11 +19,20 @@ let styles = {
   }
 };
 
-export const DateFilter = props => {
+export const DateFilter = ({
+  filter,
+  filterBy,
+  filterGroup,
+  deleteFilter,
+  addFilter,
+  closeFilter,
+  intl,
+  classes
+}) => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    props.filter
+    filter
   );
 
   const [values, setValues] = useState(defaultFilter.values);
@@ -40,7 +49,7 @@ export const DateFilter = props => {
   const setFilter = values => {
     let searchString = Object.keys(values)
       .map(key => {
-        return `${props.filterBy}${key}=${values[key]}`;
+        return `${filterBy}${key}=${values[key]}`;
       })
       .join('&');
 
@@ -49,17 +58,17 @@ export const DateFilter = props => {
       values: values
     };
     const payload = {
-      filterGroup: props.filterGroup,
-      filterBy: props.filterBy,
+      filterGroup: filterGroup,
+      filterBy: filterBy,
       filter: filter
     };
 
     if (searchString === '') {
-      props.deleteFilter(payload);
+      deleteFilter(payload);
     } else if (!isValidFilter(values)) {
       return false;
     } else {
-      props.addFilter(payload);
+      addFilter(payload);
     }
     return true;
   };
@@ -78,7 +87,7 @@ export const DateFilter = props => {
 
   const execute = () => {
     if (setFilter(values)) {
-      props.closeFilter();
+      closeFilter();
     } else {
       showError();
     }
@@ -89,7 +98,7 @@ export const DateFilter = props => {
       <ListItem>
         <TextField
           id="startDate"
-          label={props.intl.formatMessage({
+          label={intl.formatMessage({
             id: 'datefilter.from'
           })}
           type="date"
@@ -102,7 +111,7 @@ export const DateFilter = props => {
         />
         <TextField
           id="endDate"
-          label={props.intl.formatMessage({
+          label={intl.formatMessage({
             id: 'datefilter.to'
           })}
           type="date"
@@ -115,7 +124,7 @@ export const DateFilter = props => {
         />
         <IconButton
           id="forwardButton"
-          aria-label={props.intl.formatMessage({
+          aria-label={intl.formatMessage({
             id: 'datefilter.forward'
           })}
           onClick={execute}
@@ -123,10 +132,10 @@ export const DateFilter = props => {
           <Icon>forward</Icon>
         </IconButton>
       </ListItem>
-      <ListItem className={props.classes.error}>
+      <ListItem className={classes.error}>
         {error === true ? (
           <div>
-            {props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'datefilter.invalid'
             })}
           </div>
