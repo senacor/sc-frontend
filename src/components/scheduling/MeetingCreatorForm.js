@@ -136,7 +136,6 @@ const MeetingCreatorForm = props => {
   visibilityService.setPr(props.pr);
   visibilityService.setUserinfo(props.userinfo);
   visibilityService.setUserroles(props.userroles);
-  console.log('here i am and im going away of you')
   return (
     <div>
       {visibilityService.getAction() ? (
