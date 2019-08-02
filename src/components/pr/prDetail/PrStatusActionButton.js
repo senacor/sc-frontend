@@ -12,7 +12,7 @@ const styles = theme => ({
   sizeSmall: {}
 });
 
-function PrStatusActionButton(props) {
+const PrStatusActionButton = props => {
   let {
     classes,
     label,
@@ -34,6 +34,6 @@ function PrStatusActionButton(props) {
       {label}
     </Button>
   );
-}
+};
 
 export default withStyles(styles)(PrStatusActionButton);

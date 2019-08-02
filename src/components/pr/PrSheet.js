@@ -29,38 +29,9 @@ import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
 import { injectIntl } from 'react-intl';
 
-const styles = theme => ({
-  containerVertical: {
-    flex: 1,
-    flexDirection: 'column',
-    width: '100%',
-    boxShadow:
-      '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
-  },
+const styles = () => ({
   containerListItem: {
     display: 'flex'
-  },
-  nested: {
-    paddingLeft: '3%'
-  },
-  rightAlignText: {
-    textAlign: 'right',
-    marginRight: '3%',
-    color: '#6E6E6E'
-  },
-  buttonDesktop: {
-    position: 'relative',
-    marginRight: '1%',
-    backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
-    marginBottom: '2%'
-  },
-  buttonDesktopDisabled: {
-    position: 'relative',
-    marginRight: '1%',
-    backgroundColor: theme.palette.primary['50'],
-    color: '#FFF',
-    marginBottom: '2%'
   },
   required: {
     color: 'rgba(0, 0, 0, 0.42)'
@@ -73,355 +44,348 @@ const styles = theme => ({
     marginBottom: '-10pt',
     width: '23%'
   },
-  red: { color: '#ff0000' },
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
-  },
-  legendSlider: {
-    textAlign: 'right',
-    fontSize: '8pt'
   }
 });
 
-class PrSheet extends React.Component {
-  isVisibleToEmployee = () => {
+const PrSheet = props => {
+  const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
+
+  let errorFlagReviewer = !requiredFields.reviewer;
+  let errorFlagEmployee = !requiredFields.employee;
+
+  if (!prById) {
+    return null;
+  }
+
+  let hasRoleInPr = hasRoleInPrBasedOnUserName(prById, userinfo);
+  let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
+  let nonActionPerformerForEmployeeActions =
+    hasRoleInPr(['supervisor', 'reviewer']) || isHr(userroles);
+  let isActionPerformerForReviewerActions = hasRoleInPr([
+    'supervisor',
+    'reviewer'
+  ]);
+  let nonActionPerformerForReviewerActions =
+    hasRoleInPr(['employee']) || isHr(userroles);
+
+  const isVisibleToEmployee = () => {
     return (
-      objectGet(this.props, 'prById.prVisibilityEntry.visibilityToEmployee') ===
+      objectGet(props, 'prById.prVisibilityEntry.visibilityToEmployee') ===
       visibilityTypes.VISIBLE
     );
   };
 
-  isVisibleToReviewer = () => {
+  const isVisibleToReviewer = () => {
     return (
-      objectGet(this.props, 'prById.prVisibilityEntry.visibilityToReviewer') ===
+      objectGet(props, 'prById.prVisibilityEntry.visibilityToReviewer') ===
       visibilityTypes.VISIBLE
     );
   };
 
-  isFinalizedForReviewer = () => {
+  const isFinalizedForReviewer = () => {
     return (
       objectGet(
-        this.props,
+        props,
         'prById.prFinalizationStatus.finalizationStatusOfReviewer'
       ) === finalizationTypes.FINALIZED
     );
   };
 
-  isFinalizedForEmployee = () => {
+  const isFinalizedForEmployee = () => {
     return (
       objectGet(
-        this.props,
+        props,
         'prById.prFinalizationStatus.finalizationStatusOfEmployee'
       ) === finalizationTypes.FINALIZED
     );
   };
 
-  isArchived = () => {
-    return this.props.prById.statuses.includes(prStatusEnum.ARCHIVED_HR);
+  const isArchived = () => {
+    return prById.statuses.includes(prStatusEnum.ARCHIVED_HR);
   };
 
-  render() {
-    const { prById, classes, userinfo, requiredFields, intl } = this.props;
-
-    let errorFlagReviewer = !requiredFields.reviewer;
-    let errorFlagEmployee = !requiredFields.employee;
-
-    if (!prById) {
-      return null;
-    }
-
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(prById, userinfo);
-    let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
-    let nonActionPerformerForEmployeeActions =
-      hasRoleInPr(['supervisor', 'reviewer']) || isHr(this.props.userroles);
-    let isActionPerformerForReviewerActions = hasRoleInPr([
-      'supervisor',
-      'reviewer'
-    ]);
-    let nonActionPerformerForReviewerActions =
-      hasRoleInPr(['employee']) || isHr(this.props.userroles);
-
-    let step1employee = () => {
-      return (
-        <List>
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
-                id: 'prsheet.employeerole'
-              })}
-            />
-          </ListItem>
-          <List disablePadding>
-            <PrSheetEmployee
-              prById={prById}
-              errorFlag={errorFlagEmployee}
-              readOnly={this.isVisibleToReviewer()}
-              category="ROLE_AND_PROJECT_ENVIRONMENT"
-              isActionPerformer={isActionPerformerForEmployeeActions}
-              nonActionPerformer={nonActionPerformerForEmployeeActions}
-            />
-            <PrSheetEmployee
-              prById={prById}
-              errorFlag={errorFlagEmployee}
-              readOnly={this.isVisibleToReviewer()}
-              category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
-              isActionPerformer={isActionPerformerForEmployeeActions}
-              nonActionPerformer={nonActionPerformerForEmployeeActions}
-            />
-          </List>
+  let step1employee = () => {
+    return (
+      <List>
+        <ListItem className={classes.marginDown}>
+          <ListItemText
+            primary={intl.formatMessage({
+              id: 'prsheet.employeerole'
+            })}
+          />
+        </ListItem>
+        <List disablePadding>
+          <PrSheetEmployee
+            prById={prById}
+            errorFlag={errorFlagEmployee}
+            readOnly={isVisibleToReviewer()}
+            category="ROLE_AND_PROJECT_ENVIRONMENT"
+            isActionPerformer={isActionPerformerForEmployeeActions}
+            nonActionPerformer={nonActionPerformerForEmployeeActions}
+          />
+          <PrSheetEmployee
+            prById={prById}
+            errorFlag={errorFlagEmployee}
+            readOnly={isVisibleToReviewer()}
+            category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
+            isActionPerformer={isActionPerformerForEmployeeActions}
+            nonActionPerformer={nonActionPerformerForEmployeeActions}
+          />
         </List>
-      );
-    };
+      </List>
+    );
+  };
 
-    let overallReviewer = () => {
-      return (
-        <List>
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
-                id: 'prsheet.overall'
-              })}
-            />
-          </ListItem>
+  let overallReviewer = () => {
+    return (
+      <List>
+        <ListItem className={classes.marginDown}>
+          <ListItemText
+            primary={intl.formatMessage({
+              id: 'prsheet.overall'
+            })}
+          />
+        </ListItem>
 
-          <List disablePadding>
-            <PrOverallAssessment
-              prById={prById}
-              errorFlag={errorFlagReviewer}
-              readOnly={this.isVisibleToEmployee()}
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-          </List>
-
-          <Divider />
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
-                id: 'prsheet.measures'
-              })}
-            />
-          </ListItem>
-          <List disablePadding>
-            <PrAdvancementStrategies
-              prById={prById}
-              readOnly={this.isVisibleToEmployee()}
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              open={!this.isFinalizedForReviewer()}
-            />
-          </List>
+        <List disablePadding>
+          <PrOverallAssessment
+            prById={prById}
+            errorFlag={errorFlagReviewer}
+            readOnly={isVisibleToEmployee()}
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            openEditing={!isFinalizedForReviewer()}
+          />
         </List>
-      );
-    };
 
-    let finalEmployee = () => {
-      return (
-        <List>
-          <List disablePadding>
-            <PrFinalCommentEmployee
-              prById={prById}
-              readOnly={this.isFinalizedForEmployee()}
-              open={this.isFinalizedForReviewer()}
-              isActionPerformer={isActionPerformerForEmployeeActions}
-              nonActionPerformer={nonActionPerformerForEmployeeActions}
-            />
-          </List>
+        <Divider />
+        <ListItem className={classes.marginDown}>
+          <ListItemText
+            primary={intl.formatMessage({
+              id: 'prsheet.measures'
+            })}
+          />
+        </ListItem>
+        <List disablePadding>
+          <PrAdvancementStrategies
+            prById={prById}
+            readOnly={isVisibleToEmployee()}
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            open={!isFinalizedForReviewer()}
+          />
         </List>
-      );
-    };
+      </List>
+    );
+  };
 
-    let finalHr = () => {
-      return (
-        <List>
-          <List disablePadding>
-            <PrFinalCommentHr
-              prById={prById}
-              open={this.isFinalizedForEmployee()}
-              readOnly={this.isArchived()}
-              isActionPerformer={isHr(this.props.userroles)}
-            />
-          </List>
+  let finalEmployee = () => {
+    return (
+      <List>
+        <List disablePadding>
+          <PrFinalCommentEmployee
+            prById={prById}
+            readOnly={isFinalizedForEmployee()}
+            open={isFinalizedForReviewer()}
+            isActionPerformer={isActionPerformerForEmployeeActions}
+            nonActionPerformer={nonActionPerformerForEmployeeActions}
+          />
         </List>
-      );
-    };
+      </List>
+    );
+  };
 
-    let detailReviewer = () => {
-      return (
-        <List>
-          <div className={classes.containerListItem}>
-            <ListItem className={classes.marginDown}>
-              <ListItemText
-                primary={intl.formatMessage({
-                  id: 'prsheet.performance'
-                })}
-              />
-            </ListItem>
-            <ListItem className={classes.marginDownSmall}>
-              <Typography
-                variant={'caption'}
-                color={'textSecondary'}
-                className={classes.legend}
-              >
-                {intl.formatMessage({
-                  id: 'prsheet.notfulfilled'
-                })}{' '}
-                <br />
-                {intl.formatMessage({
-                  id: 'prsheet.excellent'
-                })}
-              </Typography>
-            </ListItem>
-          </div>
-          <List disablePadding>
-            <PrReviewerRating
-              prById={prById}
-              category="PROBLEM_ANALYSIS"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-            <PrReviewerRating
-              prById={prById}
-              category="WORK_RESULTS"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-            <PrReviewerRating
-              prById={prById}
-              category="WORKING_MANNER"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-          </List>
+  let finalHr = () => {
+    return (
+      <List>
+        <List disablePadding>
+          <PrFinalCommentHr
+            prById={prById}
+            open={isFinalizedForEmployee()}
+            readOnly={isArchived()}
+            isActionPerformer={isHr(userroles)}
+          />
+        </List>
+      </List>
+    );
+  };
+
+  let detailReviewer = () => {
+    return (
+      <List>
+        <div className={classes.containerListItem}>
           <ListItem className={classes.marginDown}>
             <ListItemText
               primary={intl.formatMessage({
-                id: 'prsheet.customerimpact'
+                id: 'prsheet.performance'
               })}
             />
           </ListItem>
-          <List disablePadding>
-            <PrReviewerRating
-              prById={prById}
-              category="CUSTOMER_INTERACTION"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-            <PrReviewerRating
-              prById={prById}
-              category="CUSTOMER_RETENTION"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-          </List>
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
-                id: 'prsheet.teamimpact'
-              })}
-            />
-          </ListItem>
-          <List disablePadding>
-            <PrReviewerRating
-              prById={prById}
-              category="TEAMWORK"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-            <PrReviewerRating
-              prById={prById}
-              category="LEADERSHIP"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-          </List>
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
-                id: 'prsheet.companyimpact'
-              })}
-            />
-          </ListItem>
-          <List disablePadding>
-            <PrReviewerRating
-              prById={prById}
-              category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={this.isVisibleToEmployee()}
-              openEditing={!this.isFinalizedForReviewer()}
-            />
-          </List>
-        </List>
-      );
-    };
-
-    let requiredInfo = () => {
-      return (
-        <List>
-          <ListItem>
-            <Typography className={classes.required} variant="caption">
+          <ListItem className={classes.marginDownSmall}>
+            <Typography
+              variant={'caption'}
+              color={'textSecondary'}
+              className={classes.legend}
+            >
               {intl.formatMessage({
-                id: 'prsheet.required'
+                id: 'prsheet.notfulfilled'
+              })}{' '}
+              <br />
+              {intl.formatMessage({
+                id: 'prsheet.excellent'
               })}
             </Typography>
           </ListItem>
+        </div>
+        <List disablePadding>
+          <PrReviewerRating
+            prById={prById}
+            category="PROBLEM_ANALYSIS"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+          <PrReviewerRating
+            prById={prById}
+            category="WORK_RESULTS"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+          <PrReviewerRating
+            prById={prById}
+            category="WORKING_MANNER"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
         </List>
-      );
-    };
-
-    return (
-      <div>
-        <Grid container spacing={40}>
-          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-            {step1employee()}
-            <Divider />
-            <Hidden mdUp>
-              {detailReviewer()}
-              <Divider />
-            </Hidden>
-            {overallReviewer()}
-            <Divider />
-            {finalEmployee()}
-            {requiredInfo()}
-          </Grid>
-          <Hidden smDown>
-            <Grid item md={6} lg={6} xl={6}>
-              {detailReviewer()}
-              {isHr(this.props.userroles) ? <Divider /> : null}
-              {isHr(this.props.userroles) ? finalHr() : null}
-            </Grid>
-          </Hidden>
-          <Hidden mdUp>
-            <Grid item xs={12} sm={12}>
-              {isHr(this.props.userroles) ? <Divider /> : null}
-              {isHr(this.props.userroles) ? finalHr() : null}
-            </Grid>
-          </Hidden>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <ButtonsBelowSheet />
-          </Grid>
-        </Grid>
-      </div>
+        <ListItem className={classes.marginDown}>
+          <ListItemText
+            primary={intl.formatMessage({
+              id: 'prsheet.customerimpact'
+            })}
+          />
+        </ListItem>
+        <List disablePadding>
+          <PrReviewerRating
+            prById={prById}
+            category="CUSTOMER_INTERACTION"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+          <PrReviewerRating
+            prById={prById}
+            category="CUSTOMER_RETENTION"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+        </List>
+        <ListItem className={classes.marginDown}>
+          <ListItemText
+            primary={intl.formatMessage({
+              id: 'prsheet.teamimpact'
+            })}
+          />
+        </ListItem>
+        <List disablePadding>
+          <PrReviewerRating
+            prById={prById}
+            category="TEAMWORK"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+          <PrReviewerRating
+            prById={prById}
+            category="LEADERSHIP"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+        </List>
+        <ListItem className={classes.marginDown}>
+          <ListItemText
+            primary={intl.formatMessage({
+              id: 'prsheet.companyimpact'
+            })}
+          />
+        </ListItem>
+        <List disablePadding>
+          <PrReviewerRating
+            prById={prById}
+            category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+            isActionPerformer={isActionPerformerForReviewerActions}
+            nonActionPerformer={nonActionPerformerForReviewerActions}
+            readOnly={isVisibleToEmployee()}
+            openEditing={!isFinalizedForReviewer()}
+          />
+        </List>
+      </List>
     );
-  }
-}
+  };
+
+  let requiredInfo = () => {
+    return (
+      <List>
+        <ListItem>
+          <Typography className={classes.required} variant="caption">
+            {intl.formatMessage({
+              id: 'prsheet.required'
+            })}
+          </Typography>
+        </ListItem>
+      </List>
+    );
+  };
+
+  return (
+    <div>
+      <Grid container spacing={40}>
+        <Grid item xs={12} md={6}>
+          {step1employee()}
+          <Divider />
+          <Hidden mdUp>
+            {detailReviewer()}
+            <Divider />
+          </Hidden>
+          {overallReviewer()}
+          <Divider />
+          {finalEmployee()}
+          {requiredInfo()}
+        </Grid>
+        <Hidden smDown>
+          <Grid item md={6}>
+            {detailReviewer()}
+            {isHr(userroles) ? <Divider /> : null}
+            {isHr(userroles) ? finalHr() : null}
+          </Grid>
+        </Hidden>
+        <Hidden mdUp>
+          <Grid item xs={12}>
+            {isHr(userroles) ? <Divider /> : null}
+            {isHr(userroles) ? finalHr() : null}
+          </Grid>
+        </Hidden>
+        <Grid item xs={12}>
+          <ButtonsBelowSheet />
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 
 export const StyledComponent = withStyles(styles)(PrSheet);
 export default injectIntl(

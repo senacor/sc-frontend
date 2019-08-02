@@ -1,125 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles/index';
-import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import {
-  getPrEmployeeContributions,
-  getUserroles
-} from '../../reducers/selector';
+import { getPrEmployeeContributions } from '../../reducers/selector';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
 import { injectIntl } from 'react-intl';
 
-const styles = theme => ({
-  bootstrapInput: {
-    borderRadius: 4,
-    backgroundColor: theme.palette.common.white,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '3pt 3pt',
-    '&:focus': {
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)'
-    }
-  },
+const styles = () => ({
   nestedText: {
     paddingLeft: '0px'
-  },
-  comment: {
-    paddingLeft: '24px',
-    paddingRight: '24px',
-    color: '#26646d',
-    fontStyle: 'italic'
   }
 });
 
-class PrSheetEmployee extends React.Component {
-  constructor(props) {
-    super(props);
-    let { employeeContribution } = this.props;
-    let comment = employeeContribution.text ? employeeContribution.text : '';
-    this.state = {
-      commentText: comment
-    };
-  }
+const PrSheetEmployee = ({
+  employeeContribution,
+  classes,
+  category,
+  readOnly,
+  isActionPerformer,
+  nonActionPerformer,
+  errorFlag,
+  intl
+}) => {
+  let comment = employeeContribution.text ? employeeContribution.text : '';
+  const [commentText, setCommentText] = useState(comment);
 
-  handleChangeComment = (prById, category) => event => {
-    this.setState({ commentText: event.target.value });
+  let service = new TextFieldService();
+  service.setNonActionPerformer(nonActionPerformer);
+  service.setIsActionPerformer(isActionPerformer);
+  service.setReadOnlyFlag(readOnly);
+  service.setOpenEditing(true);
+  service.setReadOnlyText(employeeContribution.text);
+  service.setWriteableText(commentText);
+  service.setErrorFlag(errorFlag);
 
-    this.sendComment(
-      prById,
-      category,
-      event.target.value,
-      this.props.employeeContribution.id
-    );
+  const handleChangeComment = event => {
+    setCommentText(event.target.value);
   };
 
-  sendComment = debounce(this.props.addEmployeeContribution, 500);
-
-  render() {
-    const {
-      prById,
-      category,
-      classes,
-      employeeContribution,
-      readOnly,
-      isActionPerformer,
-      nonActionPerformer,
-      errorFlag,
-      intl
-    } = this.props;
-    const { commentText } = this.state;
-
-    let service = new TextFieldService();
-    service.setNonActionPerformer(nonActionPerformer);
-    service.setIsActionPerformer(isActionPerformer);
-    service.setReadOnlyFlag(readOnly);
-    service.setOpenEditing(true);
-    service.setReadOnlyText(employeeContribution.text);
-    service.setWriteableText(commentText);
-    service.setErrorFlag(errorFlag);
-
-    return (
-      <div>
-        <List component="div" disablePadding className={classes.nestedText}>
-          <ListItem>
-            <Grid container direction={'column'}>
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                <PrTextField
-                  fieldId={category + '_CommentId'}
-                  state={service.getState()}
-                  value={service.getValue()}
-                  required
-                  label={intl.formatMessage({
-                    id: `${category}`
-                  })}
-                  helperText={intl.formatMessage({
-                    id: `PLACEHOLDER_${category}`
-                  })}
-                  onChange={this.handleChangeComment(prById, category)}
-                />
-              </Grid>
+  return (
+    <div>
+      <List component="div" disablePadding className={classes.nestedText}>
+        <ListItem>
+          <Grid container direction={'column'}>
+            <Grid item xs={12}>
+              <PrTextField
+                fieldId={category + '_CommentId'}
+                state={service.getState()}
+                value={service.getValue()}
+                required
+                label={intl.formatMessage({
+                  id: `${category}`
+                })}
+                helperText={intl.formatMessage({
+                  id: `PLACEHOLDER_${category}`
+                })}
+                onChange={handleChangeComment}
+              />
             </Grid>
-          </ListItem>
-        </List>
-      </div>
-    );
-  }
-}
+          </Grid>
+        </ListItem>
+      </List>
+    </div>
+  );
+};
 
-export const StyledComponent = withStyles(styles)(PrSheetEmployee);
 export default injectIntl(
-  connect(
-    (state, props) => ({
-      userroles: getUserroles(state),
-      employeeContribution: getPrEmployeeContributions(props.category)(state)
-    }),
-    {
-      addEmployeeContribution: actions.addEmployeeContribution
-    }
-  )(StyledComponent)
+  connect((state, props) => ({
+    employeeContribution: getPrEmployeeContributions(props.category)(state)
+  }))(withStyles(styles)(PrSheetEmployee))
 );

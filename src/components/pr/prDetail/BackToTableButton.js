@@ -1,6 +1,5 @@
-import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import ROUTES from '../../../helper/routes';
 import { isHr } from '../../../helper/checkRole';
 import { getUserPrincipalName, getUserroles } from '../../../reducers/selector';
@@ -8,8 +7,8 @@ import { connect } from 'react-redux';
 import PrStatusActionButton from './PrStatusActionButton';
 import { injectIntl } from 'react-intl';
 
-export class BackToTableButton extends Component {
-  getBackJumpPoint = (pr, userroles, username) => {
+const BackToTableButton = ({ pr, userroles, username, classes, intl }) => {
+  const getBackJumpPoint = (pr, userroles, username) => {
     if (pr.employee.login === username) {
       return ROUTES.OWN_PR_TABLE;
     } else if (
@@ -24,21 +23,17 @@ export class BackToTableButton extends Component {
     }
   };
 
-  render() {
-    const { pr, userroles, username, intl } = this.props;
-
-    return (
-      <PrStatusActionButton
-        label={intl.formatMessage({
-          id: 'backtotablebutton.back'
-        })}
-        inputClass={this.props.classes}
-        component={NavLink}
-        to={this.getBackJumpPoint(pr, userroles, username)}
-      />
-    );
-  }
-}
+  return (
+    <PrStatusActionButton
+      label={intl.formatMessage({
+        id: 'backtotablebutton.back'
+      })}
+      inputClass={classes}
+      component={NavLink}
+      to={getBackJumpPoint(pr, userroles, username)}
+    />
+  );
+};
 
 export default injectIntl(
   connect(
@@ -46,6 +41,6 @@ export default injectIntl(
       username: getUserPrincipalName(state),
       userroles: getUserroles(state)
     }),
-    {}
+    null
   )(BackToTableButton)
 );
