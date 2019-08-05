@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles/index';
 import ListItem from '@material-ui/core/ListItem';
 import StepSlider from './StepSlider';
 import Grid from '@material-ui/core/Grid/index';
 import objectGet from 'object-get';
-import * as actions from '../../actions';
 import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
 
@@ -52,20 +51,21 @@ const compareTargetRoles = (() => {
   };
 })();
 
-class TargetRole extends Component {
-  buildTargetRoleInformation = () => {
+const TargetRole = props => {
+  const {
+    prActive,
+    classes,
+    readOnly,
+    isActionPerformer,
+    openEditing,
+    intl
+  } = props;
+
+  const buildTargetRoleInformation = () => {
     let targetRoleInformationOfEmployee =
-      objectGet(this.props, 'prActive.prTargetRoleSet') || [];
+      objectGet(props, 'prActive.prTargetRoleSet') || [];
     targetRoleInformationOfEmployee.sort(compareTargetRoles);
 
-    const {
-      prActive,
-      classes,
-      readOnly,
-      isActionPerformer,
-      openEditing,
-      intl
-    } = this.props;
     let isDisabled = !isActionPerformer;
 
     return targetRoleInformationOfEmployee.map(targetRole => {
@@ -75,15 +75,7 @@ class TargetRole extends Component {
           container
           className={classes.outerGrid}
         >
-          <Grid
-            item
-            xs={8}
-            sm={8}
-            md={8}
-            lg={8}
-            xl={8}
-            className={classes.targetRole}
-          >
+          <Grid item xs={8} className={classes.targetRole}>
             <div className={classes.simpleBlack}>
               <Typography>
                 {intl.formatMessage({
@@ -96,10 +88,6 @@ class TargetRole extends Component {
           <Grid
             item
             xs={4}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
             className={classes.ratingTargetRole}
             id={'target-role-' + targetRole.prTargetRoleName}
           >
@@ -116,23 +104,16 @@ class TargetRole extends Component {
     });
   };
 
-  render() {
-    return (
-      <ListItem>
-        <Grid container>{this.buildTargetRoleInformation()}</Grid>
-      </ListItem>
-    );
-  }
-}
+  return (
+    <ListItem>
+      <Grid container>{buildTargetRoleInformation()}</Grid>
+    </ListItem>
+  );
+};
 
 export const StyledComponent = withStyles(styles)(TargetRole);
 export default injectIntl(
-  connect(
-    state => ({
-      prActive: state.prs[state.prDetailId]
-    }),
-    {
-      changeRatingTargetRole: actions.changeRatingTargetRole
-    }
-  )(StyledComponent)
+  connect(state => ({
+    prActive: state.prs[state.prDetailId]
+  }))(StyledComponent)
 );

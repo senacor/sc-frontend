@@ -17,6 +17,7 @@ import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
 
+//TODO: rebuild as functional component (!!! transforming componentDidUpdate to useEffect produces infiniteloop !!!)
 export class PrOverviewReviewer extends React.Component {
   constructor(props) {
     super(props);

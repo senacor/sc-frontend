@@ -19,6 +19,7 @@ const styles = theme => ({
   }
 });
 
+//TODO: unused component, delete ?
 class PrEmployment extends React.Component {
   render() {
     const { prById, classes, intl } = this.props;

@@ -13,13 +13,13 @@ import * as actions from '../../../actions';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 
-function TabContainer(props) {
+const TabContainer = props => {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
   );
-}
+};
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired
@@ -41,62 +41,58 @@ const styles = theme => ({
   }
 });
 
-class PrTabs extends React.Component {
-  handleChange = (event, value) => {
-    this.props.setTabValue(value);
+const PrTabs = ({ classes, tabValue, setTabValue, intl }) => {
+  const handleChange = (event, value) => {
+    setTabValue(value);
   };
 
-  render() {
-    const { classes, tabValue, intl } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <Tabs
-            value={tabValue}
-            onChange={this.handleChange}
-            fullWidth
-            indicatorColor="secondary"
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Tabs
+          value={tabValue}
+          onChange={handleChange}
+          fullWidth
+          indicatorColor="secondary"
+          classes={{
+            indicator: classes.indicator
+          }}
+        >
+          <Tab
+            value={prTabEnum.DETAIL_VIEW}
             classes={{
-              indicator: classes.indicator
+              root: classes.tabStyle
             }}
-          >
-            <Tab
-              value={prTabEnum.DETAIL_VIEW}
-              classes={{
-                root: classes.tabStyle
-              }}
-              label={intl.formatMessage({
-                id: 'prtabs.details'
-              })}
-              id={'TabDetails'}
-            />
-            <Tab
-              value={prTabEnum.SCHEDULE_VIEW}
-              classes={{
-                root: classes.tabStyle
-              }}
-              label={intl.formatMessage({
-                id: 'prtabs.findtermin'
-              })}
-              id={'TabTerminfindung'}
-            />
-          </Tabs>
-        </Paper>
-        {tabValue === prTabEnum.DETAIL_VIEW && (
-          <TabContainer>
-            <PrSheet />
-          </TabContainer>
-        )}
-        {tabValue === prTabEnum.SCHEDULE_VIEW && (
-          <TabContainer>
-            <SchedulingView />
-          </TabContainer>
-        )}
-      </div>
-    );
-  }
-}
+            label={intl.formatMessage({
+              id: 'prtabs.details'
+            })}
+            id={'TabDetails'}
+          />
+          <Tab
+            value={prTabEnum.SCHEDULE_VIEW}
+            classes={{
+              root: classes.tabStyle
+            }}
+            label={intl.formatMessage({
+              id: 'prtabs.findtermin'
+            })}
+            id={'TabTerminfindung'}
+          />
+        </Tabs>
+      </Paper>
+      {tabValue === prTabEnum.DETAIL_VIEW && (
+        <TabContainer>
+          <PrSheet />
+        </TabContainer>
+      )}
+      {tabValue === prTabEnum.SCHEDULE_VIEW && (
+        <TabContainer>
+          <SchedulingView />
+        </TabContainer>
+      )}
+    </div>
+  );
+};
 
 PrTabs.propTypes = {
   classes: PropTypes.object.isRequired

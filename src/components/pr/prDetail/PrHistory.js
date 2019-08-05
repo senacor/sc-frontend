@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
@@ -13,53 +13,43 @@ import { connect } from 'react-redux';
 import DownloadFile from '../../fileStorage/DownloadFile';
 import { injectIntl } from 'react-intl';
 
-export class PrHistory extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      prHistory: [{ id: 5, appointment: '2018-01-01', occassion: 'ON_DEMAND' }]
-    };
-  }
-  render() {
-    const { intl } = this.props;
-    return (
-      <div style={{ overflow: 'auto', maxHeight: '200px' }}>
-        <Table padding={'none'}>
-          <TableHead>
-            <TableRow>
-              <TableCell padding={'none'}>
-                {intl.formatMessage({
-                  id: 'prhistory.date'
-                })}
-              </TableCell>
-              <TableCell padding={'none'}>
-                {intl.formatMessage({
-                  id: 'prhistory.link'
-                })}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.props.archivedFiles.map(row => {
-              return (
-                <TableRow key={row.id}>
-                  <TableCell padding={'none'}>{row.date}</TableCell>
-                  <TableCell padding={'none'}>
-                    <DownloadFile
-                      employeeId={row.employeeId}
-                      fileId={row.fileId}
-                    />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
-    );
-  }
-}
+const PrHistory = ({ archivedFiles, intl }) => {
+  return (
+    <div style={{ overflow: 'auto', maxHeight: '200px' }}>
+      <Table padding={'none'}>
+        <TableHead>
+          <TableRow>
+            <TableCell padding={'none'}>
+              {intl.formatMessage({
+                id: 'prhistory.date'
+              })}
+            </TableCell>
+            <TableCell padding={'none'}>
+              {intl.formatMessage({
+                id: 'prhistory.link'
+              })}
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {archivedFiles.map(row => {
+            return (
+              <TableRow key={row.id}>
+                <TableCell padding={'none'}>{row.date}</TableCell>
+                <TableCell padding={'none'}>
+                  <DownloadFile
+                    employeeId={row.employeeId}
+                    fileId={row.fileId}
+                  />
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
 
 export default injectIntl(
   connect(

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import { connect } from 'react-redux';
@@ -8,21 +8,15 @@ import PrDetailInformation from './PrDetailInformation';
 import { LoadingEvents } from '../../../helper/loadingEvents';
 import withLoadingAction from '../../hoc/LoadingWithAction';
 
-export class PerformanceReviewDetail extends Component {
-  render() {
-    const { pr, meeting } = this.props;
-
-    return (
-      <React.Fragment>
-        {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
-        {pr ? <PrState /> : null}
-        {pr ? <PrTabs /> : null}
-      </React.Fragment>
-    );
-  }
-}
-
-PerformanceReviewDetail.propTypes = {};
+const PerformanceReviewDetail = ({ pr, meeting }) => {
+  return (
+    <React.Fragment>
+      {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
+      {pr ? <PrState /> : null}
+      {pr ? <PrTabs /> : null}
+    </React.Fragment>
+  );
+};
 
 export default connect(
   state => ({
