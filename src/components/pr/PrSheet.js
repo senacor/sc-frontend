@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -51,16 +51,80 @@ const styles = () => ({
 });
 
 const PrSheet = props => {
+  // FORMAT
+  // const pr = {
+  //   "id": 26,
+  //   "employee": {
+  //     "createdDateTime": "2019-08-02T12:44:26.227372",
+  //     "modifiedDateTime": "2019-08-02T12:44:34.631152",
+  //     "id": 3001,
+  //     "firstName": "Matúš",
+  //     "lastName": "Piroh",
+  //     "login": "mpiroh",
+  //     "title": "",
+  //     "email": "Matus.Piroh@senacor.com",
+  //     "endOfProbationPeriod": "2019-08-31",
+  //     "salaryLevel": 6,
+  //     "costcenterId": 408,
+  //     "supervisorId": 297
+  //   },
+  //   "supervisor": {
+  //     "createdDateTime": "2019-08-02T12:44:26.227372",
+  //     "modifiedDateTime": "2019-08-02T12:44:34.631152",
+  //     "id": 3001,
+  //     "firstName": "Matúš",
+  //     "lastName": "Piroh",
+  //     "login": "mpiroh",
+  //     "title": "",
+  //     "email": "Matus.Piroh@senacor.com",
+  //     "endOfProbationPeriod": "2019-08-31",
+  //     "salaryLevel": 6,
+  //     "costcenterId": 408,
+  //     "supervisorId": 297
+  //   },
+  //   "reviewer": {
+  //     "createdDateTime": "2019-08-02T12:44:26.227372",
+  //     "modifiedDateTime": "2019-08-02T12:44:34.631152",
+  //     "id": 3001,
+  //     "firstName": "Matúš",
+  //     "lastName": "Piroh",
+  //     "login": "mpiroh",
+  //     "title": "",
+  //     "email": "Matus.Piroh@senacor.com",
+  //     "endOfProbationPeriod": "2019-08-31",
+  //     "salaryLevel": 6,
+  //     "costcenterId": 408,
+  //     "supervisorId": 297
+  //   },
+  //   "deadline": "2019-08-04",
+  //   "occasion": "ON_DEMAND",
+  //   "prRating": "pr_rating_json",
+  //   "targetRole": "target_role_json",
+  //   "prStatusEntry": "",
+  //   "exchangeItemId": "exchange_item_id",
+  //   "finalMeetingDate": "2019-08-03",
+  //   "firstReflectionField": "first_reflection_field",
+  //   "secondReflectionField": "second_reflection_field",
+  //   "finalCommentEmployee": "final_comment_employee",
+  //   "finalCommentHr": "final_comment_hr",
+  //   "advancementStrategies": "advancement_strategies",
+  //   "inProgressForEmployee": true,
+  //   "inProgressForReviewer": false,
+  //   "done": false
+  // };
+
   const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
 
+  const [pr, setPr] = useState(prById);
   let errorFlagReviewer = !requiredFields.reviewer;
   let errorFlagEmployee = !requiredFields.employee;
 
-  if (!prById) {
+  console.log('PR IS: ', pr);
+  if (!pr) {
     return null;
   }
 
-  let hasRoleInPr = hasRoleInPrBasedOnUserName(prById, userinfo);
+  let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
   let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
   let nonActionPerformerForEmployeeActions =
     hasRoleInPr(['supervisor', 'reviewer']) || isHr(userroles);
@@ -73,14 +137,14 @@ const PrSheet = props => {
 
   const isVisibleToEmployee = () => {
     return (
-      objectGet(props, 'prById.prVisibilityEntry.visibilityToEmployee') ===
+      objectGet(props, 'pr.prVisibilityEntry.visibilityToEmployee') ===
       visibilityTypes.VISIBLE
     );
   };
 
   const isVisibleToReviewer = () => {
     return (
-      objectGet(props, 'prById.prVisibilityEntry.visibilityToReviewer') ===
+      objectGet(props, 'pr.prVisibilityEntry.visibilityToReviewer') ===
       visibilityTypes.VISIBLE
     );
   };
@@ -89,7 +153,7 @@ const PrSheet = props => {
     return (
       objectGet(
         props,
-        'prById.prFinalizationStatus.finalizationStatusOfReviewer'
+        'pr.prFinalizationStatus.finalizationStatusOfReviewer'
       ) === finalizationTypes.FINALIZED
     );
   };
@@ -98,13 +162,13 @@ const PrSheet = props => {
     return (
       objectGet(
         props,
-        'prById.prFinalizationStatus.finalizationStatusOfEmployee'
+        'pr.prFinalizationStatus.finalizationStatusOfEmployee'
       ) === finalizationTypes.FINALIZED
     );
   };
 
   const isArchived = () => {
-    return prById.statuses.includes(prStatusEnum.ARCHIVED_HR);
+    return pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
   };
 
   let step1employee = () => {
@@ -119,7 +183,7 @@ const PrSheet = props => {
         </ListItem>
         <List disablePadding>
           <PrSheetEmployee
-            prById={prById}
+            pr={pr}
             errorFlag={errorFlagEmployee}
             readOnly={isVisibleToReviewer()}
             category="ROLE_AND_PROJECT_ENVIRONMENT"
@@ -127,7 +191,7 @@ const PrSheet = props => {
             nonActionPerformer={nonActionPerformerForEmployeeActions}
           />
           <PrSheetEmployee
-            prById={prById}
+            pr={pr}
             errorFlag={errorFlagEmployee}
             readOnly={isVisibleToReviewer()}
             category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
@@ -152,7 +216,7 @@ const PrSheet = props => {
 
         <List disablePadding>
           <PrOverallAssessment
-            prById={prById}
+            pr={pr}
             errorFlag={errorFlagReviewer}
             readOnly={isVisibleToEmployee()}
             isActionPerformer={isActionPerformerForReviewerActions}
@@ -171,7 +235,7 @@ const PrSheet = props => {
         </ListItem>
         <List disablePadding>
           <PrAdvancementStrategies
-            prById={prById}
+            pr={pr}
             readOnly={isVisibleToEmployee()}
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -187,7 +251,7 @@ const PrSheet = props => {
       <List>
         <List disablePadding>
           <PrFinalCommentEmployee
-            prById={prById}
+            pr={pr}
             readOnly={isFinalizedForEmployee()}
             open={isFinalizedForReviewer()}
             isActionPerformer={isActionPerformerForEmployeeActions}
@@ -203,7 +267,7 @@ const PrSheet = props => {
       <List>
         <List disablePadding>
           <PrFinalCommentHr
-            prById={prById}
+            pr={pr}
             open={isFinalizedForEmployee()}
             readOnly={isArchived()}
             isActionPerformer={isHr(userroles)}
@@ -242,7 +306,7 @@ const PrSheet = props => {
         </div>
         <List disablePadding>
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="PROBLEM_ANALYSIS"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -250,7 +314,7 @@ const PrSheet = props => {
             openEditing={!isFinalizedForReviewer()}
           />
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="WORK_RESULTS"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -258,7 +322,7 @@ const PrSheet = props => {
             openEditing={!isFinalizedForReviewer()}
           />
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="WORKING_MANNER"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -275,7 +339,7 @@ const PrSheet = props => {
         </ListItem>
         <List disablePadding>
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="CUSTOMER_INTERACTION"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -283,7 +347,7 @@ const PrSheet = props => {
             openEditing={!isFinalizedForReviewer()}
           />
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="CUSTOMER_RETENTION"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -300,7 +364,7 @@ const PrSheet = props => {
         </ListItem>
         <List disablePadding>
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="TEAMWORK"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -308,7 +372,7 @@ const PrSheet = props => {
             openEditing={!isFinalizedForReviewer()}
           />
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="LEADERSHIP"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -325,7 +389,7 @@ const PrSheet = props => {
         </ListItem>
         <List disablePadding>
           <PrReviewerRating
-            prById={prById}
+            pr={pr}
             category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
             isActionPerformer={isActionPerformerForReviewerActions}
             nonActionPerformer={nonActionPerformerForReviewerActions}
