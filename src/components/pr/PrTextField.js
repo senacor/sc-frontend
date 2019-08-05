@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { textFieldEnum } from '../../helper/textFieldEnum';
 import { injectIntl } from 'react-intl';
 
+//TODO: We dont need this component anymore, DELETE ?
 const PrTextField = ({
   helperText,
   onChange,

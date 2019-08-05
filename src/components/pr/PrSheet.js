@@ -30,6 +30,9 @@ import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
 import { injectIntl } from 'react-intl';
 
 const styles = () => ({
+  paddingBottom: {
+    paddingBottom: 12
+  },
   containerListItem: {
     display: 'flex'
   },
@@ -52,70 +55,70 @@ const styles = () => ({
 
 const PrSheet = props => {
   // FORMAT
-  // const pr = {
-  //   "id": 26,
-  //   "employee": {
-  //     "createdDateTime": "2019-08-02T12:44:26.227372",
-  //     "modifiedDateTime": "2019-08-02T12:44:34.631152",
-  //     "id": 3001,
-  //     "firstName": "Matúš",
-  //     "lastName": "Piroh",
-  //     "login": "mpiroh",
-  //     "title": "",
-  //     "email": "Matus.Piroh@senacor.com",
-  //     "endOfProbationPeriod": "2019-08-31",
-  //     "salaryLevel": 6,
-  //     "costcenterId": 408,
-  //     "supervisorId": 297
-  //   },
-  //   "supervisor": {
-  //     "createdDateTime": "2019-08-02T12:44:26.227372",
-  //     "modifiedDateTime": "2019-08-02T12:44:34.631152",
-  //     "id": 3001,
-  //     "firstName": "Matúš",
-  //     "lastName": "Piroh",
-  //     "login": "mpiroh",
-  //     "title": "",
-  //     "email": "Matus.Piroh@senacor.com",
-  //     "endOfProbationPeriod": "2019-08-31",
-  //     "salaryLevel": 6,
-  //     "costcenterId": 408,
-  //     "supervisorId": 297
-  //   },
-  //   "reviewer": {
-  //     "createdDateTime": "2019-08-02T12:44:26.227372",
-  //     "modifiedDateTime": "2019-08-02T12:44:34.631152",
-  //     "id": 3001,
-  //     "firstName": "Matúš",
-  //     "lastName": "Piroh",
-  //     "login": "mpiroh",
-  //     "title": "",
-  //     "email": "Matus.Piroh@senacor.com",
-  //     "endOfProbationPeriod": "2019-08-31",
-  //     "salaryLevel": 6,
-  //     "costcenterId": 408,
-  //     "supervisorId": 297
-  //   },
-  //   "deadline": "2019-08-04",
-  //   "occasion": "ON_DEMAND",
-  //   "prRating": "pr_rating_json",
-  //   "targetRole": "target_role_json",
-  //   "prStatusEntry": "",
-  //   "exchangeItemId": "exchange_item_id",
-  //   "finalMeetingDate": "2019-08-03",
-  //   "firstReflectionField": "first_reflection_field",
-  //   "secondReflectionField": "second_reflection_field",
-  //   "finalCommentEmployee": "final_comment_employee",
-  //   "finalCommentHr": "final_comment_hr",
-  //   "advancementStrategies": "advancement_strategies",
-  //   "inProgressForEmployee": true,
-  //   "inProgressForReviewer": false,
-  //   "done": false
-  // };
+  const prMock = {
+    id: 26,
+    employee: {
+      createdDateTime: '2019-08-02T12:44:26.227372',
+      modifiedDateTime: '2019-08-02T12:44:34.631152',
+      id: 3001,
+      firstName: 'Matúš',
+      lastName: 'Piroh',
+      login: 'mpiroh',
+      title: '',
+      email: 'Matus.Piroh@senacor.com',
+      endOfProbationPeriod: '2019-08-31',
+      salaryLevel: 6,
+      costcenterId: 408,
+      supervisorId: 297
+    },
+    supervisor: {
+      createdDateTime: '2019-08-02T12:44:26.227372',
+      modifiedDateTime: '2019-08-02T12:44:34.631152',
+      id: 3001,
+      firstName: 'Matúš',
+      lastName: 'Piroh',
+      login: 'mpiroh',
+      title: '',
+      email: 'Matus.Piroh@senacor.com',
+      endOfProbationPeriod: '2019-08-31',
+      salaryLevel: 6,
+      costcenterId: 408,
+      supervisorId: 297
+    },
+    reviewer: {
+      createdDateTime: '2019-08-02T12:44:26.227372',
+      modifiedDateTime: '2019-08-02T12:44:34.631152',
+      id: 3001,
+      firstName: 'Matúš',
+      lastName: 'Piroh',
+      login: 'mpiroh',
+      title: '',
+      email: 'Matus.Piroh@senacor.com',
+      endOfProbationPeriod: '2019-08-31',
+      salaryLevel: 6,
+      costcenterId: 408,
+      supervisorId: 297
+    },
+    deadline: '2019-08-04',
+    occasion: 'ON_DEMAND',
+    prRating: 'pr_rating_json',
+    targetRole: 'target_role_json',
+    prStatusEntry: '',
+    exchangeItemId: 'exchange_item_id',
+    finalMeetingDate: '2019-08-03',
+    firstReflectionField: 'first_reflection_field',
+    secondReflectionField: 'second_reflection_field',
+    finalCommentEmployee: 'final_comment_employee',
+    finalCommentHr: 'final_comment_hr',
+    advancementStrategies: 'advancement_strategies',
+    inProgressForEmployee: true,
+    inProgressForReviewer: false,
+    done: false
+  };
 
   const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
 
-  const [pr, setPr] = useState(prById);
+  const [pr, setPr] = useState(prMock);
   let errorFlagReviewer = !requiredFields.reviewer;
   let errorFlagEmployee = !requiredFields.employee;
 
@@ -123,6 +126,36 @@ const PrSheet = props => {
   if (!pr) {
     return null;
   }
+
+  const firstReflectionFieldProps = {
+    text:
+      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
+      userinfo.userPrincipalName !== pr.employee.login
+        ? ''
+        : pr.firstReflectionField,
+    onChange: value => {
+      setPr({ ...pr, firstReflectionField: value });
+    },
+    isError: false,
+    isReadOnly:
+      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
+      userinfo.userPrincipalName === pr.employee.login
+  };
+
+  const secondReflectionFieldProps = {
+    text:
+      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
+      userinfo.userPrincipalName !== pr.employee.login
+        ? ''
+        : pr.secondReflectionField,
+    onChange: value => {
+      setPr({ ...pr, secondReflectionField: value });
+    },
+    isError: false,
+    isReadOnly:
+      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
+      userinfo.userPrincipalName === pr.employee.login
+  };
 
   let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
   let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
@@ -173,33 +206,43 @@ const PrSheet = props => {
 
   let step1employee = () => {
     return (
-      <List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
+          <h3>
+            {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
-          />
-        </ListItem>
-        <List disablePadding>
+          </h3>
+        </Grid>
+        <Grid item xs={12}>
           <PrSheetEmployee
-            pr={pr}
-            errorFlag={errorFlagEmployee}
-            readOnly={isVisibleToReviewer()}
-            category="ROLE_AND_PROJECT_ENVIRONMENT"
-            isActionPerformer={isActionPerformerForEmployeeActions}
-            nonActionPerformer={nonActionPerformerForEmployeeActions}
+            label={intl.formatMessage({
+              id: 'ROLE_AND_PROJECT_ENVIRONMENT'
+            })}
+            helperText={intl.formatMessage({
+              id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
+            })}
+            text={firstReflectionFieldProps.text}
+            isReadOnly={firstReflectionFieldProps.isReadOnly}
+            isError={firstReflectionFieldProps.isError}
+            action={value => firstReflectionFieldProps.onChange(value)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <PrSheetEmployee
-            pr={pr}
-            errorFlag={errorFlagEmployee}
-            readOnly={isVisibleToReviewer()}
-            category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
-            isActionPerformer={isActionPerformerForEmployeeActions}
-            nonActionPerformer={nonActionPerformerForEmployeeActions}
+            label={intl.formatMessage({
+              id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+            })}
+            helperText={intl.formatMessage({
+              id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+            })}
+            text={secondReflectionFieldProps.text}
+            isReadOnly={secondReflectionFieldProps.isReadOnly}
+            isError={secondReflectionFieldProps.isError}
+            action={value => secondReflectionFieldProps.onChange(value)}
           />
-        </List>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 

@@ -30,7 +30,6 @@ const StepSlider = props => {
       min={1}
       max={3}
       step={null}
-      marks={true}
       onChange={(event, value) =>
         handleChange(event, prActive, targetRoleName, value)
       }

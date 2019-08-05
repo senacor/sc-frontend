@@ -1,75 +1,84 @@
-import React, { useState } from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import { getPrEmployeeContributions } from '../../reducers/selector';
-import PrTextField from './PrTextField';
-import TextFieldService from '../../service/TextFieldService';
 import { injectIntl } from 'react-intl';
 
-const styles = () => ({
-  nestedText: {
-    paddingLeft: '0px'
-  }
-});
-
 const PrSheetEmployee = ({
-  employeeContribution,
-  classes,
-  category,
-  readOnly,
-  isActionPerformer,
-  nonActionPerformer,
-  errorFlag,
+  label,
+  helperText,
+  action,
+  isReadOnly,
+  isError,
+  text,
   intl
 }) => {
-  let comment = employeeContribution.text ? employeeContribution.text : '';
-  const [commentText, setCommentText] = useState(comment);
-
-  let service = new TextFieldService();
-  service.setNonActionPerformer(nonActionPerformer);
-  service.setIsActionPerformer(isActionPerformer);
-  service.setReadOnlyFlag(readOnly);
-  service.setOpenEditing(true);
-  service.setReadOnlyText(employeeContribution.text);
-  service.setWriteableText(commentText);
-  service.setErrorFlag(errorFlag);
-
-  const handleChangeComment = event => {
-    setCommentText(event.target.value);
-  };
-
-  return (
-    <div>
-      <List component="div" disablePadding className={classes.nestedText}>
-        <ListItem>
-          <Grid container direction={'column'}>
-            <Grid item xs={12}>
-              <PrTextField
-                fieldId={category + '_CommentId'}
-                state={service.getState()}
-                value={service.getValue()}
-                required
-                label={intl.formatMessage({
-                  id: `${category}`
-                })}
-                helperText={intl.formatMessage({
-                  id: `PLACEHOLDER_${category}`
-                })}
-                onChange={handleChangeComment}
-              />
-            </Grid>
-          </Grid>
-        </ListItem>
-      </List>
-    </div>
-  );
+  if (isError) {
+    return (
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          {label}
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            error
+            multiline
+            rows="6"
+            rowsMax="10"
+            fullWidth
+            variant="outlined"
+            inputProps={{ 'aria-label': 'bare' }}
+            helperText={intl.formatMessage({
+              id: 'prtextfield.error'
+            })}
+            value={text}
+            onChange={event => action(event.target.value)}
+          />
+        </Grid>
+      </Grid>
+    );
+  } else if (isReadOnly) {
+    return (
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          {label}
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            multiline
+            rows="6"
+            rowsMax="10"
+            fullWidth
+            variant="outlined"
+            inputProps={{ 'aria-label': 'bare', readOnly: true }}
+            helperText={helperText}
+            value={text}
+            onChange={event => action(event.target.value)}
+          />
+        </Grid>
+      </Grid>
+    );
+  } else {
+    return (
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          {label}
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            multiline
+            rows="6"
+            rowsMax="10"
+            fullWidth
+            variant="outlined"
+            inputProps={{ 'aria-label': 'bare' }}
+            helperText={helperText}
+            value={text}
+            onChange={event => action(event.target.value)}
+          />
+        </Grid>
+      </Grid>
+    );
+  }
 };
 
-export default injectIntl(
-  connect((state, props) => ({
-    employeeContribution: getPrEmployeeContributions(props.category)(state)
-  }))(withStyles(styles)(PrSheetEmployee))
-);
+export default injectIntl(PrSheetEmployee);
