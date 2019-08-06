@@ -15,7 +15,9 @@ import withLoadingAction from '../hoc/LoadingWithAction';
 import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
+import { injectIntl } from 'react-intl';
 
+//TODO: rebuild as functional component (!!! transforming componentDidUpdate to useEffect produces infiniteloop !!!)
 export class PrOverviewReviewer extends React.Component {
   constructor(props) {
     super(props);
@@ -33,9 +35,9 @@ export class PrOverviewReviewer extends React.Component {
     return [
       prTableService.employee(),
       prTableService.deadline(),
-      prTableService.occasion(),
+      prTableService.occasion(this.props.intl),
       prTableService.projectCst(),
-      prTableService.competence(),
+      prTableService.competence(this.props.intl),
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(this.props.username),
@@ -98,22 +100,24 @@ export class PrOverviewReviewer extends React.Component {
   }
 }
 
-export default connect(
-  state => ({
-    data: getAllPrsForTable(state),
-    username: getUserPrincipalName(state),
-    filter: getFilter(FILTER_GROUPS.REVIEWER)(state),
-    filterPossibilities: getFilterPossibilities(state)
-  }),
-  {
-    fetchFilteredPrs: actions.fetchFilteredPrs,
-    getFilterPossibilities: actions.getFilterPossibilities
-  }
-)(
-  withLoadingAction(props => {
-    props.getFilterPossibilities();
-    props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER);
-  })([LoadingEvents.FETCH_OWN_PRS, LoadingEvents.FILTER_POSSIBILITIES])(
-    PrOverviewReviewer
+export default injectIntl(
+  connect(
+    state => ({
+      data: getAllPrsForTable(state),
+      username: getUserPrincipalName(state),
+      filter: getFilter(FILTER_GROUPS.REVIEWER)(state),
+      filterPossibilities: getFilterPossibilities(state)
+    }),
+    {
+      fetchFilteredPrs: actions.fetchFilteredPrs,
+      getFilterPossibilities: actions.getFilterPossibilities
+    }
+  )(
+    withLoadingAction(props => {
+      props.getFilterPossibilities();
+      props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER);
+    })([LoadingEvents.FETCH_OWN_PRS, LoadingEvents.FILTER_POSSIBILITIES])(
+      PrOverviewReviewer
+    )
   )
 );

@@ -5,7 +5,7 @@ import {
   getPrDetail,
   getPrEmployeeContributions,
   getPrRatings,
-  getRequiredFields,
+  getSavingThreads,
   getUserinfo,
   getUserroles
 } from '../../reducers/selector';
@@ -16,6 +16,7 @@ import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 import { prStatusEnum } from '../../helper/prStatus';
 import { isHr } from '../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
@@ -45,8 +46,19 @@ const styles = theme => ({
   }
 });
 
-class ButtonsBelowSheet extends React.Component {
-  checkRequiredFields = (
+const ButtonsBelowSheet = props => {
+  const {
+    classes,
+    pr,
+    userroles,
+    userinfo,
+    checkRequired,
+    addPrStatus,
+    savingThreads,
+    intl
+  } = props;
+
+  const checkRequiredFields = (
     employeeContributionRole,
     employeeContributionLeader,
     overallComment,
@@ -78,14 +90,14 @@ class ButtonsBelowSheet extends React.Component {
     }
   };
 
-  requiredFieldsEmpty = status => {
+  const requiredFieldsEmpty = status => {
     let {
       employeeContributionRole,
       employeeContributionLeader,
       overallComment
-    } = this.props;
+    } = props;
 
-    let fieldFilled = this.checkRequiredFields(
+    let fieldFilled = checkRequiredFields(
       employeeContributionRole,
       employeeContributionLeader,
       overallComment,
@@ -96,67 +108,67 @@ class ButtonsBelowSheet extends React.Component {
       prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
       false === fieldFilled.employee
     ) {
-      this.props.checkRequired(fieldFilled);
+      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      this.props.checkRequired(fieldFilled);
+      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.FINALIZED_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      this.props.checkRequired(fieldFilled);
+      checkRequired(fieldFilled);
       return true;
     } else {
       return false;
     }
   };
 
-  getActionPerformerButton = (pr, status, label) => {
+  const getActionPerformerButton = (pr, status, label) => {
     return (
       <CheckRequiredClick
         onClick={() => {
-          this.props.addPrStatus(pr, status);
+          addPrStatus(pr, status);
         }}
-        check={() => !this.requiredFieldsEmpty(status)}
-        message={this.props.intl.formatMessage({
+        check={() => !requiredFieldsEmpty(status)}
+        message={intl.formatMessage({
           id: 'buttonsbelowsheet.fillrequired'
         })}
-        inputClass={this.props.classes.rightFloat}
+        inputClass={classes.rightFloat}
       >
         <PrStatusActionButton
           label={label}
-          inputClass={this.props.classes.buttonDesktopBelow}
+          inputClass={classes.buttonDesktopBelow}
         />
       </CheckRequiredClick>
     );
   };
 
-  getDisabledButton = (pr, status, label) => {
+  const getDisabledButton = (pr, status, label) => {
     return (
       <CheckRequiredClick
         onClick={() => {
-          this.props.addPrStatus(pr, status);
+          addPrStatus(pr, status);
         }}
-        check={() => !this.requiredFieldsEmpty(status)}
-        message={this.props.intl.formatMessage({
+        check={() => !requiredFieldsEmpty(status)}
+        message={intl.formatMessage({
           id: 'buttonsbelowsheet.fillrequired'
         })}
-        inputClass={this.props.classes.rightFloat}
+        inputClass={classes.rightFloat}
       >
         <PrStatusActionButton
           label={label}
-          inputClass={this.props.classes.buttonDesktopDisabled}
+          inputClass={classes.buttonDesktopDisabled}
           disabled
         />
       </CheckRequiredClick>
     );
   };
 
-  getEmployeeButtons = pr => {
+  const getEmployeeButtons = pr => {
     let reviewerFinalized = pr.statuses.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
@@ -167,29 +179,29 @@ class ButtonsBelowSheet extends React.Component {
       prStatusEnum.RELEASED_SHEET_EMPLOYEE
     );
     let releaseButton = !employeeReleased
-      ? this.getActionPerformerButton(
+      ? getActionPerformerButton(
           pr,
           prStatusEnum.RELEASED_SHEET_EMPLOYEE,
-          `${this.props.intl.formatMessage({
+          `${intl.formatMessage({
             id: 'buttonsbelowsheet.release'
           })}`
         )
       : null;
     let finalizeButtonDisabled = !reviewerFinalized
-      ? this.getDisabledButton(
+      ? getDisabledButton(
           pr,
           prStatusEnum.FINALIZED_EMPLOYEE,
-          `${this.props.intl.formatMessage({
+          `${intl.formatMessage({
             id: 'buttonsbelowsheet.finish'
           })}`
         )
       : null;
     let finalizeButtonEnabled =
       reviewerFinalized && !employeeFinalized
-        ? this.getActionPerformerButton(
+        ? getActionPerformerButton(
             pr,
             prStatusEnum.FINALIZED_EMPLOYEE,
-            `${this.props.intl.formatMessage({
+            `${intl.formatMessage({
               id: 'buttonsbelowsheet.finish'
             })}`
           )
@@ -203,7 +215,7 @@ class ButtonsBelowSheet extends React.Component {
     );
   };
 
-  getReviewerButtons = pr => {
+  const getReviewerButtons = pr => {
     let reviewerFinalized = pr.statuses.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
@@ -214,29 +226,29 @@ class ButtonsBelowSheet extends React.Component {
       prStatusEnum.RELEASED_SHEET_EMPLOYEE
     );
     let releaseButton = !reviewerReleased
-      ? this.getActionPerformerButton(
+      ? getActionPerformerButton(
           pr,
           prStatusEnum.RELEASED_SHEET_REVIEWER,
-          `${this.props.intl.formatMessage({
+          `${intl.formatMessage({
             id: 'buttonsbelowsheet.release'
           })}`
         )
       : null;
     let finalizeButtonDisabled = !(employeeReleased && reviewerReleased)
-      ? this.getDisabledButton(
+      ? getDisabledButton(
           pr,
           prStatusEnum.FINALIZED_REVIEWER,
-          `${this.props.intl.formatMessage({
+          `${intl.formatMessage({
             id: 'buttonsbelowsheet.finish'
           })}`
         )
       : null;
     let finalizeButtonEnabled =
       employeeReleased && reviewerReleased && !reviewerFinalized
-        ? this.getActionPerformerButton(
+        ? getActionPerformerButton(
             pr,
             prStatusEnum.FINALIZED_REVIEWER,
-            `${this.props.intl.formatMessage({
+            `${intl.formatMessage({
               id: 'buttonsbelowsheet.finish'
             })}`
           )
@@ -250,26 +262,26 @@ class ButtonsBelowSheet extends React.Component {
     );
   };
 
-  getHrButtons = pr => {
+  const getHrButtons = pr => {
     let employeeFinalized = pr.statuses.includes(
       prStatusEnum.FINALIZED_EMPLOYEE
     );
     let hrFinalized = pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
     let releaseButtonDisabled = !employeeFinalized
-      ? this.getDisabledButton(
+      ? getDisabledButton(
           pr,
           prStatusEnum.ARCHIVED_HR,
-          `${this.props.intl.formatMessage({
+          `${intl.formatMessage({
             id: 'buttonsbelowsheet.finish'
           })}`
         )
       : null;
     let releaseButtonEnabled =
       employeeFinalized && !hrFinalized
-        ? this.getActionPerformerButton(
+        ? getActionPerformerButton(
             pr,
             prStatusEnum.ARCHIVED_HR,
-            `${this.props.intl.formatMessage({
+            `${intl.formatMessage({
               id: 'buttonsbelowsheet.finish'
             })}`
           )
@@ -282,30 +294,36 @@ class ButtonsBelowSheet extends React.Component {
     );
   };
 
-  findButtonsForRole = (pr, userroles, userinfo) => {
+  const findButtonsForRole = (pr, userroles, userinfo) => {
     let userIsMemberOfHr = isHr(userroles);
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
 
     if (userIsMemberOfHr) {
-      return this.getHrButtons(pr);
+      return getHrButtons(pr);
     } else if (hasRoleInPr(['employee'])) {
-      return this.getEmployeeButtons(pr);
+      return getEmployeeButtons(pr);
     } else if (hasRoleInPr(['reviewer', 'supervisor'])) {
-      return this.getReviewerButtons(pr);
+      return getReviewerButtons(pr);
     } else {
       return null;
     }
   };
 
-  render() {
-    let { classes, pr, userroles, userinfo } = this.props;
-    return (
-      <div className={classes.container}>
-        {this.findButtonsForRole(pr, userroles, userinfo)}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.container}>
+      <Typography>
+        {savingThreads > 0
+          ? intl.formatMessage({
+              id: 'prstate.saving'
+            })
+          : intl.formatMessage({
+              id: 'prstate.saved'
+            })}
+      </Typography>
+      {findButtonsForRole(pr, userroles, userinfo)}
+    </div>
+  );
+};
 
 export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
 export default injectIntl(
@@ -321,7 +339,7 @@ export default injectIntl(
       employeeContributionLeader: getPrEmployeeContributions(
         'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
       )(state).text,
-      requiredFields: getRequiredFields(state)
+      savingThreads: getSavingThreads(state)
     }),
     {
       checkRequired: changeRequiredFields,

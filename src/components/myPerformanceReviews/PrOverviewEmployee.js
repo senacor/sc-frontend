@@ -16,6 +16,7 @@ import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
 import Grid from '@material-ui/core/Grid';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
+import { injectIntl } from 'react-intl';
 
 export class PrOverviewEmployee extends React.Component {
   constructor(props) {
@@ -34,9 +35,9 @@ export class PrOverviewEmployee extends React.Component {
     return [
       prTableService.employee(false),
       prTableService.deadline(),
-      prTableService.occasion(),
+      prTableService.occasion(this.props.intl),
       prTableService.projectCst(),
-      prTableService.competence(),
+      prTableService.competence(this.props.intl),
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(),
@@ -103,23 +104,25 @@ export class PrOverviewEmployee extends React.Component {
     );
   }
 }
-export default connect(
-  state => ({
-    isLoading: isLoadingAction(state, [
-      LoadingEvents.FILTER_POSSIBILITIES,
-      LoadingEvents.FETCH_OWN_PRS
-    ]),
-    filterPossibilities: getFilterPossibilities(state),
-    data: getAllPrsForTable(state),
-    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
-  }),
-  {
-    fetchFilteredPrs: actions.fetchFilteredPrs,
-    getFilterPossibilities: actions.getFilterPossibilities
-  }
-)(
-  withLoading(props => {
-    props.getFilterPossibilities();
-    props.fetchFilteredPrs(props.filter, FILTER_GROUPS.EMPLOYEE);
-  })(PrOverviewEmployee)
+export default injectIntl(
+  connect(
+    state => ({
+      isLoading: isLoadingAction(state, [
+        LoadingEvents.FILTER_POSSIBILITIES,
+        LoadingEvents.FETCH_OWN_PRS
+      ]),
+      filterPossibilities: getFilterPossibilities(state),
+      data: getAllPrsForTable(state),
+      filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
+    }),
+    {
+      fetchFilteredPrs: actions.fetchFilteredPrs,
+      getFilterPossibilities: actions.getFilterPossibilities
+    }
+  )(
+    withLoading(props => {
+      props.getFilterPossibilities();
+      props.fetchFilteredPrs(props.filter, FILTER_GROUPS.EMPLOYEE);
+    })(PrOverviewEmployee)
+  )
 );

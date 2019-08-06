@@ -19,6 +19,7 @@ const styles = theme => ({
   }
 });
 
+//TODO: unused component, delete ?
 class PrEmployment extends React.Component {
   render() {
     const { prById, classes, intl } = this.props;
@@ -35,7 +36,9 @@ class PrEmployment extends React.Component {
               <ListItemText>
                 <div>
                   <Typography className={classes.title}>
-                    Ende der Probezeit:
+                    {intl.formatMessage({
+                      id: 'premployment.endofprobationperiod'
+                    })}
                   </Typography>
                   <Typography className={classes.listItems}>
                     {`${moment(

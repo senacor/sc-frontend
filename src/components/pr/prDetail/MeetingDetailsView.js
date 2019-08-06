@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
 import Collapse from '@material-ui/core/Collapse';
@@ -14,7 +14,6 @@ import TodayIcon from '@material-ui/icons/Today';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
-import { translateContent } from '../../translate/Translate';
 import Typography from '@material-ui/core/Typography/Typography';
 import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
@@ -22,17 +21,6 @@ import { formatDateForFrontend } from '../../../helper/date';
 import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
-  container: {
-    '& > *': {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit
-    }
-  },
-  attendeeList: {
-    '& ListItemText span': {
-      fontSize: '0.875rem'
-    }
-  },
   nested: {
     paddingLeft: theme.spacing.unit * 8
   },
@@ -55,70 +43,78 @@ const styles = theme => ({
   }
 });
 
-class MeetingDetailsView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openRequiredAttendees: true,
-      openOptionalAttendees: true
-    };
-  }
+const MeetingDetailsView = ({
+  classes,
+  meeting,
+  pr,
+  userroles,
+  userinfo,
+  click,
+  handleChange,
+  intl
+}) => {
+  const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
+  const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
 
-  handleClickOpenRequiredAttendees = () => {
-    this.setState(state => ({
-      openRequiredAttendees: !state.openRequiredAttendees
-    }));
+  let visibilityService = new MeetingDetailVisibilityService();
+  visibilityService.setMeeting(meeting);
+  visibilityService.setPr(pr);
+  visibilityService.setUserinfo(userinfo);
+  visibilityService.setUserroles(userroles);
+
+  const handleClickOpenRequiredAttendees = () => {
+    setOpenRequiredAttendees(!openRequiredAttendees);
   };
 
-  handleClickOpenOptionalAttendees = () => {
-    this.setState(state => ({
-      openOptionalAttendees: !state.openOptionalAttendees
-    }));
+  const handleClickOpenOptionalAttendees = () => {
+    setOpenOptionalAttendees(!openOptionalAttendees);
   };
 
-  findDisplayState = employee => {
-    return translateContent(employee.status);
+  const findDisplayState = employee => {
+    return intl.formatMessage({
+      id: `${employee.status}`
+    });
   };
 
-  informationTypography = (classes, visibilityService) => {
+  const informationTypography = (classes, visibilityService) => {
     return (
       <div>
         <Typography gutterBottom variant="h4">
-          {this.props.intl.formatMessage({
+          {intl.formatMessage({
             id: 'meetingdetailsview.termindetails'
           })}
         </Typography>
         {visibilityService.getAccept() ? (
           <Typography variant={'body2'} className={classes.info}>
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'meetingdetailsview.confirmation'
             })}
           </Typography>
         ) : null}
         {visibilityService.getMeetingDeclined() ? (
           <Typography variant={'body2'} className={classes.info}>
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'meetingdetailsview.cancelled'
             })}
           </Typography>
         ) : null}
         {visibilityService.getEvaluationExternal() ? (
           <Typography variant={'body2'} className={classes.info}>
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'meetingdetailsview.arrangedoffportal'
             })}
           </Typography>
         ) : null}
         {visibilityService.getHrInfoNotAccepted() ? (
           <Typography variant={'body2'} className={classes.info}>
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'meetingdetailsview.confirmationneeded'
             })}
           </Typography>
         ) : null}
         {visibilityService.getHrInfoNotSent() ? (
           <Typography variant={'body2'} className={classes.info}>
-            {this.props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'meetingdetailsview.arrangemendneeded'
             })}
           </Typography>
@@ -127,7 +123,7 @@ class MeetingDetailsView extends React.Component {
     );
   };
 
-  meetingInformationExternal = (classes, pr) => {
+  const meetingInformationExternal = (classes, pr) => {
     return (
       <div>
         <List>
@@ -142,7 +138,12 @@ class MeetingDetailsView extends React.Component {
     );
   };
 
-  meetingInformation = (meeting, state, classes) => {
+  const meetingInformation = (
+    meeting,
+    openRequiredAttendees,
+    openOptionalAttendees,
+    classes
+  ) => {
     return (
       <div>
         <List>
@@ -176,28 +177,24 @@ class MeetingDetailsView extends React.Component {
               primary={
                 meeting.location !== null
                   ? meeting.location
-                  : this.props.intl.formatMessage({
+                  : intl.formatMessage({
                       id: 'meetingdetailsview.noplace'
                     })
               }
             />
           </ListItem>
-          <ListItem button onClick={this.handleClickOpenRequiredAttendees}>
+          <ListItem button onClick={handleClickOpenRequiredAttendees}>
             <ListItemIcon>
               <PeopleIcon className={classes.icon} />
             </ListItemIcon>
             <ListItemText
-              primary={this.props.intl.formatMessage({
+              primary={intl.formatMessage({
                 id: 'meetingdetailsview.memberneeded'
               })}
             />
-            {state.openRequiredAttendees ? <ExpandLess /> : <ExpandMore />}
+            {openRequiredAttendees ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <Collapse
-            in={state.openRequiredAttendees}
-            timeout="auto"
-            unmountOnExit
-          >
+          <Collapse in={openRequiredAttendees} timeout="auto" unmountOnExit>
             <List id="requiredAttendees" component="div" disablePadding dense>
               {Object.keys(meeting.requiredAttendees).map(employee => {
                 return (
@@ -213,9 +210,9 @@ class MeetingDetailsView extends React.Component {
                       primary={`${meeting.requiredAttendees[employee].name} <${
                         meeting.requiredAttendees[employee].email
                       }>`}
-                      secondary={`${this.props.intl.formatMessage({
+                      secondary={`${intl.formatMessage({
                         id: 'meetingdetailsview.status'
-                      })} ${this.findDisplayState(
+                      })} ${findDisplayState(
                         meeting.requiredAttendees[employee]
                       )}`}
                     />
@@ -226,22 +223,18 @@ class MeetingDetailsView extends React.Component {
           </Collapse>
           {Object.keys(meeting.optionalAttendees).length > 0 && (
             <React.Fragment>
-              <ListItem button onClick={this.handleClickOpenOptionalAttendees}>
+              <ListItem button onClick={handleClickOpenOptionalAttendees}>
                 <ListItemIcon>
                   <PeopleIcon className={classes.icon} />
                 </ListItemIcon>
                 <ListItemText
-                  primary={this.props.intl.formatMessage({
+                  primary={intl.formatMessage({
                     id: 'meetingdetailsview.optionalmember'
                   })}
                 />
-                {state.openOptionalAttendees ? <ExpandLess /> : <ExpandMore />}
+                {openOptionalAttendees ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-              <Collapse
-                in={state.openOptionalAttendees}
-                timeout="auto"
-                unmountOnExit
-              >
+              <Collapse in={openOptionalAttendees} timeout="auto" unmountOnExit>
                 <List
                   id="optionalAttendees"
                   component="div"
@@ -262,9 +255,9 @@ class MeetingDetailsView extends React.Component {
                           primary={`${
                             meeting.optionalAttendees[employee].name
                           } <${meeting.optionalAttendees[employee].email}>`}
-                          secondary={`${this.props.intl.formatMessage({
+                          secondary={`${intl.formatMessage({
                             id: 'meetingdetailsview.status'
-                          })} ${this.findDisplayState(
+                          })} ${findDisplayState(
                             meeting.optionalAttendees[employee]
                           )}`}
                         />
@@ -280,37 +273,33 @@ class MeetingDetailsView extends React.Component {
     );
   };
 
-  render() {
-    const { classes, meeting, pr, userroles, userinfo, click } = this.props;
-    let visibilityService = new MeetingDetailVisibilityService();
-    visibilityService.setMeeting(meeting);
-    visibilityService.setPr(pr);
-    visibilityService.setUserinfo(userinfo);
-    visibilityService.setUserroles(userroles);
-
-    return (
-      <div className={classes.meetingView}>
-        {this.informationTypography(classes, visibilityService, click)}
-        {visibilityService.getEvaluationExternal()
-          ? this.meetingInformationExternal(classes, pr)
-          : null}
-        {visibilityService.getMeetingExists() &&
-        !visibilityService.getEvaluationExternal()
-          ? this.meetingInformation(meeting, this.state, classes)
-          : null}
-        {visibilityService.getAction() ? (
-          <PrStatusActionButton
-            label={this.props.intl.formatMessage({
-              id: 'meetingdetailsview.newtermin'
-            })}
-            releaseButtonClick={this.props.handleChange}
-            inputClass={classes.buttonPosition}
-          />
-        ) : null}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.meetingView}>
+      {informationTypography(classes, visibilityService, click)}
+      {visibilityService.getEvaluationExternal()
+        ? meetingInformationExternal(classes, pr)
+        : null}
+      {visibilityService.getMeetingExists() &&
+      !visibilityService.getEvaluationExternal()
+        ? meetingInformation(
+            meeting,
+            openRequiredAttendees,
+            openOptionalAttendees,
+            classes
+          )
+        : null}
+      {visibilityService.getAction() ? (
+        <PrStatusActionButton
+          label={intl.formatMessage({
+            id: 'meetingdetailsview.newtermin'
+          })}
+          releaseButtonClick={handleChange}
+          inputClass={classes.buttonPosition}
+        />
+      ) : null}
+    </div>
+  );
+};
 
 export const StyledComponent = injectIntl(
   withStyles(styles)(MeetingDetailsView)

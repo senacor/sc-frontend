@@ -32,6 +32,7 @@ describe('reducers', () => {
           filterPossibilities: { someValue },
           finalCommentEmployee: { someValue },
           isLoading: [someValue],
+          language: '',
           login: {
             isLoggedIn: true,
             isUnauthorized: false
@@ -46,6 +47,7 @@ describe('reducers', () => {
           prs: { someValue },
           requiredFields: { employee: false, reviewer: true },
           employeeSearchResults: [someValue],
+          savingThreads: 10,
           tablePrs: { someValue },
           selectedDate: 'someValue',
           sortOrderPrs: 'des',
@@ -71,6 +73,7 @@ describe('reducers', () => {
           finalCommentEmployee: {},
           finalCommentHr: {},
           isLoading: [],
+          language: 'de',
           login: {
             isLoggedIn: false,
             isUnauthorized: state.isUnautherized
@@ -90,6 +93,7 @@ describe('reducers', () => {
               isFinalizedByReviewer: false
             }
           },
+          savingThreads: 0,
           prs: {},
           requiredFields: { employee: true, reviewer: true },
           employeeSearchResults: [],

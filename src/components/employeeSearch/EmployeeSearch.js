@@ -6,6 +6,7 @@ import { debounce } from '../../helper/debounce';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import PlotEmployeeSearchList from './PlotEmployeeSearchList';
+import { injectIntl } from 'react-intl';
 
 const styles = {
   box: {
@@ -70,9 +71,11 @@ export const EmployeeSearch = props => {
 };
 
 EmployeeSearch.defaultProps = {
-  inputElement: (value, onChange) => (
+  inputElement: (value, onChange, intl) => (
     <TextField
-      label="Name, Email, ..."
+      label={intl.formatMessage({
+        id: 'employeesearch.search'
+      })}
       value={value}
       InputProps={{
         name: 'employeeSearchValue'
@@ -85,10 +88,12 @@ EmployeeSearch.defaultProps = {
 };
 
 export const StyledComponent = withStyles(styles)(EmployeeSearch);
-export default connect(
-  state => ({}),
-  {
-    employeeSearch: actions.employeeSearch,
-    employeeSearchClear: actions.employeeSearchClear
-  }
-)(StyledComponent);
+export default injectIntl(
+  connect(
+    state => ({}),
+    {
+      employeeSearch: actions.employeeSearch,
+      employeeSearchClear: actions.employeeSearchClear
+    }
+  )(StyledComponent)
+);

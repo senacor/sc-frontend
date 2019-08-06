@@ -17,6 +17,7 @@ import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
+import { injectIntl } from 'react-intl';
 
 export const OverviewPerformanceReviews = ({
   filterPossibilities,
@@ -36,9 +37,9 @@ export const OverviewPerformanceReviews = ({
     return [
       prTableService.employee(),
       prTableService.deadline(),
-      prTableService.occasion(),
+      prTableService.occasion(this.props.intl),
       prTableService.projectCst(),
-      prTableService.competence(),
+      prTableService.competence(this.props.intl),
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(),
@@ -103,24 +104,27 @@ export const OverviewPerformanceReviews = ({
   );
 };
 
-export default connect(
-  state => ({
-    data: getAllPrsForTable(state),
-    filter: getFilter(FILTER_GROUPS.HR)(state),
-    userroles: getUserroles(state),
-    isLoading: isLoadingAction(state, [
-      LoadingEvents.FILTER_POSSIBILITIES,
-      LoadingEvents.FETCH_OWN_PRS
-    ]),
-    filterPossibilities: getFilterPossibilities(state)
-  }),
-  {
-    fetchFilteredPrsForHumanResource: actions.fetchFilteredPrsForHumanResource,
-    getFilterPossibilities: actions.getFilterPossibilities
-  }
-)(
-  withLoading(props => {
-    props.getFilterPossibilities();
-    props.fetchFilteredPrsForHumanResource(props.filter);
-  })(OverviewPerformanceReviews)
+export default injectIntl(
+  connect(
+    state => ({
+      data: getAllPrsForTable(state),
+      filter: getFilter(FILTER_GROUPS.HR)(state),
+      userroles: getUserroles(state),
+      isLoading: isLoadingAction(state, [
+        LoadingEvents.FILTER_POSSIBILITIES,
+        LoadingEvents.FETCH_OWN_PRS
+      ]),
+      filterPossibilities: getFilterPossibilities(state)
+    }),
+    {
+      fetchFilteredPrsForHumanResource:
+        actions.fetchFilteredPrsForHumanResource,
+      getFilterPossibilities: actions.getFilterPossibilities
+    }
+  )(
+    withLoading(props => {
+      props.getFilterPossibilities();
+      props.fetchFilteredPrsForHumanResource(props.filter);
+    })(OverviewPerformanceReviews)
+  )
 );

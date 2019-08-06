@@ -21,34 +21,37 @@ let styles = theme => ({
   }
 });
 
-export class SimpleErrorDialog extends React.Component {
-  render() {
-    const { classes, onClose, open, message, intl, ...other } = this.props;
-
-    return (
-      <Dialog
-        onClose={onClose}
-        open={open}
-        fullWidth={true}
-        aria-labelledby="simple-dialog-title"
-        {...other}
-      >
-        <DialogTitle>
-          <Typography variant={'body2'} className={classes.textClass}>
-            {message}
-          </Typography>
-        </DialogTitle>
-        <PrStatusActionButton
-          releaseButtonClick={onClose}
-          label={intl.formatMessage({
-            id: 'simpleerrordialog.ok'
-          })}
-          inputClass={classes.inputClass}
-        />
-      </Dialog>
-    );
-  }
-}
+const SimpleErrorDialog = ({
+  classes,
+  onClose,
+  open,
+  message,
+  intl,
+  ...other
+}) => {
+  return (
+    <Dialog
+      onClose={onClose}
+      open={open}
+      fullWidth={true}
+      aria-labelledby="simple-dialog-title"
+      {...other}
+    >
+      <DialogTitle>
+        <Typography variant={'body2'} className={classes.textClass}>
+          {message}
+        </Typography>
+      </DialogTitle>
+      <PrStatusActionButton
+        releaseButtonClick={onClose}
+        label={intl.formatMessage({
+          id: 'simpleerrordialog.ok'
+        })}
+        inputClass={classes.inputClass}
+      />
+    </Dialog>
+  );
+};
 
 export const StyledComponent = injectIntl(
   withStyles(styles)(SimpleErrorDialog)

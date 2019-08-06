@@ -28,53 +28,47 @@ const styles = theme => {
     },
     stepConnectorRoot: {
       paddingTop: '10px'
-    },
-    gridOffset: {
-      paddingLeft: theme.spacing.unit
     }
   };
 };
 
-export class PrStateStepper extends React.Component {
-  getExtraStepContent = substeps => {
+const PrStateStepper = ({ classes, stepStructure, activeStep }) => {
+  const getExtraStepContent = substeps => {
     return Object.values(substeps).map((substep, index) => {
       return <PrSubstepItem key={`SubStepGrid_${index}`} substep={substep} />;
     });
   };
 
-  render() {
-    const { classes, stepStructure, activeStep } = this.props;
-    return (
-      <Stepper
-        orientation="horizontal"
-        className={classes.stepper}
-        activeStep={activeStep}
-        classes={{ root: classes.stepperRoot }}
-        connector={
-          <StepConnector classes={{ root: classes.stepConnectorRoot }} />
-        }
-      >
-        {stepStructure.map((mainStep, index) => {
-          return (
-            <Step key={mainStep.mainStepLabel}>
-              <StepLabel classes={{ root: classes.stepLabelRoot }}>
-                <Typography
-                  variant="subtitle1"
-                  gutterBottom
-                  className={classes.mainStepLabel}
-                >
-                  {mainStep.mainStepLabel}
-                </Typography>
-                {index <= activeStep && (
-                  <List>{this.getExtraStepContent(mainStep.substeps)}</List>
-                )}
-              </StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-    );
-  }
-}
+  return (
+    <Stepper
+      orientation="horizontal"
+      className={classes.stepper}
+      activeStep={activeStep}
+      classes={{ root: classes.stepperRoot }}
+      connector={
+        <StepConnector classes={{ root: classes.stepConnectorRoot }} />
+      }
+    >
+      {stepStructure.map((mainStep, index) => {
+        return (
+          <Step key={mainStep.mainStepLabel}>
+            <StepLabel classes={{ root: classes.stepLabelRoot }}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                className={classes.mainStepLabel}
+              >
+                {mainStep.mainStepLabel}
+              </Typography>
+              {index <= activeStep && (
+                <List>{getExtraStepContent(mainStep.substeps)}</List>
+              )}
+            </StepLabel>
+          </Step>
+        );
+      })}
+    </Stepper>
+  );
+};
 
 export default withStyles(styles)(PrStateStepper);

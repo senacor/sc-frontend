@@ -7,7 +7,6 @@ import PopperSearchMenu from './PopperSearchMenu';
 import PrDelegate from '../pr/PrDelegate';
 import { formatDateForFrontend } from '../../helper/date';
 import DateFilter from './DateFilter';
-import { translateContent } from '../translate/Translate';
 import ListFilter from './ListFilter';
 import HR_ELEMENTS from './hrElements';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
@@ -115,18 +114,25 @@ export default class PerformanceReviewTableService {
     };
   }
 
-  occasion() {
+  occasion(intl) {
     let filterContent = {};
     this.filterPossibilities.occasions.forEach(item => {
-      filterContent[translateContent(`${item}`)] = item;
+      filterContent[
+        intl.formatMessage({
+          id: `${item}`
+        })
+      ] = item;
     });
 
     return {
       numeric: false,
       label: <FormattedMessage id="performancereviewtableservice.reason" />,
-      sortValue: entry =>
-        translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
-      render: entry => translateContent(entry[TABLE_PRS_ELEMENTS.PR_OCCASION]),
+      sortValue: entry => (
+        <FormattedMessage id={`${entry[TABLE_PRS_ELEMENTS.PR_OCCASION]}`} />
+      ),
+      render: entry => (
+        <FormattedMessage id={`${entry[TABLE_PRS_ELEMENTS.PR_OCCASION]}`} />
+      ),
       filter: (
         <PopperSearchMenu filterGroup={this.filterGroup} filterBy={'occasion'}>
           <ListFilter content={filterContent} />
@@ -156,19 +162,29 @@ export default class PerformanceReviewTableService {
     };
   }
 
-  competence() {
+  competence(intl) {
     let filterContent = {};
     this.filterPossibilities.competences.forEach(item => {
-      filterContent[translateContent(`COMPETENCE_${item}`)] = item;
+      filterContent[
+        intl.formatMessage({
+          id: `COMPETENCE_${item}`
+        })
+      ] = item;
     });
 
     return {
       numeric: false,
       label: <FormattedMessage id="performancereviewtableservice.devcon" />,
-      sortValue: entry =>
-        translateContent(`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`),
-      render: entry =>
-        translateContent(`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`),
+      sortValue: entry => (
+        <FormattedMessage
+          id={`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`}
+        />
+      ),
+      render: entry => (
+        <FormattedMessage
+          id={`COMPETENCE_${entry[TABLE_PRS_ELEMENTS.COMPETENCE]}`}
+        />
+      ),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}

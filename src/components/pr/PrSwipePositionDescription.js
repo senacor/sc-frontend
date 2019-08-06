@@ -31,9 +31,9 @@ const styles = theme => ({
   }
 });
 
-class PrSwipePositionDescription extends React.Component {
-  positionText = (position, intl) => {
-    switch (position) {
+const PrSwipePositionDescription = ({ category, classes, intl }) => {
+  const positionText = (category, intl) => {
+    switch (category) {
       case 'PROBLEM_ANALYSIS':
         return intl.formatMessage({
           id: 'prswipepositiondescription.problemanalysis'
@@ -83,7 +83,8 @@ class PrSwipePositionDescription extends React.Component {
         return;
     }
   };
-  categoryText = category => {
+
+  const categoryText = category => {
     switch (category) {
       case 'PROBLEM_ANALYSIS':
         return {
@@ -248,90 +249,86 @@ class PrSwipePositionDescription extends React.Component {
     }
   };
 
-  render() {
-    const { category, classes, intl } = this.props;
+  let swiper;
 
-    return (
-      <div>
-        <ListItem>
-          <ListItemText secondary={this.positionText(category, intl)} />
-        </ListItem>
-        <ListItem>
-          <IconButton
-            className={classes.button}
-            aria-label={
-              <FormattedMessage id="prswipepositiondescription.left" />
-            }
-            onClick={() => this.refs.swiper.prev()}
-          >
-            <Icon>keyboard_arrow_left</Icon>
-          </IconButton>
-          <ReactSwipe
-            ref="swiper"
-            className={classes.swipe}
-            swipeOptions={{ continuous: false }}
-          >
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary={
-                  <FormattedMessage id="prswipepositiondescription.junior" />
-                }
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).junior}
-              />
-            </div>
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary={
-                  <FormattedMessage id="prswipepositiondescription.senior" />
-                }
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).senior}
-              />
-            </div>
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary={
-                  <FormattedMessage id="prswipepositiondescription.expert" />
-                }
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).expert}
-              />
-            </div>
-            <div className={classes.swipeWrapInside}>
-              <ListItemText
-                className={classes.titleSize}
-                primary={
-                  <FormattedMessage id="prswipepositiondescription.lead" />
-                }
-              />
-              <ListItemText
-                className={classes.description}
-                secondary={this.categoryText(category).lead}
-              />
-            </div>
-          </ReactSwipe>
-          <IconButton
-            className={classes.button}
-            aria-label={
-              <FormattedMessage id="prswipepositiondescription.right" />
-            }
-            onClick={() => this.refs.swiper.next()}
-          >
-            <Icon>keyboard_arrow_right</Icon>
-          </IconButton>
-        </ListItem>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <ListItem>
+        <ListItemText secondary={positionText(category, intl)} />
+      </ListItem>
+      <ListItem>
+        <IconButton
+          className={classes.button}
+          aria-label={<FormattedMessage id="prswipepositiondescription.left" />}
+          onClick={() => swiper.prev()}
+        >
+          <Icon>keyboard_arrow_left</Icon>
+        </IconButton>
+        <ReactSwipe
+          ref={swp => (swiper = swp)}
+          className={classes.swipe}
+          swipeOptions={{ continuous: false }}
+        >
+          <div className={classes.swipeWrapInside}>
+            <ListItemText
+              className={classes.titleSize}
+              primary={
+                <FormattedMessage id="prswipepositiondescription.junior" />
+              }
+            />
+            <ListItemText
+              className={classes.description}
+              secondary={categoryText(category).junior}
+            />
+          </div>
+          <div className={classes.swipeWrapInside}>
+            <ListItemText
+              className={classes.titleSize}
+              primary={
+                <FormattedMessage id="prswipepositiondescription.senior" />
+              }
+            />
+            <ListItemText
+              className={classes.description}
+              secondary={categoryText(category).senior}
+            />
+          </div>
+          <div className={classes.swipeWrapInside}>
+            <ListItemText
+              className={classes.titleSize}
+              primary={
+                <FormattedMessage id="prswipepositiondescription.expert" />
+              }
+            />
+            <ListItemText
+              className={classes.description}
+              secondary={categoryText(category).expert}
+            />
+          </div>
+          <div className={classes.swipeWrapInside}>
+            <ListItemText
+              className={classes.titleSize}
+              primary={
+                <FormattedMessage id="prswipepositiondescription.lead" />
+              }
+            />
+            <ListItemText
+              className={classes.description}
+              secondary={categoryText(category).lead}
+            />
+          </div>
+        </ReactSwipe>
+        <IconButton
+          className={classes.button}
+          aria-label={
+            <FormattedMessage id="prswipepositiondescription.right" />
+          }
+          onClick={() => swiper.next()}
+        >
+          <Icon>keyboard_arrow_right</Icon>
+        </IconButton>
+      </ListItem>
+    </div>
+  );
+};
 export default injectIntl(withStyles(styles)(PrSwipePositionDescription));

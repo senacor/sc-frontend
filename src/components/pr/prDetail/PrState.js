@@ -4,16 +4,15 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
-
 import { withStyles } from '@material-ui/core/styles/index';
 import {
   getPrDetail,
   getUserroles,
   getUserinfo,
-  getRequiredFields,
   getPrRatings,
   getPrEmployeeContributions,
-  getMeeting
+  getMeeting,
+  getSavingThreads
 } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
@@ -23,42 +22,31 @@ import { isHr } from '../../../helper/checkRole';
 import { changeRequiredFields } from '../../../actions/sheet';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
+import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   paper: {
     backgroundColor: 'inherit',
     marginBottom: 2 * theme.spacing.unit
-  },
-  typography: {
-    color: '#FFF',
-    marginLeft: '30px',
-    marginTop: '20px',
-    fontSize: '15px'
-  },
-  buttonDesktop: {
-    position: 'relative',
-    marginRight: '1%',
-    backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
-    marginBottom: '2%'
-  },
-  buttonDesktopSchedulingDone: {
-    position: 'relative',
-    marginRight: '1%',
-    backgroundColor: theme.palette.primary['A700'],
-    color: '#FFF',
-    marginBottom: '2%'
   }
 });
 
-class PrState extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
+const PrState = ({
+  classes,
+  prById,
+  userinfo,
+  userroles,
+  meeting,
+  employeeContributionRole,
+  employeeContributionLeader,
+  overallComment,
+  checkRequired,
+  addPrStatus,
+  savingThreads,
+  intl
+}) => {
+  const mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
     if (prStatusesDone !== undefined) {
       return Object.values(stepStructure[stepId].substeps).every(
         substep => substep.isCompleted
@@ -67,16 +55,16 @@ class PrState extends React.Component {
     return false;
   };
 
-  calculateActiveStep = (prStatusesDone, stepStructure) => {
+  const calculateActiveStep = (prStatusesDone, stepStructure) => {
     return [...Array(stepStructure.length).keys()].filter(stepId =>
-      this.mainStepIsDone(prStatusesDone, stepId, stepStructure)
+      mainStepIsDone(prStatusesDone, stepId, stepStructure)
     ).length;
   };
 
-  getCompletedSubsteps = prStatuses => {
+  const getCompletedSubsteps = prStatuses => {
     let isDoneStatusMap = {};
     for (let status in prStatusEnum) {
-      isDoneStatusMap[prStatusEnum[status]] = this.isDone(
+      isDoneStatusMap[prStatusEnum[status]] = isDone(
         prStatuses,
         prStatusEnum[status]
       );
@@ -84,7 +72,7 @@ class PrState extends React.Component {
     return isDoneStatusMap;
   };
 
-  isDone = (prStatuses, status) => {
+  const isDone = (prStatuses, status) => {
     if (prStatuses === undefined) {
       return false;
     } else {
@@ -92,8 +80,8 @@ class PrState extends React.Component {
     }
   };
 
-  updateStepStructure = (pr, userinfo, prStatusesDone, meeting) => {
-    let userIsMemberOfHr = isHr(this.props.userroles);
+  const updateStepStructure = (pr, userinfo, prStatusesDone, meeting) => {
+    let userIsMemberOfHr = isHr(userroles);
 
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let meetingInfoText = (status, statuses) => {
@@ -101,63 +89,63 @@ class PrState extends React.Component {
         statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
         !(status === 'ACCEPTED')
       ) {
-        return this.props.intl.formatMessage({
+        return intl.formatMessage({
           id: 'prstate.offportalarranged'
         });
       } else {
         switch (status) {
           case 'ACCEPTED':
-            return this.props.intl.formatMessage({
+            return intl.formatMessage({
               id: 'prstate.agreed'
             });
           case 'DECLINED':
             if (userIsMemberOfHr) {
-              return this.props.intl.formatMessage({
+              return intl.formatMessage({
                 id: 'prstate.cancelled'
               });
             }
-            return this.props.intl.formatMessage({
+            return intl.formatMessage({
               id: 'prstate.newtermin'
             });
           case 'NO_ANSWER':
-            return this.props.intl.formatMessage({
+            return intl.formatMessage({
               id: 'prstate.terminsent'
             });
           case 'NOT_REQUESTED':
             if (userIsMemberOfHr) {
-              return this.props.intl.formatMessage({
+              return intl.formatMessage({
                 id: 'prstate.notermin'
               });
             }
-            return this.props.intl.formatMessage({
+            return intl.formatMessage({
               id: 'prstate.arrangetermin'
             });
           default:
-            return this.props.intl.formatMessage({
+            return intl.formatMessage({
               id: 'prstate.noinfo'
             });
         }
       }
     };
     let step1 = {
-      mainStepLabel: this.props.intl.formatMessage({
+      mainStepLabel: intl.formatMessage({
         id: 'prstate.preparation'
       }),
       substeps: {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
           isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-          label: `${this.props.intl.formatMessage({
+          label: `${intl.formatMessage({
             id: 'prstate.employee'
           })} `,
           rendering: {
-            complete: this.props.intl.formatMessage({
+            complete: intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: this.props.intl.formatMessage({
+            incompleteForNonActionPerformer: intl.formatMessage({
               id: 'prstate.notfinished'
             }),
-            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+            incompleteForActionPerformer: getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.RELEASED_SHEET_EMPLOYEE
             )
@@ -166,19 +154,17 @@ class PrState extends React.Component {
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
-          label: `${this.props.intl.formatMessage({
+          label: `${intl.formatMessage({
             id: 'prstate.reviewer'
           })} `,
           rendering: {
-            complete: this.props.intl.formatMessage({
+            complete: intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
-            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+            incompleteForNonActionPerformer: intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
+            incompleteForActionPerformer: getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.RELEASED_SHEET_REVIEWER
             )
@@ -186,7 +172,7 @@ class PrState extends React.Component {
         },
         [prStatusEnum.REQUESTED_DATE]: {
           isCompleted: true,
-          label: `${this.props.intl.formatMessage({
+          label: `${intl.formatMessage({
             id: 'prstate.findtermin'
           })} `,
           rendering: {
@@ -196,26 +182,24 @@ class PrState extends React.Component {
       }
     };
     let step2 = {
-      mainStepLabel: this.props.intl.formatMessage({
+      mainStepLabel: intl.formatMessage({
         id: 'prstate.termin'
       }),
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
           isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
-          label: `${this.props.intl.formatMessage({
+          label: `${intl.formatMessage({
             id: 'prstate.reviewer'
           })} `,
           rendering: {
-            complete: this.props.intl.formatMessage({
+            complete: intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
-            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+            incompleteForNonActionPerformer: intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
+            incompleteForActionPerformer: getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.FINALIZED_REVIEWER
             )
@@ -224,26 +208,24 @@ class PrState extends React.Component {
       }
     };
     let step3 = {
-      mainStepLabel: this.props.intl.formatMessage({
+      mainStepLabel: intl.formatMessage({
         id: 'prstate.conclusion'
       }),
       substeps: {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
           isCurrentUserActionPerformer: hasRoleInPr(['employee']),
-          label: `${this.props.intl.formatMessage({
+          label: `${intl.formatMessage({
             id: 'prstate.employee'
           })} `,
           rendering: {
-            complete: this.props.intl.formatMessage({
+            complete: intl.formatMessage({
               id: 'prstate.finished'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
-            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+            incompleteForNonActionPerformer: intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
+            incompleteForActionPerformer: getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.FINALIZED_EMPLOYEE
             )
@@ -252,26 +234,24 @@ class PrState extends React.Component {
       }
     };
     let step4 = {
-      mainStepLabel: this.props.intl.formatMessage({
+      mainStepLabel: intl.formatMessage({
         id: 'prstate.postprocessing'
       }),
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
           isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
-          isCurrentUserActionPerformer: isHr(this.props.userroles),
-          label: `${this.props.intl.formatMessage({
+          isCurrentUserActionPerformer: isHr(userroles),
+          label: `${intl.formatMessage({
             id: 'prstate.hr'
           })} `,
           rendering: {
-            complete: this.props.intl.formatMessage({
+            complete: intl.formatMessage({
               id: 'prstate.archived'
             }),
-            incompleteForNonActionPerformer: (
-              this.props.intl.formatMessage({
-                id: 'prstate.notfinished'
-              })
-            ),
-            incompleteForActionPerformer: this.getIncompleteActionPerformerButton(
+            incompleteForNonActionPerformer: intl.formatMessage({
+              id: 'prstate.notfinished'
+            }),
+            incompleteForActionPerformer: getIncompleteActionPerformerButton(
               pr,
               prStatusEnum.ARCHIVED_HR
             )
@@ -287,7 +267,7 @@ class PrState extends React.Component {
     }
   };
 
-  checkRequiredFields = (
+  const checkRequiredFields = (
     employeeContributionRole,
     employeeContributionLeader,
     overallComment,
@@ -319,14 +299,8 @@ class PrState extends React.Component {
     }
   };
 
-  requiredFieldsEmpty = status => {
-    let {
-      employeeContributionRole,
-      employeeContributionLeader,
-      overallComment
-    } = this.props;
-
-    let fieldFilled = this.checkRequiredFields(
+  const requiredFieldsEmpty = status => {
+    let fieldFilled = checkRequiredFields(
       employeeContributionRole,
       employeeContributionLeader,
       overallComment,
@@ -337,44 +311,42 @@ class PrState extends React.Component {
       prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
       false === fieldFilled.employee
     ) {
-      this.props.checkRequired(fieldFilled);
+      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      this.props.checkRequired(fieldFilled);
+      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.FINALIZED_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      this.props.checkRequired(fieldFilled);
+      checkRequired(fieldFilled);
       return true;
     } else {
       return false;
     }
   };
 
-  getIncompleteActionPerformerButton = (pr, status) => {
+  const getIncompleteActionPerformerButton = (pr, status) => {
     let label =
       status === prStatusEnum.RELEASED_SHEET_REVIEWER ||
-      status === prStatusEnum.RELEASED_SHEET_EMPLOYEE ? (
-        this.props.intl.formatMessage({
-          id: 'prstate.release'
-        })
-      ) : (
-        this.props.intl.formatMessage({
-          id: 'prstate.finish'
-        })
-      );
+      status === prStatusEnum.RELEASED_SHEET_EMPLOYEE
+        ? intl.formatMessage({
+            id: 'prstate.release'
+          })
+        : intl.formatMessage({
+            id: 'prstate.finish'
+          });
     return (
       <CheckRequiredClick
         onClick={() => {
-          this.props.addPrStatus(pr, status);
+          addPrStatus(pr, status);
         }}
-        check={() => !this.requiredFieldsEmpty(status)}
-        message={this.props.intl.formatMessage({
+        check={() => !requiredFieldsEmpty(status)}
+        message={intl.formatMessage({
           id: 'prstate.fillrequired'
         })}
       >
@@ -383,48 +355,54 @@ class PrState extends React.Component {
     );
   };
 
-  render() {
-    const { classes, prById, userinfo, meeting } = this.props;
-
-    if (!(prById && meeting)) {
-      return null;
-    }
-    const prStatusesDone = this.getCompletedSubsteps(prById.statuses);
-
-    if (!prStatusesDone) {
-      return null;
-    }
-
-    const stepStructure = this.updateStepStructure(
-      prById,
-      userinfo,
-      prStatusesDone,
-      meeting
-    );
-
-    const activeStep = this.calculateActiveStep(prStatusesDone, stepStructure);
-
-    return (
-      <Paper className={classes.paper}>
-        <List>
-          <ListItem>
-            <ListItemText>
-              {this.props.intl.formatMessage({
-                id: 'prstate.progress'
-              })}
-            </ListItemText>
-          </ListItem>
-          <ListItem>
-            <PrStatusStepper
-              stepStructure={stepStructure}
-              activeStep={activeStep}
-            />
-          </ListItem>
-        </List>
-      </Paper>
-    );
+  if (!(prById && meeting)) {
+    return null;
   }
-}
+  const prStatusesDone = getCompletedSubsteps(prById.statuses);
+
+  if (!prStatusesDone) {
+    return null;
+  }
+
+  const stepStructure = updateStepStructure(
+    prById,
+    userinfo,
+    prStatusesDone,
+    meeting
+  );
+
+  const activeStep = calculateActiveStep(prStatusesDone, stepStructure);
+
+  let savingInfo =
+    savingThreads > 0
+      ? intl.formatMessage({
+          id: 'prstate.saving'
+        })
+      : intl.formatMessage({
+          id: 'prstate.saved'
+        });
+
+  return (
+    <Paper className={classes.paper}>
+      <List>
+        <ListItem>
+          <ListItemText>
+            {intl.formatMessage({
+              id: 'prstate.progress'
+            })}
+          </ListItemText>
+          <Typography>{savingInfo}</Typography>
+        </ListItem>
+        <ListItem>
+          <PrStatusStepper
+            stepStructure={stepStructure}
+            activeStep={activeStep}
+          />
+        </ListItem>
+      </List>
+    </Paper>
+  );
+};
 
 export const StyledComponent = withStyles(styles)(PrState);
 export default injectIntl(
@@ -440,8 +418,8 @@ export default injectIntl(
       employeeContributionLeader: getPrEmployeeContributions(
         'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
       )(state).text,
-      requiredFields: getRequiredFields(state),
-      meeting: getMeeting(state)
+      meeting: getMeeting(state),
+      savingThreads: getSavingThreads(state)
     }),
     {
       checkRequired: changeRequiredFields,
