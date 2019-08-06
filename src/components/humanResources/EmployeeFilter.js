@@ -69,9 +69,7 @@ export const EmployeeFilter = ({
               <InputAdornment position="end">
                 <IconButton>
                   <Icon id="adornmentIcon" onClick={onDelete}>
-                    {intl.formatMessage({
-                      id: 'employeefilter.delete'
-                    })}
+                    clear
                   </Icon>
                 </IconButton>
               </InputAdornment>

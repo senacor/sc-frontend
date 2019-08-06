@@ -24,7 +24,8 @@ export const OverviewPerformanceReviews = ({
   fetchFilteredPrsForHumanResource,
   filter,
   userroles,
-  data
+  data,
+  intl
 }) => {
   const [columnsToView, setColumnsToView] = useState(null);
 
@@ -37,15 +38,15 @@ export const OverviewPerformanceReviews = ({
     return [
       prTableService.employee(),
       prTableService.deadline(),
-      prTableService.occasion(this.props.intl),
+      prTableService.occasion(intl),
       prTableService.projectCst(),
-      prTableService.competence(this.props.intl),
+      prTableService.competence(intl),
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(),
-      prTableService.result(),
-      prTableService.employeePreparation(),
-      prTableService.reviewerPreparation(),
+      prTableService.result(intl),
+      prTableService.employeePreparation(intl),
+      prTableService.reviewerPreparation(intl),
       prTableService.meeting(),
       prTableService.finalState(),
       prTableService.hrDone()

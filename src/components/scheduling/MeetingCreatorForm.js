@@ -78,9 +78,6 @@ const MeetingCreatorForm = ({
         break;
       default:
     }
-    this.setState({
-      [name]: value
-    });
   };
 
   const createMeeting = prById => {

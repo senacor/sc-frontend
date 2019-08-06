@@ -41,9 +41,9 @@ export class PrOverviewEmployee extends React.Component {
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(),
-      prTableService.result(),
-      prTableService.employeePreparation(),
-      prTableService.reviewerPreparation(),
+      prTableService.result(this.props.intl),
+      prTableService.employeePreparation(this.props.intl),
+      prTableService.reviewerPreparation(this.props.intl),
       prTableService.meeting(),
       prTableService.finalState()
     ];

@@ -17,6 +17,7 @@ export default class PerformanceReviewTableService {
     this.filterGroup = filterGroup;
     this.filterPossibilities = filterPossibilities;
   }
+
   employee(withFilter = true) {
     let columnDefinition = {
       numeric: false,
@@ -218,17 +219,18 @@ export default class PerformanceReviewTableService {
     };
   }
 
-  result() {
+  result(intl) {
     let filterContent = {};
     this.filterPossibilities.overallAssessments.forEach(item => {
-      filterContent[mapRatingFullfilment(parseInt(item, 10))] = item;
+      filterContent[mapRatingFullfilment(parseInt(item, 10), intl)] = item;
     });
 
     return {
       numeric: true,
       label: <FormattedMessage id="performancereviewtableservice.rating" />,
       sortValue: entry => entry[TABLE_PRS_ELEMENTS.RESULT],
-      render: entry => mapRatingFullfilment(entry[TABLE_PRS_ELEMENTS.RESULT]),
+      render: entry =>
+        mapRatingFullfilment(entry[TABLE_PRS_ELEMENTS.RESULT], intl),
       filter: (
         <PopperSearchMenu
           filterGroup={this.filterGroup}
@@ -240,7 +242,15 @@ export default class PerformanceReviewTableService {
     };
   }
 
-  employeePreparation() {
+  employeePreparation(intl) {
+    let content = {};
+    content[
+      intl.formatMessage({ id: 'performancereviewtableservice.yes' })
+    ] = true;
+    content[
+      intl.formatMessage({ id: 'performancereviewtableservice.no' })
+    ] = false;
+
     return {
       numeric: false,
       label: (
@@ -259,13 +269,21 @@ export default class PerformanceReviewTableService {
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE}
         >
-          <ListFilter content={{ ja: true, nein: false }} />
+          <ListFilter content={content} />
         </PopperSearchMenu>
       )
     };
   }
 
-  reviewerPreparation() {
+  reviewerPreparation(intl) {
+    let content = {};
+    content[
+      intl.formatMessage({ id: 'performancereviewtableservice.yes' })
+    ] = true;
+    content[
+      intl.formatMessage({ id: 'performancereviewtableservice.no' })
+    ] = false;
+
     return {
       numeric: false,
       label: (
@@ -284,7 +302,7 @@ export default class PerformanceReviewTableService {
           filterGroup={this.filterGroup}
           filterBy={TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE}
         >
-          <ListFilter content={{ ja: true, nein: false }} />
+          <ListFilter content={content} />
         </PopperSearchMenu>
       )
     };

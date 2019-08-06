@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as actions from '../../actions';
 import { getSubFilter } from '../../reducers/selector';
 import PropTypes from 'prop-types';
@@ -11,70 +11,98 @@ import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
 import { Button } from '@material-ui/core';
 
-export class ListFilter extends Component {
-  constructor(props) {
-    super(props);
+export const ListFilter = ({
+  filter,
+  content,
+  filterGroup,
+  filterBy,
+  deleteFilter,
+  addFilter
+}) => {
+  const defaultFilter = Object.assign(
+    {},
+    { searchString: '', values: '' },
+    filter
+  );
+  const [checked, setChecked] = useState(
+    defaultFilter.values === '' ? Object.keys(content) : defaultFilter.values
+  );
+  const [isAllSelected, setIsAllSelected] = useState(
+    checked.length === Object.keys(content).length
+  );
 
-    const filter = Object.assign(
-      {},
-      { searchString: '', values: '' },
-      this.props.filter
-    );
-    const checked =
-      filter.values === '' ? Object.keys(props.content) : filter.values;
-    this.state = {
-      filter: filter,
-      checked: checked,
-      isAllSelected: checked.length === Object.keys(props.content).length
+  const clearFilter = () => {
+    const payload = {
+      filterGroup: filterGroup,
+      filterBy: filterBy
     };
-  }
+    deleteFilter(payload);
+  };
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyPress);
-  }
-
-  handleKeyPress = event => {
+  const handleKeyPress = event => {
     if (event.key === 'Enter') {
-      this.setFilter();
+      setFilter();
     }
   };
 
-  isFilterSet = checked => {
+  const setFilter = () => {
+    let searchString = `${filterBy}=`;
+    searchString += checked
+      .map(value => {
+        return content[value];
+      })
+      .join(`&${filterBy}=`);
+
+    const filter = {
+      searchString,
+      values: checked
+    };
+    const payload = {
+      filterGroup: filterGroup,
+      filterBy: filterBy,
+      filter: filter
+    };
+    addFilter(payload);
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.addEventListener('keydown', handleKeyPress);
+    };
+  });
+
+  const isFilterSet = checked => {
     return !(
-      checked.length === Object.keys(this.props.content).length ||
-      this.isFilterEmpty(checked)
+      checked.length === Object.keys(content).length || isFilterEmpty(checked)
     );
   };
 
-  isFilterEmpty = checked => {
+  const isFilterEmpty = checked => {
     return checked.length === 0;
   };
 
-  handleToggleSelectAll = () => {
-    const newAllSelect = !this.state.isAllSelected;
+  const handleToggleSelectAll = () => {
+    //clearFilter();
+    const newAllSelect = !isAllSelected;
     let newChecked;
-
     if (newAllSelect === true) {
-      newChecked = Object.keys(this.props.content);
+      newChecked = Object.keys(content);
     } else {
       newChecked = [];
     }
-    this.setState({
-      isAllSelected: newAllSelect,
-      checked: newChecked
-    });
+
+    setChecked(newChecked);
+    setIsAllSelected(newAllSelect);
+
     const button = document.getElementById('filterButton');
     if (button) {
       button.focus();
     }
   };
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
+  const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -84,24 +112,18 @@ export class ListFilter extends Component {
       newChecked.splice(currentIndex, 1);
     }
 
-    if (this.isFilterSet(newChecked)) {
+    if (isFilterSet(newChecked)) {
       // something is set in filter, but not everything
-      this.setState({
-        checked: newChecked,
-        isAllSelected: false
-      });
-    } else if (this.isFilterEmpty(newChecked)) {
+      setChecked(newChecked);
+      setIsAllSelected(false);
+    } else if (isFilterEmpty(newChecked)) {
       // nothing is set in filter
-      this.setState({
-        checked: newChecked,
-        isAllSelected: false
-      });
+      setChecked(newChecked);
+      setIsAllSelected(false);
     } else {
       // everything is set in filter
-      this.setState({
-        checked: Object.keys(this.props.content),
-        isAllSelected: true
-      });
+      setChecked(Object.keys(content));
+      setIsAllSelected(true);
     }
     const button = document.getElementById('filterButton');
     if (button) {
@@ -109,53 +131,28 @@ export class ListFilter extends Component {
     }
   };
 
-  setFilter = () => {
-    let searchString = `${this.props.filterBy}=`;
-    searchString += this.state.checked
-      .map(value => {
-        return this.props.content[value];
-      })
-      .join(`&${this.props.filterBy}=`);
-
-    let filter = {
-      searchString,
-      values: this.state.checked
-    };
-    let payload = {
-      filterGroup: this.props.filterGroup,
-      filterBy: this.props.filterBy,
-
-      filter: filter
-    };
-    this.props.addFilter(payload);
-  };
-
-  showSelectAll = () => {
+  const showSelectAll = () => {
     return (
-      <ListItem
-        key={'selectAll'}
-        dense
-        button
-        onClick={this.handleToggleSelectAll}
-      >
+      <ListItem key={'selectAll'} dense button onClick={handleToggleSelectAll}>
         <Checkbox
           id={'selectAll'}
-          checked={this.state.isAllSelected}
+          checked={isAllSelected}
           color={'primary'}
           checkedIcon={<Icon>check</Icon>}
           icon={<Icon />}
-          ref={'check'}
+          //ref={'check'}
         />
         <ListItemText primary={'selectAll'} />
       </ListItem>
     );
   };
-  showContent = value => {
+
+  const showContent = value => {
     return (
-      <ListItem key={value} dense button onClick={this.handleToggle(value)}>
+      <ListItem key={value} dense button onClick={handleToggle(value)}>
         <Checkbox
           id={value}
-          checked={this.state.checked.indexOf(value) !== -1}
+          checked={checked.indexOf(value) !== -1}
           color={'primary'}
           checkedIcon={<Icon>check</Icon>}
           icon={<Icon />}
@@ -165,28 +162,26 @@ export class ListFilter extends Component {
     );
   };
 
-  render() {
-    return (
-      <List onKeyPress={this.keyPress}>
-        {this.showSelectAll()}
-        <Divider />
-        {Object.keys(this.props.content).map(this.showContent, this)}
-        <Divider />
-        <Button
-          onClick={this.setFilter}
-          id={'filterButton'}
-          style={{
-            backgroundColor: '#26646D',
-            color: '#FFFFFF',
-            float: 'right'
-          }}
-        >
-          OK
-        </Button>
-      </List>
-    );
-  }
-}
+  return (
+    <List onKeyPress={handleKeyPress}>
+      {showSelectAll()}
+      <Divider />
+      {Object.keys(content).map(showContent, this)}
+      <Divider />
+      <Button
+        onClick={setFilter}
+        id={'filterButton'}
+        style={{
+          backgroundColor: '#26646D',
+          color: '#FFFFFF',
+          float: 'right'
+        }}
+      >
+        OK
+      </Button>
+    </List>
+  );
+};
 
 ListFilter.propTypes = {
   filterGroup: PropTypes.string.isRequired,
