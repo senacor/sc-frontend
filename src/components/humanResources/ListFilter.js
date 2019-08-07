@@ -11,71 +11,41 @@ import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
 import { Button } from '@material-ui/core';
 
-export const ListFilter = ({
-  filter,
-  content,
-  filterGroup,
-  filterBy,
-  deleteFilter,
-  addFilter
-}) => {
+export const ListFilter = props => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    filter
+    props.filter
   );
-  const [checked, setChecked] = useState(
-    defaultFilter.values === '' ? Object.keys(content) : defaultFilter.values
-  );
+  const defaultChecked =
+    defaultFilter.values === ''
+      ? Object.keys(props.content)
+      : defaultFilter.values;
+
+  //const [filter, setFilter] = useState(defaultFilter);
+  const [checked, setChecked] = useState(defaultChecked);
   const [isAllSelected, setIsAllSelected] = useState(
-    checked.length === Object.keys(content).length
+    defaultChecked.length === Object.keys(props.content).length
   );
-
-  const clearFilter = () => {
-    const payload = {
-      filterGroup: filterGroup,
-      filterBy: filterBy
-    };
-    deleteFilter(payload);
-  };
-
-  const handleKeyPress = event => {
-    if (event.key === 'Enter') {
-      setFilter();
-    }
-  };
-
-  const setFilter = () => {
-    let searchString = `${filterBy}=`;
-    searchString += checked
-      .map(value => {
-        return content[value];
-      })
-      .join(`&${filterBy}=`);
-
-    const filter = {
-      searchString,
-      values: checked
-    };
-    const payload = {
-      filterGroup: filterGroup,
-      filterBy: filterBy,
-      filter: filter
-    };
-    addFilter(payload);
-  };
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
 
     return () => {
-      document.addEventListener('keydown', handleKeyPress);
+      document.removeEventListener('keydown', handleKeyPress);
     };
   });
 
+  const handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      applyFilter();
+    }
+  };
+
   const isFilterSet = checked => {
     return !(
-      checked.length === Object.keys(content).length || isFilterEmpty(checked)
+      checked.length === Object.keys(props.content).length ||
+      isFilterEmpty(checked)
     );
   };
 
@@ -84,17 +54,16 @@ export const ListFilter = ({
   };
 
   const handleToggleSelectAll = () => {
-    //clearFilter();
     const newAllSelect = !isAllSelected;
     let newChecked;
+
     if (newAllSelect === true) {
-      newChecked = Object.keys(content);
+      newChecked = Object.keys(props.content);
     } else {
       newChecked = [];
     }
-
-    setChecked(newChecked);
     setIsAllSelected(newAllSelect);
+    setChecked(newChecked);
 
     const button = document.getElementById('filterButton');
     if (button) {
@@ -122,13 +91,34 @@ export const ListFilter = ({
       setIsAllSelected(false);
     } else {
       // everything is set in filter
-      setChecked(Object.keys(content));
+      setChecked(Object.keys(props.content));
       setIsAllSelected(true);
     }
+
     const button = document.getElementById('filterButton');
     if (button) {
       button.focus();
     }
+  };
+
+  const applyFilter = () => {
+    let searchString = `${props.filterBy}=`;
+    searchString += checked
+      .map(value => {
+        return props.content[value];
+      })
+      .join(`&${props.filterBy}=`);
+
+    let filter = {
+      searchString,
+      values: checked
+    };
+    let payload = {
+      filterGroup: props.filterGroup,
+      filterBy: props.filterBy,
+      filter: filter
+    };
+    props.addFilter(payload);
   };
 
   const showSelectAll = () => {
@@ -140,7 +130,6 @@ export const ListFilter = ({
           color={'primary'}
           checkedIcon={<Icon>check</Icon>}
           icon={<Icon />}
-          //ref={'check'}
         />
         <ListItemText primary={'selectAll'} />
       </ListItem>
@@ -166,10 +155,10 @@ export const ListFilter = ({
     <List onKeyPress={handleKeyPress}>
       {showSelectAll()}
       <Divider />
-      {Object.keys(content).map(showContent, this)}
+      {Object.keys(props.content).map(showContent)}
       <Divider />
       <Button
-        onClick={setFilter}
+        onClick={applyFilter}
         id={'filterButton'}
         style={{
           backgroundColor: '#26646D',
