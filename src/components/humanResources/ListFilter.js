@@ -65,9 +65,9 @@ export const ListFilter = props => {
     setIsAllSelected(newAllSelect);
     setChecked(newChecked);
 
-    const button = document.getElementById('filterButton');
-    if (button) {
-      button.focus();
+    const filterList = document.getElementById('filterList');
+    if (filterList) {
+      filterList.focus();
     }
   };
 
@@ -95,9 +95,9 @@ export const ListFilter = props => {
       setIsAllSelected(true);
     }
 
-    const button = document.getElementById('filterButton');
-    if (button) {
-      button.focus();
+    const filterList = document.getElementById('filterList');
+    if (filterList) {
+      filterList.focus();
     }
   };
 
@@ -152,14 +152,13 @@ export const ListFilter = props => {
   };
 
   return (
-    <List onKeyPress={handleKeyPress}>
+    <List id={'filterList'} onKeyPress={handleKeyPress}>
       {showSelectAll()}
       <Divider />
       {Object.keys(props.content).map(showContent)}
       <Divider />
       <Button
         onClick={applyFilter}
-        id={'filterButton'}
         style={{
           backgroundColor: '#26646D',
           color: '#FFFFFF',
