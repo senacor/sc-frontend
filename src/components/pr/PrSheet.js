@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
-import PrSheetEmployee from './PrSheetEmployee';
+import PrTextField from './PrTextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { isHr } from '../../helper/checkRole';
 import * as visibilityTypes from '../../helper/prVisibility';
@@ -18,9 +18,6 @@ import {
   getUserroles,
   getRequiredFields
 } from '../../reducers/selector';
-import PrFinalCommentEmployee from './PrFinalCommentEmployee';
-import PrFinalCommentHr from './PrFinalCommentHr';
-import PrAdvancementStrategies from './PrAdvancementStrategies';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -31,7 +28,7 @@ import { injectIntl } from 'react-intl';
 
 const styles = () => ({
   paddingBottom: {
-    paddingBottom: 12
+    paddingBottom: 24
   },
   containerListItem: {
     display: 'flex'
@@ -119,6 +116,42 @@ const PrSheet = props => {
   const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
 
   const [pr, setPr] = useState(prMock);
+  const [firstReflectionField, setFirstReflectionField] = useState(
+    pr.firstReflectionField
+  );
+  const [secondReflectionField, setSecondReflectionField] = useState(
+    pr.secondReflectionField
+  );
+  const [advancementStrategies, setAdvancementStrategies] = useState(
+    pr.advancementStrategies
+  );
+
+  const [finalCommentEmployee, setFinalCommentEmployee] = useState(
+    pr.finalCommentEmployee
+  );
+
+  const [finalCommentHr, setFinalCommentHr] = useState(pr.finalCommentHr);
+
+  const changeFirstReflectionField = value => {
+    setFirstReflectionField(value);
+  };
+
+  const changeSecondReflectionField = value => {
+    setSecondReflectionField(value);
+  };
+
+  const changeAdvancementStrategies = value => {
+    setAdvancementStrategies(value);
+  };
+
+  const changeFinalCommentEmployee = value => {
+    setFinalCommentEmployee(value);
+  };
+
+  const changeFinalCommentHr = value => {
+    setFinalCommentHr(value);
+  };
+
   let errorFlagReviewer = !requiredFields.reviewer;
   let errorFlagEmployee = !requiredFields.employee;
 
@@ -126,36 +159,6 @@ const PrSheet = props => {
   if (!pr) {
     return null;
   }
-
-  const firstReflectionFieldProps = {
-    text:
-      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
-      userinfo.userPrincipalName !== pr.employee.login
-        ? ''
-        : pr.firstReflectionField,
-    onChange: value => {
-      setPr({ ...pr, firstReflectionField: value });
-    },
-    isError: false,
-    isReadOnly:
-      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
-      userinfo.userPrincipalName === pr.employee.login
-  };
-
-  const secondReflectionFieldProps = {
-    text:
-      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
-      userinfo.userPrincipalName !== pr.employee.login
-        ? ''
-        : pr.secondReflectionField,
-    onChange: value => {
-      setPr({ ...pr, secondReflectionField: value });
-    },
-    isError: false,
-    isReadOnly:
-      pr.prStatusEntry.includes('FILLED_SHEET_EMPLOYEE') &&
-      userinfo.userPrincipalName === pr.employee.login
-  };
 
   let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
   let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
@@ -215,31 +218,31 @@ const PrSheet = props => {
           </h3>
         </Grid>
         <Grid item xs={12}>
-          <PrSheetEmployee
+          <PrTextField
             label={intl.formatMessage({
               id: 'ROLE_AND_PROJECT_ENVIRONMENT'
             })}
             helperText={intl.formatMessage({
               id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
             })}
-            text={firstReflectionFieldProps.text}
-            isReadOnly={firstReflectionFieldProps.isReadOnly}
-            isError={firstReflectionFieldProps.isError}
-            action={value => firstReflectionFieldProps.onChange(value)}
+            text={firstReflectionField}
+            isReadOnly={false}
+            isError={false}
+            action={value => changeFirstReflectionField(value)}
           />
         </Grid>
         <Grid item xs={12}>
-          <PrSheetEmployee
+          <PrTextField
             label={intl.formatMessage({
               id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
             })}
             helperText={intl.formatMessage({
               id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
             })}
-            text={secondReflectionFieldProps.text}
-            isReadOnly={secondReflectionFieldProps.isReadOnly}
-            isError={secondReflectionFieldProps.isError}
-            action={value => secondReflectionFieldProps.onChange(value)}
+            text={secondReflectionField}
+            isReadOnly={false}
+            isError={false}
+            action={value => changeSecondReflectionField(value)}
           />
         </Grid>
       </Grid>
@@ -248,90 +251,113 @@ const PrSheet = props => {
 
   let overallReviewer = () => {
     return (
-      <List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.overall'
-            })}
-          />
-        </ListItem>
-
-        <List disablePadding>
-          <PrOverallAssessment
-            pr={pr}
-            errorFlag={errorFlagReviewer}
-            readOnly={isVisibleToEmployee()}
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-
+      <div className={classes.paddingBottom}>
+        <Grid container spacing={16} className={classes.paddingBottom}>
+          <Grid item xs={12}>
+            <h3>
+              {intl.formatMessage({
+                id: 'prsheet.overall'
+              })}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <PrOverallAssessment
+              pr={pr}
+              errorFlag={errorFlagReviewer}
+              readOnly={isVisibleToEmployee()}
+              isActionPerformer={true}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              openEditing={!isFinalizedForReviewer()}
+              isReadOnly={false}
+              isError={false}
+              text={''}
+              action={() => {}}
+            />
+          </Grid>
+        </Grid>
         <Divider />
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.measures'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrAdvancementStrategies
-            pr={pr}
-            readOnly={isVisibleToEmployee()}
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            open={!isFinalizedForReviewer()}
-          />
-        </List>
-      </List>
+        <Grid container spacing={16} className={classes.paddingBottom}>
+          <Grid item xs={12}>
+            <h3>
+              {intl.formatMessage({
+                id: 'prsheet.measures'
+              })}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <PrTextField
+              label={intl.formatMessage({
+                id: 'pradvancementstrategies.measures'
+              })}
+              helperText={intl.formatMessage({
+                id: 'pradvancementstrategies.helpertext'
+              })}
+              text={advancementStrategies}
+              isReadOnly={false}
+              isError={false}
+              action={value => changeAdvancementStrategies(value)}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+      </div>
     );
   };
 
   let finalEmployee = () => {
     return (
-      <List>
-        <List disablePadding>
-          <PrFinalCommentEmployee
-            pr={pr}
-            readOnly={isFinalizedForEmployee()}
-            open={isFinalizedForReviewer()}
-            isActionPerformer={isActionPerformerForEmployeeActions}
-            nonActionPerformer={nonActionPerformerForEmployeeActions}
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
+          <PrTextField
+            label={intl.formatMessage({
+              id: 'FINAL_COMMENT_EMPLOYEE'
+            })}
+            helperText={intl.formatMessage({
+              id: 'prfinalcommentemployee.notes'
+            })}
+            text={finalCommentEmployee}
+            isReadOnly={false}
+            isError={false}
+            action={value => changeFinalCommentEmployee(value)}
           />
-        </List>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
   let finalHr = () => {
     return (
-      <List>
-        <List disablePadding>
-          <PrFinalCommentHr
-            pr={pr}
-            open={isFinalizedForEmployee()}
-            readOnly={isArchived()}
-            isActionPerformer={isHr(userroles)}
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
+          <PrTextField
+            label={intl.formatMessage({
+              id: 'FINAL_COMMENT_HR'
+            })}
+            helperText={intl.formatMessage({
+              id: 'prfinalcommenthr.hronly'
+            })}
+            text={finalCommentHr}
+            isReadOnly={false}
+            isError={false}
+            action={value => changeFinalCommentHr(value)}
           />
-        </List>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
   let detailReviewer = () => {
     return (
-      <List>
-        <div className={classes.containerListItem}>
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
+      <div>
+        <Grid container spacing={16}>
+          <Grid item xs={10}>
+            <h3>
+              {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
-            />
-          </ListItem>
-          <ListItem className={classes.marginDownSmall}>
+            </h3>
+          </Grid>
+          <Grid item xs={2}>
             <Typography
               variant={'caption'}
               color={'textSecondary'}
@@ -339,122 +365,139 @@ const PrSheet = props => {
             >
               {intl.formatMessage({
                 id: 'prsheet.notfulfilled'
-              })}{' '}
+              })}
               <br />
               {intl.formatMessage({
                 id: 'prsheet.excellent'
               })}
             </Typography>
-          </ListItem>
-        </div>
-        <List disablePadding>
-          <PrReviewerRating
-            pr={pr}
-            category="PROBLEM_ANALYSIS"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            pr={pr}
-            category="WORK_RESULTS"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            pr={pr}
-            category="WORKING_MANNER"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.customerimpact'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrReviewerRating
-            pr={pr}
-            category="CUSTOMER_INTERACTION"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            pr={pr}
-            category="CUSTOMER_RETENTION"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.teamimpact'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrReviewerRating
-            pr={pr}
-            category="TEAMWORK"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            pr={pr}
-            category="LEADERSHIP"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.companyimpact'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrReviewerRating
-            pr={pr}
-            category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-      </List>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="PROBLEM_ANALYSIS"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="WORK_RESULTS"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="WORKING_MANNER"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <h3>
+              {intl.formatMessage({
+                id: 'prsheet.customerimpact'
+              })}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="CUSTOMER_INTERACTION"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="CUSTOMER_RETENTION"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <h3>
+              {intl.formatMessage({
+                id: 'prsheet.teamimpact'
+              })}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="TEAMWORK"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="LEADERSHIP"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <h3>
+              {intl.formatMessage({
+                id: 'prsheet.companyimpact'
+              })}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              pr={pr}
+              category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+              isActionPerformer={isActionPerformerForReviewerActions}
+              nonActionPerformer={nonActionPerformerForReviewerActions}
+              readOnly={isVisibleToEmployee()}
+              openEditing={!isFinalizedForReviewer()}
+            />
+          </Grid>
+        </Grid>
+      </div>
     );
   };
 
   let requiredInfo = () => {
     return (
-      <List>
-        <ListItem>
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
           <Typography className={classes.required} variant="caption">
             {intl.formatMessage({
               id: 'prsheet.required'
             })}
           </Typography>
-        </ListItem>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -469,7 +512,6 @@ const PrSheet = props => {
             <Divider />
           </Hidden>
           {overallReviewer()}
-          <Divider />
           {finalEmployee()}
           {requiredInfo()}
         </Grid>

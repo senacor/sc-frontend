@@ -9,6 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
+  rightLegend: {
+    marginRight: '6%',
+    float: 'right',
+    textAlign: 'blockscope'
+  },
   outerGrid: {
     display: 'flex',
     flexDirection: 'row',
@@ -105,9 +110,22 @@ const TargetRole = props => {
   };
 
   return (
-    <ListItem>
-      <Grid container>{buildTargetRoleInformation()}</Grid>
-    </ListItem>
+    <div>
+      <div className={classes.rightLegend}>
+        <Typography
+          variant={'caption'}
+          color={'textSecondary'}
+          className={classes.legendSlider}
+        >
+          {intl.formatMessage({
+            id: 'proverallassessment.suitability'
+          })}
+        </Typography>
+      </div>
+      <ListItem>
+        <Grid container>{buildTargetRoleInformation()}</Grid>
+      </ListItem>
+    </div>
   );
 };
 

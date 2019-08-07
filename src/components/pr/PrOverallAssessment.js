@@ -1,11 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
-
-import PrOverallFulfillment from './PrOverallFulfillment';
-import PrOverallComment from './PrOverallComment';
-import TargetRole from './TargetRole';
-import Typography from '@material-ui/core/Typography/Typography';
+import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
+
+import TargetRole from './TargetRole';
+import PrOverallFulfillment from './PrOverallFulfillment';
+import PrTextField from './PrTextField';
 
 const styles = {
   containerListItem: {
@@ -22,17 +22,17 @@ const styles = {
 const PrOverallAssessment = props => {
   const {
     prById,
-    classes,
     readOnly,
     isActionPerformer,
     nonActionPerformer,
-    errorFlag,
+    text,
+    action,
     intl
   } = props;
 
   return (
-    <div>
-      <div className={classes.containerListItem}>
+    <Grid container spacing={16}>
+      <Grid item xs={12}>
         <PrOverallFulfillment
           prById={prById}
           category="FULFILLMENT_OF_REQUIREMENT"
@@ -41,19 +41,8 @@ const PrOverallAssessment = props => {
           nonActionPerformer={nonActionPerformer}
           openEditing={props.openEditing}
         />
-      </div>
-      <div className={classes.rightLegend}>
-        <Typography
-          variant={'caption'}
-          color={'textSecondary'}
-          className={classes.legendSlider}
-        >
-          {intl.formatMessage({
-            id: 'proverallassessment.suitability'
-          })}
-        </Typography>
-      </div>
-      <div className={classes.containerListItem}>
+      </Grid>
+      <Grid item xs={12}>
         <TargetRole
           prById={prById}
           readOnly={readOnly}
@@ -61,19 +50,22 @@ const PrOverallAssessment = props => {
           nonActionPerformer={nonActionPerformer}
           openEditing={props.openEditing}
         />
-      </div>
-      <div>
-        <PrOverallComment
-          prById={prById}
-          category="FULFILLMENT_OF_REQUIREMENT"
-          readOnly={readOnly}
-          isActionPerformer={isActionPerformer}
-          nonActionPerformer={nonActionPerformer}
-          errorFlag={errorFlag}
-          openEditing={props.openEditing}
+      </Grid>
+      <Grid item xs={12}>
+        <PrTextField
+          label={intl.formatMessage({
+            id: 'proverallcomment.overall'
+          })}
+          helperText={intl.formatMessage({
+            id: 'proverallcomment.requirements'
+          })}
+          text={text}
+          isReadOnly={false}
+          isError={false}
+          action={action}
         />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

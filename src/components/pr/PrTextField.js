@@ -1,115 +1,84 @@
 import React from 'react';
-
 import TextField from '@material-ui/core/TextField';
-
-import { textFieldEnum } from '../../helper/textFieldEnum';
+import Grid from '@material-ui/core/Grid';
 import { injectIntl } from 'react-intl';
 
-//TODO: We dont need this component anymore, DELETE ?
 const PrTextField = ({
-  helperText,
-  onChange,
-  fieldId,
   label,
+  helperText,
+  text,
+  isReadOnly,
+  isError,
+  action,
   startrows,
-  required,
-  state,
-  value,
   intl
 }) => {
-  let disabledTextField = value => {
+  if (isError) {
     return (
-      <TextField
-        id={fieldId}
-        multiline
-        fullWidth
-        disabled
-        required={required}
-        rows={startrows ? startrows : '6'}
-        rowsMax="10"
-        margin="normal"
-        variant="outlined"
-        label={label}
-        value={value}
-        helperText={helperText}
-      />
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          {label}
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            error
+            multiline
+            rows={startrows ? startrows : '6'}
+            rowsMax="10"
+            fullWidth
+            variant="outlined"
+            inputProps={{ 'aria-label': 'bare' }}
+            helperText={intl.formatMessage({
+              id: 'prtextfield.error'
+            })}
+            value={text}
+            onChange={event => action(event.target.value)}
+          />
+        </Grid>
+      </Grid>
     );
-  };
-
-  let enabledTextField = value => {
+  } else if (isReadOnly) {
     return (
-      <TextField
-        id={fieldId}
-        multiline
-        fullWidth
-        required={required}
-        rows={startrows ? startrows : '6'}
-        rowsMax="10"
-        variant="outlined"
-        margin="normal"
-        label={label}
-        value={value}
-        onChange={onChange}
-        helperText={helperText}
-      />
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          {label}
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            multiline
+            rows={startrows ? startrows : '6'}
+            rowsMax="10"
+            fullWidth
+            variant="outlined"
+            inputProps={{ 'aria-label': 'bare', readOnly: true }}
+            helperText={helperText}
+            value={text}
+            onChange={event => action(event.target.value)}
+          />
+        </Grid>
+      </Grid>
     );
-  };
-
-  let errorTextField = value => {
+  } else {
     return (
-      <TextField
-        error
-        id={fieldId}
-        multiline
-        fullWidth
-        required={required}
-        rows={startrows ? startrows : '6'}
-        rowsMax="10"
-        variant="outlined"
-        margin="normal"
-        label={label}
-        value={value}
-        onChange={onChange}
-        helperText={intl.formatMessage({
-          id: 'prtextfield.error'
-        })}
-      />
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          {label}
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            multiline
+            rows={startrows ? startrows : '6'}
+            rowsMax="10"
+            fullWidth
+            variant="outlined"
+            inputProps={{ 'aria-label': 'bare' }}
+            helperText={helperText}
+            value={text}
+            onChange={event => action(event.target.value)}
+          />
+        </Grid>
+      </Grid>
     );
-  };
-
-  let readOnlyField = value => {
-    return (
-      <TextField
-        id={fieldId}
-        multiline
-        fullWidth
-        required={required}
-        rows={startrows ? startrows : '6'}
-        rowsMax="10"
-        margin="normal"
-        variant="outlined"
-        label={label}
-        InputProps={{
-          readOnly: true
-        }}
-        value={value}
-        onChange={onChange}
-        helperText={helperText}
-      />
-    );
-  };
-
-  switch (state) {
-    case textFieldEnum.ENABLED:
-      return enabledTextField(value);
-    case textFieldEnum.DISABLED:
-      return disabledTextField(value);
-    case textFieldEnum.READONLY:
-      return readOnlyField(value);
-    case textFieldEnum.ERROR:
-      return errorTextField(value);
-    default:
-      return null;
   }
 };
 
