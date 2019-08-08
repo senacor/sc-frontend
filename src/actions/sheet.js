@@ -120,10 +120,3 @@ export const changeRatingTargetRole = (
     });
   }
 };
-
-export const changeRequiredFields = check => async dispatch => {
-  dispatch({
-    type: dispatchTypes.REQUIRED_FIELDS,
-    payload: check
-  });
-};

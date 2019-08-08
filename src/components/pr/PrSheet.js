@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { isHr } from '../../helper/checkRole';
 import * as visibilityTypes from '../../helper/prVisibility';
-import * as finalizationTypes from '../../helper/prFinalization';
 import objectGet from 'object-get';
 import {
   getPrDetail,
   getUserinfo,
-  getUserroles,
-  getRequiredFields
+  getUserroles
 } from '../../reducers/selector';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -113,7 +108,7 @@ const PrSheet = props => {
     done: false
   };
 
-  const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
+  const { prById, classes, userinfo, intl, userroles } = props;
 
   const [pr, setPr] = useState(prById);
   const [firstReflectionField, setFirstReflectionField] = useState(
@@ -152,9 +147,6 @@ const PrSheet = props => {
     setFinalCommentHr(value);
   };
 
-  let errorFlagReviewer = !requiredFields.reviewer;
-  let errorFlagEmployee = !requiredFields.employee;
-
   console.log('PR IS: ', pr);
   if (!pr) {
     return null;
@@ -186,21 +178,11 @@ const PrSheet = props => {
   };
 
   const isFinalizedForReviewer = () => {
-    return (
-      objectGet(
-        props,
-        'pr.prFinalizationStatus.finalizationStatusOfReviewer'
-      ) === finalizationTypes.FINALIZED
-    );
+    return false;
   };
 
   const isFinalizedForEmployee = () => {
-    return (
-      objectGet(
-        props,
-        'pr.prFinalizationStatus.finalizationStatusOfEmployee'
-      ) === finalizationTypes.FINALIZED
-    );
+    return false;
   };
 
   const isArchived = () => {
@@ -263,7 +245,7 @@ const PrSheet = props => {
           <Grid item xs={12}>
             <PrOverallAssessment
               pr={pr}
-              errorFlag={errorFlagReviewer}
+              errorFlag={false}
               readOnly={isVisibleToEmployee()}
               isActionPerformer={true}
               nonActionPerformer={nonActionPerformerForReviewerActions}
@@ -543,7 +525,6 @@ export default injectIntl(
       prById: getPrDetail()(state),
       userroles: getUserroles(state),
       userinfo: getUserinfo(state),
-      requiredFields: getRequiredFields(state)
     }),
     {}
   )(StyledComponent)

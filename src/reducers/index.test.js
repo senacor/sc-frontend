@@ -43,9 +43,7 @@ describe('reducers', () => {
             prEmployeeContribution: [someValue]
           },
           prRatings: { someValue },
-          prTabs: prTabEnum.SCHEDULE_VIEW,
           prs: { someValue },
-          requiredFields: { employee: false, reviewer: true },
           employeeSearchResults: [someValue],
           savingThreads: 10,
           tablePrs: { someValue },
@@ -82,19 +80,11 @@ describe('reducers', () => {
           prDetailId: 0,
           prEmployeeContributions: [],
           prRatings: {},
-          prTabs: prTabEnum.DETAIL_VIEW,
           prTargetRole: {
             prGetTargetRole: []
           },
-          prFinalizationStatusById: {
-            prFinalizationStatus: {
-              isFinalizedByEmployee: false,
-              isFinalizedByReviewer: false
-            }
-          },
           savingThreads: 0,
           prs: {},
-          requiredFields: { employee: true, reviewer: true },
           employeeSearchResults: [],
           tablePrs: {},
           selectedDate: moment.tz('Europe/Berlin').format('YYYY-MM-DDTHH:mmZ'),

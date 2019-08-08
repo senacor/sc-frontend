@@ -15,7 +15,6 @@ export const getFilterPossibilities = state => state.filterPossibilities;
 export const isLoading = state => state.isLoading.length > 0;
 export const isLoadingAction = (state, start) =>
   state.isLoading.some(entry => start.includes(entry));
-export const getPrTab = state => state.prTabs;
 export const getArchivedFiles = state => state.archivedFiles;
 export const getUploadedFiles = state => state.uploadedFiles;
 export const getDownloadedFile = state => state.downloadedFile;
@@ -53,8 +52,6 @@ export const getSortedPrs = () => {
     (prs, sortOrder) => Array.from(prs).sort(dateSort(sortOrder))
   );
 };
-
-export const getRequiredFields = state => state.requiredFields;
 
 function dateSort(sortOrder) {
   return (firstPR, secondPR) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,10 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import PrSheet from '../PrSheet';
 import SchedulingView from './SchedulingView';
 import Paper from '@material-ui/core/Paper';
-import { getPrTab } from '../../../reducers/selector';
-import { prTabEnum } from '../../../helper/prTabEnum';
-import * as actions from '../../../actions';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 
 const TabContainer = props => {
@@ -41,7 +37,8 @@ const styles = theme => ({
   }
 });
 
-const PrTabs = ({ classes, tabValue, setTabValue, intl }) => {
+const PrTabs = ({ classes, intl }) => {
+  const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
   const handleChange = (event, value) => {
     setTabValue(value);
   };
@@ -59,7 +56,7 @@ const PrTabs = ({ classes, tabValue, setTabValue, intl }) => {
           }}
         >
           <Tab
-            value={prTabEnum.DETAIL_VIEW}
+            value={'DETAIL_VIEW'}
             classes={{
               root: classes.tabStyle
             }}
@@ -69,7 +66,7 @@ const PrTabs = ({ classes, tabValue, setTabValue, intl }) => {
             id={'TabDetails'}
           />
           <Tab
-            value={prTabEnum.SCHEDULE_VIEW}
+            value={'SCHEDULE_VIEW'}
             classes={{
               root: classes.tabStyle
             }}
@@ -80,12 +77,12 @@ const PrTabs = ({ classes, tabValue, setTabValue, intl }) => {
           />
         </Tabs>
       </Paper>
-      {tabValue === prTabEnum.DETAIL_VIEW && (
+      {tabValue === 'DETAIL_VIEW' && (
         <TabContainer>
           <PrSheet />
         </TabContainer>
       )}
-      {tabValue === prTabEnum.SCHEDULE_VIEW && (
+      {tabValue === 'SCHEDULE_VIEW' && (
         <TabContainer>
           <SchedulingView />
         </TabContainer>
@@ -98,15 +95,4 @@ PrTabs.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export const StyledComponent = withStyles(styles)(PrTabs);
-
-export default injectIntl(
-  connect(
-    state => ({
-      tabValue: getPrTab(state)
-    }),
-    {
-      setTabValue: actions.setPrTabs
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrTabs));

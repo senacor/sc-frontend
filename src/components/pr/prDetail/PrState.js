@@ -17,7 +17,6 @@ import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
 import { isHr } from '../../../helper/checkRole';
-import { changeRequiredFields } from '../../../actions/sheet';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 import Typography from '@material-ui/core/Typography';
@@ -39,7 +38,6 @@ const PrState = ({
   employeeContributionRole,
   employeeContributionLeader,
   overallComment,
-  checkRequired,
   addPrStatus,
   savingThreads,
   intl
@@ -310,19 +308,16 @@ const PrState = ({
       prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
       false === fieldFilled.employee
     ) {
-      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.FINALIZED_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      checkRequired(fieldFilled);
       return true;
     } else {
       return false;
@@ -414,7 +409,6 @@ export default injectIntl(
       savingThreads: getSavingThreads(state)
     }),
     {
-      checkRequired: changeRequiredFields,
       addPrStatus: actions.addPrStatus
     }
   )(StyledComponent)

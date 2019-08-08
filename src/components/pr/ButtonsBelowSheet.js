@@ -7,7 +7,6 @@ import {
   getUserinfo,
   getUserroles
 } from '../../reducers/selector';
-import { changeRequiredFields } from '../../actions/sheet';
 import * as actions from '../../actions';
 import PrStatusActionButton from './prDetail/PrStatusActionButton';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
@@ -50,7 +49,6 @@ const ButtonsBelowSheet = props => {
     pr,
     userroles,
     userinfo,
-    checkRequired,
     addPrStatus,
     savingThreads,
     intl
@@ -106,19 +104,16 @@ const ButtonsBelowSheet = props => {
       prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
       false === fieldFilled.employee
     ) {
-      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      checkRequired(fieldFilled);
       return true;
     } else if (
       prStatusEnum.FINALIZED_REVIEWER === status &&
       false === fieldFilled.reviewer
     ) {
-      checkRequired(fieldFilled);
       return true;
     } else {
       return false;
@@ -333,7 +328,6 @@ export default injectIntl(
       savingThreads: getSavingThreads(state)
     }),
     {
-      checkRequired: changeRequiredFields,
       addPrStatus: actions.addPrStatus
     }
   )(StyledComponent)

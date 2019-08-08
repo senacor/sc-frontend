@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 import { prs, sortOrderPrs, tablePrs } from './prs';
 import { prDetailId, newPrId } from './prDetailId';
-import prTargetRole from './getTargetRole';
-import prFinalizationStatusById from './getPrFinalizationStatus';
 import errors from './errors';
 import login from './login';
 import { language } from './language';
@@ -12,9 +10,7 @@ import { employeeSearchResults } from './searchEmployee';
 import { appointmentsSearchResults, selectedDate } from './appointments';
 import { meeting } from './meetings';
 import { filter } from './filter';
-import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
-import { prTabs } from './prTabs';
 import { filterPossibilities } from './filterPossibilities';
 import { archivedFiles } from './archivedFiles';
 import { uploadedFiles } from './uploadedFiles';
@@ -35,8 +31,6 @@ const combineReducer = combineReducers({
   meeting,
   prDetailId,
   newPrId,
-  prTargetRole,
-  prFinalizationStatusById,
   employeeSearchResults,
   selectedDate,
   sortOrderPrs,
@@ -44,10 +38,8 @@ const combineReducer = combineReducers({
   userphoto,
   userroles,
   filter,
-  requiredFields,
   savingThreads,
-  filterPossibilities,
-  prTabs
+  filterPossibilities
 });
 
 const app = (state, action) => {
