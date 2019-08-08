@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -63,86 +63,75 @@ const styles = theme => ({
   }
 });
 
-class CustomAppBar extends Component {
-  constructor(props) {
-    super(props);
+const CustomAppBar = ({ classes, intl, theme, children }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-    this.state = {
-      classes: props.classes,
-      mobileOpen: false
-    };
-  }
-
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-  render() {
-    const { classes, theme, children, intl } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label={intl.formatMessage({
-                id: 'appbar.drawer'
-              })}
-              onClick={this.handleDrawerToggle}
-              className={classes.navIconHide}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              {intl.formatMessage({
-                id: 'appbar.portal'
-              })}
-            </Typography>
-            <LanguageButton color="secondary" />
-          </Toolbar>
-        </AppBar>
-        <Hidden lgUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
+  return (
+    <div className={classes.root}>
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label={intl.formatMessage({
+              id: 'appbar.drawer'
+            })}
+            onClick={handleDrawerToggle}
+            className={classes.navIconHide}
           >
-            <Sidebar />
-          </Drawer>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <ErrorMessage />
-            {children}
-          </main>
-        </Hidden>
-        <Hidden mdDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper
-            }}
-          >
-            <Sidebar />
-          </Drawer>
-          <main className={classes.desktopContent}>
-            <div className={classes.toolbar} />
-            <ErrorMessage />
-            {children}
-          </main>
-        </Hidden>
-      </div>
-    );
-  }
-}
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" noWrap>
+            {intl.formatMessage({
+              id: 'appbar.portal'
+            })}
+          </Typography>
+          <LanguageButton color="secondary" />
+        </Toolbar>
+      </AppBar>
+      <Hidden lgUp>
+        <Drawer
+          variant="temporary"
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile.
+          }}
+        >
+          <Sidebar />
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <ErrorMessage />
+          {children}
+        </main>
+      </Hidden>
+      <Hidden mdDown implementation="css">
+        <Drawer
+          variant="permanent"
+          open
+          classes={{
+            paper: classes.drawerPaper
+          }}
+        >
+          <Sidebar />
+        </Drawer>
+        <main className={classes.desktopContent}>
+          <div className={classes.toolbar} />
+          <ErrorMessage />
+          {children}
+        </main>
+      </Hidden>
+    </div>
+  );
+};
 
 export default injectIntl(
   withStyles(styles, { withTheme: true })(CustomAppBar)

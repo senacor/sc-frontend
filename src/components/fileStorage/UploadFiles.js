@@ -20,52 +20,53 @@ const styles = theme => ({
   }
 });
 
-export class UploadFiles extends React.Component {
-  handleChange = event => {
-    this.props.uploadFiles(event.target.files);
+export const UploadFiles = ({
+  uploadFiles,
+  resetUploadedFiles,
+  uploadedFiles,
+  isLoading,
+  classes,
+  intl
+}) => {
+  const handleChange = event => {
+    uploadFiles(event.target.files);
   };
 
-  handleClose = () => {
-    this.props.resetUploadedFiles();
+  const handleClose = () => {
+    resetUploadedFiles();
   };
 
-  render() {
-    let { uploadedFiles, isLoading, classes, intl } = this.props;
-    return (
-      <div>
-        <UploadSuccessDialog
-          open={uploadedFiles.length > 0 ? true : false}
-          onClose={this.handleClose}
-          uploadedFiles={uploadedFiles}
+  return (
+    <div>
+      <UploadSuccessDialog
+        open={uploadedFiles.length > 0}
+        onClose={handleClose}
+        uploadedFiles={uploadedFiles}
+      />
+      <input
+        style={{ display: 'none' }}
+        id="upload-button-file"
+        multiple
+        type="file"
+        onChange={handleChange}
+      />
+      <label htmlFor="upload-button-file">
+        <PrStatusActionButton
+          label={
+            isLoading ? (
+              <CircularProgress size={24} className={classes.buttonProgress} />
+            ) : (
+              intl.formatMessage({
+                id: 'uploadfiles.upload'
+              })
+            )
+          }
+          component="span"
         />
-        <input
-          style={{ display: 'none' }}
-          id="upload-button-file"
-          multiple
-          type="file"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="upload-button-file">
-          <PrStatusActionButton
-            label={
-              isLoading ? (
-                <CircularProgress
-                  size={24}
-                  className={classes.buttonProgress}
-                />
-              ) : (
-                intl.formatMessage({
-                  id: 'uploadfiles.upload'
-                })
-              )
-            }
-            component="span"
-          />
-        </label>
-      </div>
-    );
-  }
-}
+      </label>
+    </div>
+  );
+};
 
 export const StyledComponent = withStyles(styles)(UploadFiles);
 

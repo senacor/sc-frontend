@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PerformanceReviewTable from './PerformanceReviewTable';
 import { connect } from 'react-redux';
 import {
@@ -19,91 +19,91 @@ import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
 
-export class OverviewPerformanceReviews extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columnsToView: null
-    };
-  }
+export const OverviewPerformanceReviews = ({
+  filterPossibilities,
+  fetchFilteredPrsForHumanResource,
+  filter,
+  userroles,
+  data,
+  intl
+}) => {
+  const [columnsToView, setColumnsToView] = useState(null);
 
-  getColumnDefinitions = () => {
+  const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.HR,
-      this.props.filterPossibilities
+      filterPossibilities
     );
 
     return [
       prTableService.employee(),
       prTableService.deadline(),
-      prTableService.occasion(this.props.intl),
+      prTableService.occasion(intl),
       prTableService.projectCst(),
-      prTableService.competence(this.props.intl),
+      prTableService.competence(intl),
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(),
-      prTableService.result(),
-      prTableService.employeePreparation(),
-      prTableService.reviewerPreparation(),
+      prTableService.result(intl),
+      prTableService.employeePreparation(intl),
+      prTableService.reviewerPreparation(intl),
       prTableService.meeting(),
       prTableService.finalState(),
       prTableService.hrDone()
     ];
   };
 
-  getSelectorContent = () => {
-    let columns = this.getColumnDefinitions();
+  const getSelectorContent = () => {
+    let columns = getColumnDefinitions();
     let result = [];
     columns.forEach(column => {
       result.push({ label: column.label, value: column });
     });
     return result;
   };
-  handleChange = content => {
-    this.setState({ columnsToView: content });
+
+  const handleChange = content => {
+    setColumnsToView(content);
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.filter !== prevProps.filter) {
-      this.props.fetchFilteredPrsForHumanResource(this.props.filter);
-    }
+  useEffect(
+    () => {
+      fetchFilteredPrsForHumanResource(filter);
+    },
+    [filter]
+  );
+
+  if (!filterPossibilities.levels) {
+    return null;
   }
 
-  render() {
-    if (!this.props.filterPossibilities.levels) {
-      return null;
-    }
-
-    const { columnsToView } = this.state;
-    const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
-
-    let isHrMember = isHr(this.props.userroles);
-    return (
-      <Paper>
-        <Grid
-          container
-          direction={'row'}
-          justify={'flex-end'}
-          alignItems={'center'}
-        >
-          <Grid item>
-            <TableColumnSelectorMenu
-              onChange={this.handleChange}
-              content={this.getSelectorContent()}
-            />
-          </Grid>
+  const columns = columnsToView ? columnsToView : getColumnDefinitions();
+  let isHrMember = isHr(userroles);
+  return (
+    <Paper>
+      <Grid
+        container
+        direction={'row'}
+        justify={'flex-end'}
+        alignItems={'center'}
+      >
+        <Grid item>
+          <TableColumnSelectorMenu
+            onChange={handleChange}
+            content={getSelectorContent()}
+          />
         </Grid>
-        <PerformanceReviewTable
-          columnDefinition={columns}
-          orderBy={1}
-          data={this.props.data}
-          filter={this.props.filter}
-          isHr={isHrMember}
-        />
-      </Paper>
-    );
-  }
-}
+      </Grid>
+      <PerformanceReviewTable
+        columnDefinition={columns}
+        orderBy={1}
+        data={data}
+        filter={filter}
+        isHr={isHrMember}
+      />
+    </Paper>
+  );
+};
 
 export default injectIntl(
   connect(

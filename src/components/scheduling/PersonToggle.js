@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -29,16 +29,17 @@ const styles = () => ({
   }
 });
 
-export class PersonToggle extends React.Component {
-  constructor(props) {
-    super(props);
+export const PersonToggle = ({
+  showAttendee,
+  onChange,
+  displayRole,
+  displayName,
+  attendee,
+  classes
+}) => {
+  const [showAtt, setShowAtt] = useState(showAttendee);
 
-    this.state = {
-      showAttendee: props.showAttendee
-    };
-  }
-
-  findSwitchBase = (attendee, classes) => {
+  const findSwitchBase = (attendee, classes) => {
     switch (attendee) {
       case 'employee':
         return classes.colorSwitchBaseEmployee;
@@ -51,7 +52,7 @@ export class PersonToggle extends React.Component {
     }
   };
 
-  findSwitchBaseOff = (attendee, classes) => {
+  const findSwitchBaseOff = (attendee, classes) => {
     switch (attendee) {
       case 'employee':
         return classes.colorSwitchBaseEmployeeOff;
@@ -64,54 +65,45 @@ export class PersonToggle extends React.Component {
     }
   };
 
-  render() {
-    return (
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        alignContent="space-between"
-        spacing={24}
-      >
-        <Grid item xs={8} sm={4} md={2} lg={2} xl={2}>
-          <Typography variant="caption" color="textSecondary">
-            {this.props.displayRole}
-          </Typography>
-          <Typography variant="subtitle1" noWrap>
-            {this.props.displayName}
-          </Typography>
-        </Grid>
-        <Grid item xs={1} sm={1} md={1}>
-          <Switch
-            className="employeeSwitch"
-            checked={this.state.showAttendee}
-            onChange={() => {
-              this.handleToggle();
-            }}
-            classes={{
-              switchBase: this.findSwitchBaseOff(
-                this.props.attendee,
-                this.props.classes
-              ),
-              iconChecked: this.findSwitchBase(
-                this.props.attendee,
-                this.props.classes
-              ),
-              bar: this.props.classes.bar
-            }}
-            color={'primary'}
-          />
-        </Grid>
-      </Grid>
-    );
-  }
-
-  handleToggle = () => {
-    const { showAttendee } = this.state;
-    this.setState({ showAttendee: !showAttendee });
-    this.props.onChange(!showAttendee);
+  const handleToggle = () => {
+    setShowAtt(!showAtt);
+    onChange(!showAtt);
   };
-}
+
+  return (
+    <Grid
+      container
+      direction="row"
+      alignItems="center"
+      alignContent="space-between"
+      spacing={24}
+    >
+      <Grid item xs={8} sm={4} md={2} lg={2} xl={2}>
+        <Typography variant="caption" color="textSecondary">
+          {displayRole}
+        </Typography>
+        <Typography variant="subtitle1" noWrap>
+          {displayName}
+        </Typography>
+      </Grid>
+      <Grid item xs={1} sm={1} md={1}>
+        <Switch
+          className="employeeSwitch"
+          checked={showAtt}
+          onChange={() => {
+            handleToggle();
+          }}
+          classes={{
+            switchBase: findSwitchBaseOff(attendee, classes),
+            iconChecked: findSwitchBase(attendee, classes),
+            bar: classes.bar
+          }}
+          color={'primary'}
+        />
+      </Grid>
+    </Grid>
+  );
+};
 
 PersonToggle.propTypes = {
   displayName: PropTypes.string.isRequired,

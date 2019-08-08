@@ -1,31 +1,26 @@
-import { Component } from 'react';
 import { connect } from 'react-redux';
 
-export class Authorized extends Component {
-  userHasRole = role => {
-    return this.props.userroles.includes(role);
+const Authorized = ({ userroles, roles, children }) => {
+  const userHasRole = role => {
+    return userroles.includes(role);
   };
 
-  userHasOneOfTheRoles = roles => {
+  const userHasOneOfTheRoles = roles => {
     let i = 0;
     for (let role in roles) {
-      if (this.userHasRole(roles[role])) {
+      if (userHasRole(roles[role])) {
         i++;
       }
     }
     return i > 0;
   };
 
-  render() {
-    const { roles, children } = this.props;
-
-    if (!roles || this.userHasOneOfTheRoles(roles)) {
-      return children;
-    }
-
-    return null;
+  if (!roles || userHasOneOfTheRoles(roles)) {
+    return children;
   }
-}
+
+  return null;
+};
 
 export default connect(state => ({
   userroles: state.userroles

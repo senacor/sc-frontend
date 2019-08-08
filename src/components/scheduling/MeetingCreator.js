@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
@@ -21,42 +21,42 @@ import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilit
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { getMeeting } from '../../reducers/selector';
 
-export class MeetingCreator extends Component {
-  constructor(props) {
-    super(props);
+export const MeetingCreator = ({
+  intl,
+  pr,
+  appointmentsSearch,
+  userinfo,
+  userroles,
+  selectedDate,
+  meeting,
+  appointmentsSearchResults,
+  handleChange
+}) => {
+  const [employee, setEmployee] = useState('');
+  const [supervisor, setSupervisor] = useState('');
+  const [reviewer, setReviewer] = useState('');
 
-    this.state = {
-      employee: '',
-      supervisor: ''
-    };
-  }
-
-  componentDidMount() {
-    this.setEmployeeSupervisorReviewerData(this.props.pr, this.props.userinfo);
-    this.fetchAppointments(this.props.selectedDate);
-  }
-
-  setStateforRole = (pr, role, userinfo) => {
+  const setStateforRole = (pr, role, userinfo) => {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let roleDescription = '';
     if (hasRoleInPr([role])) {
-      roleDescription = `${this.props.intl.formatMessage({
+      roleDescription = `${intl.formatMessage({
         id: 'meetingcreator.me'
       })}`;
     } else {
       switch (role) {
         case 'employee':
-          roleDescription = `${this.props.intl.formatMessage({
+          roleDescription = `${intl.formatMessage({
             id: 'meetingcreator.employee'
           })}`;
           break;
         case 'supervisor':
-          roleDescription = `${this.props.intl.formatMessage({
+          roleDescription = `${intl.formatMessage({
             id: 'meetingcreator.supervisor'
           })}`;
           break;
         case 'reviewer':
-          roleDescription = `${this.props.intl.formatMessage({
+          roleDescription = `${intl.formatMessage({
             id: 'meetingcreator.reviewer'
           })}`;
           break;
@@ -64,34 +64,55 @@ export class MeetingCreator extends Component {
           roleDescription = '';
       }
     }
-    this.setState(prevState => {
-      return {
-        [role]: Object.assign({}, prevState[role], {
-          id: ObjectGet(pr, `${role}.login`),
-          name:
-            ObjectGet(pr, `${role}.firstName`) +
-            ' ' +
-            ObjectGet(pr, `${role}.lastName`),
-          role: roleDescription,
-          show: true
-        })
-      };
-    });
+    switch (role) {
+      case 'employee':
+        setEmployee(
+          Object.assign({}, employee, {
+            id: ObjectGet(pr, `${role}.login`),
+            name:
+              ObjectGet(pr, `${role}.firstName`) +
+              ' ' +
+              ObjectGet(pr, `${role}.lastName`),
+            role: roleDescription,
+            show: true
+          })
+        );
+        break;
+      case 'supervisor':
+        setSupervisor(
+          Object.assign({}, supervisor, {
+            id: ObjectGet(pr, `${role}.login`),
+            name:
+              ObjectGet(pr, `${role}.firstName`) +
+              ' ' +
+              ObjectGet(pr, `${role}.lastName`),
+            role: roleDescription,
+            show: true
+          })
+        );
+        break;
+      case 'reviewer':
+        setReviewer(
+          Object.assign({}, reviewer, {
+            id: ObjectGet(pr, `${role}.login`),
+            name:
+              ObjectGet(pr, `${role}.firstName`) +
+              ' ' +
+              ObjectGet(pr, `${role}.lastName`),
+            role: roleDescription,
+            show: true
+          })
+        );
+        break;
+      default:
+    }
   };
 
-  setEmployeeSupervisorReviewerData = (pr, userinfo) => {
-    this.setStateforRole(pr, 'employee', userinfo);
-    this.hasSupervisorEntry(pr) &&
-      this.setStateforRole(pr, 'supervisor', userinfo);
-    this.hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
-      this.setStateforRole(pr, 'reviewer', userinfo);
-  };
-
-  hasSupervisorEntry = pr => {
+  const hasSupervisorEntry = pr => {
     return pr.supervisor !== undefined && pr.supervisor.id !== '';
   };
 
-  hasReviewerEntryThatIsDifferentFromSupervisor = pr => {
+  const hasReviewerEntryThatIsDifferentFromSupervisor = pr => {
     return (
       pr.reviewer !== undefined &&
       pr.reviewer.id !== '' &&
@@ -99,106 +120,160 @@ export class MeetingCreator extends Component {
     );
   };
 
-  fetchAppointments = date => {
-    let pr = this.props.pr;
+  const setEmployeeSupervisorReviewerData = (pr, userinfo) => {
+    setStateforRole(pr, 'employee', userinfo);
+    hasSupervisorEntry(pr) && setStateforRole(pr, 'supervisor', userinfo);
+    hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
+      setStateforRole(pr, 'reviewer', userinfo);
+  };
+
+  const fetchAppointments = date => {
     let attendees = [pr.employee.login, pr.supervisor.login];
-    this.hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
+    hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
       attendees.push(pr.reviewer.login);
 
-    this.props.appointmentsSearch(attendees.join(','), date);
+    appointmentsSearch(attendees.join(','), date);
   };
 
-  onVisibilityChange = attendee => () => {
-    this.setState({
-      [attendee]: Object.assign({}, this.state[attendee], {
-        show: !this.state[attendee].show
-      })
-    });
+  useEffect(() => {
+    setEmployeeSupervisorReviewerData(pr, userinfo);
+    fetchAppointments(selectedDate);
+  }, []);
+
+  const onVisibilityChange = attendee => () => {
+    switch (attendee) {
+      case 'employee':
+        setEmployee(
+          Object.assign({}, employee, {
+            show: !employee.show
+          })
+        );
+        break;
+      case 'supervisor':
+        setSupervisor(
+          Object.assign({}, supervisor, {
+            show: !supervisor.show
+          })
+        );
+        break;
+      case 'reviewer':
+        setReviewer(
+          Object.assign({}, reviewer, {
+            show: !reviewer.show
+          })
+        );
+        break;
+      default:
+    }
   };
 
-  render() {
-    let { pr, userinfo, userroles, meeting, intl } = this.props;
-    let visibilityService = new meetingDetailVisibilityService();
-    visibilityService.setPr(pr);
-    visibilityService.setUserinfo(userinfo);
-    visibilityService.setUserroles(userroles);
-    visibilityService.setMeeting(meeting);
-    const allAppointments = this.props.appointmentsSearchResults;
-    return (
-      <React.Fragment>
-        <Typography gutterBottom variant="h4">
-          {intl.formatMessage({
-            id: 'meetingcreator.datescheduling'
-          })}
-        </Typography>
-        <Grid id={'tableRolePick'} container spacing={24} direction="column">
-          <Grid item>
-            <MeetingCreatorForm
-              prById={pr}
-              fetchAppointments={this.fetchAppointments}
-              intl={intl}
-            />
-          </Grid>
-          {visibilityService.getAction() ? (
-            <Grid item>
-              <Grid container direction="column">
-                {Object.getOwnPropertyNames(this.state)
-                  .filter(key => this.state[key] && this.state[key].id)
-                  .map(attendee => {
-                    return (
-                      <Grid item key={attendee}>
-                        <PersonToggle
-                          displayName={`${this.state[attendee].name}`}
-                          displayRole={`${this.state[attendee].role}`}
-                          onChange={this.onVisibilityChange(attendee)}
-                          showAttendee={this.state[attendee].show}
-                          attendee={attendee}
-                        />
-                      </Grid>
-                    );
-                  })}
-              </Grid>
-            </Grid>
-          ) : null}
-          {visibilityService.getAction() ? (
-            <Grid item>
-              <TimeTable>
-                {Object.getOwnPropertyNames(this.state)
-                  .filter(
-                    key =>
-                      this.state[key] &&
-                      this.state[key].id &&
-                      allAppointments[this.state[key].id]
-                  )
-                  .map((attendee, index, keyArray) => (
-                    <Attendee
-                      key={attendee}
-                      show={this.state[attendee].show}
-                      appointments={extractAppointments(
-                        allAppointments[this.state[attendee].id].appointments
-                      )}
-                      selectedDate={this.props.selectedDate}
-                      distanceFromLeft={(100 * index) / keyArray.length + 10}
-                      name={this.state[attendee].name}
-                      attendee={attendee}
-                    />
-                  ))}
-              </TimeTable>
-              {visibilityService.getMeetingExists() ? (
-                <PrStatusActionButton
-                  label={intl.formatMessage({
-                    id: 'meetingcreator.termindetail'
-                  })}
-                  releaseButtonClick={this.props.handleChange}
-                />
-              ) : null}
-            </Grid>
-          ) : null}
+  const getStateOfAttendee = attendee => {
+    if (attendee === 'employee') {
+      return employee;
+    } else if (attendee === 'supervisor') {
+      return supervisor;
+    } else {
+      return reviewer;
+    }
+  };
+
+  const filterConditionWithoutAppointments = key => {
+    if (key === 'employee') {
+      return employee && employee.id;
+    } else if (key === 'supervisor') {
+      return supervisor && supervisor.id;
+    } else {
+      return reviewer && reviewer.id;
+    }
+  };
+
+  const filterConditionWithAppointments = key => {
+    if (key === 'employee') {
+      return employee && employee.id && allAppointments[employee.id];
+    } else if (key === 'supervisor') {
+      return supervisor && supervisor.id && allAppointments[supervisor.id];
+    } else {
+      return reviewer && reviewer.id && allAppointments[reviewer.id];
+    }
+  };
+
+  let visibilityService = new meetingDetailVisibilityService();
+  visibilityService.setPr(pr);
+  visibilityService.setUserinfo(userinfo);
+  visibilityService.setUserroles(userroles);
+  visibilityService.setMeeting(meeting);
+  const allAppointments = appointmentsSearchResults;
+  return (
+    <React.Fragment>
+      <Typography gutterBottom variant="h4">
+        {intl.formatMessage({
+          id: 'meetingcreator.datescheduling'
+        })}
+      </Typography>
+      <Grid id={'tableRolePick'} container spacing={24} direction="column">
+        <Grid item>
+          <MeetingCreatorForm
+            prById={pr}
+            fetchAppointments={fetchAppointments}
+          />
         </Grid>
-      </React.Fragment>
-    );
-  }
-}
+        {visibilityService.getAction() ? (
+          <Grid item>
+            <Grid container direction="column">
+              {['employee', 'supervisor', 'reviewer']
+                .filter(key => {
+                  return filterConditionWithoutAppointments(key);
+                })
+                .map(attendee => {
+                  return (
+                    <Grid item key={attendee}>
+                      <PersonToggle
+                        displayName={`${getStateOfAttendee(attendee).name}`}
+                        displayRole={`${getStateOfAttendee(attendee).role}`}
+                        onChange={onVisibilityChange(attendee)}
+                        showAttendee={getStateOfAttendee(attendee).show}
+                        attendee={attendee}
+                      />
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          </Grid>
+        ) : null}
+        {visibilityService.getAction() ? (
+          <Grid item>
+            <TimeTable>
+              {['employee', 'supervisor', 'reviewer']
+                .filter(key => filterConditionWithAppointments(key))
+                .map((attendee, index, keyArray) => (
+                  <Attendee
+                    key={attendee}
+                    show={getStateOfAttendee(attendee).show}
+                    appointments={extractAppointments(
+                      allAppointments[getStateOfAttendee(attendee).id]
+                        .appointments
+                    )}
+                    selectedDate={selectedDate}
+                    distanceFromLeft={(100 * index) / keyArray.length + 10}
+                    name={getStateOfAttendee(attendee).name}
+                    attendee={attendee}
+                  />
+                ))}
+            </TimeTable>
+            {visibilityService.getMeetingExists() ? (
+              <PrStatusActionButton
+                label={intl.formatMessage({
+                  id: 'meetingcreator.termindetail'
+                })}
+                releaseButtonClick={handleChange}
+              />
+            ) : null}
+          </Grid>
+        ) : null}
+      </Grid>
+    </React.Fragment>
+  );
+};
 
 export default connect(
   state => ({

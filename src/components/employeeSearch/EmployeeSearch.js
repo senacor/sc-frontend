@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
@@ -21,60 +21,54 @@ const styles = {
   }
 };
 
-export class EmployeeSearch extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props.employeeSearchClear();
+export const EmployeeSearch = props => {
+  useEffect(() => {
+    props.employeeSearchClear();
+  }, []);
 
-    this.state = {
-      employeeSearchValue: this.props.employeeSearchValue
-        ? this.props.employeeSearchValue
-        : ''
-    };
-  }
+  const [employeeSearchVal, setEmployeeSearchVal] = useState(
+    props.employeeSearchValue ? props.employeeSearchValue : ''
+  );
 
-  handleChange = event => {
-    this.setState({
-      employeeSearchValue: event.target.value
-    });
+  const handleChange = event => {
+    setEmployeeSearchVal(event.target.value);
     if (event.target.value) {
-      this.executeSearch(event.target.value);
+      executeSearch(event.target.value);
     }
   };
 
-  selectedEmployee = employee => () => {
-    let employeeName = `${employee.firstName} ${employee.lastName}`;
-    this.setState({ employeeSearchValue: employeeName });
-    this.props.selectEmployee(employee);
-    this.props.employeeSearchClear();
+  const selectedEmployee = employee => () => {
+    const employeeName = `${employee.firstName} ${employee.lastName}`;
+    setEmployeeSearchVal(employeeName);
+    props.selectEmployee(employee);
+    props.employeeSearchClear();
   };
 
-  executeSearch = debounce(this.props.employeeSearch, 500);
+  const executeSearch = debounce(props.employeeSearch, 500);
 
-  render() {
-    const { classes, extClasses, excludeList, intl } = this.props;
-    const { employeeSearchValue } = this.state;
-
-    return (
-      <div className={extClasses.root ? extClasses.root : classes.box}>
-        {this.props.inputElement(employeeSearchValue, this.handleChange, intl)}
-        {employeeSearchValue !== '' ? (
-          <List
-            dense
-            id="employeeSearchResultList"
-            component="nav"
-            className={classes.employeeList}
-          >
-            <PlotEmployeeSearchList
-              excludeList={excludeList}
-              selectEmployee={this.selectedEmployee}
-            />
-          </List>
-        ) : null}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      className={
+        props.extClasses.root ? props.extClasses.root : props.classes.box
+      }
+    >
+      {props.inputElement(employeeSearchVal, handleChange)}
+      {employeeSearchVal !== '' ? (
+        <List
+          dense
+          id="employeeSearchResultList"
+          component="nav"
+          className={props.classes.employeeList}
+        >
+          <PlotEmployeeSearchList
+            excludeList={props.excludeList}
+            selectEmployee={selectedEmployee}
+          />
+        </List>
+      ) : null}
+    </div>
+  );
+};
 
 EmployeeSearch.defaultProps = {
   inputElement: (value, onChange, intl) => (

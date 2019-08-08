@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import React from 'react';
@@ -13,8 +12,8 @@ import { connect } from 'react-redux';
 import DownloadFile from './DownloadFile';
 import { injectIntl } from 'react-intl';
 
-export class ArchivedFiles extends Component {
-  getColumnDefinitions = intl => {
+export const ArchivedFiles = ({ archivedFiles, intl }) => {
+  const getColumnDefinitions = intl => {
     return [
       {
         numeric: false,
@@ -53,22 +52,19 @@ export class ArchivedFiles extends Component {
     ];
   };
 
-  render() {
-    const { intl } = this.props;
-    return (
-      <div>
-        <Paper>
-          <UploadFiles />
-          <PerformanceReviewTable
-            columnDefinition={this.getColumnDefinitions(intl)}
-            orderBy={1}
-            data={this.props.archivedFiles}
-          />
-        </Paper>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Paper>
+        <UploadFiles />
+        <PerformanceReviewTable
+          columnDefinition={getColumnDefinitions(intl)}
+          orderBy={1}
+          data={archivedFiles}
+        />
+      </Paper>
+    </div>
+  );
+};
 
 export default injectIntl(
   connect(

@@ -1,18 +1,13 @@
 import * as actions from '../../actions';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-class Logout extends Component {
-  constructor(props) {
-    super(props);
-    this.props.logout();
-  }
+const Logout = ({ logout }) => {
+  logout();
 
-  render() {
-    return <Route render={() => <Redirect to="/login" />} />;
-  }
-}
+  return <Route render={() => <Redirect to="/login" />} />;
+};
 
 export default connect(
   state => ({}),

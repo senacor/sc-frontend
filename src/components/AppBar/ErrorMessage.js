@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { withStyles } from '@material-ui/core/styles/index';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -22,24 +21,21 @@ const styles = theme => ({
   }
 });
 
-export class Error extends React.Component {
-  render() {
-    const { classes, errors } = this.props;
+export const Error = ({ errors, classes }) => {
+  return (
+    <Paper
+      style={{ display: errors.hasErrors ? 'flex' : 'none' }}
+      className={classes.error}
+      elevation={8}
+    >
+      <ErrorIcon className={classes.icon} />
+      <Typography component="span" className={classes.message}>
+        {errors.message}
+      </Typography>
+    </Paper>
+  );
+};
 
-    return (
-      <Paper
-        style={{ display: errors.hasErrors ? 'flex' : 'none' }}
-        className={classes.error}
-        elevation={8}
-      >
-        <ErrorIcon className={classes.icon} />
-        <Typography component="span" className={classes.message}>
-          {errors.message}
-        </Typography>
-      </Paper>
-    );
-  }
-}
 export default connect(state => ({
   errors: state.errors
 }))(withStyles(styles)(Error));
