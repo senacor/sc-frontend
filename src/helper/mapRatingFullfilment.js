@@ -1,6 +1,3 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 export const mapRatingFullfilment = (ratingFulfillment, intl) => {
   switch (ratingFulfillment) {
     case 0:
