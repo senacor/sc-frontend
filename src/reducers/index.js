@@ -7,14 +7,10 @@ import errors from './errors';
 import login from './login';
 import { language } from './language';
 import { userinfo, userphoto, userroles } from './userinfo';
-import { prRatings } from './rating';
 import isLoading from './isLoading';
 import { employeeSearchResults } from './searchEmployee';
-import { prEmployeeContributions } from './employeeContributions';
 import { appointmentsSearchResults, selectedDate } from './appointments';
 import { meeting } from './meetings';
-import { finalCommentEmployee } from './finalCommentEmployee';
-import { finalCommentHr } from './finalCommentHr';
 import { filter } from './filter';
 import { requiredFields } from './requiredFields';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
@@ -23,7 +19,6 @@ import { filterPossibilities } from './filterPossibilities';
 import { archivedFiles } from './archivedFiles';
 import { uploadedFiles } from './uploadedFiles';
 import { downloadedFile } from './downloadedFile';
-import { advancementStrategies } from './advancementStrategies';
 import { savingThreads } from './savingThreads';
 
 const combineReducer = combineReducers({
@@ -42,11 +37,6 @@ const combineReducer = combineReducers({
   newPrId,
   prTargetRole,
   prFinalizationStatusById,
-  prRatings,
-  finalCommentEmployee,
-  finalCommentHr,
-  advancementStrategies,
-  prEmployeeContributions,
   employeeSearchResults,
   selectedDate,
   sortOrderPrs,

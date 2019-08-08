@@ -28,21 +28,6 @@ export const getPrDetail = () => {
   );
 };
 
-export const getPrEmployeeContributions = type => {
-  return createSelector(
-    [state => state.prEmployeeContributions, getActualPrId],
-    (employeeContributions, prDetailId) =>
-      employeeContributions[prDetailId][type]
-  );
-};
-
-export const getPrRatings = type => {
-  return createSelector(
-    [state => state.prRatings, getActualPrId],
-    (prRatings, prDetailId) => prRatings[prDetailId][type]
-  );
-};
-
 export const getFilter = group => {
   return createSelector(
     [state => state.filter],
@@ -59,27 +44,6 @@ export const getSubFilter = (group, subfilter) => {
           : ''
         : '';
     }
-  );
-};
-
-export const getFinalCommentEmployee = () => {
-  return createSelector(
-    [state => state.finalCommentEmployee, getActualPrId],
-    (comment, prById) => comment[prById]
-  );
-};
-
-export const getAdvancementStrategies = () => {
-  return createSelector(
-    [state => state.advancementStrategies, getActualPrId],
-    (comment, prById) => comment[prById]
-  );
-};
-
-export const getFinalCommentHr = () => {
-  return createSelector(
-    [state => state.finalCommentHr, getActualPrId],
-    (comment, prById) => comment[prById]
   );
 };
 

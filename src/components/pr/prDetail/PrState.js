@@ -9,8 +9,6 @@ import {
   getPrDetail,
   getUserroles,
   getUserinfo,
-  getPrRatings,
-  getPrEmployeeContributions,
   getMeeting,
   getSavingThreads
 } from '../../../reducers/selector';

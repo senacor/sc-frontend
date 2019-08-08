@@ -71,7 +71,6 @@ describe('reducers', () => {
           filter: {},
           filterPossibilities: {},
           finalCommentEmployee: {},
-          finalCommentHr: {},
           isLoading: [],
           language: 'de',
           login: {

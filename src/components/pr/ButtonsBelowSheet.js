@@ -3,8 +3,6 @@ import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import {
   getPrDetail,
-  getPrEmployeeContributions,
-  getPrRatings,
   getSavingThreads,
   getUserinfo,
   getUserroles

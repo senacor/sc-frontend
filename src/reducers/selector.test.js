@@ -1,6 +1,5 @@
 import {
   getAllPrs,
-  getFinalCommentEmployee,
   getPrDetail,
   getSortedPrs,
   getSortOrder,
@@ -98,25 +97,5 @@ describe('getPrDetail', () => {
     let result = getPrDetail()(storeState);
 
     expect(result).toEqual({ id: 2, deadline: '2017-01-01' });
-  });
-});
-
-describe('getFinalCommentEmployee', () => {
-  let storeState;
-
-  beforeEach(() => {
-    storeState = {
-      finalCommentEmployee: {
-        1: 'comment pr 1',
-        2: 'comment pr 2'
-      },
-      prDetailId: 2
-    };
-  });
-
-  it('should return the finalComment with id stored in prDetailedId', () => {
-    let result = getFinalCommentEmployee()(storeState);
-
-    expect(result).toEqual('comment pr 2');
   });
 });

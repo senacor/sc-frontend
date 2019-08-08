@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Grid from '@material-ui/core/Grid';
 
-import { getPrRatings } from '../../reducers/selector';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
 import { injectIntl } from 'react-intl';
@@ -72,7 +71,4 @@ const PrOverallComment = ({
 };
 
 export const StyledComponent = withStyles(styles)(PrOverallComment);
-export default injectIntl(
-  connect((state, props) => ({
-  }))(StyledComponent)
-);
+export default injectIntl(connect((state, props) => ({}))(StyledComponent));

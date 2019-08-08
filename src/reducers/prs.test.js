@@ -1,7 +1,6 @@
 import { prs, sortOrderPrs, tablePrs } from './prs';
 import {
   ADD_PR_RESPONSE,
-  CHANGE_FINAL_COMMENT_RESPONSE,
   CHANGE_RATING_TARGETROLE_RESPONSE,
   CHANGE_SORT_ORDER,
   DELEGATE_REVIEWER_RESPONSE,
@@ -282,25 +281,3 @@ describe('prs reducer', () => {
       }
     });
   });
-
-  it('should override finalCommentEmployee for CHANGE_FINAL_COMMENT_RESPONSE with id 2', () => {
-    const payload = {
-      prId: 2,
-      comment: 'new Comment'
-    };
-
-    const action = {
-      type: CHANGE_FINAL_COMMENT_RESPONSE,
-      payload
-    };
-
-    const stateAfter = prs(stateBefore, action);
-
-    expect(stateAfter[2]).toEqual(
-      Object.assign({}, stateBefore[2], {
-        finalCommentEmployee: 'new Comment'
-      })
-    );
-    expect(Object.keys(stateAfter)).toHaveLength(3);
-  });
-});

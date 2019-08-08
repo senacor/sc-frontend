@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { getPrRatings } from '../../reducers/selector';
 import * as actions from '../../actions';
 import { withStyles } from '@material-ui/core';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';

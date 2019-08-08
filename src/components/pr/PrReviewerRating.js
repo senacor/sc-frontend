@@ -7,7 +7,6 @@ import Collapse from '@material-ui/core/Collapse';
 import * as actions from '../../actions';
 import PrSwipePositionDescription from './PrSwipePositionDescription';
 import { debounce } from '../../helper/debounce';
-import { getPrRatings } from '../../reducers/selector';
 import Icon from '@material-ui/core/Icon';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';

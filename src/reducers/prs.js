@@ -3,7 +3,6 @@ import {
   ADD_PR_RESPONSE,
   DELEGATE_REVIEWER_RESPONSE,
   CHANGE_SORT_ORDER,
-  CHANGE_FINAL_COMMENT_RESPONSE,
   FETCH_PR_BY_ID_RESPONSE,
   CHANGE_RATING_TARGETROLE_RESPONSE,
   FETCH_PRS_HR_RESPONSE,
@@ -68,13 +67,6 @@ export const prs = (state = {}, action) => {
         `${prId}.prTargetRoleSet.${indexChangedRating}.rating`,
         rating
       );
-    }
-
-    case CHANGE_FINAL_COMMENT_RESPONSE: {
-      const comment = action.payload.comment;
-      const prId = action.payload.prId;
-
-      return set(cloneDeep(state), `${prId}.finalCommentEmployee`, comment);
     }
     case FETCH_MEETING_RESPONSE: {
       const meeting = action.meeting;
