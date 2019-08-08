@@ -19,7 +19,7 @@ const ShowReviewer = ({ prefix, pr, classes, intl, username }) => {
   const prDelegable = pr => {
     return (
       pr.supervisor.login === username &&
-      pr.statuses.includes(prStatusEnum.RELEASED_SHEET_REVIEWER) === false
+      pr.statusSet.includes(prStatusEnum.RELEASED_SHEET_REVIEWER) === false
     );
   };
 

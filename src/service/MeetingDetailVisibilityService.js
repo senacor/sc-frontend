@@ -59,7 +59,7 @@ class MeetingDetailVisibilityService {
       meetingExists: false
     };
 
-    let reviewerHasFinished = pr.statuses.includes(
+    let reviewerHasFinished = pr.statusSet.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
     let isHrMember = isHr(userroles);

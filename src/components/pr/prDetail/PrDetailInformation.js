@@ -86,7 +86,7 @@ const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
         })}`;
     }
     if (
-      pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
+      pr.statusSet.includes(prStatusEnum.FINALIZED_REVIEWER) &&
       meeting.status !== 'ACCEPTED'
     ) {
       termin =

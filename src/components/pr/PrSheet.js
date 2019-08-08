@@ -115,7 +115,7 @@ const PrSheet = props => {
 
   const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
 
-  const [pr, setPr] = useState(prMock);
+  const [pr, setPr] = useState(prById);
   const [firstReflectionField, setFirstReflectionField] = useState(
     pr.firstReflectionField
   );
@@ -204,7 +204,7 @@ const PrSheet = props => {
   };
 
   const isArchived = () => {
-    return pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
+    return pr.statusSet.includes(prStatusEnum.ARCHIVED_HR);
   };
 
   let step1employee = () => {
