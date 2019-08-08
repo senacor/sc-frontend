@@ -78,7 +78,16 @@
       "target": "http://localhost:8010"
     },
     "/api/v1/hr/overview/export": {
-      "target": "http://localhost:8010"
+      "target": "http://localhost:8020"
+    },
+    "/api/v3/prs": {
+      "target": "http://localhost:8020"
+    },
+    "/api/v3/pr": {
+      "target": "http://localhost:8020"
+    },
+    "/api/v3/user": {
+      "target": "http://localhost:8020"
     }
   },
   "jest": {

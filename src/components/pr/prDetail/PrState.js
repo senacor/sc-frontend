@@ -46,6 +46,7 @@ const PrState = ({
   savingThreads,
   intl
 }) => {
+  overallComment = 'COMMENT TURNED OFF...';
   const mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
     if (prStatusesDone !== undefined) {
       return Object.values(stepStructure[stepId].substeps).every(
@@ -411,13 +412,6 @@ export default injectIntl(
       prById: getPrDetail()(state),
       userroles: getUserroles(state),
       userinfo: getUserinfo(state),
-      overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
-      employeeContributionRole: getPrEmployeeContributions(
-        'ROLE_AND_PROJECT_ENVIRONMENT'
-      )(state).text,
-      employeeContributionLeader: getPrEmployeeContributions(
-        'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
-      )(state).text,
       meeting: getMeeting(state),
       savingThreads: getSavingThreads(state)
     }),

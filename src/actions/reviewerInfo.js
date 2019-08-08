@@ -7,7 +7,7 @@ export const fetchReviewerInfo = () => {
       type: dispatchTypes.REVIEWER_INFO_REQUEST
     });
 
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v1/user`);
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/user`);
 
     if (response.ok) {
       const result = await response.json();

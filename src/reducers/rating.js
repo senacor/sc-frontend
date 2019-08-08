@@ -20,12 +20,6 @@ export const prRatings = (state = {}, action) => {
 
       return value;
     }
-
-    case FETCH_PR_BY_ID_RESPONSE: {
-      let pr = action.prById;
-      return cloneDeep(generateRatingsForOnePr(state, pr.id, pr.prRatingSet));
-    }
-
     case ADD_PR_RESPONSE: {
       let pr = action.pr;
       return cloneDeep(generateRatingsForOnePr(state, pr.id, pr.prRatingSet));

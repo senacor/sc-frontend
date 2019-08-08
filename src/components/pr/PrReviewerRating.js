@@ -60,6 +60,7 @@ const PrReviewerRating = ({
   openEditing,
   intl
 }) => {
+  prRating = {}; // TODO: temp
   let optionalComment = prRating.comment ? prRating.comment : '';
   const [isExpanded, setIsExpanded] = useState(false);
   const [comment, setComment] = useState(optionalComment);
@@ -167,9 +168,7 @@ const PrReviewerRating = ({
 export const StyledComponent = withStyles(styles)(PrReviewerRating);
 export default injectIntl(
   connect(
-    (state, props) => ({
-      prRating: getPrRatings(props.category)(state)
-    }),
+    (state, props) => ({}),
     {
       addRating: actions.addRating
     }

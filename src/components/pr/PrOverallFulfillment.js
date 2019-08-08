@@ -120,9 +120,7 @@ const PrOverallFulfillment = ({
 export const StyledComponent = withStyles(styles)(PrOverallFulfillment);
 export default injectIntl(
   connect(
-    (state, props) => ({
-      prRating: getPrRatings(props.category)(state)
-    }),
+    (state, props) => ({}),
     {
       addRating: actions.addRating
     }

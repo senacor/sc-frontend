@@ -1,5 +1,5 @@
 import * as dispatchTypes from '../helper/dispatchTypes';
-import { default as fetch } from '../helper/customFetch';
+import {default as fetch} from '../helper/customFetch';
 import objectGet from 'object-get';
 
 export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
@@ -10,22 +10,18 @@ export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
   let query = '';
   if (filter) {
     let filterString = Object.keys(filter)
-      .map(function(key) {
+      .map(function (key) {
         return filter[key].searchString;
       })
       .join('&');
     query = filterString ? '?' + filterString : '';
   }
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/hr/prs${query}`
+    `${process.env.REACT_APP_API}/api/v3/prs?role=HR&${query}`
   );
 
   if (response.ok) {
-    const result = await response.json();
-    const responseList = objectGet(
-      result,
-      '_embedded.performanceReviewTableEntryResponseList'
-    );
+    const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
 
     dispatch({
@@ -50,7 +46,7 @@ export const fetchFilteredPrs = (filter, role) => async dispatch => {
   let query = '';
   if (filter) {
     let filterString = Object.keys(filter)
-      .map(function(key) {
+      .map(function (key) {
         return filter[key].searchString;
       })
       .join('&');
@@ -58,12 +54,12 @@ export const fetchFilteredPrs = (filter, role) => async dispatch => {
   }
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs?role=${role}${query}`
+    `${process.env.REACT_APP_API}/api/v3/prs?role=${role}${query}`
   );
 
   if (response.ok) {
     const result = await response.json();
-    const responseList = objectGet(result, '_embedded.ownPrResponseList');
+    const responseList = result;
     let prTableEntries = responseList ? responseList : [];
 
     // if query contains '=&' or ends with '=', that means in some filter there is nothing selected

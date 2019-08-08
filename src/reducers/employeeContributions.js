@@ -20,22 +20,6 @@ export const prEmployeeContributions = (state = [], action) => {
       return cloneDeep(
         generateEmployeeContributionsForMultiplePrs(state, action.prs)
       );
-    case FETCH_PR_BY_ID_RESPONSE:
-      return cloneDeep(
-        generateEmployeeContributionsForOnePr(
-          state,
-          action.prById.id,
-          action.prById.prReflectionSet
-        )
-      );
-    case ADD_PR_RESPONSE:
-      return cloneDeep(
-        generateEmployeeContributionsForOnePr(
-          state,
-          action.pr.id,
-          action.pr.prReflectionSet
-        )
-      );
     default:
       return state;
   }

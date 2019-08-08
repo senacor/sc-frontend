@@ -100,7 +100,7 @@ const PrSheet = props => {
     occasion: 'ON_DEMAND',
     prRating: 'pr_rating_json',
     targetRole: 'target_role_json',
-    prStatusEntry: '',
+    statusSet: '',
     exchangeItemId: 'exchange_item_id',
     finalMeetingDate: '2019-08-03',
     firstReflectionField: 'first_reflection_field',

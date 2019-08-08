@@ -28,7 +28,7 @@ export const getFilterPossibilities = () => async dispatch => {
   });
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/filter`
+    `${process.env.REACT_APP_API}/api/v3/prs/filter`
   );
 
   if (response.ok) {

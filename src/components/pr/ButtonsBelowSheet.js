@@ -169,13 +169,13 @@ const ButtonsBelowSheet = props => {
   };
 
   const getEmployeeButtons = pr => {
-    let reviewerFinalized = pr.statuses.includes(
+    let reviewerFinalized = pr.statusSet.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
-    let employeeFinalized = pr.statuses.includes(
+    let employeeFinalized = pr.statusSet.includes(
       prStatusEnum.FINALIZED_EMPLOYEE
     );
-    let employeeReleased = pr.statuses.includes(
+    let employeeReleased = pr.statusSet.includes(
       prStatusEnum.RELEASED_SHEET_EMPLOYEE
     );
     let releaseButton = !employeeReleased
@@ -216,13 +216,13 @@ const ButtonsBelowSheet = props => {
   };
 
   const getReviewerButtons = pr => {
-    let reviewerFinalized = pr.statuses.includes(
+    let reviewerFinalized = pr.statusSet.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
-    let reviewerReleased = pr.statuses.includes(
+    let reviewerReleased = pr.statusSet.includes(
       prStatusEnum.RELEASED_SHEET_REVIEWER
     );
-    let employeeReleased = pr.statuses.includes(
+    let employeeReleased = pr.statusSet.includes(
       prStatusEnum.RELEASED_SHEET_EMPLOYEE
     );
     let releaseButton = !reviewerReleased
@@ -263,10 +263,10 @@ const ButtonsBelowSheet = props => {
   };
 
   const getHrButtons = pr => {
-    let employeeFinalized = pr.statuses.includes(
+    let employeeFinalized = pr.statusSet.includes(
       prStatusEnum.FINALIZED_EMPLOYEE
     );
-    let hrFinalized = pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
+    let hrFinalized = pr.statusSet.includes(prStatusEnum.ARCHIVED_HR);
     let releaseButtonDisabled = !employeeFinalized
       ? getDisabledButton(
           pr,
@@ -332,13 +332,6 @@ export default injectIntl(
       pr: getPrDetail()(state),
       userroles: getUserroles(state),
       userinfo: getUserinfo(state),
-      overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
-      employeeContributionRole: getPrEmployeeContributions(
-        'ROLE_AND_PROJECT_ENVIRONMENT'
-      )(state).text,
-      employeeContributionLeader: getPrEmployeeContributions(
-        'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
-      )(state).text,
       savingThreads: getSavingThreads(state)
     }),
     {

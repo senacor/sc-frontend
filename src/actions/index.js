@@ -106,7 +106,7 @@ export const fetchPrById = prsId => async dispatch => {
     type: dispatchTypes.ERROR_GONE
   });
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${prsId}`
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
   );
   if (response.ok) {
     const prById = await response.json();

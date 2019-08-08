@@ -28,6 +28,7 @@ const PrOverallComment = ({
   openEditing,
   intl
 }) => {
+  prRating = {}; //TODO: temp
   let comment = prRating.comment ? prRating.comment : '';
   const [overallComment, setOverallComment] = useState(comment);
 
@@ -73,6 +74,5 @@ const PrOverallComment = ({
 export const StyledComponent = withStyles(styles)(PrOverallComment);
 export default injectIntl(
   connect((state, props) => ({
-    prRating: getPrRatings(props.category)(state)
   }))(StyledComponent)
 );
