@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ErrorIcon from '@material-ui/icons/Error';
+import { ErrorContext } from '../ErrorsProvider';
 
 const styles = theme => ({
   error: {
@@ -21,7 +21,8 @@ const styles = theme => ({
   }
 });
 
-export const Error = ({ errors, classes }) => {
+export const Error = ({ classes }) => {
+  const errors = useContext(ErrorContext).errors;
   return (
     <Paper
       style={{ display: errors.hasErrors ? 'flex' : 'none' }}
@@ -36,6 +37,4 @@ export const Error = ({ errors, classes }) => {
   );
 };
 
-export default connect(state => ({
-  errors: state.errors
-}))(withStyles(styles)(Error));
+export default withStyles(styles)(Error);

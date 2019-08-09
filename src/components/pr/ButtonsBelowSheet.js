@@ -322,7 +322,6 @@ export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
 export default injectIntl(
   connect(
     state => ({
-      pr: getPrDetail()(state),
       userroles: getUserroles(state),
       userinfo: getUserinfo(state),
       savingThreads: getSavingThreads(state)

@@ -28,7 +28,7 @@ export const addMeeting = meeting_details => async dispatch => {
     });
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/prs/${
+      `${process.env.REACT_APP_API}/api/v3/prs/${
         meeting_details.prById.id
       }/meetings`,
       {
@@ -77,7 +77,7 @@ export const fetchMeeting = pr => async dispatch => {
   let id = pr ? pr.id : 0;
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs/${id}/meetings`
+    `${process.env.REACT_APP_API}/api/v3/prs/${id}/meetings`
   );
 
   let meeting = null;

@@ -589,7 +589,7 @@ const PrSheet = props => {
           </Grid>
         </Hidden>
         <Grid item xs={12}>
-          <ButtonsBelowSheet />
+          <ButtonsBelowSheet pr={pr} />
         </Grid>
       </Grid>
     </div>

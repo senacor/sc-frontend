@@ -37,7 +37,7 @@ const styles = theme => ({
   }
 });
 
-const PrTabs = ({ classes, intl }) => {
+const PrTabs = ({ classes, intl, pr, meeting }) => {
   const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
   const handleChange = (event, value) => {
     setTabValue(value);
@@ -79,12 +79,12 @@ const PrTabs = ({ classes, intl }) => {
       </Paper>
       {tabValue === 'DETAIL_VIEW' && (
         <TabContainer>
-          <PrSheet />
+          <PrSheet pr={pr} />
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
         <TabContainer>
-          <SchedulingView />
+          <SchedulingView pr={pr} meeting={meeting} />
         </TabContainer>
       )}
     </div>

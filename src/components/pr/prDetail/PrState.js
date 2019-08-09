@@ -173,7 +173,7 @@ const PrState = ({
             id: 'prstate.findtermin'
           })} `,
           rendering: {
-            complete: meetingInfoText(meeting.status, pr.statuses)
+            complete: meetingInfoText(meeting.status, pr.statusSet)
           }
         }
       }
@@ -352,7 +352,7 @@ const PrState = ({
   if (!(prById && meeting)) {
     return null;
   }
-  const prStatusesDone = getCompletedSubsteps(prById.statuses);
+  const prStatusesDone = getCompletedSubsteps(prById.statusSet);
 
   if (!prStatusesDone) {
     return null;

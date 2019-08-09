@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import * as actions from '../../../actions';
 import { connect } from 'react-redux';
 import {
-  getPrDetail,
   getMeeting,
   isLoading,
   getUserinfo,
@@ -15,7 +14,7 @@ import { injectIntl } from 'react-intl';
 
 const SchedulingView = ({
   meeting,
-  prDetail,
+  pr,
   userinfo,
   userroles,
   addPrStatus,
@@ -27,7 +26,7 @@ const SchedulingView = ({
     if (
       meeting.status === 'DECLINED' ||
       (meeting.status === 'NOT_REQUESTED' &&
-        !prDetail.statuses.includes(prStatusEnum.FINALIZED_REVIEWER))
+        !pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER))
     ) {
       setCanRequestMeeting(true);
     } else {
@@ -46,10 +45,10 @@ const SchedulingView = ({
       ) : (
         <MeetingDetailsView
           meeting={meeting}
-          pr={prDetail}
+          pr={pr}
           userinfo={userinfo}
           userroles={userroles}
-          click={() => addPrStatus(prDetail, prStatusEnum.FIXED_DATE)}
+          click={() => addPrStatus(pr, prStatusEnum.FIXED_DATE)}
           handleChange={() => handleChange()}
         />
       )}
@@ -60,8 +59,6 @@ const SchedulingView = ({
 export default injectIntl(
   connect(
     state => ({
-      prDetail: getPrDetail()(state),
-      meeting: getMeeting(state),
       isLoading: isLoading(state),
       userinfo: getUserinfo(state),
       userroles: getUserroles(state)
