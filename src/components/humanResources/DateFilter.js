@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import * as actions from '../../actions';
 import { getSubFilter } from '../../reducers/selector';
 import PropTypes from 'prop-types';
@@ -19,149 +19,131 @@ let styles = {
   }
 };
 
-export class DateFilter extends Component {
-  constructor(props) {
-    super(props);
-    const filter = Object.assign(
-      {},
-      { searchString: '', values: '' },
-      this.props.filter
-    );
+export const DateFilter = ({
+  filter,
+  filterBy,
+  filterGroup,
+  deleteFilter,
+  addFilter,
+  closeFilter,
+  intl,
+  classes
+}) => {
+  const defaultFilter = Object.assign(
+    {},
+    { searchString: '', values: '' },
+    filter
+  );
 
-    this.state = {
-      filter: filter,
-      values: filter.values,
-      error: false
-    };
-  }
+  const [values, setValues] = useState(defaultFilter.values);
+  const [error, setError] = useState(false);
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyPress);
-  }
-
-  handleKeyPress = event => {
-    if (event.key === 'Enter') {
-      this.execute();
-    }
-  };
-  showError = () => {
-    this.setState({ error: true });
+  const showError = () => {
+    setError(true);
   };
 
-  isValidFilter = values => {
+  const isValidFilter = values => {
     return moment(values.From).isBefore(moment(values.To));
   };
 
-  setFilter = values => {
+  const setFilter = values => {
     let searchString = Object.keys(values)
-      .map(function(key) {
-        return `${this.props.filterBy}${key}=${values[key]}`;
-      }, this)
+      .map(key => {
+        return `${filterBy}${key}=${values[key]}`;
+      })
       .join('&');
 
-    let filter = {
+    const filter = {
       searchString,
       values: values
     };
-    let payload = {
-      filterGroup: this.props.filterGroup,
-      filterBy: this.props.filterBy,
-
+    const payload = {
+      filterGroup: filterGroup,
+      filterBy: filterBy,
       filter: filter
     };
 
     if (searchString === '') {
-      this.props.deleteFilter(payload);
-    } else if (!this.isValidFilter(values)) {
+      deleteFilter(payload);
+    } else if (!isValidFilter(values)) {
       return false;
     } else {
-      this.props.addFilter(payload);
+      addFilter(payload);
     }
     return true;
   };
 
-  onChange = key => event => {
-    let newValues = Object.assign({}, this.state.values, {
+  const onChange = key => event => {
+    let newValues = Object.assign({}, values, {
       [key]: event.target.value
     });
     if (newValues[key] === '') {
       delete newValues[key];
     }
 
-    this.setState({ values: newValues, error: false });
-    const button = document.getElementById('forwardButton');
-    if (button) {
-      button.focus();
-    }
+    setValues(newValues);
+    setError(false);
   };
 
-  execute = () => {
-    if (this.setFilter(this.state.values)) {
-      this.props.closeFilter();
+  const execute = () => {
+    if (setFilter(values)) {
+      closeFilter();
     } else {
-      this.showError();
+      showError();
     }
   };
 
-  render() {
-    const { classes, intl } = this.props;
-    let { values } = this.state;
-    return (
-      <List>
-        <ListItem>
-          <TextField
-            id="startDate"
-            label={intl.formatMessage({
-              id: 'datefilter.from'
+  return (
+    <List>
+      <ListItem>
+        <TextField
+          id="startDate"
+          label={intl.formatMessage({
+            id: 'datefilter.from'
+          })}
+          type="date"
+          defaultValue={values.From}
+          placeholder={'JJJJ-MM-TT'}
+          InputLabelProps={{
+            shrink: true
+          }}
+          onChange={onChange('From')}
+        />
+        <TextField
+          id="endDate"
+          label={intl.formatMessage({
+            id: 'datefilter.to'
+          })}
+          type="date"
+          defaultValue={values.To}
+          placeholder={'JJJJ-MM-TT'}
+          InputLabelProps={{
+            shrink: true
+          }}
+          onChange={onChange('To')}
+        />
+        <IconButton
+          id="forwardButton"
+          aria-label={intl.formatMessage({
+            id: 'datefilter.forward'
+          })}
+          onClick={execute}
+        >
+          <Icon>forward</Icon>
+        </IconButton>
+      </ListItem>
+      <ListItem className={classes.error}>
+        {error === true ? (
+          <div>
+            {intl.formatMessage({
+              id: 'datefilter.invalid'
             })}
-            type="date"
-            defaultValue={values.From}
-            placeholder={'JJJJ-MM-TT'}
-            InputLabelProps={{
-              shrink: true
-            }}
-            onChange={this.onChange('From')}
-          />
-          <TextField
-            id="endDate"
-            label={intl.formatMessage({
-              id: 'datefilter.to'
-            })}
-            type="date"
-            defaultValue={values.To}
-            placeholder={'JJJJ-MM-TT'}
-            InputLabelProps={{
-              shrink: true
-            }}
-            onChange={this.onChange('To')}
-          />
-          <IconButton
-            id="forwardButton"
-            aria-label={intl.formatMessage({
-              id: 'datefilter.forward'
-            })}
-            onClick={this.execute}
-          >
-            <Icon>forward</Icon>
-          </IconButton>
-        </ListItem>
-        <ListItem className={classes.error}>
-          {this.state.error === true ? (
-            <div>
-              {intl.formatMessage({
-                id: 'datefilter.invalid'
-              })}
-            </div>
-          ) : null}
-        </ListItem>
-      </List>
-    );
-  }
-}
+          </div>
+        ) : null}
+      </ListItem>
+    </List>
+  );
+};
 
 DateFilter.propTypes = {
   filterGroup: PropTypes.string.isRequired,

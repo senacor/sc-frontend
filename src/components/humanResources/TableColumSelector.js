@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
@@ -18,17 +18,8 @@ const styles = {
   }
 };
 
-export class TableColumnSelector extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedContent: props.selectedContent,
-      selectedItems: this.getNumberOfSelectedContent(props.selectedContent)
-    };
-  }
-
-  getNumberOfSelectedContent = content => {
+export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
+  const getNumberOfSelectedContent = content => {
     let selectedItems = 0;
     content.forEach(entry => {
       if (entry.checked) {
@@ -38,65 +29,58 @@ export class TableColumnSelector extends Component {
     return selectedItems;
   };
 
-  isAllSelected = () => {
-    return this.state.selectedItems === this.state.selectedContent.length;
+  const [selectedCont, setSelectedCont] = useState(selectedContent);
+  const [selectedItems, setSelectedItems] = useState(
+    getNumberOfSelectedContent(selectedCont)
+  );
+
+  const isAllSelected = () => {
+    return selectedItems === selectedCont.length;
   };
 
-  handleToggleSelectAll = () => {
-    let { selectedContent } = this.state;
-    if (this.isAllSelected()) {
-      selectedContent.forEach(entry => {
+  const handleToggleSelectAll = () => {
+    if (isAllSelected()) {
+      selectedCont.forEach(entry => {
         entry.checked = false;
       });
-      this.setState({
-        selectedContent: selectedContent,
-        selectedItems: 0
-      });
+      setSelectedCont(selectedCont);
+      setSelectedItems(0);
     } else {
-      selectedContent.forEach(entry => {
+      selectedCont.forEach(entry => {
         entry.checked = true;
       });
-
-      this.setState({
-        selectedContent: selectedContent,
-        selectedItems: selectedContent.length
-      });
+      setSelectedCont(selectedCont);
+      setSelectedItems(selectedCont.length);
     }
 
-    this.props.onChange(selectedContent);
+    onChange(selectedCont);
   };
 
-  handleToggle = value => () => {
-    let { selectedContent, selectedItems } = this.state;
-    const currentIndex = selectedContent.indexOf(value);
+  const handleToggle = value => () => {
+    const currentIndex = selectedCont.indexOf(value);
 
     if (value.checked === true) {
-      selectedContent[currentIndex].checked = false;
-      selectedItems = selectedItems - 1;
+      selectedCont[currentIndex].checked = false;
+      setSelectedItems(selectedItems - 1);
     } else {
-      selectedContent[currentIndex].checked = true;
-      selectedItems = selectedItems + 1;
+      selectedCont[currentIndex].checked = true;
+      setSelectedItems(selectedItems + 1);
     }
-    this.setState({
-      selectedContent: selectedContent,
-      selectedItems: selectedItems
-    });
-    this.props.onChange(selectedContent);
+    // ??? //
+    setSelectedCont(selectedCont);
+    setSelectedItems(selectedItems);
+    // ??? //
+    onChange(selectedCont);
   };
 
-  showSelectAll = () => {
+  const showSelectAll = () => {
     return (
-      <ListItem
-        key={'selectAll'}
-        dense
-        button
-        onClick={this.handleToggleSelectAll}
-      >
+      <ListItem key={'selectAll'} dense button onClick={handleToggleSelectAll}>
         {
           <Checkbox
-            className={this.props.classes.densed}
+            className={classes.densed}
             id={'selectAll'}
-            checked={this.isAllSelected()}
+            checked={isAllSelected()}
             color={'primary'}
             checkedIcon={<Icon>check</Icon>}
             icon={<Icon />}
@@ -106,16 +90,12 @@ export class TableColumnSelector extends Component {
       </ListItem>
     );
   };
-  showContent = value => {
+
+  const showContent = value => {
     return (
-      <ListItem
-        key={value.label}
-        dense
-        button
-        onClick={this.handleToggle(value)}
-      >
+      <ListItem key={value.label} dense button onClick={handleToggle(value)}>
         <Checkbox
-          className={this.props.classes.densed}
+          className={classes.densed}
           id={value.label}
           checked={value.checked}
           color={'primary'}
@@ -127,19 +107,16 @@ export class TableColumnSelector extends Component {
     );
   };
 
-  render() {
-    const { classes, selectedContent } = this.props;
-    return (
-      <List className={classes.list}>
-        {this.showSelectAll()}
-        <Divider />
-        {selectedContent.map(content => {
-          return this.showContent(content);
-        })}
-      </List>
-    );
-  }
-}
+  return (
+    <List className={classes.list}>
+      {showSelectAll()}
+      <Divider />
+      {selectedCont.map(content => {
+        return showContent(content);
+      })}
+    </List>
+  );
+};
 
 TableColumnSelector.propTypes = {
   selectedContent: PropTypes.array.isRequired

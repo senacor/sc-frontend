@@ -6,13 +6,13 @@ import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import objectGet from 'object-get';
 import { injectIntl } from 'react-intl';
-
 import { getUserinfo } from '../../reducers/selector';
 import { Redirect } from 'react-router-dom';
 
-export function RequestPerformanceReview(props) {
-  if (props.newPrId) {
-    return <Redirect to={`/prDetail/${props.newPrId}`} />;
+export const RequestPerformanceReview = props => {
+  let { newPrId, intl, addPr, userinfo } = props;
+  if (newPrId) {
+    return <Redirect to={`/prDetail/${newPrId}`} />;
   }
 
   const hasSupervisor = objectGet(props, 'userinfo.hasSupervisor');
@@ -20,10 +20,10 @@ export function RequestPerformanceReview(props) {
 
   if (!hasSupervisor || hasPrInProgress) {
     let tooltipText = !hasSupervisor
-      ? props.intl.formatMessage({
+      ? intl.formatMessage({
           id: 'requestperformancereview.nosupervisor'
         })
-      : props.intl.formatMessage({
+      : intl.formatMessage({
           id: 'requestperformancereview.alreadyopened'
         });
 
@@ -32,7 +32,7 @@ export function RequestPerformanceReview(props) {
         <span>
           <Button disabled>
             <Icon>add</Icon>
-            {props.intl.formatMessage({
+            {intl.formatMessage({
               id: 'requestperformancereview.requestpr'
             })}
           </Button>
@@ -46,17 +46,17 @@ export function RequestPerformanceReview(props) {
       <Button
         id="addPrButton"
         color="primary"
-        onClick={() => props.addPr(props.userinfo.userPrincipalName)}
+        onClick={() => addPr(userinfo.userPrincipalName)}
         disabled={!hasSupervisor || hasPrInProgress}
       >
         <Icon>add</Icon>
-        {props.intl.formatMessage({
+        {intl.formatMessage({
           id: 'requestperformancereview.requestpr'
         })}
       </Button>
     </React.Fragment>
   );
-}
+};
 
 export default injectIntl(
   connect(
