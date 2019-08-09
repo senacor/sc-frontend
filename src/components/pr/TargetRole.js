@@ -1,23 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
-import ListItem from '@material-ui/core/ListItem';
-import StepSlider from './StepSlider';
-import Grid from '@material-ui/core/Grid/index';
-import objectGet from 'object-get';
-import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
+import Grid from '@material-ui/core/Grid/index';
+import Typography from '@material-ui/core/Typography';
+import Radio from '@material-ui/core/Radio';
 
 const styles = theme => ({
-  rightLegend: {
-    marginRight: '6%',
-    float: 'right',
-    textAlign: 'blockscope'
-  },
-  outerGrid: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'stretch'
+  radioColor: {
+    color: theme.palette.primary['300']
   },
   ratingTargetRole: {
     color: theme.palette.primary['300'],
@@ -33,105 +23,151 @@ const styles = theme => ({
   }
 });
 
-const compareTargetRoles = (() => {
-  const orderedTargetRoleNames = [
-    'PLATTFORMGESTALTER',
-    'IT_SOLUTION_LEADER',
-    'TRANSFORMATION_MANAGER',
-    'IT_LIEFERSTEUERER',
-    'ARCHITECT',
-    'TECHNICAL_EXPERT',
-    'LEAD_DEVELOPER'
-  ];
+const TargetRole = ({ classes, intl, targetRoles, action }) => {
+  const [plattformGestalter, setPlattformGestalter] = useState(
+    targetRoles.plattformGestalter
+  );
+  const [itSolutionLeader, setItSolutionLeader] = useState(
+    targetRoles.itSolutionLeader
+  );
+  const [transformationManager, setTransformationManager] = useState(
+    targetRoles.transformationManager
+  );
+  const [itLiefersteuerer, setItLiefersteuerer] = useState(
+    targetRoles.itLiefersteuerer
+  );
+  const [architect, setArchitect] = useState(targetRoles.architect);
+  const [technicalExpert, setTechnicalExpert] = useState(
+    targetRoles.technicalExpert
+  );
+  const [leadDeveloper, setLeadDeveloper] = useState(targetRoles.leadDeveloper);
 
-  return (objTargetRoleOne, objTargetRoleTwo) => {
-    let priorityTargetRoleOne = orderedTargetRoleNames.indexOf(
-      objTargetRoleOne.prTargetRoleName
-    );
-    let priorityTargetRoleTwo = orderedTargetRoleNames.indexOf(
-      objTargetRoleTwo.prTargetRoleName
-    );
-
-    return priorityTargetRoleOne > priorityTargetRoleTwo ? 1 : -1;
+  const determineTaragetRole = targetRole => {
+    switch (targetRole) {
+      case 'plattformGestalter':
+        return plattformGestalter;
+      case 'itSolutionLeader':
+        return itSolutionLeader;
+      case 'transformationManager':
+        return transformationManager;
+      case 'itLiefersteuerer':
+        return itLiefersteuerer;
+      case 'architect':
+        return architect;
+      case 'technicalExpert':
+        return technicalExpert;
+      case 'leadDeveloper':
+        return leadDeveloper;
+      default:
+        break;
+    }
   };
-})();
 
-const TargetRole = props => {
-  const {
-    prActive,
-    classes,
-    readOnly,
-    isActionPerformer,
-    openEditing,
-    intl
-  } = props;
-
-  const buildTargetRoleInformation = () => {
-    let targetRoleInformationOfEmployee =
-      objectGet(props, 'prActive.prTargetRoleSet') || [];
-    targetRoleInformationOfEmployee.sort(compareTargetRoles);
-
-    let isDisabled = !isActionPerformer;
-
-    return targetRoleInformationOfEmployee.map(targetRole => {
-      return (
-        <Grid
-          key={targetRole.prTargetRoleName + '_Container'}
-          container
-          className={classes.outerGrid}
-        >
-          <Grid item xs={8} className={classes.targetRole}>
-            <div className={classes.simpleBlack}>
-              <Typography>
-                {intl.formatMessage({
-                  id: `${targetRole.prTargetRoleName}`
-                })}
-              </Typography>
-            </div>
-          </Grid>
-
-          <Grid
-            item
-            xs={4}
-            className={classes.ratingTargetRole}
-            id={'target-role-' + targetRole.prTargetRoleName}
-          >
-            <StepSlider
-              key={targetRole.prTargetRoleName}
-              isDisabled={isDisabled || (readOnly && !openEditing)}
-              prActive={prActive}
-              rating={isActionPerformer || readOnly ? targetRole.rating : 2}
-              targetRoleName={targetRole.prTargetRoleName}
-            />
-          </Grid>
-        </Grid>
-      );
-    });
+  const handleChange = (event, targetRole) => {
+    let value = Number(event.target.value);
+    switch (targetRole) {
+      case 'plattformGestalter':
+        setPlattformGestalter(value);
+        break;
+      case 'itSolutionLeader':
+        setItSolutionLeader(value);
+        break;
+      case 'transformationManager':
+        setTransformationManager(value);
+        break;
+      case 'itLiefersteuerer':
+        setItLiefersteuerer(value);
+        break;
+      case 'architect':
+        setArchitect(value);
+        break;
+      case 'technicalExpert':
+        setTechnicalExpert(value);
+        break;
+      case 'leadDeveloper':
+        setLeadDeveloper(value);
+        break;
+      default:
+        break;
+    }
+    action(targetRole, event.target.value);
   };
 
   return (
-    <div>
-      <div className={classes.rightLegend}>
-        <Typography
-          variant={'caption'}
-          color={'textSecondary'}
-          className={classes.legendSlider}
-        >
-          {intl.formatMessage({
-            id: 'proverallassessment.suitability'
-          })}
-        </Typography>
-      </div>
-      <ListItem>
-        <Grid container>{buildTargetRoleInformation()}</Grid>
-      </ListItem>
-    </div>
+    <Grid container spacing={16}>
+      <Grid item xs={8} />
+      <Grid item xs={4}>
+        <Grid container spacing={16}>
+          <Grid item xs={4}>
+            <Typography variant={'caption'} color={'textSecondary'}>
+              {intl.formatMessage({
+                id: 'proverallassessment.low'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography variant={'caption'} color={'textSecondary'}>
+              {intl.formatMessage({
+                id: 'proverallassessment.neutral'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography variant={'caption'} color={'textSecondary'}>
+              {intl.formatMessage({
+                id: 'proverallassessment.high'
+              })}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        {Object.keys(targetRoles).map(targetRole => {
+          return (
+            <Grid container spacing={16} key={targetRole}>
+              <Grid item xs={8} className={classes.targetRole}>
+                <div className={classes.simpleBlack}>
+                  <Typography>
+                    {intl.formatMessage({
+                      id: `${targetRole}`
+                    })}
+                  </Typography>
+                </div>
+              </Grid>
+              <Grid item xs={4} className={classes.ratingTargetRole}>
+                <Grid container spacing={16}>
+                  <Grid item xs={4}>
+                    <Radio
+                      color="primary"
+                      checked={determineTaragetRole(targetRole) === 1}
+                      value={1}
+                      onChange={event => handleChange(event, targetRole)}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Radio
+                      color="primary"
+                      checked={determineTaragetRole(targetRole) === 2}
+                      value={2}
+                      onChange={event => handleChange(event, targetRole)}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Radio
+                      color="primary"
+                      checked={determineTaragetRole(targetRole) === 3}
+                      value={3}
+                      onChange={event => handleChange(event, targetRole)}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Grid>
   );
 };
 
-export const StyledComponent = withStyles(styles)(TargetRole);
-export default injectIntl(
-  connect(state => ({
-    prActive: state.prs[state.prDetailId]
-  }))(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(TargetRole));

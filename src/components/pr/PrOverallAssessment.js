@@ -7,43 +7,49 @@ import TargetRole from './TargetRole';
 import PrOverallFulfillment from './PrOverallFulfillment';
 import PrTextField from './PrTextField';
 
-const styles = {
-  containerListItem: {
-    display: 'flex',
-    clear: 'right'
-  },
-  rightLegend: {
-    marginRight: '6%',
-    float: 'right',
-    textAlign: 'blockscope'
+const styles = () => ({
+  paddingBottom: {
+    paddingBottom: 24
   }
-};
+});
 
 const PrOverallAssessment = props => {
   const {
+    classes,
     text,
     rating,
+    targetRoles,
     isReadOnly,
     isError,
     hidden,
     actionText,
     actionRating,
+    actionTargetRoles,
     intl
   } = props;
 
   return (
     <Grid container spacing={16}>
       <Grid item xs={12}>
-        <PrOverallFulfillment
-          category="FULFILLMENT_OF_REQUIREMENT"
-          isReadOnly={isReadOnly}
-          hidden={hidden}
-          rating={rating}
-          action={actionRating}
-        />
+        <div className={classes.paddingBottom}>
+          <PrOverallFulfillment
+            category="FULFILLMENT_OF_REQUIREMENT"
+            isReadOnly={isReadOnly}
+            hidden={hidden}
+            rating={rating}
+            action={actionRating}
+          />
+        </div>
       </Grid>
       <Grid item xs={12}>
-        <TargetRole readOnly={isReadOnly} />
+        <div className={classes.paddingBottom}>
+          <TargetRole
+            targetRoles={targetRoles}
+            isReadOnly={isReadOnly}
+            isError={isError}
+            action={actionTargetRoles}
+          />
+        </div>
       </Grid>
       <Grid item xs={12}>
         <PrTextField
