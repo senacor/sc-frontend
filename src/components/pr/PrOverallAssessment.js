@@ -1,7 +1,7 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles/index';
 import Grid from '@material-ui/core/Grid/Grid';
-import { injectIntl } from 'react-intl';
 
 import TargetRole from './TargetRole';
 import PrOverallFulfillment from './PrOverallFulfillment';
@@ -21,12 +21,13 @@ const styles = {
 
 const PrOverallAssessment = props => {
   const {
-    prById,
-    readOnly,
-    isActionPerformer,
-    nonActionPerformer,
     text,
-    action,
+    rating,
+    isReadOnly,
+    isError,
+    hidden,
+    actionText,
+    actionRating,
     intl
   } = props;
 
@@ -34,22 +35,15 @@ const PrOverallAssessment = props => {
     <Grid container spacing={16}>
       <Grid item xs={12}>
         <PrOverallFulfillment
-          prById={prById}
           category="FULFILLMENT_OF_REQUIREMENT"
-          readOnly={readOnly}
-          isActionPerformer={isActionPerformer}
-          nonActionPerformer={nonActionPerformer}
-          openEditing={props.openEditing}
+          isReadOnly={isReadOnly}
+          hidden={hidden}
+          rating={rating}
+          action={actionRating}
         />
       </Grid>
       <Grid item xs={12}>
-        <TargetRole
-          prById={prById}
-          readOnly={readOnly}
-          isActionPerformer={isActionPerformer}
-          nonActionPerformer={nonActionPerformer}
-          openEditing={props.openEditing}
-        />
+        <TargetRole readOnly={isReadOnly} />
       </Grid>
       <Grid item xs={12}>
         <PrTextField
@@ -60,14 +54,13 @@ const PrOverallAssessment = props => {
             id: 'proverallcomment.requirements'
           })}
           text={text}
-          isReadOnly={false}
-          isError={false}
-          action={action}
+          isReadOnly={isReadOnly}
+          isError={isError}
+          action={actionText}
         />
       </Grid>
     </Grid>
   );
 };
 
-export const StyledComponentOA = withStyles(styles)(PrOverallAssessment);
-export default injectIntl(StyledComponentOA);
+export default injectIntl(withStyles(styles)(PrOverallAssessment));

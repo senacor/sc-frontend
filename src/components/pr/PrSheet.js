@@ -1,43 +1,23 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import Divider from '@material-ui/core/Divider';
-import PrReviewerRating from './PrReviewerRating';
-import PrOverallAssessment from './PrOverallAssessment';
-import PrTextField from './PrTextField';
-import { withStyles } from '@material-ui/core/styles/index';
-import { isHr } from '../../helper/checkRole';
-import * as visibilityTypes from '../../helper/prVisibility';
-import objectGet from 'object-get';
-import {
-  getPrDetail,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
-import { prStatusEnum } from '../../helper/prStatus';
-import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
-import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
+import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
+
+import PrReviewerRating from './PrReviewerRating';
+import PrOverallAssessment from './PrOverallAssessment';
+import PrTextField from './PrTextField';
+import { isHr } from '../../helper/checkRole';
+import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
 
 const styles = () => ({
   paddingBottom: {
     paddingBottom: 24
   },
-  containerListItem: {
-    display: 'flex'
-  },
   required: {
     color: 'rgba(0, 0, 0, 0.42)'
-  },
-  marginDown: {
-    marginBottom: '-10pt',
-    width: '80%'
-  },
-  marginDownSmall: {
-    marginBottom: '-10pt',
-    width: '23%'
   },
   legend: {
     textAlign: 'blockscope',
@@ -47,7 +27,7 @@ const styles = () => ({
 
 const PrSheet = props => {
   // FORMAT
-  const prMock = {
+  let pr = {
     id: 26,
     employee: {
       createdDateTime: '2019-08-02T12:44:26.227372',
@@ -93,8 +73,63 @@ const PrSheet = props => {
     },
     deadline: '2019-08-04',
     occasion: 'ON_DEMAND',
-    prRating: 'pr_rating_json',
-    targetRole: 'target_role_json',
+    prRating: {
+      performanceInProject: {
+        problemAnalysis: {
+          comment: 'dasdsad dasdas',
+          rating: 3
+        },
+        workResults: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        },
+        workingManner: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        }
+      },
+      impactOnCostumer: {
+        customerInteraction: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        },
+        customerRetention: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        }
+      },
+      impactOnTeam: {
+        teamWork: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        },
+        leadership: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        }
+      },
+      impactOnCompany: {
+        contributionToCompanyDevelopment: {
+          comment: 'dasdsad dasdas',
+          rating: null
+        }
+      },
+      overallAssessment: {
+        fulfillmentOfRequirement: {
+          comment: 'dasdsad dasdas',
+          rating: 1
+        }
+      }
+    },
+    targetRole: {
+      plattformGestalter: 1,
+      itSolutionLeader: 1,
+      transformationManager: 2,
+      itLiefersteuerer: 2,
+      architect: 2,
+      technicalExpert: 3,
+      leadDeveloper: 3
+    },
     statusSet: '',
     exchangeItemId: 'exchange_item_id',
     finalMeetingDate: '2019-08-03',
@@ -108,86 +143,114 @@ const PrSheet = props => {
     done: false
   };
 
-  const { prById, classes, userinfo, intl, userroles } = props;
-
-  const [pr, setPr] = useState(prById);
-  const [firstReflectionField, setFirstReflectionField] = useState(
-    pr.firstReflectionField
-  );
-  const [secondReflectionField, setSecondReflectionField] = useState(
-    pr.secondReflectionField
-  );
-  const [advancementStrategies, setAdvancementStrategies] = useState(
-    pr.advancementStrategies
-  );
-
-  const [finalCommentEmployee, setFinalCommentEmployee] = useState(
-    pr.finalCommentEmployee
-  );
-
-  const [finalCommentHr, setFinalCommentHr] = useState(pr.finalCommentHr);
+  const { classes, intl, userroles } = props;
 
   const changeFirstReflectionField = value => {
-    setFirstReflectionField(value);
+    pr.firstReflectionField = value;
+    console.log(pr.firstReflectionField);
   };
 
   const changeSecondReflectionField = value => {
-    setSecondReflectionField(value);
+    pr.secondReflectionField = value;
+    console.log(pr.secondReflectionField);
   };
 
   const changeAdvancementStrategies = value => {
-    setAdvancementStrategies(value);
+    pr.advancementStrategies = value;
   };
 
   const changeFinalCommentEmployee = value => {
-    setFinalCommentEmployee(value);
+    pr.finalCommentEmployee = value;
   };
 
   const changeFinalCommentHr = value => {
-    setFinalCommentHr(value);
+    pr.finalCommentHr = value;
+  };
+
+  // Problem analysis
+  const changeProblemAnalysisComment = value => {
+    pr.prRating.performanceInProject.problemAnalysis.comment = value;
+  };
+
+  const changeProblemAnalysisRating = value => {
+    pr.prRating.performanceInProject.problemAnalysis.rating = value;
+  };
+
+  // Work results
+  const changeWorkResultsComment = value => {
+    pr.prRating.performanceInProject.workResults.comment = value;
+  };
+
+  const changeWorkResultsRating = value => {
+    pr.prRating.performanceInProject.workResults.rating = value;
+  };
+
+  // Working manner
+  const changeWorkingMannerComment = value => {
+    pr.prRating.performanceInProject.workingManner.comment = value;
+  };
+
+  const changeWorkingMannerRating = value => {
+    pr.prRating.performanceInProject.workingManner.rating = value;
+  };
+
+  // Customer interaction
+  const changeCustomerInteractionComment = value => {
+    pr.prRating.impactOnCostumer.customerInteraction.comment = value;
+  };
+
+  const changeCustomerInteractionRating = value => {
+    pr.prRating.impactOnCostumer.customerInteraction.rating = value;
+  };
+
+  // Customer retention
+  const changeCustomerRetentionComment = value => {
+    pr.prRating.impactOnCostumer.customerRetention.comment = value;
+  };
+
+  const changeCustomerRetentionRating = value => {
+    pr.prRating.impactOnCostumer.customerRetention.rating = value;
+  };
+
+  // Teamwork
+  const changeTeamWorkComment = value => {
+    pr.prRating.impactOnTeam.teamWork.comment = value;
+  };
+
+  const changeTeamWorkRating = value => {
+    pr.prRating.impactOnTeam.teamWork.rating = value;
+  };
+
+  // Leadership
+  const changeLeadershipComment = value => {
+    pr.prRating.impactOnTeam.leadership.comment = value;
+  };
+
+  const changeLeadershipRating = value => {
+    pr.prRating.impactOnTeam.leadership.rating = value;
+  };
+
+  // Contribution to company development
+  const changeContributionToCompanyDevelopmentComment = value => {
+    pr.prRating.impactOnCompany.contributionToCompanyDevelopment.comment = value;
+  };
+
+  const changeContributionToCompanyDevelopmentRating = value => {
+    pr.prRating.impactOnCompany.contributionToCompanyDevelopment.rating = value;
+  };
+
+  const changeFulfillmentOfRequirementComment = value => {
+    pr.prRating.overallAssessment.fulfillmentOfRequirement.comment = value;
+  };
+
+  const changeFulfillmentOfRequirementRating = value => {
+    pr.prRating.overallAssessment.fulfillmentOfRequirement.rating = value;
   };
 
   console.log('PR IS: ', pr);
   if (!pr) {
     return null;
   }
-
-  let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-  let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
-  let nonActionPerformerForEmployeeActions =
-    hasRoleInPr(['supervisor', 'reviewer']) || isHr(userroles);
-  let isActionPerformerForReviewerActions = hasRoleInPr([
-    'supervisor',
-    'reviewer'
-  ]);
-  let nonActionPerformerForReviewerActions =
-    hasRoleInPr(['employee']) || isHr(userroles);
-
-  const isVisibleToEmployee = () => {
-    return (
-      objectGet(props, 'pr.prVisibilityEntry.visibilityToEmployee') ===
-      visibilityTypes.VISIBLE
-    );
-  };
-
-  const isVisibleToReviewer = () => {
-    return (
-      objectGet(props, 'pr.prVisibilityEntry.visibilityToReviewer') ===
-      visibilityTypes.VISIBLE
-    );
-  };
-
-  const isFinalizedForReviewer = () => {
-    return false;
-  };
-
-  const isFinalizedForEmployee = () => {
-    return false;
-  };
-
-  const isArchived = () => {
-    return pr.statusSet.includes(prStatusEnum.ARCHIVED_HR);
-  };
 
   let step1employee = () => {
     return (
@@ -207,10 +270,10 @@ const PrSheet = props => {
             helperText={intl.formatMessage({
               id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
             })}
-            text={firstReflectionField}
+            text={pr.firstReflectionField}
             isReadOnly={false}
             isError={false}
-            action={value => changeFirstReflectionField(value)}
+            action={changeFirstReflectionField}
           />
         </Grid>
         <Grid item xs={12}>
@@ -221,10 +284,10 @@ const PrSheet = props => {
             helperText={intl.formatMessage({
               id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
             })}
-            text={secondReflectionField}
+            text={pr.secondReflectionField}
             isReadOnly={false}
             isError={false}
-            action={value => changeSecondReflectionField(value)}
+            action={changeSecondReflectionField}
           />
         </Grid>
       </Grid>
@@ -244,16 +307,17 @@ const PrSheet = props => {
           </Grid>
           <Grid item xs={12}>
             <PrOverallAssessment
-              pr={pr}
-              errorFlag={false}
-              readOnly={isVisibleToEmployee()}
-              isActionPerformer={true}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              openEditing={!isFinalizedForReviewer()}
+              text={
+                pr.prRating.overallAssessment.fulfillmentOfRequirement.comment
+              }
+              rating={
+                pr.prRating.overallAssessment.fulfillmentOfRequirement.rating
+              }
               isReadOnly={false}
               isError={false}
-              text={''}
-              action={() => {}}
+              hidden={false}
+              actionText={changeFulfillmentOfRequirementComment}
+              actionRating={changeFulfillmentOfRequirementRating}
             />
           </Grid>
         </Grid>
@@ -274,10 +338,10 @@ const PrSheet = props => {
               helperText={intl.formatMessage({
                 id: 'pradvancementstrategies.helpertext'
               })}
-              text={advancementStrategies}
+              text={pr.advancementStrategies}
               isReadOnly={false}
               isError={false}
-              action={value => changeAdvancementStrategies(value)}
+              action={changeAdvancementStrategies}
             />
           </Grid>
         </Grid>
@@ -297,10 +361,10 @@ const PrSheet = props => {
             helperText={intl.formatMessage({
               id: 'prfinalcommentemployee.notes'
             })}
-            text={finalCommentEmployee}
+            text={pr.finalCommentEmployee}
             isReadOnly={false}
             isError={false}
-            action={value => changeFinalCommentEmployee(value)}
+            action={changeFinalCommentEmployee}
           />
         </Grid>
       </Grid>
@@ -318,10 +382,10 @@ const PrSheet = props => {
             helperText={intl.formatMessage({
               id: 'prfinalcommenthr.hronly'
             })}
-            text={finalCommentHr}
+            text={pr.finalCommentHr}
             isReadOnly={false}
             isError={false}
-            action={value => changeFinalCommentHr(value)}
+            action={changeFinalCommentHr}
           />
         </Grid>
       </Grid>
@@ -356,32 +420,35 @@ const PrSheet = props => {
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="PROBLEM_ANALYSIS"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.performanceInProject.problemAnalysis.comment}
+              rating={pr.prRating.performanceInProject.problemAnalysis.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeProblemAnalysisComment}
+              actionRating={changeProblemAnalysisRating}
             />
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="WORK_RESULTS"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.performanceInProject.workResults.comment}
+              rating={pr.prRating.performanceInProject.workResults.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeWorkResultsComment}
+              actionRating={changeWorkResultsRating}
             />
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="WORKING_MANNER"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.performanceInProject.workingManner.comment}
+              rating={pr.prRating.performanceInProject.workingManner.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeWorkingMannerComment}
+              actionRating={changeWorkingMannerRating}
             />
           </Grid>
         </Grid>
@@ -396,22 +463,24 @@ const PrSheet = props => {
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="CUSTOMER_INTERACTION"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.impactOnCostumer.customerInteraction.comment}
+              rating={pr.prRating.impactOnCostumer.customerInteraction.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeCustomerInteractionComment}
+              actionRating={changeCustomerInteractionRating}
             />
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="CUSTOMER_RETENTION"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.impactOnCostumer.customerRetention.comment}
+              rating={pr.prRating.impactOnCostumer.customerRetention.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeCustomerRetentionComment}
+              actionRating={changeCustomerRetentionRating}
             />
           </Grid>
         </Grid>
@@ -426,22 +495,24 @@ const PrSheet = props => {
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="TEAMWORK"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.impactOnTeam.teamWork.comment}
+              rating={pr.prRating.impactOnTeam.teamWork.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeTeamWorkComment}
+              actionRating={changeTeamWorkRating}
             />
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="LEADERSHIP"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={pr.prRating.impactOnTeam.leadership.comment}
+              rating={pr.prRating.impactOnTeam.leadership.rating}
+              isReadOnly={false}
+              isError={false}
+              actionText={changeLeadershipComment}
+              actionRating={changeLeadershipRating}
             />
           </Grid>
         </Grid>
@@ -456,12 +527,19 @@ const PrSheet = props => {
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
-              pr={pr}
               category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-              isActionPerformer={isActionPerformerForReviewerActions}
-              nonActionPerformer={nonActionPerformerForReviewerActions}
-              readOnly={isVisibleToEmployee()}
-              openEditing={!isFinalizedForReviewer()}
+              text={
+                pr.prRating.impactOnCompany.contributionToCompanyDevelopment
+                  .comment
+              }
+              rating={
+                pr.prRating.impactOnCompany.contributionToCompanyDevelopment
+                  .rating
+              }
+              isReadOnly={false}
+              isError={false}
+              actionText={changeContributionToCompanyDevelopmentComment}
+              actionRating={changeContributionToCompanyDevelopmentRating}
             />
           </Grid>
         </Grid>
@@ -518,14 +596,4 @@ const PrSheet = props => {
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrSheet);
-export default injectIntl(
-  connect(
-    state => ({
-      prById: getPrDetail()(state),
-      userroles: getUserroles(state),
-      userinfo: getUserinfo(state),
-    }),
-    {}
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrSheet));

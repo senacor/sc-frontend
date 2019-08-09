@@ -10,7 +10,7 @@ const PrTextField = ({
   isReadOnly,
   isError,
   action,
-  startrows,
+  rows,
   intl
 }) => {
   if (isError) {
@@ -23,7 +23,7 @@ const PrTextField = ({
           <TextField
             error
             multiline
-            rows={startrows ? startrows : '6'}
+            rows={rows ? rows : '6'}
             rowsMax="10"
             fullWidth
             variant="outlined"
@@ -46,7 +46,7 @@ const PrTextField = ({
         <Grid item xs={12}>
           <TextField
             multiline
-            rows={startrows ? startrows : '6'}
+            rows={rows ? rows : '6'}
             rowsMax="10"
             fullWidth
             variant="outlined"
@@ -67,13 +67,13 @@ const PrTextField = ({
         <Grid item xs={12}>
           <TextField
             multiline
-            rows={startrows ? startrows : '6'}
+            rows={rows ? rows : '6'}
             rowsMax="10"
             fullWidth
             variant="outlined"
             inputProps={{ 'aria-label': 'bare' }}
             helperText={helperText}
-            value={text}
+            defaultValue={text}
             onChange={event => action(event.target.value)}
           />
         </Grid>
