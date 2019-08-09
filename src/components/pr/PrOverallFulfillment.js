@@ -62,7 +62,7 @@ const PrOverallFulfillment = ({
         </div>
         <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
           {readOnly
-            ? mapRatingFullfilment(prRating.rating)
+            ? mapRatingFullfilment(prRating.rating, intl)
             : intl.formatMessage({
                 id: 'proverallfulfillment.noentry'
               })}
@@ -103,7 +103,7 @@ const PrOverallFulfillment = ({
                     }
                     value={ratingValue}
                   >
-                    {mapRatingFullfilment(ratingValue)}
+                    {mapRatingFullfilment(ratingValue, intl)}
                   </MenuItem>
                 );
               })}
