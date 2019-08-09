@@ -1,18 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
-import React from 'react';
-import { getArchivedFiles } from '../../reducers/selector';
-import * as actions from '../../actions';
-import withLoadingAction from '../hoc/LoadingWithAction';
-import { LoadingEvents } from '../../helper/loadingEvents';
 import { formatDateForFrontend } from '../../helper/date';
 import getDisplayName from '../../helper/getDisplayName';
 import UploadFiles from './UploadFiles';
-import { connect } from 'react-redux';
 import DownloadFile from './DownloadFile';
 import { injectIntl } from 'react-intl';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
 
-export const ArchivedFiles = ({ archivedFiles, intl }) => {
+const ArchivedFiles = ({ intl }) => {
+  const [archivedFiles, setArchivedFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    loadAllArchivedFilesList(setArchivedFiles, setIsLoading);
+  }, []);
+
   const getColumnDefinitions = intl => {
     return [
       {
@@ -46,7 +49,7 @@ export const ArchivedFiles = ({ archivedFiles, intl }) => {
         }),
         sortValue: entry => entry.fileName,
         render: entry => (
-          <DownloadFile employeeId={entry.employeeId} fileId={entry.fileId} />
+          <DownloadFile employeeId={entry.employeeId} fileId={entry.fileId}/>
         )
       }
     ];
@@ -56,27 +59,18 @@ export const ArchivedFiles = ({ archivedFiles, intl }) => {
     <div>
       <Paper>
         <UploadFiles />
-        <PerformanceReviewTable
-          columnDefinition={getColumnDefinitions(intl)}
-          orderBy={1}
-          data={archivedFiles}
-        />
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <PerformanceReviewTable
+            columnDefinition={getColumnDefinitions(intl)}
+            orderBy={1}
+            data={archivedFiles}
+          />
+        )}
       </Paper>
     </div>
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({
-      archivedFiles: getArchivedFiles(state)
-    }),
-    {
-      downloadFiles: actions.loadAllArchivedFilesList
-    }
-  )(
-    withLoadingAction(props => {
-      props.downloadFiles(props.employeeId);
-    })([LoadingEvents.DOWNLOAD_FILES])(ArchivedFiles)
-  )
-);
+export default injectIntl(ArchivedFiles);

@@ -1,7 +1,5 @@
 import fetchMock from 'fetch-mock';
 import {
-  LOAD_ALL_ARCHIVED_FILES_LIST_REQUEST,
-  LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
   DOWNLOAD_FILE_REQUEST,
   DOWNLOAD_FILE_RESPONSE,
   LOAD_ARCHIVED_FILES_LIST_REQUEST,
@@ -156,50 +154,6 @@ describe('uploadFiles', () => {
       },
       {
         type: LOAD_ARCHIVED_FILES_LIST_RESPONSE,
-        payload: testData
-      }
-    ]);
-  });
-
-  it('should download all fileInformations', async () => {
-    const testData = [
-      {
-        id: 15,
-        employeeId: 503,
-        fileId: 50,
-        fileName: '20180102_mbock.xlsx',
-        date: '2018-01-02',
-        firstName: 'Michaela',
-        lastName: 'Bock'
-      },
-      {
-        id: 27,
-        employeeId: 504,
-        fileId: 11,
-        fileName: '20180902_mbock.xlsx',
-        date: '2018-09-02',
-        firstName: 'Karl',
-        lastName: 'Heins'
-      }
-    ];
-
-    fetchMock.getOnce('/api/v1/hr/download', {
-      body: {
-        _embedded: {
-          fileDownloadInformationResponseList: testData
-        }
-      }
-    });
-    const store = mockStore();
-
-    await store.dispatch(loadAllArchivedFilesList());
-
-    expect(store.getActions()).toEqual([
-      {
-        type: LOAD_ALL_ARCHIVED_FILES_LIST_REQUEST
-      },
-      {
-        type: LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
         payload: testData
       }
     ]);

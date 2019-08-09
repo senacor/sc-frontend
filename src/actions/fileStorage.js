@@ -14,7 +14,7 @@ export const uploadFiles = files => async dispatch => {
   });
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/hr/upload`,
+    `${process.env.REACT_APP_API}/api/v3/hr/upload`,
     {
       method: 'post',
       mode: 'cors',
@@ -25,7 +25,7 @@ export const uploadFiles = files => async dispatch => {
 
   if (response.ok) {
     const result = await response.json();
-    const responseList = objectGet(result, '_embedded.fileUploadResponseList');
+    const responseList = result;
 
     dispatch({
       type: dispatchTypes.UPLOAD_FILES_RESPONSE,
@@ -85,29 +85,6 @@ export const loadArchivedFilesList = employeeId => async dispatch => {
 
     dispatch({
       type: dispatchTypes.LOAD_ARCHIVED_FILES_LIST_RESPONSE,
-      payload: responseList ? responseList : []
-    });
-  }
-};
-
-export const loadAllArchivedFilesList = () => async dispatch => {
-  dispatch({
-    type: dispatchTypes.LOAD_ALL_ARCHIVED_FILES_LIST_REQUEST
-  });
-
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/hr/download`
-  );
-
-  if (response.ok) {
-    const result = await response.json();
-    const responseList = objectGet(
-      result,
-      '_embedded.fileDownloadInformationResponseList'
-    );
-
-    dispatch({
-      type: dispatchTypes.LOAD_ALL_ARCHIVED_FILES_LIST_RESPONSE,
       payload: responseList ? responseList : []
     });
   }
