@@ -21,14 +21,6 @@ export {
   resetFilterGroup,
   getFilterPossibilities
 } from './filter';
-export {
-  uploadFiles,
-  downloadFile,
-  resetUploadedFiles,
-  resetDownloadedFile,
-  loadArchivedFilesList,
-  loadAllArchivedFilesList
-} from './fileStorage';
 
 export const fetchPrs = () => async dispatch => {
   dispatch({

@@ -1,13 +1,10 @@
-import React from 'react';
-import * as actions from '../../actions';
+import React, { useState } from 'react';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import UploadSuccessDialog from './UploadSuccessDialog';
-import { getUploadedFiles, isLoadingAction } from '../../reducers/selector';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { LoadingEvents } from '../../helper/loadingEvents';
 import { withStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
+import { uploadFiles } from '../../actions/calls/fileStorage';
 
 const styles = theme => ({
   buttonProgress: {
@@ -20,20 +17,16 @@ const styles = theme => ({
   }
 });
 
-export const UploadFiles = ({
-  uploadFiles,
-  resetUploadedFiles,
-  uploadedFiles,
-  isLoading,
-  classes,
-  intl
-}) => {
+export const UploadFiles = ({ classes, intl }) => {
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = event => {
-    uploadFiles(event.target.files);
+    uploadFiles(event.target.files, setUploadedFiles, setIsLoading);
   };
 
   const handleClose = () => {
-    resetUploadedFiles();
+    setUploadedFiles([]);
   };
 
   return (
@@ -68,17 +61,4 @@ export const UploadFiles = ({
   );
 };
 
-export const StyledComponent = withStyles(styles)(UploadFiles);
-
-export default injectIntl(
-  connect(
-    state => ({
-      uploadedFiles: getUploadedFiles(state),
-      isLoading: isLoadingAction(state, [LoadingEvents.UPLOAD_FILES])
-    }),
-    {
-      uploadFiles: actions.uploadFiles,
-      resetUploadedFiles: actions.resetUploadedFiles
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(UploadFiles));

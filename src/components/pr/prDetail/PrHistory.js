@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableBody from '@material-ui/core/TableBody/TableBody';
 import Table from '@material-ui/core/Table/Table';
-import { getArchivedFiles } from '../../../reducers/selector';
-import { LoadingEvents } from '../../../helper/loadingEvents';
-import withLoadingAction from '../../hoc/LoadingWithAction';
-import * as actions from '../../../actions';
-import { connect } from 'react-redux';
-import DownloadFile from '../../fileStorage/DownloadFile';
+import { DownloadFile } from '../../fileStorage/DownloadFile';
 import { injectIntl } from 'react-intl';
+import CircularProgress from '../../fileStorage/ArchivedFiles';
+import { loadArchivedFilesList } from '../../../actions/calls/fileStorage';
 
-const PrHistory = ({ archivedFiles, intl }) => {
+const PrHistory = props => {
+  const { intl, employeeId } = props;
+  const [archivedFiles, setArchivedFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    loadArchivedFilesList(employeeId, setArchivedFiles, setIsLoading);
+  }, []);
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+
   return (
     <div style={{ overflow: 'auto', maxHeight: '200px' }}>
       <Table padding={'none'}>
@@ -51,17 +60,4 @@ const PrHistory = ({ archivedFiles, intl }) => {
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({
-      archivedFiles: getArchivedFiles(state)
-    }),
-    {
-      downloadFiles: actions.loadArchivedFilesList
-    }
-  )(
-    withLoadingAction(props => {
-      props.downloadFiles(props.employeeId);
-    })([LoadingEvents.DOWNLOAD_FILES])(PrHistory)
-  )
-);
+export default injectIntl(PrHistory);

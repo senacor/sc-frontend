@@ -12,16 +12,10 @@ import { meeting } from './meetings';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { filterPossibilities } from './filterPossibilities';
-import { archivedFiles } from './archivedFiles';
-import { uploadedFiles } from './uploadedFiles';
-import { downloadedFile } from './downloadedFile';
 import { savingThreads } from './savingThreads';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
-  archivedFiles,
-  uploadedFiles,
-  downloadedFile,
   errors,
   prs,
   login,

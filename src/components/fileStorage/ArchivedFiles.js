@@ -4,7 +4,7 @@ import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import { formatDateForFrontend } from '../../helper/date';
 import getDisplayName from '../../helper/getDisplayName';
 import UploadFiles from './UploadFiles';
-import DownloadFile from './DownloadFile';
+import { DownloadFile } from './DownloadFile';
 import { injectIntl } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
@@ -49,7 +49,7 @@ const ArchivedFiles = ({ intl }) => {
         }),
         sortValue: entry => entry.fileName,
         render: entry => (
-          <DownloadFile employeeId={entry.employeeId} fileId={entry.fileId}/>
+          <DownloadFile employeeId={entry.employeeId} fileId={entry.fileId} />
         )
       }
     ];
