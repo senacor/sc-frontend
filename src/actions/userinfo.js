@@ -59,7 +59,7 @@ export const getUserRoles = () => async dispatch => {
   if (response.ok) {
     const roles = await response.json();
 
-    // roles.value[0].displayName = 'PR_HR';
+    roles.value[0].displayName = 'PR_Mitarbeiter';
 
     dispatch({
       type: FETCHED_USERROLES,

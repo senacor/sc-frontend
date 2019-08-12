@@ -199,11 +199,21 @@ const ButtonsBelowSheet = props => {
             })}`
           )
         : null;
+    const draftButton = !employeeReleased
+      ? getActionPerformerButton(
+          pr,
+          '',
+          `${intl.formatMessage({
+            id: 'buttonsbelowsheet.draft'
+          })}`
+        )
+      : null;
     return (
       <div>
         {finalizeButtonEnabled}
         {finalizeButtonDisabled}
         {releaseButton}
+        {draftButton}
       </div>
     );
   };

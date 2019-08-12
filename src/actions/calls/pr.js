@@ -96,3 +96,65 @@ export const sendRatings = async (
     });
   }
 };
+
+export const sendFinalCommentEmployee = async (
+  prsId,
+  finalCommentEmployee,
+  //afterPrSent,
+  setIsLoading,
+  errorContext
+) => {
+  setIsLoading(true);
+  errorContext.setErrors({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: finalCommentEmployee
+    }
+  );
+  if (response.ok) {
+    const prById = await response.json();
+    //afterPrFetched(prById);
+    setIsLoading(false);
+    return prById;
+  } else {
+    setIsLoading(false);
+    errorContext.setErrors({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
+
+export const sendFinalCommentHr = async (
+  prsId,
+  finalCommentHr,
+  //afterPrSent,
+  setIsLoading,
+  errorContext
+) => {
+  setIsLoading(true);
+  errorContext.setErrors({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: finalCommentHr
+    }
+  );
+  if (response.ok) {
+    const prById = await response.json();
+    //afterPrFetched(prById);
+    setIsLoading(false);
+    return prById;
+  } else {
+    setIsLoading(false);
+    errorContext.setErrors({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
