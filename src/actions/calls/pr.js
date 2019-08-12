@@ -47,7 +47,7 @@ export const sendReflections = async (
   if (response.ok) {
     //TODO success callback
   } else {
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: false,
       message: 'Es wurde Fehler aufgetreten: ' + response.status
     });
@@ -60,10 +60,8 @@ export const sendRatings = async (
   targetRole,
   advancementStrategies,
   //afterPrSent,
-  setIsLoading,
   errorContext
 ) => {
-  setIsLoading(true);
   errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
@@ -78,13 +76,9 @@ export const sendRatings = async (
     }
   );
   if (response.ok) {
-    const prById = await response.json();
-    //afterPrFetched(prById);
-    setIsLoading(false);
-    return prById;
+    //TODO success callback
   } else {
-    setIsLoading(false);
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: false,
       message: 'Es wurde Fehler aufgetreten: ' + response.status
     });
@@ -95,10 +89,8 @@ export const sendFinalCommentEmployee = async (
   prsId,
   finalCommentEmployee,
   //afterPrSent,
-  setIsLoading,
   errorContext
 ) => {
-  setIsLoading(true);
   errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
@@ -109,13 +101,9 @@ export const sendFinalCommentEmployee = async (
     }
   );
   if (response.ok) {
-    const prById = await response.json();
-    //afterPrFetched(prById);
-    setIsLoading(false);
-    return prById;
+    //TODO success callback
   } else {
-    setIsLoading(false);
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: false,
       message: 'Es wurde Fehler aufgetreten: ' + response.status
     });
@@ -130,7 +118,7 @@ export const sendFinalCommentHr = async (
   errorContext
 ) => {
   setIsLoading(true);
-  errorContext.setErrors({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
     {
@@ -146,7 +134,7 @@ export const sendFinalCommentHr = async (
     return prById;
   } else {
     setIsLoading(false);
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: false,
       message: 'Es wurde Fehler aufgetreten: ' + response.status
     });

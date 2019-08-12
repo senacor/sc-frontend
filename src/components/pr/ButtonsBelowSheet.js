@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import { getUserroles } from '../../reducers/selector';
 import { injectIntl } from 'react-intl';
 import ROLES from '../../helper/roles';
-import { sendReflections } from '../../actions/calls/pr';
+import {
+  sendFinalCommentEmployee,
+  sendFinalCommentHr,
+  sendRatings,
+  sendReflections
+} from '../../actions/calls/pr';
 import { ErrorContext } from '../App';
-import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
   rightFloat: {
@@ -44,13 +48,37 @@ const ButtonsBelowSheet = props => {
       <Button
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
         onClick={() => {
-          if (!pr.statusSet.includes(prStatusEnum.RELEASED_SHEET_EMPLOYEE)) {
+          if (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) {
             sendReflections(
               pr.id,
               pr.firstReflectionField,
               pr.secondReflectionField,
               errorContext
             );
+          } else if (
+            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
+          ) {
+            sendRatings(
+              pr.id,
+              pr.targetRole,
+              pr.advancementStrategies,
+              errorContext
+            );
+          } else if (
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
+          ) {
+            sendFinalCommentEmployee(
+              pr.id,
+              pr.finalCommentEmployee,
+              errorContext
+            );
+          } else if (
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+            !pr.statusSet.includes('PR_COMPLETED')
+          ) {
+            sendFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
           }
         }}
       >
