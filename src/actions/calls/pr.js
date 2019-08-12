@@ -7,7 +7,7 @@ export const fetchPrById = async (
   errorContext
 ) => {
   setIsLoading(true);
-  errorContext.setErrors({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
   );
@@ -18,7 +18,7 @@ export const fetchPrById = async (
     return prById;
   } else {
     setIsLoading(false);
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: false,
       message: 'Es wurde Fehler aufgetreten: ' + response.status
     });
