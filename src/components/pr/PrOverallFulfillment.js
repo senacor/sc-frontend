@@ -14,9 +14,8 @@ const styles = () => ({
     color: '#000000',
     width: '80%'
   },
-  number: {
-    width: '20%',
-    paddingLeft: '5%'
+  selectWidth: {
+    width: '90%'
   }
 });
 
@@ -30,6 +29,10 @@ const PrOverallFulfillment = ({
   intl
 }) => {
   const [ratingState, setRatingState] = useState(rating);
+
+  const handleChange = value => {
+    setRatingState(value);
+  };
 
   if (isReadOnly) {
     return (
@@ -59,7 +62,7 @@ const PrOverallFulfillment = ({
   } else {
     return (
       <Grid container spacing={16}>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <div className={classes.simpleBlack}>
             <Typography>
               {intl.formatMessage({
@@ -68,14 +71,14 @@ const PrOverallFulfillment = ({
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={2}>
-          <div className={classes.number}>
-            <FormControl>
+        <Grid item xs={4}>
+          <div className={classes.selectWidth}>
+            <FormControl fullWidth={true}>
               <Select
-                value={mapRatingFullfilment(ratingState, intl)}
+                value={ratingState}
                 onChange={event => {
-                  setRatingState(event.target.value);
-                  return action(event.target.value);
+                  handleChange(event.target.value);
+                  action(event.target.value);
                 }}
               >
                 {[0, 1, 2, 3, 4, 5].map(ratingValue => {

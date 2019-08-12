@@ -117,7 +117,7 @@ const PrSheet = props => {
       overallAssessment: {
         fulfillmentOfRequirement: {
           comment: 'dasdsad dasdas',
-          rating: 1
+          rating: 0
         }
       }
     },
@@ -147,12 +147,10 @@ const PrSheet = props => {
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;
-    console.log(pr.firstReflectionField);
   };
 
   const changeSecondReflectionField = value => {
     pr.secondReflectionField = value;
-    console.log(pr.secondReflectionField);
   };
 
   const changeAdvancementStrategies = value => {
@@ -247,6 +245,34 @@ const PrSheet = props => {
     pr.prRating.overallAssessment.fulfillmentOfRequirement.rating = value;
   };
 
+  const changeTargetRoles = (targetRole, value) => {
+    switch (targetRole) {
+      case 'plattformGestalter':
+        pr.targetRole.plattformGestalter = value;
+        break;
+      case 'itSolutionLeader':
+        pr.targetRole.itSolutionLeader = value;
+        break;
+      case 'transformationManager':
+        pr.targetRole.transformationManager = value;
+        break;
+      case 'itLiefersteuerer':
+        pr.targetRole.itLiefersteuerer = value;
+        break;
+      case 'architect':
+        pr.targetRole.architect = value;
+        break;
+      case 'technicalExpert':
+        pr.targetRole.technicalExpert = value;
+        break;
+      case 'leadDeveloper':
+        pr.targetRole.leadDeveloper = value;
+        break;
+      default:
+        break;
+    }
+  };
+
   console.log('PR IS: ', pr);
   if (!pr) {
     return null;
@@ -313,11 +339,13 @@ const PrSheet = props => {
               rating={
                 pr.prRating.overallAssessment.fulfillmentOfRequirement.rating
               }
+              targetRoles={pr.targetRole}
               isReadOnly={false}
               isError={false}
               hidden={false}
               actionText={changeFulfillmentOfRequirementComment}
               actionRating={changeFulfillmentOfRequirementRating}
+              actionTargetRoles={changeTargetRoles}
             />
           </Grid>
         </Grid>
