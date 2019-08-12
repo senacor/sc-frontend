@@ -80,7 +80,7 @@ export const OverviewPerformanceReviews = ({
   const columns = columnsToView ? columnsToView : getColumnDefinitions();
   let isHrMember = isHr(userroles);
   return (
-    <Paper>
+    <Paper style={{ margin: '20px' }}>
       <Grid
         container
         direction={'row'}

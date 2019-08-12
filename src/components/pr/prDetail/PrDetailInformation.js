@@ -25,11 +25,12 @@ import { injectIntl } from 'react-intl';
 
 const styles = theme => ({
   root: {
-    marginBottom: 2 * theme.spacing.unit
+    margin: 3 * theme.spacing.unit
   },
   avatarContainer: {
     flex: '0 0 auto',
-    marginRight: 2 * theme.spacing.unit
+    margin: 'auto 0',
+    marginRight: theme.spacing.unit
   },
   avatar: {
     backgroundColor: theme.palette.primary[500]

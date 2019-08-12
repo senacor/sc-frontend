@@ -24,7 +24,8 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    margin: 3 * theme.spacing.unit
   },
   paper: {
     backgroundColor: theme.palette.primary['300']

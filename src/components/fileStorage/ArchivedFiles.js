@@ -8,6 +8,13 @@ import { DownloadFile } from './DownloadFile';
 import { injectIntl } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
+import { withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+  container: {
+    margin: 3 * theme.spacing.unit
+  }
+});
 
 const ArchivedFiles = ({ intl }) => {
   const [archivedFiles, setArchivedFiles] = useState([]);
@@ -56,21 +63,19 @@ const ArchivedFiles = ({ intl }) => {
   };
 
   return (
-    <div>
-      <Paper>
-        <UploadFiles />
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <PerformanceReviewTable
-            columnDefinition={getColumnDefinitions(intl)}
-            orderBy={1}
-            data={archivedFiles}
-          />
-        )}
-      </Paper>
-    </div>
+    <Paper style={{ margin: '20px' }}>
+      <UploadFiles />
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <PerformanceReviewTable
+          columnDefinition={getColumnDefinitions(intl)}
+          orderBy={1}
+          data={archivedFiles}
+        />
+      )}
+    </Paper>
   );
 };
 
-export default injectIntl(ArchivedFiles);
+export default injectIntl(withStyles(styles)(ArchivedFiles));

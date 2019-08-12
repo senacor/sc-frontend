@@ -5,30 +5,34 @@ import Card from '@material-ui/core/Card';
 import Icon from '@material-ui/core/Icon';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core';
 
-const InfoWidget = ({ linkTo, onClick, icon, label, value }) => {
-  const style = {
-    margin: '20px',
+const styles = theme => ({
+  ...theme,
+  card: {
+    margin: 3 * theme.spacing.unit,
     textDecoration: 'none',
     padding: '0',
     alignItems: 'stretch',
     height: '100%'
-  };
+  },
+  cardContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: '0'
+  }
+});
 
+const InfoWidget = ({ linkTo, onClick, icon, label, value }) => {
+  const { classes } = this.props;
   return (
     <Card
       component={linkTo ? NavLink : null}
       to={linkTo}
-      style={style}
+      style={classes.card}
       onClick={onClick}
     >
-      <CardContent
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          padding: '0'
-        }}
-      >
+      <CardContent className={classes.cardContent}>
         <div
           style={{
             flexGrow: '1',
@@ -58,6 +62,7 @@ const InfoWidget = ({ linkTo, onClick, icon, label, value }) => {
 };
 
 InfoWidget.propTypes = {
+  classes: PropTypes.object.isRequired,
   onClick: PropTypes.func,
   value: PropTypes.node,
   label: PropTypes.node,
@@ -65,4 +70,4 @@ InfoWidget.propTypes = {
   linkTo: PropTypes.string
 };
 
-export default InfoWidget;
+export default withStyles(styles)(InfoWidget);
