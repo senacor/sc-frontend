@@ -27,7 +27,7 @@ const styles = () => ({
 
 const PrSheet = props => {
   // FORMAT
-  let pr = {
+  let prMock = {
     id: 26,
     employee: {
       createdDateTime: '2019-08-02T12:44:26.227372',
@@ -143,7 +143,7 @@ const PrSheet = props => {
     done: false
   };
 
-  const { classes, intl, userroles } = props;
+  const { pr, classes, intl, userroles } = props;
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;

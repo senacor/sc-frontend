@@ -1,20 +1,12 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { Button, withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import {
-  getPrDetail,
-  getSavingThreads,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
-import * as actions from '../../actions';
-import PrStatusActionButton from './prDetail/PrStatusActionButton';
-import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
-import { prStatusEnum } from '../../helper/prStatus';
-import { isHr } from '../../helper/checkRole';
-import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
-import Typography from '@material-ui/core/Typography/Typography';
+import { getUserroles } from '../../reducers/selector';
 import { injectIntl } from 'react-intl';
+import ROLES from '../../helper/roles';
+import { sendReflections } from '../../actions/calls/pr';
+import { ErrorContext } from '../App';
+import { prStatusEnum } from '../../helper/prStatus';
 
 const styles = theme => ({
   rightFloat: {
@@ -44,300 +36,65 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const {
-    classes,
-    pr,
-    userroles,
-    userinfo,
-    addPrStatus,
-    savingThreads,
-    intl
-  } = props;
+  const { classes, pr, userroles, intl } = props;
+  let errorContext = useContext(ErrorContext.context);
 
-  const checkRequiredFields = (
-    employeeContributionRole,
-    employeeContributionLeader,
-    overallComment,
-    status
-  ) => {
-    let filledEmployee =
-      employeeContributionRole !== null &&
-      employeeContributionLeader !== null &&
-      employeeContributionRole !== '' &&
-      employeeContributionLeader !== '';
-    let filledReviewer = overallComment !== null && overallComment !== '';
-
-    let required = { employee: true, reviewer: true };
-    switch (status) {
-      case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
-        return Object.assign({}, required, {
-          employee: filledEmployee
-        });
-      case prStatusEnum.RELEASED_SHEET_REVIEWER:
-        return Object.assign({}, required, {
-          reviewer: filledReviewer
-        });
-      case prStatusEnum.FINALIZED_REVIEWER:
-        return Object.assign({}, required, {
-          reviewer: filledReviewer
-        });
-      default:
-        return required;
-    }
-  };
-
-  const requiredFieldsEmpty = status => {
-    let {
-      employeeContributionRole,
-      employeeContributionLeader,
-      overallComment
-    } = props;
-
-    let fieldFilled = checkRequiredFields(
-      employeeContributionRole,
-      employeeContributionLeader,
-      overallComment,
-      status
-    );
-
-    if (
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
-      false === fieldFilled.employee
-    ) {
-      return true;
-    } else if (
-      prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
-      false === fieldFilled.reviewer
-    ) {
-      return true;
-    } else if (
-      prStatusEnum.FINALIZED_REVIEWER === status &&
-      false === fieldFilled.reviewer
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const getActionPerformerButton = (pr, status, label) => {
+  const createDraftButton = () => {
     return (
-      <CheckRequiredClick
+      <Button
+        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
         onClick={() => {
-          addPrStatus(pr, status);
+          if (!pr.statusSet.includes(prStatusEnum.RELEASED_SHEET_EMPLOYEE)) {
+            sendReflections(
+              pr.id,
+              pr.firstReflectionField,
+              pr.secondReflectionField,
+              errorContext
+            );
+          }
         }}
-        check={() => !requiredFieldsEmpty(status)}
-        message={intl.formatMessage({
-          id: 'buttonsbelowsheet.fillrequired'
-        })}
-        inputClass={classes.rightFloat}
       >
-        <PrStatusActionButton
-          label={label}
-          inputClass={classes.buttonDesktopBelow}
-        />
-      </CheckRequiredClick>
+        {intl.formatMessage({
+          id: 'buttonsbelowsheet.draft'
+        })}
+      </Button>
     );
   };
 
-  const getDisabledButton = (pr, status, label) => {
+  const createSubmitButton = () => {
     return (
-      <CheckRequiredClick
+      <Button
+        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
         onClick={() => {
-          addPrStatus(pr, status);
+          console.log('');
         }}
-        check={() => !requiredFieldsEmpty(status)}
-        message={intl.formatMessage({
-          id: 'buttonsbelowsheet.fillrequired'
-        })}
-        inputClass={classes.rightFloat}
       >
-        <PrStatusActionButton
-          label={label}
-          inputClass={classes.buttonDesktopDisabled}
-          disabled
-        />
-      </CheckRequiredClick>
+        {intl.formatMessage({
+          id: 'buttonsbelowsheet.release'
+        })}
+      </Button>
     );
   };
 
-  const getEmployeeButtons = pr => {
-    let reviewerFinalized = pr.statusSet.includes(
-      prStatusEnum.FINALIZED_REVIEWER
-    );
-    let employeeFinalized = pr.statusSet.includes(
-      prStatusEnum.FINALIZED_EMPLOYEE
-    );
-    let employeeReleased = pr.statusSet.includes(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    let releaseButton = !employeeReleased
-      ? getActionPerformerButton(
-          pr,
-          prStatusEnum.RELEASED_SHEET_EMPLOYEE,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.release'
-          })}`
-        )
-      : null;
-    let finalizeButtonDisabled = !reviewerFinalized
-      ? getDisabledButton(
-          pr,
-          prStatusEnum.FINALIZED_EMPLOYEE,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.finish'
-          })}`
-        )
-      : null;
-    let finalizeButtonEnabled =
-      reviewerFinalized && !employeeFinalized
-        ? getActionPerformerButton(
-            pr,
-            prStatusEnum.FINALIZED_EMPLOYEE,
-            `${intl.formatMessage({
-              id: 'buttonsbelowsheet.finish'
-            })}`
-          )
-        : null;
-    const draftButton = !employeeReleased
-      ? getActionPerformerButton(
-          pr,
-          '',
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.draft'
-          })}`
-        )
-      : null;
-    return (
-      <div>
-        {finalizeButtonEnabled}
-        {finalizeButtonDisabled}
-        {releaseButton}
-        {draftButton}
-      </div>
-    );
-  };
-
-  const getReviewerButtons = pr => {
-    let reviewerFinalized = pr.statusSet.includes(
-      prStatusEnum.FINALIZED_REVIEWER
-    );
-    let reviewerReleased = pr.statusSet.includes(
-      prStatusEnum.RELEASED_SHEET_REVIEWER
-    );
-    let employeeReleased = pr.statusSet.includes(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    let releaseButton = !reviewerReleased
-      ? getActionPerformerButton(
-          pr,
-          prStatusEnum.RELEASED_SHEET_REVIEWER,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.release'
-          })}`
-        )
-      : null;
-    let finalizeButtonDisabled = !(employeeReleased && reviewerReleased)
-      ? getDisabledButton(
-          pr,
-          prStatusEnum.FINALIZED_REVIEWER,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.finish'
-          })}`
-        )
-      : null;
-    let finalizeButtonEnabled =
-      employeeReleased && reviewerReleased && !reviewerFinalized
-        ? getActionPerformerButton(
-            pr,
-            prStatusEnum.FINALIZED_REVIEWER,
-            `${intl.formatMessage({
-              id: 'buttonsbelowsheet.finish'
-            })}`
-          )
-        : null;
-    return (
-      <div>
-        {finalizeButtonEnabled}
-        {finalizeButtonDisabled}
-        {releaseButton}
-      </div>
-    );
-  };
-
-  const getHrButtons = pr => {
-    let employeeFinalized = pr.statusSet.includes(
-      prStatusEnum.FINALIZED_EMPLOYEE
-    );
-    let hrFinalized = pr.statusSet.includes(prStatusEnum.ARCHIVED_HR);
-    let releaseButtonDisabled = !employeeFinalized
-      ? getDisabledButton(
-          pr,
-          prStatusEnum.ARCHIVED_HR,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.finish'
-          })}`
-        )
-      : null;
-    let releaseButtonEnabled =
-      employeeFinalized && !hrFinalized
-        ? getActionPerformerButton(
-            pr,
-            prStatusEnum.ARCHIVED_HR,
-            `${intl.formatMessage({
-              id: 'buttonsbelowsheet.finish'
-            })}`
-          )
-        : null;
-    return (
-      <div>
-        {releaseButtonEnabled}
-        {releaseButtonDisabled}
-      </div>
-    );
-  };
-
-  const findButtonsForRole = (pr, userroles, userinfo) => {
-    let userIsMemberOfHr = isHr(userroles);
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-
-    if (userIsMemberOfHr) {
-      return getHrButtons(pr);
-    } else if (hasRoleInPr(['employee'])) {
-      return getEmployeeButtons(pr);
-    } else if (hasRoleInPr(['reviewer', 'supervisor'])) {
-      return getReviewerButtons(pr);
-    } else {
-      return null;
+  const createButtonsForRole = (pr, userroles) => {
+    if (userroles.includes(ROLES.PR_MITARBEITER)) {
+      return (
+        <div>
+          {createSubmitButton()}
+          {createDraftButton()}
+        </div>
+      );
     }
   };
 
   return (
     <div className={classes.container}>
-      <Typography>
-        {savingThreads > 0
-          ? intl.formatMessage({
-              id: 'prstate.saving'
-            })
-          : intl.formatMessage({
-              id: 'prstate.saved'
-            })}
-      </Typography>
-      {findButtonsForRole(pr, userroles, userinfo)}
+      {createButtonsForRole(pr, userroles)}
     </div>
   );
 };
 
 export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
 export default injectIntl(
-  connect(
-    state => ({
-      userroles: getUserroles(state),
-      userinfo: getUserinfo(state),
-      savingThreads: getSavingThreads(state)
-    }),
-    {
-      addPrStatus: actions.addPrStatus
-    }
-  )(StyledComponent)
+  connect(state => ({ userroles: getUserroles(state) }))(StyledComponent)
 );

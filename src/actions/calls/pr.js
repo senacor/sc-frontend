@@ -29,16 +29,14 @@ export const sendReflections = async (
   prsId,
   firstReflectionField,
   secondReflectionField,
-  //afterPrSent,
-  setIsLoading,
+  //success,
   errorContext
 ) => {
-  setIsLoading(true);
-  errorContext.setErrors({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/reflections`,
     {
-      method: 'put',
+      method: 'post',
       mode: 'cors',
       body: JSON.stringify({
         firstReflectionField: firstReflectionField,
@@ -47,12 +45,8 @@ export const sendReflections = async (
     }
   );
   if (response.ok) {
-    const prById = await response.json();
-    //afterPrFetched(prById);
-    setIsLoading(false);
-    return prById;
+    //TODO success callback
   } else {
-    setIsLoading(false);
     errorContext.setErrors({
       hasErrors: false,
       message: 'Es wurde Fehler aufgetreten: ' + response.status
@@ -70,7 +64,7 @@ export const sendRatings = async (
   errorContext
 ) => {
   setIsLoading(true);
-  errorContext.setErrors({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
     {
@@ -105,7 +99,7 @@ export const sendFinalCommentEmployee = async (
   errorContext
 ) => {
   setIsLoading(true);
-  errorContext.setErrors({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
     {
