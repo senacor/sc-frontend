@@ -11,10 +11,12 @@ const senacorColorPalette = {
   700: '#003942',
   800: '#003139',
   900: '#002129',
-  A100: '#63d7ff',
-  A200: '#30c9ff',
-  A400: '#00bbfc',
-  A700: '#00a8e3',
+  A100: '#56d9fe',
+  G100: '#fafafa',
+  G200: '#f5f6fa',
+  G300: '#9b9aa0',
+  G500: '#4d4f5c',
+  W000: '#ffffff',
   contrastDefaultColor: 'light'
 };
 

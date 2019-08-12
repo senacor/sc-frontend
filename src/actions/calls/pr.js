@@ -13,6 +13,9 @@ export const fetchPrById = async (
   );
   if (response.ok) {
     const prById = await response.json();
+    if (prById.competence === undefined) {
+      prById.competence = 'CONSULTING';
+    }
     afterPrFetched(prById);
     setIsLoading(false);
     return prById;
