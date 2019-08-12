@@ -24,8 +24,10 @@ const styles = {
     flexDirection: 'column'
   },
   card: {
-    flexGrow: '1',
-    margin: '20px'
+    flexGrow: 1,
+    margin: 20,
+    marginBottom: 0,
+    textDecoration: 'none'
   },
   thinItem: {
     paddingTop: 10,
@@ -61,7 +63,6 @@ const Dashboard = ({
             className={classes.card}
             component={NavLink}
             to={'/prs/' + userinfo.idOfNewestOpenPr}
-            style={{ textDecoration: 'none' }}
           >
             <CardContent>
               <Typography variant="h5" component="h2">
