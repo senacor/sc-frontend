@@ -59,3 +59,40 @@ export const sendReflections = async (
     });
   }
 };
+
+export const sendRatings = async (
+  prsId,
+  rating,
+  targetRole,
+  advancementStrategies,
+  //afterPrSent,
+  setIsLoading,
+  errorContext
+) => {
+  setIsLoading(true);
+  errorContext.setErrors({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
+    {
+      method: 'put',
+      mode: 'cors',
+      body: JSON.stringify({
+        rating: rating,
+        targetRole: targetRole,
+        advancementStrategies: advancementStrategies
+      })
+    }
+  );
+  if (response.ok) {
+    const prById = await response.json();
+    //afterPrFetched(prById);
+    setIsLoading(false);
+    return prById;
+  } else {
+    setIsLoading(false);
+    errorContext.setErrors({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
