@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ErrorIcon from '@material-ui/icons/Error';
-import { ErrorContext } from '../ErrorsProvider';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   error: {
@@ -22,7 +22,7 @@ const styles = theme => ({
 });
 
 export const Error = ({ classes }) => {
-  const errors = useContext(ErrorContext).errors;
+  const { value: errors } = useContext(ErrorContext.context);
   return (
     <Paper
       style={{ display: errors.hasErrors ? 'flex' : 'none' }}
