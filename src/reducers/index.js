@@ -8,7 +8,6 @@ import { userinfo, userphoto, userroles } from './userinfo';
 import isLoading from './isLoading';
 import { employeeSearchResults } from './searchEmployee';
 import { appointmentsSearchResults, selectedDate } from './appointments';
-import { meeting } from './meetings';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { filterPossibilities } from './filterPossibilities';
@@ -22,7 +21,6 @@ const combineReducer = combineReducers({
   language,
   tablePrs,
   isLoading,
-  meeting,
   prDetailId,
   newPrId,
   employeeSearchResults,

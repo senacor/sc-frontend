@@ -9,7 +9,6 @@ import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import { connect } from 'react-redux';
 import {
   getAppointments,
-  getPrDetail,
   getSelectedDate,
   getUserinfo,
   getUserroles
@@ -280,7 +279,6 @@ export default connect(
     appointmentsSearchResults: getAppointments(state),
     selectedDate: getSelectedDate(state),
     userinfo: getUserinfo(state),
-    pr: getPrDetail()(state),
     userroles: getUserroles(state),
     meeting: getMeeting(state)
   }),

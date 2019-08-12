@@ -20,7 +20,8 @@ export const fetchMeeting = async (pr, setMeeting, errorContext) => {
 
   if (response.ok) {
     const meeting = await response.json();
-    setMeeting(meeting);
+    setMeeting(meeting)
+    //TODO: update pr.meeting as well: pr.meeting = meeting
     return;
   }
 
@@ -28,13 +29,12 @@ export const fetchMeeting = async (pr, setMeeting, errorContext) => {
     return setMeeting(null);
   }
 
-  errorContext.setErrors({
+  errorContext.setValue({
     hasErrors: true,
     message: 'Es ist ein technischer Fehler aufgetreten.=='
   });
 };
 
-//TODO: not used yet, continue here
 export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
   if (!validateDateTimeInput(meeting_details.start, meeting_details.end)) {
     errorContext.setErrors({
@@ -63,6 +63,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
       const meeting = await response.json();
       setMeeting(meeting);
       return;
+      //TODO: continue here, send request to change status
       // return addPrStatus(meeting_details.prById, prStatusEnum.REQUESTED_DATE)(
       //   dispatch
       // );

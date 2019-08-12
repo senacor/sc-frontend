@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const newContext = value => {
+export const newContext = (value) => {
   const context = {};
   context.context = React.createContext(value);
   const MyContext = context.context;

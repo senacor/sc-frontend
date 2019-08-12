@@ -7,8 +7,7 @@ import {
   CHANGE_RATING_TARGETROLE_RESPONSE,
   FETCH_PRS_HR_RESPONSE,
   ADD_TEXT_RESPONSE,
-  FETCH_OWN_PRS_RESPONSE,
-  FETCH_MEETING_RESPONSE
+  FETCH_OWN_PRS_RESPONSE
 } from '../helper/dispatchTypes';
 import generateMapById from '../helper/generateMapById';
 import cloneDeep from '../helper/cloneDeep';
@@ -67,13 +66,6 @@ export const prs = (state = {}, action) => {
         `${prId}.prTargetRoleSet.${indexChangedRating}.rating`,
         rating
       );
-    }
-    case FETCH_MEETING_RESPONSE: {
-      const meeting = action.meeting;
-      if (meeting) {
-        let id = action.meeting.prId;
-        return set(cloneDeep(state), `${id}.meeting`, meeting);
-      } else return state;
     }
     default:
       return state;
