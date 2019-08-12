@@ -73,7 +73,7 @@ const PrSheet = props => {
     },
     deadline: '2019-08-04',
     occasion: 'ON_DEMAND',
-    prRating: {
+    rating: {
       performanceInProject: {
         problemAnalysis: {
           comment: 'dasdsad dasdas',
