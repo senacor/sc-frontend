@@ -6,19 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 
 const styles = theme => ({
-  radioColor: {
-    color: theme.palette.primary['300']
-  },
-  ratingTargetRole: {
-    color: theme.palette.primary['300'],
-    justifyContent: 'flex-end'
-  },
-  targetRole: {
-    color: theme.palette.primary['300'],
-    alignItems: 'flex-end'
+  checked: {},
+  radio: {
+    '&$checked': {
+      color: theme.palette.primary[400]
+    }
   },
   simpleBlack: {
-    color: '#000000',
+    color: theme.palette.primary[900],
     marginBottom: '3%'
   }
 });
@@ -125,7 +120,7 @@ const TargetRole = ({ classes, intl, targetRoles, action }) => {
         {Object.keys(targetRoles).map(targetRole => {
           return (
             <Grid container spacing={16} key={targetRole}>
-              <Grid item xs={8} className={classes.targetRole}>
+              <Grid item xs={8}>
                 <div className={classes.simpleBlack}>
                   <Typography>
                     {intl.formatMessage({
@@ -134,30 +129,39 @@ const TargetRole = ({ classes, intl, targetRoles, action }) => {
                   </Typography>
                 </div>
               </Grid>
-              <Grid item xs={4} className={classes.ratingTargetRole}>
+              <Grid item xs={4}>
                 <Grid container spacing={16}>
                   <Grid item xs={4}>
                     <Radio
-                      color="primary"
                       checked={determineTaragetRole(targetRole) === 1}
                       value={1}
                       onChange={event => handleChange(event, targetRole)}
+                      classes={{
+                        root: classes.radio,
+                        checked: classes.checked
+                      }}
                     />
                   </Grid>
                   <Grid item xs={4}>
                     <Radio
-                      color="primary"
                       checked={determineTaragetRole(targetRole) === 2}
                       value={2}
                       onChange={event => handleChange(event, targetRole)}
+                      classes={{
+                        root: classes.radio,
+                        checked: classes.checked
+                      }}
                     />
                   </Grid>
                   <Grid item xs={4}>
                     <Radio
-                      color="primary"
                       checked={determineTaragetRole(targetRole) === 3}
                       value={3}
                       onChange={event => handleChange(event, targetRole)}
+                      classes={{
+                        root: classes.radio,
+                        checked: classes.checked
+                      }}
                     />
                   </Grid>
                 </Grid>
