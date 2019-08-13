@@ -5,10 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-
-import Grid from '@material-ui/core/Grid';
 
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
@@ -151,14 +148,7 @@ const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
             <BackToTableButton pr={pr} classes={classes.buttonDesktop} />
           </div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
-          <Grid container spacing={24}>
-            <Grid item xs={4}>
-              <PrHistory employeeId={pr.employee.id} />
-            </Grid>
-            <Grid item xs={4} />
-          </Grid>
-        </ExpansionPanelDetails>
+        <PrHistory employeeId={pr.employee.id} />
       </ExpansionPanel>
     </div>
   );

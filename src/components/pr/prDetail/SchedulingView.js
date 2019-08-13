@@ -37,7 +37,11 @@ const SchedulingView = ({ pr, userinfo, userroles, addPrStatus, intl }) => {
   return (
     <div id={'outer'}>
       {canRequestMeeting ? (
-        <MeetingCreator handleChange={() => handleChange()} intl={intl} pr={pr} />
+        <MeetingCreator
+          handleChange={() => handleChange()}
+          intl={intl}
+          pr={pr}
+        />
       ) : (
         <MeetingDetailsView
           meeting={meeting}
