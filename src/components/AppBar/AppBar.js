@@ -61,6 +61,10 @@ const styles = theme => ({
     [theme.breakpoints.up('lg')]: {
       padding: theme.spacing.unit
     }
+  },
+  languageButton: {
+    color: theme.palette.contrastText,
+    marginLeft: 'auto'
   }
 });
 
@@ -90,7 +94,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
               id: 'appbar.portal'
             })}
           </Typography>
-          <LanguageButton color="secondary" />
+          <LanguageButton languageButtonClassName={classes.languageButton} />
         </Toolbar>
       </AppBar>
       <Hidden lgUp>

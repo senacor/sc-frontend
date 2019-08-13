@@ -99,6 +99,7 @@ const styles = theme => ({
   },
   languageButton: {
     color: theme.palette.primary,
+    position: 'absolute',
     [theme.breakpoints.down('sm')]: {
       color: theme.palette.contrastText
     }
