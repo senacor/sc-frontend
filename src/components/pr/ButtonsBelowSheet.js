@@ -135,7 +135,7 @@ const ButtonsBelowSheet = props => {
             ).then(() => {
               addPrStatus(
                 pr.id,
-                'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+                'MODIFICATIONS_ACCEPTED_EMPLOYEE',
                 errorContext
               );
             });
@@ -146,11 +146,7 @@ const ButtonsBelowSheet = props => {
           ) {
             addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext).then(
               () => {
-                addPrStatus(
-                  pr.id,
-                  'FILLED_SHEET_EMPLOYEE_SUBMITTED',
-                  errorContext
-                );
+                addPrStatus(pr.id, 'PR_COMPLETED', errorContext);
               }
             );
           }

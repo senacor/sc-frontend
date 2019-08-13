@@ -113,10 +113,8 @@ export const addFinalCommentEmployee = async (
 export const addFinalCommentHr = async (
   prsId,
   finalCommentHr,
-  setIsLoading,
   errorContext
 ) => {
-  setIsLoading(true);
   errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
