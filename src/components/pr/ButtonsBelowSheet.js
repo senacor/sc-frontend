@@ -5,10 +5,11 @@ import { getUserroles } from '../../reducers/selector';
 import { injectIntl } from 'react-intl';
 import ROLES from '../../helper/roles';
 import {
-  sendFinalCommentEmployee,
-  sendFinalCommentHr,
-  sendRatings,
-  sendReflections
+  addFinalCommentEmployee,
+  addFinalCommentHr,
+  addRatings,
+  addReflections,
+  addPrStatus
 } from '../../actions/calls/pr';
 import { ErrorContext } from '../App';
 
@@ -49,7 +50,7 @@ const ButtonsBelowSheet = props => {
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
         onClick={() => {
           if (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) {
-            sendReflections(
+            addReflections(
               pr.id,
               pr.firstReflectionField,
               pr.secondReflectionField,
@@ -58,7 +59,7 @@ const ButtonsBelowSheet = props => {
           } else if (
             !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
           ) {
-            sendRatings(
+            addRatings(
               pr.id,
               pr.targetRole,
               pr.advancementStrategies,
@@ -68,7 +69,7 @@ const ButtonsBelowSheet = props => {
             pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
             !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
           ) {
-            sendFinalCommentEmployee(
+            addFinalCommentEmployee(
               pr.id,
               pr.finalCommentEmployee,
               errorContext
@@ -78,7 +79,7 @@ const ButtonsBelowSheet = props => {
             pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
             !pr.statusSet.includes('PR_COMPLETED')
           ) {
-            sendFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
+            addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
           }
         }}
       >
@@ -94,7 +95,39 @@ const ButtonsBelowSheet = props => {
       <Button
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
         onClick={() => {
-          console.log('');
+          if (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) {
+            addReflections(
+              pr.id,
+              pr.firstReflectionField,
+              pr.secondReflectionField,
+              errorContext
+            );
+            addPrStatus(pr.id, 'FILLED_SHEET_EMPLOYEE_SUBMITTED', errorContext);
+          } else if (
+            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
+          ) {
+            addRatings(
+              pr.id,
+              pr.targetRole,
+              pr.advancementStrategies,
+              errorContext
+            );
+          } else if (
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
+          ) {
+            addFinalCommentEmployee(
+              pr.id,
+              pr.finalCommentEmployee,
+              errorContext
+            );
+          } else if (
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+            !pr.statusSet.includes('PR_COMPLETED')
+          ) {
+            addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
+          }
         }}
       >
         {intl.formatMessage({
