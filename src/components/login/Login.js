@@ -45,15 +45,13 @@ const styles = theme => ({
     }
   },
   form: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '33%',
-    margin: 0,
-    position: 'absolute',
-    top: '31%',
-    paddingBottom: '100px'
+    maxWidth: '40rem',
+    margin: 'auto'
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -97,6 +95,13 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: '50%',
       backgroundColor: theme.palette.primary['500']
+    }
+  },
+  languageButton: {
+    color: theme.palette.primary,
+    position: 'absolute',
+    [theme.breakpoints.down('sm')]: {
+      color: theme.palette.contrastText
     }
   },
   wrapper: {
@@ -150,7 +155,7 @@ const Login = ({
   return (
     <div className={classes.hero}>
       <div className={classes.login}>
-        <LanguageButton color="primary" />
+        <LanguageButton languageButtonClassName={classes.languageButton} />
         <form className={classes.form} onSubmit={handleOnClick}>
           <Hidden smDown>
             <img src={senacorLogo} className={classes.logo} alt="Senacor" />

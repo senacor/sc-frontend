@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -11,6 +11,7 @@ import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import { isHr } from '../../helper/checkRole';
 import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
+import { UserinfoContext } from '../App';
 
 const styles = () => ({
   paddingBottom: {
@@ -27,123 +28,124 @@ const styles = () => ({
 
 const PrSheet = props => {
   // FORMAT
-  let prMock = {
-    id: 26,
-    employee: {
-      createdDateTime: '2019-08-02T12:44:26.227372',
-      modifiedDateTime: '2019-08-02T12:44:34.631152',
-      id: 3001,
-      firstName: 'Matúš',
-      lastName: 'Piroh',
-      login: 'mpiroh',
-      title: '',
-      email: 'Matus.Piroh@senacor.com',
-      endOfProbationPeriod: '2019-08-31',
-      salaryLevel: 6,
-      costcenterId: 408,
-      supervisorId: 297
-    },
-    supervisor: {
-      createdDateTime: '2019-08-02T12:44:26.227372',
-      modifiedDateTime: '2019-08-02T12:44:34.631152',
-      id: 3001,
-      firstName: 'Matúš',
-      lastName: 'Piroh',
-      login: 'mpiroh',
-      title: '',
-      email: 'Matus.Piroh@senacor.com',
-      endOfProbationPeriod: '2019-08-31',
-      salaryLevel: 6,
-      costcenterId: 408,
-      supervisorId: 297
-    },
-    reviewer: {
-      createdDateTime: '2019-08-02T12:44:26.227372',
-      modifiedDateTime: '2019-08-02T12:44:34.631152',
-      id: 3001,
-      firstName: 'Matúš',
-      lastName: 'Piroh',
-      login: 'mpiroh',
-      title: '',
-      email: 'Matus.Piroh@senacor.com',
-      endOfProbationPeriod: '2019-08-31',
-      salaryLevel: 6,
-      costcenterId: 408,
-      supervisorId: 297
-    },
-    deadline: '2019-08-04',
-    occasion: 'ON_DEMAND',
-    prRating: {
-      performanceInProject: {
-        problemAnalysis: {
-          comment: 'dasdsad dasdas',
-          rating: 3
-        },
-        workResults: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        },
-        workingManner: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        }
-      },
-      impactOnCostumer: {
-        customerInteraction: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        },
-        customerRetention: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        }
-      },
-      impactOnTeam: {
-        teamWork: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        },
-        leadership: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        }
-      },
-      impactOnCompany: {
-        contributionToCompanyDevelopment: {
-          comment: 'dasdsad dasdas',
-          rating: null
-        }
-      },
-      overallAssessment: {
-        fulfillmentOfRequirement: {
-          comment: 'dasdsad dasdas',
-          rating: 0
-        }
-      }
-    },
-    targetRole: {
-      plattformGestalter: 1,
-      itSolutionLeader: 1,
-      transformationManager: 2,
-      itLiefersteuerer: 2,
-      architect: 2,
-      technicalExpert: 3,
-      leadDeveloper: 3
-    },
-    statusSet: '',
-    exchangeItemId: 'exchange_item_id',
-    finalMeetingDate: '2019-08-03',
-    firstReflectionField: 'first_reflection_field',
-    secondReflectionField: 'second_reflection_field',
-    finalCommentEmployee: 'final_comment_employee',
-    finalCommentHr: 'final_comment_hr',
-    advancementStrategies: 'advancement_strategies',
-    inProgressForEmployee: true,
-    inProgressForReviewer: false,
-    done: false
-  };
+  // let pr = {
+  //   id: 26,
+  //   employee: {
+  //     createdDateTime: '2019-08-02T12:44:26.227372',
+  //     modifiedDateTime: '2019-08-02T12:44:34.631152',
+  //     id: 3001,
+  //     firstName: 'Matúš',
+  //     lastName: 'Piroh',
+  //     login: 'mpiroh',
+  //     title: '',
+  //     email: 'Matus.Piroh@senacor.com',
+  //     endOfProbationPeriod: '2019-08-31',
+  //     salaryLevel: 6,
+  //     costcenterId: 408,
+  //     supervisorId: 297
+  //   },
+  //   supervisor: {
+  //     createdDateTime: '2019-08-02T12:44:26.227372',
+  //     modifiedDateTime: '2019-08-02T12:44:34.631152',
+  //     id: 3001,
+  //     firstName: 'Matúš',
+  //     lastName: 'Piroh',
+  //     login: 'mpiroh',
+  //     title: '',
+  //     email: 'Matus.Piroh@senacor.com',
+  //     endOfProbationPeriod: '2019-08-31',
+  //     salaryLevel: 6,
+  //     costcenterId: 408,
+  //     supervisorId: 297
+  //   },
+  //   reviewer: {
+  //     createdDateTime: '2019-08-02T12:44:26.227372',
+  //     modifiedDateTime: '2019-08-02T12:44:34.631152',
+  //     id: 3001,
+  //     firstName: 'Matúš',
+  //     lastName: 'Piroh',
+  //     login: 'mpiroh',
+  //     title: '',
+  //     email: 'Matus.Piroh@senacor.com',
+  //     endOfProbationPeriod: '2019-08-31',
+  //     salaryLevel: 6,
+  //     costcenterId: 408,
+  //     supervisorId: 297
+  //   },
+  //   deadline: '2019-08-04',
+  //   occasion: 'ON_DEMAND',
+  //   prRating: {
+  //     performanceInProject: {
+  //       problemAnalysis: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: 3
+  //       },
+  //       workResults: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       },
+  //       workingManner: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       }
+  //     },
+  //     impactOnCostumer: {
+  //       customerInteraction: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       },
+  //       customerRetention: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       }
+  //     },
+  //     impactOnTeam: {
+  //       teamWork: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       },
+  //       leadership: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       }
+  //     },
+  //     impactOnCompany: {
+  //       contributionToCompanyDevelopment: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: null
+  //       }
+  //     },
+  //     overallAssessment: {
+  //       fulfillmentOfRequirement: {
+  //         comment: 'dasdsad dasdas',
+  //         rating: 0
+  //       }
+  //     }
+  //   },
+  //   targetRole: {
+  //     plattformGestalter: 1,
+  //     itSolutionLeader: 1,
+  //     transformationManager: 2,
+  //     itLiefersteuerer: 2,
+  //     architect: 2,
+  //     technicalExpert: 3,
+  //     leadDeveloper: 3
+  //   },
+  //   statusSet: '',
+  //   exchangeItemId: 'exchange_item_id',
+  //   finalMeetingDate: '2019-08-03',
+  //   firstReflectionField: 'first_reflection_field',
+  //   secondReflectionField: 'second_reflection_field',
+  //   finalCommentEmployee: 'final_comment_employee',
+  //   finalCommentHr: 'final_comment_hr',
+  //   advancementStrategies: 'advancement_strategies',
+  //   inProgressForEmployee: true,
+  //   inProgressForReviewer: false,
+  //   done: false
+  // };
 
-  const { pr, classes, intl, userroles } = props;
+  const { classes, intl, pr } = props;
+  const { userroles } = useContext(UserinfoContext.context).value;
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;

@@ -5,13 +5,15 @@ import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../../actions/calls/meetings';
 import CircularProgress from '../../fileStorage/ArchivedFiles';
 import { fetchPrById } from '../../../actions/calls/pr';
-import { ErrorContext } from '../../App';
+import {ErrorContext, MeetingContext} from '../../App';
 
 const PerformanceReviewDetail = props => {
   const [pr, setPr] = useState({});
-  const [meeting, setMeeting] = useState({});
   const [isLoading, setIsLoading] = useState({});
   let errorContext = useContext(ErrorContext.context);
+  const { value: meeting, setValue: setMeeting } = useContext(
+    MeetingContext.context
+  );
 
   useEffect(() => {
     const afterPrFetched = pr => {

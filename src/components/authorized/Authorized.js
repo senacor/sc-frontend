@@ -1,6 +1,8 @@
-import { connect } from 'react-redux';
+import { useContext } from 'react';
+import { UserinfoContext } from '../App';
 
-const Authorized = ({ userroles, roles, children }) => {
+const Authorized = ({ roles, children }) => {
+  const { userroles } = useContext(UserinfoContext.context).value;
   const userHasRole = role => {
     return userroles.includes(role);
   };
@@ -22,6 +24,4 @@ const Authorized = ({ userroles, roles, children }) => {
   return null;
 };
 
-export default connect(state => ({
-  userroles: state.userroles
-}))(Authorized);
+export default Authorized;

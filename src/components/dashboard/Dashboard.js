@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 import { connect } from 'react-redux';
-import { getUserinfo, getUserroles } from '../../reducers/selector';
 import * as actions from '../../actions';
 import { NavLink } from 'react-router-dom';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
@@ -12,6 +11,7 @@ import DefaultFilterService from '../../service/DefaultFilterService';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../App';
 
 const styles = {
   rowContainer: {
@@ -24,8 +24,10 @@ const styles = {
     flexDirection: 'column'
   },
   card: {
-    flexGrow: '1',
-    margin: '20px'
+    flexGrow: 1,
+    margin: 20,
+    marginBottom: 0,
+    textDecoration: 'none'
   },
   thinItem: {
     paddingTop: 10,
@@ -33,14 +35,9 @@ const styles = {
   }
 };
 
-const Dashboard = ({
-  resetFilterGroup,
-  addFilter,
-  userinfo,
-  classes,
-  userroles,
-  intl
-}) => {
+const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+
   const handleClick = payload => () => {
     resetFilterGroup(payload.filterGroup);
     addFilter(payload);
@@ -61,7 +58,6 @@ const Dashboard = ({
             className={classes.card}
             component={NavLink}
             to={'/prs/' + userinfo.idOfNewestOpenPr}
-            style={{ textDecoration: 'none' }}
           >
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -189,10 +185,7 @@ const Dashboard = ({
 export const StyledComponent = withStyles(styles)(Dashboard);
 export default injectIntl(
   connect(
-    state => ({
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state)
-    }),
+    state => ({}),
     { addFilter: actions.addFilter, resetFilterGroup: actions.resetFilterGroup }
   )(StyledComponent)
 );

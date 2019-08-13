@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -18,10 +18,10 @@ import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import * as actions from '../../actions';
-import { getUserroles } from '../../reducers/selector';
-import { fetchReviewerInfo } from '../../actions/reviewerInfo';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import { injectIntl } from 'react-intl';
+import { getUserInfo, getUserPhoto } from '../../actions/calls/userinfo';
+import { UserinfoContext } from '../App';
 
 const styles = () => ({
   root: {
@@ -46,24 +46,18 @@ const styles = () => ({
 });
 
 export const Sidebar = ({
-  userphoto,
-  getUserPhoto,
-  getUserInfo,
-  getUserRoles,
-  getReviewerInfo,
   intl,
   resetFilterGroup,
-  userinfo,
-  userroles,
   classes
 }) => {
+  const userinfoContext = useContext(UserinfoContext.context);
+  const { userphoto, userinfo, userroles } = userinfoContext.value;
+  console.log('SIDEBAR VALUE: ', userinfoContext.value);
   useEffect(() => {
     if (userphoto === '') {
-      getUserPhoto();
+      getUserPhoto(userinfoContext);
     }
-    getUserInfo();
-    getUserRoles();
-    getReviewerInfo();
+    getUserInfo(userinfoContext);
   }, []);
 
   const getListOfMenuItems = () => {
@@ -158,11 +152,14 @@ export const Sidebar = ({
       <Divider />
 
       <List component="nav">
-        {getListOfMenuItems().map(entry =>
-          !entry.reviewerCheck ||
-          (entry.reviewerCheck &&
-            userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
-              0) ? (
+        {getListOfMenuItems().map(entry => {
+          const uuu =
+            !entry.reviewerCheck ||
+            (entry.reviewerCheck &&
+              userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
+                0);
+          console.log('UUU entry:', entry, ' je : ', uuu);
+          return uuu ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem
                 component={NavLink}
@@ -180,8 +177,8 @@ export const Sidebar = ({
                 />
               </ListItem>
             </Authorized>
-          ) : null
-        )}
+          ) : null;
+        })}
       </List>
       <Divider />
       <CompositionNumber />
@@ -192,16 +189,8 @@ export const Sidebar = ({
 export const StyledComponent = withStyles(styles)(Sidebar);
 export default injectIntl(
   connect(
-    state => ({
-      userinfo: state.userinfo,
-      userphoto: state.userphoto,
-      userroles: getUserroles(state)
-    }),
+    state => ({}),
     {
-      getUserInfo: actions.getUserInfo,
-      getUserPhoto: actions.getUserPhoto,
-      getUserRoles: actions.getUserRoles,
-      getReviewerInfo: fetchReviewerInfo,
       resetFilterGroup: actions.resetFilterGroup
     }
   )(StyledComponent)

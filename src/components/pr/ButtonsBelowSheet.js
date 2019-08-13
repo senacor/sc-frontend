@@ -12,6 +12,7 @@ import {
   addPrStatus
 } from '../../actions/calls/pr';
 import { ErrorContext } from '../App';
+import { UserinfoContext } from '../App';
 
 const styles = theme => ({
   rightFloat: {

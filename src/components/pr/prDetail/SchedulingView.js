@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as actions from '../../../actions';
 import { connect } from 'react-redux';
-import {
-  getMeeting,
-  isLoading,
-  getUserinfo,
-  getUserroles
-} from '../../../reducers/selector';
+import { isLoading } from '../../../reducers/selector';
 import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
 import MeetingCreator from '../../scheduling/MeetingCreator';
 import { prStatusEnum } from '../../../helper/prStatus';
 import { injectIntl } from 'react-intl';
+import { MeetingContext, UserinfoContext } from '../../App';
 
-const SchedulingView = ({
-  meeting,
-  pr,
-  userinfo,
-  userroles,
-  addPrStatus,
-  intl
-}) => {
+const SchedulingView = ({ pr, addPrStatus, intl }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+
+  const { value: meeting, setValue: setMeeting } = useContext(
+    MeetingContext.context
+  );
   const [canRequestMeeting, setCanRequestMeeting] = useState(false);
 
   useEffect(() => {
@@ -41,7 +35,11 @@ const SchedulingView = ({
   return (
     <div id={'outer'}>
       {canRequestMeeting ? (
-        <MeetingCreator handleChange={() => handleChange()} intl={intl} />
+        <MeetingCreator
+          handleChange={() => handleChange()}
+          intl={intl}
+          pr={pr}
+        />
       ) : (
         <MeetingDetailsView
           meeting={meeting}
@@ -59,9 +57,7 @@ const SchedulingView = ({
 export default injectIntl(
   connect(
     state => ({
-      isLoading: isLoading(state),
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state)
+      isLoading: isLoading(state)
     }),
     {
       addPrStatus: actions.addPrStatus

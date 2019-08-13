@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import Button from '@material-ui/core/Button';
@@ -6,11 +6,12 @@ import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import objectGet from 'object-get';
 import { injectIntl } from 'react-intl';
-import { getUserinfo } from '../../reducers/selector';
 import { Redirect } from 'react-router-dom';
+import { UserinfoContext } from '../App';
 
 export const RequestPerformanceReview = props => {
-  let { newPrId, intl, addPr, userinfo } = props;
+  let { newPrId, intl, addPr } = props;
+  const { userinfo } = useContext(UserinfoContext.context).value;
   if (newPrId) {
     return <Redirect to={`/prDetail/${newPrId}`} />;
   }
@@ -61,7 +62,6 @@ export const RequestPerformanceReview = props => {
 export default injectIntl(
   connect(
     state => ({
-      userinfo: getUserinfo(state),
       newPrId: state.newPrId
     }),
     { addPr: actions.addPr }

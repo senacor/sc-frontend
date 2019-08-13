@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import ROUTES from '../../../helper/routes';
 import { isHr } from '../../../helper/checkRole';
-import { getUserPrincipalName, getUserroles } from '../../../reducers/selector';
 import { connect } from 'react-redux';
 import PrStatusActionButton from './PrStatusActionButton';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../../App';
 
-const BackToTableButton = ({ pr, userroles, username, classes, intl }) => {
+const BackToTableButton = ({ pr, classes, intl }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const { username } = userinfo;
   const getBackJumpPoint = (pr, userroles, username) => {
     if (pr.employee.login === username) {
       return ROUTES.OWN_PR_TABLE;
@@ -37,10 +39,7 @@ const BackToTableButton = ({ pr, userroles, username, classes, intl }) => {
 
 export default injectIntl(
   connect(
-    state => ({
-      username: getUserPrincipalName(state),
-      userroles: getUserroles(state)
-    }),
+    state => ({}),
     null
   )(BackToTableButton)
 );

@@ -9,7 +9,6 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_OWN_PRS_REQUEST,
     dispatchTypes.FETCH_PRS_HR_REQUEST,
     dispatchTypes.LOGIN_REQUEST,
-    dispatchTypes.FETCH_MEETING_REQUEST,
     dispatchTypes.FILTER_POSSIBILITIES_REQUEST,
     dispatchTypes.FETCH_EMPLOYEES_REQUEST
   ];
@@ -22,7 +21,6 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_PRS_RESPONSE,
     dispatchTypes.FETCH_OWN_PRS_RESPONSE,
     dispatchTypes.FETCH_PRS_HR_RESPONSE,
-    dispatchTypes.FETCH_MEETING_RESPONSE,
     dispatchTypes.FETCH_EMPLOYEES_RESPONSE,
     dispatchTypes.FILTER_POSSIBILITIES_RESPONSE,
     dispatchTypes.LOGIN_RESPONSE,

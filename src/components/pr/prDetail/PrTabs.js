@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
 import PrSheet from '../PrSheet';
 import SchedulingView from './SchedulingView';
-import Paper from '@material-ui/core/Paper';
-import { injectIntl } from 'react-intl';
 
 const TabContainer = props => {
   return (
@@ -24,28 +26,33 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    margin: 3 * theme.spacing.unit
   },
   paper: {
-    backgroundColor: theme.palette.primary['300']
+    backgroundColor: theme.palette.primary['W000']
   },
   indicator: {
-    backgroundColor: '#FFFFFF'
+    backgroundColor: theme.palette.primary['W000']
   },
   tabStyle: {
-    color: '#FFFFFF'
+    color: theme.palette.primary['W000']
+  },
+  tabsBackground: {
+    backgroundColor: theme.palette.primary[400]
   }
 });
 
-const PrTabs = ({ classes, intl, pr, meeting }) => {
+const PrTabs = ({ classes, intl, pr }) => {
   const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
+
   const handleChange = (event, value) => {
     setTabValue(value);
   };
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    <Paper className={classes.paper}>
+      <AppBar position="static" className={classes.tabsBackground}>
         <Tabs
           value={tabValue}
           onChange={handleChange}
@@ -76,7 +83,7 @@ const PrTabs = ({ classes, intl, pr, meeting }) => {
             id={'TabTerminfindung'}
           />
         </Tabs>
-      </Paper>
+      </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
         <TabContainer>
           <PrSheet pr={pr} />
@@ -84,15 +91,11 @@ const PrTabs = ({ classes, intl, pr, meeting }) => {
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
         <TabContainer>
-          <SchedulingView pr={pr} meeting={meeting} />
+          <SchedulingView pr={pr} />
         </TabContainer>
       )}
-    </div>
+    </Paper>
   );
-};
-
-PrTabs.propTypes = {
-  classes: PropTypes.object.isRequired
 };
 
 export default injectIntl(withStyles(styles)(PrTabs));

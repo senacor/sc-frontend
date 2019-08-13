@@ -4,15 +4,12 @@ import { prDetailId, newPrId } from './prDetailId';
 import errors from './errors';
 import login from './login';
 import { language } from './language';
-import { userinfo, userphoto, userroles } from './userinfo';
 import isLoading from './isLoading';
 import { employeeSearchResults } from './searchEmployee';
 import { appointmentsSearchResults, selectedDate } from './appointments';
-import { meeting } from './meetings';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { filterPossibilities } from './filterPossibilities';
-import { savingThreads } from './savingThreads';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -22,17 +19,12 @@ const combineReducer = combineReducers({
   language,
   tablePrs,
   isLoading,
-  meeting,
   prDetailId,
   newPrId,
   employeeSearchResults,
   selectedDate,
   sortOrderPrs,
-  userinfo,
-  userphoto,
-  userroles,
   filter,
-  savingThreads,
   filterPossibilities
 });
 

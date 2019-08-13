@@ -60,10 +60,16 @@ const determineLanguage = lang => {
 };
 
 export const ErrorContext = newContext({ hasErrors: false, message: '' });
+export const MeetingContext = newContext({});
+export const UserinfoContext = newContext({
+  userinfo: {},
+  userroles: [],
+  userphoto: ''
+});
 
 const App = ({ language }) => {
   return provideContexts(
-    [ErrorContext],
+    [ErrorContext, MeetingContext, UserinfoContext],
     <IntlProvider
       locale={determineLanguage(language)}
       messages={

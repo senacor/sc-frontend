@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PerformanceReviewTable from './PerformanceReviewTable';
 import { connect } from 'react-redux';
 import {
@@ -10,7 +10,6 @@ import {
 import * as actions from '../../actions';
 import withLoading from '../hoc/Loading';
 import FILTER_GROUPS from './filterGroups';
-import { getUserroles } from '../../reducers/selector';
 import { isHr } from '../../helper/checkRole';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
 import { LoadingEvents } from '../../helper/loadingEvents';
@@ -18,15 +17,16 @@ import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../App';
 
 export const OverviewPerformanceReviews = ({
   filterPossibilities,
   fetchFilteredPrsForHumanResource,
   filter,
-  userroles,
   data,
   intl
 }) => {
+  const { userroles } = useContext(UserinfoContext.context).value;
   const [columnsToView, setColumnsToView] = useState(null);
 
   const getColumnDefinitions = () => {
@@ -80,7 +80,7 @@ export const OverviewPerformanceReviews = ({
   const columns = columnsToView ? columnsToView : getColumnDefinitions();
   let isHrMember = isHr(userroles);
   return (
-    <Paper>
+    <Paper style={{ margin: '20px' }}>
       <Grid
         container
         direction={'row'}
@@ -110,7 +110,6 @@ export default injectIntl(
     state => ({
       data: getAllPrsForTable(state),
       filter: getFilter(FILTER_GROUPS.HR)(state),
-      userroles: getUserroles(state),
       isLoading: isLoadingAction(state, [
         LoadingEvents.FILTER_POSSIBILITIES,
         LoadingEvents.FETCH_OWN_PRS

@@ -9,10 +9,8 @@ export {
 } from './sheet';
 export { changeLanguage } from './language';
 export { login, logout } from './login';
-export { getUserInfo, getUserPhoto, getUserRoles } from './userinfo';
 export { employeeSearch, employeeSearchClear } from './employeeSearch';
 export { appointmentsSearch, changeDate } from './appointments';
-export { addMeeting, fetchMeeting } from './meetings';
 export { addPrStatus } from './status';
 export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';
 export {
@@ -146,4 +144,3 @@ export const changePrSortOrder = sortOrder => async dispatch => {
     sortOrder: sortOrder
   });
 };
-

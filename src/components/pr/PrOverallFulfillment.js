@@ -9,9 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
 
-const styles = () => ({
+const styles = theme => ({
   simpleBlack: {
-    color: '#000000',
+    color: theme.palette.primary[900],
     width: '80%'
   },
   selectWidth: {
