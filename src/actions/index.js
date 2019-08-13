@@ -9,7 +9,6 @@ export {
 } from './sheet';
 export { changeLanguage } from './language';
 export { login, logout } from './login';
-export { employeeSearch, employeeSearchClear } from './employeeSearch';
 export { appointmentsSearch, changeDate } from './appointments';
 export { addPrStatus } from './status';
 export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';

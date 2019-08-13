@@ -3,10 +3,9 @@ import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
 import PlotEmployeeSearchList from './PlotEmployeeSearchList';
 import { injectIntl } from 'react-intl';
+import { employeeSearch } from '../../actions/calls/employeeSearch';
 
 const styles = {
   box: {
@@ -22,8 +21,11 @@ const styles = {
 };
 
 export const EmployeeSearch = props => {
+  const [employeeSearchResults, setEmployeeSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    props.employeeSearchClear();
+    setEmployeeSearchResults([]);
   }, []);
 
   const [employeeSearchVal, setEmployeeSearchVal] = useState(
@@ -33,7 +35,7 @@ export const EmployeeSearch = props => {
   const handleChange = event => {
     setEmployeeSearchVal(event.target.value);
     if (event.target.value) {
-      executeSearch(event.target.value);
+      executeSearch(event.target.value, setEmployeeSearchResults, setIsLoading);
     }
   };
 
@@ -41,10 +43,10 @@ export const EmployeeSearch = props => {
     const employeeName = `${employee.firstName} ${employee.lastName}`;
     setEmployeeSearchVal(employeeName);
     props.selectEmployee(employee);
-    props.employeeSearchClear();
+    setEmployeeSearchResults([]);
   };
 
-  const executeSearch = debounce(props.employeeSearch, 500);
+  const executeSearch = debounce(employeeSearch, 500);
 
   return (
     <div
@@ -63,6 +65,8 @@ export const EmployeeSearch = props => {
           <PlotEmployeeSearchList
             excludeList={props.excludeList}
             selectEmployee={selectedEmployee}
+            searchResults={employeeSearchResults}
+            isLoading={isLoading}
           />
         </List>
       ) : null}
@@ -87,13 +91,4 @@ EmployeeSearch.defaultProps = {
   excludeList: []
 };
 
-export const StyledComponent = withStyles(styles)(EmployeeSearch);
-export default injectIntl(
-  connect(
-    state => ({}),
-    {
-      employeeSearch: actions.employeeSearch,
-      employeeSearchClear: actions.employeeSearchClear
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(EmployeeSearch));

@@ -21,7 +21,6 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_PRS_RESPONSE,
     dispatchTypes.FETCH_OWN_PRS_RESPONSE,
     dispatchTypes.FETCH_PRS_HR_RESPONSE,
-    dispatchTypes.FETCH_EMPLOYEES_RESPONSE,
     dispatchTypes.FILTER_POSSIBILITIES_RESPONSE,
     dispatchTypes.LOGIN_RESPONSE,
     dispatchTypes.LOGIN_UNAUTHORIZED,

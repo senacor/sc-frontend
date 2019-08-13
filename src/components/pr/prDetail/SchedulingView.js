@@ -42,7 +42,6 @@ const SchedulingView = ({ pr, addPrStatus, intl }) => {
         />
       ) : (
         <MeetingDetailsView
-          meeting={meeting}
           pr={pr}
           userinfo={userinfo}
           userroles={userroles}
