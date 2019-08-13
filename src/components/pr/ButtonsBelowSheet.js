@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { getSavingThreads } from '../../reducers/selector';
 import * as actions from '../../actions';
 import PrStatusActionButton from './prDetail/PrStatusActionButton';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
@@ -310,9 +309,7 @@ const ButtonsBelowSheet = props => {
 export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
 export default injectIntl(
   connect(
-    state => ({
-      savingThreads: getSavingThreads(state)
-    }),
+    state => ({}),
     {
       addPrStatus: actions.addPrStatus
     }
