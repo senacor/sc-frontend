@@ -4,7 +4,6 @@ import * as actions from '../../actions/index';
 import {
   getAllPrsForTable,
   getFilter,
-  getUserPrincipalName,
   getFilterPossibilities
 } from '../../reducers/selector';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
@@ -104,7 +103,7 @@ export default injectIntl(
   connect(
     state => ({
       data: getAllPrsForTable(state),
-      username: getUserPrincipalName(state),
+      username: 'smarcin', //TODO: rebuild using context
       filter: getFilter(FILTER_GROUPS.REVIEWER)(state),
       filterPossibilities: getFilterPossibilities(state)
     }),

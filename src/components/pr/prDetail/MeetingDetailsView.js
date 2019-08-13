@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
 import Collapse from '@material-ui/core/Collapse';
@@ -19,6 +19,7 @@ import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../../helper/date';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../../App';
 
 const styles = theme => ({
   nested: {
@@ -47,12 +48,11 @@ const MeetingDetailsView = ({
   classes,
   meeting,
   pr,
-  userroles,
-  userinfo,
   click,
   handleChange,
   intl
 }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
 

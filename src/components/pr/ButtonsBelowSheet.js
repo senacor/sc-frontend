@@ -1,12 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import {
-  getPrDetail,
-  getSavingThreads,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
+import { getSavingThreads } from '../../reducers/selector';
 import * as actions from '../../actions';
 import PrStatusActionButton from './prDetail/PrStatusActionButton';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
@@ -15,6 +10,7 @@ import { isHr } from '../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../App';
 
 const styles = theme => ({
   rightFloat: {
@@ -44,16 +40,9 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const {
-    classes,
-    pr,
-    userroles,
-    userinfo,
-    addPrStatus,
-    savingThreads,
-    intl
-  } = props;
+  const { classes, pr, addPrStatus, savingThreads, intl } = props;
 
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const checkRequiredFields = (
     employeeContributionRole,
     employeeContributionLeader,
@@ -322,8 +311,6 @@ export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
 export default injectIntl(
   connect(
     state => ({
-      userroles: getUserroles(state),
-      userinfo: getUserinfo(state),
       savingThreads: getSavingThreads(state)
     }),
     {

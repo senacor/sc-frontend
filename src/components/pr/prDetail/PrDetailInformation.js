@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
@@ -12,16 +12,15 @@ import Grid from '@material-ui/core/Grid';
 
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
-import { connect } from 'react-redux';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import BackToTableButton from './BackToTableButton';
-import { getUserPrincipalName } from '../../../reducers/selector';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
 import moment from 'moment-timezone';
 import PrHistory from './PrHistory';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../../App';
 
 const styles = theme => ({
   root: {
@@ -51,7 +50,9 @@ const styles = theme => ({
   }
 });
 
-const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
+const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
+  const { userinfo } = useContext(UserinfoContext.context).value;
+  const { username } = userinfo;
   if (!pr) {
     return null;
   }
@@ -164,13 +165,4 @@ const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrDetailInformation);
-
-export default injectIntl(
-  connect(
-    state => ({
-      username: getUserPrincipalName(state)
-    }),
-    {}
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrDetailInformation));

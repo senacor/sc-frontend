@@ -4,7 +4,6 @@ import { prDetailId, newPrId } from './prDetailId';
 import errors from './errors';
 import login from './login';
 import { language } from './language';
-import { userinfo, userphoto, userroles } from './userinfo';
 import isLoading from './isLoading';
 import { employeeSearchResults } from './searchEmployee';
 import { appointmentsSearchResults, selectedDate } from './appointments';
@@ -26,9 +25,6 @@ const combineReducer = combineReducers({
   employeeSearchResults,
   selectedDate,
   sortOrderPrs,
-  userinfo,
-  userphoto,
-  userroles,
   filter,
   savingThreads,
   filterPossibilities
