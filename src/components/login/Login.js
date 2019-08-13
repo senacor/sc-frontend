@@ -50,7 +50,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: '30rem',
+    maxWidth: '40rem',
     margin: 'auto'
   },
   formControl: {
