@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import {
-  getSelectedDate,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
+import { getSelectedDate } from '../../reducers/selector';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
@@ -16,7 +12,7 @@ import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilit
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 import { injectIntl } from 'react-intl';
 import { addMeeting } from '../../actions/calls/meetings';
-import { MeetingContext, ErrorContext } from '../App';
+import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   container: {
@@ -48,11 +44,10 @@ const MeetingCreatorForm = ({
   prById,
   fetchAppointments,
   changeDate,
-  userinfo,
-  userroles,
   classes,
   intl
 }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const errorContext = useContext(ErrorContext.context);
   let now = moment.tz('Europe/Berlin');
@@ -198,8 +193,6 @@ export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
 export default injectIntl(
   connect(
     state => ({
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state),
       getSelectedDateTime: getSelectedDate(state)
     }),
     {

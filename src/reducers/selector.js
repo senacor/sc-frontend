@@ -5,9 +5,6 @@ export const getAllPrs = state => Object.values(state.prs);
 export const getAllPrsForTable = state => Object.values(state.tablePrs);
 export const getActualPrId = state => state.prDetailId;
 export const getSortOrder = state => state.sortOrderPrs;
-export const getUserroles = state => state.userroles;
-export const getUserinfo = state => state.userinfo;
-export const getUserPrincipalName = state => state.userinfo.userPrincipalName;
 export const getAppointments = state => state.appointmentsSearchResults;
 export const getSelectedDate = state => state.selectedDate;
 export const getMeeting = state => state.meeting;
@@ -15,9 +12,6 @@ export const getFilterPossibilities = state => state.filterPossibilities;
 export const isLoading = state => state.isLoading.length > 0;
 export const isLoadingAction = (state, start) =>
   state.isLoading.some(entry => start.includes(entry));
-export const getArchivedFiles = state => state.archivedFiles;
-export const getUploadedFiles = state => state.uploadedFiles;
-export const getDownloadedFile = state => state.downloadedFile;
 export const getSavingThreads = state => state.savingThreads;
 
 export const getPrDetail = () => {

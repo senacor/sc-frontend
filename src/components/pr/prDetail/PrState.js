@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -7,8 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles/index';
 import {
   getPrDetail,
-  getUserroles,
-  getUserinfo,
   getMeeting,
   getSavingThreads
 } from '../../../reducers/selector';
@@ -21,6 +19,7 @@ import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../../App';
 
 const styles = theme => ({
   paper: {
@@ -32,8 +31,6 @@ const styles = theme => ({
 const PrState = ({
   classes,
   prById,
-  userinfo,
-  userroles,
   meeting,
   employeeContributionRole,
   employeeContributionLeader,
@@ -42,6 +39,7 @@ const PrState = ({
   savingThreads,
   intl
 }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   overallComment = 'COMMENT TURNED OFF...';
   const mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
     if (prStatusesDone !== undefined) {
@@ -403,8 +401,6 @@ export default injectIntl(
   connect(
     state => ({
       prById: getPrDetail()(state),
-      userroles: getUserroles(state),
-      userinfo: getUserinfo(state),
       meeting: getMeeting(state),
       savingThreads: getSavingThreads(state)
     }),
