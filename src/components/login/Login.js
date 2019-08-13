@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
@@ -11,15 +11,13 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import LockIcon from '@material-ui/icons/Lock';
-import { FormattedMessage, injectIntl } from 'react-intl';
 
-import officeMuenchen from './officeM.jpg';
-import senacorLogo from './senacor_transparent.png';
-import senacorLogoMobile from './senacor_transparent_white.png';
-import * as actions from '../../actions/index';
-import { connect } from 'react-redux';
-import { isLoading } from '../../reducers/selector';
+import officeMuenchen from '../../styles/office_muenchen.jpg';
+import senacorLogo from '../../styles/senacor_transparent.png';
+import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../AppBar/LanguageButton';
+import { login } from '../../actions/calls/login';
+import { AuthorizationContext, ErrorContext } from '../App';
 
 const styles = theme => ({
   hero: {
@@ -104,9 +102,6 @@ const styles = theme => ({
       color: theme.palette.contrastText
     }
   },
-  wrapper: {
-    position: 'relative'
-  },
   buttonProgress: {
     color: theme.palette.primary['A100'],
     position: 'absolute',
@@ -117,25 +112,23 @@ const styles = theme => ({
   }
 });
 
-const Login = ({
-  login,
-  location,
-  isLoggedIn,
-  classes,
-  isUnauthorized,
-  intl,
-  isLoading
-}) => {
+const Login = ({ location, classes, intl }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const errorContext = useContext(ErrorContext.context);
+  const authorizationContext = useContext(AuthorizationContext.context);
 
   const handleOnClick = event => {
     event.preventDefault();
-
-    login({
-      username: username,
-      password: password
-    });
+    login(
+      { username: username, password: password },
+      setIsLoading,
+      setIsLoggedIn,
+      authorizationContext,
+      errorContext
+    );
   };
 
   const handleChange = event => {
@@ -167,7 +160,10 @@ const Login = ({
               alt="Senacor"
             />
           </Hidden>
-          <FormControl className={classes.formControl} error={isUnauthorized}>
+          <FormControl
+            className={classes.formControl}
+            error={Boolean(authorizationContext.value)}
+          >
             <Input
               name="username"
               value={username}
@@ -179,7 +175,10 @@ const Login = ({
               startAdornment={<UserIcon />}
             />
           </FormControl>
-          <FormControl className={classes.formControl} error={isUnauthorized}>
+          <FormControl
+            className={classes.formControl}
+            error={Boolean(authorizationContext.value)}
+          >
             <Input
               name="password"
               type="password"
@@ -192,7 +191,10 @@ const Login = ({
               startAdornment={<PasswordIcon />}
             />
             <FormHelperText id="name-error-text">
-              {isUnauthorized && 'Anmeldung fehlgeschlagen'}
+              {Boolean(authorizationContext.value) &&
+                `${intl.formatMessage({
+                  id: 'login.failed'
+                })}`}
             </FormHelperText>
           </FormControl>
 
@@ -242,17 +244,4 @@ const PasswordIcon = () => (
   </InputAdornment>
 );
 
-export const StyledComponent = withStyles(styles)(Login);
-
-export default injectIntl(
-  connect(
-    state => ({
-      isLoggedIn: state.login.isLoggedIn,
-      isLoading: isLoading(state),
-      isUnauthorized: state.login.isUnauthorized
-    }),
-    {
-      login: actions.login
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(Login));

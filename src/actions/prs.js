@@ -1,6 +1,5 @@
 import * as dispatchTypes from '../helper/dispatchTypes';
-import {default as fetch} from '../helper/customFetch';
-import objectGet from 'object-get';
+import { default as fetch } from '../helper/customFetch';
 
 export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
   dispatch({
@@ -10,7 +9,7 @@ export const fetchFilteredPrsForHumanResource = filter => async dispatch => {
   let query = '';
   if (filter) {
     let filterString = Object.keys(filter)
-      .map(function (key) {
+      .map(function(key) {
         return filter[key].searchString;
       })
       .join('&');
@@ -46,7 +45,7 @@ export const fetchFilteredPrs = (filter, role) => async dispatch => {
   let query = '';
   if (filter) {
     let filterString = Object.keys(filter)
-      .map(function (key) {
+      .map(function(key) {
         return filter[key].searchString;
       })
       .join('&');
