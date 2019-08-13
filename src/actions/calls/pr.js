@@ -139,11 +139,10 @@ export const addFinalCommentHr = async (
 export const addPrStatus = async (prsId, status, errorContext) => {
   errorContext.setValue({ hasErrors: false, message: '' });
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status`,
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
     {
       method: 'post',
-      mode: 'cors',
-      body: status
+      mode: 'cors'
     }
   );
   if (response.ok) {

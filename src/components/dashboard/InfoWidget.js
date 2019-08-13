@@ -23,13 +23,12 @@ const styles = theme => ({
   }
 });
 
-const InfoWidget = ({ linkTo, onClick, icon, label, value }) => {
-  const { classes } = this.props;
+const InfoWidget = ({ classes, linkTo, onClick, icon, label, value }) => {
   return (
     <Card
       component={linkTo ? NavLink : null}
       to={linkTo}
-      style={classes.card}
+      className={classes.card}
       onClick={onClick}
     >
       <CardContent className={classes.cardContent}>

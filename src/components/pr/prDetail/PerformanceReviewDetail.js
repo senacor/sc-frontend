@@ -5,7 +5,7 @@ import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../../actions/calls/meetings';
 import CircularProgress from '../../fileStorage/ArchivedFiles';
 import { fetchPrById } from '../../../actions/calls/pr';
-import {ErrorContext, MeetingContext} from '../../App';
+import { ErrorContext, MeetingContext } from '../../App';
 
 const PerformanceReviewDetail = props => {
   const [pr, setPr] = useState({});

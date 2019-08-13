@@ -1,9 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, withStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { getUserroles } from '../../reducers/selector';
 import { injectIntl } from 'react-intl';
-import ROLES from '../../helper/roles';
 import {
   addFinalCommentEmployee,
   addFinalCommentHr,
@@ -42,8 +39,9 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, userroles, intl } = props;
-  let errorContext = useContext(ErrorContext.context);
+  const { classes, pr, intl } = props;
+  const errorContext = useContext(ErrorContext.context);
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
   const createDraftButton = () => {
     return (
@@ -62,6 +60,7 @@ const ButtonsBelowSheet = props => {
           ) {
             addRatings(
               pr.id,
+              pr.prRating,
               pr.targetRole,
               pr.advancementStrategies,
               errorContext
@@ -102,17 +101,29 @@ const ButtonsBelowSheet = props => {
               pr.firstReflectionField,
               pr.secondReflectionField,
               errorContext
-            );
-            addPrStatus(pr.id, 'FILLED_SHEET_EMPLOYEE_SUBMITTED', errorContext);
+            ).then(() => {
+              addPrStatus(
+                pr.id,
+                'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+                errorContext
+              );
+            });
           } else if (
             !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
           ) {
             addRatings(
               pr.id,
+              pr.prRating,
               pr.targetRole,
               pr.advancementStrategies,
               errorContext
-            );
+            ).then(() => {
+              addPrStatus(
+                pr.id,
+                'FILLED_SHEET_REVIEWER_SUBMITTED',
+                errorContext
+              );
+            });
           } else if (
             pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
             !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
@@ -121,13 +132,27 @@ const ButtonsBelowSheet = props => {
               pr.id,
               pr.finalCommentEmployee,
               errorContext
-            );
+            ).then(() => {
+              addPrStatus(
+                pr.id,
+                'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+                errorContext
+              );
+            });
           } else if (
             pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
             pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
             !pr.statusSet.includes('PR_COMPLETED')
           ) {
-            addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
+            addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext).then(
+              () => {
+                addPrStatus(
+                  pr.id,
+                  'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+                  errorContext
+                );
+              }
+            );
           }
         }}
       >
@@ -139,14 +164,12 @@ const ButtonsBelowSheet = props => {
   };
 
   const createButtonsForRole = (pr, userroles) => {
-    if (userroles.includes(ROLES.PR_MITARBEITER)) {
-      return (
-        <div>
-          {createSubmitButton()}
-          {createDraftButton()}
-        </div>
-      );
-    }
+    return (
+      <div>
+        {createSubmitButton()}
+        {createDraftButton()}
+      </div>
+    );
   };
 
   return (
@@ -157,6 +180,4 @@ const ButtonsBelowSheet = props => {
 };
 
 export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
-export default injectIntl(
-  connect(state => ({ userroles: getUserroles(state) }))(StyledComponent)
-);
+export default injectIntl(StyledComponent);
