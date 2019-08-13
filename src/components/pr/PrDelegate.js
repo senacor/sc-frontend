@@ -10,6 +10,7 @@ import * as actions from '../../actions/index';
 import Popover from '@material-ui/core/Popover/Popover';
 import PropTypes from 'prop-types';
 import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
+import { employeeSearch } from '../../actions/calls/employeeSearch';
 
 const styles = theme => ({
   box: {
@@ -75,17 +76,15 @@ export const PrDelegate = ({
   isDelegated,
   startValue,
   pr,
-  employeeSearch,
   color,
-  employeeSearchClear,
   delegateReviewer
 }) => {
   const [employeeSearchValue, setEmployeeSearchValue] = useState(startValue);
+  const [employeeSearchResults, setEmployeeSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentPr] = useState(pr);
   const [showDefault, setShowDefault] = useState(false);
-
-  employeeSearchClear();
 
   const excludeList = [
     currentPr.employee.id,
@@ -99,8 +98,8 @@ export const PrDelegate = ({
     setShowDefault(true);
     setAnchorEl(event.currentTarget);
     event.target.select();
-    employeeSearchClear();
-    executeSearch(' ');
+    setEmployeeSearchResults([]);
+    executeSearch(' ', setEmployeeSearchResults, setIsLoading);
     event.stopPropagation();
   };
 
@@ -118,14 +117,18 @@ export const PrDelegate = ({
     setEmployeeSearchValue(event.target.value);
     setAnchorEl(event.currentTarget);
     setShowDefault(event.target.value === '');
-    executeSearch(event.target.value === '' ? ' ' : event.target.value);
+    executeSearch(
+      event.target.value === '' ? ' ' : event.target.value,
+      setEmployeeSearchResults,
+      setIsLoading
+    );
   };
 
   const selectedEmployee = employee => event => {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     setEmployeeSearchValue(employeeName);
     delegateReviewer(currentPr.id, employee.id);
-    employeeSearchClear();
+    setEmployeeSearchResults([]);
     handleClose(event);
   };
 
@@ -208,6 +211,8 @@ export const PrDelegate = ({
               excludeList={excludeList}
               selectEmployee={selectedEmployee}
               searchValue={employeeSearchValue}
+              searchResults={employeeSearchResults}
+              isLoading={isLoading}
             />
           </List>
         </Popover>
@@ -226,8 +231,6 @@ export const StyledComponent = withStyles(styles)(PrDelegate);
 export default connect(
   null,
   {
-    employeeSearch: actions.employeeSearch,
-    employeeSearchClear: actions.employeeSearchClear,
     delegateReviewer: actions.delegateReviewer
   }
 )(StyledComponent);

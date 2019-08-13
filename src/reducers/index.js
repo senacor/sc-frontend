@@ -5,7 +5,6 @@ import errors from './errors';
 import login from './login';
 import { language } from './language';
 import isLoading from './isLoading';
-import { employeeSearchResults } from './searchEmployee';
 import { appointmentsSearchResults, selectedDate } from './appointments';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
@@ -21,7 +20,6 @@ const combineReducer = combineReducers({
   isLoading,
   prDetailId,
   newPrId,
-  employeeSearchResults,
   selectedDate,
   sortOrderPrs,
   filter,

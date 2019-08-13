@@ -19,7 +19,7 @@ import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../../helper/date';
 import { injectIntl } from 'react-intl';
-import { UserinfoContext } from '../../App';
+import { MeetingContext, UserinfoContext } from '../../App';
 
 const styles = theme => ({
   nested: {
@@ -44,14 +44,8 @@ const styles = theme => ({
   }
 });
 
-const MeetingDetailsView = ({
-  classes,
-  meeting,
-  pr,
-  click,
-  handleChange,
-  intl
-}) => {
+const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
+  const { value: meeting } = useContext(MeetingContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
