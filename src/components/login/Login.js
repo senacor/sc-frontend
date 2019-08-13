@@ -50,7 +50,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: '30rem',
+    maxWidth: '40rem',
     margin: 'auto'
   },
   formControl: {
@@ -99,6 +99,7 @@ const styles = theme => ({
   },
   languageButton: {
     color: theme.palette.primary,
+    position: 'absolute',
     [theme.breakpoints.down('sm')]: {
       color: theme.palette.contrastText
     }
