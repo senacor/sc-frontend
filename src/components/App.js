@@ -59,7 +59,10 @@ const determineLanguage = lang => {
   return lang;
 };
 
+// TODO: make ErrorContext smart? - distinguish between 500 and lower status,
+// write 'es wurde Feher aufgetreten' only in case >= 500
 export const ErrorContext = newContext({ hasErrors: false, message: '' });
+
 export const MeetingContext = newContext({});
 export const UserinfoContext = newContext({
   userinfo: {},

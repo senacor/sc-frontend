@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { prs, sortOrderPrs, tablePrs } from './prs';
 import { prDetailId, newPrId } from './prDetailId';
-import errors from './errors';
 import login from './login';
 import { language } from './language';
 import isLoading from './isLoading';
@@ -12,7 +11,6 @@ import { filterPossibilities } from './filterPossibilities';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
-  errors,
   prs,
   login,
   language,
