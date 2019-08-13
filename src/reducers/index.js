@@ -10,7 +10,6 @@ import { appointmentsSearchResults, selectedDate } from './appointments';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 import { filterPossibilities } from './filterPossibilities';
-import { savingThreads } from './savingThreads';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -26,7 +25,6 @@ const combineReducer = combineReducers({
   selectedDate,
   sortOrderPrs,
   filter,
-  savingThreads,
   filterPossibilities
 });
 
