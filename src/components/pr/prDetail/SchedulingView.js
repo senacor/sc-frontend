@@ -11,9 +11,7 @@ import { MeetingContext, UserinfoContext } from '../../App';
 const SchedulingView = ({ pr, addPrStatus, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
-  const { value: meeting, setValue: setMeeting } = useContext(
-    MeetingContext.context
-  );
+  const { value: meeting } = useContext(MeetingContext.context);
   const [canRequestMeeting, setCanRequestMeeting] = useState(false);
 
   useEffect(() => {

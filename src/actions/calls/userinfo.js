@@ -65,7 +65,6 @@ export const getUserInfo = async userinfoContext => {
   if (response.ok) {
     const result = await response.json();
     reviewerInfoResponse = result ? result : [];
-    console.log('RESPONSE: ', reviewerInfoResponse);
   } else {
     //TODO: use errorContext? and insert status code with error
   }
@@ -93,7 +92,7 @@ export const getUserInfo = async userinfoContext => {
       // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
       // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
     }
-    console.log('SUPER CONTEXT:', userinfo);
+
     userinfoContext.setValue(userinfo);
   }
 };

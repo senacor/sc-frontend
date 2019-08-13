@@ -8,7 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import PrOverviewReviewer from './pr/PrOverviewReviewer';
 import AppBar from './AppBar/AppBar';
-import './App.css';
+import '../styles/App.css';
 import Login from './login/Login';
 import Logout from './login/Logout';
 import Dashboard from './dashboard/Dashboard';
@@ -19,7 +19,7 @@ import ROUTES from '../helper/routes';
 import ArchivedFiles from './fileStorage/ArchivedFiles';
 import messages_de from '../translations/de.json';
 import messages_en from '../translations/en.json';
-import senacorTheme from '../colors';
+import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
 
 addLocaleData([...locale_en, ...locale_de]);
@@ -59,6 +59,7 @@ const determineLanguage = lang => {
   return lang;
 };
 
+export const AuthorizationContext = newContext(false);
 // TODO: make ErrorContext smart? - distinguish between 500 and lower status,
 // write 'es wurde Feher aufgetreten' only in case >= 500
 export const ErrorContext = newContext({ hasErrors: false, message: '' });
@@ -72,7 +73,7 @@ export const UserinfoContext = newContext({
 
 const App = ({ language }) => {
   return provideContexts(
-    [ErrorContext, MeetingContext, UserinfoContext],
+    [AuthorizationContext, ErrorContext, MeetingContext, UserinfoContext],
     <IntlProvider
       locale={determineLanguage(language)}
       messages={
@@ -123,7 +124,6 @@ const App = ({ language }) => {
                 path={ROUTES.ARCHIVED_PR_TABLE}
                 component={ArchivedFilesWithAppBar}
               />
-
               <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
               <Route path={ROUTES.LOGIN} component={Login} />
               <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
