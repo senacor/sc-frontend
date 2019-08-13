@@ -30,28 +30,3 @@ describe('addFilter', () => {
     ]);
   });
 });
-
-describe('getFilterPossibilities', () => {
-  afterEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
-  });
-
-  it('should dispatch FILTER_POSSIBILITIES_RESPONSE on valid response', async () => {
-    let data = { levels: ['1', '2'] };
-    fetchMock.getOnce('/api/v1/prs/filter', data);
-    const store = mockStore();
-
-    await store.dispatch(getFilterPossibilities());
-
-    expect(store.getActions()).toEqual([
-      {
-        type: dispatchTypes.FILTER_POSSIBILITIES_REQUEST
-      },
-      {
-        type: dispatchTypes.FILTER_POSSIBILITIES_RESPONSE,
-        payload: data
-      }
-    ]);
-  });
-});

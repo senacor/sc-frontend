@@ -7,7 +7,6 @@ import isLoading from './isLoading';
 import { appointmentsSearchResults, selectedDate } from './appointments';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
-import { filterPossibilities } from './filterPossibilities';
 
 const combineReducer = combineReducers({
   appointmentsSearchResults,
@@ -20,8 +19,7 @@ const combineReducer = combineReducers({
   newPrId,
   selectedDate,
   sortOrderPrs,
-  filter,
-  filterPossibilities
+  filter
 });
 
 const app = (state, action) => {

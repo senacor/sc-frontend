@@ -1,33 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PerformanceReviewTable from './PerformanceReviewTable';
 import { connect } from 'react-redux';
-import {
-  getAllPrsForTable,
-  getFilter,
-  getFilterPossibilities,
-  isLoadingAction
-} from '../../reducers/selector';
-import * as actions from '../../actions';
-import withLoading from '../hoc/Loading';
+import { getFilter } from '../../reducers/selector';
 import FILTER_GROUPS from './filterGroups';
 import { isHr } from '../../helper/checkRole';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
-import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
 import { UserinfoContext } from '../App';
+import { getFilterPossibilities } from '../../actions/calls/filter';
+import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-export const OverviewPerformanceReviews = ({
-  filterPossibilities,
-  fetchFilteredPrsForHumanResource,
-  filter,
-  data,
-  intl
-}) => {
+export const OverviewPerformanceReviews = ({ filter, intl }) => {
+  const [filterPossibilities, setFilterPossibilities] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
   const { userroles } = useContext(UserinfoContext.context).value;
   const [columnsToView, setColumnsToView] = useState(null);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getFilterPossibilities(setIsLoading, setFilterPossibilities);
+  }, []);
+
+  useEffect(
+    () => {
+      fetchFilteredPrsForHumanResource(
+        filter,
+        FILTER_GROUPS.EMPLOYEE,
+        setData,
+        setIsLoading
+      );
+    },
+    [filter]
+  );
 
   const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
@@ -66,12 +75,9 @@ export const OverviewPerformanceReviews = ({
     setColumnsToView(content);
   };
 
-  useEffect(
-    () => {
-      fetchFilteredPrsForHumanResource(filter);
-    },
-    [filter]
-  );
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
   if (!filterPossibilities.levels) {
     return null;
@@ -106,25 +112,7 @@ export const OverviewPerformanceReviews = ({
 };
 
 export default injectIntl(
-  connect(
-    state => ({
-      data: getAllPrsForTable(state),
-      filter: getFilter(FILTER_GROUPS.HR)(state),
-      isLoading: isLoadingAction(state, [
-        LoadingEvents.FILTER_POSSIBILITIES,
-        LoadingEvents.FETCH_OWN_PRS
-      ]),
-      filterPossibilities: getFilterPossibilities(state)
-    }),
-    {
-      fetchFilteredPrsForHumanResource:
-        actions.fetchFilteredPrsForHumanResource,
-      getFilterPossibilities: actions.getFilterPossibilities
-    }
-  )(
-    withLoading(props => {
-      props.getFilterPossibilities();
-      props.fetchFilteredPrsForHumanResource(props.filter);
-    })(OverviewPerformanceReviews)
-  )
+  connect(state => ({
+    filter: getFilter(FILTER_GROUPS.HR)(state)
+  }))(OverviewPerformanceReviews)
 );

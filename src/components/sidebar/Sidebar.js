@@ -48,7 +48,6 @@ const styles = () => ({
 export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
-
   useEffect(() => {
     if (userphoto === '') {
       getUserPhoto(userinfoContext);
@@ -154,7 +153,6 @@ export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
             (entry.reviewerCheck &&
               userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
                 0);
-
           return uuu ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem

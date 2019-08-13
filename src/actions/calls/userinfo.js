@@ -92,7 +92,6 @@ export const getUserInfo = async userinfoContext => {
       // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
       // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
     }
-
     userinfoContext.setValue(userinfo);
   }
 };
