@@ -43,45 +43,99 @@ const ButtonsBelowSheet = props => {
   const errorContext = useContext(ErrorContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
+  const handleDraftClick = () => {
+    if (
+      !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+      pr.employee.id === userinfo.userId
+    ) {
+      addReflections(
+        pr.id,
+        pr.firstReflectionField,
+        pr.secondReflectionField,
+        errorContext
+      );
+    } else if (
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
+    ) {
+      addRatings(
+        pr.id,
+        pr.prRating,
+        pr.targetRole,
+        pr.advancementStrategies,
+        errorContext
+      );
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      pr.employee.id === userinfo.userId
+    ) {
+      addFinalCommentEmployee(pr.id, pr.finalCommentEmployee, errorContext);
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      !pr.statusSet.includes('PR_COMPLETED') &&
+      userroles.includes('PR_HR')
+    ) {
+      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
+    }
+  };
+
+  const handleSubmitClick = () => {
+    if (
+      !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+      pr.employee.id === userinfo.userId
+    ) {
+      addReflections(
+        pr.id,
+        pr.firstReflectionField,
+        pr.secondReflectionField,
+        errorContext
+      ).then(() => {
+        addPrStatus(pr.id, 'FILLED_SHEET_EMPLOYEE_SUBMITTED', errorContext);
+      });
+    } else if (
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
+    ) {
+      addRatings(
+        pr.id,
+        pr.prRating,
+        pr.targetRole,
+        pr.advancementStrategies,
+        errorContext
+      ).then(() => {
+        addPrStatus(pr.id, 'FILLED_SHEET_REVIEWER_SUBMITTED', errorContext);
+      });
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      pr.employee.id === userinfo.userId
+    ) {
+      addFinalCommentEmployee(
+        pr.id,
+        pr.finalCommentEmployee,
+        errorContext
+      ).then(() => {
+        addPrStatus(pr.id, 'MODIFICATIONS_ACCEPTED_EMPLOYEE', errorContext);
+      });
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      !pr.statusSet.includes('PR_COMPLETED') &&
+      userroles.includes('PR_HR')
+    ) {
+      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext).then(() => {
+        addPrStatus(pr.id, 'PR_COMPLETED', errorContext);
+      });
+    }
+  };
+
   const createDraftButton = () => {
     return (
       <Button
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
-        onClick={() => {
-          if (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) {
-            addReflections(
-              pr.id,
-              pr.firstReflectionField,
-              pr.secondReflectionField,
-              errorContext
-            );
-          } else if (
-            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
-          ) {
-            addRatings(
-              pr.id,
-              pr.prRating,
-              pr.targetRole,
-              pr.advancementStrategies,
-              errorContext
-            );
-          } else if (
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
-          ) {
-            addFinalCommentEmployee(
-              pr.id,
-              pr.finalCommentEmployee,
-              errorContext
-            );
-          } else if (
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
-            !pr.statusSet.includes('PR_COMPLETED')
-          ) {
-            addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
-          }
-        }}
+        onClick={handleDraftClick}
       >
         {intl.formatMessage({
           id: 'buttonsbelowsheet.draft'
@@ -94,63 +148,7 @@ const ButtonsBelowSheet = props => {
     return (
       <Button
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
-        onClick={() => {
-          if (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) {
-            addReflections(
-              pr.id,
-              pr.firstReflectionField,
-              pr.secondReflectionField,
-              errorContext
-            ).then(() => {
-              addPrStatus(
-                pr.id,
-                'FILLED_SHEET_EMPLOYEE_SUBMITTED',
-                errorContext
-              );
-            });
-          } else if (
-            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
-          ) {
-            addRatings(
-              pr.id,
-              pr.prRating,
-              pr.targetRole,
-              pr.advancementStrategies,
-              errorContext
-            ).then(() => {
-              addPrStatus(
-                pr.id,
-                'FILLED_SHEET_REVIEWER_SUBMITTED',
-                errorContext
-              );
-            });
-          } else if (
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-            !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
-          ) {
-            addFinalCommentEmployee(
-              pr.id,
-              pr.finalCommentEmployee,
-              errorContext
-            ).then(() => {
-              addPrStatus(
-                pr.id,
-                'MODIFICATIONS_ACCEPTED_EMPLOYEE',
-                errorContext
-              );
-            });
-          } else if (
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
-            !pr.statusSet.includes('PR_COMPLETED')
-          ) {
-            addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext).then(
-              () => {
-                addPrStatus(pr.id, 'PR_COMPLETED', errorContext);
-              }
-            );
-          }
-        }}
+        onClick={handleSubmitClick}
       >
         {intl.formatMessage({
           id: 'buttonsbelowsheet.release'
