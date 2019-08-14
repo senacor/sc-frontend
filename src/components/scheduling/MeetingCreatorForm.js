@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { getSelectedDate } from '../../reducers/selector';
 import TextField from '@material-ui/core/TextField';
@@ -40,13 +39,7 @@ const styles = theme => ({
   }
 });
 
-const MeetingCreatorForm = ({
-  prById,
-  fetchAppointments,
-  changeDate,
-  classes,
-  intl
-}) => {
+const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const errorContext = useContext(ErrorContext.context);
@@ -119,7 +112,6 @@ const MeetingCreatorForm = ({
   const setDateTime = (name, value) => {
     if (name === 'date' && moment(value, 'YYYY-MM-DD', true).isValid()) {
       fetchAppointments(value);
-      changeDate(value);
     }
     switch (name) {
       case 'location':
@@ -191,12 +183,7 @@ MeetingCreatorForm.propTypes = {
 
 export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
 export default injectIntl(
-  connect(
-    state => ({
-      getSelectedDateTime: getSelectedDate(state)
-    }),
-    {
-      changeDate: actions.changeDate
-    }
-  )(StyledComponent)
+  connect(state => ({
+    getSelectedDateTime: getSelectedDate(state)
+  }))(StyledComponent)
 );

@@ -6,7 +6,6 @@ export {
   addEmployeeContribution,
   changeRatingTargetRole
 } from './sheet';
-export { appointmentsSearch, changeDate } from './appointments';
 export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';
 export {
   addFilter,
