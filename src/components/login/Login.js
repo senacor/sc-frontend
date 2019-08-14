@@ -56,7 +56,7 @@ const styles = theme => ({
     marginBottom: '15px',
     [theme.breakpoints.down('sm')]: {
       width: '75%',
-      backgroundColor: '#FFF',
+      backgroundColor: theme.palette.primary['W000'],
       borderRadius: '10px',
       padding: '10px'
     },
@@ -66,7 +66,7 @@ const styles = theme => ({
   },
   input: {
     [theme.breakpoints.down('sm')]: {
-      color: 'rgba(0,0,0,1)',
+      color: theme.palette.primary[900],
       '&:before': {
         backgroundColor: 'inherit'
       },
@@ -162,7 +162,7 @@ const Login = ({ location, classes, intl }) => {
           </Hidden>
           <FormControl
             className={classes.formControl}
-            error={Boolean(authorizationContext.value)}
+            error={authorizationContext.value}
           >
             <Input
               name="username"
@@ -177,7 +177,7 @@ const Login = ({ location, classes, intl }) => {
           </FormControl>
           <FormControl
             className={classes.formControl}
-            error={Boolean(authorizationContext.value)}
+            error={authorizationContext.value}
           >
             <Input
               name="password"
@@ -191,7 +191,7 @@ const Login = ({ location, classes, intl }) => {
               startAdornment={<PasswordIcon />}
             />
             <FormHelperText id="name-error-text">
-              {Boolean(authorizationContext.value) &&
+              {authorizationContext.value &&
                 `${intl.formatMessage({
                   id: 'login.failed'
                 })}`}

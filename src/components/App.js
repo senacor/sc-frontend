@@ -3,7 +3,6 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import locale_en from 'react-intl/locale-data/en';
 import locale_de from 'react-intl/locale-data/de';
-import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import PrOverviewReviewer from './pr/PrOverviewReviewer';
@@ -59,6 +58,7 @@ const determineLanguage = lang => {
   return lang;
 };
 
+export const LanguageContext = newContext('de');
 export const AuthorizationContext = newContext(false);
 // TODO: make ErrorContext smart? - distinguish between 500 and lower status,
 // write 'es wurde Feher aufgetreten' only in case >= 500
@@ -72,75 +72,80 @@ export const UserinfoContext = newContext({
   userphoto: ''
 });
 
-const App = ({ language }) => {
+const App = () => {
   return provideContexts(
     [
       AuthorizationContext,
       ErrorContext,
       MeetingContext,
       UserinfoContext,
-      PrContext
+      PrContext,
+      LanguageContext
     ],
-    <IntlProvider
-      locale={determineLanguage(language)}
-      messages={
-        determineLanguage(language) === 'de' ? messages.de : messages.en
-      }
-    >
-      <BrowserRouter>
-        <MuiThemeProvider theme={senacorTheme}>
-          <div style={styles.main}>
-            <Switch>
-              <PrivateRoute
-                exact
-                path={ROUTES.DASHBOARD}
-                component={DashboardWithAppBar}
-              />
-              <PrivateRoute
-                exact
-                path={ROUTES.OWN_PR_TABLE}
-                component={PrOverviewEmployeeAppBar}
-              />
-              <PrivateRoute
-                exact
-                path="/myPrs/:id"
-                component={PerformanceReviewDetail2WithAppBar}
-              />
-              <PrivateRoute
-                exact
-                path={ROUTES.PR_TO_REVIEW_TABLE}
-                component={PrOverviewReviewerAppBar}
-              />
-              <PrivateRoute
-                exact
-                path="/prs/:id"
-                component={PerformanceReviewDetail2WithAppBar}
-              />
-              <PrivateRoute
-                exact
-                path="/prDetail/:id"
-                component={PerformanceReviewDetail2WithAppBar}
-              />
-              <PrivateRoute
-                exact
-                path={ROUTES.HR_PR_TABLE}
-                component={OverviewPrsWithAppBar}
-              />
-              <PrivateRoute
-                exact
-                path={ROUTES.ARCHIVED_PR_TABLE}
-                component={ArchivedFilesWithAppBar}
-              />
-              <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
-              <Route path={ROUTES.LOGIN} component={Login} />
-              <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
-            </Switch>
-          </div>
-        </MuiThemeProvider>
-      </BrowserRouter>
-    </IntlProvider>
+    <LanguageContext.context.Consumer>
+      {context => (
+        <IntlProvider
+          locale={determineLanguage(context.value)}
+          messages={
+            determineLanguage(context.value) === 'de'
+              ? messages.de
+              : messages.en
+          }
+        >
+          <BrowserRouter>
+            <MuiThemeProvider theme={senacorTheme}>
+              <div style={styles.main}>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.DASHBOARD}
+                    component={DashboardWithAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.OWN_PR_TABLE}
+                    component={PrOverviewEmployeeAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/myPrs/:id"
+                    component={PerformanceReviewDetail2WithAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.PR_TO_REVIEW_TABLE}
+                    component={PrOverviewReviewerAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/prs/:id"
+                    component={PerformanceReviewDetail2WithAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/prDetail/:id"
+                    component={PerformanceReviewDetail2WithAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.HR_PR_TABLE}
+                    component={OverviewPrsWithAppBar}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={ROUTES.ARCHIVED_PR_TABLE}
+                    component={ArchivedFilesWithAppBar}
+                  />
+                  <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
+                  <Route path={ROUTES.LOGIN} component={Login} />
+                  <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
+                </Switch>
+              </div>
+            </MuiThemeProvider>
+          </BrowserRouter>
+        </IntlProvider>
+      )}
+    </LanguageContext.context.Consumer>
   );
 };
-export default connect(state => ({
-  language: state.language
-}))(App);
+export default App;

@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { default as fetch } from '../helper/customFetch';
 import * as dispatchTypes from '../helper/dispatchTypes';
 
@@ -7,8 +6,6 @@ export {
   addEmployeeContribution,
   changeRatingTargetRole
 } from './sheet';
-export { changeLanguage } from './language';
-export { login, logout } from './login';
 export { appointmentsSearch, changeDate } from './appointments';
 export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';
 export {

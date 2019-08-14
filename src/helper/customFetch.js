@@ -1,5 +1,3 @@
-import store from '../store';
-import { LOGIN_UNAUTHORIZED } from './dispatchTypes';
 /**
  * supported usage:
  *   fetch('URL', configObj);
@@ -29,14 +27,5 @@ export default function customFetch(
     config.headers,
     additionalHeaders
   );
-  return fetch(url, authenticationConfig).then(response => {
-    if (response.status === 401) {
-      store.dispatch({
-        type: LOGIN_UNAUTHORIZED,
-        payload: response.status
-      });
-    }
-
-    return response;
-  });
+  return fetch(url, authenticationConfig);
 }

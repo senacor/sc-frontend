@@ -8,7 +8,6 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_PRS_REQUEST,
     dispatchTypes.FETCH_OWN_PRS_REQUEST,
     dispatchTypes.FETCH_PRS_HR_REQUEST,
-    dispatchTypes.LOGIN_REQUEST,
     dispatchTypes.FETCH_EMPLOYEES_REQUEST
   ];
   const stopLoading = [
@@ -19,10 +18,7 @@ export const isLoading = (state = [], action) => {
     dispatchTypes.FETCH_PR_BY_ID_RESPONSE,
     dispatchTypes.FETCH_PRS_RESPONSE,
     dispatchTypes.FETCH_OWN_PRS_RESPONSE,
-    dispatchTypes.FETCH_PRS_HR_RESPONSE,
-    dispatchTypes.LOGIN_RESPONSE,
-    dispatchTypes.LOGIN_UNAUTHORIZED,
-    dispatchTypes.LOGOUT
+    dispatchTypes.FETCH_PRS_HR_RESPONSE
   ];
 
   let actionTrigger = action.type.replace('_REQUEST', '');
