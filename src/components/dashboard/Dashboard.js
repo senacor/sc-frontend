@@ -77,7 +77,6 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
             className={classes.card}
             component={NavLink}
             to={'/prs'}
-            style={{ textDecoration: 'none' }}
             onClick={handleClick(defaultFilterService.prsAsReviewerFilter())}
           >
             <CardContent>
@@ -124,7 +123,6 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
             className={classes.card}
             component={NavLink}
             to={'/myPrs'}
-            style={{ textDecoration: 'none' }}
             onClick={handleClick(defaultFilterService.ownIncompletePrsFilter())}
           >
             <CardContent>

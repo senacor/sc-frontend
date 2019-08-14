@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 
 export const getAllPrs = state => Object.values(state.prs);
-export const getSelectedDate = state => state.selectedDate;
 
 export const getFilter = group => {
   return createSelector(

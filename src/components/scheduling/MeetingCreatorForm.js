@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import { getSelectedDate } from '../../reducers/selector';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
@@ -181,9 +179,4 @@ MeetingCreatorForm.propTypes = {
   fetchAppointments: PropTypes.func.isRequired
 };
 
-export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
-export default injectIntl(
-  connect(state => ({
-    getSelectedDateTime: getSelectedDate(state)
-  }))(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(MeetingCreatorForm));
