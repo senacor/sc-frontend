@@ -3,18 +3,15 @@ import { prs, sortOrderPrs, tablePrs } from './prs';
 import login from './login';
 import { language } from './language';
 import isLoading from './isLoading';
-import { appointmentsSearchResults, selectedDate } from './appointments';
 import { filter } from './filter';
 import { LOGIN_UNAUTHORIZED, LOGOUT } from '../helper/dispatchTypes';
 
 const combineReducer = combineReducers({
-  appointmentsSearchResults,
   prs,
   login,
   language,
   tablePrs,
   isLoading,
-  selectedDate,
   sortOrderPrs,
   filter
 });

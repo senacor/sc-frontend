@@ -282,15 +282,13 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
             classes
           )
         : null}
-      {visibilityService.getAction() ? (
-        <PrStatusActionButton
-          label={intl.formatMessage({
-            id: 'meetingdetailsview.newtermin'
-          })}
-          releaseButtonClick={handleChange}
-          inputClass={classes.buttonPosition}
-        />
-      ) : null}
+      <PrStatusActionButton
+        label={intl.formatMessage({
+          id: 'meetingdetailsview.newtermin'
+        })}
+        releaseButtonClick={handleChange}
+        inputClass={classes.buttonPosition}
+      />
     </div>
   );
 };

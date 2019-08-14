@@ -12,7 +12,12 @@ import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
-import { ErrorContext, MeetingContext, PrContext, UserinfoContext } from '../../App';
+import {
+  ErrorContext,
+  MeetingContext,
+  PrContext,
+  UserinfoContext
+} from '../../App';
 import { addPrStatus } from '../../../actions/calls/pr';
 
 const styles = theme => ({
