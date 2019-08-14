@@ -1,6 +1,5 @@
 import { default as fetch } from '../../helper/customFetch';
 import generateMapById from '../../helper/generateMapById';
-import * as dispatchTypes from '../../helper/dispatchTypes';
 
 export const fetchPrById = async (
   prsId,
@@ -98,5 +97,27 @@ export const fetchFilteredPrsForHumanResource = async (
     setIsLoading(false);
   } else {
     //TODO: add error handling
+  }
+};
+
+export const addPr = async (loginName, setLoading, setPr, errorContext) => {
+  setLoading(true);
+
+  const changeResponse = await fetch(`${process.env.REACT_APP_API}/api/v3/pr`, {
+    method: 'post',
+    mode: 'cors'
+  });
+
+  if (changeResponse.ok) {
+    const pr = await changeResponse.json();
+    setPr(pr);
+    setLoading(false);
+  } else {
+    const error = await changeResponse.json();
+    errorContext.setValue({
+      hasErrors: true,
+      message: error.message
+    });
+    setLoading(false);
   }
 };

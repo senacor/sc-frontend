@@ -1,23 +1,36 @@
-import React, { useContext } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
+import React, { useContext, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
-import objectGet from 'object-get';
 import { injectIntl } from 'react-intl';
 import { Redirect } from 'react-router-dom';
-import { UserinfoContext } from '../App';
+import { UserinfoContext, PrContext, ErrorContext } from '../App';
+import { CircularProgress } from '@material-ui/core';
+import { addPr } from '../../actions/calls/pr';
 
 export const RequestPerformanceReview = props => {
-  let { newPrId, intl, addPr } = props;
+  let { intl } = props;
   const { userinfo } = useContext(UserinfoContext.context).value;
-  if (newPrId) {
-    return <Redirect to={`/prDetail/${newPrId}`} />;
+  const { value: pr, setValue: setPr } = useContext(PrContext.context);
+  const errorContext = useContext(ErrorContext.context);
+  const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  const setPrCallback = pr => {
+    setPr(pr);
+    setRedirect(true);
+  };
+
+  if (isLoading) {
+    return <CircularProgress />;
   }
 
-  const hasSupervisor = objectGet(props, 'userinfo.hasSupervisor');
-  const hasPrInProgress = objectGet(props, 'userinfo.hasPrInProgress');
+  if (redirect) {
+    return <Redirect to={`/prDetail/${pr.id}`} />;
+  }
+
+  const hasSupervisor = userinfo.hasSupervisor;
+  const hasPrInProgress = userinfo.hasPrInProgress;
 
   if (!hasSupervisor || hasPrInProgress) {
     let tooltipText = !hasSupervisor
@@ -47,7 +60,14 @@ export const RequestPerformanceReview = props => {
       <Button
         id="addPrButton"
         color="primary"
-        onClick={() => addPr(userinfo.userPrincipalName)}
+        onClick={() =>
+          addPr(
+            userinfo.userPrincipalName,
+            setIsLoading,
+            setPrCallback,
+            errorContext
+          )
+        }
         disabled={!hasSupervisor || hasPrInProgress}
       >
         <Icon>add</Icon>
@@ -59,11 +79,4 @@ export const RequestPerformanceReview = props => {
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({
-      newPrId: state.newPrId
-    }),
-    { addPr: actions.addPr }
-  )(RequestPerformanceReview)
-);
+export default injectIntl(RequestPerformanceReview);

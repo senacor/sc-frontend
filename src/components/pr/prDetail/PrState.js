@@ -5,7 +5,6 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles/index';
-import { getPrDetail } from '../../../reducers/selector';
 import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
@@ -398,9 +397,7 @@ const PrState = ({
 export const StyledComponent = withStyles(styles)(PrState);
 export default injectIntl(
   connect(
-    state => ({
-      prById: getPrDetail()(state)
-    }),
+    state => ({}),
     {
       addPrStatus: actions.addPrStatus
     }

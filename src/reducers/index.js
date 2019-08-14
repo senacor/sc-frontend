@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { prs, sortOrderPrs, tablePrs } from './prs';
-import { prDetailId, newPrId } from './prDetailId';
 import login from './login';
 import { language } from './language';
 import isLoading from './isLoading';
@@ -15,8 +14,6 @@ const combineReducer = combineReducers({
   language,
   tablePrs,
   isLoading,
-  prDetailId,
-  newPrId,
   selectedDate,
   sortOrderPrs,
   filter

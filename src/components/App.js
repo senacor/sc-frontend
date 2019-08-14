@@ -65,6 +65,7 @@ export const AuthorizationContext = newContext(false);
 export const ErrorContext = newContext({ hasErrors: false, message: '' });
 
 export const MeetingContext = newContext({});
+export const PrContext = newContext({});
 export const UserinfoContext = newContext({
   userinfo: {},
   userroles: [],
@@ -73,7 +74,13 @@ export const UserinfoContext = newContext({
 
 const App = ({ language }) => {
   return provideContexts(
-    [AuthorizationContext, ErrorContext, MeetingContext, UserinfoContext],
+    [
+      AuthorizationContext,
+      ErrorContext,
+      MeetingContext,
+      UserinfoContext,
+      PrContext
+    ],
     <IntlProvider
       locale={determineLanguage(language)}
       messages={
