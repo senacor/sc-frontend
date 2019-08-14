@@ -8,10 +8,7 @@ import {
   addReflections,
   addPrStatus
 } from '../../actions/calls/pr';
-import { ErrorContext } from '../App';
-import { UserinfoContext } from '../App';
 import { ErrorContext, PrContext, UserinfoContext } from '../App';
-import { addPrStatus } from '../../actions/calls/pr';
 
 const styles = theme => ({
   rightFloat: {
@@ -43,10 +40,7 @@ const styles = theme => ({
 const ButtonsBelowSheet = props => {
   const { classes, pr, intl } = props;
   const errorContext = useContext(ErrorContext.context);
-  const { classes, pr, savingThreads, intl } = props;
-
   const { setValue: setPr } = useContext(PrContext.context);
-  const errorContext = useContext(ErrorContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
   const handleDraftClick = () => {
@@ -98,7 +92,12 @@ const ButtonsBelowSheet = props => {
         pr.secondReflectionField,
         errorContext
       ).then(() => {
-        addPrStatus(pr.id, 'FILLED_SHEET_EMPLOYEE_SUBMITTED', errorContext);
+        addPrStatus(
+          pr.id,
+          'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+          setPr,
+          errorContext
+        );
       });
     } else if (
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
@@ -111,7 +110,12 @@ const ButtonsBelowSheet = props => {
         pr.advancementStrategies,
         errorContext
       ).then(() => {
-        addPrStatus(pr.id, 'FILLED_SHEET_REVIEWER_SUBMITTED', errorContext);
+        addPrStatus(
+          pr.id,
+          'FILLED_SHEET_REVIEWER_SUBMITTED',
+          setPr,
+          errorContext
+        );
       });
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
@@ -123,7 +127,12 @@ const ButtonsBelowSheet = props => {
         pr.finalCommentEmployee,
         errorContext
       ).then(() => {
-        addPrStatus(pr.id, 'MODIFICATIONS_ACCEPTED_EMPLOYEE', errorContext);
+        addPrStatus(
+          pr.id,
+          'MODIFICATIONS_ACCEPTED_EMPLOYEE',
+          setPr,
+          errorContext
+        );
       });
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
@@ -132,7 +141,7 @@ const ButtonsBelowSheet = props => {
       userroles.includes('PR_HR')
     ) {
       addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext).then(() => {
-        addPrStatus(pr.id, 'PR_COMPLETED', errorContext);
+        addPrStatus(pr.id, 'PR_COMPLETED', setPr, errorContext);
       });
     }
   };

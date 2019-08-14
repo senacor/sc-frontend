@@ -135,25 +135,6 @@ export const addFinalCommentHr = async (
   }
 };
 
-export const addPrStatus = async (prsId, status, errorContext) => {
-  errorContext.setValue({ hasErrors: false, message: '' });
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
-    {
-      method: 'post',
-      mode: 'cors'
-    }
-  );
-  if (response.ok) {
-    //TODO success callback
-  } else {
-    errorContext.setValue({
-      hasErrors: false,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
-    });
-  }
-};
-
 export const fetchFilteredPrs = async (filter, role, setData, setIsLoading) => {
   setIsLoading(true);
 
@@ -248,19 +229,16 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
 };
 
 export const addPrStatus = async (
-  prById,
+  prsId,
   status,
   afterPrFetched,
   errorContext
 ) => {
   const addResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prById.id}/status`,
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
     {
       method: 'post',
-      mode: 'cors',
-      body: JSON.stringify({
-        status
-      })
+      mode: 'cors'
     }
   );
 
@@ -268,7 +246,7 @@ export const addPrStatus = async (
     let response = await addResponse.json();
     console.log('NOTHING WITH THIS RESPONSE??? yes: ', response);
     const setIsLoading = () => {}; //ignoring loading aspect
-    fetchPrById(prById.id, afterPrFetched, setIsLoading, errorContext);
+    fetchPrById(prsId, afterPrFetched, setIsLoading, errorContext);
   } else {
     errorContext.setValue({ hasErrors: true, message: addResponse.status });
   }
