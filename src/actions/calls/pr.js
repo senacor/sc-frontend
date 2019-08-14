@@ -121,3 +121,30 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
     setLoading(false);
   }
 };
+
+export const addPrStatus = async (
+  prById,
+  status,
+  afterPrFetched,
+  errorContext
+) => {
+  const addResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prById.id}/status`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: JSON.stringify({
+        status
+      })
+    }
+  );
+
+  if (addResponse.ok) {
+    let response = await addResponse.json();
+    console.log('NOTHING WITH THIS RESPONSE??? yes: ', response);
+    const setIsLoading = () => {}; //ignoring loading aspect
+    fetchPrById(prById.id, afterPrFetched, setIsLoading, errorContext);
+  } else {
+    errorContext.setValue({ hasErrors: true, message: addResponse.status });
+  }
+};

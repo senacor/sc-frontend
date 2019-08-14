@@ -196,8 +196,7 @@ export default injectIntl(
       getSelectedDateTime: getSelectedDate(state)
     }),
     {
-      changeDate: actions.changeDate,
-      addPrStatus: actions.addPrStatus
+      changeDate: actions.changeDate
     }
   )(StyledComponent)
 );

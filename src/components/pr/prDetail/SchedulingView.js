@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import * as actions from '../../../actions';
-import { connect } from 'react-redux';
-import { isLoading } from '../../../reducers/selector';
 import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
 import MeetingCreator from '../../scheduling/MeetingCreator';
 import { prStatusEnum } from '../../../helper/prStatus';
 import { injectIntl } from 'react-intl';
-import { MeetingContext, UserinfoContext } from '../../App';
+import {
+  MeetingContext,
+  UserinfoContext,
+  PrContext,
+  ErrorContext
+} from '../../App';
+import { addPrStatus } from '../../../actions/calls/pr';
 
-const SchedulingView = ({ pr, addPrStatus, intl }) => {
+const SchedulingView = ({ pr, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const { setValue: setPr } = useContext(PrContext.context);
+  const errorContext = useContext(ErrorContext.context);
 
   const { value: meeting } = useContext(MeetingContext.context);
   const [canRequestMeeting, setCanRequestMeeting] = useState(false);
@@ -43,7 +48,9 @@ const SchedulingView = ({ pr, addPrStatus, intl }) => {
           pr={pr}
           userinfo={userinfo}
           userroles={userroles}
-          click={() => addPrStatus(pr, prStatusEnum.FIXED_DATE)}
+          click={() =>
+            addPrStatus(pr, prStatusEnum.FIXED_DATE, setPr, errorContext)
+          }
           handleChange={() => handleChange()}
         />
       )}
@@ -51,13 +58,4 @@ const SchedulingView = ({ pr, addPrStatus, intl }) => {
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({
-      isLoading: isLoading(state)
-    }),
-    {
-      addPrStatus: actions.addPrStatus
-    }
-  )(SchedulingView)
-);
+export default injectIntl(SchedulingView);

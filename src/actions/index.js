@@ -10,7 +10,6 @@ export {
 export { changeLanguage } from './language';
 export { login, logout } from './login';
 export { appointmentsSearch, changeDate } from './appointments';
-export { addPrStatus } from './status';
 export { fetchFilteredPrsForHumanResource, fetchFilteredPrs } from './prs';
 export {
   addFilter,
@@ -40,43 +39,6 @@ export const fetchPrs = () => async dispatch => {
     dispatch({
       type: dispatchTypes.ERROR_RESPONSE,
       httpCode: response.status
-    });
-  }
-};
-
-export const addPr = loginName => async dispatch => {
-  dispatch({
-    type: dispatchTypes.ADD_PR_REQUEST
-  });
-
-  const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/prs`,
-    {
-      method: 'post',
-      mode: 'cors',
-      body: JSON.stringify({
-        occasion: 'ON_DEMAND',
-        deadline: moment()
-          .add(1, 'months')
-          .format('YYYY-MM-DD'),
-        employeeLogin: loginName
-      })
-    }
-  );
-
-  if (changeResponse.ok) {
-    const pr = await changeResponse.json();
-
-    dispatch({
-      type: dispatchTypes.ADD_PR_RESPONSE,
-      pr
-    });
-  } else {
-    const error = await changeResponse.json();
-    dispatch({
-      type: dispatchTypes.ERROR_RESPONSE,
-      httpCode: changeResponse.status,
-      message: error.message
     });
   }
 };

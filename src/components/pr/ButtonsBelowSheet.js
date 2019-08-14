@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
 import PrStatusActionButton from './prDetail/PrStatusActionButton';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 import { prStatusEnum } from '../../helper/prStatus';
@@ -9,7 +7,8 @@ import { isHr } from '../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';
-import { UserinfoContext } from '../App';
+import { ErrorContext, PrContext, UserinfoContext } from '../App';
+import { addPrStatus } from '../../actions/calls/pr';
 
 const styles = theme => ({
   rightFloat: {
@@ -39,8 +38,10 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, addPrStatus, savingThreads, intl } = props;
+  const { classes, pr, savingThreads, intl } = props;
 
+  const { setValue: setPr } = useContext(PrContext.context);
+  const errorContext = useContext(ErrorContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const checkRequiredFields = (
     employeeContributionRole,
@@ -112,7 +113,7 @@ const ButtonsBelowSheet = props => {
     return (
       <CheckRequiredClick
         onClick={() => {
-          addPrStatus(pr, status);
+          addPrStatus(pr, status, setPr, errorContext);
         }}
         check={() => !requiredFieldsEmpty(status)}
         message={intl.formatMessage({
@@ -132,7 +133,7 @@ const ButtonsBelowSheet = props => {
     return (
       <CheckRequiredClick
         onClick={() => {
-          addPrStatus(pr, status);
+          addPrStatus(pr, status, setPr, errorContext);
         }}
         check={() => !requiredFieldsEmpty(status)}
         message={intl.formatMessage({
@@ -306,12 +307,4 @@ const ButtonsBelowSheet = props => {
   );
 };
 
-export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
-export default injectIntl(
-  connect(
-    state => ({}),
-    {
-      addPrStatus: actions.addPrStatus
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(ButtonsBelowSheet));

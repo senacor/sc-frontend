@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
-import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles/index';
-import * as actions from '../../../actions';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
@@ -14,7 +12,8 @@ import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
-import { MeetingContext, UserinfoContext } from '../../App';
+import { ErrorContext, MeetingContext, PrContext, UserinfoContext } from '../../App';
+import { addPrStatus } from '../../../actions/calls/pr';
 
 const styles = theme => ({
   paper: {
@@ -29,9 +28,10 @@ const PrState = ({
   employeeContributionRole,
   employeeContributionLeader,
   overallComment,
-  addPrStatus,
   intl
 }) => {
+  const { setValue: setPr } = useContext(PrContext.context);
+  const errorContext = useContext(ErrorContext.context);
   const { value: meeting } = useContext(MeetingContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   overallComment = 'COMMENT TURNED OFF...';
@@ -329,7 +329,7 @@ const PrState = ({
     return (
       <CheckRequiredClick
         onClick={() => {
-          addPrStatus(pr, status);
+          addPrStatus(pr, status, setPr, errorContext);
         }}
         check={() => !requiredFieldsEmpty(status)}
         message={intl.formatMessage({
@@ -394,12 +394,4 @@ const PrState = ({
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrState);
-export default injectIntl(
-  connect(
-    state => ({}),
-    {
-      addPrStatus: actions.addPrStatus
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrState));
