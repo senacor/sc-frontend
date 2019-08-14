@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
 import Popover from '@material-ui/core/Popover/Popover';
-import PropTypes from 'prop-types';
 import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
 import { employeeSearch } from '../../actions/calls/employeeSearch';
+import { delegateReviewer } from '../../actions/calls/pr';
+import { ErrorContext, PrContext } from '../App';
 
 const styles = theme => ({
   box: {
@@ -75,15 +74,14 @@ export const PrDelegate = ({
   defaultText,
   isDelegated,
   startValue,
-  pr,
-  color,
-  delegateReviewer
+  color
 }) => {
   const [employeeSearchValue, setEmployeeSearchValue] = useState(startValue);
   const [employeeSearchResults, setEmployeeSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [currentPr] = useState(pr);
+  const { value: currentPr, setValue: setPr } = useContext(PrContext.context);
+  const errorContext = useContext(ErrorContext.context);
   const [showDefault, setShowDefault] = useState(false);
 
   const excludeList = [
@@ -127,7 +125,7 @@ export const PrDelegate = ({
   const selectedEmployee = employee => event => {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     setEmployeeSearchValue(employeeName);
-    delegateReviewer(currentPr.id, employee.id);
+    delegateReviewer(currentPr.id, employee.id, setPr, errorContext);
     setEmployeeSearchResults([]);
     handleClose(event);
   };
@@ -142,7 +140,12 @@ export const PrDelegate = ({
   const resetToSupervisor = () => {
     setAnchorEl(null);
     setShowDefault(false);
-    delegateReviewer(currentPr.id, currentPr.supervisor.id);
+    delegateReviewer(
+      currentPr.id,
+      currentPr.supervisor.id,
+      setPr,
+      errorContext
+    );
   };
 
   useEffect(
@@ -221,16 +224,4 @@ export const PrDelegate = ({
   );
 };
 
-PrDelegate.propTypes = {
-  startValue: PropTypes.string.isRequired,
-  defaultText: PropTypes.string.isRequired,
-  pr: PropTypes.object.isRequired
-};
-
-export const StyledComponent = withStyles(styles)(PrDelegate);
-export default connect(
-  null,
-  {
-    delegateReviewer: actions.delegateReviewer
-  }
-)(StyledComponent);
+export default withStyles(styles)(PrDelegate);

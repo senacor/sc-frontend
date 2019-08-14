@@ -8,7 +8,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EnhancedTableHead from './EnhancedTableHead';
-import { downloadExcel } from '../../actions/excelView';
+import { downloadExcel } from '../../actions/calls/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';

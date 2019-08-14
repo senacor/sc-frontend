@@ -1,5 +1,5 @@
-import { default as fetch } from '../helper/customFetch';
-import { dateString } from '../helper/date';
+import { default as fetch } from '../../helper/customFetch';
+import { dateString } from '../../helper/date';
 
 export const downloadExcel = filter => async dispatch => {
   let query = searchQuery(filter);

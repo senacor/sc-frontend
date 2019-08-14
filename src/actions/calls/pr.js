@@ -148,3 +148,32 @@ export const addPrStatus = async (
     errorContext.setValue({ hasErrors: true, message: addResponse.status });
   }
 };
+
+export const delegateReviewer = async (
+  prId,
+  reviewerId,
+  setPr,
+  errorContext
+) => {
+  const changeResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prId}/delegate`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: reviewerId
+    }
+  );
+
+  await changeResponse.json();
+  if (changeResponse.ok) {
+    //updating PR because of reviewer change
+    fetchPrById(
+      prId,
+      setPr,
+      () => {}, //ignoring loading
+      errorContext
+    );
+  } else {
+    errorContext.setValue({ hasErrors: true, message: changeResponse.status });
+  }
+};
