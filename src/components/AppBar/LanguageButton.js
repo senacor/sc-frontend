@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
+import { LanguageContext } from '../App';
 
-import * as actions from '../../actions/index';
+const LanguageButton = ({ languageButtonClassName }) => {
+  const languageContext = useContext(LanguageContext.context);
 
-const LanguageButton = ({
-  language,
-  changeLanguage,
-  languageButtonClassName
-}) => {
+  const changeLanguage = language => {
+    languageContext.setValue(language);
+    localStorage.setItem('lang', language);
+  };
+
   const handleLanguageChange = () => {
     let localStorageLang = localStorage.getItem('lang');
     if (localStorageLang) {
@@ -18,7 +19,7 @@ const LanguageButton = ({
         changeLanguage('de');
       }
     } else {
-      if (language === 'de') {
+      if (languageContext.value === 'de') {
         changeLanguage('en');
       } else {
         changeLanguage('de');
@@ -28,16 +29,11 @@ const LanguageButton = ({
 
   return (
     <Button onClick={handleLanguageChange} className={languageButtonClassName}>
-      {language}
+      {localStorage.getItem('lang')
+        ? localStorage.getItem('lang')
+        : languageContext.value}
     </Button>
   );
 };
 
-export default connect(
-  state => ({
-    language: state.language
-  }),
-  {
-    changeLanguage: actions.changeLanguage
-  }
-)(LanguageButton);
+export default LanguageButton;

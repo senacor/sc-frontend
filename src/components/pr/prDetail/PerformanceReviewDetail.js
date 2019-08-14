@@ -3,12 +3,12 @@ import PrState from './PrState';
 import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../../actions/calls/meetings';
-import CircularProgress from '../../fileStorage/ArchivedFiles';
 import { fetchPrById } from '../../../actions/calls/pr';
-import { ErrorContext, MeetingContext } from '../../App';
+import { ErrorContext, MeetingContext, PrContext } from '../../App';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const PerformanceReviewDetail = props => {
-  const [pr, setPr] = useState({});
+  const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const [isLoading, setIsLoading] = useState({});
   let errorContext = useContext(ErrorContext.context);
   const { value: meeting, setValue: setMeeting } = useContext(
@@ -35,7 +35,7 @@ const PerformanceReviewDetail = props => {
   return (
     <React.Fragment>
       {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
-      {pr ? <PrState /> : null}
+      {pr ? <PrState prById={pr} /> : null}
       {pr ? <PrTabs pr={pr} meeting={meeting} /> : null}
     </React.Fragment>
   );

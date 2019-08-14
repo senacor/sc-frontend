@@ -10,6 +10,8 @@ import {
 } from '../../actions/calls/pr';
 import { ErrorContext } from '../App';
 import { UserinfoContext } from '../App';
+import { ErrorContext, PrContext, UserinfoContext } from '../App';
+import { addPrStatus } from '../../actions/calls/pr';
 
 const styles = theme => ({
   rightFloat: {
@@ -40,6 +42,10 @@ const styles = theme => ({
 
 const ButtonsBelowSheet = props => {
   const { classes, pr, intl } = props;
+  const errorContext = useContext(ErrorContext.context);
+  const { classes, pr, savingThreads, intl } = props;
+
+  const { setValue: setPr } = useContext(PrContext.context);
   const errorContext = useContext(ErrorContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
@@ -173,5 +179,4 @@ const ButtonsBelowSheet = props => {
   );
 };
 
-export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
-export default injectIntl(StyledComponent);
+export default injectIntl(withStyles(styles)(ButtonsBelowSheet));

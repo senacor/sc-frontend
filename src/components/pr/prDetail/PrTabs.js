@@ -30,7 +30,8 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit
   },
   paper: {
-    backgroundColor: theme.palette.primary['W000']
+    backgroundColor: theme.palette.primary['W000'],
+    margin: 3 * theme.spacing.unit
   },
   indicator: {
     backgroundColor: theme.palette.primary['W000']

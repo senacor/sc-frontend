@@ -1,55 +1,71 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
-import {
-  getAllPrsForTable,
-  getFilter,
-  getFilterPossibilities
-} from '../../reducers/selector';
+import { getFilter } from '../../reducers/selector';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import FILTER_GROUPS from '../humanResources/filterGroups';
-import { LoadingEvents } from '../../helper/loadingEvents';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
-import withLoadingAction from '../hoc/LoadingWithAction';
 import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../App';
+import { fetchFilteredPrs } from '../../actions/calls/pr';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { getFilterPossibilities } from '../../actions/calls/filter';
 
-//TODO: rebuild as functional component (!!! transforming componentDidUpdate to useEffect produces infiniteloop !!!)
-export class PrOverviewReviewer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columnsToView: null
-    };
-  }
+export const PrOverviewReviewer = props => {
+  const [state, setState] = useState({
+    columnsToView: null
+  });
 
-  getColumnDefinitions = () => {
+  const [filterPossibilities, setFilterPossibilities] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  const { userinfo } = useContext(UserinfoContext.context).value;
+  const { username } = userinfo;
+
+  useEffect(
+    () => {
+      fetchFilteredPrs(
+        props.filter,
+        FILTER_GROUPS.REVIEWER,
+        setData,
+        setIsLoading
+      );
+    },
+    [props.filter]
+  );
+
+  useEffect(() => {
+    getFilterPossibilities(setIsLoading, setFilterPossibilities);
+  }, []);
+
+  const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
       FILTER_GROUPS.REVIEWER,
-      this.props.filterPossibilities
+      filterPossibilities
     );
 
     return [
       prTableService.employee(),
       prTableService.deadline(),
-      prTableService.occasion(this.props.intl),
+      prTableService.occasion(props.intl),
       prTableService.projectCst(),
-      prTableService.competence(this.props.intl),
+      prTableService.competence(props.intl),
       prTableService.level(),
       prTableService.supervisor(),
-      prTableService.reviewer(this.props.username),
-      prTableService.result(this.props.intl),
-      prTableService.employeePreparation(this.props.intl),
-      prTableService.reviewerPreparation(this.props.intl),
+      prTableService.reviewer(username),
+      prTableService.result(props.intl),
+      prTableService.employeePreparation(props.intl),
+      prTableService.reviewerPreparation(props.intl),
       prTableService.meeting(),
       prTableService.finalState()
     ];
   };
 
-  getSelectorContent = () => {
-    let columns = this.getColumnDefinitions();
+  const getSelectorContent = () => {
+    let columns = getColumnDefinitions();
     let result = [];
 
     columns.forEach(column => {
@@ -59,64 +75,46 @@ export class PrOverviewReviewer extends React.Component {
     return result;
   };
 
-  handleChange = content => {
-    this.setState({ columnsToView: content });
+  const handleChange = content => {
+    setState({ columnsToView: content });
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.filter !== prevProps.filter) {
-      this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.REVIEWER);
-    }
+  if (isLoading) {
+    return <CircularProgress />;
   }
-  render() {
-    if (!this.props.filterPossibilities.levels) {
-      return null;
-    }
-    const { columnsToView } = this.state;
-    const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
-    return (
-      <Paper>
-        <Grid
-          container
-          direction={'row'}
-          justify={'flex-end'}
-          alignItems={'center'}
-        >
-          <Grid item>
-            <TableColumnSelectorMenu
-              onChange={this.handleChange}
-              content={this.getSelectorContent()}
-            />
-          </Grid>
+
+  if (!filterPossibilities.levels) {
+    return null;
+  }
+
+  const { columnsToView } = state;
+  const columns = columnsToView ? columnsToView : getColumnDefinitions();
+  return (
+    <Paper>
+      <Grid
+        container
+        direction={'row'}
+        justify={'flex-end'}
+        alignItems={'center'}
+      >
+        <Grid item>
+          <TableColumnSelectorMenu
+            onChange={handleChange}
+            content={getSelectorContent()}
+          />
         </Grid>
-        <PerformanceReviewTable
-          columnDefinition={columns}
-          orderBy={1}
-          data={this.props.data}
-        />
-      </Paper>
-    );
-  }
-}
+      </Grid>
+      <PerformanceReviewTable
+        columnDefinition={columns}
+        orderBy={1}
+        data={data}
+      />
+    </Paper>
+  );
+};
 
 export default injectIntl(
-  connect(
-    state => ({
-      data: getAllPrsForTable(state),
-      username: 'smarcin', //TODO: rebuild using context
-      filter: getFilter(FILTER_GROUPS.REVIEWER)(state),
-      filterPossibilities: getFilterPossibilities(state)
-    }),
-    {
-      fetchFilteredPrs: actions.fetchFilteredPrs,
-      getFilterPossibilities: actions.getFilterPossibilities
-    }
-  )(
-    withLoadingAction(props => {
-      props.getFilterPossibilities();
-      props.fetchFilteredPrs(props.filter, FILTER_GROUPS.REVIEWER);
-    })([LoadingEvents.FETCH_OWN_PRS, LoadingEvents.FILTER_POSSIBILITIES])(
-      PrOverviewReviewer
-    )
-  )
+  connect(state => ({
+    filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
+  }))(PrOverviewReviewer)
 );

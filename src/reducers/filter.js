@@ -2,10 +2,7 @@ import {
   ADD_FILTER,
   ADD_SUBFILTER,
   DELETE_SUBFILTER,
-  RESET_FILTERGROUP,
-  LOGIN_UNAUTHORIZED,
-  LOGOUT,
-  LOGIN_RESPONSE
+  RESET_FILTERGROUP
 } from '../helper/dispatchTypes';
 import cloneDeep from '../helper/cloneDeep';
 import HR_ELEMENTS from '../components/humanResources/hrElements';
@@ -28,8 +25,6 @@ const initState = { hr: hr_initDate };
 
 export const filter = (state = initState, action) => {
   switch (action.type) {
-    case LOGIN_RESPONSE:
-      return initState;
     case ADD_FILTER: {
       let newFilterGroup = Object.assign(
         {},
@@ -83,10 +78,6 @@ export const filter = (state = initState, action) => {
       }
       return state;
     }
-    case LOGOUT:
-      return {};
-    case LOGIN_UNAUTHORIZED:
-      return {};
     default:
       return state;
   }

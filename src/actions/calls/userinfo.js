@@ -57,7 +57,7 @@ export const getUserInfo = async userinfoContext => {
   if (response.ok) {
     rolesResponse = await response.json();
     //ROLEHACK: HR
-    rolesResponse.value[0].displayName = 'PR_HR';
+    rolesResponse.value[0].displayName = 'PR_Mitarbeiter';
   }
 
   response = await fetch(`${process.env.REACT_APP_API}/api/v3/user`);
@@ -92,7 +92,6 @@ export const getUserInfo = async userinfoContext => {
       // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
       // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
     }
-
     userinfoContext.setValue(userinfo);
   }
 };

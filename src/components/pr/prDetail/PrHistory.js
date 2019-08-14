@@ -7,8 +7,8 @@ import TableBody from '@material-ui/core/TableBody/TableBody';
 import Table from '@material-ui/core/Table/Table';
 import { DownloadFile } from '../../fileStorage/DownloadFile';
 import { injectIntl } from 'react-intl';
-import CircularProgress from '../../fileStorage/ArchivedFiles';
 import { loadArchivedFilesList } from '../../../actions/calls/fileStorage';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const PrHistory = props => {
   const { intl, employeeId } = props;
