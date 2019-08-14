@@ -23,7 +23,7 @@ import { addPrStatus } from '../../../actions/calls/pr';
 const styles = theme => ({
   paper: {
     backgroundColor: 'inherit',
-    marginBottom: 2 * theme.spacing.unit
+    margin: 3 * theme.spacing.unit
   }
 });
 

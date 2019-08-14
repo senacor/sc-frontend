@@ -12,6 +12,14 @@ import { injectIntl } from 'react-intl';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+  ...theme,
+  paper: {
+    margin: theme.spacing.unit * 3
+  }
+});
 
 export const PrOverviewEmployee = props => {
   const [state, setState] = useState({
@@ -21,6 +29,8 @@ export const PrOverviewEmployee = props => {
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+
+  const { classes } = props;
 
   useEffect(() => {
     getFilterPossibilities(setIsLoading, setFilterPossibilities);
@@ -86,7 +96,7 @@ export const PrOverviewEmployee = props => {
   const columns = columnsToView ? columnsToView : getColumnDefinitions();
 
   return (
-    <Paper>
+    <Paper className={classes.paper}>
       <Grid
         container
         direction={'row'}
@@ -116,5 +126,5 @@ export const PrOverviewEmployee = props => {
 export default injectIntl(
   connect(state => ({
     filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
-  }))(PrOverviewEmployee)
+  }))(withStyles(styles)(PrOverviewEmployee))
 );
