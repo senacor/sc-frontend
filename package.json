@@ -21,13 +21,9 @@
     "react-dom": "16.8.6",
     "react-highlight-words": "0.14.0",
     "react-intl": "^2.9.0",
-    "react-redux": "5.1.1",
     "react-router-dom": "4.3.1",
     "react-scripts": "1.1.5",
     "react-swipe": "5.1.1",
-    "redux": "3.7.2",
-    "redux-logger": "3.0.6",
-    "redux-thunk": "2.3.0",
     "reselect": "3.0.1"
   },
   "scripts": {

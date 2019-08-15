@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import ROUTES from '../../../helper/routes';
 import { isHr } from '../../../helper/checkRole';
-import { connect } from 'react-redux';
 import PrStatusActionButton from './PrStatusActionButton';
 import { injectIntl } from 'react-intl';
 import { UserinfoContext } from '../../App';
@@ -37,9 +36,4 @@ const BackToTableButton = ({ pr, classes, intl }) => {
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({}),
-    null
-  )(BackToTableButton)
-);
+export default injectIntl(BackToTableButton);

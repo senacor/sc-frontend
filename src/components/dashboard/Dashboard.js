@@ -3,11 +3,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
 import { NavLink } from 'react-router-dom';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
-import DefaultFilterService from '../../service/DefaultFilterService';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { injectIntl } from 'react-intl';
@@ -35,15 +32,8 @@ const styles = {
   }
 };
 
-const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
+const Dashboard = ({ classes, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
-
-  const handleClick = payload => () => {
-    resetFilterGroup(payload.filterGroup);
-    addFilter(payload);
-  };
-
-  const defaultFilterService = new DefaultFilterService(userinfo.userId);
 
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
@@ -77,7 +67,6 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
             className={classes.card}
             component={NavLink}
             to={'/prs'}
-            onClick={handleClick(defaultFilterService.prsAsReviewerFilter())}
           >
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -99,7 +88,6 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
             })}
             value={numberOfPrsToReview}
             linkTo={'/prs'}
-            onClick={handleClick(defaultFilterService.prsToReviewFilter())}
             icon={'library_books'}
           />
         ) : null}
@@ -111,9 +99,6 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
             })}
             value={numberOfPrsToSupervise}
             linkTo={'/prs'}
-            onClick={handleClick(
-              defaultFilterService.prsAsSupervisorAndInProgressFilter()
-            )}
             icon={'library_books'}
           />
         ) : null}
@@ -123,7 +108,6 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
             className={classes.card}
             component={NavLink}
             to={'/myPrs'}
-            onClick={handleClick(defaultFilterService.ownIncompletePrsFilter())}
           >
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -180,10 +164,4 @@ const Dashboard = ({ resetFilterGroup, addFilter, classes, intl }) => {
   ) : null;
 };
 
-export const StyledComponent = withStyles(styles)(Dashboard);
-export default injectIntl(
-  connect(
-    state => ({}),
-    { addFilter: actions.addFilter, resetFilterGroup: actions.resetFilterGroup }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(Dashboard));

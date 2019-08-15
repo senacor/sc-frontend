@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { getFilter } from '../../reducers/selector';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
 import FILTER_GROUPS from '../humanResources/filterGroups';
@@ -22,6 +20,7 @@ const styles = theme => ({
 });
 
 export const PrOverviewEmployee = props => {
+  const [filter, setFilter] = useState({});
   const [state, setState] = useState({
     columnsToView: null
   });
@@ -38,20 +37,16 @@ export const PrOverviewEmployee = props => {
 
   useEffect(
     () => {
-      fetchFilteredPrs(
-        props.filter,
-        FILTER_GROUPS.EMPLOYEE,
-        setData,
-        setIsLoading
-      );
+      fetchFilteredPrs(filter, FILTER_GROUPS.EMPLOYEE, setData, setIsLoading);
     },
-    [props.filter]
+    [filter]
   );
 
   const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
-      FILTER_GROUPS.EMPLOYEE,
-      filterPossibilities
+      filterPossibilities,
+      filter,
+      setFilter
     );
 
     return [
@@ -123,8 +118,4 @@ export const PrOverviewEmployee = props => {
   );
 };
 
-export default injectIntl(
-  connect(state => ({
-    filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
-  }))(withStyles(styles)(PrOverviewEmployee))
-);
+export default injectIntl(withStyles(styles)(PrOverviewEmployee));

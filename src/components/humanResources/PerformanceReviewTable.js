@@ -12,6 +12,7 @@ import { downloadExcel } from '../../actions/calls/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';
+import { CircularProgress } from '@material-ui/core';
 
 export function descInteger(a, b, mapper) {
   if (mapper(b) < mapper(a)) {
@@ -113,7 +114,7 @@ class PerformanceReviewTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition, data, isHr, intl } = this.props;
+    const { classes, columnDefinition, data, isHr, intl, isLoading } = this.props;
     const {
       order,
       orderBy,
@@ -134,7 +135,7 @@ class PerformanceReviewTable extends React.Component {
               columnDefinition={columnDefinition}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, sortFunction, sortMapper))
+              {isLoading ? <CircularProgress/> : stableSort(data, getSorting(order, sortFunction, sortMapper))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((line, lineIndex) => {
                   return (

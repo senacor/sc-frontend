@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import * as actions from '../../actions';
-import { getSubFilter } from '../../reducers/selector';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import TextField from '@material-ui/core/TextField/TextField';
@@ -11,6 +7,7 @@ import Icon from '@material-ui/core/Icon/Icon';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import cloneDeep from '../../helper/cloneDeep';
 
 let styles = {
   error: {
@@ -21,10 +18,9 @@ let styles = {
 
 export const DateFilter = ({
   filter,
+  setFilter,
   filterBy,
   filterGroup,
-  deleteFilter,
-  addFilter,
   closeFilter,
   intl,
   classes
@@ -32,7 +28,7 @@ export const DateFilter = ({
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    filter
+    filter[filterBy]
   );
 
   const [values, setValues] = useState(defaultFilter.values);
@@ -46,29 +42,26 @@ export const DateFilter = ({
     return moment(values.From).isBefore(moment(values.To));
   };
 
-  const setFilter = values => {
+  const applyFilter = values => {
     let searchString = Object.keys(values)
       .map(key => {
         return `${filterBy}${key}=${values[key]}`;
       })
       .join('&');
 
-    const filter = {
+    const newFilter = cloneDeep(filter);
+    newFilter[filterBy] = {
       searchString,
       values: values
     };
-    const payload = {
-      filterGroup: filterGroup,
-      filterBy: filterBy,
-      filter: filter
-    };
 
     if (searchString === '') {
-      deleteFilter(payload);
+      delete newFilter[filterBy];
+      setFilter(newFilter);
     } else if (!isValidFilter(values)) {
       return false;
     } else {
-      addFilter(payload);
+      setFilter(newFilter);
     }
     return true;
   };
@@ -86,7 +79,7 @@ export const DateFilter = ({
   };
 
   const execute = () => {
-    if (setFilter(values)) {
+    if (applyFilter(values)) {
       closeFilter();
     } else {
       showError();
@@ -145,20 +138,4 @@ export const DateFilter = ({
   );
 };
 
-DateFilter.propTypes = {
-  filterGroup: PropTypes.string.isRequired,
-  filterBy: PropTypes.string.isRequired
-};
-
-export const StyledComponent = withStyles(styles)(DateFilter);
-export default injectIntl(
-  connect(
-    (state, props) => ({
-      filter: getSubFilter(props.filterGroup, props.filterBy)(state)
-    }),
-    {
-      addFilter: actions.addFilter,
-      deleteFilter: actions.deleteFilter
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(DateFilter));

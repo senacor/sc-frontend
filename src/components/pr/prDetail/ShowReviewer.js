@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PrDelegate from '../PrDelegate';
 import getDisplayName from '../../../helper/getDisplayName';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import { PrContext } from '../../App';
 
 const styles = {
   list: {
@@ -16,6 +17,7 @@ const styles = {
 };
 
 const ShowReviewer = ({ prefix, pr, classes, intl, username }) => {
+  const { setValue: setPr } = useContext(PrContext.context);
   const prDelegable = pr => {
     return (
       pr.supervisor.login === username &&
@@ -41,6 +43,7 @@ const ShowReviewer = ({ prefix, pr, classes, intl, username }) => {
           })}
           isDelegated={pr.supervisor.id !== pr.reviewer.id}
           color={'textSecondary'}
+          updatePr={setPr}
         />
       </ListItem>
     </List>

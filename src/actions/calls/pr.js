@@ -68,7 +68,6 @@ export const fetchFilteredPrs = async (filter, role, setData, setIsLoading) => {
 
 export const fetchFilteredPrsForHumanResource = async (
   filter,
-  role,
   setData,
   setIsLoading
 ) => {
@@ -152,7 +151,7 @@ export const addPrStatus = async (
 export const delegateReviewer = async (
   prId,
   reviewerId,
-  setPr,
+  updatePr,
   errorContext
 ) => {
   const changeResponse = await fetch(
@@ -165,11 +164,11 @@ export const delegateReviewer = async (
   );
 
   await changeResponse.json();
-  if (changeResponse.ok) {
+  if (changeResponse.ok || true) {
     //updating PR because of reviewer change
     fetchPrById(
       prId,
-      setPr,
+      updatePr,
       () => {}, //ignoring loading
       errorContext
     );

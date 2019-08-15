@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles/index';
 import List from '@material-ui/core/List';
@@ -70,5 +69,4 @@ const PrOverallComment = ({
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrOverallComment);
-export default injectIntl(connect((state, props) => ({}))(StyledComponent));
+export default injectIntl(withStyles(styles)(PrOverallComment));

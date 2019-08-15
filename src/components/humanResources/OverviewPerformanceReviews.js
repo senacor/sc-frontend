@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PerformanceReviewTable from './PerformanceReviewTable';
-import { connect } from 'react-redux';
-import { getFilter } from '../../reducers/selector';
-import FILTER_GROUPS from './filterGroups';
 import { isHr } from '../../helper/checkRole';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
 import Paper from '@material-ui/core/Paper/Paper';
@@ -14,7 +11,9 @@ import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export const OverviewPerformanceReviews = ({ filter, intl }) => {
+export const OverviewPerformanceReviews = ({ intl }) => {
+  const [filter, setFilter] = useState({});
+
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,20 +27,16 @@ export const OverviewPerformanceReviews = ({ filter, intl }) => {
 
   useEffect(
     () => {
-      fetchFilteredPrsForHumanResource(
-        filter,
-        FILTER_GROUPS.EMPLOYEE,
-        setData,
-        setIsLoading
-      );
+      fetchFilteredPrsForHumanResource(filter, setData, setIsLoading);
     },
     [filter]
   );
 
   const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
-      FILTER_GROUPS.HR,
-      filterPossibilities
+      filterPossibilities,
+      filter,
+      setFilter
     );
 
     return [
@@ -75,12 +70,13 @@ export const OverviewPerformanceReviews = ({ filter, intl }) => {
     setColumnsToView(content);
   };
 
-  if (isLoading) {
+  console.log('FP: ', filterPossibilities);
+  if (isLoading && !filterPossibilities.levels) {
     return <CircularProgress />;
   }
 
   if (!filterPossibilities.levels) {
-    return null;
+    return <CircularProgress />;
   }
 
   const columns = columnsToView ? columnsToView : getColumnDefinitions();
@@ -101,6 +97,7 @@ export const OverviewPerformanceReviews = ({ filter, intl }) => {
         </Grid>
       </Grid>
       <PerformanceReviewTable
+        isLoading={isLoading}
         columnDefinition={columns}
         orderBy={1}
         data={data}
@@ -111,8 +108,4 @@ export const OverviewPerformanceReviews = ({ filter, intl }) => {
   );
 };
 
-export default injectIntl(
-  connect(state => ({
-    filter: getFilter(FILTER_GROUPS.HR)(state)
-  }))(OverviewPerformanceReviews)
-);
+export default injectIntl(OverviewPerformanceReviews);

@@ -28,7 +28,7 @@ const PerformanceReviewDetail = props => {
     );
   }, []);
 
-  if (isLoading) {
+  if (isLoading || !pr || Object.entries(pr).length === 0) {
     return <CircularProgress />;
   }
 

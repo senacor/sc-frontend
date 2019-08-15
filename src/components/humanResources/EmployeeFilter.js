@@ -1,53 +1,42 @@
 import React from 'react';
-import * as actions from '../../actions';
 import EmployeeSearch from '../employeeSearch/EmployeeSearch';
-import { getSubFilter } from '../../reducers/selector';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField/TextField';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment';
 import { injectIntl } from 'react-intl';
+import cloneDeep from '../../helper/cloneDeep';
 
 export const EmployeeFilter = ({
   filter,
+  setFilter,
   filterBy,
-  filterGroup,
-  addFilter,
   closeFilter,
-  deleteFilter,
   intl
 }) => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    filter
+    filter[filterBy]
   );
   const employeeName = defaultFilter.values;
 
   const selectEmployee = employee => {
     if (employee) {
-      let filter = {
+      const newFilter = cloneDeep(filter);
+      newFilter[filterBy] = {
         searchString: `${filterBy}=${employee.id}`,
         values: `${employee.firstName} ${employee.lastName}`
       };
-      let payload = {
-        filterGroup: filterGroup,
-        filterBy: filterBy,
-        filter: filter
-      };
-      addFilter(payload);
+      setFilter(newFilter);
       closeFilter();
     }
   };
 
   const onDelete = () => {
-    let payload = {
-      filterGroup: filterGroup,
-      filterBy: filterBy
-    };
-    deleteFilter(payload);
+    const newFilter = cloneDeep(filter);
+    delete newFilter[filterBy];
+    setFilter(newFilter);
     closeFilter();
   };
 
@@ -82,19 +71,4 @@ export const EmployeeFilter = ({
   );
 };
 
-EmployeeFilter.propTypes = {
-  filterGroup: PropTypes.string.isRequired,
-  filterBy: PropTypes.string.isRequired
-};
-
-export default injectIntl(
-  connect(
-    (state, props) => ({
-      filter: getSubFilter(props.filterGroup, props.filterBy)(state)
-    }),
-    {
-      addFilter: actions.addFilter,
-      deleteFilter: actions.deleteFilter
-    }
-  )(EmployeeFilter)
-);
+export default injectIntl(EmployeeFilter);

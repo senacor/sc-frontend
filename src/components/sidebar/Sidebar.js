@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,11 +16,10 @@ import { NavLink } from 'react-router-dom';
 import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
-import * as actions from '../../actions';
-import FILTER_GROUPS from '../humanResources/filterGroups';
 import { injectIntl } from 'react-intl';
-import { getUserInfo, getUserPhoto } from '../../actions/calls/userinfo';
+import { getUserInfo } from '../../actions/calls/userinfo';
 import { UserinfoContext } from '../App';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = () => ({
   root: {
@@ -45,13 +43,11 @@ const styles = () => ({
   }
 });
 
-export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
+export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
+  console.log('RERENDERED: ...', userinfoContext);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   useEffect(() => {
-    if (userphoto === '') {
-      getUserPhoto(userinfoContext);
-    }
     getUserInfo(userinfoContext);
   }, []);
 
@@ -73,9 +69,7 @@ export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
         value: '/prs',
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
         reviewerCheck: true,
-        onClick: () => {
-          resetFilterGroup(FILTER_GROUPS.REVIEWER);
-        }
+        onClick: () => {}
       },
       {
         label: intl.formatMessage({
@@ -84,9 +78,7 @@ export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
         icon: <LibraryBooksIcon />,
         value: '/hr/prs',
         roles: [ROLES.PR_HR],
-        onClick: () => {
-          resetFilterGroup(FILTER_GROUPS.HR);
-        }
+        onClick: () => {}
       },
       {
         label: intl.formatMessage({
@@ -104,9 +96,7 @@ export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
-        onClick: () => {
-          resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
-        }
+        onClick: () => {}
       },
       {
         label: intl.formatMessage({
@@ -125,7 +115,7 @@ export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
   const fullName = `${givenName} ${surname}`;
 
   if (!userroles.length) {
-    return null;
+    return <CircularProgress />;
   }
 
   return (
@@ -180,12 +170,4 @@ export const Sidebar = ({ intl, resetFilterGroup, classes }) => {
   );
 };
 
-export const StyledComponent = withStyles(styles)(Sidebar);
-export default injectIntl(
-  connect(
-    state => ({}),
-    {
-      resetFilterGroup: actions.resetFilterGroup
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(Sidebar));

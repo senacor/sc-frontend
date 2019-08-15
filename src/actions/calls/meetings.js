@@ -64,7 +64,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
       const meeting = await response.json();
       setMeeting(meeting);
       return;
-      //TODO: continue here, send request to change status
+      //TODO: send request to change status
       // return addPrStatus(meeting_details.prById, prStatusEnum.REQUESTED_DATE)(
       //   dispatch
       // );

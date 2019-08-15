@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
@@ -172,11 +171,6 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
       ) : null}
     </div>
   );
-};
-
-MeetingCreatorForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-  fetchAppointments: PropTypes.func.isRequired
 };
 
 export default injectIntl(withStyles(styles)(MeetingCreatorForm));

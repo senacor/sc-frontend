@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import * as actions from '../../actions';
-import { getSubFilter } from '../../reducers/selector';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Checkbox from '@material-ui/core/Checkbox/Checkbox';
-import ListItemText from '@material-ui/core/ListItemText/ListItemText';
-import ListItem from '@material-ui/core/ListItem/ListItem';
-import List from '@material-ui/core/List/List';
-import Divider from '@material-ui/core/Divider/Divider';
-import Icon from '@material-ui/core/Icon/Icon';
 import { Button } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import Icon from '@material-ui/core/Icon';
+import ListItem from '@material-ui/core/ListItem';
+import cloneDeep from '../../helper/cloneDeep';
 
-export const ListFilter = props => {
+export const ListFilter = ({ setFilter, filterBy, content, filter, closeFilter }) => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
-    props.filter
+    filter[filterBy]
   );
   const defaultChecked =
-    defaultFilter.values === ''
-      ? Object.keys(props.content)
-      : defaultFilter.values;
+    defaultFilter.values === '' ? Object.keys(content) : defaultFilter.values;
 
-  //const [filter, setFilter] = useState(defaultFilter);
   const [checked, setChecked] = useState(defaultChecked);
   const [isAllSelected, setIsAllSelected] = useState(
-    defaultChecked.length === Object.keys(props.content).length
+    defaultChecked.length === Object.keys(content).length
   );
 
   useEffect(() => {
@@ -44,7 +38,7 @@ export const ListFilter = props => {
 
   const isFilterSet = checked => {
     return !(
-      checked.length === Object.keys(props.content).length ||
+      checked.length === Object.keys(content).length ||
       isFilterEmpty(checked)
     );
   };
@@ -58,7 +52,7 @@ export const ListFilter = props => {
     let newChecked;
 
     if (newAllSelect === true) {
-      newChecked = Object.keys(props.content);
+      newChecked = Object.keys(content);
     } else {
       newChecked = [];
     }
@@ -91,7 +85,7 @@ export const ListFilter = props => {
       setIsAllSelected(false);
     } else {
       // everything is set in filter
-      setChecked(Object.keys(props.content));
+      setChecked(Object.keys(content));
       setIsAllSelected(true);
     }
 
@@ -102,23 +96,21 @@ export const ListFilter = props => {
   };
 
   const applyFilter = () => {
-    let searchString = `${props.filterBy}=`;
+    let searchString = `${filterBy}=`;
     searchString += checked
       .map(value => {
-        return props.content[value];
+        return content[value];
       })
-      .join(`&${props.filterBy}=`);
+      .join(`&${filterBy}=`);
 
-    let filter = {
+    const newFilter = cloneDeep(filter);
+    newFilter[filterBy] = {
       searchString,
       values: checked
     };
-    let payload = {
-      filterGroup: props.filterGroup,
-      filterBy: props.filterBy,
-      filter: filter
-    };
-    props.addFilter(payload);
+    console.log('NEW FILTER: ', newFilter);
+    setFilter(newFilter);
+    closeFilter();
   };
 
   const showSelectAll = () => {
@@ -155,7 +147,7 @@ export const ListFilter = props => {
     <List id={'filterList'} onKeyPress={handleKeyPress}>
       {showSelectAll()}
       <Divider />
-      {Object.keys(props.content).map(showContent)}
+      {Object.keys(content).map(showContent)}
       <Divider />
       <Button
         onClick={applyFilter}
@@ -170,19 +162,3 @@ export const ListFilter = props => {
     </List>
   );
 };
-
-ListFilter.propTypes = {
-  filterGroup: PropTypes.string.isRequired,
-  filterBy: PropTypes.string.isRequired,
-  content: PropTypes.object.isRequired
-};
-
-export default connect(
-  (state, props) => ({
-    filter: getSubFilter(props.filterGroup, props.filterBy)(state)
-  }),
-  {
-    addFilter: actions.addFilter,
-    deleteFilter: actions.deleteFilter
-  }
-)(ListFilter);

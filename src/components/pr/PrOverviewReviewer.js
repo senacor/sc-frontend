@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { getFilter } from '../../reducers/selector';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
@@ -14,6 +12,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 
 export const PrOverviewReviewer = props => {
+  const [filter, setFilter] = useState({});
+
   const [state, setState] = useState({
     columnsToView: null
   });
@@ -25,26 +25,21 @@ export const PrOverviewReviewer = props => {
   const { userinfo } = useContext(UserinfoContext.context).value;
   const { username } = userinfo;
 
-  useEffect(
-    () => {
-      fetchFilteredPrs(
-        props.filter,
-        FILTER_GROUPS.REVIEWER,
-        setData,
-        setIsLoading
-      );
-    },
-    [props.filter]
-  );
-
   useEffect(() => {
     getFilterPossibilities(setIsLoading, setFilterPossibilities);
   }, []);
 
+  const loadFilteredPrs = () => {
+    fetchFilteredPrs(filter, FILTER_GROUPS.REVIEWER, setData, setIsLoading);
+  };
+
+  useEffect(loadFilteredPrs, [filter]);
+
   const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
-      FILTER_GROUPS.REVIEWER,
-      filterPossibilities
+      filterPossibilities,
+      filter,
+      setFilter
     );
 
     return [
@@ -55,7 +50,7 @@ export const PrOverviewReviewer = props => {
       prTableService.competence(props.intl),
       prTableService.level(),
       prTableService.supervisor(),
-      prTableService.reviewer(username),
+      prTableService.reviewer(username, loadFilteredPrs),
       prTableService.result(props.intl),
       prTableService.employeePreparation(props.intl),
       prTableService.reviewerPreparation(props.intl),
@@ -113,8 +108,4 @@ export const PrOverviewReviewer = props => {
   );
 };
 
-export default injectIntl(
-  connect(state => ({
-    filter: getFilter(FILTER_GROUPS.REVIEWER)(state)
-  }))(PrOverviewReviewer)
-);
+export default injectIntl(PrOverviewReviewer);

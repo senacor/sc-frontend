@@ -9,7 +9,7 @@ import Popover from '@material-ui/core/Popover/Popover';
 import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
 import { employeeSearch } from '../../actions/calls/employeeSearch';
 import { delegateReviewer } from '../../actions/calls/pr';
-import { ErrorContext, PrContext } from '../App';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   box: {
@@ -74,15 +74,17 @@ export const PrDelegate = ({
   defaultText,
   isDelegated,
   startValue,
+  updatePr,
+  pr,
   color
 }) => {
   const [employeeSearchValue, setEmployeeSearchValue] = useState(startValue);
   const [employeeSearchResults, setEmployeeSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const { value: currentPr, setValue: setPr } = useContext(PrContext.context);
   const errorContext = useContext(ErrorContext.context);
   const [showDefault, setShowDefault] = useState(false);
+  const currentPr = pr;
 
   const excludeList = [
     currentPr.employee.id,
@@ -125,7 +127,7 @@ export const PrDelegate = ({
   const selectedEmployee = employee => event => {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     setEmployeeSearchValue(employeeName);
-    delegateReviewer(currentPr.id, employee.id, setPr, errorContext);
+    delegateReviewer(currentPr.id, employee.id, updatePr, errorContext);
     setEmployeeSearchResults([]);
     handleClose(event);
   };
@@ -143,7 +145,7 @@ export const PrDelegate = ({
     delegateReviewer(
       currentPr.id,
       currentPr.supervisor.id,
-      setPr,
+      updatePr,
       errorContext
     );
   };
