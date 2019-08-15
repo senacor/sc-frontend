@@ -137,18 +137,18 @@ class PerformanceReviewTable extends React.Component {
     return (
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={this.handleRequestSort}
-              columnDefinition={columnDefinition}
-            />
-            <TableBody>
-              {isLoading ? (
-                <CircularProgress />
-              ) : (
-                stableSort(data, getSorting(order, sortFunction, sortMapper))
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={this.handleRequestSort}
+                columnDefinition={columnDefinition}
+              />
+              <TableBody>
+                {stableSort(data, getSorting(order, sortFunction, sortMapper))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((line, lineIndex) => {
                     return (
@@ -166,10 +166,10 @@ class PerformanceReviewTable extends React.Component {
                         }, this)}
                       </TableRow>
                     );
-                  })
-              )}
-            </TableBody>
-          </Table>
+                  })}
+              </TableBody>
+            </Table>
+          )}
         </div>
         <TablePagination
           component="div"
