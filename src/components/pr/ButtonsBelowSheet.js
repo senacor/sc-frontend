@@ -43,7 +43,7 @@ const ButtonsBelowSheet = props => {
   const { setValue: setPr } = useContext(PrContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
-  const validateInputs = () => {
+  const validateReflectionInputs = () => {
     if (!pr.firstReflectionField) {
       errors = { ...errors, firstReflectionField: true };
     }
@@ -55,6 +55,24 @@ const ButtonsBelowSheet = props => {
     }
     if (pr.secondReflectionField) {
       errors = { ...errors, secondReflectionField: false };
+    }
+
+    if (Object.values(errors).includes(true)) {
+      errorContext.setValue({
+        hasErrors: true,
+        message: 'errorMessage...',
+        errors: errors
+      });
+      return true;
+    }
+  };
+
+  const validateOverallAssessment = () => {
+    if (!pr.prRating.overallAssessment.fulfillmentOfRequirement.comment) {
+      errors = { ...errors, overallAssessmentComment: true };
+    }
+    if (pr.prRating.overallAssessment.fulfillmentOfRequirement.comment) {
+      errors = { ...errors, overallAssessmentComment: false };
     }
 
     if (Object.values(errors).includes(true)) {
@@ -110,7 +128,7 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
       pr.employee.id === userinfo.userId
     ) {
-      if (!validateInputs()) {
+      if (!validateReflectionInputs()) {
         addReflections(
           pr.id,
           pr.firstReflectionField,
@@ -129,20 +147,22 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
     ) {
-      addRatings(
-        pr.id,
-        pr.prRating,
-        pr.targetRole,
-        pr.advancementStrategies,
-        errorContext
-      ).then(() => {
-        addPrStatus(
+      if (!validateOverallAssessment()) {
+        addRatings(
           pr.id,
-          'FILLED_SHEET_REVIEWER_SUBMITTED',
-          setPr,
+          pr.prRating,
+          pr.targetRole,
+          pr.advancementStrategies,
           errorContext
-        );
-      });
+        ).then(() => {
+          addPrStatus(
+            pr.id,
+            'FILLED_SHEET_REVIEWER_SUBMITTED',
+            setPr,
+            errorContext
+          );
+        });
+      }
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&

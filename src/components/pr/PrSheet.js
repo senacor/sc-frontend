@@ -235,7 +235,10 @@ const PrSheet = props => {
               }
               targetRoles={pr.targetRole}
               isReadOnly={false}
-              isError={false}
+              isError={
+                errorContext.value.errors &&
+                errorContext.value.errors.overallAssessmentComment
+              }
               hidden={false}
               actionText={changeFulfillmentOfRequirementComment}
               actionRating={changeFulfillmentOfRequirementRating}
