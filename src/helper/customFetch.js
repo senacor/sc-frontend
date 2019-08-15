@@ -1,14 +1,5 @@
-/**
- * supported usage:
- *   fetch('URL', configObj);
- *
- *   where configObj is something like:
- *   {
- *     method,
- *     headers,
- *     body
- *   }
- */
+import { logout } from '../actions/calls/login';
+
 export default function customFetch(
   url,
   config = {},
@@ -27,5 +18,10 @@ export default function customFetch(
     config.headers,
     additionalHeaders
   );
-  return fetch(url, authenticationConfig);
+  return fetch(url, authenticationConfig).then(response => {
+    if (response.status === 401) {
+      logout();
+    }
+    return response;
+  });
 }

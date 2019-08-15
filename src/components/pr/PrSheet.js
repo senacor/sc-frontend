@@ -284,11 +284,11 @@ const PrSheet = props => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <h3>
+          <h4>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
-          </h3>
+          </h4>
         </Grid>
         <Grid item xs={12}>
           <PrTextField
@@ -327,11 +327,11 @@ const PrSheet = props => {
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <h3>
+            <h4>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
-            </h3>
+            </h4>
           </Grid>
           <Grid item xs={12}>
             <PrOverallAssessment
@@ -354,11 +354,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <h3>
+            <h4>
               {intl.formatMessage({
                 id: 'prsheet.measures'
               })}
-            </h3>
+            </h4>
           </Grid>
           <Grid item xs={12}>
             <PrTextField
@@ -427,11 +427,11 @@ const PrSheet = props => {
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <h3>
+            <h4>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
-            </h3>
+            </h4>
           </Grid>
           <Grid item xs={2}>
             <Typography
@@ -485,11 +485,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <h3>
+            <h4>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
-            </h3>
+            </h4>
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
@@ -517,11 +517,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <h3>
+            <h4>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
-            </h3>
+            </h4>
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
@@ -549,11 +549,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <h3>
+            <h4>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}
-            </h3>
+            </h4>
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating

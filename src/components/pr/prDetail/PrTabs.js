@@ -11,18 +11,6 @@ import Paper from '@material-ui/core/Paper';
 import PrSheet from '../PrSheet';
 import SchedulingView from './SchedulingView';
 
-const TabContainer = props => {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-};
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired
-};
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -41,8 +29,23 @@ const styles = theme => ({
   },
   tabsBackground: {
     backgroundColor: theme.palette.primary[400]
+  },
+  spacing: {
+    padding: 3 * theme.spacing.unit
   }
 });
+
+const TabContainer = ({ spacing, children }) => {
+  return (
+    <Typography component="div" className={spacing}>
+      {children}
+    </Typography>
+  );
+};
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 const PrTabs = ({ classes, intl, pr }) => {
   const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
@@ -86,12 +89,12 @@ const PrTabs = ({ classes, intl, pr }) => {
         </Tabs>
       </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
-        <TabContainer>
+        <TabContainer spacing={classes.spacing}>
           <PrSheet pr={pr} />
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
-        <TabContainer>
+        <TabContainer spacing={classes.spacing}>
           <SchedulingView pr={pr} />
         </TabContainer>
       )}
