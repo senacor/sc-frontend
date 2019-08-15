@@ -38,27 +38,33 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, intl, errors, setErrors } = props;
-  const errorContext = useContext(ErrorContext.context);
+  const { classes, pr, intl, errorContext } = props;
+  let { errors } = props;
   const { setValue: setPr } = useContext(PrContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
   const validateInputs = () => {
     if (!pr.firstReflectionField) {
-      setErrors({ ...errors, firstReflectionField: true });
+      errors = { ...errors, firstReflectionField: true };
     }
     if (pr.firstReflectionField) {
-      setErrors({ ...errors, firstReflectionField: false });
+      errors = { ...errors, firstReflectionField: false };
     }
     if (!pr.secondReflectionField) {
-      setErrors({ ...errors, secondReflectionField: true });
+      errors = { ...errors, secondReflectionField: true };
     }
     if (pr.secondReflectionField) {
-      setErrors({ ...errors, secondReflectionField: false });
+      errors = { ...errors, secondReflectionField: false };
     }
-    console.log('errors', errors);
-    //return Object.values(errors).includes(true);
-    return !pr.firstReflectionField || !pr.secondReflectionField;
+
+    if (Object.values(errors).includes(true)) {
+      errorContext.setValue({
+        hasErrors: true,
+        message: 'errorMessage...',
+        errors: errors
+      });
+      return true;
+    }
   };
 
   const handleDraftClick = () => {
