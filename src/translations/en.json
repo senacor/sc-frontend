@@ -179,8 +179,6 @@
   "prstate.finish": "Complete",
   "prstate.fillrequired": "Please fill in all required fields.",
   "prstate.progress": "Progress of the review process",
-  "prstate.saving": "...saving...",
-  "prstate.saved": "All changes saved.",
   "prtabs.details": "Details",
   "prtabs.findtermin": "Find date",
   "showreviewer.nothandedover": "Not committed",

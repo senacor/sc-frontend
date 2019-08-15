@@ -179,8 +179,6 @@
   "prstate.finish": "Abschliessen",
   "prstate.fillrequired": "Bitte alle Pflichtfelder ausfüllen.",
   "prstate.progress": "Fortschritt des Reviewprozesses",
-  "prstate.saving": "...speichert...",
-  "prstate.saved": "Alle Änderungen gespeichert.",
   "prtabs.details": "Details",
   "prtabs.findtermin": "Terminfindung",
   "showreviewer.nothandedover": "Nicht übergeben",

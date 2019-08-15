@@ -1,7 +1,4 @@
 import React, { useContext } from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles/index';
 import { prStatusEnum } from '../../../helper/prStatus';
@@ -10,7 +7,6 @@ import PrStatusStepper from './PrStateStepper';
 import { isHr } from '../../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
-import Typography from '@material-ui/core/Typography';
 import { injectIntl } from 'react-intl';
 import {
   ErrorContext,
@@ -19,11 +15,15 @@ import {
   UserinfoContext
 } from '../../App';
 import { addPrStatus } from '../../../actions/calls/pr';
+import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
   paper: {
-    backgroundColor: 'inherit',
+    backgroundColor: theme.palette.primary['W000'],
     margin: 3 * theme.spacing.unit
+  },
+  spacing: {
+    padding: 3 * theme.spacing.unit
   }
 });
 
@@ -364,37 +364,23 @@ const PrState = ({
 
   const activeStep = calculateActiveStep(prStatusesDone, stepStructure);
 
-  //TODO: here change savingInfo based on saving/saved status sending draft
-  // let savingInfo =
-  //   savingThreads > 0
-  //     ? intl.formatMessage({
-  //         id: 'prstate.saving'
-  //       })
-  //     : intl.formatMessage({
-  //         id: 'prstate.saved'
-  //       });
-  let savingInfo = intl.formatMessage({
-    id: 'prstate.saving'
-  });
-
   return (
     <Paper className={classes.paper}>
-      <List>
-        <ListItem>
-          <ListItemText>
+      <div className={classes.spacing}>
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
             {intl.formatMessage({
               id: 'prstate.progress'
             })}
-          </ListItemText>
-          <Typography>{savingInfo}</Typography>
-        </ListItem>
-        <ListItem>
-          <PrStatusStepper
-            stepStructure={stepStructure}
-            activeStep={activeStep}
-          />
-        </ListItem>
-      </List>
+          </Grid>
+          <Grid item xs={12}>
+            <PrStatusStepper
+              stepStructure={stepStructure}
+              activeStep={activeStep}
+            />
+          </Grid>
+        </Grid>
+      </div>
     </Paper>
   );
 };

@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core';
 
 const styles = {
   cell: {
-    textAlign: 'left'
+    textAlign: 'center'
   }
 };
 
