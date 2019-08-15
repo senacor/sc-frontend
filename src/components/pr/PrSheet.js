@@ -28,7 +28,7 @@ const styles = () => ({
 
 const PrSheet = props => {
   const { classes, intl, pr } = props;
-  const { userroles } = useContext(UserinfoContext.context).value;
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const errorContext = useContext(ErrorContext.context);
 
   console.log('errors', errorContext.value.errors);
@@ -166,6 +166,26 @@ const PrSheet = props => {
     return null;
   }
 
+  const readOnly = input => {
+    switch (input) {
+      case 'REFLECTIONS_EMPLOYEE':
+        return (
+          pr.employee.id !== userinfo.userId ||
+          pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
+        );
+      case 'FINAL_COMMENT_EMPLOYEE':
+        return (
+          pr.employee.id !== userinfo.userId ||
+          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
+        );
+      case 'FINAL_COMMENT_HR':
+        return pr.statusSet.includes('PR_COMPLETED');
+      default:
+        return true;
+    }
+  };
+
   let step1employee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
@@ -185,7 +205,7 @@ const PrSheet = props => {
               id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
             })}
             text={pr.firstReflectionField}
-            isReadOnly={false}
+            isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
             isError={
               errorContext.value.errors &&
               errorContext.value.errors.firstReflectionField
@@ -202,7 +222,7 @@ const PrSheet = props => {
               id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
             })}
             text={pr.secondReflectionField}
-            isReadOnly={false}
+            isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
             isError={
               errorContext.value.errors &&
               errorContext.value.errors.secondReflectionField
@@ -287,7 +307,7 @@ const PrSheet = props => {
               id: 'prfinalcommentemployee.notes'
             })}
             text={pr.finalCommentEmployee}
-            isReadOnly={false}
+            isReadOnly={readOnly('FINAL_COMMENT_EMPLOYEE')}
             isError={false}
             action={changeFinalCommentEmployee}
           />
@@ -308,7 +328,7 @@ const PrSheet = props => {
               id: 'prfinalcommenthr.hronly'
             })}
             text={pr.finalCommentHr}
-            isReadOnly={false}
+            isReadOnly={readOnly('FINAL_COMMENT_HR')}
             isError={false}
             action={changeFinalCommentHr}
           />
