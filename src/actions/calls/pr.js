@@ -29,6 +29,112 @@ export const fetchPrById = async (
   }
 };
 
+export const addReflections = async (
+  prsId,
+  firstReflectionField,
+  secondReflectionField,
+  errorContext
+) => {
+  errorContext.setValue({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/reflections`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: JSON.stringify({
+        firstReflectionField: firstReflectionField,
+        secondReflectionField: secondReflectionField
+      })
+    }
+  );
+  if (response.ok) {
+    //TODO success callback
+  } else {
+    errorContext.setValue({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
+
+export const addRatings = async (
+  prsId,
+  rating,
+  targetRole,
+  advancementStrategies,
+  errorContext
+) => {
+  errorContext.setValue({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: JSON.stringify({
+        rating: rating,
+        targetRole: targetRole,
+        advancementStrategies: advancementStrategies
+      })
+    }
+  );
+  if (response.ok) {
+    //TODO success callback
+  } else {
+    errorContext.setValue({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
+
+export const addFinalCommentEmployee = async (
+  prsId,
+  finalCommentEmployee,
+  errorContext
+) => {
+  errorContext.setValue({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: finalCommentEmployee
+    }
+  );
+  if (response.ok) {
+    //TODO success callback
+  } else {
+    errorContext.setValue({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
+
+export const addFinalCommentHr = async (
+  prsId,
+  finalCommentHr,
+  errorContext
+) => {
+  errorContext.setValue({ hasErrors: false, message: '' });
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: finalCommentHr
+    }
+  );
+  if (response.ok) {
+    //TODO success callback
+  } else {
+    errorContext.setValue({
+      hasErrors: false,
+      message: 'Es wurde Fehler aufgetreten: ' + response.status
+    });
+  }
+};
+
 export const fetchFilteredPrs = async (filter, role, setData, setIsLoading) => {
   setIsLoading(true);
 
@@ -122,19 +228,16 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
 };
 
 export const addPrStatus = async (
-  prById,
+  prsId,
   status,
   afterPrFetched,
   errorContext
 ) => {
   const addResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prById.id}/status`,
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
     {
       method: 'post',
-      mode: 'cors',
-      body: JSON.stringify({
-        status
-      })
+      mode: 'cors'
     }
   );
 
@@ -142,7 +245,7 @@ export const addPrStatus = async (
     let response = await addResponse.json();
     console.log('NOTHING WITH THIS RESPONSE??? yes: ', response);
     const setIsLoading = () => {}; //ignoring loading aspect
-    fetchPrById(prById.id, afterPrFetched, setIsLoading, errorContext);
+    fetchPrById(prsId, afterPrFetched, setIsLoading, errorContext);
   } else {
     errorContext.setValue({ hasErrors: true, message: addResponse.status });
   }

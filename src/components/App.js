@@ -62,7 +62,8 @@ export const LanguageContext = newContext('de');
 export const AuthorizationContext = newContext(false);
 // TODO: make ErrorContext smart? - distinguish between 500 and lower status,
 // write 'es wurde Feher aufgetreten' only in case >= 500
-export const ErrorContext = newContext({ hasErrors: false, message: '' });
+export const ErrorContext = newContext({ hasErrors: false, message: '', errors: {} });
+
 export const MeetingContext = newContext({});
 export const PrContext = newContext({});
 export const UserinfoContext = newContext({
@@ -135,9 +136,9 @@ const App = () => {
                     path={ROUTES.ARCHIVED_PR_TABLE}
                     component={ArchivedFilesWithAppBar}
                   />
-                  <PrivateRoute path={ROUTES.LOGOUT} component={Logout}/>
-                  <Route path={ROUTES.LOGIN} component={Login}/>
-                  <Route render={() => <Redirect to={ROUTES.DASHBOARD}/>}/>
+                  <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
+                  <Route path={ROUTES.LOGIN} component={Login} />
+                  <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
                 </Switch>
               </div>
             </MuiThemeProvider>

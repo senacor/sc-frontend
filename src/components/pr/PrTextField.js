@@ -31,7 +31,7 @@ const PrTextField = ({
             helperText={intl.formatMessage({
               id: 'prtextfield.error'
             })}
-            value={text}
+            defaultValue={text}
             onChange={event => action(event.target.value)}
           />
         </Grid>
@@ -52,7 +52,7 @@ const PrTextField = ({
             variant="outlined"
             inputProps={{ 'aria-label': 'bare', readOnly: true }}
             helperText={helperText}
-            value={text}
+            defaultValue={text}
             onChange={event => action(event.target.value)}
           />
         </Grid>
