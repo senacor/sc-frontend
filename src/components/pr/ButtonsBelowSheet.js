@@ -38,10 +38,28 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, intl } = props;
+  const { classes, pr, intl, errors, setErrors } = props;
   const errorContext = useContext(ErrorContext.context);
   const { setValue: setPr } = useContext(PrContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+
+  const validateInputs = () => {
+    if (!pr.firstReflectionField) {
+      setErrors({ ...errors, firstReflectionField: true });
+    }
+    if (pr.firstReflectionField) {
+      setErrors({ ...errors, firstReflectionField: false });
+    }
+    if (!pr.secondReflectionField) {
+      setErrors({ ...errors, secondReflectionField: true });
+    }
+    if (pr.secondReflectionField) {
+      setErrors({ ...errors, secondReflectionField: false });
+    }
+    console.log('errors', errors);
+    //return Object.values(errors).includes(true);
+    return !pr.firstReflectionField || !pr.secondReflectionField;
+  };
 
   const handleDraftClick = () => {
     if (
@@ -86,19 +104,21 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
       pr.employee.id === userinfo.userId
     ) {
-      addReflections(
-        pr.id,
-        pr.firstReflectionField,
-        pr.secondReflectionField,
-        errorContext
-      ).then(() => {
-        addPrStatus(
+      if (!validateInputs()) {
+        addReflections(
           pr.id,
-          'FILLED_SHEET_EMPLOYEE_SUBMITTED',
-          setPr,
+          pr.firstReflectionField,
+          pr.secondReflectionField,
           errorContext
-        );
-      });
+        ).then(() => {
+          addPrStatus(
+            pr.id,
+            'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+            setPr,
+            errorContext
+          );
+        });
+      }
     } else if (
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
@@ -149,8 +169,8 @@ const ButtonsBelowSheet = props => {
   const createDraftButton = () => {
     return (
       <Button
-        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
         onClick={handleDraftClick}
+        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
       >
         {intl.formatMessage({
           id: 'buttonsbelowsheet.draft'

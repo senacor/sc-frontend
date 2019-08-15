@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -147,7 +147,10 @@ const PrSheet = props => {
   const { classes, intl, pr } = props;
   const { userroles } = useContext(UserinfoContext.context).value;
 
+  const [errors, setErrors] = useState({});
+
   const changeFirstReflectionField = value => {
+    console.log('tu som')
     pr.firstReflectionField = value;
   };
 
@@ -275,7 +278,7 @@ const PrSheet = props => {
     }
   };
 
-  console.log('PR IS: ', pr);
+  //console.log('PR IS: ', pr);
   if (!pr) {
     return null;
   }
@@ -300,7 +303,7 @@ const PrSheet = props => {
             })}
             text={pr.firstReflectionField}
             isReadOnly={false}
-            isError={false}
+            isError={errors.firstReflectionField}
             action={changeFirstReflectionField}
           />
         </Grid>
@@ -314,7 +317,7 @@ const PrSheet = props => {
             })}
             text={pr.secondReflectionField}
             isReadOnly={false}
-            isError={false}
+            isError={errors.secondReflectionField}
             action={changeSecondReflectionField}
           />
         </Grid>
@@ -619,7 +622,7 @@ const PrSheet = props => {
           </Grid>
         </Hidden>
         <Grid item xs={12}>
-          <ButtonsBelowSheet pr={pr} />
+          <ButtonsBelowSheet pr={pr} errors={errors} setErrors={setErrors} />
         </Grid>
       </Grid>
     </div>
