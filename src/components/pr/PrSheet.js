@@ -275,7 +275,6 @@ const PrSheet = props => {
     }
   };
 
-  console.log('PR IS: ', pr);
   if (!pr) {
     return null;
   }

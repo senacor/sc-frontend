@@ -6,7 +6,7 @@ export const loadAllArchivedFilesList = async (
 ) => {
   setIsLoading(true);
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/hr/download`
+    `${process.env.REACT_APP_API}/api/v3/hr/downloadInfo`
   );
   if (response.ok) {
     const result = await response.json();
