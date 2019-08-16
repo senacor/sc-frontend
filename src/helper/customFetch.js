@@ -1,4 +1,5 @@
-import { logout } from '../actions/calls/login';
+import React from 'react';
+import Logout from '../components/login/Logout';
 
 export default function customFetch(
   url,
@@ -20,7 +21,7 @@ export default function customFetch(
   );
   return fetch(url, authenticationConfig).then(response => {
     if (response.status === 401) {
-      logout();
+      return <Logout />;
     }
     return response;
   });

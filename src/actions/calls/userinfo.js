@@ -5,7 +5,7 @@ import {
 import ROLES from '../../helper/roles';
 import cloneDeep from '../../helper/cloneDeep';
 
-export const getUserInfo = async userinfoContext => {
+export const getUserInfo = async (userinfoContext, authorizationContext) => {
   let userinfo = cloneDeep(userinfoContext.value);
   let userinfoResponse = null;
   let rolesResponse = null;
@@ -23,12 +23,14 @@ export const getUserInfo = async userinfoContext => {
     rolesResponse = await response.json();
     //ROLEHACK: HR
     rolesResponse.value[0].displayName = 'PR_HR';
+  } else {
+    authorizationContext.setValue(true);
+    return;
   }
 
   if (rolesResponse != null) {
     userinfo.userroles = convertGroupsToArray(rolesResponse);
   }
-  console.log('>>>  got USERROLES');
   userinfoContext.setValue(userinfo);
   userinfo = cloneDeep(userinfo);
 
@@ -54,7 +56,6 @@ export const getUserInfo = async userinfoContext => {
       ''
     );
   }
-  console.log('>>>  got USERINFO');
   userinfoContext.setValue(userinfo);
   userinfo = cloneDeep(userinfo);
 
@@ -75,7 +76,6 @@ export const getUserInfo = async userinfoContext => {
       // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
       // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
     }
-    console.log('>>>  got REVIEWERINFO');
     userinfoContext.setValue(userinfo);
   }
 

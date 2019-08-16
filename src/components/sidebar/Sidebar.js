@@ -18,7 +18,7 @@ import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { injectIntl } from 'react-intl';
 import { getUserInfo } from '../../actions/calls/userinfo';
-import { UserinfoContext } from '../App';
+import { AuthorizationContext, UserinfoContext } from '../App';
 import { CircularProgress } from '@material-ui/core';
 
 const styles = () => ({
@@ -45,10 +45,10 @@ const styles = () => ({
 
 export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
-  console.log('RERENDERED: ...', userinfoContext);
+  const authContext = useContext(AuthorizationContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   useEffect(() => {
-    getUserInfo(userinfoContext);
+    getUserInfo(userinfoContext, authContext);
   }, []);
 
   const getListOfMenuItems = () => {

@@ -43,7 +43,7 @@ export const fetchFilteredPrs = async (filter, role, setData, setIsLoading) => {
   }
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/prs?role=${role}${query}`
+    `${process.env.REACT_APP_API}/api/v3/pr/all?role=${role}${query}`
   );
 
   if (response.ok) {
@@ -80,10 +80,10 @@ export const fetchFilteredPrsForHumanResource = async (
         return filter[key].searchString;
       })
       .join('&');
-    query = filterString ? '?' + filterString : '';
+    query = filterString ? filterString : '';
   }
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/prs?role=HR&${query}`
+    `${process.env.REACT_APP_API}/api/v3/pr/all?role=HR&${query}`
   );
 
   if (response.ok) {
@@ -140,7 +140,6 @@ export const addPrStatus = async (
 
   if (addResponse.ok) {
     let response = await addResponse.json();
-    console.log('NOTHING WITH THIS RESPONSE??? yes: ', response);
     const setIsLoading = () => {}; //ignoring loading aspect
     fetchPrById(prById.id, afterPrFetched, setIsLoading, errorContext);
   } else {

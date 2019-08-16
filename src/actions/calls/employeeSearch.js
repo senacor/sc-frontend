@@ -11,7 +11,7 @@ export const employeeSearch = async (
   employeeSearchRequestCounter++;
   let currentRequest = employeeSearchRequestCounter;
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/employees?query=${searchEmployee}`
+    `${process.env.REACT_APP_API}/api/v3/employees?query=${searchEmployee}`
   );
   if (currentRequest === employeeSearchRequestCounter) {
     if (response.ok) {

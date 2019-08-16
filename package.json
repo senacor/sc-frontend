@@ -90,6 +90,9 @@
     },
     "api/v3/employee": {
       "target": "http://localhost:8020"
+    },
+    "/api/v3/employees": {
+      "target": "http://localhost:8020"
     }
   },
   "jest": {
