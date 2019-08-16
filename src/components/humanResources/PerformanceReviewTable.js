@@ -48,6 +48,9 @@ function getSorting(order, sortFunction, mapper) {
 }
 
 const styles = theme => ({
+  cell: {
+    textAlign: 'center'
+  },
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3
@@ -114,7 +117,14 @@ class PerformanceReviewTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition, data, isHr, intl, isLoading } = this.props;
+    const {
+      classes,
+      columnDefinition,
+      data,
+      isHr,
+      intl,
+      isLoading
+    } = this.props;
     const {
       order,
       orderBy,
@@ -135,21 +145,29 @@ class PerformanceReviewTable extends React.Component {
               columnDefinition={columnDefinition}
             />
             <TableBody>
-              {isLoading ? <CircularProgress/> : stableSort(data, getSorting(order, sortFunction, sortMapper))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((line, lineIndex) => {
-                  return (
-                    <TableRow hover tabIndex={-1} key={lineIndex}>
-                      {columnDefinition.map((column, columnIndex) => {
-                        return (
-                          <TableCell padding={'checkbox'} key={columnIndex}>
-                            {column.render(line)}
-                          </TableCell>
-                        );
-                      }, this)}
-                    </TableRow>
-                  );
-                })}
+              {isLoading ? (
+                <CircularProgress />
+              ) : (
+                stableSort(data, getSorting(order, sortFunction, sortMapper))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((line, lineIndex) => {
+                    return (
+                      <TableRow hover tabIndex={-1} key={lineIndex}>
+                        {columnDefinition.map((column, columnIndex) => {
+                          return (
+                            <TableCell
+                              className={classes.cell}
+                              padding={'none'}
+                              key={columnIndex}
+                            >
+                              {column.render(line)}
+                            </TableCell>
+                          );
+                        }, this)}
+                      </TableRow>
+                    );
+                  })
+              )}
             </TableBody>
           </Table>
         </div>
