@@ -173,14 +173,26 @@ const PrSheet = props => {
           pr.employee.id !== userinfo.userId ||
           pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
         );
+      case 'RATINGS_REVIEWER':
+        return (
+          !userroles.includes('PR_CST_Leiter') ||
+          pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')
+        );
       case 'FINAL_COMMENT_EMPLOYEE':
         return (
           pr.employee.id !== userinfo.userId ||
-          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
-          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
         );
       case 'FINAL_COMMENT_HR':
-        return pr.statusSet.includes('PR_COMPLETED');
+        return (
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
+          !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+          pr.statusSet.includes('PR_COMPLETED')
+        );
       default:
         return true;
     }
@@ -254,7 +266,7 @@ const PrSheet = props => {
                 pr.prRating.overallAssessment.fulfillmentOfRequirement.rating
               }
               targetRoles={pr.targetRole}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={
                 errorContext.value.errors &&
                 errorContext.value.errors.overallAssessmentComment
@@ -284,7 +296,7 @@ const PrSheet = props => {
                 id: 'pradvancementstrategies.helpertext'
               })}
               text={pr.advancementStrategies}
-              isReadOnly={false}
+              isReadOnly={readOnly('RATINGS_REVIEWER')}
               isError={false}
               action={changeAdvancementStrategies}
             />
@@ -368,7 +380,7 @@ const PrSheet = props => {
               category="PROBLEM_ANALYSIS"
               text={pr.prRating.performanceInProject.problemAnalysis.comment}
               rating={pr.prRating.performanceInProject.problemAnalysis.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeProblemAnalysisComment}
               actionRating={changeProblemAnalysisRating}
@@ -379,7 +391,7 @@ const PrSheet = props => {
               category="WORK_RESULTS"
               text={pr.prRating.performanceInProject.workResults.comment}
               rating={pr.prRating.performanceInProject.workResults.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeWorkResultsComment}
               actionRating={changeWorkResultsRating}
@@ -390,7 +402,7 @@ const PrSheet = props => {
               category="WORKING_MANNER"
               text={pr.prRating.performanceInProject.workingManner.comment}
               rating={pr.prRating.performanceInProject.workingManner.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeWorkingMannerComment}
               actionRating={changeWorkingMannerRating}
@@ -411,7 +423,7 @@ const PrSheet = props => {
               category="CUSTOMER_INTERACTION"
               text={pr.prRating.impactOnCostumer.customerInteraction.comment}
               rating={pr.prRating.impactOnCostumer.customerInteraction.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeCustomerInteractionComment}
               actionRating={changeCustomerInteractionRating}
@@ -422,7 +434,7 @@ const PrSheet = props => {
               category="CUSTOMER_RETENTION"
               text={pr.prRating.impactOnCostumer.customerRetention.comment}
               rating={pr.prRating.impactOnCostumer.customerRetention.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeCustomerRetentionComment}
               actionRating={changeCustomerRetentionRating}
@@ -443,7 +455,7 @@ const PrSheet = props => {
               category="TEAMWORK"
               text={pr.prRating.impactOnTeam.teamWork.comment}
               rating={pr.prRating.impactOnTeam.teamWork.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeTeamWorkComment}
               actionRating={changeTeamWorkRating}
@@ -454,7 +466,7 @@ const PrSheet = props => {
               category="LEADERSHIP"
               text={pr.prRating.impactOnTeam.leadership.comment}
               rating={pr.prRating.impactOnTeam.leadership.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeLeadershipComment}
               actionRating={changeLeadershipRating}
@@ -481,7 +493,7 @@ const PrSheet = props => {
                 pr.prRating.impactOnCompany.contributionToCompanyDevelopment
                   .rating
               }
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeContributionToCompanyDevelopmentComment}
               actionRating={changeContributionToCompanyDevelopmentRating}

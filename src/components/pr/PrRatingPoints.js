@@ -29,7 +29,7 @@ const PrRatingPoints = ({
     }
   };
 
-  if (isReadOnly) {
+  if (isReadOnly('RATINGS_REVIEWER')) {
     return (
       <TextField
         readOnly

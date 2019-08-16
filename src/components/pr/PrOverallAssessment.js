@@ -60,7 +60,7 @@ const PrOverallAssessment = props => {
             id: 'proverallcomment.requirements'
           })}
           text={text}
-          isReadOnly={isReadOnly}
+          isReadOnly={isReadOnly('RATINGS_REVIEWER')}
           isError={isError}
           action={actionText}
         />

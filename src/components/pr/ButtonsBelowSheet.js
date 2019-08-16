@@ -192,10 +192,28 @@ const ButtonsBelowSheet = props => {
     }
   };
 
+  const disabled = () => {
+    if (userroles.includes('PR_Mitarbeiter')) {
+      return (
+        (pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
+        pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
+      );
+    } else if (userroles.includes('PR_CST_Leiter')) {
+      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+    } else if (userroles.includes('PR_HR')) {
+      return (
+        !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
+        pr.statusSet.includes('PR_COMPLETED')
+      );
+    }
+  };
+
   const createDraftButton = () => {
     return (
       <Button
         onClick={handleDraftClick}
+        disabled={disabled()}
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
       >
         {intl.formatMessage({
@@ -209,6 +227,7 @@ const ButtonsBelowSheet = props => {
     return (
       <Button
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
+        disabled={disabled()}
         onClick={handleSubmitClick}
       >
         {intl.formatMessage({
