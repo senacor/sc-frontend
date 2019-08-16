@@ -97,6 +97,7 @@ const ButtonsBelowSheet = props => {
         errorContext
       );
     } else if (
+      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
     ) {
@@ -144,6 +145,7 @@ const ButtonsBelowSheet = props => {
         });
       }
     } else if (
+      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
     ) {
@@ -209,7 +211,7 @@ const ButtonsBelowSheet = props => {
     }
   };
 
-  const createDraftButton = () => {
+  const createSaveButton = () => {
     return (
       <Button
         onClick={handleDraftClick}
@@ -237,18 +239,10 @@ const ButtonsBelowSheet = props => {
     );
   };
 
-  const createButtonsForRole = (pr, userroles) => {
-    return (
-      <div>
-        {createSubmitButton()}
-        {createDraftButton()}
-      </div>
-    );
-  };
-
   return (
     <div className={classes.container}>
-      {createButtonsForRole(pr, userroles)}
+      {createSubmitButton()}
+      {createSaveButton()}
     </div>
   );
 };
