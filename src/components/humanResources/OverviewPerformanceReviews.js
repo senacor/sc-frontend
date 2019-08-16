@@ -70,7 +70,6 @@ export const OverviewPerformanceReviews = ({ intl }) => {
     setColumnsToView(content);
   };
 
-  console.log('FP: ', filterPossibilities);
   if (isLoading && !filterPossibilities.levels) {
     return <CircularProgress />;
   }
