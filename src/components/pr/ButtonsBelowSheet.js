@@ -211,6 +211,25 @@ const ButtonsBelowSheet = props => {
     }
   };
 
+  const submitButtonText = () => {
+    if (
+      (userroles.includes('PR_Mitarbeiter') &&
+        pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) ||
+      (userroles.includes('PR_CST_Leiter') &&
+        pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')) ||
+      (userroles.includes('PR_HR') &&
+        pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE'))
+    ) {
+      return intl.formatMessage({
+        id: 'buttonsbelowsheet.finish'
+      });
+    }
+
+    return intl.formatMessage({
+      id: 'buttonsbelowsheet.release'
+    });
+  };
+
   const createSaveButton = () => {
     return (
       <Button
@@ -232,9 +251,7 @@ const ButtonsBelowSheet = props => {
         disabled={disabled()}
         onClick={handleSubmitClick}
       >
-        {intl.formatMessage({
-          id: 'buttonsbelowsheet.release'
-        })}
+        {submitButtonText()}
       </Button>
     );
   };
