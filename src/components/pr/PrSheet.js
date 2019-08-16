@@ -13,7 +13,7 @@ import { isHr } from '../../helper/checkRole';
 import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
 import { UserinfoContext } from '../App';
 
-const styles = () => ({
+const styles = theme => ({
   paddingBottom: {
     paddingBottom: 24
   },
@@ -23,6 +23,10 @@ const styles = () => ({
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
+  },
+  title: {
+    fontSize: 20,
+    paddingTop: 2 * theme.spacing.unit
   }
 });
 
@@ -283,11 +287,11 @@ const PrSheet = props => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <h4>
+          <Typography variant="div" className={classes.title}>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
-          </h4>
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <PrTextField
@@ -326,11 +330,11 @@ const PrSheet = props => {
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <h4>
+            <Typography variant="div" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
-            </h4>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PrOverallAssessment
@@ -353,11 +357,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <h4>
+            <Typography variant="div" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.measures'
               })}
-            </h4>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PrTextField
@@ -426,11 +430,11 @@ const PrSheet = props => {
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <h4>
+            <Typography variant="div" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
-            </h4>
+            </Typography>
           </Grid>
           <Grid item xs={2}>
             <Typography
@@ -484,11 +488,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <h4>
+            <Typography variant="div" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
-            </h4>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
@@ -516,11 +520,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <h4>
+            <Typography variant="div" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
-            </h4>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
@@ -548,11 +552,11 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <h4>
+            <Typography variant="div" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}
-            </h4>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PrReviewerRating
