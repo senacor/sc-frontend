@@ -19,8 +19,13 @@ const styles = theme => ({
 const ArchivedFiles = ({ intl }) => {
   const [archivedFiles, setArchivedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
+
+  const loadAllArchivedFiles = () => {
     loadAllArchivedFilesList(setArchivedFiles, setIsLoading);
+  };
+
+  useEffect(() => {
+    loadAllArchivedFiles();
   }, []);
 
   const getColumnDefinitions = intl => {
@@ -64,7 +69,7 @@ const ArchivedFiles = ({ intl }) => {
 
   return (
     <Paper style={{ margin: '20px' }}>
-      <UploadFiles />
+      <UploadFiles updateFileList={loadAllArchivedFiles} />
       {isLoading ? (
         <CircularProgress />
       ) : (
