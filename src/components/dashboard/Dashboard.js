@@ -63,11 +63,7 @@ const Dashboard = ({ classes, intl }) => {
         ) : null}
 
         {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={'/prs'}
-          >
+          <Card className={classes.card} component={NavLink} to={'/prs'}>
             <CardContent>
               <Typography variant="h5" component="h2">
                 {numberOfPrsToReview}
@@ -104,11 +100,7 @@ const Dashboard = ({ classes, intl }) => {
         ) : null}
 
         {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={'/myPrs'}
-          >
+          <Card className={classes.card} component={NavLink} to={'/myPrs'}>
             <CardContent>
               <Typography variant="h5" component="h2">
                 {prsNotFilledByEmployee}
