@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
@@ -24,6 +25,9 @@ const styles = theme => ({
   },
   spacing: {
     padding: 3 * theme.spacing.unit
+  },
+  title: {
+    fontSize: 20
   }
 });
 
@@ -369,9 +373,11 @@ const PrState = ({
       <div className={classes.spacing}>
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            {intl.formatMessage({
-              id: 'prstate.progress'
-            })}
+            <Typography variant="div" className={classes.title}>
+              {intl.formatMessage({
+                id: 'prstate.progress'
+              })}
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PrStatusStepper

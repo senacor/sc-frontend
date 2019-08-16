@@ -108,7 +108,6 @@ export const ListFilter = ({ setFilter, filterBy, content, filter, closeFilter }
       searchString,
       values: checked
     };
-    console.log('NEW FILTER: ', newFilter);
     setFilter(newFilter);
     closeFilter();
   };
