@@ -287,7 +287,7 @@ const PrSheet = props => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <Typography variant="div" className={classes.title}>
+          <Typography variant="body1" className={classes.title}>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
@@ -330,7 +330,7 @@ const PrSheet = props => {
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
@@ -357,7 +357,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.measures'
               })}
@@ -430,7 +430,7 @@ const PrSheet = props => {
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
@@ -488,7 +488,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
@@ -520,7 +520,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
@@ -552,7 +552,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}

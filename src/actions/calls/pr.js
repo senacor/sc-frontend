@@ -139,7 +139,6 @@ export const addPrStatus = async (
   );
 
   if (addResponse.ok) {
-    let response = await addResponse.json();
     const setIsLoading = () => {}; //ignoring loading aspect
     fetchPrById(prById.id, afterPrFetched, setIsLoading, errorContext);
   } else {

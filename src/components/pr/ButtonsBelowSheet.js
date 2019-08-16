@@ -38,7 +38,7 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, savingThreads, intl } = props;
+  const { classes, pr, intl } = props;
 
   const { setValue: setPr } = useContext(PrContext.context);
   const errorContext = useContext(ErrorContext.context);
@@ -99,14 +99,11 @@ const ButtonsBelowSheet = props => {
       false === fieldFilled.reviewer
     ) {
       return true;
-    } else if (
-      prStatusEnum.FINALIZED_REVIEWER === status &&
-      false === fieldFilled.reviewer
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    } else
+      return (
+        prStatusEnum.FINALIZED_REVIEWER === status &&
+        false === fieldFilled.reviewer
+      );
   };
 
   const getActionPerformerButton = (pr, status, label) => {
@@ -291,20 +288,7 @@ const ButtonsBelowSheet = props => {
     }
   };
 
-  return (
-    <div className={classes.container}>
-      <Typography>
-        {savingThreads > 0
-          ? intl.formatMessage({
-              id: 'prstate.saving'
-            })
-          : intl.formatMessage({
-              id: 'prstate.saved'
-            })}
-      </Typography>
-      {findButtonsForRole(pr, userroles, userinfo)}
-    </div>
-  );
+  return <Typography>{findButtonsForRole(pr, userroles, userinfo)}</Typography>;
 };
 
 export default injectIntl(withStyles(styles)(ButtonsBelowSheet));
