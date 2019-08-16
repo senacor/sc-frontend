@@ -8,7 +8,7 @@ import {
   addReflections,
   addPrStatus
 } from '../../actions/calls/pr';
-import { ErrorContext, PrContext, UserinfoContext } from '../App';
+import { PrContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   rightFloat: {
