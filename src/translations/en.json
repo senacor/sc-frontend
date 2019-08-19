@@ -156,6 +156,7 @@
   "prdetailinformation.reviewer": "Evaluator:",
   "prhistory.date": "Date",
   "prhistory.link": "Link",
+  "prhistory.noArchivedFiles": "No archived PRs found",
   "prstate.offportalarranged": "Appointment was scheduled outside the portal",
   "prstate.agreed": "Participants have agreed",
   "prstate.cancelled": "Appointment canceled",

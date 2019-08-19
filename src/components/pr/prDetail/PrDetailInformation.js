@@ -40,7 +40,7 @@ const styles = theme => ({
   },
   buttonDesktop: {
     position: 'relative',
-    backgroundColor: theme.palette.primary['400'],
+    backgroundColor: theme.palette.primary[400],
     color: '#FFF',
     marginBottom: '2%',
     marginTop: '12%'
