@@ -56,10 +56,8 @@ export const EmployeeFilter = ({
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton>
-                  <Icon id="adornmentIcon" onClick={onDelete}>
-                    clear
-                  </Icon>
+                <IconButton onClick={onDelete}>
+                  <Icon id="adornmentIcon">clear</Icon>
                 </IconButton>
               </InputAdornment>
             ),
