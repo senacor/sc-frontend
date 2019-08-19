@@ -34,7 +34,7 @@ const PrOverallFulfillment = ({
     setRatingState(value);
   };
 
-  if (isReadOnly) {
+  if (isReadOnly('RATINGS_REVIEWER')) {
     return (
       <Grid container spacing={16}>
         <Grid item xs={10}>
@@ -48,7 +48,7 @@ const PrOverallFulfillment = ({
         </Grid>
         <Grid item xs={2}>
           <Typography variant="body1">
-            {isReadOnly
+            {isReadOnly('RATINGS_REVIEWER')
               ? mapRatingFullfilment(ratingState, intl)
               : intl.formatMessage({
                   id: 'proverallfulfillment.noentry'

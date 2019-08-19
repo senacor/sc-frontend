@@ -51,7 +51,7 @@ const Dashboard = ({ classes, intl }) => {
           >
             <CardContent>
               <Typography variant="h5" component="h2">
-                {formatDateForFrontend(userinfo.deadlineOfNewestOpenPr)}
+                {formatDateForFrontend(userinfo.deadlineOfNewestPr)}
               </Typography>
               <Typography className={classes.title} color="textSecondary">
                 {intl.formatMessage({

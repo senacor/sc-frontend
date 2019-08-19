@@ -373,7 +373,7 @@ const PrState = ({
       <div className={classes.spacing}>
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prstate.progress'
               })}

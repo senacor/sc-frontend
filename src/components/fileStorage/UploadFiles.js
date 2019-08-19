@@ -17,7 +17,7 @@ const styles = theme => ({
   }
 });
 
-export const UploadFiles = ({ classes, intl }) => {
+export const UploadFiles = ({ classes, intl, updateFileList }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,6 +27,7 @@ export const UploadFiles = ({ classes, intl }) => {
 
   const handleClose = () => {
     setUploadedFiles([]);
+    updateFileList();
   };
 
   return (

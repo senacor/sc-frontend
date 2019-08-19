@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const TargetRole = ({ classes, intl, targetRoles, action }) => {
+const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
   const [plattformGestalter, setPlattformGestalter] = useState(
     targetRoles.plattformGestalter
   );
@@ -135,6 +135,7 @@ const TargetRole = ({ classes, intl, targetRoles, action }) => {
                     <Radio
                       checked={determineTaragetRole(targetRole) === 1}
                       value={1}
+                      disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
                       classes={{
                         root: classes.radio,
@@ -146,6 +147,7 @@ const TargetRole = ({ classes, intl, targetRoles, action }) => {
                     <Radio
                       checked={determineTaragetRole(targetRole) === 2}
                       value={2}
+                      disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
                       classes={{
                         root: classes.radio,
@@ -157,6 +159,7 @@ const TargetRole = ({ classes, intl, targetRoles, action }) => {
                     <Radio
                       checked={determineTaragetRole(targetRole) === 3}
                       value={3}
+                      disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
                       classes={{
                         root: classes.radio,

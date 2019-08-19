@@ -11,7 +11,7 @@ import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import { isHr } from '../../helper/checkRole';
 import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
-import { UserinfoContext } from '../App';
+import { ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   paddingBottom: {
@@ -31,125 +31,11 @@ const styles = theme => ({
 });
 
 const PrSheet = props => {
-  // FORMAT
-  // let pr = {
-  //   id: 26,
-  //   employee: {
-  //     createdDateTime: '2019-08-02T12:44:26.227372',
-  //     modifiedDateTime: '2019-08-02T12:44:34.631152',
-  //     id: 3001,
-  //     firstName: 'Matúš',
-  //     lastName: 'Piroh',
-  //     login: 'mpiroh',
-  //     title: '',
-  //     email: 'Matus.Piroh@senacor.com',
-  //     endOfProbationPeriod: '2019-08-31',
-  //     salaryLevel: 6,
-  //     costcenterId: 408,
-  //     supervisorId: 297
-  //   },
-  //   supervisor: {
-  //     createdDateTime: '2019-08-02T12:44:26.227372',
-  //     modifiedDateTime: '2019-08-02T12:44:34.631152',
-  //     id: 3001,
-  //     firstName: 'Matúš',
-  //     lastName: 'Piroh',
-  //     login: 'mpiroh',
-  //     title: '',
-  //     email: 'Matus.Piroh@senacor.com',
-  //     endOfProbationPeriod: '2019-08-31',
-  //     salaryLevel: 6,
-  //     costcenterId: 408,
-  //     supervisorId: 297
-  //   },
-  //   reviewer: {
-  //     createdDateTime: '2019-08-02T12:44:26.227372',
-  //     modifiedDateTime: '2019-08-02T12:44:34.631152',
-  //     id: 3001,
-  //     firstName: 'Matúš',
-  //     lastName: 'Piroh',
-  //     login: 'mpiroh',
-  //     title: '',
-  //     email: 'Matus.Piroh@senacor.com',
-  //     endOfProbationPeriod: '2019-08-31',
-  //     salaryLevel: 6,
-  //     costcenterId: 408,
-  //     supervisorId: 297
-  //   },
-  //   deadline: '2019-08-04',
-  //   occasion: 'ON_DEMAND',
-  //   prRating: {
-  //     performanceInProject: {
-  //       problemAnalysis: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: 3
-  //       },
-  //       workResults: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       },
-  //       workingManner: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       }
-  //     },
-  //     impactOnCostumer: {
-  //       customerInteraction: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       },
-  //       customerRetention: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       }
-  //     },
-  //     impactOnTeam: {
-  //       teamWork: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       },
-  //       leadership: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       }
-  //     },
-  //     impactOnCompany: {
-  //       contributionToCompanyDevelopment: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: null
-  //       }
-  //     },
-  //     overallAssessment: {
-  //       fulfillmentOfRequirement: {
-  //         comment: 'dasdsad dasdas',
-  //         rating: 0
-  //       }
-  //     }
-  //   },
-  //   targetRole: {
-  //     plattformGestalter: 1,
-  //     itSolutionLeader: 1,
-  //     transformationManager: 2,
-  //     itLiefersteuerer: 2,
-  //     architect: 2,
-  //     technicalExpert: 3,
-  //     leadDeveloper: 3
-  //   },
-  //   statusSet: '',
-  //   exchangeItemId: 'exchange_item_id',
-  //   finalMeetingDate: '2019-08-03',
-  //   firstReflectionField: 'first_reflection_field',
-  //   secondReflectionField: 'second_reflection_field',
-  //   finalCommentEmployee: 'final_comment_employee',
-  //   finalCommentHr: 'final_comment_hr',
-  //   advancementStrategies: 'advancement_strategies',
-  //   inProgressForEmployee: true,
-  //   inProgressForReviewer: false,
-  //   done: false
-  // };
-
   const { classes, intl, pr } = props;
-  const { userroles } = useContext(UserinfoContext.context).value;
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const errorContext = useContext(ErrorContext.context);
+
+  console.log('errors', errorContext.value.errors);
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;
@@ -283,11 +169,43 @@ const PrSheet = props => {
     return null;
   }
 
+  const readOnly = input => {
+    switch (input) {
+      case 'REFLECTIONS_EMPLOYEE':
+        return (
+          pr.employee.id !== userinfo.userId ||
+          pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
+        );
+      case 'RATINGS_REVIEWER':
+        return (
+          !userroles.includes('PR_CST_Leiter') ||
+          pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')
+        );
+      case 'FINAL_COMMENT_EMPLOYEE':
+        return (
+          pr.employee.id !== userinfo.userId ||
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
+        );
+      case 'FINAL_COMMENT_HR':
+        return (
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
+          !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+          pr.statusSet.includes('PR_COMPLETED')
+        );
+      default:
+        return true;
+    }
+  };
+
   let step1employee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <Typography variant="div" className={classes.title}>
+          <Typography variant="body1" className={classes.title}>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
@@ -302,8 +220,11 @@ const PrSheet = props => {
               id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
             })}
             text={pr.firstReflectionField}
-            isReadOnly={false}
-            isError={false}
+            isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
+            isError={
+              errorContext.value.errors &&
+              errorContext.value.errors.firstReflectionField
+            }
             action={changeFirstReflectionField}
           />
         </Grid>
@@ -316,8 +237,11 @@ const PrSheet = props => {
               id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
             })}
             text={pr.secondReflectionField}
-            isReadOnly={false}
-            isError={false}
+            isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
+            isError={
+              errorContext.value.errors &&
+              errorContext.value.errors.secondReflectionField
+            }
             action={changeSecondReflectionField}
           />
         </Grid>
@@ -330,7 +254,7 @@ const PrSheet = props => {
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
@@ -345,8 +269,11 @@ const PrSheet = props => {
                 pr.prRating.overallAssessment.fulfillmentOfRequirement.rating
               }
               targetRoles={pr.targetRole}
-              isReadOnly={false}
-              isError={false}
+              isReadOnly={readOnly}
+              isError={
+                errorContext.value.errors &&
+                errorContext.value.errors.overallAssessmentComment
+              }
               hidden={false}
               actionText={changeFulfillmentOfRequirementComment}
               actionRating={changeFulfillmentOfRequirementRating}
@@ -357,7 +284,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.measures'
               })}
@@ -372,7 +299,7 @@ const PrSheet = props => {
                 id: 'pradvancementstrategies.helpertext'
               })}
               text={pr.advancementStrategies}
-              isReadOnly={false}
+              isReadOnly={readOnly('RATINGS_REVIEWER')}
               isError={false}
               action={changeAdvancementStrategies}
             />
@@ -395,7 +322,7 @@ const PrSheet = props => {
               id: 'prfinalcommentemployee.notes'
             })}
             text={pr.finalCommentEmployee}
-            isReadOnly={false}
+            isReadOnly={readOnly('FINAL_COMMENT_EMPLOYEE')}
             isError={false}
             action={changeFinalCommentEmployee}
           />
@@ -416,7 +343,7 @@ const PrSheet = props => {
               id: 'prfinalcommenthr.hronly'
             })}
             text={pr.finalCommentHr}
-            isReadOnly={false}
+            isReadOnly={readOnly('FINAL_COMMENT_HR')}
             isError={false}
             action={changeFinalCommentHr}
           />
@@ -430,7 +357,7 @@ const PrSheet = props => {
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
@@ -456,7 +383,7 @@ const PrSheet = props => {
               category="PROBLEM_ANALYSIS"
               text={pr.prRating.performanceInProject.problemAnalysis.comment}
               rating={pr.prRating.performanceInProject.problemAnalysis.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeProblemAnalysisComment}
               actionRating={changeProblemAnalysisRating}
@@ -467,7 +394,7 @@ const PrSheet = props => {
               category="WORK_RESULTS"
               text={pr.prRating.performanceInProject.workResults.comment}
               rating={pr.prRating.performanceInProject.workResults.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeWorkResultsComment}
               actionRating={changeWorkResultsRating}
@@ -478,7 +405,7 @@ const PrSheet = props => {
               category="WORKING_MANNER"
               text={pr.prRating.performanceInProject.workingManner.comment}
               rating={pr.prRating.performanceInProject.workingManner.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeWorkingMannerComment}
               actionRating={changeWorkingMannerRating}
@@ -488,7 +415,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
@@ -499,7 +426,7 @@ const PrSheet = props => {
               category="CUSTOMER_INTERACTION"
               text={pr.prRating.impactOnCostumer.customerInteraction.comment}
               rating={pr.prRating.impactOnCostumer.customerInteraction.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeCustomerInteractionComment}
               actionRating={changeCustomerInteractionRating}
@@ -510,7 +437,7 @@ const PrSheet = props => {
               category="CUSTOMER_RETENTION"
               text={pr.prRating.impactOnCostumer.customerRetention.comment}
               rating={pr.prRating.impactOnCostumer.customerRetention.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeCustomerRetentionComment}
               actionRating={changeCustomerRetentionRating}
@@ -520,7 +447,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
@@ -531,7 +458,7 @@ const PrSheet = props => {
               category="TEAMWORK"
               text={pr.prRating.impactOnTeam.teamWork.comment}
               rating={pr.prRating.impactOnTeam.teamWork.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeTeamWorkComment}
               actionRating={changeTeamWorkRating}
@@ -542,7 +469,7 @@ const PrSheet = props => {
               category="LEADERSHIP"
               text={pr.prRating.impactOnTeam.leadership.comment}
               rating={pr.prRating.impactOnTeam.leadership.rating}
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeLeadershipComment}
               actionRating={changeLeadershipRating}
@@ -552,7 +479,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="div" className={classes.title}>
+            <Typography variant="body1" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}
@@ -569,7 +496,7 @@ const PrSheet = props => {
                 pr.prRating.impactOnCompany.contributionToCompanyDevelopment
                   .rating
               }
-              isReadOnly={false}
+              isReadOnly={readOnly}
               isError={false}
               actionText={changeContributionToCompanyDevelopmentComment}
               actionRating={changeContributionToCompanyDevelopmentRating}
@@ -622,7 +549,7 @@ const PrSheet = props => {
           </Grid>
         </Hidden>
         <Grid item xs={12}>
-          <ButtonsBelowSheet pr={pr} />
+          <ButtonsBelowSheet pr={pr} errorContext={errorContext} />
         </Grid>
       </Grid>
     </div>

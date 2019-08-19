@@ -55,7 +55,7 @@ const PrReviewerRating = ({
             })}
             rows="2"
             text={text}
-            isReadOnly={isReadOnly}
+            isReadOnly={isReadOnly('RATINGS_REVIEWER')}
             isError={isError}
             action={actionText}
           />
@@ -64,7 +64,7 @@ const PrReviewerRating = ({
           <PrRatingPoints
             category={category}
             rating={rating}
-            isReadOnly={false}
+            isReadOnly={isReadOnly}
             isError={false}
             action={actionRating}
           />

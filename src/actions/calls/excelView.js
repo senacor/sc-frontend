@@ -6,7 +6,7 @@ export const downloadExcel = filter => async dispatch => {
   let filename = filenameString(filter);
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v1/hr/overview/export${query}`
+    `${process.env.REACT_APP_API}/api/v3/hr/overview/export${query}`
   );
   if (response.ok) {
     const blob = await response.blob();
@@ -14,7 +14,10 @@ export const downloadExcel = filter => async dispatch => {
     let a = document.createElement('a');
     a.href = url;
     a.download = filename;
+    document.body.appendChild(a);
+    a.style = 'display: none';
     a.click();
+    document.body.removeChild(a);
   }
 };
 
