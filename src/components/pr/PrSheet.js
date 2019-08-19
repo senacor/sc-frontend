@@ -35,8 +35,6 @@ const PrSheet = props => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const errorContext = useContext(ErrorContext.context);
 
-  console.log('errors', errorContext.value.errors);
-
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;
   };
@@ -201,6 +199,24 @@ const PrSheet = props => {
     }
   };
 
+  const isRequiredForReflectionFields = input => {
+    switch (input) {
+      case 'REFLECTION_FIELDS':
+        return (
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+          pr.employee.id === userinfo.userId
+        );
+      case 'OVERALL_ASSESSMENT':
+        return (
+          !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+          userroles.includes('PR_CST_Leiter')
+        );
+      default:
+        return false;
+    }
+  };
+
   let step1employee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
@@ -213,9 +229,15 @@ const PrSheet = props => {
         </Grid>
         <Grid item xs={12}>
           <PrTextField
-            label={intl.formatMessage({
-              id: 'ROLE_AND_PROJECT_ENVIRONMENT'
-            })}
+            label={
+              isRequiredForReflectionFields()
+                ? intl.formatMessage({
+                    id: 'ROLE_AND_PROJECT_ENVIRONMENT'
+                  }) + ' *'
+                : intl.formatMessage({
+                    id: 'ROLE_AND_PROJECT_ENVIRONMENT'
+                  })
+            }
             helperText={intl.formatMessage({
               id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
             })}
@@ -230,9 +252,15 @@ const PrSheet = props => {
         </Grid>
         <Grid item xs={12}>
           <PrTextField
-            label={intl.formatMessage({
-              id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
-            })}
+            label={
+              isRequiredForReflectionFields()
+                ? intl.formatMessage({
+                    id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+                  }) + ' *'
+                : intl.formatMessage({
+                    id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+                  })
+            }
             helperText={intl.formatMessage({
               id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
             })}
@@ -262,6 +290,8 @@ const PrSheet = props => {
           </Grid>
           <Grid item xs={12}>
             <PrOverallAssessment
+              pr={pr}
+              userroles={userroles}
               text={
                 pr.prRating.overallAssessment.fulfillmentOfRequirement.comment
               }

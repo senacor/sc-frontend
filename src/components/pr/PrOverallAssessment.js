@@ -15,6 +15,8 @@ const styles = () => ({
 
 const PrOverallAssessment = props => {
   const {
+    pr,
+    userroles,
     classes,
     text,
     rating,
@@ -27,6 +29,14 @@ const PrOverallAssessment = props => {
     actionTargetRoles,
     intl
   } = props;
+
+  const isRequiredForOverallAssessment = () => {
+    return (
+      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
+    );
+  };
 
   return (
     <Grid container spacing={16}>
@@ -53,9 +63,15 @@ const PrOverallAssessment = props => {
       </Grid>
       <Grid item xs={12}>
         <PrTextField
-          label={intl.formatMessage({
-            id: 'proverallcomment.overall'
-          })}
+          label={
+            isRequiredForOverallAssessment()
+              ? intl.formatMessage({
+                  id: 'proverallcomment.overall'
+                }) + ' *'
+              : intl.formatMessage({
+                  id: 'proverallcomment.overall'
+                })
+          }
           helperText={intl.formatMessage({
             id: 'proverallcomment.requirements'
           })}
