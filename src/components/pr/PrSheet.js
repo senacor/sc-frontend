@@ -200,21 +200,10 @@ const PrSheet = props => {
   };
 
   const isRequiredForReflectionFields = input => {
-    switch (input) {
-      case 'REFLECTION_FIELDS':
-        return (
-          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
-          pr.employee.id === userinfo.userId
-        );
-      case 'OVERALL_ASSESSMENT':
-        return (
-          !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
-          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-          userroles.includes('PR_CST_Leiter')
-        );
-      default:
-        return false;
-    }
+    return (
+      !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+      pr.employee.id === userinfo.userId
+    );
   };
 
   let step1employee = () => {
