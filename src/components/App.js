@@ -43,12 +43,12 @@ const DashboardWithAppBar = withAppBar(Dashboard);
 const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
 const ArchivedFilesWithAppBar = withAppBar(ArchivedFiles);
 
-const messages = {
+export const messages = {
   de: messages_de,
   en: messages_en
 };
 
-const determineLanguage = lang => {
+export const determineLanguage = lang => {
   let localStorageLang = localStorage.getItem('lang');
   if (localStorageLang) {
     if (lang !== localStorageLang) {
@@ -62,7 +62,12 @@ export const LanguageContext = newContext('de');
 export const AuthorizationContext = newContext(false);
 // TODO: make ErrorContext smart? - distinguish between 500 and lower status,
 // write 'es wurde Feher aufgetreten' only in case >= 500
-export const ErrorContext = newContext({ hasErrors: false, message: '', errors: {} });
+export const ErrorContext = newContext({
+  hasErrors: false,
+  messageId: '',
+  errors: {}
+});
+export const InfoContext = newContext({ hasInfos: false, messageId: '' });
 
 export const MeetingContext = newContext({});
 export const PrContext = newContext({});
@@ -77,6 +82,7 @@ const App = () => {
     [
       AuthorizationContext,
       ErrorContext,
+      InfoContext,
       MeetingContext,
       UserinfoContext,
       PrContext,

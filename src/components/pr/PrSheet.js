@@ -10,8 +10,8 @@ import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import { isHr } from '../../helper/checkRole';
-import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
-import { ErrorContext, UserinfoContext } from '../App';
+import ButtonsBelowSheet from './ButtonsBelowSheet';
+import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   paddingBottom: {
@@ -34,6 +34,7 @@ const PrSheet = props => {
   const { classes, intl, pr } = props;
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const errorContext = useContext(ErrorContext.context);
+  const infoContext = useContext(InfoContext.context);
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;
@@ -568,7 +569,11 @@ const PrSheet = props => {
           </Grid>
         </Hidden>
         <Grid item xs={12}>
-          <ButtonsBelowSheet pr={pr} errorContext={errorContext} />
+          <ButtonsBelowSheet
+            pr={pr}
+            errorContext={errorContext}
+            infoContext={infoContext}
+          />
         </Grid>
       </Grid>
     </div>

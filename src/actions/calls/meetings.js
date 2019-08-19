@@ -32,7 +32,7 @@ export const fetchMeeting = async (pr, setMeeting, errorContext) => {
 
   errorContext.setValue({
     hasErrors: true,
-    message: 'Es ist ein technischer Fehler aufgetreten.=='
+    messageId: 'message.error'
   });
 };
 
@@ -40,7 +40,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
   if (!validateDateTimeInput(meeting_details.start, meeting_details.end)) {
     errorContext.setErrors({
       hasErrors: true,
-      message: 'Es wurde Fehler aufgetreten: 400'
+      messageId: 'message.error'
     });
   } else {
     const response = await fetch(
@@ -73,7 +73,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
     }
     errorContext.setErrors({
       hasErrors: true,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      messageId: 'message.error'
     });
   }
 };
@@ -90,7 +90,7 @@ export const appointmentsSearch = async (
   if (!moment(day, 'YYYY-MM-DD', true).isValid()) {
     errorContext.setValue({
       hasErrors: true,
-      message: 'Invalid date.'
+      messageId: 'message.error'
     });
   }
 
@@ -125,7 +125,7 @@ export const appointmentsSearch = async (
   } else {
     errorContext.setValue({
       hasErrors: true,
-      message: 'Es ist ein technischer Fehler aufgetreten.'
+      messageId: 'message.error'
     });
   }
 };

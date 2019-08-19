@@ -47,7 +47,7 @@ const PrRatingPoints = ({
             return action(event.target.value);
           }}
         >
-          {[null, 1, 2, 3, 4, 5].map(value => {
+          {[0, 1, 2, 3, 4, 5].map(value => {
             return (
               <MenuItem
                 key={category + '_rating_' + value}
@@ -70,7 +70,7 @@ const PrRatingPoints = ({
             return action(event.target.value);
           }}
         >
-          {[null, 1, 2, 3, 4, 5].map(value => {
+          {[0, 1, 2, 3, 4, 5].map(value => {
             return (
               <MenuItem
                 key={category + '_rating_' + value}

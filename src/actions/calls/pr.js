@@ -8,7 +8,7 @@ export const fetchPrById = async (
   errorContext
 ) => {
   setIsLoading(true);
-  errorContext.setValue({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
   );
@@ -23,8 +23,8 @@ export const fetchPrById = async (
   } else {
     setIsLoading(false);
     errorContext.setValue({
-      hasErrors: false,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      hasErrors: true,
+      messageId: 'message.error'
     });
   }
 };
@@ -33,9 +33,10 @@ export const addReflections = async (
   prsId,
   firstReflectionField,
   secondReflectionField,
-  errorContext
+  errorContext,
+  infoContext
 ) => {
-  errorContext.setValue({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/reflections`,
     {
@@ -48,11 +49,11 @@ export const addReflections = async (
     }
   );
   if (response.ok) {
-    //TODO success callback
+    showSavedInfoMessage(infoContext);
   } else {
     errorContext.setValue({
-      hasErrors: false,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      hasErrors: true,
+      messageId: 'message.error'
     });
   }
 };
@@ -62,9 +63,10 @@ export const addRatings = async (
   rating,
   targetRole,
   advancementStrategies,
-  errorContext
+  errorContext,
+  infoContext
 ) => {
-  errorContext.setValue({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
     {
@@ -78,11 +80,11 @@ export const addRatings = async (
     }
   );
   if (response.ok) {
-    //TODO success callback
+    showSavedInfoMessage(infoContext);
   } else {
     errorContext.setValue({
-      hasErrors: false,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      hasErrors: true,
+      messageId: 'message.error'
     });
   }
 };
@@ -90,9 +92,10 @@ export const addRatings = async (
 export const addFinalCommentEmployee = async (
   prsId,
   finalCommentEmployee,
-  errorContext
+  errorContext,
+  infoContext
 ) => {
-  errorContext.setValue({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
     {
@@ -102,11 +105,11 @@ export const addFinalCommentEmployee = async (
     }
   );
   if (response.ok) {
-    //TODO success callback
+    showSavedInfoMessage(infoContext);
   } else {
     errorContext.setValue({
-      hasErrors: false,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      hasErrors: true,
+      messageId: 'message.error'
     });
   }
 };
@@ -114,9 +117,10 @@ export const addFinalCommentEmployee = async (
 export const addFinalCommentHr = async (
   prsId,
   finalCommentHr,
-  errorContext
+  errorContext,
+  infoContext
 ) => {
-  errorContext.setValue({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
     {
@@ -126,11 +130,11 @@ export const addFinalCommentHr = async (
     }
   );
   if (response.ok) {
-    //TODO success callback
+    showSavedInfoMessage(infoContext);
   } else {
     errorContext.setValue({
-      hasErrors: false,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      hasErrors: true,
+      messageId: 'message.error'
     });
   }
 };
@@ -218,10 +222,9 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
     setPr(pr);
     setLoading(false);
   } else {
-    const error = await changeResponse.json();
     errorContext.setValue({
       hasErrors: true,
-      message: error.message
+      messageId: 'message.error'
     });
     setLoading(false);
   }
@@ -245,7 +248,7 @@ export const addPrStatus = async (
     const setIsLoading = () => {}; //ignoring loading aspect
     fetchPrById(prsId, afterPrFetched, setIsLoading, errorContext);
   } else {
-    errorContext.setValue({ hasErrors: true, message: addResponse.status });
+    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
   }
 };
 
@@ -274,6 +277,14 @@ export const delegateReviewer = async (
       errorContext
     );
   } else {
-    errorContext.setValue({ hasErrors: true, message: changeResponse.status });
+    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
   }
+};
+
+const showSavedInfoMessage = infoContext => {
+  window.scrollTo(0, 0);
+  infoContext.setValue({
+    hasInfos: true,
+    messageId: 'pr.saved'
+  });
 };

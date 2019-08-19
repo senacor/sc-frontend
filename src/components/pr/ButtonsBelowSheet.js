@@ -38,7 +38,7 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, intl, errorContext } = props;
+  const { classes, pr, intl, errorContext, infoContext } = props;
   let { errors } = props;
   const { setValue: setPr } = useContext(PrContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
@@ -60,9 +60,10 @@ const ButtonsBelowSheet = props => {
     if (Object.values(errors).includes(true)) {
       errorContext.setValue({
         hasErrors: true,
-        message: 'errorMessage...',
+        messageId: 'buttonsbelowsheet.fillrequired',
         errors: errors
       });
+      window.scrollTo(0, 0);
       return true;
     }
   };
@@ -78,14 +79,17 @@ const ButtonsBelowSheet = props => {
     if (Object.values(errors).includes(true)) {
       errorContext.setValue({
         hasErrors: true,
-        message: 'errorMessage...',
+        messageId: 'buttonsbelowsheet.fillrequired',
         errors: errors
       });
+      window.scrollTo(0, 0);
       return true;
     }
   };
 
   const handleDraftClick = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
     if (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
       pr.employee.id === userinfo.userId
@@ -94,7 +98,8 @@ const ButtonsBelowSheet = props => {
         pr.id,
         pr.firstReflectionField,
         pr.secondReflectionField,
-        errorContext
+        errorContext,
+        infoContext
       );
     } else if (
       !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
@@ -106,25 +111,33 @@ const ButtonsBelowSheet = props => {
         pr.prRating,
         pr.targetRole,
         pr.advancementStrategies,
-        errorContext
+        errorContext,
+        infoContext
       );
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       pr.employee.id === userinfo.userId
     ) {
-      addFinalCommentEmployee(pr.id, pr.finalCommentEmployee, errorContext);
+      addFinalCommentEmployee(
+        pr.id,
+        pr.finalCommentEmployee,
+        errorContext,
+        infoContext
+      );
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       !pr.statusSet.includes('PR_COMPLETED') &&
       userroles.includes('PR_HR')
     ) {
-      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext);
+      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext, infoContext);
     }
   };
 
   const handleSubmitClick = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
     if (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
       pr.employee.id === userinfo.userId
@@ -134,7 +147,8 @@ const ButtonsBelowSheet = props => {
           pr.id,
           pr.firstReflectionField,
           pr.secondReflectionField,
-          errorContext
+          errorContext,
+          infoContext
         ).then(() => {
           addPrStatus(
             pr.id,
@@ -155,7 +169,8 @@ const ButtonsBelowSheet = props => {
           pr.prRating,
           pr.targetRole,
           pr.advancementStrategies,
-          errorContext
+          errorContext,
+          infoContext
         ).then(() => {
           addPrStatus(
             pr.id,
@@ -173,7 +188,8 @@ const ButtonsBelowSheet = props => {
       addFinalCommentEmployee(
         pr.id,
         pr.finalCommentEmployee,
-        errorContext
+        errorContext,
+        infoContext
       ).then(() => {
         addPrStatus(
           pr.id,
@@ -188,7 +204,12 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('PR_COMPLETED') &&
       userroles.includes('PR_HR')
     ) {
-      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext).then(() => {
+      addFinalCommentHr(
+        pr.id,
+        pr.finalCommentHr,
+        errorContext,
+        infoContext
+      ).then(() => {
         addPrStatus(pr.id, 'PR_COMPLETED', setPr, errorContext);
       });
     }

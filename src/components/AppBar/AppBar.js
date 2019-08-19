@@ -10,7 +10,7 @@ import Drawer from '@material-ui/core/Drawer';
 import { injectIntl } from 'react-intl';
 
 import Sidebar from '../sidebar/Sidebar';
-import ErrorMessage from './ErrorMessage';
+import Message from './Message';
 import LanguageButton from './LanguageButton';
 
 const drawerWidth = 270;
@@ -114,7 +114,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ErrorMessage />
+          <Message />
           {children}
         </main>
       </Hidden>
@@ -130,7 +130,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         </Drawer>
         <main className={classes.desktopContent}>
           <div className={classes.toolbar} />
-          <ErrorMessage />
+          <Message />
           {children}
         </main>
       </Hidden>

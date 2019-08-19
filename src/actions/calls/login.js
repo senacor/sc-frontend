@@ -8,7 +8,7 @@ export const login = async (
   errorContext
 ) => {
   setIsLoading(true);
-  errorContext.setValue({ hasErrors: false, message: '' });
+  errorContext.setValue({ hasErrors: false, messageId: '' });
   authorizationContext.setValue(false);
 
   if (credentials.username === '' || credentials.password === '') {
@@ -31,7 +31,7 @@ export const login = async (
     authorizationContext.setValue(true);
     errorContext.setValue({
       hasErrors: true,
-      message: 'Es wurde Fehler aufgetreten: ' + response.status
+      messageId: 'message.error'
     });
   }
 };

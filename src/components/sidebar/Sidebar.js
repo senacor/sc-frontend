@@ -18,7 +18,12 @@ import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { injectIntl } from 'react-intl';
 import { getUserInfo } from '../../actions/calls/userinfo';
-import { AuthorizationContext, UserinfoContext } from '../App';
+import {
+  AuthorizationContext,
+  ErrorContext,
+  InfoContext,
+  UserinfoContext
+} from '../App';
 import { CircularProgress } from '@material-ui/core';
 
 const styles = () => ({
@@ -47,9 +52,17 @@ export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
   const authContext = useContext(AuthorizationContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
+  const infoContext = useContext(InfoContext.context);
+  const errorContext = useContext(ErrorContext.context);
+
   useEffect(() => {
     getUserInfo(userinfoContext, authContext);
   }, []);
+
+  const resetMessages = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+  };
 
   const getListOfMenuItems = () => {
     return [
@@ -59,7 +72,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <DashboardIcon />,
         value: '/dashboard',
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -69,7 +82,7 @@ export const Sidebar = ({ intl, classes }) => {
         value: '/prs',
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
         reviewerCheck: true,
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -78,7 +91,7 @@ export const Sidebar = ({ intl, classes }) => {
         icon: <LibraryBooksIcon />,
         value: '/hr/prs',
         roles: [ROLES.PR_HR],
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -87,7 +100,7 @@ export const Sidebar = ({ intl, classes }) => {
         icon: <SaveIcon />,
         value: '/hr/archivedPrs',
         roles: [ROLES.PR_HR],
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -96,7 +109,7 @@ export const Sidebar = ({ intl, classes }) => {
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -104,7 +117,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <PowerSettingsNewIcon />,
         value: '/logout',
-        onClick: () => {}
+        onClick: resetMessages
       }
     ];
   };

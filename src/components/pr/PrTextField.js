@@ -1,9 +1,17 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
+const styles = () => ({
+  error: {
+    color: '#f44336'
+  }
+});
+
 const PrTextField = ({
+  classes,
   label,
   helperText,
   text,
@@ -16,7 +24,7 @@ const PrTextField = ({
   if (isError) {
     return (
       <Grid container spacing={8}>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.error}>
           {label}
         </Grid>
         <Grid item xs={12}>
@@ -82,4 +90,4 @@ const PrTextField = ({
   }
 };
 
-export default injectIntl(PrTextField);
+export default injectIntl(withStyles(styles)(PrTextField));
