@@ -1,4 +1,4 @@
-import {default as fetch} from '../../helper/customFetch';
+import { default as fetch } from '../../helper/customFetch';
 
 export const loadAllArchivedFilesList = async (
   setArchivedFiles,
@@ -66,5 +66,6 @@ export const loadArchivedFilesList = async (
   if (response.ok) {
     const result = await response.json();
     setArchivedFiles(result);
+    setIsLoading(false);
   }
 };

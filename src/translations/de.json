@@ -156,6 +156,7 @@
   "prdetailinformation.reviewer": "Beurteiler:",
   "prhistory.date": "Datum",
   "prhistory.link": "Link",
+  "prhistory.noArchivedFiles": "Keine archivierte PRs gefunden",
   "prstate.offportalarranged": "Termin wurde außerhalb des Portals vereinbart",
   "prstate.agreed": "Teilnehmer haben zugesagt",
   "prstate.cancelled": "Termin wurde abgesagt",
