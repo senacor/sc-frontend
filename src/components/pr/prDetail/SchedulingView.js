@@ -23,7 +23,7 @@ const SchedulingView = ({ pr, intl }) => {
     if (
       meeting.status === 'DECLINED' ||
       (meeting.status === 'NOT_REQUESTED' &&
-        !pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER))
+        !pr.statusSet.includes(prStatusEnum.FINALIZED_REVIEWER))
     ) {
       setCanRequestMeeting(true);
     } else {

@@ -52,46 +52,7 @@
     "/oauth2": {
       "target": "http://localhost:8000"
     },
-    "/api/v2/prs": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/prs": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/employees": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/cstmembers": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/events": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/hr": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/user": {
-      "target": "http://localhost:8010"
-    },
-    "/api/v1/hr/overview/export": {
-      "target": "http://localhost:8020"
-    },
-    "/api/v3/prs": {
-      "target": "http://localhost:8020"
-    },
-    "/api/v3/pr": {
-      "target": "http://localhost:8020"
-    },
-    "/api/v3/user": {
-      "target": "http://localhost:8020"
-    },
-    "api/v3/hr": {
-      "target": "http://localhost:8020"
-    },
-    "api/v3/employee": {
-      "target": "http://localhost:8020"
-    },
-    "/api/v3/employees": {
+    "/api/v3": {
       "target": "http://localhost:8020"
     }
   },
