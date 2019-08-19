@@ -60,7 +60,7 @@ const PrTabs = ({ classes, intl, pr }) => {
         <Tabs
           value={tabValue}
           onChange={handleChange}
-          fullWidth
+          variant="fullWidth"
           indicatorColor="secondary"
           classes={{
             indicator: classes.indicator

@@ -146,7 +146,11 @@ class PerformanceReviewTable extends React.Component {
             />
             <TableBody>
               {isLoading ? (
-                <CircularProgress />
+                <TableRow>
+                  <TableCell>
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
               ) : (
                 stableSort(data, getSorting(order, sortFunction, sortMapper))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
