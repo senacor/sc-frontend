@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ import senacorLogo from '../../styles/senacor_transparent.png';
 import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../AppBar/LanguageButton';
 import { login } from '../../actions/calls/login';
-import { AuthorizationContext, ErrorContext } from '../App';
+import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   hero: {
@@ -119,6 +119,15 @@ const Login = ({ location, classes, intl }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const errorContext = useContext(ErrorContext.context);
   const authorizationContext = useContext(AuthorizationContext.context);
+  const userInfoContext = useContext(UserinfoContext.context);
+
+  useEffect(() => {
+    userInfoContext.setValue({
+      userinfo: {},
+      userroles: [],
+      userphoto: ''
+    });
+  }, []);
 
   const handleOnClick = event => {
     event.preventDefault();
