@@ -139,24 +139,30 @@ export const addFinalCommentHr = async (
   }
 };
 
-export const fetchFilteredPrs = async (filter, role, setData, setIsLoading) => {
-  setIsLoading(true);
+export const fetchFilteredPrs = async (
+  filter,
+  role,
+  setData,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
 
-  let query = '';
-  if (filter) {
-    let filterString = Object.keys(filter)
-      .map(function(key) {
-        return filter[key].searchString;
-      })
-      .join('&');
-    query = filterString ? '&' + filterString : '';
-  }
+    let query = '';
+    if (filter) {
+      let filterString = Object.keys(filter)
+        .map(function(key) {
+          return filter[key].searchString;
+        })
+        .join('&');
+      query = filterString ? '&' + filterString : '';
+    }
 
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/all?role=${role}${query}`
-  );
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/all?role=${role}${query}`
+    );
 
-  if (response.ok) {
     const responseList = await response.json();
     let prTableEntries = responseList ? responseList : [];
 
@@ -171,32 +177,39 @@ export const fetchFilteredPrs = async (filter, role, setData, setIsLoading) => {
     );
     setData(resultDataArray);
     setIsLoading(false);
-  } else {
-    //TODO: add error handling
+  } catch (err) {
+    console.log(err);
+
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
   }
 };
 
 export const fetchFilteredPrsForHumanResource = async (
   filter,
   setData,
-  setIsLoading
+  setIsLoading,
+  errorContext
 ) => {
-  setIsLoading(true);
+  try {
+    setIsLoading(true);
 
-  let query = '';
-  if (filter) {
-    let filterString = Object.keys(filter)
-      .map(function(key) {
-        return filter[key].searchString;
-      })
-      .join('&');
-    query = filterString ? filterString : '';
-  }
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/all?role=HR&${query}`
-  );
+    let query = '';
+    if (filter) {
+      let filterString = Object.keys(filter)
+        .map(function(key) {
+          return filter[key].searchString;
+        })
+        .join('&');
+      query = filterString ? filterString : '';
+    }
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/all?role=HR&${query}`
+    );
 
-  if (response.ok) {
     const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
     const resultDataArray = Object.values(
@@ -204,8 +217,13 @@ export const fetchFilteredPrsForHumanResource = async (
     );
     setData(resultDataArray);
     setIsLoading(false);
-  } else {
-    //TODO: add error handling
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
   }
 };
 

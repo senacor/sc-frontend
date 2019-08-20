@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
@@ -6,6 +6,8 @@ import { debounce } from '../../helper/debounce';
 import PlotEmployeeSearchList from './PlotEmployeeSearchList';
 import { injectIntl } from 'react-intl';
 import { employeeSearch } from '../../actions/calls/employeeSearch';
+import { CircularProgress } from '@material-ui/core';
+import { ErrorContext } from '../App';
 
 const styles = {
   box: {
@@ -24,6 +26,8 @@ export const EmployeeSearch = props => {
   const [employeeSearchResults, setEmployeeSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const errorContext = useContext(ErrorContext.context);
+
   useEffect(() => {
     setEmployeeSearchResults([]);
   }, []);
@@ -35,7 +39,12 @@ export const EmployeeSearch = props => {
   const handleChange = event => {
     setEmployeeSearchVal(event.target.value);
     if (event.target.value) {
-      executeSearch(event.target.value, setEmployeeSearchResults, setIsLoading);
+      executeSearch(
+        event.target.value,
+        setEmployeeSearchResults,
+        setIsLoading,
+        errorContext
+      );
     }
   };
 
@@ -47,7 +56,6 @@ export const EmployeeSearch = props => {
   };
 
   const executeSearch = debounce(employeeSearch, 500);
-
   return (
     <div
       className={
@@ -62,12 +70,16 @@ export const EmployeeSearch = props => {
           component="nav"
           className={props.classes.employeeList}
         >
-          <PlotEmployeeSearchList
-            excludeList={props.excludeList}
-            selectEmployee={selectedEmployee}
-            searchResults={employeeSearchResults}
-            isLoading={isLoading}
-          />
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <PlotEmployeeSearchList
+              excludeList={props.excludeList}
+              selectEmployee={selectedEmployee}
+              searchResults={employeeSearchResults}
+              isLoading={isLoading}
+            />
+          )}
         </List>
       ) : null}
     </div>

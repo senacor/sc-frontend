@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
-import { UserinfoContext } from '../App';
+import { UserinfoContext, ErrorContext } from '../App';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getFilterPossibilities } from '../../actions/calls/filter';
@@ -25,12 +25,20 @@ export const PrOverviewReviewer = props => {
   const { userinfo } = useContext(UserinfoContext.context).value;
   const { username } = userinfo;
 
+  let errorContext = useContext(ErrorContext.context);
+
   useEffect(() => {
-    getFilterPossibilities(setIsLoading, setFilterPossibilities);
+    getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
   }, []);
 
   const loadFilteredPrs = () => {
-    fetchFilteredPrs(filter, FILTER_GROUPS.REVIEWER, setData, setIsLoading);
+    fetchFilteredPrs(
+      filter,
+      FILTER_GROUPS.REVIEWER,
+      setData,
+      setIsLoading,
+      errorContext
+    );
   };
 
   useEffect(loadFilteredPrs, [filter]);

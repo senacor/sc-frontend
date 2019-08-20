@@ -103,12 +103,7 @@ const styles = theme => ({
     }
   },
   buttonProgress: {
-    color: theme.palette.primary['A100'],
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12
+    color: theme.palette.primary['A100']
   }
 });
 
@@ -205,6 +200,7 @@ const Login = ({ location, classes, intl }) => {
               variant="contained"
               onClick={handleOnClick}
               type="submit"
+              disabled={isLoading}
             >
               {isLoading ? (
                 <CircularProgress
@@ -222,6 +218,7 @@ const Login = ({ location, classes, intl }) => {
               variant="contained"
               onClick={handleOnClick}
               type="submit"
+              disabled={isLoading}
             >
               {<FormattedMessage id="login.login" />}
             </Button>

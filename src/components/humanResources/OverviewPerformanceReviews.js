@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
-import { UserinfoContext } from '../App';
+import { UserinfoContext, ErrorContext } from '../App';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,13 +21,20 @@ export const OverviewPerformanceReviews = ({ intl }) => {
   const [columnsToView, setColumnsToView] = useState(null);
   const [data, setData] = useState([]);
 
+  let errorContext = useContext(ErrorContext.context);
+
   useEffect(() => {
-    getFilterPossibilities(setIsLoading, setFilterPossibilities);
+    getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
   }, []);
 
   useEffect(
     () => {
-      fetchFilteredPrsForHumanResource(filter, setData, setIsLoading);
+      fetchFilteredPrsForHumanResource(
+        filter,
+        setData,
+        setIsLoading,
+        errorContext
+      );
     },
     [filter]
   );

@@ -83,7 +83,7 @@ export const appointmentsSearch = async (
   errorContext,
   setAppointmentResults
 ) => {
-  let day = await moment.utc(inputDay).format('YYYY-MM-DD');
+  let day = moment.utc(inputDay).format('YYYY-MM-DD');
 
   // Invalid format of date
   if (!moment(day, 'YYYY-MM-DD', true).isValid()) {
@@ -103,6 +103,7 @@ export const appointmentsSearch = async (
     setAppointmentResults(appointments);
     return appointments;
   } else {
+    console.log(response);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'

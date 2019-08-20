@@ -32,7 +32,6 @@ const PlotEmployeeSearchList = ({
   intl
 }) => {
   const plotSearchEntry = employee => {
-    //TODO: consider addin isLoading Spinner
     return (
       <div key={employee.id}>
         <ListItem

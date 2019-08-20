@@ -5,22 +5,27 @@ let employeeSearchRequestCounter = 0;
 export const employeeSearch = async (
   searchEmployee,
   setEmployeeSearchResults,
-  setIsLoading
+  setIsLoading,
+  errorContext
 ) => {
-  setIsLoading(true);
-  employeeSearchRequestCounter++;
-  let currentRequest = employeeSearchRequestCounter;
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/employees?query=${searchEmployee}`
-  );
-  if (currentRequest === employeeSearchRequestCounter) {
-    if (response.ok) {
+  try {
+    setIsLoading(true);
+    employeeSearchRequestCounter++;
+    let currentRequest = employeeSearchRequestCounter;
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/employees?query=${searchEmployee}`
+    );
+    if (currentRequest === employeeSearchRequestCounter) {
       const data = await response.json();
       const employees = data ? data : [];
       setEmployeeSearchResults(employees);
       setIsLoading(false);
-    } else {
-      //TODO: error handling???
     }
+  } catch (err) {
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
   }
 };

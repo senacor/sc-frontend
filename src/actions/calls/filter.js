@@ -2,7 +2,8 @@ import { default as fetch } from '../../helper/customFetch';
 
 export const getFilterPossibilities = async (
   setLoading,
-  setFilterPossibilities
+  setFilterPossibilities,
+  errorContext
 ) => {
   setLoading(true);
 
@@ -15,6 +16,10 @@ export const getFilterPossibilities = async (
     setFilterPossibilities(possibilities);
     setLoading(false);
   } else {
-    //TODO: errorhandling response.status
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setLoading(false);
   }
 };

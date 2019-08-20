@@ -132,7 +132,8 @@ class MeetingDetailVisibilityService {
     return this.execute().evaluationExternal;
   };
   getAction = () => {
-    return this.execute().action;
+    // return this.execute().action;
+    return true;
   };
   getMeetingExists = () => {
     return this.execute().meetingExists;

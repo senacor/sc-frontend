@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
 import FILTER_GROUPS from '../humanResources/filterGroups';
@@ -11,6 +11,7 @@ import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   ...theme,
@@ -29,15 +30,23 @@ export const PrOverviewEmployee = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
+  let errorContext = useContext(ErrorContext.context);
+
   const { classes } = props;
 
   useEffect(() => {
-    getFilterPossibilities(setIsLoading, setFilterPossibilities);
+    getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
   }, []);
 
   useEffect(
     () => {
-      fetchFilteredPrs(filter, FILTER_GROUPS.EMPLOYEE, setData, setIsLoading);
+      fetchFilteredPrs(
+        filter,
+        FILTER_GROUPS.EMPLOYEE,
+        setData,
+        setIsLoading,
+        errorContext
+      );
     },
     [filter]
   );
