@@ -8,7 +8,13 @@ import Icon from '@material-ui/core/Icon';
 import ListItem from '@material-ui/core/ListItem';
 import cloneDeep from '../../helper/cloneDeep';
 
-export const ListFilter = ({ setFilter, filterBy, content, filter, closeFilter }) => {
+export const ListFilter = ({
+  setFilter,
+  filterBy,
+  content,
+  filter,
+  closeFilter
+}) => {
   const defaultFilter = Object.assign(
     {},
     { searchString: '', values: '' },
@@ -38,8 +44,7 @@ export const ListFilter = ({ setFilter, filterBy, content, filter, closeFilter }
 
   const isFilterSet = checked => {
     return !(
-      checked.length === Object.keys(content).length ||
-      isFilterEmpty(checked)
+      checked.length === Object.keys(content).length || isFilterEmpty(checked)
     );
   };
 

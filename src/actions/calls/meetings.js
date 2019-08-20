@@ -64,11 +64,10 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
       const meeting = await response.json();
       setMeeting(meeting);
       return;
-      //TODO: send request to change status
-      // return addPrStatus(meeting_details.prById, prStatusEnum.REQUESTED_DATE)(
-      //   dispatch
-      // );
-    } else if (response.status === 404) {
+      //TODO: pr status was updated, REQUEST_DATE added... Reload?
+    }
+
+    if (response.status === 404) {
       setMeeting(null);
     }
     errorContext.setErrors({
@@ -94,32 +93,13 @@ export const appointmentsSearch = async (
     });
   }
 
-  // TODO: waiting for backend
   const response = await fetch(
     `${
       process.env.REACT_APP_API
-    }/api/v1/employees/appointments?login=${employeeIds}&date=${day}`
+    }/api/v3/appointments?login=${employeeIds}&date=${day}`
   );
-
-  // MOCKING response - put in <YOUR LOGIN> your credentials
-
-  // const response = {
-  //   ok: true,
-  //   json: () => {
-  //     return {
-  //       <YOUR LOGIN>: [
-  //         {
-  //           appointmentStartTime: '2018-06-12T22:00Z[UTC]',
-  //           appointmentEndTime: '2018-06-13T22:00Z[UTC]',
-  //           appointmentStatus: 'Free'
-  //         }
-  //       ]
-  //     };
-  //   }
-  // };
   if (response.ok) {
-    const data = await response.json();
-    const appointments = await data.content;
+    const appointments = await response.json();
     setAppointmentResults(appointments);
     return appointments;
   } else {
