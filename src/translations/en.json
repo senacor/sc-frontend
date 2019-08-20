@@ -61,6 +61,7 @@
   "requestperformancereview.alreadyopened": "You already have an opened PR",
   "requestperformancereview.requestpr": "Request PR",
   "pr.saved": "All changes saved.",
+  "pr.submitted": "Performance Review submitted.",
   "buttonsbelowsheet.fillrequired": "Please fill in all required fields.",
   "buttonsbelowsheet.release": "Submit",
   "buttonsbelowsheet.finish": "Complete",

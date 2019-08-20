@@ -61,6 +61,7 @@
   "requestperformancereview.alreadyopened": "Du hast bereits ein offenes PR",
   "requestperformancereview.requestpr": "PR beantragen",
   "pr.saved": "Alle Änderungen gespeichert.",
+  "pr.submitted": "Performance Review freigegeben.",
   "buttonsbelowsheet.fillrequired": "Bitte alle Pflichtfelder ausfüllen.",
   "buttonsbelowsheet.release": "Freigeben",
   "buttonsbelowsheet.finish": "Abschliessen",

@@ -156,6 +156,7 @@ const ButtonsBelowSheet = props => {
             setPr,
             errorContext
           );
+          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
         });
       }
     } else if (
@@ -178,6 +179,7 @@ const ButtonsBelowSheet = props => {
             setPr,
             errorContext
           );
+          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
         });
       }
     } else if (
@@ -197,6 +199,7 @@ const ButtonsBelowSheet = props => {
           setPr,
           errorContext
         );
+        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
       });
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
@@ -211,6 +214,7 @@ const ButtonsBelowSheet = props => {
         infoContext
       ).then(() => {
         addPrStatus(pr.id, 'PR_COMPLETED', setPr, errorContext);
+        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
       });
     }
   };
