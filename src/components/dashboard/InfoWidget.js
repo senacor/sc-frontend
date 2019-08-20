@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const InfoWidget = ({ linkTo, onClick, icon, label, value, classes}) => {
+const InfoWidget = ({ linkTo, onClick, icon, label, value, classes }) => {
   return (
     <Card
       component={linkTo ? NavLink : null}
