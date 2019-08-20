@@ -183,6 +183,27 @@ const ButtonsBelowSheet = props => {
         });
       }
     } else if (
+      pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
+    ) {
+      addRatings(
+        pr.id,
+        pr.prRating,
+        pr.targetRole,
+        pr.advancementStrategies,
+        errorContext,
+        infoContext
+      ).then(() => {
+        addPrStatus(
+          pr.id,
+          'MODIFICATIONS_ACCEPTED_REVIEWER',
+          setPr,
+          errorContext
+        );
+        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+      });
+    } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       pr.employee.id === userinfo.userId

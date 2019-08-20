@@ -178,7 +178,7 @@ const PrSheet = props => {
       case 'RATINGS_REVIEWER':
         return (
           !userroles.includes('PR_CST_Leiter') ||
-          pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')
+          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
         );
       case 'FINAL_COMMENT_EMPLOYEE':
         return (

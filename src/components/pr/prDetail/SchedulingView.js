@@ -19,17 +19,20 @@ const SchedulingView = ({ pr, intl }) => {
   const { value: meeting } = useContext(MeetingContext.context);
   const [canRequestMeeting, setCanRequestMeeting] = useState(false);
 
-  useEffect(() => {
-    if (
-      meeting.status === 'DECLINED' ||
-      (meeting.status === 'NOT_REQUESTED' &&
-        !pr.statusSet.includes(prStatusEnum.FINALIZED_REVIEWER))
-    ) {
-      setCanRequestMeeting(true);
-    } else {
-      setCanRequestMeeting(false);
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (
+        meeting.status === 'DECLINED' ||
+        (meeting.status === 'NOT_REQUESTED' &&
+          !pr.statusSet.includes(prStatusEnum.FINALIZED_REVIEWER))
+      ) {
+        setCanRequestMeeting(true);
+      } else {
+        setCanRequestMeeting(false);
+      }
+    },
+    [meeting]
+  );
 
   const handleChange = () => {
     setCanRequestMeeting(!canRequestMeeting);

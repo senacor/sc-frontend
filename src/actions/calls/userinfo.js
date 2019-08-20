@@ -22,8 +22,13 @@ export const getUserInfo = async (userinfoContext, authorizationContext) => {
   if (response.ok) {
     rolesResponse = await response.json();
     //ROLEHACK: HR
+<<<<<<< HEAD
     rolesResponse.value[0].displayName = 'PR_HR';
     //rolesResponse.value[0].displayName = 'PR_CST_Leiter';
+=======
+    //rolesResponse.value[0].displayName = 'PR_Mitarbeiter';
+    rolesResponse.value[0].displayName = 'PR_CST_Leiter';
+>>>>>>> 555e813a65b6089301ae8a37420e7b4cc4285362
     //rolesResponse.value[0].displayName = 'PR_HR';
   } else {
     authorizationContext.setValue(true);
