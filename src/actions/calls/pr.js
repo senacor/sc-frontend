@@ -276,17 +276,17 @@ export const delegateReviewer = async (
   updatePr,
   errorContext
 ) => {
-  const changeResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prId}/delegate`,
-    {
-      method: 'post',
-      mode: 'cors',
-      body: reviewerId
-    }
-  );
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/${prId}/delegate`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: reviewerId
+      }
+    );
 
-  await changeResponse.json();
-  if (changeResponse.ok || true) {
+    await response.json();
     //updating PR because of reviewer change
     fetchPrById(
       prId,
@@ -294,7 +294,8 @@ export const delegateReviewer = async (
       () => {}, //ignoring loading
       errorContext
     );
-  } else {
+  } catch (err) {
+    console.log(err);
     errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
   }
 };

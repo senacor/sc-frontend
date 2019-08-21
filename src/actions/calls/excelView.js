@@ -1,7 +1,7 @@
 import { default as fetch } from '../../helper/customFetch';
 import { dateString } from '../../helper/date';
 
-export const downloadExcel = filter => async dispatch => {
+export const downloadExcel = filter => async () => {
   let query = searchQuery(filter);
   let filename = filenameString(filter);
 

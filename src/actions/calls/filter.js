@@ -5,17 +5,16 @@ export const getFilterPossibilities = async (
   setFilterPossibilities,
   errorContext
 ) => {
-  setLoading(true);
-
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/prs/filter`
-  );
-
-  if (response.ok) {
+  try {
+    setLoading(true);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/prs/filter`
+    );
     const possibilities = await response.json();
     setFilterPossibilities(possibilities);
     setLoading(false);
-  } else {
+  } catch (err) {
+    console.log(err);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'

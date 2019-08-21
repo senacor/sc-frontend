@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import UploadSuccessDialog from './UploadSuccessDialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { uploadFiles } from '../../actions/calls/fileStorage';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   buttonProgress: {
-    color: theme.palette.primary['A100'],
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12
+    color: theme.palette.primary['A100']
   }
 });
 
@@ -21,8 +17,30 @@ export const UploadFiles = ({ classes, intl, updateFileList }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const errorContext = useContext(ErrorContext.context);
+
+  const checkFileForm = file => {
+    const regex = /^20[0-9]{6}_\D{3}/g;
+    if (file.match(regex)) {
+      return true;
+    } else {
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'message.uploadError'
+      });
+    }
+  };
+
   const handleChange = event => {
-    uploadFiles(event.target.files, setUploadedFiles, setIsLoading);
+    if (checkFileForm(event.target.files[0].name)) {
+      uploadFiles(
+        event.target.files,
+        setUploadedFiles,
+        setIsLoading,
+        errorContext
+      );
+    }
+    return;
   };
 
   const handleClose = () => {

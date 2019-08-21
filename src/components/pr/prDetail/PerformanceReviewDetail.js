@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const PerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const [isLoading, setIsLoading] = useState({});
-  let errorContext = useContext(ErrorContext.context);
+  const errorContext = useContext(ErrorContext.context);
   const { value: meeting, setValue: setMeeting } = useContext(
     MeetingContext.context
   );

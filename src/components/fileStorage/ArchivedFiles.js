@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import { formatDateForFrontend } from '../../helper/date';
@@ -9,6 +9,7 @@ import { injectIntl } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
 import { withStyles } from '@material-ui/core';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   container: {
@@ -20,8 +21,10 @@ const ArchivedFiles = ({ intl }) => {
   const [archivedFiles, setArchivedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const errorContext = useContext(ErrorContext.context);
+
   const loadAllArchivedFiles = () => {
-    loadAllArchivedFilesList(setArchivedFiles, setIsLoading);
+    loadAllArchivedFilesList(setArchivedFiles, setIsLoading, errorContext);
   };
 
   useEffect(() => {

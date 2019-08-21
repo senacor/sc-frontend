@@ -9,10 +9,11 @@ export const login = async (
 ) => {
   try {
     setIsLoading(true);
-    errorContext.setValue({ hasErrors: false, messageId: '' });
     authorizationContext.setValue(false);
 
     if (credentials.username === '' || credentials.password === '') {
+      authorizationContext.setValue(true);
+      setIsLoading(false);
       return;
     }
 
@@ -23,16 +24,16 @@ export const login = async (
     });
 
     const data = await response.json();
-    setIsLoading(false);
     setIsLoggedIn(setDataInLocalStorage(data));
-  } catch (err) {
     setIsLoading(false);
-    setIsLoggedIn(removeDataInLocalStorage());
-    authorizationContext.setValue(true);
+  } catch (err) {
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
+    setIsLoggedIn(removeDataInLocalStorage());
+    authorizationContext.setValue(true);
+    setIsLoading(false);
   }
 };
 
