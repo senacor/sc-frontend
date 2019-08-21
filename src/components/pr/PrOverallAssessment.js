@@ -32,7 +32,6 @@ const PrOverallAssessment = props => {
 
   const isRequiredForOverallAssessment = () => {
     return (
-      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
     );

@@ -12,7 +12,6 @@ export const login = async (
     authorizationContext.setValue(false);
 
     if (credentials.username === '' || credentials.password === '') {
-      errorContext.setValue({ hasErrors: false, messageId: 'login.failed' });
       authorizationContext.setValue(true);
       setIsLoading(false);
       return;

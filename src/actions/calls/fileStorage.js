@@ -67,7 +67,6 @@ export const downloadFile = async (
   errorContext
 ) => {
   try {
-    console.log('downloading');
     const response = await fetch(
       `${
         process.env.REACT_APP_API

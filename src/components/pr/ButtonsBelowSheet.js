@@ -87,7 +87,7 @@ const ButtonsBelowSheet = props => {
     }
   };
 
-  const handleDraftClick = () => {
+  const handleSaveClick = () => {
     infoContext.setValue({ hasInfos: false, messageId: '' });
     errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
     if (
@@ -102,7 +102,6 @@ const ButtonsBelowSheet = props => {
         infoContext
       );
     } else if (
-      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
     ) {
@@ -187,22 +186,24 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       userroles.includes('PR_CST_Leiter')
     ) {
-      addRatings(
-        pr.id,
-        pr.prRating,
-        pr.targetRole,
-        pr.advancementStrategies,
-        errorContext,
-        infoContext
-      ).then(() => {
-        addPrStatus(
+      if (!validateOverallAssessment()) {
+        addRatings(
           pr.id,
-          'MODIFICATIONS_ACCEPTED_REVIEWER',
-          setPr,
-          errorContext
-        );
-        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
-      });
+          pr.prRating,
+          pr.targetRole,
+          pr.advancementStrategies,
+          errorContext,
+          infoContext
+        ).then(() => {
+          addPrStatus(
+            pr.id,
+            'MODIFICATIONS_ACCEPTED_REVIEWER',
+            setPr,
+            errorContext
+          );
+          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+        });
+      }
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
@@ -279,7 +280,7 @@ const ButtonsBelowSheet = props => {
   const createSaveButton = () => {
     return (
       <Button
-        onClick={handleDraftClick}
+        onClick={handleSaveClick}
         disabled={disabled()}
         className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
       >
