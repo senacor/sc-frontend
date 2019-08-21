@@ -2,24 +2,33 @@ import { default as fetch } from '../../helper/customFetch';
 
 export const loadAllArchivedFilesList = async (
   setArchivedFiles,
-  setIsLoading
+  setIsLoading,
+  errorContext
 ) => {
   try {
     setIsLoading(true);
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/hr/downloadInfo`
     );
-    if (response.ok) {
-      const result = await response.json();
-      setArchivedFiles(result);
-      setIsLoading(false);
-    }
+    const result = await response.json();
+    setArchivedFiles(result);
+    setIsLoading(false);
   } catch (err) {
     console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
   }
 };
 
-export const uploadFiles = async (files, setUploadedFiles, setIsLoading) => {
+export const uploadFiles = async (
+  files,
+  setUploadedFiles,
+  setIsLoading,
+  errorContext
+) => {
   try {
     setIsLoading(true);
     var data = new FormData();
@@ -38,50 +47,64 @@ export const uploadFiles = async (files, setUploadedFiles, setIsLoading) => {
       {}
     );
 
-    if (response.ok) {
-      const result = await response.json();
-      setUploadedFiles(result);
-      setIsLoading(false);
-    }
+    const result = await response.json();
+    setUploadedFiles(result);
+    setIsLoading(false);
   } catch (err) {
     console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
   }
 };
 
-export const downloadFile = async (employeeId, fileId, setDownloadedFile) => {
+export const downloadFile = async (
+  employeeId,
+  fileId,
+  setDownloadedFile,
+  errorContext
+) => {
   try {
+    console.log('downloading');
     const response = await fetch(
       `${
         process.env.REACT_APP_API
       }/api/v3/employees/${employeeId}/archivedPrs/${fileId}`
     );
 
-    if (response.ok) {
-      const result = await response.json();
-      setDownloadedFile(result);
-    }
+    const result = await response.json();
+    setDownloadedFile(result);
   } catch (err) {
     console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
   }
 };
 
 export const loadArchivedFilesList = async (
   employeeId,
   setArchivedFiles,
-  setIsLoading
+  setIsLoading,
+  errorContext
 ) => {
   try {
     setIsLoading(true);
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/employees/${employeeId}/archivedPrs`
     );
-
-    if (response.ok) {
-      const result = await response.json();
-      setArchivedFiles(result);
-      setIsLoading(false);
-    }
+    const result = await response.json();
+    setArchivedFiles(result);
+    setIsLoading(false);
   } catch (err) {
     console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
   }
 };

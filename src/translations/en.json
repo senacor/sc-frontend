@@ -216,6 +216,7 @@
   "mapratingfullfilment.overfulfilled": "overfulfilled",
   "mapratingfullfilment.notselected": "not selected",
   "message.error": "An unexpected error has occurred.",
+  "message.uploadError": "Wrong format of file - should be YYYYMMDD_username.xlsx",
   "ACCEPT": "Accepted",
   "ACCEPTED_DATE_REVIEWER": "Appointment accepted",
   "ALL_DATES_ACCEPTED": "Appointment scheduled",

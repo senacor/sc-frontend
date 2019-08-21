@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
@@ -10,6 +10,7 @@ import { injectIntl } from 'react-intl';
 import { loadArchivedFilesList } from '../../../actions/calls/fileStorage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Typography, withStyles } from '@material-ui/core';
+import { ErrorContext } from '../../App';
 
 const styles = theme => ({
   container: {
@@ -28,10 +29,17 @@ const PrHistory = props => {
   const [archivedFiles, setArchivedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const errorContext = useContext(ErrorContext.context);
+
   const { classes } = props;
 
   useEffect(() => {
-    loadArchivedFilesList(employeeId, setArchivedFiles, setIsLoading);
+    loadArchivedFilesList(
+      employeeId,
+      setArchivedFiles,
+      setIsLoading,
+      errorContext
+    );
   }, []);
 
   if (isLoading) {
