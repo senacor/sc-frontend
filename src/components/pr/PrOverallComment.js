@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles/index';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Grid from '@material-ui/core/Grid';
 
-import { getPrRatings } from '../../reducers/selector';
 import PrTextField from './PrTextField';
 import TextFieldService from '../../service/TextFieldService';
 import { injectIntl } from 'react-intl';
@@ -28,6 +26,7 @@ const PrOverallComment = ({
   openEditing,
   intl
 }) => {
+  prRating = {}; //TODO: temp
   let comment = prRating.comment ? prRating.comment : '';
   const [overallComment, setOverallComment] = useState(comment);
 
@@ -70,9 +69,4 @@ const PrOverallComment = ({
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrOverallComment);
-export default injectIntl(
-  connect((state, props) => ({
-    prRating: getPrRatings(props.category)(state)
-  }))(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrOverallComment));

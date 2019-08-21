@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import * as actions from '../../../actions';
-import { connect } from 'react-redux';
-import {
-  getPrDetail,
-  getMeeting,
-  isLoading,
-  getUserinfo,
-  getUserroles
-} from '../../../reducers/selector';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyledComponent as MeetingDetailsView } from './MeetingDetailsView';
 import MeetingCreator from '../../scheduling/MeetingCreator';
 import { prStatusEnum } from '../../../helper/prStatus';
 import { injectIntl } from 'react-intl';
+import {
+  MeetingContext,
+  UserinfoContext,
+  PrContext,
+  ErrorContext
+} from '../../App';
+import { addPrStatus } from '../../../actions/calls/pr';
 
-const SchedulingView = ({
-  meeting,
-  prDetail,
-  userinfo,
-  userroles,
-  addPrStatus,
-  intl
-}) => {
+const SchedulingView = ({ pr, intl }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const { setValue: setPr } = useContext(PrContext.context);
+  const errorContext = useContext(ErrorContext.context);
+
+  const { value: meeting } = useContext(MeetingContext.context);
   const [canRequestMeeting, setCanRequestMeeting] = useState(false);
 
-  useEffect(() => {
-    if (
-      meeting.status === 'DECLINED' ||
-      (meeting.status === 'NOT_REQUESTED' &&
-        !prDetail.statuses.includes(prStatusEnum.FINALIZED_REVIEWER))
-    ) {
-      setCanRequestMeeting(true);
-    } else {
-      setCanRequestMeeting(false);
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (
+        meeting.status === 'DECLINED' ||
+        (meeting.status === 'NOT_REQUESTED' &&
+          !pr.statusSet.includes(prStatusEnum.FINALIZED_REVIEWER))
+      ) {
+        setCanRequestMeeting(true);
+      } else {
+        setCanRequestMeeting(false);
+      }
+    },
+    [meeting]
+  );
 
   const handleChange = () => {
     setCanRequestMeeting(!canRequestMeeting);
@@ -42,14 +41,19 @@ const SchedulingView = ({
   return (
     <div id={'outer'}>
       {canRequestMeeting ? (
-        <MeetingCreator handleChange={() => handleChange()} intl={intl} />
+        <MeetingCreator
+          handleChange={() => handleChange()}
+          intl={intl}
+          pr={pr}
+        />
       ) : (
         <MeetingDetailsView
-          meeting={meeting}
-          pr={prDetail}
+          pr={pr}
           userinfo={userinfo}
           userroles={userroles}
-          click={() => addPrStatus(prDetail, prStatusEnum.FIXED_DATE)}
+          click={() =>
+            addPrStatus(pr, prStatusEnum.FIXED_DATE, setPr, errorContext)
+          }
           handleChange={() => handleChange()}
         />
       )}
@@ -57,17 +61,4 @@ const SchedulingView = ({
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({
-      prDetail: getPrDetail()(state),
-      meeting: getMeeting(state),
-      isLoading: isLoading(state),
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state)
-    }),
-    {
-      addPrStatus: actions.addPrStatus
-    }
-  )(SchedulingView)
-);
+export default injectIntl(SchedulingView);

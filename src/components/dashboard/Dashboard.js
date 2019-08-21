@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import { getUserinfo, getUserroles } from '../../reducers/selector';
-import * as actions from '../../actions';
 import { NavLink } from 'react-router-dom';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
-import DefaultFilterService from '../../service/DefaultFilterService';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../App';
 
 const styles = {
   rowContainer: {
@@ -24,8 +21,10 @@ const styles = {
     flexDirection: 'column'
   },
   card: {
-    flexGrow: '1',
-    margin: '20px'
+    flexGrow: 1,
+    margin: 20,
+    marginBottom: 0,
+    textDecoration: 'none'
   },
   thinItem: {
     paddingTop: 10,
@@ -33,20 +32,8 @@ const styles = {
   }
 };
 
-const Dashboard = ({
-  resetFilterGroup,
-  addFilter,
-  userinfo,
-  classes,
-  userroles,
-  intl
-}) => {
-  const handleClick = payload => () => {
-    resetFilterGroup(payload.filterGroup);
-    addFilter(payload);
-  };
-
-  const defaultFilterService = new DefaultFilterService(userinfo.userId);
+const Dashboard = ({ classes, intl }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
@@ -61,11 +48,10 @@ const Dashboard = ({
             className={classes.card}
             component={NavLink}
             to={'/prs/' + userinfo.idOfNewestOpenPr}
-            style={{ textDecoration: 'none' }}
           >
             <CardContent>
               <Typography variant="h5" component="h2">
-                {formatDateForFrontend(userinfo.deadlineOfNewestOpenPr)}
+                {formatDateForFrontend(userinfo.deadlineOfNewestPr)}
               </Typography>
               <Typography className={classes.title} color="textSecondary">
                 {intl.formatMessage({
@@ -77,13 +63,7 @@ const Dashboard = ({
         ) : null}
 
         {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={'/prs'}
-            style={{ textDecoration: 'none' }}
-            onClick={handleClick(defaultFilterService.prsAsReviewerFilter())}
-          >
+          <Card className={classes.card} component={NavLink} to={'/prs'}>
             <CardContent>
               <Typography variant="h5" component="h2">
                 {numberOfPrsToReview}
@@ -104,7 +84,6 @@ const Dashboard = ({
             })}
             value={numberOfPrsToReview}
             linkTo={'/prs'}
-            onClick={handleClick(defaultFilterService.prsToReviewFilter())}
             icon={'library_books'}
           />
         ) : null}
@@ -116,21 +95,12 @@ const Dashboard = ({
             })}
             value={numberOfPrsToSupervise}
             linkTo={'/prs'}
-            onClick={handleClick(
-              defaultFilterService.prsAsSupervisorAndInProgressFilter()
-            )}
             icon={'library_books'}
           />
         ) : null}
 
         {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={'/myPrs'}
-            style={{ textDecoration: 'none' }}
-            onClick={handleClick(defaultFilterService.ownIncompletePrsFilter())}
-          >
+          <Card className={classes.card} component={NavLink} to={'/myPrs'}>
             <CardContent>
               <Typography variant="h5" component="h2">
                 {prsNotFilledByEmployee}
@@ -186,13 +156,4 @@ const Dashboard = ({
   ) : null;
 };
 
-export const StyledComponent = withStyles(styles)(Dashboard);
-export default injectIntl(
-  connect(
-    state => ({
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state)
-    }),
-    { addFilter: actions.addFilter, resetFilterGroup: actions.resetFilterGroup }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(Dashboard));

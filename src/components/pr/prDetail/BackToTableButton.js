@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import ROUTES from '../../../helper/routes';
 import { isHr } from '../../../helper/checkRole';
-import { getUserPrincipalName, getUserroles } from '../../../reducers/selector';
-import { connect } from 'react-redux';
 import PrStatusActionButton from './PrStatusActionButton';
 import { injectIntl } from 'react-intl';
+import { ErrorContext, InfoContext, UserinfoContext } from '../../App';
 
-const BackToTableButton = ({ pr, userroles, username, classes, intl }) => {
+const BackToTableButton = ({ pr, classes, intl }) => {
+  const infoContext = useContext(InfoContext.context);
+  const errorContext = useContext(ErrorContext.context);
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const { username } = userinfo;
   const getBackJumpPoint = (pr, userroles, username) => {
     if (pr.employee.login === username) {
       return ROUTES.OWN_PR_TABLE;
@@ -23,11 +26,17 @@ const BackToTableButton = ({ pr, userroles, username, classes, intl }) => {
     }
   };
 
+  const resetMessages = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+  };
+
   return (
     <PrStatusActionButton
       label={intl.formatMessage({
         id: 'backtotablebutton.back'
       })}
+      releaseButtonClick={resetMessages}
       inputClass={classes}
       component={NavLink}
       to={getBackJumpPoint(pr, userroles, username)}
@@ -35,12 +44,4 @@ const BackToTableButton = ({ pr, userroles, username, classes, intl }) => {
   );
 };
 
-export default injectIntl(
-  connect(
-    state => ({
-      username: getUserPrincipalName(state),
-      userroles: getUserroles(state)
-    }),
-    null
-  )(BackToTableButton)
-);
+export default injectIntl(BackToTableButton);

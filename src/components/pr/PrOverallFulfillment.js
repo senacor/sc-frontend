@@ -1,130 +1,103 @@
-import React from 'react';
-import { connect } from 'react-redux';
-
-import ListItem from '@material-ui/core/ListItem';
+import React, { useState } from 'react';
+import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { getPrRatings } from '../../reducers/selector';
-import * as actions from '../../actions';
-import { withStyles } from '@material-ui/core';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
-import { injectIntl } from 'react-intl';
 
-const styles = {
+const styles = theme => ({
   simpleBlack: {
-    color: '#000000',
+    color: theme.palette.primary[900],
     width: '80%'
   },
-  number: {
-    width: '20%',
-    paddingLeft: '5%'
+  selectWidth: {
+    width: '90%'
   }
-};
+});
 
 const PrOverallFulfillment = ({
   category,
-  prRating,
-  prById,
-  addRating,
-  readOnly,
-  isActionPerformer,
-  nonActionPerformer,
-  openEditing,
   classes,
+  isReadOnly,
+  hidden,
+  rating,
+  action,
   intl
 }) => {
-  if (!prRating) {
-    return null;
-  }
+  const [ratingState, setRatingState] = useState(rating);
 
-  const handleChangeRating = event => {
-    addRating(
-      prById,
-      category,
-      prRating.comment,
-      event.target.value,
-      prRating.id
-    );
+  const handleChange = value => {
+    setRatingState(value);
   };
 
-  if (nonActionPerformer) {
+  if (isReadOnly('RATINGS_REVIEWER')) {
     return (
-      <ListItem>
-        <div className={classes.simpleBlack}>
-          <Typography>
-            {intl.formatMessage({
-              id: `${category}`
-            })}
-          </Typography>
-        </div>
-        <Typography id="FULFILLMENT_OF_REQUIREMENT_TYPO" variant="body1">
-          {readOnly
-            ? mapRatingFullfilment(prRating.rating, intl)
-            : intl.formatMessage({
-                id: 'proverallfulfillment.noentry'
+      <Grid container spacing={16}>
+        <Grid item xs={10}>
+          <div className={classes.simpleBlack}>
+            <Typography>
+              {intl.formatMessage({
+                id: `${category}`
               })}
-        </Typography>
-      </ListItem>
-    );
-  } else if (isActionPerformer) {
-    return (
-      <ListItem>
-        <div className={classes.simpleBlack}>
-          <Typography>
-            {intl.formatMessage({
-              id: `${category}`
-            })}
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography variant="body1">
+            {isReadOnly('RATINGS_REVIEWER')
+              ? mapRatingFullfilment(ratingState, intl)
+              : intl.formatMessage({
+                  id: 'proverallfulfillment.noentry'
+                })}
           </Typography>
-        </div>
-        <div className={classes.number}>
-          <FormControl disabled={!openEditing}>
-            <Select
-              id="FULFILLMENT_OF_REQUIREMENT_RatingId"
-              value={prRating.rating ? prRating.rating : 0}
-              onChange={handleChangeRating}
-              displayEmpty
-              name="ratingFulfillment"
-            >
-              {[0, 1, 2, 3, 4, 5].map(ratingValue => {
-                return (
-                  <MenuItem
-                    key={
-                      'FULFILLMENT_OF_REQUIREMENT' +
-                      '_RatingValue' +
-                      ratingValue
-                    }
-                    id={
-                      'FULFILLMENT_OF_REQUIREMENT' +
-                      '_RatingValue' +
-                      ratingValue
-                    }
-                    value={ratingValue}
-                  >
-                    {mapRatingFullfilment(ratingValue, intl)}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </div>
-      </ListItem>
+        </Grid>
+      </Grid>
     );
-  } else {
+  } else if (hidden) {
     return null;
+  } else {
+    return (
+      <Grid container spacing={16}>
+        <Grid item xs={8}>
+          <div className={classes.simpleBlack}>
+            <Typography>
+              {intl.formatMessage({
+                id: `${category}`
+              })}
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.selectWidth}>
+            <FormControl fullWidth={true}>
+              <Select
+                value={ratingState}
+                onChange={event => {
+                  handleChange(event.target.value);
+                  action(event.target.value);
+                }}
+              >
+                {[0, 1, 2, 3, 4, 5].map(ratingValue => {
+                  return (
+                    <MenuItem
+                      key={category + '_rating_' + ratingValue}
+                      value={ratingValue}
+                    >
+                      {mapRatingFullfilment(ratingValue, intl)}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+        </Grid>
+      </Grid>
+    );
   }
 };
 
-export const StyledComponent = withStyles(styles)(PrOverallFulfillment);
-export default injectIntl(
-  connect(
-    (state, props) => ({
-      prRating: getPrRatings(props.category)(state)
-    }),
-    {
-      addRating: actions.addRating
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrOverallFulfillment));

@@ -59,7 +59,7 @@ class MeetingDetailVisibilityService {
       meetingExists: false
     };
 
-    let reviewerHasFinished = pr.statuses.includes(
+    let reviewerHasFinished = pr.statusSet.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
     let isHrMember = isHr(userroles);
@@ -132,7 +132,8 @@ class MeetingDetailVisibilityService {
     return this.execute().evaluationExternal;
   };
   getAction = () => {
-    return this.execute().action;
+    // return this.execute().action;
+    return true;
   };
   getMeetingExists = () => {
     return this.execute().meetingExists;

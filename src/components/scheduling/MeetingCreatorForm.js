@@ -1,14 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
-import * as actions from '../../actions';
-import { connect } from 'react-redux';
-import {
-  getPrDetail,
-  getSelectedDate,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment-timezone';
 import DateTimePicker from './DateTimePicker';
@@ -16,6 +7,8 @@ import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 import { injectIntl } from 'react-intl';
+import { addMeeting } from '../../actions/calls/meetings';
+import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   container: {
@@ -43,17 +36,10 @@ const styles = theme => ({
   }
 });
 
-const MeetingCreatorForm = ({
-  prById,
-  addMeeting,
-  fetchAppointments,
-  changeDate,
-  pr,
-  userinfo,
-  userroles,
-  classes,
-  intl
-}) => {
+const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const { setValue: setMeeting } = useContext(MeetingContext.context);
+  const errorContext = useContext(ErrorContext.context);
   let now = moment.tz('Europe/Berlin');
   const remainder = 30 - (now.minute() % 30);
   let start = now.add(remainder, 'minutes');
@@ -117,13 +103,12 @@ const MeetingCreatorForm = ({
 
   const handleClickOfMeetingButton = event => {
     event.preventDefault();
-    addMeeting(createMeeting(prById));
+    addMeeting(createMeeting(prById), setMeeting, errorContext);
   };
 
   const setDateTime = (name, value) => {
     if (name === 'date' && moment(value, 'YYYY-MM-DD', true).isValid()) {
       fetchAppointments(value);
-      changeDate(value);
     }
     switch (name) {
       case 'location':
@@ -143,7 +128,7 @@ const MeetingCreatorForm = ({
   };
 
   let visibilityService = new meetingDetailVisibilityService();
-  visibilityService.setPr(pr);
+  visibilityService.setPr(prById);
   visibilityService.setUserinfo(userinfo);
   visibilityService.setUserroles(userroles);
   return (
@@ -188,24 +173,4 @@ const MeetingCreatorForm = ({
   );
 };
 
-MeetingCreatorForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-  fetchAppointments: PropTypes.func.isRequired
-};
-
-export const StyledComponent = withStyles(styles)(MeetingCreatorForm);
-export default injectIntl(
-  connect(
-    state => ({
-      pr: getPrDetail()(state),
-      userinfo: getUserinfo(state),
-      userroles: getUserroles(state),
-      getSelectedDateTime: getSelectedDate(state)
-    }),
-    {
-      addMeeting: actions.addMeeting,
-      changeDate: actions.changeDate,
-      addPrStatus: actions.addPrStatus
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(MeetingCreatorForm));

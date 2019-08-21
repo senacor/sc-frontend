@@ -1,23 +1,14 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
-import {
-  getPrDetail,
-  getPrEmployeeContributions,
-  getPrRatings,
-  getSavingThreads,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
-import { changeRequiredFields } from '../../actions/sheet';
-import * as actions from '../../actions';
-import PrStatusActionButton from './prDetail/PrStatusActionButton';
-import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
-import { prStatusEnum } from '../../helper/prStatus';
-import { isHr } from '../../helper/checkRole';
-import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
-import Typography from '@material-ui/core/Typography/Typography';
+import React, { useContext } from 'react';
+import { Button, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import {
+  addFinalCommentEmployee,
+  addFinalCommentHr,
+  addRatings,
+  addReflections,
+  addPrStatus
+} from '../../actions/calls/pr';
+import { PrContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   rightFloat: {
@@ -47,303 +38,276 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const {
-    classes,
-    pr,
-    userroles,
-    userinfo,
-    checkRequired,
-    addPrStatus,
-    savingThreads,
-    intl
-  } = props;
+  const { classes, pr, intl, errorContext, infoContext } = props;
+  let { errors } = props;
+  const { setValue: setPr } = useContext(PrContext.context);
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
 
-  const checkRequiredFields = (
-    employeeContributionRole,
-    employeeContributionLeader,
-    overallComment,
-    status
-  ) => {
-    let filledEmployee =
-      employeeContributionRole !== null &&
-      employeeContributionLeader !== null &&
-      employeeContributionRole !== '' &&
-      employeeContributionLeader !== '';
-    let filledReviewer = overallComment !== null && overallComment !== '';
+  const validateReflectionInputs = () => {
+    if (!pr.firstReflectionField) {
+      errors = { ...errors, firstReflectionField: true };
+    }
+    if (pr.firstReflectionField) {
+      errors = { ...errors, firstReflectionField: false };
+    }
+    if (!pr.secondReflectionField) {
+      errors = { ...errors, secondReflectionField: true };
+    }
+    if (pr.secondReflectionField) {
+      errors = { ...errors, secondReflectionField: false };
+    }
 
-    let required = { employee: true, reviewer: true };
-    switch (status) {
-      case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
-        return Object.assign({}, required, {
-          employee: filledEmployee
-        });
-      case prStatusEnum.RELEASED_SHEET_REVIEWER:
-        return Object.assign({}, required, {
-          reviewer: filledReviewer
-        });
-      case prStatusEnum.FINALIZED_REVIEWER:
-        return Object.assign({}, required, {
-          reviewer: filledReviewer
-        });
-      default:
-        return required;
+    if (Object.values(errors).includes(true)) {
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'buttonsbelowsheet.fillrequired',
+        errors: errors
+      });
+      window.scrollTo(0, 0);
+      return true;
     }
   };
 
-  const requiredFieldsEmpty = status => {
-    let {
-      employeeContributionRole,
-      employeeContributionLeader,
-      overallComment
-    } = props;
+  const validateOverallAssessment = () => {
+    if (!pr.prRating.overallAssessment.fulfillmentOfRequirement.comment) {
+      errors = { ...errors, overallAssessmentComment: true };
+    }
+    if (pr.prRating.overallAssessment.fulfillmentOfRequirement.comment) {
+      errors = { ...errors, overallAssessmentComment: false };
+    }
 
-    let fieldFilled = checkRequiredFields(
-      employeeContributionRole,
-      employeeContributionLeader,
-      overallComment,
-      status
-    );
+    if (Object.values(errors).includes(true)) {
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'buttonsbelowsheet.fillrequired',
+        errors: errors
+      });
+      window.scrollTo(0, 0);
+      return true;
+    }
+  };
 
+  const handleDraftClick = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
     if (
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
-      false === fieldFilled.employee
+      !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+      pr.employee.id === userinfo.userId
     ) {
-      checkRequired(fieldFilled);
-      return true;
+      addReflections(
+        pr.id,
+        pr.firstReflectionField,
+        pr.secondReflectionField,
+        errorContext,
+        infoContext
+      );
     } else if (
-      prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
-      false === fieldFilled.reviewer
+      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
     ) {
-      checkRequired(fieldFilled);
-      return true;
+      addRatings(
+        pr.id,
+        pr.prRating,
+        pr.targetRole,
+        pr.advancementStrategies,
+        errorContext,
+        infoContext
+      );
     } else if (
-      prStatusEnum.FINALIZED_REVIEWER === status &&
-      false === fieldFilled.reviewer
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      pr.employee.id === userinfo.userId
     ) {
-      checkRequired(fieldFilled);
-      return true;
-    } else {
-      return false;
+      addFinalCommentEmployee(
+        pr.id,
+        pr.finalCommentEmployee,
+        errorContext,
+        infoContext
+      );
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      !pr.statusSet.includes('PR_COMPLETED') &&
+      userroles.includes('PR_HR')
+    ) {
+      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext, infoContext);
     }
   };
 
-  const getActionPerformerButton = (pr, status, label) => {
-    return (
-      <CheckRequiredClick
-        onClick={() => {
-          addPrStatus(pr, status);
-        }}
-        check={() => !requiredFieldsEmpty(status)}
-        message={intl.formatMessage({
-          id: 'buttonsbelowsheet.fillrequired'
-        })}
-        inputClass={classes.rightFloat}
-      >
-        <PrStatusActionButton
-          label={label}
-          inputClass={classes.buttonDesktopBelow}
-        />
-      </CheckRequiredClick>
-    );
-  };
-
-  const getDisabledButton = (pr, status, label) => {
-    return (
-      <CheckRequiredClick
-        onClick={() => {
-          addPrStatus(pr, status);
-        }}
-        check={() => !requiredFieldsEmpty(status)}
-        message={intl.formatMessage({
-          id: 'buttonsbelowsheet.fillrequired'
-        })}
-        inputClass={classes.rightFloat}
-      >
-        <PrStatusActionButton
-          label={label}
-          inputClass={classes.buttonDesktopDisabled}
-          disabled
-        />
-      </CheckRequiredClick>
-    );
-  };
-
-  const getEmployeeButtons = pr => {
-    let reviewerFinalized = pr.statuses.includes(
-      prStatusEnum.FINALIZED_REVIEWER
-    );
-    let employeeFinalized = pr.statuses.includes(
-      prStatusEnum.FINALIZED_EMPLOYEE
-    );
-    let employeeReleased = pr.statuses.includes(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    let releaseButton = !employeeReleased
-      ? getActionPerformerButton(
-          pr,
-          prStatusEnum.RELEASED_SHEET_EMPLOYEE,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.release'
-          })}`
-        )
-      : null;
-    let finalizeButtonDisabled = !reviewerFinalized
-      ? getDisabledButton(
-          pr,
-          prStatusEnum.FINALIZED_EMPLOYEE,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.finish'
-          })}`
-        )
-      : null;
-    let finalizeButtonEnabled =
-      reviewerFinalized && !employeeFinalized
-        ? getActionPerformerButton(
-            pr,
-            prStatusEnum.FINALIZED_EMPLOYEE,
-            `${intl.formatMessage({
-              id: 'buttonsbelowsheet.finish'
-            })}`
-          )
-        : null;
-    return (
-      <div>
-        {finalizeButtonEnabled}
-        {finalizeButtonDisabled}
-        {releaseButton}
-      </div>
-    );
-  };
-
-  const getReviewerButtons = pr => {
-    let reviewerFinalized = pr.statuses.includes(
-      prStatusEnum.FINALIZED_REVIEWER
-    );
-    let reviewerReleased = pr.statuses.includes(
-      prStatusEnum.RELEASED_SHEET_REVIEWER
-    );
-    let employeeReleased = pr.statuses.includes(
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE
-    );
-    let releaseButton = !reviewerReleased
-      ? getActionPerformerButton(
-          pr,
-          prStatusEnum.RELEASED_SHEET_REVIEWER,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.release'
-          })}`
-        )
-      : null;
-    let finalizeButtonDisabled = !(employeeReleased && reviewerReleased)
-      ? getDisabledButton(
-          pr,
-          prStatusEnum.FINALIZED_REVIEWER,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.finish'
-          })}`
-        )
-      : null;
-    let finalizeButtonEnabled =
-      employeeReleased && reviewerReleased && !reviewerFinalized
-        ? getActionPerformerButton(
-            pr,
-            prStatusEnum.FINALIZED_REVIEWER,
-            `${intl.formatMessage({
-              id: 'buttonsbelowsheet.finish'
-            })}`
-          )
-        : null;
-    return (
-      <div>
-        {finalizeButtonEnabled}
-        {finalizeButtonDisabled}
-        {releaseButton}
-      </div>
-    );
-  };
-
-  const getHrButtons = pr => {
-    let employeeFinalized = pr.statuses.includes(
-      prStatusEnum.FINALIZED_EMPLOYEE
-    );
-    let hrFinalized = pr.statuses.includes(prStatusEnum.ARCHIVED_HR);
-    let releaseButtonDisabled = !employeeFinalized
-      ? getDisabledButton(
-          pr,
-          prStatusEnum.ARCHIVED_HR,
-          `${intl.formatMessage({
-            id: 'buttonsbelowsheet.finish'
-          })}`
-        )
-      : null;
-    let releaseButtonEnabled =
-      employeeFinalized && !hrFinalized
-        ? getActionPerformerButton(
-            pr,
-            prStatusEnum.ARCHIVED_HR,
-            `${intl.formatMessage({
-              id: 'buttonsbelowsheet.finish'
-            })}`
-          )
-        : null;
-    return (
-      <div>
-        {releaseButtonEnabled}
-        {releaseButtonDisabled}
-      </div>
-    );
-  };
-
-  const findButtonsForRole = (pr, userroles, userinfo) => {
-    let userIsMemberOfHr = isHr(userroles);
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-
-    if (userIsMemberOfHr) {
-      return getHrButtons(pr);
-    } else if (hasRoleInPr(['employee'])) {
-      return getEmployeeButtons(pr);
-    } else if (hasRoleInPr(['reviewer', 'supervisor'])) {
-      return getReviewerButtons(pr);
-    } else {
-      return null;
+  const handleSubmitClick = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
+    if (
+      !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+      pr.employee.id === userinfo.userId
+    ) {
+      if (!validateReflectionInputs()) {
+        addReflections(
+          pr.id,
+          pr.firstReflectionField,
+          pr.secondReflectionField,
+          errorContext,
+          infoContext
+        ).then(() => {
+          addPrStatus(
+            pr.id,
+            'FILLED_SHEET_EMPLOYEE_SUBMITTED',
+            setPr,
+            errorContext
+          );
+          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+        });
+      }
+    } else if (
+      !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
+    ) {
+      if (!validateOverallAssessment()) {
+        addRatings(
+          pr.id,
+          pr.prRating,
+          pr.targetRole,
+          pr.advancementStrategies,
+          errorContext,
+          infoContext
+        ).then(() => {
+          addPrStatus(
+            pr.id,
+            'FILLED_SHEET_REVIEWER_SUBMITTED',
+            setPr,
+            errorContext
+          );
+          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+        });
+      }
+    } else if (
+      pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      userroles.includes('PR_CST_Leiter')
+    ) {
+      addRatings(
+        pr.id,
+        pr.prRating,
+        pr.targetRole,
+        pr.advancementStrategies,
+        errorContext,
+        infoContext
+      ).then(() => {
+        addPrStatus(
+          pr.id,
+          'MODIFICATIONS_ACCEPTED_REVIEWER',
+          setPr,
+          errorContext
+        );
+        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+      });
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      pr.employee.id === userinfo.userId
+    ) {
+      addFinalCommentEmployee(
+        pr.id,
+        pr.finalCommentEmployee,
+        errorContext,
+        infoContext
+      ).then(() => {
+        addPrStatus(
+          pr.id,
+          'MODIFICATIONS_ACCEPTED_EMPLOYEE',
+          setPr,
+          errorContext
+        );
+        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+      });
+    } else if (
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+      pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
+      !pr.statusSet.includes('PR_COMPLETED') &&
+      userroles.includes('PR_HR')
+    ) {
+      addFinalCommentHr(
+        pr.id,
+        pr.finalCommentHr,
+        errorContext,
+        infoContext
+      ).then(() => {
+        addPrStatus(pr.id, 'PR_COMPLETED', setPr, errorContext);
+        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+      });
     }
+  };
+
+  const disabled = () => {
+    if (userroles.includes('PR_Mitarbeiter')) {
+      return (
+        (pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
+        pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
+      );
+    } else if (userroles.includes('PR_CST_Leiter')) {
+      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+    } else if (userroles.includes('PR_HR')) {
+      return (
+        !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
+        pr.statusSet.includes('PR_COMPLETED')
+      );
+    }
+  };
+
+  const submitButtonText = () => {
+    if (
+      (userroles.includes('PR_Mitarbeiter') &&
+        pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) ||
+      (userroles.includes('PR_CST_Leiter') &&
+        pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')) ||
+      (userroles.includes('PR_HR') &&
+        pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE'))
+    ) {
+      return intl.formatMessage({
+        id: 'buttonsbelowsheet.finish'
+      });
+    }
+
+    return intl.formatMessage({
+      id: 'buttonsbelowsheet.release'
+    });
+  };
+
+  const createSaveButton = () => {
+    return (
+      <Button
+        onClick={handleDraftClick}
+        disabled={disabled()}
+        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
+      >
+        {intl.formatMessage({
+          id: 'buttonsbelowsheet.draft'
+        })}
+      </Button>
+    );
+  };
+
+  const createSubmitButton = () => {
+    return (
+      <Button
+        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
+        disabled={disabled()}
+        onClick={handleSubmitClick}
+      >
+        {submitButtonText()}
+      </Button>
+    );
   };
 
   return (
     <div className={classes.container}>
-      <Typography>
-        {savingThreads > 0
-          ? intl.formatMessage({
-              id: 'prstate.saving'
-            })
-          : intl.formatMessage({
-              id: 'prstate.saved'
-            })}
-      </Typography>
-      {findButtonsForRole(pr, userroles, userinfo)}
+      {createSubmitButton()}
+      {createSaveButton()}
     </div>
   );
 };
 
-export const StyledComponent = withStyles(styles)(ButtonsBelowSheet);
-export default injectIntl(
-  connect(
-    state => ({
-      pr: getPrDetail()(state),
-      userroles: getUserroles(state),
-      userinfo: getUserinfo(state),
-      overallComment: getPrRatings('FULFILLMENT_OF_REQUIREMENT')(state).comment,
-      employeeContributionRole: getPrEmployeeContributions(
-        'ROLE_AND_PROJECT_ENVIRONMENT'
-      )(state).text,
-      employeeContributionLeader: getPrEmployeeContributions(
-        'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
-      )(state).text,
-      savingThreads: getSavingThreads(state)
-    }),
-    {
-      checkRequired: changeRequiredFields,
-      addPrStatus: actions.addPrStatus
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(ButtonsBelowSheet));

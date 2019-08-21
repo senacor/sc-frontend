@@ -6,9 +6,6 @@ import getDisplayName from '../../helper/getDisplayName';
 import Divider from '@material-ui/core/Divider/Divider';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { LoadingEvents } from '../../helper/loadingEvents';
-import { connect } from 'react-redux';
-import withLoadingAction from '../hoc/LoadingWithAction';
 import Highlighter from 'react-highlight-words';
 import { injectIntl } from 'react-intl';
 
@@ -30,6 +27,7 @@ const PlotEmployeeSearchList = ({
   selectEmployee,
   searchValue,
   searchResults,
+  isLoading,
   excludeList,
   intl
 }) => {
@@ -84,12 +82,4 @@ PlotEmployeeSearchList.propTypes = {
   searchValue: PropTypes.string
 };
 
-export const StyledComponent = withStyles(styles)(PlotEmployeeSearchList);
-export default injectIntl(
-  connect(
-    state => ({
-      searchResults: state.employeeSearchResults
-    }),
-    {}
-  )(withLoadingAction()([LoadingEvents.FETCH_EMPLOYEES])(StyledComponent))
-);
+export default injectIntl(withStyles(styles)(PlotEmployeeSearchList));

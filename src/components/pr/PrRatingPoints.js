@@ -1,63 +1,56 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-
-import { textFieldEnum } from '../../helper/textFieldEnum';
 import FormControl from '@material-ui/core/FormControl/FormControl';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
+import { withStyles } from '@material-ui/core';
+
+const styles = () => ({
+  center: {
+    textAlign: 'center'
+  }
+});
 
 const PrRatingPoints = ({
-  readOnly,
   classes,
   category,
-  onChange,
-  value,
-  state
+  rating,
+  isReadOnly,
+  isError,
+  action
 }) => {
+  const [ratingState, setRatingState] = useState(rating);
+
   const ratingValue = entry => {
-    if (entry === 0) {
-      return '-';
-    } else {
+    if (entry) {
       return entry;
+    } else {
+      return '-';
     }
   };
 
-  let disabledRatingPoints = () => {
+  if (isReadOnly('RATINGS_REVIEWER')) {
     return (
       <TextField
-        disabled
-        InputProps={{ classes: { input: classes.center } }}
-        value={'-'}
-      />
-    );
-  };
-
-  let readOnlyRatingPoints = value => {
-    return (
-      <TextField
-        value={value}
         readOnly
-        InputProps={{ classes: { input: classes.center } }}
+        value={ratingValue(rating)}
+        inputProps={{ classes: { input: classes.center } }}
       />
     );
-  };
-
-  let writeableRatingPoints = value => {
+  } else if (isError) {
     return (
-      <FormControl className={classes.formControl} readOnly={readOnly}>
+      <FormControl error>
         <Select
-          id={category + '_RatingId'}
-          value={value}
-          onChange={onChange}
-          displayEmpty
-          name="rating"
+          value={ratingValue(ratingState)}
+          onChange={event => {
+            setRatingState(event.target.value);
+            return action(event.target.value);
+          }}
         >
           {[0, 1, 2, 3, 4, 5].map(value => {
             return (
               <MenuItem
-                key={category + '_RatingValue' + value}
-                id={category + '_RatingValue' + value}
+                key={category + '_rating_' + value}
                 value={ratingValue(value)}
               >
                 {ratingValue(value)}
@@ -67,18 +60,30 @@ const PrRatingPoints = ({
         </Select>
       </FormControl>
     );
-  };
-
-  switch (state) {
-    case textFieldEnum.ENABLED:
-      return writeableRatingPoints(value);
-    case textFieldEnum.DISABLED:
-      return disabledRatingPoints(value);
-    case textFieldEnum.READONLY:
-      return readOnlyRatingPoints(value);
-    default:
-      return null;
+  } else {
+    return (
+      <FormControl>
+        <Select
+          value={ratingValue(ratingState)}
+          onChange={event => {
+            setRatingState(event.target.value);
+            return action(event.target.value);
+          }}
+        >
+          {[0, 1, 2, 3, 4, 5].map(value => {
+            return (
+              <MenuItem
+                key={category + '_rating_' + value}
+                value={ratingValue(value)}
+              >
+                {ratingValue(value)}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+    );
   }
 };
 
-export default PrRatingPoints;
+export default withStyles(styles)(PrRatingPoints);

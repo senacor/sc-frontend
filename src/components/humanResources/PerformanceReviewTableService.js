@@ -7,15 +7,16 @@ import PopperSearchMenu from './PopperSearchMenu';
 import PrDelegate from '../pr/PrDelegate';
 import { formatDateForFrontend } from '../../helper/date';
 import DateFilter from './DateFilter';
-import ListFilter from './ListFilter';
+import { ListFilter } from './ListFilter';
 import HR_ELEMENTS from './hrElements';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
 import { FormattedMessage } from 'react-intl';
 
 export default class PerformanceReviewTableService {
-  constructor(filterGroup, filterPossibilities) {
-    this.filterGroup = filterGroup;
+  constructor(filterPossibilities, filter, setFilter) {
     this.filterPossibilities = filterPossibilities;
+    this.setFilter = setFilter;
+    this.filter = filter;
   }
 
   employee(withFilter = true) {
@@ -36,10 +37,10 @@ export default class PerformanceReviewTableService {
       returnValue = Object.assign({}, columnDefinition, {
         filter: (
           <PopperSearchMenu
-            filterGroup={this.filterGroup}
+            filter={this.filter}
             filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE}
           >
-            <EmployeeFilter />
+            <EmployeeFilter setFilter={this.setFilter} />
           </PopperSearchMenu>
         )
       });
@@ -57,16 +58,16 @@ export default class PerformanceReviewTableService {
       render: entry => getDisplayName(entry[TABLE_PRS_ELEMENTS.SUPERVISOR]),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.SUPERVISOR}
         >
-          <EmployeeFilter />
+          <EmployeeFilter setFilter={this.setFilter} />
         </PopperSearchMenu>
       )
     };
   }
 
-  reviewer(username) {
+  reviewer(username, loadFilteredPrs) {
     return {
       numeric: false,
       label: <FormattedMessage id="performancereviewtableservice.reviewer" />,
@@ -81,6 +82,7 @@ export default class PerformanceReviewTableService {
             startValue={text}
             defaultText={'Nicht übergeben'}
             isDelegated={this.prAlreadyDelegated(entry)}
+            updatePr={loadFilteredPrs}
           />
         ) : (
           getDisplayName(entry[TABLE_PRS_ELEMENTS.REVIEWER])
@@ -88,10 +90,10 @@ export default class PerformanceReviewTableService {
       },
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.REVIEWER}
         >
-          <EmployeeFilter />
+          <EmployeeFilter setFilter={this.setFilter} />
         </PopperSearchMenu>
       )
     };
@@ -106,10 +108,10 @@ export default class PerformanceReviewTableService {
         formatDateForFrontend(entry[TABLE_PRS_ELEMENTS.DEADLINE]),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.DEADLINE}
         >
-          <DateFilter />
+          <DateFilter setFilter={this.setFilter} />
         </PopperSearchMenu>
       )
     };
@@ -135,8 +137,8 @@ export default class PerformanceReviewTableService {
         <FormattedMessage id={`${entry[TABLE_PRS_ELEMENTS.PR_OCCASION]}`} />
       ),
       filter: (
-        <PopperSearchMenu filterGroup={this.filterGroup} filterBy={'occasion'}>
-          <ListFilter content={filterContent} />
+        <PopperSearchMenu filter={this.filter} filterBy={'occasion'}>
+          <ListFilter content={filterContent} setFilter={this.setFilter} />
         </PopperSearchMenu>
       )
     };
@@ -154,10 +156,10 @@ export default class PerformanceReviewTableService {
       render: entry => entry[TABLE_PRS_ELEMENTS.CST],
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.CST}
         >
-          <ListFilter content={filterContent} />
+          <ListFilter setFilter={this.setFilter} content={filterContent} />
         </PopperSearchMenu>
       )
     };
@@ -188,10 +190,10 @@ export default class PerformanceReviewTableService {
       ),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.COMPETENCE}
         >
-          <ListFilter content={filterContent} />
+          <ListFilter setFilter={this.setFilter} content={filterContent} />
         </PopperSearchMenu>
       )
     };
@@ -199,9 +201,10 @@ export default class PerformanceReviewTableService {
 
   level() {
     let filterContent = {};
-    this.filterPossibilities.levels.forEach(item => {
-      filterContent[item] = item;
-    });
+    for (let key in this.filterPossibilities.levels) {
+      let value = this.filterPossibilities.levels[key];
+      filterContent[value] = key;
+    }
 
     return {
       numeric: true,
@@ -210,10 +213,10 @@ export default class PerformanceReviewTableService {
       render: entry => entry[TABLE_PRS_ELEMENTS.LEVEL],
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.LEVEL}
         >
-          <ListFilter content={filterContent} />
+          <ListFilter setFilter={this.setFilter} content={filterContent} />
         </PopperSearchMenu>
       )
     };
@@ -233,10 +236,10 @@ export default class PerformanceReviewTableService {
         mapRatingFullfilment(entry[TABLE_PRS_ELEMENTS.RESULT], intl),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.RESULT}
         >
-          <ListFilter content={filterContent} />
+          <ListFilter setFilter={this.setFilter} content={filterContent} />
         </PopperSearchMenu>
       )
     };
@@ -266,10 +269,10 @@ export default class PerformanceReviewTableService {
         ),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.EMPLOYEE_PREPARATION_DONE}
         >
-          <ListFilter content={content} />
+          <ListFilter setFilter={this.setFilter} content={content} />
         </PopperSearchMenu>
       )
     };
@@ -299,10 +302,10 @@ export default class PerformanceReviewTableService {
         ),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.REVIEWER_PREPARATION_DONE}
         >
-          <ListFilter content={content} />
+          <ListFilter setFilter={this.setFilter} content={content} />
         </PopperSearchMenu>
       )
     };
@@ -331,10 +334,13 @@ export default class PerformanceReviewTableService {
         ),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={TABLE_PRS_ELEMENTS.IN_PROGRESS}
         >
-          <ListFilter content={{ laufend: true, beendet: false }} />
+          <ListFilter
+            setFilter={this.setFilter}
+            content={{ laufend: true, beendet: false }}
+          />
         </PopperSearchMenu>
       )
     };
@@ -356,10 +362,13 @@ export default class PerformanceReviewTableService {
         ),
       filter: (
         <PopperSearchMenu
-          filterGroup={this.filterGroup}
+          filter={this.filter}
           filterBy={HR_ELEMENTS.HR_PROCESSING_DONE}
         >
-          <ListFilter content={{ ja: true, nein: false }} />
+          <ListFilter
+            setFilter={this.setFilter}
+            content={{ ja: true, nein: false }}
+          />
         </PopperSearchMenu>
       )
     };

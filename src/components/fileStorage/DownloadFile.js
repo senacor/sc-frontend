@@ -1,20 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import * as actions from '../../actions';
-import { getDownloadedFile } from '../../reducers/selector';
-import { connect } from 'react-redux';
+import { downloadFile } from '../../actions/calls/fileStorage';
 
 let downloadTab = null;
-export const DownloadFile = ({
-  employeeId,
-  fileId,
-  downloadFile,
-  downloadedFile
-}) => {
+export const DownloadFile = ({ employeeId, fileId }) => {
+  const [downloadedFile, setDownloadedFile] = useState([]);
+
   const handleClick = (employeeId, fileId) => () => {
     downloadTab = window.open();
-    downloadFile(employeeId, fileId);
+    downloadFile(employeeId, fileId, setDownloadedFile);
   };
 
   const checkDownloadFile = file => {
@@ -31,13 +26,3 @@ export const DownloadFile = ({
     </IconButton>
   );
 };
-
-export default connect(
-  state => ({
-    downloadedFile: getDownloadedFile(state)
-  }),
-  {
-    downloadFile: actions.downloadFile,
-    resetDownloadedFile: actions.resetDownloadedFile
-  }
-)(DownloadFile);

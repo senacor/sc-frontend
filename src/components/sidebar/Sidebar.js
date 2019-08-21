@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,11 +16,15 @@ import { NavLink } from 'react-router-dom';
 import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
-import * as actions from '../../actions';
-import { getUserroles } from '../../reducers/selector';
-import { fetchReviewerInfo } from '../../actions/reviewerInfo';
-import FILTER_GROUPS from '../humanResources/filterGroups';
 import { injectIntl } from 'react-intl';
+import { getUserInfo } from '../../actions/calls/userinfo';
+import {
+  AuthorizationContext,
+  ErrorContext,
+  InfoContext,
+  UserinfoContext
+} from '../App';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = () => ({
   root: {
@@ -45,26 +48,21 @@ const styles = () => ({
   }
 });
 
-export const Sidebar = ({
-  userphoto,
-  getUserPhoto,
-  getUserInfo,
-  getUserRoles,
-  getReviewerInfo,
-  intl,
-  resetFilterGroup,
-  userinfo,
-  userroles,
-  classes
-}) => {
+export const Sidebar = ({ intl, classes }) => {
+  const userinfoContext = useContext(UserinfoContext.context);
+  const authContext = useContext(AuthorizationContext.context);
+  const { userphoto, userinfo, userroles } = userinfoContext.value;
+  const infoContext = useContext(InfoContext.context);
+  const errorContext = useContext(ErrorContext.context);
+
   useEffect(() => {
-    if (userphoto === '') {
-      getUserPhoto();
-    }
-    getUserInfo();
-    getUserRoles();
-    getReviewerInfo();
+    getUserInfo(userinfoContext, authContext);
   }, []);
+
+  const resetMessages = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+  };
 
   const getListOfMenuItems = () => {
     return [
@@ -74,7 +72,7 @@ export const Sidebar = ({
         }),
         icon: <DashboardIcon />,
         value: '/dashboard',
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -84,9 +82,7 @@ export const Sidebar = ({
         value: '/prs',
         roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
         reviewerCheck: true,
-        onClick: () => {
-          resetFilterGroup(FILTER_GROUPS.REVIEWER);
-        }
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -95,9 +91,7 @@ export const Sidebar = ({
         icon: <LibraryBooksIcon />,
         value: '/hr/prs',
         roles: [ROLES.PR_HR],
-        onClick: () => {
-          resetFilterGroup(FILTER_GROUPS.HR);
-        }
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -106,7 +100,7 @@ export const Sidebar = ({
         icon: <SaveIcon />,
         value: '/hr/archivedPrs',
         roles: [ROLES.PR_HR],
-        onClick: () => {}
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -115,9 +109,7 @@ export const Sidebar = ({
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
-        onClick: () => {
-          resetFilterGroup(FILTER_GROUPS.EMPLOYEE);
-        }
+        onClick: resetMessages
       },
       {
         label: intl.formatMessage({
@@ -125,7 +117,7 @@ export const Sidebar = ({
         }),
         icon: <PowerSettingsNewIcon />,
         value: '/logout',
-        onClick: () => {}
+        onClick: resetMessages
       }
     ];
   };
@@ -136,7 +128,7 @@ export const Sidebar = ({
   const fullName = `${givenName} ${surname}`;
 
   if (!userroles.length) {
-    return null;
+    return <CircularProgress />;
   }
 
   return (
@@ -158,11 +150,13 @@ export const Sidebar = ({
       <Divider />
 
       <List component="nav">
-        {getListOfMenuItems().map(entry =>
-          !entry.reviewerCheck ||
-          (entry.reviewerCheck &&
-            userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
-              0) ? (
+        {getListOfMenuItems().map(entry => {
+          const uuu =
+            !entry.reviewerCheck ||
+            (entry.reviewerCheck &&
+              userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
+                0);
+          return uuu ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem
                 component={NavLink}
@@ -180,8 +174,8 @@ export const Sidebar = ({
                 />
               </ListItem>
             </Authorized>
-          ) : null
-        )}
+          ) : null;
+        })}
       </List>
       <Divider />
       <CompositionNumber />
@@ -189,20 +183,4 @@ export const Sidebar = ({
   );
 };
 
-export const StyledComponent = withStyles(styles)(Sidebar);
-export default injectIntl(
-  connect(
-    state => ({
-      userinfo: state.userinfo,
-      userphoto: state.userphoto,
-      userroles: getUserroles(state)
-    }),
-    {
-      getUserInfo: actions.getUserInfo,
-      getUserPhoto: actions.getUserPhoto,
-      getUserRoles: actions.getUserRoles,
-      getReviewerInfo: fetchReviewerInfo,
-      resetFilterGroup: actions.resetFilterGroup
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(Sidebar));

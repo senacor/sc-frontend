@@ -1,230 +1,389 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useContext } from 'react';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-import PrReviewerRating from './PrReviewerRating';
-import PrOverallAssessment from './PrOverallAssessment';
-import PrSheetEmployee from './PrSheetEmployee';
-import { withStyles } from '@material-ui/core/styles/index';
-import { isHr } from '../../helper/checkRole';
-import * as visibilityTypes from '../../helper/prVisibility';
-import * as finalizationTypes from '../../helper/prFinalization';
-import objectGet from 'object-get';
-import {
-  getPrDetail,
-  getUserinfo,
-  getUserroles,
-  getRequiredFields
-} from '../../reducers/selector';
-import PrFinalCommentEmployee from './PrFinalCommentEmployee';
-import PrFinalCommentHr from './PrFinalCommentHr';
-import PrAdvancementStrategies from './PrAdvancementStrategies';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
-import { prStatusEnum } from '../../helper/prStatus';
-import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
-import { default as ButtonsBelowSheet } from './ButtonsBelowSheet';
+import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 
-const styles = () => ({
-  containerListItem: {
-    display: 'flex'
+import PrReviewerRating from './PrReviewerRating';
+import PrOverallAssessment from './PrOverallAssessment';
+import PrTextField from './PrTextField';
+import { isHr } from '../../helper/checkRole';
+import ButtonsBelowSheet from './ButtonsBelowSheet';
+import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+
+const styles = theme => ({
+  paddingBottom: {
+    paddingBottom: 24
   },
   required: {
     color: 'rgba(0, 0, 0, 0.42)'
   },
-  marginDown: {
-    marginBottom: '-10pt',
-    width: '80%'
-  },
-  marginDownSmall: {
-    marginBottom: '-10pt',
-    width: '23%'
-  },
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
+  },
+  title: {
+    fontSize: 20,
+    paddingTop: 2 * theme.spacing.unit
   }
 });
 
 const PrSheet = props => {
-  const { prById, classes, userinfo, requiredFields, intl, userroles } = props;
+  const { classes, intl, pr } = props;
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const errorContext = useContext(ErrorContext.context);
+  const infoContext = useContext(InfoContext.context);
 
-  let errorFlagReviewer = !requiredFields.reviewer;
-  let errorFlagEmployee = !requiredFields.employee;
+  const changeFirstReflectionField = value => {
+    pr.firstReflectionField = value;
+  };
 
-  if (!prById) {
+  const changeSecondReflectionField = value => {
+    pr.secondReflectionField = value;
+  };
+
+  const changeAdvancementStrategies = value => {
+    pr.advancementStrategies = value;
+  };
+
+  const changeFinalCommentEmployee = value => {
+    pr.finalCommentEmployee = value;
+  };
+
+  const changeFinalCommentHr = value => {
+    pr.finalCommentHr = value;
+  };
+
+  // Problem analysis
+  const changeProblemAnalysisComment = value => {
+    pr.prRating.performanceInProject.problemAnalysis.comment = value;
+  };
+
+  const changeProblemAnalysisRating = value => {
+    pr.prRating.performanceInProject.problemAnalysis.rating = value;
+  };
+
+  // Work results
+  const changeWorkResultsComment = value => {
+    pr.prRating.performanceInProject.workResults.comment = value;
+  };
+
+  const changeWorkResultsRating = value => {
+    pr.prRating.performanceInProject.workResults.rating = value;
+  };
+
+  // Working manner
+  const changeWorkingMannerComment = value => {
+    pr.prRating.performanceInProject.workingManner.comment = value;
+  };
+
+  const changeWorkingMannerRating = value => {
+    pr.prRating.performanceInProject.workingManner.rating = value;
+  };
+
+  // Customer interaction
+  const changeCustomerInteractionComment = value => {
+    pr.prRating.impactOnCostumer.customerInteraction.comment = value;
+  };
+
+  const changeCustomerInteractionRating = value => {
+    pr.prRating.impactOnCostumer.customerInteraction.rating = value;
+  };
+
+  // Customer retention
+  const changeCustomerRetentionComment = value => {
+    pr.prRating.impactOnCostumer.customerRetention.comment = value;
+  };
+
+  const changeCustomerRetentionRating = value => {
+    pr.prRating.impactOnCostumer.customerRetention.rating = value;
+  };
+
+  // Teamwork
+  const changeTeamWorkComment = value => {
+    pr.prRating.impactOnTeam.teamWork.comment = value;
+  };
+
+  const changeTeamWorkRating = value => {
+    pr.prRating.impactOnTeam.teamWork.rating = value;
+  };
+
+  // Leadership
+  const changeLeadershipComment = value => {
+    pr.prRating.impactOnTeam.leadership.comment = value;
+  };
+
+  const changeLeadershipRating = value => {
+    pr.prRating.impactOnTeam.leadership.rating = value;
+  };
+
+  // Contribution to company development
+  const changeContributionToCompanyDevelopmentComment = value => {
+    pr.prRating.impactOnCompany.contributionToCompanyDevelopment.comment = value;
+  };
+
+  const changeContributionToCompanyDevelopmentRating = value => {
+    pr.prRating.impactOnCompany.contributionToCompanyDevelopment.rating = value;
+  };
+
+  const changeFulfillmentOfRequirementComment = value => {
+    pr.prRating.overallAssessment.fulfillmentOfRequirement.comment = value;
+  };
+
+  const changeFulfillmentOfRequirementRating = value => {
+    pr.prRating.overallAssessment.fulfillmentOfRequirement.rating = value;
+  };
+
+  const changeTargetRoles = (targetRole, value) => {
+    switch (targetRole) {
+      case 'plattformGestalter':
+        pr.targetRole.plattformGestalter = value;
+        break;
+      case 'itSolutionLeader':
+        pr.targetRole.itSolutionLeader = value;
+        break;
+      case 'transformationManager':
+        pr.targetRole.transformationManager = value;
+        break;
+      case 'itLiefersteuerer':
+        pr.targetRole.itLiefersteuerer = value;
+        break;
+      case 'architect':
+        pr.targetRole.architect = value;
+        break;
+      case 'technicalExpert':
+        pr.targetRole.technicalExpert = value;
+        break;
+      case 'leadDeveloper':
+        pr.targetRole.leadDeveloper = value;
+        break;
+      default:
+        break;
+    }
+  };
+
+  if (!pr) {
     return null;
   }
 
-  let hasRoleInPr = hasRoleInPrBasedOnUserName(prById, userinfo);
-  let isActionPerformerForEmployeeActions = hasRoleInPr(['employee']);
-  let nonActionPerformerForEmployeeActions =
-    hasRoleInPr(['supervisor', 'reviewer']) || isHr(userroles);
-  let isActionPerformerForReviewerActions = hasRoleInPr([
-    'supervisor',
-    'reviewer'
-  ]);
-  let nonActionPerformerForReviewerActions =
-    hasRoleInPr(['employee']) || isHr(userroles);
-
-  const isVisibleToEmployee = () => {
-    return (
-      objectGet(props, 'prById.prVisibilityEntry.visibilityToEmployee') ===
-      visibilityTypes.VISIBLE
-    );
+  const readOnly = input => {
+    switch (input) {
+      case 'REFLECTIONS_EMPLOYEE':
+        return (
+          pr.employee.id !== userinfo.userId ||
+          pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
+        );
+      case 'RATINGS_REVIEWER':
+        return (
+          !userroles.includes('PR_CST_Leiter') ||
+          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
+        );
+      case 'FINAL_COMMENT_EMPLOYEE':
+        return (
+          pr.employee.id !== userinfo.userId ||
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
+        );
+      case 'FINAL_COMMENT_HR':
+        return (
+          !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
+          !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
+          !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+          pr.statusSet.includes('PR_COMPLETED')
+        );
+      default:
+        return true;
+    }
   };
 
-  const isVisibleToReviewer = () => {
+  const isRequiredForReflectionFields = input => {
     return (
-      objectGet(props, 'prById.prVisibilityEntry.visibilityToReviewer') ===
-      visibilityTypes.VISIBLE
+      !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+      pr.employee.id === userinfo.userId
     );
-  };
-
-  const isFinalizedForReviewer = () => {
-    return (
-      objectGet(
-        props,
-        'prById.prFinalizationStatus.finalizationStatusOfReviewer'
-      ) === finalizationTypes.FINALIZED
-    );
-  };
-
-  const isFinalizedForEmployee = () => {
-    return (
-      objectGet(
-        props,
-        'prById.prFinalizationStatus.finalizationStatusOfEmployee'
-      ) === finalizationTypes.FINALIZED
-    );
-  };
-
-  const isArchived = () => {
-    return prById.statuses.includes(prStatusEnum.ARCHIVED_HR);
   };
 
   let step1employee = () => {
     return (
-      <List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
+          <Typography variant="body1" className={classes.title}>
+            {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <PrTextField
+            label={
+              isRequiredForReflectionFields()
+                ? intl.formatMessage({
+                    id: 'ROLE_AND_PROJECT_ENVIRONMENT'
+                  }) + ' *'
+                : intl.formatMessage({
+                    id: 'ROLE_AND_PROJECT_ENVIRONMENT'
+                  })
+            }
+            helperText={intl.formatMessage({
+              id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
+            })}
+            text={pr.firstReflectionField}
+            isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
+            isError={
+              errorContext.value.errors &&
+              errorContext.value.errors.firstReflectionField
+            }
+            action={changeFirstReflectionField}
           />
-        </ListItem>
-        <List disablePadding>
-          <PrSheetEmployee
-            prById={prById}
-            errorFlag={errorFlagEmployee}
-            readOnly={isVisibleToReviewer()}
-            category="ROLE_AND_PROJECT_ENVIRONMENT"
-            isActionPerformer={isActionPerformerForEmployeeActions}
-            nonActionPerformer={nonActionPerformerForEmployeeActions}
+        </Grid>
+        <Grid item xs={12}>
+          <PrTextField
+            label={
+              isRequiredForReflectionFields()
+                ? intl.formatMessage({
+                    id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+                  }) + ' *'
+                : intl.formatMessage({
+                    id: 'INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+                  })
+            }
+            helperText={intl.formatMessage({
+              id: 'PLACEHOLDER_INFLUENCE_OF_LEADER_AND_ENVIRONMENT'
+            })}
+            text={pr.secondReflectionField}
+            isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
+            isError={
+              errorContext.value.errors &&
+              errorContext.value.errors.secondReflectionField
+            }
+            action={changeSecondReflectionField}
           />
-          <PrSheetEmployee
-            prById={prById}
-            errorFlag={errorFlagEmployee}
-            readOnly={isVisibleToReviewer()}
-            category="INFLUENCE_OF_LEADER_AND_ENVIRONMENT"
-            isActionPerformer={isActionPerformerForEmployeeActions}
-            nonActionPerformer={nonActionPerformerForEmployeeActions}
-          />
-        </List>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
   let overallReviewer = () => {
     return (
-      <List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.overall'
-            })}
-          />
-        </ListItem>
-
-        <List disablePadding>
-          <PrOverallAssessment
-            prById={prById}
-            errorFlag={errorFlagReviewer}
-            readOnly={isVisibleToEmployee()}
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-
+      <div className={classes.paddingBottom}>
+        <Grid container spacing={16} className={classes.paddingBottom}>
+          <Grid item xs={12}>
+            <Typography variant="body1" className={classes.title}>
+              {intl.formatMessage({
+                id: 'prsheet.overall'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <PrOverallAssessment
+              pr={pr}
+              userroles={userroles}
+              text={
+                pr.prRating.overallAssessment.fulfillmentOfRequirement.comment
+              }
+              rating={
+                pr.prRating.overallAssessment.fulfillmentOfRequirement.rating
+              }
+              targetRoles={pr.targetRole}
+              isReadOnly={readOnly}
+              isError={
+                errorContext.value.errors &&
+                errorContext.value.errors.overallAssessmentComment
+              }
+              hidden={false}
+              actionText={changeFulfillmentOfRequirementComment}
+              actionRating={changeFulfillmentOfRequirementRating}
+              actionTargetRoles={changeTargetRoles}
+            />
+          </Grid>
+        </Grid>
         <Divider />
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.measures'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrAdvancementStrategies
-            prById={prById}
-            readOnly={isVisibleToEmployee()}
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            open={!isFinalizedForReviewer()}
-          />
-        </List>
-      </List>
+        <Grid container spacing={16} className={classes.paddingBottom}>
+          <Grid item xs={12}>
+            <Typography variant="body1" className={classes.title}>
+              {intl.formatMessage({
+                id: 'prsheet.measures'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <PrTextField
+              label={intl.formatMessage({
+                id: 'pradvancementstrategies.measures'
+              })}
+              helperText={intl.formatMessage({
+                id: 'pradvancementstrategies.helpertext'
+              })}
+              text={pr.advancementStrategies}
+              isReadOnly={readOnly('RATINGS_REVIEWER')}
+              isError={false}
+              action={changeAdvancementStrategies}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+      </div>
     );
   };
 
   let finalEmployee = () => {
     return (
-      <List>
-        <List disablePadding>
-          <PrFinalCommentEmployee
-            prById={prById}
-            readOnly={isFinalizedForEmployee()}
-            open={isFinalizedForReviewer()}
-            isActionPerformer={isActionPerformerForEmployeeActions}
-            nonActionPerformer={nonActionPerformerForEmployeeActions}
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
+          <PrTextField
+            label={intl.formatMessage({
+              id: 'FINAL_COMMENT_EMPLOYEE'
+            })}
+            helperText={intl.formatMessage({
+              id: 'prfinalcommentemployee.notes'
+            })}
+            text={pr.finalCommentEmployee}
+            isReadOnly={readOnly('FINAL_COMMENT_EMPLOYEE')}
+            isError={false}
+            action={changeFinalCommentEmployee}
           />
-        </List>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
   let finalHr = () => {
     return (
-      <List>
-        <List disablePadding>
-          <PrFinalCommentHr
-            prById={prById}
-            open={isFinalizedForEmployee()}
-            readOnly={isArchived()}
-            isActionPerformer={isHr(userroles)}
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
+          <PrTextField
+            label={intl.formatMessage({
+              id: 'FINAL_COMMENT_HR'
+            })}
+            helperText={intl.formatMessage({
+              id: 'prfinalcommenthr.hronly'
+            })}
+            text={pr.finalCommentHr}
+            isReadOnly={readOnly('FINAL_COMMENT_HR')}
+            isError={false}
+            action={changeFinalCommentHr}
           />
-        </List>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
   let detailReviewer = () => {
     return (
-      <List>
-        <div className={classes.containerListItem}>
-          <ListItem className={classes.marginDown}>
-            <ListItemText
-              primary={intl.formatMessage({
+      <div>
+        <Grid container spacing={16}>
+          <Grid item xs={10}>
+            <Typography variant="body1" className={classes.title}>
+              {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
-            />
-          </ListItem>
-          <ListItem className={classes.marginDownSmall}>
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
             <Typography
               variant={'caption'}
               color={'textSecondary'}
@@ -232,122 +391,153 @@ const PrSheet = props => {
             >
               {intl.formatMessage({
                 id: 'prsheet.notfulfilled'
-              })}{' '}
+              })}
               <br />
               {intl.formatMessage({
                 id: 'prsheet.excellent'
               })}
             </Typography>
-          </ListItem>
-        </div>
-        <List disablePadding>
-          <PrReviewerRating
-            prById={prById}
-            category="PROBLEM_ANALYSIS"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            prById={prById}
-            category="WORK_RESULTS"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            prById={prById}
-            category="WORKING_MANNER"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.customerimpact'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrReviewerRating
-            prById={prById}
-            category="CUSTOMER_INTERACTION"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            prById={prById}
-            category="CUSTOMER_RETENTION"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.teamimpact'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrReviewerRating
-            prById={prById}
-            category="TEAMWORK"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-          <PrReviewerRating
-            prById={prById}
-            category="LEADERSHIP"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-        <ListItem className={classes.marginDown}>
-          <ListItemText
-            primary={intl.formatMessage({
-              id: 'prsheet.companyimpact'
-            })}
-          />
-        </ListItem>
-        <List disablePadding>
-          <PrReviewerRating
-            prById={prById}
-            category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
-            isActionPerformer={isActionPerformerForReviewerActions}
-            nonActionPerformer={nonActionPerformerForReviewerActions}
-            readOnly={isVisibleToEmployee()}
-            openEditing={!isFinalizedForReviewer()}
-          />
-        </List>
-      </List>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="PROBLEM_ANALYSIS"
+              text={pr.prRating.performanceInProject.problemAnalysis.comment}
+              rating={pr.prRating.performanceInProject.problemAnalysis.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeProblemAnalysisComment}
+              actionRating={changeProblemAnalysisRating}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="WORK_RESULTS"
+              text={pr.prRating.performanceInProject.workResults.comment}
+              rating={pr.prRating.performanceInProject.workResults.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeWorkResultsComment}
+              actionRating={changeWorkResultsRating}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="WORKING_MANNER"
+              text={pr.prRating.performanceInProject.workingManner.comment}
+              rating={pr.prRating.performanceInProject.workingManner.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeWorkingMannerComment}
+              actionRating={changeWorkingMannerRating}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <Typography variant="body1" className={classes.title}>
+              {intl.formatMessage({
+                id: 'prsheet.customerimpact'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="CUSTOMER_INTERACTION"
+              text={pr.prRating.impactOnCostumer.customerInteraction.comment}
+              rating={pr.prRating.impactOnCostumer.customerInteraction.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeCustomerInteractionComment}
+              actionRating={changeCustomerInteractionRating}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="CUSTOMER_RETENTION"
+              text={pr.prRating.impactOnCostumer.customerRetention.comment}
+              rating={pr.prRating.impactOnCostumer.customerRetention.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeCustomerRetentionComment}
+              actionRating={changeCustomerRetentionRating}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <Typography variant="body1" className={classes.title}>
+              {intl.formatMessage({
+                id: 'prsheet.teamimpact'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="TEAMWORK"
+              text={pr.prRating.impactOnTeam.teamWork.comment}
+              rating={pr.prRating.impactOnTeam.teamWork.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeTeamWorkComment}
+              actionRating={changeTeamWorkRating}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="LEADERSHIP"
+              text={pr.prRating.impactOnTeam.leadership.comment}
+              rating={pr.prRating.impactOnTeam.leadership.rating}
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeLeadershipComment}
+              actionRating={changeLeadershipRating}
+            />
+          </Grid>
+        </Grid>
+        <Divider />
+        <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <Typography variant="body1" className={classes.title}>
+              {intl.formatMessage({
+                id: 'prsheet.companyimpact'
+              })}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <PrReviewerRating
+              category="CONTRIBUTION_TO_COMPANY_DEVELOPMENT"
+              text={
+                pr.prRating.impactOnCompany.contributionToCompanyDevelopment
+                  .comment
+              }
+              rating={
+                pr.prRating.impactOnCompany.contributionToCompanyDevelopment
+                  .rating
+              }
+              isReadOnly={readOnly}
+              isError={false}
+              actionText={changeContributionToCompanyDevelopmentComment}
+              actionRating={changeContributionToCompanyDevelopmentRating}
+            />
+          </Grid>
+        </Grid>
+      </div>
     );
   };
 
   let requiredInfo = () => {
     return (
-      <List>
-        <ListItem>
+      <Grid container spacing={16} className={classes.paddingBottom}>
+        <Grid item xs={12}>
           <Typography className={classes.required} variant="caption">
             {intl.formatMessage({
               id: 'prsheet.required'
             })}
           </Typography>
-        </ListItem>
-      </List>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -362,7 +552,6 @@ const PrSheet = props => {
             <Divider />
           </Hidden>
           {overallReviewer()}
-          <Divider />
           {finalEmployee()}
           {requiredInfo()}
         </Grid>
@@ -380,22 +569,15 @@ const PrSheet = props => {
           </Grid>
         </Hidden>
         <Grid item xs={12}>
-          <ButtonsBelowSheet />
+          <ButtonsBelowSheet
+            pr={pr}
+            errorContext={errorContext}
+            infoContext={infoContext}
+          />
         </Grid>
       </Grid>
     </div>
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrSheet);
-export default injectIntl(
-  connect(
-    state => ({
-      prById: getPrDetail()(state),
-      userroles: getUserroles(state),
-      userinfo: getUserinfo(state),
-      requiredFields: getRequiredFields(state)
-    }),
-    {}
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrSheet));

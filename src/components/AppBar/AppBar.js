@@ -10,18 +10,21 @@ import Drawer from '@material-ui/core/Drawer';
 import { injectIntl } from 'react-intl';
 
 import Sidebar from '../sidebar/Sidebar';
-import ErrorMessage from './ErrorMessage';
+import Message from './Message';
 import LanguageButton from './LanguageButton';
 
 const drawerWidth = 270;
+const appBarHeight = 64;
 const styles = theme => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
     position: 'relative',
-    width: '99%'
+    width: '100%',
+    height: '100vh'
   },
   appBar: {
+    height: appBarHeight,
     marginLeft: drawerWidth,
     [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${drawerWidth}px)`
@@ -42,11 +45,9 @@ const styles = theme => ({
   desktopContent: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit,
+    width: '100%',
+    height: '100vh',
 
-    [theme.breakpoints.up('lg')]: {
-      padding: 3 * theme.spacing.unit
-    },
     marginLeft: drawerWidth,
     [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${drawerWidth}px)`
@@ -55,11 +56,15 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit,
+    height: '100vh',
 
     [theme.breakpoints.up('lg')]: {
-      padding: 3 * theme.spacing.unit
+      padding: theme.spacing.unit
     }
+  },
+  languageButton: {
+    color: theme.palette.contrastText,
+    marginLeft: 'auto'
   }
 });
 
@@ -89,7 +94,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
               id: 'appbar.portal'
             })}
           </Typography>
-          <LanguageButton color="secondary" />
+          <LanguageButton languageButtonClassName={classes.languageButton} />
         </Toolbar>
       </AppBar>
       <Hidden lgUp>
@@ -109,7 +114,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ErrorMessage />
+          <Message />
           {children}
         </main>
       </Hidden>
@@ -125,7 +130,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         </Drawer>
         <main className={classes.desktopContent}>
           <div className={classes.toolbar} />
-          <ErrorMessage />
+          <Message />
           {children}
         </main>
       </Hidden>

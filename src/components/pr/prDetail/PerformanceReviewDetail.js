@@ -1,38 +1,44 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
-import { connect } from 'react-redux';
-import { getMeeting, getPrDetail } from '../../../reducers/selector';
-import * as actions from '../../../actions';
 import PrDetailInformation from './PrDetailInformation';
-import { LoadingEvents } from '../../../helper/loadingEvents';
-import withLoadingAction from '../../hoc/LoadingWithAction';
+import { fetchMeeting } from '../../../actions/calls/meetings';
+import { fetchPrById } from '../../../actions/calls/pr';
+import { ErrorContext, MeetingContext, PrContext } from '../../App';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const PerformanceReviewDetail = ({ pr, meeting }) => {
+const PerformanceReviewDetail = props => {
+  const { value: pr, setValue: setPr } = useContext(PrContext.context);
+  const [isLoading, setIsLoading] = useState({});
+  let errorContext = useContext(ErrorContext.context);
+  const { value: meeting, setValue: setMeeting } = useContext(
+    MeetingContext.context
+  );
+
+  useEffect(() => {
+    const afterPrFetched = pr => {
+      setPr(pr);
+      fetchMeeting(pr, setMeeting, errorContext);
+    };
+    fetchPrById(
+      props.match.params.id,
+      afterPrFetched,
+      setIsLoading,
+      errorContext
+    );
+  }, []);
+
+  if (isLoading || !pr || Object.entries(pr).length === 0) {
+    return <CircularProgress />;
+  }
+
   return (
     <React.Fragment>
       {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
-      {pr ? <PrState /> : null}
-      {pr ? <PrTabs /> : null}
+      {pr ? <PrState prById={pr} /> : null}
+      {pr ? <PrTabs pr={pr} meeting={meeting} /> : null}
     </React.Fragment>
   );
 };
 
-export default connect(
-  state => ({
-    pr: getPrDetail()(state),
-    meeting: getMeeting(state)
-  }),
-  {
-    fetchPrById: actions.fetchPrById,
-    fetchMeeting: actions.fetchMeeting
-  }
-)(
-  withLoadingAction(props => {
-    return props
-      .fetchPrById(props.match.params.id)
-      .then(pr => props.fetchMeeting(pr));
-  })([LoadingEvents.FETCH_PR_BY_ID, LoadingEvents.FETCH_MEETING])(
-    PerformanceReviewDetail
-  )
-);
+export default PerformanceReviewDetail;

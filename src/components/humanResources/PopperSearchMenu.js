@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import { getSubFilter } from '../../reducers/selector';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
@@ -20,6 +18,7 @@ const styles = theme => ({
 export const PopperSearchMenu = ({
   classes,
   subfilter,
+  filter,
   children,
   filterBy,
   filterGroup
@@ -35,8 +34,8 @@ export const PopperSearchMenu = ({
     setAnchorEl(null);
   };
 
-  const getIcon = subfilter => {
-    return subfilter === '' ? (
+  const getIcon = () => {
+    return !filter[filterBy] || filter[filterBy].searchString === '' ? (
       <Icon className={classes.iconFilterUnset}>filter_list</Icon>
     ) : (
       <Icon className={classes.iconFilterSet}>filter_list</Icon>
@@ -46,7 +45,7 @@ export const PopperSearchMenu = ({
   const open = Boolean(anchorEl);
   return (
     <div>
-      <IconButton onClick={handleClick}>{getIcon(subfilter)}</IconButton>
+      <IconButton onClick={handleClick}>{getIcon()}</IconButton>
       <Popover
         id="simple-popper"
         open={open}
@@ -68,7 +67,8 @@ export const PopperSearchMenu = ({
           {React.cloneElement(children, {
             closeFilter: handleClose,
             filterBy: filterBy,
-            filterGroup: filterGroup
+            filterGroup: filterGroup,
+            filter: filter
           })}
         </div>
       </Popover>
@@ -76,10 +76,4 @@ export const PopperSearchMenu = ({
   );
 };
 
-export const StyledComponent = withStyles(styles)(PopperSearchMenu);
-export default connect(
-  (state, props) => ({
-    subfilter: getSubFilter(props.filterGroup, props.filterBy)(state)
-  }),
-  {}
-)(StyledComponent);
+export default withStyles(styles)(PopperSearchMenu);

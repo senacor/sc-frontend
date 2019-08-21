@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
 import Collapse from '@material-ui/core/Collapse';
@@ -19,6 +19,7 @@ import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../../helper/date';
 import { injectIntl } from 'react-intl';
+import { MeetingContext, UserinfoContext } from '../../App';
 
 const styles = theme => ({
   nested: {
@@ -43,16 +44,9 @@ const styles = theme => ({
   }
 });
 
-const MeetingDetailsView = ({
-  classes,
-  meeting,
-  pr,
-  userroles,
-  userinfo,
-  click,
-  handleChange,
-  intl
-}) => {
+const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
+  const { value: meeting } = useContext(MeetingContext.context);
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
 
@@ -288,15 +282,13 @@ const MeetingDetailsView = ({
             classes
           )
         : null}
-      {visibilityService.getAction() ? (
-        <PrStatusActionButton
-          label={intl.formatMessage({
-            id: 'meetingdetailsview.newtermin'
-          })}
-          releaseButtonClick={handleChange}
-          inputClass={classes.buttonPosition}
-        />
-      ) : null}
+      <PrStatusActionButton
+        label={intl.formatMessage({
+          id: 'meetingdetailsview.newtermin'
+        })}
+        releaseButtonClick={handleChange}
+        inputClass={classes.buttonPosition}
+      />
     </div>
   );
 };

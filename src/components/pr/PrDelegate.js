@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { debounce } from '../../helper/debounce';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
 import Popover from '@material-ui/core/Popover/Popover';
-import PropTypes from 'prop-types';
 import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
+import { employeeSearch } from '../../actions/calls/employeeSearch';
+import { delegateReviewer } from '../../actions/calls/pr';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   box: {
@@ -74,18 +74,17 @@ export const PrDelegate = ({
   defaultText,
   isDelegated,
   startValue,
+  updatePr,
   pr,
-  employeeSearch,
-  color,
-  employeeSearchClear,
-  delegateReviewer
+  color
 }) => {
   const [employeeSearchValue, setEmployeeSearchValue] = useState(startValue);
+  const [employeeSearchResults, setEmployeeSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [currentPr] = useState(pr);
+  const errorContext = useContext(ErrorContext.context);
   const [showDefault, setShowDefault] = useState(false);
-
-  employeeSearchClear();
+  const currentPr = pr;
 
   const excludeList = [
     currentPr.employee.id,
@@ -99,8 +98,8 @@ export const PrDelegate = ({
     setShowDefault(true);
     setAnchorEl(event.currentTarget);
     event.target.select();
-    employeeSearchClear();
-    executeSearch(' ');
+    setEmployeeSearchResults([]);
+    executeSearch(' ', setEmployeeSearchResults, setIsLoading);
     event.stopPropagation();
   };
 
@@ -118,14 +117,18 @@ export const PrDelegate = ({
     setEmployeeSearchValue(event.target.value);
     setAnchorEl(event.currentTarget);
     setShowDefault(event.target.value === '');
-    executeSearch(event.target.value === '' ? ' ' : event.target.value);
+    executeSearch(
+      event.target.value === '' ? ' ' : event.target.value,
+      setEmployeeSearchResults,
+      setIsLoading
+    );
   };
 
   const selectedEmployee = employee => event => {
     let employeeName = `${employee.firstName} ${employee.lastName}`;
     setEmployeeSearchValue(employeeName);
-    delegateReviewer(currentPr.id, employee.id);
-    employeeSearchClear();
+    delegateReviewer(currentPr.id, employee.id, updatePr, errorContext);
+    setEmployeeSearchResults([]);
     handleClose(event);
   };
 
@@ -139,7 +142,12 @@ export const PrDelegate = ({
   const resetToSupervisor = () => {
     setAnchorEl(null);
     setShowDefault(false);
-    delegateReviewer(currentPr.id, currentPr.supervisor.id);
+    delegateReviewer(
+      currentPr.id,
+      currentPr.supervisor.id,
+      updatePr,
+      errorContext
+    );
   };
 
   useEffect(
@@ -208,6 +216,8 @@ export const PrDelegate = ({
               excludeList={excludeList}
               selectEmployee={selectedEmployee}
               searchValue={employeeSearchValue}
+              searchResults={employeeSearchResults}
+              isLoading={isLoading}
             />
           </List>
         </Popover>
@@ -216,18 +226,4 @@ export const PrDelegate = ({
   );
 };
 
-PrDelegate.propTypes = {
-  startValue: PropTypes.string.isRequired,
-  defaultText: PropTypes.string.isRequired,
-  pr: PropTypes.object.isRequired
-};
-
-export const StyledComponent = withStyles(styles)(PrDelegate);
-export default connect(
-  null,
-  {
-    employeeSearch: actions.employeeSearch,
-    employeeSearchClear: actions.employeeSearchClear,
-    delegateReviewer: actions.delegateReviewer
-  }
-)(StyledComponent);
+export default withStyles(styles)(PrDelegate);

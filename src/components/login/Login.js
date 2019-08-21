@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
@@ -11,15 +11,13 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import LockIcon from '@material-ui/icons/Lock';
-import { FormattedMessage, injectIntl } from 'react-intl';
 
-import officeMuenchen from './officeM.jpg';
-import senacorLogo from './senacor_transparent.png';
-import senacorLogoMobile from './senacor_transparent_white.png';
-import * as actions from '../../actions/index';
-import { connect } from 'react-redux';
-import { isLoading } from '../../reducers/selector';
+import officeMuenchen from '../../styles/office_muenchen.jpg';
+import senacorLogo from '../../styles/senacor_transparent.png';
+import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../AppBar/LanguageButton';
+import { login } from '../../actions/calls/login';
+import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   hero: {
@@ -45,22 +43,20 @@ const styles = theme => ({
     }
   },
   form: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '33%',
-    margin: 0,
-    position: 'absolute',
-    top: '31%',
-    paddingBottom: '100px'
+    maxWidth: '40rem',
+    margin: 'auto'
   },
   formControl: {
     margin: theme.spacing.unit,
     marginBottom: '15px',
     [theme.breakpoints.down('sm')]: {
       width: '75%',
-      backgroundColor: '#FFF',
+      backgroundColor: theme.palette.primary['W000'],
       borderRadius: '10px',
       padding: '10px'
     },
@@ -70,7 +66,7 @@ const styles = theme => ({
   },
   input: {
     [theme.breakpoints.down('sm')]: {
-      color: 'rgba(0,0,0,1)',
+      color: theme.palette.primary[900],
       '&:before': {
         backgroundColor: 'inherit'
       },
@@ -99,38 +95,44 @@ const styles = theme => ({
       backgroundColor: theme.palette.primary['500']
     }
   },
-  wrapper: {
-    position: 'relative'
+  languageButton: {
+    color: theme.palette.primary,
+    position: 'absolute',
+    [theme.breakpoints.down('sm')]: {
+      color: theme.palette.contrastText
+    }
   },
   buttonProgress: {
-    color: theme.palette.primary['A100'],
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12
+    color: theme.palette.primary['A100']
   }
 });
 
-const Login = ({
-  login,
-  location,
-  isLoggedIn,
-  classes,
-  isUnauthorized,
-  intl,
-  isLoading
-}) => {
+const Login = ({ location, classes, intl }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const errorContext = useContext(ErrorContext.context);
+  const authorizationContext = useContext(AuthorizationContext.context);
+  const userInfoContext = useContext(UserinfoContext.context);
+
+  useEffect(() => {
+    userInfoContext.setValue({
+      userinfo: {},
+      userroles: [],
+      userphoto: ''
+    });
+  }, []);
 
   const handleOnClick = event => {
     event.preventDefault();
-
-    login({
-      username: username,
-      password: password
-    });
+    login(
+      { username: username, password: password },
+      setIsLoading,
+      setIsLoggedIn,
+      authorizationContext,
+      errorContext
+    );
   };
 
   const handleChange = event => {
@@ -150,7 +152,7 @@ const Login = ({
   return (
     <div className={classes.hero}>
       <div className={classes.login}>
-        <LanguageButton color="primary" />
+        <LanguageButton languageButtonClassName={classes.languageButton} />
         <form className={classes.form} onSubmit={handleOnClick}>
           <Hidden smDown>
             <img src={senacorLogo} className={classes.logo} alt="Senacor" />
@@ -162,7 +164,10 @@ const Login = ({
               alt="Senacor"
             />
           </Hidden>
-          <FormControl className={classes.formControl} error={isUnauthorized}>
+          <FormControl
+            className={classes.formControl}
+            error={authorizationContext.value}
+          >
             <Input
               name="username"
               value={username}
@@ -174,7 +179,10 @@ const Login = ({
               startAdornment={<UserIcon />}
             />
           </FormControl>
-          <FormControl className={classes.formControl} error={isUnauthorized}>
+          <FormControl
+            className={classes.formControl}
+            error={authorizationContext.value}
+          >
             <Input
               name="password"
               type="password"
@@ -187,7 +195,10 @@ const Login = ({
               startAdornment={<PasswordIcon />}
             />
             <FormHelperText id="name-error-text">
-              {isUnauthorized && 'Anmeldung fehlgeschlagen'}
+              {authorizationContext.value &&
+                `${intl.formatMessage({
+                  id: 'login.failed'
+                })}`}
             </FormHelperText>
           </FormControl>
 
@@ -198,6 +209,7 @@ const Login = ({
               variant="contained"
               onClick={handleOnClick}
               type="submit"
+              disabled={isLoading}
             >
               {isLoading ? (
                 <CircularProgress
@@ -215,6 +227,7 @@ const Login = ({
               variant="contained"
               onClick={handleOnClick}
               type="submit"
+              disabled={isLoading}
             >
               {<FormattedMessage id="login.login" />}
             </Button>
@@ -237,17 +250,4 @@ const PasswordIcon = () => (
   </InputAdornment>
 );
 
-export const StyledComponent = withStyles(styles)(Login);
-
-export default injectIntl(
-  connect(
-    state => ({
-      isLoggedIn: state.login.isLoggedIn,
-      isLoading: isLoading(state),
-      isUnauthorized: state.login.isUnauthorized
-    }),
-    {
-      login: actions.login
-    }
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(Login));

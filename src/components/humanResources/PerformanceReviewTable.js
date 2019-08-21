@@ -8,10 +8,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EnhancedTableHead from './EnhancedTableHead';
-import { downloadExcel } from '../../actions/excelView';
+import { downloadExcel } from '../../actions/calls/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import Typography from '@material-ui/core/Typography/Typography';
 import { injectIntl } from 'react-intl';
+import { CircularProgress } from '@material-ui/core';
 
 export function descInteger(a, b, mapper) {
   if (mapper(b) < mapper(a)) {
@@ -47,6 +48,9 @@ function getSorting(order, sortFunction, mapper) {
 }
 
 const styles = theme => ({
+  cell: {
+    textAlign: 'center'
+  },
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3
@@ -113,7 +117,14 @@ class PerformanceReviewTable extends React.Component {
   };
 
   render() {
-    const { classes, columnDefinition, data, isHr, intl } = this.props;
+    const {
+      classes,
+      columnDefinition,
+      data,
+      isHr,
+      intl,
+      isLoading
+    } = this.props;
     const {
       order,
       orderBy,
@@ -134,21 +145,33 @@ class PerformanceReviewTable extends React.Component {
               columnDefinition={columnDefinition}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, sortFunction, sortMapper))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((line, lineIndex) => {
-                  return (
-                    <TableRow hover tabIndex={-1} key={lineIndex}>
-                      {columnDefinition.map((column, columnIndex) => {
-                        return (
-                          <TableCell padding={'checkbox'} key={columnIndex}>
-                            {column.render(line)}
-                          </TableCell>
-                        );
-                      }, this)}
-                    </TableRow>
-                  );
-                })}
+              {isLoading ? (
+                <TableRow>
+                  <TableCell>
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : (
+                stableSort(data, getSorting(order, sortFunction, sortMapper))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((line, lineIndex) => {
+                    return (
+                      <TableRow hover tabIndex={-1} key={lineIndex}>
+                        {columnDefinition.map((column, columnIndex) => {
+                          return (
+                            <TableCell
+                              className={classes.cell}
+                              padding={'none'}
+                              key={columnIndex}
+                            >
+                              {column.render(line)}
+                            </TableCell>
+                          );
+                        }, this)}
+                      </TableRow>
+                    );
+                  })
+              )}
             </TableBody>
           </Table>
         </div>

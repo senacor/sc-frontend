@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
@@ -6,35 +6,22 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import { connect } from 'react-redux';
-import {
-  getAppointments,
-  getPrDetail,
-  getSelectedDate,
-  getUserinfo,
-  getUserroles
-} from '../../reducers/selector';
-import * as actions from '../../actions';
 import ObjectGet from 'object-get';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
-import { getMeeting } from '../../reducers/selector';
+import { ErrorContext, MeetingContext, UserinfoContext } from '../App';
+import { appointmentsSearch } from '../../actions/calls/meetings';
 
-export const MeetingCreator = ({
-  intl,
-  pr,
-  appointmentsSearch,
-  userinfo,
-  userroles,
-  selectedDate,
-  meeting,
-  appointmentsSearchResults,
-  handleChange
-}) => {
+export const MeetingCreator = ({ intl, pr, selectedDate, handleChange }) => {
+  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const { value: meeting } = useContext(MeetingContext.context);
   const [employee, setEmployee] = useState('');
   const [supervisor, setSupervisor] = useState('');
   const [reviewer, setReviewer] = useState('');
+  const [appointmentResults, setAppointmentResults] = useState([]);
+
+  let errorContext = useContext(ErrorContext.context);
 
   const setStateforRole = (pr, role, userinfo) => {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
@@ -132,7 +119,12 @@ export const MeetingCreator = ({
     hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
       attendees.push(pr.reviewer.login);
 
-    appointmentsSearch(attendees.join(','), date);
+    appointmentsSearch(
+      attendees.join(','),
+      date,
+      errorContext,
+      setAppointmentResults
+    );
   };
 
   useEffect(() => {
@@ -189,11 +181,11 @@ export const MeetingCreator = ({
 
   const filterConditionWithAppointments = key => {
     if (key === 'employee') {
-      return employee && employee.id && allAppointments[employee.id];
+      return employee && employee.id && appointmentResults[employee.id];
     } else if (key === 'supervisor') {
-      return supervisor && supervisor.id && allAppointments[supervisor.id];
+      return supervisor && supervisor.id && appointmentResults[supervisor.id];
     } else {
-      return reviewer && reviewer.id && allAppointments[reviewer.id];
+      return reviewer && reviewer.id && appointmentResults[reviewer.id];
     }
   };
 
@@ -202,7 +194,6 @@ export const MeetingCreator = ({
   visibilityService.setUserinfo(userinfo);
   visibilityService.setUserroles(userroles);
   visibilityService.setMeeting(meeting);
-  const allAppointments = appointmentsSearchResults;
   return (
     <React.Fragment>
       <Typography gutterBottom variant="h4">
@@ -250,7 +241,7 @@ export const MeetingCreator = ({
                     key={attendee}
                     show={getStateOfAttendee(attendee).show}
                     appointments={extractAppointments(
-                      allAppointments[getStateOfAttendee(attendee).id]
+                      appointmentResults[getStateOfAttendee(attendee).id]
                         .appointments
                     )}
                     selectedDate={selectedDate}
@@ -275,16 +266,4 @@ export const MeetingCreator = ({
   );
 };
 
-export default connect(
-  state => ({
-    appointmentsSearchResults: getAppointments(state),
-    selectedDate: getSelectedDate(state),
-    userinfo: getUserinfo(state),
-    pr: getPrDetail()(state),
-    userroles: getUserroles(state),
-    meeting: getMeeting(state)
-  }),
-  {
-    appointmentsSearch: actions.appointmentsSearch
-  }
-)(MeetingCreator);
+export default MeetingCreator;

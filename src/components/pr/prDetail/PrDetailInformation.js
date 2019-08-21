@@ -1,35 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-
-import Grid from '@material-ui/core/Grid';
 
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
-import { connect } from 'react-redux';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import BackToTableButton from './BackToTableButton';
-import { getUserPrincipalName } from '../../../reducers/selector';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
 import moment from 'moment-timezone';
 import PrHistory from './PrHistory';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext } from '../../App';
 
 const styles = theme => ({
   root: {
-    marginBottom: 2 * theme.spacing.unit
+    margin: 3 * theme.spacing.unit
   },
   avatarContainer: {
     flex: '0 0 auto',
-    marginRight: 2 * theme.spacing.unit
+    margin: 'auto 0',
+    marginRight: theme.spacing.unit
   },
   avatar: {
     backgroundColor: theme.palette.primary[500]
@@ -43,14 +40,16 @@ const styles = theme => ({
   },
   buttonDesktop: {
     position: 'relative',
-    backgroundColor: theme.palette.primary['400'],
+    backgroundColor: theme.palette.primary[400],
     color: '#FFF',
     marginBottom: '2%',
     marginTop: '12%'
   }
 });
 
-const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
+const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
+  const { userinfo } = useContext(UserinfoContext.context).value;
+  const { username } = userinfo;
   if (!pr) {
     return null;
   }
@@ -86,7 +85,7 @@ const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
         })}`;
     }
     if (
-      pr.statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
+      pr.statusSet.includes(prStatusEnum.FINALIZED_REVIEWER) &&
       meeting.status !== 'ACCEPTED'
     ) {
       termin =
@@ -150,26 +149,10 @@ const PrDetailInformation = ({ classes, pr, username, meeting, intl }) => {
             <BackToTableButton pr={pr} classes={classes.buttonDesktop} />
           </div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
-          <Grid container spacing={24}>
-            <Grid item xs={4}>
-              <PrHistory employeeId={pr.employee.id} />
-            </Grid>
-            <Grid item xs={4} />
-          </Grid>
-        </ExpansionPanelDetails>
+        <PrHistory employeeId={pr.employee.id} />
       </ExpansionPanel>
     </div>
   );
 };
 
-export const StyledComponent = withStyles(styles)(PrDetailInformation);
-
-export default injectIntl(
-  connect(
-    state => ({
-      username: getUserPrincipalName(state)
-    }),
-    {}
-  )(StyledComponent)
-);
+export default injectIntl(withStyles(styles)(PrDetailInformation));

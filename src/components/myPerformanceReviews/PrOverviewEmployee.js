@@ -1,56 +1,82 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
-import withLoading from '../hoc/Loading';
-import {
-  getAllPrsForTable,
-  getFilter,
-  getFilterPossibilities,
-  isLoadingAction
-} from '../../reducers/selector';
+import React, { useEffect, useState, useContext } from 'react';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
-import { LoadingEvents } from '../../helper/loadingEvents';
 import Paper from '@material-ui/core/Paper/Paper';
 import Grid from '@material-ui/core/Grid';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import { injectIntl } from 'react-intl';
+import { getFilterPossibilities } from '../../actions/calls/filter';
+import { fetchFilteredPrs } from '../../actions/calls/pr';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core';
+import { ErrorContext } from '../App';
 
-export class PrOverviewEmployee extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columnsToView: null
-    };
+const styles = theme => ({
+  ...theme,
+  paper: {
+    margin: theme.spacing.unit * 3
   }
+});
 
-  getColumnDefinitions = () => {
+export const PrOverviewEmployee = props => {
+  const [filter, setFilter] = useState({});
+  const [state, setState] = useState({
+    columnsToView: null
+  });
+
+  const [filterPossibilities, setFilterPossibilities] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  let errorContext = useContext(ErrorContext.context);
+
+  const { classes } = props;
+
+  useEffect(() => {
+    getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
+  }, []);
+
+  useEffect(
+    () => {
+      fetchFilteredPrs(
+        filter,
+        FILTER_GROUPS.EMPLOYEE,
+        setData,
+        setIsLoading,
+        errorContext
+      );
+    },
+    [filter]
+  );
+
+  const getColumnDefinitions = () => {
     const prTableService = new PerformanceReviewTableService(
-      FILTER_GROUPS.EMPLOYEE,
-      this.props.filterPossibilities
+      filterPossibilities,
+      filter,
+      setFilter
     );
 
     return [
       prTableService.employee(false),
       prTableService.deadline(),
-      prTableService.occasion(this.props.intl),
+      prTableService.occasion(props.intl),
       prTableService.projectCst(),
-      prTableService.competence(this.props.intl),
+      prTableService.competence(props.intl),
       prTableService.level(),
       prTableService.supervisor(),
       prTableService.reviewer(),
-      prTableService.result(this.props.intl),
-      prTableService.employeePreparation(this.props.intl),
-      prTableService.reviewerPreparation(this.props.intl),
+      prTableService.result(props.intl),
+      prTableService.employeePreparation(props.intl),
+      prTableService.reviewerPreparation(props.intl),
       prTableService.meeting(),
       prTableService.finalState()
     ];
   };
 
-  getSelectorContent = () => {
-    let columns = this.getColumnDefinitions();
+  const getSelectorContent = () => {
+    let columns = getColumnDefinitions();
     let result = [];
     columns.forEach(column => {
       result.push({ label: column.label, value: column });
@@ -58,71 +84,47 @@ export class PrOverviewEmployee extends React.Component {
     return result;
   };
 
-  handleChange = content => {
-    this.setState({ columnsToView: content });
+  const handleChange = content => {
+    setState({ columnsToView: content });
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.filter !== prevProps.filter) {
-      this.props.fetchFilteredPrs(this.props.filter, FILTER_GROUPS.EMPLOYEE);
-    }
+  if (isLoading) {
+    return <CircularProgress />;
   }
 
-  render() {
-    if (!this.props.filterPossibilities.levels) {
-      return null;
-    }
+  if (!filterPossibilities.levels) {
+    return null;
+  }
 
-    const { columnsToView } = this.state;
-    const columns = columnsToView ? columnsToView : this.getColumnDefinitions();
+  const { columnsToView } = state;
+  const columns = columnsToView ? columnsToView : getColumnDefinitions();
 
-    return (
-      <Paper>
-        <Grid
-          container
-          direction={'row'}
-          justify={'flex-end'}
-          alignItems={'center'}
-        >
-          <Grid item>
-            <RequestPerformanceReview />
-          </Grid>
-          <Grid item>
-            <TableColumnSelectorMenu
-              onChange={this.handleChange}
-              content={this.getSelectorContent()}
-            />
-          </Grid>
+  return (
+    <Paper className={classes.paper}>
+      <Grid
+        container
+        direction={'row'}
+        justify={'flex-end'}
+        alignItems={'center'}
+      >
+        <Grid item>
+          <RequestPerformanceReview />
         </Grid>
+        <Grid item>
+          <TableColumnSelectorMenu
+            onChange={handleChange}
+            content={getSelectorContent()}
+          />
+        </Grid>
+      </Grid>
 
-        <PerformanceReviewTable
-          columnDefinition={columns}
-          orderBy={1}
-          data={this.props.data}
-        />
-      </Paper>
-    );
-  }
-}
-export default injectIntl(
-  connect(
-    state => ({
-      isLoading: isLoadingAction(state, [
-        LoadingEvents.FILTER_POSSIBILITIES,
-        LoadingEvents.FETCH_OWN_PRS
-      ]),
-      filterPossibilities: getFilterPossibilities(state),
-      data: getAllPrsForTable(state),
-      filter: getFilter(FILTER_GROUPS.EMPLOYEE)(state)
-    }),
-    {
-      fetchFilteredPrs: actions.fetchFilteredPrs,
-      getFilterPossibilities: actions.getFilterPossibilities
-    }
-  )(
-    withLoading(props => {
-      props.getFilterPossibilities();
-      props.fetchFilteredPrs(props.filter, FILTER_GROUPS.EMPLOYEE);
-    })(PrOverviewEmployee)
-  )
-);
+      <PerformanceReviewTable
+        columnDefinition={columns}
+        orderBy={1}
+        data={data}
+      />
+    </Paper>
+  );
+};
+
+export default injectIntl(withStyles(styles)(PrOverviewEmployee));

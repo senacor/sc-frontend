@@ -1,71 +1,39 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { LanguageContext } from '../App';
 
-import * as actions from '../../actions/index';
+const LanguageButton = ({ languageButtonClassName }) => {
+  const languageContext = useContext(LanguageContext.context);
 
-const styles = theme => ({
-  button: {
-    color: '#FFF',
-    position: 'absolute',
-    right: 2 * theme.spacing.unit
-  }
-});
+  const changeLanguage = language => {
+    languageContext.setValue(language);
+    localStorage.setItem('lang', language);
+  };
 
-class LanguageButton extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  handleLanguageChange = () => {
+  const handleLanguageChange = () => {
     let localStorageLang = localStorage.getItem('lang');
     if (localStorageLang) {
       if (localStorageLang === 'de') {
-        this.props.changeLanguage('en');
+        changeLanguage('en');
       } else {
-        this.props.changeLanguage('de');
+        changeLanguage('de');
       }
     } else {
-      if (this.props.language === 'de') {
-        this.props.changeLanguage('en');
+      if (languageContext.value === 'de') {
+        changeLanguage('en');
       } else {
-        this.props.changeLanguage('de');
+        changeLanguage('de');
       }
     }
   };
 
-  render() {
-    const { classes, language, color } = this.props;
-    if (this.props.color === 'primary') {
-      return (
-        <Button color={color} onClick={() => this.handleLanguageChange()}>
-          {language}
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          color={color}
-          className={classes.button}
-          onClick={() => this.handleLanguageChange()}
-        >
-          {language}
-        </Button>
-      );
-    }
-  }
-}
+  return (
+    <Button onClick={handleLanguageChange} className={languageButtonClassName}>
+      {localStorage.getItem('lang')
+        ? localStorage.getItem('lang')
+        : languageContext.value}
+    </Button>
+  );
+};
 
-export const StyledComponent = withStyles(styles)(LanguageButton);
-
-export default connect(
-  state => ({
-    language: state.language
-  }),
-  {
-    changeLanguage: actions.changeLanguage
-  }
-)(StyledComponent);
+export default LanguageButton;

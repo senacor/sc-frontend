@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core';
 
 const styles = {
   cell: {
-    textAlign: 'left'
+    textAlign: 'center'
   }
 };
 
@@ -33,7 +33,7 @@ const EnhancedTableHead = ({
               padding={'none'}
               sortDirection={orderBy === index ? order : false}
               variant={'head'}
-              numeric={true}
+              align={'center'}
               className={classes.cell}
             >
               <TableSortLabel
