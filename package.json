@@ -54,6 +54,18 @@
     },
     "/api/v3": {
       "target": "http://localhost:8020"
+    },
+    "/api/v3/user": {
+      "target": "http://localhost:8020"
+    },
+    "/api/v3/prs/filter": {
+      "target": "http://localhost:8020"
+    },
+    "/api/v3/pr": {
+      "target": "http://localhost:8020"
+    },
+    "/api/v3/batch": {
+      "target": "http://localhost:8020"
     }
   },
   "jest": {
