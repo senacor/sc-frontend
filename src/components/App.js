@@ -12,6 +12,7 @@ import messages_de from '../translations/de.json';
 import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
+import Content from './AppBar/Content';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
@@ -28,7 +29,8 @@ const OverviewPerformanceReviews = lazy(() =>
 const ArchivedFiles = lazy(() => import('./fileStorage/ArchivedFiles'));
 const Login = lazy(() => import('./login/Login'));
 
-const AppBar = lazy(() => import('./AppBar/AppBar'));
+// AppBar
+const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
 
 addLocaleData([...locale_en, ...locale_de]);
 
@@ -39,18 +41,21 @@ const styles = {
   }
 };
 
-const withAppBar = WrappedComponent => props => (
-  <AppBar>
+const withContent = WrappedComponent => props => (
+  <Content>
+    <AppBarPR />
     <WrappedComponent {...props} />
-  </AppBar>
+  </Content>
 );
 
-const PrOverviewReviewerAppBar = withAppBar(PrOverviewReviewer);
-const PrOverviewEmployeeAppBar = withAppBar(PrOverviewEmployee);
-const PerformanceReviewDetail2WithAppBar = withAppBar(PerformanceReviewDetail);
-const DashboardWithAppBar = withAppBar(Dashboard);
-const OverviewPrsWithAppBar = withAppBar(OverviewPerformanceReviews);
-const ArchivedFilesWithAppBar = withAppBar(ArchivedFiles);
+const PrOverviewReviewerContent = withContent(PrOverviewReviewer);
+const PrOverviewEmployeeContent = withContent(PrOverviewEmployee);
+const PerformanceReviewDetail2WithContent = withContent(
+  PerformanceReviewDetail
+);
+const DashboardWithContent = withContent(Dashboard);
+const OverviewPrsWithContent = withContent(OverviewPerformanceReviews);
+const ArchivedFilesWithContent = withContent(ArchivedFiles);
 
 export const messages = {
   de: messages_de,
@@ -115,42 +120,42 @@ const App = () => {
                     <PrivateRoute
                       exact
                       path={ROUTES.DASHBOARD}
-                      component={DashboardWithAppBar}
+                      component={DashboardWithContent}
                     />
                     <PrivateRoute
                       exact
                       path={ROUTES.OWN_PR_TABLE}
-                      component={PrOverviewEmployeeAppBar}
+                      component={PrOverviewEmployeeContent}
                     />
                     <PrivateRoute
                       exact
                       path="/myPrs/:id"
-                      component={PerformanceReviewDetail2WithAppBar}
+                      component={PerformanceReviewDetail2WithContent}
                     />
                     <PrivateRoute
                       exact
                       path={ROUTES.PR_TO_REVIEW_TABLE}
-                      component={PrOverviewReviewerAppBar}
+                      component={PrOverviewReviewerContent}
                     />
                     <PrivateRoute
                       exact
                       path="/prs/:id"
-                      component={PerformanceReviewDetail2WithAppBar}
+                      component={PerformanceReviewDetail2WithContent}
                     />
                     <PrivateRoute
                       exact
                       path="/prDetail/:id"
-                      component={PerformanceReviewDetail2WithAppBar}
+                      component={PerformanceReviewDetail2WithContent}
                     />
                     <PrivateRoute
                       exact
                       path={ROUTES.HR_PR_TABLE}
-                      component={OverviewPrsWithAppBar}
+                      component={OverviewPrsWithContent}
                     />
                     <PrivateRoute
                       exact
                       path={ROUTES.ARCHIVED_PR_TABLE}
-                      component={ArchivedFilesWithAppBar}
+                      component={ArchivedFilesWithContent}
                     />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route

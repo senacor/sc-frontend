@@ -10,18 +10,13 @@ import Drawer from '@material-ui/core/Drawer';
 import { injectIntl } from 'react-intl';
 
 import Sidebar from '../sidebar/Sidebar';
-import Message from './Message';
 import LanguageButton from './LanguageButton';
 
 const drawerWidth = 270;
 const appBarHeight = 64;
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-    zIndex: 1,
-    position: 'relative',
-    width: '100%',
-    height: '100vh'
+    flexGrow: 1
   },
   appBar: {
     height: appBarHeight,
@@ -35,31 +30,10 @@ const styles = theme => ({
       display: 'none'
     }
   },
-  toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
     [theme.breakpoints.up('lg')]: {
       position: 'fixed'
-    }
-  },
-  desktopContent: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    width: '100%',
-    height: '100vh',
-
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('lg')]: {
-      width: `calc(100% - ${drawerWidth}px)`
-    }
-  },
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    height: '100vh',
-
-    [theme.breakpoints.up('lg')]: {
-      padding: theme.spacing.unit
     }
   },
   languageButton: {
@@ -68,11 +42,11 @@ const styles = theme => ({
   }
 });
 
-const CustomAppBar = ({ classes, intl, theme, children }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+const AppBarPR = ({ classes, intl, theme }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    setDrawerOpen(!drawerOpen);
   };
 
   return (
@@ -101,7 +75,7 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         <Drawer
           variant="temporary"
           anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-          open={mobileOpen}
+          open={drawerOpen}
           onClose={handleDrawerToggle}
           classes={{
             paper: classes.drawerPaper
@@ -112,11 +86,6 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         >
           <Sidebar />
         </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Message />
-          {children}
-        </main>
       </Hidden>
       <Hidden mdDown implementation="css">
         <Drawer
@@ -128,16 +97,9 @@ const CustomAppBar = ({ classes, intl, theme, children }) => {
         >
           <Sidebar />
         </Drawer>
-        <main className={classes.desktopContent}>
-          <div className={classes.toolbar} />
-          <Message />
-          {children}
-        </main>
       </Hidden>
     </div>
   );
 };
 
-export default injectIntl(
-  withStyles(styles, { withTheme: true })(CustomAppBar)
-);
+export default injectIntl(withStyles(styles, { withTheme: true })(AppBarPR));

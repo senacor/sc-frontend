@@ -11,14 +11,14 @@ export const getFilterPossibilities = async (
       `${process.env.REACT_APP_API}/api/v3/prs/filter`
     );
     const possibilities = await response.json();
-    setFilterPossibilities(possibilities);
     setLoading(false);
+    setFilterPossibilities(possibilities);
   } catch (err) {
     console.log(err);
+    setLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setLoading(false);
   }
 };
