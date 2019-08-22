@@ -46,6 +46,9 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
       }
     });
 
+    if (result.length === 0) {
+      return;
+    }
     setSelectedContent(content);
     setIsUnselectedContent(content.length !== result.length);
 

@@ -136,7 +136,7 @@ export const PrOverviewEmployee = props => {
 
       <PerformanceReviewTable
         columnDefinition={columns}
-        orderBy={1}
+        orderBy={0}
         data={data}
       />
     </Paper>
