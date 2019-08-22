@@ -47,8 +47,6 @@ export const uploadFiles = async (
       {}
     );
 
-    console.log(response);
-
     const result = await response.json();
     setUploadedFiles(result);
     setIsLoading(false);

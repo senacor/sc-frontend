@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,9 +15,6 @@ import LanguageButton from './LanguageButton';
 const drawerWidth = 270;
 const appBarHeight = 64;
 const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
   appBar: {
     height: appBarHeight,
     marginLeft: drawerWidth,
@@ -50,7 +47,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <Fragment>
       <AppBar className={classes.appBar}>
         <Toolbar>
           <IconButton
@@ -98,7 +95,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
           <Sidebar />
         </Drawer>
       </Hidden>
-    </div>
+    </Fragment>
   );
 };
 

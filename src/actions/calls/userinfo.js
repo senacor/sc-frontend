@@ -25,7 +25,9 @@ export const getUserInfo = async (userinfoContext, errorContext) => {
     // rolesResponse.value[0].displayName = 'PR_CST_Leiter';
     rolesResponse.value[0].displayName = 'PR_HR';
 
-    userinfo.userroles = convertGroupsToArray(rolesResponse);
+    if (rolesResponse !== null) {
+      userinfo.userroles = convertGroupsToArray(rolesResponse);
+    }
     userinfoContext.setValue(userinfo);
     userinfo = cloneDeep(userinfo);
 
@@ -39,14 +41,16 @@ export const getUserInfo = async (userinfoContext, errorContext) => {
 
     userinfoResponse = await response.json();
 
-    userinfo.userinfo = userinfoResponse;
-    userinfo.userinfo.username = userinfoResponse.userPrincipalName
-      ? userinfoResponse.userPrincipalName
-      : '';
-    userinfo.userinfo.username = userinfo.userinfo.username.replace(
-      '@polaris.senacor.com',
-      ''
-    );
+    if (userinfoResponse !== null) {
+      userinfo.userinfo = userinfoResponse;
+      userinfo.userinfo.username = userinfoResponse.userPrincipalName
+        ? userinfoResponse.userPrincipalName
+        : '';
+      userinfo.userinfo.username = userinfo.userinfo.username.replace(
+        '@polaris.senacor.com',
+        ''
+      );
+    }
 
     userinfoContext.setValue(userinfo);
     userinfo = cloneDeep(userinfo);
@@ -56,14 +60,16 @@ export const getUserInfo = async (userinfoContext, errorContext) => {
     const result = await response.json();
     reviewerInfoResponse = result ? result : [];
 
-    for (let key in reviewerInfoResponse) {
-      userinfo.userinfo[key] = reviewerInfoResponse[key];
-      //Expected fields:
-      // userId, numberOfPrsToReview, numberOfPrsToSupervise,
-      // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
-      // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
+    if (reviewerInfoResponse !== null) {
+      for (let key in reviewerInfoResponse) {
+        userinfo.userinfo[key] = reviewerInfoResponse[key];
+        //Expected fields:
+        // userId, numberOfPrsToReview, numberOfPrsToSupervise,
+        // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
+        // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
+      }
+      userinfoContext.setValue(userinfo);
     }
-    userinfoContext.setValue(userinfo);
 
     //Fetching photo
     if (userinfo.userphoto === '') {
