@@ -4,7 +4,6 @@ import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
-import Divider from '@material-ui/core/Divider/Divider';
 import Icon from '@material-ui/core/Icon/Icon';
 import { withStyles } from '@material-ui/core';
 
@@ -34,28 +33,6 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
     getNumberOfSelectedContent(selectedCont)
   );
 
-  const isAllSelected = () => {
-    return selectedItems === selectedCont.length;
-  };
-
-  const handleToggleSelectAll = () => {
-    if (isAllSelected()) {
-      selectedCont.forEach(entry => {
-        entry.checked = false;
-      });
-      setSelectedCont(selectedCont);
-      setSelectedItems(0);
-    } else {
-      selectedCont.forEach(entry => {
-        entry.checked = true;
-      });
-      setSelectedCont(selectedCont);
-      setSelectedItems(selectedCont.length);
-    }
-
-    onChange(selectedCont);
-  };
-
   const handleToggle = value => () => {
     const currentIndex = selectedCont.indexOf(value);
 
@@ -71,24 +48,6 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
     setSelectedItems(selectedItems);
     // ??? //
     onChange(selectedCont);
-  };
-
-  const showSelectAll = () => {
-    return (
-      <ListItem key={'selectAll'} dense button onClick={handleToggleSelectAll}>
-        {
-          <Checkbox
-            className={classes.densed}
-            id={'selectAll'}
-            checked={isAllSelected()}
-            color={'primary'}
-            checkedIcon={<Icon>check</Icon>}
-            icon={<Icon />}
-          />
-        }
-        <ListItemText primary={'selectAll'} />
-      </ListItem>
-    );
   };
 
   const showContent = value => {
@@ -109,8 +68,6 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
 
   return (
     <List className={classes.list}>
-      {showSelectAll()}
-      <Divider />
       {selectedCont.map(content => {
         return showContent(content);
       })}
