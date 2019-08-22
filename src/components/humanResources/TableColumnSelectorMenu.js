@@ -9,8 +9,13 @@ import { injectIntl } from 'react-intl';
 const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   const createSelectedContent = content => {
     let result = [];
-    content.forEach(entry => {
-      result.push({ label: entry.label, checked: true, value: entry.value });
+    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    content.forEach((entry, index) => {
+      result.push({
+        label: entry.label,
+        checked: columnsChecked[index],
+        value: entry.value
+      });
     });
     return result;
   };
