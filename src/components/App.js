@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import locale_en from 'react-intl/locale-data/en';
 import locale_de from 'react-intl/locale-data/de';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import PrivateRoute from './privateRoute/PrivateRoute';
-import PrOverviewReviewer from './pr/PrOverviewReviewer';
-import AppBar from './AppBar/AppBar';
 import '../styles/App.css';
-import Login from './login/Login';
 import Logout from './login/Logout';
-import Dashboard from './dashboard/Dashboard';
-import PerformanceReviewDetail from './pr/prDetail/PerformanceReviewDetail';
-import OverviewPerformanceReviews from './humanResources/OverviewPerformanceReviews';
-import PrOverviewEmployee from './myPerformanceReviews/PrOverviewEmployee';
 import ROUTES from '../helper/routes';
-import ArchivedFiles from './fileStorage/ArchivedFiles';
 import messages_de from '../translations/de.json';
 import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
+
+// Routes
+const Dashboard = lazy(() => import('./dashboard/Dashboard'));
+const PrOverviewEmployee = lazy(() =>
+  import('./myPerformanceReviews/PrOverviewEmployee')
+);
+const PerformanceReviewDetail = lazy(() =>
+  import('./pr/prDetail/PerformanceReviewDetail')
+);
+const PrOverviewReviewer = lazy(() => import('./pr/PrOverviewReviewer'));
+const OverviewPerformanceReviews = lazy(() =>
+  import('./humanResources/OverviewPerformanceReviews')
+);
+const ArchivedFiles = lazy(() => import('./fileStorage/ArchivedFiles'));
+const Login = lazy(() => import('./login/Login'));
+
+const AppBar = lazy(() => import('./AppBar/AppBar'));
 
 addLocaleData([...locale_en, ...locale_de]);
 
@@ -100,53 +109,58 @@ const App = () => {
         >
           <BrowserRouter>
             <MuiThemeProvider theme={senacorTheme}>
-              <div style={styles.main}>
-                <Switch>
-                  <PrivateRoute
-                    exact
-                    path={ROUTES.DASHBOARD}
-                    component={DashboardWithAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={ROUTES.OWN_PR_TABLE}
-                    component={PrOverviewEmployeeAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path="/myPrs/:id"
-                    component={PerformanceReviewDetail2WithAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={ROUTES.PR_TO_REVIEW_TABLE}
-                    component={PrOverviewReviewerAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path="/prs/:id"
-                    component={PerformanceReviewDetail2WithAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path="/prDetail/:id"
-                    component={PerformanceReviewDetail2WithAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={ROUTES.HR_PR_TABLE}
-                    component={OverviewPrsWithAppBar}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={ROUTES.ARCHIVED_PR_TABLE}
-                    component={ArchivedFilesWithAppBar}
-                  />
-                  <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
-                  <Route path={ROUTES.LOGIN} component={Login} />
-                  <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
-                </Switch>
-              </div>
+              <Suspense fallback={null}>
+                <div style={styles.main}>
+                  <Switch>
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.DASHBOARD}
+                      component={DashboardWithAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.OWN_PR_TABLE}
+                      component={PrOverviewEmployeeAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/myPrs/:id"
+                      component={PerformanceReviewDetail2WithAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.PR_TO_REVIEW_TABLE}
+                      component={PrOverviewReviewerAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/prs/:id"
+                      component={PerformanceReviewDetail2WithAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/prDetail/:id"
+                      component={PerformanceReviewDetail2WithAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.HR_PR_TABLE}
+                      component={OverviewPrsWithAppBar}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.ARCHIVED_PR_TABLE}
+                      component={ArchivedFilesWithAppBar}
+                    />
+                    <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
+                    <Route
+                      path={ROUTES.LOGIN}
+                      component={props => <Login {...props} />}
+                    />
+                    <Route render={() => <Redirect to={ROUTES.DASHBOARD} />} />
+                  </Switch>
+                </div>
+              </Suspense>
             </MuiThemeProvider>
           </BrowserRouter>
         </IntlProvider>

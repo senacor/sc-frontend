@@ -11,15 +11,15 @@ export const loadAllArchivedFilesList = async (
       `${process.env.REACT_APP_API}/api/v3/hr/downloadInfo`
     );
     const result = await response.json();
-    setArchivedFiles(result);
     setIsLoading(false);
+    setArchivedFiles(result);
   } catch (err) {
     console.log(err);
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };
 

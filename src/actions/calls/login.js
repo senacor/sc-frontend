@@ -24,8 +24,8 @@ export const login = async (
     });
 
     const data = await response.json();
-    setIsLoggedIn(setDataInLocalStorage(data));
     setIsLoading(false);
+    setIsLoggedIn(setDataInLocalStorage(data));
   } catch (err) {
     errorContext.setValue({
       hasErrors: true,
