@@ -34,8 +34,25 @@ export const PrOverviewEmployee = props => {
 
   const { classes } = props;
 
+  const fillDefaultLocalStorageColumns = () => {
+    if (localStorage.getItem('columnsChecked')) {
+      return;
+    }
+
+    let defaultColumnsChecked = [];
+    for (let i = 0; i < 13; i++) {
+      // 13 = number of columns
+      defaultColumnsChecked.push(true);
+    }
+    localStorage.setItem(
+      'columnsChecked',
+      JSON.stringify(defaultColumnsChecked)
+    );
+  };
+
   useEffect(() => {
     getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
+    fillDefaultLocalStorageColumns();
   }, []);
 
   useEffect(
@@ -78,8 +95,8 @@ export const PrOverviewEmployee = props => {
   const getColumnsFromLocalStorage = () => {
     const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
     const allColumns = getColumnDefinitions();
-    let result = [];
 
+    let result = [];
     columnsChecked.forEach((column, index) => {
       if (column) {
         result.push(allColumns[index]);
