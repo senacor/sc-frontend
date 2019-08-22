@@ -31,15 +31,20 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
 
   const handleChange = content => {
     let result = [];
+    let columnsChecked = [];
     content.forEach(entry => {
       if (entry.checked) {
         result.push(entry.value);
+        columnsChecked.push(true);
+      } else {
+        columnsChecked.push(false);
       }
     });
 
     setSelectedContent(content);
     setIsUnselectedContent(content.length !== result.length);
 
+    localStorage.setItem('columnsChecked', JSON.stringify(columnsChecked));
     onChange(result);
   };
 

@@ -72,7 +72,6 @@ const styles = theme => ({
 class PerformanceReviewTable extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       order: 'desc',
       orderBy: this.props.orderBy,

@@ -75,6 +75,19 @@ export const PrOverviewEmployee = props => {
     ];
   };
 
+  const getColumnsFromLocalStorage = () => {
+    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const allColumns = getColumnDefinitions();
+    let result = [];
+
+    columnsChecked.forEach((column, index) => {
+      if (column) {
+        result.push(allColumns[index]);
+      }
+    });
+    return result;
+  };
+
   const getSelectorContent = () => {
     let columns = getColumnDefinitions();
     let result = [];
@@ -97,7 +110,10 @@ export const PrOverviewEmployee = props => {
   }
 
   const { columnsToView } = state;
-  const columns = columnsToView ? columnsToView : getColumnDefinitions();
+  let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
+  if (columns.length === 0) {
+    columns = getColumnDefinitions();
+  }
 
   return (
     <Paper className={classes.paper}>
