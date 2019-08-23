@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
+import { injectIntl } from 'react-intl';
+import moment from 'moment';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import TextField from '@material-ui/core/TextField/TextField';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import Icon from '@material-ui/core/Icon/Icon';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core';
-import { injectIntl } from 'react-intl';
+
 import cloneDeep from '../../helper/cloneDeep';
 
-let styles = {
+let styles = theme => ({
   error: {
     font: 'small',
-    color: '#ff0000'
+    color: theme.palette.secondary.darkRed
   }
-};
+});
 
 export const DateFilter = ({
   filter,
   setFilter,
   filterBy,
-  filterGroup,
   closeFilter,
   intl,
   classes

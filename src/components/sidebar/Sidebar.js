@@ -1,4 +1,6 @@
 import React, { useContext, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { injectIntl } from 'react-intl';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,21 +14,21 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import SaveIcon from '@material-ui/icons/Save';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { NavLink } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core';
+
 import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
-import { injectIntl } from 'react-intl';
 import { getUserInfo } from '../../actions/calls/userinfo';
+
 import {
   AuthorizationContext,
   ErrorContext,
   InfoContext,
   UserinfoContext
 } from '../App';
-import { CircularProgress } from '@material-ui/core';
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 480
@@ -44,7 +46,16 @@ const styles = () => ({
   row: {
     display: 'flex',
     justifyContent: 'center',
-    padding: '10px'
+    padding: theme.spacing.unit
+  },
+  activeStyle: {
+    backgroundColor: theme.palette.secondary.grey
+  },
+  noTextDecoration: {
+    textDecoration: 'none'
+  },
+  textColor: {
+    color: theme.palette.primary['900']
   }
 });
 
@@ -151,17 +162,17 @@ export const Sidebar = ({ intl, classes }) => {
 
       <List component="nav">
         {getListOfMenuItems().map(entry => {
-          const uuu =
+          const hasPRsToProcess =
             !entry.reviewerCheck ||
             (entry.reviewerCheck &&
               userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
                 0);
-          return uuu ? (
+          return hasPRsToProcess ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem
                 component={NavLink}
                 to={entry.value}
-                style={{ textDecoration: 'none' }}
+                className={classes.noTextDecoration}
                 activeStyle={{
                   backgroundColor: '#DDD'
                 }}
@@ -170,7 +181,9 @@ export const Sidebar = ({ intl, classes }) => {
                 <ListItemIcon>{entry.icon}</ListItemIcon>
                 <ListItemText
                   disableTypography
-                  primary={<div style={{ color: '#000' }}>{entry.label}</div>}
+                  primary={
+                    <div className={classes.textColor}>{entry.label}</div>
+                  }
                 />
               </ListItem>
             </Authorized>

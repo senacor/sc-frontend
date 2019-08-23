@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
-import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
-import UploadSuccessDialog from './UploadSuccessDialog';
+import { injectIntl } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
-import { injectIntl } from 'react-intl';
+
 import { uploadFiles } from '../../actions/calls/fileStorage';
+import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
+import UploadSuccessDialog from './UploadSuccessDialog';
 import { ErrorContext } from '../App';
 
 const styles = theme => ({
   buttonProgress: {
-    color: theme.palette.primary['A100']
+    color: theme.palette.secondary.blue
   }
 });
 

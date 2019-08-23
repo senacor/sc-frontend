@@ -6,7 +6,7 @@ const styles = theme => ({
   buttonDesktop: {
     position: 'relative',
     backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
+    color: theme.palette.secondary.white,
     margin: '1rem'
   },
   sizeSmall: {}

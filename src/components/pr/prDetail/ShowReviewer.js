@@ -1,20 +1,21 @@
 import React, { useContext } from 'react';
-import PrDelegate from '../PrDelegate';
-import getDisplayName from '../../../helper/getDisplayName';
+import { injectIntl } from 'react-intl';
 import Typography from '@material-ui/core/Typography/Typography';
-import { prStatusEnum } from '../../../helper/prStatus';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import { withStyles } from '@material-ui/core';
-import { injectIntl } from 'react-intl';
-import { PrContext } from '../../App';
 
-const styles = {
+import { PrContext } from '../../App';
+import { prStatusEnum } from '../../../helper/prStatus';
+import PrDelegate from '../PrDelegate';
+import getDisplayName from '../../../helper/getDisplayName';
+
+const styles = () => ({
   list: {
-    margin: '0px',
-    padding: '0px'
+    margin: 0,
+    padding: 0
   }
-};
+});
 
 const ShowReviewer = ({ prefix, pr, classes, intl, username }) => {
   const { setValue: setPr } = useContext(PrContext.context);
@@ -56,5 +57,4 @@ const ShowReviewer = ({ prefix, pr, classes, intl, username }) => {
   );
 };
 
-export const StyledComponent = withStyles(styles)(ShowReviewer);
-export default injectIntl(StyledComponent);
+export default injectIntl(withStyles(styles)(ShowReviewer));

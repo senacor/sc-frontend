@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { injectIntl } from 'react-intl';
 import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core';
+
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
-import { formatDateForFrontend } from '../../helper/date';
 import getDisplayName from '../../helper/getDisplayName';
 import UploadFiles from './UploadFiles';
 import { DownloadFile } from './DownloadFile';
-import { injectIntl } from 'react-intl';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
-import { withStyles } from '@material-ui/core';
+import { formatDateForFrontend } from '../../helper/date';
 import { ErrorContext } from '../App';
 
 const styles = theme => ({
@@ -17,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const ArchivedFiles = ({ intl }) => {
+const ArchivedFiles = ({ classes, intl }) => {
   const [archivedFiles, setArchivedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,7 +72,7 @@ const ArchivedFiles = ({ intl }) => {
   };
 
   return (
-    <Paper style={{ margin: '20px' }}>
+    <Paper className={classes.container}>
       <UploadFiles updateFileList={loadAllArchivedFiles} />
       {isLoading ? (
         <CircularProgress />
