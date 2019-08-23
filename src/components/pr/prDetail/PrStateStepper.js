@@ -42,7 +42,7 @@ const PrStateStepper = ({ classes, stepStructure, activeStep }) => {
 
   return (
     <Stepper
-      orientation={screenSize < 600 ? 'vertical' : 'horizontal'}
+      orientation={screenSize < 960 ? 'vertical' : 'horizontal'}
       className={classes.stepper}
       activeStep={activeStep}
       classes={{ root: classes.stepperRoot }}
