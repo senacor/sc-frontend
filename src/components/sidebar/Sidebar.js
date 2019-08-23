@@ -18,12 +18,7 @@ import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { injectIntl } from 'react-intl';
 import { getUserInfo } from '../../actions/calls/userinfo';
-import {
-  AuthorizationContext,
-  ErrorContext,
-  InfoContext,
-  UserinfoContext
-} from '../App';
+import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 import { CircularProgress } from '@material-ui/core';
 
 const styles = () => ({
@@ -50,13 +45,12 @@ const styles = () => ({
 
 export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
-  const authContext = useContext(AuthorizationContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   const infoContext = useContext(InfoContext.context);
   const errorContext = useContext(ErrorContext.context);
 
   useEffect(() => {
-    getUserInfo(userinfoContext, authContext);
+    getUserInfo(userinfoContext, errorContext);
   }, []);
 
   const resetMessages = () => {

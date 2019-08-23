@@ -118,6 +118,7 @@ export const OverviewPerformanceReviews = ({ intl }) => {
     columns = getColumnDefinitions();
   }
   let isHrMember = isHr(userroles);
+
   return (
     <Paper>
       <Grid
@@ -136,7 +137,7 @@ export const OverviewPerformanceReviews = ({ intl }) => {
       <PerformanceReviewTable
         isLoading={isLoading}
         columnDefinition={columns}
-        orderBy={1}
+        orderBy={0}
         data={data}
         filter={filter}
         isHr={isHrMember}
