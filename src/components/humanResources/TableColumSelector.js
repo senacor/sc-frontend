@@ -29,24 +29,25 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
   };
 
   const [selectedCont, setSelectedCont] = useState(selectedContent);
-  const [selectedItems, setSelectedItems] = useState(
+  /*const [selectedItems, setSelectedItems] = useState(
     getNumberOfSelectedContent(selectedCont)
-  );
+  );*/
+  let selectedItems = getNumberOfSelectedContent(selectedCont)
 
   const handleToggle = value => () => {
     const currentIndex = selectedCont.indexOf(value);
 
     if (value.checked === true) {
+      if (selectedItems === 1) {
+        return;
+      }
       selectedCont[currentIndex].checked = false;
-      setSelectedItems(selectedItems - 1);
+      selectedItems = selectedItems - 1;
     } else {
       selectedCont[currentIndex].checked = true;
-      setSelectedItems(selectedItems + 1);
+      selectedItems = selectedItems + 1;
     }
-    // ??? //
-    setSelectedCont(selectedCont);
-    setSelectedItems(selectedItems);
-    // ??? //
+
     onChange(selectedCont);
   };
 
