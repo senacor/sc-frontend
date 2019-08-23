@@ -20,13 +20,7 @@ import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { getUserInfo } from '../../actions/calls/userinfo';
-
-import {
-  AuthorizationContext,
-  ErrorContext,
-  InfoContext,
-  UserinfoContext
-} from '../App';
+import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   root: {
@@ -48,9 +42,6 @@ const styles = theme => ({
     justifyContent: 'center',
     padding: theme.spacing.unit
   },
-  activeStyle: {
-    backgroundColor: theme.palette.secondary.grey
-  },
   noTextDecoration: {
     textDecoration: 'none'
   },
@@ -61,13 +52,12 @@ const styles = theme => ({
 
 export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
-  const authContext = useContext(AuthorizationContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   const infoContext = useContext(InfoContext.context);
   const errorContext = useContext(ErrorContext.context);
 
   useEffect(() => {
-    getUserInfo(userinfoContext, authContext);
+    getUserInfo(userinfoContext, errorContext);
   }, []);
 
   const resetMessages = () => {
