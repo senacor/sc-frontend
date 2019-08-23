@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserinfoContext } from '../App';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
@@ -7,9 +8,30 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { injectIntl } from 'react-intl';
 
 const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
+  const userinfoContext = useContext(UserinfoContext.context);
+  const getRole = () => {
+    if (userinfoContext.value.userroles.includes('PR_Mitarbeiter')) {
+      return 'PR_Mitarbeiter';
+    } else if (userinfoContext.value.userroles.includes('PR_CST_Leiter')) {
+      return 'PR_CST_Leiter';
+    } else if (userinfoContext.value.userroles.includes('PR_HR')) {
+      return 'PR_HR';
+    }
+  };
+
+  const role = getRole();
+
   const createSelectedContent = content => {
     let result = [];
-    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    let columnsChecked;
+    if (role === 'PR_Mitarbeiter' || role === 'PR_CST_Leiter') {
+      columnsChecked = JSON.parse(
+        localStorage.getItem('columnsCheckedEmployeeSupervisor')
+      );
+    } else if (role === 'PR_HR') {
+      columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedHr'));
+    }
+
     content.forEach((entry, index) => {
       result.push({
         label: entry.label,
@@ -52,7 +74,14 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
     setSelectedContent(content);
     setIsUnselectedContent(content.length !== result.length);
 
-    localStorage.setItem('columnsChecked', JSON.stringify(columnsChecked));
+    if (role === 'PR_Mitarbeiter' || role === 'PR_CST_Leiter') {
+      localStorage.setItem(
+        'columnsCheckedEmployeeSupervisor',
+        JSON.stringify(columnsChecked)
+      );
+    } else if (role === 'PR_HR') {
+      localStorage.setItem('columnsCheckedHr', JSON.stringify(columnsChecked));
+    }
     onChange(result);
   };
 

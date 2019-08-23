@@ -13,18 +13,33 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const OverviewPerformanceReviews = ({ intl }) => {
   const [filter, setFilter] = useState({});
-
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
-  const { userroles } = useContext(UserinfoContext.context).value;
   const [columnsToView, setColumnsToView] = useState(null);
   const [data, setData] = useState([]);
 
+  const { userroles } = useContext(UserinfoContext.context).value;
   let errorContext = useContext(ErrorContext.context);
+
+  const fillDefaultLocalStorageColumns = () => {
+    if (localStorage.getItem('columnsCheckedHr')) {
+      return;
+    }
+
+    let defaultColumnsChecked = [];
+    for (let i = 0; i < 14; i++) {
+      // 14 = number of columns
+      defaultColumnsChecked.push(true);
+    }
+    localStorage.setItem(
+      'columnsCheckedHr',
+      JSON.stringify(defaultColumnsChecked)
+    );
+  };
 
   useEffect(() => {
     getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
+    fillDefaultLocalStorageColumns();
   }, []);
 
   useEffect(
@@ -64,6 +79,19 @@ export const OverviewPerformanceReviews = ({ intl }) => {
     ];
   };
 
+  const getColumnsFromLocalStorage = () => {
+    const columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedHr'));
+    const allColumns = getColumnDefinitions();
+
+    let result = [];
+    columnsChecked.forEach((column, index) => {
+      if (column) {
+        result.push(allColumns[index]);
+      }
+    });
+    return result;
+  };
+
   const getSelectorContent = () => {
     let columns = getColumnDefinitions();
     let result = [];
@@ -85,7 +113,10 @@ export const OverviewPerformanceReviews = ({ intl }) => {
     return <CircularProgress />;
   }
 
-  const columns = columnsToView ? columnsToView : getColumnDefinitions();
+  let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
+  if (columns.length === 0) {
+    columns = getColumnDefinitions();
+  }
   let isHrMember = isHr(userroles);
   return (
     <Paper>

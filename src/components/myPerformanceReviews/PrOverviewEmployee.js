@@ -22,10 +22,7 @@ const styles = theme => ({
 
 export const PrOverviewEmployee = props => {
   const [filter, setFilter] = useState({});
-  const [state, setState] = useState({
-    columnsToView: null
-  });
-
+  const [columnsToView, setcolumnsToView] = useState(null);
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -35,7 +32,7 @@ export const PrOverviewEmployee = props => {
   const { classes } = props;
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsChecked')) {
+    if (localStorage.getItem('columnsCheckedEmployeeSupervisor')) {
       return;
     }
 
@@ -45,7 +42,7 @@ export const PrOverviewEmployee = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsChecked',
+      'columnsCheckedEmployeeSupervisor',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -93,7 +90,9 @@ export const PrOverviewEmployee = props => {
   };
 
   const getColumnsFromLocalStorage = () => {
-    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const columnsChecked = JSON.parse(
+      localStorage.getItem('columnsCheckedEmployeeSupervisor')
+    );
     const allColumns = getColumnDefinitions();
 
     let result = [];
@@ -115,7 +114,7 @@ export const PrOverviewEmployee = props => {
   };
 
   const handleChange = content => {
-    setState({ columnsToView: content });
+    setcolumnsToView(content);
   };
 
   if (isLoading) {
@@ -126,12 +125,10 @@ export const PrOverviewEmployee = props => {
     return null;
   }
 
-  const { columnsToView } = state;
   let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
   if (columns.length === 0) {
     columns = getColumnDefinitions();
   }
-
   return (
     <Paper className={classes.paper}>
       <Grid
