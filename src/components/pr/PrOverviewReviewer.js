@@ -27,8 +27,25 @@ export const PrOverviewReviewer = props => {
 
   let errorContext = useContext(ErrorContext.context);
 
+  const fillDefaultLocalStorageColumns = () => {
+    if (localStorage.getItem('columnsChecked')) {
+      return;
+    }
+
+    let defaultColumnsChecked = [];
+    for (let i = 0; i < 13; i++) {
+      // 13 = number of columns
+      defaultColumnsChecked.push(true);
+    }
+    localStorage.setItem(
+      'columnsChecked',
+      JSON.stringify(defaultColumnsChecked)
+    );
+  };
+
   useEffect(() => {
     getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
+    fillDefaultLocalStorageColumns();
   }, []);
 
   const loadFilteredPrs = () => {
@@ -67,6 +84,19 @@ export const PrOverviewReviewer = props => {
     ];
   };
 
+  const getColumnsFromLocalStorage = () => {
+    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const allColumns = getColumnDefinitions();
+
+    let result = [];
+    columnsChecked.forEach((column, index) => {
+      if (column) {
+        result.push(allColumns[index]);
+      }
+    });
+    return result;
+  };
+
   const getSelectorContent = () => {
     let columns = getColumnDefinitions();
     let result = [];
@@ -91,7 +121,11 @@ export const PrOverviewReviewer = props => {
   }
 
   const { columnsToView } = state;
-  const columns = columnsToView ? columnsToView : getColumnDefinitions();
+  let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
+  if (columns.length === 0) {
+    columns = getColumnDefinitions();
+  }
+
   return (
     <Paper>
       <Grid
@@ -109,7 +143,7 @@ export const PrOverviewReviewer = props => {
       </Grid>
       <PerformanceReviewTable
         columnDefinition={columns}
-        orderBy={1}
+        orderBy={0}
         data={data}
       />
     </Paper>

@@ -23,8 +23,25 @@ export const OverviewPerformanceReviews = ({ intl }) => {
 
   let errorContext = useContext(ErrorContext.context);
 
+  const fillDefaultLocalStorageColumns = () => {
+    if (localStorage.getItem('columnsChecked')) {
+      return;
+    }
+
+    let defaultColumnsChecked = [];
+    for (let i = 0; i < 14; i++) {
+      // 14 = number of columns
+      defaultColumnsChecked.push(true);
+    }
+    localStorage.setItem(
+      'columnsChecked',
+      JSON.stringify(defaultColumnsChecked)
+    );
+  };
+
   useEffect(() => {
     getFilterPossibilities(setIsLoading, setFilterPossibilities, errorContext);
+    fillDefaultLocalStorageColumns();
   }, []);
 
   useEffect(
@@ -64,6 +81,19 @@ export const OverviewPerformanceReviews = ({ intl }) => {
     ];
   };
 
+  const getColumnsFromLocalStorage = () => {
+    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const allColumns = getColumnDefinitions();
+
+    let result = [];
+    columnsChecked.forEach((column, index) => {
+      if (column) {
+        result.push(allColumns[index]);
+      }
+    });
+    return result;
+  };
+
   const getSelectorContent = () => {
     let columns = getColumnDefinitions();
     let result = [];
@@ -85,8 +115,12 @@ export const OverviewPerformanceReviews = ({ intl }) => {
     return <CircularProgress />;
   }
 
-  const columns = columnsToView ? columnsToView : getColumnDefinitions();
+  let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
+  if (columns.length === 0) {
+    columns = getColumnDefinitions();
+  }
   let isHrMember = isHr(userroles);
+
   return (
     <Paper>
       <Grid
@@ -105,7 +139,7 @@ export const OverviewPerformanceReviews = ({ intl }) => {
       <PerformanceReviewTable
         isLoading={isLoading}
         columnDefinition={columns}
-        orderBy={1}
+        orderBy={0}
         data={data}
         filter={filter}
         isHr={isHrMember}
