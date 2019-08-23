@@ -33,6 +33,7 @@ const styles = theme => {
 };
 
 const PrStateStepper = ({ classes, stepStructure, activeStep }) => {
+  const screenSize = window.innerWidth;
   const getExtraStepContent = substeps => {
     return Object.values(substeps).map((substep, index) => {
       return <PrSubstepItem key={`SubStepGrid_${index}`} substep={substep} />;
@@ -41,7 +42,7 @@ const PrStateStepper = ({ classes, stepStructure, activeStep }) => {
 
   return (
     <Stepper
-      orientation="horizontal"
+      orientation={screenSize < 600 ? 'vertical' : 'horizontal'}
       className={classes.stepper}
       activeStep={activeStep}
       classes={{ root: classes.stepperRoot }}

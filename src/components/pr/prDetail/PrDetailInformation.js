@@ -35,15 +35,16 @@ const styles = theme => ({
     flex: '1 1 auto'
   },
   list: {
-    margin: '0px',
-    padding: '0px'
+    margin: 0,
+    padding: 0
   },
-  buttonDesktop: {
-    position: 'relative',
+  backBtnContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  backBtn: {
     backgroundColor: theme.palette.primary[400],
-    color: '#FFF',
-    marginBottom: '2%',
-    marginTop: '12%'
+    color: '#FFF'
   }
 });
 
@@ -145,8 +146,8 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
               </ListItem>
             </List>
           </div>
-          <div>
-            <BackToTableButton pr={pr} classes={classes.buttonDesktop} />
+          <div className={classes.backBtnContainer}>
+            <BackToTableButton pr={pr} classes={classes.backBtn} />
           </div>
         </ExpansionPanelSummary>
         <PrHistory employeeId={pr.employee.id} />
