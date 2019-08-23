@@ -29,10 +29,8 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
   };
 
   const [selectedCont, setSelectedCont] = useState(selectedContent);
-  /*const [selectedItems, setSelectedItems] = useState(
-    getNumberOfSelectedContent(selectedCont)
-  );*/
-  let selectedItems = getNumberOfSelectedContent(selectedCont)
+
+  let selectedItems = getNumberOfSelectedContent(selectedCont);
 
   const handleToggle = value => () => {
     const currentIndex = selectedCont.indexOf(value);
