@@ -20,13 +20,16 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   };
 
   const role = getRole();
-
   const createSelectedContent = content => {
     let result = [];
     let columnsChecked;
-    if (role === 'PR_Mitarbeiter' || role === 'PR_CST_Leiter') {
+    if (role === 'PR_Mitarbeiter') {
       columnsChecked = JSON.parse(
-        localStorage.getItem('columnsCheckedEmployeeSupervisor')
+        localStorage.getItem('columnsCheckedEmployee')
+      );
+    } else if (role === 'PR_CST_Leiter') {
+      columnsChecked = JSON.parse(
+        localStorage.getItem('columnsCheckedSupervisor')
       );
     } else if (role === 'PR_HR') {
       columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedHr'));
@@ -74,9 +77,14 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
     setSelectedContent(content);
     setIsUnselectedContent(content.length !== result.length);
 
-    if (role === 'PR_Mitarbeiter' || role === 'PR_CST_Leiter') {
+    if (role === 'PR_Mitarbeiter') {
       localStorage.setItem(
-        'columnsCheckedEmployeeSupervisor',
+        'columnsCheckedEmployee',
+        JSON.stringify(columnsChecked)
+      );
+    } else if (role === 'PR_CST_Leiter') {
+      localStorage.setItem(
+        'columnsCheckedSupervisor',
         JSON.stringify(columnsChecked)
       );
     } else if (role === 'PR_HR') {

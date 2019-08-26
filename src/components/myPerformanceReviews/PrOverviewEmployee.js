@@ -11,7 +11,7 @@ import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
-import { ErrorContext } from '../App';
+import { ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   ...theme,
@@ -28,11 +28,12 @@ export const PrOverviewEmployee = props => {
   const [data, setData] = useState([]);
 
   let errorContext = useContext(ErrorContext.context);
+  const userinfoContext = useContext(UserinfoContext.context);
 
   const { classes } = props;
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsCheckedEmployeeSupervisor')) {
+    if (localStorage.getItem('columnsCheckedEmployee')) {
       return;
     }
 
@@ -42,7 +43,7 @@ export const PrOverviewEmployee = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsCheckedEmployeeSupervisor',
+      'columnsCheckedEmployee',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -91,7 +92,7 @@ export const PrOverviewEmployee = props => {
 
   const getColumnsFromLocalStorage = () => {
     const columnsChecked = JSON.parse(
-      localStorage.getItem('columnsCheckedEmployeeSupervisor')
+      localStorage.getItem('columnsCheckedEmployee')
     );
     const allColumns = getColumnDefinitions();
 
@@ -141,10 +142,14 @@ export const PrOverviewEmployee = props => {
           <RequestPerformanceReview />
         </Grid>
         <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-          />
+          {userinfoContext.value.userroles.length < 1 ? (
+            <CircularProgress />
+          ) : (
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+            />
+          )}
         </Grid>
       </Grid>
 

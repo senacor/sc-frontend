@@ -20,6 +20,7 @@ export const OverviewPerformanceReviews = ({ intl }) => {
 
   const { userroles } = useContext(UserinfoContext.context).value;
   let errorContext = useContext(ErrorContext.context);
+  const userinfoContext = useContext(UserinfoContext.context);
 
   const fillDefaultLocalStorageColumns = () => {
     if (localStorage.getItem('columnsCheckedHr')) {
@@ -128,10 +129,14 @@ export const OverviewPerformanceReviews = ({ intl }) => {
         alignItems={'center'}
       >
         <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-          />
+          {userinfoContext.value.userroles.length < 1 ? (
+            <CircularProgress />
+          ) : (
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+            />
+          )}
         </Grid>
       </Grid>
       <PerformanceReviewTable

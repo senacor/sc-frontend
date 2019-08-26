@@ -22,9 +22,10 @@ export const PrOverviewReviewer = props => {
   const { username } = userinfo;
 
   let errorContext = useContext(ErrorContext.context);
+  const userinfoContext = useContext(UserinfoContext.context);
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsCheckedEmployeeSupervisor')) {
+    if (localStorage.getItem('columnsCheckedSupervisor')) {
       return;
     }
 
@@ -34,7 +35,7 @@ export const PrOverviewReviewer = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsCheckedEmployeeSupervisor',
+      'columnsCheckedSupervisor',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -82,7 +83,7 @@ export const PrOverviewReviewer = props => {
 
   const getColumnsFromLocalStorage = () => {
     const columnsChecked = JSON.parse(
-      localStorage.getItem('columnsCheckedEmployeeSupervisor')
+      localStorage.getItem('columnsCheckedSupervisor')
     );
     const allColumns = getColumnDefinitions();
 
@@ -129,10 +130,14 @@ export const PrOverviewReviewer = props => {
         alignItems={'center'}
       >
         <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-          />
+          {userinfoContext.value.userroles.length < 1 ? (
+            <CircularProgress />
+          ) : (
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+            />
+          )}
         </Grid>
       </Grid>
       <PerformanceReviewTable
