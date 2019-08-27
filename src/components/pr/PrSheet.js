@@ -15,10 +15,10 @@ import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   paddingBottom: {
-    paddingBottom: 24
+    paddingBottom: 3 * theme.spacing.unit
   },
   required: {
-    color: 'rgba(0, 0, 0, 0.42)'
+    color: theme.palette.secondary.grey
   },
   legend: {
     textAlign: 'blockscope',

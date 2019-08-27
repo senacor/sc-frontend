@@ -1,17 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PerformanceReviewTable from './PerformanceReviewTable';
-import { isHr } from '../../helper/checkRole';
-import PerformanceReviewTableService from './PerformanceReviewTableService';
-import Paper from '@material-ui/core/Paper/Paper';
-import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
-import Grid from '@material-ui/core/Grid/Grid';
 import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper/Paper';
+import Grid from '@material-ui/core/Grid/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import PerformanceReviewTable from './PerformanceReviewTable';
+import PerformanceReviewTableService from './PerformanceReviewTableService';
+import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
+import { isHr } from '../../helper/checkRole';
 import { UserinfoContext, ErrorContext } from '../App';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-export const OverviewPerformanceReviews = ({ intl }) => {
+const styles = theme => ({
+  spacing: {
+    margin: 3 * theme.spacing.unit
+  }
+});
+
+export const OverviewPerformanceReviews = ({ classes, intl }) => {
   const [filter, setFilter] = useState({});
 
   const [filterPossibilities, setFilterPossibilities] = useState({});
@@ -122,7 +130,7 @@ export const OverviewPerformanceReviews = ({ intl }) => {
   let isHrMember = isHr(userroles);
 
   return (
-    <Paper>
+    <Paper className={classes.spacing}>
       <Grid
         container
         direction={'row'}
@@ -148,4 +156,4 @@ export const OverviewPerformanceReviews = ({ intl }) => {
   );
 };
 
-export default injectIntl(OverviewPerformanceReviews);
+export default injectIntl(withStyles(styles)(OverviewPerformanceReviews));

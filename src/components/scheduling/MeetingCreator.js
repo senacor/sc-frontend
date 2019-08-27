@@ -1,19 +1,34 @@
 import React, { useState, useEffect, useContext } from 'react';
+import ObjectGet from 'object-get';
+import { withStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography/Typography';
+import Grid from '@material-ui/core/Grid/Grid';
+
 import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
-import Typography from '@material-ui/core/Typography/Typography';
-import Grid from '@material-ui/core/Grid/Grid';
 import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import ObjectGet from 'object-get';
 import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { ErrorContext, MeetingContext, UserinfoContext } from '../App';
 import { appointmentsSearch } from '../../actions/calls/meetings';
 
-export const MeetingCreator = ({ intl, pr, selectedDate, handleChange }) => {
+const styles = theme => ({
+  title: {
+    fontSize: 20,
+    paddingBottom: 3 * theme.spacing.unit
+  }
+});
+
+export const MeetingCreator = ({
+  classes,
+  intl,
+  pr,
+  selectedDate,
+  handleChange
+}) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const { value: meeting } = useContext(MeetingContext.context);
   const [employee, setEmployee] = useState('');
@@ -196,7 +211,7 @@ export const MeetingCreator = ({ intl, pr, selectedDate, handleChange }) => {
   visibilityService.setMeeting(meeting);
   return (
     <React.Fragment>
-      <Typography gutterBottom variant="h4">
+      <Typography variant="body1" className={classes.title}>
         {intl.formatMessage({
           id: 'meetingcreator.datescheduling'
         })}
@@ -266,4 +281,4 @@ export const MeetingCreator = ({ intl, pr, selectedDate, handleChange }) => {
   );
 };
 
-export default MeetingCreator;
+export default withStyles(styles)(MeetingCreator);

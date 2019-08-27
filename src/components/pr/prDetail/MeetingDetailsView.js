@@ -34,7 +34,7 @@ const styles = theme => ({
     marginTop: '3.5%',
     position: 'relative',
     backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
+    color: theme.palette.secondary.white,
     marginBottom: '1.5%',
     marginLeft: '3%'
   },
@@ -293,6 +293,4 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
   );
 };
 
-export const StyledComponent = injectIntl(
-  withStyles(styles)(MeetingDetailsView)
-);
+export default injectIntl(withStyles(styles)(MeetingDetailsView));

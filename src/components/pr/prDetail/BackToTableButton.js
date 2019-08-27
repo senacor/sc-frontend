@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { injectIntl } from 'react-intl';
+
 import ROUTES from '../../../helper/routes';
 import { isHr } from '../../../helper/checkRole';
 import PrStatusActionButton from './PrStatusActionButton';
-import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../../App';
 
 const BackToTableButton = ({ pr, classes, intl }) => {

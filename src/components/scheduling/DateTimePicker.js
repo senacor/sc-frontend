@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import 'moment/locale/de';
-import TextField from '@material-ui/core/TextField';
 import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   textField: {

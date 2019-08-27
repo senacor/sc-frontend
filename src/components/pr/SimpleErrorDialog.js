@@ -1,15 +1,17 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
-import PrStatusActionButton from './prDetail/PrStatusActionButton';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
-import { injectIntl } from 'react-intl';
+
+import PrStatusActionButton from './prDetail/PrStatusActionButton';
+
 let styles = theme => ({
   inputClass: {
     position: 'relative',
     backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
+    color: theme.palette.secondary.white,
     marginBottom: '10%',
     marginTop: '5%',
     marginRight: '40%',
@@ -53,6 +55,4 @@ const SimpleErrorDialog = ({
   );
 };
 
-export const StyledComponent = injectIntl(
-  withStyles(styles)(SimpleErrorDialog)
-);
+export default injectIntl(withStyles(styles)(SimpleErrorDialog));

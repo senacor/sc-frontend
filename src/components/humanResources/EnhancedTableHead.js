@@ -1,16 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel/TableSortLabel';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
-const styles = {
+const styles = () => ({
   cell: {
     textAlign: 'center'
   }
-};
+});
 
 const EnhancedTableHead = ({
   onRequestSort,
@@ -59,5 +59,4 @@ EnhancedTableHead.propTypes = {
   columnDefinition: PropTypes.array.isRequired
 };
 
-const StyledComponent = withStyles(styles)(EnhancedTableHead);
-export default StyledComponent;
+export default withStyles(styles)(EnhancedTableHead);

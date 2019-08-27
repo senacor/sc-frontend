@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,12 +8,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography/Typography';
+import { CircularProgress } from '@material-ui/core';
+
 import EnhancedTableHead from './EnhancedTableHead';
 import { downloadExcel } from '../../actions/calls/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
-import Typography from '@material-ui/core/Typography/Typography';
-import { injectIntl } from 'react-intl';
-import { CircularProgress } from '@material-ui/core';
 
 export function descInteger(a, b, mapper) {
   if (mapper(b) < mapper(a)) {
@@ -52,10 +53,8 @@ const styles = theme => ({
     textAlign: 'center'
   },
   root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3
+    width: '100%'
   },
-  table: {},
   tableWrapper: {
     overflowX: 'auto'
   },
@@ -136,7 +135,7 @@ class PerformanceReviewTable extends React.Component {
     return (
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
@@ -229,5 +228,4 @@ PerformanceReviewTable.propTypes = {
   columnDefinition: PropTypes.array.isRequired
 };
 
-const StyledComponent = injectIntl(withStyles(styles)(PerformanceReviewTable));
-export default StyledComponent;
+export default injectIntl(withStyles(styles)(PerformanceReviewTable));

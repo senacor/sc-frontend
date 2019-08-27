@@ -1,23 +1,22 @@
 import React, { useContext } from 'react';
+import moment from 'moment-timezone';
+import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import List from '@material-ui/core/List/List';
+import ListItem from '@material-ui/core/ListItem/ListItem';
 
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
-import List from '@material-ui/core/List/List';
 import Grid from '@material-ui/core/Grid';
-import ListItem from '@material-ui/core/ListItem/ListItem';
 import BackToTableButton from './BackToTableButton';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
-import moment from 'moment-timezone';
 import PrHistory from './PrHistory';
-import { injectIntl } from 'react-intl';
 import { UserinfoContext } from '../../App';
 
 const styles = theme => ({
@@ -45,7 +44,7 @@ const styles = theme => ({
   },
   backBtn: {
     backgroundColor: theme.palette.primary[400],
-    color: '#FFF',
+    color: theme.palette.secondary.white,
     width: 150,
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit

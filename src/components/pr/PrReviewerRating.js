@@ -18,13 +18,11 @@ const styles = theme => ({
     color: theme.palette.primary['200']
   },
   expanded: {
-    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-    marginTop: '-10pt',
-    marginBottom: '10pt'
+    backgroundColor: theme.palette.secondary.brighterGrey,
+    marginBottom: theme.spacing.unit
   },
   collapsed: {
-    marginTop: '-10pt',
-    marginBottom: '10pt'
+    marginBottom: theme.spacing.unit
   }
 });
 

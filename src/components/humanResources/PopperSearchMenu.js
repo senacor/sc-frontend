@@ -7,17 +7,16 @@ import { withStyles } from '@material-ui/core';
 const styles = theme => ({
   iconFilterSet: {
     color: theme.palette.primary['500'],
-    margin: '0px'
+    margin: 0
   },
   iconFilterUnset: {
-    color: '#dddddd',
-    margin: '0px'
+    color: theme.palette.secondary.mediumGrey,
+    margin: 0
   }
 });
 
 export const PopperSearchMenu = ({
   classes,
-  subfilter,
   filter,
   children,
   filterBy,

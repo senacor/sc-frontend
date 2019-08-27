@@ -1,16 +1,17 @@
-import getDisplayName from '../../helper/getDisplayName';
-import TABLE_PRS_ELEMENTS from '../pr/tablePrsElements';
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+
 import EmployeeFilter from './EmployeeFilter';
 import PopperSearchMenu from './PopperSearchMenu';
 import PrDelegate from '../pr/PrDelegate';
 import { formatDateForFrontend } from '../../helper/date';
 import DateFilter from './DateFilter';
-import { ListFilter } from './ListFilter';
-import HR_ELEMENTS from './hrElements';
+import ListFilter from './ListFilter';
 import { mapRatingFullfilment } from '../../helper/mapRatingFullfilment';
-import { FormattedMessage } from 'react-intl';
+import getDisplayName from '../../helper/getDisplayName';
+import HR_ELEMENTS from './hrElements';
+import TABLE_PRS_ELEMENTS from '../pr/tablePrsElements';
 
 export default class PerformanceReviewTableService {
   constructor(filterPossibilities, filter, setFilter) {

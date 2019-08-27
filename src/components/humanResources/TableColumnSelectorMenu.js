@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
+import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import TableColumnSelector from './TableColumSelector';
 import Tooltip from '@material-ui/core/Tooltip';
-import { injectIntl } from 'react-intl';
 
-const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
+import TableColumnSelector from './TableColumSelector';
+
+const styles = theme => ({
+  spacing: {
+    margin: theme.spacing.unit
+  }
+});
+
+const TableColumnSelectorMenu = ({
+  classes,
+  content,
+  onChange,
+  intl,
+  subfilter
+}) => {
   const createSelectedContent = content => {
     let result = [];
     const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
@@ -66,7 +80,7 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
 
   const open = Boolean(anchorEl);
   return (
-    <div>
+    <div className={classes.spacing}>
       <Tooltip
         title={intl.formatMessage({
           id: 'tablecolumnselectormenu.columnvisibility'
@@ -93,4 +107,4 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   );
 };
 
-export default injectIntl(TableColumnSelectorMenu);
+export default injectIntl(withStyles(styles)(TableColumnSelectorMenu));

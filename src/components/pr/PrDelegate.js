@@ -4,6 +4,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
+
 import { debounce } from '../../helper/debounce';
 import Popover from '@material-ui/core/Popover/Popover';
 import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
@@ -22,7 +23,7 @@ const styles = theme => ({
   listItem: {
     [theme.breakpoints.up('sm')]: {
       paddingLeft: '5px',
-      paddingRight: '0'
+      paddingRight: 0
     },
     textAlign: 'left',
     width: '200px'
@@ -36,7 +37,7 @@ const styles = theme => ({
     maxHeight: '300px'
   },
   textField: {
-    marginLeft: '0px',
+    marginLeft: 0,
     marginRight: theme.spacing.unit,
     '&:hover': {
       border: '1px solid rgba(0,0,0,0.235)',

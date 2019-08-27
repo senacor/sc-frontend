@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Icon from '@material-ui/core/Icon';
 import ListItem from '@material-ui/core/ListItem';
-import cloneDeep from '../../helper/cloneDeep';
 
-export const ListFilter = ({
+import cloneDeep from '../../helper/cloneDeep';
+import { injectIntl } from 'react-intl';
+
+const styles = theme => ({
+  okButton: {
+    float: 'right',
+    margin: theme.spacing.unit
+  }
+});
+
+const ListFilter = ({
+  classes,
   setFilter,
   filterBy,
   content,
   filter,
-  closeFilter
+  closeFilter,
+  intl
 }) => {
   const defaultFilter = Object.assign(
     {},
@@ -155,14 +166,16 @@ export const ListFilter = ({
       <Divider />
       <Button
         onClick={applyFilter}
-        style={{
-          backgroundColor: '#26646D',
-          color: '#FFFFFF',
-          float: 'right'
-        }}
+        variant="contained"
+        color="primary"
+        className={classes.okButton}
       >
-        OK
+        {intl.formatMessage({
+          id: 'simpleerrordialog.ok'
+        })}
       </Button>
     </List>
   );
 };
+
+export default injectIntl(withStyles(styles)(ListFilter));

@@ -15,8 +15,8 @@ const styles = theme => ({
   },
   listItem: {
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: '5px',
-      paddingRight: '0'
+      paddingLeft: theme.spacing.unit,
+      paddingRight: 0
     },
     textAlign: 'left'
   }
