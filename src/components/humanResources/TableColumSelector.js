@@ -28,7 +28,7 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
     return selectedItems;
   };
 
-  const [selectedCont, setSelectedCont] = useState(selectedContent);
+  const [selectedCont] = useState(selectedContent);
 
   let selectedItems = getNumberOfSelectedContent(selectedCont);
 
