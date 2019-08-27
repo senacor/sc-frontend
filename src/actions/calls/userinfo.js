@@ -20,11 +20,6 @@ export const getUserInfo = async (userinfoContext, errorContext) => {
       }
     );
     rolesResponse = await response.json();
-    //ROLEHACK: HR
-    // rolesResponse.value[0].displayName = 'PR_Mitarbeiter';
-    // rolesResponse.value[0].displayName = 'PR_CST_Leiter';
-    rolesResponse.value[0].displayName = 'PR_HR';
-
     if (rolesResponse !== null) {
       userinfo.userroles = convertGroupsToArray(rolesResponse);
     }
@@ -67,6 +62,20 @@ export const getUserInfo = async (userinfoContext, errorContext) => {
         // userId, numberOfPrsToReview, numberOfPrsToSupervise,
         // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
         // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
+      }
+      //ROLEHACK
+      if (userinfo && userinfo.userinfo && userinfo.userinfo.username) {
+        const usernameValue = userinfo.userinfo.username;
+        const roleMatrix = {
+          'test.pr.mitarbeiter1': ['PR_Mitarbeiter'],
+          'test.pr.mitarbeiter2': ['PR_Mitarbeiter'],
+          'test.pr.vorgesetzter': ['PR_CST_Leiter'],
+          'test.pr.beurteiler': ['PR_Mitarbeiter', 'PR_CST_Leiter'],
+          'test.pr.hr': ['PR_HR']
+        };
+        if (Object.keys(roleMatrix).find(el => el === usernameValue)) {
+          userinfo.userroles = roleMatrix[usernameValue];
+        }
       }
       userinfoContext.setValue(userinfo);
     }
