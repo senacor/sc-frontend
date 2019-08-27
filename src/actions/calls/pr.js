@@ -296,14 +296,17 @@ export const delegateReviewer = async (
       }
     );
 
-    await response.json();
-    //updating PR because of reviewer change
-    fetchPrById(
-      prId,
-      updatePr,
-      () => {}, //ignoring loading
-      errorContext
-    );
+    if (response.ok) {
+      //updating PR because of reviewer change
+      fetchPrById(
+        prId,
+        updatePr,
+        () => {
+          console.log('ALSO ANOTHER PART IS OK');
+        }, //ignoring loading
+        errorContext
+      );
+    }
   } catch (err) {
     console.log(err);
     errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
