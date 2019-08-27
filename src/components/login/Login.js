@@ -15,7 +15,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import officeMuenchen from '../../styles/office_muenchen.jpg';
 import senacorLogo from '../../styles/senacor_transparent.png';
 import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
-import LanguageButton from '../AppBar/LanguageButton';
+import LanguageButton from '../translations/LanguageButton';
 import { login } from '../../actions/calls/login';
 import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
 
@@ -56,7 +56,7 @@ const styles = theme => ({
     marginBottom: '15px',
     [theme.breakpoints.down('sm')]: {
       width: '75%',
-      backgroundColor: theme.palette.primary['W000'],
+      backgroundColor: theme.palette.secondary.white,
       borderRadius: '10px',
       padding: '10px'
     },
@@ -103,7 +103,7 @@ const styles = theme => ({
     }
   },
   buttonProgress: {
-    color: theme.palette.primary['A100']
+    color: theme.palette.secondary.blue
   }
 });
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import moment from 'moment-timezone';
+
 import {
   timezoneInGermany,
   firstHourOfDayInGermany,
@@ -92,5 +93,4 @@ TimeTable.defaultProps = {
   appointmentsSupervisor: []
 };
 
-export const StyledComponent = withStyles(styles)(TimeTable);
-export default StyledComponent;
+export default withStyles(styles)(TimeTable);

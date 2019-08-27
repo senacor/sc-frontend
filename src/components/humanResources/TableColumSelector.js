@@ -7,15 +7,15 @@ import List from '@material-ui/core/List/List';
 import Icon from '@material-ui/core/Icon/Icon';
 import { withStyles } from '@material-ui/core';
 
-const styles = {
+const styles = () => ({
   list: {
     width: '100%',
     maxHeight: '300px'
   },
   densed: {
-    padding: '0px'
+    padding: 0
   }
-};
+});
 
 export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
   const getNumberOfSelectedContent = content => {
@@ -77,5 +77,4 @@ export const TableColumnSelector = ({ selectedContent, onChange, classes }) => {
 TableColumnSelector.propTypes = {
   selectedContent: PropTypes.array.isRequired
 };
-export const StyledComponent = withStyles(styles)(TableColumnSelector);
-export default StyledComponent;
+export default withStyles(styles)(TableColumnSelector);

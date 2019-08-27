@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyledComponent as SimpleErrorDialog } from '../pr/SimpleErrorDialog';
 import PropTypes from 'prop-types';
+
+import SimpleErrorDialog from '../pr/SimpleErrorDialog';
 
 export const CheckRequiredClick = ({
   check,

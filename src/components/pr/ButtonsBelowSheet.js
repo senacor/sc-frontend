@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+
 import {
   addFinalCommentEmployee,
   addFinalCommentHr,
@@ -13,24 +14,14 @@ import { PrContext, UserinfoContext } from '../App';
 const styles = theme => ({
   rightFloat: {
     display: 'flex',
-    marginRight: '1%',
     float: 'right'
   },
-  buttonDesktopBelow: {
-    position: 'relative',
-    marginRight: '2%',
-    backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
-    marginBottom: '2%',
-    marginTop: '2%'
+  saveButton: {
+    color: theme.palette.secondary.white
   },
-  buttonDesktopDisabled: {
-    position: 'relative',
-    marginRight: '2%',
-    backgroundColor: 'rgba(77, 79, 92, 0.1)',
-    color: '#FFF',
-    marginBottom: '2%',
-    marginTop: '2%'
+  submitButton: {
+    marginLeft: 3 * theme.spacing.unit,
+    color: theme.palette.secondary.white
   },
   container: {
     marginRight: '0%'
@@ -280,9 +271,11 @@ const ButtonsBelowSheet = props => {
   const createSaveButton = () => {
     return (
       <Button
-        onClick={handleSaveClick}
+        variant="contained"
+        color="secondary"
+        className={`${classes.rightFloat} ${classes.saveButton}`}
         disabled={disabled()}
-        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
+        onClick={handleSaveClick}
       >
         {intl.formatMessage({
           id: 'buttonsbelowsheet.draft'
@@ -294,7 +287,9 @@ const ButtonsBelowSheet = props => {
   const createSubmitButton = () => {
     return (
       <Button
-        className={`${classes.rightFloat} ${classes.buttonDesktopBelow}`}
+        variant="contained"
+        color="primary"
+        className={`${classes.rightFloat} ${classes.submitButton}`}
         disabled={disabled()}
         onClick={handleSubmitClick}
       >

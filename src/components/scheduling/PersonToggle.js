@@ -5,27 +5,27 @@ import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = () => ({
+const styles = theme => ({
   colorSwitchBaseReviewer: {
-    color: '#004953'
+    color: theme.palette.primary['500']
   },
   colorSwitchBaseEmployee: {
-    color: '#3D8E99'
+    color: theme.palette.primary['400']
   },
   colorSwitchBaseSupervisor: {
-    color: '#00FF90'
+    color: theme.palette.secondary.green
   },
   colorSwitchBaseReviewerOff: {
-    color: 'rgba(0, 73, 83, 0.62)'
+    color: theme.palette.primary['500']
   },
   colorSwitchBaseEmployeeOff: {
-    color: 'rgba(61, 142, 153, 0.62)'
+    color: theme.palette.primary['400']
   },
   colorSwitchBaseSupervisorOff: {
-    color: 'rgba(0, 255, 144, 0.62)'
+    color: theme.palette.secondary.green
   },
   bar: {
-    backgroundColor: 'rgba(0, 0, 0, 0.15)'
+    backgroundColor: theme.palette.secondary.grey
   }
 });
 

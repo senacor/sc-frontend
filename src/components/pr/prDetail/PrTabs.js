@@ -18,14 +18,14 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit
   },
   paper: {
-    backgroundColor: theme.palette.primary['W000'],
+    backgroundColor: theme.palette.secondary.white,
     margin: 3 * theme.spacing.unit
   },
   indicator: {
-    backgroundColor: theme.palette.primary['W000']
+    backgroundColor: theme.palette.secondary.white
   },
   tabStyle: {
-    color: theme.palette.primary['W000']
+    color: theme.palette.secondary.white
   },
   tabsBackground: {
     backgroundColor: theme.palette.primary[400]

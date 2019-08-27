@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { injectIntl } from 'react-intl';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
-import { debounce } from '../../helper/debounce';
-import PlotEmployeeSearchList from './PlotEmployeeSearchList';
-import { injectIntl } from 'react-intl';
-import { employeeSearch } from '../../actions/calls/employeeSearch';
 import { CircularProgress } from '@material-ui/core';
+
+import PlotEmployeeSearchList from './PlotEmployeeSearchList';
+import { employeeSearch } from '../../actions/calls/employeeSearch';
+import { debounce } from '../../helper/debounce';
 import { ErrorContext } from '../App';
 
-const styles = {
+const styles = theme => ({
   box: {
     display: 'flex',
-    padding: '20px',
+    padding: 2 * theme.spacing.unit,
     flexDirection: 'column',
     width: '200px'
   },
@@ -20,7 +21,7 @@ const styles = {
     width: '100%',
     maxHeight: '300px'
   }
-};
+});
 
 export const EmployeeSearch = props => {
   const [employeeSearchResults, setEmployeeSearchResults] = useState([]);

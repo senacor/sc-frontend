@@ -10,7 +10,7 @@ import Drawer from '@material-ui/core/Drawer';
 import { injectIntl } from 'react-intl';
 
 import Sidebar from '../sidebar/Sidebar';
-import LanguageButton from './LanguageButton';
+import LanguageButton from '../translations/LanguageButton';
 
 const drawerWidth = 270;
 const appBarHeight = 64;

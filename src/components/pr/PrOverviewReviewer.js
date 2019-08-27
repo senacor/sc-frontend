@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { injectIntl } from 'react-intl';
+import Paper from '@material-ui/core/Paper/Paper';
+import Grid from '@material-ui/core/Grid/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { getFilterPossibilities } from '../../actions/calls/filter';
+import { UserinfoContext, ErrorContext } from '../App';
+import { fetchFilteredPrs } from '../../actions/calls/pr';
+import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
-import Paper from '@material-ui/core/Paper/Paper';
-import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
-import Grid from '@material-ui/core/Grid/Grid';
-import { injectIntl } from 'react-intl';
-import { UserinfoContext, ErrorContext } from '../App';
-import { fetchFilteredPrs } from '../../actions/calls/pr';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { getFilterPossibilities } from '../../actions/calls/filter';
 
 export const PrOverviewReviewer = props => {
   const [filter, setFilter] = useState({});

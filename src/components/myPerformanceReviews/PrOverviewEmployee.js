@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper/Paper';
+import Grid from '@material-ui/core/Grid';
+
+import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
-import Paper from '@material-ui/core/Paper/Paper';
-import Grid from '@material-ui/core/Grid';
-import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
-import { injectIntl } from 'react-intl';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -14,7 +17,6 @@ import { withStyles } from '@material-ui/core';
 import { ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
-  ...theme,
   paper: {
     margin: theme.spacing.unit * 3
   }

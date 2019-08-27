@@ -3,10 +3,23 @@ import { UserinfoContext } from '../App';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import TableColumnSelector from './TableColumSelector';
 import Tooltip from '@material-ui/core/Tooltip';
-import { injectIntl } from 'react-intl';
 
+import TableColumnSelector from './TableColumSelector';
+
+const styles = theme => ({
+  spacing: {
+    margin: theme.spacing.unit
+  }
+});
+
+const TableColumnSelectorMenu = ({
+  classes,
+  content,
+  onChange,
+  intl,
+  subfilter
+}) => {
 const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   const userinfoContext = useContext(UserinfoContext.context);
   const getRole = () => {
@@ -103,7 +116,7 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
 
   const open = Boolean(anchorEl);
   return (
-    <div>
+    <div className={classes.spacing}>
       <Tooltip
         title={intl.formatMessage({
           id: 'tablecolumnselectormenu.columnvisibility'
@@ -130,4 +143,4 @@ const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   );
 };
 
-export default injectIntl(TableColumnSelectorMenu);
+export default injectIntl(withStyles(styles)(TableColumnSelectorMenu));
