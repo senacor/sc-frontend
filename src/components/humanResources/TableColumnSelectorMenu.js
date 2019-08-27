@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react';
+import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core';
 import { UserinfoContext } from '../App';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
@@ -20,7 +22,6 @@ const TableColumnSelectorMenu = ({
   intl,
   subfilter
 }) => {
-const TableColumnSelectorMenu = ({ content, onChange, intl, subfilter }) => {
   const userinfoContext = useContext(UserinfoContext.context);
   const getRole = () => {
     if (userinfoContext.value.userroles.includes('PR_Mitarbeiter')) {
