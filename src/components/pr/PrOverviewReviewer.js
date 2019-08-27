@@ -3,7 +3,6 @@ import { injectIntl } from 'react-intl';
 import Paper from '@material-ui/core/Paper/Paper';
 import Grid from '@material-ui/core/Grid/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { UserinfoContext, ErrorContext } from '../App';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
@@ -23,10 +22,9 @@ export const PrOverviewReviewer = props => {
   const { username } = userinfo;
 
   let errorContext = useContext(ErrorContext.context);
-  const userinfoContext = useContext(UserinfoContext.context);
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsCheckedSupervisor')) {
+    if (localStorage.getItem('columnsCheckedProcessing')) {
       return;
     }
 
@@ -36,7 +34,7 @@ export const PrOverviewReviewer = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsCheckedSupervisor',
+      'columnsCheckedProcessing',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -84,7 +82,7 @@ export const PrOverviewReviewer = props => {
 
   const getColumnsFromLocalStorage = () => {
     const columnsChecked = JSON.parse(
-      localStorage.getItem('columnsCheckedSupervisor')
+      localStorage.getItem('columnsCheckedProcessing')
     );
     const allColumns = getColumnDefinitions();
 
@@ -131,14 +129,11 @@ export const PrOverviewReviewer = props => {
         alignItems={'center'}
       >
         <Grid item>
-          {userinfoContext.value.userroles.length < 1 ? (
-            <CircularProgress />
-          ) : (
-            <TableColumnSelectorMenu
-              onChange={handleChange}
-              content={getSelectorContent()}
-            />
-          )}
+          <TableColumnSelectorMenu
+            onChange={handleChange}
+            content={getSelectorContent()}
+            tab={'PRS_FOR_PROCESSING'}
+          />
         </Grid>
       </Grid>
       <PerformanceReviewTable
