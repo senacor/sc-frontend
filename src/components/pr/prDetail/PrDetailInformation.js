@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
+import Grid from '@material-ui/core/Grid';
 import BackToTableButton from './BackToTableButton';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
@@ -37,12 +38,16 @@ const styles = theme => ({
     margin: 0,
     padding: 0
   },
-  buttonDesktop: {
-    position: 'relative',
+  backBtnContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  backBtn: {
     backgroundColor: theme.palette.primary[400],
     color: theme.palette.secondary.white,
-    marginBottom: '2%',
-    marginTop: '12%'
+    width: 150,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   }
 });
 
@@ -117,36 +122,44 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
     <div className={classes.root}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <div className={classes.avatarContainer}>
-            <Avatar className={classes.avatar}>
-              {`${firstName.charAt(0)}${lastName.charAt(0)}`}
-            </Avatar>
-          </div>
-          <div className={classes.heading}>
-            <Typography variant={'body2'}>
-              {getDisplayName(pr.employee)}
-            </Typography>
-            <Typography variant={'body2'} color={'textSecondary'}>
-              {subheader}
-            </Typography>
-            <List className={classes.list}>
-              <ListItem className={classes.list}>
-                <Typography variant={'body2'} color={'textSecondary'}>
-                  {supervisorHeader}
+          <Grid container alignItems="center" justify="center">
+            <Grid item md={1} xs={3}>
+              <div className={classes.avatarContainer}>
+                <Avatar className={classes.avatar}>
+                  {`${firstName.charAt(0)}${lastName.charAt(0)}`}
+                </Avatar>
+              </div>
+            </Grid>
+            <Grid item md={9} xs={9}>
+              <div className={classes.heading}>
+                <Typography variant={'body2'}>
+                  {getDisplayName(pr.employee)}
                 </Typography>
-                <ShowReviewer
-                  pr={pr}
-                  prefix={`, ${intl.formatMessage({
-                    id: 'prdetailinformation.reviewer'
-                  })} `}
-                  username={username}
-                />
-              </ListItem>
-            </List>
-          </div>
-          <div>
-            <BackToTableButton pr={pr} classes={classes.buttonDesktop} />
-          </div>
+                <Typography variant={'body2'} color={'textSecondary'}>
+                  {subheader}
+                </Typography>
+                <List className={classes.list}>
+                  <ListItem className={classes.list}>
+                    <Typography variant={'body2'} color={'textSecondary'}>
+                      {supervisorHeader}
+                    </Typography>
+                    <ShowReviewer
+                      pr={pr}
+                      prefix={`, ${intl.formatMessage({
+                        id: 'prdetailinformation.reviewer'
+                      })} `}
+                      username={username}
+                    />
+                  </ListItem>
+                </List>
+              </div>
+            </Grid>
+            <Grid item md={2} xs={12} style={{ flexBasis: '0' }}>
+              <div className={classes.backBtnContainer}>
+                <BackToTableButton pr={pr} classes={classes.backBtn} />
+              </div>
+            </Grid>
+          </Grid>
         </ExpansionPanelSummary>
         <PrHistory employeeId={pr.employee.id} />
       </ExpansionPanel>

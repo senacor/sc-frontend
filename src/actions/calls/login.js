@@ -1,4 +1,5 @@
 import { default as fetch } from '../../helper/customFetch';
+import ROUTES from '../../helper/routes';
 
 export const login = async (
   credentials,
@@ -27,13 +28,13 @@ export const login = async (
     setIsLoading(false);
     setIsLoggedIn(setDataInLocalStorage(data));
   } catch (err) {
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
     setIsLoggedIn(removeDataInLocalStorage());
     authorizationContext.setValue(true);
-    setIsLoading(false);
   }
 };
 

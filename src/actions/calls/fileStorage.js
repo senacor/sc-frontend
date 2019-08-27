@@ -96,14 +96,14 @@ export const loadArchivedFilesList = async (
       `${process.env.REACT_APP_API}/api/v3/employees/${employeeId}/archivedPrs`
     );
     const result = await response.json();
-    setArchivedFiles(result);
     setIsLoading(false);
+    setArchivedFiles(result);
   } catch (err) {
     console.log(err);
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };

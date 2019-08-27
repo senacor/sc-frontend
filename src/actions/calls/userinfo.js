@@ -5,7 +5,11 @@ import {
 import ROLES from '../../helper/roles';
 import cloneDeep from '../../helper/cloneDeep';
 
-export const getUserInfo = async (userinfoContext, errorContext) => {
+export const getUserInfo = async (
+  userinfoContext,
+  errorContext,
+  authContext
+) => {
   try {
     let userinfo = cloneDeep(userinfoContext.value);
     let userinfoResponse = null;
@@ -19,6 +23,10 @@ export const getUserInfo = async (userinfoContext, errorContext) => {
         mode: 'cors'
       }
     );
+
+    if (!response.ok) {
+      authContext.setValue(true);
+    }
     rolesResponse = await response.json();
     if (rolesResponse !== null) {
       userinfo.userroles = convertGroupsToArray(rolesResponse);

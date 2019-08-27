@@ -15,12 +15,16 @@ import SaveIcon from '@material-ui/icons/Save';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { CircularProgress } from '@material-ui/core';
-
 import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { getUserInfo } from '../../actions/calls/userinfo';
-import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+import {
+  AuthorizationContext,
+  ErrorContext,
+  InfoContext,
+  UserinfoContext
+} from '../App';
 
 const styles = theme => ({
   root: {
@@ -55,9 +59,10 @@ export const Sidebar = ({ intl, classes }) => {
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   const infoContext = useContext(InfoContext.context);
   const errorContext = useContext(ErrorContext.context);
+  const authContext = useContext(AuthorizationContext.context);
 
   useEffect(() => {
-    getUserInfo(userinfoContext, errorContext);
+    getUserInfo(userinfoContext, errorContext, authContext);
   }, []);
 
   const resetMessages = () => {

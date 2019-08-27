@@ -1,10 +1,17 @@
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import { logout } from '../../actions/calls/login';
+import { UserinfoContext } from '../App';
 
 const Logout = () => {
+  const userInfoContext = useContext(UserinfoContext.context);
   logout();
-  return <Route render={() => <Redirect to="/login" />} />;
+  userInfoContext.setValue({
+    userinfo: {},
+    userroles: [],
+    userphoto: ''
+  });
+  return <Redirect to="/login" />;
 };
 
 export default Logout;

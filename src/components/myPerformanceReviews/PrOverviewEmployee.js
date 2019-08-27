@@ -12,6 +12,7 @@ import PerformanceReviewTableService from '../humanResources/PerformanceReviewTa
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
 import { ErrorContext } from '../App';
+import { ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   paper: {

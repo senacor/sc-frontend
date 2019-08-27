@@ -15,12 +15,12 @@ import { ErrorContext } from '../../App';
 const styles = theme => ({
   container: {
     overflow: 'auto',
-    maxHeight: '200px'
+    maxHeight: 300
   },
   noArchivedFiles: {
     textAlign: 'center',
-    color: theme.palette.primary.mediumGrey,
-    paddingBottom: 10
+    paddingBottom: theme.spacing.unit * 3,
+    color: theme.palette.primary.mediumGrey
   }
 });
 
@@ -52,12 +52,12 @@ const PrHistory = props => {
         <Table padding={'none'}>
           <TableHead>
             <TableRow>
-              <TableCell padding={'none'}>
+              <TableCell padding={'dense'}>
                 {intl.formatMessage({
                   id: 'prhistory.date'
                 })}
               </TableCell>
-              <TableCell padding={'none'}>
+              <TableCell padding={'dense'}>
                 {intl.formatMessage({
                   id: 'prhistory.link'
                 })}
@@ -68,8 +68,8 @@ const PrHistory = props => {
             {archivedFiles.map(row => {
               return (
                 <TableRow key={row.id}>
-                  <TableCell padding={'none'}>{row.date}</TableCell>
-                  <TableCell padding={'none'}>
+                  <TableCell padding={'dense'}>{row.date}</TableCell>
+                  <TableCell padding={'dense'}>
                     <DownloadFile
                       employeeId={row.employeeId}
                       fileId={row.fileId}
