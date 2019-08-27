@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper/Paper';
 import Grid from '@material-ui/core/Grid';
-
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
@@ -12,7 +11,7 @@ import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
-import { ErrorContext, UserinfoContext } from '../App';
+import { ErrorContext } from '../App';
 
 const styles = theme => ({
   paper: {
@@ -28,12 +27,11 @@ export const PrOverviewEmployee = props => {
   const [data, setData] = useState([]);
 
   let errorContext = useContext(ErrorContext.context);
-  const userinfoContext = useContext(UserinfoContext.context);
 
   const { classes } = props;
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsCheckedEmployee')) {
+    if (localStorage.getItem('columnsCheckedOwn')) {
       return;
     }
 
@@ -43,7 +41,7 @@ export const PrOverviewEmployee = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsCheckedEmployee',
+      'columnsCheckedOwn',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -92,7 +90,7 @@ export const PrOverviewEmployee = props => {
 
   const getColumnsFromLocalStorage = () => {
     const columnsChecked = JSON.parse(
-      localStorage.getItem('columnsCheckedEmployee')
+      localStorage.getItem('columnsCheckedOwn')
     );
     const allColumns = getColumnDefinitions();
 
@@ -142,14 +140,11 @@ export const PrOverviewEmployee = props => {
           <RequestPerformanceReview />
         </Grid>
         <Grid item>
-          {userinfoContext.value.userroles.length < 1 ? (
-            <CircularProgress />
-          ) : (
-            <TableColumnSelectorMenu
-              onChange={handleChange}
-              content={getSelectorContent()}
-            />
-          )}
+          <TableColumnSelectorMenu
+            onChange={handleChange}
+            content={getSelectorContent()}
+            tab={'OWN_PRS'}
+          />
         </Grid>
       </Grid>
 

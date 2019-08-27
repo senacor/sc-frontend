@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { UserinfoContext } from '../App';
 import Popover from '@material-ui/core/Popover';
 import Icon from '@material-ui/core/Icon/Icon';
 import IconButton from '@material-ui/core/IconButton/IconButton';
@@ -20,33 +19,20 @@ const TableColumnSelectorMenu = ({
   content,
   onChange,
   intl,
-  subfilter
+  subfilter,
+  tab
 }) => {
-  const userinfoContext = useContext(UserinfoContext.context);
-  const getRole = () => {
-    if (userinfoContext.value.userroles.includes('PR_Mitarbeiter')) {
-      return 'PR_Mitarbeiter';
-    } else if (userinfoContext.value.userroles.includes('PR_CST_Leiter')) {
-      return 'PR_CST_Leiter';
-    } else if (userinfoContext.value.userroles.includes('PR_HR')) {
-      return 'PR_HR';
-    }
-  };
-
-  const role = getRole();
   const createSelectedContent = content => {
     let result = [];
     let columnsChecked;
-    if (role === 'PR_Mitarbeiter') {
+    if (tab === 'OWN_PRS') {
+      columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedOwn'));
+    } else if (tab === 'PRS_FOR_PROCESSING') {
       columnsChecked = JSON.parse(
-        localStorage.getItem('columnsCheckedEmployee')
+        localStorage.getItem('columnsCheckedProcessing')
       );
-    } else if (role === 'PR_CST_Leiter') {
-      columnsChecked = JSON.parse(
-        localStorage.getItem('columnsCheckedSupervisor')
-      );
-    } else if (role === 'PR_HR') {
-      columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedHr'));
+    } else if (tab === 'ALL_PRS') {
+      columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedAll'));
     }
 
     content.forEach((entry, index) => {
@@ -91,18 +77,15 @@ const TableColumnSelectorMenu = ({
     setSelectedContent(content);
     setIsUnselectedContent(content.length !== result.length);
 
-    if (role === 'PR_Mitarbeiter') {
+    if (tab === 'OWN_PRS') {
+      localStorage.setItem('columnsCheckedOwn', JSON.stringify(columnsChecked));
+    } else if (tab === 'PRS_FOR_PROCESSING') {
       localStorage.setItem(
-        'columnsCheckedEmployee',
+        'columnsCheckedProcessing',
         JSON.stringify(columnsChecked)
       );
-    } else if (role === 'PR_CST_Leiter') {
-      localStorage.setItem(
-        'columnsCheckedSupervisor',
-        JSON.stringify(columnsChecked)
-      );
-    } else if (role === 'PR_HR') {
-      localStorage.setItem('columnsCheckedHr', JSON.stringify(columnsChecked));
+    } else if (tab === 'ALL_PRS') {
+      localStorage.setItem('columnsCheckedAll', JSON.stringify(columnsChecked));
     }
     onChange(result);
   };
