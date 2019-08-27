@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper/Paper';
 import Grid from '@material-ui/core/Grid/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import PerformanceReviewTable from './PerformanceReviewTable';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
@@ -28,10 +27,9 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
 
   const { userroles } = useContext(UserinfoContext.context).value;
   let errorContext = useContext(ErrorContext.context);
-  const userinfoContext = useContext(UserinfoContext.context);
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsCheckedHr')) {
+    if (localStorage.getItem('columnsCheckedAll')) {
       return;
     }
 
@@ -41,7 +39,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsCheckedHr',
+      'columnsCheckedAll',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -89,7 +87,9 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
   };
 
   const getColumnsFromLocalStorage = () => {
-    const columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedHr'));
+    const columnsChecked = JSON.parse(
+      localStorage.getItem('columnsCheckedAll')
+    );
     const allColumns = getColumnDefinitions();
 
     let result = [];
@@ -137,14 +137,11 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
         alignItems={'center'}
       >
         <Grid item>
-          {userinfoContext.value.userroles.length < 1 ? (
-            <CircularProgress />
-          ) : (
-            <TableColumnSelectorMenu
-              onChange={handleChange}
-              content={getSelectorContent()}
-            />
-          )}
+          <TableColumnSelectorMenu
+            onChange={handleChange}
+            content={getSelectorContent()}
+            tab={'ALL_PRS'}
+          />
         </Grid>
       </Grid>
       <PerformanceReviewTable
