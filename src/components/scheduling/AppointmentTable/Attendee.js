@@ -1,37 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
+import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core/styles/index';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import {
   appointmentsFilter,
   transformAppointmentTimeToPercent
 } from './AppointmentUtilities';
-import Tooltip from '@material-ui/core/Tooltip';
-import { injectIntl } from 'react-intl';
 
-export const styles = () => ({
+const styles = theme => ({
   appointmentDiv: {
     width: '21.5%',
-    borderRadius: 10,
-    background: '#4d8087',
+    borderRadius: 3,
+    background: theme.palette.primary['300'],
     position: 'absolute'
   },
   appointmentDivEmployee: {
     width: '21.5%',
-    borderRadius: 10,
-    background: '#3D8E99',
+    borderRadius: 3,
+    background: theme.palette.primary['400'],
     position: 'absolute'
   },
   appointmentDivReviewer: {
     width: '21.5%',
-    borderRadius: 10,
-    background: '#004953',
+    borderRadius: 3,
+    background: theme.palette.primary['500'],
     position: 'absolute'
   },
   appointmentDivSupervisor: {
     width: '21.5%',
-    borderRadius: 10,
-    background: '#00FF90',
+    borderRadius: 3,
+    background: theme.palette.secondary.green,
     position: 'absolute'
   }
 });
@@ -168,5 +169,4 @@ Attendee.defaultProps = {
   show: true
 };
 
-export const StyledComponent = withStyles(styles)(Attendee);
-export default injectIntl(StyledComponent);
+export default injectIntl(withStyles(styles)(Attendee));

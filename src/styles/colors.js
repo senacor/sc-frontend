@@ -10,14 +10,28 @@ const senacorColorPalette = {
   600: '#00424c',
   700: '#003942',
   800: '#003139',
-  900: '#002129',
-  A100: '#56d9fe',
-  G100: '#fafafa',
-  G200: '#f5f6fa',
-  G300: '#9b9aa0',
-  G500: '#4d4f5c',
-  W000: '#ffffff',
-  contrastDefaultColor: 'light'
+  900: '#002129'
+};
+
+const secondaryColorPalette = {
+  main: '#01A688',
+  green: '#01A688',
+  darkGreen: '#004953',
+  blue: '#56D9FE',
+  darkBlue: '#007FFF',
+  purple: '#A3A0FB',
+  yellow: '#FFCE00',
+  darkYellow: '#FFBA00',
+  brightGrey: '#EAF0F4',
+  brighterGrey: '#F2F2F2',
+  grey: '#B3B3B3',
+  mediumGrey: '#9B9AA0',
+  darkGrey: '#4D4F5C',
+  white: '#FFFFFF',
+  black: '#000000',
+  red: '#FABCB7',
+  darkRed: '#F44336',
+  brightBlue: '#B3D9FF'
 };
 
 const theme = createMuiTheme({
@@ -26,8 +40,9 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: senacorColorPalette,
+    secondary: secondaryColorPalette,
     contrastThreshold: 3,
-    contrastText: '#fff'
+    contrastText: secondaryColorPalette.white
   }
 });
 

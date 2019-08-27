@@ -1,22 +1,21 @@
 import React, { useContext } from 'react';
+import moment from 'moment-timezone';
+import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import List from '@material-ui/core/List/List';
+import ListItem from '@material-ui/core/ListItem/ListItem';
 
 import getDisplayName from '../../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../../helper/date';
-import List from '@material-ui/core/List/List';
-import ListItem from '@material-ui/core/ListItem/ListItem';
 import BackToTableButton from './BackToTableButton';
 import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../../helper/prStatus';
-import moment from 'moment-timezone';
 import PrHistory from './PrHistory';
-import { injectIntl } from 'react-intl';
 import { UserinfoContext } from '../../App';
 
 const styles = theme => ({
@@ -35,13 +34,13 @@ const styles = theme => ({
     flex: '1 1 auto'
   },
   list: {
-    margin: '0px',
-    padding: '0px'
+    margin: 0,
+    padding: 0
   },
   buttonDesktop: {
     position: 'relative',
     backgroundColor: theme.palette.primary[400],
-    color: '#FFF',
+    color: theme.palette.secondary.white,
     marginBottom: '2%',
     marginTop: '12%'
   }

@@ -7,9 +7,9 @@ import TargetRole from './TargetRole';
 import PrOverallFulfillment from './PrOverallFulfillment';
 import PrTextField from './PrTextField';
 
-const styles = () => ({
+const styles = theme => ({
   paddingBottom: {
-    paddingBottom: 24
+    paddingBottom: theme.spacing.unit
   }
 });
 

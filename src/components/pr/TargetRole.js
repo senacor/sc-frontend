@@ -7,6 +7,9 @@ import Radio from '@material-ui/core/Radio';
 
 const styles = theme => ({
   checked: {},
+  center: {
+    textAlign: 'center'
+  },
   radio: {
     '&$checked': {
       color: theme.palette.primary[400]
@@ -93,22 +96,45 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
       <Grid item xs={8} />
       <Grid item xs={4}>
         <Grid container spacing={16}>
+          <Grid item xs={12}>
+            <Typography
+              variant={'caption'}
+              color={'textSecondary'}
+              className={classes.center}
+            >
+              {intl.formatMessage({
+                id: 'proverallassessment.capability'
+              })}
+            </Typography>
+          </Grid>
           <Grid item xs={4}>
-            <Typography variant={'caption'} color={'textSecondary'}>
+            <Typography
+              variant={'caption'}
+              color={'textSecondary'}
+              className={classes.center}
+            >
               {intl.formatMessage({
                 id: 'proverallassessment.low'
               })}
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography variant={'caption'} color={'textSecondary'}>
+            <Typography
+              variant={'caption'}
+              color={'textSecondary'}
+              className={classes.center}
+            >
               {intl.formatMessage({
                 id: 'proverallassessment.neutral'
               })}
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography variant={'caption'} color={'textSecondary'}>
+            <Typography
+              variant={'caption'}
+              color={'textSecondary'}
+              className={classes.center}
+            >
               {intl.formatMessage({
                 id: 'proverallassessment.high'
               })}
@@ -131,7 +157,7 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
               </Grid>
               <Grid item xs={4}>
                 <Grid container spacing={16}>
-                  <Grid item xs={4}>
+                  <Grid item xs={4} className={classes.center}>
                     <Radio
                       checked={determineTaragetRole(targetRole) === 1}
                       value={1}
@@ -143,7 +169,7 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={4} className={classes.center}>
                     <Radio
                       checked={determineTaragetRole(targetRole) === 2}
                       value={2}
@@ -155,7 +181,7 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={4} className={classes.center}>
                     <Radio
                       checked={determineTaragetRole(targetRole) === 3}
                       value={3}

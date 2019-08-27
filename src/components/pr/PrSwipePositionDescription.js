@@ -1,11 +1,11 @@
 import React from 'react';
+import ReactSwipe from 'react-swipe';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles/index';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ReactSwipe from 'react-swipe';
-import { FormattedMessage, injectIntl } from 'react-intl';
 
 const styles = theme => ({
   swipe: {
@@ -22,12 +22,12 @@ const styles = theme => ({
     position: 'relative'
   },
   description: {
-    paddingLeft: '0',
-    paddingRight: '0'
+    paddingLeft: 0,
+    paddingRight: 0
   },
   titleSize: {
-    paddingLeft: '0',
-    paddingRight: '0'
+    paddingLeft: 0,
+    paddingRight: 0
   }
 });
 

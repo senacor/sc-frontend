@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
-
+import { injectIntl } from 'react-intl';
+import { Typography, withStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableBody from '@material-ui/core/TableBody/TableBody';
 import Table from '@material-ui/core/Table/Table';
+
 import { DownloadFile } from '../../fileStorage/DownloadFile';
-import { injectIntl } from 'react-intl';
 import { loadArchivedFilesList } from '../../../actions/calls/fileStorage';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Typography, withStyles } from '@material-ui/core';
 import { ErrorContext } from '../../App';
 
 const styles = theme => ({
@@ -19,7 +19,7 @@ const styles = theme => ({
   },
   noArchivedFiles: {
     textAlign: 'center',
-    color: theme.palette.primary.G300,
+    color: theme.palette.primary.mediumGrey,
     paddingBottom: 10
   }
 });

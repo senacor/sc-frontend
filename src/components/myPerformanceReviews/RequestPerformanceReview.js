@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
+import { injectIntl } from 'react-intl';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
-import { injectIntl } from 'react-intl';
-import { Redirect } from 'react-router-dom';
-import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { CircularProgress } from '@material-ui/core';
+
+import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { addPr } from '../../actions/calls/pr';
 
 export const RequestPerformanceReview = props => {

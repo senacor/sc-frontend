@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
+import { injectIntl } from 'react-intl';
+import { NavLink } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
-import { NavLink } from 'react-router-dom';
+
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
-import { injectIntl } from 'react-intl';
 import { UserinfoContext } from '../App';
 
-const styles = {
+const styles = theme => ({
   rowContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -22,15 +23,11 @@ const styles = {
   },
   card: {
     flexGrow: 1,
-    margin: 20,
+    margin: 3 * theme.spacing.unit,
     marginBottom: 0,
     textDecoration: 'none'
-  },
-  thinItem: {
-    paddingTop: 10,
-    paddingBottom: 10
   }
-};
+});
 
 const Dashboard = ({ classes, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;

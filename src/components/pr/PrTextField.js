@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
-const styles = () => ({
+const styles = theme => ({
   error: {
-    color: '#f44336'
+    color: theme.palette.secondary.darkRed
   }
 });
 

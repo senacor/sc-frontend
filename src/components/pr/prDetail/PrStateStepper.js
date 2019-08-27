@@ -6,13 +6,14 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Stepper from '@material-ui/core/Stepper/Stepper';
 import { withStyles } from '@material-ui/core';
 import List from '@material-ui/core/List';
+
 import PrSubstepItem from './PrSubstepItem';
 
 const styles = theme => {
   return {
     stepper: {
       backgroundColor: 'inherit',
-      padding: '0',
+      padding: 0,
       width: '100%'
     },
     mainStepLabel: {

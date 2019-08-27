@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
+import moment from 'moment-timezone';
+import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles/index';
 import TextField from '@material-ui/core/TextField';
-import moment from 'moment-timezone';
+
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
-import { injectIntl } from 'react-intl';
 import { addMeeting } from '../../actions/calls/meetings';
 import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
 
@@ -26,7 +27,7 @@ const styles = theme => ({
     marginTop: '1.5%',
     position: 'relative',
     backgroundColor: theme.palette.primary['400'],
-    color: '#FFF',
+    color: theme.palette.secondary.white,
     marginBottom: '1.5%',
     marginLeft: '1.5%'
   },
