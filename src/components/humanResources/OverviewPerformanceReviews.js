@@ -21,18 +21,17 @@ const styles = theme => ({
 
 export const OverviewPerformanceReviews = ({ classes, intl }) => {
   const [filter, setFilter] = useState({});
-
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
-  const { userroles } = useContext(UserinfoContext.context).value;
   const [columnsToView, setColumnsToView] = useState(null);
   const [data, setData] = useState([]);
 
+  const { userroles } = useContext(UserinfoContext.context).value;
   let errorContext = useContext(ErrorContext.context);
+  const userinfoContext = useContext(UserinfoContext.context);
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsChecked')) {
+    if (localStorage.getItem('columnsCheckedHr')) {
       return;
     }
 
@@ -42,7 +41,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsChecked',
+      'columnsCheckedHr',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -90,7 +89,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
   };
 
   const getColumnsFromLocalStorage = () => {
-    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedHr'));
     const allColumns = getColumnDefinitions();
 
     let result = [];
@@ -138,10 +137,14 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
         alignItems={'center'}
       >
         <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-          />
+          {userinfoContext.value.userroles.length < 1 ? (
+            <CircularProgress />
+          ) : (
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+            />
+          )}
         </Grid>
       </Grid>
       <PerformanceReviewTable

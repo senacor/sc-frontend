@@ -14,11 +14,7 @@ import PerformanceReviewTableService from '../humanResources/PerformanceReviewTa
 
 export const PrOverviewReviewer = props => {
   const [filter, setFilter] = useState({});
-
-  const [state, setState] = useState({
-    columnsToView: null
-  });
-
+  const [columnsToView, setColumnsToView] = useState(null);
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -27,9 +23,10 @@ export const PrOverviewReviewer = props => {
   const { username } = userinfo;
 
   let errorContext = useContext(ErrorContext.context);
+  const userinfoContext = useContext(UserinfoContext.context);
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsChecked')) {
+    if (localStorage.getItem('columnsCheckedSupervisor')) {
       return;
     }
 
@@ -39,7 +36,7 @@ export const PrOverviewReviewer = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsChecked',
+      'columnsCheckedSupervisor',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -86,7 +83,9 @@ export const PrOverviewReviewer = props => {
   };
 
   const getColumnsFromLocalStorage = () => {
-    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const columnsChecked = JSON.parse(
+      localStorage.getItem('columnsCheckedSupervisor')
+    );
     const allColumns = getColumnDefinitions();
 
     let result = [];
@@ -101,16 +100,14 @@ export const PrOverviewReviewer = props => {
   const getSelectorContent = () => {
     let columns = getColumnDefinitions();
     let result = [];
-
     columns.forEach(column => {
       result.push({ label: column.label, value: column });
     });
-
     return result;
   };
 
   const handleChange = content => {
-    setState({ columnsToView: content });
+    setColumnsToView(content);
   };
 
   if (isLoading) {
@@ -121,12 +118,10 @@ export const PrOverviewReviewer = props => {
     return null;
   }
 
-  const { columnsToView } = state;
   let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
   if (columns.length === 0) {
     columns = getColumnDefinitions();
   }
-
   return (
     <Paper>
       <Grid
@@ -136,10 +131,14 @@ export const PrOverviewReviewer = props => {
         alignItems={'center'}
       >
         <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-          />
+          {userinfoContext.value.userroles.length < 1 ? (
+            <CircularProgress />
+          ) : (
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+            />
+          )}
         </Grid>
       </Grid>
       <PerformanceReviewTable

@@ -12,7 +12,9 @@ import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrs } from '../../actions/calls/pr';
-import { ErrorContext } from '../App';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core';
+import { ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({
   paper: {
@@ -22,20 +24,18 @@ const styles = theme => ({
 
 export const PrOverviewEmployee = props => {
   const [filter, setFilter] = useState({});
-  const [state, setState] = useState({
-    columnsToView: null
-  });
-
+  const [columnsToView, setcolumnsToView] = useState(null);
   const [filterPossibilities, setFilterPossibilities] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
   let errorContext = useContext(ErrorContext.context);
+  const userinfoContext = useContext(UserinfoContext.context);
 
   const { classes } = props;
 
   const fillDefaultLocalStorageColumns = () => {
-    if (localStorage.getItem('columnsChecked')) {
+    if (localStorage.getItem('columnsCheckedEmployee')) {
       return;
     }
 
@@ -45,7 +45,7 @@ export const PrOverviewEmployee = props => {
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
-      'columnsChecked',
+      'columnsCheckedEmployee',
       JSON.stringify(defaultColumnsChecked)
     );
   };
@@ -93,7 +93,9 @@ export const PrOverviewEmployee = props => {
   };
 
   const getColumnsFromLocalStorage = () => {
-    const columnsChecked = JSON.parse(localStorage.getItem('columnsChecked'));
+    const columnsChecked = JSON.parse(
+      localStorage.getItem('columnsCheckedEmployee')
+    );
     const allColumns = getColumnDefinitions();
 
     let result = [];
@@ -115,7 +117,7 @@ export const PrOverviewEmployee = props => {
   };
 
   const handleChange = content => {
-    setState({ columnsToView: content });
+    setcolumnsToView(content);
   };
 
   if (isLoading) {
@@ -126,12 +128,10 @@ export const PrOverviewEmployee = props => {
     return null;
   }
 
-  const { columnsToView } = state;
   let columns = columnsToView ? columnsToView : getColumnsFromLocalStorage();
   if (columns.length === 0) {
     columns = getColumnDefinitions();
   }
-
   return (
     <Paper className={classes.paper}>
       <Grid
@@ -144,10 +144,14 @@ export const PrOverviewEmployee = props => {
           <RequestPerformanceReview />
         </Grid>
         <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-          />
+          {userinfoContext.value.userroles.length < 1 ? (
+            <CircularProgress />
+          ) : (
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+            />
+          )}
         </Grid>
       </Grid>
 

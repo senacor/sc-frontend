@@ -95,6 +95,11 @@ export const addFinalCommentEmployee = async (
   errorContext,
   infoContext
 ) => {
+  if (!finalCommentEmployee) {
+    showSavedInfoMessage(infoContext);
+    return;
+  }
+
   errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
@@ -120,6 +125,11 @@ export const addFinalCommentHr = async (
   errorContext,
   infoContext
 ) => {
+  if (!finalCommentHr) {
+    showSavedInfoMessage(infoContext);
+    return;
+  }
+
   errorContext.setValue({ hasErrors: false, messageId: '' });
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
