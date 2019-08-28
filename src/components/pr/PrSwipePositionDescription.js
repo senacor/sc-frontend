@@ -32,6 +32,41 @@ const styles = theme => ({
 });
 
 const PrSwipePositionDescription = ({ category, classes, intl }) => {
+  const categoryAndPercentage = category => {
+    if ('PROBLEM_ANALYSIS,WORK_RESULTS,WORKING_MANNER'.includes(category)) {
+      return {
+        junior: ' (50%)',
+        senior: ' (35%)',
+        expert: ' (35%)',
+        lead: ' (20%)'
+      };
+    }
+    if ('CUSTOMER_RETENTION,CUSTOMER_INTERACTION'.includes(category)) {
+      return {
+        junior: ' (20%)',
+        senior: ' (25%)',
+        expert: ' (25%)',
+        lead: ' (30%)'
+      };
+    }
+    if ('TEAMWORK,LEADERSHIP'.includes(category)) {
+      return {
+        junior: ' (25%)',
+        senior: ' (30%)',
+        expert: ' (30%)',
+        lead: ' (35%)'
+      };
+    }
+    if ('CONTRIBUTION_TO_COMPANY_DEVELOPMENT'.includes(category)) {
+      return {
+        junior: ' (5%)',
+        senior: ' (10%)',
+        expert: ' (10%)',
+        lead: ' (15%)'
+      };
+    }
+  };
+
   const positionText = (category, intl) => {
     switch (category) {
       case 'PROBLEM_ANALYSIS':
@@ -273,7 +308,10 @@ const PrSwipePositionDescription = ({ category, classes, intl }) => {
             <ListItemText
               className={classes.titleSize}
               primary={
-                <FormattedMessage id="prswipepositiondescription.junior" />
+                <div>
+                  <FormattedMessage id="prswipepositiondescription.junior" />{' '}
+                  {categoryAndPercentage(category).junior}
+                </div>
               }
             />
             <ListItemText
@@ -285,7 +323,10 @@ const PrSwipePositionDescription = ({ category, classes, intl }) => {
             <ListItemText
               className={classes.titleSize}
               primary={
-                <FormattedMessage id="prswipepositiondescription.senior" />
+                <div>
+                  <FormattedMessage id="prswipepositiondescription.senior" />
+                  {categoryAndPercentage(category).senior}
+                </div>
               }
             />
             <ListItemText
@@ -297,7 +338,10 @@ const PrSwipePositionDescription = ({ category, classes, intl }) => {
             <ListItemText
               className={classes.titleSize}
               primary={
-                <FormattedMessage id="prswipepositiondescription.expert" />
+                <div>
+                  <FormattedMessage id="prswipepositiondescription.expert" />
+                  {categoryAndPercentage(category).expert}
+                </div>
               }
             />
             <ListItemText
@@ -309,7 +353,10 @@ const PrSwipePositionDescription = ({ category, classes, intl }) => {
             <ListItemText
               className={classes.titleSize}
               primary={
-                <FormattedMessage id="prswipepositiondescription.lead" />
+                <div>
+                  <FormattedMessage id="prswipepositiondescription.lead" />
+                  {categoryAndPercentage(category).lead}
+                </div>
               }
             />
             <ListItemText
