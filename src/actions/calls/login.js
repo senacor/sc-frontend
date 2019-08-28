@@ -1,5 +1,4 @@
 import { default as fetch } from '../../helper/customFetch';
-import ROUTES from '../../helper/routes';
 
 export const login = async (
   credentials,
