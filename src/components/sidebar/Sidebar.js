@@ -92,6 +92,15 @@ export const Sidebar = ({ intl, classes }) => {
       },
       {
         label: intl.formatMessage({
+          id: 'sidebar.completedprs'
+        }),
+        icon: <LibraryBooksIcon />,
+        value: '/completedPrs',
+        roles: [ROLES.PR_CST_LEITER],
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
           id: 'sidebar.allprs'
         }),
         icon: <LibraryBooksIcon />,

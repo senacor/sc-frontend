@@ -114,14 +114,28 @@ class PerformanceReviewTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  filterCompletedPrs = data => {
+    if (this.props.completed) {
+      let result = [];
+      data.forEach(entry => {
+        if (!entry.inProgress) {
+          result.push(entry);
+        }
+      });
+      return result;
+    } else {
+      return data;
+    }
+  };
+
   render() {
-    const {
+    let {
       classes,
       columnDefinition,
       data,
       isHr,
       intl,
-      isLoading
+      isLoading,
     } = this.props;
     const {
       order,
@@ -131,6 +145,8 @@ class PerformanceReviewTable extends React.Component {
       rowsPerPage,
       page
     } = this.state;
+
+    data = this.filterCompletedPrs(data);
 
     return (
       <Paper className={classes.root}>

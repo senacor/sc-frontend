@@ -31,6 +31,10 @@ const TableColumnSelectorMenu = ({
       columnsChecked = JSON.parse(
         localStorage.getItem('columnsCheckedProcessing')
       );
+    } else if (tab === 'COMPLETED_PRS') {
+      columnsChecked = JSON.parse(
+        localStorage.getItem('columnsCheckedCompleted')
+      );
     } else if (tab === 'ALL_PRS') {
       columnsChecked = JSON.parse(localStorage.getItem('columnsCheckedAll'));
     }
@@ -82,6 +86,11 @@ const TableColumnSelectorMenu = ({
     } else if (tab === 'PRS_FOR_PROCESSING') {
       localStorage.setItem(
         'columnsCheckedProcessing',
+        JSON.stringify(columnsChecked)
+      );
+    } else if (tab === 'COMPLETED_PRS') {
+      localStorage.setItem(
+        'columnsCheckedCompleted',
         JSON.stringify(columnsChecked)
       );
     } else if (tab === 'ALL_PRS') {
