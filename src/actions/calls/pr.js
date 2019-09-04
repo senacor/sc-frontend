@@ -242,7 +242,7 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
 
   const changeResponse = await fetch(`${process.env.REACT_APP_API}/api/v3/pr`, {
     method: 'post',
-    mode: 'cors'
+    mode: 'cors',
   });
 
   if (changeResponse.ok) {

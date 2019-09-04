@@ -23,6 +23,7 @@ const PerformanceReviewDetail = lazy(() =>
   import('./pr/prDetail/PerformanceReviewDetail')
 );
 const PrOverviewReviewer = lazy(() => import('./pr/PrOverviewReviewer'));
+const PrOverviewCompleted = lazy(() => import('./pr/PrOverviewCompleted'));
 const OverviewPerformanceReviews = lazy(() =>
   import('./humanResources/OverviewPerformanceReviews')
 );
@@ -49,6 +50,7 @@ const withContent = WrappedComponent => props => (
 );
 
 const PrOverviewReviewerContent = withContent(PrOverviewReviewer);
+const PrOverviewCompletedContent = withContent(PrOverviewCompleted);
 const PrOverviewEmployeeContent = withContent(PrOverviewEmployee);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
@@ -136,6 +138,11 @@ const App = () => {
                       exact
                       path={ROUTES.PR_TO_REVIEW_TABLE}
                       component={PrOverviewReviewerContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.COMPLETED_PR_TABLE}
+                      component={PrOverviewCompletedContent}
                     />
                     <PrivateRoute
                       exact

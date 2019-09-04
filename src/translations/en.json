@@ -205,6 +205,7 @@
   "compositionnumber.version": "version",
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs for processing",
+  "sidebar.completedprs": "All PRs",
   "sidebar.allprs": "All PRs",
   "sidebar.archivedprs": "Archived PRs",
   "sidebar.myprs": "Own PRs",
