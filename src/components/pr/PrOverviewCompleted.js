@@ -32,8 +32,8 @@ export const PrOverviewCompleted = ({ classes, intl }) => {
     }
 
     let defaultColumnsChecked = [];
-    for (let i = 0; i < 14; i++) {
-      // 14 = number of columns
+    for (let i = 0; i < 13; i++) {
+      // 13 = number of columns
       defaultColumnsChecked.push(true);
     }
     localStorage.setItem(
@@ -80,7 +80,6 @@ export const PrOverviewCompleted = ({ classes, intl }) => {
       prTableService.reviewerPreparation(intl),
       prTableService.meeting(),
       prTableService.finalState(),
-      prTableService.hrDone()
     ];
   };
 
