@@ -1,3 +1,3 @@
-# pr-app
+# pr-frontend
 
 Frontend for performance review app
