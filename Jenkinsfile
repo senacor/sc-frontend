@@ -8,14 +8,14 @@ pipeline {
 
             }
         }
-        stage('Test stage') {
-            steps {
-                sh "npm test -a"
-            }
-        }
+//        stage('Test stage') {
+//            steps {
+//                sh "npm test -a"
+//            }
+//        }  //TODO add test stage
         stage('Build stage') {
             steps {
-                sh "npm build"
+                sh "npm run build"
             }
         }
     }
