@@ -29,6 +29,7 @@ const OverviewPerformanceReviews = lazy(() =>
 );
 const ArchivedFiles = lazy(() => import('./fileStorage/ArchivedFiles'));
 const Login = lazy(() => import('./login/Login'));
+const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
@@ -58,6 +59,7 @@ const PerformanceReviewDetail2WithContent = withContent(
 const DashboardWithContent = withContent(Dashboard);
 const OverviewPrsWithContent = withContent(OverviewPerformanceReviews);
 const ArchivedFilesWithContent = withContent(ArchivedFiles);
+const UserRolesPanelWithContent = withContent(UserRolesPanel);
 
 export const messages = {
   de: messages_de,
@@ -163,6 +165,11 @@ const App = () => {
                       exact
                       path={ROUTES.ARCHIVED_PR_TABLE}
                       component={ArchivedFilesWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.ADMIN_USER_ROLES}
+                      component={UserRolesPanelWithContent}
                     />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route

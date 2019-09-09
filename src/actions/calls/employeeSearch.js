@@ -29,3 +29,30 @@ export const employeeSearch = async (
     setIsLoading(false);
   }
 };
+
+export const getAllEmployees = async (
+  setData,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/employees/all`
+    );
+
+    const responseList = await response.json();
+    const prTableEntries = responseList ? responseList : [];
+
+    setData(prTableEntries);
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+    setIsLoading(false);
+  }
+};
