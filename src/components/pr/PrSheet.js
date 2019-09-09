@@ -36,6 +36,8 @@ const PrSheet = props => {
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
 
+  console.log(pr);
+
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;
   };
