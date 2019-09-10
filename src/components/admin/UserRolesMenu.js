@@ -15,8 +15,6 @@ const UserRolesMenu = props => {
 
   let errorContext = useContext(ErrorContext.context);
 
-  let oldSelectedRoles = [...selectedRoles];
-
   useEffect(() => {
     setSelectedRoles(props.selectedRoles)
   }, [props.selectedRoles]);
@@ -37,15 +35,8 @@ const UserRolesMenu = props => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = withOk => {
-    if (withOk) {
-      console.log('1111111')
-      setAnchorEl(null);
-    } else {
-      console.log('0000000')
-      setSelectedRoles(oldSelectedRoles);
-      setAnchorEl(null);
-    }
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const handleToggle = role => {
@@ -78,7 +69,7 @@ const UserRolesMenu = props => {
 
   const handleOk = () => {
     setRoles(props.employeeId, selectedRoles, errorContext);
-    handleClose(true);
+    handleClose();
   };
 
   //TODO: styles not working with className ???
@@ -89,7 +80,7 @@ const UserRolesMenu = props => {
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onClose={() => {handleClose(false)}}
+        onClose={() => {handleClose()}}
       >
         <Grid container>
           <Grid item xs={12}>
