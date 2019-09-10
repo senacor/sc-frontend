@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';

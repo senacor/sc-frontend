@@ -29,30 +29,3 @@ export const employeeSearch = async (
     setIsLoading(false);
   }
 };
-
-export const getAllEmployeesWithRoles = async (
-  setData,
-  setIsLoading,
-  errorContext
-) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/role/employee/all`
-    );
-
-    const responseList = await response.json();
-    const prTableEntries = responseList ? responseList : [];
-
-    setData(prTableEntries);
-    setIsLoading(false);
-  } catch (err) {
-    console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
-    setIsLoading(false);
-  }
-};

@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { getAllEmployeesWithRoles } from '../../actions/calls/employeeSearch';
+import { getAllEmployeesWithRoles, getRoles } from '../../actions/calls/role';
 import { ErrorContext } from '../App';
 import UserRolesMenu from './UserRolesMenu';
 
@@ -23,11 +23,17 @@ export const UserRolesPanel = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
+  const [roles, setRoles] = useState([]);
 
   let errorContext = useContext(ErrorContext.context);
 
   useEffect(
     () => {
+      getRoles(
+        setRoles,
+        setIsLoading,
+        errorContext
+      );
       getAllEmployeesWithRoles(
         setData,
         setIsLoading,
@@ -72,15 +78,15 @@ export const UserRolesPanel = ({ classes, intl }) => {
             ) : (
               data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(entry => {
-                return (
-                  <TableRow>
-                    <TableCell>
-                      {`${entry.firstName} ${entry.lastName}`}
-                    </TableCell>
-                    <TableCell>
-                      <UserRolesMenu />
-                    </TableCell>
-                  </TableRow>
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        {`${entry.firstName} ${entry.lastName}`}
+                      </TableCell>
+                      <TableCell>
+                        <UserRolesMenu employeeId={entry.id} allRoles={roles} selectedRoles={entry.roles} />
+                      </TableCell>
+                    </TableRow>
                 )
               })
             )}
