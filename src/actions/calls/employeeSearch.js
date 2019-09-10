@@ -30,7 +30,7 @@ export const employeeSearch = async (
   }
 };
 
-export const getAllEmployees = async (
+export const getAllEmployeesWithRoles = async (
   setData,
   setIsLoading,
   errorContext
@@ -39,7 +39,7 @@ export const getAllEmployees = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/employees/all`
+      `${process.env.REACT_APP_API}/api/v3/role/employee/all`
     );
 
     const responseList = await response.json();
