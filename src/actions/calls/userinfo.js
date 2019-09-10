@@ -79,7 +79,8 @@ export const getUserInfo = async (
           'test.pr.mitarbeiter2': ['PR_Mitarbeiter'],
           'test.pr.vorgesetzter': ['PR_CST_Leiter'],
           'test.pr.beurteiler': ['PR_Mitarbeiter', 'PR_CST_Leiter'],
-          'test.pr.hr': ['PR_HR']
+          'test.pr.hr': ['PR_HR'],
+          jbonk: ['PR_Mitarbeiter']
         };
         if (Object.keys(roleMatrix).find(el => el === usernameValue)) {
           userinfo.userroles = roleMatrix[usernameValue];
@@ -114,7 +115,6 @@ export const getUserInfo = async (
       } else return;
     }
   } catch (err) {
-    console.log(err);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
