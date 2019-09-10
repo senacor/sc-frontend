@@ -125,7 +125,14 @@ class PerformanceReviewTable extends React.Component {
   };
 
   render() {
-    let { classes, columnDefinition, data, isHr, intl, isLoading } = this.props;
+    const {
+      classes,
+      columnDefinition,
+      data,
+      isHr,
+      intl,
+      isLoading
+    } = this.props;
     const {
       order,
       orderBy,
@@ -135,7 +142,7 @@ class PerformanceReviewTable extends React.Component {
       page
     } = this.state;
 
-    data = this.filterCompletedPrs(data);
+    let filteredData = this.filterCompletedPrs(data);
 
     return (
       <Paper className={classes.root}>
@@ -155,7 +162,10 @@ class PerformanceReviewTable extends React.Component {
                   </TableCell>
                 </TableRow>
               ) : (
-                stableSort(data, getSorting(order, sortFunction, sortMapper))
+                stableSort(
+                  filteredData,
+                  getSorting(order, sortFunction, sortMapper)
+                )
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((line, lineIndex) => {
                     return (
@@ -180,7 +190,7 @@ class PerformanceReviewTable extends React.Component {
         </div>
         <Grid container alignItems={'center'}>
           <Grid item xs={3}>
-            {data.length === 0 ? (
+            {filteredData.length === 0 ? (
               <div className={classes.emptyListMessage}>
                 <Typography variant={'body2'}>
                   {` ${intl.formatMessage({
@@ -189,7 +199,7 @@ class PerformanceReviewTable extends React.Component {
                 </Typography>
               </div>
             ) : null}
-            {isHr && data.length !== 0 ? (
+            {isHr && filteredData.length !== 0 ? (
               <PrStatusActionButton
                 label={intl.formatMessage({
                   id: 'performancereviewtable.excel'
@@ -202,7 +212,7 @@ class PerformanceReviewTable extends React.Component {
           <Grid item xs={4}>
             <TablePagination
               component="div"
-              count={data.length}
+              count={filteredData.length}
               rowsPerPage={rowsPerPage}
               page={page}
               backIconButtonProps={{
