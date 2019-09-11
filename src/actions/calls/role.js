@@ -1,5 +1,4 @@
 import { default as fetch } from '../../helper/customFetch';
-import { sortByLastName } from "../../helper/sort";
 
 export const getRoles = async (
   setRoles,
@@ -15,8 +14,9 @@ export const getRoles = async (
 
     const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
+    const prTableEntriesWithoutOther = prTableEntries.filter(role => role.name !== 'OTHER');
 
-    setRoles(prTableEntries);
+    setRoles(prTableEntriesWithoutOther);
     setIsLoading(false);
   } catch (err) {
     console.log(err);
@@ -42,9 +42,6 @@ export const getAllEmployeesWithRoles = async (
 
     const responseList = await response.json();
     let prTableEntries = responseList ? responseList : [];
-    if (prTableEntries) {
-      sortByLastName(prTableEntries);
-    }
 
     setData(prTableEntries);
     setIsLoading(false);

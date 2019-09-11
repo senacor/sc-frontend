@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { CircularProgress, withStyles } from '@material-ui/core';
+import { CircularProgress, TableSortLabel, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import { getAllEmployeesWithRoles, getRoles } from '../../actions/calls/role';
 import { ErrorContext } from '../App';
 import UserRolesMenu from './UserRolesMenu';
+import {sortByLastName} from "../../helper/sort";
 
 const styles = theme => ({
   spacing: {
@@ -24,6 +25,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
   const [roles, setRoles] = useState([]);
+  const [sortDirection, setSortDirection] = useState('asc');
 
   let errorContext = useContext(ErrorContext.context);
 
@@ -51,17 +53,33 @@ export const UserRolesPanel = ({ classes, intl }) => {
     setPage(page);
   };
 
+  const handleSort = () => {
+    if (sortDirection === 'asc') {
+      setSortDirection('desc');
+    } else {
+      setSortDirection('asc');
+    }
+  };
+
+  sortByLastName(data, sortDirection);
   return (
     <Paper className={classes.spacing}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
-                {`${intl.formatMessage({
-                  id: 'userrolespanel.user'
-                })}`}
+                <TableSortLabel
+                  active={true}
+                  direction={sortDirection}
+                  onClick={handleSort}
+                >
+                  {`${intl.formatMessage({
+                    id: 'userrolespanel.user'
+                  })}`}
+                </TableSortLabel>
               </TableCell>
               <TableCell>
+
                 {`${intl.formatMessage({
                   id: 'userrolespanel.roles'
                 })}`}
