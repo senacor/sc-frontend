@@ -19,18 +19,6 @@ const UserRolesMenu = props => {
     setSelectedRoles(props.selectedRoles)
   }, [props.selectedRoles]);
 
-  const getNumberOfSelectedRoles = roles => {
-    let selectedRoles = 0;
-    roles.forEach(role => {
-      if (role.checked) {
-        selectedRoles = selectedRoles + 1;
-      }
-    });
-    return selectedRoles;
-  };
-
-  //let numberOfSelectedRoles = getNumberOfSelectedRoles(selectedRoles);
-
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };

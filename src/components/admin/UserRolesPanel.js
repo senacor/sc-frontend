@@ -11,7 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import { getAllEmployeesWithRoles, getRoles } from '../../actions/calls/role';
 import { ErrorContext } from '../App';
 import UserRolesMenu from './UserRolesMenu';
-import {sortByLastName} from "../../helper/sort";
+import { sortByLastName } from '../../helper/sort';
+import EmployeeFilter from './EmployeeFilter';
 
 const styles = theme => ({
   spacing: {
@@ -73,6 +74,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
                   direction={sortDirection}
                   onClick={handleSort}
                 >
+                  <EmployeeFilter/>
                   {`${intl.formatMessage({
                     id: 'userrolespanel.user'
                   })}`}
