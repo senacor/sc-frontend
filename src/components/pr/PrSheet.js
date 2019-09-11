@@ -9,6 +9,7 @@ import { injectIntl } from 'react-intl';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
+import EmployeeOpportunity from './EmployeeOpportunity';
 import { isHr } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
@@ -554,6 +555,7 @@ const PrSheet = props => {
             <Divider />
           </Hidden>
           {overallReviewer()}
+          <EmployeeOpportunity pr={pr} readOnly={readOnly} />
           {finalEmployee()}
           {requiredInfo()}
         </Grid>
