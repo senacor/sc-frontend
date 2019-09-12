@@ -1,8 +1,4 @@
 import React, { useContext } from 'react';
-import Divider from '@material-ui/core/Divider';
-import Hidden from '@material-ui/core/Hidden';
-import Grid from '@material-ui/core/Grid/Grid';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 
@@ -13,6 +9,12 @@ import EmployeeOpportunity from './EmployeeOpportunity';
 import { isHr } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+
+// Material UI
+import Hidden from '@material-ui/core/Hidden';
+import Grid from '@material-ui/core/Grid/Grid';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   paddingBottom: {
@@ -328,7 +330,6 @@ const PrSheet = props => {
             />
           </Grid>
         </Grid>
-        <Divider />
       </div>
     );
   };
@@ -375,7 +376,7 @@ const PrSheet = props => {
     );
   };
 
-  let detailReviewer = () => {
+  const detailReviewer = () => {
     return (
       <div>
         <Grid container spacing={16}>
@@ -530,7 +531,7 @@ const PrSheet = props => {
     );
   };
 
-  let requiredInfo = () => {
+  const requiredInfo = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
@@ -544,6 +545,7 @@ const PrSheet = props => {
     );
   };
 
+  // TODO: create PrSheet folder and move functions to separated files to make them as functional components
   return (
     <div>
       <Grid container spacing={40}>
