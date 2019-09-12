@@ -27,6 +27,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
   const [page, setPage] = useState(0);
   const [roles, setRoles] = useState([]);
   const [sortDirection, setSortDirection] = useState('asc');
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   let errorContext = useContext(ErrorContext.context);
 
@@ -63,6 +64,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
   };
 
   sortByLastName(data, sortDirection);
+
   return (
     <Paper className={classes.spacing}>
         <Table>
@@ -74,14 +76,13 @@ export const UserRolesPanel = ({ classes, intl }) => {
                   direction={sortDirection}
                   onClick={handleSort}
                 >
-                  <EmployeeFilter/>
+                  <EmployeeFilter data={data} setSelectedEmployee={setSelectedEmployee} />
                   {`${intl.formatMessage({
                     id: 'userrolespanel.user'
                   })}`}
                 </TableSortLabel>
               </TableCell>
               <TableCell>
-
                 {`${intl.formatMessage({
                   id: 'userrolespanel.roles'
                 })}`}
@@ -96,19 +97,30 @@ export const UserRolesPanel = ({ classes, intl }) => {
                 </TableCell>
               </TableRow>
             ) : (
-              data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(entry => {
-                  return (
-                    <TableRow>
-                      <TableCell>
-                        {`${entry.firstName} ${entry.lastName}`}
-                      </TableCell>
-                      <TableCell>
-                        <UserRolesMenu employeeId={entry.id} allRoles={roles} selectedRoles={entry.roles} />
-                      </TableCell>
-                    </TableRow>
-                )
-              })
+              selectedEmployee ? (
+                <TableRow>
+                  <TableCell>
+                    {`${selectedEmployee.firstName} ${selectedEmployee.lastName}`}
+                  </TableCell>
+                  <TableCell>
+                    <UserRolesMenu employeeId={selectedEmployee.id} allRoles={roles} selectedRoles={selectedEmployee.roles} />
+                  </TableCell>
+                </TableRow>
+              ) : (
+                data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(entry => {
+                    return (
+                      <TableRow>
+                        <TableCell>
+                          {`${entry.firstName} ${entry.lastName}`}
+                        </TableCell>
+                        <TableCell>
+                          <UserRolesMenu employeeId={entry.id} allRoles={roles} selectedRoles={entry.roles} />
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })
+              )
             )}
           </TableBody>
         </Table>
