@@ -1,20 +1,16 @@
 import { default as fetch } from '../../helper/customFetch';
 
-export const getRoles = async (
-  setRoles,
-  setIsLoading,
-  errorContext
-) => {
+export const getRoles = async (setRoles, setIsLoading, errorContext) => {
   try {
     setIsLoading(true);
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/role/`
-    );
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/role/`);
 
     const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
-    const prTableEntriesWithoutOther = prTableEntries.filter(role => role.name !== 'OTHER');
+    const prTableEntriesWithoutOther = prTableEntries.filter(
+      role => role.name !== 'OTHER'
+    );
 
     setRoles(prTableEntriesWithoutOther);
     setIsLoading(false);
@@ -55,19 +51,17 @@ export const getAllEmployeesWithRoles = async (
   }
 };
 
-export const setRoles = async (
-  employeeId,
-  roles,
-  errorContext
-) => {
+export const setRoles = async (employeeId, roles, errorContext) => {
+  let body = roles;
+  if (body.length === 0) {
+    body = ['OTHER'];
+  }
   try {
-    await fetch(
-      `${process.env.REACT_APP_API}/api/v3/role/${employeeId}`, {
-        method: 'post',
-        mode: 'cors',
-        body: JSON.stringify(roles)
+    await fetch(`${process.env.REACT_APP_API}/api/v3/role/${employeeId}`, {
+      method: 'post',
+      mode: 'cors',
+      body: JSON.stringify(body)
     });
-
   } catch (err) {
     console.log(err);
     errorContext.setValue({
