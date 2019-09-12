@@ -1,102 +1,126 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
-import FormGroup from '@material-ui/core/FormGroup';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import PrTextField from './PrTextField';
 
 const styles = theme => ({
   paddingBottom: {
     paddingBottom: 3 * theme.spacing.unit
   },
-  opportunityCheckbox: {
+  opportunityText: {
     margin: 'auto 0px'
   },
   opportunityGridItem: {
-    margin: theme.spacing.unit
+    margin: `${theme.spacing.unit} 0`,
+    padding: `${theme.spacing.unit} 0`,
+    minHeight: 100
+  },
+  textField: {
+    margin: 'auto 0',
+    padding: '0 10px',
+    '& input': {
+      width: 150
+    }
   }
 });
 
 const EmployeeOpportunity = ({ classes, intl, pr, readOnly }) => {
-  const employeeOpportunityData = [
-    {
-      id: 'opportunityWindow',
-      dateId: 'opportunityWindowDate',
-      label: intl.formatMessage({
-        id: 'prsheet.opportunityWindow'
-      })
-    },
-    {
-      id: 'changeProject',
-      dateId: 'changeProjectDate',
-      label: intl.formatMessage({
-        id: 'prsheet.changeProject'
-      })
-    },
-    {
-      id: 'changeRole',
-      dateId: 'changeRoleDate',
-      label: intl.formatMessage({
-        id: 'prsheet.changeRole'
-      })
-    },
-    {
-      id: 'other',
-      dateId: 'otherDate',
-      label: intl.formatMessage({
-        id: 'prsheet.otherArrangements'
-      })
-    },
-    {
-      id: 'trainings',
-      dateId: 'trainingsDate',
-      label: intl.formatMessage({
-        id: 'prsheet.trainings'
-      })
-    }
-  ];
+  const [opportunityWindow, setOpportunityWindow] = useState([]);
+  const [changeProject, setChangeProject] = useState([]);
+  const [changeRole, setChangeRole] = useState([]);
+  const [otherArrangements, setOtherArrangements] = useState([]);
+  const [trainings, setTrainings] = useState([]);
 
   return (
-    <form className={classes.paddingBottom}>
-      <Grid container className={classes.paddingBottom}>
-        {employeeOpportunityData.map((opp, index) => {
-          console.log(opp);
-          return (
-            <Grid item xs={12} key={index}>
-              <Grid container className={classes.opportunityGridItem}>
-                <Grid item xs={6} className={classes.opportunityCheckbox}>
-                  <FormGroup row>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          value={opp.id}
-                          disabled={readOnly('RATINGS_REVIEWER')}
-                        />
-                      }
-                      label={opp.label}
-                    />
-                  </FormGroup>
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    id={opp.dateId}
-                    name={opp.dateId}
-                    type="date"
-                    disabled={readOnly('RATINGS_REVIEWER')}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          );
+    <Fragment>
+      <Typography variant="body2">
+        {intl.formatMessage({
+          id: 'prsheet.employeeOpportunityTitle'
         })}
-      </Grid>
-      <Divider />
-    </form>
+      </Typography>
+      <form className={classes.paddingBottom}>
+        <Grid container className={classes.paddingBottom}>
+          <Grid container className={classes.opportunityGridItem}>
+            <Grid item xs={6} className={classes.opportunityText}>
+              <Typography component="span">
+                {intl.formatMessage({
+                  id: 'prsheet.opportunityWindow'
+                })}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.textField}>
+              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+            </Grid>
+          </Grid>
+          <Grid container className={classes.opportunityGridItem}>
+            <Grid item xs={6} className={classes.opportunityText}>
+              <Typography component="span">
+                {intl.formatMessage({
+                  id: 'prsheet.changeProject'
+                })}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.textField}>
+              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            className={`${classes.opportunityGridItem} ${
+              classes.paddingBottom
+            }`}
+          >
+            <Grid item xs={6} className={classes.opportunityText}>
+              <Typography component="span">
+                {intl.formatMessage({
+                  id: 'prsheet.changeRole'
+                })}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.textField}>
+              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+            </Grid>
+          </Grid>
+          <Grid container className={classes.opportunityGridItem}>
+            <Grid item xs={6} className={classes.opportunityText}>
+              <Typography>
+                {intl.formatMessage({
+                  id: 'prsheet.otherArrangements'
+                })}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.textField}>
+              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+            </Grid>
+            <Grid item xs={12} className={classes.paddingBottom}>
+              <PrTextField
+                type="text"
+                isReadOnly={readOnly('RATINGS_REVIEWER')}
+                isError={false}
+              />
+            </Grid>
+          </Grid>
+          <PrTextField
+            label={intl.formatMessage({
+              id: 'prsheet.trainings'
+            })}
+            // text={pr.advancementStrategies}
+            isReadOnly={readOnly('RATINGS_REVIEWER')}
+            isError={false}
+            helperText={intl.formatMessage({
+              id: 'prsheet.helperTextTrainings'
+            })}
+          />
+        </Grid>
+        <Divider />
+      </form>
+    </Fragment>
   );
 };
 

@@ -63,6 +63,7 @@ export const addRatings = async (
   rating,
   targetRole,
   advancementStrategies,
+  progress,
   errorContext,
   infoContext
 ) => {
@@ -75,7 +76,8 @@ export const addRatings = async (
       body: JSON.stringify({
         rating: rating,
         targetRole: targetRole,
-        advancementStrategies: advancementStrategies
+        advancementStrategies: advancementStrategies,
+        progress: progress
       })
     }
   );
