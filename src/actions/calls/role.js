@@ -52,9 +52,13 @@ export const getAllEmployeesWithRoles = async (
 };
 
 export const setRoles = async (employeeId, roles, errorContext) => {
-  let body = roles;
-  if (body.length === 0) {
+  let body;
+  if (roles.length === 0) {
+    // if no role is selected, then OTHER should be added
     body = ['OTHER'];
+  } else {
+    // if some roles are selected, then OTHER should be removed
+    body = roles.filter(role => role.name !== 'OTHER');
   }
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/role/${employeeId}`, {
