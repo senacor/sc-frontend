@@ -63,6 +63,14 @@ export const UserRolesPanel = ({ classes, intl }) => {
     }
   };
 
+  const updateEmployee = (employeeId, roles) => {
+    let employee = data.filter(e => e.id === employeeId)[0];
+    employee.roles = roles;
+    let newData = data.filter(e => e.id !== employeeId);
+    newData.push(employee);
+    setData(newData);
+  };
+
   sortByLastName(data, sortDirection);
 
   return (
@@ -103,7 +111,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
                     {`${selectedEmployee.firstName} ${selectedEmployee.lastName}`}
                   </TableCell>
                   <TableCell>
-                    <UserRolesMenu employeeId={selectedEmployee.id} allRoles={roles} selectedRoles={selectedEmployee.roles} />
+                    <UserRolesMenu employeeId={selectedEmployee.id} allRoles={roles} selectedRoles={selectedEmployee.roles} updateEmployee={updateEmployee} />
                   </TableCell>
                 </TableRow>
               ) : (
@@ -115,7 +123,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
                           {`${entry.firstName} ${entry.lastName}`}
                         </TableCell>
                         <TableCell>
-                          <UserRolesMenu employeeId={entry.id} allRoles={roles} selectedRoles={entry.roles} />
+                          <UserRolesMenu employeeId={entry.id} allRoles={roles} selectedRoles={entry.roles} updateEmployee={updateEmployee} />
                         </TableCell>
                       </TableRow>
                     )

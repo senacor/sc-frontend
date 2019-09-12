@@ -59,6 +59,7 @@ const UserRolesMenu = props => {
 
   const handleOk = () => {
     setRoles(props.employeeId, selectedRoles, errorContext);
+    props.updateEmployee(props.employeeId, selectedRoles);
     handleClose();
   };
 
