@@ -53,7 +53,7 @@ const Dashboard = ({ classes, intl }) => {
             to={'/prs/' + userinfo.idOfNewestOpenPr}
           >
             <CardContent>
-              <Typography variant="h5" component="h2">
+              <Typography variant="h5">
                 {formatDateForFrontend(userinfo.deadlineOfNewestPr)}
               </Typography>
               <Typography className={classes.title} color="textSecondary">
@@ -68,9 +68,7 @@ const Dashboard = ({ classes, intl }) => {
         {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
           <Card className={classes.card} component={NavLink} to={'/prs'}>
             <CardContent>
-              <Typography variant="h5" component="h2">
-                {numberOfPrsToReview}
-              </Typography>
+              <Typography variant="h5">{numberOfPrsToReview}</Typography>
               <Typography className={classes.title} color="textSecondary">
                 {intl.formatMessage({
                   id: 'dashboard.evaluator'
@@ -105,9 +103,7 @@ const Dashboard = ({ classes, intl }) => {
         {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
           <Card className={classes.card} component={NavLink} to={'/myPrs'}>
             <CardContent>
-              <Typography variant="h5" component="h2">
-                {prsNotFilledByEmployee}
-              </Typography>
+              <Typography variant="h5">{prsNotFilledByEmployee}</Typography>
               <Typography className={classes.title} color="textSecondary">
                 {intl.formatMessage({
                   id: 'dashboard.unprocessed'
