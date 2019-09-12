@@ -92,8 +92,12 @@ export const EmployeeFilter = ({
             <List>
               {data.map(employee => {
                 return (
-                  (employee.firstName.toLowerCase().startsWith(value) ||
-                    employee.lastName.toLowerCase().startsWith(value)) && (
+                  (employee.firstName
+                    .toLowerCase()
+                    .startsWith(value.toLowerCase()) ||
+                    employee.lastName
+                      .toLowerCase()
+                      .startsWith(value.toLowerCase())) && (
                     <ListItem>
                       <Avatar>
                         {employee.firstName.charAt(0)}
