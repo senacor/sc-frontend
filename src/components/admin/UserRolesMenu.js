@@ -15,11 +15,15 @@ const UserRolesMenu = props => {
 
   let errorContext = useContext(ErrorContext.context);
 
-  useEffect(() => {
-    setSelectedRoles(props.selectedRoles)
-  }, [props.selectedRoles]);
+  useEffect(
+    () => {
+      setSelectedRoles(props.selectedRoles);
+    },
+    [props.selectedRoles]
+  );
 
   const handleClick = event => {
+    setSelectedRoles(props.selectedRoles);
     setAnchorEl(event.currentTarget);
   };
 
@@ -30,7 +34,9 @@ const UserRolesMenu = props => {
   const handleToggle = role => {
     if (selectedRoles.includes(role.name)) {
       // unassigning role
-      const selectedRolesWithoutParamRole = selectedRoles.filter(r => r !== role.name);
+      const selectedRolesWithoutParamRole = selectedRoles.filter(
+        r => r !== role.name
+      );
       setSelectedRoles(selectedRolesWithoutParamRole);
     } else {
       // assigning role
@@ -41,10 +47,17 @@ const UserRolesMenu = props => {
   const showContent = role => {
     return (
       <div>
-        <ListItem key={role.id} dense button onClick={() => {handleToggle(role)}}>
+        <ListItem
+          key={role.id}
+          dense
+          button
+          onClick={() => {
+            handleToggle(role);
+          }}
+        >
           <Checkbox
             // className={classes.densed}
-            style={{padding: 0}}
+            style={{ padding: 0 }}
             id={role.id}
             checked={selectedRoles.includes(role.name)}
             color={'primary'}
@@ -54,7 +67,7 @@ const UserRolesMenu = props => {
           <ListItemText primary={role.name} />
         </ListItem>
       </div>
-    )
+    );
   };
 
   const handleOk = () => {
@@ -67,11 +80,15 @@ const UserRolesMenu = props => {
 
   return (
     <div>
-      <IconButton onClick={handleClick}><SupervisedUserCircle /></IconButton>
+      <IconButton onClick={handleClick}>
+        <SupervisedUserCircle />
+      </IconButton>
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onClose={() => {handleClose()}}
+        onClose={() => {
+          handleClose();
+        }}
       >
         <Grid container>
           <Grid item xs={12}>
@@ -83,9 +100,7 @@ const UserRolesMenu = props => {
           </Grid>
           <Grid item xs={9} />
           <Grid item xs={3}>
-            <Button onClick={handleOk}>
-              OK
-            </Button>
+            <Button onClick={handleOk}>OK</Button>
           </Grid>
         </Grid>
       </Popover>

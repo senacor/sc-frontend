@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { injectIntl } from "react-intl";
+import { injectIntl } from 'react-intl';
 import FilterList from '@material-ui/icons/FilterList';
 import {
   Avatar,
@@ -18,11 +18,16 @@ const styles = theme => ({
   box: {
     display: 'flex',
     padding: 2 * theme.spacing.unit,
-    flexDirection: 'column',
+    flexDirection: 'column'
   }
 });
 
-export const EmployeeFilter = ({ data, setSelectedEmployee, intl, classes }) => {
+export const EmployeeFilter = ({
+  data,
+  setSelectedEmployee,
+  intl,
+  classes
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState('');
 
@@ -52,7 +57,9 @@ export const EmployeeFilter = ({ data, setSelectedEmployee, intl, classes }) => 
 
   return (
     <div>
-      <IconButton onClick={handleOpen}><FilterList /></IconButton>
+      <IconButton onClick={handleOpen}>
+        <FilterList />
+      </IconButton>
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -67,7 +74,9 @@ export const EmployeeFilter = ({ data, setSelectedEmployee, intl, classes }) => 
             })}
             value={value}
             onChange={handleChange}
-            onClick={event => {event.stopPropagation()}}
+            onClick={event => {
+              event.stopPropagation();
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -79,24 +88,27 @@ export const EmployeeFilter = ({ data, setSelectedEmployee, intl, classes }) => 
               name: 'employeeSearchValue'
             }}
           />
-          {value &&
+          {value && (
             <List>
               {data.map(employee => {
-                if (employee.firstName.toLowerCase().startsWith(value) ||
-                  employee.lastName.toLowerCase().startsWith(value)) {
-                  return (
+                return (
+                  (employee.firstName.toLowerCase().startsWith(value) ||
+                    employee.lastName.toLowerCase().startsWith(value)) && (
                     <ListItem>
                       <Avatar>
                         {employee.firstName.charAt(0)}
                         {employee.lastName.charAt(0)}
                       </Avatar>
-                      <ListItemText primary={`${employee.firstName} ${employee.lastName}`} onClick={event => selectEmployee(employee, event)} />
+                      <ListItemText
+                        primary={`${employee.firstName} ${employee.lastName}`}
+                        onClick={event => selectEmployee(employee, event)}
+                      />
                     </ListItem>
                   )
-                }
+                );
               })}
             </List>
-          }
+          )}
         </div>
       </Popover>
     </div>

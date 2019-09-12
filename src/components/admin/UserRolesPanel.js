@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { CircularProgress, TableSortLabel, withStyles } from '@material-ui/core';
+import {
+  CircularProgress,
+  TableSortLabel,
+  withStyles
+} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,21 +35,10 @@ export const UserRolesPanel = ({ classes, intl }) => {
 
   let errorContext = useContext(ErrorContext.context);
 
-  useEffect(
-    () => {
-      getRoles(
-        setRoles,
-        setIsLoading,
-        errorContext
-      );
-      getAllEmployeesWithRoles(
-        setData,
-        setIsLoading,
-        errorContext
-      );
-    },
-    []
-  );
+  useEffect(() => {
+    getRoles(setRoles, setIsLoading, errorContext);
+    getAllEmployeesWithRoles(setData, setIsLoading, errorContext);
+  }, []);
 
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(event.target.value);
@@ -75,63 +68,75 @@ export const UserRolesPanel = ({ classes, intl }) => {
 
   return (
     <Paper className={classes.spacing}>
-        <Table>
-          <TableHead>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              <TableSortLabel
+                active={true}
+                direction={sortDirection}
+                onClick={handleSort}
+              >
+                <EmployeeFilter
+                  data={data}
+                  setSelectedEmployee={setSelectedEmployee}
+                />
+                {`${intl.formatMessage({
+                  id: 'userrolespanel.user'
+                })}`}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              {`${intl.formatMessage({
+                id: 'userrolespanel.roles'
+              })}`}
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {isLoading ? (
             <TableRow>
               <TableCell>
-                <TableSortLabel
-                  active={true}
-                  direction={sortDirection}
-                  onClick={handleSort}
-                >
-                  <EmployeeFilter data={data} setSelectedEmployee={setSelectedEmployee} />
-                  {`${intl.formatMessage({
-                    id: 'userrolespanel.user'
-                  })}`}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell>
-                {`${intl.formatMessage({
-                  id: 'userrolespanel.roles'
-                })}`}
+                <CircularProgress />
               </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell>
-                  <CircularProgress />
-                </TableCell>
-              </TableRow>
-            ) : (
-              selectedEmployee ? (
-                <TableRow>
-                  <TableCell>
-                    {`${selectedEmployee.firstName} ${selectedEmployee.lastName}`}
-                  </TableCell>
-                  <TableCell>
-                    <UserRolesMenu employeeId={selectedEmployee.id} allRoles={roles} selectedRoles={selectedEmployee.roles} updateEmployee={updateEmployee} />
-                  </TableCell>
-                </TableRow>
-              ) : (
-                data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(entry => {
-                    return (
-                      <TableRow>
-                        <TableCell>
-                          {`${entry.firstName} ${entry.lastName}`}
-                        </TableCell>
-                        <TableCell>
-                          <UserRolesMenu employeeId={entry.id} allRoles={roles} selectedRoles={entry.roles} updateEmployee={updateEmployee} />
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })
-              )
-            )}
-          </TableBody>
-        </Table>
+          ) : selectedEmployee ? (
+            <TableRow>
+              <TableCell>
+                {`${selectedEmployee.firstName} ${selectedEmployee.lastName}`}
+              </TableCell>
+              <TableCell>
+                <UserRolesMenu
+                  employeeId={selectedEmployee.id}
+                  allRoles={roles}
+                  selectedRoles={selectedEmployee.roles}
+                  updateEmployee={updateEmployee}
+                />
+              </TableCell>
+            </TableRow>
+          ) : (
+            data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(entry => {
+                return (
+                  <TableRow>
+                    <TableCell>
+                      {`${entry.firstName} ${entry.lastName}`}
+                    </TableCell>
+                    <TableCell>
+                      <UserRolesMenu
+                        employeeId={entry.id}
+                        allRoles={roles}
+                        selectedRoles={entry.roles}
+                        updateEmployee={updateEmployee}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+          )}
+        </TableBody>
+      </Table>
       <TablePagination
         component="div"
         count={data.length}
