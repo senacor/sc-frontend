@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { Button, Grid, IconButton, List, Popover, withStyles } from '@material-ui/core';
+import { Button, Grid, IconButton, List, Popover } from '@material-ui/core';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import Icon from '@material-ui/core/Icon';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -29,9 +29,11 @@ const UserRolesMenu = props => {
 
   const handleToggle = role => {
     if (selectedRoles.includes(role.name)) {
+      // unassigning role
       const selectedRolesWithoutParamRole = selectedRoles.filter(r => r !== role.name);
       setSelectedRoles(selectedRolesWithoutParamRole);
     } else {
+      // assigning role
       setSelectedRoles([...selectedRoles, role.name]);
     }
   };
