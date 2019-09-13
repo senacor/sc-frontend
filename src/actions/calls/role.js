@@ -58,7 +58,7 @@ export const setRoles = async (employeeId, roles, errorContext) => {
     body = ['OTHER'];
   } else {
     // if some roles are selected, then OTHER should be removed
-    body = roles.filter(role => role.name !== 'OTHER');
+    body = roles.filter(role => role !== 'OTHER');
   }
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/role/${employeeId}`, {
