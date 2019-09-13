@@ -55,6 +55,8 @@ export const EmployeeFilter = ({
     handleClose(event);
   };
 
+  // TODO: value stays in the popup after closing
+
   return (
     <div>
       <IconButton onClick={handleOpen}>
