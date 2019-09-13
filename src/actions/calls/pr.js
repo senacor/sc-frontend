@@ -1,6 +1,5 @@
 import { default as fetch } from '../../helper/customFetch';
 import generateMapById from '../../helper/generateMapById';
-import ROLES from '../../helper/roles';
 
 export const fetchPrById = async (
   prsId,
@@ -10,11 +9,12 @@ export const fetchPrById = async (
 ) => {
   setIsLoading(true);
   errorContext.setValue({ hasErrors: false, messageId: '' });
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
-  );
+
+  let response = await fetch(`${process.env.REACT_APP_API}/api/v3/pr/own`);
+
   if (response.ok) {
-    const prById = await response.json();
+    const myPrs = await response.json();
+    const prById = myPrs.filter(pr => pr.id === prsId)[0];
     if (prById.competence === undefined) {
       prById.competence = 'CONSULTING';
     }
