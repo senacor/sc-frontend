@@ -11,6 +11,9 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
+import SettingsApplications from '@material-ui/icons/SettingsApplications';
+import Build from '@material-ui/icons/Build';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { CircularProgress } from '@material-ui/core';
@@ -105,6 +108,33 @@ export const Sidebar = ({ intl, classes }) => {
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
         roles: [ROLES.PR_MITARBEITER],
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.systemandinterfaces'
+        }),
+        icon: <SettingsApplications />,
+        value: '/system',
+        roles: [ROLES.ADMIN],
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.userroles'
+        }),
+        icon: <SupervisedUserCircle />,
+        value: '/userroles',
+        roles: [ROLES.ADMIN],
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.maintenance'
+        }),
+        icon: <Build />,
+        value: '/maintenance',
+        roles: [ROLES.ADMIN],
         onClick: resetMessages
       },
       {

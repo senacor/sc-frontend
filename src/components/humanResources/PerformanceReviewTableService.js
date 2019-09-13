@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-
 import EmployeeFilter from './EmployeeFilter';
 import PopperSearchMenu from './PopperSearchMenu';
 import PrDelegate from '../pr/PrDelegate';

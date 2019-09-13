@@ -5,7 +5,8 @@ const ROUTES = {
   DASHBOARD: '/dashboard',
   LOGIN: '/login',
   LOGOUT: '/logout',
-  PR: '/prDetail'
+  PR: '/prDetail',
+  ADMIN_USER_ROLES: '/userroles'
 };
 
 export default ROUTES;
