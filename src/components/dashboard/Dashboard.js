@@ -26,6 +26,12 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit,
     marginBottom: 0,
     textDecoration: 'none'
+  },
+  title: {
+    marginBottom: 2 * theme.spacing.unit
+  },
+  paragraph: {
+    marginBottom: 2 * theme.spacing.unit
   }
 });
 
@@ -47,7 +53,7 @@ const Dashboard = ({ classes, intl }) => {
             to={'/prs/' + userinfo.idOfNewestOpenPr}
           >
             <CardContent>
-              <Typography variant="h5" component="h2">
+              <Typography variant="h5">
                 {formatDateForFrontend(userinfo.deadlineOfNewestPr)}
               </Typography>
               <Typography className={classes.title} color="textSecondary">
@@ -62,9 +68,7 @@ const Dashboard = ({ classes, intl }) => {
         {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
           <Card className={classes.card} component={NavLink} to={'/prs'}>
             <CardContent>
-              <Typography variant="h5" component="h2">
-                {numberOfPrsToReview}
-              </Typography>
+              <Typography variant="h5">{numberOfPrsToReview}</Typography>
               <Typography className={classes.title} color="textSecondary">
                 {intl.formatMessage({
                   id: 'dashboard.evaluator'
@@ -99,9 +103,7 @@ const Dashboard = ({ classes, intl }) => {
         {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
           <Card className={classes.card} component={NavLink} to={'/myPrs'}>
             <CardContent>
-              <Typography variant="h5" component="h2">
-                {prsNotFilledByEmployee}
-              </Typography>
+              <Typography variant="h5">{prsNotFilledByEmployee}</Typography>
               <Typography className={classes.title} color="textSecondary">
                 {intl.formatMessage({
                   id: 'dashboard.unprocessed'
@@ -112,39 +114,55 @@ const Dashboard = ({ classes, intl }) => {
         ) : null}
       </div>
 
+      {/* Notification about administration mode, if userrole is admin */}
+      {userroles[0] === 'ADMIN' && (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography className={classes.title} variant="h5">
+              {intl.formatMessage({
+                id: 'dashboard.administrationTitle'
+              })}
+            </Typography>
+            <Typography color="textSecondary">
+              {intl.formatMessage({
+                id: 'dashboard.administrationText'
+              })}
+            </Typography>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Welcome page section */}
       <div className={classes.rowContainer}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="h5" component="h2">
-              {intl.formatMessage({
-                id: 'dashboard.beta'
-              })}
-            </Typography>
-            <Typography className={classes.title} color="textSecondary">
+            <Typography variant="h5" className={classes.title}>
               {intl.formatMessage({
                 id: 'dashboard.welcome'
               })}
-              <br />
+            </Typography>
+            <Typography className={classes.paragraph} color="textSecondary">
+              {`${intl.formatMessage({
+                id: 'dashboard.description'
+              })} `}
               <br />
               {`${intl.formatMessage({
-                id: 'dashboard.testphase'
+                id: 'dashboard.subdescription'
+              })} `}
+            </Typography>
+            <br />
+            <Typography variant="h6" className={classes.title}>
+              {intl.formatMessage({
+                id: 'dashboard.contactSupport'
+              })}
+            </Typography>
+            <Typography className={classes.paragraph} color="textSecondary">
+              {`${intl.formatMessage({
+                id: 'dashboard.contactText'
               })} `}
               <a href="mailto:Tuan-Si.Tran@senacor.com">
-                Si Tran (Tuan-Si.Tran@senacor.com)
+                Tomas Hugec (tomas.hugec@senacor.com)
               </a>
-              {` ${intl.formatMessage({
-                id: 'dashboard.concern'
-              })}`}
-              <br />
-              <br />
-              {intl.formatMessage({
-                id: 'dashboard.update'
-              })}
-              <br />
-              <br />
-              {intl.formatMessage({
-                id: 'dashboard.testing'
-              })}
             </Typography>
           </CardContent>
         </Card>
