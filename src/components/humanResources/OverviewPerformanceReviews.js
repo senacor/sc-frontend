@@ -10,7 +10,7 @@ import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import { isHr } from '../../helper/checkRole';
 import { UserinfoContext, ErrorContext } from '../App';
 import { getFilterPossibilities } from '../../actions/calls/filter';
-import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
+import { fetchFilteredAllPrs } from '../../actions/calls/pr';
 import UploadFiles from '../fileStorage/UploadFiles';
 import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
 
@@ -61,12 +61,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      fetchFilteredPrsForHumanResource(
-        filter,
-        setData,
-        setIsLoading,
-        errorContext
-      );
+      fetchFilteredAllPrs(filter, setData, setIsLoading, errorContext);
     },
     [filter]
   );

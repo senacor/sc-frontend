@@ -1,8 +1,13 @@
 const ROLES = {
-  PR_MITARBEITER: 'PR_Mitarbeiter',
-  PR_CST_LEITER: 'PR_CST_Leiter',
-  PR_HR: 'PR_HR',
-  ADMIN: 'ADMIN'
+  // PR_MITARBEITER: 'PR_Mitarbeiter',
+  // PR_CST_LEITER: 'PR_CST_Leiter',
+  // PR_HR: 'PR_HR',
+  // ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  DEVELOPER: 'DEVELOPER',
+  CONSULTING: 'CONSULTING',
+  SUPERVISOR: 'SUPERVISOR',
+  PERSONAL_DEV: 'PERSONAL_DEV'
 };
 
 export default ROLES;

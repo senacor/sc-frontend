@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { UserinfoContext, ErrorContext } from '../App';
-import { fetchFilteredPrs } from '../../actions/calls/pr';
+import { fetchFilteredPrsToReview } from '../../actions/calls/pr';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import FILTER_GROUPS from '../humanResources/filterGroups';
@@ -53,13 +53,7 @@ const PrOverviewReviewer = props => {
   }, []);
 
   const loadFilteredPrs = () => {
-    fetchFilteredPrs(
-      filter,
-      FILTER_GROUPS.REVIEWER,
-      setData,
-      setIsLoading,
-      errorContext
-    );
+    fetchFilteredPrsToReview(filter, setData, setIsLoading, errorContext);
   };
 
   useEffect(loadFilteredPrs, [filter]);

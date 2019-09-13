@@ -4,7 +4,7 @@ export const getRoles = async (setRoles, setIsLoading, errorContext) => {
   try {
     setIsLoading(true);
 
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/role/`);
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/role`);
 
     const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
