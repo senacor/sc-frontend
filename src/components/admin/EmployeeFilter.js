@@ -64,6 +64,7 @@ export const EmployeeFilter = ({
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}
+        onClick={event => event.stopPropagation()}
       >
         <div className={classes.box}>
           <TextField
