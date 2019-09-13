@@ -103,7 +103,6 @@ export const appointmentsSearch = async (
     setAppointmentResults(appointments);
     return appointments;
   } else {
-    console.log(response);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper/Paper';
 import Grid from '@material-ui/core/Grid/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,7 +12,14 @@ import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 
-export const PrOverviewReviewer = props => {
+const styles = theme => ({
+  spacing: {
+    margin: 3 * theme.spacing.unit
+  }
+});
+
+const PrOverviewReviewer = props => {
+  const { classes } = props;
   const [filter, setFilter] = useState({});
   const [columnsToView, setColumnsToView] = useState(null);
   const [filterPossibilities, setFilterPossibilities] = useState({});
@@ -121,7 +129,7 @@ export const PrOverviewReviewer = props => {
     columns = getColumnDefinitions();
   }
   return (
-    <Paper>
+    <Paper className={classes.spacing}>
       <Grid
         container
         direction={'row'}
@@ -145,4 +153,4 @@ export const PrOverviewReviewer = props => {
   );
 };
 
-export default injectIntl(PrOverviewReviewer);
+export default injectIntl(withStyles(styles)(PrOverviewReviewer));

@@ -23,12 +23,11 @@ const PerformanceReviewDetail = lazy(() =>
   import('./pr/prDetail/PerformanceReviewDetail')
 );
 const PrOverviewReviewer = lazy(() => import('./pr/PrOverviewReviewer'));
-const PrOverviewCompleted = lazy(() => import('./pr/PrOverviewCompleted'));
 const OverviewPerformanceReviews = lazy(() =>
   import('./humanResources/OverviewPerformanceReviews')
 );
-const ArchivedFiles = lazy(() => import('./fileStorage/ArchivedFiles'));
 const Login = lazy(() => import('./login/Login'));
+const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
@@ -50,14 +49,13 @@ const withContent = WrappedComponent => props => (
 );
 
 const PrOverviewReviewerContent = withContent(PrOverviewReviewer);
-const PrOverviewCompletedContent = withContent(PrOverviewCompleted);
 const PrOverviewEmployeeContent = withContent(PrOverviewEmployee);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
 );
 const DashboardWithContent = withContent(Dashboard);
 const OverviewPrsWithContent = withContent(OverviewPerformanceReviews);
-const ArchivedFilesWithContent = withContent(ArchivedFiles);
+const UserRolesPanelWithContent = withContent(UserRolesPanel);
 
 export const messages = {
   de: messages_de,
@@ -141,11 +139,6 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.COMPLETED_PR_TABLE}
-                      component={PrOverviewCompletedContent}
-                    />
-                    <PrivateRoute
-                      exact
                       path="/prs/:id"
                       component={PerformanceReviewDetail2WithContent}
                     />
@@ -156,13 +149,13 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.HR_PR_TABLE}
+                      path={ROUTES.ALL_PRS_TABLE}
                       component={OverviewPrsWithContent}
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.ARCHIVED_PR_TABLE}
-                      component={ArchivedFilesWithContent}
+                      path={ROUTES.ADMIN_USER_ROLES}
+                      component={UserRolesPanelWithContent}
                     />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route

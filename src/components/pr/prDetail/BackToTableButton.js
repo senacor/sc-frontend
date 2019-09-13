@@ -21,7 +21,7 @@ const BackToTableButton = ({ pr, classes, intl }) => {
     ) {
       return ROUTES.PR_TO_REVIEW_TABLE;
     } else if (isHr(userroles)) {
-      return ROUTES.HR_PR_TABLE;
+      return ROUTES.ALL_PRS_TABLE;
     } else {
       return ROUTES.LOGOUT;
     }

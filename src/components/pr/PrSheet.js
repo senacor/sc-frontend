@@ -20,15 +20,15 @@ const styles = theme => ({
   paddingBottom: {
     paddingBottom: 3 * theme.spacing.unit
   },
+  paddingTop: {
+    paddingTop: 3 * theme.spacing.unit
+  },
   required: {
     color: theme.palette.secondary.grey
   },
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
-  },
-  title: {
-    paddingTop: 3 * theme.spacing.unit
   }
 });
 
@@ -211,11 +211,11 @@ const PrSheet = props => {
     );
   };
 
-  let step1employee = () => {
+  const firstStepEmployee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.paddingTop}>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
@@ -271,12 +271,12 @@ const PrSheet = props => {
     );
   };
 
-  let overallReviewer = () => {
+  const overallReviewer = () => {
     return (
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
@@ -309,7 +309,7 @@ const PrSheet = props => {
         <Fragment>
           <Typography
             variant="h6"
-            className={`${classes.title} ${classes.paddingBottom}`}
+            className={`${classes.paddingTop} ${classes.paddingBottom}`}
           >
             {intl.formatMessage({
               id: 'prsheet.measures'
@@ -325,7 +325,7 @@ const PrSheet = props => {
     );
   };
 
-  let finalEmployee = () => {
+  const finalEmployee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
@@ -346,7 +346,7 @@ const PrSheet = props => {
     );
   };
 
-  let finalHr = () => {
+  const finalHr = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
@@ -372,7 +372,7 @@ const PrSheet = props => {
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
@@ -430,7 +430,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
@@ -462,7 +462,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
@@ -494,7 +494,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}
@@ -541,7 +541,7 @@ const PrSheet = props => {
     <div>
       <Grid container spacing={40}>
         <Grid item xs={12} md={6}>
-          {step1employee()}
+          {firstStepEmployee()}
           <Divider />
           <Hidden mdUp>
             {detailReviewer()}
@@ -554,14 +554,22 @@ const PrSheet = props => {
         <Hidden smDown>
           <Grid item md={6}>
             {detailReviewer()}
-            {isHr(userroles) ? <Divider /> : null}
-            {isHr(userroles) ? finalHr() : null}
+            {isHr(userroles) ? (
+              <Fragment>
+                <Divider />
+                {finalHr()}
+              </Fragment>
+            ) : null}
           </Grid>
         </Hidden>
         <Hidden mdUp>
           <Grid item xs={12}>
-            {isHr(userroles) ? <Divider /> : null}
-            {isHr(userroles) ? finalHr() : null}
+            {isHr(userroles) ? (
+              <Fragment>
+                <Divider />
+                {finalHr()}
+              </Fragment>
+            ) : null}
           </Grid>
         </Hidden>
         <Grid item xs={12}>

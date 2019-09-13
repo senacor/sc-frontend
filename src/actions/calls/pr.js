@@ -76,8 +76,7 @@ export const addRatings = async (
       body: JSON.stringify({
         rating: rating,
         targetRole: targetRole,
-        advancementStrategies: advancementStrategies,
-        progress: progress
+        advancementStrategies: advancementStrategies
       })
     }
   );
@@ -190,8 +189,6 @@ export const fetchFilteredPrs = async (
     setData(resultDataArray);
     setIsLoading(false);
   } catch (err) {
-    console.log(err);
-
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
@@ -230,7 +227,6 @@ export const fetchFilteredPrsForHumanResource = async (
     setData(resultDataArray);
     setIsLoading(false);
   } catch (err) {
-    console.log(err);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
@@ -303,14 +299,11 @@ export const delegateReviewer = async (
       fetchPrById(
         prId,
         updatePr,
-        () => {
-          console.log('ALSO ANOTHER PART IS OK');
-        }, //ignoring loading
+        () => {}, //ignoring loading
         errorContext
       );
     }
   } catch (err) {
-    console.log(err);
     errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
   }
 };
