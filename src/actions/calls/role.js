@@ -12,15 +12,15 @@ export const getRoles = async (setRoles, setIsLoading, errorContext) => {
       role => role.name !== 'OTHER'
     );
 
-    setRoles(prTableEntriesWithoutOther);
     setIsLoading(false);
+    setRoles(prTableEntriesWithoutOther);
   } catch (err) {
     console.log(err);
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };
 
@@ -39,15 +39,15 @@ export const getAllEmployeesWithRoles = async (
     const responseList = await response.json();
     let prTableEntries = responseList ? responseList : [];
 
-    setData(prTableEntries);
     setIsLoading(false);
+    setData(prTableEntries);
   } catch (err) {
     console.log(err);
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };
 
