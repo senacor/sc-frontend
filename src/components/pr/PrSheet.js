@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
-import EmployeeOpportunity from './EmployeeOpportunity';
+import AdvancementStrategies from './AdvancementStrategies';
 import { isHr } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
@@ -28,8 +28,7 @@ const styles = theme => ({
     fontSize: '9pt'
   },
   title: {
-    fontSize: 20,
-    paddingTop: 2 * theme.spacing.unit
+    paddingTop: 3 * theme.spacing.unit
   }
 });
 
@@ -216,7 +215,7 @@ const PrSheet = props => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <Typography variant="body1" className={classes.title}>
+          <Typography variant="h6" className={classes.title}>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
@@ -277,7 +276,7 @@ const PrSheet = props => {
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
@@ -307,29 +306,21 @@ const PrSheet = props => {
           </Grid>
         </Grid>
         <Divider />
-        <Grid container spacing={16} className={classes.paddingBottom}>
-          <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
-              {intl.formatMessage({
-                id: 'prsheet.measures'
-              })}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <PrTextField
-              label={intl.formatMessage({
-                id: 'pradvancementstrategies.measures'
-              })}
-              helperText={intl.formatMessage({
-                id: 'pradvancementstrategies.helpertext'
-              })}
-              text={pr.advancementStrategies}
-              isReadOnly={readOnly('RATINGS_REVIEWER')}
-              isError={false}
-              action={changeAdvancementStrategies}
-            />
-          </Grid>
-        </Grid>
+        <Fragment>
+          <Typography
+            variant="h6"
+            className={`${classes.title} ${classes.paddingBottom}`}
+          >
+            {intl.formatMessage({
+              id: 'prsheet.measures'
+            })}
+          </Typography>
+          <AdvancementStrategies
+            pr={pr}
+            readOnly={readOnly}
+            advancementStrategies={changeAdvancementStrategies}
+          />
+        </Fragment>
       </div>
     );
   };
@@ -381,7 +372,7 @@ const PrSheet = props => {
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
@@ -439,7 +430,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
@@ -471,7 +462,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
@@ -503,7 +494,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}
@@ -557,7 +548,6 @@ const PrSheet = props => {
             <Divider />
           </Hidden>
           {overallReviewer()}
-          <EmployeeOpportunity pr={pr} readOnly={readOnly} />
           {finalEmployee()}
           {requiredInfo()}
         </Grid>

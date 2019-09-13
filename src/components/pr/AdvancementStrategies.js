@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 
@@ -13,13 +13,16 @@ const styles = theme => ({
   paddingBottom: {
     paddingBottom: 3 * theme.spacing.unit
   },
+  marginBottom: {
+    marginBottom: 3 * theme.spacing.unit
+  },
   opportunityText: {
     margin: 'auto 0px'
   },
   opportunityGridItem: {
     margin: `${theme.spacing.unit} 0`,
     padding: `${theme.spacing.unit} 0`,
-    minHeight: 100
+    minHeight: 80
   },
   textField: {
     margin: 'auto 0',
@@ -30,12 +33,18 @@ const styles = theme => ({
   }
 });
 
-const EmployeeOpportunity = ({ classes, intl, pr, readOnly }) => {
-  const [opportunityWindow, setOpportunityWindow] = useState([]);
-  const [changeProject, setChangeProject] = useState([]);
-  const [changeRole, setChangeRole] = useState([]);
-  const [otherArrangements, setOtherArrangements] = useState([]);
-  const [trainings, setTrainings] = useState([]);
+const AdvancementStrategies = ({
+  classes,
+  intl,
+  pr,
+  readOnly,
+  advancementStrategies
+}) => {
+  // const [opportunityWindow, setOpportunityWindow] = useState([]);
+  // const [changeProject, setChangeProject] = useState([]);
+  // const [changeRole, setChangeRole] = useState([]);
+  // const [otherArrangements, setOtherArrangements] = useState([]);
+  // const [trainings, setTrainings] = useState('');
 
   return (
     <Fragment>
@@ -72,9 +81,7 @@ const EmployeeOpportunity = ({ classes, intl, pr, readOnly }) => {
           </Grid>
           <Grid
             container
-            className={`${classes.opportunityGridItem} ${
-              classes.paddingBottom
-            }`}
+            className={`${classes.opportunityGridItem} ${classes.marginBottom}`}
           >
             <Grid item xs={6} className={classes.opportunityText}>
               <Typography component="span">
@@ -103,6 +110,7 @@ const EmployeeOpportunity = ({ classes, intl, pr, readOnly }) => {
                 type="text"
                 isReadOnly={readOnly('RATINGS_REVIEWER')}
                 isError={false}
+                rows="2"
               />
             </Grid>
           </Grid>
@@ -113,9 +121,7 @@ const EmployeeOpportunity = ({ classes, intl, pr, readOnly }) => {
             // text={pr.advancementStrategies}
             isReadOnly={readOnly('RATINGS_REVIEWER')}
             isError={false}
-            helperText={intl.formatMessage({
-              id: 'prsheet.helperTextTrainings'
-            })}
+            rows="2"
           />
         </Grid>
         <Divider />
@@ -124,4 +130,4 @@ const EmployeeOpportunity = ({ classes, intl, pr, readOnly }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeeOpportunity));
+export default injectIntl(withStyles(styles)(AdvancementStrategies));
