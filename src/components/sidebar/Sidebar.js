@@ -1,17 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
+import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { withStyles } from '@material-ui/core/styles';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import SaveIcon from '@material-ui/icons/Save';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
 import Build from '@material-ui/icons/Build';
@@ -95,29 +94,11 @@ export const Sidebar = ({ intl, classes }) => {
       },
       {
         label: intl.formatMessage({
-          id: 'sidebar.completedprs'
-        }),
-        icon: <LibraryBooksIcon />,
-        value: '/completedPrs',
-        roles: [ROLES.PR_CST_LEITER],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
           id: 'sidebar.allprs'
         }),
         icon: <LibraryBooksIcon />,
-        value: '/hr/prs',
-        roles: [ROLES.PR_HR],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.archivedprs'
-        }),
-        icon: <SaveIcon />,
-        value: '/hr/archivedPrs',
-        roles: [ROLES.PR_HR],
+        value: '/allPrs',
+        roles: [ROLES.PR_HR, ROLES.PR_CST_LEITER],
         onClick: resetMessages
       },
       {

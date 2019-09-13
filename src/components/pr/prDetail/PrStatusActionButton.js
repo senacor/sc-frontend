@@ -7,7 +7,7 @@ const styles = theme => ({
     position: 'relative',
     backgroundColor: theme.palette.primary['400'],
     color: theme.palette.secondary.white,
-    margin: '1rem'
+    margin: 2 * theme.spacing.unit
   },
   sizeSmall: {}
 });

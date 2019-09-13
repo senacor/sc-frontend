@@ -115,7 +115,6 @@ export const getUserInfo = async (
       } else return;
     }
   } catch (err) {
-    console.log(err);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
