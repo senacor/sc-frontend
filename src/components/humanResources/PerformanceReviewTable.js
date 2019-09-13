@@ -9,6 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography/Typography';
+import Grid from '@material-ui/core/Grid/Grid';
 import { CircularProgress } from '@material-ui/core';
 
 import EnhancedTableHead from './EnhancedTableHead';
@@ -59,12 +60,7 @@ const styles = theme => ({
     overflowX: 'auto'
   },
   emptyListMessage: {
-    paddingLeft: '25px',
-    paddingBottom: '5px'
-  },
-  downloadExcelButton: {
-    paddingLeft: '25px',
-    paddingBottom: '5px'
+    paddingLeft: 2 * theme.spacing.unit
   }
 });
 
@@ -129,13 +125,13 @@ class PerformanceReviewTable extends React.Component {
   };
 
   render() {
-    let {
+    const {
       classes,
       columnDefinition,
       data,
       isHr,
       intl,
-      isLoading,
+      isLoading
     } = this.props;
     const {
       order,
@@ -146,7 +142,7 @@ class PerformanceReviewTable extends React.Component {
       page
     } = this.state;
 
-    data = this.filterCompletedPrs(data);
+    let filteredData = this.filterCompletedPrs(data);
 
     return (
       <Paper className={classes.root}>
@@ -166,7 +162,10 @@ class PerformanceReviewTable extends React.Component {
                   </TableCell>
                 </TableRow>
               ) : (
-                stableSort(data, getSorting(order, sortFunction, sortMapper))
+                stableSort(
+                  filteredData,
+                  getSorting(order, sortFunction, sortMapper)
+                )
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((line, lineIndex) => {
                     return (
@@ -189,51 +188,56 @@ class PerformanceReviewTable extends React.Component {
             </TableBody>
           </Table>
         </div>
-        <TablePagination
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': `${intl.formatMessage({
-              id: 'performancereviewtable.previouspage'
-            })}`
-          }}
-          nextIconButtonProps={{
-            'aria-label': `${intl.formatMessage({
-              id: 'performancereviewtable.nextpage'
-            })}`
-          }}
-          labelRowsPerPage={intl.formatMessage({
-            id: 'performancereviewtable.rowsperpage'
-          })}
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} ${intl.formatMessage({
-              id: 'performancereviewtable.from'
-            })} ${count}`
-          }
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-        {data.length === 0 ? (
-          <div className={classes.emptyListMessage}>
-            <Typography variant={'body2'}>
-              {` ${intl.formatMessage({
-                id: 'performancereviewtable.noentry'
-              })}`}
-            </Typography>
-          </div>
-        ) : null}
-        {isHr && data.length !== 0 ? (
-          <div className={classes.downloadExcelButton}>
-            <PrStatusActionButton
-              label={intl.formatMessage({
-                id: 'performancereviewtable.excel'
+        <Grid container alignItems={'center'}>
+          <Grid item xs={3}>
+            {filteredData.length === 0 ? (
+              <div className={classes.emptyListMessage}>
+                <Typography variant={'body2'}>
+                  {` ${intl.formatMessage({
+                    id: 'performancereviewtable.noentry'
+                  })}`}
+                </Typography>
+              </div>
+            ) : null}
+            {isHr && filteredData.length !== 0 ? (
+              <PrStatusActionButton
+                label={intl.formatMessage({
+                  id: 'performancereviewtable.excel'
+                })}
+                releaseButtonClick={downloadExcel(this.props.filter)}
+              />
+            ) : null}
+          </Grid>
+          <Grid item xs={5} />
+          <Grid item xs={4}>
+            <TablePagination
+              component="div"
+              count={filteredData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              backIconButtonProps={{
+                'aria-label': `${intl.formatMessage({
+                  id: 'performancereviewtable.previouspage'
+                })}`
+              }}
+              nextIconButtonProps={{
+                'aria-label': `${intl.formatMessage({
+                  id: 'performancereviewtable.nextpage'
+                })}`
+              }}
+              labelRowsPerPage={intl.formatMessage({
+                id: 'performancereviewtable.rowsperpage'
               })}
-              releaseButtonClick={downloadExcel(this.props.filter)}
+              labelDisplayedRows={({ from, to, count }) =>
+                `${from}-${to} ${intl.formatMessage({
+                  id: 'performancereviewtable.from'
+                })} ${count}`
+              }
+              onChangePage={this.handleChangePage}
+              onChangeRowsPerPage={this.handleChangeRowsPerPage}
             />
-          </div>
-        ) : null}
+          </Grid>
+        </Grid>
       </Paper>
     );
   }

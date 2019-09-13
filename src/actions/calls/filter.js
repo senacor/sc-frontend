@@ -14,7 +14,6 @@ export const getFilterPossibilities = async (
     setLoading(false);
     setFilterPossibilities(possibilities);
   } catch (err) {
-    console.log(err);
     setLoading(false);
     errorContext.setValue({
       hasErrors: true,

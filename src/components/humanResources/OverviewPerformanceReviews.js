@@ -11,10 +11,15 @@ import { isHr } from '../../helper/checkRole';
 import { UserinfoContext, ErrorContext } from '../App';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
+import UploadFiles from '../fileStorage/UploadFiles';
+import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
 
 const styles = theme => ({
   spacing: {
     margin: 3 * theme.spacing.unit
+  },
+  right: {
+    float: 'right'
   }
 });
 
@@ -24,9 +29,14 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [columnsToView, setColumnsToView] = useState(null);
   const [data, setData] = useState([]);
+  const [archivedFiles, setArchivedFiles] = useState([]);
 
   const { userroles } = useContext(UserinfoContext.context).value;
   let errorContext = useContext(ErrorContext.context);
+
+  const loadAllArchivedFiles = () => {
+    loadAllArchivedFilesList(setArchivedFiles, setIsLoading, errorContext);
+  };
 
   const fillDefaultLocalStorageColumns = () => {
     if (localStorage.getItem('columnsCheckedAll')) {
@@ -126,32 +136,38 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
   if (columns.length === 0) {
     columns = getColumnDefinitions();
   }
-  let isHrMember = isHr(userroles);
 
   return (
     <Paper className={classes.spacing}>
-      <Grid
-        container
-        direction={'row'}
-        justify={'flex-end'}
-        alignItems={'center'}
-      >
-        <Grid item>
-          <TableColumnSelectorMenu
-            onChange={handleChange}
-            content={getSelectorContent()}
-            tab={'ALL_PRS'}
-          />
+      <Grid container direction={'row'}>
+        <Grid item xs={2}>
+          {isHr(userroles) ? (
+            <UploadFiles updateFileList={loadAllArchivedFiles} />
+          ) : null}
+        </Grid>
+        <Grid item xs={8} />
+        <Grid item xs={2}>
+          <div className={classes.right}>
+            <TableColumnSelectorMenu
+              onChange={handleChange}
+              content={getSelectorContent()}
+              tab={'ALL_PRS'}
+            />
+          </div>
         </Grid>
       </Grid>
-      <PerformanceReviewTable
-        isLoading={isLoading}
-        columnDefinition={columns}
-        orderBy={0}
-        data={data}
-        filter={filter}
-        isHr={isHrMember}
-      />
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <PerformanceReviewTable
+          isLoading={isLoading}
+          columnDefinition={columns}
+          orderBy={0}
+          data={data}
+          filter={filter}
+          isHr={isHr(userroles)}
+        />
+      )}
     </Paper>
   );
 };

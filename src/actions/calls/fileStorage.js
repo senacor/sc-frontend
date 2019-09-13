@@ -14,7 +14,6 @@ export const loadAllArchivedFilesList = async (
     setIsLoading(false);
     setArchivedFiles(result);
   } catch (err) {
-    console.log(err);
     setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
@@ -51,7 +50,6 @@ export const uploadFiles = async (
     setUploadedFiles(result);
     setIsLoading(false);
   } catch (err) {
-    console.log(err);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
@@ -76,7 +74,6 @@ export const downloadFile = async (
     const result = await response.json();
     setDownloadedFile(result);
   } catch (err) {
-    console.log(err);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
@@ -99,7 +96,6 @@ export const loadArchivedFilesList = async (
     setIsLoading(false);
     setArchivedFiles(result);
   } catch (err) {
-    console.log(err);
     setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
