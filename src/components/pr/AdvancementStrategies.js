@@ -9,6 +9,11 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PrTextField from './PrTextField';
+import {
+  formatLocaleDateTime,
+  validateDate,
+  convertLocalDateTime
+} from '../../helper/date';
 
 const styles = theme => ({
   paddingBottom: {
@@ -35,19 +40,6 @@ const styles = theme => ({
 });
 
 const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
-  const [opportunityWindowDate, setOpportunityWindowDate] = useState(
-    pr.advancementStrategies.opportunityWindow
-  );
-  const [changeProject, setChangeProject] = useState(
-    pr.advancementStrategies.changeProject
-  );
-  const [changeRole, setChangeRole] = useState(
-    pr.advancementStrategies.changeRole
-  );
-  const [arrangementDate, setArrangementDate] = useState(
-    pr.advancementStrategies.arrangement.date
-  );
-
   const changeArrangementComment = value => {
     pr.advancementStrategies.arrangement.comment = value;
   };
@@ -57,27 +49,20 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
   };
 
   const changeOppWindowDate = value => {
-    pr.advancementStrategies.opportunityWindow = value;
+    pr.advancementStrategies.opportunityWindow = convertLocalDateTime(value);
   };
 
   const changeProjectDate = value => {
-    pr.advancementStrategies.changeProject = value;
+    pr.advancementStrategies.changeProject = convertLocalDateTime(value);
   };
 
   const changeRoleDate = value => {
-    pr.advancementStrategies.changeRole = value;
+    validateDate(value);
+    pr.advancementStrategies.changeRole = convertLocalDateTime(value);
   };
 
   const changeArrangementDate = value => {
-    pr.advancementStrategies.arrangement.date = value;
-  };
-
-  const convertLocalDateTime = date => {
-    const convertedDate = moment
-      .tz(`${date} 00:00`, 'Europe/Berlin')
-      .utc()
-      .format('YYYY-MM-DDTHH:mmZ');
-    return convertedDate;
+    pr.advancementStrategies.arrangement.date = convertLocalDateTime(value);
   };
 
   return (
@@ -102,8 +87,12 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
                 name="oppWindowDate"
-                value={pr.advancementStrategies.opportunityWindow || ''}
                 onChange={changeOppWindowDate}
+                defaultValue={
+                  formatLocaleDateTime(
+                    pr.advancementStrategies.opportunityWindow
+                  ) || ''
+                }
               />
             </Grid>
           </Grid>
@@ -119,7 +108,11 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
               <TextField
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
-                value={pr.advancementStrategies.changeProject || ''}
+                defaultValue={
+                  formatLocaleDateTime(
+                    pr.advancementStrategies.changeProject
+                  ) || ''
+                }
                 onChange={changeProjectDate}
               />
             </Grid>
@@ -139,7 +132,10 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
               <TextField
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
-                value={pr.advancementStrategies.changeRole || ''}
+                defaultValue={
+                  formatLocaleDateTime(pr.advancementStrategies.changeRole) ||
+                  ''
+                }
                 onChange={changeRoleDate}
               />
             </Grid>
@@ -156,7 +152,11 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
               <TextField
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
-                value={pr.advancementStrategies.arrangement.date || ''}
+                value={
+                  formatLocaleDateTime(
+                    pr.advancementStrategies.arrangement.date
+                  ) || ''
+                }
                 onChange={changeArrangementDate}
               />
             </Grid>
@@ -166,7 +166,7 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
                 isReadOnly={readOnly('RATINGS_REVIEWER')}
                 isError={false}
                 rows="2"
-                text={changeProject}
+                text={pr.advancementStrategies.arrangement.comment}
                 action={changeArrangementComment}
               />
             </Grid>

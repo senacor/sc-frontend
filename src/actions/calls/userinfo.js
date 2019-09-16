@@ -80,7 +80,7 @@ export const getUserInfo = async (
           'test.pr.vorgesetzter': ['PR_CST_Leiter'],
           'test.pr.beurteiler': ['PR_Mitarbeiter', 'PR_CST_Leiter'],
           'test.pr.hr': ['PR_HR'],
-          mpillar: ['PR_Mitarbeiter']
+          mpillar: ['PR_CST_Leiter']
         };
         if (Object.keys(roleMatrix).find(el => el === usernameValue)) {
           userinfo.userroles = roleMatrix[usernameValue];
