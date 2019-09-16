@@ -70,7 +70,6 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
   const createMeeting = prById => {
     let startDateTime = moment.tz(`${date} ${startTime}`, 'Europe/Berlin');
     let endDateTime = moment.tz(`${date} ${endTime}`, 'Europe/Berlin');
-
     let meeting_details = {
       prById: prById,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),

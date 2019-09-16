@@ -48,10 +48,6 @@ const PrSheet = props => {
     pr.secondReflectionField = value;
   };
 
-  const changeAdvancementStrategies = value => {
-    pr.advancementStrategies = value;
-  };
-
   const changeFinalCommentEmployee = value => {
     pr.finalCommentEmployee = value;
   };
@@ -315,11 +311,7 @@ const PrSheet = props => {
               id: 'prsheet.measures'
             })}
           </Typography>
-          <AdvancementStrategies
-            pr={pr}
-            readOnly={readOnly}
-            advancementStrategies={changeAdvancementStrategies}
-          />
+          <AdvancementStrategies pr={pr} readOnly={readOnly} />
         </Fragment>
       </div>
     );

@@ -101,7 +101,6 @@ const ButtonsBelowSheet = props => {
         pr.prRating,
         pr.targetRole,
         pr.advancementStrategies,
-        pr.progress,
         errorContext,
         infoContext
       );
@@ -161,7 +160,6 @@ const ButtonsBelowSheet = props => {
           pr.prRating,
           pr.targetRole,
           pr.advancementStrategies,
-          pr.progress,
           errorContext,
           infoContext
         ).then(() => {
@@ -185,7 +183,6 @@ const ButtonsBelowSheet = props => {
           pr.prRating,
           pr.targetRole,
           pr.advancementStrategies,
-          pr.progress,
           errorContext,
           infoContext
         ).then(() => {

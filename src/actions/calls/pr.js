@@ -63,7 +63,6 @@ export const addRatings = async (
   rating,
   targetRole,
   advancementStrategies,
-  progress,
   errorContext,
   infoContext
 ) => {

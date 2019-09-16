@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import moment from 'moment-timezone';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 
@@ -33,18 +34,51 @@ const styles = theme => ({
   }
 });
 
-const AdvancementStrategies = ({
-  classes,
-  intl,
-  pr,
-  readOnly,
-  advancementStrategies
-}) => {
-  // const [opportunityWindow, setOpportunityWindow] = useState([]);
-  // const [changeProject, setChangeProject] = useState([]);
-  // const [changeRole, setChangeRole] = useState([]);
-  // const [otherArrangements, setOtherArrangements] = useState([]);
-  // const [trainings, setTrainings] = useState('');
+const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
+  const [opportunityWindowDate, setOpportunityWindowDate] = useState(
+    pr.advancementStrategies.opportunityWindow
+  );
+  const [changeProject, setChangeProject] = useState(
+    pr.advancementStrategies.changeProject
+  );
+  const [changeRole, setChangeRole] = useState(
+    pr.advancementStrategies.changeRole
+  );
+  const [arrangementDate, setArrangementDate] = useState(
+    pr.advancementStrategies.arrangement.date
+  );
+
+  const changeArrangementComment = value => {
+    pr.advancementStrategies.arrangement.comment = value;
+  };
+
+  const changeTrainings = value => {
+    pr.advancementStrategies.trainings = value;
+  };
+
+  const changeOppWindowDate = value => {
+    pr.advancementStrategies.opportunityWindow = value;
+  };
+
+  const changeProjectDate = value => {
+    pr.advancementStrategies.changeProject = value;
+  };
+
+  const changeRoleDate = value => {
+    pr.advancementStrategies.changeRole = value;
+  };
+
+  const changeArrangementDate = value => {
+    pr.advancementStrategies.arrangement.date = value;
+  };
+
+  const convertLocalDateTime = date => {
+    const convertedDate = moment
+      .tz(`${date} 00:00`, 'Europe/Berlin')
+      .utc()
+      .format('YYYY-MM-DDTHH:mmZ');
+    return convertedDate;
+  };
 
   return (
     <Fragment>
@@ -64,7 +98,13 @@ const AdvancementStrategies = ({
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.textField}>
-              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+              <TextField
+                type="date"
+                disabled={readOnly('RATINGS_REVIEWER')}
+                name="oppWindowDate"
+                value={pr.advancementStrategies.opportunityWindow || ''}
+                onChange={changeOppWindowDate}
+              />
             </Grid>
           </Grid>
           <Grid container className={classes.opportunityGridItem}>
@@ -76,7 +116,12 @@ const AdvancementStrategies = ({
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.textField}>
-              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+              <TextField
+                type="date"
+                disabled={readOnly('RATINGS_REVIEWER')}
+                value={pr.advancementStrategies.changeProject || ''}
+                onChange={changeProjectDate}
+              />
             </Grid>
           </Grid>
           <Grid
@@ -91,7 +136,12 @@ const AdvancementStrategies = ({
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.textField}>
-              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+              <TextField
+                type="date"
+                disabled={readOnly('RATINGS_REVIEWER')}
+                value={pr.advancementStrategies.changeRole || ''}
+                onChange={changeRoleDate}
+              />
             </Grid>
           </Grid>
           <Grid container className={classes.opportunityGridItem}>
@@ -103,7 +153,12 @@ const AdvancementStrategies = ({
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.textField}>
-              <TextField type="date" disabled={readOnly('RATINGS_REVIEWER')} />
+              <TextField
+                type="date"
+                disabled={readOnly('RATINGS_REVIEWER')}
+                value={pr.advancementStrategies.arrangement.date || ''}
+                onChange={changeArrangementDate}
+              />
             </Grid>
             <Grid item xs={12} className={classes.paddingBottom}>
               <PrTextField
@@ -111,6 +166,8 @@ const AdvancementStrategies = ({
                 isReadOnly={readOnly('RATINGS_REVIEWER')}
                 isError={false}
                 rows="2"
+                text={changeProject}
+                action={changeArrangementComment}
               />
             </Grid>
           </Grid>
@@ -118,10 +175,11 @@ const AdvancementStrategies = ({
             label={intl.formatMessage({
               id: 'prsheet.trainings'
             })}
-            // text={pr.advancementStrategies}
             isReadOnly={readOnly('RATINGS_REVIEWER')}
             isError={false}
             rows="2"
+            text={pr.advancementStrategies.trainings}
+            action={changeTrainings}
           />
         </Grid>
         <Divider />
