@@ -12,13 +12,10 @@ export const getUserInfo = async (
 ) => {
   try {
     let userinfo = cloneDeep(userinfoContext.value);
-    let userinfoResponse = null;
-    let rolesResponse = null;
-    let reviewerInfoResponse = null;
 
-    //Fetching groups
+    //Fetching userinfo
     let response = await authorizedFetch(
-      `${process.env.REACT_APP_API}/oauth2/userinfo/groups`,
+      `${process.env.REACT_APP_API}/oauth2/userinfo`,
       {
         mode: 'cors'
       }
@@ -27,22 +24,8 @@ export const getUserInfo = async (
     if (!response.ok) {
       authContext.setValue(true);
     }
-    rolesResponse = await response.json();
-    if (rolesResponse !== null) {
-      userinfo.userroles = convertGroupsToArray(rolesResponse);
-    }
-    userinfoContext.setValue(userinfo);
-    userinfo = cloneDeep(userinfo);
 
-    //Fetching userinfo
-    response = await authorizedFetch(
-      `${process.env.REACT_APP_API}/oauth2/userinfo`,
-      {
-        mode: 'cors'
-      }
-    );
-
-    userinfoResponse = await response.json();
+    const userinfoResponse = await response.json();
 
     if (userinfoResponse !== null) {
       userinfo.userinfo = userinfoResponse;
@@ -60,8 +43,11 @@ export const getUserInfo = async (
 
     //Fetching reviewer info
     response = await fetch(`${process.env.REACT_APP_API}/api/v3/user`);
+    if (!response.ok) {
+      authContext.setValue(true);
+    }
     const result = await response.json();
-    reviewerInfoResponse = result ? result : [];
+    const reviewerInfoResponse = result ? result : [];
 
     if (reviewerInfoResponse !== null) {
       for (let key in reviewerInfoResponse) {
@@ -71,22 +57,25 @@ export const getUserInfo = async (
         // prsNotFilledByReviewer, prsNotFilledByEmployee, idOfNewestOpenPr,
         // deadlineOfNewestOpenPr, hasSupervisor, hasPrInProgress,
       }
-      //ROLEHACK
-      if (userinfo && userinfo.userinfo && userinfo.userinfo.username) {
-        const usernameValue = userinfo.userinfo.username;
-        const roleMatrix = {
-          'test.pr.mitarbeiter1': ['PR_Mitarbeiter'],
-          'test.pr.mitarbeiter2': ['PR_Mitarbeiter'],
-          'test.pr.vorgesetzter': ['PR_CST_Leiter'],
-          'test.pr.beurteiler': ['PR_Mitarbeiter', 'PR_CST_Leiter'],
-          'test.pr.hr': ['PR_HR'],
-          'mpiroh': [ROLES.DEVELOPER]
-        };
-        if (Object.keys(roleMatrix).find(el => el === usernameValue)) {
-          userinfo.userroles = roleMatrix[usernameValue];
-        }
-      }
+      userinfo.userroles = reviewerInfoResponse.roles;
       userinfoContext.setValue(userinfo);
+
+      //ROLEHACK
+      // if (userinfo && userinfo.userinfo && userinfo.userinfo.username) {
+      //   console.log('userroles', userinfo.userroles);
+      //   const usernameValue = userinfo.userinfo.username;
+      //   const roleMatrix = {
+      //     'test.pr.mitarbeiter1': ['PR_Mitarbeiter'],
+      //     'test.pr.mitarbeiter2': ['PR_Mitarbeiter'],
+      //     'test.pr.vorgesetzter': ['PR_CST_Leiter'],
+      //     'test.pr.beurteiler': ['PR_Mitarbeiter', 'PR_CST_Leiter'],
+      //     'test.pr.hr': ['PR_HR'],
+      //     'mpiroh': [ROLES.DEVELOPER]
+      //   };
+      //   if (Object.keys(roleMatrix).find(el => el === usernameValue)) {
+      //     userinfo.userroles = roleMatrix[usernameValue];
+      //   }
+      // }
     }
 
     //Fetching photo
@@ -129,12 +118,4 @@ function arrayBufferToBase64(buffer) {
   bytes.forEach(b => (binary += String.fromCharCode(b)));
 
   return window.btoa(binary);
-}
-
-function convertGroupsToArray(adGroups) {
-  if (adGroups && adGroups.value) {
-    return adGroups.value.map(group => group.displayName);
-  }
-
-  return [ROLES.PR_MITARBEITER];
 }
