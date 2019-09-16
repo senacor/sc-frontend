@@ -14,7 +14,7 @@ export const fetchPrById = async (
 
   if (response.ok) {
     const myPrs = await response.json();
-    const prById = myPrs.filter(pr => pr.id === prsId)[0];
+    let prById = myPrs.filter(pr => pr.prId === Number(prsId))[0];
     if (prById.competence === undefined) {
       prById.competence = 'CONSULTING';
     }
@@ -284,6 +284,7 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
 
   if (changeResponse.ok) {
     const pr = await changeResponse.json();
+    console.log('prrrrrr', pr)
     setPr(pr);
     setLoading(false);
   } else {

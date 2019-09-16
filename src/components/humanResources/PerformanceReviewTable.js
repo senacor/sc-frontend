@@ -11,7 +11,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import { CircularProgress } from '@material-ui/core';
-
 import EnhancedTableHead from './EnhancedTableHead';
 import { downloadExcel } from '../../actions/calls/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
@@ -129,7 +128,7 @@ class PerformanceReviewTable extends React.Component {
       classes,
       columnDefinition,
       data,
-      isHr,
+      isPersonalDev,
       intl,
       isLoading
     } = this.props;
@@ -199,7 +198,7 @@ class PerformanceReviewTable extends React.Component {
                 </Typography>
               </div>
             ) : null}
-            {isHr && filteredData.length !== 0 ? (
+            {isPersonalDev && filteredData.length !== 0 ? (
               <PrStatusActionButton
                 label={intl.formatMessage({
                   id: 'performancereviewtable.excel'

@@ -1,5 +1,5 @@
 import { prStatusEnum } from '../helper/prStatus';
-import { isHr } from '../helper/checkRole';
+import { isPersonalDev } from '../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../helper/hasRoleInPr';
 
 class MeetingDetailVisibilityService {
@@ -62,7 +62,7 @@ class MeetingDetailVisibilityService {
     let reviewerHasFinished = pr.statusSet.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
-    let isHrMember = isHr(userroles);
+    let isHrMember = isPersonalDev(userroles);
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let canMakeAction = hasRoleInPr(['supervisor', 'reviewer', 'employee']);
     let meetingStateOfSelf =

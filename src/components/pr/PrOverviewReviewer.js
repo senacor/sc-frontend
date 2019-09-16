@@ -9,7 +9,6 @@ import { UserinfoContext, ErrorContext } from '../App';
 import { fetchFilteredPrsToReview } from '../../actions/calls/pr';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
-import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 
 const styles = theme => ({

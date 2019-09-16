@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
 
 import ROUTES from '../../../helper/routes';
-import { isHr } from '../../../helper/checkRole';
+import { isPersonalDev } from '../../../helper/checkRole';
 import PrStatusActionButton from './PrStatusActionButton';
 import { ErrorContext, InfoContext, UserinfoContext } from '../../App';
 
@@ -20,7 +20,7 @@ const BackToTableButton = ({ pr, classes, intl }) => {
       pr.reviewer.login === username
     ) {
       return ROUTES.PR_TO_REVIEW_TABLE;
-    } else if (isHr(userroles)) {
+    } else if (isPersonalDev(userroles)) {
       return ROUTES.ALL_PRS_TABLE;
     } else {
       return ROUTES.LOGOUT;

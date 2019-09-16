@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PerformanceReviewTable from './PerformanceReviewTable';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
-import { isHr } from '../../helper/checkRole';
+import { isPersonalDev } from '../../helper/checkRole';
 import { UserinfoContext, ErrorContext } from '../App';
 import { getFilterPossibilities } from '../../actions/calls/filter';
 import { fetchFilteredAllPrs } from '../../actions/calls/pr';
@@ -136,7 +136,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
     <Paper className={classes.spacing}>
       <Grid container direction={'row'}>
         <Grid item xs={2}>
-          {isHr(userroles) ? (
+          {isPersonalDev(userroles) ? (
             <UploadFiles updateFileList={loadAllArchivedFiles} />
           ) : null}
         </Grid>
@@ -160,7 +160,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
           orderBy={0}
           data={data}
           filter={filter}
-          isHr={isHr(userroles)}
+          isPersonalDev={isPersonalDev(userroles)}
         />
       )}
     </Paper>
