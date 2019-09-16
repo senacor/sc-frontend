@@ -10,11 +10,12 @@ export const fetchPrById = async (
   setIsLoading(true);
   errorContext.setValue({ hasErrors: false, messageId: '' });
 
-  let response = await fetch(`${process.env.REACT_APP_API}/api/v3/pr/own`);
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
+  );
 
   if (response.ok) {
-    const myPrs = await response.json();
-    let prById = myPrs.filter(pr => pr.prId === Number(prsId))[0];
+    const prById = await response.json();
     if (prById.competence === undefined) {
       prById.competence = 'CONSULTING';
     }
@@ -284,7 +285,7 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
 
   if (changeResponse.ok) {
     const pr = await changeResponse.json();
-    console.log('prrrrrr', pr)
+    console.log('prrrrrr', pr);
     setPr(pr);
     setLoading(false);
   } else {
