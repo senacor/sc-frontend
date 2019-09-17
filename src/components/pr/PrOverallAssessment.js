@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid/Grid';
 import TargetRole from './TargetRole';
 import PrOverallFulfillment from './PrOverallFulfillment';
 import PrTextField from './PrTextField';
+import ROLES from '../../helper/roles';
 
 const styles = theme => ({
   paddingBottom: {
@@ -16,6 +17,7 @@ const styles = theme => ({
 const PrOverallAssessment = props => {
   const {
     pr,
+    userinfo,
     userroles,
     classes,
     text,
@@ -33,7 +35,7 @@ const PrOverallAssessment = props => {
   const isRequiredForOverallAssessment = () => {
     return (
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      userroles.includes('PR_CST_Leiter')
+      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
     );
   };
 

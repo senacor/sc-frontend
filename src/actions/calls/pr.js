@@ -9,9 +9,11 @@ export const fetchPrById = async (
 ) => {
   setIsLoading(true);
   errorContext.setValue({ hasErrors: false, messageId: '' });
+
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
   );
+
   if (response.ok) {
     const prById = await response.json();
     if (prById.competence === undefined) {
@@ -149,9 +151,8 @@ export const addFinalCommentHr = async (
   }
 };
 
-export const fetchFilteredPrs = async (
+export const fetchFilteredOwnPrs = async (
   filter,
-  role,
   setData,
   setIsLoading,
   errorContext
@@ -166,11 +167,50 @@ export const fetchFilteredPrs = async (
           return filter[key].searchString;
         })
         .join('&');
-      query = filterString ? '&' + filterString : '';
+      query = filterString ? '?' + filterString : '';
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/all?role=${role}${query}`
+      `${process.env.REACT_APP_API}/api/v3/pr/own${query}`
+    );
+
+    const responseList = await response.json();
+    const prTableEntries = responseList ? responseList : [];
+    const resultDataArray = Object.values(
+      generateMapById(prTableEntries, 'prId')
+    );
+    setIsLoading(false);
+    setData(resultDataArray);
+  } catch (err) {
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
+export const fetchFilteredPrsToReview = async (
+  filter,
+  setData,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    let query = '';
+    if (filter) {
+      let filterString = Object.keys(filter)
+        .map(function(key) {
+          return filter[key].searchString;
+        })
+        .join('&');
+      query = filterString ? '?' + filterString : '';
+    }
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/prsToReview${query}`
     );
 
     const responseList = await response.json();
@@ -185,18 +225,18 @@ export const fetchFilteredPrs = async (
     const resultDataArray = Object.values(
       generateMapById(prTableEntries, 'prId')
     );
-    setData(resultDataArray);
     setIsLoading(false);
+    setData(resultDataArray);
   } catch (err) {
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };
 
-export const fetchFilteredPrsForHumanResource = async (
+export const fetchFilteredAllPrs = async (
   filter,
   setData,
   setIsLoading,
@@ -212,10 +252,11 @@ export const fetchFilteredPrsForHumanResource = async (
           return filter[key].searchString;
         })
         .join('&');
-      query = filterString ? filterString : '';
+      query = filterString ? '?' + filterString : '';
     }
+
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/all?role=HR&${query}`
+      `${process.env.REACT_APP_API}/api/v3/pr/all${query}`
     );
 
     const responseList = await response.json();
@@ -223,14 +264,14 @@ export const fetchFilteredPrsForHumanResource = async (
     const resultDataArray = Object.values(
       generateMapById(prTableEntries, 'prId')
     );
-    setData(resultDataArray);
     setIsLoading(false);
+    setData(resultDataArray);
   } catch (err) {
+    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };
 

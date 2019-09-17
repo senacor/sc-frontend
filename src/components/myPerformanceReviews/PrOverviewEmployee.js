@@ -7,10 +7,9 @@ import Grid from '@material-ui/core/Grid';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
 import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import RequestPerformanceReview from './RequestPerformanceReview';
-import FILTER_GROUPS from '../humanResources/filterGroups';
 import PerformanceReviewTableService from '../humanResources/PerformanceReviewTableService';
 import { getFilterPossibilities } from '../../actions/calls/filter';
-import { fetchFilteredPrs } from '../../actions/calls/pr';
+import { fetchFilteredOwnPrs } from '../../actions/calls/pr';
 import { ErrorContext } from '../App';
 
 const styles = theme => ({
@@ -53,13 +52,7 @@ export const PrOverviewEmployee = props => {
 
   useEffect(
     () => {
-      fetchFilteredPrs(
-        filter,
-        FILTER_GROUPS.EMPLOYEE,
-        setData,
-        setIsLoading,
-        errorContext
-      );
+      fetchFilteredOwnPrs(filter, setData, setIsLoading, errorContext);
     },
     [filter]
   );

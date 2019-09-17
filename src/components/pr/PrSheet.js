@@ -1,14 +1,14 @@
 import React, { useContext, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
-
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import AdvancementStrategies from './AdvancementStrategies';
-import { isHr } from '../../helper/checkRole';
+import { isPersonalDev } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+import ROLES from '../../helper/roles';
 
 // Material UI
 import Hidden from '@material-ui/core/Hidden';
@@ -175,8 +175,10 @@ const PrSheet = props => {
         );
       case 'RATINGS_REVIEWER':
         return (
-          !userroles.includes('PR_CST_Leiter') ||
-          pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')
+          (userroles.includes(ROLES.SUPERVISOR) &&
+            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
+          (!userroles.includes(ROLES.SUPERVISOR) &&
+            userinfo.numberOfPrsToReview === 0)
         );
       case 'FINAL_COMMENT_EMPLOYEE':
         return (
@@ -279,6 +281,7 @@ const PrSheet = props => {
           <Grid item xs={12}>
             <PrOverallAssessment
               pr={pr}
+              userinfo={userinfo}
               userroles={userroles}
               text={
                 pr.prRating.overallAssessment.fulfillmentOfRequirement.comment
@@ -547,22 +550,14 @@ const PrSheet = props => {
         <Hidden smDown>
           <Grid item md={6}>
             {detailReviewer()}
-            {isHr(userroles) ? (
-              <Fragment>
-                <Divider />
-                {finalHr()}
-              </Fragment>
-            ) : null}
+            {isPersonalDev(userroles) ? <Divider /> : null}
+            {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
         <Hidden mdUp>
           <Grid item xs={12}>
-            {isHr(userroles) ? (
-              <Fragment>
-                <Divider />
-                {finalHr()}
-              </Fragment>
-            ) : null}
+            {isPersonalDev(userroles) ? <Divider /> : null}
+            {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
         <Grid item xs={12}>

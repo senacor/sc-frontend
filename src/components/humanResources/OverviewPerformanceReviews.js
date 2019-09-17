@@ -7,10 +7,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PerformanceReviewTable from './PerformanceReviewTable';
 import PerformanceReviewTableService from './PerformanceReviewTableService';
 import TableColumnSelectorMenu from '../humanResources/TableColumnSelectorMenu';
-import { isHr } from '../../helper/checkRole';
+import { isPersonalDev } from '../../helper/checkRole';
 import { UserinfoContext, ErrorContext } from '../App';
 import { getFilterPossibilities } from '../../actions/calls/filter';
-import { fetchFilteredPrsForHumanResource } from '../../actions/calls/pr';
+import { fetchFilteredAllPrs } from '../../actions/calls/pr';
 import UploadFiles from '../fileStorage/UploadFiles';
 import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
 
@@ -61,12 +61,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      fetchFilteredPrsForHumanResource(
-        filter,
-        setData,
-        setIsLoading,
-        errorContext
-      );
+      fetchFilteredAllPrs(filter, setData, setIsLoading, errorContext);
     },
     [filter]
   );
@@ -141,7 +136,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
     <Paper className={classes.spacing}>
       <Grid container direction={'row'}>
         <Grid item xs={2}>
-          {isHr(userroles) ? (
+          {isPersonalDev(userroles) ? (
             <UploadFiles updateFileList={loadAllArchivedFiles} />
           ) : null}
         </Grid>
@@ -165,7 +160,7 @@ export const OverviewPerformanceReviews = ({ classes, intl }) => {
           orderBy={0}
           data={data}
           filter={filter}
-          isHr={isHr(userroles)}
+          isPersonalDev={isPersonalDev(userroles)}
         />
       )}
     </Paper>

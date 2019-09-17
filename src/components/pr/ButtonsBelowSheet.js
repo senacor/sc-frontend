@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
-
 import {
   addFinalCommentEmployee,
   addFinalCommentHr,
@@ -10,6 +9,7 @@ import {
   addPrStatus
 } from '../../actions/calls/pr';
 import { PrContext, UserinfoContext } from '../App';
+import ROLES from '../../helper/roles';
 
 const styles = theme => ({
   rightFloat: {
@@ -94,7 +94,7 @@ const ButtonsBelowSheet = props => {
       );
     } else if (
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      userroles.includes('PR_CST_Leiter')
+      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
     ) {
       addRatings(
         pr.id,
@@ -119,7 +119,7 @@ const ButtonsBelowSheet = props => {
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       !pr.statusSet.includes('PR_COMPLETED') &&
-      userroles.includes('PR_HR')
+      userroles.includes(ROLES.PERSONAL_DEV)
     ) {
       addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext, infoContext);
     }
@@ -152,7 +152,7 @@ const ButtonsBelowSheet = props => {
     } else if (
       !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      userroles.includes('PR_CST_Leiter')
+      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
     ) {
       if (!validateOverallAssessment()) {
         addRatings(
@@ -175,7 +175,7 @@ const ButtonsBelowSheet = props => {
     } else if (
       pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      userroles.includes('PR_CST_Leiter')
+      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
     ) {
       if (!validateOverallAssessment()) {
         addRatings(
@@ -218,7 +218,7 @@ const ButtonsBelowSheet = props => {
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       !pr.statusSet.includes('PR_COMPLETED') &&
-      userroles.includes('PR_HR')
+      userroles.includes(ROLES.PERSONAL_DEV)
     ) {
       addFinalCommentHr(
         pr.id,
@@ -233,15 +233,21 @@ const ButtonsBelowSheet = props => {
   };
 
   const disabled = () => {
-    if (userroles.includes('PR_Mitarbeiter')) {
+    if (
+      userroles.includes(ROLES.DEVELOPER) ||
+      userroles.includes(ROLES.CONSULTING)
+    ) {
       return (
         (pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
           !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
         pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
       );
-    } else if (userroles.includes('PR_CST_Leiter')) {
+    } else if (
+      userroles.includes(ROLES.SUPERVISOR) ||
+      userinfo.numberOfPrsToReview > 0
+    ) {
       return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
-    } else if (userroles.includes('PR_HR')) {
+    } else if (userroles.includes(ROLES.PERSONAL_DEV)) {
       return (
         !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
         pr.statusSet.includes('PR_COMPLETED')
@@ -251,11 +257,13 @@ const ButtonsBelowSheet = props => {
 
   const submitButtonText = () => {
     if (
-      (userroles.includes('PR_Mitarbeiter') &&
+      ((userroles.includes(ROLES.DEVELOPER) ||
+        userroles.includes(ROLES.CONSULTING)) &&
         pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) ||
-      (userroles.includes('PR_CST_Leiter') &&
+      ((userroles.includes(ROLES.SUPERVISOR) ||
+        userinfo.numberOfPrsToReview > 0) &&
         pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')) ||
-      (userroles.includes('PR_HR') &&
+      (userroles.includes(ROLES.PERSONAL_DEV) &&
         pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE'))
     ) {
       return intl.formatMessage({
