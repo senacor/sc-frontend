@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import moment from 'moment-timezone';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 

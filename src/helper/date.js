@@ -38,7 +38,11 @@ export const dateStringFormat = offset => {
 // Converting LocaleDateTime for frontend
 export const formatLocaleDateTime = input => {
   if (input) {
-    let date = moment.isMoment(input) ? input : moment.utc(input);
+    let modifiedInput = [...input];
+    modifiedInput[1] = modifiedInput[1] - 1;
+    let date = moment.isMoment(modifiedInput)
+      ? modifiedInput
+      : moment.utc(modifiedInput);
     if (date.isValid()) {
       return date.tz('Europe/Berlin').format(FRONTEND_LOCALE_DATE_TIME_FORMAT);
     }
