@@ -5,13 +5,15 @@ export const hasRole = (role, userroles) => {
 };
 
 export const isEmployee = (userroles = []) => {
-  return userroles.includes(ROLES.PR_MITARBEITER);
+  return (
+    userroles.includes(ROLES.DEVELOPER) || userroles.includes(ROLES.CONSULTING)
+  );
 };
 
 export const isSupervisor = (userroles = []) => {
-  return userroles.includes(ROLES.PR_CST_LEITER);
+  return userroles.includes(ROLES.SUPERVISOR);
 };
 
-export const isHr = (userroles = []) => {
-  return userroles.includes(ROLES.PR_HR);
+export const isPersonalDev = (userroles = []) => {
+  return userroles.includes(ROLES.PERSONAL_DEV);
 };

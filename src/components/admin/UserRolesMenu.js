@@ -32,16 +32,7 @@ const UserRolesMenu = props => {
   };
 
   const handleToggle = role => {
-    if (selectedRoles.includes(role.name)) {
-      // unassigning role
-      const selectedRolesWithoutParamRole = selectedRoles.filter(
-        r => r !== role.name
-      );
-      setSelectedRoles(selectedRolesWithoutParamRole);
-    } else {
-      // assigning role
-      setSelectedRoles([...selectedRoles, role.name]);
-    }
+    setSelectedRoles([role.name]);
   };
 
   const showContent = role => {

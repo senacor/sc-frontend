@@ -74,6 +74,7 @@ export const Sidebar = ({ intl, classes }) => {
 
   const getListOfMenuItems = () => {
     return [
+      // DASHBOARD
       {
         label: intl.formatMessage({
           id: 'sidebar.dashboard'
@@ -82,34 +83,7 @@ export const Sidebar = ({ intl, classes }) => {
         value: '/dashboard',
         onClick: resetMessages
       },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.prs'
-        }),
-        icon: <LibraryBooksIcon />,
-        value: '/prs',
-        roles: [ROLES.PR_CST_LEITER, ROLES.PR_MITARBEITER],
-        reviewerCheck: true,
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.allprs'
-        }),
-        icon: <LibraryBooksIcon />,
-        value: '/allPrs',
-        roles: [ROLES.PR_HR, ROLES.PR_CST_LEITER],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.myprs'
-        }),
-        icon: <AssignmentIndIcon />,
-        value: '/myPrs',
-        roles: [ROLES.PR_MITARBEITER],
-        onClick: resetMessages
-      },
+      // ADMIN
       {
         label: intl.formatMessage({
           id: 'sidebar.systemandinterfaces'
@@ -137,6 +111,37 @@ export const Sidebar = ({ intl, classes }) => {
         roles: [ROLES.ADMIN],
         onClick: resetMessages
       },
+      // DEVELOPER / CONSULTING
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.myprs'
+        }),
+        icon: <AssignmentIndIcon />,
+        value: '/myPrs',
+        roles: [ROLES.DEVELOPER, ROLES.CONSULTING],
+        onClick: resetMessages
+      },
+      // SUPERVISOR + PERSONAL_DEV
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.prs'
+        }),
+        icon: <LibraryBooksIcon />,
+        value: '/prs',
+        roles: [ROLES.SUPERVISOR, ROLES.DEVELOPER, ROLES.CONSULTING],
+        reviewerCheck: true,
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.allprs'
+        }),
+        icon: <LibraryBooksIcon />,
+        value: '/allPrs',
+        roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
+        onClick: resetMessages
+      },
+      // LOGOUT
       {
         label: intl.formatMessage({
           id: 'sidebar.logout'

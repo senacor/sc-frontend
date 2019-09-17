@@ -15,7 +15,7 @@ import { addPrStatus } from '../../../actions/calls/pr';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
-import { isHr } from '../../../helper/checkRole';
+import { isPersonalDev } from '../../../helper/checkRole';
 import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 
@@ -80,7 +80,7 @@ const PrState = ({
   };
 
   const updateStepStructure = (pr, userinfo, prStatusesDone, meeting) => {
-    let userIsMemberOfHr = isHr(userroles);
+    let userIsMemberOfHr = isPersonalDev(userroles);
 
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
     let meetingInfoText = (status, statuses) => {
@@ -239,7 +239,7 @@ const PrState = ({
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
           isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
-          isCurrentUserActionPerformer: isHr(userroles),
+          isCurrentUserActionPerformer: isPersonalDev(userroles),
           label: `${intl.formatMessage({
             id: 'prstate.hr'
           })} `,

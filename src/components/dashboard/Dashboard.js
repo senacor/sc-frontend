@@ -89,7 +89,8 @@ const Dashboard = ({ classes, intl }) => {
           />
         ) : null}
 
-        {numberOfPrsToSupervise > 0 && isSupervisor(userroles) ? (
+        {(numberOfPrsToSupervise > 0 && isSupervisor(userroles)) ||
+        numberOfPrsToReview > 0 ? (
           <InfoWidget
             label={intl.formatMessage({
               id: 'dashboard.supervisor'
