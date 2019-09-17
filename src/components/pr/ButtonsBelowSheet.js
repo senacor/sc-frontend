@@ -233,26 +233,45 @@ const ButtonsBelowSheet = props => {
   };
 
   const disabled = () => {
+    //I am supervisor of the PR
     if (
-      userroles.includes(ROLES.DEVELOPER) ||
-      userroles.includes(ROLES.CONSULTING)
+      userroles.includes(ROLES.SUPERVISOR) &&
+      userinfo.userId === pr.supervisor.id
+    ) {
+      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+    }
+
+    //I am reviewer of the PR
+    if (
+      (userroles.includes(ROLES.DEVELOPER) ||
+        userroles.includes(ROLES.CONSULTING)) &&
+      userinfo.userId === pr.reviewer.id
+    ) {
+      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+    }
+
+    //I am owner of the PR
+    if (
+      (userroles.includes(ROLES.DEVELOPER) ||
+        userroles.includes(ROLES.CONSULTING)) &&
+      userinfo.userId === pr.employee.id
     ) {
       return (
         (pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
           !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
         pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
       );
-    } else if (
-      userroles.includes(ROLES.SUPERVISOR) ||
-      userinfo.numberOfPrsToReview > 0
-    ) {
-      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
-    } else if (userroles.includes(ROLES.PERSONAL_DEV)) {
+    }
+
+    //I am HR
+    if (userroles.includes(ROLES.PERSONAL_DEV)) {
       return (
         !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
         pr.statusSet.includes('PR_COMPLETED')
       );
     }
+
+    return true;
   };
 
   const submitButtonText = () => {
