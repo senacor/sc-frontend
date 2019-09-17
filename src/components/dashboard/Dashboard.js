@@ -160,7 +160,7 @@ const Dashboard = ({ classes, intl }) => {
               {`${intl.formatMessage({
                 id: 'dashboard.contactText'
               })} `}
-              <a href="mailto:Tuan-Si.Tran@senacor.com">
+              <a href="tomas.hugec@senacor.com">
                 Tomas Hugec (tomas.hugec@senacor.com)
               </a>
             </Typography>
