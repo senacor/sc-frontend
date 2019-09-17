@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 import PrReviewerRating from './PrReviewerRating';
@@ -9,7 +9,6 @@ import { isPersonalDev } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 import ROLES from '../../helper/roles';
-
 // Material UI
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -174,12 +173,18 @@ const PrSheet = props => {
           pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
         );
       case 'RATINGS_REVIEWER':
-        return (
-          (userroles.includes(ROLES.SUPERVISOR) &&
-            pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
-          (!userroles.includes(ROLES.SUPERVISOR) &&
-            userinfo.numberOfPrsToReview === 0)
-        );
+        //supervisor of my pr
+        if (
+          userroles.includes(ROLES.SUPERVISOR) &&
+          userinfo.userId === pr.supervisor.id
+        ) {
+          return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+        }
+
+        if (userinfo.userId === pr.reviewer.id) {
+          return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+        }
+        return true;
       case 'FINAL_COMMENT_EMPLOYEE':
         return (
           pr.employee.id !== userinfo.userId ||

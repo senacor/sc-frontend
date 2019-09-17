@@ -188,7 +188,7 @@ class PerformanceReviewTable extends React.Component {
           </Table>
         </div>
         <Grid container alignItems={'center'}>
-          <Grid item xs={3}>
+          <Grid item md={4}>
             {filteredData.length === 0 ? (
               <div className={classes.emptyListMessage}>
                 <Typography variant={'body2'}>
@@ -207,8 +207,8 @@ class PerformanceReviewTable extends React.Component {
               />
             ) : null}
           </Grid>
-          <Grid item xs={5} />
-          <Grid item xs={4}>
+          <Grid item md={3} />
+          <Grid item xs={12} md={5}>
             <TablePagination
               component="div"
               count={filteredData.length}
