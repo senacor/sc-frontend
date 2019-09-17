@@ -1,21 +1,27 @@
-import React, { useContext } from 'react';
-import Divider from '@material-ui/core/Divider';
-import Hidden from '@material-ui/core/Hidden';
-import Grid from '@material-ui/core/Grid/Grid';
-import Typography from '@material-ui/core/Typography';
+import React, { useContext, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import { injectIntl } from 'react-intl';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
+import AdvancementStrategies from './AdvancementStrategies';
 import { isPersonalDev } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 import ROLES from '../../helper/roles';
 
+// Material UI
+import Hidden from '@material-ui/core/Hidden';
+import Grid from '@material-ui/core/Grid/Grid';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+
 const styles = theme => ({
   paddingBottom: {
     paddingBottom: 3 * theme.spacing.unit
+  },
+  paddingTop: {
+    paddingTop: 3 * theme.spacing.unit
   },
   required: {
     color: theme.palette.secondary.grey
@@ -23,10 +29,6 @@ const styles = theme => ({
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
-  },
-  title: {
-    fontSize: 20,
-    paddingTop: 2 * theme.spacing.unit
   }
 });
 
@@ -42,10 +44,6 @@ const PrSheet = props => {
 
   const changeSecondReflectionField = value => {
     pr.secondReflectionField = value;
-  };
-
-  const changeAdvancementStrategies = value => {
-    pr.advancementStrategies = value;
   };
 
   const changeFinalCommentEmployee = value => {
@@ -209,11 +207,11 @@ const PrSheet = props => {
     );
   };
 
-  let step1employee = () => {
+  const firstStepEmployee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
-          <Typography variant="body1" className={classes.title}>
+          <Typography variant="h6" className={classes.paddingTop}>
             {intl.formatMessage({
               id: 'prsheet.employeerole'
             })}
@@ -269,12 +267,12 @@ const PrSheet = props => {
     );
   };
 
-  let overallReviewer = () => {
+  const overallReviewer = () => {
     return (
       <div className={classes.paddingBottom}>
         <Grid container spacing={16} className={classes.paddingBottom}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.overall'
               })}
@@ -305,35 +303,25 @@ const PrSheet = props => {
           </Grid>
         </Grid>
         <Divider />
-        <Grid container spacing={16} className={classes.paddingBottom}>
-          <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
-              {intl.formatMessage({
-                id: 'prsheet.measures'
-              })}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <PrTextField
-              label={intl.formatMessage({
-                id: 'pradvancementstrategies.measures'
-              })}
-              helperText={intl.formatMessage({
-                id: 'pradvancementstrategies.helpertext'
-              })}
-              text={pr.advancementStrategies}
-              isReadOnly={readOnly('RATINGS_REVIEWER')}
-              isError={false}
-              action={changeAdvancementStrategies}
-            />
-          </Grid>
-        </Grid>
-        <Divider />
+        <Fragment>
+          <Typography
+            variant="h6"
+            className={`${classes.paddingTop} ${classes.paddingBottom}`}
+          >
+            {intl.formatMessage({
+              id: 'prsheet.measures'
+            })}
+          </Typography>
+          <AdvancementStrategies
+            advStrategies={pr.advancementStrategies}
+            readOnly={readOnly}
+          />
+        </Fragment>
       </div>
     );
   };
 
-  let finalEmployee = () => {
+  const finalEmployee = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
@@ -354,7 +342,7 @@ const PrSheet = props => {
     );
   };
 
-  let finalHr = () => {
+  const finalHr = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
@@ -375,12 +363,12 @@ const PrSheet = props => {
     );
   };
 
-  let detailReviewer = () => {
+  const detailReviewer = () => {
     return (
       <div>
         <Grid container spacing={16}>
           <Grid item xs={10}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
@@ -438,7 +426,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.customerimpact'
               })}
@@ -470,7 +458,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.teamimpact'
               })}
@@ -502,7 +490,7 @@ const PrSheet = props => {
         <Divider />
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.title}>
+            <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.companyimpact'
               })}
@@ -530,7 +518,7 @@ const PrSheet = props => {
     );
   };
 
-  let requiredInfo = () => {
+  const requiredInfo = () => {
     return (
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
@@ -544,11 +532,12 @@ const PrSheet = props => {
     );
   };
 
+  // TODO: create PrSheet folder and move functions to separated files to make them as functional components
   return (
     <div>
       <Grid container spacing={40}>
         <Grid item xs={12} md={6}>
-          {step1employee()}
+          {firstStepEmployee()}
           <Divider />
           <Hidden mdUp>
             {detailReviewer()}

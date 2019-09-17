@@ -2,8 +2,8 @@ import {
   default as fetch,
   default as authorizedFetch
 } from '../../helper/customFetch';
-import ROLES from '../../helper/roles';
 import cloneDeep from '../../helper/cloneDeep';
+import ROLES from '../../helper/roles';
 
 export const getUserInfo = async (
   userinfoContext,
@@ -79,7 +79,10 @@ export const getUserInfo = async (
     }
 
     //Fetching photo
-    if (userinfo.userphoto === '') {
+    if (
+      userinfo.userphoto === '' &&
+      !userinfo.userroles.includes(ROLES.ADMIN)
+    ) {
       let response = await fetch(
         `${process.env.REACT_APP_API}/oauth2/userinfo/photo`,
         {

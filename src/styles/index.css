@@ -22,7 +22,6 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: #26646d;
-  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #fafafa;
