@@ -285,7 +285,6 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
 
   if (changeResponse.ok) {
     const pr = await changeResponse.json();
-    console.log('prrrrrr', pr);
     setPr(pr);
     setLoading(false);
   } else {
