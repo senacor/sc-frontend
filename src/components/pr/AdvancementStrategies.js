@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import PrTextField from './PrTextField';
 import {
   formatLocaleDateTime,
-  validateDate,
-  convertLocalDateTime
+  convertLocalDateTime,
+  isValidDate
 } from '../../helper/date';
 
 const styles = theme => ({
@@ -39,30 +39,37 @@ const styles = theme => ({
   }
 });
 
-const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
+const AdvancementStrategies = ({ classes, intl, advStrategies, readOnly }) => {
   const changeArrangementComment = value => {
-    pr.advancementStrategies.arrangement.comment = value;
+    advStrategies.arrangement.comment = value;
   };
 
   const changeTrainings = value => {
-    pr.advancementStrategies.trainings = value;
+    advStrategies.trainings = value;
   };
 
   const changeOppWindowDate = value => {
-    pr.advancementStrategies.opportunityWindow = convertLocalDateTime(value);
+    if (isValidDate) {
+      advStrategies.opportunityWindow = convertLocalDateTime(value);
+    }
   };
 
   const changeProjectDate = value => {
-    pr.advancementStrategies.changeProject = convertLocalDateTime(value);
+    if (isValidDate) {
+      advStrategies.changeProject = convertLocalDateTime(value);
+    }
   };
 
   const changeRoleDate = value => {
-    validateDate(value);
-    pr.advancementStrategies.changeRole = convertLocalDateTime(value);
+    if (isValidDate) {
+      advStrategies.changeRole = convertLocalDateTime(value);
+    }
   };
 
   const changeArrangementDate = value => {
-    pr.advancementStrategies.arrangement.date = convertLocalDateTime(value);
+    if (isValidDate) {
+      advStrategies.arrangement.date = convertLocalDateTime(value);
+    }
   };
 
   return (
@@ -89,9 +96,7 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
                 name="oppWindowDate"
                 onChange={changeOppWindowDate}
                 defaultValue={
-                  formatLocaleDateTime(
-                    pr.advancementStrategies.opportunityWindow
-                  ) || ''
+                  formatLocaleDateTime(advStrategies.opportunityWindow) || ''
                 }
               />
             </Grid>
@@ -109,9 +114,7 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
                 defaultValue={
-                  formatLocaleDateTime(
-                    pr.advancementStrategies.changeProject
-                  ) || ''
+                  formatLocaleDateTime(advStrategies.changeProject) || ''
                 }
                 onChange={changeProjectDate}
               />
@@ -133,8 +136,7 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
                 defaultValue={
-                  formatLocaleDateTime(pr.advancementStrategies.changeRole) ||
-                  ''
+                  formatLocaleDateTime(advStrategies.changeRole) || ''
                 }
                 onChange={changeRoleDate}
               />
@@ -152,10 +154,8 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
               <TextField
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
-                value={
-                  formatLocaleDateTime(
-                    pr.advancementStrategies.arrangement.date
-                  ) || ''
+                defaultValue={
+                  formatLocaleDateTime(advStrategies.arrangement.date) || ''
                 }
                 onChange={changeArrangementDate}
               />
@@ -166,7 +166,7 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
                 isReadOnly={readOnly('RATINGS_REVIEWER')}
                 isError={false}
                 rows="2"
-                text={pr.advancementStrategies.arrangement.comment}
+                text={advStrategies.arrangement.comment}
                 action={changeArrangementComment}
               />
             </Grid>
@@ -178,7 +178,7 @@ const AdvancementStrategies = ({ classes, intl, pr, readOnly }) => {
             isReadOnly={readOnly('RATINGS_REVIEWER')}
             isError={false}
             rows="2"
-            text={pr.advancementStrategies.trainings}
+            text={advStrategies.trainings}
             action={changeTrainings}
           />
         </Grid>

@@ -311,7 +311,10 @@ const PrSheet = props => {
               id: 'prsheet.measures'
             })}
           </Typography>
-          <AdvancementStrategies pr={pr} readOnly={readOnly} />
+          <AdvancementStrategies
+            advStrategies={pr.advancementStrategies}
+            readOnly={readOnly}
+          />
         </Fragment>
       </div>
     );

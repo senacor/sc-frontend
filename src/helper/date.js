@@ -52,5 +52,16 @@ export const convertLocalDateTime = date => {
     .tz(`${date.target.value}`, 'Europe/Berlin')
     .utc()
     .format('YYYY-MM-DDTHH:mm');
-  return convertedDate;
+  if (convertedDate === 'Invalid date') {
+    return null;
+  } else return convertedDate;
+};
+
+export const isValidDate = date => {
+  const isValidDate = moment(
+    date,
+    FRONTEND_LOCALE_DATE_TIME_FORMAT,
+    true
+  ).isValid();
+  return isValidDate;
 };
