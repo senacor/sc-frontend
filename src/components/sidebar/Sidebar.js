@@ -184,9 +184,7 @@ export const Sidebar = ({ intl, classes }) => {
         {getListOfMenuItems().map(entry => {
           const hasPRsToProcess =
             !entry.reviewerCheck ||
-            (entry.reviewerCheck &&
-              userinfo.numberOfPrsToReview + userinfo.numberOfPrsToSupervise >
-                0);
+            (entry.reviewerCheck && userinfo.numberOfPrsToReview);
           return hasPRsToProcess ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem

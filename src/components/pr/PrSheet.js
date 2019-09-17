@@ -176,7 +176,8 @@ const PrSheet = props => {
         //supervisor of my pr
         if (
           userroles.includes(ROLES.SUPERVISOR) &&
-          userinfo.userId === pr.supervisor.id
+          userinfo.userId === pr.supervisor.id &&
+          pr.supervisor.id === pr.reviewer.id
         ) {
           return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
         }

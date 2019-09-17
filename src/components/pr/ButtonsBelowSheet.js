@@ -236,7 +236,8 @@ const ButtonsBelowSheet = props => {
     //I am supervisor of the PR
     if (
       userroles.includes(ROLES.SUPERVISOR) &&
-      userinfo.userId === pr.supervisor.id
+      userinfo.userId === pr.supervisor.id &&
+      pr.supervisor.id === pr.reviewer.id
     ) {
       return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
     }
