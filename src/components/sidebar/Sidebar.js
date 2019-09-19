@@ -134,10 +134,10 @@ export const Sidebar = ({ intl, classes }) => {
       },
       {
         label: intl.formatMessage({
-          id: 'sidebar.allprs'
+          id: 'sidebar.allEmployees'
         }),
         icon: <LibraryBooksIcon />,
-        value: '/allPrs',
+        value: '/allEmployees',
         roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
         onClick: resetMessages
       },

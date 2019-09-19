@@ -214,7 +214,7 @@
   "compositionnumber.version": "version",
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs zur Umsetzung",
-  "sidebar.allprs": "Alle PRs",
+  "sidebar.allEmployees": "Alle Mitarbeiter",
   "sidebar.myprs": "Eigene PRs",
   "sidebar.systemandinterfaces": "System und Interface",
   "sidebar.userroles": "Benutzer Rollen",

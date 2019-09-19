@@ -55,7 +55,7 @@
     "/api/v3": {
       "target": "http://localhost:8020"
     },
-    "/api/v3/user": {
+    "/api/v3/employee/overview": {
       "target": "http://localhost:8020"
     },
     "/api/v3/prs/filter": {

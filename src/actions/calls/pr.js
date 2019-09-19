@@ -171,7 +171,7 @@ export const fetchFilteredOwnPrs = async (
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/own${query}`
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/own${query}`
     );
 
     const responseList = await response.json();
@@ -210,7 +210,7 @@ export const fetchFilteredPrsToReview = async (
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/prsToReview${query}`
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/prsToReview${query}`
     );
 
     const responseList = await response.json();
