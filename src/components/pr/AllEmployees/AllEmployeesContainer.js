@@ -17,12 +17,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = theme => ({
   container: {
     margin: 3 * theme.spacing.unit
+  },
+  gridContainer: {
+    height: '77vh',
+    width: '100%',
+    overflowY: 'auto',
+    overflowX: 'hidden'
   }
 });
 
 const AllEmployeesContainer = ({ classes }) => {
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -30,20 +37,52 @@ const AllEmployeesContainer = ({ classes }) => {
     getAllEmployees(setEmployees, setIsLoading, errorContext);
   }, []);
 
-  console.log('employees', employees);
+  const handleSearchSubmit = event => {
+    console.log('searchValue', searchEmployeesValue);
+  };
+
+  const filteredEmployees = employees.filter(employee => {
+    return employee.lastName
+      .toLowerCase()
+      .includes(searchEmployeesValue.toLowerCase());
+  });
+
+  // All employees
+  const employeesData = employees.map(employee => (
+    <Grid item key={employee.id}>
+      <EmployeeCard
+        firstName={employee.firstName}
+        lastName={employee.lastName}
+      />
+    </Grid>
+  ));
+
+  // Filtered employees
+  const filteredEmployeesData = filteredEmployees.map(employee => (
+    <Grid item key={employee.id}>
+      <EmployeeCard
+        firstName={employee.firstName}
+        lastName={employee.lastName}
+      />
+    </Grid>
+  ));
 
   return (
     <div className={classes.container}>
-      <AllEmployeesFilter />
-      <Grid container spacing={24}>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <Grid item>
-            <EmployeeCard />
+      <AllEmployeesFilter
+        searchValue={searchEmployeesValue}
+        searchSubmit={handleSearchSubmit}
+      />
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <div className={classes.gridContainer}>
+          <Grid container spacing={24}>
+            {searchEmployeesValue ? filteredEmployeesData : employeesData}
+            {employeesData}
           </Grid>
-        )}
-      </Grid>
+        </div>
+      )}
     </div>
   );
 };

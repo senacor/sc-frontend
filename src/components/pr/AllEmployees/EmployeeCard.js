@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
@@ -12,14 +12,31 @@ import Avatar from '@material-ui/core/Avatar';
 
 const styles = theme => ({
   card: {
-    width: 250
+    width: 250,
+    height: 300,
+    transition: 'all 0.3s',
+    '&:hover': {
+      transform: 'scale(1.05)'
+    }
+  },
+  header: {
+    height: 75,
+    textAlign: 'center'
   }
 });
 
-const EmployeeCard = ({ classes, firstName, lastName }) => {
+const EmployeeCard = ({ classes, firstName, lastName, openCard }) => {
+  const employeeName = (
+    <Fragment>
+      <span>{firstName}</span>
+      <br />
+      <span>{lastName}</span>
+    </Fragment>
+  );
+
   return (
-    <Card className={classes.card}>
-      <CardHeader title="Michel Mitarbeiterin" />
+    <Card className={classes.card} onClick={openCard}>
+      <CardHeader className={classes.header} title={employeeName} />
       <CardMedia image="/" title={`${firstName} ${lastName}`} />
       <CardContent>
         <Typography>Current position (CON/DEV): Consultant</Typography>
