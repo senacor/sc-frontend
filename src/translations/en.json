@@ -216,6 +216,7 @@
   "employeeInfo.cc": "CC",
   "employeeInfo.location": "Office location",
   "employeeInfo.dueDate": "Due date",
+  "employeeInfo.noPrsFound": "has no Prs in our database.",
   "compositionnumber.version": "version",
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs for processing",

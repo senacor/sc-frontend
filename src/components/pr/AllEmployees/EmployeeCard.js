@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import {
@@ -13,11 +13,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
+import EmployeesPRsDialog from './EmployeesPRsDialog';
 
 const styles = theme => ({
   card: {
     width: 260,
     height: 350,
+    margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
     '&:hover': {
@@ -48,6 +50,7 @@ const EmployeeCard = ({
   intl,
   classes,
   employee: {
+    id,
     firstName,
     lastName,
     competenceCenter,
@@ -57,9 +60,18 @@ const EmployeeCard = ({
     dateOfNextPr,
     userPhoto,
     supervisorName
-  },
-  openCard
+  }
 }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   const employeeName = (
     <Fragment>
       <Typography variant="h5">{firstName}</Typography>
@@ -77,54 +89,65 @@ const EmployeeCard = ({
     );
 
   return (
-    <Card className={classes.card} onClick={openCard}>
-      <CardHeader
-        className={classes.header}
-        title={employeeName}
-        avatar={employeePhoto}
-      />
-      <Divider />
-      <CardContent>
-        <div>
+    <Fragment>
+      <Card className={classes.card} onClick={handleDialogOpen}>
+        <CardHeader
+          className={classes.header}
+          title={employeeName}
+          avatar={employeePhoto}
+        />
+        <Divider />
+        <CardContent>
+          <div>
+            <Typography className={classes.text} component="span">
+              {intl.formatMessage({
+                id: 'employeeInfo.position'
+              })}
+              : <span className={classes.textInfo}>{currentPosition}</span>
+            </Typography>
+          </div>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
-              id: 'employeeInfo.position'
+              id: 'employeeInfo.cst'
             })}
-            : <span className={classes.textInfo}>{currentPosition}</span>
+            :{' '}
+            <span
+              className={classes.textInfo}
+            >{`${currentCst}, ${supervisorName}`}</span>
           </Typography>
-        </div>
-        <Typography className={classes.text} component="span">
-          {intl.formatMessage({
-            id: 'employeeInfo.cst'
-          })}
-          :{' '}
-          <span
-            className={classes.textInfo}
-          >{`${currentCst}, ${supervisorName}`}</span>
-        </Typography>
-        <Typography className={classes.text} component="span">
-          {intl.formatMessage({
-            id: 'employeeInfo.cc'
-          })}
-          : <span className={classes.textInfo}>{competenceCenter}</span>
-        </Typography>
-        <Typography className={classes.text} component="span">
-          {intl.formatMessage({
-            id: 'employeeInfo.location'
-          })}
-          : <span className={classes.textInfo}>{officeLocation}</span>
-        </Typography>
-        <Typography className={classes.text} component="span">
-          {intl.formatMessage({
-            id: 'employeeInfo.dueDate'
-          })}
-          :{' '}
-          <span className={classes.textInfo}>
-            {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
-          </span>
-        </Typography>
-      </CardContent>
-    </Card>
+          <Typography className={classes.text} component="span">
+            {intl.formatMessage({
+              id: 'employeeInfo.cc'
+            })}
+            : <span className={classes.textInfo}>{competenceCenter}</span>
+          </Typography>
+          <Typography className={classes.text} component="span">
+            {intl.formatMessage({
+              id: 'employeeInfo.location'
+            })}
+            : <span className={classes.textInfo}>{officeLocation}</span>
+          </Typography>
+          <Typography className={classes.text} component="span">
+            {intl.formatMessage({
+              id: 'employeeInfo.dueDate'
+            })}
+            :{' '}
+            <span className={classes.textInfo}>
+              {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+            </span>
+          </Typography>
+        </CardContent>
+      </Card>
+      {dialogOpen && (
+        <EmployeesPRsDialog
+          firstName={firstName}
+          lastName={lastName}
+          employeeId={id}
+          dialogOpen={dialogOpen}
+          dialogClose={handleDialogClose}
+        />
+      )}
+    </Fragment>
   );
 };
 

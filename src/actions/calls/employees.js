@@ -24,3 +24,24 @@ export const getAllEmployees = async (
     });
   }
 };
+
+export const getAllPrsByEmployee = async (
+  id,
+  setPrs,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/all/${id}`
+    );
+    const responsePrs = await response.json();
+    setIsLoading(false);
+    setPrs(responsePrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+  }
+};

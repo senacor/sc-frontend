@@ -1,16 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { ErrorContext } from '../../App';
-
-// Calls
-import { getAllEmployees } from '../../../actions/calls/employees';
 
 // Components
 import AllEmployeesFilter from './AllEmployeesFilter';
 
 // Material UI
-import CircularProgress from '@material-ui/core/CircularProgress';
 import EmployeesGrid from './AllEmployeesGrid';
 
 const styles = theme => ({
@@ -26,15 +21,7 @@ const styles = theme => ({
 });
 
 const AllEmployeesContainer = ({ classes }) => {
-  const [employees, setEmployees] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
-
-  const errorContext = useContext(ErrorContext.context);
-
-  useEffect(() => {
-    getAllEmployees(setEmployees, setIsLoading, errorContext);
-  }, []);
 
   const handleSearchChange = event => {
     setSearchEmployeesValue(event.target.value);
@@ -46,14 +33,7 @@ const AllEmployeesContainer = ({ classes }) => {
         searchValue={searchEmployeesValue}
         searchChange={handleSearchChange}
       />
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <EmployeesGrid
-          employees={employees}
-          searchEmployeesValue={searchEmployeesValue}
-        />
-      )}
+      <EmployeesGrid searchEmployeesValue={searchEmployeesValue} />
     </div>
   );
 };
