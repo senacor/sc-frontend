@@ -1,49 +1,128 @@
 import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import {
+  formatLocaleDateTime,
+  FRONTEND_DATE_FORMAT
+} from '../../../helper/date';
 
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   card: {
-    width: 250,
-    height: 300,
+    width: 260,
+    height: 350,
+    cursor: 'pointer',
     transition: 'all 0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
     }
   },
   header: {
-    height: 75,
+    backgroundColor: theme.palette.secondary.brightGrey,
+    height: 60,
+    textAlign: 'center',
+    padding: theme.spacing.unit
+  },
+  avatar: {
+    width: 60,
+    height: 60
+  },
+  text: {
+    color: theme.palette.secondary.grey,
+    padding: theme.spacing.unit,
     textAlign: 'center'
+  },
+  textInfo: {
+    color: theme.palette.primary[400]
   }
 });
 
-const EmployeeCard = ({ classes, firstName, lastName, openCard }) => {
+const EmployeeCard = ({
+  intl,
+  classes,
+  employee: {
+    firstName,
+    lastName,
+    competenceCenter,
+    currentPosition,
+    currentCst,
+    officeLocation,
+    dateOfNextPr,
+    userPhoto,
+    supervisorName
+  },
+  openCard
+}) => {
   const employeeName = (
     <Fragment>
-      <span>{firstName}</span>
-      <br />
-      <span>{lastName}</span>
+      <Typography variant="h5">{firstName}</Typography>
+      <Typography variant="h5">{lastName}</Typography>
     </Fragment>
   );
 
+  const employeePhoto =
+    userPhoto.length === 0 ? (
+      <Avatar className={classes.avatar}>{`${firstName.charAt(
+        0
+      )}${lastName.charAt(0)}`}</Avatar>
+    ) : (
+      <Avatar />
+    );
+
   return (
     <Card className={classes.card} onClick={openCard}>
-      <CardHeader className={classes.header} title={employeeName} />
-      <CardMedia image="/" title={`${firstName} ${lastName}`} />
+      <CardHeader
+        className={classes.header}
+        title={employeeName}
+        avatar={employeePhoto}
+      />
+      <Divider />
       <CardContent>
-        <Typography>Current position (CON/DEV): Consultant</Typography>
-        <Typography>CST: Teambank, Rolf Kintscher</Typography>
-        <Typography>CC: Consulting, 8 months</Typography>
-        <Typography>Office location: Munchen</Typography>
-        <Typography>Due date: 20.09.2019</Typography>
+        <div>
+          <Typography className={classes.text} component="span">
+            {intl.formatMessage({
+              id: 'employeeInfo.position'
+            })}
+            : <span className={classes.textInfo}>{currentPosition}</span>
+          </Typography>
+        </div>
+        <Typography className={classes.text} component="span">
+          {intl.formatMessage({
+            id: 'employeeInfo.cst'
+          })}
+          :{' '}
+          <span
+            className={classes.textInfo}
+          >{`${currentCst}, ${supervisorName}`}</span>
+        </Typography>
+        <Typography className={classes.text} component="span">
+          {intl.formatMessage({
+            id: 'employeeInfo.cc'
+          })}
+          : <span className={classes.textInfo}>{competenceCenter}</span>
+        </Typography>
+        <Typography className={classes.text} component="span">
+          {intl.formatMessage({
+            id: 'employeeInfo.location'
+          })}
+          : <span className={classes.textInfo}>{officeLocation}</span>
+        </Typography>
+        <Typography className={classes.text} component="span">
+          {intl.formatMessage({
+            id: 'employeeInfo.dueDate'
+          })}
+          :{' '}
+          <span className={classes.textInfo}>
+            {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+          </span>
+        </Typography>
       </CardContent>
     </Card>
   );

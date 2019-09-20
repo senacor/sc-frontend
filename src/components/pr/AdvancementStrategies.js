@@ -11,7 +11,8 @@ import PrTextField from './PrTextField';
 import {
   formatLocaleDateTime,
   convertLocalDateTime,
-  isValidDate
+  isValidDate,
+  FRONTEND_LOCALE_DATE_TIME_FORMAT
 } from '../../helper/date';
 
 const styles = theme => ({
@@ -95,7 +96,10 @@ const AdvancementStrategies = ({ classes, intl, advStrategies, readOnly }) => {
                 name="oppWindowDate"
                 onChange={changeOppWindowDate}
                 defaultValue={
-                  formatLocaleDateTime(advStrategies.opportunityWindow) || ''
+                  formatLocaleDateTime(
+                    advStrategies.opportunityWindow,
+                    FRONTEND_LOCALE_DATE_TIME_FORMAT
+                  ) || ''
                 }
               />
             </Grid>
@@ -113,7 +117,10 @@ const AdvancementStrategies = ({ classes, intl, advStrategies, readOnly }) => {
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
                 defaultValue={
-                  formatLocaleDateTime(advStrategies.changeProject) || ''
+                  formatLocaleDateTime(
+                    advStrategies.changeProject,
+                    FRONTEND_LOCALE_DATE_TIME_FORMAT
+                  ) || ''
                 }
                 onChange={changeProjectDate}
               />
@@ -135,7 +142,10 @@ const AdvancementStrategies = ({ classes, intl, advStrategies, readOnly }) => {
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
                 defaultValue={
-                  formatLocaleDateTime(advStrategies.changeRole) || ''
+                  formatLocaleDateTime(
+                    advStrategies.changeRole,
+                    FRONTEND_LOCALE_DATE_TIME_FORMAT
+                  ) || ''
                 }
                 onChange={changeRoleDate}
               />
@@ -154,7 +164,10 @@ const AdvancementStrategies = ({ classes, intl, advStrategies, readOnly }) => {
                 type="date"
                 disabled={readOnly('RATINGS_REVIEWER')}
                 defaultValue={
-                  formatLocaleDateTime(advStrategies.arrangement.date) || ''
+                  formatLocaleDateTime(
+                    advStrategies.arrangement.date,
+                    FRONTEND_LOCALE_DATE_TIME_FORMAT
+                  ) || ''
                 }
                 onChange={changeArrangementDate}
               />

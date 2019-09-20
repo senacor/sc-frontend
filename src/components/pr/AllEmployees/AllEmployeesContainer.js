@@ -8,11 +8,10 @@ import { getAllEmployees } from '../../../actions/calls/employees';
 
 // Components
 import AllEmployeesFilter from './AllEmployeesFilter';
-import EmployeeCard from './EmployeeCard';
 
 // Material UI
-import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import EmployeesGrid from './AllEmployeesGrid';
 
 const styles = theme => ({
   container: {
@@ -37,51 +36,23 @@ const AllEmployeesContainer = ({ classes }) => {
     getAllEmployees(setEmployees, setIsLoading, errorContext);
   }, []);
 
-  const handleSearchSubmit = event => {
-    console.log('searchValue', searchEmployeesValue);
+  const handleSearchChange = event => {
+    setSearchEmployeesValue(event.target.value);
   };
-
-  const filteredEmployees = employees.filter(employee => {
-    return employee.lastName
-      .toLowerCase()
-      .includes(searchEmployeesValue.toLowerCase());
-  });
-
-  // All employees
-  const employeesData = employees.map(employee => (
-    <Grid item key={employee.id}>
-      <EmployeeCard
-        firstName={employee.firstName}
-        lastName={employee.lastName}
-      />
-    </Grid>
-  ));
-
-  // Filtered employees
-  const filteredEmployeesData = filteredEmployees.map(employee => (
-    <Grid item key={employee.id}>
-      <EmployeeCard
-        firstName={employee.firstName}
-        lastName={employee.lastName}
-      />
-    </Grid>
-  ));
 
   return (
     <div className={classes.container}>
       <AllEmployeesFilter
         searchValue={searchEmployeesValue}
-        searchSubmit={handleSearchSubmit}
+        searchChange={handleSearchChange}
       />
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <div className={classes.gridContainer}>
-          <Grid container spacing={24}>
-            {searchEmployeesValue ? filteredEmployeesData : employeesData}
-            {employeesData}
-          </Grid>
-        </div>
+        <EmployeesGrid
+          employees={employees}
+          searchEmployeesValue={searchEmployeesValue}
+        />
       )}
     </div>
   );

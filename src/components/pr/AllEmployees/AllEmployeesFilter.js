@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core';
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -11,12 +10,12 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit
   },
   searchField: {
-    width: '13rem',
+    width: '10rem',
     margin: '0 3rem'
   }
 });
 
-const AllEmployeesFilter = ({ classes, searchValue, searchSubmit }) => {
+const AllEmployeesFilter = ({ classes, searchChange, searchValue }) => {
   return (
     <form className={classes.form}>
       <TextField
@@ -25,9 +24,9 @@ const AllEmployeesFilter = ({ classes, searchValue, searchSubmit }) => {
         type="search"
         className={classes.searchField}
         label="Search employee"
-        defaultValue={searchValue}
+        onChange={searchChange}
+        value={searchValue}
       />
-      <Button onClick={searchSubmit}>Search</Button>
     </form>
   );
 };
