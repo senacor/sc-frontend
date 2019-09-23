@@ -109,8 +109,11 @@ const EmployeesPRsDialog = ({
     }
   }, []);
 
-  const linkToPrSheet = id => {
-    history.push(`/prDetail/${id}`);
+  const linkToPrSheet = (id, archived) => {
+    if (!archived) {
+      history.push(`/prDetail/${id}`);
+    }
+    return null;
   };
 
   // List of all PRs of current employee
@@ -118,12 +121,12 @@ const EmployeesPRsDialog = ({
     return (
       <TableRow
         key={index}
-        className={pr.archived ? classes.prRow : classes.archived}
+        className={pr.archived ? classes.archived : classes.prRow}
       >
-        <TableCell onClick={() => pr.archived && linkToPrSheet(pr.id)}>
+        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
           {index + 1}
         </TableCell>
-        <TableCell onClick={() => pr.archived && linkToPrSheet(pr.id)}>
+        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
           {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
