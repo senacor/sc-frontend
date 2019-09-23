@@ -127,15 +127,13 @@ const EmployeesPRsDialog = ({
           {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
-          <Button onClick={() => console.log('click')}>
+          <Button onClick={() => console.log('download')}>
             <DownloadIcon />
           </Button>
         </TableCell>
       </TableRow>
     );
   });
-
-  console.log('listOfPrs', prsTogether);
 
   return (
     <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
