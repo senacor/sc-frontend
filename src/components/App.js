@@ -13,6 +13,7 @@ import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
 import Content from './AppBar/Content';
+import AllEmployeesContainer from './pr/AllEmployees/AllEmployeesContainer';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
@@ -23,9 +24,9 @@ const PerformanceReviewDetail = lazy(() =>
   import('./pr/prDetail/PerformanceReviewDetail')
 );
 const PrOverviewReviewer = lazy(() => import('./pr/PrOverviewReviewer'));
-const OverviewPerformanceReviews = lazy(() =>
-  import('./humanResources/OverviewPerformanceReviews')
-);
+// const OverviewPerformanceReviews = lazy(() =>
+//   import('./humanResources/OverviewPerformanceReviews')
+// );
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 
@@ -54,7 +55,7 @@ const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
 );
 const DashboardWithContent = withContent(Dashboard);
-const OverviewPrsWithContent = withContent(OverviewPerformanceReviews);
+const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
 const UserRolesPanelWithContent = withContent(UserRolesPanel);
 
 export const messages = {
@@ -150,7 +151,7 @@ const App = () => {
                     <PrivateRoute
                       exact
                       path={ROUTES.ALL_PRS_TABLE}
-                      component={OverviewPrsWithContent}
+                      component={AllEmployeesContainerWithContent}
                     />
                     <PrivateRoute
                       exact
