@@ -1,10 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   withStyles,
   CircularProgress,
   Typography,
-  Divider
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon
 } from '@material-ui/core';
 import { ErrorContext } from '../../App';
 import {
@@ -53,8 +57,26 @@ const styles = theme => ({
       backgroundColor: theme.palette.secondary.brightGrey
     }
   },
+  archived: {
+    backgroundColor: theme.palette.secondary.brighterGrey
+  },
   noPrFound: {
     color: theme.palette.secondary.mediumGrey
+  },
+  legend: {
+    width: 250
+  },
+  legendArchivedDiv: {
+    width: 50,
+    height: 20,
+    backgroundColor: theme.palette.secondary.brighterGrey,
+    border: `1px solid ${theme.palette.secondary.mediumGrey}`
+  },
+  legendNonArchivedDiv: {
+    width: 50,
+    height: 20,
+    backgroundColor: theme.palette.secondary.white,
+    border: `1px solid ${theme.palette.secondary.mediumGrey}`
   }
 });
 
@@ -73,6 +95,7 @@ const EmployeesPRsDialog = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
+  const prsTogether = [...prs, ...archivedPrs];
 
   useEffect(() => {
     if (dialogOpen) {
@@ -86,26 +109,21 @@ const EmployeesPRsDialog = ({
     }
   }, []);
 
-  useEffect(() => {
-    const addAttributeToArchivedPrs = arr => {
-      arr.map(item => {
-        return (item.archived = true);
-      });
-    };
-    addAttributeToArchivedPrs(archivedPrs);
-    console.log('archivedPrs', archivedPrs);
-  });
-
-  const listOfAllPrs = [...prs, ...archivedPrs];
+  const linkToPrSheet = id => {
+    history.push(`/prDetail/${id}`);
+  };
 
   // List of all PRs of current employee
-  const listOfPrs = listOfAllPrs.map((pr, index) => {
+  const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
-      <TableRow key={index} className={classes.prRow}>
-        <TableCell onClick={() => history.push(`/prDetail/${pr.id}`)}>
+      <TableRow
+        key={index}
+        className={pr.archived ? classes.prRow : classes.archived}
+      >
+        <TableCell onClick={() => !pr.archived && linkToPrSheet(pr.id)}>
           {index + 1}
         </TableCell>
-        <TableCell onClick={() => history.push(`/prDetail/${pr.id}`)}>
+        <TableCell onClick={() => pr.archived && linkToPrSheet(pr.id)}>
           {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
@@ -117,6 +135,8 @@ const EmployeesPRsDialog = ({
     );
   });
 
+  console.log('listOfPrs', prsTogether);
+
   return (
     <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
       <Button onClick={dialogClose} className={classes.btnClose}>
@@ -124,11 +144,11 @@ const EmployeesPRsDialog = ({
       </Button>
       <DialogTitle>
         <span>{`${firstName} ${lastName}`}</span>
-        {prs.length > 0 && (
+        {prsTogether.length > 0 && (
           <span className={classes.prsNumber}>
             {`${intl.formatMessage({
               id: 'employeeInfo.prsCount'
-            })}: ${prs.length}`}
+            })}: ${prsTogether.length}`}
           </span>
         )}
       </DialogTitle>
@@ -137,24 +157,47 @@ const EmployeesPRsDialog = ({
         {isLoading ? (
           <CircularProgress />
         ) : prs.length > 0 ? (
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>
-                  {intl.formatMessage({
-                    id: 'employeeInfo.dueDate'
-                  })}
-                </TableCell>
-                <TableCell>
-                  {intl.formatMessage({
-                    id: 'archivedfiles.download'
-                  })}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{listOfPrs}</TableBody>
-          </Table>
+          <Fragment>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>
+                    {intl.formatMessage({
+                      id: 'employeeInfo.dueDate'
+                    })}
+                  </TableCell>
+                  <TableCell>
+                    {intl.formatMessage({
+                      id: 'archivedfiles.download'
+                    })}
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{listOfAllPrs}</TableBody>
+            </Table>
+            {/* Legend */}
+            <List className={classes.legend}>
+              <ListItem>
+                <ListItemText
+                  primary="Archived PR"
+                  primaryTypographyProps={{ variant: 'body2' }}
+                />
+                <ListItemIcon>
+                  <div className={classes.legendArchivedDiv} />
+                </ListItemIcon>
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="Not archived PR"
+                  primaryTypographyProps={{ variant: 'body2' }}
+                />
+                <ListItemIcon>
+                  <div className={classes.legendNonArchivedDiv} />
+                </ListItemIcon>
+              </ListItem>
+            </List>
+          </Fragment>
         ) : (
           <Typography variant="body2" className={classes.noPrFound}>
             {`${firstName} ${lastName} ${intl.formatMessage({

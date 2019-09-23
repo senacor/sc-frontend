@@ -41,12 +41,27 @@ export const getAllPrsByEmployee = async (
       `${process.env.REACT_APP_API}/api/v3/pr/overview/all/${id}`
     );
     const responsePrs = await response.json();
-    console.log('response', responsePrs);
+    let archivedPrs = [...responsePrs.archivedPrs];
+    let prs = [...responsePrs.prs];
+    addAttributeToArchivedPrs(archivedPrs);
+    addAttributeToPrs(prs);
+
     setIsLoading(false);
-    setPrs(responsePrs.prs);
-    setArchivedPrs(responsePrs.archivedPrs);
+    setPrs(prs);
+    setArchivedPrs(archivedPrs);
   } catch (err) {
     console.log(err);
     setIsLoading(false);
   }
+};
+
+const addAttributeToArchivedPrs = arr => {
+  arr.map(item => {
+    return (item.archived = true);
+  });
+};
+const addAttributeToPrs = arr => {
+  arr.map(item => {
+    return (item.archived = false);
+  });
 };
