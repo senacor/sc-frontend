@@ -113,6 +113,18 @@ const EmployeesPRsDialog = ({
     history.push(`/prDetail/${id}`);
   };
 
+  const downloadPdf = id => {
+    const iframe = document.frames
+      ? document.frames[id]
+      : document.getElementById(id);
+    const iframeWindow = iframe.contentWindow || iframe;
+
+    iframe.focus();
+    iframeWindow.print();
+
+    return false;
+  };
+
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -127,7 +139,14 @@ const EmployeesPRsDialog = ({
           {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
-          <Button onClick={() => console.log('download')}>
+          <iframe
+            id="pr"
+            src={`prDetailWithoutAppbar/${pr.prId}`}
+            style={{ display: 'none' }}
+            title="Pr"
+            height="100"
+          />
+          <Button onClick={() => downloadPdf('pr')}>
             <DownloadIcon />
           </Button>
         </TableCell>
