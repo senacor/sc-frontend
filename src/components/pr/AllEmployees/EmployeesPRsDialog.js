@@ -147,7 +147,6 @@ const EmployeesPRsDialog = ({
             src={`prDetailWithoutAppbar/${pr.prId}`}
             style={{ display: 'none' }}
             title="Pr"
-            height="100"
           />
           <Button onClick={() => downloadPdf('pr')}>
             <DownloadIcon />
