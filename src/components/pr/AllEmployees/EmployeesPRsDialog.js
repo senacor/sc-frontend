@@ -69,30 +69,49 @@ const EmployeesPRsDialog = ({
   history
 }) => {
   const [prs, setPrs] = useState([]);
+  const [archivedPrs, setArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
 
   useEffect(() => {
     if (dialogOpen) {
-      getAllPrsByEmployee(employeeId, setPrs, setIsLoading, errorContext);
+      getAllPrsByEmployee(
+        employeeId,
+        setPrs,
+        setArchivedPrs,
+        setIsLoading,
+        errorContext
+      );
     }
   }, []);
 
+  useEffect(() => {
+    const addAttributeToArchivedPrs = arr => {
+      arr.map(item => {
+        return (item.archived = true);
+      });
+    };
+    addAttributeToArchivedPrs(archivedPrs);
+    console.log('archivedPrs', archivedPrs);
+  });
+
+  const listOfAllPrs = [...prs, ...archivedPrs];
+
   // List of all PRs of current employee
-  const listOfPrs = prs.map(pr => {
+  const listOfPrs = listOfAllPrs.map((pr, index) => {
     return (
-      <TableRow
-        key={pr.id}
-        className={classes.prRow}
-        onClick={() => history.push(`/prs/${pr.id}`)}
-      >
-        <TableCell>{pr.id}</TableCell>
-        <TableCell>
-          {formatLocaleDateTime(pr.deadline, FRONTEND_DATE_FORMAT)}
+      <TableRow key={index} className={classes.prRow}>
+        <TableCell onClick={() => history.push(`/prDetail/${pr.id}`)}>
+          {index + 1}
+        </TableCell>
+        <TableCell onClick={() => history.push(`/prDetail/${pr.id}`)}>
+          {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
-          <DownloadIcon />
+          <Button onClick={() => console.log('click')}>
+            <DownloadIcon />
+          </Button>
         </TableCell>
       </TableRow>
     );

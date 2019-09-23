@@ -13,6 +13,8 @@ export const getAllEmployees = async (
     );
 
     const responseEmployees = await response.json();
+    console.log('employees', responseEmployees);
+
     setIsLoading(false);
     setEmployees(responseEmployees);
   } catch (err) {
@@ -28,6 +30,7 @@ export const getAllEmployees = async (
 export const getAllPrsByEmployee = async (
   id,
   setPrs,
+  setArchivedPrs,
   setIsLoading,
   errorContext
 ) => {
@@ -35,11 +38,13 @@ export const getAllPrsByEmployee = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/all/${id}`
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/all/${id}`
     );
     const responsePrs = await response.json();
+    console.log('response', responsePrs);
     setIsLoading(false);
-    setPrs(responsePrs);
+    setPrs(responsePrs.prs);
+    setArchivedPrs(responsePrs.archivedPrs);
   } catch (err) {
     console.log(err);
     setIsLoading(false);

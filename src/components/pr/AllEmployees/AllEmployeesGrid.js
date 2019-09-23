@@ -68,8 +68,6 @@ const EmployeesGrid = ({ classes, intl, searchEmployeesValue }) => {
     </Grid>
   ));
 
-  console.log(itemsShown);
-
   return (
     <div className={classes.gridContainer}>
       {isLoading ? (
