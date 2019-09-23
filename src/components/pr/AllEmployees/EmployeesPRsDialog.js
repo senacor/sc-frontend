@@ -109,8 +109,6 @@ const EmployeesPRsDialog = ({
     }
   }, []);
 
-  console.log(prsTogether, 'prsTogether');
-
   const linkToPrSheet = (id, archived) => {
     if (!archived) {
       history.push(`/prDetail/${id}`);
@@ -120,7 +118,6 @@ const EmployeesPRsDialog = ({
 
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
-    console.log(pr.archived);
     return (
       <TableRow
         key={index}
