@@ -1,21 +1,13 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  withStyles,
-  CircularProgress,
-  Typography,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon
-} from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { ErrorContext } from '../../App';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
 import { withRouter } from 'react-router-dom';
+import { downloadPrExcel } from '../../../actions/calls/fileStorage';
 
 // Calls
 import { getAllPrsByEmployee } from '../../../actions/calls/employees';
@@ -30,9 +22,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // Icons
 import DownloadIcon from '@material-ui/icons/CloudDownload';
+import { DownloadFile } from '../../fileStorage/DownloadFile';
 
 const styles = theme => ({
   dialogContent: {
@@ -93,6 +93,7 @@ const EmployeesPRsDialog = ({
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState(null);
 
   const errorContext = useContext(ErrorContext.context);
   const prsTogether = [...prs, ...archivedPrs];
@@ -116,6 +117,8 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
+  console.log('downloadUrl', downloadUrl);
+
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -130,9 +133,13 @@ const EmployeesPRsDialog = ({
           {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
-          <Button onClick={() => console.log('download')}>
-            <DownloadIcon />
-          </Button>
+          {pr.archived ? (
+            <DownloadFile employeeId={pr.employee.id} fileId={pr.prId} />
+          ) : (
+            <Button>
+              <DownloadIcon />
+            </Button>
+          )}
         </TableCell>
       </TableRow>
     );
