@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, CircularProgress } from '@material-ui/core';
+import { withStyles, CircularProgress, Button } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
 import { ErrorContext } from '../../App';
 
@@ -15,16 +15,34 @@ const styles = theme => ({
     height: '70vh',
     width: '100%',
     paddingTop: 2 * theme.spacing.unit,
-    overflowY: 'auto',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    overflowY: 'auto'
+  },
+  content: {
+    textAlign: 'center'
+  },
+  showMore: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   }
 });
 
-const EmployeesGrid = ({ classes, searchEmployeesValue }) => {
+const EmployeesGrid = ({ classes, intl, searchEmployeesValue }) => {
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [itemsShown, setItemsShown] = useState(15);
 
   const errorContext = useContext(ErrorContext.context);
+
+  const cardsToShow = 15;
+
+  const showMore = () => {
+    if (itemsShown + cardsToShow <= employees.length) {
+      setItemsShown(itemsShown + cardsToShow);
+    } else {
+      setItemsShown(employees.length);
+    }
+  };
 
   useEffect(() => {
     getAllEmployees(setEmployees, setIsLoading, errorContext);
@@ -37,7 +55,7 @@ const EmployeesGrid = ({ classes, searchEmployeesValue }) => {
   });
 
   // All employees
-  const employeesData = employees.map(employee => (
+  const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
       <EmployeeCard employee={employee} />
     </Grid>
@@ -50,14 +68,25 @@ const EmployeesGrid = ({ classes, searchEmployeesValue }) => {
     </Grid>
   ));
 
+  console.log(itemsShown);
+
   return (
     <div className={classes.gridContainer}>
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Grid container spacing={40}>
-          {searchEmployeesValue ? filteredEmployeesData : employeesData}
-        </Grid>
+        <div className={classes.content}>
+          <Grid container spacing={40}>
+            {searchEmployeesValue ? filteredEmployeesData : employeesData}
+          </Grid>
+          {!searchEmployeesValue && itemsShown < employees.length && (
+            <Button className={classes.showMore} onClick={showMore}>
+              {`${intl.formatMessage({
+                id: 'showMore'
+              })}..`}
+            </Button>
+          )}
+        </div>
       )}
     </div>
   );

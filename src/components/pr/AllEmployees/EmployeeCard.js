@@ -18,7 +18,7 @@ import EmployeesPRsDialog from './EmployeesPRsDialog';
 const styles = theme => ({
   card: {
     width: 260,
-    height: 350,
+    height: 330,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -31,6 +31,9 @@ const styles = theme => ({
     height: 60,
     textAlign: 'center',
     padding: theme.spacing.unit
+  },
+  name: {
+    color: theme.palette.secondary.darkGrey
   },
   avatar: {
     width: 60,
@@ -74,8 +77,12 @@ const EmployeeCard = ({
 
   const employeeName = (
     <Fragment>
-      <Typography variant="h5">{firstName}</Typography>
-      <Typography variant="h5">{lastName}</Typography>
+      <Typography variant="h5" className={classes.name}>
+        {firstName}
+      </Typography>
+      <Typography variant="h5" className={classes.name}>
+        {lastName}
+      </Typography>
     </Fragment>
   );
 

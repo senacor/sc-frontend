@@ -1,12 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, CircularProgress, Typography } from '@material-ui/core';
+import {
+  withStyles,
+  CircularProgress,
+  Typography,
+  Divider
+} from '@material-ui/core';
 import { ErrorContext } from '../../App';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 // Calls
 import { getAllPrsByEmployee } from '../../../actions/calls/employees';
@@ -26,18 +31,30 @@ import TableBody from '@material-ui/core/TableBody';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 const styles = theme => ({
+  dialogContent: {
+    padding: 3 * theme.spacing.unit,
+    textAlign: 'center'
+  },
   btnClose: {
     width: 50,
     height: 50,
     position: 'absolute',
     right: 10
   },
+  prsNumber: {
+    marginLeft: 6 * theme.spacing.unit,
+    fontSize: '0.8rem'
+  },
   prRow: {
+    textDecoration: 'none',
     cursor: 'pointer',
     transition: 'all 0.3s',
     '&:hover': {
       backgroundColor: theme.palette.secondary.brightGrey
     }
+  },
+  noPrFound: {
+    color: theme.palette.secondary.mediumGrey
   }
 });
 
@@ -48,7 +65,8 @@ const EmployeesPRsDialog = ({
   firstName,
   lastName,
   intl,
-  classes
+  classes,
+  history
 }) => {
   const [prs, setPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,15 +79,13 @@ const EmployeesPRsDialog = ({
     }
   }, []);
 
-  console.log(prs, 'prs');
-
+  // List of all PRs of current employee
   const listOfPrs = prs.map(pr => {
     return (
       <TableRow
         key={pr.id}
         className={classes.prRow}
-        component={Link}
-        to={`/prs/${pr.id}`}
+        onClick={() => history.push(`/prs/${pr.id}`)}
       >
         <TableCell>{pr.id}</TableCell>
         <TableCell>
@@ -87,8 +103,18 @@ const EmployeesPRsDialog = ({
       <Button onClick={dialogClose} className={classes.btnClose}>
         X
       </Button>
-      <DialogTitle>{`${firstName} ${lastName}`}</DialogTitle>
-      <DialogContent>
+      <DialogTitle>
+        <span>{`${firstName} ${lastName}`}</span>
+        {prs.length > 0 && (
+          <span className={classes.prsNumber}>
+            {`${intl.formatMessage({
+              id: 'employeeInfo.prsCount'
+            })}: ${prs.length}`}
+          </span>
+        )}
+      </DialogTitle>
+      <Divider />
+      <DialogContent className={classes.dialogContent}>
         {isLoading ? (
           <CircularProgress />
         ) : prs.length > 0 ? (
@@ -111,7 +137,7 @@ const EmployeesPRsDialog = ({
             <TableBody>{listOfPrs}</TableBody>
           </Table>
         ) : (
-          <Typography>
+          <Typography variant="body2" className={classes.noPrFound}>
             {`${firstName} ${lastName} ${intl.formatMessage({
               id: 'employeeInfo.noPrsFound'
             })}`}
@@ -122,4 +148,4 @@ const EmployeesPRsDialog = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeesPRsDialog));
+export default withRouter(injectIntl(withStyles(styles)(EmployeesPRsDialog)));
