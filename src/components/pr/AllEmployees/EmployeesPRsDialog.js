@@ -120,7 +120,7 @@ const EmployeesPRsDialog = ({
         key={index}
         className={pr.archived ? classes.prRow : classes.archived}
       >
-        <TableCell onClick={() => !pr.archived && linkToPrSheet(pr.id)}>
+        <TableCell onClick={() => pr.archived && linkToPrSheet(pr.id)}>
           {index + 1}
         </TableCell>
         <TableCell onClick={() => pr.archived && linkToPrSheet(pr.id)}>
