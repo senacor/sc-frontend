@@ -240,6 +240,8 @@
   "userrolespanel.user": "Benutzer",
   "userrolespanel.roles": "Rolle",
   "showMore": "Mehr anzeigen",
+  "legend.prArchived": "Archivierte PR",
+  "legend.prNonArchived": "Nicht archivierte PR",
   "ACCEPT": "Angenommen",
   "ACCEPTED_DATE_REVIEWER": "Termin akzeptiert",
   "ALL_DATES_ACCEPTED": "Termin festgesetzt",

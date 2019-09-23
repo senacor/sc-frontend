@@ -64,7 +64,7 @@ const styles = theme => ({
     color: theme.palette.secondary.mediumGrey
   },
   legend: {
-    width: 250
+    display: 'inline-flex'
   },
   legendArchivedDiv: {
     width: 50,
@@ -180,8 +180,10 @@ const EmployeesPRsDialog = ({
             <List className={classes.legend}>
               <ListItem>
                 <ListItemText
-                  primary="Archived PR"
-                  primaryTypographyProps={{ variant: 'body2' }}
+                  secondary={intl.formatMessage({
+                    id: 'legend.prArchived'
+                  })}
+                  secondaryTypographyProps={{ variant: 'body2' }}
                 />
                 <ListItemIcon>
                   <div className={classes.legendArchivedDiv} />
@@ -189,8 +191,10 @@ const EmployeesPRsDialog = ({
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary="Not archived PR"
-                  primaryTypographyProps={{ variant: 'body2' }}
+                  secondary={intl.formatMessage({
+                    id: 'legend.prNonArchived'
+                  })}
+                  secondaryTypographyProps={{ variant: 'body2' }}
                 />
                 <ListItemIcon>
                   <div className={classes.legendNonArchivedDiv} />
