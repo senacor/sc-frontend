@@ -148,9 +148,6 @@ const EmployeesPRsDialog = ({
             style={{ display: 'none' }}
             title="Pr"
           />
-          <Button onClick={() => downloadPdf('pr')}>
-            <DownloadIcon />
-          </Button>
           {pr.archived ? (
             // Download excel
             !pr.inProgress ? (
@@ -158,7 +155,7 @@ const EmployeesPRsDialog = ({
             ) : null
           ) : (
             // Download pdf
-            <IconButton>
+            <IconButton onClick={downloadPdf}>
               <GetAppIcon />
             </IconButton>
           )}
