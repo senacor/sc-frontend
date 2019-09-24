@@ -7,13 +7,14 @@ import {
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
 import { withRouter } from 'react-router-dom';
-import { downloadPrExcel } from '../../../actions/calls/fileStorage';
+import { DownloadFile } from '../../fileStorage/DownloadFile';
 
 // Calls
 import { getAllPrsByEmployee } from '../../../actions/calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -31,8 +32,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // Icons
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import { DownloadFile } from '../../fileStorage/DownloadFile';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 const styles = theme => ({
   dialogContent: {
@@ -93,7 +93,6 @@ const EmployeesPRsDialog = ({
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [downloadUrl, setDownloadUrl] = useState(null);
 
   const errorContext = useContext(ErrorContext.context);
   const prsTogether = [...prs, ...archivedPrs];
@@ -117,8 +116,6 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
-  console.log('downloadUrl', downloadUrl);
-
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -136,9 +133,9 @@ const EmployeesPRsDialog = ({
           {pr.archived ? (
             <DownloadFile employeeId={pr.employee.id} fileId={pr.prId} />
           ) : (
-            <Button>
-              <DownloadIcon />
-            </Button>
+            <IconButton>
+              <GetAppIcon />
+            </IconButton>
           )}
         </TableCell>
       </TableRow>
@@ -172,7 +169,7 @@ const EmployeesPRsDialog = ({
                   <TableCell>ID</TableCell>
                   <TableCell>
                     {intl.formatMessage({
-                      id: 'employeeInfo.dueDate'
+                      id: 'employeeInfo.startDate'
                     })}
                   </TableCell>
                   <TableCell>

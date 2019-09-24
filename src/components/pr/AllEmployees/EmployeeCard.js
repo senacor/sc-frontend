@@ -136,7 +136,7 @@ const EmployeeCard = ({
           </Typography>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
-              id: 'employeeInfo.dueDate'
+              id: 'employeeInfo.startDate'
             })}
             :{' '}
             <span className={classes.textInfo}>

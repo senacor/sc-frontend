@@ -103,27 +103,3 @@ export const loadArchivedFilesList = async (
     });
   }
 };
-
-// Downloading archived PR in Excel
-export const downloadPrExcel = async (
-  employeeId,
-  prId,
-  setDownloadUrl,
-  errorContext
-) => {
-  try {
-    const response = await fetch(
-      `${
-        process.env.REACT_APP_API
-      }/api/v3/employees/${employeeId}/archivedPrs/${prId}`
-    );
-    const result = await response.json();
-    console.log('result', result);
-    setDownloadUrl(result.url);
-  } catch (err) {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
-  }
-};
