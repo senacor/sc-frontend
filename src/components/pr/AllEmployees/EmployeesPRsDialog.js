@@ -116,6 +116,8 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
+  console.log('prsTogether', prsTogether);
+
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -127,12 +129,16 @@ const EmployeesPRsDialog = ({
           {index + 1}
         </TableCell>
         <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
-          {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
+          {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
           {pr.archived ? (
-            <DownloadFile employeeId={pr.employee.id} fileId={pr.prId} />
+            // Download excel
+            !pr.inProgress ? (
+              <DownloadFile employeeId={pr.employeeId} fileId={pr.prId} />
+            ) : null
           ) : (
+            // Download pdf
             <IconButton>
               <GetAppIcon />
             </IconButton>
