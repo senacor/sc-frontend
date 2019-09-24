@@ -1,27 +1,20 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  withStyles,
-  CircularProgress,
-  Typography,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon
-} from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { ErrorContext } from '../../App';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
 import { withRouter } from 'react-router-dom';
+import { DownloadFile } from '../../fileStorage/DownloadFile';
 
 // Calls
 import { getAllPrsByEmployee } from '../../../actions/calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -30,9 +23,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // Icons
-import DownloadIcon from '@material-ui/icons/CloudDownload';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 const styles = theme => ({
   dialogContent: {
@@ -127,12 +127,20 @@ const EmployeesPRsDialog = ({
           {index + 1}
         </TableCell>
         <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
-          {formatLocaleDateTime(pr.dueDate, FRONTEND_DATE_FORMAT)}
+          {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
-          <Button onClick={() => console.log('download')}>
-            <DownloadIcon />
-          </Button>
+          {pr.archived ? (
+            // Download excel
+            !pr.inProgress ? (
+              <DownloadFile employeeId={pr.employeeId} fileId={pr.prId} />
+            ) : null
+          ) : (
+            // Download pdf
+            <IconButton>
+              <GetAppIcon />
+            </IconButton>
+          )}
         </TableCell>
       </TableRow>
     );
@@ -165,7 +173,7 @@ const EmployeesPRsDialog = ({
                   <TableCell>ID</TableCell>
                   <TableCell>
                     {intl.formatMessage({
-                      id: 'employeeInfo.dueDate'
+                      id: 'employeeInfo.startDate'
                     })}
                   </TableCell>
                   <TableCell>
