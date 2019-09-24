@@ -116,8 +116,6 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
-  console.log('prsTogether', prsTogether);
-
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
