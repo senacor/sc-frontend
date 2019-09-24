@@ -141,11 +141,11 @@ export const PrOverviewEmployee = props => {
         </Grid>
       </Grid>
 
-      <PerformanceReviewTable
+      {/* <PerformanceReviewTable
         columnDefinition={columns}
         orderBy={0}
         data={data}
-      />
+      /> */}
     </Paper>
   );
 };

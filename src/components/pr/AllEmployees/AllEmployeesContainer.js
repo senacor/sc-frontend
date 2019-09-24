@@ -11,12 +11,6 @@ import EmployeesGrid from './AllEmployeesGrid';
 const styles = theme => ({
   container: {
     margin: 3 * theme.spacing.unit
-  },
-  gridContainer: {
-    height: '77vh',
-    width: '100%',
-    overflowY: 'auto',
-    overflowX: 'hidden'
   }
 });
 

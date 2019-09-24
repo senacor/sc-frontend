@@ -11,6 +11,7 @@ import { DownloadFile } from '../../fileStorage/DownloadFile';
 
 // Calls
 import { getAllPrsByEmployee } from '../../../actions/calls/employees';
+import { linkToPr } from '../../../actions/calls/pr';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -109,13 +110,6 @@ const EmployeesPRsDialog = ({
     }
   }, []);
 
-  const linkToPrSheet = (id, archived) => {
-    if (!archived) {
-      history.push(`/prDetail/${id}`);
-    }
-    return null;
-  };
-
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -123,10 +117,10 @@ const EmployeesPRsDialog = ({
         key={index}
         className={pr.archived ? classes.archived : classes.prRow}
       >
-        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
+        <TableCell onClick={() => linkToPr(pr.prId, pr.archived, history)}>
           {index + 1}
         </TableCell>
-        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
+        <TableCell onClick={() => linkToPr(pr.prId, pr.archived, history)}>
           {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
@@ -165,7 +159,7 @@ const EmployeesPRsDialog = ({
       <DialogContent className={classes.dialogContent}>
         {isLoading ? (
           <CircularProgress />
-        ) : prs.length > 0 ? (
+        ) : prsTogether.length > 0 ? (
           <Fragment>
             <Table>
               <TableHead>

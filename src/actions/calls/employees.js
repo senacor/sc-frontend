@@ -51,15 +51,19 @@ export const getAllPrsByEmployee = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
   }
 };
 
-const addAttributeToArchivedPrs = arr => {
+export const addAttributeToArchivedPrs = arr => {
   arr.map(item => {
     return (item.archived = true);
   });
 };
-const addAttributeToPrs = arr => {
+export const addAttributeToPrs = arr => {
   arr.map(item => {
     return (item.archived = false);
   });
