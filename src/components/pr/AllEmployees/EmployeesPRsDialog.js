@@ -147,7 +147,6 @@ const EmployeesPRsDialog = ({
             ) : null
           ) : (
             // Download pdf
-            //<IconButton onClick={() => downloadPdf('pr')}>
             <IconButton onClick={() => openDialog(pr)}>
               <GetAppIcon />
             </IconButton>

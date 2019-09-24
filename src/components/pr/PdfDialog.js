@@ -69,9 +69,9 @@ const PdfDialog = ({ id, closeDialog, classes, intl }) => {
         <Divider />
         <DialogContent>
           <Fragment style={{ pointerEvents: 'none' }}>
-            {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
-            {pr ? <PrState prById={pr} /> : null}
-            {pr ? <PrTabs pr={pr} meeting={meeting} /> : null}
+            {pr && <PrDetailInformation pr={pr} meeting={meeting} />}
+            {pr && <PrState prById={pr} />}
+            {pr && <PrTabs pr={pr} meeting={meeting} />}
           </Fragment>
         </DialogContent>
       </Dialog>
