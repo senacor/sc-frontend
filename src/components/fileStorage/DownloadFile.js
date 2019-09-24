@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { downloadFile } from '../../actions/calls/fileStorage';
 import { ErrorContext } from '../App';
+
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 let downloadTab = null;
 export const DownloadFile = ({ employeeId, fileId }) => {
@@ -25,7 +26,7 @@ export const DownloadFile = ({ employeeId, fileId }) => {
 
   return (
     <IconButton onClick={handleClick(employeeId, fileId)}>
-      <Icon>get_app</Icon>
+      <GetAppIcon />
     </IconButton>
   );
 };

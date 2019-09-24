@@ -13,7 +13,6 @@ export const getAllEmployees = async (
     );
 
     const responseEmployees = await response.json();
-    console.log('employees', responseEmployees);
 
     setIsLoading(false);
     setEmployees(responseEmployees);

@@ -215,7 +215,7 @@
   "employeeInfo.cst": "CST",
   "employeeInfo.cc": "CC",
   "employeeInfo.location": "Office location",
-  "employeeInfo.dueDate": "Due date",
+  "employeeInfo.startDate": "Start date",
   "employeeInfo.noPrsFound": "has no PRs in our database.",
   "employeeInfo.prsCount": "Number of PRs",
   "compositionnumber.version": "version",
