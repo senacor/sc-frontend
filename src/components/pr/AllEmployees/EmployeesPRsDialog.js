@@ -58,7 +58,7 @@ const styles = theme => ({
     }
   },
   archived: {
-    backgroundColor: theme.palette.secondary.brighterGrey
+    backgroundColor: theme.palette.secondary.grey
   },
   noPrFound: {
     color: theme.palette.secondary.mediumGrey
@@ -69,7 +69,7 @@ const styles = theme => ({
   legendArchivedDiv: {
     width: 50,
     height: 20,
-    backgroundColor: theme.palette.secondary.brighterGrey,
+    backgroundColor: theme.palette.secondary.grey,
     border: `1px solid ${theme.palette.secondary.mediumGrey}`
   },
   legendNonArchivedDiv: {
