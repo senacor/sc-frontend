@@ -116,6 +116,18 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
+  const downloadPdf = id => {
+    const iframe = document.frames
+      ? document.frames[id]
+      : document.getElementById(id);
+    const iframeWindow = iframe.contentWindow || iframe;
+
+    iframe.focus();
+    iframeWindow.print();
+
+    return false;
+  };
+
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -130,6 +142,12 @@ const EmployeesPRsDialog = ({
           {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
+          <iframe
+            id="pr"
+            src={`prDetailWithoutAppbar/${pr.prId}`}
+            style={{ display: 'none' }}
+            title="Pr"
+          />
           {pr.archived ? (
             // Download excel
             !pr.inProgress ? (
@@ -137,7 +155,7 @@ const EmployeesPRsDialog = ({
             ) : null
           ) : (
             // Download pdf
-            <IconButton>
+            <IconButton onClick={() => downloadPdf('pr')}>
               <GetAppIcon />
             </IconButton>
           )}
@@ -165,7 +183,7 @@ const EmployeesPRsDialog = ({
       <DialogContent className={classes.dialogContent}>
         {isLoading ? (
           <CircularProgress />
-        ) : prs.length > 0 ? (
+        ) : prsTogether.length > 0 ? (
           <Fragment>
             <Table>
               <TableHead>
