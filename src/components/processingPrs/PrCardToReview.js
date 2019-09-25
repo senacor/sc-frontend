@@ -17,7 +17,7 @@ import PrIcon from '@material-ui/icons/PermContactCalendar';
 const styles = theme => ({
   card: {
     width: 200,
-    height: 265,
+    height: 270,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -38,13 +38,8 @@ const styles = theme => ({
   lastname: {
     fontSize: '1.4rem'
   },
-  date: {
+  subtitle: {
     color: theme.palette.secondary.darkGrey
-  },
-  archivedContent: {
-    backgroundColor: theme.palette.secondary.grey,
-    textAlign: 'center',
-    cursor: 'auto'
   },
   content: {
     textAlign: 'center',
@@ -57,7 +52,13 @@ const styles = theme => ({
   occasion: {
     backgroundColor: theme.palette.secondary.brightGrey,
     textAlign: 'center',
+    height: 50,
+    margin: 'auto 0',
     padding: '5px 0'
+  },
+  occasionValue: {
+    wordBreak: 'break-word',
+    margin: '0 1rem'
   }
 });
 
@@ -67,13 +68,20 @@ const PrCard = ({
   history,
   pr: { prId, employeeFirstName, employeeLastName, prOccasion, startDate }
 }) => {
-  const replaceDashInString = string => {
-    return string.replace(/_/g, ' ');
+  // Replacing "_" and setting only first letter as capital
+  const modifyString = string => {
+    const replacedStr =
+      string.charAt(0).toUpperCase() +
+      string
+        .slice(1)
+        .toLowerCase()
+        .replace(/_/g, ' ');
+    return replacedStr;
   };
 
   const startDateDiv = (
     <Fragment>
-      <Typography variant="body2" className={classes.date}>
+      <Typography variant="body2" className={classes.subtitle}>
         {intl.formatMessage({
           id: 'employeeInfo.startDate'
         })}
@@ -101,13 +109,15 @@ const PrCard = ({
         <PrIcon className={classes.prIcon} />
         <div>{startDateDiv}</div>
       </CardContent>
-      {/* Occasion div */}
+      {/* Occasion container */}
       <div className={classes.occasion}>
-        <Typography variant="body2">{`${intl.formatMessage({
-          id: 'pr.occasion'
-        })}:`}</Typography>
-        <Typography variant="body1">
-          {replaceDashInString(prOccasion)}
+        <Typography variant="body2" className={classes.subtitle}>
+          {intl.formatMessage({
+            id: 'pr.occasion'
+          })}
+        </Typography>
+        <Typography variant="caption" className={classes.occasionValue}>
+          {modifyString(prOccasion)}
         </Typography>
       </div>
     </Card>
