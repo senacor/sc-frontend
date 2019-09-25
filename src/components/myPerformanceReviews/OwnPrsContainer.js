@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { ErrorContext } from '../App';
 import { getOwnPrs } from '../../actions/calls/pr';
 import PrCard from './PrCard';
+import { RequestPerformanceReview } from './RequestPerformanceReview';
 
 const styles = theme => ({
   ...theme,
@@ -16,7 +17,7 @@ const styles = theme => ({
   padding: 3 * theme.spacing.unit
 });
 
-const OwnPrsContainer = ({ classes }) => {
+const OwnPrsContainer = ({ classes, intl }) => {
   const [ownPrs, setOwnPrs] = useState([]);
   const [ownArchivedPrs, setOwnArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,9 +41,12 @@ const OwnPrsContainer = ({ classes }) => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Grid container spacing={40}>
-          {listofOwnPrs}
-        </Grid>
+        <Fragment>
+          <RequestPerformanceReview intl={intl} />
+          <Grid container spacing={40}>
+            {listofOwnPrs}
+          </Grid>
+        </Fragment>
       )}
     </div>
   );
