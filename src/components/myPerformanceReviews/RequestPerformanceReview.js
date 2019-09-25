@@ -9,8 +9,7 @@ import { CircularProgress } from '@material-ui/core';
 import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { addPr } from '../../actions/calls/pr';
 
-export const RequestPerformanceReview = props => {
-  let { intl } = props;
+export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const errorContext = useContext(ErrorContext.context);

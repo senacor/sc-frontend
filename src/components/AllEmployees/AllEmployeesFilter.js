@@ -8,11 +8,12 @@ const styles = theme => ({
   ...theme.styledComponents,
   form: {
     paddingBottom: theme.spacing.unit,
-    display: 'inline-block'
+    display: 'inline'
   },
   searchField: {
     width: '10rem',
     margin: '0 3rem',
+    width: '10rem'
   }
 });
 
