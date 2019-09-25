@@ -17,9 +17,6 @@ import AllEmployeesContainer from './pr/AllEmployees/AllEmployeesContainer';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
-// const PrOverviewEmployee = lazy(() =>
-//   import('./myPerformanceReviews/PrOverviewEmployee')
-// );
 const OwnPrsContainer = lazy(() =>
   import('./myPerformanceReviews/OwnPrsContainer')
 );
@@ -50,7 +47,6 @@ const withContent = WrappedComponent => props => (
 );
 
 const PrOverviewReviewerContent = withContent(PrOverviewReviewer);
-// const PrOverviewEmployeeContent = withContent(PrOverviewEmployee);
 const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail

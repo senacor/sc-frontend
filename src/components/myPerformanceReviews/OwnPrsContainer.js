@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { ErrorContext } from '../App';
 import { getOwnPrs } from '../../actions/calls/pr';
-import PrCard from '../pr/PrCard';
+import PrCard from './PrCard';
 
 const styles = theme => ({
   ...theme,
