@@ -140,6 +140,12 @@ const EmployeesPRsDialog = ({
           {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
+          <iframe
+            id="pr"
+            src={`prDetailWithoutAppbar/${pr.prId}`}
+            style={{ display: 'none' }}
+            title="Pr"
+          />
           {pr.archived ? (
             // Download excel
             !pr.inProgress ? (
@@ -176,7 +182,7 @@ const EmployeesPRsDialog = ({
         <DialogContent className={classes.dialogContent}>
           {isLoading ? (
             <CircularProgress />
-          ) : prs.length > 0 ? (
+          ) : prsTogether.length > 0 ? (
             <Fragment>
               <Table>
                 <TableHead>
