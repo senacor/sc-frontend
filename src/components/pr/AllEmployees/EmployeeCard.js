@@ -5,7 +5,8 @@ import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
-
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -62,8 +63,12 @@ const EmployeeCard = ({
     officeLocation,
     dateOfNextPr,
     userPhoto,
-    supervisorName
-  }
+    supervisorName,
+    hasOpenedPr
+  },
+  selection,
+  selected,
+  toggleSelected
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -95,13 +100,44 @@ const EmployeeCard = ({
       <Avatar />
     );
 
+  let bgColor = '';
+  let avatar = employeePhoto;
+  let onCardClick = handleDialogOpen;
+
+  if (selection) {
+    if (hasOpenedPr) {
+      bgColor = '#e4e2e2';
+      avatar = (
+        <HighlightOffIcon
+          fontSizeAdjust={true}
+          className={classes.avatar}
+          style={{ color: 'grey' }}
+        />
+      );
+      onCardClick = () => {};
+    } else {
+      onCardClick = () => toggleSelected(id);
+      bgColor = selected ? '#ceeace' : '#d5e5eb';
+      avatar = selected ? (
+        <CheckCircleIcon
+          fontSizeAdjust={true}
+          className={classes.avatar}
+          style={{ color: '#8cd74c' }}
+        />
+      ) : (
+        employeePhoto
+      );
+    }
+  }
+
   return (
     <Fragment>
-      <Card className={classes.card} onClick={handleDialogOpen}>
+      <Card className={classes.card} onClick={onCardClick}>
         <CardHeader
           className={classes.header}
+          style={{ backgroundColor: bgColor }}
           title={employeeName}
-          avatar={employeePhoto}
+          avatar={avatar}
         />
         <Divider />
         <CardContent>
