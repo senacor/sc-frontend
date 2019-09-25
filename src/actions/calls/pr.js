@@ -395,3 +395,26 @@ export const getOwnPrs = async (
     });
   }
 };
+
+export const getPrsToReview = async (setPrs, setIsLoading, errorContext) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/prsToReview`
+    );
+    const responsePrs = await response.json();
+
+    console.log(responsePrs);
+
+    setIsLoading(false);
+    setPrs(responsePrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
