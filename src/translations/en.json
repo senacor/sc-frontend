@@ -64,6 +64,8 @@
   "pr.saved": "All changes saved.",
   "pr.submitted": "Performance Review submitted.",
   "pr.started": "Performance Review process started for following employees: {employees}",
+  "pr.cancel": "Cancel",
+  "pr.select.employees": "Select employees for PR",
   "buttonsbelowsheet.fillrequired": "Please fill in all required fields.",
   "buttonsbelowsheet.release": "Submit",
   "buttonsbelowsheet.finish": "Complete",

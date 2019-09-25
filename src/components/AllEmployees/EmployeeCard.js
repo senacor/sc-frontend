@@ -106,7 +106,6 @@ const EmployeeCard = ({
       bgColor = '#e4e2e2';
       avatar = (
         <HighlightOffIcon
-          fontSizeAdjust={true}
           className={classes.avatar}
           style={{ color: 'grey' }}
         />
@@ -117,7 +116,6 @@ const EmployeeCard = ({
       bgColor = selected ? '#ceeace' : '#d5e5eb';
       avatar = selected ? (
         <CheckCircleIcon
-          fontSizeAdjust={true}
           className={classes.avatar}
           style={{ color: '#8cd74c' }}
         />

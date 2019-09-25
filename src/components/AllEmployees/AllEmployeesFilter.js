@@ -11,8 +11,6 @@ const styles = theme => ({
     display: 'inline'
   },
   searchField: {
-    width: '10rem',
-    margin: '0 3rem',
     width: '10rem'
   }
 });
