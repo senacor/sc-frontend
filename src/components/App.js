@@ -158,6 +158,11 @@ const App = () => {
                       path={ROUTES.ADMIN_USER_ROLES}
                       component={UserRolesPanelWithContent}
                     />
+                    <PrivateRoute
+                      exact
+                      path="/prDetailWithoutAppbar/:id"
+                      component={PerformanceReviewDetail}
+                    />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route
                       path={ROUTES.LOGIN}

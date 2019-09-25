@@ -33,6 +33,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // Icons
 import GetAppIcon from '@material-ui/icons/GetApp';
+import PdfDialog from '../PdfDialog';
 
 const styles = theme => ({
   dialogContent: {
@@ -93,6 +94,7 @@ const EmployeesPRsDialog = ({
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [prToPrint, setPrToPrint] = useState(null);
 
   const errorContext = useContext(ErrorContext.context);
   const prsTogether = [...prs, ...archivedPrs];
@@ -116,16 +118,12 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
-  const downloadPdf = id => {
-    const iframe = document.frames
-      ? document.frames[id]
-      : document.getElementById(id);
-    const iframeWindow = iframe.contentWindow || iframe;
+  const openDialog = pr => {
+    setPrToPrint(pr);
+  };
 
-    iframe.focus();
-    iframeWindow.print();
-
-    return false;
+  const closeDialog = () => {
+    setPrToPrint(null);
   };
 
   // List of all PRs of current employee
@@ -155,7 +153,7 @@ const EmployeesPRsDialog = ({
             ) : null
           ) : (
             // Download pdf
-            <IconButton onClick={() => downloadPdf('pr')}>
+            <IconButton onClick={() => openDialog(pr)}>
               <GetAppIcon />
             </IconButton>
           )}
@@ -165,79 +163,88 @@ const EmployeesPRsDialog = ({
   });
 
   return (
-    <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
-      <Button onClick={dialogClose} className={classes.btnClose}>
-        X
-      </Button>
-      <DialogTitle>
-        <span>{`${firstName} ${lastName}`}</span>
-        {prsTogether.length > 0 && (
-          <span className={classes.prsNumber}>
-            {`${intl.formatMessage({
-              id: 'employeeInfo.prsCount'
-            })}: ${prsTogether.length}`}
-          </span>
-        )}
-      </DialogTitle>
-      <Divider />
-      <DialogContent className={classes.dialogContent}>
-        {isLoading ? (
-          <CircularProgress />
-        ) : prsTogether.length > 0 ? (
-          <Fragment>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>
-                    {intl.formatMessage({
-                      id: 'employeeInfo.startDate'
+    <Fragment>
+      <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
+        <Button onClick={dialogClose} className={classes.btnClose}>
+          X
+        </Button>
+        <DialogTitle>
+          <span>{`${firstName} ${lastName}`}</span>
+          {prsTogether.length > 0 && (
+            <span className={classes.prsNumber}>
+              {`${intl.formatMessage({
+                id: 'employeeInfo.prsCount'
+              })}: ${prsTogether.length}`}
+            </span>
+          )}
+        </DialogTitle>
+        <Divider />
+        <DialogContent className={classes.dialogContent}>
+          {isLoading ? (
+            <CircularProgress />
+          ) : prsTogether.length > 0 ? (
+            <Fragment>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>
+                      {intl.formatMessage({
+                        id: 'employeeInfo.startDate'
+                      })}
+                    </TableCell>
+                    <TableCell>
+                      {intl.formatMessage({
+                        id: 'archivedfiles.download'
+                      })}
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>{listOfAllPrs}</TableBody>
+              </Table>
+              {/* Legend */}
+              <List className={classes.legend}>
+                <ListItem>
+                  <ListItemText
+                    secondary={intl.formatMessage({
+                      id: 'legend.prArchived'
                     })}
-                  </TableCell>
-                  <TableCell>
-                    {intl.formatMessage({
-                      id: 'archivedfiles.download'
+                    secondaryTypographyProps={{ variant: 'body2' }}
+                  />
+                  <ListItemIcon>
+                    <div className={classes.legendArchivedDiv} />
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    secondary={intl.formatMessage({
+                      id: 'legend.prNonArchived'
                     })}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{listOfAllPrs}</TableBody>
-            </Table>
-            {/* Legend */}
-            <List className={classes.legend}>
-              <ListItem>
-                <ListItemText
-                  secondary={intl.formatMessage({
-                    id: 'legend.prArchived'
-                  })}
-                  secondaryTypographyProps={{ variant: 'body2' }}
-                />
-                <ListItemIcon>
-                  <div className={classes.legendArchivedDiv} />
-                </ListItemIcon>
-              </ListItem>
-              <ListItem>
-                <ListItemText
-                  secondary={intl.formatMessage({
-                    id: 'legend.prNonArchived'
-                  })}
-                  secondaryTypographyProps={{ variant: 'body2' }}
-                />
-                <ListItemIcon>
-                  <div className={classes.legendNonArchivedDiv} />
-                </ListItemIcon>
-              </ListItem>
-            </List>
-          </Fragment>
-        ) : (
-          <Typography variant="body2" className={classes.noPrFound}>
-            {`${firstName} ${lastName} ${intl.formatMessage({
-              id: 'employeeInfo.noPrsFound'
-            })}`}
-          </Typography>
-        )}
-      </DialogContent>
-    </Dialog>
+                    secondaryTypographyProps={{ variant: 'body2' }}
+                  />
+                  <ListItemIcon>
+                    <div className={classes.legendNonArchivedDiv} />
+                  </ListItemIcon>
+                </ListItem>
+              </List>
+            </Fragment>
+          ) : (
+            <Typography variant="body2" className={classes.noPrFound}>
+              {`${firstName} ${lastName} ${intl.formatMessage({
+                id: 'employeeInfo.noPrsFound'
+              })}`}
+            </Typography>
+          )}
+        </DialogContent>
+      </Dialog>
+      {prToPrint && (
+        <PdfDialog
+          id={prToPrint.prId}
+          style={{ overflow: 'auto' }}
+          closeDialog={closeDialog}
+        />
+      )}
+    </Fragment>
   );
 };
 
