@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, CircularProgress, Button } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
-import { ErrorContext } from '../../App';
+import { ErrorContext } from '../App';
 
 // Calls
-import { getAllEmployees } from '../../../actions/calls/employees';
+import { getAllEmployees } from '../../actions/calls/employees';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';

@@ -1,16 +1,14 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { ErrorContext } from '../../App';
-import {
-  formatLocaleDateTime,
-  FRONTEND_DATE_FORMAT
-} from '../../../helper/date';
+import { ErrorContext } from '../App';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
-import { DownloadFile } from '../../fileStorage/DownloadFile';
+import { DownloadFile } from '../fileStorage/DownloadFile';
+import PdfDialog from '../pr/PdfDialog';
 
 // Calls
-import { getAllPrsByEmployee } from '../../../actions/calls/employees';
+import { getAllPrsByEmployee } from '../../actions/calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -33,7 +31,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // Icons
 import GetAppIcon from '@material-ui/icons/GetApp';
-import PdfDialog from '../PdfDialog';
 
 const styles = theme => ({
   dialogContent: {
@@ -209,7 +206,9 @@ const EmployeesPRsDialog = ({
                     secondary={intl.formatMessage({
                       id: 'legend.prArchived'
                     })}
-                    secondaryTypographyProps={{ variant: 'body2' }}
+                    secondaryTypographyProps={{
+                      variant: 'body2'
+                    }}
                   />
                   <ListItemIcon>
                     <div className={classes.legendArchivedDiv} />
@@ -220,7 +219,9 @@ const EmployeesPRsDialog = ({
                     secondary={intl.formatMessage({
                       id: 'legend.prNonArchived'
                     })}
-                    secondaryTypographyProps={{ variant: 'body2' }}
+                    secondaryTypographyProps={{
+                      variant: 'body2'
+                    }}
                   />
                   <ListItemIcon>
                     <div className={classes.legendNonArchivedDiv} />

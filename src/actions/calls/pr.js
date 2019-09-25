@@ -1,5 +1,6 @@
 import { default as fetch } from '../../helper/customFetch';
 import generateMapById from '../../helper/generateMapById';
+import { addAttributeToArchivedPrs, addAttributeToPrs } from './employees';
 
 export const fetchPrById = async (
   prsId,
@@ -354,4 +355,43 @@ const showSavedInfoMessage = infoContext => {
     hasInfos: true,
     messageId: 'pr.saved'
   });
+};
+
+export const linkToPr = (id, archived, history) => {
+  if (!archived) {
+    history.push(`/prDetail/${id}`);
+  }
+  return null;
+};
+
+export const getOwnPrs = async (
+  setOwnPrs,
+  setOwnArchivedPrs,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/own`
+    );
+    const responseOwnPrs = await response.json();
+
+    let archivedPrs = [...responseOwnPrs.archivedPrs];
+    let prs = [...responseOwnPrs.prs];
+    addAttributeToArchivedPrs(archivedPrs);
+    addAttributeToPrs(prs);
+
+    setIsLoading(false);
+    setOwnPrs(prs);
+    setOwnArchivedPrs(archivedPrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
 };

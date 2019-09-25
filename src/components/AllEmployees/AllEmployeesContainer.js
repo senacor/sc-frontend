@@ -1,12 +1,12 @@
 import React, { useContext, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
+import { UserinfoContext, ErrorContext } from '../App';
 import { Button, TextField, withStyles } from '@material-ui/core';
-import { ErrorContext, UserinfoContext } from '../../App';
-import { uploadFiles } from '../../../actions/calls/fileStorage';
+import { uploadFiles } from '../../actions/calls/fileStorage';
 import EmployeesGrid from './AllEmployeesGrid';
-import ROLES from '../../../helper/roles';
+import ROLES from '../../helper/roles';
 import AllEmployeesFilter from './AllEmployeesFilter';
-import UploadSuccessDialog from '../../fileStorage/UploadSuccessDialog';
+import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({

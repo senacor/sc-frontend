@@ -13,20 +13,17 @@ import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
 import Content from './AppBar/Content';
-import AllEmployeesContainer from './pr/AllEmployees/AllEmployeesContainer';
+import AllEmployeesContainer from './AllEmployees/AllEmployeesContainer';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
-const PrOverviewEmployee = lazy(() =>
-  import('./myPerformanceReviews/PrOverviewEmployee')
+const OwnPrsContainer = lazy(() =>
+  import('./myPerformanceReviews/OwnPrsContainer')
 );
 const PerformanceReviewDetail = lazy(() =>
   import('./pr/prDetail/PerformanceReviewDetail')
 );
 const PrOverviewReviewer = lazy(() => import('./pr/PrOverviewReviewer'));
-// const OverviewPerformanceReviews = lazy(() =>
-//   import('./humanResources/OverviewPerformanceReviews')
-// );
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 
@@ -50,7 +47,7 @@ const withContent = WrappedComponent => props => (
 );
 
 const PrOverviewReviewerContent = withContent(PrOverviewReviewer);
-const PrOverviewEmployeeContent = withContent(PrOverviewEmployee);
+const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
 );
@@ -126,12 +123,7 @@ const App = () => {
                     <PrivateRoute
                       exact
                       path={ROUTES.OWN_PR_TABLE}
-                      component={PrOverviewEmployeeContent}
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/myPrs/:id"
-                      component={PerformanceReviewDetail2WithContent}
+                      component={OwnPrsContainerWithContent}
                     />
                     <PrivateRoute
                       exact
