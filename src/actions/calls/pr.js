@@ -313,24 +313,20 @@ export const requestPrForEmployees = async (
   );
 
   if (requestPrResponse.ok) {
-    const pr = await requestPrResponse.json();
+    let pr = await requestPrResponse.json();
 
-    const employees = pr.reduce(
-      //convert array of object into sentence
-      (result, employee, index) => {
-        result = result + employee.firstName + ' ' + employee.lastName;
-        if (index + 1 < pr.length) {
-          return result + ', ';
-        }
-        return result + '.';
-      },
-      ''
+    const employeeNames = pr.map(
+      employee => `${employee.firstName} ${employee.lastName}`
     );
+    const employeesResultSentence = `${employeeNames.join(', ')}.`;
 
     infoContext.setValue({
       hasInfos: true,
       messageId: 'pr.started',
-      messageVars: { employees: employees.length > 0 ? employees : '-' }
+      messageVars: {
+        employees:
+          employeesResultSentence.length > 1 ? employeesResultSentence : '-'
+      }
     });
 
     onSuccess(pr);

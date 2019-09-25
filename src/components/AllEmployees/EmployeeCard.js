@@ -44,6 +44,21 @@ const styles = theme => ({
   },
   textInfo: {
     color: theme.palette.primary[400]
+  },
+  selectionUnavailable: {
+    backgroundColor: theme.palette.secondary.grey
+  },
+  selected: {
+    backgroundColor: theme.palette.primary[100]
+  },
+  selectable: {
+    backgroundColor: theme.palette.primary[50]
+  },
+  iconGrey: {
+    color: theme.palette.secondary.mediumGrey
+  },
+  iconGreen: {
+    color: theme.palette.secondary.green
   }
 });
 
@@ -97,28 +112,22 @@ const EmployeeCard = ({
       <Avatar />
     );
 
-  let bgColor = '';
+  let bgClass = '';
   let avatar = employeePhoto;
   let onCardClick = handleDialogOpen;
 
   if (selection) {
     if (hasOpenedPr) {
-      bgColor = '#e4e2e2';
+      bgClass = classes.selectionUnavailable;
       avatar = (
-        <HighlightOffIcon
-          className={classes.avatar}
-          style={{ color: 'grey' }}
-        />
+        <HighlightOffIcon className={`${classes.avatar} ${classes.iconGrey}`} />
       );
       onCardClick = () => {};
     } else {
       onCardClick = () => toggleSelected(id);
-      bgColor = selected ? '#ceeace' : '#d5e5eb';
+      bgClass = selected ? classes.selected : classes.selectable;
       avatar = selected ? (
-        <CheckCircleIcon
-          className={classes.avatar}
-          style={{ color: '#8cd74c' }}
-        />
+        <CheckCircleIcon className={`${classes.avatar} ${classes.iconGreen}`} />
       ) : (
         employeePhoto
       );
@@ -129,8 +138,7 @@ const EmployeeCard = ({
     <Fragment>
       <Card className={classes.card} onClick={onCardClick}>
         <CardHeader
-          className={classes.header}
-          style={{ backgroundColor: bgColor }}
+          className={`${classes.header} ${bgClass}`}
           title={employeeName}
           avatar={avatar}
         />

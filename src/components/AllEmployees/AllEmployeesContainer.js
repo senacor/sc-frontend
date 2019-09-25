@@ -7,9 +7,9 @@ import EmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
 import AllEmployeesFilter from './AllEmployeesFilter';
 import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { getAllEmployees } from '../../actions/calls/employees';
 import { requestPrForEmployees } from '../../actions/calls/pr';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   container: {
@@ -23,7 +23,22 @@ const styles = theme => ({
   },
   containerMenu: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
+  },
+  filterWithUpload: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '0 3rem'
+  },
+  btnUpload: {
+    border: `1px solid ${theme.palette.secondary.grey}`
+  },
+  label: {
+    marginRight: '1em'
+  },
+  selectionMenu: {
+    display: 'inline'
   }
 });
 
@@ -95,18 +110,35 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     }
   };
 
-  const selectionMenu = intl => {
-    if (
-      (!userInfoContext.value.userroles.includes(ROLES.PERSONAL_DEV) &&
-        userInfoContext.value.userroles.includes(ROLES.SUPERVISOR)) ||
-      isLoading
-    ) {
-      return '';
+  const upperMenu = intl => {
+    if (isLoading) {
+      return <CircularProgress size={24} className={classes.buttonProgress} />;
     }
+    const uploadFragment = userInfoContext.value.userroles.includes(
+      ROLES.PERSONAL_DEV
+    ) ? (
+      <Fragment>
+        <TextField
+          style={{ display: 'none' }}
+          id="upload-button"
+          multiple
+          type="file"
+          onChange={handleChange}
+        />
+        <label htmlFor="upload-button" className={classes.label}>
+          <Button component="span" className={classes.btnUpload}>
+            {intl.formatMessage({
+              id: 'allemployeescontainer.upload'
+            })}
+          </Button>
+        </label>
+      </Fragment>
+    ) : null;
 
-    return selection ? (
-      <div style={{ display: 'inline' }}>
+    let selectionMenu = selection ? (
+      <div className={classes.selectionMenu}>
         <Button
+          className={classes.btnUpload}
           onClick={() => {
             setSelected({});
             setSelection(false);
@@ -116,7 +148,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             id: 'pr.cancel'
           })}
         </Button>{' '}
-        <Button onClick={requestPr}>
+        <Button className={classes.btnUpload} onClick={requestPr}>
           {intl.formatMessage({
             id: 'requestperformancereview.requestpr'
           })}
@@ -124,6 +156,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
       </div>
     ) : (
       <Button
+        className={classes.btnUpload}
         onClick={() => {
           setSelected({});
           setSelection(true);
@@ -133,6 +166,19 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           id: 'pr.select.employees'
         })}
       </Button>
+    );
+    if (
+      !userInfoContext.value.userroles.includes(ROLES.PERSONAL_DEV) &&
+      !userInfoContext.value.userroles.includes(ROLES.SUPERVISOR)
+    ) {
+      selectionMenu = null;
+    }
+
+    return (
+      <div className={classes.selectionMenu}>
+        {uploadFragment}
+        {selectionMenu}
+      </div>
     );
   };
 
@@ -152,32 +198,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           searchValue={searchEmployeesValue}
           searchChange={handleSearchChange}
         />
-        {userInfoContext.value.userroles.includes(ROLES.PERSONAL_DEV) && (
-          <Fragment>
-            <TextField
-              style={{ display: 'none' }}
-              id="upload-button"
-              multiple
-              type="file"
-              onChange={handleChange}
-            />
-            <label htmlFor="upload-button">
-              <Button component="span" className={classes.btnUpload}>
-                {isLoading ? (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                ) : (
-                  intl.formatMessage({
-                    id: 'allemployeescontainer.upload'
-                  })
-                )}
-              </Button>
-            </label>
-          </Fragment>
-        )}
-        {selectionMenu(intl)}
+        {upperMenu(intl)}
       </div>
       <EmployeesGrid
         searchEmployeesValue={searchEmployeesValue}
