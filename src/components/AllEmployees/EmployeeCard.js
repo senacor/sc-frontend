@@ -1,10 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
-import {
-  formatLocaleDateTime,
-  FRONTEND_DATE_FORMAT
-} from '../../../helper/date';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 
 // Material UI
 import Card from '@material-ui/core/Card';

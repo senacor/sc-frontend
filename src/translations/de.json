@@ -243,6 +243,8 @@
   "legend.prArchived": "Archivierte PR",
   "legend.prNonArchived": "Nicht archivierte PR",
   "pr.inProgress": "Laufend",
+  "pdfprint": "Drucken",
+  "allemployeescontainer.upload": "PR hochladen",
   "ACCEPT": "Angenommen",
   "ACCEPTED_DATE_REVIEWER": "Termin akzeptiert",
   "ALL_DATES_ACCEPTED": "Termin festgesetzt",

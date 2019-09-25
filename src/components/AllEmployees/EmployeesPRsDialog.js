@@ -1,17 +1,14 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { ErrorContext } from '../../App';
-import {
-  formatLocaleDateTime,
-  FRONTEND_DATE_FORMAT
-} from '../../../helper/date';
+import { ErrorContext } from '../App';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
-import { DownloadFile } from '../../fileStorage/DownloadFile';
+import { DownloadFile } from '../fileStorage/DownloadFile';
+import PdfDialog from '../pr/PdfDialog';
 
 // Calls
-import { getAllPrsByEmployee } from '../../../actions/calls/employees';
-import { linkToPr } from '../../../actions/calls/pr';
+import { getAllPrsByEmployee } from '../../actions/calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -94,6 +91,7 @@ const EmployeesPRsDialog = ({
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [prToPrint, setPrToPrint] = useState(null);
 
   const errorContext = useContext(ErrorContext.context);
   const prsTogether = [...prs, ...archivedPrs];
@@ -110,6 +108,21 @@ const EmployeesPRsDialog = ({
     }
   }, []);
 
+  const linkToPrSheet = (id, archived) => {
+    if (!archived) {
+      history.push(`/prDetail/${id}`);
+    }
+    return null;
+  };
+
+  const openDialog = pr => {
+    setPrToPrint(pr);
+  };
+
+  const closeDialog = () => {
+    setPrToPrint(null);
+  };
+
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     return (
@@ -117,13 +130,19 @@ const EmployeesPRsDialog = ({
         key={index}
         className={pr.archived ? classes.archived : classes.prRow}
       >
-        <TableCell onClick={() => linkToPr(pr.prId, pr.archived, history)}>
+        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
           {index + 1}
         </TableCell>
-        <TableCell onClick={() => linkToPr(pr.prId, pr.archived, history)}>
+        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
           {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
+          <iframe
+            id="pr"
+            src={`prDetailWithoutAppbar/${pr.prId}`}
+            style={{ display: 'none' }}
+            title="Pr"
+          />
           {pr.archived ? (
             // Download excel
             !pr.inProgress ? (
@@ -131,7 +150,7 @@ const EmployeesPRsDialog = ({
             ) : null
           ) : (
             // Download pdf
-            <IconButton>
+            <IconButton onClick={() => openDialog(pr)}>
               <GetAppIcon />
             </IconButton>
           )}
@@ -141,79 +160,92 @@ const EmployeesPRsDialog = ({
   });
 
   return (
-    <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
-      <Button onClick={dialogClose} className={classes.btnClose}>
-        X
-      </Button>
-      <DialogTitle>
-        <span>{`${firstName} ${lastName}`}</span>
-        {prsTogether.length > 0 && (
-          <span className={classes.prsNumber}>
-            {`${intl.formatMessage({
-              id: 'employeeInfo.prsCount'
-            })}: ${prsTogether.length}`}
-          </span>
-        )}
-      </DialogTitle>
-      <Divider />
-      <DialogContent className={classes.dialogContent}>
-        {isLoading ? (
-          <CircularProgress />
-        ) : prsTogether.length > 0 ? (
-          <Fragment>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>
-                    {intl.formatMessage({
-                      id: 'employeeInfo.startDate'
+    <Fragment>
+      <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
+        <Button onClick={dialogClose} className={classes.btnClose}>
+          X
+        </Button>
+        <DialogTitle>
+          <span>{`${firstName} ${lastName}`}</span>
+          {prsTogether.length > 0 && (
+            <span className={classes.prsNumber}>
+              {`${intl.formatMessage({
+                id: 'employeeInfo.prsCount'
+              })}: ${prsTogether.length}`}
+            </span>
+          )}
+        </DialogTitle>
+        <Divider />
+        <DialogContent className={classes.dialogContent}>
+          {isLoading ? (
+            <CircularProgress />
+          ) : prsTogether.length > 0 ? (
+            <Fragment>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>
+                      {intl.formatMessage({
+                        id: 'employeeInfo.startDate'
+                      })}
+                    </TableCell>
+                    <TableCell>
+                      {intl.formatMessage({
+                        id: 'archivedfiles.download'
+                      })}
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>{listOfAllPrs}</TableBody>
+              </Table>
+              {/* Legend */}
+              <List className={classes.legend}>
+                <ListItem>
+                  <ListItemText
+                    secondary={intl.formatMessage({
+                      id: 'legend.prArchived'
                     })}
-                  </TableCell>
-                  <TableCell>
-                    {intl.formatMessage({
-                      id: 'archivedfiles.download'
+                    secondaryTypographyProps={{
+                      variant: 'body2'
+                    }}
+                  />
+                  <ListItemIcon>
+                    <div className={classes.legendArchivedDiv} />
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    secondary={intl.formatMessage({
+                      id: 'legend.prNonArchived'
                     })}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{listOfAllPrs}</TableBody>
-            </Table>
-            {/* Legend */}
-            <List className={classes.legend}>
-              <ListItem>
-                <ListItemText
-                  secondary={intl.formatMessage({
-                    id: 'legend.prArchived'
-                  })}
-                  secondaryTypographyProps={{ variant: 'body2' }}
-                />
-                <ListItemIcon>
-                  <div className={classes.legendArchivedDiv} />
-                </ListItemIcon>
-              </ListItem>
-              <ListItem>
-                <ListItemText
-                  secondary={intl.formatMessage({
-                    id: 'legend.prNonArchived'
-                  })}
-                  secondaryTypographyProps={{ variant: 'body2' }}
-                />
-                <ListItemIcon>
-                  <div className={classes.legendNonArchivedDiv} />
-                </ListItemIcon>
-              </ListItem>
-            </List>
-          </Fragment>
-        ) : (
-          <Typography variant="body2" className={classes.noPrFound}>
-            {`${firstName} ${lastName} ${intl.formatMessage({
-              id: 'employeeInfo.noPrsFound'
-            })}`}
-          </Typography>
-        )}
-      </DialogContent>
-    </Dialog>
+                    secondaryTypographyProps={{
+                      variant: 'body2'
+                    }}
+                  />
+                  <ListItemIcon>
+                    <div className={classes.legendNonArchivedDiv} />
+                  </ListItemIcon>
+                </ListItem>
+              </List>
+            </Fragment>
+          ) : (
+            <Typography variant="body2" className={classes.noPrFound}>
+              {`${firstName} ${lastName} ${intl.formatMessage({
+                id: 'employeeInfo.noPrsFound'
+              })}`}
+            </Typography>
+          )}
+        </DialogContent>
+      </Dialog>
+      {prToPrint && (
+        <PdfDialog
+          id={prToPrint.prId}
+          style={{ overflow: 'auto' }}
+          closeDialog={closeDialog}
+        />
+      )}
+    </Fragment>
   );
 };
 

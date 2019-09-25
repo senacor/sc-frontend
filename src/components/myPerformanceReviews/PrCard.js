@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
 import { DownloadFile } from '../fileStorage/DownloadFile';
 import { linkToPr } from '../../actions/calls/pr';
+import PdfDialog from '../pr/PdfDialog';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -67,8 +68,19 @@ const PrCard = ({
   intl,
   classes,
   history,
+  pr,
   pr: { prId, archived, inProgress, employeeId, startDate }
 }) => {
+  const [prToPrint, setPrToPrint] = useState(null);
+
+  const openDialog = pr => {
+    setPrToPrint(pr);
+  };
+
+  const closeDialog = () => {
+    setPrToPrint(null);
+  };
+
   const renderActions = () => {
     if (archived) {
       // Download Excel
@@ -83,7 +95,7 @@ const PrCard = ({
       );
     }
     return (
-      <IconButton>
+      <IconButton onClick={() => openDialog(pr)}>
         <GetAppIcon />
       </IconButton>
     );
@@ -103,20 +115,29 @@ const PrCard = ({
   );
 
   return (
-    <Card className={classes.card}>
-      <CardHeader className={classes.header} title={startDateHeader} />
-      <CardContent
-        className={archived ? classes.archivedContent : classes.content}
-        onClick={() => linkToPr(prId, archived, history)}
-      >
-        {archived ? (
-          <PrArchivedIcon className={classes.prIcon} />
-        ) : (
-          <PrIcon className={classes.prIcon} />
-        )}
-      </CardContent>
-      <CardActions className={classes.actions}>{renderActions()}</CardActions>
-    </Card>
+    <Fragment>
+      <Card className={classes.card}>
+        <CardHeader className={classes.header} title={startDateHeader} />
+        <CardContent
+          className={archived ? classes.archivedContent : classes.content}
+          onClick={() => linkToPr(prId, archived, history)}
+        >
+          {archived ? (
+            <PrArchivedIcon className={classes.prIcon} />
+          ) : (
+            <PrIcon className={classes.prIcon} />
+          )}
+        </CardContent>
+        <CardActions className={classes.actions}>{renderActions()}</CardActions>
+      </Card>
+      {prToPrint && (
+        <PdfDialog
+          id={prToPrint.prId}
+          style={{ overflow: 'auto' }}
+          closeDialog={closeDialog}
+        />
+      )}
+    </Fragment>
   );
 };
 

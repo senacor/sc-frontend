@@ -34,9 +34,9 @@ const PerformanceReviewDetail = props => {
 
   return (
     <React.Fragment>
-      {pr ? <PrDetailInformation pr={pr} meeting={meeting} /> : null}
-      {pr ? <PrState prById={pr} /> : null}
-      {pr ? <PrTabs pr={pr} meeting={meeting} /> : null}
+      {pr && <PrDetailInformation pr={pr} meeting={meeting} />}
+      {pr && <PrState prById={pr} />}
+      {pr && <PrTabs pr={pr} meeting={meeting} />}
     </React.Fragment>
   );
 };

@@ -13,7 +13,7 @@ import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
 import Content from './AppBar/Content';
-import AllEmployeesContainer from './pr/AllEmployees/AllEmployeesContainer';
+import AllEmployeesContainer from './AllEmployees/AllEmployeesContainer';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
@@ -149,6 +149,11 @@ const App = () => {
                       exact
                       path={ROUTES.ADMIN_USER_ROLES}
                       component={UserRolesPanelWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/prDetailWithoutAppbar/:id"
+                      component={PerformanceReviewDetail}
                     />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route
