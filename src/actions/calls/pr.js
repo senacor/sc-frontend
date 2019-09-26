@@ -280,8 +280,6 @@ export const getPrsToReview = async (setPrs, setIsLoading, errorContext) => {
     );
     const responsePrs = await response.json();
 
-    console.log(responsePrs);
-
     setIsLoading(false);
     setPrs(responsePrs);
   } catch (err) {

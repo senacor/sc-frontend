@@ -19,7 +19,6 @@ const styles = theme => ({
     width: 200,
     height: 270,
     margin: theme.spacing.unit,
-    cursor: 'pointer',
     transition: 'all 0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
@@ -33,17 +32,18 @@ const styles = theme => ({
     cursor: 'auto'
   },
   firstname: {
-    fontSize: '1.2rem'
+    fontSize: '1rem'
   },
   lastname: {
-    fontSize: '1.4rem'
+    fontSize: '1.2rem'
   },
   subtitle: {
     color: theme.palette.secondary.darkGrey
   },
   content: {
     textAlign: 'center',
-    borderTop: `1px solid ${theme.palette.secondary.brightGrey}`
+    borderTop: `1px solid ${theme.palette.secondary.brightGrey}`,
+    cursor: 'pointer'
   },
   prIcon: {
     fontSize: '4rem',
@@ -55,20 +55,16 @@ const styles = theme => ({
     height: 50,
     margin: 'auto 0',
     padding: '5px 0'
-  },
-  occasionValue: {
-    wordBreak: 'break-word',
-    margin: '0 1rem'
   }
 });
 
-const PrCard = ({
+const ProcessingPrsCard = ({
   intl,
   classes,
   history,
   pr: { prId, employeeFirstName, employeeLastName, prOccasion, startDate }
 }) => {
-  // Replacing "_" and setting only first letter as capital
+  // Replacing "_" with " " and setting only first letter as capital
   const modifyString = string => {
     const replacedStr =
       string.charAt(0).toUpperCase() +
@@ -79,7 +75,7 @@ const PrCard = ({
     return replacedStr;
   };
 
-  const startDateDiv = (
+  const startDateContainer = (
     <Fragment>
       <Typography variant="body2" className={classes.subtitle}>
         {intl.formatMessage({
@@ -107,7 +103,7 @@ const PrCard = ({
         onClick={() => linkToPr(prId, null, history)}
       >
         <PrIcon className={classes.prIcon} />
-        <div>{startDateDiv}</div>
+        <div>{startDateContainer}</div>
       </CardContent>
       {/* Occasion container */}
       <div className={classes.occasion}>
@@ -116,12 +112,12 @@ const PrCard = ({
             id: 'pr.occasion'
           })}
         </Typography>
-        <Typography variant="caption" className={classes.occasionValue}>
-          {modifyString(prOccasion)}
+        <Typography variant="caption">
+          {modifyString('ON_DEMAND_BY_PERSONAL_DEV')}
         </Typography>
       </div>
     </Card>
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(PrCard)));
+export default withRouter(injectIntl(withStyles(styles)(ProcessingPrsCard)));

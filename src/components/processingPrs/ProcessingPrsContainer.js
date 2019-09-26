@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { ErrorContext } from '../App';
 import { getPrsToReview } from '../../actions/calls/pr';
-import PrCardToReview from './PrCardToReview';
+import ProcessingPrsCard from './ProcessingPrsCard';
 
 const styles = theme => ({
   ...theme,
@@ -26,9 +26,9 @@ const ProcessingPrsContainer = ({ classes, intl }) => {
     getPrsToReview(setPrsToReview, setIsLoading, errorContext);
   }, []);
 
-  const listofOwnPrs = prsToReview.map((pr, index) => (
+  const listofPrs = prsToReview.map((pr, index) => (
     <Grid item key={index} className={classes.padding}>
-      <PrCardToReview pr={pr} />
+      <ProcessingPrsCard pr={pr} />
     </Grid>
   ));
 
@@ -37,11 +37,9 @@ const ProcessingPrsContainer = ({ classes, intl }) => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Fragment>
-          <Grid container spacing={40}>
-            {listofOwnPrs}
-          </Grid>
-        </Fragment>
+        <Grid container spacing={40}>
+          {listofPrs}
+        </Grid>
       )}
     </div>
   );
