@@ -297,6 +297,47 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
   }
 };
 
+export const requestPrForEmployees = async (
+  employeeIds,
+  onSuccess,
+  infoContext,
+  errorContext
+) => {
+  const requestPrResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/employee/selected`,
+    {
+      method: 'post',
+      mode: 'cors',
+      body: JSON.stringify(employeeIds)
+    }
+  );
+
+  if (requestPrResponse.ok) {
+    let pr = await requestPrResponse.json();
+
+    const employeeNames = pr.map(
+      employee => `${employee.firstName} ${employee.lastName}`
+    );
+    const employeesResultSentence = `${employeeNames.join(', ')}.`;
+
+    infoContext.setValue({
+      hasInfos: true,
+      messageId: 'pr.started',
+      messageVars: {
+        employees:
+          employeesResultSentence.length > 1 ? employeesResultSentence : '-'
+      }
+    });
+
+    onSuccess(pr);
+  } else {
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const addPrStatus = async (
   prsId,
   status,

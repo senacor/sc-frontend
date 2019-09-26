@@ -46,23 +46,24 @@ const Message = ({ classes, intl }) => {
         </Typography>
       </Paper>
     );
-  } else if (infos.hasInfos) {
-    return (
-      <Paper
-        style={{ display: infos.hasInfos ? 'flex' : 'none' }}
-        className={classes.info}
-      >
-        <InfoIcon className={classes.icon} />
-        <Typography component="span" className={classes.message}>
-          {intl.formatMessage({
-            id: `${infos.messageId}`
-          })}
-        </Typography>
-      </Paper>
-    );
-  } else {
-    return null;
   }
+
+  return infos.hasInfos ? (
+    <Paper
+      style={{ display: infos.hasInfos ? 'flex' : 'none' }}
+      className={classes.info}
+    >
+      <InfoIcon className={classes.icon} />
+      <Typography component="span" className={classes.message}>
+        {intl.formatMessage(
+          {
+            id: `${infos.messageId}`
+          },
+          { ...infos.messageVars }
+        )}
+      </Typography>
+    </Paper>
+  ) : null;
 };
 
 export default injectIntl(withStyles(styles)(Message));

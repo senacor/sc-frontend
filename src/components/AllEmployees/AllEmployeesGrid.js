@@ -1,12 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, CircularProgress, Button } from '@material-ui/core';
+import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
-import { ErrorContext } from '../App';
-
 // Calls
-import { getAllEmployees } from '../../actions/calls/employees';
-
 // Material UI
 import Grid from '@material-ui/core/Grid';
 
@@ -27,13 +23,17 @@ const styles = theme => ({
   }
 });
 
-const EmployeesGrid = ({ classes, intl, searchEmployeesValue }) => {
-  const [employees, setEmployees] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+const EmployeesGrid = ({
+  classes,
+  intl,
+  searchEmployeesValue,
+  toggleSelected,
+  selection,
+  selected,
+  employees,
+  isLoading
+}) => {
   const [itemsShown, setItemsShown] = useState(15);
-
-  const errorContext = useContext(ErrorContext.context);
-
   const cardsToShow = 15;
 
   const showMore = () => {
@@ -44,10 +44,6 @@ const EmployeesGrid = ({ classes, intl, searchEmployeesValue }) => {
     }
   };
 
-  useEffect(() => {
-    getAllEmployees(setEmployees, setIsLoading, errorContext);
-  }, []);
-
   const filteredEmployees = employees.filter(employee => {
     return employee.lastName
       .toLowerCase()
@@ -57,14 +53,24 @@ const EmployeesGrid = ({ classes, intl, searchEmployeesValue }) => {
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard employee={employee} />
+      <EmployeeCard
+        employee={employee}
+        toggleSelected={toggleSelected}
+        selection={selection}
+        selected={selected[employee.id]}
+      />
     </Grid>
   ));
 
   // Filtered employees
   const filteredEmployeesData = filteredEmployees.map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard employee={employee} />
+      <EmployeeCard
+        employee={employee}
+        toggleSelected={toggleSelected}
+        selection={selection}
+        selected={selected[employee.id]}
+      />
     </Grid>
   ));
 
