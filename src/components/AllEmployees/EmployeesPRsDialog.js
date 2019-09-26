@@ -58,6 +58,9 @@ const styles = theme => ({
   archived: {
     backgroundColor: theme.palette.secondary.grey
   },
+  inProgress: {
+    cursor: 'auto'
+  },
   noPrFound: {
     color: theme.palette.secondary.mediumGrey
   },
@@ -145,14 +148,18 @@ const EmployeesPRsDialog = ({
           />
           {pr.archived ? (
             // Download excel
-            !pr.inProgress ? (
-              <DownloadFile employeeId={pr.employeeId} fileId={pr.prId} />
-            ) : null
-          ) : (
+            <DownloadFile employeeId={pr.employeeId} fileId={pr.prId} />
+          ) : !pr.inProgress ? (
             // Download pdf
             <IconButton onClick={() => openDialog(pr)}>
               <GetAppIcon />
             </IconButton>
+          ) : (
+            <Typography className={classes.inProgress} color="secondary">
+              {intl.formatMessage({
+                id: 'pr.inProgress'
+              })}
+            </Typography>
           )}
         </TableCell>
       </TableRow>
