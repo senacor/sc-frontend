@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   gridContainer: {
-    height: '70vh',
+    height: '65vh',
     width: '100%',
     paddingTop: 2 * theme.spacing.unit,
     overflowX: 'hidden',
@@ -27,6 +27,7 @@ const EmployeesGrid = ({
   classes,
   intl,
   searchEmployeesValue,
+  searchCstValue,
   toggleSelected,
   selection,
   selected,

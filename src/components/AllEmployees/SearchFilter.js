@@ -15,7 +15,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesFilter = ({ classes, searchChange, searchValue }) => {
+const SearchFilter = ({ classes, placeholder, searchChange, searchValue }) => {
   return (
     <form className={classes.form}>
       <TextField
@@ -23,7 +23,7 @@ const AllEmployeesFilter = ({ classes, searchChange, searchValue }) => {
         name="search"
         type="search"
         className={classes.searchField}
-        label="Search employee"
+        label={placeholder}
         onChange={searchChange}
         value={searchValue}
       />
@@ -31,4 +31,4 @@ const AllEmployeesFilter = ({ classes, searchChange, searchValue }) => {
   );
 };
 
-export default withStyles(styles)(AllEmployeesFilter);
+export default withStyles(styles)(SearchFilter);
