@@ -20,6 +20,7 @@ const PdfDialog = ({ id, closeDialog, classes, intl }) => {
   );
 
   useEffect(() => {
+    console.log('here');
     const afterPrFetched = pr => {
       setPr(pr);
       fetchMeeting(pr, setMeeting, errorContext);
