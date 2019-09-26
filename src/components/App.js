@@ -13,17 +13,21 @@ import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
 import Content from './AppBar/Content';
-import AllEmployeesContainer from './AllEmployees/AllEmployeesContainer';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
+const AllEmployeesContainer = lazy(() =>
+  import('./AllEmployees/AllEmployeesContainer')
+);
 const OwnPrsContainer = lazy(() =>
   import('./myPerformanceReviews/OwnPrsContainer')
+);
+const PrsForProcessingContainer = lazy(() =>
+  import('./processingPrs/ProcessingPrsContainer')
 );
 const PerformanceReviewDetail = lazy(() =>
   import('./pr/prDetail/PerformanceReviewDetail')
 );
-const PrOverviewReviewer = lazy(() => import('./pr/PrOverviewReviewer'));
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 
@@ -46,7 +50,9 @@ const withContent = WrappedComponent => props => (
   </Content>
 );
 
-const PrOverviewReviewerContent = withContent(PrOverviewReviewer);
+const PrsForProcessingContainerWithContent = withContent(
+  PrsForProcessingContainer
+);
 const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
@@ -128,7 +134,7 @@ const App = () => {
                     <PrivateRoute
                       exact
                       path={ROUTES.PR_TO_REVIEW_TABLE}
-                      component={PrOverviewReviewerContent}
+                      component={PrsForProcessingContainerWithContent}
                     />
                     <PrivateRoute
                       exact

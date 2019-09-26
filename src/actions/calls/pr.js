@@ -1,5 +1,4 @@
 import { default as fetch } from '../../helper/customFetch';
-import generateMapById from '../../helper/generateMapById';
 import { addAttributeToArchivedPrs, addAttributeToPrs } from './employees';
 
 export const fetchPrById = async (
@@ -145,130 +144,6 @@ export const addFinalCommentHr = async (
   if (response.ok) {
     showSavedInfoMessage(infoContext);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
-  }
-};
-
-export const fetchFilteredOwnPrs = async (
-  filter,
-  setData,
-  setIsLoading,
-  errorContext
-) => {
-  try {
-    setIsLoading(true);
-
-    let query = '';
-    if (filter) {
-      let filterString = Object.keys(filter)
-        .map(function(key) {
-          return filter[key].searchString;
-        })
-        .join('&');
-      query = filterString ? '?' + filterString : '';
-    }
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/own${query}`
-    );
-
-    const responseList = await response.json();
-    const prTableEntries = responseList ? responseList : [];
-    const resultDataArray = Object.values(
-      generateMapById(prTableEntries, 'prId')
-    );
-    setIsLoading(false);
-    setData(resultDataArray);
-  } catch (err) {
-    setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
-  }
-};
-
-export const fetchFilteredPrsToReview = async (
-  filter,
-  setData,
-  setIsLoading,
-  errorContext
-) => {
-  try {
-    setIsLoading(true);
-
-    let query = '';
-    if (filter) {
-      let filterString = Object.keys(filter)
-        .map(function(key) {
-          return filter[key].searchString;
-        })
-        .join('&');
-      query = filterString ? '?' + filterString : '';
-    }
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/prsToReview${query}`
-    );
-
-    const responseList = await response.json();
-    let prTableEntries = responseList ? responseList : [];
-
-    // if query contains '=&' or ends with '=', that means in some filter there is nothing selected
-    // so table entries will be empty
-    if (query.includes('=&') || query.endsWith('=')) {
-      prTableEntries = [];
-    }
-
-    const resultDataArray = Object.values(
-      generateMapById(prTableEntries, 'prId')
-    );
-    setIsLoading(false);
-    setData(resultDataArray);
-  } catch (err) {
-    setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
-  }
-};
-
-export const fetchFilteredAllPrs = async (
-  filter,
-  setData,
-  setIsLoading,
-  errorContext
-) => {
-  try {
-    setIsLoading(true);
-
-    let query = '';
-    if (filter) {
-      let filterString = Object.keys(filter)
-        .map(function(key) {
-          return filter[key].searchString;
-        })
-        .join('&');
-      query = filterString ? '?' + filterString : '';
-    }
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/all${query}`
-    );
-
-    const responseList = await response.json();
-    const prTableEntries = responseList ? responseList : [];
-    const resultDataArray = Object.values(
-      generateMapById(prTableEntries, 'prId')
-    );
-    setIsLoading(false);
-    setData(resultDataArray);
-  } catch (err) {
-    setIsLoading(false);
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
@@ -427,6 +302,27 @@ export const getOwnPrs = async (
     setIsLoading(false);
     setOwnPrs(prs);
     setOwnArchivedPrs(archivedPrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
+export const getPrsToReview = async (setPrs, setIsLoading, errorContext) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/prsToReview`
+    );
+    const responsePrs = await response.json();
+
+    setIsLoading(false);
+    setPrs(responsePrs);
   } catch (err) {
     console.log(err);
     setIsLoading(false);
