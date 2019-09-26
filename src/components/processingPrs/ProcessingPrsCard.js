@@ -112,9 +112,7 @@ const ProcessingPrsCard = ({
             id: 'pr.occasion'
           })}
         </Typography>
-        <Typography variant="caption">
-          {modifyString('ON_DEMAND_BY_PERSONAL_DEV')}
-        </Typography>
+        <Typography variant="caption">{modifyString(prOccasion)}</Typography>
       </div>
     </Card>
   );
