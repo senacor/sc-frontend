@@ -47,6 +47,8 @@ const EmployeesGrid = ({
   const filteredEmployees = employees.filter(employee => {
     return employee.lastName
       .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .includes(searchEmployeesValue.toLowerCase());
   });
 
