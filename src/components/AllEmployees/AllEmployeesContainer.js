@@ -339,7 +339,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
         </Grid>
       </Paper>
       <EmployeesGrid
-        searchEmployeesValue={searchEmployeesValue}
         filterInputs={filterInputs}
         selection={selection}
         selected={selected}

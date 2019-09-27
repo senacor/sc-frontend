@@ -5,7 +5,8 @@ export const positions = [
   'Senior Developer',
   'Technical Expert',
   'Lead Developer',
-  'Managing Consultant'
+  'Managing Consultant',
+  'Other'
 ];
 
 export const competenceCenters = [

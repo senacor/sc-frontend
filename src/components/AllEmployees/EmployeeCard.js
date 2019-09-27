@@ -16,7 +16,7 @@ import EmployeesPRsDialog from './EmployeesPRsDialog';
 const styles = theme => ({
   card: {
     width: 260,
-    height: 330,
+    height: 340,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
