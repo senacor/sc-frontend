@@ -173,15 +173,7 @@ const PrSheet = props => {
           pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
         );
       case 'RATINGS_REVIEWER':
-        //supervisor of my pr
-        if (
-          userroles.includes(ROLES.SUPERVISOR) &&
-          userinfo.userId === pr.supervisor.id &&
-          pr.supervisor.id === pr.reviewer.id
-        ) {
-          return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
-        }
-
+        //reviewer of my pr
         if (userinfo.userId === pr.reviewer.id) {
           return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
         }
