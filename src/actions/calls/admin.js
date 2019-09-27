@@ -66,3 +66,40 @@ export const setRoles = async (employeeId, roles, errorContext) => {
     });
   }
 };
+
+export const getHealthcheckData = async (
+  setData,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/log/all`);
+    const data = await response.json();
+
+    setData(data);
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
+export const deleteError = async (id, errorContext) => {
+  try {
+    await fetch(`${process.env.REACT_APP_API}/api/v3/log/delete/${id}`, {
+      method: 'delete',
+      mode: 'cors'
+    });
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
