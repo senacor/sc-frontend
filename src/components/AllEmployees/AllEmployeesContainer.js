@@ -60,8 +60,11 @@ const styles = theme => ({
   advFilterGrid: {
     marginTop: theme.spacing.unit
   },
-  clearFilter: {
-    border: `1px solid ${theme.palette.secondary.darkRed}`
+  clearFilterText: {
+    color: theme.palette.secondary.darkRed
+  },
+  clearFilterBtn: {
+    border: `1px solid ${theme.palette.secondary.grey}`
   }
 });
 
@@ -327,8 +330,14 @@ const AllEmployeesContainer = ({ classes, intl }) => {
                   </Grid>
                 ))}
                 <Grid item>
-                  <Button onClick={clearFilter} className={classes.clearFilter}>
-                    <Typography variant="button">
+                  <Button
+                    onClick={clearFilter}
+                    className={classes.clearFilterBtn}
+                  >
+                    <Typography
+                      variant="button"
+                      className={classes.clearFilterText}
+                    >
                       x {intl.formatMessage({ id: 'filter.clear' })}
                     </Typography>
                   </Button>

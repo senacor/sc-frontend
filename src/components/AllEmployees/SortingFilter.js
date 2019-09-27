@@ -8,6 +8,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
   ...theme,
@@ -48,7 +50,8 @@ const SortingFilter = ({
         >
           {menuData.map(name => (
             <MenuItem key={name} value={name}>
-              {name}
+              <Checkbox checked={stateValue.indexOf(name) > -1} />
+              <ListItemText primary={name} />
             </MenuItem>
           ))}
         </Select>

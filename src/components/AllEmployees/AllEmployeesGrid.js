@@ -8,18 +8,17 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   gridContainer: {
-    height: '65vh',
     width: '100%',
-    paddingTop: 2 * theme.spacing.unit,
-    overflowX: 'hidden',
-    overflowY: 'auto'
+    paddingTop: 2 * theme.spacing.unit
   },
   content: {
-    textAlign: 'center'
+    textAlign: 'center',
+    height: '100%'
   },
   showMore: {
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    border: `1px solid ${theme.palette.secondary.grey}`
   }
 });
 
