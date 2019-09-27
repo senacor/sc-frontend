@@ -79,7 +79,7 @@ export const System = ({ classes, intl }) => {
   const handleOnDeleteClick = (event, id) => {
     deleteError(id, errorContext);
     const index = data.errors.map(element => element.id).indexOf(id);
-    data.errors.splice(index, 1);
+    setData(data.errors.splice(index, 1));
   };
 
   return (
