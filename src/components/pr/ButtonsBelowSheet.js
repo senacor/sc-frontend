@@ -233,30 +233,13 @@ const ButtonsBelowSheet = props => {
   };
 
   const disabled = () => {
-    //I am supervisor of the PR
-    if (
-      userroles.includes(ROLES.SUPERVISOR) &&
-      userinfo.userId === pr.supervisor.id &&
-      pr.supervisor.id === pr.reviewer.id
-    ) {
-      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
-    }
-
     //I am reviewer of the PR
-    if (
-      (userroles.includes(ROLES.DEVELOPER) ||
-        userroles.includes(ROLES.CONSULTING)) &&
-      userinfo.userId === pr.reviewer.id
-    ) {
+    if (userinfo.userId === pr.reviewer.id) {
       return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
     }
 
     //I am owner of the PR
-    if (
-      (userroles.includes(ROLES.DEVELOPER) ||
-        userroles.includes(ROLES.CONSULTING)) &&
-      userinfo.userId === pr.employee.id
-    ) {
+    if (userinfo.userId === pr.employee.id) {
       return (
         (pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
           !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
