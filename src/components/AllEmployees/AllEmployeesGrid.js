@@ -77,8 +77,9 @@ const EmployeesGrid = ({
   };
 
   let filteredEmployees = employees.filter(empl => {
+    const employeeName = empl.firstName + ' ' + empl.lastName;
     return (
-      checkFilterValues(filterInputs.searchEmployee, empl.lastName) &&
+      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.currentPosition) &&
       checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
       checkFilterValues(filterInputs.cst, empl.currentCst) &&

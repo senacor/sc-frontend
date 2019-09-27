@@ -8,7 +8,7 @@ import AdvancementStrategies from './AdvancementStrategies';
 import { isPersonalDev } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import ROLES from '../../helper/roles';
+
 // Material UI
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
