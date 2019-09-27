@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
@@ -8,25 +8,24 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   gridContainer: {
-    height: '70vh',
     width: '100%',
-    paddingTop: 2 * theme.spacing.unit,
-    overflowX: 'hidden',
-    overflowY: 'auto'
+    paddingTop: 2 * theme.spacing.unit
   },
   content: {
-    textAlign: 'center'
+    textAlign: 'center',
+    height: '100%'
   },
   showMore: {
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    border: `1px solid ${theme.palette.secondary.grey}`
   }
 });
 
 const EmployeesGrid = ({
   classes,
   intl,
-  searchEmployeesValue,
+  filterInputs,
   toggleSelected,
   selection,
   selected,
@@ -34,9 +33,28 @@ const EmployeesGrid = ({
   isLoading
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
+  const [filterActive, setFilterActive] = useState(false);
   const cardsToShow = 15;
 
-  const showMore = () => {
+  useEffect(() => {
+    const handleFilterActive = () => {
+      const emptyInputs = {
+        searchEmployee: '',
+        position: [],
+        cc: [],
+        cst: [],
+        officeLocation: []
+      };
+      if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
+        setFilterActive(false);
+      } else {
+        setFilterActive(true);
+      }
+    };
+    handleFilterActive();
+  });
+
+  const showMore = employees => {
     if (itemsShown + cardsToShow <= employees.length) {
       setItemsShown(itemsShown + cardsToShow);
     } else {
@@ -44,12 +62,28 @@ const EmployeesGrid = ({
     }
   };
 
-  const filteredEmployees = employees.filter(employee => {
-    return employee.lastName
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .includes(searchEmployeesValue.toLowerCase());
+  const checkFilterValues = (filterData, userData) => {
+    if (filterData.length > 0 && Array.isArray(filterData)) {
+      return filterData.includes(userData);
+    } else if (filterData !== '' && typeof filterData === 'string') {
+      return userData
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(filterData.toLowerCase());
+    } else {
+      return true;
+    }
+  };
+
+  let filteredEmployees = employees.filter(empl => {
+    return (
+      checkFilterValues(filterInputs.searchEmployee, empl.lastName) &&
+      checkFilterValues(filterInputs.position, empl.currentPosition) &&
+      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
+      checkFilterValues(filterInputs.cst, empl.currentCst) &&
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+    );
   });
 
   // All employees
@@ -65,16 +99,18 @@ const EmployeesGrid = ({
   ));
 
   // Filtered employees
-  const filteredEmployeesData = filteredEmployees.map(employee => (
-    <Grid item key={employee.id}>
-      <EmployeeCard
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
-    </Grid>
-  ));
+  const filteredEmployeesData = filteredEmployees
+    .slice(0, itemsShown)
+    .map(employee => (
+      <Grid item key={employee.id}>
+        <EmployeeCard
+          employee={employee}
+          toggleSelected={toggleSelected}
+          selection={selection}
+          selected={selected[employee.id]}
+        />
+      </Grid>
+    ));
 
   return (
     <div className={classes.gridContainer}>
@@ -83,10 +119,23 @@ const EmployeesGrid = ({
       ) : (
         <div className={classes.content}>
           <Grid container spacing={40}>
-            {searchEmployeesValue ? filteredEmployeesData : employeesData}
+            {filterActive ? filteredEmployeesData : employeesData}
           </Grid>
-          {!searchEmployeesValue && itemsShown < employees.length && (
-            <Button className={classes.showMore} onClick={showMore}>
+          {!filterActive && itemsShown < employees.length && (
+            <Button
+              className={classes.showMore}
+              onClick={() => showMore(employees)}
+            >
+              {`${intl.formatMessage({
+                id: 'showMore'
+              })}..`}
+            </Button>
+          )}
+          {filterActive && itemsShown < filteredEmployees.length && (
+            <Button
+              className={classes.showMore}
+              onClick={() => showMore(filteredEmployees)}
+            >
               {`${intl.formatMessage({
                 id: 'showMore'
               })}..`}

@@ -1,15 +1,34 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import { Button, TextField, withStyles } from '@material-ui/core';
-import { uploadFiles } from '../../actions/calls/fileStorage';
+import { withStyles, Grid } from '@material-ui/core';
 import EmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
-import AllEmployeesFilter from './AllEmployeesFilter';
+import SearchFilter from './SearchFilter';
 import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
-import { getAllEmployees } from '../../actions/calls/employees';
-import { requestPrForEmployees } from '../../actions/calls/pr';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SortingFilter from './SortingFilter';
+
+// Calls
+import { requestPrForEmployees } from '../../actions/calls/pr';
+import { uploadFiles } from '../../actions/calls/fileStorage';
+import { getAllEmployees } from '../../actions/calls/employees';
+
+// Material UI
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+
+// Icons
+import FilterIcon from '@material-ui/icons/FilterList';
+import {
+  positions,
+  competenceCenters,
+  cst,
+  locations
+} from '../../helper/filterData';
 
 const styles = theme => ({
   container: {
@@ -26,10 +45,8 @@ const styles = theme => ({
     justifyContent: 'space-around'
   },
   filterWithUpload: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: '0 3rem'
+    margin: '0.5rem',
+    padding: '0.5rem 2rem'
   },
   btnUpload: {
     border: `1px solid ${theme.palette.secondary.grey}`
@@ -39,6 +56,15 @@ const styles = theme => ({
   },
   selectionMenu: {
     display: 'inline'
+  },
+  advFilterGrid: {
+    marginTop: theme.spacing.unit
+  },
+  clearFilterText: {
+    color: theme.palette.secondary.darkRed
+  },
+  clearFilterBtn: {
+    border: `1px solid ${theme.palette.secondary.grey}`
   }
 });
 
@@ -51,6 +77,11 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [positionSorting, setPositionSorting] = useState([]);
+  const [ccSorting, setCcSorting] = useState([]);
+  const [cstSorting, setCstSorting] = useState([]);
+  const [locationSorting, setLocationSorting] = useState([]);
+  const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const userInfoContext = useContext(UserinfoContext.context);
 
   const checkFileForm = file => {
@@ -110,6 +141,77 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     }
   };
 
+  const handleSearchEmployeeChange = event => {
+    setSearchEmployeesValue(event.target.value);
+  };
+
+  const handleSortPositionChange = event => {
+    setPositionSorting(event.target.value);
+  };
+
+  const handleSortCcChange = event => {
+    setCcSorting(event.target.value);
+  };
+
+  const handleSortCstChange = event => {
+    setCstSorting(event.target.value);
+  };
+
+  const handleSortLocationChange = event => {
+    setLocationSorting(event.target.value);
+  };
+
+  const toggleSortingFilter = () => {
+    setVisibleAdvancedFilter(!visibleAdvancedFilter);
+  };
+
+  const clearFilter = () => {
+    setSearchEmployeesValue('');
+    setCstSorting([]);
+    setPositionSorting([]);
+    setCcSorting([]);
+    setLocationSorting([]);
+  };
+
+  const filterInputs = {
+    searchEmployee: searchEmployeesValue,
+    position: [...positionSorting],
+    cc: [...ccSorting],
+    cst: [...cstSorting],
+    officeLocation: [...locationSorting]
+  };
+
+  const sortingData = [
+    {
+      id: 1,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.positionAbrv' }),
+      menuData: positions,
+      stateValue: positionSorting,
+      handleChange: handleSortPositionChange
+    },
+    {
+      id: 2,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.cc' }),
+      menuData: competenceCenters,
+      stateValue: ccSorting,
+      handleChange: handleSortCcChange
+    },
+    {
+      id: 3,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.location' }),
+      menuData: locations,
+      stateValue: locationSorting,
+      handleChange: handleSortLocationChange
+    },
+    {
+      id: 4,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.cst' }),
+      menuData: cst,
+      stateValue: cstSorting,
+      handleChange: handleSortCstChange
+    }
+  ];
+
   const upperMenu = intl => {
     if (isLoading) {
       return <CircularProgress size={24} className={classes.buttonProgress} />;
@@ -148,7 +250,11 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             id: 'pr.cancel'
           })}
         </Button>{' '}
-        <Button className={classes.btnUpload} onClick={requestPr}>
+        <Button
+          className={classes.btnUpload}
+          onClick={requestPr}
+          color="secondary"
+        >
           {intl.formatMessage({
             id: 'requestperformancereview.requestpr'
           })}
@@ -157,6 +263,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     ) : (
       <Button
         className={classes.btnUpload}
+        color="secondary"
         onClick={() => {
           setSelected({});
           setSelection(true);
@@ -182,26 +289,66 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     );
   };
 
-  const handleSearchChange = event => {
-    setSearchEmployeesValue(event.target.value);
-  };
-
   return (
     <div className={classes.container}>
-      <div className={classes.filterWithUpload}>
+      <Paper className={classes.filterWithUpload}>
         <UploadSuccessDialog
           open={uploadedFiles.length > 0}
           onClose={handleClose}
           uploadedFiles={uploadedFiles}
         />
-        <AllEmployeesFilter
-          searchValue={searchEmployeesValue}
-          searchChange={handleSearchChange}
-        />
-        {upperMenu(intl)}
-      </div>
+        <Grid container alignItems="center">
+          <Grid item sm={3} style={{ textAlign: 'left' }}>
+            <SearchFilter
+              searchValue={searchEmployeesValue}
+              searchChange={handleSearchEmployeeChange}
+              placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
+            />
+          </Grid>
+          <Grid item sm={3} style={{ textAlign: 'left' }}>
+            <IconButton onClick={() => toggleSortingFilter()}>
+              <FilterIcon />
+              <Typography variant="button">
+                {intl.formatMessage({ id: 'filter.advanced' })}
+              </Typography>
+            </IconButton>
+          </Grid>
+          <Grid item sm={6} style={{ textAlign: 'right' }}>
+            {upperMenu(intl)}
+          </Grid>
+          {visibleAdvancedFilter && (
+            <Grid item sm={12}>
+              <Grid container spacing={16} className={classes.advFilterGrid}>
+                {sortingData.map(item => (
+                  <Grid item key={item.id}>
+                    <SortingFilter
+                      sortBy={item.sortBy}
+                      handleChange={item.handleChange}
+                      menuData={item.menuData}
+                      stateValue={item.stateValue}
+                    />
+                  </Grid>
+                ))}
+                <Grid item>
+                  <Button
+                    onClick={clearFilter}
+                    className={classes.clearFilterBtn}
+                  >
+                    <Typography
+                      variant="button"
+                      className={classes.clearFilterText}
+                    >
+                      x {intl.formatMessage({ id: 'filter.clear' })}
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
+        </Grid>
+      </Paper>
       <EmployeesGrid
-        searchEmployeesValue={searchEmployeesValue}
+        filterInputs={filterInputs}
         selection={selection}
         selected={selected}
         toggleSelected={toggleSelected}
