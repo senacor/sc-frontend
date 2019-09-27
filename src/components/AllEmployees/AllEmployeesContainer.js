@@ -26,6 +26,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import {
   positions,
   competenceCenters,
+  cst,
   locations
 } from '../../helper/filterData';
 
@@ -66,7 +67,6 @@ const styles = theme => ({
 
 const AllEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
-  const [searchCstValue, setSearchCstValue] = useState('');
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
   const [selection, setSelection] = useState(false);
@@ -76,6 +76,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [positionSorting, setPositionSorting] = useState([]);
   const [ccSorting, setCcSorting] = useState([]);
+  const [cstSorting, setCstSorting] = useState([]);
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const userInfoContext = useContext(UserinfoContext.context);
@@ -141,16 +142,16 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     setSearchEmployeesValue(event.target.value);
   };
 
-  const handleSearchCstChange = event => {
-    setSearchCstValue(event.target.value);
-  };
-
   const handleSortPositionChange = event => {
     setPositionSorting(event.target.value);
   };
 
   const handleSortCcChange = event => {
     setCcSorting(event.target.value);
+  };
+
+  const handleSortCstChange = event => {
+    setCstSorting(event.target.value);
   };
 
   const handleSortLocationChange = event => {
@@ -163,10 +164,18 @@ const AllEmployeesContainer = ({ classes, intl }) => {
 
   const clearFilter = () => {
     setSearchEmployeesValue('');
-    setSearchCstValue('');
+    setCstSorting([]);
     setPositionSorting([]);
     setCcSorting([]);
     setLocationSorting([]);
+  };
+
+  const filterInputs = {
+    searchEmployee: searchEmployeesValue,
+    position: [...positionSorting],
+    cc: [...ccSorting],
+    cst: [...cstSorting],
+    officeLocation: [...locationSorting]
   };
 
   const sortingData = [
@@ -190,6 +199,13 @@ const AllEmployeesContainer = ({ classes, intl }) => {
       menuData: locations,
       stateValue: locationSorting,
       handleChange: handleSortLocationChange
+    },
+    {
+      id: 4,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.cst' }),
+      menuData: cst,
+      stateValue: cstSorting,
+      handleChange: handleSortCstChange
     }
   ];
 
@@ -231,7 +247,11 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             id: 'pr.cancel'
           })}
         </Button>{' '}
-        <Button className={classes.btnUpload} onClick={requestPr}>
+        <Button
+          className={classes.btnUpload}
+          onClick={requestPr}
+          color="secondary"
+        >
           {intl.formatMessage({
             id: 'requestperformancereview.requestpr'
           })}
@@ -240,6 +260,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     ) : (
       <Button
         className={classes.btnUpload}
+        color="secondary"
         onClick={() => {
           setSelected({});
           setSelection(true);
@@ -306,15 +327,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
                   </Grid>
                 ))}
                 <Grid item>
-                  <SearchFilter
-                    searchValue={searchCstValue}
-                    searchChange={handleSearchCstChange}
-                    placeholder={intl.formatMessage({
-                      id: 'filter.searchCst'
-                    })}
-                  />
-                </Grid>
-                <Grid item>
                   <Button onClick={clearFilter} className={classes.clearFilter}>
                     <Typography variant="button">
                       x {intl.formatMessage({ id: 'filter.clear' })}
@@ -328,7 +340,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
       </Paper>
       <EmployeesGrid
         searchEmployeesValue={searchEmployeesValue}
-        searchCstValue={searchCstValue}
+        filterInputs={filterInputs}
         selection={selection}
         selected={selected}
         toggleSelected={toggleSelected}

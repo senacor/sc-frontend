@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
@@ -27,7 +27,7 @@ const EmployeesGrid = ({
   classes,
   intl,
   searchEmployeesValue,
-  searchCstValue,
+  filterInputs,
   toggleSelected,
   selection,
   selected,
@@ -35,7 +35,33 @@ const EmployeesGrid = ({
   isLoading
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
+  const [filterActive, setFilterActive] = useState(false);
   const cardsToShow = 15;
+  let filteredEmployees = [];
+
+  useEffect(() => {
+    const handleFilterActive = () => {
+      const emptyInputs = {
+        searchEmployee: '',
+        position: [],
+        cc: [],
+        cst: [],
+        officeLocation: []
+      };
+      if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
+        setFilterActive(false);
+      } else {
+        setFilterActive(true);
+      }
+    };
+    handleFilterActive();
+  });
+
+  useEffect(() => {
+    if (filterActive) {
+      filterByInputs(filterInputs, employees);
+    }
+  });
 
   const showMore = () => {
     if (itemsShown + cardsToShow <= employees.length) {
@@ -45,11 +71,26 @@ const EmployeesGrid = ({
     }
   };
 
-  const filteredEmployees = employees.filter(employee => {
-    return employee.lastName
-      .toLowerCase()
-      .includes(searchEmployeesValue.toLowerCase());
-  });
+  const checkFilterValues = (filterData, userData) => {
+    if (filterData.length > 0 || filterData === '') {
+      return filterData.includes(userData);
+    } else {
+      return true;
+    }
+  };
+
+  console.log('employees', employees);
+
+  const filterByInputs = () => {
+    filteredEmployees = employees.filter(empl => {
+      return (
+        checkFilterValues(filterInputs.position, empl.currentPosition) &&
+        checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
+        checkFilterValues(filterInputs.cst, empl.currentCst) &&
+        checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      );
+    });
+  };
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
@@ -82,9 +123,9 @@ const EmployeesGrid = ({
       ) : (
         <div className={classes.content}>
           <Grid container spacing={40}>
-            {searchEmployeesValue ? filteredEmployeesData : employeesData}
+            {filterActive ? filteredEmployeesData : employeesData}
           </Grid>
-          {!searchEmployeesValue && itemsShown < employees.length && (
+          {!filterActive && itemsShown < employees.length && (
             <Button className={classes.showMore} onClick={showMore}>
               {`${intl.formatMessage({
                 id: 'showMore'
