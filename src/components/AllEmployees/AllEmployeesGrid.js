@@ -99,16 +99,18 @@ const EmployeesGrid = ({
   ));
 
   // Filtered employees
-  const filteredEmployeesData = filteredEmployees.map(employee => (
-    <Grid item key={employee.id}>
-      <EmployeeCard
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
-    </Grid>
-  ));
+  const filteredEmployeesData = filteredEmployees
+    .slice(0, itemsShown)
+    .map(employee => (
+      <Grid item key={employee.id}>
+        <EmployeeCard
+          employee={employee}
+          toggleSelected={toggleSelected}
+          selection={selection}
+          selected={selected[employee.id]}
+        />
+      </Grid>
+    ));
 
   return (
     <div className={classes.gridContainer}>
@@ -123,6 +125,16 @@ const EmployeesGrid = ({
             <Button
               className={classes.showMore}
               onClick={() => showMore(employees)}
+            >
+              {`${intl.formatMessage({
+                id: 'showMore'
+              })}..`}
+            </Button>
+          )}
+          {filterActive && itemsShown < filteredEmployees.length && (
+            <Button
+              className={classes.showMore}
+              onClick={() => showMore(filteredEmployees)}
             >
               {`${intl.formatMessage({
                 id: 'showMore'
