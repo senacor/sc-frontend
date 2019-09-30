@@ -17,7 +17,7 @@ const styles = theme => ({
     display: 'block'
   },
   input: {
-    width: 120,
+    width: 130,
     margin: 2 * theme.spacing.unit
   },
   chips: {

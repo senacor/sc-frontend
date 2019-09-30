@@ -48,6 +48,14 @@ const styles = theme => ({
     margin: '0.5rem',
     padding: '0.5rem 2rem'
   },
+  upperPanel: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  advFilterButton: {
+    marginLeft: theme.spacing.unit * 3
+  },
   btnUpload: {
     border: `1px solid ${theme.palette.secondary.grey}`
   },
@@ -57,14 +65,18 @@ const styles = theme => ({
   selectionMenu: {
     display: 'inline'
   },
-  advFilterGrid: {
-    marginTop: theme.spacing.unit
+  advFilter: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   clearFilterText: {
     color: theme.palette.secondary.darkRed
   },
   clearFilterBtn: {
-    border: `1px solid ${theme.palette.secondary.grey}`
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    height: 38,
+    minWidth: 160
   }
 });
 
@@ -297,55 +309,43 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           onClose={handleClose}
           uploadedFiles={uploadedFiles}
         />
-        <Grid container alignItems="center">
-          <Grid item sm={3} style={{ textAlign: 'left' }}>
+        <div className={classes.upperPanel}>
+          <div>
             <SearchFilter
               searchValue={searchEmployeesValue}
               searchChange={handleSearchEmployeeChange}
               placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
             />
-          </Grid>
-          <Grid item sm={3} style={{ textAlign: 'left' }}>
-            <IconButton onClick={() => toggleSortingFilter()}>
+            <IconButton
+              onClick={() => toggleSortingFilter()}
+              className={classes.advFilterButton}
+            >
               <FilterIcon />
               <Typography variant="button">
                 {intl.formatMessage({ id: 'filter.advanced' })}
               </Typography>
             </IconButton>
-          </Grid>
-          <Grid item sm={6} style={{ textAlign: 'right' }}>
-            {upperMenu(intl)}
-          </Grid>
-          {visibleAdvancedFilter && (
-            <Grid item sm={12}>
-              <Grid container spacing={16} className={classes.advFilterGrid}>
-                {sortingData.map(item => (
-                  <Grid item key={item.id} sm={2}>
-                    <SortingFilter
-                      sortBy={item.sortBy}
-                      handleChange={item.handleChange}
-                      menuData={item.menuData}
-                      stateValue={item.stateValue}
-                    />
-                  </Grid>
-                ))}
-                <Grid item sm={2}>
-                  <Button
-                    onClick={clearFilter}
-                    className={classes.clearFilterBtn}
-                  >
-                    <Typography
-                      variant="button"
-                      className={classes.clearFilterText}
-                    >
-                      x {intl.formatMessage({ id: 'filter.clear' })}
-                    </Typography>
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          )}
-        </Grid>
+          </div>
+          <div>{upperMenu(intl)}</div>
+        </div>
+        {visibleAdvancedFilter && (
+          <div className={classes.advFilter}>
+            {sortingData.map(item => (
+              <SortingFilter
+                key={item.id}
+                sortBy={item.sortBy}
+                handleChange={item.handleChange}
+                menuData={item.menuData}
+                stateValue={item.stateValue}
+              />
+            ))}
+            <Button onClick={clearFilter} className={classes.clearFilterBtn}>
+              <Typography variant="button" className={classes.clearFilterText}>
+                x {intl.formatMessage({ id: 'filter.clear' })}
+              </Typography>
+            </Button>
+          </div>
+        )}
       </Paper>
       <EmployeesGrid
         filterInputs={filterInputs}
