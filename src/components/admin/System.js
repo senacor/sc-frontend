@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ErrorIcon from '@material-ui/icons/Error';
 import SuccessIcon from '@material-ui/icons/CheckCircle';
+import WarningIcon from '@material-ui/icons/Warning';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deleteError, getHealthcheckData } from '../../actions/calls/admin';
 import { getReadableDate } from '../../helper/date';
@@ -18,7 +19,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
-import WarningIcon from '@material-ui/core/es/internal/svg-icons/Warning';
 
 const styles = theme => ({
   spacing: {
