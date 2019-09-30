@@ -24,6 +24,21 @@ export const getRoles = async (setRoles, setIsLoading, errorContext) => {
   }
 };
 
+export const getSystemInfo = async (setSystemInfo, errorContext) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/system/info`);
+
+    const responseJson = await response.json();
+    setSystemInfo(responseJson);
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const getAllEmployeesWithRoles = async (
   setData,
   setIsLoading,
