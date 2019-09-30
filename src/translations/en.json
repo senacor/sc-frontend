@@ -218,6 +218,7 @@
   "employeeInfo.position": "Current position (CON/DEV)",
   "employeeInfo.cst": "CST",
   "employeeInfo.cc": "CC",
+  "employeeInfo.supervisor": "Supervisor",
   "employeeInfo.location": "Office location",
   "employeeInfo.startDate": "Start date",
   "employeeInfo.noPrsFound": "has no PRs in our database.",

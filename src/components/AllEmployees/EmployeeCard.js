@@ -16,7 +16,7 @@ import EmployeesPRsDialog from './EmployeesPRsDialog';
 const styles = theme => ({
   card: {
     width: 260,
-    height: 340,
+    height: 350,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -26,7 +26,7 @@ const styles = theme => ({
   },
   header: {
     backgroundColor: theme.palette.secondary.brightGrey,
-    height: 60,
+    height: 80,
     textAlign: 'center',
     padding: theme.spacing.unit
   },
@@ -39,7 +39,7 @@ const styles = theme => ({
   },
   text: {
     color: theme.palette.secondary.grey,
-    padding: theme.spacing.unit,
+    padding: theme.spacing.unit / 2,
     textAlign: 'center'
   },
   textInfo: {
@@ -144,22 +144,25 @@ const EmployeeCard = ({
         />
         <Divider />
         <CardContent>
-          <div>
+          <Fragment>
             <Typography className={classes.text} component="span">
               {intl.formatMessage({
                 id: 'employeeInfo.position'
               })}
-              : <span className={classes.textInfo}>{currentPosition}</span>
+              <div className={classes.textInfo}>{currentPosition}</div>
             </Typography>
-          </div>
+          </Fragment>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
               id: 'employeeInfo.cst'
             })}
-            :{' '}
-            <span
-              className={classes.textInfo}
-            >{`${currentCst}, ${supervisorName}`}</span>
+            : <span className={classes.textInfo}>{currentCst}</span>
+          </Typography>
+          <Typography className={classes.text} component="span">
+            {intl.formatMessage({
+              id: 'employeeInfo.supervisor'
+            })}
+            : <span className={classes.textInfo}>{supervisorName}</span>
           </Typography>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
