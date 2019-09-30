@@ -255,6 +255,8 @@
   "system.failed": "Failed",
   "system.lastupdate": ", Last update:",
   "system.delete": "Delete",
+  "admin.errors": "Occurred errors:",
+  "admin.feedback": "Received feedback messages:",
   "showMore": "Show more",
   "legend.prArchived": "Archived PR",
   "legend.prNonArchived": "Non archived PR",
