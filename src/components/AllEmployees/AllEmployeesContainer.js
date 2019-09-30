@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import EmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
 import SearchFilter from './SearchFilter';
@@ -53,18 +53,6 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  advFilterButton: {
-    marginLeft: theme.spacing.unit * 3
-  },
-  btnUpload: {
-    border: `1px solid ${theme.palette.secondary.grey}`
-  },
-  label: {
-    marginRight: '1em'
-  },
-  selectionMenu: {
-    display: 'inline'
-  },
   advFilter: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -72,6 +60,24 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
+  },
+  advFilterButton: {
+    marginLeft: theme.spacing.unit * 3,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0
+    }
+  },
+  btnUpload: {
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing.unit
+    }
+  },
+  label: {
+    marginRight: theme.spacing.unit
+  },
+  selectionMenu: {
+    display: 'inline'
   },
   clearFilterText: {
     color: theme.palette.secondary.darkRed
