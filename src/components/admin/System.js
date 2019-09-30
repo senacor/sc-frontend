@@ -11,13 +11,14 @@ import Paper from '@material-ui/core/Paper';
 import ErrorIcon from '@material-ui/icons/Error';
 import SuccessIcon from '@material-ui/icons/CheckCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getHealthcheckData, deleteError } from '../../actions/calls/admin';
+import { deleteError, getHealthcheckData } from '../../actions/calls/admin';
 import { getReadableDate } from '../../helper/date';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
+import WarningIcon from '@material-ui/core/es/internal/svg-icons/Warning';
 
 const styles = theme => ({
   spacing: {
@@ -47,12 +48,18 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  noinfo: {
+    color: theme.palette.secondary.yellow,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
 
 const initialData = {
-  fis: { success: false, date: [] },
-  outlook: { success: false, date: [] },
+  fis: null,
+  outlook: null,
   errors: []
 };
 
@@ -82,6 +89,51 @@ export const System = ({ classes, intl }) => {
     setData(data.errors.splice(index, 1));
   };
 
+  const renderStatusByType = connection => {
+    const renderStatusParametrized = (classes, icon, message, date) => (
+      <div className={classes}>
+        {icon}
+        <Typography color="textSecondary">
+          {intl.formatMessage({
+            id: message
+          })}
+        </Typography>
+        {date !== null && (
+          <Typography color="textSecondary">
+            {`${intl.formatMessage({
+              id: 'system.lastupdate'
+            })} ${getReadableDate(date)}`}
+          </Typography>
+        )}
+      </div>
+    );
+
+    if (!data[connection]) {
+      return renderStatusParametrized(
+        classes.noinfo,
+        <WarningIcon className={classes.padded} />,
+        'system.noinfo',
+        null
+      );
+    }
+
+    if (data[connection].success) {
+      return renderStatusParametrized(
+        classes.success,
+        <SuccessIcon className={classes.padded} />,
+        'system.successful',
+        data[connection].date
+      );
+    } else {
+      return renderStatusParametrized(
+        classes.error,
+        <ErrorIcon className={classes.padded} />,
+        'system.failed',
+        data[connection].date
+      );
+    }
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -97,33 +149,7 @@ export const System = ({ classes, intl }) => {
                       id: 'system.fis'
                     })}
                   </Typography>
-                  {data.fis.success ? (
-                    <div className={classes.success}>
-                      <SuccessIcon className={classes.padded} />
-                      <Typography color="textSecondary">
-                        {intl.formatMessage({
-                          id: 'system.successful'
-                        })}
-                      </Typography>
-                    </div>
-                  ) : (
-                    <div className={classes.error}>
-                      <ErrorIcon className={classes.padded} />
-                      <Typography
-                        className={classes.padded}
-                        color="textSecondary"
-                      >
-                        {intl.formatMessage({
-                          id: 'system.failed'
-                        })}
-                      </Typography>
-                      <Typography color="textSecondary">
-                        {`${intl.formatMessage({
-                          id: 'system.lastsuccess'
-                        })} ${getReadableDate(data.fis.date)}`}
-                      </Typography>
-                    </div>
-                  )}
+                  {renderStatusByType('fis')}
                 </CardContent>
               </Card>
             </Grid>
@@ -135,33 +161,7 @@ export const System = ({ classes, intl }) => {
                       id: 'system.outlook'
                     })}
                   </Typography>
-                  {data.outlook.success ? (
-                    <div className={classes.success}>
-                      <SuccessIcon className={classes.padded} />
-                      <Typography color="textSecondary">
-                        {intl.formatMessage({
-                          id: 'system.successful'
-                        })}
-                      </Typography>
-                    </div>
-                  ) : (
-                    <div className={classes.error}>
-                      <ErrorIcon className={classes.padded} />
-                      <Typography
-                        className={classes.padded}
-                        color="textSecondary"
-                      >
-                        {intl.formatMessage({
-                          id: 'system.failed'
-                        })}
-                      </Typography>
-                      <Typography color="textSecondary">
-                        {`${intl.formatMessage({
-                          id: 'system.lastsuccess'
-                        })} ${getReadableDate(data.outlook.date)}`}
-                      </Typography>
-                    </div>
-                  )}
+                  {renderStatusByType('outlook')}
                 </CardContent>
               </Card>
             </Grid>
