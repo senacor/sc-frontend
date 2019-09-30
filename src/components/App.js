@@ -30,6 +30,7 @@ const PerformanceReviewDetail = lazy(() =>
 );
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
+const SystemPanel = lazy(() => import('./admin/System'));
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
@@ -60,6 +61,7 @@ const PerformanceReviewDetail2WithContent = withContent(
 const DashboardWithContent = withContent(Dashboard);
 const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
 const UserRolesPanelWithContent = withContent(UserRolesPanel);
+const SystemPanelWithContent = withContent(SystemPanel);
 
 export const messages = {
   de: messages_de,
@@ -155,6 +157,11 @@ const App = () => {
                       exact
                       path={ROUTES.ADMIN_USER_ROLES}
                       component={UserRolesPanelWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.ADMIN_SYSTEM_PANEL}
+                      component={SystemPanelWithContent}
                     />
                     <PrivateRoute
                       exact

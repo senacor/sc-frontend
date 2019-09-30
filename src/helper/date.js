@@ -69,3 +69,8 @@ export const isValidDate = date => {
   ).isValid();
   return isValidDate;
 };
+
+export const getReadableDate = date => {
+  const minutes = date[4] > 9 ? date[4].toString() : `0${date[4]}`;
+  return `${date[2]}.${date[1]}.${date[0]}, ${date[3]}:${minutes}`;
+};
