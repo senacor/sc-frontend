@@ -218,7 +218,7 @@
   "employeeInfo.position": "Gegenwärtige Position (CON/DEV)",
   "employeeInfo.cst": "CST",
   "employeeInfo.cc": "CC",
-  "employeeInfo.supervisor": "Teamleiter",
+  "employeeInfo.supervisor": "Vorgesetzter",
   "employeeInfo.location": "Bürostandort",
   "employeeInfo.startDate": "Anfangsdatum",
   "employeeInfo.noPrsFound": "hat kein PR in der Datenbank.",
