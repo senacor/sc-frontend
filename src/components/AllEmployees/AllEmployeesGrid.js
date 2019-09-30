@@ -64,7 +64,8 @@ const EmployeesGrid = ({
 
   const checkFilterValues = (filterData, userData) => {
     if (filterData.length > 0 && Array.isArray(filterData)) {
-      return filterData.includes(userData);
+      const filterDataLowerCase = filterData.map(item => item.toLowerCase());
+      return filterDataLowerCase.includes(userData.toLowerCase());
     } else if (filterData !== '' && typeof filterData === 'string') {
       return userData
         .toLowerCase()

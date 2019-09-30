@@ -320,7 +320,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             <Grid item sm={12}>
               <Grid container spacing={16} className={classes.advFilterGrid}>
                 {sortingData.map(item => (
-                  <Grid item key={item.id}>
+                  <Grid item key={item.id} sm={2}>
                     <SortingFilter
                       sortBy={item.sortBy}
                       handleChange={item.handleChange}
@@ -329,7 +329,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
                     />
                   </Grid>
                 ))}
-                <Grid item>
+                <Grid item sm={2}>
                   <Button
                     onClick={clearFilter}
                     className={classes.clearFilterBtn}
