@@ -64,7 +64,8 @@ const EmployeesGrid = ({
 
   const checkFilterValues = (filterData, userData) => {
     if (filterData.length > 0 && Array.isArray(filterData)) {
-      return filterData.includes(userData);
+      const filterDataLowerCase = filterData.map(item => item.toLowerCase());
+      return filterDataLowerCase.includes(userData.toLowerCase());
     } else if (filterData !== '' && typeof filterData === 'string') {
       return userData
         .toLowerCase()
@@ -77,8 +78,9 @@ const EmployeesGrid = ({
   };
 
   let filteredEmployees = employees.filter(empl => {
+    const employeeName = empl.firstName + ' ' + empl.lastName;
     return (
-      checkFilterValues(filterInputs.searchEmployee, empl.lastName) &&
+      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.currentPosition) &&
       checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
       checkFilterValues(filterInputs.cst, empl.currentCst) &&
