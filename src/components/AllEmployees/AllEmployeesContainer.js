@@ -68,7 +68,10 @@ const styles = theme => ({
   advFilter: {
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column'
+    }
   },
   clearFilterText: {
     color: theme.palette.secondary.darkRed
