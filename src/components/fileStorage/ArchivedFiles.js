@@ -8,7 +8,7 @@ import PerformanceReviewTable from '../humanResources/PerformanceReviewTable';
 import getDisplayName from '../../helper/getDisplayName';
 import UploadFiles from './UploadFiles';
 import { DownloadFile } from './DownloadFile';
-import { loadAllArchivedFilesList } from '../../actions/calls/fileStorage';
+import { loadAllArchivedFilesList } from '../../calls/fileStorage';
 import { formatDateForFrontend } from '../../helper/date';
 import { ErrorContext } from '../App';
 

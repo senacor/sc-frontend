@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { CircularProgress } from '@material-ui/core';
 
 import { UserinfoContext, PrContext, ErrorContext } from '../App';
-import { addPr } from '../../actions/calls/pr';
+import { addPr } from '../../calls/pr';
 
 export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;

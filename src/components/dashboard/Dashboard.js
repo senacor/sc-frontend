@@ -11,7 +11,7 @@ import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { ErrorContext, UserinfoContext } from '../App';
 import { Grid } from '@material-ui/core';
-import { getSystemInfo } from '../../actions/calls/admin';
+import { getSystemInfo } from '../../calls/admin';
 
 const styles = theme => ({
   rowContainer: {

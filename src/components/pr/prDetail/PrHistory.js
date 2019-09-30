@@ -9,7 +9,7 @@ import TableBody from '@material-ui/core/TableBody/TableBody';
 import Table from '@material-ui/core/Table/Table';
 
 import { DownloadFile } from '../../fileStorage/DownloadFile';
-import { loadArchivedFilesList } from '../../../actions/calls/fileStorage';
+import { loadArchivedFilesList } from '../../../calls/fileStorage';
 import { ErrorContext } from '../../App';
 
 const styles = theme => ({

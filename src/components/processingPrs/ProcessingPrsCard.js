@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
-import { linkToPr } from '../../actions/calls/pr';
+import { linkToPr } from '../../calls/pr';
 
 // Material UI
 import Card from '@material-ui/core/Card';

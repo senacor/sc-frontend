@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import { CircularProgress } from '@material-ui/core';
 import EnhancedTableHead from './EnhancedTableHead';
-import { downloadExcel } from '../../actions/calls/excelView';
+import { downloadExcel } from '../../calls/excelView';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 
 export function descInteger(a, b, mapper) {

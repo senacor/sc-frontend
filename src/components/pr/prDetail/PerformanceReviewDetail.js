@@ -3,8 +3,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';
-import { fetchMeeting } from '../../../actions/calls/meetings';
-import { fetchPrById } from '../../../actions/calls/pr';
+import { fetchMeeting } from '../../../calls/meetings';
+import { fetchPrById } from '../../../calls/pr';
 import { ErrorContext, MeetingContext, PrContext } from '../../App';
 
 const PerformanceReviewDetail = props => {

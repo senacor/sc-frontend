@@ -11,7 +11,7 @@ import {
   PrContext,
   UserinfoContext
 } from '../../App';
-import { addPrStatus } from '../../../actions/calls/pr';
+import { addPrStatus } from '../../../calls/pr';
 import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';

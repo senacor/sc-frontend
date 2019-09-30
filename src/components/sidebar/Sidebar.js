@@ -20,7 +20,7 @@ import { CircularProgress } from '@material-ui/core';
 import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
-import { getUserInfo } from '../../actions/calls/userinfo';
+import { getUserInfo } from '../../calls/userinfo';
 import {
   AuthorizationContext,
   ErrorContext,

@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 
-import { uploadFiles } from '../../actions/calls/fileStorage';
+import { uploadFiles } from '../../calls/fileStorage';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import UploadSuccessDialog from './UploadSuccessDialog';
 import { ErrorContext } from '../App';

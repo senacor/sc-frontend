@@ -13,7 +13,7 @@ import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { ErrorContext, MeetingContext, UserinfoContext } from '../App';
-import { appointmentsSearch } from '../../actions/calls/meetings';
+import { appointmentsSearch } from '../../calls/meetings';
 
 const styles = theme => ({
   title: {

@@ -1,4 +1,4 @@
-import { logout } from '../actions/calls/login';
+import { logout } from '../calls/login';
 import ROUTES from './routes';
 
 export default function customFetch(

@@ -8,7 +8,7 @@ import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
-import { addMeeting } from '../../actions/calls/meetings';
+import { addMeeting } from '../../calls/meetings';
 import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({

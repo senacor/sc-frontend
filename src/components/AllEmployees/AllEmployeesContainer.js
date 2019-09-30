@@ -10,9 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import SortingFilter from './SortingFilter';
 
 // Calls
-import { requestPrForEmployees } from '../../actions/calls/pr';
-import { uploadFiles } from '../../actions/calls/fileStorage';
-import { getAllEmployees } from '../../actions/calls/employees';
+import { requestPrForEmployees } from '../../calls/pr';
+import { uploadFiles } from '../../calls/fileStorage';
+import { getAllEmployees } from '../../calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';

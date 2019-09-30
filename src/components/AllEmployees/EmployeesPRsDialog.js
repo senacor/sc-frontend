@@ -8,7 +8,7 @@ import { DownloadFile } from '../fileStorage/DownloadFile';
 import PdfDialog from '../pr/PdfDialog';
 
 // Calls
-import { getAllPrsByEmployee } from '../../actions/calls/employees';
+import { getAllPrsByEmployee } from '../../calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';

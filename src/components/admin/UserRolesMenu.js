@@ -6,7 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import { setRoles } from '../../actions/calls/admin';
+import { setRoles } from '../../calls/admin';
 import { ErrorContext } from '../App';
 
 const UserRolesMenu = props => {

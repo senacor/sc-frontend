@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { ErrorContext } from '../App';
-import { getOwnPrs } from '../../actions/calls/pr';
+import { getOwnPrs } from '../../calls/pr';
 import PrCard from './PrCard';
 import { RequestPerformanceReview } from './RequestPerformanceReview';
 

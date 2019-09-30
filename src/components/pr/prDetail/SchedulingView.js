@@ -9,7 +9,7 @@ import {
   PrContext,
   ErrorContext
 } from '../../App';
-import { addPrStatus } from '../../../actions/calls/pr';
+import { addPrStatus } from '../../../calls/pr';
 
 const SchedulingView = ({ pr, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;

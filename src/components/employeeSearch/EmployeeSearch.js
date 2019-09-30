@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles/index';
 import { CircularProgress } from '@material-ui/core';
 import PlotEmployeeSearchList from './PlotEmployeeSearchList';
-import { employeeSearch } from '../../actions/calls/employeeSearch';
+import { employeeSearch } from '../../calls/employeeSearch';
 import { debounce } from '../../helper/debounce';
 import { ErrorContext } from '../App';
 

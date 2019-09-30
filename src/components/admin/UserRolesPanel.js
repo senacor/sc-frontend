@@ -12,7 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { getAllEmployeesWithRoles, getRoles } from '../../actions/calls/admin';
+import { getAllEmployeesWithRoles, getRoles } from '../../calls/admin';
 import { ErrorContext } from '../App';
 import UserRolesMenu from './UserRolesMenu';
 import { sortByLastName } from '../../helper/sort';

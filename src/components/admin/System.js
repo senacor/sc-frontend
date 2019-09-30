@@ -12,7 +12,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import SuccessIcon from '@material-ui/icons/CheckCircle';
 import WarningIcon from '@material-ui/icons/Warning';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteError, getHealthcheckData } from '../../actions/calls/admin';
+import { deleteError, getHealthcheckData } from '../../calls/admin';
 import { getReadableDate } from '../../helper/date';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
