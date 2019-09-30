@@ -85,8 +85,9 @@ export const System = ({ classes, intl }) => {
 
   const handleOnDeleteClick = (event, id) => {
     deleteError(id, errorContext);
-    const index = data.errors.map(element => element.id).indexOf(id);
-    setData(data.errors.splice(index, 1));
+    let newData = { ...data };
+    newData.errors = data.errors.filter(e => e.id !== id);
+    setData(newData);
   };
 
   const renderStatusByType = connection => {
