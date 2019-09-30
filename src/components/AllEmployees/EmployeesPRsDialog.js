@@ -140,12 +140,6 @@ const EmployeesPRsDialog = ({
           {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
-          <iframe
-            id="pr"
-            src={`prDetailWithoutAppbar/${pr.prId}`}
-            style={{ display: 'none' }}
-            title="Pr"
-          />
           {pr.archived ? (
             // Download excel
             <DownloadFile employeeId={pr.employeeId} fileId={pr.prId} />
