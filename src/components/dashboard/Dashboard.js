@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
@@ -9,7 +9,9 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
-import { UserinfoContext } from '../App';
+import { ErrorContext, UserinfoContext } from '../App';
+import { Grid } from '@material-ui/core';
+import { getSystemInfo } from '../../actions/calls/admin';
 
 const styles = theme => ({
   rowContainer: {
@@ -37,11 +39,21 @@ const styles = theme => ({
 
 const Dashboard = ({ classes, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
-
+  const errorContext = useContext(ErrorContext);
+  const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
 
   let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
+
+  React.useEffect(
+    () => {
+      if (userroles[0] === 'ADMIN') {
+        getSystemInfo(setSystemInfo, errorContext);
+      }
+    },
+    [userroles]
+  );
 
   return userinfo ? (
     <div className={classes.columnContainer}>
@@ -116,21 +128,57 @@ const Dashboard = ({ classes, intl }) => {
       </div>
 
       {/* Notification about administration mode, if userrole is admin */}
-      {userroles[0] === 'ADMIN' && (
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} variant="h5">
-              {intl.formatMessage({
-                id: 'dashboard.administrationTitle'
-              })}
-            </Typography>
-            <Typography color="textSecondary">
-              {intl.formatMessage({
-                id: 'dashboard.administrationText'
-              })}
-            </Typography>
-          </CardContent>
-        </Card>
+      {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
+        <Fragment>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} variant="h5">
+                {intl.formatMessage({
+                  id: 'dashboard.administrationTitle'
+                })}
+              </Typography>
+              <Typography color="textSecondary">
+                {intl.formatMessage({
+                  id: 'dashboard.administrationText'
+                })}
+              </Typography>
+            </CardContent>
+          </Card>
+          <Grid container>
+            <Card className={classes.card} component={NavLink} to={'/system'}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h6"
+                  color="textSecondary"
+                >
+                  {intl.formatMessage({
+                    id: 'admin.errors'
+                  })}
+                </Typography>
+                <Typography variant="h5">{systemInfo.errorCount}</Typography>
+              </CardContent>
+            </Card>
+            <Card
+              className={classes.card}
+              component={NavLink}
+              to={'/dashboard'}
+            >
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h6"
+                  color="textSecondary"
+                >
+                  {intl.formatMessage({
+                    id: 'admin.feedback'
+                  })}
+                </Typography>
+                <Typography variant="h5">{systemInfo.feedbackCount}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Fragment>
       )}
 
       {/* Welcome page section */}
