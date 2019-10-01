@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
 
-import ROUTES from '../../../helper/routes';
-import { isPersonalDev } from '../../../helper/checkRole';
+import ROUTES from '../../helper/routes';
+import { isPersonalDev } from '../../helper/checkRole';
 import PrStatusActionButton from './PrStatusActionButton';
-import { ErrorContext, InfoContext, UserinfoContext } from '../../App';
+import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 
 const BackToTableButton = ({ pr, classes, intl }) => {
   const infoContext = useContext(InfoContext.context);

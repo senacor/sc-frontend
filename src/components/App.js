@@ -26,7 +26,7 @@ const PrsForProcessingContainer = lazy(() =>
   import('./processingPrs/ProcessingPrsContainer')
 );
 const PerformanceReviewDetail = lazy(() =>
-  import('./pr/prDetail/PerformanceReviewDetail')
+  import('./pr/PerformanceReviewDetail')
 );
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));

@@ -3,21 +3,21 @@ import moment from 'moment-timezone';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography/index';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel/index';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary/index';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 
-import getDisplayName from '../../../helper/getDisplayName';
-import { formatDateForFrontend } from '../../../helper/date';
-import Grid from '@material-ui/core/Grid';
+import getDisplayName from '../../helper/getDisplayName';
+import { formatDateForFrontend } from '../../helper/date';
+import Grid from '@material-ui/core/Grid/index';
 import BackToTableButton from './BackToTableButton';
 import ShowReviewer from './ShowReviewer';
-import { prStatusEnum } from '../../../helper/prStatus';
+import { prStatusEnum } from '../../helper/prStatus';
 import PrHistory from './PrHistory';
-import { UserinfoContext } from '../../App';
+import { UserinfoContext } from '../App';
 
 const styles = theme => ({
   root: {
