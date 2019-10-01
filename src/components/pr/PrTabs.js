@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles/index';
+import AppBar from '@material-ui/core/AppBar/index';
+import Tabs from '@material-ui/core/Tabs/index';
+import Tab from '@material-ui/core/Tab/index';
+import Typography from '@material-ui/core/Typography/index';
+import Paper from '@material-ui/core/Paper/index';
 
-import PrSheet from '../PrSheet';
+import PrSheet from './PrSheet';
 import SchedulingView from './SchedulingView';
 
 const styles = theme => ({

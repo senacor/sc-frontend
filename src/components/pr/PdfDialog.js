@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PrState from './prDetail/PrState';
-import PrTabs from './prDetail/PrTabs';
-import PrDetailInformation from './prDetail/PrDetailInformation';
+import PrState from './PrState';
+import PrTabs from './PrTabs';
+import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../calls/meetings';
 import { fetchPrById } from '../../calls/pr';
 import { ErrorContext, MeetingContext, PrContext } from '../App';

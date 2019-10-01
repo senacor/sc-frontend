@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress/index';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';
-import { fetchMeeting } from '../../../calls/meetings';
-import { fetchPrById } from '../../../calls/pr';
-import { ErrorContext, MeetingContext, PrContext } from '../../App';
+import { fetchMeeting } from '../../calls/meetings';
+import { fetchPrById } from '../../calls/pr';
+import { ErrorContext, MeetingContext, PrContext } from '../App';
 
 const PerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);

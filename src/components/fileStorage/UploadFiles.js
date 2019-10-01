@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 
 import { uploadFiles } from '../../calls/fileStorage';
-import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
+import PrStatusActionButton from '../pr/PrStatusActionButton';
 import UploadSuccessDialog from './UploadSuccessDialog';
 import { ErrorContext } from '../App';
 

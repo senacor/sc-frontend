@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button/index';
 import { withStyles } from '@material-ui/core/styles/index';
 
 const styles = theme => ({
