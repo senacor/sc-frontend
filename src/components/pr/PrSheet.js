@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
@@ -226,9 +226,7 @@ const PrSheet = props => {
                     id: 'ROLE_AND_PROJECT_ENVIRONMENT'
                   })
             }
-            helperText={intl.formatMessage({
-              id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
-            })}
+            helperText={' '}
             text={pr.firstReflectionField}
             isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
             isError={

@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
 
-import PrStatusActionButton from './prDetail/PrStatusActionButton';
+import PrStatusActionButton from './PrStatusActionButton';
 
 let styles = theme => ({
   inputClass: {

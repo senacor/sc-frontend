@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 
 import {
   timezoneInGermany,

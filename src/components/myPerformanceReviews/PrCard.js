@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
 import { DownloadFile } from '../fileStorage/DownloadFile';
-import { linkToPr } from '../../actions/calls/pr';
+import { linkToPr } from '../../calls/pr';
 import PdfDialog from '../pr/PdfDialog';
 
 // Material UI

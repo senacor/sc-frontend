@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import { downloadFile } from '../../actions/calls/fileStorage';
+import { downloadFile } from '../../calls/fileStorage';
 import { ErrorContext } from '../App';
 
 import GetAppIcon from '@material-ui/icons/GetApp';

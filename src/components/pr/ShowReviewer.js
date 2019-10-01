@@ -5,10 +5,10 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import List from '@material-ui/core/List/List';
 import { withStyles } from '@material-ui/core';
 
-import { PrContext } from '../../App';
-import { prStatusEnum } from '../../../helper/prStatus';
-import PrDelegate from '../PrDelegate';
-import getDisplayName from '../../../helper/getDisplayName';
+import { PrContext } from '../App';
+import { prStatusEnum } from '../../helper/prStatus';
+import PrDelegate from './PrDelegate';
+import getDisplayName from '../../helper/getDisplayName';
 
 const styles = () => ({
   list: {

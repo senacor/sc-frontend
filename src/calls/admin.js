@@ -1,4 +1,4 @@
-import { default as fetch } from '../../helper/customFetch';
+import { default as fetch } from '../helper/customFetch';
 
 export const getRoles = async (setRoles, setIsLoading, errorContext) => {
   try {
@@ -26,7 +26,9 @@ export const getRoles = async (setRoles, setIsLoading, errorContext) => {
 
 export const getSystemInfo = async (setSystemInfo, errorContext) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/system/info`);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/system/info`
+    );
 
     const responseJson = await response.json();
     setSystemInfo(responseJson);

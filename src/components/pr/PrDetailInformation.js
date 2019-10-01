@@ -10,14 +10,14 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 
-import getDisplayName from '../../../helper/getDisplayName';
-import { formatDateForFrontend } from '../../../helper/date';
+import getDisplayName from '../../helper/getDisplayName';
+import { formatDateForFrontend } from '../../helper/date';
 import Grid from '@material-ui/core/Grid';
 import BackToTableButton from './BackToTableButton';
 import ShowReviewer from './ShowReviewer';
-import { prStatusEnum } from '../../../helper/prStatus';
+import { prStatusEnum } from '../../helper/prStatus';
 import PrHistory from './PrHistory';
-import { UserinfoContext } from '../../App';
+import { UserinfoContext } from '../App';
 
 const styles = theme => ({
   root: {

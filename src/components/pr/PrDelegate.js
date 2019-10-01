@@ -3,13 +3,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 
 import { debounce } from '../../helper/debounce';
 import Popover from '@material-ui/core/Popover/Popover';
 import PlotEmployeeSearchList from '../employeeSearch/PlotEmployeeSearchList';
-import { employeeSearch } from '../../actions/calls/employeeSearch';
-import { delegateReviewer } from '../../actions/calls/pr';
+import { employeeSearch } from '../../calls/employeeSearch';
+import { delegateReviewer } from '../../calls/pr';
 import { ErrorContext } from '../App';
 
 const styles = theme => ({

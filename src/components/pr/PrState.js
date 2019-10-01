@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
@@ -10,14 +10,16 @@ import {
   MeetingContext,
   PrContext,
   UserinfoContext
-} from '../../App';
-import { addPrStatus } from '../../../actions/calls/pr';
-import { prStatusEnum } from '../../../helper/prStatus';
+} from '../App';
+import { addPrStatus } from '../../calls/pr';
+import { prStatusEnum } from '../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
-import { isPersonalDev } from '../../../helper/checkRole';
-import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
-import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
+import {
+  isPersonalDev,
+  hasRoleInPrBasedOnUserName
+} from '../../helper/checkRole';
+import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
 
 const styles = theme => ({
   paper: {

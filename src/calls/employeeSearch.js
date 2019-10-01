@@ -1,4 +1,4 @@
-import { default as fetch } from '../../helper/customFetch';
+import { default as fetch } from '../helper/customFetch';
 
 let employeeSearchRequestCounter = 0;
 

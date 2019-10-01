@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import Grid from '@material-ui/core/Grid/index';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 

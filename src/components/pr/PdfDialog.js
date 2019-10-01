@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PrState from './prDetail/PrState';
-import PrTabs from './prDetail/PrTabs';
-import PrDetailInformation from './prDetail/PrDetailInformation';
-import { fetchMeeting } from '../../actions/calls/meetings';
-import { fetchPrById } from '../../actions/calls/pr';
+import PrState from './PrState';
+import PrTabs from './PrTabs';
+import PrDetailInformation from './PrDetailInformation';
+import { fetchMeeting } from '../../calls/meetings';
+import { fetchPrById } from '../../calls/pr';
 import { ErrorContext, MeetingContext, PrContext } from '../App';
 import { Button, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { injectIntl } from 'react-intl';

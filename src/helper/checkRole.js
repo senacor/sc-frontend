@@ -1,8 +1,5 @@
 import ROLES from './roles';
-
-export const hasRole = (role, userroles) => {
-  return userroles.includes(role);
-};
+import objectGet from 'object-get';
 
 export const isEmployee = (userroles = []) => {
   return (
@@ -16,4 +13,14 @@ export const isSupervisor = (userroles = []) => {
 
 export const isPersonalDev = (userroles = []) => {
   return userroles.includes(ROLES.PERSONAL_DEV);
+};
+
+export const hasRoleInPrBasedOnUserName = (pr, userinfo) => roles => {
+  let hasRoleInPr = false;
+  roles.forEach(function(item) {
+    if (objectGet(pr, `${item}.login`) === userinfo.username) {
+      hasRoleInPr = true;
+    }
+  });
+  return hasRoleInPr;
 };

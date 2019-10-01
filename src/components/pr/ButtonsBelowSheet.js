@@ -7,7 +7,7 @@ import {
   addRatings,
   addReflections,
   addPrStatus
-} from '../../actions/calls/pr';
+} from '../../calls/pr';
 import { PrContext, UserinfoContext } from '../App';
 import ROLES from '../../helper/roles';
 
