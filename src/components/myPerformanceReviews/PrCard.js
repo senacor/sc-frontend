@@ -55,6 +55,9 @@ const styles = theme => ({
     fontSize: '4rem',
     width: '100%'
   },
+  inProgress: {
+    cursor: 'pointer'
+  },
   actions: {
     cursor: 'auto',
     height: 50,
@@ -89,7 +92,11 @@ const PrCard = ({
     // Download pdf
     if (inProgress) {
       return (
-        <Typography color="secondary">
+        <Typography
+          className={classes.inProgress}
+          color="secondary"
+          onClick={() => linkToPr(prId, archived, history)}
+        >
           {intl.formatMessage({ id: 'pr.inProgress' })}
         </Typography>
       );

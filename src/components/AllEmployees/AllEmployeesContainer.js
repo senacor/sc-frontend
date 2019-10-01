@@ -34,7 +34,6 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit
   },
   gridContainer: {
-    height: '77vh',
     width: '100%',
     overflowY: 'auto',
     overflowX: 'hidden'
