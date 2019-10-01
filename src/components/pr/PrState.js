@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import Paper from '@material-ui/core/Paper/index';
-import Typography from '@material-ui/core/Typography/index';
-import { withStyles } from '@material-ui/core/styles/index';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 

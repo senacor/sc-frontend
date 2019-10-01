@@ -3,7 +3,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 
 import { debounce } from '../../helper/debounce';
 import Popover from '@material-ui/core/Popover/Popover';

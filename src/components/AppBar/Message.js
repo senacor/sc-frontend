@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { withStyles } from '@material-ui/core/styles/index';
-import Paper from '@material-ui/core/Paper/index';
-import Typography from '@material-ui/core/Typography/index';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
 import { ErrorContext, InfoContext } from '../App';

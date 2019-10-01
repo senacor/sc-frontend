@@ -5,7 +5,7 @@ import StepLabel from '@material-ui/core/StepLabel/StepLabel';
 import Typography from '@material-ui/core/Typography/Typography';
 import Stepper from '@material-ui/core/Stepper/Stepper';
 import { withStyles } from '@material-ui/core';
-import List from '@material-ui/core/List/index';
+import List from '@material-ui/core/List';
 
 import PrSubstepItem from './PrSubstepItem';
 

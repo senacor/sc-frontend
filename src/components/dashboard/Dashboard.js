@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';

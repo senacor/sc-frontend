@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import moment from 'moment-timezone';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 import DateTimePicker from './DateTimePicker';

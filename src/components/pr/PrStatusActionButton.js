@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '@material-ui/core/Button/index';
-import { withStyles } from '@material-ui/core/styles/index';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   buttonDesktop: {

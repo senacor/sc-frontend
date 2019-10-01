@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid/Grid';
 
 import TargetRole from './TargetRole';

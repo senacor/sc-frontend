@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';

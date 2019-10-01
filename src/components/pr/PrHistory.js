@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { injectIntl } from 'react-intl';
 import { Typography, withStyles } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress/index';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import TableCell from '@material-ui/core/TableCell/TableCell';
