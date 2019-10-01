@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
@@ -8,12 +8,8 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   gridContainer: {
-    width: '100%',
-    paddingTop: 2 * theme.spacing.unit
-  },
-  content: {
-    textAlign: 'center',
-    height: '100%'
+    paddingTop: 2 * theme.spacing.unit,
+    textAlign: 'center'
   },
   showMore: {
     marginTop: theme.spacing.unit,
@@ -22,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const EmployeesGrid = ({
+const AllEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
@@ -119,8 +115,8 @@ const EmployeesGrid = ({
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <div className={classes.content}>
-          <Grid container spacing={40}>
+        <Fragment>
+          <Grid container spacing={16} justify="center">
             {filterActive ? filteredEmployeesData : employeesData}
           </Grid>
           {!filterActive && itemsShown < employees.length && (
@@ -143,10 +139,10 @@ const EmployeesGrid = ({
               })}..`}
             </Button>
           )}
-        </div>
+        </Fragment>
       )}
     </div>
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeesGrid));
+export default injectIntl(withStyles(styles)(AllEmployeesGrid));
