@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
 import { withStyles } from '@material-ui/core';
-import EmployeesGrid from './AllEmployeesGrid';
+import AllEmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
 import SearchFilter from './SearchFilter';
 import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
@@ -18,7 +18,6 @@ import { getAllEmployees } from '../../calls/employees';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 // Icons
@@ -35,7 +34,6 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit
   },
   gridContainer: {
-    height: '77vh',
     width: '100%',
     overflowY: 'auto',
     overflowX: 'hidden'
@@ -319,13 +317,13 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           uploadedFiles={uploadedFiles}
         />
         <div className={classes.upperPanel}>
-          <div>
+          <div className={classes.advFilter}>
             <SearchFilter
               searchValue={searchEmployeesValue}
               searchChange={handleSearchEmployeeChange}
               placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
             />
-            <IconButton
+            <Button
               onClick={() => toggleSortingFilter()}
               className={classes.advFilterButton}
             >
@@ -333,9 +331,9 @@ const AllEmployeesContainer = ({ classes, intl }) => {
               <Typography variant="button">
                 {intl.formatMessage({ id: 'filter.advanced' })}
               </Typography>
-            </IconButton>
+            </Button>
           </div>
-          <div>{upperMenu(intl)}</div>
+          {upperMenu(intl)}
         </div>
         {visibleAdvancedFilter && (
           <div className={classes.advFilter}>
@@ -356,7 +354,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           </div>
         )}
       </Paper>
-      <EmployeesGrid
+      <AllEmployeesGrid
         filterInputs={filterInputs}
         selection={selection}
         selected={selected}
