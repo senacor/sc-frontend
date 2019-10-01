@@ -119,7 +119,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(entry => {
                 return (
-                  <TableRow>
+                  <TableRow key={entry.id}>
                     <TableCell>
                       {`${entry.firstName} ${entry.lastName}`}
                     </TableCell>

@@ -226,9 +226,7 @@ const PrSheet = props => {
                     id: 'ROLE_AND_PROJECT_ENVIRONMENT'
                   })
             }
-            helperText={intl.formatMessage({
-              id: 'PLACEHOLDER_ROLE_AND_PROJECT_ENVIRONMENT'
-            })}
+            helperText={' '}
             text={pr.firstReflectionField}
             isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
             isError={
