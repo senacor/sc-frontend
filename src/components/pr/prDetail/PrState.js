@@ -16,7 +16,7 @@ import { prStatusEnum } from '../../../helper/prStatus';
 import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
 import { isPersonalDev } from '../../../helper/checkRole';
-import { hasRoleInPrBasedOnUserName } from '../../../helper/hasRoleInPr';
+import { hasRoleInPrBasedOnUserName } from '../../../helper/checkRole';
 import { CheckRequiredClick } from '../../hoc/CheckRequiredClick';
 
 const styles = theme => ({

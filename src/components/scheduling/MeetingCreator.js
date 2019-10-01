@@ -9,7 +9,7 @@ import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
 import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import { hasRoleInPrBasedOnUserName } from '../../helper/hasRoleInPr';
+import { hasRoleInPrBasedOnUserName } from '../../helper/checkRole';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/prDetail/PrStatusActionButton';
 import { ErrorContext, MeetingContext, UserinfoContext } from '../App';

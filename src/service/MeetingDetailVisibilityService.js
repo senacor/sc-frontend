@@ -1,6 +1,6 @@
 import { prStatusEnum } from '../helper/prStatus';
 import { isPersonalDev } from '../helper/checkRole';
-import { hasRoleInPrBasedOnUserName } from '../helper/hasRoleInPr';
+import { hasRoleInPrBasedOnUserName } from '../helper/checkRole';
 
 class MeetingDetailVisibilityService {
   constructor(
