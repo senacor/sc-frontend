@@ -7,6 +7,9 @@ import { injectIntl } from 'react-intl';
 const styles = theme => ({
   error: {
     color: theme.palette.secondary.darkRed
+  },
+  notchedOutline: {
+    border: '2px solid black !important'
   }
 });
 
@@ -53,12 +56,13 @@ const PrTextField = ({
         </Grid>
         <Grid item xs={12}>
           <TextField
+            disabled
             multiline
             rows={rows ? rows : '6'}
             rowsMax="10"
             fullWidth
             variant="outlined"
-            inputProps={{ 'aria-label': 'bare', readOnly: true }}
+            inputProps={{ 'aria-label': 'bare' }}
             helperText={helperText}
             defaultValue={text}
             onChange={event => action(event.target.value)}
@@ -79,7 +83,11 @@ const PrTextField = ({
             rowsMax="10"
             fullWidth
             variant="outlined"
-            inputProps={{ 'aria-label': 'bare' }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
             helperText={helperText}
             defaultValue={text}
             onChange={event => action(event.target.value)}

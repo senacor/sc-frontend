@@ -163,10 +163,12 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       value={1}
                       disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
-                      classes={{
-                        root: classes.radio,
-                        checked: classes.checked
-                      }}
+                      classes={
+                        !isReadOnly('RATINGS_REVIEWER') && {
+                          root: classes.radio,
+                          checked: classes.checked
+                        }
+                      }
                     />
                   </Grid>
                   <Grid item xs={4} className={classes.center}>
@@ -175,10 +177,12 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       value={2}
                       disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
-                      classes={{
-                        root: classes.radio,
-                        checked: classes.checked
-                      }}
+                      classes={
+                        !isReadOnly('RATINGS_REVIEWER') && {
+                          root: classes.radio,
+                          checked: classes.checked
+                        }
+                      }
                     />
                   </Grid>
                   <Grid item xs={4} className={classes.center}>
@@ -187,10 +191,12 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       value={3}
                       disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
-                      classes={{
-                        root: classes.radio,
-                        checked: classes.checked
-                      }}
+                      classes={
+                        !isReadOnly('RATINGS_REVIEWER') && {
+                          root: classes.radio,
+                          checked: classes.checked
+                        }
+                      }
                     />
                   </Grid>
                 </Grid>

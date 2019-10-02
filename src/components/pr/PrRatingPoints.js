@@ -33,6 +33,7 @@ const PrRatingPoints = ({
     return (
       <TextField
         readOnly
+        disabled
         value={ratingValue(rating)}
         inputProps={{ classes: { input: classes.center } }}
       />
