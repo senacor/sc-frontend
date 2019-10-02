@@ -235,7 +235,11 @@ const ButtonsBelowSheet = props => {
   const disabled = () => {
     //I am reviewer of the PR
     if (userinfo.userId === pr.reviewer.id) {
-      return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
+      return (
+        pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
+        (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
+          pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED'))
+      );
     }
 
     //I am owner of the PR
