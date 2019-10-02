@@ -215,7 +215,7 @@
   "attendee.absent": "absent",
   "attendee.free": "free",
   "employeeInfo.positionAbrv": "Position",
-  "employeeInfo.position": "Current position (CON/DEV)",
+  "employeeInfo.position": "Current position",
   "employeeInfo.cst": "CST",
   "employeeInfo.cc": "CC",
   "employeeInfo.supervisor": "Supervisor",
