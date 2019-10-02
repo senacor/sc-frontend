@@ -16,7 +16,7 @@ import officeMuenchen from '../../styles/office_muenchen.jpg';
 import senacorLogo from '../../styles/senacor_transparent.png';
 import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../translations/LanguageButton';
-import { login } from '../../actions/calls/login';
+import { login } from '../../calls/login';
 import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
 
 const styles = theme => ({

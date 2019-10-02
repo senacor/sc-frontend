@@ -1,4 +1,4 @@
-import { default as fetch } from '../../helper/customFetch';
+import { default as fetch } from '../helper/customFetch';
 import { addAttributeToArchivedPrs, addAttributeToPrs } from './employees';
 
 export const fetchPrById = async (

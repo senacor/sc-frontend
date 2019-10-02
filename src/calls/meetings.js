@@ -1,6 +1,6 @@
-import { default as fetch } from '../../helper/customFetch';
+import { default as fetch } from '../helper/customFetch';
 import momentTimeZone from 'moment-timezone';
-import moment from 'moment';
+import moment from 'moment/moment';
 
 let validateDateTimeInput = (start, end) => {
   if (!momentTimeZone(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {

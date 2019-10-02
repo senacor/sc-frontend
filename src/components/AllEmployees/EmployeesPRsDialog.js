@@ -8,7 +8,7 @@ import { DownloadFile } from '../fileStorage/DownloadFile';
 import PdfDialog from '../pr/PdfDialog';
 
 // Calls
-import { getAllPrsByEmployee } from '../../actions/calls/employees';
+import { getAllPrsByEmployee } from '../../calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -57,9 +57,6 @@ const styles = theme => ({
   },
   archived: {
     backgroundColor: theme.palette.secondary.grey
-  },
-  inProgress: {
-    cursor: 'auto'
   },
   noPrFound: {
     color: theme.palette.secondary.mediumGrey
@@ -149,7 +146,10 @@ const EmployeesPRsDialog = ({
               <GetAppIcon />
             </IconButton>
           ) : (
-            <Typography className={classes.inProgress} color="secondary">
+            <Typography
+              onClick={() => linkToPrSheet(pr.prId, pr.archived)}
+              color="secondary"
+            >
               {intl.formatMessage({
                 id: 'pr.inProgress'
               })}

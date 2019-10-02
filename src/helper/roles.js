@@ -1,8 +1,4 @@
 const ROLES = {
-  // PR_MITARBEITER: 'PR_Mitarbeiter',
-  // PR_CST_LEITER: 'PR_CST_Leiter',
-  // PR_HR: 'PR_HR',
-  // ADMIN: 'ADMIN'
   ADMIN: 'ADMIN',
   DEVELOPER: 'DEVELOPER',
   CONSULTING: 'CONSULTING',

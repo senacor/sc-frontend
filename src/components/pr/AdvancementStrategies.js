@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 
 // Material UI

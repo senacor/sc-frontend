@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
 import { DownloadFile } from '../fileStorage/DownloadFile';
-import { linkToPr } from '../../actions/calls/pr';
+import { linkToPr } from '../../calls/pr';
 import PdfDialog from '../pr/PdfDialog';
 
 // Material UI
@@ -55,6 +55,9 @@ const styles = theme => ({
     fontSize: '4rem',
     width: '100%'
   },
+  inProgress: {
+    cursor: 'pointer'
+  },
   actions: {
     cursor: 'auto',
     height: 50,
@@ -89,7 +92,11 @@ const PrCard = ({
     // Download pdf
     if (inProgress) {
       return (
-        <Typography color="secondary">
+        <Typography
+          className={classes.inProgress}
+          color="secondary"
+          onClick={() => linkToPr(prId, archived, history)}
+        >
           {intl.formatMessage({ id: 'pr.inProgress' })}
         </Typography>
       );

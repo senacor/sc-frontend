@@ -1,9 +1,9 @@
 import {
   default as fetch,
   default as authorizedFetch
-} from '../../helper/customFetch';
-import cloneDeep from '../../helper/cloneDeep';
-import ROLES from '../../helper/roles';
+} from '../helper/customFetch';
+import cloneDeep from '../helper/cloneDeep';
+import ROLES from '../helper/roles';
 
 export const getUserInfo = async (
   userinfoContext,

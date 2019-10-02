@@ -4,14 +4,14 @@ import { NavLink } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { ErrorContext, UserinfoContext } from '../App';
 import { Grid } from '@material-ui/core';
-import { getSystemInfo } from '../../actions/calls/admin';
+import { getSystemInfo } from '../../calls/admin';
 
 const styles = theme => ({
   rowContainer: {

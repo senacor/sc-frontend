@@ -27,7 +27,6 @@ const PlotEmployeeSearchList = ({
   selectEmployee,
   searchValue,
   searchResults,
-  isLoading,
   excludeList,
   intl
 }) => {

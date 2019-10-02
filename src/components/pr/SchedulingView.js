@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MeetingDetailsView from './MeetingDetailsView';
-import MeetingCreator from '../../scheduling/MeetingCreator';
-import { prStatusEnum } from '../../../helper/prStatus';
+import MeetingCreator from '../scheduling/MeetingCreator';
+import { prStatusEnum } from '../../helper/prStatus';
 import { injectIntl } from 'react-intl';
 import {
   MeetingContext,
   UserinfoContext,
   PrContext,
   ErrorContext
-} from '../../App';
-import { addPrStatus } from '../../../actions/calls/pr';
+} from '../App';
+import { addPrStatus } from '../../calls/pr';
 
 const SchedulingView = ({ pr, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;

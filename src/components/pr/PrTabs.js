@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
-import PrSheet from '../PrSheet';
+import PrSheet from './PrSheet';
 import SchedulingView from './SchedulingView';
 
 const styles = theme => ({

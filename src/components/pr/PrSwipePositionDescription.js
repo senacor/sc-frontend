@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactSwipe from 'react-swipe';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';

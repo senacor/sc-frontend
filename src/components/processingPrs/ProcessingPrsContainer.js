@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { ErrorContext } from '../App';
-import { getPrsToReview } from '../../actions/calls/pr';
+import { getPrsToReview } from '../../calls/pr';
 import ProcessingPrsCard from './ProcessingPrsCard';
 
 const styles = theme => ({

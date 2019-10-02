@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Button from '@material-ui/core/Button/index';
+import Button from '@material-ui/core/Button';
 import { LanguageContext } from '../App';
 
 const LanguageButton = ({ languageButtonClassName }) => {
