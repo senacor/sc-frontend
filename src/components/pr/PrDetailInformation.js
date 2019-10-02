@@ -106,9 +106,11 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
 
   const subheader = `${intl.formatMessage({
     id: 'prdetailinformation.duedate'
-  })} ${formatDateForFrontend(
-    pr.deadline
-  )}, ACD_BOOT, ${competence}, ${intl.formatMessage({
+  })} ${formatDateForFrontend(pr.deadline)}, ${intl.formatMessage({
+    id: 'prdetailinformation.cc'
+  })} ${competence}, ${intl.formatMessage({
+    id: 'prdetailinformation.occasion'
+  })} ${intl.formatMessage({
     id: `${pr.occasion}`
   })}, ${intl.formatMessage({
     id: 'prdetailinformation.termin'

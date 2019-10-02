@@ -138,6 +138,8 @@
   "prdetailinformation.termin": "Date:",
   "prdetailinformation.supervisor": "Supervisor:",
   "prdetailinformation.reviewer": "Evaluator:",
+  "prdetailinformation.occasion": "Occasion:",
+  "prdetailinformation.cc": "CC:",
   "prhistory.date": "Date",
   "prhistory.link": "Link",
   "prhistory.noArchivedFiles": "No archived PRs found",
@@ -258,5 +260,10 @@
   "transformationManager": "Transformation manager",
   "UNKNOWN": "Unknown",
   "WORKING_MANNER": "Working manner",
-  "WORK_RESULTS": "Work results"
+  "WORK_RESULTS": "Work results",
+  "COMPETENCE_CONSULTING": "Con.",
+  "COMPETENCE_DEVELOPMENT": "Dev.",
+  "ON_DEMAND": "On demand",
+  "END_PROBATION": "First PR",
+  "YEARLY": "Yearly"
 }
