@@ -38,7 +38,6 @@ const PrTextField = ({
             rowsMax="10"
             fullWidth
             variant="outlined"
-            inputProps={{ 'aria-label': 'bare' }}
             helperText={intl.formatMessage({
               id: 'prtextfield.error'
             })}
@@ -62,7 +61,6 @@ const PrTextField = ({
             rowsMax="10"
             fullWidth
             variant="outlined"
-            inputProps={{ 'aria-label': 'bare' }}
             helperText={helperText}
             defaultValue={text}
             onChange={event => action(event.target.value)}
