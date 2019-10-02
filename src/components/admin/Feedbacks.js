@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { CircularProgress, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
@@ -31,7 +31,7 @@ export const Feedbacks = ({ classes, intl }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  let errorContext = useContext(ErrorContext.context);
+  const errorContext = useContext(ErrorContext.context);
 
   useEffect(() => {
     getFeedbacks(setData, setIsLoading, errorContext);
@@ -47,16 +47,16 @@ export const Feedbacks = ({ classes, intl }) => {
 
   const handleOnDeleteClick = (event, ids) => {
     deleteFeedbacks(ids, errorContext);
-    let newData = data.filter(entry => !ids.includes(entry.id));
+    const newData = data.filter(entry => !ids.includes(entry.id));
     setData(newData);
   };
 
   return (
-    <div>
+    <Fragment>
       {isLoading ? (
         <CircularProgress className={classes.spacing} />
       ) : (
-        <div>
+        <Fragment>
           <Paper className={classes.spacing}>
             <Typography className={classes.padding} variant="h5">
               {intl.formatMessage({
@@ -153,9 +153,9 @@ export const Feedbacks = ({ classes, intl }) => {
               onChangeRowsPerPage={handleChangeRowsPerPage}
             />
           </Paper>
-        </div>
+        </Fragment>
       )}
-    </div>
+    </Fragment>
   );
 };
 

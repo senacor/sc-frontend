@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { CircularProgress, Grid, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
@@ -69,7 +69,7 @@ export const System = ({ classes, intl }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  let errorContext = useContext(ErrorContext.context);
+  const errorContext = useContext(ErrorContext.context);
 
   useEffect(() => {
     getHealthcheckData(setData, setIsLoading, errorContext);
@@ -136,11 +136,11 @@ export const System = ({ classes, intl }) => {
   };
 
   return (
-    <div>
+    <Fragment>
       {isLoading ? (
         <CircularProgress className={classes.spacing} />
       ) : (
-        <div>
+        <Fragment>
           <Grid container>
             <Grid item xs={12} md={6}>
               <Card className={classes.card}>
@@ -250,9 +250,9 @@ export const System = ({ classes, intl }) => {
               onChangeRowsPerPage={handleChangeRowsPerPage}
             />
           </Paper>
-        </div>
+        </Fragment>
       )}
-    </div>
+    </Fragment>
   );
 };
 
