@@ -117,7 +117,7 @@ const EmployeeCard = ({
   let onCardClick = handleDialogOpen;
 
   if (selection) {
-    if (hasOpenedPr) {
+    if (hasOpenedPr || !supervisorName) {
       bgClass = classes.selectionUnavailable;
       avatar = (
         <HighlightOffIcon className={`${classes.avatar} ${classes.iconGrey}`} />
