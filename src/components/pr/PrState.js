@@ -8,18 +8,16 @@ import { injectIntl } from 'react-intl';
 import {
   ErrorContext,
   MeetingContext,
-  PrContext,
-  UserinfoContext
+  UserinfoContext,
+  InfoContext
 } from '../App';
-import { addPrStatus } from '../../calls/pr';
 import { prStatusEnum } from '../../helper/prStatus';
-import PrStatusActionButton from './PrStatusActionButton';
 import PrStatusStepper from './PrStateStepper';
 import {
   isPersonalDev,
   hasRoleInPrBasedOnUserName
 } from '../../helper/checkRole';
-import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
+import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
   paper: {
@@ -34,19 +32,10 @@ const styles = theme => ({
   }
 });
 
-const PrState = ({
-  classes,
-  prById,
-  employeeContributionRole,
-  employeeContributionLeader,
-  overallComment,
-  intl
-}) => {
-  const { setValue: setPr } = useContext(PrContext.context);
+const PrState = ({ classes, prById, intl }) => {
   const errorContext = useContext(ErrorContext.context);
   const { value: meeting } = useContext(MeetingContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
-  overallComment = 'COMMENT TURNED OFF...';
   const mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
     if (prStatusesDone !== undefined) {
       return Object.values(stepStructure[stepId].substeps).every(
@@ -146,7 +135,7 @@ const PrState = ({
             incompleteForNonActionPerformer: intl.formatMessage({
               id: 'prstate.notfinished'
             }),
-            incompleteForActionPerformer: getIncompleteActionPerformerButton(
+            incompleteForActionPerformer: submitPRButton(
               pr,
               prStatusEnum.RELEASED_SHEET_EMPLOYEE
             )
@@ -165,7 +154,7 @@ const PrState = ({
             incompleteForNonActionPerformer: intl.formatMessage({
               id: 'prstate.notfinished'
             }),
-            incompleteForActionPerformer: getIncompleteActionPerformerButton(
+            incompleteForActionPerformer: submitPRButton(
               pr,
               prStatusEnum.RELEASED_SHEET_REVIEWER
             )
@@ -200,7 +189,7 @@ const PrState = ({
             incompleteForNonActionPerformer: intl.formatMessage({
               id: 'prstate.notfinished'
             }),
-            incompleteForActionPerformer: getIncompleteActionPerformerButton(
+            incompleteForActionPerformer: submitPRButton(
               pr,
               prStatusEnum.FINALIZED_REVIEWER
             )
@@ -226,10 +215,7 @@ const PrState = ({
             incompleteForNonActionPerformer: intl.formatMessage({
               id: 'prstate.notfinished'
             }),
-            incompleteForActionPerformer: getIncompleteActionPerformerButton(
-              pr,
-              prStatusEnum.FINALIZED_EMPLOYEE
-            )
+            incompleteForActionPerformer: submitPRButton(pr)
           }
         }
       }
@@ -252,10 +238,7 @@ const PrState = ({
             incompleteForNonActionPerformer: intl.formatMessage({
               id: 'prstate.notfinished'
             }),
-            incompleteForActionPerformer: getIncompleteActionPerformerButton(
-              pr,
-              prStatusEnum.ARCHIVED_HR
-            )
+            incompleteForActionPerformer: submitPRButton(pr)
           }
         }
       }
@@ -268,88 +251,14 @@ const PrState = ({
     }
   };
 
-  const checkRequiredFields = (
-    employeeContributionRole,
-    employeeContributionLeader,
-    overallComment,
-    status
-  ) => {
-    let filledEmployee =
-      employeeContributionRole !== null &&
-      employeeContributionLeader !== null &&
-      employeeContributionRole !== '' &&
-      employeeContributionLeader !== '';
-    let filledReviewer = overallComment !== null && overallComment !== '';
-
-    let required = { employee: true, reviewer: true };
-    switch (status) {
-      case prStatusEnum.RELEASED_SHEET_EMPLOYEE:
-        return Object.assign({}, required, {
-          employee: filledEmployee
-        });
-      case prStatusEnum.RELEASED_SHEET_REVIEWER:
-        return Object.assign({}, required, {
-          reviewer: filledReviewer
-        });
-      case prStatusEnum.FINALIZED_REVIEWER:
-        return Object.assign({}, required, {
-          reviewer: filledReviewer
-        });
-      default:
-        return required;
-    }
-  };
-
-  const requiredFieldsEmpty = status => {
-    let fieldFilled = checkRequiredFields(
-      employeeContributionRole,
-      employeeContributionLeader,
-      overallComment,
-      status
-    );
-
-    if (
-      prStatusEnum.RELEASED_SHEET_EMPLOYEE === status &&
-      false === fieldFilled.employee
-    ) {
-      return true;
-    } else if (
-      prStatusEnum.RELEASED_SHEET_REVIEWER === status &&
-      false === fieldFilled.reviewer
-    ) {
-      return true;
-    } else if (
-      prStatusEnum.FINALIZED_REVIEWER === status &&
-      false === fieldFilled.reviewer
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const getIncompleteActionPerformerButton = (pr, status) => {
-    let label =
-      status === prStatusEnum.RELEASED_SHEET_REVIEWER ||
-      status === prStatusEnum.RELEASED_SHEET_EMPLOYEE
-        ? intl.formatMessage({
-            id: 'prstate.release'
-          })
-        : intl.formatMessage({
-            id: 'prstate.finish'
-          });
+  const submitPRButton = pr => {
+    const infoContext = useContext(InfoContext.context);
     return (
-      <CheckRequiredClick
-        onClick={() => {
-          addPrStatus(pr, status, setPr, errorContext);
-        }}
-        check={() => !requiredFieldsEmpty(status)}
-        message={intl.formatMessage({
-          id: 'prstate.fillrequired'
-        })}
-      >
-        <PrStatusActionButton label={label} />
-      </CheckRequiredClick>
+      <ButtonsBelowSheet
+        pr={pr}
+        errorContext={errorContext}
+        infoContext={infoContext}
+      />
     );
   };
 
