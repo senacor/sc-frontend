@@ -3,6 +3,7 @@ const ROUTES = {
   PR_TO_REVIEW_TABLE: '/prs',
   ALL_PRS_TABLE: '/allEmployees',
   DASHBOARD: '/dashboard',
+  PR_IN_PROGRESS: '/dashboard/prsinprogress',
   LOGIN: '/login',
   LOGOUT: '/logout',
   PR: '/prDetail',

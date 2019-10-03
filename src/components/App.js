@@ -130,6 +130,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.PR_IN_PROGRESS}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.OWN_PR_TABLE}
                       component={OwnPrsContainerWithContent}
                     />

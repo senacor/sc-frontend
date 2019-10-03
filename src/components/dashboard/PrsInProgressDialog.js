@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 
@@ -10,13 +10,15 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import ROUTES from '../../helper/routes';
 
 const styles = theme => ({
   card: {
     flexGrow: 1,
     margin: 3 * theme.spacing.unit,
     marginBottom: 0,
-    textDecoration: 'none'
+    textDecoration: 'none',
+    cursor: 'pointer'
   },
   title: {
     marginBottom: 2 * theme.spacing.unit
@@ -25,13 +27,23 @@ const styles = theme => ({
 
 const PrsInProgressDialog = ({ classes, intl }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
-  const [newPath, setNewPath] = useState('');
+
+  useEffect(
+    () => {
+      if (window.location.pathname === ROUTES.PR_IN_PROGRESS) {
+        setDialogOpened(true);
+      }
+    },
+    [dialogOpened]
+  );
 
   const dialogClose = () => {
+    window.history.pushState(null, null, ROUTES.DASHBOARD);
     setDialogOpened(false);
   };
 
   const dialogOpen = () => {
+    window.history.pushState(null, null, ROUTES.PR_IN_PROGRESS);
     setDialogOpened(true);
   };
 
