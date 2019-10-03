@@ -13,6 +13,7 @@
   "dashboard.contactText": "Fühlen Sie sich frei uns Problems, Bugs und Verbesserungsvorschlagen zu melden. Kontakt: ",
   "dashboard.administrationTitle": "Beachtung! Sie sind in Administrationsmodus",
   "dashboard.administrationText": "In diesem Modus können Sie Benutzerrolen wechseln und Feedbacks, Logs oder aufgetretene Problems anschauen.",
+  "dashboard.prsInProgress": "Zahl der laufender PRs",
   "login.username": "Nutzername",
   "login.password": "Passwort",
   "login.login": "Anmelden",

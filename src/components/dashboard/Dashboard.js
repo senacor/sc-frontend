@@ -12,6 +12,7 @@ import InfoWidget from './InfoWidget';
 import { ErrorContext, UserinfoContext } from '../App';
 import { Grid } from '@material-ui/core';
 import { getSystemInfo } from '../../calls/admin';
+import PrsInProgressDialog from './PrsInProgressDialog';
 
 const styles = theme => ({
   rowContainer: {
@@ -126,6 +127,8 @@ const Dashboard = ({ classes, intl }) => {
           </Card>
         ) : null}
       </div>
+
+      {userroles[0] === 'PERSONAL_DEV' && <PrsInProgressDialog />}
 
       {/* Notification about administration mode, if userrole is admin */}
       {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
