@@ -9,11 +9,12 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteFeedbacks, getFeedbacks } from '../../calls/admin';
+import { getFeedbacks } from '../../calls/admin';
 import { getReadableDate } from '../../helper/date';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
+import FeedbackDeleteDialog from './FeedbackDeleteDialog';
 
 const styles = theme => ({
   spacing: {
@@ -30,6 +31,7 @@ export const Feedbacks = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
+  const [idToDelete, setIdToDelete] = useState(null);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -45,10 +47,12 @@ export const Feedbacks = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const handleOnDeleteClick = (event, ids) => {
-    deleteFeedbacks(ids, errorContext);
-    const newData = data.filter(entry => !ids.includes(entry.id));
-    setData(newData);
+  const handleOnDeleteClick = (event, id) => {
+    setIdToDelete(id);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setIdToDelete(null);
   };
 
   return (
@@ -114,7 +118,7 @@ export const Feedbacks = ({ classes, intl }) => {
                         <TableCell>
                           <IconButton
                             onClick={event =>
-                              handleOnDeleteClick(event, [entry.id])
+                              handleOnDeleteClick(event, entry.id)
                             }
                             aria-label="delete"
                           >
@@ -155,6 +159,12 @@ export const Feedbacks = ({ classes, intl }) => {
           </Paper>
         </Fragment>
       )}
+      <FeedbackDeleteDialog
+        id={idToDelete}
+        closeDialog={handleCloseDeleteDialog}
+        data={data}
+        setData={setData}
+      />
     </Fragment>
   );
 };
