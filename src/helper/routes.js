@@ -9,7 +9,8 @@ const ROUTES = {
   LOGOUT: '/logout',
   PR: '/prDetail',
   ADMIN_USER_ROLES: '/userroles',
-  ADMIN_SYSTEM_PANEL: '/system'
+  ADMIN_SYSTEM_PANEL: '/system',
+  MAINTENANCE: '/maintenance'
 };
 
 export default ROUTES;
