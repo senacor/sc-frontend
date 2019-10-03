@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import ROUTES from '../../../helper/routes';
 import { ErrorContext } from '../../App';
-import { getPrsInProgress } from '../../../calls/pr';
+import { getPrsHrTodo } from '../../../calls/pr';
 
 // Material UI
 import Typography from '@material-ui/core/Typography';
@@ -42,7 +42,7 @@ const styles = theme => ({
   }
 });
 
-const PrsTodoHrDialog = ({ classes, intl, todoForHr, prsInProgress }) => {
+const PrsTodoHrDialog = ({ classes, intl, todoForHr }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [prs, setPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,11 +53,13 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr, prsInProgress }) => {
     () => {
       if (window.location.pathname === ROUTES.PR_HR_TODO) {
         setDialogOpened(true);
-        getPrsInProgress(setPrs, setIsLoading, errorContext);
+        getPrsHrTodo(setPrs, setIsLoading, errorContext);
       }
     },
     [dialogOpened]
   );
+
+  console.log(todoForHr);
 
   const dialogClose = () => {
     window.history.pushState(null, null, ROUTES.DASHBOARD);
@@ -69,18 +71,17 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr, prsInProgress }) => {
     setDialogOpened(true);
   };
 
-  console.log(prs);
   return (
     <Fragment>
       <Card className={classes.card} onClick={dialogOpen}>
         <CardContent>
           <Typography className={classes.title} variant="body1">
             {intl.formatMessage({
-              id: 'dashboard.prsInProgress'
+              id: 'dashboard.prsInProgressHrToDo'
             })}
             :
           </Typography>
-          <Typography color="textSecondary">{prsInProgress}</Typography>
+          <Typography color="textSecondary">{todoForHr}</Typography>
         </CardContent>
       </Card>
       <Dialog open={dialogOpened} onClose={dialogClose} fullWidth maxWidth="sm">

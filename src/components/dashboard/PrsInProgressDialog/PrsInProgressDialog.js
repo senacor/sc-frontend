@@ -37,6 +37,9 @@ const styles = theme => ({
   dialogContent: {
     padding: 3 * theme.spacing.unit,
     textAlign: 'center'
+  },
+  title: {
+    marginBottom: 2 * theme.spacing.unit
   }
 });
 

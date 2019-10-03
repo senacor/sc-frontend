@@ -354,3 +354,24 @@ export const getPrsInProgress = async (setPrs, setIsLoading, errorContext) => {
     });
   }
 };
+
+export const getPrsHrTodo = async (setPrs, setIsLoading, errorContext) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/hrTodo`
+    );
+    const responsePrs = await response.json();
+
+    setIsLoading(false);
+    setPrs(responsePrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};

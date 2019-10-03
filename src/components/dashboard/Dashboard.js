@@ -129,13 +129,12 @@ const Dashboard = ({ classes, intl }) => {
         ) : null}
       </div>
 
+      {console.log(userinfo.prsInTodoForHr)}
+
       {userroles[0] === 'PERSONAL_DEV' && (
         <div className={classes.rowContainer}>
-          <PrsInProgressDialog
-            todoForHr={userinfo.prsInTodoForHr}
-            prsInProgress={userinfo.prsInProgressForHr}
-          />
-          <PrsTodoHrDialog />
+          <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
+          <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
         </div>
       )}
 
