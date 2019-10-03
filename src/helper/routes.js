@@ -4,6 +4,7 @@ const ROUTES = {
   ALL_PRS_TABLE: '/allEmployees',
   DASHBOARD: '/dashboard',
   PR_IN_PROGRESS: '/dashboard/prsinprogress',
+  PR_HR_TODO: '/dashboard/prhrtodo',
   LOGIN: '/login',
   LOGOUT: '/logout',
   PR: '/prDetail',

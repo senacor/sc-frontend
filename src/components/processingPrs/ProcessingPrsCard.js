@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 // Icons
 import PrIcon from '@material-ui/icons/PermContactCalendar';
+import { modifyString } from '../../helper/string';
 
 const styles = theme => ({
   card: {
@@ -64,17 +65,6 @@ const ProcessingPrsCard = ({
   history,
   pr: { prId, employeeFirstName, employeeLastName, prOccasion, startDate }
 }) => {
-  // Replacing "_" with " " and setting only first letter as capital
-  const modifyString = string => {
-    const replacedStr =
-      string.charAt(0).toUpperCase() +
-      string
-        .slice(1)
-        .toLowerCase()
-        .replace(/_/g, ' ');
-    return replacedStr;
-  };
-
   const startDateContainer = (
     <Fragment>
       <Typography variant="body2" className={classes.subtitle}>
