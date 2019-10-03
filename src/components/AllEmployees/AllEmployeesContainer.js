@@ -8,6 +8,12 @@ import SearchFilter from './SearchFilter';
 import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SortingFilter from './SortingFilter';
+import {
+  positions,
+  competenceCenters,
+  cst,
+  locations
+} from '../../helper/filterData';
 
 // Calls
 import { requestPrForEmployees } from '../../calls/pr';
@@ -16,18 +22,16 @@ import { getAllEmployees } from '../../calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 // Icons
 import FilterIcon from '@material-ui/icons/FilterList';
-import {
-  positions,
-  competenceCenters,
-  cst,
-  locations
-} from '../../helper/filterData';
+import TableViewIcon from '@material-ui/icons/List';
+import CardsViewIcon from '@material-ui/icons/AccountBox';
+import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
 
 const styles = theme => ({
   container: {
@@ -84,6 +88,13 @@ const styles = theme => ({
     border: `1px solid ${theme.palette.secondary.grey}`,
     height: 38,
     minWidth: 160
+  },
+  setViewBtn: {
+    position: 'fixed',
+    right: 100,
+    top: 9,
+    zIndex: 3,
+    color: theme.palette.secondary.white
   }
 });
 
@@ -101,7 +112,15 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [cstSorting, setCstSorting] = useState([]);
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
+  const [tableView, setTableView] = useState(false);
   const userInfoContext = useContext(UserinfoContext.context);
+
+  useEffect(() => {
+    if (localStorage.getItem('view') === 'table') {
+      setTableView(true);
+    }
+    getAllEmployees(setEmployees, setIsLoading, errorContext);
+  }, []);
 
   const checkFileForm = file => {
     const regex = /^20[0-9]{6}_\D{3}/g;
@@ -129,10 +148,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const handleClose = () => {
     setUploadedFiles([]);
   };
-
-  useEffect(() => {
-    getAllEmployees(setEmployees, setIsLoading, errorContext);
-  }, []);
 
   const toggleSelected = employeeId => {
     if (selected[employeeId]) {
@@ -190,6 +205,16 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     setPositionSorting([]);
     setCcSorting([]);
     setLocationSorting([]);
+  };
+
+  const toggleChangeView = () => {
+    if (tableView) {
+      localStorage.setItem('view', 'cards');
+      setTableView(false);
+    } else {
+      localStorage.setItem('view', 'table');
+      setTableView(true);
+    }
   };
 
   const filterInputs = {
@@ -310,6 +335,9 @@ const AllEmployeesContainer = ({ classes, intl }) => {
 
   return (
     <div className={classes.container}>
+      <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
+        {tableView ? <TableViewIcon /> : <CardsViewIcon />}
+      </IconButton>
       <Paper className={classes.filterWithUpload}>
         <UploadSuccessDialog
           open={uploadedFiles.length > 0}
@@ -354,14 +382,25 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           </div>
         )}
       </Paper>
-      <AllEmployeesGrid
-        filterInputs={filterInputs}
-        selection={selection}
-        selected={selected}
-        toggleSelected={toggleSelected}
-        employees={employees}
-        isLoading={isLoading}
-      />
+      {tableView ? (
+        <AllEmployeesTable
+          filterInputs={filterInputs}
+          selection={selection}
+          selected={selected}
+          toggleSelected={toggleSelected}
+          employees={employees}
+          isLoading={isLoading}
+        />
+      ) : (
+        <AllEmployeesGrid
+          filterInputs={filterInputs}
+          selection={selection}
+          selected={selected}
+          toggleSelected={toggleSelected}
+          employees={employees}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 };

@@ -185,6 +185,7 @@
   "attendee.tentative": "vorläufig",
   "attendee.absent": "abwesend",
   "attendee.free": "frei",
+  "employeeInfo.name": "Mitarbeitername",
   "employeeInfo.positionAbrv": "Position",
   "employeeInfo.position": "Position",
   "employeeInfo.cst": "CST",
