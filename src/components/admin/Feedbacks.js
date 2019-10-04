@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
 import FeedbackDeleteDialog from './FeedbackDeleteDialog';
+import MaintenanceTeamTable from './MaintenanceTeamTable';
 
 const styles = theme => ({
   spacing: {
@@ -165,6 +166,8 @@ export const Feedbacks = ({ classes, intl }) => {
         data={data}
         setData={setData}
       />
+
+      <MaintenanceTeamTable />
     </Fragment>
   );
 };

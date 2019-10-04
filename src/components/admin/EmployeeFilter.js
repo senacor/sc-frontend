@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import FilterList from '@material-ui/icons/FilterList';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import {
   Avatar,
   IconButton,
@@ -13,18 +15,30 @@ import {
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
+import { addMaintenanceTeamMember } from '../../calls/admin';
 
 const styles = theme => ({
   box: {
     display: 'flex',
     padding: 2 * theme.spacing.unit,
     flexDirection: 'column'
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit
+  },
+  pointer: {
+    cursor: 'pointer'
+  },
+  spacing: {
+    margin: 2 * theme.spacing.unit
   }
 });
 
 export const EmployeeFilter = ({
   data,
   setSelectedEmployee,
+  maintenance,
+  errorContext,
   intl,
   classes
 }) => {
@@ -52,6 +66,9 @@ export const EmployeeFilter = ({
 
   const selectEmployee = (employee, event) => {
     setSelectedEmployee(employee);
+    if (maintenance) {
+      addMaintenanceTeamMember(employee.id, errorContext);
+    }
     handleClose(event);
   };
 
@@ -59,9 +76,22 @@ export const EmployeeFilter = ({
 
   return (
     <div>
-      <IconButton onClick={handleOpen}>
-        <FilterList />
-      </IconButton>
+      {maintenance ? (
+        <Button
+          color="primary"
+          className={classes.spacing}
+          onClick={handleOpen}
+        >
+          <AddIcon className={classes.leftIcon} />
+          {intl.formatMessage({
+            id: 'maintenance.add'
+          })}
+        </Button>
+      ) : (
+        <IconButton onClick={handleOpen}>
+          <FilterList />
+        </IconButton>
+      )}
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -101,7 +131,7 @@ export const EmployeeFilter = ({
                     employee.lastName
                       .toLowerCase()
                       .startsWith(value.toLowerCase())) && (
-                    <ListItem>
+                    <ListItem className={classes.pointer}>
                       <Avatar>
                         {employee.firstName.charAt(0)}
                         {employee.lastName.charAt(0)}

@@ -62,7 +62,7 @@ const FeedbackDeleteDialog = ({
             className={classes.buttonsGrid}
             container
           >
-            <Grid xs={6}>
+            <Grid item xs={6}>
               <Button
                 className={classes.buttons}
                 onClick={() => handleYesClick(id)}
@@ -74,7 +74,7 @@ const FeedbackDeleteDialog = ({
                 })}
               </Button>
             </Grid>
-            <Grid xs={6}>
+            <Grid item xs={6}>
               <Button
                 className={classes.buttons}
                 onClick={handleNoClick}
