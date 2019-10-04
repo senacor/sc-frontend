@@ -11,7 +11,6 @@ import PdfDialog from '../pr/PdfDialog';
 import { getAllPrsByEmployee } from '../../calls/employees';
 
 // Material UI
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -31,6 +30,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // Icons
 import GetAppIcon from '@material-ui/icons/GetApp';
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = theme => ({
   dialogContent: {
@@ -163,9 +163,9 @@ const EmployeesPRsDialog = ({
   return (
     <Fragment>
       <Dialog open={dialogOpen} onClose={dialogClose} fullWidth maxWidth="sm">
-        <Button onClick={dialogClose} className={classes.btnClose}>
-          X
-        </Button>
+        <IconButton onClick={dialogClose} className={classes.btnClose}>
+          <CloseIcon />
+        </IconButton>
         <DialogTitle>
           <span>{`${firstName} ${lastName}`}</span>
           {prsTogether.length > 0 && (

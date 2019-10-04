@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
@@ -12,6 +12,8 @@ import InfoWidget from './InfoWidget';
 import { ErrorContext, UserinfoContext } from '../App';
 import { Grid } from '@material-ui/core';
 import { getSystemInfo } from '../../calls/admin';
+import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
+import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
 
 const styles = theme => ({
   rowContainer: {
@@ -46,7 +48,7 @@ const Dashboard = ({ classes, intl }) => {
 
   let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
-  React.useEffect(
+  useEffect(
     () => {
       if (userroles[0] === 'ADMIN') {
         getSystemInfo(setSystemInfo, errorContext);
@@ -126,6 +128,13 @@ const Dashboard = ({ classes, intl }) => {
           </Card>
         ) : null}
       </div>
+
+      {userroles[0] === 'PERSONAL_DEV' && (
+        <div className={classes.rowContainer}>
+          <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
+          <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
+        </div>
+      )}
 
       {/* Notification about administration mode, if userrole is admin */}
       {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
