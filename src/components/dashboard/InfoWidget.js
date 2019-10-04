@@ -10,6 +10,7 @@ import Icon from '@material-ui/core/Icon';
 const styles = theme => ({
   card: {
     margin: 3 * theme.spacing.unit,
+    marginBottom: 0,
     textDecoration: 'none',
     padding: 0,
     alignItems: 'stretch',

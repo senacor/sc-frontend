@@ -59,8 +59,6 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr }) => {
     [dialogOpened]
   );
 
-  console.log(todoForHr);
-
   const dialogClose = () => {
     window.history.pushState(null, null, ROUTES.DASHBOARD);
     setDialogOpened(false);

@@ -14,7 +14,7 @@
   "dashboard.administrationTitle": "Beachtung! Sie sind in Administrationsmodus",
   "dashboard.administrationText": "In diesem Modus können Sie Benutzerrolen wechseln und Feedbacks, Logs oder aufgetretene Problems anschauen.",
   "dashboard.prsInProgress": "Laufende PRs insgesamt",
-  "dashboard.prsInProgressHrToDo": "Wartende PRs für HR Bestätigung",
+  "dashboard.prsInProgressHrToDo": "Wartende PRs auf HR Endbestätigung",
   "login.username": "Nutzername",
   "login.password": "Passwort",
   "login.login": "Anmelden",

@@ -129,8 +129,6 @@ const Dashboard = ({ classes, intl }) => {
         ) : null}
       </div>
 
-      {console.log(userinfo.prsInTodoForHr)}
-
       {userroles[0] === 'PERSONAL_DEV' && (
         <div className={classes.rowContainer}>
           <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
