@@ -6,29 +6,17 @@ import { withStyles } from '@material-ui/core';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const styles = theme => ({});
 
-const AllEmployeesTableHead = ({
-  intl,
-  classes,
-  handleSort,
-  sortDirection
-}) => {
+const AllEmployeesTableHead = ({ intl, classes }) => {
   return (
     <TableHead>
       <TableRow>
         <TableCell>
-          <TableSortLabel
-            active={true}
-            direction={sortDirection}
-            onClick={handleSort}
-          >
-            {intl.formatMessage({
-              id: 'employeeInfo.name'
-            })}
-          </TableSortLabel>
+          {intl.formatMessage({
+            id: 'employeeInfo.name'
+          })}
         </TableCell>
         <TableCell>
           {intl.formatMessage({

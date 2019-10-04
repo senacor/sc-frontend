@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Tooltip } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
 import SearchFilter from './SearchFilter';
@@ -336,7 +336,15 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   return (
     <div className={classes.container}>
       <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
-        {tableView ? <TableViewIcon /> : <CardsViewIcon />}
+        {tableView ? (
+          <Tooltip title={intl.formatMessage({ id: 'switchView.cards' })}>
+            <TableViewIcon />
+          </Tooltip>
+        ) : (
+          <Tooltip title={intl.formatMessage({ id: 'switchView.table' })}>
+            <CardsViewIcon />
+          </Tooltip>
+        )}
       </IconButton>
       <Paper className={classes.filterWithUpload}>
         <UploadSuccessDialog

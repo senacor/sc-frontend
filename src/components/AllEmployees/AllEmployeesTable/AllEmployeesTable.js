@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, TablePagination } from '@material-ui/core';
-import {
-  formatLocaleDateTime,
-  FRONTEND_DATE_FORMAT
-} from '../../../helper/date';
 import AllEmployeesTableHead from './AllEmployeesTableHead';
 import {
   checkFilterValues,
@@ -15,8 +11,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import EmployeeTableRow from './EmployeeTableRow';
 
 const styles = theme => ({
   paper: {
@@ -39,7 +34,6 @@ const AllEmployeesTable = ({
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
-  const [sortDirection, setSortDirection] = useState('asc');
 
   useEffect(() => {
     handleFilterActive(filterInputs, setFilterActive);
@@ -53,31 +47,17 @@ const AllEmployeesTable = ({
     setPage(page);
   };
 
-  const handleSort = () => {
-    if (sortDirection === 'asc') {
-      setSortDirection('desc');
-    } else {
-      setSortDirection('asc');
-    }
-  };
-
-  console.log(sortDirection);
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
-      const employeeName = `${employee.firstName} ${employee.lastName}`;
       return (
-        <TableRow key={employee.id}>
-          <TableCell>{employeeName}</TableCell>
-          <TableCell>{employee.currentPosition}</TableCell>
-          <TableCell>{employee.currentCst}</TableCell>
-          <TableCell>{employee.supervisorName}</TableCell>
-          <TableCell>{employee.competenceCenter}</TableCell>
-          <TableCell>{employee.officeLocation}</TableCell>
-          <TableCell>
-            {formatLocaleDateTime(employee.dateOfNextPr, FRONTEND_DATE_FORMAT)}
-          </TableCell>
-        </TableRow>
+        <EmployeeTableRow
+          key={employee.id}
+          employee={employee}
+          toggleSelected={toggleSelected}
+          selection={selection}
+          selected={selected[employee.id]}
+        />
       );
     });
 
@@ -95,26 +75,19 @@ const AllEmployeesTable = ({
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <TableRow key={employee.id}>
-        <TableCell>{`${employee.firstName} ${employee.lastName}`}</TableCell>
-        <TableCell>{employee.currentPosition}</TableCell>
-        <TableCell>{employee.currentCst}</TableCell>
-        <TableCell>{employee.supervisorName}</TableCell>
-        <TableCell>{employee.competenceCenter}</TableCell>
-        <TableCell>{employee.officeLocation}</TableCell>
-        <TableCell>
-          {formatLocaleDateTime(employee.dateOfNextPr, FRONTEND_DATE_FORMAT)}
-        </TableCell>
-      </TableRow>
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        toggleSelected={toggleSelected}
+        selection={selection}
+        selected={selected[employee.id]}
+      />
     ));
 
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <AllEmployeesTableHead
-          handleSort={handleSort}
-          sortDirection={sortDirection}
-        />
+        <AllEmployeesTableHead />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>

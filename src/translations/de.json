@@ -195,6 +195,8 @@
   "employeeInfo.startDate": "Anfangsdatum",
   "employeeInfo.noPrsFound": "hat kein PR in der Datenbank.",
   "employeeInfo.prsCount": "PR Zahl",
+  "switchView.cards": "Auf die Karte-Ansicht wechseln",
+  "switchView.table": "Auf die Tabelle-Ansicht wechseln",
   "compositionnumber.version": "version",
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs zur Umsetzung",
