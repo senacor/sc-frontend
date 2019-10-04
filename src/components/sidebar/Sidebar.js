@@ -27,6 +27,7 @@ import {
   InfoContext,
   UserinfoContext
 } from '../App';
+import FeedbackButton from './FeedbackButton';
 
 const styles = theme => ({
   root: {
@@ -210,6 +211,7 @@ export const Sidebar = ({ intl, classes }) => {
       </List>
       <Divider />
       <CompositionNumber />
+      {!userroles.includes(ROLES.ADMIN) && <FeedbackButton />}
     </div>
   );
 };
