@@ -16,8 +16,10 @@ import Divider from '@material-ui/core/Divider';
 import InputLabel from '@material-ui/core/InputLabel';
 import { addFeedback } from '../../calls/feedbacks';
 import { ErrorContext } from '../App';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
+  ...theme,
   buttons: {
     color: theme.palette.secondary.white
   },
@@ -29,6 +31,10 @@ const styles = theme => ({
   },
   margin: {
     margin: theme.spacing.unit
+  },
+  input: {
+    width: 130,
+    margin: 2 * theme.spacing.unit
   }
 });
 
@@ -61,23 +67,25 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
         </DialogTitle>
         <Divider />
         <DialogContent className={classes.spacing}>
-          <InputLabel htmlFor="select-type">
-            {intl.formatMessage({
-              id: 'feedbackcreatedialog.type'
-            })}
-          </InputLabel>
-          <Select
-            input={<Input id="select-type" />}
-            className={`${classes.fullWidth} ${classes.margin}`}
-            value={type}
-            onChange={handleChange}
-          >
-            {feedbackTypes.map(type => (
-              <MenuItem key={type} value={type}>
-                <ListItemText primary={type} />
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="select-type">
+              {intl.formatMessage({
+                id: 'feedbackcreatedialog.type'
+              })}
+            </InputLabel>
+            <Select
+              input={<Input id="select-type" className={classes.input} />}
+              className={`${classes.fullWidth} ${classes.margin}`}
+              value={type}
+              onChange={handleChange}
+            >
+              {feedbackTypes.map(type => (
+                <MenuItem key={type} value={type}>
+                  <ListItemText primary={type} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             variant="outlined"
             label={intl.formatMessage({
@@ -110,7 +118,6 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
               id: 'feedbackcreatedialog.send'
             })}
           </Button>
-
           <Button
             onClick={handleClose}
             className={classes.buttons}
