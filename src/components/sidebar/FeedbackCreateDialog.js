@@ -33,8 +33,7 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   input: {
-    width: 130,
-    margin: 2 * theme.spacing.unit
+    minWidth: 150
   }
 });
 
@@ -59,23 +58,25 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
     <Fragment>
       <Dialog open={open} className={classes.dialog}>
         <DialogTitle>
-          <Typography variant="h6">
-            {intl.formatMessage({
-              id: 'feedbackcreatedialog.createfeedback'
-            })}
-          </Typography>
+          <div>
+            <Typography variant="h6">
+              {intl.formatMessage({
+                id: 'feedbackcreatedialog.createfeedback'
+              })}
+            </Typography>
+          </div>
         </DialogTitle>
         <Divider />
         <DialogContent className={classes.spacing}>
-          <FormControl className={classes.formControl}>
+          <FormControl className={`${classes.formControl} ${classes.input}`}>
             <InputLabel htmlFor="select-type">
               {intl.formatMessage({
                 id: 'feedbackcreatedialog.type'
               })}
             </InputLabel>
             <Select
-              input={<Input id="select-type" className={classes.input} />}
-              className={`${classes.fullWidth} ${classes.margin}`}
+              input={<Input id="select-type" />}
+              className={`${classes.margin}`}
               value={type}
               onChange={handleChange}
             >
