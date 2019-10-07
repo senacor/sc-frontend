@@ -24,7 +24,9 @@ const styles = theme => ({
     flexGrow: 1,
     margin: 3 * theme.spacing.unit,
     marginBottom: 0,
-    textDecoration: 'none',
+    textDecoration: 'none'
+  },
+  pointer: {
     cursor: 'pointer'
   },
   btnClose: {
@@ -71,7 +73,12 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr }) => {
 
   return (
     <Fragment>
-      <Card className={classes.card} onClick={dialogOpen}>
+      <Card
+        className={
+          todoForHr > 0 ? `${classes.card} ${classes.pointer}` : classes.card
+        }
+        onClick={todoForHr > 0 ? dialogOpen : undefined}
+      >
         <CardContent>
           <Typography className={classes.title} variant="body1">
             {intl.formatMessage({

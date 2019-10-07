@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import { withStyles, Tooltip } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
 import SearchFilter from './SearchFilter';
@@ -26,6 +26,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Icons
 import FilterIcon from '@material-ui/icons/FilterList';
