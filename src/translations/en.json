@@ -188,6 +188,7 @@
   "attendee.absent": "absent",
   "attendee.free": "free",
   "employeeInfo.name": "Employee name",
+  "employeeInfo.month": "Month",
   "employeeInfo.positionAbrv": "Position",
   "employeeInfo.position": "Current position",
   "employeeInfo.cst": "CST",

@@ -16,8 +16,12 @@ const styles = theme => ({
   expansionFilter: {
     display: 'block'
   },
-  input: {
+  inputForAll: {
     width: 130,
+    margin: 2 * theme.spacing.unit
+  },
+  inputForFormer: {
+    width: 105,
     margin: 2 * theme.spacing.unit
   },
   chips: {
@@ -31,7 +35,8 @@ const SortingFilter = ({
   sortBy,
   handleChange,
   menuData,
-  stateValue
+  stateValue,
+  formerEmployees
 }) => {
   return (
     <div className={classes.expansionFilter}>
@@ -42,7 +47,12 @@ const SortingFilter = ({
           value={stateValue}
           onChange={handleChange}
           input={
-            <Input id="select-multiple-positions" className={classes.input} />
+            <Input
+              id="select-multiple-positions"
+              className={
+                formerEmployees ? classes.inputForFormer : classes.inputForAll
+              }
+            />
           }
           renderValue={selected => (
             <div className={classes.chips}>{`${selected.length} items`}</div>

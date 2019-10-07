@@ -1,7 +1,288 @@
-import React from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { injectIntl } from 'react-intl';
+import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+import { withStyles, Tooltip } from '@material-ui/core';
+import AllEmployeesGrid from './AllEmployeesGrid';
+import SearchFilter from './SearchFilter';
+import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
+import SortingFilter from './SortingFilter';
+import {
+  positions,
+  competenceCenters,
+  cst,
+  locations
+} from '../../helper/filterData';
 
-const FormerEmployeesContainer = () => {
+// Calls
+import { requestPrForEmployees } from '../../calls/pr';
+import { uploadFiles } from '../../calls/fileStorage';
+import { getAllEmployees } from '../../calls/employees';
 
+// Material UI
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+// Icons
+import FilterIcon from '@material-ui/icons/FilterList';
+import TableViewIcon from '@material-ui/icons/List';
+import CardsViewIcon from '@material-ui/icons/AccountBox';
+import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
+
+const styles = theme => ({
+  container: {
+    margin: 3 * theme.spacing.unit
+  },
+  gridContainer: {
+    width: '100%',
+    overflowY: 'auto',
+    overflowX: 'hidden'
+  },
+  containerMenu: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
+  filterWithUpload: {
+    margin: '0.5rem',
+    padding: '0.5rem 2rem'
+  },
+  upperPanel: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  advFilter: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column'
+    }
+  },
+  advFilterButton: {
+    marginLeft: theme.spacing.unit * 3,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0
+    }
+  },
+  btnUpload: {
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing.unit
+    }
+  },
+  label: {
+    marginRight: theme.spacing.unit
+  },
+  selectionMenu: {
+    display: 'inline'
+  },
+  clearFilterText: {
+    color: theme.palette.secondary.darkRed
+  },
+  clearFilterBtn: {
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    height: 38,
+    minWidth: 160
+  },
+  setViewBtn: {
+    position: 'fixed',
+    right: 13 * theme.spacing.unit,
+    top: theme.spacing.unit,
+    zIndex: 3,
+    color: theme.palette.secondary.white
+  }
+});
+
+const FormerEmployeesContainer = ({ classes, intl }) => {
+  const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
+  const errorContext = useContext(ErrorContext.context);
+  const infoContext = useContext(InfoContext.context);
+  const [selection, setSelection] = useState(false);
+  const [selected, setSelected] = useState({});
+  const [employees, setEmployees] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [monthSorting, setMonthSorting] = useState([]);
+  const [positionSorting, setPositionSorting] = useState([]);
+  const [ccSorting, setCcSorting] = useState([]);
+  const [cstSorting, setCstSorting] = useState([]);
+  const [locationSorting, setLocationSorting] = useState([]);
+  const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
+  const [tableView, setTableView] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('view') === 'table') {
+      setTableView(true);
+    }
+    getAllEmployees(setEmployees, setIsLoading, errorContext);
+  }, []);
+
+  const checkFileForm = file => {
+    const regex = /^20[0-9]{6}_\D{3}/g;
+    if (file.match(regex)) {
+      return true;
+    } else {
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'message.uploadError'
+      });
+    }
+  };
+
+  const handleSearchEmployeeChange = event => {
+    setSearchEmployeesValue(event.target.value);
+  };
+
+  const handleSortPositionChange = event => {
+    setPositionSorting(event.target.value);
+  };
+
+  const handleSortCcChange = event => {
+    setCcSorting(event.target.value);
+  };
+
+  const handleSortCstChange = event => {
+    setCstSorting(event.target.value);
+  };
+
+  const handleSortLocationChange = event => {
+    setLocationSorting(event.target.value);
+  };
+
+  const toggleSortingFilter = () => {
+    setVisibleAdvancedFilter(!visibleAdvancedFilter);
+  };
+
+  const clearFilter = () => {
+    setSearchEmployeesValue('');
+    setCstSorting([]);
+    setPositionSorting([]);
+    setCcSorting([]);
+    setLocationSorting([]);
+  };
+
+  const toggleChangeView = () => {
+    if (tableView) {
+      localStorage.setItem('view', 'cards');
+      setTableView(false);
+    } else {
+      localStorage.setItem('view', 'table');
+      setTableView(true);
+    }
+  };
+
+  const filterInputs = {
+    searchEmployee: searchEmployeesValue,
+    position: [...positionSorting],
+    cc: [...ccSorting],
+    cst: [...cstSorting],
+    officeLocation: [...locationSorting]
+  };
+
+  const sortingData = [
+    {
+      id: 1,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.positionAbrv' }),
+      menuData: positions,
+      stateValue: positionSorting,
+      handleChange: handleSortPositionChange
+    },
+    {
+      id: 2,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.cc' }),
+      menuData: competenceCenters,
+      stateValue: ccSorting,
+      handleChange: handleSortCcChange
+    },
+    {
+      id: 3,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.location' }),
+      menuData: locations,
+      stateValue: locationSorting,
+      handleChange: handleSortLocationChange
+    },
+    {
+      id: 4,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.cst' }),
+      menuData: cst,
+      stateValue: cstSorting,
+      handleChange: handleSortCstChange
+    }
+  ];
+
+  return (
+    <div className={classes.container}>
+      <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
+        {tableView ? (
+          <Tooltip title={intl.formatMessage({ id: 'switchView.cards' })}>
+            <TableViewIcon />
+          </Tooltip>
+        ) : (
+          <Tooltip title={intl.formatMessage({ id: 'switchView.table' })}>
+            <CardsViewIcon />
+          </Tooltip>
+        )}
+      </IconButton>
+      <Paper className={classes.filterWithUpload}>
+        <div className={classes.upperPanel}>
+          <div className={classes.advFilter}>
+            <SearchFilter
+              searchValue={searchEmployeesValue}
+              searchChange={handleSearchEmployeeChange}
+              placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
+            />
+            <Button
+              onClick={() => toggleSortingFilter()}
+              className={classes.advFilterButton}
+            >
+              <FilterIcon />
+              <Typography variant="button">
+                {intl.formatMessage({ id: 'filter.advanced' })}
+              </Typography>
+            </Button>
+          </div>
+        </div>
+        {visibleAdvancedFilter && (
+          <div className={classes.advFilter}>
+            {sortingData.map(item => (
+              <SortingFilter
+                key={item.id}
+                sortBy={item.sortBy}
+                handleChange={item.handleChange}
+                menuData={item.menuData}
+                stateValue={item.stateValue}
+                formerEmployees={true}
+              />
+            ))}
+            <Button onClick={clearFilter} className={classes.clearFilterBtn}>
+              <Typography variant="button" className={classes.clearFilterText}>
+                x {intl.formatMessage({ id: 'filter.clear' })}
+              </Typography>
+            </Button>
+          </div>
+        )}
+      </Paper>
+      {tableView ? (
+        <AllEmployeesTable
+          filterInputs={filterInputs}
+          selection={selection}
+          selected={selected}
+          employees={employees}
+          isLoading={isLoading}
+        />
+      ) : (
+        <AllEmployeesGrid
+          filterInputs={filterInputs}
+          selection={selection}
+          selected={selected}
+          employees={employees}
+          isLoading={isLoading}
+        />
+      )}
+    </div>
+  );
 };
 
-export default FormerEmployeesContainer;
+export default injectIntl(withStyles(styles)(FormerEmployeesContainer));
