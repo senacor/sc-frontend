@@ -250,7 +250,6 @@
   "maintenance.message": "Message",
   "maintenance.date": "Date",
   "maintenance.delete": "Delete",
-  "maintenance.id": "ID",
   "maintenance.team": "Maintenance team",
   "maintenance.employeeId": "User ID",
   "maintenance.user": "User",

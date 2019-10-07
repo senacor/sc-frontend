@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, Fragment } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { CircularProgress, Grid, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
