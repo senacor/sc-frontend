@@ -91,8 +91,8 @@ const styles = theme => ({
   },
   setViewBtn: {
     position: 'fixed',
-    right: 100,
-    top: 9,
+    right: 13 * theme.spacing.unit,
+    top: theme.spacing.unit,
     zIndex: 3,
     color: theme.palette.secondary.white
   }
