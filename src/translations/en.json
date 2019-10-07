@@ -253,6 +253,7 @@
   "maintenance.user": "User",
   "maintenance.email": "E-mail",
   "maintenance.add": "Add member",
+  "maintenance.error": "Employee already belongs to the maintenance team",
   "FINAL_COMMENT_EMPLOYEE": "Final comment employee (optional)",
   "FINAL_COMMENT_HR": "Final comment HR employee (optional)",
   "INFLUENCE_OF_LEADER_AND_ENVIRONMENT": "Contribution of the supervisor and the environment",

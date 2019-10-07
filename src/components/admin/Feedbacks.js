@@ -58,6 +58,7 @@ export const Feedbacks = ({ classes, intl }) => {
 
   return (
     <Fragment>
+      <MaintenanceTeamTable />
       {isLoading ? (
         <CircularProgress className={classes.spacing} />
       ) : (
@@ -166,8 +167,6 @@ export const Feedbacks = ({ classes, intl }) => {
         data={data}
         setData={setData}
       />
-
-      <MaintenanceTeamTable />
     </Fragment>
   );
 };

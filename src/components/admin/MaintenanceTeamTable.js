@@ -38,7 +38,6 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -55,120 +54,113 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const handleOnDeleteClick = (event, id) => {
-    deleteMaintenanceTeamMember(id, errorContext);
+  const handleOnDeleteClick = (event, employeeId) => {
+    deleteMaintenanceTeamMember(employeeId, errorContext);
+    setData(data.filter(entry => entry.employeeId !== employeeId));
   };
 
   return (
-    <Fragment>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <Paper className={classes.spacing}>
-          <Typography className={classes.padding} variant="h5">
-            {intl.formatMessage({
-              id: 'maintenance.team'
+    <Paper className={classes.spacing}>
+      <Typography className={classes.padding} variant="h5">
+        {intl.formatMessage({
+          id: 'maintenance.team'
+        })}
+      </Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              {`${intl.formatMessage({
+                id: 'maintenance.employeeId'
+              })}`}
+            </TableCell>
+            <TableCell>
+              {`${intl.formatMessage({
+                id: 'maintenance.user'
+              })}`}
+            </TableCell>
+            <TableCell>
+              {`${intl.formatMessage({
+                id: 'maintenance.email'
+              })}`}
+            </TableCell>
+            <TableCell>
+              {`${intl.formatMessage({
+                id: 'maintenance.delete'
+              })}`}
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        {isLoading ? (
+          <CircularProgress className={classes.spacing} />
+        ) : (
+          <TableBody>
+            {data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(entry => {
+                return (
+                  <TableRow key={entry.id}>
+                    <TableCell>{entry.employeeId}</TableCell>
+                    <TableCell>{`${entry.firstName} ${
+                      entry.lastName
+                    }`}</TableCell>
+                    <TableCell>{entry.email}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={event =>
+                          handleOnDeleteClick(event, entry.employeeId)
+                        }
+                        aria-label="delete"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        )}
+      </Table>
+      <Grid container className={classes.center}>
+        <Grid item xs={2}>
+          <EmployeeFilter
+            data={allEmployeesData}
+            maintenanceData={data}
+            setMaintenanceData={setData}
+            maintenance={true}
+            errorContext={errorContext}
+          />
+        </Grid>
+        <Grid item xs={10}>
+          <TablePagination
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': `${intl.formatMessage({
+                id: 'performancereviewtable.previouspage'
+              })}`
+            }}
+            nextIconButtonProps={{
+              'aria-label': `${intl.formatMessage({
+                id: 'performancereviewtable.nextpage'
+              })}`
+            }}
+            labelRowsPerPage={intl.formatMessage({
+              id: 'performancereviewtable.rowsperpage'
             })}
-          </Typography>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  {`${intl.formatMessage({
-                    id: 'maintenance.id'
-                  })}`}
-                </TableCell>
-                <TableCell>
-                  {`${intl.formatMessage({
-                    id: 'maintenance.employeeId'
-                  })}`}
-                </TableCell>
-                <TableCell>
-                  {`${intl.formatMessage({
-                    id: 'maintenance.user'
-                  })}`}
-                </TableCell>
-                <TableCell>
-                  {`${intl.formatMessage({
-                    id: 'maintenance.email'
-                  })}`}
-                </TableCell>
-                <TableCell>
-                  {`${intl.formatMessage({
-                    id: 'maintenance.delete'
-                  })}`}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(entry => {
-                  return (
-                    <TableRow key={entry.id}>
-                      <TableCell>{entry.id}</TableCell>
-                      <TableCell>{entry.employeeId}</TableCell>
-                      <TableCell>{`${entry.firstName} ${
-                        entry.lastName
-                      }`}</TableCell>
-                      <TableCell>{entry.email}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          onClick={event =>
-                            handleOnDeleteClick(event, entry.employeeId)
-                          }
-                          aria-label="delete"
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-
-          <Grid container className={classes.center}>
-            <Grid item xs={2}>
-              <EmployeeFilter
-                data={allEmployeesData}
-                setSelectedEmployee={setSelectedEmployee}
-                maintenance={true}
-                errorContext={errorContext}
-              />
-            </Grid>
-            <Grid item xs={10}>
-              <TablePagination
-                component="div"
-                count={data.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                backIconButtonProps={{
-                  'aria-label': `${intl.formatMessage({
-                    id: 'performancereviewtable.previouspage'
-                  })}`
-                }}
-                nextIconButtonProps={{
-                  'aria-label': `${intl.formatMessage({
-                    id: 'performancereviewtable.nextpage'
-                  })}`
-                }}
-                labelRowsPerPage={intl.formatMessage({
-                  id: 'performancereviewtable.rowsperpage'
-                })}
-                labelDisplayedRows={({ from, to, count }) =>
-                  `${from}-${to} ${intl.formatMessage({
-                    id: 'performancereviewtable.from'
-                  })} ${count}`
-                }
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
-            </Grid>
-          </Grid>
-        </Paper>
-      )}
-    </Fragment>
+            labelDisplayedRows={({ from, to, count }) =>
+              `${from}-${to} ${intl.formatMessage({
+                id: 'performancereviewtable.from'
+              })} ${count}`
+            }
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

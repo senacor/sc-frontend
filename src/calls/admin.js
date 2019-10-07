@@ -181,15 +181,32 @@ export const getMaintenanceTeam = async (
   }
 };
 
-export const addMaintenanceTeamMember = async (id, errorContext) => {
+export const addMaintenanceTeamMember = async (
+  id,
+  maintenanceData,
+  setMaintenanceData,
+  errorContext
+) => {
   try {
-    await fetch(
+    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+    const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/maintenance/member/${id}`,
       {
         method: 'post',
         mode: 'cors'
       }
     );
+    const member = await response.json();
+    if (response.status === 400) {
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'maintenance.error'
+      });
+    } else {
+      let newData = maintenanceData.slice(0);
+      newData.push(member);
+      setMaintenanceData(newData);
+    }
   } catch (err) {
     console.log(err);
     errorContext.setValue({

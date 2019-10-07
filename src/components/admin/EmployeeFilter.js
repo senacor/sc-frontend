@@ -38,6 +38,8 @@ export const EmployeeFilter = ({
   data,
   setSelectedEmployee,
   maintenance,
+  setMaintenanceData,
+  maintenanceData,
   errorContext,
   intl,
   classes
@@ -57,7 +59,9 @@ export const EmployeeFilter = ({
 
   const handleDelete = () => {
     setValue('');
-    setSelectedEmployee(null);
+    if (!maintenance) {
+      setSelectedEmployee(null);
+    }
   };
 
   const handleChange = event => {
@@ -65,9 +69,15 @@ export const EmployeeFilter = ({
   };
 
   const selectEmployee = (employee, event) => {
-    setSelectedEmployee(employee);
     if (maintenance) {
-      addMaintenanceTeamMember(employee.id, errorContext);
+      addMaintenanceTeamMember(
+        employee.id,
+        maintenanceData,
+        setMaintenanceData,
+        errorContext
+      );
+    } else {
+      setSelectedEmployee(employee);
     }
     handleClose(event);
   };
@@ -131,7 +141,7 @@ export const EmployeeFilter = ({
                     employee.lastName
                       .toLowerCase()
                       .startsWith(value.toLowerCase())) && (
-                    <ListItem className={classes.pointer}>
+                    <ListItem className={classes.pointer} key={employee.id}>
                       <Avatar>
                         {employee.firstName.charAt(0)}
                         {employee.lastName.charAt(0)}
