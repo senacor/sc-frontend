@@ -5,6 +5,10 @@ import EmployeeCard from './EmployeeCard';
 // Calls
 // Material UI
 import Grid from '@material-ui/core/Grid';
+import {
+  handleFilterActive,
+  checkFilterValues
+} from '../../helper/filterFunctions';
 
 const styles = theme => ({
   gridContainer: {
@@ -33,21 +37,7 @@ const AllEmployeesGrid = ({
   const cardsToShow = 15;
 
   useEffect(() => {
-    const handleFilterActive = () => {
-      const emptyInputs = {
-        searchEmployee: '',
-        position: [],
-        cc: [],
-        cst: [],
-        officeLocation: []
-      };
-      if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
-        setFilterActive(false);
-      } else {
-        setFilterActive(true);
-      }
-    };
-    handleFilterActive();
+    handleFilterActive(filterInputs, setFilterActive);
   });
 
   const showMore = employees => {
@@ -55,21 +45,6 @@ const AllEmployeesGrid = ({
       setItemsShown(itemsShown + cardsToShow);
     } else {
       setItemsShown(employees.length);
-    }
-  };
-
-  const checkFilterValues = (filterData, userData) => {
-    if (filterData.length > 0 && Array.isArray(filterData)) {
-      const filterDataLowerCase = filterData.map(item => item.toLowerCase());
-      return filterDataLowerCase.includes(userData.toLowerCase());
-    } else if (filterData !== '' && typeof filterData === 'string') {
-      return userData
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterData.toLowerCase());
-    } else {
-      return true;
     }
   };
 

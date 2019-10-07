@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import { getAllEmployeesWithRoles, getRoles } from '../../calls/admin';
 import { ErrorContext } from '../App';
 import UserRolesMenu from './UserRolesMenu';
-import { sortByLastName } from '../../helper/sort';
+import { sortByLastName } from '../../helper/filterFunctions';
 import EmployeeFilter from './EmployeeFilter';
 
 const styles = theme => ({
