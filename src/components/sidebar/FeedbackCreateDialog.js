@@ -24,13 +24,14 @@ const styles = theme => ({
     color: theme.palette.secondary.white
   },
   fullWidth: {
-    width: '97%'
+    width: '100%'
   },
   spacing: {
     padding: 3 * theme.spacing.unit
   },
   margin: {
-    margin: theme.spacing.unit
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   input: {
     minWidth: 150
