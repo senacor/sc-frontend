@@ -24,7 +24,7 @@ const FeedbackButton = ({ classes, intl }) => {
 
   return (
     <Fragment>
-      <Button className={classes.feedbackBtn} onClick={handleClick}>
+      <Button onClick={handleClick}>
         <FeedbackIcon className={classes.feedbackIcon} />
         {intl.formatMessage({
           id: 'sidebar.feedback'
