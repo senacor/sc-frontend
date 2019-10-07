@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import { withStyles, Tooltip } from '@material-ui/core';
+import { Tooltip, withStyles } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import ROLES from '../../helper/roles';
 import SearchFilter from './SearchFilter';
@@ -9,29 +9,29 @@ import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SortingFilter from './SortingFilter';
 import {
-  positions,
   competenceCenters,
   cst,
-  locations
+  locations,
+  positions
 } from '../../helper/filterData';
-
 // Calls
 import { requestPrForEmployees } from '../../calls/pr';
 import { uploadFiles } from '../../calls/fileStorage';
 import { getAllEmployees } from '../../calls/employees';
-
 // Material UI
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
 // Icons
 import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
-import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
+import AllEmployeesTable, {
+  filterEmployees
+} from './AllEmployeesTable/AllEmployeesTable';
+import { downloadExcel } from '../../calls/excelView';
 
 const styles = theme => ({
   container: {
@@ -114,6 +114,11 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
   const userInfoContext = useContext(UserinfoContext.context);
+
+  const downloadPrsExcel = () => {
+    const filteredEmployees = filterEmployees(employees, filterInputs);
+    downloadExcel(filteredEmployees.map(empl => empl.id));
+  };
 
   useEffect(() => {
     if (localStorage.getItem('view') === 'table') {
@@ -264,6 +269,15 @@ const AllEmployeesContainer = ({ classes, intl }) => {
       ROLES.PERSONAL_DEV
     ) ? (
       <Fragment>
+        <Button
+          component="span"
+          className={`${classes.label} ${classes.btnUpload}`}
+          onClick={downloadPrsExcel}
+        >
+          {intl.formatMessage({
+            id: 'excelexport'
+          })}
+        </Button>
         <TextField
           style={{ display: 'none' }}
           id="upload-button"
