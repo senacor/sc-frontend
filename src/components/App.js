@@ -19,6 +19,9 @@ const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 const AllEmployeesContainer = lazy(() =>
   import('./AllEmployees/AllEmployeesContainer')
 );
+const FormerEmployeesContainer = lazy(() =>
+  import('./AllEmployees/FormerEmployeesContainer')
+);
 const OwnPrsContainer = lazy(() =>
   import('./myPerformanceReviews/OwnPrsContainer')
 );
@@ -61,6 +64,9 @@ const PerformanceReviewDetail2WithContent = withContent(
 );
 const DashboardWithContent = withContent(Dashboard);
 const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
+const FormerEmployeesContainerWithContent = withContent(
+  FormerEmployeesContainer
+);
 const UserRolesPanelWithContent = withContent(UserRolesPanel);
 const SystemPanelWithContent = withContent(SystemPanel);
 const FeedbackPanelWithContent = withContent(FeedbackPanel);
@@ -164,6 +170,11 @@ const App = () => {
                       exact
                       path={ROUTES.ALL_PRS_TABLE}
                       component={AllEmployeesContainerWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.FORMER_EMPLOYEES}
+                      component={FormerEmployeesContainerWithContent}
                     />
                     <PrivateRoute
                       exact

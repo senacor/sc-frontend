@@ -200,6 +200,7 @@
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs for processing",
   "sidebar.allEmployees": "All employees",
+  "sidebar.formerEmployees": "Former employees",
   "sidebar.myprs": "Own PRs",
   "sidebar.systemandinterfaces": "System and Interfaces",
   "sidebar.userroles": "User roles",
