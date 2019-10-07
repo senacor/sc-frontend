@@ -15,13 +15,21 @@ const styles = theme => ({
   tableRow: {
     height: 80,
     '&:hover': {
-      textDecoration: 'none',
-      cursor: 'pointer',
-      transition: 'all 0.3s',
-      '&:hover': {
-        backgroundColor: theme.palette.secondary.brightGrey
-      }
+      transition: 'all 0.3s'
     }
+  },
+  notSelection: {
+    cursor: 'pointer'
+  },
+  selectionUnavailable: {
+    backgroundColor: theme.palette.secondary.grey,
+    cursor: 'auto'
+  },
+  selected: {
+    backgroundColor: theme.palette.secondary.green
+  },
+  selectable: {
+    cursor: 'pointer'
   }
 });
 
@@ -38,11 +46,12 @@ const EmployeeTableRow = ({
     dateOfNextPr,
     supervisorName,
     hasOpenedPr
-  }
+  },
+  selection,
+  selected,
+  toggleSelected
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const employeeName = `${firstName} ${lastName}`;
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -52,9 +61,28 @@ const EmployeeTableRow = ({
     setDialogOpen(false);
   };
 
+  const employeeName = `${firstName} ${lastName}`;
+  let bgClass = '';
+  let onRowClick = handleDialogOpen;
+
+  if (selection) {
+    if (hasOpenedPr || !supervisorName) {
+      bgClass = classes.selectionUnavailable;
+      onRowClick = () => {};
+    } else {
+      onRowClick = () => toggleSelected(id);
+      bgClass = selected ? classes.selected : classes.selectable;
+    }
+  } else {
+    bgClass = classes.notSelection;
+  }
+
   return (
     <Fragment>
-      <TableRow className={classes.tableRow} onClick={handleDialogOpen}>
+      <TableRow
+        className={`${classes.tableRow} ${bgClass}`}
+        onClick={onRowClick}
+      >
         <TableCell>{employeeName}</TableCell>
         <TableCell>{currentPosition}</TableCell>
         <TableCell>{currentCst}</TableCell>
