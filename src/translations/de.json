@@ -250,7 +250,7 @@
   "feedbackdeletedialog.yes": "Ja",
   "feedbackdeletedialog.no": "Nein",
   "feedbackdeletedialog.deletemessage": "Wollen Sie dieses Feedback wirklich löschen?",
-  "feedbackcreatedialog.createfeedback": "Feedback aufstellen",
+  "feedbackcreatedialog.createfeedback": "Feedback hinzufügen",
   "feedbackcreatedialog.subject": "Betreff",
   "feedbackcreatedialog.message": "Bericht",
   "feedbackcreatedialog.type": "Typ",
