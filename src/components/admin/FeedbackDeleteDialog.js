@@ -2,22 +2,16 @@ import React, { Fragment, useContext } from 'react';
 import {
   Button,
   Dialog,
-  DialogContent,
   DialogTitle,
   Typography,
-  Grid,
-  withStyles
+  withStyles,
+  DialogActions
 } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
 import { injectIntl } from 'react-intl';
-import { deleteFeedbacks } from '../../calls/admin';
 import { ErrorContext } from '../App';
+import { deleteFeedbacks } from '../../calls/feedbacks';
 
 const styles = theme => ({
-  buttonsGrid: {
-    textAlign: 'center',
-    marginTop: theme.spacing.unit
-  },
   buttons: {
     color: theme.palette.secondary.white
   }
@@ -54,40 +48,28 @@ const FeedbackDeleteDialog = ({
             })}
           </Typography>
         </DialogTitle>
-        <Divider />
-        <DialogContent>
-          <Grid
+        <DialogActions>
+          <Button
+            className={classes.buttons}
+            onClick={() => handleYesClick(id)}
             variant="contained"
             color="primary"
-            className={classes.buttonsGrid}
-            container
           >
-            <Grid xs={6}>
-              <Button
-                className={classes.buttons}
-                onClick={() => handleYesClick(id)}
-                variant="contained"
-                color="primary"
-              >
-                {intl.formatMessage({
-                  id: 'feedbackdeletedialog.yes'
-                })}
-              </Button>
-            </Grid>
-            <Grid xs={6}>
-              <Button
-                className={classes.buttons}
-                onClick={handleNoClick}
-                variant="contained"
-                color="primary"
-              >
-                {intl.formatMessage({
-                  id: 'feedbackdeletedialog.no'
-                })}
-              </Button>
-            </Grid>
-          </Grid>
-        </DialogContent>
+            {intl.formatMessage({
+              id: 'feedbackdeletedialog.yes'
+            })}
+          </Button>
+          <Button
+            className={classes.buttons}
+            onClick={handleNoClick}
+            variant="contained"
+            color="primary"
+          >
+            {intl.formatMessage({
+              id: 'feedbackdeletedialog.no'
+            })}
+          </Button>
+        </DialogActions>
       </Dialog>
     </Fragment>
   );

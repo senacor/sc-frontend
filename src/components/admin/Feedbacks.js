@@ -9,12 +9,12 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getFeedbacks } from '../../calls/admin';
 import { getReadableDate } from '../../helper/date';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
 import FeedbackDeleteDialog from './FeedbackDeleteDialog';
+import { getFeedbacks } from '../../calls/feedbacks';
 
 const styles = theme => ({
   spacing: {
