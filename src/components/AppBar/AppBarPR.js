@@ -18,6 +18,7 @@ const styles = theme => ({
   appBar: {
     height: appBarHeight,
     marginLeft: drawerWidth,
+    zIndex: 2,
     [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${drawerWidth}px)`
     }
