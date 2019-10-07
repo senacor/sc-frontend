@@ -1,15 +1,13 @@
 import React, { useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-import { IconButton, Tooltip } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import FeedbackCreateDialog from './FeedbackCreateDialog';
 
 const styles = theme => ({
-  feedbackBtn: {
-    position: 'absolute',
-    bottom: '3px',
-    left: '3px'
+  feedbackIcon: {
+    marginRight: theme.spacing.unit
   }
 });
 
@@ -26,15 +24,12 @@ const FeedbackButton = ({ classes, intl }) => {
 
   return (
     <Fragment>
-      <Tooltip
-        title={intl.formatMessage({
+      <Button className={classes.feedbackBtn} onClick={handleClick}>
+        <FeedbackIcon className={classes.feedbackIcon} />
+        {intl.formatMessage({
           id: 'sidebar.feedback'
         })}
-      >
-        <IconButton className={classes.feedbackBtn} onClick={handleClick}>
-          <FeedbackIcon />
-        </IconButton>
-      </Tooltip>
+      </Button>
       <FeedbackCreateDialog open={openDialog} handleClose={handleCloseDialog} />
     </Fragment>
   );

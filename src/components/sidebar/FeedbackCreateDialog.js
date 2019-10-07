@@ -24,7 +24,7 @@ const styles = theme => ({
     color: theme.palette.secondary.white
   },
   fullWidth: {
-    width: '100%'
+    width: '97%'
   },
   spacing: {
     padding: 3 * theme.spacing.unit
@@ -56,7 +56,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
 
   return (
     <Fragment>
-      <Dialog open={open} className={classes.dialog}>
+      <Dialog open={open}>
         <DialogTitle>
           <div>
             <Typography variant="h6">
