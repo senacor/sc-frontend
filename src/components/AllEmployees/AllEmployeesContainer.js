@@ -243,7 +243,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     },
     {
       id: 3,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.location' }),
+      sortBy: intl.formatMessage({ id: 'employeeInfo.officelocation' }),
       menuData: locations,
       stateValue: locationSorting,
       handleChange: handleSortLocationChange

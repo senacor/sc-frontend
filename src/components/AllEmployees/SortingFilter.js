@@ -21,7 +21,7 @@ const styles = theme => ({
     margin: 2 * theme.spacing.unit
   },
   inputForFormer: {
-    width: 105,
+    width: 87,
     margin: 2 * theme.spacing.unit
   },
   chips: {

@@ -1,7 +1,7 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext } from '../App';
-import { withStyles, Tooltip, FormControl } from '@material-ui/core';
+import { withStyles, Tooltip } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import SearchFilter from './SearchFilter';
 import SortingFilter from './SortingFilter';
@@ -9,9 +9,9 @@ import {
   positions,
   competenceCenters,
   cst,
-  locations
+  locations,
+  months
 } from '../../helper/filterData';
-import MonthYearPicker from 'react-month-year-picker';
 
 // Calls
 import { getAllEmployees } from '../../calls/employees';
@@ -21,7 +21,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Popover from '@material-ui/core/Popover';
 
 // Icons
 import FilterIcon from '@material-ui/icons/FilterList';
@@ -29,9 +28,6 @@ import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
 import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
 import moment from 'moment';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
   ...theme,
@@ -108,15 +104,14 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   const errorContext = useContext(ErrorContext.context);
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [monthSorting, setMonthSorting] = useState(null);
-  const [yearSorting, setYearSorting] = useState(null);
+  const [monthSorting, setMonthSorting] = useState([]);
+  const [yearSorting, setYearSorting] = useState([]);
   const [positionSorting, setPositionSorting] = useState([]);
   const [ccSorting, setCcSorting] = useState([]);
   const [cstSorting, setCstSorting] = useState([]);
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem('view') === 'table') {
@@ -124,6 +119,14 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     }
     getAllEmployees(setEmployees, setIsLoading, errorContext);
   }, []);
+
+  const handleSortYearChange = event => {
+    setYearSorting(event.target.value);
+  };
+
+  const handleSortMonthChange = event => {
+    setMonthSorting(event.target.value);
+  };
 
   const handleSearchEmployeeChange = event => {
     setSearchEmployeesValue(event.target.value);
@@ -150,23 +153,13 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   };
 
   const clearFilter = () => {
+    setYearSorting([]);
+    setMonthSorting([]);
     setSearchEmployeesValue('');
     setCstSorting([]);
     setPositionSorting([]);
     setCcSorting([]);
     setLocationSorting([]);
-  };
-
-  const handleClick = event => {
-    if (monthSorting === null) {
-      setMonthSorting(moment().month() + 1);
-      setYearSorting(moment().year());
-    }
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const toggleChangeView = () => {
@@ -180,6 +173,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   };
 
   const filterInputs = {
+    year: [...yearSorting],
+    month: [...monthSorting],
     searchEmployee: searchEmployeesValue,
     position: [...positionSorting],
     cc: [...ccSorting],
@@ -187,30 +182,53 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     officeLocation: [...locationSorting]
   };
 
+  const years = () => {
+    let years = [];
+    const currentYear = moment().year();
+    for (let i = currentYear; i >= 2000; i--) {
+      years.push(i);
+    }
+    return years;
+  };
+
   const sortingData = [
     {
       id: 1,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.year' }),
+      menuData: years(),
+      stateValue: yearSorting,
+      handleChange: handleSortYearChange
+    },
+    {
+      id: 2,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.month' }),
+      menuData: months,
+      stateValue: monthSorting,
+      handleChange: handleSortMonthChange
+    },
+    {
+      id: 3,
       sortBy: intl.formatMessage({ id: 'employeeInfo.positionAbrv' }),
       menuData: positions,
       stateValue: positionSorting,
       handleChange: handleSortPositionChange
     },
     {
-      id: 2,
+      id: 4,
       sortBy: intl.formatMessage({ id: 'employeeInfo.cc' }),
       menuData: competenceCenters,
       stateValue: ccSorting,
       handleChange: handleSortCcChange
     },
     {
-      id: 3,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.location' }),
+      id: 5,
+      sortBy: intl.formatMessage({ id: 'employeeInfo.office' }),
       menuData: locations,
       stateValue: locationSorting,
       handleChange: handleSortLocationChange
     },
     {
-      id: 4,
+      id: 6,
       sortBy: intl.formatMessage({ id: 'employeeInfo.cst' }),
       menuData: cst,
       stateValue: cstSorting,
@@ -252,39 +270,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
         </div>
         {visibleAdvancedFilter && (
           <div className={classes.advFilter}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="select-month">
-                {intl.formatMessage({ id: 'filter.month' })}
-              </InputLabel>
-              <Select
-                onClick={handleClick}
-                input={
-                  <Input id="select-month" className={classes.inputForFormer} />
-                }
-              >{`${monthSorting}/${yearSorting}`}</Select>
-            </FormControl>
-            <Popover
-              open={Boolean(anchorEl)}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center'
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center'
-              }}
-            >
-              <MonthYearPicker
-                selectedMonth={monthSorting}
-                selectedYear={yearSorting}
-                minYear={1994}
-                maxYear={2050}
-                onChangeMonth={month => setMonthSorting(month)}
-                onChangeYear={year => setYearSorting(year)}
-              />
-            </Popover>
             {sortingData.map(item => (
               <SortingFilter
                 key={item.id}

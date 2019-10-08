@@ -152,7 +152,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <LibraryBooksIcon />,
         value: '/formerEmployees',
-        roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
+        roles: [ROLES.PERSONAL_DEV],
         onClick: resetMessages
       },
       // LOGOUT
