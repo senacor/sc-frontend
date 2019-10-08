@@ -142,6 +142,7 @@
   "prdetailinformation.reviewer": "Beurteiler:",
   "prdetailinformation.occasion": "Grund:",
   "prdetailinformation.cc": "CC:",
+  "prdetailinformation.unknown": "Unbekannt",
   "prhistory.date": "Datum",
   "prhistory.link": "Link",
   "prhistory.noArchivedFiles": "Keine archivierte PRs gefunden",
@@ -294,8 +295,8 @@
   "UNKNOWN": "Unbekannt",
   "WORKING_MANNER": "Arbeitsweise",
   "WORK_RESULTS": "Arbeitsergebnisse",
-  "COMPETENCE_CONSULTING": "Con.",
-  "COMPETENCE_DEVELOPMENT": "Dev.",
+  "COMPETENCE_CONSULTING": "Consulting",
+  "COMPETENCE_DEVELOPMENT": "Development",
   "ON_DEMAND": "Auf Nachfrage",
   "END_PROBATION": "Erstes PR",
   "YEARLY": "Jährlich"

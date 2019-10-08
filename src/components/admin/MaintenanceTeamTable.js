@@ -66,34 +66,34 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
           id: 'maintenance.team'
         })}
       </Typography>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              {`${intl.formatMessage({
-                id: 'maintenance.employeeId'
-              })}`}
-            </TableCell>
-            <TableCell>
-              {`${intl.formatMessage({
-                id: 'maintenance.user'
-              })}`}
-            </TableCell>
-            <TableCell>
-              {`${intl.formatMessage({
-                id: 'maintenance.email'
-              })}`}
-            </TableCell>
-            <TableCell>
-              {`${intl.formatMessage({
-                id: 'maintenance.delete'
-              })}`}
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        {isLoading ? (
-          <CircularProgress className={classes.spacing} />
-        ) : (
+      {isLoading ? (
+        <CircularProgress className={classes.spacing} />
+      ) : (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                {`${intl.formatMessage({
+                  id: 'maintenance.employeeId'
+                })}`}
+              </TableCell>
+              <TableCell>
+                {`${intl.formatMessage({
+                  id: 'maintenance.user'
+                })}`}
+              </TableCell>
+              <TableCell>
+                {`${intl.formatMessage({
+                  id: 'maintenance.email'
+                })}`}
+              </TableCell>
+              <TableCell>
+                {`${intl.formatMessage({
+                  id: 'maintenance.delete'
+                })}`}
+              </TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
             {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -119,8 +119,8 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
                 );
               })}
           </TableBody>
-        )}
-      </Table>
+        </Table>
+      )}
       <Grid container className={classes.center}>
         <Grid item xs={2}>
           <EmployeeFilter

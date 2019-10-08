@@ -164,10 +164,9 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
                       classes={
-                        !isReadOnly('RATINGS_REVIEWER') && {
-                          root: classes.radio,
-                          checked: classes.checked
-                        }
+                        !isReadOnly('RATINGS_REVIEWER')
+                          ? { root: classes.radio, checked: classes.checked }
+                          : {}
                       }
                     />
                   </Grid>
@@ -178,10 +177,9 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
                       classes={
-                        !isReadOnly('RATINGS_REVIEWER') && {
-                          root: classes.radio,
-                          checked: classes.checked
-                        }
+                        !isReadOnly('RATINGS_REVIEWER')
+                          ? { root: classes.radio, checked: classes.checked }
+                          : {}
                       }
                     />
                   </Grid>
@@ -192,10 +190,9 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                       disabled={isReadOnly('RATINGS_REVIEWER')}
                       onChange={event => handleChange(event, targetRole)}
                       classes={
-                        !isReadOnly('RATINGS_REVIEWER') && {
-                          root: classes.radio,
-                          checked: classes.checked
-                        }
+                        !isReadOnly('RATINGS_REVIEWER')
+                          ? { root: classes.radio, checked: classes.checked }
+                          : {}
                       }
                     />
                   </Grid>
