@@ -11,45 +11,39 @@ const styles = theme => ({
   card: {
     margin: 3 * theme.spacing.unit,
     marginBottom: 0,
-    textDecoration: 'none',
-    padding: 0,
-    alignItems: 'stretch',
-    height: '100%'
+    textDecoration: 'none'
   },
   cardContent: {
     display: 'flex',
     flexDirection: 'row',
     padding: 0
+  },
+  iconContainer: {
+    flexGrow: 1,
+    padding: 2 * theme.spacing.unit,
+    fontSize: 30
+  },
+  textContainer: {
+    padding: 2 * theme.spacing.unit,
+    paddingLeft: theme.spacing.unit
   }
 });
 
 const InfoWidget = ({ linkTo, onClick, icon, label, value, classes }) => {
   return (
     <Card
-      component={linkTo ? NavLink : null}
+      component={linkTo && NavLink}
       to={linkTo}
       className={classes.card}
       onClick={onClick}
     >
       <CardContent className={classes.cardContent}>
-        <div
-          style={{
-            flexGrow: '1',
-            padding: '16px',
-            fontSize: 30,
-            alignSelf: 'center'
-          }}
-        >
+        <div className={classes.iconContainer}>
           <Icon fontSize={'large'} color={'primary'}>
             {icon}
           </Icon>
         </div>
-        <div
-          style={{
-            flexGrow: '3',
-            padding: '16px 24px 16px 0px'
-          }}
-        >
+        <div className={classes.textContainer}>
           <Typography color="textSecondary">{label}</Typography>
           <Typography variant="h5" component="h2">
             {value}

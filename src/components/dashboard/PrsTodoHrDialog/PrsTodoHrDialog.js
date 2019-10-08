@@ -11,24 +11,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 import PrsTodoHrTable from './PrsTodoHrTable';
+import InfoWidget from '../InfoWidget';
 
 const styles = theme => ({
-  card: {
-    flexGrow: 1,
-    margin: 3 * theme.spacing.unit,
-    marginBottom: 0,
-    textDecoration: 'none'
-  },
-  pointer: {
-    cursor: 'pointer'
-  },
   btnClose: {
     width: 50,
     height: 50,
@@ -39,8 +29,8 @@ const styles = theme => ({
     padding: 3 * theme.spacing.unit,
     textAlign: 'center'
   },
-  title: {
-    marginBottom: 2 * theme.spacing.unit
+  noPrTodo: {
+    color: theme.palette.secondary.mediumGrey
   }
 });
 
@@ -73,35 +63,38 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr }) => {
 
   return (
     <Fragment>
-      <Card
-        className={
-          todoForHr > 0 ? `${classes.card} ${classes.pointer}` : classes.card
-        }
-        onClick={todoForHr > 0 ? dialogOpen : undefined}
-      >
-        <CardContent>
-          <Typography className={classes.title} variant="body1">
-            {intl.formatMessage({
-              id: 'dashboard.prsInProgressHrToDo'
-            })}
-            :
-          </Typography>
-          <Typography color="textSecondary">{todoForHr}</Typography>
-        </CardContent>
-      </Card>
+      <InfoWidget
+        label={intl.formatMessage({
+          id: 'dashboard.prsInProgressHrToDo'
+        })}
+        linkTo={ROUTES.PR_HR_TODO}
+        onClick={dialogOpen}
+        value={todoForHr}
+        icon={'face'}
+      />
       <Dialog open={dialogOpened} onClose={dialogClose} fullWidth maxWidth="sm">
         <IconButton onClick={dialogClose} className={classes.btnClose}>
           <CloseIcon />
         </IconButton>
         <DialogTitle>
-          <Typography className={classes.title} variant="body1">
+          <Typography variant="h5">
             {intl.formatMessage({
-              id: 'dashboard.prsInProgress'
+              id: 'dashboard.prsInProgressHrToDo'
             })}
           </Typography>
         </DialogTitle>
         <DialogContent className={classes.dialogContent}>
-          {isLoading ? <CircularProgress /> : <PrsTodoHrTable prs={prs} />}
+          {isLoading ? (
+            <CircularProgress />
+          ) : todoForHr > 0 ? (
+            <PrsTodoHrTable prs={prs} />
+          ) : (
+            <Typography variant="body2" className={classes.noPrTodo}>
+              {intl.formatMessage({
+                id: 'dashboard.noPrsHrTodo'
+              })}
+            </Typography>
+          )}
         </DialogContent>
       </Dialog>
     </Fragment>
