@@ -19,7 +19,10 @@ const styles = theme => ({
     }
   },
   notSelection: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.brighterGrey
+    }
   },
   selectionUnavailable: {
     backgroundColor: theme.palette.secondary.grey,
@@ -29,7 +32,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.green
   },
   selectable: {
-    cursor: 'pointer'
+    cursor: 'cell'
   }
 });
 

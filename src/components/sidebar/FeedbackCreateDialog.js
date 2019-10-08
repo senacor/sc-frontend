@@ -21,7 +21,8 @@ import FormControl from '@material-ui/core/FormControl';
 const styles = theme => ({
   ...theme,
   buttons: {
-    color: theme.palette.secondary.white
+    color: theme.palette.secondary.white,
+    margin: theme.spacing.unit
   },
   fullWidth: {
     width: '100%'
@@ -35,6 +36,12 @@ const styles = theme => ({
   },
   input: {
     minWidth: 150
+  },
+  maxLength: {
+    height: 25
+  },
+  maxLengthFont: {
+    color: theme.palette.secondary.darkRed
   }
 });
 
@@ -42,17 +49,37 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
   const [type, setType] = useState('Bug');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [maxLengthReached, setMaxLengthReached] = useState(false);
   const feedbackTypes = ['Bug', 'Optimization', 'Other'];
 
   const errorContext = useContext(ErrorContext.context);
 
   const handleSend = () => {
     addFeedback(type, subject, message, errorContext);
+    setMaxLengthReached(false);
     handleClose();
   };
 
-  const handleChange = event => {
+  const handleChangeType = event => {
     setType(event.target.value);
+  };
+
+  const handleChangeSubject = event => {
+    setSubject(event.target.value);
+    if (event.target.value.length >= 120) {
+      setMaxLengthReached(true);
+    } else {
+      setMaxLengthReached(false);
+    }
+  };
+
+  const handleChangeMessage = event => {
+    setMessage(event.target.value);
+    if (event.target.value.length >= 1000) {
+      setMaxLengthReached(true);
+    } else {
+      setMaxLengthReached(false);
+    }
   };
 
   return (
@@ -79,7 +106,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
               input={<Input id="select-type" />}
               className={`${classes.margin}`}
               value={type}
-              onChange={handleChange}
+              onChange={handleChangeType}
             >
               {feedbackTypes.map(type => (
                 <MenuItem key={type} value={type}>
@@ -93,8 +120,9 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             label={intl.formatMessage({
               id: 'feedbackcreatedialog.subject'
             })}
-            onChange={event => setSubject(event.target.value)}
+            onChange={handleChangeSubject}
             className={`${classes.fullWidth} ${classes.margin}`}
+            inputProps={{ maxLength: 120 }}
           />
           <TextField
             variant="outlined"
@@ -104,22 +132,19 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             label={intl.formatMessage({
               id: 'feedbackcreatedialog.message'
             })}
-            onChange={event => setMessage(event.target.value)}
+            onChange={handleChangeMessage}
             className={`${classes.fullWidth} ${classes.margin}`}
+            inputProps={{ maxLength: 1000 }}
           />
+          <div className={classes.maxLength}>
+            {maxLengthReached && (
+              <Typography className={classes.maxLengthFont}>
+                {intl.formatMessage({ id: 'feedbackcreatedialog.maxLength' })}
+              </Typography>
+            )}
+          </div>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleSend}
-            className={classes.buttons}
-            variant="contained"
-            color="primary"
-            disabled={!subject || !message}
-          >
-            {intl.formatMessage({
-              id: 'feedbackcreatedialog.send'
-            })}
-          </Button>
           <Button
             onClick={handleClose}
             className={classes.buttons}
@@ -128,6 +153,17 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
           >
             {intl.formatMessage({
               id: 'feedbackcreatedialog.close'
+            })}
+          </Button>
+          <Button
+            onClick={handleSend}
+            className={classes.buttons}
+            variant="contained"
+            color="secondary"
+            disabled={!subject || !message}
+          >
+            {intl.formatMessage({
+              id: 'feedbackcreatedialog.send'
             })}
           </Button>
         </DialogActions>

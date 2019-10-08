@@ -68,8 +68,9 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
       ? moment(meeting.start)
           .local()
           .format('DD.MM.YYYY')
-      : null;
-    const meetingDay = formatDateForFrontend(pr.meetingDay);
+      : intl.formatMessage({
+          id: 'prdetailinformation.unknown'
+        });
 
     if (meeting.status === 'ACCEPTED') {
       termin = meetingDate;
@@ -93,7 +94,7 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
       meeting.status !== 'ACCEPTED'
     ) {
       termin =
-        meetingDay +
+        meetingDate +
         ` ${intl.formatMessage({
           id: 'prdetailinformation.arrangedoffportal'
         })}`;
