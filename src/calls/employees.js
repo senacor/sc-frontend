@@ -58,6 +58,32 @@ export const getAllPrsByEmployee = async (
   }
 };
 
+export const getInactiveEmployees = async (
+  setEmployees,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/inactive/employee/all`
+    );
+
+    const responseEmployees = await response.json();
+
+    setIsLoading(false);
+    setEmployees(responseEmployees);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const addAttributeToArchivedPrs = arr => {
   arr.map(item => {
     return (item.archived = true);

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext } from '../App';
 import { withStyles, Tooltip } from '@material-ui/core';
-import AllEmployeesGrid from './AllEmployeesGrid';
+import FormerEmployeesGrid from './AllEmployeesGrid';
 import SearchFilter from './SearchFilter';
 import SortingFilter from './SortingFilter';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../helper/filterData';
 
 // Calls
-import { getAllEmployees } from '../../calls/employees';
+import { getInactiveEmployees } from '../../calls/employees';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -117,7 +117,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     if (localStorage.getItem('view') === 'table') {
       setTableView(true);
     }
-    getAllEmployees(setEmployees, setIsLoading, errorContext);
+    getInactiveEmployees(setEmployees, setIsLoading, errorContext);
   }, []);
 
   const handleSortYearChange = event => {
@@ -289,20 +289,19 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
         )}
       </Paper>
       {tableView ? (
+        // TODO: change to FormerEmployeeTable
         <AllEmployeesTable
           filterInputs={filterInputs}
           selected={{}}
           employees={employees}
           isLoading={isLoading}
-          formerEmployees={true}
         />
       ) : (
-        <AllEmployeesGrid
+        <FormerEmployeesGrid
           filterInputs={filterInputs}
           selected={{}}
           employees={employees}
           isLoading={isLoading}
-          formerEmployees={true}
         />
       )}
     </div>

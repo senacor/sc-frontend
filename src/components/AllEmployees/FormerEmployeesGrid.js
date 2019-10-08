@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
-import EmployeeCard from './EmployeeCard';
+import FormerEmployeeCard from './EmployeeCard';
 // Calls
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesGrid = ({
+const FormerEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
@@ -56,13 +56,14 @@ const AllEmployeesGrid = ({
       checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
       checkFilterValues(filterInputs.cst, empl.currentCst) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      // todo from backend response
     );
   });
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard
+      <FormerEmployeeCard
         employee={employee}
         toggleSelected={toggleSelected}
         selection={selection}
@@ -76,7 +77,7 @@ const AllEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <EmployeeCard
+        <FormerEmployeeCard
           employee={employee}
           toggleSelected={toggleSelected}
           selection={selection}
@@ -120,4 +121,4 @@ const AllEmployeesGrid = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesGrid));
+export default injectIntl(withStyles(styles)(FormerEmployeesGrid));

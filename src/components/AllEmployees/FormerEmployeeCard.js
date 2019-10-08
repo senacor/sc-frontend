@@ -15,16 +15,6 @@ import Divider from '@material-ui/core/Divider';
 import EmployeesPRsDialog from './EmployeesPRsDialog';
 
 const styles = theme => ({
-  cardForAll: {
-    width: 260,
-    height: 350,
-    margin: theme.spacing.unit,
-    cursor: 'pointer',
-    transition: 'all 0.3s',
-    '&:hover': {
-      transform: 'scale(1.05)'
-    }
-  },
   cardForFormer: {
     width: 260,
     height: 375,
@@ -73,26 +63,19 @@ const styles = theme => ({
   }
 });
 
-const EmployeeCard = ({
+const FormerEmployeeCard = ({
   intl,
   classes,
   employee: {
     id,
     firstName,
     lastName,
-    competenceCenter,
-    currentPosition,
-    currentCst,
+    competence,
+    position,
+    cst,
     officeLocation,
-    dateOfNextPr,
-    userPhoto,
-    supervisorName,
-    hasOpenedPr
-  },
-  selection,
-  selected,
-  toggleSelected,
-  formerEmployees
+    endDate
+  }
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -115,43 +98,19 @@ const EmployeeCard = ({
     </Fragment>
   );
 
-  const employeePhoto =
-    userPhoto.length === 0 ? (
-      <Avatar className={classes.avatar}>{`${firstName.charAt(
-        0
-      )}${lastName.charAt(0)}`}</Avatar>
-    ) : (
-      <Avatar />
-    );
+  const employeePhoto = (
+    <Avatar className={classes.avatar}>{`${firstName.charAt(
+      0
+    )}${lastName.charAt(0)}`}</Avatar>
+  );
 
   let bgClass = '';
   let avatar = employeePhoto;
   let onCardClick = handleDialogOpen;
 
-  if (selection) {
-    if (hasOpenedPr || !supervisorName) {
-      bgClass = classes.selectionUnavailable;
-      avatar = (
-        <HighlightOffIcon className={`${classes.avatar} ${classes.iconGrey}`} />
-      );
-      onCardClick = () => {};
-    } else {
-      onCardClick = () => toggleSelected(id);
-      bgClass = selected ? classes.selected : classes.selectable;
-      avatar = selected ? (
-        <CheckCircleIcon className={`${classes.avatar} ${classes.iconGreen}`} />
-      ) : (
-        employeePhoto
-      );
-    }
-  }
-
   return (
     <Fragment>
-      <Card
-        className={formerEmployees ? classes.cardForFormer : classes.cardForAll}
-        onClick={onCardClick}
-      >
+      <Card className={classes.cardForFormer} onClick={onCardClick}>
         <CardHeader
           className={`${classes.header} ${bgClass}`}
           title={employeeName}
@@ -164,26 +123,26 @@ const EmployeeCard = ({
               {intl.formatMessage({
                 id: 'employeeInfo.position'
               })}
-              <div className={classes.textInfo}>{currentPosition}</div>
+              <div className={classes.textInfo}>{position}</div>
             </Typography>
           </Fragment>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
               id: 'employeeInfo.cst'
             })}
-            : <span className={classes.textInfo}>{currentCst}</span>
+            : <span className={classes.textInfo}>{cst}</span>
           </Typography>
-          <Typography className={classes.text} component="span">
-            {intl.formatMessage({
-              id: 'employeeInfo.supervisor'
-            })}
-            : <span className={classes.textInfo}>{supervisorName}</span>
-          </Typography>
+          {/*<Typography className={classes.text} component="span">*/}
+          {/*  {intl.formatMessage({*/}
+          {/*    id: 'employeeInfo.supervisor'*/}
+          {/*  })}*/}
+          {/*  : <span className={classes.textInfo}>{supervisorName}</span>*/}
+          {/*</Typography>*/}
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
               id: 'employeeInfo.cc'
             })}
-            : <span className={classes.textInfo}>{competenceCenter}</span>
+            : <span className={classes.textInfo}>{competence}</span>
           </Typography>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
@@ -193,23 +152,13 @@ const EmployeeCard = ({
           </Typography>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
-              id: 'employeeInfo.startDate'
+              id: 'employeeInfo.exitDate'
             })}
             :{' '}
             <span className={classes.textInfo}>
-              {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+              {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
             </span>
           </Typography>
-          {formerEmployees && (
-            <Typography className={classes.text} component="span">
-              {intl.formatMessage({
-                id: 'employeeInfo.exitDate'
-              })}
-              :{' '}
-              <span className={classes.textInfo}>
-                {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
-              </span>
-            </Typography>
           )}
         </CardContent>
       </Card>
@@ -226,4 +175,4 @@ const EmployeeCard = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeeCard));
+export default injectIntl(withStyles(styles)(FormerEmployeeCard));
