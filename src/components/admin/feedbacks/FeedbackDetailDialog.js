@@ -12,8 +12,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
-  dialogContent: {
-    padding: 3 * theme.spacing.unit
+  content: {
+    padding: 3 * theme.spacing.unit,
+    textAlign: 'justify'
+  },
+  margin: {
+    margin: theme.spacing.unit
   },
   paddingBottom: {
     paddingBottom: 2 * theme.spacing.unit
@@ -58,9 +62,10 @@ const FeedbackDetailDialog = ({
         </Typography>
       </DialogTitle>
       <Divider />
-      <DialogContent className={classes.dialogContent}>{message}</DialogContent>
+      <DialogContent className={classes.content}>{message}</DialogContent>
       <DialogActions>
         <Button
+          className={classes.margin}
           onClick={handleDialogDetailsClose}
           variant="contained"
           color="primary"

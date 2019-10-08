@@ -65,8 +65,6 @@ export const FeedbacksContainer = ({ classes, intl }) => {
     setIdToDelete(null);
   };
 
-  console.log(data);
-
   return (
     <Fragment>
       {isLoading ? (

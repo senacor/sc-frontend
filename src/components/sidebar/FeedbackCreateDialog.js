@@ -66,7 +66,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
 
   const handleChangeSubject = event => {
     setSubject(event.target.value);
-    if (event.target.value.length >= 70) {
+    if (event.target.value.length >= 120) {
       setMaxLengthReached(true);
     } else {
       setMaxLengthReached(false);
@@ -122,7 +122,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             })}
             onChange={handleChangeSubject}
             className={`${classes.fullWidth} ${classes.margin}`}
-            inputProps={{ maxLength: 70 }}
+            inputProps={{ maxLength: 120 }}
           />
           <TextField
             variant="outlined"
@@ -159,7 +159,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             onClick={handleSend}
             className={classes.buttons}
             variant="contained"
-            color="primary"
+            color="secondary"
             disabled={!subject || !message}
           >
             {intl.formatMessage({
