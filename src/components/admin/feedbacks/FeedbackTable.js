@@ -39,7 +39,8 @@ const styles = theme => ({
     }
   },
   panelDetails: {
-    width: '100%'
+    width: '100%',
+    textAlign: 'center'
   },
   tableRow: {
     height: 80,
