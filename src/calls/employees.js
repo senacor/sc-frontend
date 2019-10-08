@@ -58,6 +58,38 @@ export const getAllPrsByEmployee = async (
   }
 };
 
+export const getAllPrsOfInactiveEmployee = async (
+  id,
+  setPrs,
+  setArchivedPrs,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/inactive/employee/${id}/pr/all`
+    );
+    const responsePrs = await response.json();
+    let archivedPrs = [...responsePrs.archivedPrs];
+    let prs = [...responsePrs.prs];
+    addAttributeToArchivedPrs(archivedPrs);
+    addAttributeToPrs(prs);
+
+    setIsLoading(false);
+    setPrs(prs);
+    setArchivedPrs(archivedPrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const getInactiveEmployees = async (
   setEmployees,
   setIsLoading,

@@ -8,7 +8,10 @@ import { DownloadFile } from '../fileStorage/DownloadFile';
 import PdfDialog from '../pr/PdfDialog';
 
 // Calls
-import { getAllPrsByEmployee } from '../../calls/employees';
+import {
+  getAllPrsByEmployee,
+  getAllPrsOfInactiveEmployee
+} from '../../calls/employees';
 
 // Material UI
 import IconButton from '@material-ui/core/IconButton';
@@ -86,7 +89,8 @@ const EmployeesPRsDialog = ({
   lastName,
   intl,
   classes,
-  history
+  history,
+  formerEmployee
 }) => {
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
@@ -98,13 +102,23 @@ const EmployeesPRsDialog = ({
 
   useEffect(() => {
     if (dialogOpen) {
-      getAllPrsByEmployee(
-        employeeId,
-        setPrs,
-        setArchivedPrs,
-        setIsLoading,
-        errorContext
-      );
+      if (formerEmployee) {
+        getAllPrsOfInactiveEmployee(
+          employeeId,
+          setPrs,
+          setArchivedPrs,
+          setIsLoading,
+          errorContext
+        );
+      } else {
+        getAllPrsByEmployee(
+          employeeId,
+          setPrs,
+          setArchivedPrs,
+          setIsLoading,
+          errorContext
+        );
+      }
     }
   }, []);
 

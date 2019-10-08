@@ -2,8 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -15,9 +13,9 @@ import Divider from '@material-ui/core/Divider';
 import EmployeesPRsDialog from './EmployeesPRsDialog';
 
 const styles = theme => ({
-  cardForFormer: {
+  card: {
     width: 260,
-    height: 375,
+    height: 350,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -111,7 +109,7 @@ const FormerEmployeeCard = ({
 
   return (
     <Fragment>
-      <Card className={classes.cardForFormer} onClick={onCardClick}>
+      <Card className={classes.card} onClick={onCardClick}>
         <CardHeader
           className={`${classes.header} ${bgClass}`}
           title={employeeName}
@@ -169,6 +167,7 @@ const FormerEmployeeCard = ({
           employeeId={id}
           dialogOpen={dialogOpen}
           dialogClose={handleDialogClose}
+          formerEmployee={true}
         />
       )}
     </Fragment>
