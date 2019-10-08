@@ -15,9 +15,19 @@ import Divider from '@material-ui/core/Divider';
 import EmployeesPRsDialog from './EmployeesPRsDialog';
 
 const styles = theme => ({
-  card: {
+  cardForAll: {
     width: 260,
     height: 350,
+    margin: theme.spacing.unit,
+    cursor: 'pointer',
+    transition: 'all 0.3s',
+    '&:hover': {
+      transform: 'scale(1.05)'
+    }
+  },
+  cardForFormer: {
+    width: 260,
+    height: 375,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -81,7 +91,8 @@ const EmployeeCard = ({
   },
   selection,
   selected,
-  toggleSelected
+  toggleSelected,
+  formerEmployees
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -137,7 +148,10 @@ const EmployeeCard = ({
 
   return (
     <Fragment>
-      <Card className={classes.card} onClick={onCardClick}>
+      <Card
+        className={formerEmployees ? classes.cardForFormer : classes.cardForAll}
+        onClick={onCardClick}
+      >
         <CardHeader
           className={`${classes.header} ${bgClass}`}
           title={employeeName}
@@ -186,6 +200,17 @@ const EmployeeCard = ({
               {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
             </span>
           </Typography>
+          {formerEmployees && (
+            <Typography className={classes.text} component="span">
+              {intl.formatMessage({
+                id: 'employeeInfo.exitDate'
+              })}
+              :{' '}
+              <span className={classes.textInfo}>
+                {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+              </span>
+            </Typography>
+          )}
         </CardContent>
       </Card>
       {dialogOpen && (

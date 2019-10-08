@@ -1,10 +1,9 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+import { ErrorContext, InfoContext } from '../App';
 import { withStyles, Tooltip } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import SearchFilter from './SearchFilter';
-import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
 import SortingFilter from './SortingFilter';
 import {
   positions,
@@ -12,10 +11,9 @@ import {
   cst,
   locations
 } from '../../helper/filterData';
+import MonthYearPicker from 'react-month-year-picker';
 
 // Calls
-import { requestPrForEmployees } from '../../calls/pr';
-import { uploadFiles } from '../../calls/fileStorage';
 import { getAllEmployees } from '../../calls/employees';
 
 // Material UI
@@ -98,13 +96,10 @@ const styles = theme => ({
 const FormerEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const errorContext = useContext(ErrorContext.context);
-  const infoContext = useContext(InfoContext.context);
-  const [selection, setSelection] = useState(false);
-  const [selected, setSelected] = useState({});
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [monthSorting, setMonthSorting] = useState([]);
+  const [monthSorting, setMonthSorting] = useState(10);
+  const [yearSorting, setYearSorting] = useState(2019);
   const [positionSorting, setPositionSorting] = useState([]);
   const [ccSorting, setCcSorting] = useState([]);
   const [cstSorting, setCstSorting] = useState([]);
@@ -118,18 +113,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     }
     getAllEmployees(setEmployees, setIsLoading, errorContext);
   }, []);
-
-  const checkFileForm = file => {
-    const regex = /^20[0-9]{6}_\D{3}/g;
-    if (file.match(regex)) {
-      return true;
-    } else {
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'message.uploadError'
-      });
-    }
-  };
 
   const handleSearchEmployeeChange = event => {
     setSearchEmployeesValue(event.target.value);
@@ -246,6 +229,14 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
         </div>
         {visibleAdvancedFilter && (
           <div className={classes.advFilter}>
+            <MonthYearPicker
+              selectedMonth={monthSorting}
+              selectedYear={yearSorting}
+              minYear={1994}
+              maxYear={2050}
+              onChangeMonth={month => setMonthSorting(month)}
+              onChangeYear={year => setYearSorting(year)}
+            />
             {sortingData.map(item => (
               <SortingFilter
                 key={item.id}
@@ -267,18 +258,18 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       {tableView ? (
         <AllEmployeesTable
           filterInputs={filterInputs}
-          selection={selection}
-          selected={selected}
+          selected={{}}
           employees={employees}
           isLoading={isLoading}
+          formerEmployees={true}
         />
       ) : (
         <AllEmployeesGrid
           filterInputs={filterInputs}
-          selection={selection}
-          selected={selected}
+          selected={{}}
           employees={employees}
           isLoading={isLoading}
+          formerEmployees={true}
         />
       )}
     </div>

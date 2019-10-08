@@ -196,6 +196,7 @@
   "employeeInfo.supervisor": "Supervisor",
   "employeeInfo.location": "Office location",
   "employeeInfo.startDate": "Start date",
+  "employeeInfo.exitDate": "Exit date",
   "employeeInfo.noPrsFound": "has no PRs in our database.",
   "employeeInfo.prsCount": "Number of PRs",
   "switchView.cards": "Switch to cards view",

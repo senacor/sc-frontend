@@ -196,6 +196,7 @@
   "employeeInfo.supervisor": "Vorgesetzter",
   "employeeInfo.location": "Bürostandort",
   "employeeInfo.startDate": "Anfangsdatum",
+  "employeeInfo.exitDate": "Austrittsdatum",
   "employeeInfo.noPrsFound": "hat kein PR in der Datenbank.",
   "employeeInfo.prsCount": "PR Zahl",
   "switchView.cards": "Auf die Karte-Ansicht wechseln",

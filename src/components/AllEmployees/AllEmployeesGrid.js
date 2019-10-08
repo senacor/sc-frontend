@@ -30,7 +30,8 @@ const AllEmployeesGrid = ({
   selection,
   selected,
   employees,
-  isLoading
+  isLoading,
+  formerEmployees
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
@@ -67,6 +68,7 @@ const AllEmployeesGrid = ({
         toggleSelected={toggleSelected}
         selection={selection}
         selected={selected[employee.id]}
+        formerEmployees={formerEmployees}
       />
     </Grid>
   ));
@@ -81,6 +83,7 @@ const AllEmployeesGrid = ({
           toggleSelected={toggleSelected}
           selection={selection}
           selected={selected[employee.id]}
+          formerEmployees={formerEmployees}
         />
       </Grid>
     ));
