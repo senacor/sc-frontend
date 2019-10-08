@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
-import FormerEmployeeCard from './EmployeeCard';
+import FormerEmployeeCard from './FormerEmployeeCard';
 // Calls
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -26,9 +26,6 @@ const FormerEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
-  toggleSelected,
-  selection,
-  selected,
   employees,
   isLoading
 }) => {
@@ -63,12 +60,7 @@ const FormerEmployeesGrid = ({
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <FormerEmployeeCard
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
+      <FormerEmployeeCard employee={employee} />
     </Grid>
   ));
 
@@ -77,12 +69,7 @@ const FormerEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <FormerEmployeeCard
-          employee={employee}
-          toggleSelected={toggleSelected}
-          selection={selection}
-          selected={selected[employee.id]}
-        />
+        <FormerEmployeeCard employee={employee} />
       </Grid>
     ));
 

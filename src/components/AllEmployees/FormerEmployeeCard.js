@@ -73,6 +73,7 @@ const FormerEmployeeCard = ({
     competence,
     position,
     cst,
+    supervisor,
     officeLocation,
     endDate
   }
@@ -132,12 +133,12 @@ const FormerEmployeeCard = ({
             })}
             : <span className={classes.textInfo}>{cst}</span>
           </Typography>
-          {/*<Typography className={classes.text} component="span">*/}
-          {/*  {intl.formatMessage({*/}
-          {/*    id: 'employeeInfo.supervisor'*/}
-          {/*  })}*/}
-          {/*  : <span className={classes.textInfo}>{supervisorName}</span>*/}
-          {/*</Typography>*/}
+          <Typography className={classes.text} component="span">
+            {intl.formatMessage({
+              id: 'employeeInfo.supervisor'
+            })}
+            : <span className={classes.textInfo}>{supervisor}</span>
+          </Typography>
           <Typography className={classes.text} component="span">
             {intl.formatMessage({
               id: 'employeeInfo.cc'
@@ -159,7 +160,6 @@ const FormerEmployeeCard = ({
               {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
             </span>
           </Typography>
-          )}
         </CardContent>
       </Card>
       {dialogOpen && (

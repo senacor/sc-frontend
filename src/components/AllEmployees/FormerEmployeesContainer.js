@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext } from '../App';
 import { withStyles, Tooltip } from '@material-ui/core';
-import FormerEmployeesGrid from './AllEmployeesGrid';
+import FormerEmployeesGrid from './FormerEmployeesGrid';
 import SearchFilter from './SearchFilter';
 import SortingFilter from './SortingFilter';
 import {
@@ -299,7 +299,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       ) : (
         <FormerEmployeesGrid
           filterInputs={filterInputs}
-          selected={{}}
           employees={employees}
           isLoading={isLoading}
         />
