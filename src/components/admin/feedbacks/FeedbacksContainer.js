@@ -5,6 +5,7 @@ import { ErrorContext } from '../../App';
 import FeedbackDeleteDialog from './FeedbackDeleteDialog';
 import { getFeedbacks } from '../../../calls/feedbacks';
 import FeedbackDetailDialog from './FeedbackDetailDialog';
+import MaintenanceTeamTable from '../MaintenanceTeamTable';
 
 // Material UI
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -67,6 +68,7 @@ export const FeedbacksContainer = ({ classes, intl }) => {
 
   return (
     <Fragment>
+      <MaintenanceTeamTable />
       {isLoading ? (
         <CircularProgress className={classes.spacing} />
       ) : (
