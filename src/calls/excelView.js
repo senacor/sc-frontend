@@ -2,9 +2,9 @@ import { default as fetch } from '../helper/customFetch';
 
 export const downloadExcel = async employeeIds => {
   let query = employeeIds.join();
-
+  const langugage = localStorage.getItem('lang');
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/export?employeeIds=${query}`
+    `${process.env.REACT_APP_API}/api/v3/export?lang=${langugage}&employeeIds=${query}`
   );
   if (response.ok) {
     const blob = await response.blob();
