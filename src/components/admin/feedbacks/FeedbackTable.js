@@ -64,7 +64,7 @@ const FeedbackTable = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      if (expanded) {
+      if (expanded && data.length === 0) {
         getFeedbacks(setData, setIsLoading, errorContext);
       }
     },
