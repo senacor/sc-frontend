@@ -21,6 +21,7 @@
   "login.failed": "Login failed",
   "plotemployeesearchList.noresults": "No matches",
   "archivedfiles.download": "Download",
+  "excelexport": "Export PRs as excel file",
   "uploadfiles.upload": "Upload",
   "uploadsuccessdialog.files": "Uploaded files",
   "uploadsuccessdialog.success": "Files saved successfully.",

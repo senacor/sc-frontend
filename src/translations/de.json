@@ -21,6 +21,7 @@
   "login.failed": "Anmeldung fehlgeschlagen",
   "plotemployeesearchList.noresults": "Keine Suchtreffer",
   "archivedfiles.download": "Download",
+  "excelexport": "PRs als Excel exportieren",
   "uploadfiles.upload": "Hochladen",
   "uploadsuccessdialog.files": "Hochgeladene Dateien",
   "uploadsuccessdialog.success": "Dateien wurden erfolgreich gespeichert.",
