@@ -1,6 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { CircularProgress, Grid, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {
+  deleteMaintenanceTeamMember,
+  getAllEmployeesWithRoles,
+  getMaintenanceTeam
+} from '../../calls/admin';
+import { ErrorContext } from '../App';
+import EmployeeFilter from './EmployeeFilter';
+
+// Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,20 +18,28 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import DeleteIcon from '@material-ui/icons/Delete';
-import {
-  deleteMaintenanceTeamMember,
-  getAllEmployeesWithRoles,
-  getMaintenanceTeam
-} from '../../calls/admin';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import { ErrorContext } from '../App';
-import EmployeeFilter from './EmployeeFilter';
+
+// Icons
+import TeamIcon from '@material-ui/icons/SupervisorAccount';
 
 const styles = theme => ({
   spacing: {
     margin: 3 * theme.spacing.unit
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: 2 * theme.spacing.unit,
+    '& h5': {
+      paddingLeft: theme.spacing.unit
+    },
+    '& svg': {
+      fontSize: '2rem'
+    }
   },
   padding: {
     paddingTop: 3 * theme.spacing.unit,
@@ -61,11 +79,14 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
 
   return (
     <Paper className={classes.spacing}>
-      <Typography className={classes.padding} variant="h5">
-        {intl.formatMessage({
-          id: 'maintenance.team'
-        })}
-      </Typography>
+      <div className={classes.header}>
+        <TeamIcon color={'primary'} />
+        <Typography variant="h5">
+          {intl.formatMessage({
+            id: 'maintenance.team'
+          })}
+        </Typography>
+      </div>
       {isLoading ? (
         <CircularProgress className={classes.spacing} />
       ) : (

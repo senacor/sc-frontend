@@ -69,11 +69,11 @@ const FeedbackRow = ({
             disableHoverListener={subject.length < 20}
           >
             <TableCell onClick={handleDialogDetailsOpen}>
-              {subject.length >= 20 ? `${subject.slice(0, 20)}...` : subject}
+              {subject.length >= 40 ? `${subject.slice(0, 40)}...` : subject}
             </TableCell>
           </Tooltip>
           <TableCell onClick={handleDialogDetailsOpen}>
-            {body.length >= 50 ? `${body.slice(0, 50)}...` : body}
+            {body.length >= 80 ? `${body.slice(0, 80)}...` : body}
           </TableCell>
           <TableCell onClick={handleDialogDetailsOpen}>
             {getReadableDate(sentAt)}
