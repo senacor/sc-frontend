@@ -40,12 +40,12 @@ const FeedbackDetailDialog = ({
 }) => {
   return (
     <Dialog
-      open={dialogDetailsOpen}
-      close={handleDialogDetailsClose}
+      open={dialogDetailsOpen !== undefined ? dialogDetailsOpen : false}
+      onClose={handleDialogDetailsClose}
       fullWidth
       maxWidth={'sm'}
     >
-      <DialogTitle>
+      <DialogTitle disableTypography>
         <Typography
           variant="h5"
           className={classes.paddingBottom}

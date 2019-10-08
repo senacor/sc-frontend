@@ -21,6 +21,7 @@ const styles = theme => ({
   },
   tableRow: {
     height: 80,
+    width: '100%',
     cursor: 'pointer',
     '&:hover': {
       transition: 'all 0.3s',
@@ -41,7 +42,8 @@ const FeedbackRow = ({
     body,
     sentAt
   },
-  handleOnDeleteClick
+  handleOnDeleteClick,
+  isLoading
 }) => {
   const [dialogDetailsOpen, setDialogDetailsOpen] = useState(false);
 
@@ -53,48 +55,50 @@ const FeedbackRow = ({
     setDialogDetailsOpen(false);
   };
 
-  return (
-    <Fragment>
-      <TableRow className={classes.tableRow}>
-        <TableCell
-          onClick={handleDialogDetailsOpen}
-        >{`${senderfirstName} ${senderLastName}`}</TableCell>
-        <TableCell onClick={handleDialogDetailsOpen}>{context}</TableCell>
-        <Tooltip
-          title={subject}
-          placement="bottom"
-          disableHoverListener={subject.length < 20}
-        >
-          <TableCell onClick={handleDialogDetailsOpen}>
-            {subject.length >= 20 ? `${subject.slice(0, 20)}...` : subject}
-          </TableCell>
-        </Tooltip>
-        <TableCell onClick={handleDialogDetailsOpen}>
-          {body.length >= 50 ? `${body.slice(0, 50)}...` : body}
-        </TableCell>
-        <TableCell onClick={handleDialogDetailsOpen}>
-          {getReadableDate(sentAt)}
-        </TableCell>
-        <TableCell>
-          <IconButton
-            onClick={event => handleOnDeleteClick(event, id)}
-            aria-label="delete"
+  if (!isLoading) {
+    return (
+      <Fragment>
+        <TableRow className={classes.tableRow}>
+          <TableCell
+            onClick={handleDialogDetailsOpen}
+          >{`${senderfirstName} ${senderLastName}`}</TableCell>
+          <TableCell onClick={handleDialogDetailsOpen}>{context}</TableCell>
+          <Tooltip
+            title={subject}
+            placement="bottom"
+            disableHoverListener={subject.length < 20}
           >
-            <DeleteIcon />
-          </IconButton>
-        </TableCell>
-      </TableRow>
-      <FeedbackDetailDialog
-        dialogDetailsOpen={dialogDetailsOpen}
-        handleDialogDetailsClose={handleDialogDetailsClose}
-        message={body}
-        subject={subject}
-        senderFirstName={senderfirstName}
-        senderLastName={senderLastName}
-        context={context}
-      />
-    </Fragment>
-  );
+            <TableCell onClick={handleDialogDetailsOpen}>
+              {subject.length >= 20 ? `${subject.slice(0, 20)}...` : subject}
+            </TableCell>
+          </Tooltip>
+          <TableCell onClick={handleDialogDetailsOpen}>
+            {body.length >= 50 ? `${body.slice(0, 50)}...` : body}
+          </TableCell>
+          <TableCell onClick={handleDialogDetailsOpen}>
+            {getReadableDate(sentAt)}
+          </TableCell>
+          <TableCell>
+            <IconButton
+              onClick={event => handleOnDeleteClick(event, id)}
+              aria-label="delete"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </TableCell>
+        </TableRow>
+        <FeedbackDetailDialog
+          dialogDetailsOpen={dialogDetailsOpen}
+          handleDialogDetailsClose={handleDialogDetailsClose}
+          message={body}
+          subject={subject}
+          senderFirstName={senderfirstName}
+          senderLastName={senderLastName}
+          context={context}
+        />
+      </Fragment>
+    );
+  }
 };
 
 export default injectIntl(withStyles(styles)(FeedbackRow));
