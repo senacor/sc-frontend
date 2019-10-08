@@ -51,13 +51,24 @@ const AllEmployeesGrid = ({
 
   let filteredEmployees = employees.filter(empl => {
     const employeeName = empl.firstName + ' ' + empl.lastName;
-    return (
-      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
-    );
+    if (formerEmployees) {
+      return (
+        checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.position, empl.currentPosition) &&
+        checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
+        checkFilterValues(filterInputs.cst, empl.currentCst) &&
+        checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+        // todo from backend response
+      );
+    } else {
+      return (
+        checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.position, empl.currentPosition) &&
+        checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
+        checkFilterValues(filterInputs.cst, empl.currentCst) &&
+        checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      );
+    }
   });
 
   // All employees

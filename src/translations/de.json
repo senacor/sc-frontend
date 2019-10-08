@@ -15,6 +15,7 @@
   "dashboard.administrationText": "In diesem Modus können Sie Benutzerrolen wechseln und Feedbacks, Logs oder aufgetretene Problems anschauen.",
   "dashboard.prsInProgress": "Laufende PRs insgesamt",
   "dashboard.prsInProgressHrToDo": "Wartende PRs auf HR Endbestätigung",
+  "dashboard.newformeremployees": "Neue ehemalige Mitarbeiter:",
   "login.username": "Nutzername",
   "login.password": "Passwort",
   "login.login": "Anmelden",

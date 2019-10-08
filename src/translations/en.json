@@ -15,6 +15,7 @@
   "dashboard.administrationText": "In this mode you are able to change user roles, view feedbacks, logs or occured errors.",
   "dashboard.prsInProgress": "PRs in progress in total",
   "dashboard.prsInProgressHrToDo": "PRs waiting for HR final confirmation",
+  "dashboard.newformeremployees": "New former employees:",
   "login.username": "Username",
   "login.password": "Password",
   "login.login": "Login",
