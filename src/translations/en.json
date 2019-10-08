@@ -245,6 +245,7 @@
   "filter.searchEmployee": "Search employee",
   "filter.advanced": "Advanced filter",
   "filter.clear": "Clear filter",
+  "filter.month": "Month",
   "allemployeescontainer.upload": "Upload PR",
   "maintenance.feedbacks": "Feedbacks",
   "maintenance.sentby": "Sent by",
