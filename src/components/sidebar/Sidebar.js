@@ -55,15 +55,9 @@ const styles = theme => ({
   textColor: {
     color: theme.palette.primary['900']
   },
-  list: {
-    height: '73vh',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  feedback: {
-    marginTop: 'auto',
-    paddingLeft: '1vh',
-    paddingBottom: 0
+  bottom: {
+    position: 'fixed',
+    bottom: 0
   }
 });
 
@@ -191,7 +185,7 @@ export const Sidebar = ({ intl, classes }) => {
       </div>
       <Divider />
 
-      <List component="nav" className={classes.list}>
+      <List component="nav">
         {getListOfMenuItems().map(entry => {
           const hasPRsToProcess =
             !entry.reviewerCheck ||
@@ -218,14 +212,14 @@ export const Sidebar = ({ intl, classes }) => {
             </Authorized>
           ) : null;
         })}
-        {!userroles.includes(ROLES.ADMIN) && (
-          <ListItem className={classes.feedback}>
-            <FeedbackButton />
-          </ListItem>
-        )}
       </List>
       <Divider />
       <CompositionNumber />
+      {!userroles.includes(ROLES.ADMIN) && (
+        <div className={classes.bottom}>
+          <FeedbackButton />
+        </div>
+      )}
     </div>
   );
 };
