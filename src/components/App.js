@@ -31,7 +31,9 @@ const PerformanceReviewDetail = lazy(() =>
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 const SystemPanel = lazy(() => import('./admin/System'));
-const FeedbackPanel = lazy(() => import('./admin/Feedbacks'));
+const FeedbackPanel = lazy(() =>
+  import('./admin/feedbacks/FeedbacksContainer')
+);
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));

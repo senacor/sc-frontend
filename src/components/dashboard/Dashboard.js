@@ -14,6 +14,7 @@ import { Grid } from '@material-ui/core';
 import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
+import ROUTES from '../../helper/routes';
 
 const styles = theme => ({
   rowContainer: {
@@ -64,7 +65,7 @@ const Dashboard = ({ classes, intl }) => {
           <Card
             className={classes.card}
             component={NavLink}
-            to={'/prs/' + userinfo.idOfNewestOpenPr}
+            to={`${ROUTES.PR_TO_REVIEW_TABLE}/${userinfo.idOfNewestOpenPr}`}
           >
             <CardContent>
               <Typography variant="h5">
@@ -80,7 +81,11 @@ const Dashboard = ({ classes, intl }) => {
         ) : null}
 
         {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
-          <Card className={classes.card} component={NavLink} to={'/prs'}>
+          <Card
+            className={classes.card}
+            component={NavLink}
+            to={ROUTES.PR_TO_REVIEW_TABLE}
+          >
             <CardContent>
               <Typography variant="h5">{numberOfPrsToReview}</Typography>
               <Typography className={classes.title} color="textSecondary">
@@ -98,7 +103,7 @@ const Dashboard = ({ classes, intl }) => {
               id: 'dashboard.reviewer'
             })}
             value={numberOfPrsToReview}
-            linkTo={'/prs'}
+            linkTo={ROUTES.PR_TO_REVIEW_TABLE}
             icon={'library_books'}
           />
         ) : null}
@@ -110,13 +115,17 @@ const Dashboard = ({ classes, intl }) => {
               id: 'dashboard.supervisor'
             })}
             value={numberOfPrsToSupervise}
-            linkTo={'/prs'}
+            linkTo={ROUTES.PR_TO_REVIEW_TABLE}
             icon={'library_books'}
           />
         ) : null}
 
         {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
-          <Card className={classes.card} component={NavLink} to={'/myPrs'}>
+          <Card
+            className={classes.card}
+            component={NavLink}
+            to={ROUTES.OWN_PR_TABLE}
+          >
             <CardContent>
               <Typography variant="h5">{prsNotFilledByEmployee}</Typography>
               <Typography className={classes.title} color="textSecondary">
@@ -154,7 +163,11 @@ const Dashboard = ({ classes, intl }) => {
             </CardContent>
           </Card>
           <Grid container>
-            <Card className={classes.card} component={NavLink} to={'/system'}>
+            <Card
+              className={classes.card}
+              component={NavLink}
+              to={ROUTES.ADMIN_SYSTEM_PANEL}
+            >
               <CardContent>
                 <Typography
                   className={classes.title}
@@ -171,7 +184,7 @@ const Dashboard = ({ classes, intl }) => {
             <Card
               className={classes.card}
               component={NavLink}
-              to={'/dashboard'}
+              to={ROUTES.MAINTENANCE}
             >
               <CardContent>
                 <Typography
