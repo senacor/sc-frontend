@@ -38,6 +38,9 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit
     }
   },
+  panelDetails: {
+    width: '100%'
+  },
   tableRow: {
     height: 80,
     cursor: 'pointer',
@@ -101,7 +104,7 @@ const FeedbackTable = ({ classes, intl }) => {
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <div>
+            <div className={classes.panelDetails}>
               {isLoading ? (
                 <CircularProgress />
               ) : (
