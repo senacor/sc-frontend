@@ -6,7 +6,7 @@ import FormerEmployeeCard from './FormerEmployeeCard';
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import {
-  handleFilterActive,
+  handleFormerFilterActive,
   checkFilterValues
 } from '../../helper/filterFunctions';
 
@@ -34,7 +34,7 @@ const FormerEmployeesGrid = ({
   const cardsToShow = 15;
 
   useEffect(() => {
-    handleFilterActive(filterInputs, setFilterActive);
+    handleFormerFilterActive(filterInputs, setFilterActive);
   });
 
   const showMore = employees => {
@@ -52,8 +52,9 @@ const FormerEmployeesGrid = ({
       checkFilterValues(filterInputs.position, empl.currentPosition) &&
       checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
       checkFilterValues(filterInputs.cst, empl.currentCst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
-      // todo from backend response
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 

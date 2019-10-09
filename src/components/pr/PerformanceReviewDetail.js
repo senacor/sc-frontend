@@ -4,7 +4,7 @@ import PrState from './PrState';
 import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../calls/meetings';
-import { fetchPrById } from '../../calls/pr';
+import { fetchInactivePrById, fetchPrById } from '../../calls/pr';
 import { ErrorContext, MeetingContext, PrContext } from '../App';
 
 const PerformanceReviewDetail = props => {
@@ -20,12 +20,22 @@ const PerformanceReviewDetail = props => {
       setPr(pr);
       fetchMeeting(pr, setMeeting, errorContext);
     };
-    fetchPrById(
-      props.match.params.id,
-      afterPrFetched,
-      setIsLoading,
-      errorContext
-    );
+
+    if (props.match.params.inactive) {
+      fetchInactivePrById(
+        props.match.params.id,
+        afterPrFetched,
+        setIsLoading,
+        errorContext
+      );
+    } else {
+      fetchPrById(
+        props.match.params.id,
+        afterPrFetched,
+        setIsLoading,
+        errorContext
+      );
+    }
   }, []);
 
   if (isLoading || !pr || Object.entries(pr).length === 0) {

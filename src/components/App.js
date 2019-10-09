@@ -168,6 +168,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path="/prDetail/:inactive/:id"
+                      component={PerformanceReviewDetail2WithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.ALL_PRS_TABLE}
                       component={AllEmployeesContainerWithContent}
                     />

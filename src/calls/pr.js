@@ -31,6 +31,36 @@ export const fetchPrById = async (
   }
 };
 
+export const fetchInactivePrById = async (
+  prsId,
+  afterPrFetched,
+  setIsLoading,
+  errorContext
+) => {
+  setIsLoading(true);
+  errorContext.setValue({ hasErrors: false, messageId: '' });
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/inactive/employee/pr/${prsId}`
+  );
+
+  if (response.ok) {
+    const prById = await response.json();
+    if (prById.competence === undefined) {
+      prById.competence = 'CONSULTING';
+    }
+    afterPrFetched(prById);
+    setIsLoading(false);
+    return prById;
+  } else {
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const addReflections = async (
   prsId,
   firstReflectionField,

@@ -9,8 +9,7 @@ import {
   positions,
   competenceCenters,
   cst,
-  locations,
-  months
+  locations
 } from '../../helper/filterData';
 
 // Calls
@@ -173,9 +172,9 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   };
 
   const filterInputs = {
+    searchEmployee: searchEmployeesValue,
     year: [...yearSorting],
     month: [...monthSorting],
-    searchEmployee: searchEmployeesValue,
     position: [...positionSorting],
     cc: [...ccSorting],
     cst: [...cstSorting],
@@ -191,6 +190,14 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     return years;
   };
 
+  const months = () => {
+    let months = [];
+    for (let i = 1; i <= 12; i++) {
+      months.push(i);
+    }
+    return months;
+  };
+
   const sortingData = [
     {
       id: 1,
@@ -202,7 +209,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     {
       id: 2,
       sortBy: intl.formatMessage({ id: 'employeeInfo.month' }),
-      menuData: months,
+      menuData: months(),
       stateValue: monthSorting,
       handleChange: handleSortMonthChange
     },
