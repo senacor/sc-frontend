@@ -31,6 +31,9 @@ const PrsForProcessingContainer = lazy(() =>
 const PerformanceReviewDetail = lazy(() =>
   import('./pr/PerformanceReviewDetail')
 );
+const InactivePerformanceReviewDetail = lazy(() =>
+  import('./pr/InactivePerformanceReviewDetail')
+);
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 const SystemPanel = lazy(() => import('./admin/System'));
@@ -61,6 +64,9 @@ const PrsForProcessingContainerWithContent = withContent(
 const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
+);
+const InactivePerformanceReviewDetail2WithContent = withContent(
+  InactivePerformanceReviewDetail
 );
 const DashboardWithContent = withContent(Dashboard);
 const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
@@ -168,8 +174,8 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path="/prDetail/:inactive/:id"
-                      component={PerformanceReviewDetail2WithContent}
+                      path="/prDetailInactive/:id"
+                      component={InactivePerformanceReviewDetail2WithContent}
                     />
                     <PrivateRoute
                       exact

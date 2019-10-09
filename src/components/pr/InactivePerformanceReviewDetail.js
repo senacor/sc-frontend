@@ -1,27 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PrState from './PrState';
-import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';
-import { fetchMeeting } from '../../calls/meetings';
-import { fetchInactivePrById, fetchPrById } from '../../calls/pr';
-import { ErrorContext, MeetingContext, PrContext } from '../App';
+import { fetchInactivePrById } from '../../calls/pr';
+import { ErrorContext, PrContext } from '../App';
+import PrSheet from './PrSheet';
 
-const PerformanceReviewDetail = props => {
+const InactivePerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const [isLoading, setIsLoading] = useState({});
   const errorContext = useContext(ErrorContext.context);
-  const { value: meeting, setValue: setMeeting } = useContext(
-    MeetingContext.context
-  );
 
   useEffect(() => {
     const afterPrFetched = pr => {
       setPr(pr);
-      fetchMeeting(pr, setMeeting, errorContext);
     };
 
-    fetchPrById(
+    fetchInactivePrById(
       props.match.params.id,
       afterPrFetched,
       setIsLoading,
@@ -35,11 +29,10 @@ const PerformanceReviewDetail = props => {
 
   return (
     <React.Fragment>
-      {pr && <PrDetailInformation pr={pr} meeting={meeting} />}
-      {pr && <PrState prById={pr} />}
-      {pr && <PrTabs pr={pr} meeting={meeting} />}
+      {pr && <PrDetailInformation pr={pr} />}
+      {pr && <PrSheet pr={pr} />}
     </React.Fragment>
   );
 };
 
-export default PerformanceReviewDetail;
+export default InactivePerformanceReviewDetail;

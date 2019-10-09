@@ -125,7 +125,7 @@ const EmployeesPRsDialog = ({
   const linkToPrSheet = (id, archived) => {
     if (!archived) {
       if (formerEmployee) {
-        history.push(`/prDetail/${true}/${id}`);
+        history.push(`/prDetailInactive/${id}`);
       } else {
         history.push(`/prDetail/${id}`);
       }
