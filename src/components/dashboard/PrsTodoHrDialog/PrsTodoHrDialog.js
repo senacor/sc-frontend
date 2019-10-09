@@ -77,7 +77,7 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr }) => {
         <IconButton onClick={dialogClose} className={classes.btnClose}>
           <CloseIcon />
         </IconButton>
-        <DialogTitle>
+        <DialogTitle disableTypography>
           <Typography variant="h5">
             {intl.formatMessage({
               id: 'dashboard.prsInProgressHrToDo'
