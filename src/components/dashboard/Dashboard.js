@@ -108,22 +108,22 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-      {userroles[0] === 'PERSONAL_DEV' && (
-        <div className={classes.rowContainer}>
-          <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
-          <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography className={classes.title} variant="body1">
-                {intl.formatMessage({
-                  id: 'dashboard.newformeremployees'
-                })}
-              </Typography>
-              <Typography color="textSecondary">xxx</Typography>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+        {userroles[0] === 'PERSONAL_DEV' && (
+          <div className={classes.rowContainer}>
+            <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
+            <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography className={classes.title} variant="body1">
+                  {intl.formatMessage({
+                    id: 'dashboard.newformeremployees'
+                  })}
+                </Typography>
+                <Typography color="textSecondary">xxx</Typography>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Notification about administration mode, if userrole is admin */}
         {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
