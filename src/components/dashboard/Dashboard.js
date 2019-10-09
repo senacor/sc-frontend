@@ -14,6 +14,7 @@ import ROUTES from '../../helper/routes';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { getCountOfFormerEmployees } from '../../calls/employees';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -37,6 +38,7 @@ const Dashboard = ({ classes, intl }) => {
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
+  const [formerUsersCount, setFormerUsersCount] = React.useState('');
 
   let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
@@ -48,6 +50,11 @@ const Dashboard = ({ classes, intl }) => {
     },
     [userroles]
   );
+
+  if (userroles[0] === 'PERSONAL_DEV') {
+    getCountOfFormerEmployees(setFormerUsersCount, errorContext);
+  }
+  console.log('for', formerUsersCount)
 
   return userinfo ? (
     <div className={classes.columnContainer}>
@@ -119,7 +126,9 @@ const Dashboard = ({ classes, intl }) => {
                     id: 'dashboard.newformeremployees'
                   })}
                 </Typography>
-                <Typography color="textSecondary">xxx</Typography>
+                <Typography color="textSecondary">
+                  {formerUsersCount}
+                </Typography>
               </CardContent>
             </Card>
           </div>
