@@ -1,20 +1,18 @@
-import React, { Fragment, useContext, useEffect } from 'react';
-import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles';
-import { isEmployee, isSupervisor } from '../../helper/checkRole';
-import { formatDateForFrontend } from '../../helper/date';
+import React, {Fragment, useContext, useEffect} from 'react';
+import {injectIntl} from 'react-intl';
+import {withStyles} from '@material-ui/core/styles';
+import {isEmployee, isSupervisor} from '../../helper/checkRole';
+import {formatDateForFrontend} from '../../helper/date';
 import InfoWidget from './InfoWidget';
-import { ErrorContext, UserinfoContext } from '../App';
-import { getSystemInfo } from '../../calls/admin';
+import {ErrorContext, UserinfoContext} from '../App';
+import {getSystemInfo} from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
 import ROUTES from '../../helper/routes';
-
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { getCountOfFormerEmployees } from '../../calls/employees';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -38,7 +36,7 @@ const Dashboard = ({ classes, intl }) => {
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
-  const [formerUsersCount, setFormerUsersCount] = React.useState('');
+  const formerUsersCount = userinfo ? userinfo.numberOfEmployeeInactiveThisMonth : 0;
 
   let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
@@ -51,10 +49,7 @@ const Dashboard = ({ classes, intl }) => {
     [userroles]
   );
 
-  if (userroles[0] === 'PERSONAL_DEV') {
-    getCountOfFormerEmployees(setFormerUsersCount, errorContext);
-  }
-  console.log('for', formerUsersCount)
+
 
   return userinfo ? (
     <div className={classes.columnContainer}>
