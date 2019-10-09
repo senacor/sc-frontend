@@ -4,29 +4,22 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import List from '@material-ui/core/List/List';
-import ListItem from '@material-ui/core/ListItem/ListItem';
+import Paper from '@material-ui/core/Paper/Paper';
 
 import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import Grid from '@material-ui/core/Grid';
-import BackToTableButton from './BackToTableButton';
-import ShowReviewer from './ShowReviewer';
 import { prStatusEnum } from '../../helper/prStatus';
-import PrHistory from './PrHistory';
-import { UserinfoContext } from '../App';
+import { ErrorContext, PrContext, UserinfoContext } from '../App';
+import EmployeeFilter from '../admin/EmployeeFilter';
+import { isSupervisor } from '../../helper/checkRole';
 
 const styles = theme => ({
-  root: {
+  spacing: {
     margin: 3 * theme.spacing.unit
   },
-  avatarContainer: {
-    flex: '0 0 auto',
-    margin: 'auto 0',
-    marginRight: theme.spacing.unit
+  root: {
+    padding: 3 * theme.spacing.unit
   },
   avatar: {
     backgroundColor: theme.palette.primary[500]
@@ -34,27 +27,25 @@ const styles = theme => ({
   heading: {
     flex: '1 1 auto'
   },
-  list: {
-    margin: 0,
-    padding: 0
-  },
-  backBtnContainer: {
+  centered: {
     display: 'flex',
-    alignItems: 'center'
-  },
-  backBtn: {
-    backgroundColor: theme.palette.primary[400],
-    color: theme.palette.secondary.white,
-    width: 150,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
+    justifyContent: 'center'
   }
 });
 
-const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
-  const { userinfo } = useContext(UserinfoContext.context).value;
-  const { username } = userinfo;
-  if (!pr) {
+const PrDetailInformation = ({
+  classes,
+  pr,
+  meeting,
+  allEmployeesData,
+  intl
+}) => {
+  const errorContext = useContext(ErrorContext.context);
+  const { userroles } = useContext(UserinfoContext.context).value;
+  const { setValue: setPr } = useContext(PrContext.context);
+  const employee = allEmployeesData.find(entry => entry.id === pr.employee.id);
+
+  if (!pr || !employee) {
     return null;
   }
 
@@ -101,15 +92,17 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
     }
   }
 
-  const competence = intl.formatMessage({
-    id: `COMPETENCE_${pr.competence}`
-  });
-
-  const subheader = `${intl.formatMessage({
+  const subheader1 = `${intl.formatMessage({
     id: 'prdetailinformation.duedate'
   })} ${formatDateForFrontend(pr.deadline)}, ${intl.formatMessage({
+    id: 'prdetailinformation.costcenter'
+  })} ${employee.currentCst}, ${intl.formatMessage({
+    id: 'prdetailinformation.position'
+  })} ${employee.currentPosition}, ${intl.formatMessage({
+    id: 'prdetailinformation.salarylevel'
+  })} ${pr.employee.salaryLevel}, ${intl.formatMessage({
     id: 'prdetailinformation.cc'
-  })} ${competence}, ${intl.formatMessage({
+  })} ${employee.competenceCenter}, ${intl.formatMessage({
     id: 'prdetailinformation.occasion'
   })} ${intl.formatMessage({
     id: `${pr.occasion}`
@@ -117,56 +110,56 @@ const PrDetailInformation = ({ classes, pr, meeting, intl }) => {
     id: 'prdetailinformation.termin'
   })} ${termin}`;
 
-  const supervisorHeader = `${intl.formatMessage({
+  const reviewer = `, ${intl.formatMessage({
+    id: 'prdetailinformation.reviewer'
+  })} ${getDisplayName(pr.reviewer)}`;
+
+  const subheader2 = `${intl.formatMessage({
     id: 'prdetailinformation.supervisor'
-  })} ${getDisplayName(pr.supervisor)}`;
+  })} ${getDisplayName(pr.supervisor)}${
+    pr.supervisor.id !== pr.reviewer.id ? reviewer : ''
+  }`;
 
   return (
-    <div className={classes.root}>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Grid container alignItems="center" justify="center">
-            <Grid item md={1} xs={3}>
-              <div className={classes.avatarContainer}>
-                <Avatar className={classes.avatar}>
-                  {`${firstName.charAt(0)}${lastName.charAt(0)}`}
-                </Avatar>
-              </div>
-            </Grid>
-            <Grid item md={9} xs={9}>
-              <div className={classes.heading}>
-                <Typography variant={'body2'}>
-                  {getDisplayName(pr.employee)}
-                </Typography>
-                <Typography variant={'body2'} color={'textSecondary'}>
-                  {subheader}
-                </Typography>
-                <List className={classes.list}>
-                  <ListItem className={classes.list}>
-                    <Typography variant={'body2'} color={'textSecondary'}>
-                      {supervisorHeader}
-                    </Typography>
-                    <ShowReviewer
-                      pr={pr}
-                      prefix={`, ${intl.formatMessage({
-                        id: 'prdetailinformation.reviewer'
-                      })} `}
-                      username={username}
-                    />
-                  </ListItem>
-                </List>
-              </div>
-            </Grid>
-            <Grid item md={2} xs={12} style={{ flexBasis: '0' }}>
-              <div className={classes.backBtnContainer}>
-                <BackToTableButton pr={pr} classes={classes.backBtn} />
-              </div>
-            </Grid>
+    <Paper className={classes.spacing}>
+      <div className={classes.root}>
+        <Grid container alignItems="center" justify="center">
+          <Grid item md={1} xs={3} className={classes.centered}>
+            <Avatar className={classes.avatar}>
+              {`${firstName.charAt(0)}${lastName.charAt(0)}`}
+            </Avatar>
           </Grid>
-        </ExpansionPanelSummary>
-        <PrHistory employeeId={pr.employee.id} />
-      </ExpansionPanel>
-    </div>
+          <Grid item md={9} xs={9} className={classes.centered}>
+            <div className={classes.heading}>
+              <Typography variant={'body2'}>
+                {getDisplayName(pr.employee)}
+              </Typography>
+              <Typography variant={'body2'} color={'textSecondary'}>
+                {subheader1}
+              </Typography>
+              <Typography variant={'body2'} color={'textSecondary'}>
+                {subheader2}
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item md={2} xs={12} className={classes.centered}>
+            {isSupervisor(userroles) ? (
+              <EmployeeFilter
+                data={allEmployeesData}
+                errorContext={errorContext}
+                delegation={true}
+                isDisabled={
+                  pr.supervisor.id !== pr.reviewer.id ||
+                  pr.statusSet.includes(prStatusEnum.RELEASED_SHEET_REVIEWER)
+                }
+                pr={pr}
+                updatePr={setPr}
+              />
+            ) : null}
+          </Grid>
+        </Grid>
+      </div>
+    </Paper>
   );
 };
 
