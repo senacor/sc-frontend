@@ -143,7 +143,7 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
         </Table>
       )}
       <Grid container className={classes.center}>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <EmployeeFilter
             data={allEmployeesData}
             maintenanceData={data}
@@ -152,7 +152,7 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
             errorContext={errorContext}
           />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <TablePagination
             component="div"
             count={data.length}

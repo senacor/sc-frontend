@@ -11,7 +11,8 @@ const styles = theme => ({
   card: {
     margin: 3 * theme.spacing.unit,
     marginBottom: 0,
-    textDecoration: 'none'
+    textDecoration: 'none',
+    height: 100
   },
   cardContent: {
     display: 'flex',
@@ -24,6 +25,7 @@ const styles = theme => ({
     fontSize: 30
   },
   textContainer: {
+    width: 250,
     padding: 2 * theme.spacing.unit,
     paddingLeft: theme.spacing.unit
   }
