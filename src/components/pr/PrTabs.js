@@ -47,7 +47,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const PrTabs = ({ classes, intl, pr }) => {
+const PrTabs = ({ classes, intl, pr, formerEmployee }) => {
   const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
 
   const handleChange = (event, value) => {
@@ -76,16 +76,18 @@ const PrTabs = ({ classes, intl, pr }) => {
             })}
             id={'TabDetails'}
           />
-          <Tab
-            value={'SCHEDULE_VIEW'}
-            classes={{
-              root: classes.tabStyle
-            }}
-            label={intl.formatMessage({
-              id: 'prtabs.findtermin'
-            })}
-            id={'TabTerminfindung'}
-          />
+          {!formerEmployee && (
+            <Tab
+              value={'SCHEDULE_VIEW'}
+              classes={{
+                root: classes.tabStyle
+              }}
+              label={intl.formatMessage({
+                id: 'prtabs.findtermin'
+              })}
+              id={'TabTerminfindung'}
+            />
+          )}
         </Tabs>
       </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
