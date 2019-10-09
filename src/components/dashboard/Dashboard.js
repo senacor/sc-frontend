@@ -1,21 +1,22 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
-import { NavLink } from 'react-router-dom';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from './InfoWidget';
 import { ErrorContext, UserinfoContext } from '../App';
-import { Grid } from '@material-ui/core';
 import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
 import ROUTES from '../../helper/routes';
 
+// Material UI
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
 const styles = theme => ({
+  ...theme.styledComponents,
   rowContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -25,17 +26,8 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  card: {
-    flexGrow: 1,
-    margin: 3 * theme.spacing.unit,
-    marginBottom: 0,
-    textDecoration: 'none'
-  },
-  title: {
-    marginBottom: 2 * theme.spacing.unit
-  },
-  paragraph: {
-    marginBottom: 2 * theme.spacing.unit
+  noMarginBottom: {
+    marginBottom: 0
   }
 });
 
@@ -60,43 +52,29 @@ const Dashboard = ({ classes, intl }) => {
   return userinfo ? (
     <div className={classes.columnContainer}>
       <div className={classes.rowContainer}>
-        {userinfo.idOfNewestOpenPr && isEmployee(userroles) ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={`${ROUTES.PR_TO_REVIEW_TABLE}/${userinfo.idOfNewestOpenPr}`}
-          >
-            <CardContent>
-              <Typography variant="h5">
-                {formatDateForFrontend(userinfo.deadlineOfNewestPr)}
-              </Typography>
-              <Typography className={classes.title} color="textSecondary">
-                {intl.formatMessage({
-                  id: 'dashboard.opened'
-                })}
-              </Typography>
-            </CardContent>
-          </Card>
-        ) : null}
+        {userinfo.idOfNewestOpenPr && isEmployee(userroles) && (
+          <InfoWidget
+            value={formatDateForFrontend(userinfo.deadlineOfNewestPr)}
+            linkTo={`${ROUTES.PR_TO_REVIEW_TABLE}/${userinfo.idOfNewestOpenPr}`}
+            label={intl.formatMessage({
+              id: 'dashboard.opened'
+            })}
+            icon={'perm_identity'}
+          />
+        )}
 
-        {numberOfPrsToReview > 1 && isEmployee(userroles) ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={ROUTES.PR_TO_REVIEW_TABLE}
-          >
-            <CardContent>
-              <Typography variant="h5">{numberOfPrsToReview}</Typography>
-              <Typography className={classes.title} color="textSecondary">
-                {intl.formatMessage({
-                  id: 'dashboard.evaluator'
-                })}
-              </Typography>
-            </CardContent>
-          </Card>
-        ) : null}
+        {numberOfPrsToReview > 1 && isEmployee(userroles) && (
+          <InfoWidget
+            label={intl.formatMessage({
+              id: 'dashboard.evaluator'
+            })}
+            value={numberOfPrsToReview}
+            linkTo={ROUTES.PR_TO_REVIEW_TABLE}
+            icon={'supervisor_account'}
+          />
+        )}
 
-        {numberOfPrsToReview > 0 ? (
+        {numberOfPrsToReview > 0 && (
           <InfoWidget
             label={intl.formatMessage({
               id: 'dashboard.reviewer'
@@ -105,7 +83,7 @@ const Dashboard = ({ classes, intl }) => {
             linkTo={ROUTES.PR_TO_REVIEW_TABLE}
             icon={'library_books'}
           />
-        ) : null}
+        )}
 
         {(numberOfPrsToSupervise > 0 && isSupervisor(userroles)) ||
         numberOfPrsToReview > 0 ? (
@@ -119,23 +97,16 @@ const Dashboard = ({ classes, intl }) => {
           />
         ) : null}
 
-        {isEmployee(userroles) && prsNotFilledByEmployee > 0 ? (
-          <Card
-            className={classes.card}
-            component={NavLink}
-            to={ROUTES.OWN_PR_TABLE}
-          >
-            <CardContent>
-              <Typography variant="h5">{prsNotFilledByEmployee}</Typography>
-              <Typography className={classes.title} color="textSecondary">
-                {intl.formatMessage({
-                  id: 'dashboard.unprocessed'
-                })}
-              </Typography>
-            </CardContent>
-          </Card>
-        ) : null}
-      </div>
+        {isEmployee(userroles) && prsNotFilledByEmployee > 0 && (
+          <InfoWidget
+            label={intl.formatMessage({
+              id: 'dashboard.unprocessed'
+            })}
+            value={prsNotFilledByEmployee}
+            linkTo={ROUTES.OWN_PR_TABLE}
+            icon={'collections_bookmark'}
+          />
+        )}
 
       {userroles[0] === 'PERSONAL_DEV' && (
         <div className={classes.rowContainer}>
@@ -154,74 +125,58 @@ const Dashboard = ({ classes, intl }) => {
         </div>
       )}
 
-      {/* Notification about administration mode, if userrole is admin */}
-      {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
-        <Fragment>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography className={classes.title} variant="h5">
-                {intl.formatMessage({
-                  id: 'dashboard.administrationTitle'
-                })}
-              </Typography>
-              <Typography color="textSecondary">
-                {intl.formatMessage({
-                  id: 'dashboard.administrationText'
-                })}
-              </Typography>
-            </CardContent>
-          </Card>
-          <Grid container>
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={ROUTES.ADMIN_SYSTEM_PANEL}
-            >
+        {/* Notification about administration mode, if userrole is admin */}
+        {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
+          <Fragment>
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'admin.errors'
+              })}
+              value={systemInfo.errorCount}
+              linkTo={ROUTES.ADMIN_SYSTEM_PANEL}
+              icon={'error_outline'}
+            />
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'admin.feedback'
+              })}
+              value={systemInfo.feedbackCount}
+              linkTo={ROUTES.MAINTENANCE}
+              icon={'feedback'}
+            />
+            <Card className={`${classes.card} ${classes.noMarginBottom}`}>
               <CardContent>
+                <Typography className={classes.cardTitle} variant="h5">
+                  {intl.formatMessage({
+                    id: 'dashboard.administrationTitle'
+                  })}
+                </Typography>
                 <Typography
-                  className={classes.title}
-                  variant="h6"
+                  className={classes.cardParagraph}
+                  variant="body1"
                   color="textSecondary"
                 >
                   {intl.formatMessage({
-                    id: 'admin.errors'
+                    id: 'dashboard.administrationText'
                   })}
                 </Typography>
-                <Typography variant="h5">{systemInfo.errorCount}</Typography>
               </CardContent>
             </Card>
-            <Card
-              className={classes.card}
-              component={NavLink}
-              to={ROUTES.MAINTENANCE}
-            >
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  variant="h6"
-                  color="textSecondary"
-                >
-                  {intl.formatMessage({
-                    id: 'admin.feedback'
-                  })}
-                </Typography>
-                <Typography variant="h5">{systemInfo.feedbackCount}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Fragment>
-      )}
-
-      {/* Welcome page section */}
-      <div className={classes.rowContainer}>
+          </Fragment>
+        )}
+        {/* Welcome page section */}
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="h5" className={classes.title}>
+            <Typography variant="h5" className={classes.cardTitle}>
               {intl.formatMessage({
                 id: 'dashboard.welcome'
               })}
             </Typography>
-            <Typography className={classes.paragraph} color="textSecondary">
+            <Typography
+              className={classes.cardParagraph}
+              variant="body1"
+              color="textSecondary"
+            >
               {`${intl.formatMessage({
                 id: 'dashboard.description'
               })} `}
@@ -231,12 +186,16 @@ const Dashboard = ({ classes, intl }) => {
               })} `}
             </Typography>
             <br />
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h5" className={classes.cardTitle}>
               {intl.formatMessage({
                 id: 'dashboard.contactSupport'
               })}
             </Typography>
-            <Typography className={classes.paragraph} color="textSecondary">
+            <Typography
+              className={classes.cardParagraph}
+              variant="body1"
+              color="textSecondary"
+            >
               {`${intl.formatMessage({
                 id: 'dashboard.contactText'
               })} `}
