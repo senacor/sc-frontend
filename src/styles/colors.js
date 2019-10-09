@@ -43,6 +43,20 @@ const theme = createMuiTheme({
     secondary: secondaryColorPalette,
     contrastThreshold: 3,
     contrastText: secondaryColorPalette.white
+  },
+  styledComponents: {
+    card: {
+      flexGrow: 1,
+      margin: 24,
+      textDecoration: 'none',
+      width: '100%'
+    },
+    cardTitle: {
+      marginBottom: 16
+    },
+    cardParagraph: {
+      lineHeight: 2
+    }
   }
 });
 
