@@ -38,12 +38,12 @@ const PrDetailInformation = ({
   pr,
   meeting,
   allEmployeesData,
+  employee,
   intl
 }) => {
   const errorContext = useContext(ErrorContext.context);
   const { userroles } = useContext(UserinfoContext.context).value;
   const { setValue: setPr } = useContext(PrContext.context);
-  const employee = allEmployeesData.find(entry => entry.id === pr.employee.id);
 
   if (!pr || !employee) {
     return null;

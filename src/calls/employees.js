@@ -68,3 +68,29 @@ export const addAttributeToPrs = arr => {
     return (item.archived = false);
   });
 };
+
+export const getEmployeeById = async (
+  employeeId,
+  setEmployee,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/employee/${employeeId}`
+    );
+    if (response.ok) {
+      const employee = await response.json();
+      setEmployee(employee);
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
