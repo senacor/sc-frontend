@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { CircularProgress, Grid, withStyles } from '@material-ui/core';
+import { Button, CircularProgress, Grid, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,7 +12,11 @@ import ErrorIcon from '@material-ui/icons/Error';
 import SuccessIcon from '@material-ui/icons/CheckCircle';
 import WarningIcon from '@material-ui/icons/Warning';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteError, getHealthcheckData } from '../../calls/admin';
+import {
+  deleteAllErrors,
+  deleteError,
+  getHealthcheckData
+} from '../../calls/admin';
 import { getReadableDate } from '../../helper/date';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -88,6 +92,15 @@ export const System = ({ classes, intl }) => {
     let newData = { ...data };
     newData.errors = data.errors.filter(e => e.id !== id);
     setData(newData);
+  };
+
+  const handleOnDeleteAllClick = () => {
+    deleteAllErrors(errorContext);
+    setData({
+      fis: data.fis,
+      outlook: data.outlook,
+      errors: []
+    });
   };
 
   const renderStatusByType = connection => {
@@ -169,11 +182,18 @@ export const System = ({ classes, intl }) => {
           </Grid>
 
           <Paper className={classes.spacing}>
-            <Typography className={classes.padding} variant="h5">
-              {intl.formatMessage({
-                id: 'system.errors'
-              })}
-            </Typography>
+            <Grid container>
+              <Grid item xs={6}>
+                <Typography className={classes.padding} variant="h5">
+                  {intl.formatMessage({
+                    id: 'system.errors'
+                  })}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Button onClick={handleOnDeleteAllClick}>DELETE ALL</Button>
+              </Grid>
+            </Grid>
             <Table>
               <TableHead>
                 <TableRow>
