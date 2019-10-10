@@ -54,7 +54,6 @@ const Dashboard = ({ classes, intl }) => {
   if (userroles[0] === 'PERSONAL_DEV') {
     getCountOfFormerEmployees(setFormerUsersCount, errorContext);
   }
-  console.log('for', formerUsersCount)
 
   return userinfo ? (
     <div className={classes.columnContainer}>
