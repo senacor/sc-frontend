@@ -26,9 +26,9 @@ export const filterEmployees = (employees, filterInputs) => {
     const employeeName = empl.firstName + ' ' + empl.lastName;
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
+      checkFilterValues(filterInputs.position, empl.position) &&
+      checkFilterValues(filterInputs.cc, empl.competence) &&
+      checkFilterValues(filterInputs.cst, empl.cst) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
       checkFilterValues(filterInputs.year, empl.endDate[0]) &&
       checkFilterValues(filterInputs.month, empl.endDate[1])
