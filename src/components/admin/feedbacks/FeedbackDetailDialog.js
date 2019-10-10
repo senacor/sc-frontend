@@ -14,7 +14,8 @@ import Divider from '@material-ui/core/Divider';
 const styles = theme => ({
   content: {
     padding: 3 * theme.spacing.unit,
-    textAlign: 'justify'
+    textAlign: 'justify',
+    overflowWrap: 'break-word'
   },
   margin: {
     margin: theme.spacing.unit
@@ -22,7 +23,8 @@ const styles = theme => ({
   paddingBottom: {
     paddingBottom: 2 * theme.spacing.unit
   },
-  grey: {
+  subtitle: {
+    overflowWrap: 'break-word',
     color: theme.palette.secondary.grey
   }
 });
@@ -43,19 +45,19 @@ const FeedbackDetailDialog = ({
       open={dialogDetailsOpen !== undefined ? dialogDetailsOpen : false}
       onClose={handleDialogDetailsClose}
       fullWidth
-      maxWidth={'sm'}
+      maxWidth={'md'}
     >
       <DialogTitle disableTypography>
         <Typography
           variant="h5"
           className={classes.paddingBottom}
         >{`${senderFirstName} ${senderLastName}`}</Typography>
-        <Typography variant="subtitle2" className={classes.grey}>
+        <Typography variant="subtitle2" className={classes.subtitle}>
           {`${intl.formatMessage({
             id: 'feedbackcreatedialog.subject'
           })}: ${subject}`}
         </Typography>
-        <Typography variant="subtitle2" className={classes.grey}>
+        <Typography variant="subtitle2" className={classes.subtitle}>
           {`${intl.formatMessage({
             id: 'feedbackcreatedialog.type'
           })}: ${context}`}

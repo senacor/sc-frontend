@@ -40,7 +40,8 @@ const styles = theme => ({
   },
   panelDetails: {
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
+    overflow: 'auto'
   },
   tableRow: {
     height: 80,
