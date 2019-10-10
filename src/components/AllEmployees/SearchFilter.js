@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core';
 // Material UI
 import TextField from '@material-ui/core/TextField';
 
-const styles = () => ({
+const styles = theme => ({
   searchField: {
     width: '10rem',
-    margin: 8
+    margin: theme.spacing.unit
   }
 });
 

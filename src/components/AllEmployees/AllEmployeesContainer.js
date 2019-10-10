@@ -65,11 +65,11 @@ const styles = theme => ({
     }
   },
   advFilterButton: {
-    margin: 8
+    margin: theme.spacing.unit
   },
   btnUpload: {
     border: `1px solid ${theme.palette.secondary.grey}`,
-    margin: 8
+    margin: theme.spacing.unit
   },
   selectEmployee: {
     width: '100%',
