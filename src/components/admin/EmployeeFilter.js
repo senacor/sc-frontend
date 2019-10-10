@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import FilterList from '@material-ui/icons/FilterList';
 import AddIcon from '@material-ui/icons/Add';
+import PersonAddIcon from '@material-ui/icons/People';
 import Button from '@material-ui/core/Button';
 import {
   Avatar,
@@ -16,6 +17,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import { addMaintenanceTeamMember } from '../../calls/admin';
+import { delegateReviewer } from '../../calls/pr';
 
 const styles = theme => ({
   box: {
@@ -41,6 +43,10 @@ export const EmployeeFilter = ({
   setMaintenanceData,
   maintenanceData,
   errorContext,
+  delegation,
+  isDisabled,
+  pr,
+  updatePr,
   intl,
   classes
 }) => {
@@ -59,7 +65,7 @@ export const EmployeeFilter = ({
 
   const handleDelete = () => {
     setValue('');
-    if (!maintenance) {
+    if (!maintenance && !delegation) {
       setSelectedEmployee(null);
     }
   };
@@ -76,6 +82,15 @@ export const EmployeeFilter = ({
         setMaintenanceData,
         errorContext
       );
+    } else if (delegation) {
+      if (pr.employee.id !== employee.id) {
+        delegateReviewer(pr.id, employee.id, updatePr, errorContext);
+      } else {
+        errorContext.setValue({
+          hasErrors: true,
+          messageId: 'prdetailinformation.delegationerror'
+        });
+      }
     } else {
       setSelectedEmployee(employee);
     }
@@ -95,6 +110,19 @@ export const EmployeeFilter = ({
           <AddIcon className={classes.leftIcon} />
           {intl.formatMessage({
             id: 'maintenance.add'
+          })}
+        </Button>
+      ) : delegation ? (
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.spacing}
+          onClick={handleOpen}
+          disabled={isDisabled}
+        >
+          <PersonAddIcon className={classes.leftIcon} />
+          {intl.formatMessage({
+            id: 'prdetailinformation.delegate'
           })}
         </Button>
       ) : (
