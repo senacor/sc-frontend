@@ -14,6 +14,10 @@ import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
+import ROUTES from '../../helper/routes';
 
 const styles = theme => ({
   paddingBottom: {
@@ -28,6 +32,9 @@ const styles = theme => ({
   legend: {
     textAlign: 'blockscope',
     fontSize: '9pt'
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit
   }
 });
 
@@ -36,6 +43,7 @@ const PrSheet = props => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
+  const { username } = userinfo;
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value;
@@ -195,6 +203,26 @@ const PrSheet = props => {
         );
       default:
         return true;
+    }
+  };
+
+  const resetMessages = () => {
+    infoContext.setValue({ hasInfos: false, messageId: '' });
+    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+  };
+
+  const getBackJumpPoint = (pr, userroles, username) => {
+    if (pr.employee.login === username) {
+      return ROUTES.OWN_PR_TABLE;
+    } else if (
+      pr.supervisor.login === username ||
+      pr.reviewer.login === username
+    ) {
+      return ROUTES.PR_TO_REVIEW_TABLE;
+    } else if (isPersonalDev(userroles)) {
+      return ROUTES.ALL_PRS_TABLE;
+    } else {
+      return ROUTES.LOGOUT;
     }
   };
 
@@ -556,7 +584,22 @@ const PrSheet = props => {
             {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
-        <Grid item xs={12}>
+        <Grid item xs={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.spacing}
+            onClick={resetMessages}
+            component={NavLink}
+            to={getBackJumpPoint(pr, userroles, username)}
+          >
+            <ArrowBackIcon className={classes.leftIcon} />
+            {intl.formatMessage({
+              id: 'backtotablebutton.back'
+            })}
+          </Button>
+        </Grid>
+        <Grid item xs={10}>
           <ButtonsBelowSheet
             pr={pr}
             errorContext={errorContext}
