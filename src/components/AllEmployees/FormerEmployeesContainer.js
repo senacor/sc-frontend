@@ -270,7 +270,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
         )}
       </Paper>
       {tableView ? (
-        // TODO: change to FormerEmployeeTable
         <FormerEmployeesTable
           filterInputs={filterInputs}
           selected={{}}
