@@ -146,6 +146,15 @@ export const Sidebar = ({ intl, classes }) => {
         roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
         onClick: resetMessages
       },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.formerEmployees'
+        }),
+        icon: <LibraryBooksIcon />,
+        value: '/formerEmployees',
+        roles: [ROLES.PERSONAL_DEV],
+        onClick: resetMessages
+      },
       // LOGOUT
       {
         label: intl.formatMessage({

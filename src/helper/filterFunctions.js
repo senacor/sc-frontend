@@ -42,10 +42,37 @@ export const handleFilterActive = (filterInputs, setFilterActive) => {
   }
 };
 
+export const handleFormerFilterActive = (filterInputs, setFilterActive) => {
+  const emptyInputs = {
+    searchEmployee: '',
+    year: [],
+    month: [],
+    position: [],
+    cc: [],
+    cst: [],
+    officeLocation: []
+  };
+  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
+    setFilterActive(false);
+  } else {
+    setFilterActive(true);
+  }
+};
+
 export const checkFilterValues = (filterData, userData) => {
   if (filterData.length > 0 && Array.isArray(filterData)) {
-    const filterDataLowerCase = filterData.map(item => item.toLowerCase());
-    return filterDataLowerCase.includes(userData.toLowerCase());
+    const filterDataLowerCase = filterData.map(item => {
+      if (typeof item === 'string') {
+        return item.toLowerCase();
+      } else {
+        return item;
+      }
+    });
+    if (typeof userData === 'string') {
+      return filterDataLowerCase.includes(userData.toLowerCase());
+    } else {
+      return filterDataLowerCase.includes(userData);
+    }
   } else if (filterData !== '' && typeof filterData === 'string') {
     return userData
       .toLowerCase()

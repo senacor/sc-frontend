@@ -2,8 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -45,44 +43,23 @@ const styles = theme => ({
   },
   textInfo: {
     color: theme.palette.primary[400]
-  },
-  selectionUnavailable: {
-    backgroundColor: theme.palette.secondary.grey
-  },
-  selected: {
-    backgroundColor: theme.palette.primary[100]
-  },
-  selectable: {
-    backgroundColor: theme.palette.primary[50]
-  },
-  iconGrey: {
-    color: theme.palette.secondary.mediumGrey
-  },
-  iconGreen: {
-    color: theme.palette.secondary.green
   }
 });
 
-const EmployeeCard = ({
+const FormerEmployeeCard = ({
   intl,
   classes,
   employee: {
     id,
     firstName,
     lastName,
-    competenceCenter,
-    currentPosition,
-    currentCst,
+    competence,
+    position,
+    cst,
+    supervisor,
     officeLocation,
-    dateOfNextPr,
-    userPhoto,
-    supervisorName,
-    hasOpenedPr
-  },
-  selection,
-  selected,
-  toggleSelected,
-  formerEmployees
+    endDate
+  }
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -105,36 +82,15 @@ const EmployeeCard = ({
     </Fragment>
   );
 
-  const employeePhoto =
-    userPhoto.length === 0 ? (
-      <Avatar className={classes.avatar}>{`${firstName.charAt(
-        0
-      )}${lastName.charAt(0)}`}</Avatar>
-    ) : (
-      <Avatar />
-    );
+  const employeePhoto = (
+    <Avatar className={classes.avatar}>{`${firstName.charAt(
+      0
+    )}${lastName.charAt(0)}`}</Avatar>
+  );
 
   let bgClass = '';
   let avatar = employeePhoto;
   let onCardClick = handleDialogOpen;
-
-  if (selection) {
-    if (hasOpenedPr || !supervisorName) {
-      bgClass = classes.selectionUnavailable;
-      avatar = (
-        <HighlightOffIcon className={`${classes.avatar} ${classes.iconGrey}`} />
-      );
-      onCardClick = () => {};
-    } else {
-      onCardClick = () => toggleSelected(id);
-      bgClass = selected ? classes.selected : classes.selectable;
-      avatar = selected ? (
-        <CheckCircleIcon className={`${classes.avatar} ${classes.iconGreen}`} />
-      ) : (
-        employeePhoto
-      );
-    }
-  }
 
   return (
     <Fragment>
@@ -151,26 +107,26 @@ const EmployeeCard = ({
               {intl.formatMessage({
                 id: 'employeeInfo.position'
               })}
-              <div className={classes.textInfo}>{currentPosition}</div>
+              <div className={classes.textInfo}>{position}</div>
             </Typography>
           </Fragment>
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
               id: 'employeeInfo.cst'
             })}: `}
-            <span className={classes.textInfo}>{currentCst}</span>
+            <span className={classes.textInfo}>{cst}</span>
           </Typography>
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
               id: 'employeeInfo.supervisor'
             })}: `}
-            <span className={classes.textInfo}>{supervisorName}</span>
+            <span className={classes.textInfo}>{supervisor}</span>
           </Typography>
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
               id: 'employeeInfo.cc'
             })}: `}
-            <span className={classes.textInfo}>{competenceCenter}</span>
+            <span className={classes.textInfo}>{competence}</span>
           </Typography>
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
@@ -180,22 +136,12 @@ const EmployeeCard = ({
           </Typography>
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
-              id: 'employeeInfo.startDate'
+              id: 'employeeInfo.exitDate'
             })}: `}
             <span className={classes.textInfo}>
-              {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+              {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
             </span>
           </Typography>
-          {formerEmployees && (
-            <Typography className={classes.text} component="span">
-              {`${intl.formatMessage({
-                id: 'employeeInfo.exitDate'
-              })}: `}
-              <span className={classes.textInfo}>
-                {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
-              </span>
-            </Typography>
-          )}
         </CardContent>
       </Card>
       {dialogOpen && (
@@ -205,10 +151,11 @@ const EmployeeCard = ({
           employeeId={id}
           dialogOpen={dialogOpen}
           dialogClose={handleDialogClose}
+          formerEmployee={true}
         />
       )}
     </Fragment>
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeeCard));
+export default injectIntl(withStyles(styles)(FormerEmployeeCard));

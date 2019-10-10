@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesTableHead = ({ intl, classes }) => {
+const FormerEmployeesTableHead = ({ intl, classes }) => {
   return (
     <TableHead>
       <TableRow className={classes.tableHead}>
@@ -54,7 +54,7 @@ const AllEmployeesTableHead = ({ intl, classes }) => {
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.startDate'
+            id: 'employeeInfo.exitDate'
           })}
         </TableCell>
       </TableRow>
@@ -62,4 +62,4 @@ const AllEmployeesTableHead = ({ intl, classes }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesTableHead));
+export default injectIntl(withStyles(styles)(FormerEmployeesTableHead));

@@ -31,12 +31,14 @@ const PerformanceReviewDetail = props => {
       fetchMeeting(pr, setMeeting, errorContext);
       getEmployeeById(pr.employee.id, setEmployee, setIsLoading, errorContext);
     };
+
     fetchPrById(
       props.match.params.id,
       afterPrFetched,
       setIsLoading,
       errorContext
     );
+
     if (isSupervisor(userroles)) {
       getAllEmployees(setAllEmployeesData, setIsLoading, errorContext);
     }
