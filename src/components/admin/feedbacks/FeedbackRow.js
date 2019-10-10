@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FeedbackDetailDialog from './FeedbackDetailDialog';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   spacing: {
     margin: 3 * theme.spacing.unit
   },
@@ -27,6 +28,10 @@ const styles = theme => ({
       transition: 'all 0.3s',
       backgroundColor: theme.palette.secondary.brighterGrey
     }
+  },
+  cell: {
+    overflowWrap: 'break-word',
+    maxWidth: 80
   }
 });
 
@@ -68,7 +73,10 @@ const FeedbackRow = ({
             placement="bottom"
             disableHoverListener={subject.length < 20}
           >
-            <TableCell onClick={handleDialogDetailsOpen}>
+            <TableCell
+              onClick={handleDialogDetailsOpen}
+              className={classes.cell}
+            >
               {subject.length >= 40 ? `${subject.slice(0, 40)}...` : subject}
             </TableCell>
           </Tooltip>

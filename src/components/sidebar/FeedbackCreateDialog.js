@@ -27,8 +27,9 @@ const styles = theme => ({
   fullWidth: {
     width: '100%'
   },
-  spacing: {
-    padding: 3 * theme.spacing.unit
+  dialogContent: {
+    padding: 3 * theme.spacing.unit,
+    paddingBottom: 0
   },
   margin: {
     marginTop: theme.spacing.unit,
@@ -38,7 +39,8 @@ const styles = theme => ({
     minWidth: 150
   },
   maxLength: {
-    height: 25
+    height: 25,
+    marginLeft: theme.spacing.unit * 4
   },
   maxLengthFont: {
     color: theme.palette.secondary.darkRed
@@ -84,7 +86,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
 
   return (
     <Fragment>
-      <Dialog open={open}>
+      <Dialog open={open} fullWidth maxWidth={'md'}>
         <DialogTitle>
           <div>
             <Typography variant="h6">
@@ -95,26 +97,35 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
           </div>
         </DialogTitle>
         <Divider />
-        <DialogContent className={classes.spacing}>
-          <FormControl className={`${classes.formControl} ${classes.input}`}>
-            <InputLabel htmlFor="select-type">
-              {intl.formatMessage({
-                id: 'feedbackcreatedialog.type'
-              })}
-            </InputLabel>
-            <Select
-              input={<Input id="select-type" />}
-              className={`${classes.margin}`}
-              value={type}
-              onChange={handleChangeType}
-            >
-              {feedbackTypes.map(type => (
-                <MenuItem key={type} value={type}>
-                  <ListItemText primary={type} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        <DialogContent className={classes.dialogContent}>
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <FormControl className={`${classes.formControl} ${classes.input}`}>
+              <InputLabel htmlFor="select-type">
+                {intl.formatMessage({
+                  id: 'feedbackcreatedialog.type'
+                })}
+              </InputLabel>
+              <Select
+                input={<Input id="select-type" />}
+                className={`${classes.margin}`}
+                value={type}
+                onChange={handleChangeType}
+              >
+                {feedbackTypes.map(type => (
+                  <MenuItem key={type} value={type}>
+                    <ListItemText primary={type} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <div className={classes.maxLength}>
+              {maxLengthReached && (
+                <Typography className={classes.maxLengthFont}>
+                  {intl.formatMessage({ id: 'feedbackcreatedialog.maxLength' })}
+                </Typography>
+              )}
+            </div>
+          </div>
           <TextField
             variant="outlined"
             label={intl.formatMessage({
@@ -127,8 +138,8 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
           <TextField
             variant="outlined"
             multiline
-            rows="4"
-            rowsMax="4"
+            rows="6"
+            rowsMax="6"
             label={intl.formatMessage({
               id: 'feedbackcreatedialog.message'
             })}
@@ -136,13 +147,6 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             className={`${classes.fullWidth} ${classes.margin}`}
             inputProps={{ maxLength: 1000 }}
           />
-          <div className={classes.maxLength}>
-            {maxLengthReached && (
-              <Typography className={classes.maxLengthFont}>
-                {intl.formatMessage({ id: 'feedbackcreatedialog.maxLength' })}
-              </Typography>
-            )}
-          </div>
         </DialogContent>
         <DialogActions>
           <Button
