@@ -38,6 +38,7 @@ const PerformanceReviewDetail = props => {
       setIsLoading,
       errorContext
     );
+
     if (isSupervisor(userroles)) {
       getAllEmployees(setAllEmployeesData, setIsLoading, errorContext);
     }

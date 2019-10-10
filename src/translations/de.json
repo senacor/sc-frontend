@@ -150,6 +150,7 @@
   "prdetailinformation.unknown": "Unbekannt",
   "prdetailinformation.delegate": "PR Delegieren",
   "prdetailinformation.delegationerror": "Kann nicht an diesen Mitarbeiter delegieren",
+  "prdetailinformation.exitdate": "Austritsdatum",
   "prhistory.date": "Datum",
   "prhistory.link": "Link",
   "prhistory.noArchivedFiles": "Keine archivierte PRs gefunden",
