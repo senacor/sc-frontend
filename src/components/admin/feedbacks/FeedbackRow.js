@@ -30,8 +30,17 @@ const styles = theme => ({
     }
   },
   cell: {
+    padding: theme.spacing.unit * 2
+  },
+  subjectCell: {
     overflowWrap: 'break-word',
-    maxWidth: 80
+    maxWidth: 150,
+    padding: theme.spacing.unit * 2
+  },
+  bodyCell: {
+    overflowWrap: 'break-word',
+    minWidth: 150,
+    padding: theme.spacing.unit * 2
   }
 });
 
@@ -66,8 +75,11 @@ const FeedbackRow = ({
         <TableRow className={classes.tableRow}>
           <TableCell
             onClick={handleDialogDetailsOpen}
+            className={classes.cell}
           >{`${senderfirstName} ${senderLastName}`}</TableCell>
-          <TableCell onClick={handleDialogDetailsOpen}>{context}</TableCell>
+          <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
+            {context}
+          </TableCell>
           <Tooltip
             title={subject}
             placement="bottom"
@@ -75,18 +87,21 @@ const FeedbackRow = ({
           >
             <TableCell
               onClick={handleDialogDetailsOpen}
-              className={classes.cell}
+              className={classes.subjectCell}
             >
               {subject.length >= 40 ? `${subject.slice(0, 40)}...` : subject}
             </TableCell>
           </Tooltip>
-          <TableCell onClick={handleDialogDetailsOpen}>
+          <TableCell
+            onClick={handleDialogDetailsOpen}
+            className={classes.bodyCell}
+          >
             {body.length >= 80 ? `${body.slice(0, 80)}...` : body}
           </TableCell>
-          <TableCell onClick={handleDialogDetailsOpen}>
+          <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
             {getReadableDate(sentAt)}
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.cell}>
             <IconButton
               onClick={event => handleOnDeleteClick(event, id)}
               aria-label="delete"
