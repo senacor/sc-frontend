@@ -21,6 +21,19 @@ const styles = theme => ({
   table: {}
 });
 
+export const filterEmployees = (employees, filterInputs) => {
+  return employees.filter(empl => {
+    const employeeName = empl.firstName + ' ' + empl.lastName;
+    return (
+      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+      checkFilterValues(filterInputs.position, empl.currentPosition) &&
+      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
+      checkFilterValues(filterInputs.cst, empl.currentCst) &&
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+    );
+  });
+};
+
 const AllEmployeesTable = ({
   classes,
   intl,
@@ -61,16 +74,7 @@ const AllEmployeesTable = ({
       );
     });
 
-  const filteredEmployees = employees.filter(empl => {
-    const employeeName = empl.firstName + ' ' + empl.lastName;
-    return (
-      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
-    );
-  });
+  const filteredEmployees = filterEmployees(employees, filterInputs);
 
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

@@ -40,9 +40,9 @@ const FeedbackDeleteDialog = ({
 
   return (
     <Fragment>
-      <Dialog open={Boolean(id)} close={closeDialog}>
+      <Dialog open={Boolean(id)} onClose={closeDialog}>
         <DialogTitle>
-          <Typography>
+          <Typography variant="body1">
             {intl.formatMessage({
               id: 'feedbackdeletedialog.deletemessage'
             })}
@@ -53,7 +53,7 @@ const FeedbackDeleteDialog = ({
             className={classes.buttons}
             onClick={() => handleYesClick(id)}
             variant="contained"
-            color="primary"
+            color="secondary"
           >
             {intl.formatMessage({
               id: 'feedbackdeletedialog.yes'

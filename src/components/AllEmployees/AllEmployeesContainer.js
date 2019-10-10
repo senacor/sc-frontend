@@ -1,38 +1,38 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-import { withStyles } from '@material-ui/core';
+import { Tooltip, withStyles } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
-import ROLES from '../../helper/roles';
 import SearchFilter from './SearchFilter';
 import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import SortingFilter from './SortingFilter';
 import {
-  positions,
   competenceCenters,
   cst,
-  locations
+  locations,
+  positions
 } from '../../helper/filterData';
-
 // Calls
 import { requestPrForEmployees } from '../../calls/pr';
 import { uploadFiles } from '../../calls/fileStorage';
 import { getAllEmployees } from '../../calls/employees';
-
 // Material UI
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
-
 // Icons
 import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
-import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
+import AllEmployeesTable, {
+  filterEmployees
+} from './AllEmployeesTable/AllEmployeesTable';
+import { downloadExcel } from '../../calls/excelView';
+import Grid from '@material-ui/core/Grid';
+import { isPersonalDev, isSupervisor } from '../../helper/checkRole';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   container: {
@@ -65,16 +65,15 @@ const styles = theme => ({
     }
   },
   advFilterButton: {
-    marginLeft: theme.spacing.unit * 3,
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0
-    }
+    margin: theme.spacing.unit
   },
   btnUpload: {
     border: `1px solid ${theme.palette.secondary.grey}`,
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing.unit
-    }
+    margin: theme.spacing.unit
+  },
+  selectEmployee: {
+    width: '100%',
+    textAlign: 'end'
   },
   label: {
     marginRight: theme.spacing.unit
@@ -115,6 +114,11 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
   const userInfoContext = useContext(UserinfoContext.context);
+
+  const downloadPrsExcel = () => {
+    const filteredEmployees = filterEmployees(employees, filterInputs);
+    downloadExcel(filteredEmployees.map(empl => empl.id));
+  };
 
   useEffect(() => {
     if (localStorage.getItem('view') === 'table') {
@@ -258,32 +262,13 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   ];
 
   const upperMenu = intl => {
+    const { userroles } = userInfoContext.value;
     if (isLoading) {
-      return <CircularProgress size={24} className={classes.buttonProgress} />;
+      return <CircularProgress size={24} className={classes.buttonProgress}/>;
     }
-    const uploadFragment = userInfoContext.value.userroles.includes(
-      ROLES.PERSONAL_DEV
-    ) ? (
-      <Fragment>
-        <TextField
-          style={{ display: 'none' }}
-          id="upload-button"
-          multiple
-          type="file"
-          onChange={handleChange}
-        />
-        <label htmlFor="upload-button" className={classes.label}>
-          <Button component="span" className={classes.btnUpload}>
-            {intl.formatMessage({
-              id: 'allemployeescontainer.upload'
-            })}
-          </Button>
-        </label>
-      </Fragment>
-    ) : null;
 
     let selectionMenu = selection ? (
-      <div className={classes.selectionMenu}>
+      <Fragment>
         <Button
           className={classes.btnUpload}
           onClick={() => {
@@ -304,7 +289,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             id: 'requestperformancereview.requestpr'
           })}
         </Button>
-      </div>
+      </Fragment>
     ) : (
       <Button
         className={classes.btnUpload}
@@ -319,18 +304,64 @@ const AllEmployeesContainer = ({ classes, intl }) => {
         })}
       </Button>
     );
-    if (
-      !userInfoContext.value.userroles.includes(ROLES.PERSONAL_DEV) &&
-      !userInfoContext.value.userroles.includes(ROLES.SUPERVISOR)
-    ) {
-      selectionMenu = null;
-    }
 
     return (
-      <div className={classes.selectionMenu}>
-        {uploadFragment}
-        {selectionMenu}
-      </div>
+      <Fragment>
+        <Grid item xs={5}>
+          <SearchFilter
+            searchValue={searchEmployeesValue}
+            searchChange={handleSearchEmployeeChange}
+            placeholder={intl.formatMessage({
+              id: 'filter.searchEmployee'
+            })}
+          />
+          <Button
+            onClick={() => toggleSortingFilter()}
+            className={classes.btnUpload}
+          >
+            <FilterIcon />
+            <Typography variant="button">
+              {intl.formatMessage({ id: 'filter.advanced' })}
+            </Typography>
+          </Button>
+        </Grid>
+        {isPersonalDev(userroles) ? (
+          <Grid item xs={7}>
+            <div className={classes.selectEmployee}>
+              <Button
+                component="span"
+                className={`${classes.label} ${classes.btnUpload}`}
+                onClick={downloadPrsExcel}
+              >
+                {intl.formatMessage({
+                  id: 'excelexport'
+                })}
+              </Button>
+              <TextField
+                style={{ display: 'none' }}
+                id="upload-button"
+                multiple
+                type="file"
+                onChange={handleChange}
+              />
+              <label htmlFor="upload-button" className={classes.label}>
+                <Button component="span" className={classes.btnUpload}>
+                  {intl.formatMessage({
+                    id: 'allemployeescontainer.upload'
+                  })}
+                </Button>
+              </label>
+              {selectionMenu}
+            </div>
+          </Grid>
+        ) : (
+          isSupervisor(userroles) && (
+            <Grid item xs={7} alignItems={'flex-end'}>
+              <div className={classes.selectEmployee}>{selectionMenu}</div>
+            </Grid>
+          )
+        )}
+      </Fragment>
     );
   };
 
@@ -353,25 +384,9 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           onClose={handleClose}
           uploadedFiles={uploadedFiles}
         />
-        <div className={classes.upperPanel}>
-          <div className={classes.advFilter}>
-            <SearchFilter
-              searchValue={searchEmployeesValue}
-              searchChange={handleSearchEmployeeChange}
-              placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
-            />
-            <Button
-              onClick={() => toggleSortingFilter()}
-              className={classes.advFilterButton}
-            >
-              <FilterIcon />
-              <Typography variant="button">
-                {intl.formatMessage({ id: 'filter.advanced' })}
-              </Typography>
-            </Button>
-          </div>
+        <Grid container direction="row">
           {upperMenu(intl)}
-        </div>
+        </Grid>
         {visibleAdvancedFilter && (
           <div className={classes.advFilter}>
             {sortingData.map(item => (

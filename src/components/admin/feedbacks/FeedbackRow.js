@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FeedbackDetailDialog from './FeedbackDetailDialog';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   spacing: {
     margin: 3 * theme.spacing.unit
   },
@@ -27,6 +28,19 @@ const styles = theme => ({
       transition: 'all 0.3s',
       backgroundColor: theme.palette.secondary.brighterGrey
     }
+  },
+  cell: {
+    padding: theme.spacing.unit * 2
+  },
+  subjectCell: {
+    overflowWrap: 'break-word',
+    maxWidth: 150,
+    padding: theme.spacing.unit * 2
+  },
+  bodyCell: {
+    overflowWrap: 'break-word',
+    minWidth: 150,
+    padding: theme.spacing.unit * 2
   }
 });
 
@@ -61,24 +75,33 @@ const FeedbackRow = ({
         <TableRow className={classes.tableRow}>
           <TableCell
             onClick={handleDialogDetailsOpen}
+            className={classes.cell}
           >{`${senderfirstName} ${senderLastName}`}</TableCell>
-          <TableCell onClick={handleDialogDetailsOpen}>{context}</TableCell>
+          <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
+            {context}
+          </TableCell>
           <Tooltip
             title={subject}
             placement="bottom"
             disableHoverListener={subject.length < 20}
           >
-            <TableCell onClick={handleDialogDetailsOpen}>
-              {subject.length >= 20 ? `${subject.slice(0, 20)}...` : subject}
+            <TableCell
+              onClick={handleDialogDetailsOpen}
+              className={classes.subjectCell}
+            >
+              {subject.length >= 40 ? `${subject.slice(0, 40)}...` : subject}
             </TableCell>
           </Tooltip>
-          <TableCell onClick={handleDialogDetailsOpen}>
-            {body.length >= 50 ? `${body.slice(0, 50)}...` : body}
+          <TableCell
+            onClick={handleDialogDetailsOpen}
+            className={classes.bodyCell}
+          >
+            {body.length >= 80 ? `${body.slice(0, 80)}...` : body}
           </TableCell>
-          <TableCell onClick={handleDialogDetailsOpen}>
+          <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
             {getReadableDate(sentAt)}
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.cell}>
             <IconButton
               onClick={event => handleOnDeleteClick(event, id)}
               aria-label="delete"
