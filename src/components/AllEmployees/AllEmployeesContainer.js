@@ -264,7 +264,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const upperMenu = intl => {
     const { userroles } = userInfoContext.value;
     if (isLoading) {
-      return <CircularProgress size={24} className={classes.buttonProgress}/>;
+      return <CircularProgress size={24} className={classes.buttonProgress} />;
     }
 
     let selectionMenu = selection ? (

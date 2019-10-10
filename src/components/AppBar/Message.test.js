@@ -1,10 +1,18 @@
 import React from 'react';
 import { shallowWithIntl } from 'enzyme-react-intl';
-
 import Message from './Message';
+import { withStyles } from '@material-ui/core';
+
+const styles = {
+  message: {
+    position: 'absolute'
+  }
+};
+
+const MessageComposer = withStyles(styles)(Message);
 
 describe('Message', () => {
-  const wrapper = shallowWithIntl(<Message />);
+  const wrapper = shallowWithIntl(<MessageComposer />);
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
@@ -16,9 +24,9 @@ describe('context of message', () => {
     hasErrors: false,
     messageId: ''
   };
-  const wrapper = shallowWithIntl(<Message />, { mockErrorContext });
+  const wrapper = shallowWithIntl(<MessageComposer />, { mockErrorContext });
   it('should have text message when error occures', () => {
     wrapper.setContext({ hasErrors: true, messageId: 'message.error' });
-    expect(wrapper.text()).toBe('<WithStyles(Message) />');
+    expect(wrapper.text()).toBe('<InjectIntl(WithStyles(Message)) />');
   });
 });

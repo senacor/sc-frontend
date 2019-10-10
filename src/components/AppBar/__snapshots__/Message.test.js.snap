@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Message should render correctly 1`] = `
-<WithStyles(Message)
+<InjectIntl(WithStyles(Message))
+  classes={
+    Object {
+      "message": "InjectIntl-WithStyles-Message---message-1",
+    }
+  }
   intl={
     Object {
       "defaultFormats": Object {},
