@@ -36,13 +36,7 @@ export const filterEmployees = (employees, filterInputs) => {
   });
 };
 
-const FormerEmployeesTable = ({
-  classes,
-  intl,
-  filterInputs,
-  employees,
-  isLoading
-}) => {
+const FormerEmployeesTable = ({ classes, intl, filterInputs, employees }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);

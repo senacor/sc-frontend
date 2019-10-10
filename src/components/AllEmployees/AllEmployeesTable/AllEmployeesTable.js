@@ -41,8 +41,7 @@ const AllEmployeesTable = ({
   toggleSelected,
   selection,
   selected,
-  employees,
-  isLoading
+  employees
 }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
