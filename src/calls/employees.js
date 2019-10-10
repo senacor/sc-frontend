@@ -116,25 +116,6 @@ export const getInactiveEmployees = async (
   }
 };
 
-export const getCountOfFormerEmployees = async (
-  setFormerUsersCount,
-  errorContext
-) => {
-  try {
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/inactive/employee/countThisMonth`
-    );
-    const count = await response.json();
-    setFormerUsersCount(count);
-  } catch (err) {
-    console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
-  }
-};
-
 export const addAttributeToArchivedPrs = arr => {
   arr.map(item => {
     return (item.archived = true);
