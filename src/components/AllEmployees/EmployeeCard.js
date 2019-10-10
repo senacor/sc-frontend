@@ -155,44 +155,42 @@ const EmployeeCard = ({
             </Typography>
           </Fragment>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.cst'
-            })}
-            : <span className={classes.textInfo}>{currentCst}</span>
+            })}: `}
+            <span className={classes.textInfo}>{currentCst}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.supervisor'
-            })}
-            : <span className={classes.textInfo}>{supervisorName}</span>
+            })}: `}
+            <span className={classes.textInfo}>{supervisorName}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.cc'
-            })}
-            : <span className={classes.textInfo}>{competenceCenter}</span>
+            })}: `}
+            <span className={classes.textInfo}>{competenceCenter}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.officelocation'
-            })}
-            : <span className={classes.textInfo}>{officeLocation}</span>
+            })}: `}
+            <span className={classes.textInfo}>{officeLocation}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.startDate'
-            })}
-            :{' '}
+            })}: `}
             <span className={classes.textInfo}>
               {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
             </span>
           </Typography>
           {formerEmployees && (
             <Typography className={classes.text} component="span">
-              {intl.formatMessage({
+              {`${intl.formatMessage({
                 id: 'employeeInfo.exitDate'
-              })}
-              :{' '}
+              })}: `}
               <span className={classes.textInfo}>
                 {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
               </span>

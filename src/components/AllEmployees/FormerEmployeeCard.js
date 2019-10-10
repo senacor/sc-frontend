@@ -43,21 +43,6 @@ const styles = theme => ({
   },
   textInfo: {
     color: theme.palette.primary[400]
-  },
-  selectionUnavailable: {
-    backgroundColor: theme.palette.secondary.grey
-  },
-  selected: {
-    backgroundColor: theme.palette.primary[100]
-  },
-  selectable: {
-    backgroundColor: theme.palette.primary[50]
-  },
-  iconGrey: {
-    color: theme.palette.secondary.mediumGrey
-  },
-  iconGreen: {
-    color: theme.palette.secondary.green
   }
 });
 
@@ -126,34 +111,33 @@ const FormerEmployeeCard = ({
             </Typography>
           </Fragment>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.cst'
-            })}
-            : <span className={classes.textInfo}>{cst}</span>
+            })}: `}
+            <span className={classes.textInfo}>{cst}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.supervisor'
-            })}
-            : <span className={classes.textInfo}>{supervisor}</span>
+            })}: `}
+            <span className={classes.textInfo}>{supervisor}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.cc'
-            })}
-            : <span className={classes.textInfo}>{competence}</span>
+            })}: `}
+            <span className={classes.textInfo}>{competence}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.officelocation'
-            })}
-            : <span className={classes.textInfo}>{officeLocation}</span>
+            })}: `}
+            <span className={classes.textInfo}>{officeLocation}</span>
           </Typography>
           <Typography className={classes.text} component="span">
-            {intl.formatMessage({
+            {`${intl.formatMessage({
               id: 'employeeInfo.exitDate'
-            })}
-            :{' '}
+            })}: `}
             <span className={classes.textInfo}>
               {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
             </span>

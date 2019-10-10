@@ -25,22 +25,12 @@ import Typography from '@material-ui/core/Typography';
 import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
-import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
 import moment from 'moment';
+import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
 
 const styles = theme => ({
-  ...theme,
   container: {
     margin: 3 * theme.spacing.unit
-  },
-  gridContainer: {
-    width: '100%',
-    overflowY: 'auto',
-    overflowX: 'hidden'
-  },
-  containerMenu: {
-    display: 'flex',
-    justifyContent: 'space-around'
   },
   filterWithUpload: {
     margin: '0.5rem',
@@ -65,18 +55,6 @@ const styles = theme => ({
       marginLeft: 0
     }
   },
-  btnUpload: {
-    border: `1px solid ${theme.palette.secondary.grey}`,
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing.unit
-    }
-  },
-  label: {
-    marginRight: theme.spacing.unit
-  },
-  selectionMenu: {
-    display: 'inline'
-  },
   clearFilterText: {
     color: theme.palette.secondary.darkRed
   },
@@ -91,10 +69,6 @@ const styles = theme => ({
     top: theme.spacing.unit,
     zIndex: 3,
     color: theme.palette.secondary.white
-  },
-  inputForFormer: {
-    width: 105,
-    margin: 2 * theme.spacing.unit
   }
 });
 
@@ -297,7 +271,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       </Paper>
       {tableView ? (
         // TODO: change to FormerEmployeeTable
-        <AllEmployeesTable
+        <FormerEmployeesTable
           filterInputs={filterInputs}
           selected={{}}
           employees={employees}
