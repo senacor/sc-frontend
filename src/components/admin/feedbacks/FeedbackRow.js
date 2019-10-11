@@ -58,7 +58,8 @@ const FeedbackRow = ({
     body,
     sentAt
   },
-  handleOnDeleteClick,
+  selected,
+  changeSelectedItem,
   isLoading
 }) => {
   const [dialogDetailsOpen, setDialogDetailsOpen] = useState(false);
@@ -76,7 +77,10 @@ const FeedbackRow = ({
       <Fragment>
         <TableRow className={classes.tableRow}>
           <TableCell className={classes.checkboxCell}>
-            <Checkbox />
+            <Checkbox
+              checked={selected}
+              onChange={() => changeSelectedItem(id)}
+            />
           </TableCell>
           <TableCell
             onClick={handleDialogDetailsOpen}

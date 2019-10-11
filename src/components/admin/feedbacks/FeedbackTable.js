@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { ErrorContext } from '../../App';
-import FeedbackDeleteDialog from './FeedbackDeleteDialog';
-import { getFeedbacks } from '../../../calls/feedbacks';
-import FeedbackDetailDialog from './FeedbackDetailDialog';
+import { deleteFeedbacks, getFeedbacks } from '../../../calls/feedbacks';
 import FeedbackRow from './FeedbackRow';
-import { Button, Checkbox, withStyles } from '@material-ui/core';
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  withStyles
+} from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
 // Material UI
@@ -53,6 +58,17 @@ const styles = theme => ({
   },
   checkboxCell: {
     padding: 0
+  },
+  deleteAllButton: {
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    height: 38,
+    minWidth: 160
+  },
+  deleteAllText: {
+    color: theme.palette.secondary.darkRed
+  },
+  buttons: {
+    color: theme.palette.secondary.white
   }
 });
 
@@ -62,8 +78,8 @@ const FeedbackTable = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
-  const [idToDelete, setIdToDelete] = useState(null);
   const [selected, setSelected] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -84,16 +100,42 @@ const FeedbackTable = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const handleOnDeleteClick = (event, id) => {
-    setIdToDelete(id);
-  };
-
-  const handleCloseDeleteDialog = () => {
-    setIdToDelete(null);
+  const handleOnDeleteClick = event => {
+    setDialogOpen(true);
+    event.stopPropagation();
   };
 
   const toggleExpand = () => {
     setExpanded(!expanded);
+  };
+
+  const handleOnAllClick = () => {
+    if (selected.length === data.length) {
+      setSelected([]);
+    } else {
+      setSelected(data.map(entry => entry.id));
+    }
+  };
+
+  const handleOnYesClick = () => {
+    deleteFeedbacks(selected, errorContext);
+    setData(data.filter(entry => !selected.includes(entry.id)));
+    setSelected([]);
+    setDialogOpen(false);
+  };
+
+  const changeSelectedItem = id => {
+    if (selected.includes(id)) {
+      setSelected(selected.filter(selectedId => selectedId !== id));
+    } else {
+      const newSelected = [...selected];
+      newSelected.push(id);
+      setSelected(newSelected);
+    }
+  };
+
+  const checkSelectedAll = () => {
+    return selected.length === data.length && data.length > 0;
   };
 
   return (
@@ -108,10 +150,15 @@ const FeedbackTable = ({ classes, intl }) => {
                   id: 'maintenance.feedbacks'
                 })}
               </Typography>
-              <Button onClick={handleOnDeleteClick}>
-                {intl.formatMessage({
-                  id: 'maintenance.delete'
-                })}
+              <Button
+                className={classes.deleteAllButton}
+                onClick={handleOnDeleteClick}
+              >
+                <Typography variant="button" className={classes.deleteAllText}>
+                  {intl.formatMessage({
+                    id: 'maintenance.delete'
+                  })}
+                </Typography>
               </Button>
             </div>
           </ExpansionPanelSummary>
@@ -124,7 +171,10 @@ const FeedbackTable = ({ classes, intl }) => {
                   <TableHead>
                     <TableRow>
                       <TableCell className={classes.checkboxCell}>
-                        <Checkbox />
+                        <Checkbox
+                          checked={checkSelectedAll()}
+                          onChange={handleOnAllClick}
+                        />
                       </TableCell>
                       <TableCell>
                         {`${intl.formatMessage({
@@ -164,6 +214,8 @@ const FeedbackTable = ({ classes, intl }) => {
                           <FeedbackRow
                             key={entry.id}
                             entry={entry}
+                            selected={selected.includes(entry.id)}
+                            changeSelectedItem={changeSelectedItem}
                             handleOnDeleteClick={handleOnDeleteClick}
                           />
                         );
@@ -171,6 +223,35 @@ const FeedbackTable = ({ classes, intl }) => {
                   </TableBody>
                 </Table>
               )}
+              <Dialog className={classes.dialog} open={dialogOpen}>
+                <DialogTitle>
+                  {`${intl.formatMessage({
+                    id: 'feedbacktable.areyousure'
+                  })}`}
+                </DialogTitle>
+                <DialogActions>
+                  <Button
+                    className={classes.buttons}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOnYesClick}
+                  >
+                    {`${intl.formatMessage({
+                      id: 'feedbacktable.yes'
+                    })}`}
+                  </Button>
+                  <Button
+                    className={classes.buttons}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setDialogOpen(false)}
+                  >
+                    {`${intl.formatMessage({
+                      id: 'feedbacktable.no'
+                    })}`}
+                  </Button>
+                </DialogActions>
+              </Dialog>
               <TablePagination
                 component="div"
                 count={data.length}
@@ -201,13 +282,6 @@ const FeedbackTable = ({ classes, intl }) => {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Paper>
-      <FeedbackDeleteDialog
-        id={idToDelete}
-        closeDialog={handleCloseDeleteDialog}
-        data={data}
-        setData={setData}
-      />
-      <FeedbackDetailDialog />
     </Fragment>
   );
 };
