@@ -8,7 +8,10 @@ import { DownloadFile } from '../fileStorage/DownloadFile';
 import PdfDialog from '../pr/PdfDialog';
 
 // Calls
-import { getAllPrsByEmployee } from '../../calls/employees';
+import {
+  getAllPrsByEmployee,
+  getAllPrsOfInactiveEmployee
+} from '../../calls/employees';
 
 // Material UI
 import IconButton from '@material-ui/core/IconButton';
@@ -86,7 +89,8 @@ const EmployeesPRsDialog = ({
   lastName,
   intl,
   classes,
-  history
+  history,
+  formerEmployee
 }) => {
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
@@ -98,19 +102,33 @@ const EmployeesPRsDialog = ({
 
   useEffect(() => {
     if (dialogOpen) {
-      getAllPrsByEmployee(
-        employeeId,
-        setPrs,
-        setArchivedPrs,
-        setIsLoading,
-        errorContext
-      );
+      if (formerEmployee) {
+        getAllPrsOfInactiveEmployee(
+          employeeId,
+          setPrs,
+          setArchivedPrs,
+          setIsLoading,
+          errorContext
+        );
+      } else {
+        getAllPrsByEmployee(
+          employeeId,
+          setPrs,
+          setArchivedPrs,
+          setIsLoading,
+          errorContext
+        );
+      }
     }
   }, []);
 
   const linkToPrSheet = (id, archived) => {
     if (!archived) {
-      history.push(`/prDetail/${id}`);
+      if (formerEmployee) {
+        history.push(`/prDetailInactive/${id}`);
+      } else {
+        history.push(`/prDetail/${id}`);
+      }
     }
     return null;
   };
@@ -125,21 +143,22 @@ const EmployeesPRsDialog = ({
 
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
+    let id = pr.id ? pr.id : pr.prId;
     return (
       <TableRow
         key={index}
         className={pr.archived ? classes.archived : classes.prRow}
       >
-        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
+        <TableCell onClick={() => linkToPrSheet(id, pr.archived)}>
           {index + 1}
         </TableCell>
-        <TableCell onClick={() => linkToPrSheet(pr.prId, pr.archived)}>
+        <TableCell onClick={() => linkToPrSheet(id, pr.archived)}>
           {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>
           {pr.archived ? (
             // Download excel
-            <DownloadFile employeeId={pr.employeeId} fileId={pr.prId} />
+            <DownloadFile employeeId={pr.employeeId} fileId={id} />
           ) : !pr.inProgress ? (
             // Download pdf
             <IconButton onClick={() => openDialog(pr)}>
@@ -147,7 +166,7 @@ const EmployeesPRsDialog = ({
             </IconButton>
           ) : (
             <Typography
-              onClick={() => linkToPrSheet(pr.prId, pr.archived)}
+              onClick={() => linkToPrSheet(id, pr.archived)}
               color="secondary"
             >
               {intl.formatMessage({

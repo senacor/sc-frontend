@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, TablePagination } from '@material-ui/core';
-import AllEmployeesTableHead from './AllEmployeesTableHead';
+import FormerEmployeesTableHead from './FormerEmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
@@ -11,7 +11,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import EmployeeTableRow from './EmployeeTableRow';
+import FormerEmployeeTableRow from './FormerEmployeeTableRow';
 
 const styles = theme => ({
   paper: {
@@ -26,23 +26,17 @@ export const filterEmployees = (employees, filterInputs) => {
     const employeeName = empl.firstName + ' ' + empl.lastName;
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      checkFilterValues(filterInputs.position, empl.position) &&
+      checkFilterValues(filterInputs.cc, empl.competence) &&
+      checkFilterValues(filterInputs.cst, empl.cst) &&
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 };
 
-const AllEmployeesTable = ({
-  classes,
-  intl,
-  filterInputs,
-  toggleSelected,
-  selection,
-  selected,
-  employees
-}) => {
+const FormerEmployeesTable = ({ classes, intl, filterInputs, employees }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
@@ -62,15 +56,7 @@ const AllEmployeesTable = ({
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
-      return (
-        <EmployeeTableRow
-          key={employee.id}
-          employee={employee}
-          toggleSelected={toggleSelected}
-          selection={selection}
-          selected={selected[employee.id]}
-        />
-      );
+      return <FormerEmployeeTableRow key={employee.id} employee={employee} />;
     });
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
@@ -78,19 +64,13 @@ const AllEmployeesTable = ({
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow
-        key={employee.id}
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
+      <FormerEmployeeTableRow key={employee.id} employee={employee} />
     ));
 
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <AllEmployeesTableHead />
+        <FormerEmployeesTableHead />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>
@@ -125,4 +105,4 @@ const AllEmployeesTable = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesTable));
+export default injectIntl(withStyles(styles)(FormerEmployeesTable));

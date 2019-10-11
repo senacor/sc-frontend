@@ -9,7 +9,6 @@ import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
 import ROUTES from '../../helper/routes';
-
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -33,10 +32,13 @@ const styles = theme => ({
 
 const Dashboard = ({ classes, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
-  const errorContext = useContext(ErrorContext);
+  const errorContext = useContext(ErrorContext.context);
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
+  const formerUsersCount = userinfo
+    ? userinfo.numberOfEmployeeInactiveThisMonth
+    : 0;
 
   let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
@@ -112,6 +114,18 @@ const Dashboard = ({ classes, intl }) => {
           <div className={classes.rowContainer}>
             <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
             <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography className={classes.title} variant="body1">
+                  {intl.formatMessage({
+                    id: 'dashboard.newformeremployees'
+                  })}
+                </Typography>
+                <Typography color="textSecondary">
+                  {formerUsersCount}
+                </Typography>
+              </CardContent>
+            </Card>
           </div>
         )}
 
