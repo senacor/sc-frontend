@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchFilter should render correctly 1`] = `
+<SearchFilter
+  classes={
+    Object {
+      "searchField": "SearchFilter-searchField-1",
+    }
+  }
+  placeholder="input"
+  searchChange={[Function]}
+  searchValue="searching employee"
+/>
+`;
