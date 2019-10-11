@@ -35,14 +35,19 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit
   },
   header: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
     '& h5': {
       paddingLeft: theme.spacing.unit
-    },
-    justifyContent: 'space-between'
+    }
+  },
+  title: {
+    display: 'flex',
+    alignItems: 'center'
   },
   panelDetails: {
     width: '100%',
@@ -147,12 +152,14 @@ const FeedbackTable = ({ classes, intl }) => {
         <ExpansionPanel expanded={expanded} onChange={toggleExpand}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <div className={classes.header}>
-              <FeedbackIcon color={'primary'} />
-              <Typography variant="h5">
-                {intl.formatMessage({
-                  id: 'maintenance.feedbacks'
-                })}
-              </Typography>
+              <div className={classes.title}>
+                <FeedbackIcon color={'primary'} />
+                <Typography variant="h5">
+                  {intl.formatMessage({
+                    id: 'maintenance.feedbacks'
+                  })}
+                </Typography>
+              </div>
               <Button
                 className={classes.deleteAllButton}
                 onClick={handleOnDeleteClick}
