@@ -75,6 +75,9 @@ const styles = theme => ({
   },
   buttons: {
     color: theme.palette.secondary.white
+  },
+  dialog: {
+    minWidth: 500
   }
 });
 
@@ -115,6 +118,7 @@ const FeedbackTable = ({ classes, intl }) => {
 
   const toggleExpand = () => {
     setExpanded(!expanded);
+    setSelected([]);
   };
 
   const handleOnAllClick = () => {
@@ -233,7 +237,7 @@ const FeedbackTable = ({ classes, intl }) => {
                   </TableBody>
                 </Table>
               )}
-              <Dialog className={classes.dialog} open={dialogOpen}>
+              <Dialog fullWidth maxWidth="xs" open={dialogOpen}>
                 <DialogTitle>
                   {`${intl.formatMessage({
                     id: 'feedbacktable.areyousure'
@@ -244,20 +248,20 @@ const FeedbackTable = ({ classes, intl }) => {
                     className={classes.buttons}
                     variant="contained"
                     color="primary"
-                    onClick={handleOnYesClick}
+                    onClick={() => setDialogOpen(false)}
                   >
                     {`${intl.formatMessage({
-                      id: 'feedbacktable.yes'
+                      id: 'feedbacktable.no'
                     })}`}
                   </Button>
                   <Button
                     className={classes.buttons}
                     variant="contained"
                     color="primary"
-                    onClick={() => setDialogOpen(false)}
+                    onClick={handleOnYesClick}
                   >
                     {`${intl.formatMessage({
-                      id: 'feedbacktable.no'
+                      id: 'feedbacktable.yes'
                     })}`}
                   </Button>
                 </DialogActions>

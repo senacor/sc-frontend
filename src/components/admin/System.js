@@ -284,7 +284,7 @@ export const System = ({ classes, intl }) => {
                   })}
               </TableBody>
             </Table>
-            <Dialog className={classes.dialog} open={dialogOpen}>
+            <Dialog fullWidth maxWidth="xs" open={dialogOpen}>
               <DialogTitle>
                 {`${intl.formatMessage({
                   id: 'system.areyousure'
@@ -295,20 +295,20 @@ export const System = ({ classes, intl }) => {
                   className={classes.buttons}
                   variant="contained"
                   color="primary"
-                  onClick={handleOnYesClick}
+                  onClick={() => setDialogOpen(false)}
                 >
                   {`${intl.formatMessage({
-                    id: 'system.yes'
+                    id: 'system.no'
                   })}`}
                 </Button>
                 <Button
                   className={classes.buttons}
                   variant="contained"
                   color="primary"
-                  onClick={() => setDialogOpen(false)}
+                  onClick={handleOnYesClick}
                 >
                   {`${intl.formatMessage({
-                    id: 'system.no'
+                    id: 'system.yes'
                   })}`}
                 </Button>
               </DialogActions>
