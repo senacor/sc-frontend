@@ -1,6 +1,8 @@
 pipeline {
     agent any
 
+    tools { nodejs "node" }
+
     stages {
         stage('Obtaining dependencies') {
             steps {
@@ -8,11 +10,11 @@ pipeline {
 
             }
         }
-       stage('Test stage') {
-           steps {
-               sh "npm test -a"
-           }
-       }
+        stage('Test stage') {
+            steps {
+                sh "npm test"
+            }
+        }
         stage('Build stage') {
             steps {
                 sh "npm run build"
