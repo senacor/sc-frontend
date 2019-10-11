@@ -81,9 +81,6 @@ const styles = theme => ({
   },
   buttons: {
     color: theme.palette.secondary.white
-  },
-  dialog: {
-
   }
 });
 
@@ -122,7 +119,7 @@ export const System = ({ classes, intl }) => {
   };
 
   const handleOnDeleteAllClick = () => {
-    if (data.length > 0) {
+    if (data.errors.length > 0) {
       setDialogOpen(true);
     }
   };
