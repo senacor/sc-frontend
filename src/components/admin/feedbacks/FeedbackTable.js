@@ -41,7 +41,8 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
     '& h5': {
       paddingLeft: theme.spacing.unit
-    }
+    },
+    justifyContent: 'space-between'
   },
   panelDetails: {
     width: '100%',
@@ -101,7 +102,9 @@ const FeedbackTable = ({ classes, intl }) => {
   };
 
   const handleOnDeleteClick = event => {
-    setDialogOpen(true);
+    if (selected.length > 0) {
+      setDialogOpen(true);
+    }
     event.stopPropagation();
   };
 
