@@ -1,6 +1,14 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { Button, CircularProgress, Grid, withStyles } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Grid,
+  withStyles
+} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -58,6 +66,24 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  deleteAllButtonGrid: {
+    textAlign: 'right',
+    padding: theme.spacing.unit
+  },
+  deleteAllButton: {
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    height: 38,
+    minWidth: 160
+  },
+  deleteAllText: {
+    color: theme.palette.secondary.darkRed
+  },
+  buttons: {
+    color: theme.palette.secondary.white
+  },
+  dialog: {
+
   }
 });
 
@@ -72,6 +98,7 @@ export const System = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -95,12 +122,19 @@ export const System = ({ classes, intl }) => {
   };
 
   const handleOnDeleteAllClick = () => {
+    if (data.length > 0) {
+      setDialogOpen(true);
+    }
+  };
+
+  const handleOnYesClick = () => {
     deleteAllErrors(errorContext);
     setData({
       fis: data.fis,
       outlook: data.outlook,
       errors: []
     });
+    setDialogOpen(false);
   };
 
   const renderStatusByType = connection => {
@@ -190,8 +224,18 @@ export const System = ({ classes, intl }) => {
                   })}
                 </Typography>
               </Grid>
-              <Grid item xs={6}>
-                <Button onClick={handleOnDeleteAllClick}>DELETE ALL</Button>
+              <Grid item xs={6} className={classes.deleteAllButtonGrid}>
+                <Button
+                  className={classes.deleteAllButton}
+                  onClick={handleOnDeleteAllClick}
+                >
+                  <Typography
+                    variant="button"
+                    className={classes.deleteAllText}
+                  >
+                    {intl.formatMessage({ id: 'system.deleteall' })}
+                  </Typography>
+                </Button>
               </Grid>
             </Grid>
             <Table>
@@ -243,6 +287,35 @@ export const System = ({ classes, intl }) => {
                   })}
               </TableBody>
             </Table>
+            <Dialog className={classes.dialog} open={dialogOpen}>
+              <DialogTitle>
+                {`${intl.formatMessage({
+                  id: 'system.areyousure'
+                })}`}
+              </DialogTitle>
+              <DialogActions>
+                <Button
+                  className={classes.buttons}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleOnYesClick}
+                >
+                  {`${intl.formatMessage({
+                    id: 'system.yes'
+                  })}`}
+                </Button>
+                <Button
+                  className={classes.buttons}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  {`${intl.formatMessage({
+                    id: 'system.no'
+                  })}`}
+                </Button>
+              </DialogActions>
+            </Dialog>
             <TablePagination
               component="div"
               count={data.errors.length}
