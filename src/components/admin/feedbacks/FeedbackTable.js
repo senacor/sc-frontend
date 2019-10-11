@@ -4,7 +4,7 @@ import FeedbackDeleteDialog from './FeedbackDeleteDialog';
 import { getFeedbacks } from '../../../calls/feedbacks';
 import FeedbackDetailDialog from './FeedbackDetailDialog';
 import FeedbackRow from './FeedbackRow';
-import { withStyles } from '@material-ui/core';
+import { Button, Checkbox, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
 // Material UI
@@ -50,6 +50,9 @@ const styles = theme => ({
       transition: 'all 0.3s',
       backgroundColor: theme.palette.secondary.brighterGrey
     }
+  },
+  checkboxCell: {
+    padding: 0
   }
 });
 
@@ -60,6 +63,7 @@ const FeedbackTable = ({ classes, intl }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [idToDelete, setIdToDelete] = useState(null);
+  const [selected, setSelected] = useState([]);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -91,6 +95,7 @@ const FeedbackTable = ({ classes, intl }) => {
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
+
   return (
     <Fragment>
       <Paper className={classes.spacing}>
@@ -103,6 +108,11 @@ const FeedbackTable = ({ classes, intl }) => {
                   id: 'maintenance.feedbacks'
                 })}
               </Typography>
+              <Button onClick={handleOnDeleteClick}>
+                {intl.formatMessage({
+                  id: 'maintenance.delete'
+                })}
+              </Button>
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
@@ -113,6 +123,9 @@ const FeedbackTable = ({ classes, intl }) => {
                 <Table>
                   <TableHead>
                     <TableRow>
+                      <TableCell className={classes.checkboxCell}>
+                        <Checkbox />
+                      </TableCell>
                       <TableCell>
                         {`${intl.formatMessage({
                           id: 'maintenance.sentby'
@@ -136,11 +149,6 @@ const FeedbackTable = ({ classes, intl }) => {
                       <TableCell>
                         {`${intl.formatMessage({
                           id: 'maintenance.date'
-                        })}`}
-                      </TableCell>
-                      <TableCell>
-                        {`${intl.formatMessage({
-                          id: 'maintenance.delete'
                         })}`}
                       </TableCell>
                     </TableRow>
