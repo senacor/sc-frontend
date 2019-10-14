@@ -30,6 +30,7 @@ import {
 import FeedbackButton from './FeedbackButton';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   root: {
     width: '100%',
     maxWidth: 480
@@ -173,7 +174,11 @@ export const Sidebar = ({ intl, classes }) => {
   const fullName = `${givenName} ${surname}`;
 
   if (!userroles.length) {
-    return <CircularProgress />;
+    return (
+      <div className={classes.progressBarCentered}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (

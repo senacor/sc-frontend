@@ -60,6 +60,11 @@ const theme = createMuiTheme({
     progressBarCentered: {
       paddingTop: 16,
       textAlign: 'center'
+    },
+    tableContent: {
+      width: '100%',
+      textAlign: 'center',
+      overflow: 'auto'
     }
   }
 });
