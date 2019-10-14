@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core';
 import PrState from './PrState';
 import PrTabs from './PrTabs';
 import PrDetailInformation from './PrDetailInformation';
@@ -14,6 +15,10 @@ import {
 } from '../App';
 import { isSupervisor } from '../../helper/checkRole';
 
+const styles = theme => ({
+  ...theme.styledComponents
+});
+
 const PerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const { userroles } = useContext(UserinfoContext.context).value;
@@ -24,6 +29,7 @@ const PerformanceReviewDetail = props => {
   const { value: meeting, setValue: setMeeting } = useContext(
     MeetingContext.context
   );
+  const { classes } = props;
 
   useEffect(() => {
     const afterPrFetched = pr => {
@@ -45,7 +51,11 @@ const PerformanceReviewDetail = props => {
   }, []);
 
   if (isLoading || !pr || Object.entries(pr).length === 0) {
-    return <CircularProgress />;
+    return (
+      <div className={classes.progressBarCentered}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
@@ -64,4 +74,4 @@ const PerformanceReviewDetail = props => {
   );
 };
 
-export default PerformanceReviewDetail;
+export default withStyles(styles)(PerformanceReviewDetail);

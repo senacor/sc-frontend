@@ -56,6 +56,10 @@ const theme = createMuiTheme({
     },
     cardParagraph: {
       lineHeight: 2
+    },
+    progressBarCentered: {
+      paddingTop: 16,
+      textAlign: 'center'
     }
   }
 });
