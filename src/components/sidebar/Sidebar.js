@@ -49,15 +49,20 @@ const styles = theme => ({
     justifyContent: 'center',
     padding: theme.spacing.unit
   },
-  noTextDecoration: {
-    textDecoration: 'none'
+  menuItem: {
+    textDecoration: 'none',
+    transition: '0.3s all',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.brightGrey
+    }
   },
   textColor: {
     color: theme.palette.primary['900']
   },
-  bottom: {
+  feedbackBtn: {
     position: 'fixed',
-    bottom: 0
+    bottom: 0,
+    width: 270
   }
 });
 
@@ -204,7 +209,7 @@ export const Sidebar = ({ intl, classes }) => {
               <ListItem
                 component={NavLink}
                 to={entry.value}
-                className={classes.noTextDecoration}
+                className={classes.menuItem}
                 activeStyle={{
                   backgroundColor: '#DDD'
                 }}
@@ -225,7 +230,7 @@ export const Sidebar = ({ intl, classes }) => {
       <Divider />
       <CompositionNumber />
       {!userroles.includes(ROLES.ADMIN) && (
-        <div className={classes.bottom}>
+        <div className={`${classes.feedbackBtn} ${classes.menuItem}`}>
           <FeedbackButton />
         </div>
       )}

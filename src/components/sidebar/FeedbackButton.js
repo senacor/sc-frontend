@@ -6,7 +6,6 @@ import FeedbackCreateDialog from './FeedbackCreateDialog';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
 
 const styles = theme => ({
   noTextDecoration: {
@@ -31,24 +30,27 @@ const FeedbackButton = ({ classes, intl }) => {
 
   return (
     <Fragment>
-      <List component="nav">
-        <ListItem className={classes.noTextDecoration} onClick={handleClick}>
-          <ListItemIcon>
-            <FeedbackIcon />
-          </ListItemIcon>
-          <ListItemText
-            disableTypography
-            primary={
-              <div className={classes.textColor}>
-                {intl.formatMessage({
-                  id: 'sidebar.feedback'
-                })}
-              </div>
-            }
-          />
-        </ListItem>
-      </List>
-      <FeedbackCreateDialog open={openDialog} handleClose={handleCloseDialog} />
+      <ListItem className={classes.noTextDecoration} onClick={handleClick}>
+        <ListItemIcon>
+          <FeedbackIcon />
+        </ListItemIcon>
+        <ListItemText
+          disableTypography
+          primary={
+            <div className={classes.textColor}>
+              {intl.formatMessage({
+                id: 'sidebar.feedback'
+              })}
+            </div>
+          }
+        />
+      </ListItem>
+      {openDialog && (
+        <FeedbackCreateDialog
+          open={openDialog}
+          handleClose={handleCloseDialog}
+        />
+      )}
     </Fragment>
   );
 };

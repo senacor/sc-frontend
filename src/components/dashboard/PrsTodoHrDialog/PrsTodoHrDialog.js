@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core';
 import ROUTES from '../../../helper/routes';
 import { ErrorContext } from '../../App';
 import { getPrsHrTodo } from '../../../calls/pr';
+import PrsTodoHrTable from './PrsTodoHrTable';
+import InfoWidget from '../../utils/reusableComponents/InfoWidget';
 
 // Material UI
 import Typography from '@material-ui/core/Typography';
@@ -16,8 +18,6 @@ import Divider from '@material-ui/core/Divider';
 
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
-import PrsTodoHrTable from './PrsTodoHrTable';
-import InfoWidget from '../InfoWidget';
 
 const styles = theme => ({
   btnClose: {

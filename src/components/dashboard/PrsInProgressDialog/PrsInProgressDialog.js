@@ -5,6 +5,7 @@ import ROUTES from '../../../helper/routes';
 import { ErrorContext } from '../../App';
 import { getPrsInProgress } from '../../../calls/pr';
 import PrsInProgressTable from './PrsInProgressTable';
+import InfoWidget from '../../utils/reusableComponents/InfoWidget';
 
 // Material UI
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +18,6 @@ import Divider from '@material-ui/core/Divider';
 
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
-import InfoWidget from '../InfoWidget';
 
 const styles = theme => ({
   btnClose: {
