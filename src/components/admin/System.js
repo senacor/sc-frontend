@@ -33,6 +33,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   spacing: {
     margin: 3 * theme.spacing.unit
   },
@@ -188,7 +189,9 @@ export const System = ({ classes, intl }) => {
   return (
     <Fragment>
       {isLoading ? (
-        <CircularProgress className={classes.spacing} />
+        <div className={classes.progressBarCentered}>
+          <CircularProgress />
+        </div>
       ) : (
         <Fragment>
           <Grid container>
@@ -244,55 +247,57 @@ export const System = ({ classes, intl }) => {
                 )}
               </Grid>
             </Grid>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    {`${intl.formatMessage({
-                      id: 'system.id'
-                    })}`}
-                  </TableCell>
-                  <TableCell>
-                    {`${intl.formatMessage({
-                      id: 'system.description'
-                    })}`}
-                  </TableCell>
-                  <TableCell>
-                    {`${intl.formatMessage({
-                      id: 'system.date'
-                    })}`}
-                  </TableCell>
-                  <TableCell>
-                    {`${intl.formatMessage({
-                      id: 'system.delete'
-                    })}`}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.errors
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(entry => {
-                    return (
-                      <TableRow key={entry.id}>
-                        <TableCell>{entry.id}</TableCell>
-                        <TableCell>{entry.description}</TableCell>
-                        <TableCell>{getReadableDate(entry.date)}</TableCell>
-                        <TableCell>
-                          <IconButton
-                            onClick={event =>
-                              handleOnDeleteClick(event, entry.id)
-                            }
-                            aria-label="delete"
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
+            <div className={classes.tableContent}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      {`${intl.formatMessage({
+                        id: 'system.id'
+                      })}`}
+                    </TableCell>
+                    <TableCell>
+                      {`${intl.formatMessage({
+                        id: 'system.description'
+                      })}`}
+                    </TableCell>
+                    <TableCell>
+                      {`${intl.formatMessage({
+                        id: 'system.date'
+                      })}`}
+                    </TableCell>
+                    <TableCell>
+                      {`${intl.formatMessage({
+                        id: 'system.delete'
+                      })}`}
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.errors
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(entry => {
+                      return (
+                        <TableRow key={entry.id}>
+                          <TableCell>{entry.id}</TableCell>
+                          <TableCell>{entry.description}</TableCell>
+                          <TableCell>{getReadableDate(entry.date)}</TableCell>
+                          <TableCell>
+                            <IconButton
+                              onClick={event =>
+                                handleOnDeleteClick(event, entry.id)
+                              }
+                              aria-label="delete"
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </div>
             <Dialog fullWidth maxWidth="xs" open={dialogOpen}>
               <DialogTitle>
                 {`${intl.formatMessage({
