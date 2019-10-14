@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        CI='true'
+    }
+    tools { nodejs "node" }
 
     stages {
         stage('Obtaining dependencies') {
@@ -8,11 +12,11 @@ pipeline {
 
             }
         }
-//        stage('Test stage') {
-//            steps {
-//                sh "npm test -a"
-//            }
-//        }  //TODO add test stage
+        stage('Test stage') {
+            steps {
+                sh "npm test"
+            }
+        }
         stage('Build stage') {
             steps {
                 sh "npm run build"

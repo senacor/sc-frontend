@@ -74,7 +74,7 @@ const PrsInProgressDialog = ({ classes, intl, prsInProgress }) => {
         <IconButton onClick={dialogClose} className={classes.btnClose}>
           <CloseIcon />
         </IconButton>
-        <DialogTitle>
+        <DialogTitle disableTypography>
           <Typography variant="h5">
             {intl.formatMessage({
               id: 'dashboard.prsInProgress'
