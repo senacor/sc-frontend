@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
-import InfoWidget from '../utils/reusableComponents/InfoWidget';
+import InfoWidget from '../utils/InfoWidget';
 import { ErrorContext, UserinfoContext } from '../App';
 import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';

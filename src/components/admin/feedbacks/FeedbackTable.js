@@ -4,7 +4,7 @@ import { deleteFeedbacks, getFeedbacks } from '../../../calls/feedbacks';
 import FeedbackRow from './FeedbackRow';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
-import ConfirmDialog from '../../utils/reusableComponents/ConfirmDialog';
+import ConfirmDialog from '../../utils/ConfirmDialog';
 
 // Material UI
 import Button from '@material-ui/core/Button';

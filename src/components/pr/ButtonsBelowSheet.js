@@ -10,7 +10,7 @@ import {
 } from '../../calls/pr';
 import { PrContext, UserinfoContext } from '../App';
 import ROLES from '../../helper/roles';
-import ConfirmDialog from '../utils/reusableComponents/ConfirmDialog';
+import ConfirmDialog from '../utils/ConfirmDialog';
 
 const styles = theme => ({
   rightFloat: {

@@ -5,7 +5,7 @@ import ROUTES from '../../../helper/routes';
 import { ErrorContext } from '../../App';
 import { getPrsInProgress } from '../../../calls/pr';
 import PrsInProgressTable from './PrsInProgressTable';
-import InfoWidget from '../../utils/reusableComponents/InfoWidget';
+import InfoWidget from '../../utils/InfoWidget';
 
 // Material UI
 import Typography from '@material-ui/core/Typography';

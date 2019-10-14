@@ -8,7 +8,7 @@ import { CircularProgress } from '@material-ui/core';
 
 import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { addPr } from '../../calls/pr';
-import ConfirmDialog from '../utils/reusableComponents/ConfirmDialog';
+import ConfirmDialog from '../utils/ConfirmDialog';
 
 export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;

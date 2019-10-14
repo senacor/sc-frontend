@@ -5,7 +5,7 @@ import ROUTES from '../../../helper/routes';
 import { ErrorContext } from '../../App';
 import { getPrsHrTodo } from '../../../calls/pr';
 import PrsTodoHrTable from './PrsTodoHrTable';
-import InfoWidget from '../../utils/reusableComponents/InfoWidget';
+import InfoWidget from '../../utils/InfoWidget';
 
 // Material UI
 import Typography from '@material-ui/core/Typography';

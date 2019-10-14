@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
-import { CheckRequiredClick } from '../hoc/CheckRequiredClick';
+import { CheckRequiredClick } from '../utils/CheckRequiredClick';
 import { addMeeting } from '../../calls/meetings';
 import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
 
