@@ -31,6 +31,10 @@ const styles = theme => ({
     padding: 3 * theme.spacing.unit,
     paddingBottom: 0
   },
+  dialogContainer: {
+    display: 'flex',
+    alignItems: 'flex-end'
+  },
   margin: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit
@@ -48,11 +52,31 @@ const styles = theme => ({
 });
 
 const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
-  const [type, setType] = useState('Bug');
+  const feedbackTypes = [
+    {
+      name: 'Bug',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.bug'
+      })
+    },
+    {
+      name: 'Optimization',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.optimization'
+      })
+    },
+    {
+      name: 'Other',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.other'
+      })
+    }
+  ];
+
+  const [type, setType] = useState(feedbackTypes[0].name);
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [maxLengthReached, setMaxLengthReached] = useState(false);
-  const feedbackTypes = ['Bug', 'Optimization', 'Other'];
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -87,18 +111,16 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
   return (
     <Fragment>
       <Dialog open={open} fullWidth maxWidth={'md'}>
-        <DialogTitle>
-          <div>
-            <Typography variant="h6">
-              {intl.formatMessage({
-                id: 'feedbackcreatedialog.createfeedback'
-              })}
-            </Typography>
-          </div>
+        <DialogTitle disableTypography>
+          <Typography variant="h6">
+            {intl.formatMessage({
+              id: 'feedbackcreatedialog.createfeedback'
+            })}
+          </Typography>
         </DialogTitle>
         <Divider />
         <DialogContent className={classes.dialogContent}>
-          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+          <div className={classes.dialogContainer}>
             <FormControl className={`${classes.formControl} ${classes.input}`}>
               <InputLabel htmlFor="select-type">
                 {intl.formatMessage({
@@ -107,13 +129,13 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
               </InputLabel>
               <Select
                 input={<Input id="select-type" />}
-                className={`${classes.margin}`}
+                className={classes.margin}
                 value={type}
                 onChange={handleChangeType}
               >
                 {feedbackTypes.map(type => (
-                  <MenuItem key={type} value={type}>
-                    <ListItemText primary={type} />
+                  <MenuItem key={type.name} value={type.name}>
+                    <ListItemText primary={type.label} />
                   </MenuItem>
                 ))}
               </Select>
