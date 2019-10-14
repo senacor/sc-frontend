@@ -39,15 +39,14 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
     '& h5': {
       paddingLeft: theme.spacing.unit
     }
   },
   title: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: theme.spacing.unit
   },
   panelDetails: {
     width: '100%',
@@ -68,7 +67,8 @@ const styles = theme => ({
   deleteAllButton: {
     border: `1px solid ${theme.palette.secondary.grey}`,
     height: 38,
-    minWidth: 160
+    minWidth: 160,
+    marginTop: 0
   },
   deleteAllText: {
     color: theme.palette.secondary.darkRed
@@ -164,16 +164,21 @@ const FeedbackTable = ({ classes, intl }) => {
                   })}
                 </Typography>
               </div>
-              <Button
-                className={classes.deleteAllButton}
-                onClick={handleOnDeleteClick}
-              >
-                <Typography variant="button" className={classes.deleteAllText}>
-                  {intl.formatMessage({
-                    id: 'maintenance.delete'
-                  })}
-                </Typography>
-              </Button>
+              {selected.length > 0 && (
+                <Button
+                  className={classes.deleteAllButton}
+                  onClick={handleOnDeleteClick}
+                >
+                  <Typography
+                    variant="button"
+                    className={classes.deleteAllText}
+                  >
+                    {intl.formatMessage({
+                      id: 'maintenance.delete'
+                    })}
+                  </Typography>
+                </Button>
+              )}
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>

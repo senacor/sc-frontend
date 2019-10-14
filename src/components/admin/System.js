@@ -74,7 +74,9 @@ const styles = theme => ({
   deleteAllButton: {
     border: `1px solid ${theme.palette.secondary.grey}`,
     height: 38,
-    minWidth: 160
+    minWidth: 160,
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   },
   deleteAllText: {
     color: theme.palette.secondary.darkRed
