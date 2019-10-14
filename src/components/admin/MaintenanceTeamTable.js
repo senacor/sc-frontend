@@ -27,6 +27,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TeamIcon from '@material-ui/icons/SupervisorAccount';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   spacing: {
     margin: 3 * theme.spacing.unit
   },
@@ -87,63 +88,67 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
           })}
         </Typography>
       </div>
-      {isLoading ? (
-        <CircularProgress className={classes.spacing} />
-      ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                {`${intl.formatMessage({
-                  id: 'maintenance.employeeId'
-                })}`}
-              </TableCell>
-              <TableCell>
-                {`${intl.formatMessage({
-                  id: 'maintenance.user'
-                })}`}
-              </TableCell>
-              <TableCell>
-                {`${intl.formatMessage({
-                  id: 'maintenance.email'
-                })}`}
-              </TableCell>
-              <TableCell>
-                {`${intl.formatMessage({
-                  id: 'maintenance.delete'
-                })}`}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map(entry => {
-                return (
-                  <TableRow key={entry.id}>
-                    <TableCell>{entry.employeeId}</TableCell>
-                    <TableCell>{`${entry.firstName} ${
-                      entry.lastName
-                    }`}</TableCell>
-                    <TableCell>{entry.email}</TableCell>
-                    <TableCell>
-                      <IconButton
-                        onClick={event =>
-                          handleOnDeleteClick(event, entry.employeeId)
-                        }
-                        aria-label="delete"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      )}
+      <div className={classes.tableContent}>
+        {isLoading ? (
+          <div className={classes.progressBarCentered}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  {`${intl.formatMessage({
+                    id: 'maintenance.employeeId'
+                  })}`}
+                </TableCell>
+                <TableCell>
+                  {`${intl.formatMessage({
+                    id: 'maintenance.user'
+                  })}`}
+                </TableCell>
+                <TableCell>
+                  {`${intl.formatMessage({
+                    id: 'maintenance.email'
+                  })}`}
+                </TableCell>
+                <TableCell>
+                  {`${intl.formatMessage({
+                    id: 'maintenance.delete'
+                  })}`}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map(entry => {
+                  return (
+                    <TableRow key={entry.id}>
+                      <TableCell>{entry.employeeId}</TableCell>
+                      <TableCell>{`${entry.firstName} ${
+                        entry.lastName
+                      }`}</TableCell>
+                      <TableCell>{entry.email}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          onClick={event =>
+                            handleOnDeleteClick(event, entry.employeeId)
+                          }
+                          aria-label="delete"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        )}
+      </div>
       <Grid container className={classes.center}>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <EmployeeFilter
             data={allEmployeesData}
             maintenanceData={data}
@@ -152,7 +157,7 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
             errorContext={errorContext}
           />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <TablePagination
             component="div"
             count={data.length}
