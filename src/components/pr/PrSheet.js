@@ -35,6 +35,9 @@ const styles = theme => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit
+  },
+  backButton: {
+    minWidth: 198
   }
 });
 
@@ -584,11 +587,11 @@ const PrSheet = props => {
             {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
-        <Grid item xs={2}>
+        <Grid item xs={1} md={2}>
           <Button
             variant="contained"
             color="primary"
-            className={classes.spacing}
+            className={classes.backButton}
             onClick={resetMessages}
             component={NavLink}
             to={getBackJumpPoint(pr, userroles, username)}
@@ -599,7 +602,7 @@ const PrSheet = props => {
             })}
           </Button>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={11} md={10}>
           <ButtonsBelowSheet
             pr={pr}
             errorContext={errorContext}

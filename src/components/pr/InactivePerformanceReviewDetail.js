@@ -1,16 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core';
 import { fetchInactivePrById } from '../../calls/pr';
 import { ErrorContext, PrContext } from '../App';
 import PrTabs from './PrTabs';
 import { getInactiveEmployees } from '../../calls/employees';
 import InactivePrDetailInformation from './InactivePrDetailInformation';
 
+const styles = theme => ({
+  ...theme.styledComponents
+});
+
 const InactivePerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const [isLoading, setIsLoading] = useState({});
   const [allEmployeesData, setAllEmployeesData] = useState([]);
   const errorContext = useContext(ErrorContext.context);
+  const { classes } = props;
 
   useEffect(() => {
     const afterPrFetched = pr => {
@@ -26,7 +32,11 @@ const InactivePerformanceReviewDetail = props => {
   }, []);
 
   if (isLoading || !pr || Object.entries(pr).length === 0) {
-    return <CircularProgress />;
+    return (
+      <div className={classes.progressBarCentered}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
@@ -42,4 +52,4 @@ const InactivePerformanceReviewDetail = props => {
   );
 };
 
-export default InactivePerformanceReviewDetail;
+export default withStyles(styles)(InactivePerformanceReviewDetail);
