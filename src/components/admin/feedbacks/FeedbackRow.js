@@ -64,6 +64,31 @@ const FeedbackRow = ({
 }) => {
   const [dialogDetailsOpen, setDialogDetailsOpen] = useState(false);
 
+  const feedbackTypes = [
+    {
+      name: 'BUG',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.bug'
+      })
+    },
+    {
+      name: 'OPTIMIZATION',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.optimization'
+      })
+    },
+    {
+      name: 'OTHER',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.other'
+      })
+    }
+  ];
+
+  const displayContext = context => {
+    return feedbackTypes.find(type => type.name === context).label;
+  };
+
   const handleDialogDetailsOpen = () => {
     setDialogDetailsOpen(true);
   };
@@ -87,7 +112,7 @@ const FeedbackRow = ({
             className={classes.cell}
           >{`${senderfirstName} ${senderLastName}`}</TableCell>
           <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
-            {context}
+            {displayContext(context)}
           </TableCell>
           <Tooltip
             title={subject}
@@ -118,7 +143,7 @@ const FeedbackRow = ({
           subject={subject}
           senderFirstName={senderfirstName}
           senderLastName={senderLastName}
-          context={context}
+          context={displayContext(context)}
         />
       </Fragment>
     );
