@@ -15,9 +15,6 @@ describe('SearchFilter', () => {
       searchChange={mockOnChange}
     />
   );
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
   it('checks for props values', () => {
     expect(wrapper.props().placeholder).toBe('input');
     expect(wrapper.props().searchValue).toBe('searching employee');

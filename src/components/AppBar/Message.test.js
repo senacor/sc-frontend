@@ -11,14 +11,6 @@ const styles = {
 
 const MessageComposer = withStyles(styles)(Message);
 
-describe('Message', () => {
-  const wrapper = shallowWithIntl(<MessageComposer />);
-
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-});
-
 describe('context of message', () => {
   const mockErrorContext = {
     hasErrors: false,

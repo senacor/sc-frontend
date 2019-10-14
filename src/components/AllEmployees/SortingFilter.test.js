@@ -15,9 +15,6 @@ describe('SortingFilter', () => {
       handleChange={mockOnChange}
     />
   );
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
   it('checks for props values', () => {
     expect(wrapper.props().menuData).toHaveLength(3);
     expect(wrapper.props().stateValue).toBe('searching employee');
