@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
@@ -223,7 +224,11 @@ const PrSheet = props => {
     ) {
       return ROUTES.PR_TO_REVIEW_TABLE;
     } else if (isPersonalDev(userroles)) {
-      return ROUTES.ALL_PRS_TABLE;
+      if (props.fromInactive) {
+        return ROUTES.FORMER_EMPLOYEES;
+      } else {
+        return ROUTES.ALL_PRS_TABLE;
+      }
     } else {
       return ROUTES.LOGOUT;
     }
@@ -394,14 +399,14 @@ const PrSheet = props => {
     return (
       <div>
         <Grid container spacing={16}>
-          <Grid item xs={10}>
+          <Grid item xs={9} md={10}>
             <Typography variant="h6" className={classes.paddingTop}>
               {intl.formatMessage({
                 id: 'prsheet.performance'
               })}
             </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3} md={2}>
             <Typography
               variant={'caption'}
               color={'textSecondary'}
@@ -614,4 +619,4 @@ const PrSheet = props => {
   );
 };
 
-export default injectIntl(withStyles(styles)(PrSheet));
+export default withRouter(injectIntl(withStyles(styles)(PrSheet)));

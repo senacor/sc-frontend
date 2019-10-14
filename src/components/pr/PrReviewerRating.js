@@ -46,7 +46,7 @@ const PrReviewerRating = ({
   return (
     <div className={isExpanded ? classes.expanded : classes.collapsed}>
       <Grid container spacing={16} alignItems="center">
-        <Grid item xs={10}>
+        <Grid item xs={8} md={10}>
           <PrTextField
             label={intl.formatMessage({
               id: `${category}`
@@ -58,7 +58,7 @@ const PrReviewerRating = ({
             action={actionText}
           />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={2} md={1}>
           <PrRatingPoints
             category={category}
             rating={rating}
@@ -67,7 +67,7 @@ const PrReviewerRating = ({
             action={actionRating}
           />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={2} md={1}>
           <IconButton onClick={() => handleClick(category)}>
             <Icon
               id={`${category}_CommentIconId`}

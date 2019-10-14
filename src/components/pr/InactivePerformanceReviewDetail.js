@@ -47,7 +47,7 @@ const InactivePerformanceReviewDetail = props => {
           allEmployeesData={allEmployeesData}
         />
       )}
-      {pr && <PrTabs pr={pr} formerEmployee={true} />}
+      {pr && <PrTabs pr={pr} formerEmployee={true} fromInactive={true} />}
     </React.Fragment>
   );
 };

@@ -185,24 +185,6 @@ const Dashboard = ({ classes, intl }) => {
                 id: 'dashboard.subdescription'
               })} `}
             </Typography>
-            <br />
-            <Typography variant="h5" className={classes.cardTitle}>
-              {intl.formatMessage({
-                id: 'dashboard.contactSupport'
-              })}
-            </Typography>
-            <Typography
-              className={classes.cardParagraph}
-              variant="body1"
-              color="textSecondary"
-            >
-              {`${intl.formatMessage({
-                id: 'dashboard.contactText'
-              })} `}
-              <a href="tomas.hugec@senacor.com">
-                Tomas Hugec (tomas.hugec@senacor.com)
-              </a>
-            </Typography>
           </CardContent>
         </Card>
       </div>
