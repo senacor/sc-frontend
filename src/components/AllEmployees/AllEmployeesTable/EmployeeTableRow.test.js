@@ -24,9 +24,6 @@ describe('EmployeeTableRow', () => {
     <EmployeeTableRow selection={mockSelection} employee={mockEmployee} />
   );
   wrapper.setState({ dialogOpen: false });
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
   it('tests selection prop to be false', () => {
     expect(wrapper.props().selection).toEqual(false);
   });
