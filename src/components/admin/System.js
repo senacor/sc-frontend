@@ -83,6 +83,10 @@ const styles = theme => ({
   },
   buttons: {
     color: theme.palette.secondary.white
+  },
+  deleteIcon: {
+    marginRight: theme.spacing.unit,
+    color: theme.palette.secondary.darkRed
   }
 });
 
@@ -224,17 +228,20 @@ export const System = ({ classes, intl }) => {
                 </Typography>
               </Grid>
               <Grid item xs={6} className={classes.deleteAllButtonGrid}>
-                <Button
-                  className={classes.deleteAllButton}
-                  onClick={handleOnDeleteAllClick}
-                >
-                  <Typography
-                    variant="button"
-                    className={classes.deleteAllText}
+                {data.errors.length > 0 && (
+                  <Button
+                    className={classes.deleteAllButton}
+                    onClick={handleOnDeleteAllClick}
                   >
-                    {intl.formatMessage({ id: 'system.deleteall' })}
-                  </Typography>
-                </Button>
+                    <DeleteIcon className={classes.deleteIcon} />
+                    <Typography
+                      variant="button"
+                      className={classes.deleteAllText}
+                    >
+                      {intl.formatMessage({ id: 'system.deleteall' })}
+                    </Typography>
+                  </Button>
+                )}
               </Grid>
             </Grid>
             <Table>
@@ -306,7 +313,7 @@ export const System = ({ classes, intl }) => {
                 <Button
                   className={classes.buttons}
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   onClick={handleOnYesClick}
                 >
                   {`${intl.formatMessage({

@@ -29,6 +29,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 // Icons
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FeedbackIcon from '@material-ui/icons/Feedback';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   spacing: {
@@ -78,6 +79,10 @@ const styles = theme => ({
   },
   dialog: {
     minWidth: 500
+  },
+  deleteIcon: {
+    marginRight: theme.spacing.unit,
+    color: theme.palette.secondary.darkRed
   }
 });
 
@@ -169,6 +174,7 @@ const FeedbackTable = ({ classes, intl }) => {
                   className={classes.deleteAllButton}
                   onClick={handleOnDeleteClick}
                 >
+                  <DeleteIcon className={classes.deleteIcon} />
                   <Typography
                     variant="button"
                     className={classes.deleteAllText}
@@ -262,7 +268,7 @@ const FeedbackTable = ({ classes, intl }) => {
                   <Button
                     className={classes.buttons}
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     onClick={handleOnYesClick}
                   >
                     {`${intl.formatMessage({
