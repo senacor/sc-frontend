@@ -48,16 +48,36 @@ const styles = theme => ({
 });
 
 const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
-  const [type, setType] = useState('Bug');
+  const feedbackTypes = [
+    {
+      name: 'Bug',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.bug'
+      })
+    },
+    {
+      name: 'Optimization',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.optimization'
+      })
+    },
+    {
+      name: 'Other',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.other'
+      })
+    }
+  ];
+
+  const [type, setType] = useState(feedbackTypes[0]);
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [maxLengthReached, setMaxLengthReached] = useState(false);
-  const feedbackTypes = ['Bug', 'Optimization', 'Other'];
 
   const errorContext = useContext(ErrorContext.context);
 
   const handleSend = () => {
-    addFeedback(type, subject, message, errorContext);
+    addFeedback(type.name, subject, message, errorContext);
     setMaxLengthReached(false);
     handleClose();
   };
@@ -108,12 +128,12 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
               <Select
                 input={<Input id="select-type" />}
                 className={`${classes.margin}`}
-                value={type}
+                value={type.label}
                 onChange={handleChangeType}
               >
                 {feedbackTypes.map(type => (
-                  <MenuItem key={type} value={type}>
-                    <ListItemText primary={type} />
+                  <MenuItem key={type.name} value={type}>
+                    <ListItemText primary={type.label} />
                   </MenuItem>
                 ))}
               </Select>
