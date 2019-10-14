@@ -114,18 +114,14 @@ const Dashboard = ({ classes, intl }) => {
           <div className={classes.rowContainer}>
             <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
             <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography className={classes.title} variant="body1">
-                  {intl.formatMessage({
-                    id: 'dashboard.newformeremployees'
-                  })}
-                </Typography>
-                <Typography color="textSecondary">
-                  {formerUsersCount}
-                </Typography>
-              </CardContent>
-            </Card>
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.newformeremployees'
+              })}
+              value={formerUsersCount}
+              linkTo={ROUTES.FORMER_EMPLOYEES}
+              icon={'emoji_people'}
+            />
           </div>
         )}
 

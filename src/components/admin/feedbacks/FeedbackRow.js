@@ -1,15 +1,14 @@
 import React, { Fragment, useState } from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { getReadableDate } from '../../../helper/date';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
 // Material UI
-import IconButton from '@material-ui/core/IconButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Tooltip from '@material-ui/core/Tooltip';
 import FeedbackDetailDialog from './FeedbackDetailDialog';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -41,6 +40,9 @@ const styles = theme => ({
     overflowWrap: 'break-word',
     minWidth: 150,
     padding: theme.spacing.unit * 2
+  },
+  checkboxCell: {
+    padding: 0
   }
 });
 
@@ -56,7 +58,8 @@ const FeedbackRow = ({
     body,
     sentAt
   },
-  handleOnDeleteClick,
+  selected,
+  changeSelectedItem,
   isLoading
 }) => {
   const [dialogDetailsOpen, setDialogDetailsOpen] = useState(false);
@@ -73,6 +76,12 @@ const FeedbackRow = ({
     return (
       <Fragment>
         <TableRow className={classes.tableRow}>
+          <TableCell className={classes.checkboxCell}>
+            <Checkbox
+              checked={selected}
+              onChange={() => changeSelectedItem(id)}
+            />
+          </TableCell>
           <TableCell
             onClick={handleDialogDetailsOpen}
             className={classes.cell}
@@ -100,14 +109,6 @@ const FeedbackRow = ({
           </TableCell>
           <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
             {getReadableDate(sentAt)}
-          </TableCell>
-          <TableCell className={classes.cell}>
-            <IconButton
-              onClick={event => handleOnDeleteClick(event, id)}
-              aria-label="delete"
-            >
-              <DeleteIcon />
-            </IconButton>
           </TableCell>
         </TableRow>
         <FeedbackDetailDialog

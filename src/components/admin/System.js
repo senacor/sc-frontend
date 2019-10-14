@@ -1,6 +1,14 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { CircularProgress, Grid, withStyles } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Grid,
+  withStyles
+} from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,7 +20,11 @@ import ErrorIcon from '@material-ui/icons/Error';
 import SuccessIcon from '@material-ui/icons/CheckCircle';
 import WarningIcon from '@material-ui/icons/Warning';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deleteError, getHealthcheckData } from '../../calls/admin';
+import {
+  deleteAllErrors,
+  deleteError,
+  getHealthcheckData
+} from '../../calls/admin';
 import { getReadableDate } from '../../helper/date';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -54,6 +66,27 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  deleteAllButtonGrid: {
+    textAlign: 'right',
+    padding: theme.spacing.unit
+  },
+  deleteAllButton: {
+    border: `1px solid ${theme.palette.secondary.grey}`,
+    height: 38,
+    minWidth: 160,
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
+  },
+  deleteAllText: {
+    color: theme.palette.secondary.darkRed
+  },
+  buttons: {
+    color: theme.palette.secondary.white
+  },
+  deleteIcon: {
+    marginRight: theme.spacing.unit,
+    color: theme.palette.secondary.darkRed
   }
 });
 
@@ -68,6 +101,7 @@ export const System = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -88,6 +122,22 @@ export const System = ({ classes, intl }) => {
     let newData = { ...data };
     newData.errors = data.errors.filter(e => e.id !== id);
     setData(newData);
+  };
+
+  const handleOnDeleteAllClick = () => {
+    if (data.errors.length > 0) {
+      setDialogOpen(true);
+    }
+  };
+
+  const handleOnYesClick = () => {
+    deleteAllErrors(errorContext);
+    setData({
+      fis: data.fis,
+      outlook: data.outlook,
+      errors: []
+    });
+    setDialogOpen(false);
   };
 
   const renderStatusByType = connection => {
@@ -169,11 +219,31 @@ export const System = ({ classes, intl }) => {
           </Grid>
 
           <Paper className={classes.spacing}>
-            <Typography className={classes.padding} variant="h5">
-              {intl.formatMessage({
-                id: 'system.errors'
-              })}
-            </Typography>
+            <Grid container>
+              <Grid item xs={6}>
+                <Typography className={classes.padding} variant="h5">
+                  {intl.formatMessage({
+                    id: 'system.errors'
+                  })}
+                </Typography>
+              </Grid>
+              <Grid item xs={6} className={classes.deleteAllButtonGrid}>
+                {data.errors.length > 0 && (
+                  <Button
+                    className={classes.deleteAllButton}
+                    onClick={handleOnDeleteAllClick}
+                  >
+                    <DeleteIcon className={classes.deleteIcon} />
+                    <Typography
+                      variant="button"
+                      className={classes.deleteAllText}
+                    >
+                      {intl.formatMessage({ id: 'system.deleteall' })}
+                    </Typography>
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
             <Table>
               <TableHead>
                 <TableRow>
@@ -223,6 +293,35 @@ export const System = ({ classes, intl }) => {
                   })}
               </TableBody>
             </Table>
+            <Dialog fullWidth maxWidth="xs" open={dialogOpen}>
+              <DialogTitle>
+                {`${intl.formatMessage({
+                  id: 'system.areyousure'
+                })}`}
+              </DialogTitle>
+              <DialogActions>
+                <Button
+                  className={classes.buttons}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  {`${intl.formatMessage({
+                    id: 'system.no'
+                  })}`}
+                </Button>
+                <Button
+                  className={classes.buttons}
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleOnYesClick}
+                >
+                  {`${intl.formatMessage({
+                    id: 'system.yes'
+                  })}`}
+                </Button>
+              </DialogActions>
+            </Dialog>
             <TablePagination
               component="div"
               count={data.errors.length}

@@ -121,6 +121,21 @@ export const deleteError = async (id, errorContext) => {
   }
 };
 
+export const deleteAllErrors = async errorContext => {
+  try {
+    await fetch(`${process.env.REACT_APP_API}/api/v3/log/delete/all`, {
+      method: 'delete',
+      mode: 'cors'
+    });
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const getMaintenanceTeam = async (
   setData,
   setIsLoading,
