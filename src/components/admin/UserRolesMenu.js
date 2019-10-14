@@ -37,9 +37,8 @@ const UserRolesMenu = props => {
 
   const showContent = role => {
     return (
-      <div>
+      <div key={role.id}>
         <ListItem
-          key={role.id}
           dense
           button
           onClick={() => {
