@@ -73,7 +73,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
     }
   ];
 
-  const [type, setType] = useState(feedbackTypes[0].label);
+  const [type, setType] = useState(feedbackTypes[0].name);
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [maxLengthReached, setMaxLengthReached] = useState(false);
@@ -134,7 +134,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
                 onChange={handleChangeType}
               >
                 {feedbackTypes.map(type => (
-                  <MenuItem key={type.name} value={type.label}>
+                  <MenuItem key={type.name} value={type.name}>
                     <ListItemText primary={type.label} />
                   </MenuItem>
                 ))}
