@@ -9,8 +9,8 @@ import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
   card: {
-    margin: 3 * theme.spacing.unit,
-    marginBottom: 0,
+    marginTop: 3 * theme.spacing.unit,
+    marginLeft: 3 * theme.spacing.unit,
     textDecoration: 'none',
     height: 100
   },
