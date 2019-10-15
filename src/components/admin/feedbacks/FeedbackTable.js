@@ -2,17 +2,13 @@ import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { ErrorContext } from '../../App';
 import { deleteFeedbacks, getFeedbacks } from '../../../calls/feedbacks';
 import FeedbackRow from './FeedbackRow';
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  withStyles
-} from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import ConfirmDialog from '../../utils/ConfirmDialog';
 
 // Material UI
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -248,35 +244,17 @@ const FeedbackTable = ({ classes, intl }) => {
                   </TableBody>
                 </Table>
               )}
-              <Dialog fullWidth maxWidth="xs" open={dialogOpen}>
-                <DialogTitle>
-                  {`${intl.formatMessage({
-                    id: 'feedbacktable.areyousure'
-                  })}`}
-                </DialogTitle>
-                <DialogActions>
-                  <Button
-                    className={classes.buttons}
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setDialogOpen(false)}
-                  >
-                    {`${intl.formatMessage({
-                      id: 'feedbacktable.no'
-                    })}`}
-                  </Button>
-                  <Button
-                    className={classes.buttons}
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleOnYesClick}
-                  >
-                    {`${intl.formatMessage({
-                      id: 'feedbacktable.yes'
-                    })}`}
-                  </Button>
-                </DialogActions>
-              </Dialog>
+              <ConfirmDialog
+                open={dialogOpen}
+                handleClose={() => setDialogOpen(false)}
+                handleConfirm={handleOnYesClick}
+                confirmationText={intl.formatMessage({
+                  id: 'feedbacktable.areyousure'
+                })}
+                confirmationHeader={intl.formatMessage({
+                  id: 'feedbacktable.confirmDialogTitle'
+                })}
+              />
               <TablePagination
                 component="div"
                 count={data.length}

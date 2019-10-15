@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import {
@@ -10,6 +10,7 @@ import {
 } from '../../calls/pr';
 import { PrContext, UserinfoContext } from '../App';
 import ROLES from '../../helper/roles';
+import ConfirmDialog from '../utils/ConfirmDialog';
 
 const styles = theme => ({
   rightFloat: {
@@ -33,6 +34,7 @@ const ButtonsBelowSheet = props => {
   let { errors } = props;
   const { setValue: setPr } = useContext(PrContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const validateReflectionInputs = () => {
     if (!pr.firstReflectionField) {
@@ -230,6 +232,7 @@ const ButtonsBelowSheet = props => {
         infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
       });
     }
+    setDialogOpen(false);
   };
 
   const disabled = () => {
@@ -283,7 +286,7 @@ const ButtonsBelowSheet = props => {
     });
   };
 
-  const createSaveButton = () => {
+  const CreateSaveButton = () => {
     return (
       <Button
         variant="contained"
@@ -299,14 +302,14 @@ const ButtonsBelowSheet = props => {
     );
   };
 
-  const createSubmitButton = () => {
+  const CreateSubmitButton = () => {
     return (
       <Button
         variant="contained"
         color="primary"
         className={`${classes.rightFloat} ${classes.submitButton}`}
         disabled={disabled()}
-        onClick={handleSubmitClick}
+        onClick={() => setDialogOpen(true)}
       >
         {submitButtonText()}
       </Button>
@@ -315,8 +318,19 @@ const ButtonsBelowSheet = props => {
 
   return (
     <div className={classes.container}>
-      {createSubmitButton()}
-      {createSaveButton()}
+      <CreateSubmitButton />
+      <CreateSaveButton />
+      <ConfirmDialog
+        open={dialogOpen}
+        handleClose={() => setDialogOpen(false)}
+        handleConfirm={handleSubmitClick}
+        confirmationText={intl.formatMessage({
+          id: 'buttonsbelowsheet.submitDialogText'
+        })}
+        confirmationHeader={intl.formatMessage({
+          id: 'buttonsbelowsheet.submitDialogTitle'
+        })}
+      />
     </div>
   );
 };
