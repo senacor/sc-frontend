@@ -368,15 +368,15 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   return (
     <div className={classes.container}>
       <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
-        {tableView ? (
-          <Tooltip title={intl.formatMessage({ id: 'switchView.cards' })}>
-            <TableViewIcon />
-          </Tooltip>
-        ) : (
-          <Tooltip title={intl.formatMessage({ id: 'switchView.table' })}>
-            <CardsViewIcon />
-          </Tooltip>
-        )}
+        <Tooltip
+          title={
+            tableView
+              ? intl.formatMessage({ id: 'switchView.cards' })
+              : intl.formatMessage({ id: 'switchView.table' })
+          }
+        >
+          <span>{tableView ? <TableViewIcon /> : <CardsViewIcon />}</span>
+        </Tooltip>
       </IconButton>
       <Paper className={classes.filterWithUpload}>
         <UploadSuccessDialog
