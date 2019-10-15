@@ -50,11 +50,11 @@ const PrSheet = props => {
   const { username } = userinfo;
 
   const changeFirstReflectionField = value => {
-    pr.firstReflectionField = value;
+    pr.firstReflectionField = value.trim();
   };
 
   const changeSecondReflectionField = value => {
-    pr.secondReflectionField = value;
+    pr.secondReflectionField = value.trim();
   };
 
   const changeFinalCommentEmployee = value => {
@@ -138,7 +138,7 @@ const PrSheet = props => {
   };
 
   const changeFulfillmentOfRequirementComment = value => {
-    pr.prRating.overallAssessment.fulfillmentOfRequirement.comment = value;
+    pr.prRating.overallAssessment.fulfillmentOfRequirement.comment = value.trim();
   };
 
   const changeFulfillmentOfRequirementRating = value => {

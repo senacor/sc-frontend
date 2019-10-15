@@ -186,7 +186,7 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             className={classes.buttons}
             variant="contained"
             color="secondary"
-            disabled={!subject || !message}
+            disabled={!subject.trim() || !message.trim()}
           >
             {intl.formatMessage({
               id: 'feedbackcreatedialog.send'
