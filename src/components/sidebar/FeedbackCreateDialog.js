@@ -1,22 +1,24 @@
 import React, { Fragment, useContext, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Button, DialogActions } from '@material-ui/core';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Input,
-  ListItemText,
-  MenuItem,
-  Select,
-  TextField,
-  Typography
-} from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
-import InputLabel from '@material-ui/core/InputLabel';
+import { withStyles } from '@material-ui/core';
 import { addFeedback } from '../../calls/feedbacks';
 import { ErrorContext } from '../App';
+
+// Material UI
+import Divider from '@material-ui/core/Divider';
+import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   ...theme,
