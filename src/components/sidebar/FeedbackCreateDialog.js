@@ -170,6 +170,9 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             onChange={handleChangeMessage}
             className={`${classes.fullWidth} ${classes.margin}`}
             inputProps={{ maxLength: 1000 }}
+            placeholder={intl.formatMessage({
+              id: 'feedbackcreatedialog.messagePlaceholder'
+            })}
           />
         </DialogContent>
         <DialogActions>
