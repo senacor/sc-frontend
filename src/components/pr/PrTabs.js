@@ -47,7 +47,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const PrTabs = ({ classes, intl, pr, formerEmployee }) => {
+const PrTabs = ({ classes, intl, pr, formerEmployee, fromInactive }) => {
   const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
 
   const handleChange = (event, value) => {
@@ -92,7 +92,7 @@ const PrTabs = ({ classes, intl, pr, formerEmployee }) => {
       </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
         <TabContainer spacing={classes.spacing}>
-          <PrSheet pr={pr} />
+          <PrSheet pr={pr} fromInactive={fromInactive} />
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (

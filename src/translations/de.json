@@ -9,8 +9,6 @@
   "dashboard.welcome": "Willkommen im Performance Review Portal!",
   "dashboard.description": "Der Platz für Performance Reviews Management oder Überblick der eigenen PRs.",
   "dashboard.subdescription": "Da wir parallel am Portal weiterentwickeln, jedes Feedback ist geschätzt.",
-  "dashboard.contactSupport": "Unterstützung kontaktieren",
-  "dashboard.contactText": "Fühlen Sie sich frei uns Problems, Bugs und Verbesserungsvorschlagen zu melden. Kontakt: ",
   "dashboard.administrationTitle": "Beachtung! Sie sind in Administrationsmodus",
   "dashboard.administrationText": "In diesem Modus können Sie Benutzerrolen wechseln und Feedbacks, Logs oder aufgetretene Problems anschauen.",
   "dashboard.prsInProgress": "Laufende PRs insgesamt",
