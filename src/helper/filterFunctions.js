@@ -59,6 +59,21 @@ export const handleFormerFilterActive = (filterInputs, setFilterActive) => {
   }
 };
 
+export const handleProgressFilterActive = (filterInputs, setFilterActive) => {
+  const emptyInputs = {
+    searchEmployee: '',
+    supervisor: '',
+    date: '',
+    position: [],
+    occasion: []
+  };
+  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
+    setFilterActive(false);
+  } else {
+    setFilterActive(true);
+  }
+};
+
 export const checkFilterValues = (filterData, userData) => {
   if (filterData.length > 0 && Array.isArray(filterData)) {
     const filterDataLowerCase = filterData.map(item => {
