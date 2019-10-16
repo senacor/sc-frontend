@@ -48,7 +48,7 @@ export const filterPrs = (prs, filterInputs) => {
       checkFilterValues(filterInputs.searchSupervisor, pr.supervisor) &&
       checkDateFilter(filterInputs.date, pr.startDate) &&
       checkFilterValues(filterInputs.position, pr.currentPosition) &&
-      checkFilterValues(filterInputs.occasion, pr.prOccasion)
+      checkFilterValues(filterInputs.occasion, modifyString(pr.prOccasion))
     );
   });
 };

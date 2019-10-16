@@ -37,7 +37,7 @@ const styles = theme => ({
     textAlign: 'center'
   },
   dialogPaper: {
-    maxHeight: '80vh'
+    height: '80vh'
   },
   advFilterBtn: {
     border: `1px solid ${theme.palette.secondary.grey}`,

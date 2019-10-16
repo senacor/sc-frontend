@@ -81,4 +81,10 @@ export const locations = [
   'Wien'
 ];
 
-export const occasions = ['On demand', 'End of probation period', 'Yearly'];
+export const occasions = [
+  'End probation',
+  'Yearly',
+  'On demand',
+  'On demand by supervisor',
+  'On demand by personal dev'
+];
