@@ -224,6 +224,7 @@ const PrsInProgressDialog = ({ classes, intl, prsInProgress }) => {
                   handleChange={item.handleChange}
                   menuData={item.menuData}
                   stateValue={item.stateValue}
+                  processingPrs={true}
                 />
               ))}
               <Button onClick={clearFilter} className={classes.clearFilterBtn}>
