@@ -14,10 +14,6 @@ export const formatDateForFrontend = input => {
   return null;
 };
 
-export const dateString = () => {
-  return moment().format('YYYY-MM-DD');
-};
-
 // Converting LocaleDateTime for frontend
 export const formatLocaleDateTime = (input, format) => {
   if (input) {
