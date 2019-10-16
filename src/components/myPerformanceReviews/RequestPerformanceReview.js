@@ -34,9 +34,7 @@ export const RequestPerformanceReview = ({ intl }) => {
     );
     const today = Date.parse(moment().format(FRONTEND_LOCALE_DATE_TIME_FORMAT));
 
-    if (date === null) {
-      value = false;
-    } else if (formattedDate < today) {
+    if (date === null || formattedDate < today) {
       value = false;
     } else if (formattedDate >= today) {
       value = true;
