@@ -53,3 +53,17 @@ export const getReadableDate = date => {
   const minutes = date[4] > 9 ? date[4].toString() : `0${date[4]}`;
   return `${date[2]}.${date[1]}.${date[0]}, ${date[3]}:${minutes}`;
 };
+
+export const dateIsBeforeTodayOrEqual = (bool, date) => {
+  const formattedDate = Date.parse(
+    formatLocaleDateTime(date, FRONTEND_LOCALE_DATE_TIME_FORMAT)
+  );
+  const today = Date.parse(moment().format(FRONTEND_LOCALE_DATE_TIME_FORMAT));
+
+  if (!date || formattedDate < today) {
+    bool = false;
+  } else if (formattedDate >= today) {
+    bool = true;
+  }
+  return bool;
+};

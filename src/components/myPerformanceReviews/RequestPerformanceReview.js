@@ -1,5 +1,4 @@
 import React, { useContext, useState, Fragment } from 'react';
-import moment from 'moment';
 import { injectIntl } from 'react-intl';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -10,10 +9,7 @@ import { CircularProgress } from '@material-ui/core';
 import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { addPr } from '../../calls/pr';
 import ConfirmDialog from '../utils/ConfirmDialog';
-import {
-  formatLocaleDateTime,
-  FRONTEND_LOCALE_DATE_TIME_FORMAT
-} from '../../helper/date';
+import { dateIsBeforeTodayOrEqual } from '../../helper/date';
 
 export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;
@@ -27,20 +23,6 @@ export const RequestPerformanceReview = ({ intl }) => {
   const hasPrInProgress = userinfo.hasPrInProgress;
   const endOfProbationPeriod = userinfo.endOfProbation;
   let isInProbation = false;
-
-  const isInProbationCheck = (value, date) => {
-    const formattedDate = Date.parse(
-      formatLocaleDateTime(date, FRONTEND_LOCALE_DATE_TIME_FORMAT)
-    );
-    const today = Date.parse(moment().format(FRONTEND_LOCALE_DATE_TIME_FORMAT));
-
-    if (date === null || formattedDate < today) {
-      value = false;
-    } else if (formattedDate >= today) {
-      value = true;
-    }
-    return value;
-  };
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -63,7 +45,7 @@ export const RequestPerformanceReview = ({ intl }) => {
     ? intl.formatMessage({
         id: 'requestperformancereview.alreadyopened'
       })
-    : isInProbationCheck(isInProbation, endOfProbationPeriod)
+    : dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
     ? intl.formatMessage({
         id: 'requestperformancereview.isInProbationPeriod'
       })
@@ -80,7 +62,7 @@ export const RequestPerformanceReview = ({ intl }) => {
   if (
     !hasSupervisor ||
     hasPrInProgress ||
-    isInProbationCheck(isInProbation, endOfProbationPeriod)
+    dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
   ) {
     return (
       <Tooltip title={tooltipText}>
@@ -105,7 +87,7 @@ export const RequestPerformanceReview = ({ intl }) => {
         disabled={
           !hasSupervisor ||
           hasPrInProgress ||
-          isInProbationCheck(isInProbation, endOfProbationPeriod)
+          dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
         }
       >
         <Icon>add</Icon>
