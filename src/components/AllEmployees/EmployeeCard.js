@@ -20,7 +20,7 @@ const styles = theme => ({
     height: 350,
     margin: theme.spacing.unit,
     cursor: 'pointer',
-    transition: 'all 0.3s',
+    transition: '0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
     }

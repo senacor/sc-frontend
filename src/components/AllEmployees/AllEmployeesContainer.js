@@ -32,7 +32,6 @@ import AllEmployeesTable, {
 import { downloadExcel } from '../../calls/excelView';
 import Grid from '@material-ui/core/Grid';
 import { isPersonalDev, isSupervisor } from '../../helper/checkRole';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   container: {
@@ -263,9 +262,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
 
   const upperMenu = intl => {
     const { userroles } = userInfoContext.value;
-    if (isLoading) {
-      return <CircularProgress size={24} className={classes.buttonProgress} />;
-    }
 
     let selectionMenu = selection ? (
       <Fragment>
