@@ -22,8 +22,7 @@ import SearchFilter from '../../AllEmployees/SearchFilter';
 import Button from '@material-ui/core/Button';
 import FilterIcon from '@material-ui/icons/FilterList';
 import SortingFilter from '../../AllEmployees/SortingFilter';
-import { locations, positions, occasions } from '../../../helper/filterData';
-import { formatLocaleDateTime } from '../../../helper/date';
+import { positions, occasions } from '../../../helper/filterData';
 
 const styles = theme => ({
   btnClose: {
