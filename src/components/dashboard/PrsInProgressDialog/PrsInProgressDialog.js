@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { injectIntl } from 'react-intl';
-import { Grid, TextField, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import ROUTES from '../../../helper/routes';
 import { ErrorContext } from '../../App';
 import { getPrsInProgress } from '../../../calls/pr';
@@ -15,6 +15,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
@@ -214,6 +216,7 @@ const PrsInProgressDialog = ({ classes, intl, prsInProgress }) => {
                 type="date"
                 label={intl.formatMessage({ id: 'employeeInfo.startDate' })}
                 value={dateSorting}
+                InputLabelProps={{ shrink: true }}
                 onChange={handleSortDateChange}
               />
               {sortingData.map(item => (

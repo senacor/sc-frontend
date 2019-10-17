@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { TableSortLabel, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
 // Material UI
@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
