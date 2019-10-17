@@ -12,7 +12,11 @@ const styles = theme => ({
     marginTop: 3 * theme.spacing.unit,
     marginLeft: 3 * theme.spacing.unit,
     textDecoration: 'none',
-    height: 100
+    height: 100,
+    transition: '0.3s',
+    '&:hover': {
+      transform: 'scale(1.05)'
+    }
   },
   cardContent: {
     display: 'flex',
