@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core';
+import { TableSortLabel, withStyles } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 // Material UI
@@ -55,10 +55,19 @@ export const filterPrs = (prs, filterInputs) => {
 
 const PrsInProgressTable = ({ classes, intl, prs, history, filterInputs }) => {
   const [filterActive, setFilterActive] = useState(false);
+  const [employeeSortDirection, setEmployeeSortDirection] = useState('asc');
 
   useEffect(() => {
     handleProgressFilterActive(filterInputs, setFilterActive);
   });
+
+  const handleEmployeeSort = () => {
+    if (employeeSortDirection === 'asc') {
+      setEmployeeSortDirection('desc');
+    } else {
+      setEmployeeSortDirection('asc');
+    }
+  };
 
   const filteredPrs = filterPrs(prs, filterInputs);
 
@@ -67,7 +76,13 @@ const PrsInProgressTable = ({ classes, intl, prs, history, filterInputs }) => {
       <TableHead>
         <TableRow>
           <TableCell>
-            {intl.formatMessage({ id: 'meetingcreator.employee' })}
+            <TableSortLabel
+              active={true}
+              direction={employeeSortDirection}
+              onClick={handleEmployeeSort}
+            >
+              {intl.formatMessage({ id: 'meetingcreator.employee' })}
+            </TableSortLabel>
           </TableCell>
           <TableCell>
             {intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
