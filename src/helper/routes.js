@@ -6,6 +6,7 @@ const ROUTES = {
   DASHBOARD: '/dashboard',
   PR_IN_PROGRESS: '/dashboard/prsinprogress',
   PR_HR_TODO: '/dashboard/prhrtodo',
+  DECLINED_PR: '/dashboard/declinedPrs',
   LOGIN: '/login',
   LOGOUT: '/logout',
   PR: '/prDetail',

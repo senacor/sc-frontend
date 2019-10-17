@@ -1,7 +1,8 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
@@ -9,7 +10,6 @@ import AdvancementStrategies from './AdvancementStrategies';
 import { isPersonalDev } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import { ErrorContext, InfoContext, UserinfoContext } from '../App';
-
 // Material UI
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -17,8 +17,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
-import { NavLink } from 'react-router-dom';
 import ROUTES from '../../helper/routes';
+import ConfirmDialog from '../utils/ConfirmDialog';
+import { declinePr, undecline } from '../../calls/pr';
 
 const styles = theme => ({
   paddingBottom: {
@@ -39,6 +40,11 @@ const styles = theme => ({
   },
   backButton: {
     minWidth: 198
+  },
+  declineButton: {
+    marginLeft: 3 * theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.darkRed,
+    color: theme.palette.secondary.white
   }
 });
 
@@ -48,6 +54,124 @@ const PrSheet = props => {
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
   const { username } = userinfo;
+  const [declineDialogOpen, setDeclineDialogOpen] = useState(false);
+  const [disableDecline, setDisableDecline] = useState(false);
+
+  const declinePrButton = () => {
+    if (userinfo.userId === pr.supervisor.id) {
+      const completely = pr.statusSet.includes('DECLINED_HR');
+      return (
+        <Button
+          variant="contained"
+          disabled={
+            pr.statusSet.includes('DECLINED_SUPERVISOR') || disableDecline
+          }
+          className={classes.declineButton}
+          onClick={() => setDeclineDialogOpen(true)}
+        >
+          <DeleteIcon className={classes.leftIcon} />
+          {intl.formatMessage({
+            id: completely ? 'decline.completely' : 'decline.button'
+          })}
+        </Button>
+      );
+    }
+
+    if (isPersonalDev(userroles)) {
+      const completely = pr.statusSet.includes('DECLINED_SUPERVISOR');
+      return (
+        <Button
+          variant="contained"
+          disabled={pr.statusSet.includes('DECLINED_HR') || disableDecline}
+          className={classes.declineButton}
+          onClick={() => setDeclineDialogOpen(true)}
+        >
+          <DeleteIcon className={classes.leftIcon} />
+          {intl.formatMessage({
+            id: completely ? 'decline.completely' : 'decline.button'
+          })}
+        </Button>
+      );
+    }
+
+    return null;
+  };
+
+  const declineNo = () => {
+    if (
+      (userinfo.userId === pr.supervisor.id &&
+        pr.statusSet.includes('DECLINED_HR')) ||
+      (isPersonalDev(userroles) && pr.statusSet.includes('DECLINED_SUPERVISOR'))
+    ) {
+      //RESET DECLINING PROCESS
+      undecline(
+        pr.id,
+        () => {
+          infoContext.setValue({
+            hasInfos: true,
+            messageId: 'prsheet.decline.canceled'
+          });
+          setDisableDecline(true);
+          window.scrollTo(0, 0);
+        },
+        errorContext
+      );
+    }
+
+    setDeclineDialogOpen(false);
+  };
+
+  const declineYes = () => {
+    if (
+      (userinfo.userId === pr.supervisor.id &&
+        pr.statusSet.includes('DECLINED_HR')) ||
+      (isPersonalDev(userroles) && pr.statusSet.includes('DECLINED_SUPERVISOR'))
+    ) {
+      //DECLINE AND REMOVE PR COMPLETELY
+      const targetStatus =
+        userinfo.userId === pr.supervisor.id
+          ? 'DECLINED_SUPERVISOR'
+          : 'DECLINED_HR';
+      declinePr(
+        pr.id,
+        targetStatus,
+        () => {
+          infoContext.setValue({
+            hasInfos: true,
+            messageId: 'prsheet.decline.done'
+          });
+          props.history.push(ROUTES.DASHBOARD);
+        },
+        errorContext
+      );
+    } else {
+      //DECLINE PR AND SEND TO OTHER SIDE
+      const targetAction =
+        userinfo.userId === pr.supervisor.id
+          ? {
+              status: 'DECLINED_SUPERVISOR',
+              message: 'prsheet.decline.forwarded.hr'
+            }
+          : {
+              status: 'DECLINED_HR',
+              message: 'prsheet.decline.forwarded.supervisor'
+            };
+      declinePr(
+        pr.id,
+        targetAction.status,
+        () => {
+          infoContext.setValue({
+            hasInfos: true,
+            messageId: targetAction.message
+          });
+          setDisableDecline(true);
+          window.scrollTo(0, 0);
+        },
+        errorContext
+      );
+    }
+    setDeclineDialogOpen(false);
+  };
 
   const changeFirstReflectionField = value => {
     pr.firstReflectionField = value.trim();
@@ -592,7 +716,7 @@ const PrSheet = props => {
             {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
-        <Grid item xs={1} md={2}>
+        <Grid item xs={6} md={6}>
           <Button
             variant="contained"
             color="primary"
@@ -606,8 +730,9 @@ const PrSheet = props => {
               id: 'backtotablebutton.back'
             })}
           </Button>
+          {declinePrButton()}
         </Grid>
-        <Grid item xs={11} md={10}>
+        <Grid item xs={6} md={6}>
           <ButtonsBelowSheet
             pr={pr}
             errorContext={errorContext}
@@ -615,6 +740,18 @@ const PrSheet = props => {
           />
         </Grid>
       </Grid>
+      <ConfirmDialog
+        onBackdropClick={() => setDeclineDialogOpen(false)}
+        open={declineDialogOpen}
+        handleClose={declineNo}
+        handleConfirm={declineYes}
+        confirmationText={intl.formatMessage({
+          id: 'prsheet.decline.dialog'
+        })}
+        confirmationHeader={intl.formatMessage({
+          id: 'decline.confirmDialogTitle'
+        })}
+      />
     </div>
   );
 };
