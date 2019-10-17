@@ -31,7 +31,7 @@ const ConfirmDialog = ({
   return (
     <Dialog
       fullWidth
-      maxWidth="xs"
+      maxWidth="sm"
       open={open}
       onBackdropClick={onBackdropClick}
     >
@@ -44,7 +44,7 @@ const ConfirmDialog = ({
         <Button
           className={classes.button}
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={handleClose}
         >
           {`${intl.formatMessage({
@@ -54,7 +54,7 @@ const ConfirmDialog = ({
         <Button
           className={classes.button}
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={handleConfirm}
         >
           {`${intl.formatMessage({

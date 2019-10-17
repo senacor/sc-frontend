@@ -1,14 +1,6 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  Grid,
-  withStyles
-} from '@material-ui/core';
+import { Button, CircularProgress, Grid, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,6 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import { ErrorContext } from '../App';
+import ConfirmDialog from '../utils/ConfirmDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -103,6 +96,8 @@ export const System = ({ classes, intl }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [deleteAll, setDeleteAll] = useState(false);
+  const [errorId, setErrorId] = useState(undefined);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -118,20 +113,28 @@ export const System = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const handleOnDeleteClick = (event, id) => {
-    deleteError(id, errorContext);
-    let newData = { ...data };
-    newData.errors = data.errors.filter(e => e.id !== id);
-    setData(newData);
+  const handleOnDeleteClick = id => {
+    setDeleteAll(false);
+    setErrorId(id);
+    setDialogOpen(true);
   };
 
-  const handleOnDeleteAllClick = () => {
+  const handleOnDeleteClickAll = () => {
     if (data.errors.length > 0) {
+      setDeleteAll(true);
       setDialogOpen(true);
     }
   };
 
   const handleOnYesClick = () => {
+    deleteError(errorId, errorContext);
+    let newData = { ...data };
+    newData.errors = data.errors.filter(e => e.id !== errorId);
+    setData(newData);
+    setDialogOpen(false);
+  };
+
+  const handleOnYesClickAll = () => {
     deleteAllErrors(errorContext);
     setData({
       fis: data.fis,
@@ -234,7 +237,7 @@ export const System = ({ classes, intl }) => {
                 {data.errors.length > 0 && (
                   <Button
                     className={classes.deleteAllButton}
-                    onClick={handleOnDeleteAllClick}
+                    onClick={handleOnDeleteClickAll}
                   >
                     <DeleteIcon className={classes.deleteIcon} />
                     <Typography
@@ -284,9 +287,7 @@ export const System = ({ classes, intl }) => {
                           <TableCell>{getReadableDate(entry.date)}</TableCell>
                           <TableCell>
                             <IconButton
-                              onClick={event =>
-                                handleOnDeleteClick(event, entry.id)
-                              }
+                              onClick={() => handleOnDeleteClick(entry.id)}
                               aria-label="delete"
                             >
                               <DeleteIcon />
@@ -298,35 +299,31 @@ export const System = ({ classes, intl }) => {
                 </TableBody>
               </Table>
             </div>
-            <Dialog fullWidth maxWidth="xs" open={dialogOpen}>
-              <DialogTitle>
-                {`${intl.formatMessage({
-                  id: 'system.areyousure'
-                })}`}
-              </DialogTitle>
-              <DialogActions>
-                <Button
-                  className={classes.buttons}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setDialogOpen(false)}
-                >
-                  {`${intl.formatMessage({
-                    id: 'system.no'
-                  })}`}
-                </Button>
-                <Button
-                  className={classes.buttons}
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleOnYesClick}
-                >
-                  {`${intl.formatMessage({
-                    id: 'system.yes'
-                  })}`}
-                </Button>
-              </DialogActions>
-            </Dialog>
+
+            <ConfirmDialog
+              open={dialogOpen}
+              handleClose={() => setDialogOpen(false)}
+              handleConfirm={deleteAll ? handleOnYesClickAll : handleOnYesClick}
+              confirmationHeader={
+                deleteAll
+                  ? intl.formatMessage({
+                      id: 'system.deleteall'
+                    })
+                  : intl.formatMessage({
+                      id: 'system.delete'
+                    })
+              }
+              confirmationText={
+                deleteAll
+                  ? intl.formatMessage({
+                      id: 'system.areyousureall'
+                    })
+                  : intl.formatMessage({
+                      id: 'system.areyousure'
+                    })
+              }
+            />
+
             <TablePagination
               component="div"
               count={data.errors.length}

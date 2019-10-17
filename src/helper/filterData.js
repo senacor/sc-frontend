@@ -80,3 +80,11 @@ export const locations = [
   'Stuttgart',
   'Wien'
 ];
+
+export const occasions = [
+  'End probation',
+  'Yearly',
+  'On demand',
+  'On demand by supervisor',
+  'On demand by personal dev'
+];

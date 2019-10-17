@@ -9,6 +9,7 @@ import { CircularProgress } from '@material-ui/core';
 import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { addPr } from '../../calls/pr';
 import ConfirmDialog from '../utils/ConfirmDialog';
+import { dateIsBeforeTodayOrEqual } from '../../helper/date';
 
 export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;
@@ -17,6 +18,11 @@ export const RequestPerformanceReview = ({ intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const hasSupervisor = userinfo.hasSupervisor;
+  const hasPrInProgress = userinfo.hasPrInProgress;
+  const endOfProbationPeriod = userinfo.endOfProbation;
+  let isInProbation = false;
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -31,6 +37,20 @@ export const RequestPerformanceReview = ({ intl }) => {
     setRedirect(true);
   };
 
+  const tooltipText = !hasSupervisor
+    ? intl.formatMessage({
+        id: 'requestperformancereview.nosupervisor'
+      })
+    : hasPrInProgress
+    ? intl.formatMessage({
+        id: 'requestperformancereview.alreadyopened'
+      })
+    : dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
+    ? intl.formatMessage({
+        id: 'requestperformancereview.isInProbationPeriod'
+      })
+    : '';
+
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -39,18 +59,11 @@ export const RequestPerformanceReview = ({ intl }) => {
     return <Redirect to={`/prDetail/${pr.id}`} />;
   }
 
-  const hasSupervisor = userinfo.hasSupervisor;
-  const hasPrInProgress = userinfo.hasPrInProgress;
-
-  if (!hasSupervisor || hasPrInProgress) {
-    let tooltipText = !hasSupervisor
-      ? intl.formatMessage({
-          id: 'requestperformancereview.nosupervisor'
-        })
-      : intl.formatMessage({
-          id: 'requestperformancereview.alreadyopened'
-        });
-
+  if (
+    !hasSupervisor ||
+    hasPrInProgress ||
+    dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
+  ) {
     return (
       <Tooltip title={tooltipText}>
         <span>
@@ -71,7 +84,11 @@ export const RequestPerformanceReview = ({ intl }) => {
         id="addPrButton"
         color="primary"
         onClick={handleDialogOpen}
-        disabled={!hasSupervisor || hasPrInProgress}
+        disabled={
+          !hasSupervisor ||
+          hasPrInProgress ||
+          dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
+        }
       >
         <Icon>add</Icon>
         {intl.formatMessage({
