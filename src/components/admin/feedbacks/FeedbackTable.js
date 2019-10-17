@@ -252,7 +252,7 @@ const FeedbackTable = ({ classes, intl }) => {
                   id: 'feedbacktable.areyousure'
                 })}
                 confirmationHeader={intl.formatMessage({
-                  id: 'feedbacktable.confirmDialogTitle'
+                  id: 'feedbacktable.confirmdialogtitle'
                 })}
               />
               <TablePagination

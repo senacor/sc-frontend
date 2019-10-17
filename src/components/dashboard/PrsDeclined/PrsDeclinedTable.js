@@ -139,7 +139,7 @@ const PrsDeclinedTable = ({
           id: 'prsheet.decline.dialog'
         })}
         confirmationHeader={intl.formatMessage({
-          id: 'decline.confirmDialogTitle'
+          id: 'decline.confirmdialogtitle'
         })}
       />
     </Fragment>
