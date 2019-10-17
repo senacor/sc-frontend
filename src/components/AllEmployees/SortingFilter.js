@@ -24,6 +24,10 @@ const styles = theme => ({
     width: 87,
     margin: 2 * theme.spacing.unit
   },
+  inputForProcessing: {
+    width: 150,
+    margin: 0
+  },
   chips: {
     display: 'flex',
     flexWrap: 'wrap'
@@ -36,7 +40,8 @@ const SortingFilter = ({
   handleChange,
   menuData,
   stateValue,
-  formerEmployees
+  formerEmployees,
+  processingPrs
 }) => {
   return (
     <div className={classes.expansionFilter}>
@@ -50,7 +55,11 @@ const SortingFilter = ({
             <Input
               id="select-multiple-positions"
               className={
-                formerEmployees ? classes.inputForFormer : classes.inputForAll
+                formerEmployees
+                  ? classes.inputForFormer
+                  : processingPrs
+                  ? classes.inputForProcessing
+                  : classes.inputForAll
               }
             />
           }

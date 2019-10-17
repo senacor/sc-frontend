@@ -33,6 +33,7 @@
   "performancereviewtable.from": "from",
   "requestperformancereview.nosupervisor": "You have no supervisor",
   "requestperformancereview.alreadyopened": "You already have an opened PR",
+  "requestperformancereview.isInProbationPeriod": "You are currently in probation period",
   "requestperformancereview.requestpr": "Request PR",
   "requestperformancereview.confirmation": "Are you sure you want to start new PR process?",
   "requestperformancereview.confirmHeader": "Starting new PR",
