@@ -17,7 +17,8 @@ import { modifyString } from '../../../helper/string';
 import { linkToPr } from '../../../calls/pr';
 import {
   checkFilterValues,
-  handleProgressFilterActive
+  handleProgressFilterActive,
+  sortBySortActive
 } from '../../../helper/filterFunctions';
 
 const styles = theme => ({
@@ -53,23 +54,64 @@ export const filterPrs = (prs, filterInputs) => {
   });
 };
 
+export const defaultSortActive = () => {
+  return {
+    employee: true,
+    position: false,
+    supervisor: false,
+    date: false,
+    occasion: false
+  };
+};
+
 const PrsInProgressTable = ({ classes, intl, prs, history, filterInputs }) => {
   const [filterActive, setFilterActive] = useState(false);
-  const [employeeSortDirection, setEmployeeSortDirection] = useState('asc');
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortActive, setSortActive] = useState(defaultSortActive());
 
   useEffect(() => {
     handleProgressFilterActive(filterInputs, setFilterActive);
   });
 
-  const handleEmployeeSort = () => {
-    if (employeeSortDirection === 'asc') {
-      setEmployeeSortDirection('desc');
+  const changeDirection = () => {
+    if (sortDirection === 'asc') {
+      setSortDirection('desc');
     } else {
-      setEmployeeSortDirection('asc');
+      setSortDirection('asc');
     }
   };
 
+  const handleSort = column => {
+    const newSortActive = { ...sortActive };
+    Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
+    switch (column) {
+      case 'EMPLOYEE':
+        newSortActive.employee = true;
+        break;
+      case 'POSITION':
+        newSortActive.position = true;
+        break;
+      case 'SUPERVISOR':
+        newSortActive.supervisor = true;
+        break;
+      case 'DATE':
+        newSortActive.date = true;
+        break;
+      case 'OCCASION':
+        newSortActive.occasion = true;
+        break;
+      default:
+        break;
+    }
+    setSortActive(newSortActive);
+    changeDirection();
+  };
+
   const filteredPrs = filterPrs(prs, filterInputs);
+
+  const prsToDisplay = filterActive ? filteredPrs : prs;
+
+  sortBySortActive(prsToDisplay, sortActive, sortDirection);
 
   return (
     <Table>
@@ -77,71 +119,72 @@ const PrsInProgressTable = ({ classes, intl, prs, history, filterInputs }) => {
         <TableRow>
           <TableCell>
             <TableSortLabel
-              active={true}
-              direction={employeeSortDirection}
-              onClick={handleEmployeeSort}
+              active={sortActive.employee}
+              direction={sortDirection}
+              onClick={() => handleSort('EMPLOYEE')}
             >
               {intl.formatMessage({ id: 'meetingcreator.employee' })}
             </TableSortLabel>
           </TableCell>
           <TableCell>
-            {intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
+            <TableSortLabel
+              active={sortActive.position}
+              direction={sortDirection}
+              onClick={() => handleSort('POSITION')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
+            </TableSortLabel>
           </TableCell>
           <TableCell>
-            {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+            <TableSortLabel
+              active={sortActive.supervisor}
+              direction={sortDirection}
+              onClick={() => handleSort('SUPERVISOR')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+            </TableSortLabel>
           </TableCell>
           <TableCell>
-            {intl.formatMessage({ id: 'employeeInfo.startDate' })}
+            <TableSortLabel
+              active={sortActive.date}
+              direction={sortDirection}
+              onClick={() => handleSort('DATE')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.startDate' })}
+            </TableSortLabel>
           </TableCell>
-          <TableCell>{intl.formatMessage({ id: 'pr.occasion' })}</TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={sortActive.occasion}
+              direction={sortDirection}
+              onClick={() => handleSort('OCCASION')}
+            >
+              {intl.formatMessage({ id: 'pr.occasion' })}
+            </TableSortLabel>
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {filterActive
-          ? filteredPrs.map(pr => {
-              const employeeName = `${pr.employeeFirstName} ${
-                pr.employeeLastName
-              }`;
-              return (
-                <TableRow
-                  key={pr.prId}
-                  onClick={() => linkToPr(pr.prId, null, history)}
-                  className={classes.tableRow}
-                >
-                  <TableCell className={classes.employeeNameCell}>
-                    {employeeName}
-                  </TableCell>
-                  <TableCell>{pr.currentPosition}</TableCell>
-                  <TableCell>{pr.supervisor}</TableCell>
-                  <TableCell>
-                    {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
-                  </TableCell>
-                  <TableCell>{modifyString(pr.prOccasion)}</TableCell>
-                </TableRow>
-              );
-            })
-          : prs.map(pr => {
-              const employeeName = `${pr.employeeFirstName} ${
-                pr.employeeLastName
-              }`;
-              return (
-                <TableRow
-                  key={pr.prId}
-                  onClick={() => linkToPr(pr.prId, null, history)}
-                  className={classes.tableRow}
-                >
-                  <TableCell className={classes.employeeNameCell}>
-                    {employeeName}
-                  </TableCell>
-                  <TableCell>{pr.currentPosition}</TableCell>
-                  <TableCell>{pr.supervisor}</TableCell>
-                  <TableCell>
-                    {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
-                  </TableCell>
-                  <TableCell>{modifyString(pr.prOccasion)}</TableCell>
-                </TableRow>
-              );
-            })}
+        {prsToDisplay.map(pr => {
+          const employeeName = `${pr.employeeFirstName} ${pr.employeeLastName}`;
+          return (
+            <TableRow
+              key={pr.prId}
+              onClick={() => linkToPr(pr.prId, null, history)}
+              className={classes.tableRow}
+            >
+              <TableCell className={classes.employeeNameCell}>
+                {employeeName}
+              </TableCell>
+              <TableCell>{pr.currentPosition}</TableCell>
+              <TableCell>{pr.supervisor}</TableCell>
+              <TableCell>
+                {formatLocaleDateTime(pr.startDate, FRONTEND_DATE_FORMAT)}
+              </TableCell>
+              <TableCell>{modifyString(pr.prOccasion)}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

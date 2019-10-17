@@ -27,6 +27,158 @@ export const sortByLastName = (data, sortDirection) => {
   }
 };
 
+export const sortBySortActive = (data, sortActive, sortDirection) => {
+  if (sortDirection === 'asc') {
+    if (sortActive.employee) {
+      data.sort((a, b) => {
+        const lastNameA = a.employeeLastName;
+        const lastNameB = b.employeeLastName;
+        if (lastNameA < lastNameB) {
+          return -1;
+        } else if (lastNameA > lastNameB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortActive.position) {
+      data.sort((a, b) => {
+        const positionA = a.currentPosition;
+        const positionB = b.currentPosition;
+        if (positionA < positionB) {
+          return -1;
+        } else if (positionA > positionB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortActive.supervisor) {
+      data.sort((a, b) => {
+        const supervisorLastNameA = a.supervisor.split(' ')[1];
+        const supervisorLastNameB = b.supervisor.split(' ')[1];
+        if (supervisorLastNameA < supervisorLastNameB) {
+          return -1;
+        } else if (supervisorLastNameA > supervisorLastNameB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortActive.date) {
+      data.sort((a, b) => {
+        const dateA = a.startDate;
+        const dateB = b.startDate;
+        if (dateA[0] < dateB[0]) {
+          return -1;
+        } else if (dateA[0] > dateB[0]) {
+          return 1;
+        } else {
+          if (dateA[1] < dateB[1]) {
+            return -1;
+          } else if (dateA[1] > dateB[1]) {
+            return 1;
+          } else {
+            if (dateA[2] < dateB[2]) {
+              return -1;
+            } else if (dateA[2] > dateB[2]) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        }
+      });
+    } else if (sortActive.occasion) {
+      data.sort((a, b) => {
+        const occasionA = a.occasion;
+        const occasionB = b.occasion;
+        if (occasionA < occasionB) {
+          return -1;
+        } else if (occasionA > occasionB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+  } else if (sortDirection === 'desc') {
+    if (sortActive.employee) {
+      data.sort((a, b) => {
+        const lastNameA = a.employeeLastName;
+        const lastNameB = b.employeeLastName;
+        if (lastNameA < lastNameB) {
+          return 1;
+        } else if (lastNameA > lastNameB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortActive.position) {
+      data.sort((a, b) => {
+        const positionA = a.currentPosition;
+        const positionB = b.currentPosition;
+        if (positionA < positionB) {
+          return 1;
+        } else if (positionA > positionB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortActive.supervisor) {
+      data.sort((a, b) => {
+        const supervisorLastNameA = a.supervisor.split(' ')[1];
+        const supervisorLastNameB = b.supervisor.split(' ')[1];
+        if (supervisorLastNameA < supervisorLastNameB) {
+          return 1;
+        } else if (supervisorLastNameA > supervisorLastNameB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortActive.date) {
+      data.sort((a, b) => {
+        const dateA = a.startDate;
+        const dateB = b.startDate;
+        if (dateA[0] < dateB[0]) {
+          return 1;
+        } else if (dateA[0] > dateB[0]) {
+          return -1;
+        } else {
+          if (dateA[1] < dateB[1]) {
+            return 1;
+          } else if (dateA[1] > dateB[1]) {
+            return -1;
+          } else {
+            if (dateA[2] < dateB[2]) {
+              return 1;
+            } else if (dateA[2] > dateB[2]) {
+              return -1;
+            } else {
+              return 0;
+            }
+          }
+        }
+      });
+    } else if (sortActive.occasion) {
+      data.sort((a, b) => {
+        const occasionA = a.prOccasion;
+        const occasionB = b.prOccasion;
+        if (occasionA < occasionB) {
+          return 1;
+        } else if (occasionA > occasionB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
+  }
+};
+
 export const handleFilterActive = (filterInputs, setFilterActive) => {
   const emptyInputs = {
     searchEmployee: '',
