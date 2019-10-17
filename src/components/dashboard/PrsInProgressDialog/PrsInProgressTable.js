@@ -21,18 +21,6 @@ import {
   sortBySortActive
 } from '../../../helper/filterFunctions';
 
-const styles = theme => ({
-  tableRow: {
-    textDecoration: 'none',
-    cursor: 'pointer',
-    transition: 'all 0.3s',
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.brightGrey
-    }
-  },
-  employeeNameCell: { maxWidth: 100 }
-});
-
 export const checkDateFilter = (filterInput, prDate) => {
   if (filterInput) {
     return filterInput === formatLocaleDateTime(prDate, 'YYYY-MM-DD');
@@ -63,6 +51,18 @@ export const defaultSortActive = () => {
     occasion: false
   };
 };
+
+const styles = theme => ({
+  tableRow: {
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.3s',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.brightGrey
+    }
+  },
+  employeeNameCell: { maxWidth: 100 }
+});
 
 const PrsInProgressTable = ({ classes, intl, prs, history, filterInputs }) => {
   const [filterActive, setFilterActive] = useState(false);
