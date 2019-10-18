@@ -385,6 +385,33 @@ export const getPrsInProgress = async (setPrs, setIsLoading, errorContext) => {
   }
 };
 
+export const getDeclinedPrs = async (
+  isHr,
+  setPrs,
+  setIsLoading,
+  errorContext
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/pr/overview/` +
+        (isHr ? 'declinedBySupervisor' : 'declinedByHr')
+    );
+    const responsePrs = await response.json();
+
+    setIsLoading(false);
+    setPrs(responsePrs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
 export const getPrsHrTodo = async (setPrs, setIsLoading, errorContext) => {
   try {
     setIsLoading(true);
@@ -403,5 +430,42 @@ export const getPrsHrTodo = async (setPrs, setIsLoading, errorContext) => {
       hasErrors: true,
       messageId: 'message.error'
     });
+  }
+};
+
+export const declinePr = async (
+  prsId,
+  status,
+  afterPrDeclined,
+  errorContext
+) => {
+  const addResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
+    {
+      method: 'post',
+      mode: 'cors'
+    }
+  );
+
+  if (addResponse.ok) {
+    afterPrDeclined();
+  } else {
+    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
+  }
+};
+
+export const undecline = async (prsId, callback, errorContext) => {
+  const addResponse = await fetch(
+    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/resetDecline`,
+    {
+      method: 'post',
+      mode: 'cors'
+    }
+  );
+
+  if (addResponse.ok) {
+    callback();
+  } else {
+    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
   }
 };

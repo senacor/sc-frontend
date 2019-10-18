@@ -4,15 +4,17 @@ import { withStyles } from '@material-ui/core/styles';
 import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from '../utils/InfoWidget';
-import { ErrorContext, UserinfoContext } from '../App';
+import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
 import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
+import PrsDeclinedDialog from './PrsDeclined/PrsDeclinedDialog';
 import ROUTES from '../../helper/routes';
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { getUserInfo } from '../../calls/userinfo';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -31,7 +33,9 @@ const styles = theme => ({
 });
 
 const Dashboard = ({ classes, intl }) => {
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const userinfoContext = useContext(UserinfoContext.context);
+  const { userroles, userinfo } = userinfoContext.value;
+  const authContext = useContext(AuthorizationContext.context);
   const errorContext = useContext(ErrorContext.context);
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
@@ -50,6 +54,10 @@ const Dashboard = ({ classes, intl }) => {
     },
     [userroles]
   );
+
+  const refreshDashboard = () => {
+    getUserInfo(userinfoContext, errorContext, authContext);
+  };
 
   return userinfo ? (
     <div className={classes.columnContainer}>
@@ -110,6 +118,14 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
+        {isSupervisor(userroles) && (
+          <PrsDeclinedDialog
+            isHr={false}
+            declinedPrs={userinfo.prsDeclinedByHr}
+            refreshDashboard={refreshDashboard}
+          />
+        )}
+
         {userroles[0] === 'PERSONAL_DEV' && (
           <div className={classes.rowContainer}>
             <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
@@ -121,6 +137,11 @@ const Dashboard = ({ classes, intl }) => {
               value={formerUsersCount}
               linkTo={ROUTES.FORMER_EMPLOYEES}
               icon={'emoji_people'}
+            />
+            <PrsDeclinedDialog
+              isHr={true}
+              refreshDashboard={refreshDashboard}
+              declinedPrs={userinfo.prsDeclinedBySupervisor}
             />
           </div>
         )}
