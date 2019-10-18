@@ -3,17 +3,21 @@ import moment from 'moment-timezone';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
 import DateTimePicker from './DateTimePicker';
 import PrStatusActionButton from '../pr/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../utils/CheckRequiredClick';
 import { addMeeting } from '../../calls/meetings';
 import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   container: {
     '& > *': {
+      marginTop: 2 * theme.spacing.unit,
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit
     }
@@ -34,6 +38,12 @@ const styles = theme => ({
   hrInfo: {
     marginTop: '2%',
     marginBottom: '4%'
+  },
+  textField: {
+    width: 200
+  },
+  select: {
+    width: 200
   }
 });
 
@@ -48,6 +58,7 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
   const [date, setDate] = useState(now.format('YYYY-MM-DD'));
   const [startTime, setStartTime] = useState(start.format('HH:mm'));
   const [endTime, setEndTime] = useState(start.add(1, 'hour').format('HH:mm'));
+  const [room, setRoom] = useState('');
 
   const handleChange = name => event => {
     switch (name) {
@@ -62,6 +73,9 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
         break;
       case 'endTime':
         setEndTime(event.target.value);
+        break;
+      case 'room':
+        setRoom(event.target.value);
         break;
       default:
     }
@@ -153,6 +167,18 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
             onChange={handleChange('location')}
             margin="normal"
           />
+          <FormControl>
+            <InputLabel htmlFor="select-room">
+              {intl.formatMessage({
+                id: 'meetingcreatorform.room'
+              })}
+            </InputLabel>
+            <Select
+              value={room}
+              onChange={handleChange('room')}
+              input={<Input id="select-room" className={classes.select} />}
+            />
+          </FormControl>
           <CheckRequiredClick
             onClick={handleClickOfMeetingButton}
             check={() => validateDateTimeInput()}
