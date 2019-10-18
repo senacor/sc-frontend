@@ -716,7 +716,7 @@ const PrSheet = props => {
             {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
-        <Grid item xs={6} md={6}>
+        <Grid className={'ignorePrint'} item xs={6} md={6}>
           <Button
             variant="contained"
             color="primary"
@@ -732,7 +732,7 @@ const PrSheet = props => {
           </Button>
           {declinePrButton()}
         </Grid>
-        <Grid item xs={6} md={6}>
+        <Grid className={'ignorePrint'} item xs={6} md={6}>
           <ButtonsBelowSheet
             pr={pr}
             errorContext={errorContext}

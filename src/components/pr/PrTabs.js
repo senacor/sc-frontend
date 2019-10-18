@@ -56,7 +56,7 @@ const PrTabs = ({ classes, intl, pr, formerEmployee, fromInactive }) => {
 
   return (
     <Paper className={classes.paper}>
-      <AppBar position="static" className={classes.tabsBackground}>
+      <AppBar position="static" className={`${classes.tabsBackground} ignorePrint`}>
         <Tabs
           value={tabValue}
           onChange={handleChange}

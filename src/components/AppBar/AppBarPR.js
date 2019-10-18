@@ -48,7 +48,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
   };
 
   return (
-    <Fragment>
+    <div id={'appbarElement'}>
       <AppBar className={classes.appBar}>
         <Toolbar>
           <IconButton
@@ -69,7 +69,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
           <LanguageButton languageButtonClassName={classes.languageButton} />
         </Toolbar>
       </AppBar>
-      <Hidden lgUp>
+      <Hidden lgUp className={'ignorePrint'}>
         <Drawer
           variant="temporary"
           anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -85,7 +85,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
           <Sidebar />
         </Drawer>
       </Hidden>
-      <Hidden mdDown implementation="css">
+      <Hidden mdDown implementation="css" className={'ignorePrint'}>
         <Drawer
           variant="permanent"
           open
@@ -96,7 +96,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
           <Sidebar />
         </Drawer>
       </Hidden>
-    </Fragment>
+    </div>
   );
 };
 
