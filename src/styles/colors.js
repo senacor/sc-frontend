@@ -58,6 +58,7 @@ const theme = createMuiTheme({
       lineHeight: 2
     },
     progressBarCentered: {
+      width: '100%',
       paddingTop: 16,
       textAlign: 'center'
     },

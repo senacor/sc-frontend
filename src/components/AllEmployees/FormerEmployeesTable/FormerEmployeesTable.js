@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, TablePagination } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import FormerEmployeesTableHead from './FormerEmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
 } from '../../../helper/filterFunctions';
+import FormerEmployeeTableRow from './FormerEmployeeTableRow';
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import FormerEmployeeTableRow from './FormerEmployeeTableRow';
+import TablePagination from '@material-ui/core/TablePagination';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   paper: {
     margin: 2 * theme.spacing.unit,
     overflow: 'auto'
@@ -36,7 +39,13 @@ export const filterEmployees = (employees, filterInputs) => {
   });
 };
 
-const FormerEmployeesTable = ({ classes, intl, filterInputs, employees }) => {
+const FormerEmployeesTable = ({
+  classes,
+  intl,
+  filterInputs,
+  employees,
+  isLoading
+}) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
@@ -67,6 +76,13 @@ const FormerEmployeesTable = ({ classes, intl, filterInputs, employees }) => {
       <FormerEmployeeTableRow key={employee.id} employee={employee} />
     ));
 
+  if (isLoading) {
+    return (
+      <div className={classes.progressBarCentered}>
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>

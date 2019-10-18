@@ -38,6 +38,9 @@ const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 const SystemPanel = lazy(() => import('./admin/System'));
 const MaintenancePanel = lazy(() => import('./admin/MaintenanceContainer'));
+const AutomationRulesContainer = lazy(() =>
+  import('./admin/automationRules/AutomationRulesContainer')
+);
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
@@ -76,6 +79,7 @@ const FormerEmployeesContainerWithContent = withContent(
 const UserRolesPanelWithContent = withContent(UserRolesPanel);
 const SystemPanelWithContent = withContent(SystemPanel);
 const MaintenancePanelWithContent = withContent(MaintenancePanel);
+const AutomationRulesWithContent = withContent(AutomationRulesContainer);
 
 export const messages = {
   de: messages_de,
@@ -206,6 +210,11 @@ const App = () => {
                       exact
                       path={ROUTES.MAINTENANCE}
                       component={MaintenancePanelWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.AUTORULES}
+                      component={AutomationRulesWithContent}
                     />
                     <PrivateRoute
                       exact

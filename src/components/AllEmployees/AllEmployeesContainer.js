@@ -409,6 +409,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
           selected={selected}
           toggleSelected={toggleSelected}
           employees={employees}
+          isLoading={isLoading}
         />
       ) : (
         <AllEmployeesGrid

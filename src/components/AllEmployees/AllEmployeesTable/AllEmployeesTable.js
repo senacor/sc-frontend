@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, TablePagination } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import AllEmployeesTableHead from './AllEmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
 } from '../../../helper/filterFunctions';
+import EmployeeTableRow from './EmployeeTableRow';
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import EmployeeTableRow from './EmployeeTableRow';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TablePagination from '@material-ui/core/TablePagination';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   paper: {
     margin: 2 * theme.spacing.unit,
     overflow: 'auto'
-  },
-  table: {}
+  }
 });
 
 export const filterEmployees = (employees, filterInputs) => {
@@ -41,7 +43,8 @@ const AllEmployeesTable = ({
   toggleSelected,
   selection,
   selected,
-  employees
+  employees,
+  isLoading
 }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -87,6 +90,13 @@ const AllEmployeesTable = ({
       />
     ));
 
+  if (isLoading) {
+    return (
+      <div className={classes.progressBarCentered}>
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
