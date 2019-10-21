@@ -49,7 +49,14 @@ const styles = theme => ({
   }
 });
 
-const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
+const MeetingCreatorForm = ({
+  prById,
+  fetchAppointments,
+  classes,
+  intl,
+  selectedRoom,
+  setSelectedRoom
+}) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const errorContext = useContext(ErrorContext.context);
@@ -60,9 +67,8 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
   const [date, setDate] = useState(now.format('YYYY-MM-DD'));
   const [startTime, setStartTime] = useState(start.format('HH:mm'));
   const [endTime, setEndTime] = useState(start.add(1, 'hour').format('HH:mm'));
-  const [selectedRoom, setSelectedRoom] = useState('');
 
-  const rooms = ['KOS MR', 'NEU MR', 'BER MR', 'BON MR'];
+  const rooms = ['07KOSMeetingRoom10.7@senacor.com'];
 
   const handleChange = name => event => {
     switch (name) {
@@ -93,6 +99,7 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: location,
+      room: selectedRoom,
       requiredAttendees: [prById.employee.login],
       optionalAttendees: []
     };

@@ -35,6 +35,7 @@ export const MeetingCreator = ({
   const [supervisor, setSupervisor] = useState('');
   const [reviewer, setReviewer] = useState('');
   const [appointmentResults, setAppointmentResults] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState('');
 
   let errorContext = useContext(ErrorContext.context);
 
@@ -137,6 +138,7 @@ export const MeetingCreator = ({
     appointmentsSearch(
       attendees.join(','),
       date,
+      selectedRoom,
       errorContext,
       setAppointmentResults
     );
@@ -221,6 +223,8 @@ export const MeetingCreator = ({
           <MeetingCreatorForm
             prById={pr}
             fetchAppointments={fetchAppointments}
+            selectedRoom={selectedRoom}
+            setSelectedRoom={setSelectedRoom}
           />
         </Grid>
         {visibilityService.getAction() ? (

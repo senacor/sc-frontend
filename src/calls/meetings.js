@@ -54,6 +54,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
           start: meeting_details.start,
           end: meeting_details.end,
           location: meeting_details.location,
+          room: meeting_details.room,
           requiredAttendees: meeting_details.requiredAttendees,
           optionalAttendees: meeting_details.optionalAttendees
         })
@@ -80,6 +81,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
 export const appointmentsSearch = async (
   employeeIds,
   inputDay,
+  room,
   errorContext,
   setAppointmentResults
 ) => {
@@ -96,7 +98,7 @@ export const appointmentsSearch = async (
   const response = await fetch(
     `${
       process.env.REACT_APP_API
-    }/api/v3/appointments?login=${employeeIds}&date=${day}`
+    }/api/v3/appointments?login=${employeeIds}&date=${day}&room=${room}`
   );
   if (response.ok) {
     const appointments = await response.json();
