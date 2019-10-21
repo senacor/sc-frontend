@@ -1,7 +1,7 @@
 export const rulesDropdownProcess = [
   {
     name: 'PR',
-    value: 'PR-GENERATION'
+    value: 'PR_GENERATION'
   }
 ];
 export const rulesDropdownTimeUnit = [
@@ -36,5 +36,16 @@ export const rulesDropdownRegulationCriteria = [
   {
     name: 'entry date',
     value: 'ENTRY_DATE'
+  }
+];
+
+export const rulesDropdownPriority = [
+  {
+    name: 'Low',
+    value: 'LOWEST'
+  },
+  {
+    name: 'High',
+    value: 'HIGHEST'
   }
 ];

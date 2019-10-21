@@ -9,7 +9,6 @@ export const getAllRules = async (setRules, setIsLoading, errorContext) => {
     );
 
     const responseRules = await response.json();
-    console.log(responseRules);
 
     setIsLoading(false);
     setRules(responseRules);
@@ -29,6 +28,39 @@ export const deleteRule = async (id, errorContext) => {
       method: 'delete',
       mode: 'cors'
     });
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
+export const addRule = async (ruleObject, rules, setRules, errorContext) => {
+  try {
+    const newRules = [...rules];
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/automation/rule`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({
+          chronology: ruleObject.chronology,
+          timeUnit: ruleObject.timeUnit,
+          processType: ruleObject.processType,
+          regulationCriterion: ruleObject.regulationCriterion,
+          priority: ruleObject.priority,
+          timeUnitNumber: ruleObject.timeUnitNumber
+        })
+      }
+    );
+
+    const ruleResponse = await response.json();
+    if (response.status === 200) {
+      newRules.push(ruleResponse);
+    }
+    setRules(newRules);
   } catch (err) {
     console.log(err);
     errorContext.setValue({
