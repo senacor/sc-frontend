@@ -24,9 +24,9 @@ export const printPdf = (pr, language, onReadyCallback) => {
   let prId = pr.id ? pr.id : pr.prId;
   let printableContent = document.createElement('div');
 
-  //callback, because we need to wait for fetching all data for PR
+  //Callback, because we need to wait for fetching all data for PR
   const printCallback = () => {
-    //ignore elements with .ignorePrint class
+    //#1: ignore elements with .ignorePrint class
     const elementsToIgnore = printableContent.getElementsByClassName(
       'ignorePrint'
     );
@@ -34,7 +34,25 @@ export const printPdf = (pr, language, onReadyCallback) => {
       elementsToIgnore[0].parentNode.removeChild(elementsToIgnore[0]);
     }
 
-    //iterate elements marked with 'printAnotherValue' class
+    //#2: remove classes to use only 1 column
+    const elementsToDeclass = printableContent.getElementsByClassName(
+      'printCancelClasses'
+    );
+    while (elementsToDeclass[0]) {
+      elementsToDeclass[0].removeAttribute('class');
+    }
+
+    //#3: fix non supported textarea - use div instead
+    const changeDivs = printableContent.getElementsByClassName(
+      'printChangeToDiv'
+    );
+    for (let i = 0; i < changeDivs.length; i++) {
+      const textArea = changeDivs[i].getElementsByTagName('textarea')[2];
+      textArea.style = "height: '0px'";
+      textArea.outerHTML = textArea.outerHTML.replace('textarea', 'div');
+    }
+
+    //#4: iterate elements marked with 'printAnotherValue' class
     const elementsToChangeValue = printableContent.getElementsByClassName(
       'printAnotherValue'
     );
@@ -44,7 +62,7 @@ export const printPdf = (pr, language, onReadyCallback) => {
       )[i];
       const targetRoleValue = elementToChangeValue.getAttribute('printValue');
       //set new value - based on headers - language dependent
-      const patternElement = getElementInsideContainer(
+      const patternElement = getById(
         printableContent,
         'targetRole_' + targetRoleValue
       );
@@ -52,19 +70,28 @@ export const printPdf = (pr, language, onReadyCallback) => {
         ? patternElement.innerHTML
         : '-';
     }
-    //remove headers from target Role
-    const header1 = getElementInsideContainer(printableContent, 'targetRole_1');
-    const header2 = getElementInsideContainer(printableContent, 'targetRole_2');
-    const header3 = getElementInsideContainer(printableContent, 'targetRole_3');
+
+    //#5: Fix order: Employee reflections, Reviewer records, assessment, final comments
+    const from = getById(printableContent, 'printReplaceFrom');
+    getById(printableContent, 'printReplaceTo').innerHTML = from.innerHTML;
+    from.innerHTML = '';
+
+    //#6: remove headers from target Role
+    const header1 = getById(printableContent, 'targetRole_1');
+    const header2 = getById(printableContent, 'targetRole_2');
+    const header3 = getById(printableContent, 'targetRole_3');
     [header1, header2, header3]
       .filter(v => v != null)
       .forEach(toDelete => {
         toDelete.parentNode.removeChild(toDelete);
       });
+
+    //FINALLY - print using html2pdf!
     html2pdf()
       .from(printableContent)
       .set({
-        pagebreak: { mode: 'avoid-all' }
+        pagebreak: { mode: 'avoid-all' },
+        margin: 5
       })
       .save();
 
@@ -96,6 +123,7 @@ export const renderPr = (prId, printCallback, language) => {
         >
           <PerformanceReviewDetail
             onReady={printCallback}
+            printMode={true}
             match={{ params: { id: prId } }}
           />
         </IntlProvider>
@@ -104,7 +132,7 @@ export const renderPr = (prId, printCallback, language) => {
   );
 };
 
-const getElementInsideContainer = (element, childID) => {
+const getById = (element, childID) => {
   let elm = {};
   let elms = element.getElementsByTagName('*');
   for (let i = 0; i < elms.length; i++) {

@@ -29,7 +29,7 @@ const PerformanceReviewDetail = props => {
   const { value: meeting, setValue: setMeeting } = useContext(
     MeetingContext.context
   );
-  const { classes, onReady } = props;
+  const { classes, onReady, printMode } = props;
 
   useEffect(() => {
     const afterPrFetched = pr => {
@@ -79,7 +79,7 @@ const PerformanceReviewDetail = props => {
         />
       )}
       {pr && <PrState prById={pr} />}
-      {pr && <PrTabs pr={pr} meeting={meeting} />}
+      {pr && <PrTabs printMode={printMode} pr={pr} meeting={meeting} />}
     </React.Fragment>
   );
 };
