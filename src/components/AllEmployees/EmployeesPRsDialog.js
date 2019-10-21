@@ -1,18 +1,15 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { ErrorContext } from '../App';
+import { ErrorContext, LanguageContext } from '../App';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
 import { DownloadFile } from '../fileStorage/DownloadFile';
-import PdfDialog from '../pr/PdfDialog';
-
 // Calls
 import {
   getAllPrsByEmployee,
   getAllPrsOfInactiveEmployee
 } from '../../calls/employees';
-
 // Material UI
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
@@ -30,10 +27,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-
 // Icons
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CloseIcon from '@material-ui/icons/Close';
+import { printPdf } from '../../helper/pdfExport';
 
 const styles = theme => ({
   dialogContent: {
@@ -95,9 +92,10 @@ const EmployeesPRsDialog = ({
   const [prs, setPrs] = useState([]);
   const [archivedPrs, setArchivedPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [prToPrint, setPrToPrint] = useState(null);
+  const [printLoading, setPrintLoading] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
+  const { value: language } = useContext(LanguageContext.context);
   const prsTogether = [...prs, ...archivedPrs];
 
   useEffect(() => {
@@ -133,14 +131,6 @@ const EmployeesPRsDialog = ({
     return null;
   };
 
-  const openDialog = pr => {
-    setPrToPrint(pr);
-  };
-
-  const closeDialog = () => {
-    setPrToPrint(null);
-  };
-
   // List of all PRs of current employee
   const listOfAllPrs = prsTogether.map((pr, index) => {
     let id = pr.id ? pr.id : pr.prId;
@@ -160,10 +150,21 @@ const EmployeesPRsDialog = ({
             // Download excel
             <DownloadFile employeeId={pr.employeeId} fileId={id} />
           ) : !pr.inProgress ? (
-            // Download pdf
-            <IconButton onClick={() => openDialog(pr)}>
-              <GetAppIcon />
-            </IconButton>
+            printLoading ? (
+              <IconButton>
+                <CircularProgress />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={() =>
+                  printPdf(pr, language, !formerEmployee, result => {
+                    setPrintLoading(result);
+                  })
+                }
+              >
+                <GetAppIcon />
+              </IconButton>
+            )
           ) : (
             <Typography
               onClick={() => linkToPrSheet(id, pr.archived)}
@@ -258,13 +259,6 @@ const EmployeesPRsDialog = ({
           )}
         </DialogContent>
       </Dialog>
-      {prToPrint && (
-        <PdfDialog
-          id={prToPrint.prId}
-          style={{ overflow: 'auto' }}
-          closeDialog={closeDialog}
-        />
-      )}
     </Fragment>
   );
 };

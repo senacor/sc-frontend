@@ -29,13 +29,23 @@ const PerformanceReviewDetail = props => {
   const { value: meeting, setValue: setMeeting } = useContext(
     MeetingContext.context
   );
-  const { classes } = props;
+  const { classes, onReady, printMode } = props;
 
   useEffect(() => {
     const afterPrFetched = pr => {
       setPr(pr);
       fetchMeeting(pr, setMeeting, errorContext);
-      getEmployeeById(pr.employee.id, setEmployee, setIsLoading, errorContext);
+      getEmployeeById(
+        pr.employee.id,
+        result => {
+          setEmployee(result);
+          if (onReady) {
+            onReady();
+          }
+        },
+        setIsLoading,
+        errorContext
+      );
     };
 
     fetchPrById(
@@ -69,7 +79,7 @@ const PerformanceReviewDetail = props => {
         />
       )}
       {pr && <PrState prById={pr} />}
-      {pr && <PrTabs pr={pr} meeting={meeting} />}
+      {pr && <PrTabs printMode={printMode} pr={pr} meeting={meeting} />}
     </React.Fragment>
   );
 };

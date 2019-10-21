@@ -49,7 +49,7 @@ const styles = theme => ({
 });
 
 const PrSheet = props => {
-  const { classes, intl, pr } = props;
+  const { classes, intl, pr, printMode } = props;
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
@@ -377,6 +377,7 @@ const PrSheet = props => {
         </Grid>
         <Grid item xs={12}>
           <PrTextField
+            printMode={printMode}
             label={
               isRequiredForReflectionFields()
                 ? intl.formatMessage({
@@ -398,6 +399,7 @@ const PrSheet = props => {
         </Grid>
         <Grid item xs={12}>
           <PrTextField
+            printMode={printMode}
             label={
               isRequiredForReflectionFields()
                 ? intl.formatMessage({
@@ -482,6 +484,7 @@ const PrSheet = props => {
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
           <PrTextField
+            printMode={printMode}
             label={intl.formatMessage({
               id: 'FINAL_COMMENT_EMPLOYEE'
             })}
@@ -503,6 +506,7 @@ const PrSheet = props => {
       <Grid container spacing={16} className={classes.paddingBottom}>
         <Grid item xs={12}>
           <PrTextField
+            printMode={printMode}
             label={intl.formatMessage({
               id: 'FINAL_COMMENT_HR'
             })}
@@ -691,10 +695,11 @@ const PrSheet = props => {
   // TODO: create PrSheet folder and move functions to separated files to make them as functional components
   return (
     <div>
-      <Grid container spacing={40}>
-        <Grid item xs={12} md={6}>
+      <Grid container spacing={40} className={'printCancelClasses'}>
+        <Grid className={'printCancelClasses'} item xs={12} md={6}>
           {firstStepEmployee()}
           <Divider />
+          <div id={'printReplaceTo'} />
           <Hidden mdUp>
             {detailReviewer()}
             <Divider />
@@ -704,7 +709,12 @@ const PrSheet = props => {
           {requiredInfo()}
         </Grid>
         <Hidden smDown>
-          <Grid item md={6}>
+          <Grid
+            id={'printReplaceFrom'}
+            className={'printCancelClasses'}
+            item
+            md={6}
+          >
             {detailReviewer()}
             {isPersonalDev(userroles) ? <Divider /> : null}
             {isPersonalDev(userroles) ? finalHr() : null}
@@ -716,7 +726,7 @@ const PrSheet = props => {
             {isPersonalDev(userroles) ? finalHr() : null}
           </Grid>
         </Hidden>
-        <Grid item xs={6} md={6}>
+        <Grid className={'ignorePrint'} item xs={6} md={6}>
           <Button
             variant="contained"
             color="primary"
@@ -732,7 +742,7 @@ const PrSheet = props => {
           </Button>
           {declinePrButton()}
         </Grid>
-        <Grid item xs={6} md={6}>
+        <Grid className={'ignorePrint'} item xs={6} md={6}>
           <ButtonsBelowSheet
             pr={pr}
             errorContext={errorContext}
