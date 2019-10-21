@@ -154,6 +154,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.DECLINED_PR}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.OWN_PR_TABLE}
                       component={OwnPrsContainerWithContent}
                     />

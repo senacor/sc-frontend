@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-
 // Material UI
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -26,10 +25,16 @@ const ConfirmDialog = ({
   handleClose,
   handleConfirm,
   confirmationText,
-  confirmationHeader
+  confirmationHeader,
+  onBackdropClick
 }) => {
   return (
-    <Dialog fullWidth maxWidth="xs" open={open}>
+    <Dialog
+      fullWidth
+      maxWidth="sm"
+      open={open}
+      onBackdropClick={onBackdropClick}
+    >
       <DialogTitle>{confirmationHeader}</DialogTitle>
       <Divider />
       <DialogContent className={classes.content}>
@@ -39,7 +44,7 @@ const ConfirmDialog = ({
         <Button
           className={classes.button}
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={handleClose}
         >
           {`${intl.formatMessage({
@@ -49,7 +54,7 @@ const ConfirmDialog = ({
         <Button
           className={classes.button}
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={handleConfirm}
         >
           {`${intl.formatMessage({

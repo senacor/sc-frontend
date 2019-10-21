@@ -248,12 +248,24 @@ const FeedbackTable = ({ classes, intl }) => {
                 open={dialogOpen}
                 handleClose={() => setDialogOpen(false)}
                 handleConfirm={handleOnYesClick}
-                confirmationText={intl.formatMessage({
-                  id: 'feedbacktable.areyousure'
-                })}
-                confirmationHeader={intl.formatMessage({
-                  id: 'feedbacktable.confirmDialogTitle'
-                })}
+                confirmationText={
+                  selected.length > 1
+                    ? intl.formatMessage({
+                        id: 'feedbacktable.areyousuremultiple'
+                      })
+                    : intl.formatMessage({
+                        id: 'feedbacktable.areyousure'
+                      })
+                }
+                confirmationHeader={
+                  selected.length > 1
+                    ? intl.formatMessage({
+                        id: 'feedbacktable.titlemultiple'
+                      })
+                    : intl.formatMessage({
+                        id: 'feedbacktable.title'
+                      })
+                }
               />
               <TablePagination
                 component="div"
