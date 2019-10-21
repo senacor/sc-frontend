@@ -120,8 +120,7 @@ const Attendee = ({
   classes,
   distanceFromLeft,
   name,
-  intl,
-  show
+  intl
 }) => {
   const createAppointmentDivs = () => {
     let appointmentDivs = [];
@@ -152,9 +151,7 @@ const Attendee = ({
     return appointmentDivs;
   };
 
-  return (
-    <React.Fragment>{show ? createAppointmentDivs() : null}</React.Fragment>
-  );
+  return <React.Fragment>{createAppointmentDivs()}</React.Fragment>;
 };
 
 Attendee.propTypes = {

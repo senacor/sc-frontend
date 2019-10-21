@@ -103,6 +103,7 @@ export const appointmentsSearch = async (
   if (response.ok) {
     const appointments = await response.json();
     setAppointmentResults(appointments);
+
     return appointments;
   } else {
     errorContext.setValue({

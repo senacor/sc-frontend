@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@material-ui/core/Collapse/index';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import ListItemText from '@material-ui/core/ListItemText/index';
+import ListItemIcon from '@material-ui/core/ListItemIcon/index';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TodayIcon from '@material-ui/icons/Today';
@@ -15,7 +15,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Typography from '@material-ui/core/Typography/Typography';
-import PrStatusActionButton from './PrStatusActionButton';
+import PrStatusActionButton from '../pr/PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../helper/date';
 import { injectIntl } from 'react-intl';
