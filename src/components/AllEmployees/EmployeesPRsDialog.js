@@ -157,7 +157,7 @@ const EmployeesPRsDialog = ({
             ) : (
               <IconButton
                 onClick={() =>
-                  printPdf(pr, language, result => {
+                  printPdf(pr, language, !formerEmployee, result => {
                     setPrintLoading(result);
                   })
                 }

@@ -18,8 +18,9 @@ import senacorTheme from '../styles/colors';
 import { IntlProvider } from 'react-intl';
 import React from 'react';
 import PerformanceReviewDetail from '../components/pr/PerformanceReviewDetail';
+import InactivePerformanceReviewDetail from '../components/pr/InactivePerformanceReviewDetail';
 
-export const printPdf = (pr, language, onReadyCallback) => {
+export const printPdf = (pr, language, active, onReadyCallback) => {
   onReadyCallback(true);
   let prId = pr.id ? pr.id : pr.prId;
   let printableContent = document.createElement('div');
@@ -98,11 +99,19 @@ export const printPdf = (pr, language, onReadyCallback) => {
     onReadyCallback(false);
   };
 
-  ReactDOM.render(renderPr(prId, printCallback, language), printableContent);
+  ReactDOM.render(
+    renderPr(prId, printCallback, language, active),
+    printableContent
+  );
   return printableContent;
 };
 
-export const renderPr = (prId, printCallback, language) => {
+export const renderPr = (prId, printCallback, language, active) => {
+  const propsToRender = {
+    onReady: printCallback,
+    printMode: true,
+    match: { params: { id: prId } }
+  };
   return provideContexts(
     [
       AuthorizationContext,
@@ -121,11 +130,11 @@ export const renderPr = (prId, printCallback, language) => {
             determineLanguage(language) === 'de' ? messages.de : messages.en
           }
         >
-          <PerformanceReviewDetail
-            onReady={printCallback}
-            printMode={true}
-            match={{ params: { id: prId } }}
-          />
+          {active ? (
+            <PerformanceReviewDetail {...propsToRender} />
+          ) : (
+            <InactivePerformanceReviewDetail {...propsToRender} />
+          )}
         </IntlProvider>
       </MuiThemeProvider>
     </BrowserRouter>

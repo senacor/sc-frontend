@@ -72,7 +72,8 @@ const PrCard = ({
   classes,
   history,
   pr,
-  pr: { prId, archived, inProgress, employeeId, startDate }
+  pr: { prId, archived, inProgress, employeeId, startDate },
+  active
 }) => {
   const { value: language } = useContext(LanguageContext.context);
   const [printLoading, setPrintLoading] = useState(false);
@@ -101,7 +102,7 @@ const PrCard = ({
     ) : (
       <IconButton
         onClick={() =>
-          printPdf(pr, language, result => {
+          printPdf(pr, language, active, result => {
             setPrintLoading(result);
           })
         }
