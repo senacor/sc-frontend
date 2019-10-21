@@ -8,11 +8,12 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import Rule from './Rule';
-
-// Icons
 import { getAllRules, deleteRule, addRule } from '../../../calls/rules';
 import { ErrorContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
+
+// Icons
+import AutoRules from '@material-ui/icons/RotateRight';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -36,8 +37,13 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit
     }
   },
-  ruleContainer: {
+  createRuleContainer: {
+    marginTop: 2 * theme.spacing.unit,
     textAlign: 'center'
+  },
+  noRules: {
+    textAlign: 'center',
+    color: theme.palette.secondary.mediumGrey
   }
 });
 
@@ -51,7 +57,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     timeUnit: '',
     chronology: '',
     priority: '',
-    timeUnitNumber: 0,
+    timeUnitNumber: '',
     expirationDate: ''
   });
   const [endDateChecked, setEndDateChecked] = useState(true);
@@ -71,7 +77,6 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     [rules]
   );
 
-  console.log('rules', rules);
   const handleDeleteRule = (id, errorContext) => {
     deleteRule(id, errorContext);
     const newRulesData = rules.filter(rule => rule.id !== id);
@@ -112,28 +117,23 @@ const AutomationRulesContainer = ({ classes, intl }) => {
 
   return (
     <Fragment>
-      <Paper className={classes.paper}>
-        <div className={classes.title}>
-          <Typography variant="h5">
-            {intl.formatMessage({ id: 'sidebar.autorules' })}
-          </Typography>
-        </div>
-        <div className={classes.ruleContainer}>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <Fragment>
-              <Button
-                disabled={rules.length > 1}
-                onClick={handleNewRuleActive}
-                color="primary"
-                variant="contained"
-              >
-                {intl.formatMessage({
-                  id: 'autorules.createRule'
-                })}
-              </Button>
-              {newRuleActive && (
+      <div className={classes.createRuleContainer}>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Fragment>
+            <Button
+              disabled={rules.length > 1}
+              onClick={handleNewRuleActive}
+              color="primary"
+              variant="contained"
+            >
+              {intl.formatMessage({
+                id: 'autorules.createRule'
+              })}
+            </Button>
+            {newRuleActive && (
+              <Paper className={classes.paper}>
                 <NewCustomRule
                   values={values}
                   handleChange={handleChange}
@@ -142,22 +142,32 @@ const AutomationRulesContainer = ({ classes, intl }) => {
                   handleChangeEndDate={handleChangeEndDate}
                   endDateChecked={endDateChecked}
                 />
-              )}
-            </Fragment>
-          )}
+              </Paper>
+            )}
+          </Fragment>
+        )}
+      </div>
+      <Paper className={classes.rulesPaper}>
+        <div className={classes.title}>
+          <AutoRules color="primary" />
+          <Typography variant="h5">
+            {intl.formatMessage({ id: 'sidebar.autorules' })}
+          </Typography>
         </div>
-      </Paper>
-      {rules.length > 0 && (
-        <Paper className={classes.rulesPaper}>
-          {rules.map(rule => (
+        {rules.length > 0 ? (
+          rules.map(rule => (
             <Rule
               key={rule.id}
               rule={rule}
               deleteRule={() => handleDeleteRule(rule.id, errorContext)}
             />
-          ))}
-        </Paper>
-      )}
+          ))
+        ) : (
+          <Typography variant="body2" className={classes.noRules}>
+            {intl.formatMessage({ id: 'autorules.noRulesDefined' })}
+          </Typography>
+        )}
+      </Paper>
     </Fragment>
   );
 };

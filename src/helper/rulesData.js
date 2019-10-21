@@ -1,6 +1,6 @@
 export const rulesDropdownProcess = [
   {
-    name: 'PR',
+    name: 'PR generation',
     value: 'PR_GENERATION'
   }
 ];
@@ -8,10 +8,6 @@ export const rulesDropdownTimeUnit = [
   {
     name: 'month(s)',
     value: 'MONTHS'
-  },
-  {
-    name: 'day(s)',
-    value: 'DAYS'
   },
   {
     name: 'week(s)',

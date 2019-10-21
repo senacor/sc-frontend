@@ -20,6 +20,8 @@ import {
   rulesDropdownRegulationCriteria,
   rulesDropdownPriority
 } from '../../../helper/rulesData';
+import { FRONTEND_LOCALE_DATE_TIME_FORMAT } from '../../../helper/date';
+import moment from 'moment';
 
 const styles = theme => ({
   newRuleContainer: {},
@@ -53,6 +55,34 @@ const NewCustomRule = ({
   handleChangeEndDate,
   endDateChecked
 }) => {
+  const inputsEmpty = obj => {
+    const newObj = { ...obj };
+    delete newObj.expirationDate;
+    for (let key in newObj) {
+      if (!newObj[key]) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const dateIsBeforeTodayOrEqual = date => {
+    const formattedDate = Date.parse(date, FRONTEND_LOCALE_DATE_TIME_FORMAT);
+    const today = Date.parse(moment().format(FRONTEND_LOCALE_DATE_TIME_FORMAT));
+
+    if (formattedDate <= today) {
+      return true;
+    } else if (formattedDate > today) {
+      return false;
+    }
+  };
+
+  const timeIsPositive = value => {
+    if (value > 0) {
+      return true;
+    } else return false;
+  };
+
   return (
     <Grid
       container
@@ -93,7 +123,7 @@ const NewCustomRule = ({
           <TextField
             className={classes.timeUnitNumber}
             type="number"
-            label="Time"
+            label={intl.formatMessage({ id: 'autorules.time' })}
             name="timeUnitNumber"
             value={values.timeUnitNumber}
             onChange={e => handleChangeNumber(e)}
@@ -172,8 +202,31 @@ const NewCustomRule = ({
           {intl.formatMessage({ id: 'autorules.textStartDE' })}
         </Typography>
       </Grid>
+      <Grid item sm={2}>
+        <div className={classes.prioWithDate}>
+          <TextField
+            type="date"
+            label={intl.formatMessage({ id: 'autorules.endDate' })}
+            inputProps={{ name: 'expirationDate' }}
+            value={values.expirationDate}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
+            disabled={endDateChecked}
+          />
+          <br />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={endDateChecked}
+                onChange={handleChangeEndDate}
+              />
+            }
+            label={intl.formatMessage({ id: 'autorules.noEndDate' })}
+          />
+        </div>
+      </Grid>
       {/* PRIORITY */}
-      <Grid item sm={4}>
+      <Grid item sm={2}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="priority-rule">
             {intl.formatMessage({ id: 'autorules.priority' })}
@@ -194,30 +247,18 @@ const NewCustomRule = ({
             ))}
           </Select>
         </FormControl>
-        <div className={classes.prioWithDate}>
-          <TextField
-            type="date"
-            label="End date"
-            inputProps={{ name: 'expirationDate' }}
-            value={values.expirationDate}
-            onChange={handleChange}
-            InputLabelProps={{ shrink: true }}
-            disabled={endDateChecked}
-          />
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={endDateChecked}
-                onChange={handleChangeEndDate}
-              />
-            }
-            label="No end date"
-          />
-        </div>
       </Grid>
       <Grid item sm={12}>
-        <Button onClick={newRuleSubmit} variant="contained" color="secondary">
+        <Button
+          disabled={
+            inputsEmpty(values) ||
+            !timeIsPositive(values.timeUnitNumber) ||
+            dateIsBeforeTodayOrEqual(values.expirationDate)
+          }
+          onClick={newRuleSubmit}
+          variant="contained"
+          color="secondary"
+        >
           {intl.formatMessage({ id: 'autorules.save' })}
         </Button>
       </Grid>

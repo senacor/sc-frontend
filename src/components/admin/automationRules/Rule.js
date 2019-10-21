@@ -1,17 +1,20 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Typography, IconButton } from '@material-ui/core';
-
-// Material UI
-import Grid from '@material-ui/core/Grid';
-
-// Icons
-import DeleteIcon from '@material-ui/icons/Delete';
+import { withStyles } from '@material-ui/core';
 import { modifyStringToUpperCase } from '../../../helper/string';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
+
+// Material UI
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+
+// Icons
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowUp from '@material-ui/icons/ArrowUpward';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -23,10 +26,20 @@ const styles = theme => ({
     padding: theme.spacing.unit / 3
   },
   endDate: {
-    paddingLeft: theme.spacing.unit / 3
+    paddingLeft: theme.spacing.unit / 3,
+    color: theme.palette.secondary.mediumGrey
   },
-  delete: {
+  priorityContainer: {
+    textAlign: 'center'
+  },
+  colorRed: {
     color: theme.palette.secondary.darkRed
+  },
+  colorYellow: {
+    color: theme.palette.secondary.darkYellow
+  },
+  caption: {
+    color: theme.palette.secondary.mediumGrey
   }
 });
 
@@ -51,9 +64,25 @@ const Rule = ({
   const regulationCriterionString = modifyStringToUpperCase(
     regulationCriterion
   );
+
+  const priorityIcon = (
+    <div className={classes.priorityContainer}>
+      <ArrowUp
+        className={
+          priority === 'HIGHEST' ? classes.colorRed : classes.colorYellow
+        }
+      />
+      <Typography variant="caption" className={classes.caption}>
+        {priority === 'HIGHEST'
+          ? intl.formatMessage({ id: 'autorules.highPriority' })
+          : intl.formatMessage({ id: 'autorules.lowPriority' })}
+      </Typography>
+    </div>
+  );
+
   return (
     <Grid container className={classes.ruleContainer} alignItems="center">
-      <Grid item sm={10}>
+      <Grid item sm={10} md={8}>
         <Typography variant="body1" component="span" className={classes.span}>
           {intl.formatMessage({
             id: 'autorules.textThe'
@@ -117,11 +146,11 @@ const Rule = ({
             : intl.formatMessage({ id: 'autorules.noEndDate' })}
         </Typography>
       </Grid>
-      <Grid item sm={1}>
-        Priority
+      <Grid item sm={1} md={2}>
+        {priorityIcon}
       </Grid>
-      <Grid item sm={1}>
-        <IconButton onClick={deleteRule} className={classes.delete}>
+      <Grid item sm={1} md={2}>
+        <IconButton onClick={deleteRule} className={classes.colorRed}>
           <DeleteIcon />
         </IconButton>
       </Grid>

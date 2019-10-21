@@ -9,7 +9,7 @@ import { CircularProgress } from '@material-ui/core';
 import { UserinfoContext, PrContext, ErrorContext } from '../App';
 import { addPr } from '../../calls/pr';
 import ConfirmDialog from '../utils/ConfirmDialog';
-import { dateIsBeforeTodayOrEqual } from '../../helper/date';
+import { dateIsAfterTodayOrEqual } from '../../helper/date';
 
 export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;
@@ -22,7 +22,6 @@ export const RequestPerformanceReview = ({ intl }) => {
   const hasSupervisor = userinfo.hasSupervisor;
   const hasPrInProgress = userinfo.hasPrInProgress;
   const endOfProbationPeriod = userinfo.endOfProbation;
-  let isInProbation = false;
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -45,7 +44,7 @@ export const RequestPerformanceReview = ({ intl }) => {
     ? intl.formatMessage({
         id: 'requestperformancereview.alreadyopened'
       })
-    : dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
+    : dateIsAfterTodayOrEqual(endOfProbationPeriod)
     ? intl.formatMessage({
         id: 'requestperformancereview.isInProbationPeriod'
       })
@@ -62,7 +61,7 @@ export const RequestPerformanceReview = ({ intl }) => {
   if (
     !hasSupervisor ||
     hasPrInProgress ||
-    dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
+    dateIsAfterTodayOrEqual(endOfProbationPeriod)
   ) {
     return (
       <Tooltip title={tooltipText}>
@@ -87,7 +86,7 @@ export const RequestPerformanceReview = ({ intl }) => {
         disabled={
           !hasSupervisor ||
           hasPrInProgress ||
-          dateIsBeforeTodayOrEqual(isInProbation, endOfProbationPeriod)
+          dateIsAfterTodayOrEqual(endOfProbationPeriod)
         }
       >
         <Icon>add</Icon>
