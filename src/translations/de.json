@@ -195,6 +195,7 @@
   "meetingcreatorform.starttime": "Die Startzeit liegt nach der Endzeit des Termins.",
   "meetingcreatorform.createtermin": "Termin erstellen",
   "meetingcreatorform.room": "Meetingraum",
+  "meetingcreatorform.none": "kein",
   "attendee.busy": "beschäftigt",
   "attendee.tentative": "vorläufig",
   "attendee.absent": "abwesend",

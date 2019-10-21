@@ -195,6 +195,7 @@
   "meetingcreatorform.starttime": "The start time is after the end time of the appointment.",
   "meetingcreatorform.createtermin": "Create appointment",
   "meetingcreatorform.room": "Meeting room",
+  "meetingcreatorform.none": "none",
   "attendee.busy": "busy",
   "attendee.tentative": "tentative",
   "attendee.absent": "absent",

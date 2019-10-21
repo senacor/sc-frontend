@@ -182,6 +182,13 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
               onChange={handleChange('room')}
               input={<Input id="select-room" className={classes.select} />}
             >
+              <MenuItem key={'none'} value={''}>
+                <ListItemText
+                  secondary={intl.formatMessage({
+                    id: 'meetingcreatorform.none'
+                  })}
+                />
+              </MenuItem>
               {rooms.map(room => (
                 <MenuItem key={room} value={room}>
                   <ListItemText primary={room} />
