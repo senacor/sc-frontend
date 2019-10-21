@@ -313,6 +313,8 @@
   "autorules.chronology": "chronology",
   "autorules.criterion": "criterion",
   "autorules.priority": "priority",
+  "autorules.endDate": "End date",
+  "autorules.noEndDate": "No end date set",
   "autorules.save": "Save",
   "FINAL_COMMENT_EMPLOYEE": "Final comment employee (optional)",
   "FINAL_COMMENT_HR": "Final comment HR employee (optional)",

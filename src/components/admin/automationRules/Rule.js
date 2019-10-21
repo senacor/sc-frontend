@@ -8,6 +8,10 @@ import Grid from '@material-ui/core/Grid';
 // Icons
 import DeleteIcon from '@material-ui/icons/Delete';
 import { modifyStringToUpperCase } from '../../../helper/string';
+import {
+  formatLocaleDateTime,
+  FRONTEND_DATE_FORMAT
+} from '../../../helper/date';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -17,6 +21,9 @@ const styles = theme => ({
   span: {
     display: 'inline-block',
     padding: theme.spacing.unit / 3
+  },
+  endDate: {
+    paddingLeft: theme.spacing.unit / 3
   },
   delete: {
     color: theme.palette.secondary.darkRed
@@ -33,7 +40,8 @@ const Rule = ({
     processType,
     regulationCriterion,
     timeUnit,
-    timeUnitNumber
+    timeUnitNumber,
+    expirationDate
   },
   deleteRule
 }) => {
@@ -101,8 +109,18 @@ const Rule = ({
             id: 'autorules.textStartDE'
           })}
         </Typography>
+        <Typography variant="caption" className={classes.endDate}>
+          {expirationDate
+            ? intl.formatMessage({ id: 'autorules.endDate' }) +
+              ': ' +
+              formatLocaleDateTime(expirationDate, FRONTEND_DATE_FORMAT)
+            : intl.formatMessage({ id: 'autorules.noEndDate' })}
+        </Typography>
       </Grid>
-      <Grid item sm={2}>
+      <Grid item sm={1}>
+        Priority
+      </Grid>
+      <Grid item sm={1}>
         <IconButton onClick={deleteRule} className={classes.delete}>
           <DeleteIcon />
         </IconButton>

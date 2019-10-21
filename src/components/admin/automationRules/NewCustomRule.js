@@ -9,7 +9,9 @@ import {
   MenuItem,
   TextField,
   Typography,
-  Grid
+  Grid,
+  Checkbox,
+  FormControlLabel
 } from '@material-ui/core';
 import {
   rulesDropdownProcess,
@@ -37,7 +39,8 @@ const styles = theme => ({
   },
   priority: {
     width: 70
-  }
+  },
+  prioWithDate: {}
 });
 
 const NewCustomRule = ({
@@ -46,7 +49,9 @@ const NewCustomRule = ({
   values,
   handleChangeNumber,
   handleChange,
-  newRuleSubmit
+  newRuleSubmit,
+  handleChangeEndDate,
+  endDateChecked
 }) => {
   return (
     <Grid
@@ -55,7 +60,7 @@ const NewCustomRule = ({
       alignItems="center"
       justify="center"
     >
-      <Grid item sm={7}>
+      <Grid item sm={8}>
         <Typography variant="body1" className={classes.text}>
           {intl.formatMessage({ id: 'autorules.textThe' })}
         </Typography>
@@ -168,7 +173,7 @@ const NewCustomRule = ({
         </Typography>
       </Grid>
       {/* PRIORITY */}
-      <Grid item sm={3}>
+      <Grid item sm={4}>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="priority-rule">
             {intl.formatMessage({ id: 'autorules.priority' })}
@@ -189,8 +194,29 @@ const NewCustomRule = ({
             ))}
           </Select>
         </FormControl>
+        <div className={classes.prioWithDate}>
+          <TextField
+            type="date"
+            label="End date"
+            inputProps={{ name: 'expirationDate' }}
+            value={values.expirationDate}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
+            disabled={endDateChecked}
+          />
+          <br />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={endDateChecked}
+                onChange={handleChangeEndDate}
+              />
+            }
+            label="No end date"
+          />
+        </div>
       </Grid>
-      <Grid item sm={2}>
+      <Grid item sm={12}>
         <Button onClick={newRuleSubmit} variant="contained" color="secondary">
           {intl.formatMessage({ id: 'autorules.save' })}
         </Button>

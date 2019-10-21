@@ -52,8 +52,9 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     chronology: '',
     priority: '',
     timeUnitNumber: 0,
-    expirationDate: null
+    expirationDate: ''
   });
+  const [endDateChecked, setEndDateChecked] = useState(true);
 
   const errorContext = useContext(ErrorContext.context);
 
@@ -61,6 +62,16 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     getAllRules(setRules, setIsLoading, errorContext);
   }, []);
 
+  useEffect(
+    () => {
+      if (rules.length > 1) {
+        setNewRuleActive(false);
+      }
+    },
+    [rules]
+  );
+
+  console.log('rules', rules);
   const handleDeleteRule = (id, errorContext) => {
     deleteRule(id, errorContext);
     const newRulesData = rules.filter(rule => rule.id !== id);
@@ -68,7 +79,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   };
 
   const handleNewRuleActive = () => {
-    setNewRuleActive(true);
+    setNewRuleActive(!newRuleActive);
   };
 
   const handleChange = event => {
@@ -82,6 +93,17 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     const newValues = { ...values };
     newValues.timeUnitNumber = event.target.value;
     setValues(newValues);
+  };
+
+  const handleChangeEndDate = () => {
+    if (endDateChecked) {
+      setEndDateChecked(false);
+    } else {
+      const newValues = { ...values };
+      newValues.expirationDate = '';
+      setValues(newValues);
+      setEndDateChecked(true);
+    }
   };
 
   const newRuleSubmit = () => {
@@ -117,6 +139,8 @@ const AutomationRulesContainer = ({ classes, intl }) => {
                   handleChange={handleChange}
                   handleChangeNumber={handleChangeNumber}
                   newRuleSubmit={newRuleSubmit}
+                  handleChangeEndDate={handleChangeEndDate}
+                  endDateChecked={endDateChecked}
                 />
               )}
             </Fragment>

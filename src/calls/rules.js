@@ -51,7 +51,8 @@ export const addRule = async (ruleObject, rules, setRules, errorContext) => {
           processType: ruleObject.processType,
           regulationCriterion: ruleObject.regulationCriterion,
           priority: ruleObject.priority,
-          timeUnitNumber: ruleObject.timeUnitNumber
+          timeUnitNumber: ruleObject.timeUnitNumber,
+          expirationDate: ruleObject.expirationDate
         })
       }
     );
