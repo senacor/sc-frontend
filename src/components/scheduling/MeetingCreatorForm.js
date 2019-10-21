@@ -13,6 +13,8 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
   container: {
@@ -58,7 +60,9 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
   const [date, setDate] = useState(now.format('YYYY-MM-DD'));
   const [startTime, setStartTime] = useState(start.format('HH:mm'));
   const [endTime, setEndTime] = useState(start.add(1, 'hour').format('HH:mm'));
-  const [room, setRoom] = useState('');
+  const [selectedRoom, setSelectedRoom] = useState('');
+
+  const rooms = ['KOS MR', 'NEU MR', 'BER MR', 'BON MR'];
 
   const handleChange = name => event => {
     switch (name) {
@@ -75,7 +79,7 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
         setEndTime(event.target.value);
         break;
       case 'room':
-        setRoom(event.target.value);
+        setSelectedRoom(event.target.value);
         break;
       default:
     }
@@ -174,10 +178,16 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
               })}
             </InputLabel>
             <Select
-              value={room}
+              value={selectedRoom}
               onChange={handleChange('room')}
               input={<Input id="select-room" className={classes.select} />}
-            />
+            >
+              {rooms.map(room => (
+                <MenuItem key={room} value={room}>
+                  <ListItemText primary={room} />
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
           <CheckRequiredClick
             onClick={handleClickOfMeetingButton}
