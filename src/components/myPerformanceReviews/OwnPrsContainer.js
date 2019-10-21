@@ -32,7 +32,7 @@ const OwnPrsContainer = ({ classes, intl }) => {
 
   const listofOwnPrs = ownPrsTogether.map((pr, index) => (
     <Grid item key={index} className={classes.padding}>
-      <PrCard pr={pr} />
+      <PrCard pr={pr} active={true} />
     </Grid>
   ));
 

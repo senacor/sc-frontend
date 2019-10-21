@@ -16,11 +16,14 @@ const InactivePerformanceReviewDetail = props => {
   const [isLoading, setIsLoading] = useState({});
   const [allEmployeesData, setAllEmployeesData] = useState([]);
   const errorContext = useContext(ErrorContext.context);
-  const { classes } = props;
+  const { classes, onReady, printMode } = props;
 
   useEffect(() => {
     const afterPrFetched = pr => {
       setPr(pr);
+      if (onReady) {
+        onReady();
+      }
     };
     fetchInactivePrById(
       props.match.params.id,
@@ -47,7 +50,14 @@ const InactivePerformanceReviewDetail = props => {
           allEmployeesData={allEmployeesData}
         />
       )}
-      {pr && <PrTabs pr={pr} formerEmployee={true} fromInactive={true} />}
+      {pr && (
+        <PrTabs
+          printMode={printMode}
+          pr={pr}
+          formerEmployee={true}
+          fromInactive={true}
+        />
+      )}
     </React.Fragment>
   );
 };

@@ -1,12 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
 import { DownloadFile } from '../fileStorage/DownloadFile';
 import { linkToPr } from '../../calls/pr';
-import PdfDialog from '../pr/PdfDialog';
-
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -14,11 +12,13 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
-
 // Icons
 import PrIcon from '@material-ui/icons/PermContactCalendar';
 import PrArchivedIcon from '@material-ui/icons/Archive';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { printPdf } from '../../helper/pdfExport';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { LanguageContext } from '../App';
 
 const styles = theme => ({
   card: {
@@ -72,17 +72,11 @@ const PrCard = ({
   classes,
   history,
   pr,
-  pr: { prId, archived, inProgress, employeeId, startDate }
+  pr: { prId, archived, inProgress, employeeId, startDate },
+  active
 }) => {
-  const [prToPrint, setPrToPrint] = useState(null);
-
-  const openDialog = pr => {
-    setPrToPrint(pr);
-  };
-
-  const closeDialog = () => {
-    setPrToPrint(null);
-  };
+  const { value: language } = useContext(LanguageContext.context);
+  const [printLoading, setPrintLoading] = useState(false);
 
   const renderActions = () => {
     if (archived) {
@@ -101,8 +95,19 @@ const PrCard = ({
         </Typography>
       );
     }
-    return (
-      <IconButton onClick={() => openDialog(pr)}>
+    return printLoading ? (
+      <IconButton>
+        <CircularProgress />
+      </IconButton>
+    ) : (
+      <IconButton
+        onClick={() =>
+          printPdf(pr, language, active, result => {
+            setPrintLoading(result);
+          })
+        }
+      >
+        {' '}
         <GetAppIcon />
       </IconButton>
     );
@@ -137,13 +142,6 @@ const PrCard = ({
         </CardContent>
         <CardActions className={classes.actions}>{renderActions()}</CardActions>
       </Card>
-      {prToPrint && (
-        <PdfDialog
-          id={prToPrint.prId}
-          style={{ overflow: 'auto' }}
-          closeDialog={closeDialog}
-        />
-      )}
     </Fragment>
   );
 };

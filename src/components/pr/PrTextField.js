@@ -22,8 +22,15 @@ const PrTextField = ({
   isError,
   action,
   rows,
+  printMode,
   intl
 }) => {
+  const rowsPros = printMode
+    ? {}
+    : {
+        rows: rows ? rows : '6',
+        rowsMax: '10'
+      };
   if (isError) {
     return (
       <Grid container spacing={8}>
@@ -32,10 +39,10 @@ const PrTextField = ({
         </Grid>
         <Grid item xs={12}>
           <TextField
+            className={'printChangeToDiv'}
             error
             multiline
-            rows={rows ? rows : '6'}
-            rowsMax="10"
+            {...rowsPros}
             fullWidth
             variant="outlined"
             helperText={intl.formatMessage({
@@ -55,10 +62,10 @@ const PrTextField = ({
         </Grid>
         <Grid item xs={12}>
           <TextField
+            className={'printChangeToDiv'}
             disabled
             multiline
-            rows={rows ? rows : '6'}
-            rowsMax="10"
+            {...rowsPros}
             fullWidth
             variant="outlined"
             helperText={helperText}
@@ -76,9 +83,9 @@ const PrTextField = ({
         </Grid>
         <Grid item xs={12}>
           <TextField
+            className={'printChangeToDiv'}
             multiline
-            rows={rows ? rows : '6'}
-            rowsMax="10"
+            {...rowsPros}
             fullWidth
             variant="outlined"
             InputProps={{

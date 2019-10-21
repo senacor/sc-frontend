@@ -7,6 +7,7 @@
     "@material-ui/icons": "^3.0.2",
     "@material-ui/lab": "^3.0.0-alpha.30",
     "@material/slider": "^0.41.0",
+    "html2pdf.js": "^0.9.1",
     "lodash": "^4.17.15",
     "material-ui-slider": "3.0.0",
     "moment": "^2.24.0",
@@ -25,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=node",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "eslint": "./node_modules/.bin/eslint --max-warnings 0 src",
     "eslintFix": "./node_modules/.bin/eslint --fix src"
