@@ -15,10 +15,10 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Typography from '@material-ui/core/Typography/Typography';
-import PrStatusActionButton from '../pr/PrStatusActionButton';
 import { formatDateForFrontend } from '../../helper/date';
 import { injectIntl } from 'react-intl';
 import { MeetingContext } from '../App';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   nested: {
@@ -43,7 +43,7 @@ const styles = theme => ({
   }
 });
 
-const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
+const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
   const { value: meeting } = useContext(MeetingContext.context);
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
@@ -62,7 +62,7 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
     });
   };
 
-  const informationTypography = (classes, visibilityService) => {
+  const informationTypography = classes => {
     return (
       <div>
         <Typography gutterBottom variant="h4">
@@ -70,13 +70,16 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
             id: 'meetingdetailsview.termindetails'
           })}
         </Typography>
-        {visibilityService.getAccept() ? (
+        {meeting.requiredAttendees.filter(
+          attendee =>
+            attendee.status !== 'UNKNOWN' && attendee.status !== 'DECLINED'
+        ).length > 0 && (
           <Typography variant={'body2'} className={classes.info}>
             {intl.formatMessage({
               id: 'meetingdetailsview.confirmation'
             })}
           </Typography>
-        ) : null}
+        )}
         {meeting.requiredAttendees.filter(
           attendee => attendee.status === 'DECLINED'
         ).length > 0 && (
@@ -251,26 +254,24 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
 
   return (
     <div className={classes.meetingView}>
-      {informationTypography(classes, visibilityService, click)}
-      {visibilityService.getEvaluationExternal()
-        ? meetingInformationExternal(classes, pr)
-        : null}
-      {visibilityService.getMeetingExists() &&
-      !visibilityService.getEvaluationExternal()
-        ? meetingInformation(
-            meeting,
-            openRequiredAttendees,
-            openOptionalAttendees,
-            classes
-          )
-        : null}
-      <PrStatusActionButton
-        label={intl.formatMessage({
-          id: 'meetingdetailsview.newtermin'
+      {informationTypography(classes)}
+      {meetingInformationExternal(classes, pr)}
+      {meetingInformation(
+        meeting,
+        openRequiredAttendees,
+        openOptionalAttendees,
+        classes
+      )}
+      <Button
+        variant="contained"
+        className={classes.buttonPosition}
+        color="primary"
+        onClick={handleChange}
+      >
+        {intl.formatMessage({
+          id: 'meetingcreator.newtermin'
         })}
-        releaseButtonClick={handleChange}
-        inputClass={classes.buttonPosition}
-      />
+      </Button>
     </div>
   );
 };

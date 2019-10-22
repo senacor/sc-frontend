@@ -116,15 +116,6 @@ export const MeetingCreator = ({
                   />
                 )}
               </TimeTable>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleChange}
-              >
-                {intl.formatMessage({
-                  id: 'meetingcreator.termindetail'
-                })}
-              </Button>
             </Grid>
           </Grid>
         </React.Fragment>

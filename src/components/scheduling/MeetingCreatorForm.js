@@ -4,17 +4,15 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import DateTimePicker from './DateTimePicker';
-import PrStatusActionButton from '../pr/PrStatusActionButton';
-import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
-import { CheckRequiredClick } from '../utils/CheckRequiredClick';
 import { addMeeting } from '../../calls/meetings';
-import { MeetingContext, ErrorContext, UserinfoContext } from '../App';
+import { MeetingContext, ErrorContext } from '../App';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   container: {
@@ -57,7 +55,6 @@ const MeetingCreatorForm = ({
   selectedRoom,
   setSelectedRoom
 }) => {
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const errorContext = useContext(ErrorContext.context);
   let now = moment.tz('Europe/Berlin');
@@ -152,73 +149,61 @@ const MeetingCreatorForm = ({
     }
   };
 
-  let visibilityService = new meetingDetailVisibilityService();
-  visibilityService.setPr(prById);
-  visibilityService.setUserinfo(userinfo);
-  visibilityService.setUserroles(userroles);
   return (
     <div>
-      {visibilityService.getAction() ? (
-        <DateTimePicker
-          date={date}
-          startTime={startTime}
-          endTime={endTime}
-          onDateTimeChange={setDateTime}
+      <DateTimePicker
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        onDateTimeChange={setDateTime}
+      />
+
+      <form className={classes.container} noValidate autoComplete="off">
+        <TextField
+          id="location"
+          label={intl.formatMessage({
+            id: 'meetingcreatorform.place'
+          })}
+          className={classes.textField}
+          value={location}
+          onChange={handleChange('location')}
+          margin="normal"
         />
-      ) : null}
-      {visibilityService.getAction() ? (
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            id="location"
-            label={intl.formatMessage({
-              id: 'meetingcreatorform.place'
+        <FormControl>
+          <InputLabel htmlFor="select-room">
+            {intl.formatMessage({
+              id: 'meetingcreatorform.room'
             })}
-            className={classes.textField}
-            value={location}
-            onChange={handleChange('location')}
-            margin="normal"
-          />
-          <FormControl>
-            <InputLabel htmlFor="select-room">
-              {intl.formatMessage({
-                id: 'meetingcreatorform.room'
-              })}
-            </InputLabel>
-            <Select
-              value={selectedRoom}
-              onChange={handleChange('room')}
-              input={<Input id="select-room" className={classes.select} />}
-            >
-              <MenuItem key={'none'} value={''}>
-                <ListItemText
-                  secondary={intl.formatMessage({
-                    id: 'meetingcreatorform.none'
-                  })}
-                />
-              </MenuItem>
-              {rooms.map(room => (
-                <MenuItem key={room} value={room}>
-                  <ListItemText primary={room} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <CheckRequiredClick
-            onClick={handleClickOfMeetingButton}
-            check={() => validateDateTimeInput()}
-            message={intl.formatMessage({
-              id: 'meetingcreatorform.starttime'
-            })}
+          </InputLabel>
+          <Select
+            value={selectedRoom}
+            onChange={handleChange('room')}
+            input={<Input id="select-room" className={classes.select} />}
           >
-            <PrStatusActionButton
-              label={intl.formatMessage({
-                id: 'meetingcreatorform.createtermin'
-              })}
-              inputClass={classes.buttonPosition}
-            />
-          </CheckRequiredClick>
-        </form>
-      ) : null}
+            <MenuItem key={'none'} value={''}>
+              <ListItemText
+                secondary={intl.formatMessage({
+                  id: 'meetingcreatorform.none'
+                })}
+              />
+            </MenuItem>
+            {rooms.map(room => (
+              <MenuItem key={room} value={room}>
+                <ListItemText primary={room} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClickOfMeetingButton}
+        >
+          {intl.formatMessage({
+            id: 'meetingcreatorform.createtermin'
+          })}
+        </Button>
+      </form>
     </div>
   );
 };
