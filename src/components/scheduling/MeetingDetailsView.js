@@ -61,7 +61,6 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
       id: `${employee.status}`
     });
   };
-  console.log('meeting.req', meeting.requiredAttendees);
   const informationTypography = classes => {
     return (
       <div>

@@ -201,6 +201,7 @@
   "meetingcreator.reviewer": "Evaluator",
   "meetingcreator.datescheduling": "Date scheduling",
   "meetingcreator.termindetail": "Appointment details",
+  "meetingcreator.newtermin": "Create new appointment",
   "meetingcreatorform.place": "Place",
   "meetingcreatorform.starttime": "The start time is after the end time of the appointment.",
   "meetingcreatorform.createtermin": "Create appointment",

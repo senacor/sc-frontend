@@ -83,10 +83,8 @@ export const appointmentsSearch = async (
   inputDay,
   room,
   errorContext,
-  setAppointmentResults,
-  setIsLoading
+  setAppointmentResults
 ) => {
-  setIsLoading(true);
   let day = moment.utc(inputDay).format('YYYY-MM-DD');
 
   // Invalid format of date
@@ -105,13 +103,11 @@ export const appointmentsSearch = async (
   if (response.ok) {
     const appointments = await response.json();
     setAppointmentResults(appointments);
-    setIsLoading(false);
     return appointments;
   } else {
     errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
-    setIsLoading(false);
   }
 };

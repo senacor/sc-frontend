@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 
@@ -19,16 +18,9 @@ const styles = theme => ({
   }
 });
 
-export const MeetingCreator = ({
-  classes,
-  intl,
-  pr,
-  selectedDate,
-  handleChange
-}) => {
+export const MeetingCreator = ({ classes, intl, pr, selectedDate }) => {
   const [appointmentResults, setAppointmentResults] = useState({});
   const [selectedRoom, setSelectedRoom] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   let errorContext = useContext(ErrorContext.context);
 
@@ -41,8 +33,7 @@ export const MeetingCreator = ({
       date,
       selectedRoom,
       errorContext,
-      setAppointmentResults,
-      setIsLoading
+      setAppointmentResults
     );
   };
 
@@ -56,11 +47,10 @@ export const MeetingCreator = ({
     },
     [selectedRoom]
   );
-  //Object.keys(appointmentResults).length === 0
-  console.log('app', appointmentResults);
+
   return (
     <React.Fragment>
-      {/*isLoading && */ Object.keys(appointmentResults).length === 0 ? (
+      {Object.keys(appointmentResults).length === 0 ? (
         <CircularProgress />
       ) : (
         <React.Fragment>
