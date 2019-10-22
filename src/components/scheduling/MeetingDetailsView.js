@@ -61,7 +61,7 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
       id: `${employee.status}`
     });
   };
-
+  console.log('meeting.req', meeting.requiredAttendees);
   const informationTypography = classes => {
     return (
       <div>
@@ -70,9 +70,10 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
             id: 'meetingdetailsview.termindetails'
           })}
         </Typography>
-        {meeting.requiredAttendees.filter(
+        {Object.keys(meeting.requiredAttendees).filter(
           attendee =>
-            attendee.status !== 'UNKNOWN' && attendee.status !== 'DECLINED'
+            meeting.requiredAttendees[attendee].status !== 'UNKNOWN' &&
+            meeting.requiredAttendees[attendee].status !== 'DECLINED'
         ).length > 0 && (
           <Typography variant={'body2'} className={classes.info}>
             {intl.formatMessage({
@@ -80,8 +81,8 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
             })}
           </Typography>
         )}
-        {meeting.requiredAttendees.filter(
-          attendee => attendee.status === 'DECLINED'
+        {Object.keys(meeting.requiredAttendees).filter(
+          attendee => meeting.requiredAttendees[attendee].status === 'DECLINED'
         ).length > 0 && (
           <Typography variant={'body2'} className={classes.info}>
             {intl.formatMessage({
@@ -89,8 +90,8 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
             })}
           </Typography>
         )}
-        {meeting.requiredAttendees.filter(
-          attendee => attendee.status === 'ACCEPTED'
+        {Object.keys(meeting.requiredAttendees).filter(
+          attendee => meeting.requiredAttendees[attendee].status === 'ACCEPTED'
         ).length === meeting.requiredAttendees.length && (
           <Typography variant={'body2'} className={classes.info}>
             {intl.formatMessage({

@@ -44,9 +44,12 @@ export const MeetingCreator = ({
     );
   };
 
-  useEffect(() => {
-    fetchAppointments(selectedDate);
-  }, []);
+  useEffect(
+    () => {
+      fetchAppointments(selectedDate);
+    },
+    [selectedRoom]
+  );
 
   console.log(appointmentResults);
   console.log(pr);
