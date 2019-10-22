@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Tooltip } from '@material-ui/core';
 import { modifyStringToUpperCase } from '../../../helper/string';
 import {
   formatLocaleDateTime,
@@ -20,6 +20,9 @@ const styles = theme => ({
   ...theme.styledComponents,
   ruleContainer: {
     margin: 3 * theme.spacing.unit
+  },
+  ruleGridItem: {
+    textAlign: 'left'
   },
   span: {
     display: 'inline-block',
@@ -82,7 +85,7 @@ const Rule = ({
 
   return (
     <Grid container className={classes.ruleContainer} alignItems="center">
-      <Grid item sm={10} md={8}>
+      <Grid item sm={10} md={8} className={classes.ruleGridItem}>
         <Typography variant="body1" component="span" className={classes.span}>
           {intl.formatMessage({
             id: 'autorules.textThe'
@@ -150,9 +153,11 @@ const Rule = ({
         {priorityIcon}
       </Grid>
       <Grid item sm={1} md={2}>
-        <IconButton onClick={deleteRule} className={classes.colorRed}>
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title={intl.formatMessage({ id: 'autorules.deleteRule' })}>
+          <IconButton onClick={deleteRule}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </Grid>
     </Grid>
   );

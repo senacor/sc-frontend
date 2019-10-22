@@ -37,7 +37,13 @@ export const deleteRule = async (id, errorContext) => {
   }
 };
 
-export const addRule = async (ruleObject, rules, setRules, errorContext) => {
+export const addRule = async (
+  ruleObject,
+  rules,
+  setRules,
+  errorContext,
+  infoContext
+) => {
   try {
     const newRules = [...rules];
     const response = await fetch(
@@ -60,6 +66,10 @@ export const addRule = async (ruleObject, rules, setRules, errorContext) => {
     const ruleResponse = await response.json();
     if (response.status === 200) {
       newRules.push(ruleResponse);
+      infoContext.setValue({
+        hasInfos: true,
+        messageId: 'message.ruleCreated'
+      });
     }
     setRules(newRules);
   } catch (err) {

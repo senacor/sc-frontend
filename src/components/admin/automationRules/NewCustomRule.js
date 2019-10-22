@@ -11,7 +11,8 @@ import {
   Typography,
   Grid,
   Checkbox,
-  FormControlLabel
+  FormControlLabel,
+  Tooltip
 } from '@material-ui/core';
 import {
   rulesDropdownProcess,
@@ -20,8 +21,12 @@ import {
   rulesDropdownRegulationCriteria,
   rulesDropdownPriority
 } from '../../../helper/rulesData';
-import { FRONTEND_LOCALE_DATE_TIME_FORMAT } from '../../../helper/date';
-import moment from 'moment';
+import {
+  timeIsPositive,
+  dateIsBeforeTodayOrEqual,
+  inputsEmpty,
+  validProcess
+} from './validators';
 
 const styles = theme => ({
   newRuleContainer: {},
@@ -41,8 +46,7 @@ const styles = theme => ({
   },
   priority: {
     width: 70
-  },
-  prioWithDate: {}
+  }
 });
 
 const NewCustomRule = ({
@@ -55,33 +59,15 @@ const NewCustomRule = ({
   handleChangeEndDate,
   endDateChecked
 }) => {
-  const inputsEmpty = obj => {
-    const newObj = { ...obj };
-    delete newObj.expirationDate;
-    for (let key in newObj) {
-      if (!newObj[key]) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  const dateIsBeforeTodayOrEqual = date => {
-    const formattedDate = Date.parse(date, FRONTEND_LOCALE_DATE_TIME_FORMAT);
-    const today = Date.parse(moment().format(FRONTEND_LOCALE_DATE_TIME_FORMAT));
-
-    if (formattedDate <= today) {
-      return true;
-    } else if (formattedDate > today) {
-      return false;
-    }
-  };
-
-  const timeIsPositive = value => {
-    if (value > 0) {
-      return true;
-    } else return false;
-  };
+  const tooltipText = dateIsBeforeTodayOrEqual(values.expirationDate)
+    ? intl.formatMessage({ id: 'autorules.dateIsValid' })
+    : !validProcess(values)
+    ? intl.formatMessage({ id: 'autorules.processValid' })
+    : !timeIsPositive(values.timeUnitNumber)
+    ? intl.formatMessage({ id: 'autorules.timePositive' })
+    : inputsEmpty(values)
+    ? intl.formatMessage({ id: 'autorules.fieldsEmpty' })
+    : '';
 
   return (
     <Grid
@@ -249,18 +235,23 @@ const NewCustomRule = ({
         </FormControl>
       </Grid>
       <Grid item sm={12}>
-        <Button
-          disabled={
-            inputsEmpty(values) ||
-            !timeIsPositive(values.timeUnitNumber) ||
-            dateIsBeforeTodayOrEqual(values.expirationDate)
-          }
-          onClick={newRuleSubmit}
-          variant="contained"
-          color="secondary"
-        >
-          {intl.formatMessage({ id: 'autorules.save' })}
-        </Button>
+        <Tooltip title={tooltipText}>
+          <span>
+            <Button
+              disabled={
+                inputsEmpty(values) ||
+                !timeIsPositive(values.timeUnitNumber) ||
+                dateIsBeforeTodayOrEqual(values.expirationDate) ||
+                !validProcess(values)
+              }
+              onClick={newRuleSubmit}
+              variant="contained"
+              color="secondary"
+            >
+              {intl.formatMessage({ id: 'autorules.save' })}
+            </Button>
+          </span>
+        </Tooltip>
       </Grid>
     </Grid>
   );

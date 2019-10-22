@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  withStyles,
-  Button,
-  Paper,
-  Typography,
-  CircularProgress
-} from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import Rule from './Rule';
 import { getAllRules, deleteRule, addRule } from '../../../calls/rules';
-import { ErrorContext } from '../../App';
+import { ErrorContext, InfoContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
+import { validPriority, validChronology, validProcess } from './validators';
+
+// Material UI
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
@@ -19,12 +20,14 @@ const styles = theme => ({
   ...theme.styledComponents,
   paper: {
     margin: 3 * theme.spacing.unit,
-    paddingBottom: 5 * theme.spacing.unit
+    paddingBottom: 5 * theme.spacing.unit,
+    paddingTop: 5 * theme.spacing.unit
   },
   rulesPaper: {
     margin: 3 * theme.spacing.unit,
     paddingBottom: 2 * theme.spacing.unit,
-    paddingTop: 2 * theme.spacing.unit
+    paddingTop: 2 * theme.spacing.unit,
+    textAlign: 'center'
   },
   title: {
     padding: 2 * theme.spacing.unit,
@@ -42,7 +45,6 @@ const styles = theme => ({
     textAlign: 'center'
   },
   noRules: {
-    textAlign: 'center',
     color: theme.palette.secondary.mediumGrey
   }
 });
@@ -63,6 +65,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   const [endDateChecked, setEndDateChecked] = useState(true);
 
   const errorContext = useContext(ErrorContext.context);
+  const infoContext = useContext(InfoContext.context);
 
   useEffect(() => {
     getAllRules(setRules, setIsLoading, errorContext);
@@ -112,40 +115,70 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   };
 
   const newRuleSubmit = () => {
-    addRule(values, rules, setRules, errorContext);
+    if (
+      rules.length === 0 ||
+      (validChronology(values, rules) &&
+        validPriority(values, rules) &&
+        validProcess(values))
+    ) {
+      errorContext.setValue({
+        hasErrors: false
+      });
+      addRule(values, rules, setRules, errorContext, infoContext);
+    } else if (!validPriority(values, rules)) {
+      infoContext.setValue({
+        hasInfos: false
+      });
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'message.invalidPriority'
+      });
+    } else if (!validChronology(values, rules)) {
+      infoContext.setValue({
+        hasInfos: false
+      });
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'message.invalidChronology'
+      });
+    } else if (!validProcess(values)) {
+      infoContext.setValue({
+        hasInfos: false
+      });
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'message.entryDateAndBeforeError'
+      });
+    }
   };
 
   return (
     <Fragment>
       <div className={classes.createRuleContainer}>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <Fragment>
-            <Button
-              disabled={rules.length > 1}
-              onClick={handleNewRuleActive}
-              color="primary"
-              variant="contained"
-            >
-              {intl.formatMessage({
-                id: 'autorules.createRule'
-              })}
-            </Button>
-            {newRuleActive && (
-              <Paper className={classes.paper}>
-                <NewCustomRule
-                  values={values}
-                  handleChange={handleChange}
-                  handleChangeNumber={handleChangeNumber}
-                  newRuleSubmit={newRuleSubmit}
-                  handleChangeEndDate={handleChangeEndDate}
-                  endDateChecked={endDateChecked}
-                />
-              </Paper>
-            )}
-          </Fragment>
-        )}
+        <Fragment>
+          <Button
+            disabled={rules.length > 1 || isLoading}
+            onClick={handleNewRuleActive}
+            color="primary"
+            variant="contained"
+          >
+            {intl.formatMessage({
+              id: 'autorules.createRule'
+            })}
+          </Button>
+          {newRuleActive && (
+            <Paper className={classes.paper}>
+              <NewCustomRule
+                values={values}
+                handleChange={handleChange}
+                handleChangeNumber={handleChangeNumber}
+                newRuleSubmit={newRuleSubmit}
+                handleChangeEndDate={handleChangeEndDate}
+                endDateChecked={endDateChecked}
+              />
+            </Paper>
+          )}
+        </Fragment>
       </div>
       <Paper className={classes.rulesPaper}>
         <div className={classes.title}>
@@ -154,7 +187,9 @@ const AutomationRulesContainer = ({ classes, intl }) => {
             {intl.formatMessage({ id: 'sidebar.autorules' })}
           </Typography>
         </div>
-        {rules.length > 0 ? (
+        {isLoading ? (
+          <CircularProgress />
+        ) : rules.length > 0 ? (
           rules.map(rule => (
             <Rule
               key={rule.id}
