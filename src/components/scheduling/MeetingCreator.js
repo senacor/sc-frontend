@@ -26,8 +26,9 @@ export const MeetingCreator = ({
   selectedDate,
   handleChange
 }) => {
-  const [appointmentResults, setAppointmentResults] = useState([]);
+  const [appointmentResults, setAppointmentResults] = useState({});
   const [selectedRoom, setSelectedRoom] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   let errorContext = useContext(ErrorContext.context);
 
@@ -40,9 +41,14 @@ export const MeetingCreator = ({
       date,
       selectedRoom,
       errorContext,
-      setAppointmentResults
+      setAppointmentResults,
+      setIsLoading
     );
   };
+
+  useEffect(() => {
+    fetchAppointments(selectedDate);
+  }, []);
 
   useEffect(
     () => {
@@ -50,13 +56,11 @@ export const MeetingCreator = ({
     },
     [selectedRoom]
   );
-
-  console.log(appointmentResults);
-  console.log(pr);
-
+  //Object.keys(appointmentResults).length === 0
+  console.log('app', appointmentResults);
   return (
     <React.Fragment>
-      {appointmentResults.length === 0 ? (
+      {/*isLoading && */ Object.keys(appointmentResults).length === 0 ? (
         <CircularProgress />
       ) : (
         <React.Fragment>
@@ -81,7 +85,7 @@ export const MeetingCreator = ({
                     appointmentResults[pr.employee.login].appointments
                   )}
                   selectedDate={selectedDate}
-                  distanceFromLeft={10}
+                  order={0}
                   name={`${pr.employee.firstName} ${pr.employee.lastName}`}
                   attendee={'employee'}
                 />
@@ -90,7 +94,7 @@ export const MeetingCreator = ({
                     appointmentResults[pr.supervisor.login].appointments
                   )}
                   selectedDate={selectedDate}
-                  distanceFromLeft={110}
+                  order={1}
                   name={`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
                   attendee={'supervisor'}
                 />
@@ -100,24 +104,25 @@ export const MeetingCreator = ({
                       appointmentResults[pr.reviewer.login].appointments
                     )}
                     selectedDate={selectedDate}
-                    distanceFromLeft={210}
+                    order={2}
                     name={`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
                     attendee={'reviewer'}
                   />
                 )}
-                {selectedRoom !== '' && (
-                  <Attendee
-                    appointments={
-                      extractAppointments(
+                {selectedRoom !== '' &&
+                  appointmentResults[selectedRoom.split('@')[0]] !==
+                    undefined && (
+                    <Attendee
+                      appointments={extractAppointments(
                         appointmentResults[selectedRoom.split('@')[0]]
-                      ).appointments
-                    }
-                    selectedDate={selectedDate}
-                    distanceFromLeft={310}
-                    name={selectedRoom.split('@')[0]}
-                    attendee={'room'}
-                  />
-                )}
+                          .appointments
+                      )}
+                      selectedDate={selectedDate}
+                      order={3}
+                      name={selectedRoom.split('@')[0]}
+                      attendee={'room'}
+                    />
+                  )}
               </TimeTable>
             </Grid>
           </Grid>
