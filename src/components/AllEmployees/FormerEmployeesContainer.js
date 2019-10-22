@@ -274,6 +274,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
           filterInputs={filterInputs}
           selected={{}}
           employees={employees}
+          isLoading={isLoading}
         />
       ) : (
         <FormerEmployeesGrid
