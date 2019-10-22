@@ -93,9 +93,7 @@ export const styles = () => ({
     position: 'relative',
     padding: 0,
     margin: 0,
-    '@media (min-Width: 1000px)': { width: '75%' },
-    '@media (min-Width: 1500px)': { width: '50%' },
-    '@media (min-Width: 1800px)': { width: '40%' }
+    width: '80%'
   },
   divider: {
     height: 1,

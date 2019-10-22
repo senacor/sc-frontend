@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -11,14 +12,33 @@ import {
 
 const styles = theme => ({
   appointmentDiv: {
-    width: '21.5%',
+    width: '18%',
     borderRadius: 3,
+    background: theme.palette.primary['300'],
+    position: 'absolute'
+  },
+  appointmentDivEmployee: {
+    width: '18%',
+    borderRadius: 3,
+    background: theme.palette.primary['400'],
+    position: 'absolute'
+  },
+  appointmentDivReviewer: {
+    width: '18%',
+    borderRadius: 3,
+    background: theme.palette.primary['500'],
+    position: 'absolute'
+  },
+  appointmentDivSupervisor: {
+    width: '18%',
+    borderRadius: 3,
+    background: theme.palette.secondary.green,
     position: 'absolute'
   }
 });
 
 export const createSingleAppointmentDiv = (
-  order,
+  distanceFromLeft,
   startTime,
   endTime,
   date,
@@ -28,6 +48,12 @@ export const createSingleAppointmentDiv = (
   appointmentState,
   intl
 ) => {
+  let timeStart = moment(startTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
+    .tz('Europe/Berlin')
+    .format('HH:mm');
+  let timeEnd = moment(endTime, 'YYYY-MM-DDTHH:mmZ[UTC]')
+    .tz('Europe/Berlin')
+    .format('HH:mm');
   let topPosition = transformAppointmentTimeToPercent(startTime, date);
   let length = transformAppointmentTimeToPercent(endTime, date) - topPosition;
   let infoOnMouseOver = name;
@@ -56,12 +82,16 @@ export const createSingleAppointmentDiv = (
   }
 
   return (
-    <Tooltip title={infoOnMouseOver}>
+    <Tooltip
+      title={infoOnMouseOver}
+      key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${keySuffix}`}
+    >
       <div
-        id={order}
+        id={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}`}
+        key={`appointmentDiv${distanceFromLeft}_${timeStart}-${timeEnd}-${keySuffix}`} //needs an unique key
         className={className}
         style={{
-          left: order * 100 + 20,
+          left: distanceFromLeft.toString() + '%',
           top: topPosition.toString() + '%',
           height: length.toString() + '%'
         }}
@@ -70,29 +100,48 @@ export const createSingleAppointmentDiv = (
   );
 };
 
+const attendeeAppointmentClass = (attendee, classes) => {
+  switch (attendee) {
+    case 'employee':
+      return classes.appointmentDivEmployee;
+    case 'reviewer':
+      return classes.appointmentDivReviewer;
+    case 'supervisor':
+      return classes.appointmentDivSupervisor;
+    default:
+      return classes.appointmentDiv;
+  }
+};
+
 const Attendee = ({
   appointments,
   selectedDate,
+  attendee,
   classes,
-  order,
+  distanceFromLeft,
   name,
   intl
 }) => {
   const createAppointmentDivs = () => {
     let appointmentDivs = [];
     let filteredAppointments = appointmentsFilter(appointments, selectedDate);
-    for (let i = 0; i < filteredAppointments.length; i++) {
-      const startTime = filteredAppointments[i][0];
-      const endTime = filteredAppointments[i][1];
-      const appointmentState = filteredAppointments[i][2];
+    for (
+      let appointmentCounter = 0;
+      appointmentCounter < filteredAppointments.length;
+      appointmentCounter++
+    ) {
+      const startTime = filteredAppointments[appointmentCounter][0];
+      const endTime = filteredAppointments[appointmentCounter][1];
+      const appointmentState = filteredAppointments[appointmentCounter][2];
+      const className = attendeeAppointmentClass(attendee, classes);
       appointmentDivs.push(
         createSingleAppointmentDiv(
-          order,
+          distanceFromLeft,
           startTime,
           endTime,
           selectedDate,
-          classes.appointmentDiv,
-          i,
+          className,
+          appointmentCounter,
           name,
           appointmentState,
           intl

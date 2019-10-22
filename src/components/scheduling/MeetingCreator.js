@@ -85,7 +85,7 @@ export const MeetingCreator = ({
                     appointmentResults[pr.employee.login].appointments
                   )}
                   selectedDate={selectedDate}
-                  order={0}
+                  distanceFromLeft={10}
                   name={`${pr.employee.firstName} ${pr.employee.lastName}`}
                   attendee={'employee'}
                 />
@@ -94,7 +94,7 @@ export const MeetingCreator = ({
                     appointmentResults[pr.supervisor.login].appointments
                   )}
                   selectedDate={selectedDate}
-                  order={1}
+                  distanceFromLeft={90 / 4 + 10}
                   name={`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
                   attendee={'supervisor'}
                 />
@@ -104,7 +104,7 @@ export const MeetingCreator = ({
                       appointmentResults[pr.reviewer.login].appointments
                     )}
                     selectedDate={selectedDate}
-                    order={2}
+                    distanceFromLeft={180 / 4 + 10}
                     name={`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
                     attendee={'reviewer'}
                   />
@@ -118,7 +118,7 @@ export const MeetingCreator = ({
                           .appointments
                       )}
                       selectedDate={selectedDate}
-                      order={3}
+                      distanceFromLeft={270 / 4 + 10}
                       name={selectedRoom.split('@')[0]}
                       attendee={'room'}
                     />
