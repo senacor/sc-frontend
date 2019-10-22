@@ -16,10 +16,9 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import Typography from '@material-ui/core/Typography/Typography';
 import PrStatusActionButton from '../pr/PrStatusActionButton';
-import MeetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../helper/date';
 import { injectIntl } from 'react-intl';
-import { MeetingContext, UserinfoContext } from '../App';
+import { MeetingContext } from '../App';
 
 const styles = theme => ({
   nested: {
@@ -46,15 +45,8 @@ const styles = theme => ({
 
 const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
   const { value: meeting } = useContext(MeetingContext.context);
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
-
-  let visibilityService = new MeetingDetailVisibilityService();
-  visibilityService.setMeeting(meeting);
-  visibilityService.setPr(pr);
-  visibilityService.setUserinfo(userinfo);
-  visibilityService.setUserroles(userroles);
 
   const handleClickOpenRequiredAttendees = () => {
     setOpenRequiredAttendees(!openRequiredAttendees);
@@ -85,34 +77,24 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
             })}
           </Typography>
         ) : null}
-        {visibilityService.getMeetingDeclined() ? (
+        {meeting.requiredAttendees.filter(
+          attendee => attendee.status === 'DECLINED'
+        ).length > 0 && (
           <Typography variant={'body2'} className={classes.info}>
             {intl.formatMessage({
               id: 'meetingdetailsview.cancelled'
             })}
           </Typography>
-        ) : null}
-        {visibilityService.getEvaluationExternal() ? (
+        )}
+        {meeting.requiredAttendees.filter(
+          attendee => attendee.status === 'ACCEPTED'
+        ).length === meeting.requiredAttendees.length && (
           <Typography variant={'body2'} className={classes.info}>
             {intl.formatMessage({
               id: 'meetingdetailsview.arrangedoffportal'
             })}
           </Typography>
-        ) : null}
-        {visibilityService.getHrInfoNotAccepted() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.confirmationneeded'
-            })}
-          </Typography>
-        ) : null}
-        {visibilityService.getHrInfoNotSent() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.arrangemendneeded'
-            })}
-          </Typography>
-        ) : null}
+        )}
       </div>
     );
   };
