@@ -58,6 +58,10 @@ const PrSheet = props => {
   const [disableDecline, setDisableDecline] = useState(false);
 
   const declinePrButton = () => {
+    if (pr.statusSet.includes('PR_COMPLETED')) {
+      return null;
+    }
+
     if (userinfo.userId === pr.supervisor.id) {
       const completely = pr.statusSet.includes('DECLINED_HR');
       return (
