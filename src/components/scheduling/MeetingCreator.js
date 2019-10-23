@@ -13,9 +13,39 @@ import { CircularProgress } from '@material-ui/core';
 import moment from 'moment';
 
 const styles = theme => ({
+  titleEmployee: {
+    position: 'relative',
+    width: '18%',
+    left: '10%'
+  },
+  titleSupervisor: {
+    position: 'relative',
+    width: '18%',
+    left: '14.8%'
+  },
+  titleReviewer: {
+    position: 'relative',
+    width: '18%',
+    left: '19.3%'
+  },
+  titleRoom: {
+    position: 'relative',
+    width: '18%',
+    left: '24%'
+  },
+  row: {
+    display: 'flex',
+    width: '80%'
+  },
+  label: {
+    fontSize: 12,
+    textAlign: 'center'
+  },
   title: {
     fontSize: 20,
-    paddingBottom: 3 * theme.spacing.unit
+    textAlign: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   }
 });
 
@@ -69,6 +99,54 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
               />
+            </Grid>
+            <Grid item className={classes.row}>
+              <div className={classes.titleEmployee}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.employee'
+                  })}
+                </div>
+                <div className={classes.title}>
+                  {`${pr.employee.firstName} ${pr.employee.lastName}`}
+                </div>
+              </div>
+              <div className={classes.titleSupervisor}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.supervisor'
+                  })}
+                </div>
+                <div className={classes.title}>
+                  {`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
+                </div>
+              </div>
+              <div className={classes.titleReviewer}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.reviewer'
+                  })}
+                </div>
+                {pr.supervisor.id !== pr.reviewer.id && (
+                  <div className={classes.title}>
+                    {`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
+                  </div>
+                )}
+              </div>
+              <div className={classes.titleRoom}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.room'
+                  })}
+                </div>
+                {selectedRoom !== '' &&
+                  appointmentResults[selectedRoom.split('@')[0]] !==
+                    undefined && (
+                    <div className={classes.title}>
+                      {selectedRoom.split('@')[0]}
+                    </div>
+                  )}
+              </div>
             </Grid>
             <Grid item>
               <TimeTable>

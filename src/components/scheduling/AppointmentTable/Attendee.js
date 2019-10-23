@@ -13,25 +13,25 @@ import {
 const styles = theme => ({
   appointmentDiv: {
     width: '18%',
-    borderRadius: 3,
+    borderRadius: 5,
     background: theme.palette.primary['300'],
     position: 'absolute'
   },
   appointmentDivEmployee: {
     width: '18%',
-    borderRadius: 3,
+    borderRadius: 5,
     background: theme.palette.primary['400'],
     position: 'absolute'
   },
   appointmentDivReviewer: {
     width: '18%',
-    borderRadius: 3,
+    borderRadius: 5,
     background: theme.palette.primary['500'],
     position: 'absolute'
   },
   appointmentDivSupervisor: {
     width: '18%',
-    borderRadius: 3,
+    borderRadius: 5,
     background: theme.palette.secondary.green,
     position: 'absolute'
   }
