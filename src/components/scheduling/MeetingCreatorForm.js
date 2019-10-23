@@ -65,7 +65,40 @@ const MeetingCreatorForm = ({
   const [startTime, setStartTime] = useState(start.format('HH:mm'));
   const [endTime, setEndTime] = useState(start.add(1, 'hour').format('HH:mm'));
 
-  const rooms = ['07KOSMeetingRoom10.7@senacor.com'];
+  const rooms = [
+    '01NBGBusiness-Center@senacor.com',
+    '01NUEMeeting3.01@senacor.com',
+    '01NUEMeeting2.3.06@senacor.com',
+    '01NUEMeeting3.3.07@senacor.com',
+    '01NUEMeeting4.3.08@senacor.com',
+    '01NUEMeeting5.3.09@senacor.com',
+    '01NUEProjektOffice3.05@senacor.com',
+    '01NUEProjektOffice3.2.41@senacor.com',
+    '01NUEProjektOffice4.2.42@senacor.com',
+    '02BONMeeting4.01@senacor.com',
+    '02BONMeeting4.02@senacor.com',
+    '02BONMeeting4.03@senacor.com',
+    '02BONMeeting4.04@senacor.com',
+    '02BONMeeting4.12@senacor.com',
+    '03ESCBoardroom6.0214@senacor.com',
+    '03ESCMeeting16.0312@senacor.com',
+    '03ESCMeeting26.046@senacor.com',
+    '03ESCProjekt-Office16.19@senacor.com',
+    '03ESCProjekt-Office26.11@senacor.com',
+    '04_MUC_Besprechung_3_6.04@senacor.com',
+    '04_MUC_Besprechung_6.05@senacor.com',
+    '04_MUC_Besprechung_6.052@senacor.com',
+    '05BERBoardroom6.01@senacor.com',
+    '05BERBoardroom603@senacor.com',
+    '06HAMMeetingRoom5.03@senacor.com',
+    '06HAMMeetingRoom5.08@senacor.com',
+    '07KOSMeetingRoom10.7@senacor.com',
+    '07KOSMeetingRoom11.24@senacor.com',
+    '08STRTeambesprechung@senacor.com',
+    '09VIEMeeting02@senacor.com',
+    '09VIEMeeting03@senacor.com',
+    '09VIEProject-Office07@senacor.com'
+  ];
 
   const handleChange = name => event => {
     switch (name) {
