@@ -68,12 +68,13 @@ export const addRule = async (
     const ruleResponse = await response.json();
     if (response.status === 200) {
       newRules.push(ruleResponse);
+      sortByPriority(newRules);
+      setRules(newRules);
       infoContext.setValue({
         hasInfos: true,
         messageId: 'message.ruleCreated'
       });
     }
-    setRules(newRules);
   } catch (err) {
     console.log(err);
     errorContext.setValue({
