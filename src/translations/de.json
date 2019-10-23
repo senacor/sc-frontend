@@ -247,7 +247,6 @@
   "mapratingfullfilment.notselected": "keine Auswahl",
   "message.error": "Ein unerwarteter Fehler wurde aufgetreten.",
   "message.uploadError": "Falsches Format der Datei - richtiges ist JJJJMMTT_Nutzername.xlsx",
-  "message.date": "---",
   "userrolespanel.user": "Benutzer",
   "userrolespanel.roles": "Rolle",
   "system.errors": "Fehler",
