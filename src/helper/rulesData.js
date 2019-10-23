@@ -37,11 +37,23 @@ export const rulesDropdownRegulationCriteria = [
 
 export const rulesDropdownPriority = [
   {
-    name: 'Low',
+    name: 'Lowest',
     value: 'LOWEST'
   },
   {
+    name: 'Low',
+    value: 'LOW'
+  },
+  {
+    name: 'Medium',
+    value: 'MEDIUM'
+  },
+  {
     name: 'High',
+    value: 'HIGH'
+  },
+  {
+    name: 'Highest',
     value: 'HIGHEST'
   }
 ];

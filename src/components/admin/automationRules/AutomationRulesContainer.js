@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core';
+import { withStyles, ListItem, List } from '@material-ui/core';
 import Rule from './Rule';
-import { getAllRules, deleteRule, addRule } from '../../../calls/rules';
+import {
+  getAllRules,
+  deleteRule,
+  addRule,
+  updateRulePriority
+} from '../../../calls/rules';
 import { ErrorContext, InfoContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
 import { validPriority, validChronology, validProcess } from './validators';
+import Sortable from 'react-sortablejs';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -46,6 +52,11 @@ const styles = theme => ({
   },
   noRules: {
     color: theme.palette.secondary.mediumGrey
+  },
+  listItem: {
+    background: theme.palette.secondary.brightGrey,
+    marginBottom: theme.spacing.unit,
+    cursor: 'grab'
   }
 });
 
@@ -66,6 +77,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
 
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
+  const maxRulesAmount = 2;
 
   useEffect(() => {
     getAllRules(setRules, setIsLoading, errorContext);
@@ -73,7 +85,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      if (rules.length > 1) {
+      if (rules.length >= maxRulesAmount) {
         setNewRuleActive(false);
       }
     },
@@ -152,12 +164,52 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     }
   };
 
+  const setNewPriority = arr => {
+    let arrWithNewPriorities = arr;
+    arrWithNewPriorities[0].priority = 'HIGHEST';
+    arrWithNewPriorities[1].priority = 'LOWEST';
+    return arrWithNewPriorities;
+  };
+
+  const createMap = arr => {
+    const newMap = new Map();
+    arr.map(item => {
+      return newMap.set(item.id, item.priority);
+    });
+    return newMap;
+  };
+
+  const handleOrderRules = order => {
+    let newRules = [...rules];
+    const mapOrder = (array, order, key) => {
+      array.sort((a, b) => {
+        let A = a[key],
+          B = b[key];
+
+        if (order.indexOf(A) > order.indexOf(B)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      return array;
+    };
+    const orderedArr = mapOrder(newRules, order, 'id');
+    setNewPriority(orderedArr);
+    setRules(orderedArr);
+    updateRulePriority(
+      createMap(orderedArr),
+      rules[0].processType,
+      errorContext
+    );
+  };
+
   return (
     <Fragment>
       <div className={classes.createRuleContainer}>
         <Fragment>
           <Button
-            disabled={rules.length > 1 || isLoading}
+            disabled={rules.length === maxRulesAmount || isLoading}
             onClick={handleNewRuleActive}
             color="primary"
             variant="contained"
@@ -190,13 +242,28 @@ const AutomationRulesContainer = ({ classes, intl }) => {
         {isLoading ? (
           <CircularProgress />
         ) : rules.length > 0 ? (
-          rules.map(rule => (
-            <Rule
-              key={rule.id}
-              rule={rule}
-              deleteRule={() => handleDeleteRule(rule.id, errorContext)}
-            />
-          ))
+          <List>
+            <Sortable
+              onChange={(order, sortable, evt) => handleOrderRules(order)}
+              options={{
+                animation: 150,
+                sortable: true
+              }}
+            >
+              {rules.map(rule => (
+                <ListItem
+                  key={rule.id}
+                  className={classes.listItem}
+                  data-id={rule.id}
+                >
+                  <Rule
+                    rule={rule}
+                    deleteRule={() => handleDeleteRule(rule.id, errorContext)}
+                  />
+                </ListItem>
+              ))}
+            </Sortable>
+          </List>
         ) : (
           <Typography variant="body2" className={classes.noRules}>
             {intl.formatMessage({ id: 'autorules.noRulesDefined' })}

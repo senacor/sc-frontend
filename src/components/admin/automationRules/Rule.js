@@ -14,12 +14,12 @@ import IconButton from '@material-ui/core/IconButton';
 
 // Icons
 import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowUp from '@material-ui/icons/ArrowUpward';
+import PriorityIcon from './PriorityIcon';
 
 const styles = theme => ({
   ...theme.styledComponents,
   ruleContainer: {
-    margin: 3 * theme.spacing.unit
+    margin: theme.spacing.unit
   },
   ruleGridItem: {
     textAlign: 'left'
@@ -30,18 +30,6 @@ const styles = theme => ({
   },
   endDate: {
     paddingLeft: theme.spacing.unit / 3,
-    color: theme.palette.secondary.mediumGrey
-  },
-  priorityContainer: {
-    textAlign: 'center'
-  },
-  colorRed: {
-    color: theme.palette.secondary.darkRed
-  },
-  colorYellow: {
-    color: theme.palette.secondary.darkYellow
-  },
-  caption: {
     color: theme.palette.secondary.mediumGrey
   }
 });
@@ -66,21 +54,6 @@ const Rule = ({
   const chronologyString = modifyStringToUpperCase(chronology);
   const regulationCriterionString = modifyStringToUpperCase(
     regulationCriterion
-  );
-
-  const priorityIcon = (
-    <div className={classes.priorityContainer}>
-      <ArrowUp
-        className={
-          priority === 'HIGHEST' ? classes.colorRed : classes.colorYellow
-        }
-      />
-      <Typography variant="caption" className={classes.caption}>
-        {priority === 'HIGHEST'
-          ? intl.formatMessage({ id: 'autorules.highPriority' })
-          : intl.formatMessage({ id: 'autorules.lowPriority' })}
-      </Typography>
-    </div>
   );
 
   return (
@@ -150,7 +123,7 @@ const Rule = ({
         </Typography>
       </Grid>
       <Grid item sm={1} md={2}>
-        {priorityIcon}
+        <PriorityIcon priority={priority} />
       </Grid>
       <Grid item sm={1} md={2}>
         <Tooltip title={intl.formatMessage({ id: 'autorules.deleteRule' })}>

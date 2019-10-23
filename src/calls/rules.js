@@ -1,4 +1,5 @@
 import { default as fetch } from '../helper/customFetch';
+import { sortByPriority } from '../components/admin/automationRules/validators';
 
 export const getAllRules = async (setRules, setIsLoading, errorContext) => {
   try {
@@ -11,6 +12,7 @@ export const getAllRules = async (setRules, setIsLoading, errorContext) => {
     const responseRules = await response.json();
 
     setIsLoading(false);
+    sortByPriority(responseRules);
     setRules(responseRules);
   } catch (err) {
     console.log(err);
@@ -72,6 +74,27 @@ export const addRule = async (
       });
     }
     setRules(newRules);
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
+export const updateRulePriority = async (map, processType, errorContext) => {
+  try {
+    await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v3/automation/rule/swapPriorities?processType=${processType}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(Object.fromEntries(map))
+      }
+    );
   } catch (err) {
     console.log(err);
     errorContext.setValue({
