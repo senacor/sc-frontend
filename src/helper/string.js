@@ -9,3 +9,8 @@ export const modifyString = string => {
       .replace(/_/g, ' ');
   return replacedStr;
 };
+
+export const modifyStringToUpperCase = string => {
+  const replacedStr = string.toUpperCase().replace(/_/g, ' ');
+  return replacedStr;
+};

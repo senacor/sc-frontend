@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AutoRules from '@material-ui/icons/RotateRight';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
@@ -119,6 +120,15 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <Build />,
         value: '/maintenance',
+        roles: [ROLES.ADMIN],
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.autorules'
+        }),
+        icon: <AutoRules />,
+        value: '/autorules',
         roles: [ROLES.ADMIN],
         onClick: resetMessages
       },

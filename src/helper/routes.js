@@ -12,7 +12,8 @@ const ROUTES = {
   PR: '/prDetail',
   ADMIN_USER_ROLES: '/userroles',
   ADMIN_SYSTEM_PANEL: '/system',
-  MAINTENANCE: '/maintenance'
+  MAINTENANCE: '/maintenance',
+  AUTORULES: '/autorules'
 };
 
 export default ROUTES;

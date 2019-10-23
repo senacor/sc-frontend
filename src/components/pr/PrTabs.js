@@ -86,18 +86,19 @@ const PrTabs = ({
             })}
             id={'TabDetails'}
           />
-          {!formerEmployee && (
-            <Tab
-              value={'SCHEDULE_VIEW'}
-              classes={{
-                root: classes.tabStyle
-              }}
-              label={intl.formatMessage({
-                id: 'prtabs.findtermin'
-              })}
-              id={'TabTerminfindung'}
-            />
-          )}
+          {!pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
+            !formerEmployee && (
+              <Tab
+                value={'SCHEDULE_VIEW'}
+                classes={{
+                  root: classes.tabStyle
+                }}
+                label={intl.formatMessage({
+                  id: 'prtabs.findtermin'
+                })}
+                id={'TabTerminfindung'}
+              />
+            )}
         </Tabs>
       </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
