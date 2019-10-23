@@ -162,7 +162,21 @@ const MeetingCreatorForm = ({
 
   const handleClickOfMeetingButton = event => {
     event.preventDefault();
-    addMeeting(createMeeting(prById), setMeeting, errorContext);
+    if (validateDateTimeInput()) {
+      addMeeting(createMeeting(prById), setMeeting, errorContext);
+      errorContext.setValue({
+        hasErrors: false,
+        messageId: '',
+        errors: {}
+      });
+    } else {
+      errorContext.setValue({
+        hasErrors: true,
+        messageId: 'meetingcreatorform.starttime',
+        errors: {}
+      });
+      window.scrollTo(0, 0);
+    }
   };
 
   const setDateTime = (name, value) => {
