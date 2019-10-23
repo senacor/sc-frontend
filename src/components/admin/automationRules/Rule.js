@@ -47,7 +47,7 @@ const Rule = ({
     timeUnitNumber,
     expirationDate
   },
-  deleteRule
+  openDialog
 }) => {
   const processTypeString = modifyStringToUpperCase(processType);
   const timeUnitString = modifyStringToUpperCase(timeUnit);
@@ -126,8 +126,11 @@ const Rule = ({
         <PriorityIcon priority={priority} />
       </Grid>
       <Grid item sm={1} md={2}>
-        <Tooltip title={intl.formatMessage({ id: 'autorules.deleteRule' })}>
-          <IconButton onClick={deleteRule}>
+        <Tooltip
+          title={intl.formatMessage({ id: 'autorules.deleteRule' })}
+          disableFocusListener
+        >
+          <IconButton onClick={openDialog}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

@@ -21,6 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
+import ConfirmDialog from '../../utils/ConfirmDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -74,6 +75,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     expirationDate: ''
   });
   const [endDateChecked, setEndDateChecked] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
@@ -92,6 +94,14 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     [rules]
   );
 
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
   const handleDeleteRule = (id, errorContext) => {
     deleteRule(id, errorContext);
     const newRulesData = rules.filter(rule => rule.id !== id);
@@ -103,6 +113,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   };
 
   const handleChange = event => {
+    event.persist();
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value
@@ -244,23 +255,31 @@ const AutomationRulesContainer = ({ classes, intl }) => {
         ) : rules.length > 0 ? (
           <List>
             <Sortable
-              onChange={(order, sortable, evt) => handleOrderRules(order)}
+              onChange={order => handleOrderRules(order)}
               options={{
                 animation: 150,
                 sortable: true
               }}
             >
               {rules.map(rule => (
-                <ListItem
-                  key={rule.id}
-                  className={classes.listItem}
-                  data-id={rule.id}
-                >
-                  <Rule
-                    rule={rule}
-                    deleteRule={() => handleDeleteRule(rule.id, errorContext)}
+                <Fragment key={rule.id}>
+                  <ListItem className={classes.listItem} data-id={rule.id}>
+                    <Rule rule={rule} openDialog={handleDialogOpen} />
+                  </ListItem>
+                  <ConfirmDialog
+                    open={dialogOpen}
+                    handleClose={handleDialogClose}
+                    handleConfirm={() =>
+                      handleDeleteRule(rule.id, errorContext)
+                    }
+                    confirmationText={intl.formatMessage({
+                      id: 'autorules.dialogText'
+                    })}
+                    confirmationHeader={intl.formatMessage({
+                      id: 'autorules.dialogTitle'
+                    })}
                   />
-                </ListItem>
+                </Fragment>
               ))}
             </Sortable>
           </List>

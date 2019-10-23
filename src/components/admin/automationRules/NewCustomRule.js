@@ -193,6 +193,7 @@ const NewCustomRule = ({
           {intl.formatMessage({ id: 'autorules.textStartDE' })}
         </Typography>
       </Grid>
+      {/* END DATE */}
       <Grid item sm={2}>
         <div className={classes.prioWithDate}>
           <TextField
@@ -200,7 +201,7 @@ const NewCustomRule = ({
             label={intl.formatMessage({ id: 'autorules.endDate' })}
             inputProps={{ name: 'expirationDate' }}
             value={values.expirationDate}
-            onChange={handleChange}
+            onChange={e => handleChange(e)}
             InputLabelProps={{ shrink: true }}
             disabled={endDateChecked}
           />
