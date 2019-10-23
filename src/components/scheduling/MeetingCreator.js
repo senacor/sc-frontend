@@ -37,10 +37,6 @@ export const MeetingCreator = ({ classes, intl, pr, selectedDate }) => {
     );
   };
 
-  useEffect(() => {
-    fetchAppointments(selectedDate);
-  }, []);
-
   useEffect(
     () => {
       fetchAppointments(selectedDate);
