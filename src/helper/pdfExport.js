@@ -61,7 +61,7 @@ export const printPdf = (pr, language, active, onReadyCallback) => {
       const elementToChangeValue = printableContent.getElementsByClassName(
         'printAnotherValue'
       )[i];
-      const targetRoleValue = elementToChangeValue.getAttribute('printValue');
+      const targetRoleValue = elementToChangeValue.getAttribute('printvalue');
       //set new value - based on headers - language dependent
       const patternElement = getById(
         printableContent,

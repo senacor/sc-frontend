@@ -155,7 +155,12 @@ const TargetRole = ({ classes, intl, targetRoles, action, isReadOnly }) => {
                   </Typography>
                 </div>
               </Grid>
-              <Grid className={'printAnotherValue'} printValue={determineTaragetRole(targetRole)} item xs={4}>
+              <Grid
+                className={'printAnotherValue'}
+                printvalue={determineTaragetRole(targetRole)}
+                item
+                xs={4}
+              >
                 <Grid container spacing={16}>
                   <Grid item xs={4} className={classes.center}>
                     <Radio

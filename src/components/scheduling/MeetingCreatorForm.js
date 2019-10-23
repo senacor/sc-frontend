@@ -40,10 +40,10 @@ const styles = theme => ({
     marginBottom: '4%'
   },
   textField: {
-    width: 200
+    width: 260
   },
   select: {
-    width: 200
+    width: 260
   }
 });
 
@@ -222,7 +222,7 @@ const MeetingCreatorForm = ({
             </MenuItem>
             {rooms.map(room => (
               <MenuItem key={room} value={room}>
-                <ListItemText primary={room} />
+                <ListItemText primary={room.split('@')[0]} />
               </MenuItem>
             ))}
           </Select>
