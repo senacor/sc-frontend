@@ -53,7 +53,9 @@ const MeetingCreatorForm = ({
   classes,
   intl,
   selectedRoom,
-  setSelectedRoom
+  setSelectedRoom,
+  selectedDate,
+  setSelectedDate
 }) => {
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const errorContext = useContext(ErrorContext.context);
@@ -61,7 +63,6 @@ const MeetingCreatorForm = ({
   const remainder = 30 - (now.minute() % 30);
   let start = now.add(remainder, 'minutes');
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState(now.format('YYYY-MM-DD'));
   const [startTime, setStartTime] = useState(start.format('HH:mm'));
   const [endTime, setEndTime] = useState(start.add(1, 'hour').format('HH:mm'));
 
@@ -106,7 +107,7 @@ const MeetingCreatorForm = ({
         setLocation(event.target.value);
         break;
       case 'date':
-        setDate(event.target.value);
+        setSelectedDate(event.target.value);
         break;
       case 'startTime':
         setStartTime(event.target.value);
@@ -122,8 +123,11 @@ const MeetingCreatorForm = ({
   };
 
   const createMeeting = prById => {
-    let startDateTime = moment.tz(`${date} ${startTime}`, 'Europe/Berlin');
-    let endDateTime = moment.tz(`${date} ${endTime}`, 'Europe/Berlin');
+    let startDateTime = moment.tz(
+      `${selectedDate} ${startTime}`,
+      'Europe/Berlin'
+    );
+    let endDateTime = moment.tz(`${selectedDate} ${endTime}`, 'Europe/Berlin');
     let meeting_details = {
       prById: prById,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
@@ -170,7 +174,7 @@ const MeetingCreatorForm = ({
         setLocation(value);
         break;
       case 'date':
-        setDate(value);
+        setSelectedDate(value);
         break;
       case 'startTime':
         setStartTime(value);
@@ -185,7 +189,8 @@ const MeetingCreatorForm = ({
   return (
     <div>
       <DateTimePicker
-        date={date}
+        date={selectedDate}
+        setDate={setSelectedDate}
         startTime={startTime}
         endTime={endTime}
         onDateTimeChange={setDateTime}

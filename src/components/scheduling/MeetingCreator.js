@@ -10,6 +10,7 @@ import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import { ErrorContext } from '../App';
 import { appointmentsSearch } from '../../calls/meetings';
 import { CircularProgress } from '@material-ui/core';
+import moment from 'moment';
 
 const styles = theme => ({
   title: {
@@ -18,8 +19,11 @@ const styles = theme => ({
   }
 });
 
-export const MeetingCreator = ({ classes, intl, pr, selectedDate }) => {
+export const MeetingCreator = ({ classes, intl, pr }) => {
   const [appointmentResults, setAppointmentResults] = useState({});
+  const [selectedDate, setSelectedDate] = useState(
+    moment.tz('Europe/Berlin').format('YYYY-MM-DD')
+  );
   const [selectedRoom, setSelectedRoom] = useState('');
 
   let errorContext = useContext(ErrorContext.context);
@@ -62,6 +66,8 @@ export const MeetingCreator = ({ classes, intl, pr, selectedDate }) => {
                 fetchAppointments={fetchAppointments}
                 selectedRoom={selectedRoom}
                 setSelectedRoom={setSelectedRoom}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
               />
             </Grid>
             <Grid item>
