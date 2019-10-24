@@ -1,4 +1,5 @@
 import { default as fetch } from '../helper/customFetch';
+import { sortByPriority } from '../components/admin/automationRules/functions';
 
 export const getAllRules = async (setRules, setIsLoading, errorContext) => {
   try {
@@ -11,6 +12,7 @@ export const getAllRules = async (setRules, setIsLoading, errorContext) => {
     const responseRules = await response.json();
 
     setIsLoading(false);
+    sortByPriority(responseRules);
     setRules(responseRules);
   } catch (err) {
     console.log(err);
@@ -22,7 +24,7 @@ export const getAllRules = async (setRules, setIsLoading, errorContext) => {
   }
 };
 
-export const deleteRule = async (id, error) => {
+export const deleteRule = async (id, errorContext) => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/automation/rule/${id}`, {
       method: 'delete',
@@ -30,7 +32,10 @@ export const deleteRule = async (id, error) => {
     });
   } catch (err) {
     console.log(err);
-    error.showGeneral();
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
   }
 };
 
@@ -38,8 +43,8 @@ export const addRule = async (
   ruleObject,
   rules,
   setRules,
-  error,
-  info
+  errorContext,
+  infoContext
 ) => {
   try {
     const newRules = [...rules];
@@ -63,11 +68,39 @@ export const addRule = async (
     const ruleResponse = await response.json();
     if (response.status === 200) {
       newRules.push(ruleResponse);
-      info.msg('message.ruleCreated');
+      sortByPriority(newRules);
+      setRules(newRules);
+      infoContext.setValue({
+        hasInfos: true,
+        messageId: 'message.ruleCreated'
+      });
     }
-    setRules(newRules);
   } catch (err) {
     console.log(err);
-    error.showGeneral();
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
+  }
+};
+
+export const updateRulePriority = async (map, processType, errorContext) => {
+  try {
+    await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v3/automation/rule/swapPriorities?processType=${processType}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(Object.fromEntries(map))
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    errorContext.setValue({
+      hasErrors: true,
+      messageId: 'message.error'
+    });
   }
 };
