@@ -61,6 +61,19 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
     });
   };
 
+  let roomName;
+  const roomLogin = Object.keys(meeting.optionalAttendees).find(attendee => {
+    return (
+      attendee !== pr.employee.login &&
+      attendee !== pr.supervisor.login &&
+      attendee !== pr.reviewer.login
+    );
+  });
+  if (roomLogin) {
+    roomName = meeting.optionalAttendees[roomLogin].name;
+    delete meeting.optionalAttendees[roomLogin];
+  }
+
   const meetingInformation = (
     meeting,
     openRequiredAttendees,
@@ -98,7 +111,9 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
             </ListItemIcon>
             <ListItemText
               primary={
-                meeting.location !== null
+                roomLogin
+                  ? roomName
+                  : meeting.location !== null
                   ? meeting.location
                   : intl.formatMessage({
                       id: 'meetingdetailsview.noplace'
