@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
@@ -8,7 +8,6 @@ import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import AdvancementStrategies from './AdvancementStrategies';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
-import { ErrorContext } from '../App';
 // Material UI
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -19,7 +18,11 @@ import Button from '@material-ui/core/Button';
 import ROUTES from '../../helper/routes';
 import ConfirmDialog from '../utils/ConfirmDialog';
 import { declinePr, undecline } from '../../calls/pr';
-import { useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../helper/contextHooks';
 
 const styles = theme => ({
   paddingBottom: {
@@ -51,7 +54,7 @@ const styles = theme => ({
 const PrSheet = props => {
   const { classes, intl, pr, printMode } = props;
   const user = useUserinfoContext();
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const info = useInfoContext();
   const [declineDialogOpen, setDeclineDialogOpen] = useState(false);
   const [disableDecline, setDisableDecline] = useState(false);
@@ -113,7 +116,7 @@ const PrSheet = props => {
           setDisableDecline(true);
           window.scrollTo(0, 0);
         },
-        errorContext
+        error
       );
     }
 
@@ -136,7 +139,7 @@ const PrSheet = props => {
           info.msg('prsheet.decline.done');
           props.history.push(ROUTES.DASHBOARD);
         },
-        errorContext
+        error
       );
     } else {
       //DECLINE PR AND SEND TO OTHER SIDE
@@ -157,7 +160,7 @@ const PrSheet = props => {
           setDisableDecline(true);
           window.scrollTo(0, 0);
         },
-        errorContext
+        error
       );
     }
     setDeclineDialogOpen(false);
@@ -326,10 +329,10 @@ const PrSheet = props => {
 
   const resetMessages = () => {
     info.hide();
-    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+    error.hide();
   };
 
-  const getBackJumpPoint = (pr) => {
+  const getBackJumpPoint = pr => {
     if (user.isOwnerInPr(pr)) {
       return ROUTES.OWN_PR_TABLE;
     } else if (user.isSupervisorInPr(pr) || user.isReviewerInPr(pr)) {
@@ -377,10 +380,7 @@ const PrSheet = props => {
             helperText={' '}
             text={pr.firstReflectionField}
             isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
-            isError={
-              errorContext.value.errors &&
-              errorContext.value.errors.firstReflectionField
-            }
+            isError={error.hasError('firstReflectionField')}
             action={changeFirstReflectionField}
           />
         </Grid>
@@ -401,10 +401,7 @@ const PrSheet = props => {
             })}
             text={pr.secondReflectionField}
             isReadOnly={readOnly('REFLECTIONS_EMPLOYEE')}
-            isError={
-              errorContext.value.errors &&
-              errorContext.value.errors.secondReflectionField
-            }
+            isError={error.hasError('secondReflectionField')}
             action={changeSecondReflectionField}
           />
         </Grid>
@@ -435,10 +432,7 @@ const PrSheet = props => {
               }
               targetRoles={pr.targetRole}
               isReadOnly={readOnly}
-              isError={
-                errorContext.value.errors &&
-                errorContext.value.errors.overallAssessmentComment
-              }
+              isError={error.hasError('overallAssessmentComment')}
               hidden={false}
               actionText={changeFulfillmentOfRequirementComment}
               actionRating={changeFulfillmentOfRequirementRating}
@@ -729,7 +723,7 @@ const PrSheet = props => {
           {declinePrButton()}
         </Grid>
         <Grid className={'ignorePrint'} item xs={6} md={6}>
-          <ButtonsBelowSheet pr={pr} errorContext={errorContext} info={info} />
+          <ButtonsBelowSheet pr={pr} error={error} info={info} />
         </Grid>
       </Grid>
       <ConfirmDialog

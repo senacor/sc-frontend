@@ -17,7 +17,8 @@ import senacorLogo from '../../styles/senacor_transparent.png';
 import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../translations/LanguageButton';
 import { login } from '../../calls/login';
-import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
+import { AuthorizationContext, UserinfoContext } from '../App';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   hero: {
@@ -112,7 +113,7 @@ const Login = ({ location, classes, intl }) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const authorizationContext = useContext(AuthorizationContext.context);
   const userInfoContext = useContext(UserinfoContext.context);
 
@@ -131,7 +132,7 @@ const Login = ({ location, classes, intl }) => {
       setIsLoading,
       setIsLoggedIn,
       authorizationContext,
-      errorContext
+      error
     );
   };
 

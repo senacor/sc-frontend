@@ -5,11 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
-import {
-  ErrorContext,
-  MeetingContext,
-  UserinfoContext
-} from '../App';
+import { MeetingContext, UserinfoContext } from '../App';
 import { prStatusEnum } from '../../helper/prStatus';
 import PrStatusStepper from './PrStateStepper';
 import {
@@ -17,6 +13,7 @@ import {
   hasRoleInPrBasedOnUserName
 } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   paper: {
@@ -32,7 +29,7 @@ const styles = theme => ({
 });
 
 const PrState = ({ classes, prById, intl }) => {
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const { value: meeting } = useContext(MeetingContext.context);
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
@@ -251,12 +248,7 @@ const PrState = ({ classes, prById, intl }) => {
   };
 
   const submitPRButton = pr => {
-    return (
-      <ButtonsBelowSheet
-        pr={pr}
-        errorContext={errorContext}
-      />
-    );
+    return <ButtonsBelowSheet pr={pr} error={error} />;
   };
 
   if (!(prById && meeting)) {

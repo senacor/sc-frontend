@@ -5,11 +5,7 @@ import {
 import cloneDeep from '../helper/cloneDeep';
 import ROLES from '../helper/roles';
 
-export const getUserInfo = async (
-  userinfoContext,
-  errorContext,
-  authContext
-) => {
+export const getUserInfo = async (userinfoContext, error, authContext) => {
   try {
     let userinfo = cloneDeep(userinfoContext.value);
 
@@ -109,10 +105,7 @@ export const getUserInfo = async (
       } else return;
     }
   } catch (err) {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 

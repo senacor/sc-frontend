@@ -10,7 +10,7 @@ import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import Grid from '@material-ui/core/Grid';
 import { prStatusEnum } from '../../helper/prStatus';
-import { ErrorContext, PrContext, UserinfoContext } from '../App';
+import { PrContext, UserinfoContext } from '../App';
 import EmployeeFilter from '../admin/EmployeeFilter';
 import { isSupervisor } from '../../helper/checkRole';
 
@@ -41,7 +41,6 @@ const PrDetailInformation = ({
   employee,
   intl
 }) => {
-  const errorContext = useContext(ErrorContext.context);
   const { userroles } = useContext(UserinfoContext.context).value;
   const { setValue: setPr } = useContext(PrContext.context);
 
@@ -146,7 +145,6 @@ const PrDetailInformation = ({
             {isSupervisor(userroles) ? (
               <EmployeeFilter
                 data={allEmployeesData}
-                errorContext={errorContext}
                 delegation={true}
                 isDisabled={
                   pr.supervisor.id !== pr.reviewer.id ||

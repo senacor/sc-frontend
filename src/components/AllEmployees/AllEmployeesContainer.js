@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+import { InfoContext, UserinfoContext } from '../App';
 import { Tooltip, withStyles } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import SearchFilter from './SearchFilter';
@@ -32,6 +32,7 @@ import AllEmployeesTable, {
 import { downloadExcel } from '../../calls/excelView';
 import Grid from '@material-ui/core/Grid';
 import { isPersonalDev, isSupervisor } from '../../helper/checkRole';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -99,7 +100,7 @@ const styles = theme => ({
 
 const AllEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const infoContext = useContext(InfoContext.context);
   const [selection, setSelection] = useState(false);
   const [selected, setSelected] = useState({});
@@ -123,7 +124,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     if (localStorage.getItem('view') === 'table') {
       setTableView(true);
     }
-    getAllEmployees(setEmployees, setIsLoading, errorContext);
+    getAllEmployees(setEmployees, setIsLoading, error);
   }, []);
 
   const checkFileForm = file => {
@@ -131,10 +132,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     if (file.match(regex)) {
       return true;
     } else {
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'message.uploadError'
-      });
+      error.show('message.uploadError');
     }
   };
 
@@ -144,7 +142,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
         event.target.files,
         setUploadedFiles,
         setIsLoading,
-        errorContext
+        error
       );
     }
   };
@@ -166,7 +164,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     const afterPrRequested = () => {
       setSelection(false);
       setSelected({});
-      getAllEmployees(setEmployees, setIsLoading, errorContext);
+      getAllEmployees(setEmployees, setIsLoading, error);
     };
 
     if (Object.keys(selected).length > 0) {
@@ -174,7 +172,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
         Object.keys(selected),
         afterPrRequested,
         infoContext,
-        errorContext
+        error
       );
     }
   };

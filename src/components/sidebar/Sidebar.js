@@ -22,13 +22,9 @@ import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { getUserInfo } from '../../calls/userinfo';
-import {
-  AuthorizationContext,
-  ErrorContext,
-  UserinfoContext
-} from '../App';
+import { AuthorizationContext, UserinfoContext } from '../App';
 import FeedbackButton from './FeedbackButton';
-import { useInfoContext } from '../../helper/contextHooks';
+import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -72,16 +68,16 @@ export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   const info = useInfoContext();
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const authContext = useContext(AuthorizationContext.context);
 
   useEffect(() => {
-    getUserInfo(userinfoContext, errorContext, authContext);
+    getUserInfo(userinfoContext, error, authContext);
   }, []);
 
   const resetMessages = () => {
     info.hide();
-    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+    error.hide();
   };
 
   const getListOfMenuItems = () => {

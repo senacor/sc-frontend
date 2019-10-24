@@ -1,8 +1,7 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import ROUTES from '../../../helper/routes';
-import { ErrorContext } from '../../App';
 import { getPrsHrTodo } from '../../../calls/pr';
 import PrsTodoHrTable from './PrsTodoHrTable';
 import InfoWidget from '../../utils/InfoWidget';
@@ -18,6 +17,7 @@ import Divider from '@material-ui/core/Divider';
 
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
+import { useErrorContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
   btnClose: {
@@ -40,13 +40,13 @@ const PrsTodoHrDialog = ({ classes, intl, todoForHr }) => {
   const [prs, setPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(
     () => {
       if (window.location.pathname === ROUTES.PR_HR_TODO) {
         setDialogOpened(true);
-        getPrsHrTodo(setPrs, setIsLoading, errorContext);
+        getPrsHrTodo(setPrs, setIsLoading, error);
       }
     },
     [dialogOpened]

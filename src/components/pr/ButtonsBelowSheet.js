@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, intl, errorContext } = props;
+  const { classes, pr, intl, error } = props;
   let { errors } = props;
   const { setValue: setPr } = useContext(PrContext.context);
   const info = useInfoContext();
@@ -53,11 +53,7 @@ const ButtonsBelowSheet = props => {
     }
 
     if (Object.values(errors).includes(true)) {
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'buttonsbelowsheet.fillrequired',
-        errors: errors
-      });
+      error.show('buttonsbelowsheet.fillrequired', errors);
       window.scrollTo(0, 0);
       return true;
     }
@@ -72,11 +68,7 @@ const ButtonsBelowSheet = props => {
     }
 
     if (Object.values(errors).includes(true)) {
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'buttonsbelowsheet.fillrequired',
-        errors: errors
-      });
+      error.show('buttonsbelowsheet.fillrequired', errors);
       window.scrollTo(0, 0);
       return true;
     }
@@ -84,7 +76,7 @@ const ButtonsBelowSheet = props => {
 
   const handleSaveClick = () => {
     info.hide();
-    errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
+    error.hide();
     if (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
       user.isOwnerInPr(pr)
@@ -93,7 +85,7 @@ const ButtonsBelowSheet = props => {
         pr.id,
         pr.firstReflectionField,
         pr.secondReflectionField,
-        errorContext,
+        error,
         infoContext
       );
     } else if (
@@ -105,7 +97,7 @@ const ButtonsBelowSheet = props => {
         pr.prRating,
         pr.targetRole,
         pr.advancementStrategies,
-        errorContext,
+        error,
         infoContext
       );
     } else if (
@@ -116,7 +108,7 @@ const ButtonsBelowSheet = props => {
       addFinalCommentEmployee(
         pr.id,
         pr.finalCommentEmployee,
-        errorContext,
+        error,
         infoContext
       );
     } else if (
@@ -125,13 +117,13 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('PR_COMPLETED') &&
       user.hasRoleHr()
     ) {
-      addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext, infoContext);
+      addFinalCommentHr(pr.id, pr.finalCommentHr, error, infoContext);
     }
   };
 
   const handleSubmitClick = () => {
     info.hide();
-    errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
+    error.hide();
     if (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
       user.isOwnerInPr(pr)
@@ -141,15 +133,10 @@ const ButtonsBelowSheet = props => {
           pr.id,
           pr.firstReflectionField,
           pr.secondReflectionField,
-          errorContext,
+          error,
           infoContext
         ).then(() => {
-          addPrStatus(
-            pr.id,
-            'FILLED_SHEET_EMPLOYEE_SUBMITTED',
-            setPr,
-            errorContext
-          );
+          addPrStatus(pr.id, 'FILLED_SHEET_EMPLOYEE_SUBMITTED', setPr, error);
           infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
         });
       }
@@ -164,15 +151,10 @@ const ButtonsBelowSheet = props => {
           pr.prRating,
           pr.targetRole,
           pr.advancementStrategies,
-          errorContext,
+          error,
           infoContext
         ).then(() => {
-          addPrStatus(
-            pr.id,
-            'FILLED_SHEET_REVIEWER_SUBMITTED',
-            setPr,
-            errorContext
-          );
+          addPrStatus(pr.id, 'FILLED_SHEET_REVIEWER_SUBMITTED', setPr, error);
           info.msg('pr.submitted');
         });
       }
@@ -187,15 +169,10 @@ const ButtonsBelowSheet = props => {
           pr.prRating,
           pr.targetRole,
           pr.advancementStrategies,
-          errorContext,
+          error,
           infoContext
         ).then(() => {
-          addPrStatus(
-            pr.id,
-            'MODIFICATIONS_ACCEPTED_REVIEWER',
-            setPr,
-            errorContext
-          );
+          addPrStatus(pr.id, 'MODIFICATIONS_ACCEPTED_REVIEWER', setPr, error);
           info.msg('pr.submitted');
         });
       }
@@ -207,15 +184,10 @@ const ButtonsBelowSheet = props => {
       addFinalCommentEmployee(
         pr.id,
         pr.finalCommentEmployee,
-        errorContext,
+        error,
         infoContext
       ).then(() => {
-        addPrStatus(
-          pr.id,
-          'MODIFICATIONS_ACCEPTED_EMPLOYEE',
-          setPr,
-          errorContext
-        );
+        addPrStatus(pr.id, 'MODIFICATIONS_ACCEPTED_EMPLOYEE', setPr, error);
         info.msg('pr.submitted');
       });
     } else if (
@@ -224,15 +196,12 @@ const ButtonsBelowSheet = props => {
       !pr.statusSet.includes('PR_COMPLETED') &&
       user.hasRoleHr()
     ) {
-      addFinalCommentHr(
-        pr.id,
-        pr.finalCommentHr,
-        errorContext,
-        infoContext
-      ).then(() => {
-        addPrStatus(pr.id, 'PR_COMPLETED', setPr, errorContext);
-        info.msg('pr.submitted');
-      });
+      addFinalCommentHr(pr.id, pr.finalCommentHr, error, infoContext).then(
+        () => {
+          addPrStatus(pr.id, 'PR_COMPLETED', setPr, error);
+          info.msg('pr.submitted');
+        }
+      );
     }
     setDialogOpen(false);
   };

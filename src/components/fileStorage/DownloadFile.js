@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import { downloadFile } from '../../calls/fileStorage';
-import { ErrorContext } from '../App';
 
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { useErrorContext } from '../../helper/contextHooks';
 
 let downloadTab = null;
 export const DownloadFile = ({ employeeId, fileId }) => {
   const [downloadedFile, setDownloadedFile] = useState([]);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   const handleClick = (employeeId, fileId) => () => {
     downloadTab = window.open();
-    downloadFile(employeeId, fileId, setDownloadedFile, errorContext);
+    downloadFile(employeeId, fileId, setDownloadedFile, error);
   };
 
   const checkDownloadFile = file => {

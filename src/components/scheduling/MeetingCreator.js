@@ -12,8 +12,9 @@ import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
 import { hasRoleInPrBasedOnUserName } from '../../helper/checkRole';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/PrStatusActionButton';
-import { ErrorContext, MeetingContext, UserinfoContext } from '../App';
+import { MeetingContext, UserinfoContext } from '../App';
 import { appointmentsSearch } from '../../calls/meetings';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   title: {
@@ -36,7 +37,7 @@ export const MeetingCreator = ({
   const [reviewer, setReviewer] = useState('');
   const [appointmentResults, setAppointmentResults] = useState([]);
 
-  let errorContext = useContext(ErrorContext.context);
+  let error = useErrorContext();
 
   const setStateforRole = (pr, role, userinfo) => {
     let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
@@ -134,12 +135,7 @@ export const MeetingCreator = ({
     hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
       attendees.push(pr.reviewer.login);
 
-    appointmentsSearch(
-      attendees.join(','),
-      date,
-      errorContext,
-      setAppointmentResults
-    );
+    appointmentsSearch(attendees.join(','), date, error, setAppointmentResults);
   };
 
   useEffect(() => {

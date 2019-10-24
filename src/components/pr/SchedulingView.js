@@ -6,15 +6,15 @@ import { injectIntl } from 'react-intl';
 import {
   MeetingContext,
   UserinfoContext,
-  PrContext,
-  ErrorContext
+  PrContext
 } from '../App';
 import { addPrStatus } from '../../calls/pr';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const SchedulingView = ({ pr, intl }) => {
   const { userroles, userinfo } = useContext(UserinfoContext.context).value;
   const { setValue: setPr } = useContext(PrContext.context);
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   const { value: meeting } = useContext(MeetingContext.context);
   const [canRequestMeeting, setCanRequestMeeting] = useState(false);
@@ -52,7 +52,7 @@ const SchedulingView = ({ pr, intl }) => {
           userinfo={userinfo}
           userroles={userroles}
           click={() =>
-            addPrStatus(pr, prStatusEnum.FIXED_DATE, setPr, errorContext)
+            addPrStatus(pr, prStatusEnum.FIXED_DATE, setPr, error)
           }
           handleChange={() => handleChange()}
         />

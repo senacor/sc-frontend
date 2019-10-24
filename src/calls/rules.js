@@ -22,7 +22,7 @@ export const getAllRules = async (setRules, setIsLoading, errorContext) => {
   }
 };
 
-export const deleteRule = async (id, errorContext) => {
+export const deleteRule = async (id, error) => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/automation/rule/${id}`, {
       method: 'delete',
@@ -30,10 +30,7 @@ export const deleteRule = async (id, errorContext) => {
     });
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -41,7 +38,7 @@ export const addRule = async (
   ruleObject,
   rules,
   setRules,
-  errorContext,
+  error,
   info
 ) => {
   try {
@@ -71,9 +68,6 @@ export const addRule = async (
     setRules(newRules);
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };

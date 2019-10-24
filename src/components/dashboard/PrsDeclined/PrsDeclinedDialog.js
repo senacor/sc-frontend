@@ -1,8 +1,7 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import ROUTES from '../../../helper/routes';
-import { ErrorContext } from '../../App';
 import { getDeclinedPrs } from '../../../calls/pr';
 import InfoWidget from '../../utils/InfoWidget';
 // Material UI
@@ -16,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 import PrsDeclinedTable from './PrsDeclinedTable';
+import { useErrorContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
   btnClose: {
@@ -35,13 +35,13 @@ const PrsDeclinedDialog = ({ isHr, refreshDashboard, classes, intl, declinedPrs 
   const [prs, setPrs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(
     () => {
       if (window.location.pathname === ROUTES.DECLINED_PR) {
         setDialogOpened(true);
-        getDeclinedPrs(isHr, setPrs, setIsLoading, errorContext);
+        getDeclinedPrs(isHr, setPrs, setIsLoading, error);
       }
     },
     [dialogOpened]

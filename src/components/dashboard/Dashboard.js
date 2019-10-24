@@ -3,14 +3,14 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from '../utils/InfoWidget';
-import { AuthorizationContext, ErrorContext } from '../App';
+import { AuthorizationContext } from '../App';
 import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
 import PrsDeclinedDialog from './PrsDeclined/PrsDeclinedDialog';
 import ROUTES from '../../helper/routes';
 import { getUserInfo } from '../../calls/userinfo';
-import { useUserinfoContext } from '../../helper/contextHooks';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,7 +36,7 @@ const Dashboard = ({ classes, intl }) => {
   const user = useUserinfoContext();
   const { userroles, userinfo } = user.context.value;
   const authContext = useContext(AuthorizationContext.context);
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
@@ -49,14 +49,14 @@ const Dashboard = ({ classes, intl }) => {
   useEffect(
     () => {
       if (user.hasRoleAdmin()) {
-        getSystemInfo(setSystemInfo, errorContext);
+        getSystemInfo(setSystemInfo, error);
       }
     },
     [userroles]
   );
 
   const refreshDashboard = () => {
-    getUserInfo(user.context, errorContext, authContext);
+    getUserInfo(user.context, error, authContext);
   };
 
   return userinfo ? (

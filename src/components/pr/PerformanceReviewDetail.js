@@ -7,13 +7,9 @@ import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../calls/meetings';
 import { fetchPrById } from '../../calls/pr';
 import { getAllEmployees, getEmployeeById } from '../../calls/employees';
-import {
-  ErrorContext,
-  MeetingContext,
-  PrContext,
-  UserinfoContext
-} from '../App';
+import { MeetingContext, PrContext, UserinfoContext } from '../App';
 import { isSupervisor } from '../../helper/checkRole';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -25,7 +21,7 @@ const PerformanceReviewDetail = props => {
   const [isLoading, setIsLoading] = useState({});
   const [allEmployeesData, setAllEmployeesData] = useState([]);
   const [employee, setEmployee] = useState({});
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const { value: meeting, setValue: setMeeting } = useContext(
     MeetingContext.context
   );
@@ -34,7 +30,7 @@ const PerformanceReviewDetail = props => {
   useEffect(() => {
     const afterPrFetched = pr => {
       setPr(pr);
-      fetchMeeting(pr, setMeeting, errorContext);
+      fetchMeeting(pr, setMeeting, error);
       getEmployeeById(
         pr.employee.id,
         result => {
@@ -44,7 +40,7 @@ const PerformanceReviewDetail = props => {
           }
         },
         setIsLoading,
-        errorContext
+        error
       );
     };
 
@@ -52,11 +48,11 @@ const PerformanceReviewDetail = props => {
       props.match.params.id,
       afterPrFetched,
       setIsLoading,
-      errorContext
+      error
     );
 
     if (isSupervisor(userroles)) {
-      getAllEmployees(setAllEmployeesData, setIsLoading, errorContext);
+      getAllEmployees(setAllEmployeesData, setIsLoading, error);
     }
   }, []);
 
