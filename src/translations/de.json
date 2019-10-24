@@ -147,6 +147,7 @@
   "meetingdetailsview.status": "Status:",
   "meetingdetailsview.optionalmember": "Optionale Teilnehmer",
   "meetingdetailsview.newtermin": "Neuen Termin erstellen",
+  "meetingdetailsview.unknown": "Unbekannter Terminstatus",
   "prdetailinformation.notarranged": "noch nicht vereinbart",
   "prdetailinformation.notconfirmed": "(noch nicht bestätigt)",
   "prdetailinformation.cancelled": "(abgesagt)",

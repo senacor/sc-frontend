@@ -138,11 +138,11 @@ const MeetingCreatorForm = ({
       optionalAttendees: []
     };
 
-    if (prById.hasOwnProperty('reviewer')) {
+    if (prById.supervisor.id === prById.reviewer.id) {
+      meeting_details.requiredAttendees.push(prById.supervisor.login);
+    } else {
       meeting_details.requiredAttendees.push(prById.reviewer.login);
       meeting_details.optionalAttendees.push(prById.supervisor.login);
-    } else {
-      meeting_details.requiredAttendees.push(prById.supervisor.login);
     }
 
     return meeting_details;

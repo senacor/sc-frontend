@@ -61,6 +61,7 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
       id: `${employee.status}`
     });
   };
+
   const informationTypography = classes => {
     return (
       <div>
@@ -98,21 +99,15 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
             })}
           </Typography>
         )}
-      </div>
-    );
-  };
-
-  const meetingInformationExternal = (classes, pr) => {
-    return (
-      <div>
-        <List>
-          <ListItem id={'date'}>
-            <ListItemIcon>
-              <TodayIcon className={classes.icon} />
-            </ListItemIcon>
-            <ListItemText primary={formatDateForFrontend(pr.meetingDay)} />
-          </ListItem>
-        </List>
+        {Object.keys(meeting.requiredAttendees).filter(
+          attendee => meeting.requiredAttendees[attendee].status === 'UNKNOWN'
+        ).length > 0 && (
+          <Typography variant={'body2'} className={classes.info}>
+            {intl.formatMessage({
+              id: 'meetingdetailsview.unknown'
+            })}
+          </Typography>
+        )}
       </div>
     );
   };
@@ -255,7 +250,6 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
   return (
     <div className={classes.meetingView}>
       {informationTypography(classes)}
-      {meetingInformationExternal(classes, pr)}
       {meetingInformation(
         meeting,
         openRequiredAttendees,
