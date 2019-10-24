@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, ListItem, List } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import Rule from './Rule';
 import {
   getAllRules,
@@ -18,6 +18,9 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
@@ -32,8 +35,7 @@ const styles = theme => ({
   },
   rulesPaper: {
     margin: 3 * theme.spacing.unit,
-    paddingBottom: 2 * theme.spacing.unit,
-    paddingTop: 2 * theme.spacing.unit,
+    padding: theme.spacing.unit,
     textAlign: 'center'
   },
   title: {
@@ -47,8 +49,11 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit
     }
   },
+  divider: {
+    marginBottom: 2 * theme.spacing.unit
+  },
   createRuleContainer: {
-    marginTop: 2 * theme.spacing.unit,
+    marginTop: 3 * theme.spacing.unit,
     textAlign: 'center'
   },
   noRules: {
@@ -57,7 +62,8 @@ const styles = theme => ({
   listItem: {
     background: theme.palette.secondary.brightGrey,
     marginBottom: theme.spacing.unit,
-    cursor: 'grab'
+    cursor: 'grab',
+    boxShadow: `0px 1px 4px 4px ${theme.palette.secondary.mediumGrey}`
   }
 });
 
@@ -106,6 +112,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     deleteRule(id, errorContext);
     const newRulesData = rules.filter(rule => rule.id !== id);
     setRules(newRulesData);
+    setDialogOpen(false);
   };
 
   const handleNewRuleActive = () => {
@@ -190,7 +197,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     return newMap;
   };
 
-  const handleOrderRules = order => {
+  const handleOrderRules = (order, sortable, evt) => {
     let newRules = [...rules];
     const mapOrder = (array, order, key) => {
       array.sort((a, b) => {
@@ -250,12 +257,15 @@ const AutomationRulesContainer = ({ classes, intl }) => {
             {intl.formatMessage({ id: 'sidebar.autorules' })}
           </Typography>
         </div>
+        <Divider className={classes.divider} />
         {isLoading ? (
           <CircularProgress />
         ) : rules.length > 0 ? (
           <List>
             <Sortable
-              onChange={order => handleOrderRules(order)}
+              onChange={(order, sortable, evt) =>
+                handleOrderRules(order, sortable, evt)
+              }
               options={{
                 animation: 150,
                 sortable: true
