@@ -10,7 +10,7 @@ import {
 } from '../../../calls/rules';
 import { ErrorContext, InfoContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
-import { validPriority, validChronology, validProcess } from './validators';
+import { validPriority, validChronology, validProcess } from './functions';
 import Sortable from 'react-sortablejs';
 
 // Material UI
@@ -61,7 +61,8 @@ const styles = theme => ({
   },
   listItem: {
     background: theme.palette.secondary.brightGrey,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    marginBottom: 2 * theme.spacing.unit,
     cursor: 'grab',
     boxShadow: `0px 1px 4px 4px ${theme.palette.secondary.mediumGrey}`
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Tooltip } from '@material-ui/core';
-import { modifyStringToUpperCase } from '../../../helper/string';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
@@ -38,7 +37,6 @@ const Rule = ({
   intl,
   classes,
   rule: {
-    id,
     chronology,
     priority,
     processType,
@@ -49,16 +47,71 @@ const Rule = ({
   },
   openDialog
 }) => {
-  const processTypeString = modifyStringToUpperCase(processType);
-  const timeUnitString = modifyStringToUpperCase(timeUnit);
-  const chronologyString = modifyStringToUpperCase(chronology);
-  const regulationCriterionString = modifyStringToUpperCase(
-    regulationCriterion
-  );
+  const determineProcessTypeLang = value => {
+    let string;
+    switch (value) {
+      case 'PR_GENERATION':
+        string = intl.formatMessage({
+          id: 'autorules.processType.prGeneration'
+        });
+        break;
+      default:
+        string = undefined;
+    }
+    return string.toUpperCase();
+  };
+
+  const determineCriterionLang = value => {
+    let string;
+    switch (value) {
+      case 'DUE_DATE_OF_PR':
+        string = intl.formatMessage({ id: 'autorules.criterion.dueDatePR' });
+        break;
+      case 'ENTRY_DATE': {
+        string = intl.formatMessage({ id: 'autorules.criterion.entryDate' });
+        break;
+      }
+      default:
+        string = undefined;
+    }
+    return string.toUpperCase();
+  };
+
+  const determineChronologyLang = value => {
+    let string;
+    switch (value) {
+      case 'BEFORE':
+        string = intl.formatMessage({ id: 'autorules.chronology.before' });
+        break;
+      case 'AFTER': {
+        string = intl.formatMessage({ id: 'autorules.chronology.after' });
+        break;
+      }
+      default:
+        string = undefined;
+    }
+    return string.toUpperCase();
+  };
+
+  const determineTimeUnitLang = value => {
+    let string;
+    switch (value) {
+      case 'MONTHS':
+        string = intl.formatMessage({ id: 'autorules.timeUnit.months' });
+        break;
+      case 'WEEKS': {
+        string = intl.formatMessage({ id: 'autorules.timeUnit.weeks' });
+        break;
+      }
+      default:
+        string = undefined;
+    }
+    return string.toUpperCase();
+  };
 
   return (
     <Grid container className={classes.ruleContainer} alignItems="center">
-      <Grid item sm={10} md={8} className={classes.ruleGridItem}>
+      <Grid item sm={8} md={10} className={classes.ruleGridItem}>
         <Typography variant="body1" component="span" className={classes.span}>
           {intl.formatMessage({
             id: 'autorules.textThe'
@@ -70,7 +123,7 @@ const Rule = ({
           color="secondary"
           className={classes.span}
         >
-          {processTypeString}
+          {determineProcessTypeLang(processType)}
         </Typography>
         <Typography variant="body1" component="span" className={classes.span}>
           {intl.formatMessage({
@@ -91,7 +144,7 @@ const Rule = ({
           color="secondary"
           className={classes.span}
         >
-          {timeUnitString}
+          {determineTimeUnitLang(timeUnit)}
         </Typography>
         <Typography
           variant="body1"
@@ -99,7 +152,7 @@ const Rule = ({
           color="secondary"
           className={classes.span}
         >
-          {chronologyString}
+          {determineChronologyLang(chronology)}
         </Typography>
         <Typography
           variant="body1"
@@ -107,7 +160,7 @@ const Rule = ({
           color="secondary"
           className={classes.span}
         >
-          {regulationCriterionString}
+          {determineCriterionLang(regulationCriterion)}
         </Typography>
         <Typography variant="body1" component="span" className={classes.span}>
           {intl.formatMessage({
@@ -122,10 +175,10 @@ const Rule = ({
             : intl.formatMessage({ id: 'autorules.noEndDate' })}
         </Typography>
       </Grid>
-      <Grid item sm={1} md={2}>
+      <Grid item sm={2} md={1}>
         <PriorityIcon priority={priority} />
       </Grid>
-      <Grid item sm={1} md={2}>
+      <Grid item sm={2} md={1}>
         <Tooltip
           title={intl.formatMessage({ id: 'autorules.deleteRule' })}
           disableFocusListener

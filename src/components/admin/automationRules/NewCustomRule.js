@@ -13,7 +13,7 @@ import {
   dateIsBeforeTodayOrEqual,
   inputsEmpty,
   validProcess
-} from './validators';
+} from './functions';
 
 // Material UI
 import FormControl from '@material-ui/core/FormControl';
@@ -96,7 +96,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownProcess.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -140,7 +140,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownTimeUnit.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -162,7 +162,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownChronology.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -184,7 +184,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownRegulationCriteria.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -234,7 +234,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownPriority.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>

@@ -1,5 +1,5 @@
 import { default as fetch } from '../helper/customFetch';
-import { sortByPriority } from '../components/admin/automationRules/validators';
+import { sortByPriority } from '../components/admin/automationRules/functions';
 
 export const getAllRules = async (setRules, setIsLoading, errorContext) => {
   try {
