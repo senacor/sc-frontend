@@ -61,56 +61,6 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
     });
   };
 
-  const informationTypography = classes => {
-    return (
-      <div>
-        <Typography gutterBottom variant="h4">
-          {intl.formatMessage({
-            id: 'meetingdetailsview.termindetails'
-          })}
-        </Typography>
-        {Object.keys(meeting.requiredAttendees).filter(
-          attendee =>
-            meeting.requiredAttendees[attendee].status !== 'UNKNOWN' &&
-            meeting.requiredAttendees[attendee].status !== 'DECLINED'
-        ).length > 0 && (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.confirmation'
-            })}
-          </Typography>
-        )}
-        {Object.keys(meeting.requiredAttendees).filter(
-          attendee => meeting.requiredAttendees[attendee].status === 'DECLINED'
-        ).length > 0 && (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.cancelled'
-            })}
-          </Typography>
-        )}
-        {Object.keys(meeting.requiredAttendees).filter(
-          attendee => meeting.requiredAttendees[attendee].status === 'ACCEPTED'
-        ).length === meeting.requiredAttendees.length && (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.arrangedoffportal'
-            })}
-          </Typography>
-        )}
-        {Object.keys(meeting.requiredAttendees).filter(
-          attendee => meeting.requiredAttendees[attendee].status === 'UNKNOWN'
-        ).length > 0 && (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.unknown'
-            })}
-          </Typography>
-        )}
-      </div>
-    );
-  };
-
   const meetingInformation = (
     meeting,
     openRequiredAttendees,
@@ -248,7 +198,11 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
 
   return (
     <div className={classes.meetingView}>
-      {informationTypography(classes)}
+      <Typography gutterBottom variant="h4">
+        {intl.formatMessage({
+          id: 'meetingdetailsview.termindetails'
+        })}
+      </Typography>
       {meetingInformation(
         meeting,
         openRequiredAttendees,
