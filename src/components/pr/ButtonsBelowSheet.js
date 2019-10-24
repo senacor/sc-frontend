@@ -4,13 +4,13 @@ import { injectIntl } from 'react-intl';
 import {
   addFinalCommentEmployee,
   addFinalCommentHr,
+  addPrStatus,
   addRatings,
-  addReflections,
-  addPrStatus
+  addReflections
 } from '../../calls/pr';
-import { PrContext, UserinfoContext } from '../App';
-import ROLES from '../../helper/roles';
+import { PrContext } from '../App';
 import ConfirmDialog from '../utils/ConfirmDialog';
+import { useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   rightFloat: {
@@ -30,10 +30,12 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = props => {
-  const { classes, pr, intl, errorContext, infoContext } = props;
+  const { classes, pr, intl, errorContext } = props;
   let { errors } = props;
   const { setValue: setPr } = useContext(PrContext.context);
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const info = useInfoContext();
+  const { context: infoContext } = info;
+  const user = useUserinfoContext();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const validateReflectionInputs = () => {
@@ -81,11 +83,11 @@ const ButtonsBelowSheet = props => {
   };
 
   const handleSaveClick = () => {
-    infoContext.setValue({ hasInfos: false, messageId: '' });
+    info.hide();
     errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
     if (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
-      pr.employee.id === userinfo.userId
+      user.isOwnerInPr(pr)
     ) {
       addReflections(
         pr.id,
@@ -96,7 +98,7 @@ const ButtonsBelowSheet = props => {
       );
     } else if (
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
+      user.isReviewerInPr(pr)
     ) {
       addRatings(
         pr.id,
@@ -109,7 +111,7 @@ const ButtonsBelowSheet = props => {
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
-      pr.employee.id === userinfo.userId
+      user.isOwnerInPr(pr)
     ) {
       addFinalCommentEmployee(
         pr.id,
@@ -121,18 +123,18 @@ const ButtonsBelowSheet = props => {
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       !pr.statusSet.includes('PR_COMPLETED') &&
-      userroles.includes(ROLES.PERSONAL_DEV)
+      user.hasRoleHr()
     ) {
       addFinalCommentHr(pr.id, pr.finalCommentHr, errorContext, infoContext);
     }
   };
 
   const handleSubmitClick = () => {
-    infoContext.setValue({ hasInfos: false, messageId: '' });
+    info.hide();
     errorContext.setValue({ hasInfos: false, messageId: '', errors: {} });
     if (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
-      pr.employee.id === userinfo.userId
+      user.isOwnerInPr(pr)
     ) {
       if (!validateReflectionInputs()) {
         addReflections(
@@ -154,7 +156,7 @@ const ButtonsBelowSheet = props => {
     } else if (
       !pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
+      user.isSupervisorInPr(pr)
     ) {
       if (!validateOverallAssessment()) {
         addRatings(
@@ -171,13 +173,13 @@ const ButtonsBelowSheet = props => {
             setPr,
             errorContext
           );
-          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+          info.msg('pr.submitted');
         });
       }
     } else if (
       pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
-      (userroles.includes(ROLES.SUPERVISOR) || userinfo.numberOfPrsToReview > 0)
+      user.isSupervisorInPr(pr)
     ) {
       if (!validateOverallAssessment()) {
         addRatings(
@@ -194,13 +196,13 @@ const ButtonsBelowSheet = props => {
             setPr,
             errorContext
           );
-          infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+          info.msg('pr.submitted');
         });
       }
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
-      pr.employee.id === userinfo.userId
+      user.isOwnerInPr(pr)
     ) {
       addFinalCommentEmployee(
         pr.id,
@@ -214,13 +216,13 @@ const ButtonsBelowSheet = props => {
           setPr,
           errorContext
         );
-        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+        info.msg('pr.submitted');
       });
     } else if (
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') &&
       pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') &&
       !pr.statusSet.includes('PR_COMPLETED') &&
-      userroles.includes(ROLES.PERSONAL_DEV)
+      user.hasRoleHr()
     ) {
       addFinalCommentHr(
         pr.id,
@@ -229,7 +231,7 @@ const ButtonsBelowSheet = props => {
         infoContext
       ).then(() => {
         addPrStatus(pr.id, 'PR_COMPLETED', setPr, errorContext);
-        infoContext.setValue({ hasInfos: true, messageId: 'pr.submitted' });
+        info.msg('pr.submitted');
       });
     }
     setDialogOpen(false);
@@ -237,7 +239,7 @@ const ButtonsBelowSheet = props => {
 
   const disabled = () => {
     //I am reviewer of the PR
-    if (userinfo.userId === pr.reviewer.id) {
+    if (user.isReviewerInPr(pr)) {
       return (
         pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
         (!pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
@@ -246,7 +248,7 @@ const ButtonsBelowSheet = props => {
     }
 
     //I am owner of the PR
-    if (userinfo.userId === pr.employee.id) {
+    if (user.isOwnerInPr(pr)) {
       return (
         (pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
           !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER')) ||
@@ -255,7 +257,7 @@ const ButtonsBelowSheet = props => {
     }
 
     //I am HR
-    if (userroles.includes(ROLES.PERSONAL_DEV)) {
+    if (user.hasRoleHr()) {
       return (
         !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE') ||
         pr.statusSet.includes('PR_COMPLETED')
@@ -267,13 +269,11 @@ const ButtonsBelowSheet = props => {
 
   const submitButtonText = () => {
     if (
-      ((userroles.includes(ROLES.DEVELOPER) ||
-        userroles.includes(ROLES.CONSULTING)) &&
+      (user.isOwnerInPr(pr) &&
         pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')) ||
-      ((userroles.includes(ROLES.SUPERVISOR) ||
-        userinfo.numberOfPrsToReview > 0) &&
+      (user.isReviewerInPr(pr) &&
         pr.statusSet.includes('FILLED_SHEET_REVIEWER_SUBMITTED')) ||
-      (userroles.includes(ROLES.PERSONAL_DEV) &&
+      (user.hasRoleHr() &&
         pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE'))
     ) {
       return intl.formatMessage({

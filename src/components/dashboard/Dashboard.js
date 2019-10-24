@@ -1,20 +1,20 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-import { isEmployee, isSupervisor } from '../../helper/checkRole';
 import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from '../utils/InfoWidget';
-import { AuthorizationContext, ErrorContext, UserinfoContext } from '../App';
+import { AuthorizationContext, ErrorContext } from '../App';
 import { getSystemInfo } from '../../calls/admin';
 import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
 import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
 import PrsDeclinedDialog from './PrsDeclined/PrsDeclinedDialog';
 import ROUTES from '../../helper/routes';
+import { getUserInfo } from '../../calls/userinfo';
+import { useUserinfoContext } from '../../helper/contextHooks';
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { getUserInfo } from '../../calls/userinfo';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -33,22 +33,22 @@ const styles = theme => ({
 });
 
 const Dashboard = ({ classes, intl }) => {
-  const userinfoContext = useContext(UserinfoContext.context);
-  const { userroles, userinfo } = userinfoContext.value;
+  const user = useUserinfoContext();
+  const { userroles, userinfo } = user.context.value;
   const authContext = useContext(AuthorizationContext.context);
   const errorContext = useContext(ErrorContext.context);
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
+  const { idOfNewestOpenPr } = userinfo;
   const formerUsersCount = userinfo
     ? userinfo.numberOfEmployeeInactiveThisMonth
     : 0;
-
   let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
   useEffect(
     () => {
-      if (userroles[0] === 'ADMIN') {
+      if (user.hasRoleAdmin()) {
         getSystemInfo(setSystemInfo, errorContext);
       }
     },
@@ -56,16 +56,16 @@ const Dashboard = ({ classes, intl }) => {
   );
 
   const refreshDashboard = () => {
-    getUserInfo(userinfoContext, errorContext, authContext);
+    getUserInfo(user.context, errorContext, authContext);
   };
 
   return userinfo ? (
     <div className={classes.columnContainer}>
       <div className={classes.rowContainer}>
-        {userinfo.idOfNewestOpenPr && isEmployee(userroles) && (
+        {idOfNewestOpenPr && user.hasRoleEmployee() && (
           <InfoWidget
             value={formatDateForFrontend(userinfo.deadlineOfNewestPr)}
-            linkTo={`${ROUTES.PR_TO_REVIEW_TABLE}/${userinfo.idOfNewestOpenPr}`}
+            linkTo={`${ROUTES.PR_TO_REVIEW_TABLE}/${idOfNewestOpenPr}`}
             label={intl.formatMessage({
               id: 'dashboard.opened'
             })}
@@ -73,7 +73,7 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-        {numberOfPrsToReview > 1 && isEmployee(userroles) && (
+        {numberOfPrsToReview > 1 && user.hasRoleEmployee() && (
           <InfoWidget
             label={intl.formatMessage({
               id: 'dashboard.evaluator'
@@ -95,7 +95,7 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-        {(numberOfPrsToSupervise > 0 && isSupervisor(userroles)) ||
+        {(numberOfPrsToSupervise > 0 && user.hasRoleSupervisor()) ||
         numberOfPrsToReview > 0 ? (
           <InfoWidget
             label={intl.formatMessage({
@@ -107,7 +107,7 @@ const Dashboard = ({ classes, intl }) => {
           />
         ) : null}
 
-        {isEmployee(userroles) && prsNotFilledByEmployee > 0 && (
+        {user.hasRoleEmployee() && prsNotFilledByEmployee > 0 && (
           <InfoWidget
             label={intl.formatMessage({
               id: 'dashboard.unprocessed'
@@ -118,7 +118,7 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-        {isSupervisor(userroles) && (
+        {user.hasRoleSupervisor() && (
           <PrsDeclinedDialog
             isHr={false}
             declinedPrs={userinfo.prsDeclinedByHr}
@@ -126,7 +126,7 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-        {userroles[0] === 'PERSONAL_DEV' && (
+        {user.hasRoleHr() && (
           <div className={classes.rowContainer}>
             <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
             <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
@@ -147,7 +147,7 @@ const Dashboard = ({ classes, intl }) => {
         )}
 
         {/* Notification about administration mode, if userrole is admin */}
-        {userroles[0] === 'ADMIN' && Object.keys(systemInfo).length > 0 && (
+        {user.hasRoleAdmin() && Object.keys(systemInfo).length > 0 && (
           <Fragment>
             <InfoWidget
               label={intl.formatMessage({

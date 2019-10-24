@@ -7,9 +7,8 @@ import PrReviewerRating from './PrReviewerRating';
 import PrOverallAssessment from './PrOverallAssessment';
 import PrTextField from './PrTextField';
 import AdvancementStrategies from './AdvancementStrategies';
-import { isPersonalDev } from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
-import { ErrorContext, InfoContext, UserinfoContext } from '../App';
+import { ErrorContext } from '../App';
 // Material UI
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -20,6 +19,7 @@ import Button from '@material-ui/core/Button';
 import ROUTES from '../../helper/routes';
 import ConfirmDialog from '../utils/ConfirmDialog';
 import { declinePr, undecline } from '../../calls/pr';
+import { useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   paddingBottom: {
@@ -50,10 +50,9 @@ const styles = theme => ({
 
 const PrSheet = props => {
   const { classes, intl, pr, printMode } = props;
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const errorContext = useContext(ErrorContext.context);
-  const infoContext = useContext(InfoContext.context);
-  const { username } = userinfo;
+  const info = useInfoContext();
   const [declineDialogOpen, setDeclineDialogOpen] = useState(false);
   const [disableDecline, setDisableDecline] = useState(false);
 
@@ -62,7 +61,7 @@ const PrSheet = props => {
       return null;
     }
 
-    if (userinfo.userId === pr.supervisor.id) {
+    if (user.isSupervisorInPr(pr)) {
       const completely = pr.statusSet.includes('DECLINED_HR');
       return (
         <Button
@@ -81,7 +80,7 @@ const PrSheet = props => {
       );
     }
 
-    if (isPersonalDev(userroles)) {
+    if (user.hasRoleHr()) {
       const completely = pr.statusSet.includes('DECLINED_SUPERVISOR');
       return (
         <Button
@@ -103,18 +102,14 @@ const PrSheet = props => {
 
   const declineNo = () => {
     if (
-      (userinfo.userId === pr.supervisor.id &&
-        pr.statusSet.includes('DECLINED_HR')) ||
-      (isPersonalDev(userroles) && pr.statusSet.includes('DECLINED_SUPERVISOR'))
+      (user.isSupervisorInPr(pr) && pr.statusSet.includes('DECLINED_HR')) ||
+      (user.hasRoleHr() && pr.statusSet.includes('DECLINED_SUPERVISOR'))
     ) {
       //RESET DECLINING PROCESS
       undecline(
         pr.id,
         () => {
-          infoContext.setValue({
-            hasInfos: true,
-            messageId: 'prsheet.decline.canceled'
-          });
+          info.msg('prsheet.decline.canceled');
           setDisableDecline(true);
           window.scrollTo(0, 0);
         },
@@ -127,47 +122,38 @@ const PrSheet = props => {
 
   const declineYes = () => {
     if (
-      (userinfo.userId === pr.supervisor.id &&
-        pr.statusSet.includes('DECLINED_HR')) ||
-      (isPersonalDev(userroles) && pr.statusSet.includes('DECLINED_SUPERVISOR'))
+      (user.isSupervisorInPr(pr) && pr.statusSet.includes('DECLINED_HR')) ||
+      (user.hasRoleHr() && pr.statusSet.includes('DECLINED_SUPERVISOR'))
     ) {
       //DECLINE AND REMOVE PR COMPLETELY
-      const targetStatus =
-        userinfo.userId === pr.supervisor.id
-          ? 'DECLINED_SUPERVISOR'
-          : 'DECLINED_HR';
+      const targetStatus = user.isSupervisorInPr(pr)
+        ? 'DECLINED_SUPERVISOR'
+        : 'DECLINED_HR';
       declinePr(
         pr.id,
         targetStatus,
         () => {
-          infoContext.setValue({
-            hasInfos: true,
-            messageId: 'prsheet.decline.done'
-          });
+          info.msg('prsheet.decline.done');
           props.history.push(ROUTES.DASHBOARD);
         },
         errorContext
       );
     } else {
       //DECLINE PR AND SEND TO OTHER SIDE
-      const targetAction =
-        userinfo.userId === pr.supervisor.id
-          ? {
-              status: 'DECLINED_SUPERVISOR',
-              message: 'prsheet.decline.forwarded.hr'
-            }
-          : {
-              status: 'DECLINED_HR',
-              message: 'prsheet.decline.forwarded.supervisor'
-            };
+      const targetAction = user.isSupervisorInPr(pr)
+        ? {
+            status: 'DECLINED_SUPERVISOR',
+            message: 'prsheet.decline.forwarded.hr'
+          }
+        : {
+            status: 'DECLINED_HR',
+            message: 'prsheet.decline.forwarded.supervisor'
+          };
       declinePr(
         pr.id,
         targetAction.status,
         () => {
-          infoContext.setValue({
-            hasInfos: true,
-            messageId: targetAction.message
-          });
+          info.msg(targetAction.message);
           setDisableDecline(true);
           window.scrollTo(0, 0);
         },
@@ -309,18 +295,18 @@ const PrSheet = props => {
     switch (input) {
       case 'REFLECTIONS_EMPLOYEE':
         return (
-          pr.employee.id !== userinfo.userId ||
+          !user.isOwnerInPr(pr) ||
           pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED')
         );
       case 'RATINGS_REVIEWER':
         //reviewer of my pr
-        if (userinfo.userId === pr.reviewer.id) {
+        if (user.isReviewerInPr(pr)) {
           return pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER');
         }
         return true;
       case 'FINAL_COMMENT_EMPLOYEE':
         return (
-          pr.employee.id !== userinfo.userId ||
+          !user.isOwnerInPr(pr) ||
           !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') ||
           !pr.statusSet.includes('MODIFICATIONS_ACCEPTED_REVIEWER') ||
           pr.statusSet.includes('MODIFICATIONS_ACCEPTED_EMPLOYEE')
@@ -339,19 +325,16 @@ const PrSheet = props => {
   };
 
   const resetMessages = () => {
-    infoContext.setValue({ hasInfos: false, messageId: '' });
+    info.hide();
     errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
   };
 
-  const getBackJumpPoint = (pr, userroles, username) => {
-    if (pr.employee.login === username) {
+  const getBackJumpPoint = (pr) => {
+    if (user.isOwnerInPr(pr)) {
       return ROUTES.OWN_PR_TABLE;
-    } else if (
-      pr.supervisor.login === username ||
-      pr.reviewer.login === username
-    ) {
+    } else if (user.isSupervisorInPr(pr) || user.isReviewerInPr(pr)) {
       return ROUTES.PR_TO_REVIEW_TABLE;
-    } else if (isPersonalDev(userroles)) {
+    } else if (user.hasRoleHr()) {
       if (props.fromInactive) {
         return ROUTES.FORMER_EMPLOYEES;
       } else {
@@ -365,7 +348,7 @@ const PrSheet = props => {
   const isRequiredForReflectionFields = input => {
     return (
       !pr.statusSet.includes('FILLED_SHEET_EMPLOYEE_SUBMITTED') &&
-      pr.employee.id === userinfo.userId
+      user.isOwnerInPr(pr)
     );
   };
 
@@ -443,8 +426,7 @@ const PrSheet = props => {
           <Grid item xs={12}>
             <PrOverallAssessment
               pr={pr}
-              userinfo={userinfo}
-              userroles={userroles}
+              user={user}
               text={
                 pr.prRating.overallAssessment.fulfillmentOfRequirement.comment
               }
@@ -720,14 +702,14 @@ const PrSheet = props => {
             md={6}
           >
             {detailReviewer()}
-            {isPersonalDev(userroles) ? <Divider /> : null}
-            {isPersonalDev(userroles) ? finalHr() : null}
+            {user.hasRoleHr() ? <Divider /> : null}
+            {user.hasRoleHr() ? finalHr() : null}
           </Grid>
         </Hidden>
         <Hidden mdUp>
           <Grid item xs={12}>
-            {isPersonalDev(userroles) ? <Divider /> : null}
-            {isPersonalDev(userroles) ? finalHr() : null}
+            {user.hasRoleHr() ? <Divider /> : null}
+            {user.hasRoleHr() ? finalHr() : null}
           </Grid>
         </Hidden>
         <Grid className={'ignorePrint'} item xs={6} md={6}>
@@ -737,7 +719,7 @@ const PrSheet = props => {
             className={classes.backButton}
             onClick={resetMessages}
             component={NavLink}
-            to={getBackJumpPoint(pr, userroles, username)}
+            to={getBackJumpPoint(pr)}
           >
             <ArrowBackIcon className={classes.leftIcon} />
             {intl.formatMessage({
@@ -747,11 +729,7 @@ const PrSheet = props => {
           {declinePrButton()}
         </Grid>
         <Grid className={'ignorePrint'} item xs={6} md={6}>
-          <ButtonsBelowSheet
-            pr={pr}
-            errorContext={errorContext}
-            infoContext={infoContext}
-          />
+          <ButtonsBelowSheet pr={pr} errorContext={errorContext} info={info} />
         </Grid>
       </Grid>
       <ConfirmDialog

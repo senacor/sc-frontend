@@ -3,9 +3,10 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Rule from './Rule';
 import { getAllRules, deleteRule, addRule } from '../../../calls/rules';
-import { ErrorContext, InfoContext } from '../../App';
+import { ErrorContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
 import { validPriority, validChronology, validProcess } from './validators';
+import { useInfoContext } from '../../../helper/contextHooks';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -65,7 +66,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   const [endDateChecked, setEndDateChecked] = useState(true);
 
   const errorContext = useContext(ErrorContext.context);
-  const infoContext = useContext(InfoContext.context);
+  const info = useInfoContext();
 
   useEffect(() => {
     getAllRules(setRules, setIsLoading, errorContext);
@@ -124,27 +125,21 @@ const AutomationRulesContainer = ({ classes, intl }) => {
       errorContext.setValue({
         hasErrors: false
       });
-      addRule(values, rules, setRules, errorContext, infoContext);
+      addRule(values, rules, setRules, errorContext, info);
     } else if (!validPriority(values, rules)) {
-      infoContext.setValue({
-        hasInfos: false
-      });
+      info.hide();
       errorContext.setValue({
         hasErrors: true,
         messageId: 'message.invalidPriority'
       });
     } else if (!validChronology(values, rules)) {
-      infoContext.setValue({
-        hasInfos: false
-      });
+      info.hide();
       errorContext.setValue({
         hasErrors: true,
         messageId: 'message.invalidChronology'
       });
     } else if (!validProcess(values)) {
-      infoContext.setValue({
-        hasInfos: false
-      });
+      info.hide();
       errorContext.setValue({
         hasErrors: true,
         messageId: 'message.entryDateAndBeforeError'

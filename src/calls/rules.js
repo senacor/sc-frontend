@@ -42,7 +42,7 @@ export const addRule = async (
   rules,
   setRules,
   errorContext,
-  infoContext
+  info
 ) => {
   try {
     const newRules = [...rules];
@@ -66,10 +66,7 @@ export const addRule = async (
     const ruleResponse = await response.json();
     if (response.status === 200) {
       newRules.push(ruleResponse);
-      infoContext.setValue({
-        hasInfos: true,
-        messageId: 'message.ruleCreated'
-      });
+      info.msg('message.ruleCreated');
     }
     setRules(newRules);
   } catch (err) {

@@ -8,8 +8,7 @@ import { injectIntl } from 'react-intl';
 import {
   ErrorContext,
   MeetingContext,
-  UserinfoContext,
-  InfoContext
+  UserinfoContext
 } from '../App';
 import { prStatusEnum } from '../../helper/prStatus';
 import PrStatusStepper from './PrStateStepper';
@@ -252,12 +251,10 @@ const PrState = ({ classes, prById, intl }) => {
   };
 
   const submitPRButton = pr => {
-    const infoContext = useContext(InfoContext.context);
     return (
       <ButtonsBelowSheet
         pr={pr}
         errorContext={errorContext}
-        infoContext={infoContext}
       />
     );
   };

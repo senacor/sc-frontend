@@ -25,10 +25,10 @@ import { getUserInfo } from '../../calls/userinfo';
 import {
   AuthorizationContext,
   ErrorContext,
-  InfoContext,
   UserinfoContext
 } from '../App';
 import FeedbackButton from './FeedbackButton';
+import { useInfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -71,7 +71,7 @@ const styles = theme => ({
 export const Sidebar = ({ intl, classes }) => {
   const userinfoContext = useContext(UserinfoContext.context);
   const { userphoto, userinfo, userroles } = userinfoContext.value;
-  const infoContext = useContext(InfoContext.context);
+  const info = useInfoContext();
   const errorContext = useContext(ErrorContext.context);
   const authContext = useContext(AuthorizationContext.context);
 
@@ -80,7 +80,7 @@ export const Sidebar = ({ intl, classes }) => {
   }, []);
 
   const resetMessages = () => {
-    infoContext.setValue({ hasInfos: false, messageId: '' });
+    info.hide();
     errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
   };
 
