@@ -217,11 +217,12 @@ const MeetingCreatorForm = ({
             id: 'meetingcreatorform.place'
           })}
           className={classes.textField}
+          disabled={selectedRoom !== ''}
           value={location}
           onChange={handleChange('location')}
           margin="normal"
         />
-        <FormControl>
+        <FormControl disabled={location !== ''}>
           <InputLabel htmlFor="select-room">
             {intl.formatMessage({
               id: 'meetingcreatorform.room'
