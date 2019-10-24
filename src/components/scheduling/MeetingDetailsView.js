@@ -15,7 +15,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Typography from '@material-ui/core/Typography/Typography';
-import { formatDateForFrontend } from '../../helper/date';
 import { injectIntl } from 'react-intl';
 import { MeetingContext } from '../App';
 import Button from '@material-ui/core/Button';
