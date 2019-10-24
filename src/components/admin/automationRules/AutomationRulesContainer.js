@@ -109,7 +109,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     setDialogOpen(true);
   };
 
-  const handleDeleteRule = (id) => {
+  const handleDeleteRule = id => {
     deleteRule(id, error);
     const newRulesData = rules.filter(rule => rule.id !== id);
     setRules(newRulesData);
@@ -199,11 +199,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     const orderedArr = mapOrder(newRules, order, 'id');
     setNewPriority(orderedArr);
     setRules(orderedArr);
-    updateRulePriority(
-      createMap(orderedArr),
-      rules[0].processType,
-      error
-    );
+    updateRulePriority(createMap(orderedArr), rules[0].processType, error);
   };
 
   return (
@@ -263,9 +259,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
                   <ConfirmDialog
                     open={dialogOpen}
                     handleClose={handleDialogClose}
-                    handleConfirm={() =>
-                      handleDeleteRule(rule.id)
-                    }
+                    handleConfirm={() => handleDeleteRule(rule.id)}
                     confirmationText={intl.formatMessage({
                       id: 'autorules.dialogText'
                     })}
