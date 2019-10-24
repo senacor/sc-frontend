@@ -7,9 +7,8 @@ import PrDetailInformation from './PrDetailInformation';
 import { fetchMeeting } from '../../calls/meetings';
 import { fetchPrById } from '../../calls/pr';
 import { getAllEmployees, getEmployeeById } from '../../calls/employees';
-import { MeetingContext, PrContext, UserinfoContext } from '../App';
-import { isSupervisor } from '../../helper/checkRole';
-import { useErrorContext } from '../../helper/contextHooks';
+import { MeetingContext, PrContext } from '../App';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -17,7 +16,7 @@ const styles = theme => ({
 
 const PerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
-  const { userroles } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const [isLoading, setIsLoading] = useState({});
   const [allEmployeesData, setAllEmployeesData] = useState([]);
   const [employee, setEmployee] = useState({});
@@ -51,7 +50,7 @@ const PerformanceReviewDetail = props => {
       error
     );
 
-    if (isSupervisor(userroles)) {
+    if (user.hasRoleSupervisor()) {
       getAllEmployees(setAllEmployeesData, setIsLoading, error);
     }
   }, []);

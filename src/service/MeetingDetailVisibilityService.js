@@ -1,17 +1,9 @@
 import { prStatusEnum } from '../helper/prStatus';
-import { isPersonalDev } from '../helper/checkRole';
-import { hasRoleInPrBasedOnUserName } from '../helper/checkRole';
 
 class MeetingDetailVisibilityService {
-  constructor(
-    pr = { statuses: [] },
-    userroles = [],
-    userinfo = {},
-    meeting = null
-  ) {
+  constructor(pr = { statuses: [] }, user = {}, meeting = null) {
     this.pr = pr;
-    this.userroles = userroles;
-    this.userinfo = userinfo;
+    this.user = user;
     this.meeting = meeting;
   }
 
@@ -23,12 +15,8 @@ class MeetingDetailVisibilityService {
     this.pr = pr;
   };
 
-  setUserinfo = userinfo => {
-    this.userinfo = userinfo;
-  };
-
-  setUserroles = userroles => {
-    this.userroles = userroles;
+  setUser = user => {
+    this.user = user;
   };
 
   emailToLogin = email => {
@@ -47,7 +35,7 @@ class MeetingDetailVisibilityService {
   };
 
   execute() {
-    let { pr, userroles, userinfo, meeting } = this;
+    let { pr, user, meeting } = this;
 
     let evaluation = {
       pleaseAccept: false,
@@ -62,12 +50,14 @@ class MeetingDetailVisibilityService {
     let reviewerHasFinished = pr.statusSet.includes(
       prStatusEnum.FINALIZED_REVIEWER
     );
-    let isHrMember = isPersonalDev(userroles);
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
-    let canMakeAction = hasRoleInPr(['supervisor', 'reviewer', 'employee']);
+    let isHrMember = user.hasRoleHr();
+    let canMakeAction =
+      user.isReviewerInPr(pr) ||
+      user.isSupervisorInPr(pr) ||
+      user.isOwnerInPr(pr);
     let meetingStateOfSelf =
       meeting && !(meeting.status === 'NOT_REQUESTED') && !isHrMember
-        ? this.findMeetingStateOfSelf(userinfo, meeting)
+        ? this.findMeetingStateOfSelf(user.context.value.userinfo, meeting)
         : ['UNKNOWN'];
     let meetingStateOfSelfUnknown = meetingStateOfSelf.includes('UNKNOWN');
     let meetingStateDeclined = meeting && meeting.status === 'DECLINED';

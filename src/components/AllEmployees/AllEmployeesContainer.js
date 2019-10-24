@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { InfoContext, UserinfoContext } from '../App';
+import { InfoContext } from '../App';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import { Tooltip, withStyles } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import SearchFilter from './SearchFilter';
@@ -31,8 +32,6 @@ import AllEmployeesTable, {
 } from './AllEmployeesTable/AllEmployeesTable';
 import { downloadExcel } from '../../calls/excelView';
 import Grid from '@material-ui/core/Grid';
-import { isPersonalDev, isSupervisor } from '../../helper/checkRole';
-import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -113,7 +112,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
-  const userInfoContext = useContext(UserinfoContext.context);
+  const user = useUserinfoContext();
 
   const downloadPrsExcel = () => {
     const filteredEmployees = filterEmployees(employees, filterInputs);
@@ -259,8 +258,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   ];
 
   const upperMenu = intl => {
-    const { userroles } = userInfoContext.value;
-
     let selectionMenu = selection ? (
       <Fragment>
         <Button
@@ -319,7 +316,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             </Typography>
           </Button>
         </Grid>
-        {isPersonalDev(userroles) ? (
+        {user.hasRoleHr() ? (
           <Grid item xs={7}>
             <div className={classes.selectEmployee}>
               <Button
@@ -349,7 +346,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
             </div>
           </Grid>
         ) : (
-          isSupervisor(userroles) && (
+          user.hasRoleSupervisor() && (
             <Grid item xs={7} alignItems={'flex-end'}>
               <div className={classes.selectEmployee}>{selectionMenu}</div>
             </Grid>

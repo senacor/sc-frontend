@@ -9,8 +9,8 @@ import PrStatusActionButton from '../pr/PrStatusActionButton';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { CheckRequiredClick } from '../utils/CheckRequiredClick';
 import { addMeeting } from '../../calls/meetings';
-import { MeetingContext, UserinfoContext } from '../App';
-import { useErrorContext } from '../../helper/contextHooks';
+import { MeetingContext } from '../App';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -39,7 +39,7 @@ const styles = theme => ({
 });
 
 const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const error = useErrorContext();
   let now = moment.tz('Europe/Berlin');
@@ -130,8 +130,7 @@ const MeetingCreatorForm = ({ prById, fetchAppointments, classes, intl }) => {
 
   let visibilityService = new meetingDetailVisibilityService();
   visibilityService.setPr(prById);
-  visibilityService.setUserinfo(userinfo);
-  visibilityService.setUserroles(userroles);
+  visibilityService.setUser(user);
   return (
     <div>
       {visibilityService.getAction() ? (
