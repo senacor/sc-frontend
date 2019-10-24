@@ -1,19 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  withStyles,
-  FormControl,
-  InputLabel,
-  Button,
-  Select,
-  MenuItem,
-  TextField,
-  Typography,
-  Grid,
-  Checkbox,
-  FormControlLabel,
-  Tooltip
-} from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import {
   rulesDropdownProcess,
   rulesDropdownTimeUnit,
@@ -22,11 +9,24 @@ import {
   rulesDropdownPriority
 } from '../../../helper/rulesData';
 import {
-  timeIsPositive,
+  timeIsValid,
   dateIsBeforeTodayOrEqual,
   inputsEmpty,
   validProcess
-} from './validators';
+} from './functions';
+
+// Material UI
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   newRuleContainer: {},
@@ -45,7 +45,7 @@ const styles = theme => ({
     width: 50
   },
   priority: {
-    width: 70
+    minWidth: 100
   }
 });
 
@@ -63,8 +63,8 @@ const NewCustomRule = ({
     ? intl.formatMessage({ id: 'autorules.dateIsValid' })
     : !validProcess(values)
     ? intl.formatMessage({ id: 'autorules.processValid' })
-    : !timeIsPositive(values.timeUnitNumber)
-    ? intl.formatMessage({ id: 'autorules.timePositive' })
+    : !timeIsValid(values)
+    ? intl.formatMessage({ id: 'autorules.timeValid' })
     : inputsEmpty(values)
     ? intl.formatMessage({ id: 'autorules.fieldsEmpty' })
     : '';
@@ -96,7 +96,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownProcess.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -106,18 +106,23 @@ const NewCustomRule = ({
         </Typography>
         {/* Time unit number */}
         <FormControl className={classes.formControl}>
-          <TextField
-            className={classes.timeUnitNumber}
-            type="number"
-            label={intl.formatMessage({ id: 'autorules.time' })}
-            name="timeUnitNumber"
-            value={values.timeUnitNumber}
-            onChange={e => handleChangeNumber(e)}
-            inputProps={{
-              name: 'timeUnitNumber',
-              id: 'time-unit-number'
-            }}
-          />
+          <Tooltip
+            title={intl.formatMessage({ id: 'autorules.timeValidDescription' })}
+            placement="top-end"
+          >
+            <TextField
+              className={classes.timeUnitNumber}
+              type="number"
+              label={intl.formatMessage({ id: 'autorules.time' })}
+              name="timeUnitNumber"
+              value={values.timeUnitNumber}
+              onChange={e => handleChangeNumber(e)}
+              inputProps={{
+                name: 'timeUnitNumber',
+                id: 'time-unit-number'
+              }}
+            />
+          </Tooltip>
         </FormControl>
         {/* Time unit */}
         <FormControl className={classes.formControl}>
@@ -135,7 +140,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownTimeUnit.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -157,7 +162,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownChronology.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -179,7 +184,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownRegulationCriteria.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -188,6 +193,7 @@ const NewCustomRule = ({
           {intl.formatMessage({ id: 'autorules.textStartDE' })}
         </Typography>
       </Grid>
+      {/* END DATE */}
       <Grid item sm={2}>
         <div className={classes.prioWithDate}>
           <TextField
@@ -195,7 +201,7 @@ const NewCustomRule = ({
             label={intl.formatMessage({ id: 'autorules.endDate' })}
             inputProps={{ name: 'expirationDate' }}
             value={values.expirationDate}
-            onChange={handleChange}
+            onChange={e => handleChange(e)}
             InputLabelProps={{ shrink: true }}
             disabled={endDateChecked}
           />
@@ -228,7 +234,7 @@ const NewCustomRule = ({
           >
             {rulesDropdownPriority.map((item, index) => (
               <MenuItem key={index} value={item.value}>
-                {item.name}
+                {intl.formatMessage({ id: item.name })}
               </MenuItem>
             ))}
           </Select>
@@ -240,7 +246,7 @@ const NewCustomRule = ({
             <Button
               disabled={
                 inputsEmpty(values) ||
-                !timeIsPositive(values.timeUnitNumber) ||
+                !timeIsValid(values) ||
                 dateIsBeforeTodayOrEqual(values.expirationDate) ||
                 !validProcess(values)
               }

@@ -2,19 +2,29 @@ import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Rule from './Rule';
-import { getAllRules, deleteRule, addRule } from '../../../calls/rules';
+import {
+  getAllRules,
+  deleteRule,
+  addRule,
+  updateRulePriority
+} from '../../../calls/rules';
 import { ErrorContext, InfoContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
-import { validPriority, validChronology, validProcess } from './validators';
+import { validPriority, validChronology, validProcess } from './functions';
+import Sortable from 'react-sortablejs';
 
 // Material UI
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
+import ConfirmDialog from '../../utils/ConfirmDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -25,8 +35,7 @@ const styles = theme => ({
   },
   rulesPaper: {
     margin: 3 * theme.spacing.unit,
-    paddingBottom: 2 * theme.spacing.unit,
-    paddingTop: 2 * theme.spacing.unit,
+    padding: theme.spacing.unit,
     textAlign: 'center'
   },
   title: {
@@ -40,12 +49,22 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit
     }
   },
+  divider: {
+    marginBottom: 2 * theme.spacing.unit
+  },
   createRuleContainer: {
-    marginTop: 2 * theme.spacing.unit,
+    marginTop: 3 * theme.spacing.unit,
     textAlign: 'center'
   },
   noRules: {
     color: theme.palette.secondary.mediumGrey
+  },
+  listItem: {
+    background: theme.palette.secondary.brightGrey,
+    marginTop: theme.spacing.unit,
+    marginBottom: 2 * theme.spacing.unit,
+    cursor: 'grab',
+    boxShadow: `0px 1px 4px 4px ${theme.palette.secondary.mediumGrey}`
   }
 });
 
@@ -63,9 +82,11 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     expirationDate: ''
   });
   const [endDateChecked, setEndDateChecked] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const errorContext = useContext(ErrorContext.context);
   const infoContext = useContext(InfoContext.context);
+  const maxRulesAmount = 2;
 
   useEffect(() => {
     getAllRules(setRules, setIsLoading, errorContext);
@@ -73,17 +94,26 @@ const AutomationRulesContainer = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      if (rules.length > 1) {
+      if (rules.length >= maxRulesAmount) {
         setNewRuleActive(false);
       }
     },
     [rules]
   );
 
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
   const handleDeleteRule = (id, errorContext) => {
     deleteRule(id, errorContext);
     const newRulesData = rules.filter(rule => rule.id !== id);
     setRules(newRulesData);
+    setDialogOpen(false);
   };
 
   const handleNewRuleActive = () => {
@@ -91,6 +121,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   };
 
   const handleChange = event => {
+    event.persist();
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value
@@ -152,12 +183,52 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     }
   };
 
+  const setNewPriority = arr => {
+    let arrWithNewPriorities = arr;
+    arrWithNewPriorities[0].priority = 'HIGHEST';
+    arrWithNewPriorities[1].priority = 'LOWEST';
+    return arrWithNewPriorities;
+  };
+
+  const createMap = arr => {
+    const newMap = new Map();
+    arr.map(item => {
+      return newMap.set(item.id, item.priority);
+    });
+    return newMap;
+  };
+
+  const handleOrderRules = (order, sortable, evt) => {
+    let newRules = [...rules];
+    const mapOrder = (array, order, key) => {
+      array.sort((a, b) => {
+        let A = a[key],
+          B = b[key];
+
+        if (order.indexOf(A) > order.indexOf(B)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      return array;
+    };
+    const orderedArr = mapOrder(newRules, order, 'id');
+    setNewPriority(orderedArr);
+    setRules(orderedArr);
+    updateRulePriority(
+      createMap(orderedArr),
+      rules[0].processType,
+      errorContext
+    );
+  };
+
   return (
     <Fragment>
       <div className={classes.createRuleContainer}>
         <Fragment>
           <Button
-            disabled={rules.length > 1 || isLoading}
+            disabled={rules.length === maxRulesAmount || isLoading}
             onClick={handleNewRuleActive}
             color="primary"
             variant="contained"
@@ -187,16 +258,42 @@ const AutomationRulesContainer = ({ classes, intl }) => {
             {intl.formatMessage({ id: 'sidebar.autorules' })}
           </Typography>
         </div>
+        <Divider className={classes.divider} />
         {isLoading ? (
           <CircularProgress />
         ) : rules.length > 0 ? (
-          rules.map(rule => (
-            <Rule
-              key={rule.id}
-              rule={rule}
-              deleteRule={() => handleDeleteRule(rule.id, errorContext)}
-            />
-          ))
+          <List>
+            <Sortable
+              onChange={(order, sortable, evt) =>
+                handleOrderRules(order, sortable, evt)
+              }
+              options={{
+                animation: 150,
+                sortable: true
+              }}
+            >
+              {rules.map(rule => (
+                <Fragment key={rule.id}>
+                  <ListItem className={classes.listItem} data-id={rule.id}>
+                    <Rule rule={rule} openDialog={handleDialogOpen} />
+                  </ListItem>
+                  <ConfirmDialog
+                    open={dialogOpen}
+                    handleClose={handleDialogClose}
+                    handleConfirm={() =>
+                      handleDeleteRule(rule.id, errorContext)
+                    }
+                    confirmationText={intl.formatMessage({
+                      id: 'autorules.dialogText'
+                    })}
+                    confirmationHeader={intl.formatMessage({
+                      id: 'autorules.dialogTitle'
+                    })}
+                  />
+                </Fragment>
+              ))}
+            </Sortable>
+          </List>
         ) : (
           <Typography variant="body2" className={classes.noRules}>
             {intl.formatMessage({ id: 'autorules.noRulesDefined' })}
