@@ -1,47 +1,59 @@
 export const rulesDropdownProcess = [
   {
-    name: 'PR generation',
+    name: 'autorules.processType.prGeneration',
     value: 'PR_GENERATION'
   }
 ];
 export const rulesDropdownTimeUnit = [
   {
-    name: 'month(s)',
+    name: 'autorules.timeUnit.months',
     value: 'MONTHS'
   },
   {
-    name: 'week(s)',
+    name: 'autorules.timeUnit.weeks',
     value: 'WEEKS'
   }
 ];
 export const rulesDropdownChronology = [
   {
-    name: 'before',
+    name: 'autorules.chronology.before',
     value: 'BEFORE'
   },
   {
-    name: 'after',
+    name: 'autorules.chronology.after',
     value: 'AFTER'
   }
 ];
 export const rulesDropdownRegulationCriteria = [
   {
-    name: 'due date of PR',
+    name: 'autorules.criterion.dueDatePR',
     value: 'DUE_DATE_OF_PR'
   },
   {
-    name: 'entry date',
+    name: 'autorules.criterion.entryDate',
     value: 'ENTRY_DATE'
   }
 ];
 
 export const rulesDropdownPriority = [
   {
-    name: 'Low',
+    name: 'autorules.lowestPriority',
     value: 'LOWEST'
   },
   {
-    name: 'High',
+    name: 'autorules.lowPriority',
+    value: 'LOW'
+  },
+  {
+    name: 'autorules.mediumPriority',
+    value: 'MEDIUM'
+  },
+  {
+    name: 'autorules.highPriority',
+    value: 'HIGH'
+  },
+  {
+    name: 'autorules.highestPriority',
     value: 'HIGHEST'
   }
 ];
