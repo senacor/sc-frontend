@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import PrSheet from './PrSheet';
-import SchedulingView from './SchedulingView';
+import SchedulingView from '../scheduling/SchedulingView';
 
 const styles = theme => ({
   root: {
@@ -47,7 +47,14 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const PrTabs = ({ classes, intl, pr, formerEmployee, fromInactive, printMode }) => {
+const PrTabs = ({
+  classes,
+  intl,
+  pr,
+  formerEmployee,
+  fromInactive,
+  printMode
+}) => {
   const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
 
   const handleChange = (event, value) => {
@@ -56,7 +63,10 @@ const PrTabs = ({ classes, intl, pr, formerEmployee, fromInactive, printMode }) 
 
   return (
     <Paper className={classes.paper}>
-      <AppBar position="static" className={`${classes.tabsBackground} ignorePrint`}>
+      <AppBar
+        position="static"
+        className={`${classes.tabsBackground} ignorePrint`}
+      >
         <Tabs
           value={tabValue}
           onChange={handleChange}

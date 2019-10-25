@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MeetingDetailsView from './MeetingDetailsView';
-import MeetingCreator from '../scheduling/MeetingCreator';
+import MeetingCreator from './MeetingCreator';
 import { prStatusEnum } from '../../helper/prStatus';
 import { injectIntl } from 'react-intl';
 import {

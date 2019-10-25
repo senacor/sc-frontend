@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles/index';
 import moment from 'moment-timezone';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@material-ui/core/Collapse/index';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import ListItemText from '@material-ui/core/ListItemText/index';
+import ListItemIcon from '@material-ui/core/ListItemIcon/index';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TodayIcon from '@material-ui/icons/Today';
@@ -15,12 +15,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Typography from '@material-ui/core/Typography/Typography';
-import PrStatusActionButton from './PrStatusActionButton';
-import MeetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
-import { formatDateForFrontend } from '../../helper/date';
 import { injectIntl } from 'react-intl';
 import { MeetingContext } from '../App';
-import { useUserinfoContext } from '../../helper/contextHooks';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   nested: {
@@ -45,16 +42,10 @@ const styles = theme => ({
   }
 });
 
-const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
+const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
   const { value: meeting } = useContext(MeetingContext.context);
-  const user = useUserinfoContext();
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
-
-  let visibilityService = new MeetingDetailVisibilityService();
-  visibilityService.setMeeting(meeting);
-  visibilityService.setPr(pr);
-  visibilityService.setUser(user);
 
   const handleClickOpenRequiredAttendees = () => {
     setOpenRequiredAttendees(!openRequiredAttendees);
@@ -70,67 +61,18 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
     });
   };
 
-  const informationTypography = (classes, visibilityService) => {
+  let roomName;
+  const roomLogin = Object.keys(meeting.optionalAttendees).find(attendee => {
     return (
-      <div>
-        <Typography gutterBottom variant="h4">
-          {intl.formatMessage({
-            id: 'meetingdetailsview.termindetails'
-          })}
-        </Typography>
-        {visibilityService.getAccept() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.confirmation'
-            })}
-          </Typography>
-        ) : null}
-        {visibilityService.getMeetingDeclined() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.cancelled'
-            })}
-          </Typography>
-        ) : null}
-        {visibilityService.getEvaluationExternal() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.arrangedoffportal'
-            })}
-          </Typography>
-        ) : null}
-        {visibilityService.getHrInfoNotAccepted() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.confirmationneeded'
-            })}
-          </Typography>
-        ) : null}
-        {visibilityService.getHrInfoNotSent() ? (
-          <Typography variant={'body2'} className={classes.info}>
-            {intl.formatMessage({
-              id: 'meetingdetailsview.arrangemendneeded'
-            })}
-          </Typography>
-        ) : null}
-      </div>
+      attendee !== pr.employee.login &&
+      attendee !== pr.supervisor.login &&
+      attendee !== pr.reviewer.login
     );
-  };
-
-  const meetingInformationExternal = (classes, pr) => {
-    return (
-      <div>
-        <List>
-          <ListItem id={'date'}>
-            <ListItemIcon>
-              <TodayIcon className={classes.icon} />
-            </ListItemIcon>
-            <ListItemText primary={formatDateForFrontend(pr.meetingDay)} />
-          </ListItem>
-        </List>
-      </div>
-    );
-  };
+  });
+  if (roomLogin) {
+    roomName = meeting.optionalAttendees[roomLogin].name;
+    delete meeting.optionalAttendees[roomLogin];
+  }
 
   const meetingInformation = (
     meeting,
@@ -169,7 +111,9 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
             </ListItemIcon>
             <ListItemText
               primary={
-                meeting.location !== null
+                roomLogin
+                  ? roomName
+                  : meeting.location !== null
                   ? meeting.location
                   : intl.formatMessage({
                       id: 'meetingdetailsview.noplace'
@@ -269,26 +213,27 @@ const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
 
   return (
     <div className={classes.meetingView}>
-      {informationTypography(classes, visibilityService, click)}
-      {visibilityService.getEvaluationExternal()
-        ? meetingInformationExternal(classes, pr)
-        : null}
-      {visibilityService.getMeetingExists() &&
-      !visibilityService.getEvaluationExternal()
-        ? meetingInformation(
-            meeting,
-            openRequiredAttendees,
-            openOptionalAttendees,
-            classes
-          )
-        : null}
-      <PrStatusActionButton
-        label={intl.formatMessage({
-          id: 'meetingdetailsview.newtermin'
+      <Typography gutterBottom variant="h4">
+        {intl.formatMessage({
+          id: 'meetingdetailsview.termindetails'
         })}
-        releaseButtonClick={handleChange}
-        inputClass={classes.buttonPosition}
-      />
+      </Typography>
+      {meetingInformation(
+        meeting,
+        openRequiredAttendees,
+        openOptionalAttendees,
+        classes
+      )}
+      <Button
+        variant="contained"
+        className={classes.buttonPosition}
+        color="primary"
+        onClick={handleChange}
+      >
+        {intl.formatMessage({
+          id: 'meetingcreator.newtermin'
+        })}
+      </Button>
     </div>
   );
 };

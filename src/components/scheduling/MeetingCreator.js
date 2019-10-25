@@ -1,289 +1,213 @@
-import React, { useContext, useEffect, useState } from 'react';
-import ObjectGet from 'object-get';
-import { withStyles } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
-
 import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
-import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
-import PrStatusActionButton from '../pr/PrStatusActionButton';
-import { MeetingContext } from '../App';
 import { appointmentsSearch } from '../../calls/meetings';
-import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
+import { CircularProgress } from '@material-ui/core';
+import moment from 'moment';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
+  titleEmployee: {
+    position: 'relative',
+    width: '18%',
+    left: '10%'
+  },
+  titleSupervisor: {
+    position: 'relative',
+    width: '18%',
+    left: '14.8%'
+  },
+  titleReviewer: {
+    position: 'relative',
+    width: '18%',
+    left: '19.3%'
+  },
+  titleRoom: {
+    position: 'relative',
+    width: '18%',
+    left: '24%'
+  },
+  row: {
+    display: 'flex',
+    width: '80%'
+  },
+  spacing: {
+    paddingTop: 3 * theme.spacing.unit
+  },
+  label: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: theme.palette.secondary.mediumGrey
+  },
   title: {
-    fontSize: 20,
-    paddingBottom: 3 * theme.spacing.unit
+    fontSize: 18,
+    textAlign: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   }
 });
 
-export const MeetingCreator = ({
-  classes,
-  intl,
-  pr,
-  selectedDate,
-  handleChange
-}) => {
-  const user = useUserinfoContext();
-  const { value: meeting } = useContext(MeetingContext.context);
-  const [employee, setEmployee] = useState('');
-  const [supervisor, setSupervisor] = useState('');
-  const [reviewer, setReviewer] = useState('');
-  const [appointmentResults, setAppointmentResults] = useState([]);
+export const MeetingCreator = ({ classes, intl, pr }) => {
+  const [appointmentResults, setAppointmentResults] = useState({});
+  const [selectedDate, setSelectedDate] = useState(
+    moment.tz('Europe/Berlin').format('YYYY-MM-DD')
+  );
+  const [selectedRoom, setSelectedRoom] = useState('');
 
   let error = useErrorContext();
 
-  const setStateforRole = (pr, role) => {
-    let hasRoleInPr;
-    let roleDescription = '';
-    switch (role) {
-      case 'employee':
-        hasRoleInPr = user.isOwnerInPr(pr);
-        break;
-      case 'supervisor':
-        hasRoleInPr = user.isSupervisorInPr(pr);
-        break;
-      case 'reviewer':
-        hasRoleInPr = user.isReviewerInPr(pr);
-        break;
-      default:
-        hasRoleInPr = false;
-    }
-    if (hasRoleInPr) {
-      roleDescription = `${intl.formatMessage({
-        id: 'meetingcreator.me'
-      })}`;
-    } else {
-      switch (role) {
-        case 'employee':
-          roleDescription = `${intl.formatMessage({
-            id: 'meetingcreator.employee'
-          })}`;
-          break;
-        case 'supervisor':
-          roleDescription = `${intl.formatMessage({
-            id: 'meetingcreator.supervisor'
-          })}`;
-          break;
-        case 'reviewer':
-          roleDescription = `${intl.formatMessage({
-            id: 'meetingcreator.reviewer'
-          })}`;
-          break;
-        default:
-          roleDescription = '';
-      }
-    }
-    switch (role) {
-      case 'employee':
-        setEmployee(
-          Object.assign({}, employee, {
-            id: ObjectGet(pr, `${role}.login`),
-            name:
-              ObjectGet(pr, `${role}.firstName`) +
-              ' ' +
-              ObjectGet(pr, `${role}.lastName`),
-            role: roleDescription,
-            show: true
-          })
-        );
-        break;
-      case 'supervisor':
-        setSupervisor(
-          Object.assign({}, supervisor, {
-            id: ObjectGet(pr, `${role}.login`),
-            name:
-              ObjectGet(pr, `${role}.firstName`) +
-              ' ' +
-              ObjectGet(pr, `${role}.lastName`),
-            role: roleDescription,
-            show: true
-          })
-        );
-        break;
-      case 'reviewer':
-        setReviewer(
-          Object.assign({}, reviewer, {
-            id: ObjectGet(pr, `${role}.login`),
-            name:
-              ObjectGet(pr, `${role}.firstName`) +
-              ' ' +
-              ObjectGet(pr, `${role}.lastName`),
-            role: roleDescription,
-            show: true
-          })
-        );
-        break;
-      default:
-    }
-  };
+  const fetchAppointments = date => {
+    let attendees = [pr.employee.login, pr.supervisor.login];
+    pr.supervisor.id !== pr.reviewer.id && attendees.push(pr.reviewer.login);
 
-  const hasSupervisorEntry = pr => {
-    return pr.supervisor !== undefined && pr.supervisor.id !== '';
-  };
-
-  const hasReviewerEntryThatIsDifferentFromSupervisor = pr => {
-    return (
-      pr.reviewer !== undefined &&
-      pr.reviewer.id !== '' &&
-      pr.reviewer.id !== pr.supervisor.id
+    appointmentsSearch(
+      attendees.join(','),
+      date,
+      selectedRoom,
+      error,
+      setAppointmentResults
     );
   };
 
-  const setEmployeeSupervisorReviewerData = pr => {
-    setStateforRole(pr, 'employee');
-    hasSupervisorEntry(pr) && setStateforRole(pr, 'supervisor');
-    hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
-      setStateforRole(pr, 'reviewer');
-  };
+  useEffect(
+    () => {
+      fetchAppointments(selectedDate);
+    },
+    [selectedRoom]
+  );
 
-  const fetchAppointments = date => {
-    let attendees = [pr.employee.login, pr.supervisor.login];
-    hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
-      attendees.push(pr.reviewer.login);
-
-    appointmentsSearch(attendees.join(','), date, error, setAppointmentResults);
-  };
-
-  useEffect(() => {
-    setEmployeeSupervisorReviewerData(pr);
-    fetchAppointments(selectedDate);
-  }, []);
-
-  const onVisibilityChange = attendee => () => {
-    switch (attendee) {
-      case 'employee':
-        setEmployee(
-          Object.assign({}, employee, {
-            show: !employee.show
-          })
-        );
-        break;
-      case 'supervisor':
-        setSupervisor(
-          Object.assign({}, supervisor, {
-            show: !supervisor.show
-          })
-        );
-        break;
-      case 'reviewer':
-        setReviewer(
-          Object.assign({}, reviewer, {
-            show: !reviewer.show
-          })
-        );
-        break;
-      default:
-    }
-  };
-
-  const getStateOfAttendee = attendee => {
-    if (attendee === 'employee') {
-      return employee;
-    } else if (attendee === 'supervisor') {
-      return supervisor;
-    } else {
-      return reviewer;
-    }
-  };
-
-  const filterConditionWithoutAppointments = key => {
-    if (key === 'employee') {
-      return employee && employee.id;
-    } else if (key === 'supervisor') {
-      return supervisor && supervisor.id;
-    } else {
-      return reviewer && reviewer.id;
-    }
-  };
-
-  const filterConditionWithAppointments = key => {
-    if (key === 'employee') {
-      return employee && employee.id && appointmentResults[employee.id];
-    } else if (key === 'supervisor') {
-      return supervisor && supervisor.id && appointmentResults[supervisor.id];
-    } else {
-      return reviewer && reviewer.id && appointmentResults[reviewer.id];
-    }
-  };
-
-  let visibilityService = new meetingDetailVisibilityService();
-  visibilityService.setPr(pr);
-  visibilityService.setUser(user);
-  visibilityService.setMeeting(meeting);
   return (
     <React.Fragment>
-      <Typography variant="body1" className={classes.title}>
-        {intl.formatMessage({
-          id: 'meetingcreator.datescheduling'
-        })}
-      </Typography>
-      <Grid id={'tableRolePick'} container spacing={24} direction="column">
-        <Grid item>
-          <MeetingCreatorForm
-            prById={pr}
-            fetchAppointments={fetchAppointments}
-          />
-        </Grid>
-        {visibilityService.getAction() ? (
-          <Grid item>
-            <Grid container direction="column">
-              {['employee', 'supervisor', 'reviewer']
-                .filter(key => {
-                  return filterConditionWithoutAppointments(key);
-                })
-                .map(attendee => {
-                  return (
-                    <Grid item key={attendee}>
-                      <PersonToggle
-                        displayName={`${getStateOfAttendee(attendee).name}`}
-                        displayRole={`${getStateOfAttendee(attendee).role}`}
-                        onChange={onVisibilityChange(attendee)}
-                        showAttendee={getStateOfAttendee(attendee).show}
-                        attendee={attendee}
-                      />
-                    </Grid>
-                  );
-                })}
+      {Object.keys(appointmentResults).length === 0 ? (
+        <CircularProgress />
+      ) : (
+        <React.Fragment>
+          <Typography gutterBottom variant="h4">
+            {intl.formatMessage({
+              id: 'meetingcreator.datescheduling'
+            })}
+          </Typography>
+          <Grid
+            id={'tableRolePick'}
+            container
+            spacing={24}
+            direction="column"
+            className={classes.spacing}
+          >
+            <Grid item>
+              <MeetingCreatorForm
+                prById={pr}
+                fetchAppointments={fetchAppointments}
+                selectedRoom={selectedRoom}
+                setSelectedRoom={setSelectedRoom}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                appointmentResults={appointmentResults}
+              />
             </Grid>
-          </Grid>
-        ) : null}
-        {visibilityService.getAction() ? (
-          <Grid item>
-            <TimeTable>
-              {['employee', 'supervisor', 'reviewer']
-                .filter(key => filterConditionWithAppointments(key))
-                .map((attendee, index, keyArray) => (
+            <Grid item className={classes.row}>
+              <div className={classes.titleEmployee}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.employee'
+                  })}
+                </div>
+                <div className={classes.title}>
+                  {`${pr.employee.firstName} ${pr.employee.lastName}`}
+                </div>
+              </div>
+              <div className={classes.titleSupervisor}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.supervisor'
+                  })}
+                </div>
+                <div className={classes.title}>
+                  {`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
+                </div>
+              </div>
+              <div className={classes.titleReviewer}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.reviewer'
+                  })}
+                </div>
+                {pr.supervisor.id !== pr.reviewer.id && (
+                  <div className={classes.title}>
+                    {`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
+                  </div>
+                )}
+              </div>
+              <div className={classes.titleRoom}>
+                <div className={classes.label}>
+                  {intl.formatMessage({
+                    id: 'meetingcreator.room'
+                  })}
+                </div>
+                {selectedRoom !== '' &&
+                  appointmentResults[selectedRoom.split('@')[0]] !==
+                    undefined && (
+                    <div className={classes.title}>
+                      {selectedRoom.split('@')[0]}
+                    </div>
+                  )}
+              </div>
+            </Grid>
+            <Grid item>
+              <TimeTable>
+                <Attendee
+                  appointments={extractAppointments(
+                    appointmentResults[pr.employee.login].appointments
+                  )}
+                  selectedDate={selectedDate}
+                  distanceFromLeft={10}
+                  name={`${pr.employee.firstName} ${pr.employee.lastName}`}
+                  attendee={'employee'}
+                />
+                <Attendee
+                  appointments={extractAppointments(
+                    appointmentResults[pr.supervisor.login].appointments
+                  )}
+                  selectedDate={selectedDate}
+                  distanceFromLeft={90 / 4 + 10}
+                  name={`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
+                  attendee={'supervisor'}
+                />
+                {pr.supervisor.id !== pr.reviewer.id && (
                   <Attendee
-                    key={attendee}
-                    show={getStateOfAttendee(attendee).show}
                     appointments={extractAppointments(
-                      appointmentResults[getStateOfAttendee(attendee).id]
-                        .appointments
+                      appointmentResults[pr.reviewer.login].appointments
                     )}
                     selectedDate={selectedDate}
-                    distanceFromLeft={(100 * index) / keyArray.length + 10}
-                    name={getStateOfAttendee(attendee).name}
-                    attendee={attendee}
+                    distanceFromLeft={180 / 4 + 10}
+                    name={`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
+                    attendee={'reviewer'}
                   />
-                ))}
-            </TimeTable>
-            {visibilityService.getMeetingExists() ? (
-              <PrStatusActionButton
-                label={intl.formatMessage({
-                  id: 'meetingcreator.termindetail'
-                })}
-                releaseButtonClick={handleChange}
-              />
-            ) : null}
+                )}
+                {selectedRoom !== '' &&
+                  appointmentResults[selectedRoom.split('@')[0]] !==
+                    undefined && (
+                    <Attendee
+                      appointments={extractAppointments(
+                        appointmentResults[selectedRoom.split('@')[0]]
+                          .appointments
+                      )}
+                      selectedDate={selectedDate}
+                      distanceFromLeft={270 / 4 + 10}
+                      name={selectedRoom.split('@')[0]}
+                      attendee={'room'}
+                    />
+                  )}
+              </TimeTable>
+            </Grid>
           </Grid>
-        ) : null}
-      </Grid>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

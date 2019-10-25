@@ -12,7 +12,6 @@ const styles = theme => ({
 });
 
 const DateTimePicker = props => {
-  const [date, setDate] = useState(props.date);
   const [startTime, setStartTime] = useState(props.startTime);
   const [endTime, setEndTime] = useState(props.endTime);
 
@@ -21,7 +20,7 @@ const DateTimePicker = props => {
     props.onDateTimeChange(name, value);
     switch (name) {
       case 'date':
-        setDate(value);
+        props.setDate(value);
         break;
       case 'startTime':
         setStartTime(value);
@@ -42,7 +41,7 @@ const DateTimePicker = props => {
         label={props.intl.formatMessage({
           id: 'datetimepicker.date'
         })}
-        value={date}
+        value={props.date}
         className={props.classes.textField}
         onChange={onDateTimeChange}
         InputLabelProps={{

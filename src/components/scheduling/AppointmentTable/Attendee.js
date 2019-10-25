@@ -12,26 +12,26 @@ import {
 
 const styles = theme => ({
   appointmentDiv: {
-    width: '21.5%',
-    borderRadius: 3,
+    width: '18%',
+    borderRadius: 5,
     background: theme.palette.primary['300'],
     position: 'absolute'
   },
   appointmentDivEmployee: {
-    width: '21.5%',
-    borderRadius: 3,
+    width: '18%',
+    borderRadius: 5,
     background: theme.palette.primary['400'],
     position: 'absolute'
   },
   appointmentDivReviewer: {
-    width: '21.5%',
-    borderRadius: 3,
+    width: '18%',
+    borderRadius: 5,
     background: theme.palette.primary['500'],
     position: 'absolute'
   },
   appointmentDivSupervisor: {
-    width: '21.5%',
-    borderRadius: 3,
+    width: '18%',
+    borderRadius: 5,
     background: theme.palette.secondary.green,
     position: 'absolute'
   }
@@ -120,8 +120,7 @@ const Attendee = ({
   classes,
   distanceFromLeft,
   name,
-  intl,
-  show
+  intl
 }) => {
   const createAppointmentDivs = () => {
     let appointmentDivs = [];
@@ -152,9 +151,7 @@ const Attendee = ({
     return appointmentDivs;
   };
 
-  return (
-    <React.Fragment>{show ? createAppointmentDivs() : null}</React.Fragment>
-  );
+  return <React.Fragment>{createAppointmentDivs()}</React.Fragment>;
 };
 
 Attendee.propTypes = {
