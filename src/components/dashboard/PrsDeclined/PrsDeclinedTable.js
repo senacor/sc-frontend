@@ -55,7 +55,6 @@ const PrsDeclinedTable = ({
           hasInfos: true,
           messageId: 'prsheet.decline.canceled'
         });
-        window.scrollTo(0, 0);
         refreshDashboard();
         setDeclineDialogOpen({ open: false, prId: 0 });
       },
