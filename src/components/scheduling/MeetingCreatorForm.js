@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import moment from 'moment-timezone';
+import { momentRange } from 'moment-range';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +14,7 @@ import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
   container: {
@@ -55,7 +57,8 @@ const MeetingCreatorForm = ({
   selectedRoom,
   setSelectedRoom,
   selectedDate,
-  setSelectedDate
+  setSelectedDate,
+  appointmentResults
 }) => {
   const { setValue: setMeeting } = useContext(MeetingContext.context);
   const errorContext = useContext(ErrorContext.context);
@@ -160,22 +163,45 @@ const MeetingCreatorForm = ({
     return !moment(end).isBefore(moment(start));
   };
 
+  const validateSelectedTime = () => {
+    let start = createMeeting(prById).start;
+    let end = createMeeting(prById).end;
+    if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
+      return false;
+    }
+    if (!moment(end, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
+      return false;
+    }
+    return Object.keys(appointmentResults).find(attandee => {
+      return appointmentResults[attandee].appointments.filter(appointment => {
+        return moment(start).isBefore(moment(appointment.appointmentEndTime));
+      });
+    });
+  };
+
   const handleClickOfMeetingButton = event => {
     event.preventDefault();
     if (validateDateTimeInput()) {
-      addMeeting(createMeeting(prById), setMeeting, errorContext);
-      errorContext.setValue({
-        hasErrors: false,
-        messageId: '',
-        errors: {}
-      });
+      if (validateSelectedTime()) {
+        addMeeting(createMeeting(prById), setMeeting, errorContext);
+        errorContext.setValue({
+          hasErrors: false,
+          messageId: '',
+          errors: {}
+        });
+      } else {
+        errorContext.setValue({
+          hasErrors: true,
+          messageId: 'meetingcreatorform.blocked',
+          errors: {}
+        });
+      }
     } else {
       errorContext.setValue({
         hasErrors: true,
         messageId: 'meetingcreatorform.starttime',
         errors: {}
       });
-      window.scrollTo(0, 0);
     }
   };
 
@@ -201,52 +227,57 @@ const MeetingCreatorForm = ({
   };
 
   return (
-    <div>
-      <DateTimePicker
-        date={selectedDate}
-        setDate={setSelectedDate}
-        startTime={startTime}
-        endTime={endTime}
-        onDateTimeChange={setDateTime}
-      />
-
-      <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="location"
-          label={intl.formatMessage({
-            id: 'meetingcreatorform.place'
-          })}
-          className={classes.textField}
-          disabled={selectedRoom !== ''}
-          value={location}
-          onChange={handleChange('location')}
-          margin="normal"
+    <Grid container spacing={24}>
+      <Grid item xs={12}>
+        <DateTimePicker
+          date={selectedDate}
+          setDate={setSelectedDate}
+          startTime={startTime}
+          endTime={endTime}
+          onDateTimeChange={setDateTime}
         />
-        <FormControl disabled={location !== ''}>
-          <InputLabel htmlFor="select-room">
-            {intl.formatMessage({
-              id: 'meetingcreatorform.room'
+      </Grid>
+      <Grid item xs={12}>
+        <form className={classes.container} noValidate autoComplete="off">
+          <TextField
+            id="location"
+            label={intl.formatMessage({
+              id: 'meetingcreatorform.place'
             })}
-          </InputLabel>
-          <Select
-            value={selectedRoom}
-            onChange={handleChange('room')}
-            input={<Input id="select-room" className={classes.select} />}
-          >
-            <MenuItem key={'none'} value={''}>
-              <ListItemText
-                secondary={intl.formatMessage({
-                  id: 'meetingcreatorform.none'
-                })}
-              />
-            </MenuItem>
-            {rooms.map(room => (
-              <MenuItem key={room} value={room}>
-                <ListItemText primary={room.split('@')[0]} />
+            className={classes.textField}
+            disabled={selectedRoom !== ''}
+            value={location}
+            onChange={handleChange('location')}
+            margin="normal"
+          />
+          <FormControl disabled={location !== ''}>
+            <InputLabel htmlFor="select-room">
+              {intl.formatMessage({
+                id: 'meetingcreatorform.room'
+              })}
+            </InputLabel>
+            <Select
+              value={selectedRoom}
+              onChange={handleChange('room')}
+              input={<Input id="select-room" className={classes.select} />}
+            >
+              <MenuItem key={'none'} value={''}>
+                <ListItemText
+                  secondary={intl.formatMessage({
+                    id: 'meetingcreatorform.none'
+                  })}
+                />
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              {rooms.map(room => (
+                <MenuItem key={room} value={room}>
+                  <ListItemText primary={room.split('@')[0]} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </form>
+      </Grid>
+      <Grid item xs={12}>
         <Button
           variant="contained"
           color="primary"
@@ -256,8 +287,8 @@ const MeetingCreatorForm = ({
             id: 'meetingcreatorform.createtermin'
           })}
         </Button>
-      </form>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

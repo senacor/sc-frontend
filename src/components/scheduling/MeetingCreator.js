@@ -36,12 +36,16 @@ const styles = theme => ({
     display: 'flex',
     width: '80%'
   },
+  spacing: {
+    paddingTop: 3 * theme.spacing.unit
+  },
   label: {
     fontSize: 12,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: theme.palette.secondary.mediumGrey
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
@@ -83,12 +87,18 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
         <CircularProgress />
       ) : (
         <React.Fragment>
-          <Typography variant="body1" className={classes.title}>
+          <Typography gutterBottom variant="h4">
             {intl.formatMessage({
               id: 'meetingcreator.datescheduling'
             })}
           </Typography>
-          <Grid id={'tableRolePick'} container spacing={24} direction="column">
+          <Grid
+            id={'tableRolePick'}
+            container
+            spacing={24}
+            direction="column"
+            className={classes.spacing}
+          >
             <Grid item>
               <MeetingCreatorForm
                 prById={pr}
@@ -97,6 +107,7 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
                 setSelectedRoom={setSelectedRoom}
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
+                appointmentResults={appointmentResults}
               />
             </Grid>
             <Grid item className={classes.row}>

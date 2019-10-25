@@ -38,7 +38,7 @@ export const fetchMeeting = async (pr, setMeeting, errorContext) => {
 
 export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
   if (!validateDateTimeInput(meeting_details.start, meeting_details.end)) {
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
@@ -71,7 +71,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
     if (response.status === 404) {
       setMeeting(null);
     }
-    errorContext.setErrors({
+    errorContext.setValue({
       hasErrors: true,
       messageId: 'message.error'
     });
