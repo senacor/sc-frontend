@@ -56,7 +56,6 @@ const ButtonsBelowSheet = props => {
         messageId: 'buttonsbelowsheet.fillrequired',
         errors: errors
       });
-      window.scrollTo(0, 0);
       return true;
     }
   };
@@ -75,7 +74,6 @@ const ButtonsBelowSheet = props => {
         messageId: 'buttonsbelowsheet.fillrequired',
         errors: errors
       });
-      window.scrollTo(0, 0);
       return true;
     }
   };
