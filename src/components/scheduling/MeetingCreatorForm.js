@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import moment from 'moment-timezone';
+import { extendMoment } from 'moment-range';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import { useErrorContext } from '../../helper/contextHooks';
+
+const momentRange = extendMoment(moment);
 
 const styles = theme => ({
   container: {
@@ -163,7 +166,7 @@ const MeetingCreatorForm = ({
     return !moment(end).isBefore(moment(start));
   };
 
-  const validateSelectedTime = () => {
+  const blockedForSelectedTime = () => {
     let start = createMeeting(prById).start;
     let end = createMeeting(prById).end;
     if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
@@ -173,8 +176,22 @@ const MeetingCreatorForm = ({
       return false;
     }
     return Object.keys(appointmentResults).find(attandee => {
-      return appointmentResults[attandee].appointments.filter(appointment => {
-        return moment(start).isBefore(moment(appointment.appointmentEndTime));
+      return appointmentResults[attandee].appointments.find(appointment => {
+        const newRange = momentRange.range(
+          moment(start, 'YYYY-MM-DDTHH:mmZ', true),
+          moment(end, 'YYYY-MM-DDTHH:mmZ', true)
+        );
+        const appointmentRange = momentRange.range(
+          moment(
+            appointment.appointmentStartTime.replace('Z[UTC]', '+00:00'),
+            'YYYY-MM-DDTHH:mmZ'
+          ),
+          moment(
+            appointment.appointmentEndTime.replace('Z[UTC]', '+00:00'),
+            'YYYY-MM-DDTHH:mmZ'
+          )
+        );
+        return newRange.overlaps(appointmentRange);
       });
     });
   };
@@ -182,7 +199,7 @@ const MeetingCreatorForm = ({
   const handleClickOfMeetingButton = event => {
     event.preventDefault();
     if (validateDateTimeInput()) {
-      if (validateSelectedTime()) {
+      if (!blockedForSelectedTime()) {
         addMeeting(createMeeting(prById), setMeeting, error);
         error.hide();
       } else {
