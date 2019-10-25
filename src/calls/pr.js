@@ -272,7 +272,6 @@ export const delegateReviewer = async (
 };
 
 const showSavedInfoMessage = infoContext => {
-  window.scrollTo(0, 0);
   infoContext.setValue({
     hasInfos: true,
     messageId: 'pr.saved'

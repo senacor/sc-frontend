@@ -114,7 +114,6 @@ const PrSheet = props => {
         () => {
           info.msg('prsheet.decline.canceled');
           setDisableDecline(true);
-          window.scrollTo(0, 0);
         },
         error
       );
@@ -158,7 +157,6 @@ const PrSheet = props => {
         () => {
           info.msg(targetAction.message);
           setDisableDecline(true);
-          window.scrollTo(0, 0);
         },
         error
       );

@@ -54,7 +54,6 @@ const ButtonsBelowSheet = props => {
 
     if (Object.values(errors).includes(true)) {
       error.show('buttonsbelowsheet.fillrequired', errors);
-      window.scrollTo(0, 0);
       return true;
     }
   };
@@ -69,7 +68,6 @@ const ButtonsBelowSheet = props => {
 
     if (Object.values(errors).includes(true)) {
       error.show('buttonsbelowsheet.fillrequired', errors);
-      window.scrollTo(0, 0);
       return true;
     }
   };
