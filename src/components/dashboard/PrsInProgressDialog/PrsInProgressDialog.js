@@ -1,8 +1,7 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import ROUTES from '../../../helper/routes';
-import { ErrorContext } from '../../App';
 import { getPrsInProgress } from '../../../calls/pr';
 import PrsInProgressTable from './PrsInProgressTable';
 import InfoWidget from '../../utils/InfoWidget';
@@ -25,6 +24,7 @@ import Button from '@material-ui/core/Button';
 import FilterIcon from '@material-ui/icons/FilterList';
 import SortingFilter from '../../AllEmployees/SortingFilter';
 import { positions, occasions } from '../../../helper/filterData';
+import { useErrorContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
   btnClose: {
@@ -73,13 +73,13 @@ const PrsInProgressDialog = ({ classes, intl, prsInProgress }) => {
   const [dateSorting, setDateSorting] = useState('');
   const [occasionSorting, setOccasionSorting] = useState([]);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(
     () => {
       if (window.location.pathname === ROUTES.PR_IN_PROGRESS) {
         setDialogOpened(true);
-        getPrsInProgress(setPrs, setIsLoading, errorContext);
+        getPrsInProgress(setPrs, setIsLoading, error);
       }
     },
     [dialogOpened]

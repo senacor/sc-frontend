@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Grid, IconButton, List, Popover } from '@material-ui/core';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
@@ -7,13 +7,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import { setRoles } from '../../calls/admin';
-import { ErrorContext } from '../App';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const UserRolesMenu = props => {
   const [selectedRoles, setSelectedRoles] = useState(props.selectedRoles);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  let errorContext = useContext(ErrorContext.context);
+  let error = useErrorContext();
 
   useEffect(
     () => {
@@ -61,7 +61,7 @@ const UserRolesMenu = props => {
   };
 
   const handleOk = () => {
-    setRoles(props.employeeId, selectedRoles, errorContext);
+    setRoles(props.employeeId, selectedRoles, error);
     props.updateEmployee(props.employeeId, selectedRoles);
     handleClose();
   };

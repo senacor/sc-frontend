@@ -3,7 +3,7 @@ import { default as fetch } from '../helper/customFetch';
 export const loadAllArchivedFilesList = async (
   setArchivedFiles,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -15,10 +15,7 @@ export const loadAllArchivedFilesList = async (
     setArchivedFiles(result);
   } catch (err) {
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -26,7 +23,7 @@ export const uploadFiles = async (
   files,
   setUploadedFiles,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -50,10 +47,7 @@ export const uploadFiles = async (
     setUploadedFiles(result);
     setIsLoading(false);
   } catch (err) {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
     setIsLoading(false);
   }
 };
@@ -62,7 +56,7 @@ export const downloadFile = async (
   employeeId,
   fileId,
   setDownloadedFile,
-  errorContext
+  error
 ) => {
   try {
     const response = await fetch(
@@ -74,10 +68,7 @@ export const downloadFile = async (
     const result = await response.json();
     setDownloadedFile(result);
   } catch (err) {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -85,7 +76,7 @@ export const loadArchivedFilesList = async (
   employeeId,
   setArchivedFiles,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -97,9 +88,6 @@ export const loadArchivedFilesList = async (
     setArchivedFiles(result);
   } catch (err) {
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };

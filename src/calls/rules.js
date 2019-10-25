@@ -1,7 +1,7 @@
 import { default as fetch } from '../helper/customFetch';
 import { sortByPriority } from '../components/admin/automationRules/functions';
 
-export const getAllRules = async (setRules, setIsLoading, errorContext) => {
+export const getAllRules = async (setRules, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -17,14 +17,11 @@ export const getAllRules = async (setRules, setIsLoading, errorContext) => {
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const deleteRule = async (id, errorContext) => {
+export const deleteRule = async (id, error) => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/automation/rule/${id}`, {
       method: 'delete',
@@ -32,20 +29,11 @@ export const deleteRule = async (id, errorContext) => {
     });
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const addRule = async (
-  ruleObject,
-  rules,
-  setRules,
-  errorContext,
-  infoContext
-) => {
+export const addRule = async (ruleObject, rules, setRules, error, info) => {
   try {
     const newRules = [...rules];
     const response = await fetch(
@@ -70,21 +58,15 @@ export const addRule = async (
       newRules.push(ruleResponse);
       sortByPriority(newRules);
       setRules(newRules);
-      infoContext.setValue({
-        hasInfos: true,
-        messageId: 'message.ruleCreated'
-      });
+      info.msg('message.ruleCreated');
     }
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const updateRulePriority = async (map, processType, errorContext) => {
+export const updateRulePriority = async (map, processType, error) => {
   try {
     await fetch(
       `${
@@ -98,9 +80,6 @@ export const updateRulePriority = async (map, processType, errorContext) => {
     );
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };

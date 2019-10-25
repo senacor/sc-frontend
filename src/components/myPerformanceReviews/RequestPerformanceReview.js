@@ -6,15 +6,16 @@ import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import { CircularProgress } from '@material-ui/core';
 
-import { UserinfoContext, PrContext, ErrorContext } from '../App';
+import { UserinfoContext, PrContext } from '../App';
 import { addPr } from '../../calls/pr';
 import ConfirmDialog from '../utils/ConfirmDialog';
 import { dateIsAfterTodayOrEqual } from '../../helper/date';
+import { useErrorContext } from '../../helper/contextHooks';
 
 export const RequestPerformanceReview = ({ intl }) => {
   const { userinfo } = useContext(UserinfoContext.context).value;
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const [isLoading, setIsLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -108,7 +109,7 @@ export const RequestPerformanceReview = ({ intl }) => {
             userinfo.userPrincipalName,
             setIsLoading,
             setPrCallback,
-            errorContext
+            error
           );
         }}
       />

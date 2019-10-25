@@ -1,8 +1,7 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import { addFeedback } from '../../calls/feedbacks';
-import { ErrorContext } from '../App';
 
 // Material UI
 import Divider from '@material-ui/core/Divider';
@@ -19,6 +18,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme,
@@ -80,10 +80,10 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
   const [message, setMessage] = useState('');
   const [maxLengthReached, setMaxLengthReached] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   const handleSend = () => {
-    addFeedback(type, subject, message, errorContext);
+    addFeedback(type, subject, message, error);
     setMaxLengthReached(false);
     handleClose();
   };

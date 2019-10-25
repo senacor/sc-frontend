@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Rule from './Rule';
@@ -8,10 +8,10 @@ import {
   addRule,
   updateRulePriority
 } from '../../../calls/rules';
-import { ErrorContext, InfoContext } from '../../App';
 import NewCustomRule from './NewCustomRule';
 import { validPriority, validChronology, validProcess } from './functions';
 import Sortable from 'react-sortablejs';
+import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
 
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -84,12 +84,12 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   const [endDateChecked, setEndDateChecked] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
-  const infoContext = useContext(InfoContext.context);
+  const error = useErrorContext();
+  const info = useInfoContext();
   const maxRulesAmount = 2;
 
   useEffect(() => {
-    getAllRules(setRules, setIsLoading, errorContext);
+    getAllRules(setRules, setIsLoading, error);
   }, []);
 
   useEffect(
@@ -109,8 +109,8 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     setDialogOpen(true);
   };
 
-  const handleDeleteRule = (id, errorContext) => {
-    deleteRule(id, errorContext);
+  const handleDeleteRule = id => {
+    deleteRule(id, error);
     const newRulesData = rules.filter(rule => rule.id !== id);
     setRules(newRulesData);
     setDialogOpen(false);
@@ -152,34 +152,17 @@ const AutomationRulesContainer = ({ classes, intl }) => {
         validPriority(values, rules) &&
         validProcess(values))
     ) {
-      errorContext.setValue({
-        hasErrors: false
-      });
-      addRule(values, rules, setRules, errorContext, infoContext);
+      error.hide();
+      addRule(values, rules, setRules, error, info);
     } else if (!validPriority(values, rules)) {
-      infoContext.setValue({
-        hasInfos: false
-      });
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'message.invalidPriority'
-      });
+      info.hide();
+      error.show('message.invalidPriority');
     } else if (!validChronology(values, rules)) {
-      infoContext.setValue({
-        hasInfos: false
-      });
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'message.invalidChronology'
-      });
+      info.hide();
+      error.show('message.invalidChronology');
     } else if (!validProcess(values)) {
-      infoContext.setValue({
-        hasInfos: false
-      });
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'message.entryDateAndBeforeError'
-      });
+      info.hide();
+      error.show('message.entryDateAndBeforeError');
     }
   };
 
@@ -216,11 +199,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
     const orderedArr = mapOrder(newRules, order, 'id');
     setNewPriority(orderedArr);
     setRules(orderedArr);
-    updateRulePriority(
-      createMap(orderedArr),
-      rules[0].processType,
-      errorContext
-    );
+    updateRulePriority(createMap(orderedArr), rules[0].processType, error);
   };
 
   return (
@@ -280,9 +259,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
                   <ConfirmDialog
                     open={dialogOpen}
                     handleClose={handleDialogClose}
-                    handleConfirm={() =>
-                      handleDeleteRule(rule.id, errorContext)
-                    }
+                    handleConfirm={() => handleDeleteRule(rule.id)}
                     confirmationText={intl.formatMessage({
                       id: 'autorules.dialogText'
                     })}

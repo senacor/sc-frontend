@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   CircularProgress,
@@ -13,10 +13,10 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { getAllEmployeesWithRoles, getRoles } from '../../calls/admin';
-import { ErrorContext } from '../App';
 import UserRolesMenu from './UserRolesMenu';
 import { sortByLastName } from '../../helper/filterFunctions';
 import EmployeeFilter from './EmployeeFilter';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   spacing: {
@@ -33,11 +33,11 @@ export const UserRolesPanel = ({ classes, intl }) => {
   const [sortDirection, setSortDirection] = useState('asc');
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  let errorContext = useContext(ErrorContext.context);
+  let error = useErrorContext();
 
   useEffect(() => {
-    getRoles(setRoles, setIsLoading, errorContext);
-    getAllEmployeesWithRoles(setData, setIsLoading, errorContext);
+    getRoles(setRoles, setIsLoading, error);
+    getAllEmployeesWithRoles(setData, setIsLoading, error);
   }, []);
 
   const handleChangeRowsPerPage = event => {

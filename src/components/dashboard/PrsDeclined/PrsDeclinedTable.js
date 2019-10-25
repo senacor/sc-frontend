@@ -15,8 +15,9 @@ import {
 } from '../../../helper/date';
 import { modifyString } from '../../../helper/string';
 import { declinePr, linkToPr, undecline } from '../../../calls/pr';
-import { ErrorContext, InfoContext } from '../../App';
+import { InfoContext } from '../../App';
 import ConfirmDialog from '../../utils/ConfirmDialog';
+import { useErrorContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
   tableRow: {
@@ -39,7 +40,7 @@ const PrsDeclinedTable = ({
   prs,
   history
 }) => {
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const infoContext = useContext(InfoContext.context);
   const [declineDialogOpen, setDeclineDialogOpen] = useState({
     open: false,
@@ -58,7 +59,7 @@ const PrsDeclinedTable = ({
         refreshDashboard();
         setDeclineDialogOpen({ open: false, prId: 0 });
       },
-      errorContext
+      error
     );
   };
 
@@ -76,7 +77,7 @@ const PrsDeclinedTable = ({
         refreshDashboard();
         setDeclineDialogOpen({ open: false, prId: 0 });
       },
-      errorContext
+      error
     );
   };
 

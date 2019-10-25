@@ -19,7 +19,8 @@ import PrStatusActionButton from './PrStatusActionButton';
 import MeetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import { formatDateForFrontend } from '../../helper/date';
 import { injectIntl } from 'react-intl';
-import { MeetingContext, UserinfoContext } from '../App';
+import { MeetingContext } from '../App';
+import { useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   nested: {
@@ -46,15 +47,14 @@ const styles = theme => ({
 
 const MeetingDetailsView = ({ classes, pr, click, handleChange, intl }) => {
   const { value: meeting } = useContext(MeetingContext.context);
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
 
   let visibilityService = new MeetingDetailVisibilityService();
   visibilityService.setMeeting(meeting);
   visibilityService.setPr(pr);
-  visibilityService.setUserinfo(userinfo);
-  visibilityService.setUserroles(userroles);
+  visibilityService.setUser(user);
 
   const handleClickOpenRequiredAttendees = () => {
     setOpenRequiredAttendees(!openRequiredAttendees);

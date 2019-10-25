@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ObjectGet from 'object-get';
 import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -9,11 +9,11 @@ import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
 import PersonToggle from './PersonToggle';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import { hasRoleInPrBasedOnUserName } from '../../helper/checkRole';
 import meetingDetailVisibilityService from '../../service/MeetingDetailVisibilityService';
 import PrStatusActionButton from '../pr/PrStatusActionButton';
-import { ErrorContext, MeetingContext, UserinfoContext } from '../App';
+import { MeetingContext } from '../App';
 import { appointmentsSearch } from '../../calls/meetings';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   title: {
@@ -29,19 +29,32 @@ export const MeetingCreator = ({
   selectedDate,
   handleChange
 }) => {
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const { value: meeting } = useContext(MeetingContext.context);
   const [employee, setEmployee] = useState('');
   const [supervisor, setSupervisor] = useState('');
   const [reviewer, setReviewer] = useState('');
   const [appointmentResults, setAppointmentResults] = useState([]);
 
-  let errorContext = useContext(ErrorContext.context);
+  let error = useErrorContext();
 
-  const setStateforRole = (pr, role, userinfo) => {
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
+  const setStateforRole = (pr, role) => {
+    let hasRoleInPr;
     let roleDescription = '';
-    if (hasRoleInPr([role])) {
+    switch (role) {
+      case 'employee':
+        hasRoleInPr = user.isOwnerInPr(pr);
+        break;
+      case 'supervisor':
+        hasRoleInPr = user.isSupervisorInPr(pr);
+        break;
+      case 'reviewer':
+        hasRoleInPr = user.isReviewerInPr(pr);
+        break;
+      default:
+        hasRoleInPr = false;
+    }
+    if (hasRoleInPr) {
       roleDescription = `${intl.formatMessage({
         id: 'meetingcreator.me'
       })}`;
@@ -122,11 +135,11 @@ export const MeetingCreator = ({
     );
   };
 
-  const setEmployeeSupervisorReviewerData = (pr, userinfo) => {
-    setStateforRole(pr, 'employee', userinfo);
-    hasSupervisorEntry(pr) && setStateforRole(pr, 'supervisor', userinfo);
+  const setEmployeeSupervisorReviewerData = pr => {
+    setStateforRole(pr, 'employee');
+    hasSupervisorEntry(pr) && setStateforRole(pr, 'supervisor');
     hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
-      setStateforRole(pr, 'reviewer', userinfo);
+      setStateforRole(pr, 'reviewer');
   };
 
   const fetchAppointments = date => {
@@ -134,16 +147,11 @@ export const MeetingCreator = ({
     hasReviewerEntryThatIsDifferentFromSupervisor(pr) &&
       attendees.push(pr.reviewer.login);
 
-    appointmentsSearch(
-      attendees.join(','),
-      date,
-      errorContext,
-      setAppointmentResults
-    );
+    appointmentsSearch(attendees.join(','), date, error, setAppointmentResults);
   };
 
   useEffect(() => {
-    setEmployeeSupervisorReviewerData(pr, userinfo);
+    setEmployeeSupervisorReviewerData(pr);
     fetchAppointments(selectedDate);
   }, []);
 
@@ -206,8 +214,7 @@ export const MeetingCreator = ({
 
   let visibilityService = new meetingDetailVisibilityService();
   visibilityService.setPr(pr);
-  visibilityService.setUserinfo(userinfo);
-  visibilityService.setUserroles(userroles);
+  visibilityService.setUser(user);
   visibilityService.setMeeting(meeting);
   return (
     <React.Fragment>

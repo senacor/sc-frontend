@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -7,7 +7,6 @@ import {
   getAllEmployeesWithRoles,
   getMaintenanceTeam
 } from '../../calls/admin';
-import { ErrorContext } from '../App';
 import EmployeeFilter from './EmployeeFilter';
 
 // Material UI
@@ -25,6 +24,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 // Icons
 import TeamIcon from '@material-ui/icons/SupervisorAccount';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -58,11 +58,11 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(() => {
-    getAllEmployeesWithRoles(setAllEmployeesData, setIsLoading, errorContext);
-    getMaintenanceTeam(setData, setIsLoading, errorContext);
+    getAllEmployeesWithRoles(setAllEmployeesData, setIsLoading, error);
+    getMaintenanceTeam(setData, setIsLoading, error);
   }, []);
 
   const handleChangeRowsPerPage = event => {
@@ -74,7 +74,7 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
   };
 
   const handleOnDeleteClick = (event, employeeId) => {
-    deleteMaintenanceTeamMember(employeeId, errorContext);
+    deleteMaintenanceTeamMember(employeeId, error);
     setData(data.filter(entry => entry.employeeId !== employeeId));
   };
 
@@ -154,7 +154,6 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
             maintenanceData={data}
             setMaintenanceData={setData}
             maintenance={true}
-            errorContext={errorContext}
           />
         </Grid>
         <Grid item xs={12} md={8}>

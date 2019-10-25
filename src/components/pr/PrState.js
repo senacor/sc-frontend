@@ -5,19 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 
-import {
-  ErrorContext,
-  MeetingContext,
-  UserinfoContext,
-  InfoContext
-} from '../App';
+import { MeetingContext } from '../App';
 import { prStatusEnum } from '../../helper/prStatus';
 import PrStatusStepper from './PrStateStepper';
-import {
-  isPersonalDev,
-  hasRoleInPrBasedOnUserName
-} from '../../helper/checkRole';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   paper: {
@@ -33,9 +25,9 @@ const styles = theme => ({
 });
 
 const PrState = ({ classes, prById, intl }) => {
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const { value: meeting } = useContext(MeetingContext.context);
-  const { userroles, userinfo } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const mainStepIsDone = (prStatusesDone, stepId, stepStructure) => {
     if (prStatusesDone !== undefined) {
       return Object.values(stepStructure[stepId].substeps).every(
@@ -70,10 +62,7 @@ const PrState = ({ classes, prById, intl }) => {
     }
   };
 
-  const updateStepStructure = (pr, userinfo, prStatusesDone, meeting) => {
-    let userIsMemberOfHr = isPersonalDev(userroles);
-
-    let hasRoleInPr = hasRoleInPrBasedOnUserName(pr, userinfo);
+  const updateStepStructure = (pr, prStatusesDone, meeting) => {
     let meetingInfoText = (status, statuses) => {
       if (
         statuses.includes(prStatusEnum.FINALIZED_REVIEWER) &&
@@ -89,7 +78,7 @@ const PrState = ({ classes, prById, intl }) => {
               id: 'prstate.agreed'
             });
           case 'DECLINED':
-            if (userIsMemberOfHr) {
+            if (user.hasRoleHr()) {
               return intl.formatMessage({
                 id: 'prstate.cancelled'
               });
@@ -102,7 +91,7 @@ const PrState = ({ classes, prById, intl }) => {
               id: 'prstate.terminsent'
             });
           case 'NOT_REQUESTED':
-            if (userIsMemberOfHr) {
+            if (user.hasRoleHr()) {
               return intl.formatMessage({
                 id: 'prstate.notermin'
               });
@@ -124,7 +113,7 @@ const PrState = ({ classes, prById, intl }) => {
       substeps: {
         [prStatusEnum.RELEASED_SHEET_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_EMPLOYEE],
-          isCurrentUserActionPerformer: hasRoleInPr(['employee']),
+          isCurrentUserActionPerformer: user.isOwnerInPr(pr),
           label: `${intl.formatMessage({
             id: 'prstate.employee'
           })} `,
@@ -143,7 +132,7 @@ const PrState = ({ classes, prById, intl }) => {
         },
         [prStatusEnum.RELEASED_SHEET_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.RELEASED_SHEET_REVIEWER],
-          isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
+          isCurrentUserActionPerformer: user.isSupervisorInPr(pr) || user.isReviewerInPr(pr),
           label: `${intl.formatMessage({
             id: 'prstate.reviewer'
           })} `,
@@ -178,7 +167,7 @@ const PrState = ({ classes, prById, intl }) => {
       substeps: {
         [prStatusEnum.FINALIZED_REVIEWER]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_REVIEWER],
-          isCurrentUserActionPerformer: hasRoleInPr(['supervisor', 'reviewer']),
+          isCurrentUserActionPerformer: user.isSupervisorInPr(pr) || user.isReviewerInPr(pr),
           label: `${intl.formatMessage({
             id: 'prstate.reviewer'
           })} `,
@@ -204,7 +193,7 @@ const PrState = ({ classes, prById, intl }) => {
       substeps: {
         [prStatusEnum.FINALIZED_EMPLOYEE]: {
           isCompleted: prStatusesDone[prStatusEnum.FINALIZED_EMPLOYEE],
-          isCurrentUserActionPerformer: hasRoleInPr(['employee']),
+          isCurrentUserActionPerformer: user.isOwnerInPr(pr),
           label: `${intl.formatMessage({
             id: 'prstate.employee'
           })} `,
@@ -227,7 +216,7 @@ const PrState = ({ classes, prById, intl }) => {
       substeps: {
         [prStatusEnum.ARCHIVED_HR]: {
           isCompleted: prStatusesDone[prStatusEnum.ARCHIVED_HR],
-          isCurrentUserActionPerformer: isPersonalDev(userroles),
+          isCurrentUserActionPerformer: user.hasRoleHr(),
           label: `${intl.formatMessage({
             id: 'prstate.hr'
           })} `,
@@ -244,7 +233,7 @@ const PrState = ({ classes, prById, intl }) => {
       }
     };
 
-    if (userIsMemberOfHr) {
+    if (user.hasRoleHr()) {
       return [step1, step2, step3, step4];
     } else {
       return [step1, step2, step3];
@@ -252,14 +241,7 @@ const PrState = ({ classes, prById, intl }) => {
   };
 
   const submitPRButton = pr => {
-    const infoContext = useContext(InfoContext.context);
-    return (
-      <ButtonsBelowSheet
-        pr={pr}
-        errorContext={errorContext}
-        infoContext={infoContext}
-      />
-    );
+    return <ButtonsBelowSheet pr={pr} error={error} />;
   };
 
   if (!(prById && meeting)) {
@@ -273,7 +255,6 @@ const PrState = ({ classes, prById, intl }) => {
 
   const stepStructure = updateStepStructure(
     prById,
-    userinfo,
     prStatusesDone,
     meeting
   );

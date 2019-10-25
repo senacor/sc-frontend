@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import { fetchInactivePrById } from '../../calls/pr';
-import { ErrorContext, PrContext } from '../App';
+import { PrContext } from '../App';
 import PrTabs from './PrTabs';
 import { getInactiveEmployees } from '../../calls/employees';
 import InactivePrDetailInformation from './InactivePrDetailInformation';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -15,7 +16,7 @@ const InactivePerformanceReviewDetail = props => {
   const { value: pr, setValue: setPr } = useContext(PrContext.context);
   const [isLoading, setIsLoading] = useState({});
   const [allEmployeesData, setAllEmployeesData] = useState([]);
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const { classes, onReady, printMode } = props;
 
   useEffect(() => {
@@ -29,9 +30,9 @@ const InactivePerformanceReviewDetail = props => {
       props.match.params.id,
       afterPrFetched,
       setIsLoading,
-      errorContext
+      error
     );
-    getInactiveEmployees(setAllEmployeesData, setIsLoading, errorContext);
+    getInactiveEmployees(setAllEmployeesData, setIsLoading, error);
   }, []);
 
   if (isLoading || !pr || Object.entries(pr).length === 0) {

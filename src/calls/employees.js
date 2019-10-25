@@ -3,7 +3,7 @@ import { default as fetch } from '../helper/customFetch';
 export const getAllEmployees = async (
   setEmployees,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -19,10 +19,7 @@ export const getAllEmployees = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -31,7 +28,7 @@ export const getAllPrsByEmployee = async (
   setPrs,
   setArchivedPrs,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -51,10 +48,7 @@ export const getAllPrsByEmployee = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -63,7 +57,7 @@ export const getAllPrsOfInactiveEmployee = async (
   setPrs,
   setArchivedPrs,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -83,17 +77,14 @@ export const getAllPrsOfInactiveEmployee = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
 export const getInactiveEmployees = async (
   setEmployees,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -109,10 +100,7 @@ export const getInactiveEmployees = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 

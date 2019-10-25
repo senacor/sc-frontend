@@ -10,9 +10,9 @@ import getDisplayName from '../../helper/getDisplayName';
 import { formatDateForFrontend } from '../../helper/date';
 import Grid from '@material-ui/core/Grid';
 import { prStatusEnum } from '../../helper/prStatus';
-import { ErrorContext, PrContext, UserinfoContext } from '../App';
+import { PrContext } from '../App';
 import EmployeeFilter from '../admin/EmployeeFilter';
-import { isSupervisor } from '../../helper/checkRole';
+import { useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   spacing: {
@@ -41,8 +41,7 @@ const PrDetailInformation = ({
   employee,
   intl
 }) => {
-  const errorContext = useContext(ErrorContext.context);
-  const { userroles } = useContext(UserinfoContext.context).value;
+  const user = useUserinfoContext();
   const { setValue: setPr } = useContext(PrContext.context);
 
   if (!pr || !employee) {
@@ -143,10 +142,9 @@ const PrDetailInformation = ({
             </div>
           </Grid>
           <Grid item md={2} xs={12} className={classes.centered}>
-            {isSupervisor(userroles) ? (
+            {user.hasRoleSupervisor() ? (
               <EmployeeFilter
                 data={allEmployeesData}
-                errorContext={errorContext}
                 delegation={true}
                 isDisabled={
                   pr.supervisor.id !== pr.reviewer.id ||
