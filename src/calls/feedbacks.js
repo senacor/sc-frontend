@@ -1,6 +1,6 @@
 import { default as fetch } from '../helper/customFetch';
 
-export const getFeedbacks = async (setData, setIsLoading, errorContext) => {
+export const getFeedbacks = async (setData, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -13,10 +13,7 @@ export const getFeedbacks = async (setData, setIsLoading, errorContext) => {
     setIsLoading(false);
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -40,7 +37,7 @@ export const addFeedback = async (type, subject, message, errorContext) => {
   }
 };
 
-export const deleteFeedbacks = async (ids, errorContext) => {
+export const deleteFeedbacks = async (ids, error) => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/feedback`, {
       method: 'delete',
@@ -49,9 +46,6 @@ export const deleteFeedbacks = async (ids, errorContext) => {
     });
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };

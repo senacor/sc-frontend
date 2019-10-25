@@ -1,6 +1,6 @@
 import { default as fetch } from '../helper/customFetch';
 
-export const getRoles = async (setRoles, setIsLoading, errorContext) => {
+export const getRoles = async (setRoles, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -17,14 +17,11 @@ export const getRoles = async (setRoles, setIsLoading, errorContext) => {
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const getSystemInfo = async (setSystemInfo, errorContext) => {
+export const getSystemInfo = async (setSystemInfo, error) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/system/info`
@@ -34,17 +31,14 @@ export const getSystemInfo = async (setSystemInfo, errorContext) => {
     setSystemInfo(responseJson);
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
 export const getAllEmployeesWithRoles = async (
   setData,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -61,14 +55,11 @@ export const getAllEmployeesWithRoles = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const setRoles = async (employeeId, roles, errorContext) => {
+export const setRoles = async (employeeId, roles, error) => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/role/${employeeId}`, {
       method: 'post',
@@ -77,17 +68,14 @@ export const setRoles = async (employeeId, roles, errorContext) => {
     });
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
 export const getHealthcheckData = async (
   setData,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -99,14 +87,11 @@ export const getHealthcheckData = async (
     setIsLoading(false);
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const deleteError = async (id, errorContext) => {
+export const deleteError = async (id, error) => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/log/delete/${id}`, {
       method: 'delete',
@@ -114,14 +99,11 @@ export const deleteError = async (id, errorContext) => {
     });
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const deleteAllErrors = async errorContext => {
+export const deleteAllErrors = async error => {
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v3/log/delete/all`, {
       method: 'delete',
@@ -129,17 +111,14 @@ export const deleteAllErrors = async errorContext => {
     });
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
 export const getMaintenanceTeam = async (
   setData,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -153,10 +132,7 @@ export const getMaintenanceTeam = async (
     setIsLoading(false);
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -164,10 +140,10 @@ export const addMaintenanceTeamMember = async (
   id,
   maintenanceData,
   setMaintenanceData,
-  errorContext
+  error
 ) => {
   try {
-    errorContext.setValue({ hasErrors: false, messageId: '', errors: {} });
+    error.hide();
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/maintenance/member/${id}`,
       {
@@ -177,10 +153,7 @@ export const addMaintenanceTeamMember = async (
     );
     const member = await response.json();
     if (response.status === 400) {
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'maintenance.error'
-      });
+      error.show('maintenance.error');
     } else {
       let newData = maintenanceData.slice(0);
       newData.push(member);
@@ -188,14 +161,11 @@ export const addMaintenanceTeamMember = async (
     }
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const deleteMaintenanceTeamMember = async (id, errorContext) => {
+export const deleteMaintenanceTeamMember = async (id, error) => {
   try {
     await fetch(
       `${process.env.REACT_APP_API}/api/v3/maintenance/member/${id}`,
@@ -206,9 +176,6 @@ export const deleteMaintenanceTeamMember = async (id, errorContext) => {
     );
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };

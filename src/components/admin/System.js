@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, CircularProgress, Grid, withStyles } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
@@ -22,8 +22,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
-import { ErrorContext } from '../App';
 import ConfirmDialog from '../utils/ConfirmDialog';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -99,10 +99,10 @@ export const System = ({ classes, intl }) => {
   const [deleteAll, setDeleteAll] = useState(false);
   const [errorId, setErrorId] = useState(undefined);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(() => {
-    getHealthcheckData(setData, setIsLoading, errorContext);
+    getHealthcheckData(setData, setIsLoading, error);
   }, []);
 
   const handleChangeRowsPerPage = event => {
@@ -127,7 +127,7 @@ export const System = ({ classes, intl }) => {
   };
 
   const handleOnYesClick = () => {
-    deleteError(errorId, errorContext);
+    deleteError(errorId, error);
     let newData = { ...data };
     newData.errors = data.errors.filter(e => e.id !== errorId);
     setData(newData);
@@ -135,7 +135,7 @@ export const System = ({ classes, intl }) => {
   };
 
   const handleOnYesClickAll = () => {
-    deleteAllErrors(errorContext);
+    deleteAllErrors(error);
     setData({
       fis: data.fis,
       outlook: data.outlook,

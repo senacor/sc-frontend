@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
-import { ErrorContext } from '../App';
 import { getOwnPrs } from '../../calls/pr';
 import PrCard from './PrCard';
 import { RequestPerformanceReview } from './RequestPerformanceReview';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme,
@@ -24,10 +24,10 @@ const OwnPrsContainer = ({ classes, intl }) => {
 
   const ownPrsTogether = [...ownPrs, ...ownArchivedPrs];
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(() => {
-    getOwnPrs(setOwnPrs, setOwnArchivedPrs, setIsLoading, errorContext);
+    getOwnPrs(setOwnPrs, setOwnArchivedPrs, setIsLoading, error);
   }, []);
 
   const listofOwnPrs = ownPrsTogether.map((pr, index) => (

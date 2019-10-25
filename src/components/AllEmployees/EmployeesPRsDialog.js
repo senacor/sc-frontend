@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { ErrorContext, LanguageContext } from '../App';
+import { LanguageContext } from '../App';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { withRouter } from 'react-router-dom';
 import { DownloadFile } from '../fileStorage/DownloadFile';
@@ -31,6 +31,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CloseIcon from '@material-ui/icons/Close';
 import { printPdf } from '../../helper/pdfExport';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   dialogContent: {
@@ -94,7 +95,7 @@ const EmployeesPRsDialog = ({
   const [isLoading, setIsLoading] = useState(false);
   const [printLoading, setPrintLoading] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const { value: language } = useContext(LanguageContext.context);
   const prsTogether = [...prs, ...archivedPrs];
 
@@ -106,7 +107,7 @@ const EmployeesPRsDialog = ({
           setPrs,
           setArchivedPrs,
           setIsLoading,
-          errorContext
+          error
         );
       } else {
         getAllPrsByEmployee(
@@ -114,7 +115,7 @@ const EmployeesPRsDialog = ({
           setPrs,
           setArchivedPrs,
           setIsLoading,
-          errorContext
+          error
         );
       }
     }

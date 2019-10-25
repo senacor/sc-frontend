@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState, Fragment } from 'react';
-import { ErrorContext } from '../../App';
+import React, { useEffect, useState, Fragment } from 'react';
 import { deleteFeedbacks, getFeedbacks } from '../../../calls/feedbacks';
 import FeedbackRow from './FeedbackRow';
 import { withStyles } from '@material-ui/core';
@@ -26,6 +25,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useErrorContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
   spacing: {
@@ -91,12 +91,12 @@ const FeedbackTable = ({ classes, intl }) => {
   const [selected, setSelected] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(
     () => {
       if (expanded && data.length === 0) {
-        getFeedbacks(setData, setIsLoading, errorContext);
+        getFeedbacks(setData, setIsLoading, error);
       }
     },
     [expanded]
@@ -131,7 +131,7 @@ const FeedbackTable = ({ classes, intl }) => {
   };
 
   const handleOnYesClick = () => {
-    deleteFeedbacks(selected, errorContext);
+    deleteFeedbacks(selected, error);
     setData(data.filter(entry => !selected.includes(entry.id)));
     setSelected([]);
     setDialogOpen(false);

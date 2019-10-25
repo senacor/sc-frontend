@@ -5,10 +5,10 @@ export const fetchPrById = async (
   prsId,
   afterPrFetched,
   setIsLoading,
-  errorContext
+  error
 ) => {
   setIsLoading(true);
-  errorContext.setValue({ hasErrors: false, messageId: '' });
+  error.hide();
 
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
@@ -24,10 +24,7 @@ export const fetchPrById = async (
     return prById;
   } else {
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -35,10 +32,10 @@ export const fetchInactivePrById = async (
   prsId,
   afterPrFetched,
   setIsLoading,
-  errorContext
+  error
 ) => {
   setIsLoading(true);
-  errorContext.setValue({ hasErrors: false, messageId: '' });
+  error.hide();
 
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/inactive/employee/pr/${prsId}`
@@ -54,10 +51,7 @@ export const fetchInactivePrById = async (
     return prById;
   } else {
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -65,10 +59,10 @@ export const addReflections = async (
   prsId,
   firstReflectionField,
   secondReflectionField,
-  errorContext,
+  error,
   infoContext
 ) => {
-  errorContext.setValue({ hasErrors: false, messageId: '' });
+  error.hide();
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/reflections`,
     {
@@ -83,10 +77,7 @@ export const addReflections = async (
   if (response.ok) {
     showSavedInfoMessage(infoContext);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -95,10 +86,10 @@ export const addRatings = async (
   rating,
   targetRole,
   advancementStrategies,
-  errorContext,
+  error,
   infoContext
 ) => {
-  errorContext.setValue({ hasErrors: false, messageId: '' });
+  error.hide();
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
     {
@@ -114,17 +105,14 @@ export const addRatings = async (
   if (response.ok) {
     showSavedInfoMessage(infoContext);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
 export const addFinalCommentEmployee = async (
   prsId,
   finalCommentEmployee,
-  errorContext,
+  error,
   infoContext
 ) => {
   if (!finalCommentEmployee) {
@@ -132,7 +120,7 @@ export const addFinalCommentEmployee = async (
     return;
   }
 
-  errorContext.setValue({ hasErrors: false, messageId: '' });
+  error.hide();
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
     {
@@ -144,17 +132,14 @@ export const addFinalCommentEmployee = async (
   if (response.ok) {
     showSavedInfoMessage(infoContext);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
 export const addFinalCommentHr = async (
   prsId,
   finalCommentHr,
-  errorContext,
+  error,
   infoContext
 ) => {
   if (!finalCommentHr) {
@@ -162,7 +147,7 @@ export const addFinalCommentHr = async (
     return;
   }
 
-  errorContext.setValue({ hasErrors: false, messageId: '' });
+  error.hide();
   const response = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
     {
@@ -174,14 +159,11 @@ export const addFinalCommentHr = async (
   if (response.ok) {
     showSavedInfoMessage(infoContext);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const addPr = async (loginName, setLoading, setPr, errorContext) => {
+export const addPr = async (loginName, setLoading, setPr, error) => {
   setLoading(true);
 
   const changeResponse = await fetch(`${process.env.REACT_APP_API}/api/v3/pr`, {
@@ -194,10 +176,7 @@ export const addPr = async (loginName, setLoading, setPr, errorContext) => {
     setPr(pr);
     setLoading(false);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
     setLoading(false);
   }
 };
@@ -206,7 +185,7 @@ export const requestPrForEmployees = async (
   employeeIds,
   onSuccess,
   infoContext,
-  errorContext
+  error
 ) => {
   const requestPrResponse = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/employee/selected`,
@@ -236,10 +215,7 @@ export const requestPrForEmployees = async (
 
     onSuccess(pr);
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -247,7 +223,7 @@ export const addPrStatus = async (
   prsId,
   status,
   afterPrFetched,
-  errorContext
+  error
 ) => {
   const addResponse = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
@@ -259,9 +235,9 @@ export const addPrStatus = async (
 
   if (addResponse.ok) {
     const setIsLoading = () => {}; //ignoring loading aspect
-    fetchPrById(prsId, afterPrFetched, setIsLoading, errorContext);
+    fetchPrById(prsId, afterPrFetched, setIsLoading, error);
   } else {
-    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
+    error.showGeneral();
   }
 };
 
@@ -269,7 +245,7 @@ export const delegateReviewer = async (
   prId,
   reviewerId,
   updatePr,
-  errorContext
+  error
 ) => {
   try {
     const response = await fetch(
@@ -287,16 +263,15 @@ export const delegateReviewer = async (
         prId,
         updatePr,
         () => {}, //ignoring loading
-        errorContext
+        error
       );
     }
   } catch (err) {
-    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
+    error.showGeneral();
   }
 };
 
 const showSavedInfoMessage = infoContext => {
-  window.scrollTo(0, 0);
   infoContext.setValue({
     hasInfos: true,
     messageId: 'pr.saved'
@@ -315,7 +290,7 @@ export const getOwnPrs = async (
   setOwnPrs,
   setOwnArchivedPrs,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -336,14 +311,11 @@ export const getOwnPrs = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const getPrsToReview = async (setPrs, setIsLoading, errorContext) => {
+export const getPrsToReview = async (setPrs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -357,14 +329,11 @@ export const getPrsToReview = async (setPrs, setIsLoading, errorContext) => {
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const getPrsInProgress = async (setPrs, setIsLoading, errorContext) => {
+export const getPrsInProgress = async (setPrs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -378,10 +347,7 @@ export const getPrsInProgress = async (setPrs, setIsLoading, errorContext) => {
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -389,7 +355,7 @@ export const getDeclinedPrs = async (
   isHr,
   setPrs,
   setIsLoading,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -405,14 +371,11 @@ export const getDeclinedPrs = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
-export const getPrsHrTodo = async (setPrs, setIsLoading, errorContext) => {
+export const getPrsHrTodo = async (setPrs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -426,10 +389,7 @@ export const getPrsHrTodo = async (setPrs, setIsLoading, errorContext) => {
   } catch (err) {
     console.log(err);
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -437,7 +397,7 @@ export const declinePr = async (
   prsId,
   status,
   afterPrDeclined,
-  errorContext
+  error
 ) => {
   const addResponse = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
@@ -450,11 +410,11 @@ export const declinePr = async (
   if (addResponse.ok) {
     afterPrDeclined();
   } else {
-    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
+    error.showGeneral();
   }
 };
 
-export const undecline = async (prsId, callback, errorContext) => {
+export const undecline = async (prsId, callback, error) => {
   const addResponse = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/resetDecline`,
     {
@@ -466,6 +426,6 @@ export const undecline = async (prsId, callback, errorContext) => {
   if (addResponse.ok) {
     callback();
   } else {
-    errorContext.setValue({ hasErrors: true, messageId: 'message.error' });
+    error.showGeneral();
   }
 };

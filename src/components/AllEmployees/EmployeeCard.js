@@ -106,7 +106,7 @@ const EmployeeCard = ({
   );
 
   const employeePhoto =
-    userPhoto.length === 0 ? (
+    !userPhoto || userPhoto.length === 0 ? (
       <Avatar className={classes.avatar}>{`${firstName.charAt(
         0
       )}${lastName.charAt(0)}`}</Avatar>

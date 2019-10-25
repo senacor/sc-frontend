@@ -5,7 +5,7 @@ export const login = async (
   setIsLoading,
   setIsLoggedIn,
   authorizationContext,
-  errorContext
+  error
 ) => {
   try {
     setIsLoading(true);
@@ -28,10 +28,7 @@ export const login = async (
     setIsLoggedIn(setDataInLocalStorage(data));
   } catch (err) {
     setIsLoading(false);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
     setIsLoggedIn(removeDataInLocalStorage());
     authorizationContext.setValue(true);
   }

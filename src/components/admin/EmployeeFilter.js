@@ -18,6 +18,7 @@ import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import { addMaintenanceTeamMember } from '../../calls/admin';
 import { delegateReviewer } from '../../calls/pr';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   box: {
@@ -42,7 +43,6 @@ export const EmployeeFilter = ({
   maintenance,
   setMaintenanceData,
   maintenanceData,
-  errorContext,
   delegation,
   isDisabled,
   pr,
@@ -50,6 +50,7 @@ export const EmployeeFilter = ({
   intl,
   classes
 }) => {
+  const error = useErrorContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState('');
 
@@ -80,16 +81,13 @@ export const EmployeeFilter = ({
         employee.id,
         maintenanceData,
         setMaintenanceData,
-        errorContext
+        error
       );
     } else if (delegation) {
       if (pr.employee.id !== employee.id) {
-        delegateReviewer(pr.id, employee.id, updatePr, errorContext);
+        delegateReviewer(pr.id, employee.id, updatePr, error);
       } else {
-        errorContext.setValue({
-          hasErrors: true,
-          messageId: 'prdetailinformation.delegationerror'
-        });
+        error.show('prdetailinformation.delegationerror');
       }
     } else {
       setSelectedEmployee(employee);

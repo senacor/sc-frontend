@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
-import { ErrorContext } from '../App';
 import { getPrsToReview } from '../../calls/pr';
 import ProcessingPrsCard from './ProcessingPrsCard';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme,
@@ -20,10 +20,10 @@ const ProcessingPrsContainer = ({ classes, intl }) => {
   const [prsToReview, setPrsToReview] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
 
   useEffect(() => {
-    getPrsToReview(setPrsToReview, setIsLoading, errorContext);
+    getPrsToReview(setPrsToReview, setIsLoading, error);
   }, []);
 
   const listofPrs = prsToReview.map((pr, index) => (

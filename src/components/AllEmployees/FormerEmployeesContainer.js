@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { ErrorContext } from '../App';
 import { withStyles, Tooltip } from '@material-ui/core';
 import FormerEmployeesGrid from './FormerEmployeesGrid';
 import SearchFilter from './SearchFilter';
@@ -27,6 +26,7 @@ import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
 import moment from 'moment';
 import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -74,7 +74,7 @@ const styles = theme => ({
 
 const FormerEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [monthSorting, setMonthSorting] = useState([]);
@@ -90,7 +90,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     if (localStorage.getItem('view') === 'table') {
       setTableView(true);
     }
-    getInactiveEmployees(setEmployees, setIsLoading, errorContext);
+    getInactiveEmployees(setEmployees, setIsLoading, error);
   }, []);
 
   const handleSortYearChange = event => {
