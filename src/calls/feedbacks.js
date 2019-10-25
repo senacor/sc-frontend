@@ -17,23 +17,26 @@ export const getFeedbacks = async (setData, setIsLoading, error) => {
   }
 };
 
-export const addFeedback = async (type, subject, message, errorContext) => {
+export const addFeedback = async (type, subject, message, error, info) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v3/feedback`, {
-      method: 'post',
-      mode: 'cors',
-      body: JSON.stringify({
-        subject: subject,
-        body: message,
-        context: type.toUpperCase()
-      })
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/feedback`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({
+          subject: subject,
+          body: message,
+          context: type.toUpperCase()
+        })
+      }
+    );
+    if (response.status === 201) {
+      info.msg('message.feedbackCreated');
+    }
   } catch (err) {
     console.log(err);
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 

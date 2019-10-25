@@ -249,6 +249,7 @@
   "message.invalidPriority": "Priorität der Regeln kann nicht gleich sein!",
   "message.invalidChronology": "Chronologie des gleichen Kriterium kann nicht gleich sein!",
   "message.ruleCreated": "Die Regel wurde erfolgreich aufgestellt.",
+  "message.feedbackCreated": "Dein Feedback wurde erfolgreich aufgezeichnet.",
   "userrolespanel.user": "Benutzer",
   "userrolespanel.roles": "Rolle",
   "system.errors": "Fehler",

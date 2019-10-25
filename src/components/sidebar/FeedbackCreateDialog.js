@@ -18,7 +18,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { useErrorContext } from '../../helper/contextHooks';
+import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme,
@@ -81,9 +81,10 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
   const [maxLengthReached, setMaxLengthReached] = useState(false);
 
   const error = useErrorContext();
+  const info = useInfoContext();
 
   const handleSend = () => {
-    addFeedback(type, subject, message, error);
+    addFeedback(type, subject, message, error, info);
     setMaxLengthReached(false);
     handleClose();
   };
