@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
 import moment from 'moment-timezone';
-import { momentRange } from 'moment-range';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import DateTimePicker from './DateTimePicker';
 import { addMeeting } from '../../calls/meetings';
-import { MeetingContext, ErrorContext } from '../App';
+import { MeetingContext } from '../App';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -15,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -61,7 +61,7 @@ const MeetingCreatorForm = ({
   appointmentResults
 }) => {
   const { setValue: setMeeting } = useContext(MeetingContext.context);
-  const errorContext = useContext(ErrorContext.context);
+  const error = useErrorContext();
   let now = moment.tz('Europe/Berlin');
   const remainder = 30 - (now.minute() % 30);
   let start = now.add(remainder, 'minutes');
@@ -183,25 +183,13 @@ const MeetingCreatorForm = ({
     event.preventDefault();
     if (validateDateTimeInput()) {
       if (validateSelectedTime()) {
-        addMeeting(createMeeting(prById), setMeeting, errorContext);
-        errorContext.setValue({
-          hasErrors: false,
-          messageId: '',
-          errors: {}
-        });
+        addMeeting(createMeeting(prById), setMeeting, error);
+        error.hide();
       } else {
-        errorContext.setValue({
-          hasErrors: true,
-          messageId: 'meetingcreatorform.blocked',
-          errors: {}
-        });
+        error.show('meetingcreatorform.blocked');
       }
     } else {
-      errorContext.setValue({
-        hasErrors: true,
-        messageId: 'meetingcreatorform.starttime',
-        errors: {}
-      });
+      error.show('meetingcreatorform.starttime');
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -6,10 +6,10 @@ import TimeTable from './AppointmentTable/TimeTable';
 import Attendee from './AppointmentTable/Attendee';
 import MeetingCreatorForm from './MeetingCreatorForm';
 import { extractAppointments } from './AppointmentTable/AppointmentUtilities';
-import { ErrorContext } from '../App';
 import { appointmentsSearch } from '../../calls/meetings';
 import { CircularProgress } from '@material-ui/core';
 import moment from 'moment';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   titleEmployee: {
@@ -59,7 +59,7 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
   );
   const [selectedRoom, setSelectedRoom] = useState('');
 
-  let errorContext = useContext(ErrorContext.context);
+  let error = useErrorContext();
 
   const fetchAppointments = date => {
     let attendees = [pr.employee.login, pr.supervisor.login];
@@ -69,7 +69,7 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
       attendees.join(','),
       date,
       selectedRoom,
-      errorContext,
+      error,
       setAppointmentResults
     );
   };

@@ -12,7 +12,7 @@ let validateDateTimeInput = (start, end) => {
   return !momentTimeZone(end).isBefore(momentTimeZone(start));
 };
 
-export const fetchMeeting = async (pr, setMeeting, errorContext) => {
+export const fetchMeeting = async (pr, setMeeting, error) => {
   let id = pr ? pr.id : 0;
 
   const response = await fetch(
@@ -30,18 +30,12 @@ export const fetchMeeting = async (pr, setMeeting, errorContext) => {
     return setMeeting(null);
   }
 
-  errorContext.setValue({
-    hasErrors: true,
-    messageId: 'message.error'
-  });
+  error.showGeneral();
 };
 
-export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
+export const addMeeting = async (meeting_details, setMeeting, error) => {
   if (!validateDateTimeInput(meeting_details.start, meeting_details.end)) {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   } else {
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/prs/${
@@ -71,10 +65,7 @@ export const addMeeting = async (meeting_details, setMeeting, errorContext) => {
     if (response.status === 404) {
       setMeeting(null);
     }
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
 
@@ -82,17 +73,14 @@ export const appointmentsSearch = async (
   employeeIds,
   inputDay,
   room,
-  errorContext,
+  error,
   setAppointmentResults
 ) => {
   let day = moment.utc(inputDay).format('YYYY-MM-DD');
 
   // Invalid format of date
   if (!moment(day, 'YYYY-MM-DD', true).isValid()) {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 
   const response = await fetch(
@@ -105,9 +93,6 @@ export const appointmentsSearch = async (
     setAppointmentResults(appointments);
     return appointments;
   } else {
-    errorContext.setValue({
-      hasErrors: true,
-      messageId: 'message.error'
-    });
+    error.showGeneral();
   }
 };
