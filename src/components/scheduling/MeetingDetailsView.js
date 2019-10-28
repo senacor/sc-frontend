@@ -62,6 +62,7 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
   };
 
   let roomName;
+  const optionalAttendeesWithoutRoom = [...meeting.optionalAttendees];
   const roomLogin = Object.keys(meeting.optionalAttendees).find(attendee => {
     return (
       attendee !== pr.employee.login &&
@@ -71,7 +72,7 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
   });
   if (roomLogin) {
     roomName = meeting.optionalAttendees[roomLogin].name;
-    delete meeting.optionalAttendees[roomLogin];
+    delete optionalAttendeesWithoutRoom[roomLogin];
   }
 
   const meetingInformation = (
@@ -159,7 +160,7 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
               })}
             </List>
           </Collapse>
-          {Object.keys(meeting.optionalAttendees).length > 0 && (
+          {Object.keys(optionalAttendeesWithoutRoom).length > 0 && (
             <React.Fragment>
               <ListItem button onClick={handleClickOpenOptionalAttendees}>
                 <ListItemIcon>
