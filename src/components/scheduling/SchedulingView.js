@@ -3,11 +3,7 @@ import MeetingDetailsView from './MeetingDetailsView';
 import MeetingCreator from './MeetingCreator';
 import { prStatusEnum } from '../../helper/prStatus';
 import { injectIntl } from 'react-intl';
-import {
-  MeetingContext,
-  UserinfoContext,
-  PrContext
-} from '../App';
+import { MeetingContext, UserinfoContext, PrContext } from '../App';
 import { addPrStatus } from '../../calls/pr';
 import { useErrorContext } from '../../helper/contextHooks';
 
@@ -51,9 +47,7 @@ const SchedulingView = ({ pr, intl }) => {
           pr={pr}
           userinfo={userinfo}
           userroles={userroles}
-          click={() =>
-            addPrStatus(pr, prStatusEnum.FIXED_DATE, setPr, error)
-          }
+          click={() => addPrStatus(pr, prStatusEnum.FIXED_DATE, setPr, error)}
           handleChange={() => handleChange()}
         />
       )}
