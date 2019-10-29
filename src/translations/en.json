@@ -348,6 +348,8 @@
   "autorules.chronology.after": "after",
   "autorules.criterion.dueDatePR": "due date of PR",
   "autorules.criterion.entryDate": "entry date",
+  "scscard.inprogress": "In progress",
+  "scscard.finished": "Finished",
   "FINAL_COMMENT_EMPLOYEE": "Final comment employee (optional)",
   "FINAL_COMMENT_HR": "Final comment HR employee (optional)",
   "INFLUENCE_OF_LEADER_AND_ENVIRONMENT": "Contribution of the supervisor and the environment",

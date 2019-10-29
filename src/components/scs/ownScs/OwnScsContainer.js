@@ -21,6 +21,11 @@ const mockedScs = [
     id: 1,
     createdDate: [2019, 10, 29],
     inProgress: true
+  },
+  {
+    id: 2,
+    createdDate: [2019, 10, 28],
+    inProgress: false
   }
 ];
 

@@ -35,6 +35,7 @@ const PerformanceReviewDetail = lazy(() =>
 const InactivePerformanceReviewDetail = lazy(() =>
   import('./pr/InactivePerformanceReviewDetail')
 );
+const ScorecardDetail = lazy(() => import('./scs/ScorecardDetail'));
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 const SystemPanel = lazy(() => import('./admin/System'));
@@ -73,6 +74,7 @@ const PerformanceReviewDetail2WithContent = withContent(
 const InactivePerformanceReviewDetail2WithContent = withContent(
   InactivePerformanceReviewDetail
 );
+const ScorecardDetail2WithContent = withContent(ScorecardDetail);
 const DashboardWithContent = withContent(Dashboard);
 const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
 const FormerEmployeesContainerWithContent = withContent(
@@ -192,6 +194,11 @@ const App = () => {
                       exact
                       path="/prDetailInactive/:id"
                       component={InactivePerformanceReviewDetail2WithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/scDetail/:id"
+                      component={ScorecardDetail2WithContent}
                     />
                     <PrivateRoute
                       exact

@@ -8,7 +8,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import {
   formatLocaleDateTime,
@@ -65,7 +64,12 @@ const styles = theme => ({
   }
 });
 
-const ScsCard = ({ classes, intl, scs: { createdDate, inProgress } }) => {
+const ScsCard = ({
+  classes,
+  intl,
+  history,
+  scs: { id, createdDate, inProgress }
+}) => {
   const startDateHeader = (
     <Fragment>
       <Typography variant="body2" className={classes.date}>
@@ -79,16 +83,28 @@ const ScsCard = ({ classes, intl, scs: { createdDate, inProgress } }) => {
     </Fragment>
   );
 
+  const linkToSc = id => {
+    history.push(`/scDetail/${id}`);
+  };
+
   return (
     <Fragment>
       <Card className={classes.card}>
         <CardHeader className={classes.header} title={startDateHeader} />
-        <CardContent className={classes.content}>
+        <CardContent className={classes.content} onClick={() => linkToSc(id)}>
           <AssessmentIcon className={classes.prIcon} />
         </CardContent>
         <CardActions className={classes.actions}>
           <Typography className={classes.inProgress} color="secondary">
-            {intl.formatMessage({ id: 'pr.inProgress' })}
+            {inProgress ? (
+              <Typography color="secondary">
+                {intl.formatMessage({ id: 'scscard.inprogress' })}
+              </Typography>
+            ) : (
+              <Typography>
+                {intl.formatMessage({ id: 'scscard.finished' })}
+              </Typography>
+            )}
           </Typography>
         </CardActions>
       </Card>
