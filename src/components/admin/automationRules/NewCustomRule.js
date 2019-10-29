@@ -45,7 +45,7 @@ const styles = theme => ({
     width: 50
   },
   priority: {
-    minWidth: 100
+    minWidth: 70
   }
 });
 

@@ -105,12 +105,7 @@ export const RequestPerformanceReview = ({ intl }) => {
           id: 'requestperformancereview.confirmHeader'
         })}
         handleConfirm={() => {
-          addPr(
-            userinfo.userPrincipalName,
-            setIsLoading,
-            setPrCallback,
-            error
-          );
+          addPr(userinfo.userPrincipalName, setIsLoading, setPrCallback, error);
         }}
       />
     </Fragment>
