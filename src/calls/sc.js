@@ -3,7 +3,7 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/own`
+      `${process.env.REACT_APP_API}/api/v3/sc/overview/own`
     );
     const responseOwnScs = await response.json();
 

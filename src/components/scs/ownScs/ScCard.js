@@ -64,7 +64,7 @@ const styles = theme => ({
   }
 });
 
-const ScsCard = ({
+const ScCard = ({
   classes,
   intl,
   history,
@@ -112,4 +112,4 @@ const ScsCard = ({
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(ScsCard)));
+export default withRouter(injectIntl(withStyles(styles)(ScCard)));

@@ -25,6 +25,7 @@ import { getUserInfo } from '../../calls/userinfo';
 import { AuthorizationContext, UserinfoContext } from '../App';
 import FeedbackButton from './FeedbackButton';
 import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -142,7 +143,7 @@ export const Sidebar = ({ intl, classes }) => {
         label: intl.formatMessage({
           id: 'sidebar.myScs'
         }),
-        icon: <AssignmentIndIcon />,
+        icon: <AssessmentIcon />,
         value: '/myScs',
         roles: [ROLES.EMPLOYEE],
         onClick: resetMessages

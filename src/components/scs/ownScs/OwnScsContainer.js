@@ -2,8 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { useErrorContext } from '../../../helper/contextHooks';
-import { getOwnScs } from '../../../calls/scs';
-import ScsCard from './ScsCard';
+import { getOwnScs } from '../../../calls/sc';
+import ScCard from './ScCard';
 
 const styles = theme => ({
   ...theme,
@@ -35,15 +35,15 @@ const OwnScsContainer = ({ classes, intl }) => {
 
   const error = useErrorContext();
 
-  //   useEffect(() => {
-  //     getOwnScs(setOwnScs, setIsLoading, error);
-  //   }, []);
+  // useEffect(() => {
+  //   getOwnScs(setOwnScs, setIsLoading, error);
+  // }, []);
 
   console.log(ownScs);
 
   const listofOwnScs = ownScs.map((scs, index) => (
     <Grid item key={index} className={classes.padding}>
-      <ScsCard scs={scs} active={true} />
+      <ScCard scs={scs} active={true} />
     </Grid>
   ));
 

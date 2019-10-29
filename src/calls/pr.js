@@ -219,12 +219,7 @@ export const requestPrForEmployees = async (
   }
 };
 
-export const addPrStatus = async (
-  prsId,
-  status,
-  afterPrFetched,
-  error
-) => {
+export const addPrStatus = async (prsId, status, afterPrFetched, error) => {
   const addResponse = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
     {
@@ -241,12 +236,7 @@ export const addPrStatus = async (
   }
 };
 
-export const delegateReviewer = async (
-  prId,
-  reviewerId,
-  updatePr,
-  error
-) => {
+export const delegateReviewer = async (prId, reviewerId, updatePr, error) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/pr/${prId}/delegate`,
@@ -351,12 +341,7 @@ export const getPrsInProgress = async (setPrs, setIsLoading, error) => {
   }
 };
 
-export const getDeclinedPrs = async (
-  isHr,
-  setPrs,
-  setIsLoading,
-  error
-) => {
+export const getDeclinedPrs = async (isHr, setPrs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
@@ -393,12 +378,7 @@ export const getPrsHrTodo = async (setPrs, setIsLoading, error) => {
   }
 };
 
-export const declinePr = async (
-  prsId,
-  status,
-  afterPrDeclined,
-  error
-) => {
+export const declinePr = async (prsId, status, afterPrDeclined, error) => {
   const addResponse = await fetch(
     `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
     {
