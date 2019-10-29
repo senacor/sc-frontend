@@ -1,5 +1,6 @@
 const ROUTES = {
   OWN_PR_TABLE: '/myPrs',
+  OWN_SCS: '/myScs',
   PR_TO_REVIEW_TABLE: '/prs',
   ALL_PRS_TABLE: '/allEmployees',
   FORMER_EMPLOYEES: '/formerEmployees',

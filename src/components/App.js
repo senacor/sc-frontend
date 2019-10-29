@@ -25,6 +25,7 @@ const FormerEmployeesContainer = lazy(() =>
 const OwnPrsContainer = lazy(() =>
   import('./myPerformanceReviews/OwnPrsContainer')
 );
+const OwnScsContainer = lazy(() => import('./scs/ownScs/OwnScsContainer'));
 const PrsForProcessingContainer = lazy(() =>
   import('./processingPrs/ProcessingPrsContainer')
 );
@@ -65,6 +66,7 @@ const PrsForProcessingContainerWithContent = withContent(
   PrsForProcessingContainer
 );
 const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
+const OwnScsContainerWithContent = withContent(OwnScsContainer);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
 );
@@ -165,6 +167,11 @@ const App = () => {
                       exact
                       path={ROUTES.OWN_PR_TABLE}
                       component={OwnPrsContainerWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.OWN_SCS}
+                      component={OwnScsContainerWithContent}
                     />
                     <PrivateRoute
                       exact

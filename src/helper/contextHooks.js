@@ -42,10 +42,7 @@ export const useUserinfoContext = () => {
       return userroles.includes(ROLES.PERSONAL_DEV);
     },
     hasRoleEmployee: () => {
-      return (
-        userroles.includes(ROLES.DEVELOPER) ||
-        userroles.includes(ROLES.CONSULTING)
-      );
+      return userroles.includes(ROLES.EMPLOYEE);
     },
     hasRoleSupervisor: () => {
       return userroles.includes(ROLES.SUPERVISOR);
