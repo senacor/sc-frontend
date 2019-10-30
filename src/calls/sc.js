@@ -1,3 +1,5 @@
+import { default as fetch } from '../helper/customFetch';
+
 export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
   try {
     setIsLoading(true);
@@ -7,10 +9,10 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
     );
     const responseOwnScs = await response.json();
 
-    console.log('response', responseOwnScs);
+    console.log('response', responseOwnScs.scs);
 
     setIsLoading(false);
-    setOwnScs(responseOwnScs);
+    setOwnScs(responseOwnScs.scs);
   } catch (err) {
     console.log(err);
     setIsLoading(false);

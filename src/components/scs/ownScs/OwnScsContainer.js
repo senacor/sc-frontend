@@ -16,19 +16,6 @@ const styles = theme => ({
   padding: 3 * theme.spacing.unit
 });
 
-const mockedScs = [
-  {
-    id: 1,
-    createdDate: [2019, 10, 29],
-    inProgress: true
-  },
-  {
-    id: 2,
-    createdDate: [2019, 10, 28],
-    inProgress: false
-  }
-];
-
 const OwnScsContainer = ({ classes, intl }) => {
   const [ownScs, setOwnScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
