@@ -25,6 +25,7 @@ const FormerEmployeesContainer = lazy(() =>
 const OwnPrsContainer = lazy(() =>
   import('./myPerformanceReviews/OwnPrsContainer')
 );
+const OwnScsContainer = lazy(() => import('./scs/ownScs/OwnScsContainer'));
 const PrsForProcessingContainer = lazy(() =>
   import('./processingPrs/ProcessingPrsContainer')
 );
@@ -34,6 +35,7 @@ const PerformanceReviewDetail = lazy(() =>
 const InactivePerformanceReviewDetail = lazy(() =>
   import('./pr/InactivePerformanceReviewDetail')
 );
+const ScorecardDetail = lazy(() => import('./scs/ScorecardDetail'));
 const Login = lazy(() => import('./login/Login'));
 const UserRolesPanel = lazy(() => import('./admin/UserRolesPanel'));
 const SystemPanel = lazy(() => import('./admin/System'));
@@ -65,12 +67,14 @@ const PrsForProcessingContainerWithContent = withContent(
   PrsForProcessingContainer
 );
 const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
+const OwnScsContainerWithContent = withContent(OwnScsContainer);
 const PerformanceReviewDetail2WithContent = withContent(
   PerformanceReviewDetail
 );
 const InactivePerformanceReviewDetail2WithContent = withContent(
   InactivePerformanceReviewDetail
 );
+const ScorecardDetail2WithContent = withContent(ScorecardDetail);
 const DashboardWithContent = withContent(Dashboard);
 const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
 const FormerEmployeesContainerWithContent = withContent(
@@ -168,6 +172,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.OWN_SCS}
+                      component={OwnScsContainerWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.PR_TO_REVIEW_TABLE}
                       component={PrsForProcessingContainerWithContent}
                     />
@@ -185,6 +194,11 @@ const App = () => {
                       exact
                       path="/prDetailInactive/:id"
                       component={InactivePerformanceReviewDetail2WithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/scDetail/:id"
+                      component={ScorecardDetail2WithContent}
                     />
                     <PrivateRoute
                       exact

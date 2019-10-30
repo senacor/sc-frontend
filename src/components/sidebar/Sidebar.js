@@ -25,6 +25,7 @@ import { getUserInfo } from '../../calls/userinfo';
 import { AuthorizationContext, UserinfoContext } from '../App';
 import FeedbackButton from './FeedbackButton';
 import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -135,7 +136,16 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
-        roles: [ROLES.DEVELOPER, ROLES.CONSULTING],
+        roles: [ROLES.EMPLOYEE],
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.myScs'
+        }),
+        icon: <AssessmentIcon />,
+        value: '/myScs',
+        roles: [ROLES.EMPLOYEE],
         onClick: resetMessages
       },
       // SUPERVISOR + PERSONAL_DEV
@@ -145,7 +155,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <LibraryBooksIcon />,
         value: '/prs',
-        roles: [ROLES.SUPERVISOR, ROLES.DEVELOPER, ROLES.CONSULTING],
+        roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
         reviewerCheck: true,
         onClick: resetMessages
       },
