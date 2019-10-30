@@ -30,16 +30,14 @@ const mockedScs = [
 ];
 
 const OwnScsContainer = ({ classes, intl }) => {
-  const [ownScs, setOwnScs] = useState(mockedScs);
+  const [ownScs, setOwnScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
 
-  // useEffect(() => {
-  //   getOwnScs(setOwnScs, setIsLoading, error);
-  // }, []);
-
-  console.log(ownScs);
+  useEffect(() => {
+    getOwnScs(setOwnScs, setIsLoading, error);
+  }, []);
 
   const listofOwnScs = ownScs.map((scs, index) => (
     <Grid item key={index} className={classes.padding}>

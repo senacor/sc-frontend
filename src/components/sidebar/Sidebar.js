@@ -136,7 +136,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <AssignmentIndIcon />,
         value: '/myPrs',
-        roles: [ROLES.EMPLOYEE],
+        roles: [ROLES.DEVELOPER],
         onClick: resetMessages
       },
       {
@@ -145,7 +145,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <AssessmentIcon />,
         value: '/myScs',
-        roles: [ROLES.EMPLOYEE],
+        roles: [ROLES.DEVELOPER],
         onClick: resetMessages
       },
       // SUPERVISOR + PERSONAL_DEV
@@ -155,7 +155,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <LibraryBooksIcon />,
         value: '/prs',
-        roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
+        roles: [ROLES.SUPERVISOR, ROLES.DEVELOPER],
         reviewerCheck: true,
         onClick: resetMessages
       },

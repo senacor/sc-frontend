@@ -38,11 +38,6 @@ const styles = theme => ({
   date: {
     color: theme.palette.secondary.darkGrey
   },
-  archivedContent: {
-    backgroundColor: theme.palette.secondary.grey,
-    textAlign: 'center',
-    cursor: 'auto'
-  },
   content: {
     textAlign: 'center',
     borderTop: `1px solid ${theme.palette.secondary.brightGrey}`,
@@ -95,17 +90,15 @@ const ScCard = ({
           <AssessmentIcon className={classes.prIcon} />
         </CardContent>
         <CardActions className={classes.actions}>
-          <Typography className={classes.inProgress} color="secondary">
-            {inProgress ? (
-              <Typography color="secondary">
-                {intl.formatMessage({ id: 'scscard.inprogress' })}
-              </Typography>
-            ) : (
-              <Typography>
-                {intl.formatMessage({ id: 'scscard.finished' })}
-              </Typography>
-            )}
-          </Typography>
+          {inProgress ? (
+            <Typography className={classes.inProgress} color="secondary">
+              {intl.formatMessage({ id: 'scscard.inprogress' })}
+            </Typography>
+          ) : (
+            <Typography>
+              {intl.formatMessage({ id: 'scscard.finished' })}
+            </Typography>
+          )}
         </CardActions>
       </Card>
     </Fragment>

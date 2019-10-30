@@ -7,6 +7,8 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
     );
     const responseOwnScs = await response.json();
 
+    console.log('response', responseOwnScs);
+
     setIsLoading(false);
     setOwnScs(responseOwnScs);
   } catch (err) {
