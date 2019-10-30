@@ -64,7 +64,7 @@ const ScCard = ({
   classes,
   intl,
   history,
-  scs: { id, createdDate, inProgress }
+  scs: { scId, createdDate, inProgress }
 }) => {
   const startDateHeader = (
     <Fragment>
@@ -85,7 +85,7 @@ const ScCard = ({
         <CardHeader className={classes.header} title={startDateHeader} />
         <CardContent
           className={classes.content}
-          onClick={() => linkToSc(id, history)}
+          onClick={() => linkToSc(scId, history)}
         >
           <AssessmentIcon className={classes.prIcon} />
         </CardContent>
