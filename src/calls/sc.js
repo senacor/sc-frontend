@@ -9,8 +9,6 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
     );
     const responseOwnScs = await response.json();
 
-    console.log('response', responseOwnScs.scs);
-
     setIsLoading(false);
     setOwnScs(responseOwnScs.scs);
   } catch (err) {
@@ -18,4 +16,9 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
     setIsLoading(false);
     error.showGeneral();
   }
+};
+
+// Redirecting to sc
+export const linkToSc = (id, history) => {
+  history.push(`/scDetail/${id}`);
 };

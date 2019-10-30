@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
+import { linkToSc } from '../../../calls/sc';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -78,15 +79,14 @@ const ScCard = ({
     </Fragment>
   );
 
-  const linkToSc = id => {
-    history.push(`/scDetail/${id}`);
-  };
-
   return (
     <Fragment>
       <Card className={classes.card}>
         <CardHeader className={classes.header} title={startDateHeader} />
-        <CardContent className={classes.content} onClick={() => linkToSc(id)}>
+        <CardContent
+          className={classes.content}
+          onClick={() => linkToSc(id, history)}
+        >
           <AssessmentIcon className={classes.prIcon} />
         </CardContent>
         <CardActions className={classes.actions}>
