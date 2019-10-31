@@ -9,3 +9,14 @@ export const modifyString = string => {
       .replace(/_/g, ' ');
   return replacedStr;
 };
+
+export const mapPosition = key => {
+  const position = {
+    SPECIALIST: 'Specialist',
+    SENIOR_EXPERT: 'Senior Expert',
+    SENIOR_MANAGEMENT: 'Senior Management',
+    LEAD_EXPERT: 'Lead Expert',
+    LEAD_MANAGEMENT: 'Lead Management'
+  };
+  return position[key];
+};
