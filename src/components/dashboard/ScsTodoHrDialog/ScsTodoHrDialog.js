@@ -71,7 +71,7 @@ const ScsTodoHrDialog = ({ classes, intl, todoForHr }) => {
         linkTo={ROUTES.SC_HR_TODO}
         onClick={dialogOpen}
         value={todoForHr}
-        icon={'score'}
+        icon={'bar_chart'}
       />
       <Dialog open={dialogOpened} onClose={dialogClose} fullWidth maxWidth="sm">
         <IconButton onClick={dialogClose} className={classes.btnClose}>

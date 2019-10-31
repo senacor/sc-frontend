@@ -153,7 +153,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
         linkTo={ROUTES.SC_IN_PROGRESS}
         onClick={dialogOpen}
         value={scsInProgress}
-        icon={'score'}
+        icon={'insert_chart'}
       />
       <Dialog
         open={dialogOpened}
