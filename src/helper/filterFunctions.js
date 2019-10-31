@@ -130,6 +130,22 @@ export const handleProgressFilterActive = (filterInputs, setFilterActive) => {
   }
 };
 
+export const handleScProgressFilterActive = (filterInputs, setFilterActive) => {
+  const emptyInputs = {
+    searchEmployee: '',
+    searchSupervisor: '',
+    department: [],
+    position: [],
+    office: [],
+    status: []
+  };
+  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
+    setFilterActive(false);
+  } else {
+    setFilterActive(true);
+  }
+};
+
 export const checkFilterValues = (filterData, userData) => {
   if (filterData.length > 0 && Array.isArray(filterData)) {
     const filterDataLowerCase = filterData.map(item => {
@@ -147,10 +163,10 @@ export const checkFilterValues = (filterData, userData) => {
   } else if (filterData !== '' && typeof filterData === 'string') {
     return userData
       ? userData
-          .toLowerCase()
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .includes(filterData.toLowerCase())
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(filterData.toLowerCase())
       : false;
   } else {
     return true;

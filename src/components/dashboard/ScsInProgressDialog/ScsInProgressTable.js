@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
-
 // Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -10,11 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import {
-  checkFilterValues,
-  handleProgressFilterActive,
-  sortBySortActive
-} from '../../../helper/filterFunctions';
+import { checkFilterValues, handleScProgressFilterActive, sortBySortActive } from '../../../helper/filterFunctions';
 import { linkToSc } from '../../../calls/sc';
 import { mapPosition } from '../../../helper/string';
 
@@ -80,7 +75,7 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
   const [sortActive, setSortActive] = useState(defaultScSortActive());
 
   useEffect(() => {
-    handleProgressFilterActive(filterInputs, setFilterActive);
+    handleScProgressFilterActive(filterInputs, setFilterActive);
   });
 
   const changeDirection = () => {
