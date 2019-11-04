@@ -162,6 +162,16 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.SC_HR_TODO}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.SC_IN_PROGRESS}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.DECLINED_PR}
                       component={DashboardWithContent}
                     />

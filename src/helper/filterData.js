@@ -88,3 +88,33 @@ export const occasions = [
   'On demand by supervisor',
   'On demand by personal dev'
 ];
+
+export const scDepartmentMenu = [
+  'Accounting',
+  'Corporate-Controlling',
+  'Finance',
+  'FIS',
+  'Geschäftsbereichs-Controlling',
+  'HR',
+  'IT Administration',
+  'IT Servicedesk',
+  'Legal',
+  'Marketing/PR',
+  'Office Services',
+  'Payroll',
+  'Personal Development',
+  'Projektcontrolling',
+  'Recruiting',
+  'Travel Services',
+  'TBD'
+];
+
+export const scPositionMenu = [
+  'Specialist',
+  'Senior Expert',
+  'Senior Management',
+  'Lead Expert',
+  'Lead Management'
+];
+
+export const scWorkstatusMenu = ['In progress', 'Done'];

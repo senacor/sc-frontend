@@ -15,6 +15,8 @@ import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import ScsInProgressDialog from './ScsInProgressDialog/ScsInProgressDialog';
+import ScsTodoHrDialog from './ScsTodoHrDialog/ScsTodoHrDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -128,8 +130,10 @@ const Dashboard = ({ classes, intl }) => {
 
         {user.hasRoleHr() && (
           <div className={classes.rowContainer}>
+            <ScsInProgressDialog scsInProgress={userinfo.scsInProgressForHr} />
             <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
             <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
+            <ScsTodoHrDialog todoForHr={userinfo.scsInTodoForHr} />
             <InfoWidget
               label={intl.formatMessage({
                 id: 'dashboard.newformeremployees'
