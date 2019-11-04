@@ -41,6 +41,7 @@ const Dashboard = ({ classes, intl }) => {
   const error = useErrorContext();
   const [systemInfo, setSystemInfo] = React.useState({});
   const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
+  const numberOfScsToReview = userinfo ? userinfo.numberOfScsToReview : 0;
   const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
   const { idOfNewestOpenPr } = userinfo;
   const formerUsersCount = userinfo
@@ -108,6 +109,17 @@ const Dashboard = ({ classes, intl }) => {
             icon={'library_books'}
           />
         ) : null}
+
+        {numberOfScsToReview > 0 && (
+          <InfoWidget
+            label={intl.formatMessage({
+              id: 'dashboard.sc.evaluator'
+            })}
+            value={numberOfScsToReview}
+            linkTo={ROUTES.SC_TO_REVIEW_TABLE}
+            icon={'bar_chart'}
+          />
+        )}
 
         {user.hasRoleEmployee() && prsNotFilledByEmployee > 0 && (
           <InfoWidget

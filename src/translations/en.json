@@ -4,6 +4,7 @@
   "dashboard.opened": "My opened PR",
   "dashboard.evaluator": "PRs with me as evaluator in total (incl. archive)",
   "dashboard.reviewer": "Opened PRs as evaluator",
+  "dashboard.sc.evaluator": "Opened SCs as evaluator",
   "dashboard.supervisor": "Opened PRs as supervisor",
   "dashboard.unprocessed": "Unedited own PRs",
   "dashboard.declined.hr": "PRs cancelled by the Personal Development Team",

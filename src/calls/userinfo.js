@@ -34,9 +34,6 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
       );
     }
 
-    userinfoContext.setValue(userinfo);
-    userinfo = cloneDeep(userinfo);
-
     //Fetching reviewer info
     response = await fetch(
       `${process.env.REACT_APP_API}/api/v3/employee/overview`
