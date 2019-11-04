@@ -1,10 +1,6 @@
 import { default as fetch } from '../helper/customFetch';
 
-export const getAllEmployees = async (
-  setEmployees,
-  setIsLoading,
-  error
-) => {
+export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
   try {
     setIsLoading(true);
 

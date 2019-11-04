@@ -29,6 +29,9 @@ const OwnScsContainer = lazy(() => import('./scs/ownScs/OwnScsContainer'));
 const PrsForProcessingContainer = lazy(() =>
   import('./processingPrs/ProcessingPrsContainer')
 );
+const ScsForProcessingContainer = lazy(() =>
+  import('./processingScs/ProcessingScsContainer')
+);
 const PerformanceReviewDetail = lazy(() =>
   import('./pr/PerformanceReviewDetail')
 );
@@ -58,13 +61,16 @@ const styles = {
 
 const withContent = WrappedComponent => props => (
   <Content>
-    <AppBarPR />
+    <AppBarPR/>
     <WrappedComponent {...props} />
   </Content>
 );
 
 const PrsForProcessingContainerWithContent = withContent(
   PrsForProcessingContainer
+);
+const ScsForProcessingContainerWithContent = withContent(
+  ScsForProcessingContainer
 );
 const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
 const OwnScsContainerWithContent = withContent(OwnScsContainer);
@@ -189,6 +195,11 @@ const App = () => {
                       exact
                       path={ROUTES.PR_TO_REVIEW_TABLE}
                       component={PrsForProcessingContainerWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.SC_TO_REVIEW_TABLE}
+                      component={ScsForProcessingContainerWithContent}
                     />
                     <PrivateRoute
                       exact

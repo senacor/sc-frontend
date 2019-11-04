@@ -58,3 +58,21 @@ export const getScsHrTodo = async (setScs, setIsLoading, error) => {
     error.showGeneral();
   }
 };
+
+export const getScsToReview = async (setScs, setIsLoading, error) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/sc/overview/scsToReview`
+    );
+    const responseScs = await response.json();
+
+    setIsLoading(false);
+    setScs(responseScs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};
