@@ -238,6 +238,7 @@
   "compositionnumber.version": "version",
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs zur Umsetzung",
+  "sidebar.scs": "SCs zur Umsetzung",
   "sidebar.allEmployees": "Alle Mitarbeiter",
   "sidebar.formerEmployees": "Ehemalige Mitarbeiter",
   "sidebar.myprs": "Eigene PRs",

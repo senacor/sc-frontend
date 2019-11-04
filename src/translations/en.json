@@ -238,6 +238,7 @@
   "compositionnumber.version": "version",
   "sidebar.dashboard": "Dashboard",
   "sidebar.prs": "PRs for processing",
+  "sidebar.scs": "SCs for processing",
   "sidebar.allEmployees": "All employees",
   "sidebar.formerEmployees": "Former employees",
   "sidebar.myprs": "Own PRs",

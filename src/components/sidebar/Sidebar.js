@@ -14,6 +14,7 @@ import AutoRules from '@material-ui/icons/RotateRight';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
+import BarChart from '@material-ui/icons/BarChart';
 import Build from '@material-ui/icons/Build';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -155,6 +156,16 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <LibraryBooksIcon />,
         value: '/prs',
+        roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
+        reviewerCheck: true,
+        onClick: resetMessages
+      },
+      {
+        label: intl.formatMessage({
+          id: 'sidebar.scs'
+        }),
+        icon: <BarChart />,
+        value: '/scs',
         roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
         reviewerCheck: true,
         onClick: resetMessages
