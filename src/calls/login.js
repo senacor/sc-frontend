@@ -4,33 +4,41 @@ export const login = async (
   credentials,
   setIsLoading,
   setIsLoggedIn,
-  authorizationContext,
-  error
+  authorizationContext
 ) => {
   try {
     setIsLoading(true);
-    authorizationContext.setValue(false);
+
+    authorizationContext.setValue({
+      unauthorized: false,
+      invalidCredentials: false
+    });
 
     if (credentials.username === '' || credentials.password === '') {
-      authorizationContext.setValue(true);
+      authorizationContext.setValue({
+        unauthorized: true,
+        invalidCredentials: false
+      });
       setIsLoading(false);
       return;
     }
 
-    const response = await fetch(`${process.env.REACT_APP_API}/oauth2/token`, {
-      method: 'post',
-      mode: 'cors',
-      body: JSON.stringify(credentials)
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/oauth2/token`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(credentials)
+      },
+      authorizationContext
+    );
 
     const data = await response.json();
     setIsLoading(false);
     setIsLoggedIn(setDataInLocalStorage(data));
   } catch (err) {
     setIsLoading(false);
-    error.showGeneral();
     setIsLoggedIn(removeDataInLocalStorage());
-    authorizationContext.setValue(true);
   }
 };
 

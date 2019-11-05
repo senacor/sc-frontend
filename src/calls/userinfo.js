@@ -18,7 +18,10 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
     );
 
     if (!response.ok) {
-      authContext.setValue(true);
+      authContext.setValue({
+        unauthorized: true,
+        invalidCredentials: false
+      });
     }
 
     const userinfoResponse = await response.json();
@@ -99,7 +102,7 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
         userinfo = cloneDeep(userinfo);
         userinfo.userphoto = imageString;
         userinfoContext.setValue(userinfo);
-      } else return;
+      }
     }
   } catch (err) {
     error.showGeneral();
