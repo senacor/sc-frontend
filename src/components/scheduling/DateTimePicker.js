@@ -63,14 +63,13 @@ const DateTimePicker = props => {
         pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
       />
       <TextField
-        type="text"
         name="startTime"
         className={props.classes.textField}
         id="appt-start-time"
         inputProps={{
           min: '00:00',
           max: '24:00',
-          pattern: '([01]?[0-9]|2[0-3]):[0-5][0-9]'
+          type: 'time'
         }}
         label={props.intl.formatMessage({
           id: 'datetimepicker.from'
@@ -80,14 +79,13 @@ const DateTimePicker = props => {
         required
       />
       <TextField
-        type="text"
         name="endTime"
         className={props.classes.textField}
         id="appt-end-time"
         inputProps={{
           min: '00:00',
           max: '24:00',
-          pattern: '([01]?[0-9]|2[0-3]):[0-5][0-9]'
+          type: 'time'
         }}
         label={props.intl.formatMessage({
           id: 'datetimepicker.to'
