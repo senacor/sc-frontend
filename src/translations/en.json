@@ -25,6 +25,7 @@
   "login.password": "Password",
   "login.login": "Login",
   "login.failed": "Login failed",
+  "login.invalid": "Invalid credentials",
   "archivedfiles.download": "Download",
   "excelexport": "Export PRs as excel file",
   "uploadfiles.upload": "Upload",

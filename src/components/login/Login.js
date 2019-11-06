@@ -18,7 +18,6 @@ import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../translations/LanguageButton';
 import { login } from '../../calls/login';
 import { AuthorizationContext, UserinfoContext } from '../App';
-import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   hero: {
@@ -113,7 +112,6 @@ const Login = ({ location, classes, intl }) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const error = useErrorContext();
   const authorizationContext = useContext(AuthorizationContext.context);
   const userInfoContext = useContext(UserinfoContext.context);
 
@@ -131,8 +129,7 @@ const Login = ({ location, classes, intl }) => {
       { username: username, password: password },
       setIsLoading,
       setIsLoggedIn,
-      authorizationContext,
-      error
+      authorizationContext
     );
   };
 
@@ -167,7 +164,7 @@ const Login = ({ location, classes, intl }) => {
           </Hidden>
           <FormControl
             className={classes.formControl}
-            error={authorizationContext.value}
+            error={authorizationContext.value.unauthorized}
           >
             <Input
               name="username"
@@ -182,7 +179,7 @@ const Login = ({ location, classes, intl }) => {
           </FormControl>
           <FormControl
             className={classes.formControl}
-            error={authorizationContext.value}
+            error={authorizationContext.value.unauthorized}
           >
             <Input
               name="password"
@@ -196,10 +193,15 @@ const Login = ({ location, classes, intl }) => {
               startAdornment={<PasswordIcon />}
             />
             <FormHelperText id="name-error-text">
-              {authorizationContext.value &&
-                `${intl.formatMessage({
-                  id: 'login.failed'
-                })}`}
+              {authorizationContext.value.unauthorized
+                ? authorizationContext.value.invalidCredentials
+                  ? `${intl.formatMessage({
+                      id: 'login.invalid'
+                    })}`
+                  : `${intl.formatMessage({
+                      id: 'login.failed'
+                    })}`
+                : null}
             </FormHelperText>
           </FormControl>
 
