@@ -10,7 +10,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-        return tokenExistent && !authorizationContext.value ? (
+        return tokenExistent && !authorizationContext.value.unauthorized ? (
           <Component {...props} />
         ) : (
           <Redirect

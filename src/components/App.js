@@ -61,7 +61,7 @@ const styles = {
 
 const withContent = WrappedComponent => props => (
   <Content>
-    <AppBarPR/>
+    <AppBarPR />
     <WrappedComponent {...props} />
   </Content>
 );
@@ -107,7 +107,10 @@ export const determineLanguage = lang => {
 };
 
 export const LanguageContext = newContext('de');
-export const AuthorizationContext = newContext(false);
+export const AuthorizationContext = newContext({
+  unauthorized: false,
+  invalidCredentials: false
+});
 // TODO: make ErrorContext smart? - distinguish between 500 and lower status,
 // write 'es wurde Feher aufgetreten' only in case >= 500
 export const ErrorContext = newContext({
