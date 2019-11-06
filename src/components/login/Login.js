@@ -144,7 +144,6 @@ const Login = ({ location, classes, intl }) => {
   let { from } = location.state || { from: { pathname: '/' } };
 
   if (isLoggedIn) {
-    console.log('redirect');
     return <Redirect push to={from} />;
   }
 

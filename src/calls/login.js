@@ -17,7 +17,7 @@ export const login = async (
     if (credentials.username === '' || credentials.password === '') {
       authorizationContext.setValue({
         unauthorized: true,
-        invalidCredentials: false
+        invalidCredentials: true
       });
       setIsLoading(false);
       return;
