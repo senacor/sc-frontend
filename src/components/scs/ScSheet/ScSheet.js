@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
@@ -35,8 +35,8 @@ const styles = theme => ({
 });
 
 const ScSheet = ({ sc, classes, intl }) => {
-  const [position, setPosition] = React.useState('');
-  const [scFields, setScFields] = React.useState([]);
+  const [position, setPosition] = useState('');
+  const [scFields, setScFields] = useState([]);
 
   const mockPositions = [
     'Specialist',
