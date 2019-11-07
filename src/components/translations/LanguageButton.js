@@ -1,9 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import { LanguageContext } from '../App';
+import { withRouter } from 'react-router-dom';
+import ROUTES from '../../helper/routes';
+import { withStyles } from '@material-ui/core';
 
-const LanguageButton = ({ languageButtonClassName }) => {
+const styles = () => ({
+  btnHidden: {
+    display: 'none'
+  }
+});
+
+const LanguageButton = ({ languageButtonClassName, match, classes }) => {
   const languageContext = useContext(LanguageContext.context);
+
+  useEffect(
+    () => {
+      if (match.path === ROUTES.SC_DETAIL) {
+        if (localStorage.getItem('lang') !== 'de') {
+          changeLanguage('de');
+        }
+      }
+    },
+    [match]
+  );
 
   const changeLanguage = language => {
     languageContext.setValue(language);
@@ -28,7 +48,14 @@ const LanguageButton = ({ languageButtonClassName }) => {
   };
 
   return (
-    <Button onClick={handleLanguageChange} className={languageButtonClassName}>
+    <Button
+      onClick={handleLanguageChange}
+      className={
+        match.path === ROUTES.SC_DETAIL
+          ? classes.btnHidden
+          : languageButtonClassName
+      }
+    >
       {localStorage.getItem('lang')
         ? localStorage.getItem('lang')
         : languageContext.value}
@@ -36,4 +63,4 @@ const LanguageButton = ({ languageButtonClassName }) => {
   );
 };
 
-export default LanguageButton;
+export default withRouter(withStyles(styles)(LanguageButton));

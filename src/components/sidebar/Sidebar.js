@@ -27,6 +27,7 @@ import { AuthorizationContext, UserinfoContext } from '../App';
 import FeedbackButton from './FeedbackButton';
 import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import ROUTES from '../../helper/routes';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -90,7 +91,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.dashboard'
         }),
         icon: <DashboardIcon />,
-        value: '/dashboard',
+        value: ROUTES.DASHBOARD,
         onClick: resetMessages
       },
       // ADMIN
@@ -99,7 +100,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.systemandinterfaces'
         }),
         icon: <SettingsApplications />,
-        value: '/system',
+        value: ROUTES.ADMIN_SYSTEM_PANEL,
         roles: [ROLES.ADMIN],
         onClick: resetMessages
       },
@@ -108,7 +109,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.userroles'
         }),
         icon: <SupervisedUserCircle />,
-        value: '/userroles',
+        value: ROUTES.ADMIN_USER_ROLES,
         roles: [ROLES.ADMIN],
         onClick: resetMessages
       },
@@ -117,7 +118,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.maintenance'
         }),
         icon: <Build />,
-        value: '/maintenance',
+        value: ROUTES.MAINTENANCE,
         roles: [ROLES.ADMIN],
         onClick: resetMessages
       },
@@ -126,7 +127,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.autorules'
         }),
         icon: <AutoRules />,
-        value: '/autorules',
+        value: ROUTES.AUTORULES,
         roles: [ROLES.ADMIN],
         onClick: resetMessages
       },
@@ -136,7 +137,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.myprs'
         }),
         icon: <AssignmentIndIcon />,
-        value: '/myPrs',
+        value: ROUTES.OWN_PR_TABLE,
         roles: [ROLES.EMPLOYEE],
         onClick: resetMessages
       },
@@ -145,7 +146,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.myScs'
         }),
         icon: <AssessmentIcon />,
-        value: '/myScs',
+        value: ROUTES.OWN_SCS,
         roles: [ROLES.EMPLOYEE],
         onClick: resetMessages
       },
@@ -155,7 +156,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.prs'
         }),
         icon: <LibraryBooksIcon />,
-        value: '/prs',
+        value: ROUTES.PR_TO_REVIEW_TABLE,
         roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
         reviewerCheck: true,
         onClick: resetMessages
@@ -165,7 +166,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.scs'
         }),
         icon: <BarChart />,
-        value: '/scs',
+        value: ROUTES.SC_TO_REVIEW_TABLE,
         roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
         reviewerCheck: true,
         onClick: resetMessages
@@ -175,7 +176,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.allEmployees'
         }),
         icon: <LibraryBooksIcon />,
-        value: '/allEmployees',
+        value: ROUTES.ALL_PRS_TABLE,
         roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
         onClick: resetMessages
       },
@@ -184,7 +185,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.formerEmployees'
         }),
         icon: <LibraryBooksIcon />,
-        value: '/formerEmployees',
+        value: ROUTES.FORMER_EMPLOYEES,
         roles: [ROLES.PERSONAL_DEV],
         onClick: resetMessages
       },
@@ -194,7 +195,7 @@ export const Sidebar = ({ intl, classes }) => {
           id: 'sidebar.logout'
         }),
         icon: <PowerSettingsNewIcon />,
-        value: '/logout',
+        value: ROUTES.LOGOUT,
         onClick: resetMessages
       }
     ];

@@ -26,9 +26,9 @@ const OwnScsContainer = ({ classes, intl }) => {
     getOwnScs(setOwnScs, setIsLoading, error);
   }, []);
 
-  const listofOwnScs = ownScs.map((scs, index) => (
+  const listofOwnScs = ownScs.map((sc, index) => (
     <Grid item key={index} className={classes.padding}>
-      <ScCard scs={scs} active={true} />
+      <ScCard sc={sc} active={true} />
     </Grid>
   ));
 
