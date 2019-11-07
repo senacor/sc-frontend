@@ -73,7 +73,10 @@ const ScFields = ({
                     margin="normal"
                     variant="outlined"
                     label={intl.formatMessage({
-                      id: 'scsheet.textheader.headline'
+                      id:
+                        type === 'dailyBusiness'
+                          ? 'scsheet.textheader.headline.dailyBusiness'
+                          : 'scsheet.textheader.headline.project'
                     })}
                     fullWidth
                     className={classes.textarea}
