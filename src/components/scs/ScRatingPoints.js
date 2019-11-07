@@ -44,7 +44,6 @@ const ScRatingPoints = ({ classes, intl }) => {
           className={classes.select}
           renderValue={selected => <div>{selected}</div>}
         >
-          {/*{[0, 1, 2, 3, 4, 5].map(value => {*/}
           {[
             `1 - ${intl.formatMessage({
               id: 'scsheet.evaluation.1'
