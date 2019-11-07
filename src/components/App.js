@@ -221,7 +221,7 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path="/scDetail/:id"
+                      path={ROUTES.SC_DETAIL}
                       component={ScorecardDetail2WithContent}
                     />
                     <PrivateRoute

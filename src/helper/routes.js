@@ -3,6 +3,7 @@ const ROUTES = {
   OWN_SCS: '/myScs',
   PR_TO_REVIEW_TABLE: '/prs',
   SC_TO_REVIEW_TABLE: '/scs',
+  SC_DETAIL: '/scDetail/:id',
   ALL_PRS_TABLE: '/allEmployees',
   FORMER_EMPLOYEES: '/formerEmployees',
   DASHBOARD: '/dashboard',

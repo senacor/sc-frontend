@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import FormControl from '@material-ui/core/FormControl/FormControl';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Tooltip } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import InfoIcon from '@material-ui/icons/Info';
 
-const styles = () => ({
+const styles = theme => ({
   center: {
     textAlign: 'center'
   },
   select: {
     width: 50
+  },
+  iconComment: {
+    color: theme.palette.primary['400'],
+    padding: theme.spacing.unit
   }
 });
 
-const ScRatingPoints = ({ classes, intl, category, rating, action }) => {
-  const [ratingState, setRatingState] = useState(rating);
+const ScRatingPoints = ({ classes, intl }) => {
+  const [rating, setRating] = useState('');
+
+  console.log('rating', rating);
 
   const ratingValue = entry => {
     if (entry) {
@@ -25,46 +32,52 @@ const ScRatingPoints = ({ classes, intl, category, rating, action }) => {
     }
   };
 
+  const handleChangeRating = event => {
+    setRating(event.target.value);
+  };
+
   return (
-    <FormControl>
-      <Select
-        value={ratingValue(ratingState)}
-        onChange={event => {
-          setRatingState(event.target.value);
-          return action(event.target.value);
-        }}
-        className={classes.select}
-        renderValue={selected => <div>{selected}</div>}
-      >
-        {/*{[0, 1, 2, 3, 4, 5].map(value => {*/}
-        {[
-          `1 - ${intl.formatMessage({
-            id: 'scsheet.bewertung.nichtErfullt'
-          })}`,
-          `2 - ${intl.formatMessage({
-            id: 'scsheet.bewertung.zumTeilErfullt'
-          })}`,
-          `3 - ${intl.formatMessage({
-            id: 'scsheet.bewertung.vollstandigErfullt'
-          })}`,
-          `4 - ${intl.formatMessage({
-            id: 'scsheet.bewertung.regelmassigUbererfullt'
-          })}`,
-          `5 - ${intl.formatMessage({
-            id: 'scsheet.bewertung.starkUbererfullt'
-          })}`
-        ].map(value => {
-          return (
-            <MenuItem
-              key={category + '_rating_' + value.charAt(0)}
-              value={Number(ratingValue(value.charAt(0)))}
-            >
-              {ratingValue(value)}
-            </MenuItem>
-          );
-        })}
-      </Select>
-    </FormControl>
+    <Fragment>
+      <FormControl>
+        <Select
+          value={ratingValue(rating)}
+          onChange={handleChangeRating}
+          className={classes.select}
+          renderValue={selected => <div>{selected}</div>}
+        >
+          {/*{[0, 1, 2, 3, 4, 5].map(value => {*/}
+          {[
+            `1 - ${intl.formatMessage({
+              id: 'scsheet.evaluation.1'
+            })}`,
+            `2 - ${intl.formatMessage({
+              id: 'scsheet.evaluation.2'
+            })}`,
+            `3 - ${intl.formatMessage({
+              id: 'scsheet.evaluation.3'
+            })}`,
+            `4 - ${intl.formatMessage({
+              id: 'scsheet.evaluation.4'
+            })}`,
+            `5 - ${intl.formatMessage({
+              id: 'scsheet.evaluation.5'
+            })}`
+          ].map((value, index) => {
+            return (
+              <MenuItem
+                key={index}
+                value={Number(ratingValue(value.charAt(0)))}
+              >
+                {ratingValue(value)}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+      <Tooltip title={intl.formatMessage({ id: 'scsheet.evaluation.tooltip' })}>
+        <InfoIcon className={classes.iconComment} />
+      </Tooltip>
+    </Fragment>
   );
 };
 
