@@ -23,6 +23,23 @@ export const linkToSc = (id, history) => {
   history.push(`/scDetail/${id}`);
 };
 
+export const fetchScById = async (scId, setSc, setIsLoading, error) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v3/sc/${scId}`
+    );
+    const responseScData = await response.json();
+    setIsLoading(false);
+    setSc(responseScData);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};
+
 export const getScsInProgress = async (setScs, setIsLoading, error) => {
   try {
     setIsLoading(true);

@@ -64,7 +64,7 @@ const ScCard = ({
   classes,
   intl,
   history,
-  scs: { scId, createdDate, inProgress }
+  sc: { scId, createdDate, inProgress }
 }) => {
   const startDateHeader = (
     <Fragment>
