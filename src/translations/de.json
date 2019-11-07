@@ -362,7 +362,7 @@
   "scscard.finished": "Beendet",
   "scsheet.textheader.headline": "Titel",
   "scsheet.textheader.percentage": "Anteil (%)",
-  "scsheet.textheader.evaluation": "Bewertung",
+  "scsheet.textheader.weight": "Bewertung",
   "scsheet.textarea.description": "Beschreibung",
   "scsheet.textarea.goal": "Zielvorgabe",
   "scsheet.textarea.goalcomment": "Kommentar zur Zielrreichung",

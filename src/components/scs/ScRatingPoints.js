@@ -20,9 +20,8 @@ const styles = theme => ({
 });
 
 const ScRatingPoints = ({ classes, intl }) => {
+  // TODO: connecting to ScFields object
   const [rating, setRating] = useState('');
-
-  console.log('rating', rating);
 
   const ratingValue = entry => {
     if (entry) {

@@ -29,7 +29,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[400]
   },
   spacing: {
-    padding: 3 * theme.spacing.unit
+    padding: theme.spacing.unit
   }
 });
 
