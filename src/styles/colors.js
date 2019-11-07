@@ -16,6 +16,7 @@ const senacorColorPalette = {
 const secondaryColorPalette = {
   main: '#01A688',
   green: '#01A688',
+  brighterGreen: '#fffcdd',
   darkGreen: '#004953',
   blue: '#56D9FE',
   darkBlue: '#007FFF',
