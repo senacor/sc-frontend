@@ -73,7 +73,7 @@ const ScRatingPoints = ({ classes, intl }) => {
           })}
         </Select>
       </FormControl>
-      <Tooltip title={intl.formatMessage({ id: 'scsheet.evaluation.tooltip' })}>
+      <Tooltip title={intl.formatMessage({ id: 'scsheet.tooltip.evaluation' })}>
         <InfoIcon className={classes.iconComment} />
       </Tooltip>
     </Fragment>

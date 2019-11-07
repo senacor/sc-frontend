@@ -10,7 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { IconButton, Typography } from '@material-ui/core';
+import { IconButton, Typography, Tooltip } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
 
@@ -150,9 +150,11 @@ const ScSheet = ({ sc, classes, intl }) => {
         changeGoalComment={handleChangeGoalComment}
         removeFields={removeFields}
       />
-      <IconButton onClick={addFields}>
-        <AddIcon color="primary" />
-      </IconButton>
+      <Tooltip title={intl.formatMessage({ id: 'scsheet.tooltip.addField' })}>
+        <IconButton onClick={addFields}>
+          <AddIcon color="primary" />
+        </IconButton>
+      </Tooltip>
       <div className={classes.btnContainer}>
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           {intl.formatMessage({

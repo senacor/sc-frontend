@@ -1,6 +1,12 @@
 import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, TextField, Grid, IconButton } from '@material-ui/core';
+import {
+  withStyles,
+  TextField,
+  Grid,
+  IconButton,
+  Tooltip
+} from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
 
@@ -38,18 +44,21 @@ const ScFields = ({
   changeGoalComment,
   removeFields
 }) => {
-  console.log('fields', fields);
   return (
     <Fragment>
       {fields.map((field, index) => {
         return (
           <div key={index} className={classes.fieldContainer}>
-            <IconButton
-              className={classes.removeIcon}
-              onClick={() => removeFields(index)}
+            <Tooltip
+              title={intl.formatMessage({ id: 'scsheet.tooltip.removeField' })}
             >
-              <RemoveIcon />
-            </IconButton>
+              <IconButton
+                className={classes.removeIcon}
+                onClick={() => removeFields(index)}
+              >
+                <RemoveIcon />
+              </IconButton>
+            </Tooltip>
             <div className={classes.textsContainer}>
               <Grid container spacing={8}>
                 <Grid item sm={6}>
