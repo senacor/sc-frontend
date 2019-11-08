@@ -1,15 +1,13 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
-
 // Material UI
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import EmployeesPRsDialog from '../EmployeesPRsDialog';
 
 const styles = theme => ({
   tableRow: {
@@ -50,26 +48,14 @@ const FormerEmployeeTableRow = ({
     supervisor
   }
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
-  const handleDialogOpen = () => {
-    setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
+  const [dialogOpen] = useState(false);
 
   const employeeName = `${firstName} ${lastName}`;
   let bgClass = '';
-  let onRowClick = handleDialogOpen;
 
   return (
     <Fragment>
-      <TableRow
-        className={`${classes.tableRow} ${bgClass}`}
-        onClick={onRowClick}
-      >
+      <TableRow className={`${classes.tableRow} ${bgClass}`}>
         <TableCell>{employeeName}</TableCell>
         <TableCell>{position}</TableCell>
         <TableCell>{cst}</TableCell>
@@ -80,15 +66,10 @@ const FormerEmployeeTableRow = ({
           {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>
-      {dialogOpen && (
-        <EmployeesPRsDialog
-          firstName={firstName}
-          lastName={lastName}
-          employeeId={id}
-          dialogOpen={dialogOpen}
-          dialogClose={handleDialogClose}
-        />
-      )}
+      {dialogOpen &&
+        {
+          /* TODO: add SCs view*/
+        }}
     </Fragment>
   );
 };

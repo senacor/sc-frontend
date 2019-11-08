@@ -1,11 +1,9 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { InfoContext } from '../App';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import { Tooltip, withStyles } from '@material-ui/core';
 import AllEmployeesGrid from './AllEmployeesGrid';
 import SearchFilter from './SearchFilter';
-import UploadSuccessDialog from '../fileStorage/UploadSuccessDialog';
 import SortingFilter from './SortingFilter';
 import {
   competenceCenters,
@@ -14,8 +12,6 @@ import {
   positions
 } from '../../helper/filterData';
 // Calls
-import { requestPrForEmployees } from '../../calls/pr';
-import { uploadFiles } from '../../calls/fileStorage';
 import { getAllEmployees } from '../../calls/employees';
 // Material UI
 import Button from '@material-ui/core/Button';
@@ -27,10 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
-import AllEmployeesTable, {
-  filterEmployees
-} from './AllEmployeesTable/AllEmployeesTable';
-import { downloadExcel } from '../../calls/excelView';
+import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -100,12 +93,10 @@ const styles = theme => ({
 const AllEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const error = useErrorContext();
-  const infoContext = useContext(InfoContext.context);
   const [selection, setSelection] = useState(false);
   const [selected, setSelected] = useState({});
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [positionSorting, setPositionSorting] = useState([]);
   const [ccSorting, setCcSorting] = useState([]);
   const [cstSorting, setCstSorting] = useState([]);
@@ -115,8 +106,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const user = useUserinfoContext();
 
   const downloadPrsExcel = () => {
-    const filteredEmployees = filterEmployees(employees, filterInputs);
-    downloadExcel(filteredEmployees.map(empl => empl.id));
   };
 
   useEffect(() => {
@@ -137,17 +126,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
 
   const handleChange = event => {
     if (checkFileForm(event.target.files[0].name)) {
-      uploadFiles(
-        event.target.files,
-        setUploadedFiles,
-        setIsLoading,
-        error
-      );
     }
-  };
-
-  const handleClose = () => {
-    setUploadedFiles([]);
   };
 
   const toggleSelected = employeeId => {
@@ -160,20 +139,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   };
 
   const requestPr = () => {
-    const afterPrRequested = () => {
-      setSelection(false);
-      setSelected({});
-      getAllEmployees(setEmployees, setIsLoading, error);
-    };
-
-    if (Object.keys(selected).length > 0) {
-      requestPrForEmployees(
-        Object.keys(selected),
-        afterPrRequested,
-        infoContext,
-        error
-      );
-    }
   };
 
   const handleSearchEmployeeChange = event => {
@@ -370,11 +335,6 @@ const AllEmployeesContainer = ({ classes, intl }) => {
         </Tooltip>
       </IconButton>
       <Paper className={classes.filterWithUpload}>
-        <UploadSuccessDialog
-          open={uploadedFiles.length > 0}
-          onClose={handleClose}
-          uploadedFiles={uploadedFiles}
-        />
         <Grid container direction="row">
           {upperMenu(intl)}
         </Grid>

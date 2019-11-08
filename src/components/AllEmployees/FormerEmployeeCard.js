@@ -10,7 +10,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import EmployeesPRsDialog from './EmployeesPRsDialog';
 
 const styles = theme => ({
   card: {
@@ -65,10 +64,6 @@ const FormerEmployeeCard = ({
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogOpen(false);
   };
 
   const employeeName = (
@@ -144,16 +139,10 @@ const FormerEmployeeCard = ({
           </Typography>
         </CardContent>
       </Card>
-      {dialogOpen && (
-        <EmployeesPRsDialog
-          firstName={firstName}
-          lastName={lastName}
-          employeeId={id}
-          dialogOpen={dialogOpen}
-          dialogClose={handleDialogClose}
-          formerEmployee={true}
-        />
-      )}
+      {dialogOpen &&
+        {
+          /* TODO: add SCs view*/
+        }}
     </Fragment>
   );
 };
