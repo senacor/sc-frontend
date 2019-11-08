@@ -15,17 +15,16 @@ const styles = theme => ({
     position: 'absolute',
     right: 40
   },
-  fieldContainerDailyBusiness: {
+  fieldContainer: {
     marginTop: 2 * theme.spacing.unit,
     marginBottom: 2 * theme.spacing.unit,
-    background: theme.palette.secondary.brightGrey,
     borderRadius: 3
   },
-  fieldContainerProject: {
-    marginTop: 2 * theme.spacing.unit,
-    marginBottom: 2 * theme.spacing.unit,
-    background: theme.palette.secondary.brighterGreen,
-    borderRadius: 3
+  dailyBusinessBackground: {
+    background: theme.palette.secondary.brightGrey
+  },
+  projectBackground: {
+    background: theme.palette.secondary.brighterGreen
   },
   textsContainer: {
     padding: theme.spacing.unit * 2
@@ -45,15 +44,15 @@ const ScFields = ({
   removeFields,
   type
 }) => {
-  const containerClass =
+  const bgClass =
     type === 'dailyBusiness'
-      ? classes.fieldContainerDailyBusiness
-      : classes.fieldContainerProject;
+      ? classes.dailyBusinessBackground
+      : classes.projectBackground;
   return (
     <Fragment>
       {fields.map((field, index) => {
         return (
-          <div key={index} className={containerClass}>
+          <div key={index} className={`${bgClass} ${classes.fieldContainer}`}>
             <Tooltip
               title={intl.formatMessage({ id: 'scsheet.tooltip.removeField' })}
             >
