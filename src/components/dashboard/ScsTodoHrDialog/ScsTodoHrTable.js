@@ -44,8 +44,8 @@ const ScsTodoHrTable = ({ classes, intl, scs, history }) => {
           const employeeName = `${sc.employeeFirstName} ${sc.employeeLastName}`;
           return (
             <TableRow
-              key={sc.prId}
-              onClick={() => linkToSc(sc.prId, history)}
+              key={sc.scId}
+              onClick={() => linkToSc(sc.scId, history)}
               className={classes.tableRow}
             >
               <TableCell>{employeeName}</TableCell>

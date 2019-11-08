@@ -16,7 +16,7 @@ export const fetchMeeting = async (pr, setMeeting, error) => {
   let id = pr ? pr.id : 0;
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/prs/${id}/meetings`
+    `${process.env.REACT_APP_API}/api/v1/prs/${id}/meetings`
   );
 
   if (response.ok) {
@@ -38,7 +38,7 @@ export const addMeeting = async (meeting_details, setMeeting, error) => {
     error.showGeneral();
   } else {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/prs/${
+      `${process.env.REACT_APP_API}/api/v1/prs/${
         meeting_details.prById.id
       }/meetings`,
       {
@@ -86,7 +86,7 @@ export const appointmentsSearch = async (
   const response = await fetch(
     `${
       process.env.REACT_APP_API
-    }/api/v3/appointments?login=${employeeIds}&date=${day}&room=${room}`
+    }/api/v1/appointments?login=${employeeIds}&date=${day}&room=${room}`
   );
   if (response.ok) {
     const appointments = await response.json();

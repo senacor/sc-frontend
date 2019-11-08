@@ -11,7 +11,7 @@ export const fetchPrById = async (
   error.hide();
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}`
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}`
   );
 
   if (response.ok) {
@@ -38,7 +38,7 @@ export const fetchInactivePrById = async (
   error.hide();
 
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/inactive/employee/pr/${prsId}`
+    `${process.env.REACT_APP_API}/api/v1/inactive/employee/pr/${prsId}`
   );
 
   if (response.ok) {
@@ -64,7 +64,7 @@ export const addReflections = async (
 ) => {
   error.hide();
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/reflections`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/reflections`,
     {
       method: 'post',
       mode: 'cors',
@@ -91,7 +91,7 @@ export const addRatings = async (
 ) => {
   error.hide();
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/review`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/review`,
     {
       method: 'post',
       mode: 'cors',
@@ -122,7 +122,7 @@ export const addFinalCommentEmployee = async (
 
   error.hide();
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentEmployee`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/commentEmployee`,
     {
       method: 'post',
       mode: 'cors',
@@ -149,7 +149,7 @@ export const addFinalCommentHr = async (
 
   error.hide();
   const response = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/commentHr`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/commentHr`,
     {
       method: 'post',
       mode: 'cors',
@@ -166,7 +166,7 @@ export const addFinalCommentHr = async (
 export const addPr = async (loginName, setLoading, setPr, error) => {
   setLoading(true);
 
-  const changeResponse = await fetch(`${process.env.REACT_APP_API}/api/v3/pr`, {
+  const changeResponse = await fetch(`${process.env.REACT_APP_API}/api/v1/pr`, {
     method: 'post',
     mode: 'cors'
   });
@@ -188,7 +188,7 @@ export const requestPrForEmployees = async (
   error
 ) => {
   const requestPrResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/employee/selected`,
+    `${process.env.REACT_APP_API}/api/v1/pr/employee/selected`,
     {
       method: 'post',
       mode: 'cors',
@@ -221,7 +221,7 @@ export const requestPrForEmployees = async (
 
 export const addPrStatus = async (prsId, status, afterPrFetched, error) => {
   const addResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/status?prStatus=${status}`,
     {
       method: 'post',
       mode: 'cors'
@@ -239,7 +239,7 @@ export const addPrStatus = async (prsId, status, afterPrFetched, error) => {
 export const delegateReviewer = async (prId, reviewerId, updatePr, error) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/${prId}/delegate`,
+      `${process.env.REACT_APP_API}/api/v1/pr/${prId}/delegate`,
       {
         method: 'post',
         mode: 'cors',
@@ -286,7 +286,7 @@ export const getOwnPrs = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/own`
+      `${process.env.REACT_APP_API}/api/v1/pr/overview/own`
     );
     const responseOwnPrs = await response.json();
 
@@ -310,7 +310,7 @@ export const getPrsToReview = async (setPrs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/prsToReview`
+      `${process.env.REACT_APP_API}/api/v1/pr/overview/prsToReview`
     );
     const responsePrs = await response.json();
 
@@ -328,7 +328,7 @@ export const getPrsInProgress = async (setPrs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/hrAll`
+      `${process.env.REACT_APP_API}/api/v1/pr/overview/hrAll`
     );
     const responsePrs = await response.json();
 
@@ -346,7 +346,7 @@ export const getDeclinedPrs = async (isHr, setPrs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/` +
+      `${process.env.REACT_APP_API}/api/v1/pr/overview/` +
         (isHr ? 'declinedBySupervisor' : 'declinedByHr')
     );
     const responsePrs = await response.json();
@@ -365,7 +365,7 @@ export const getPrsHrTodo = async (setPrs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/hrTodo`
+      `${process.env.REACT_APP_API}/api/v1/pr/overview/hrTodo`
     );
     const responsePrs = await response.json();
 
@@ -380,7 +380,7 @@ export const getPrsHrTodo = async (setPrs, setIsLoading, error) => {
 
 export const declinePr = async (prsId, status, afterPrDeclined, error) => {
   const addResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/status?prStatus=${status}`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/status?prStatus=${status}`,
     {
       method: 'post',
       mode: 'cors'
@@ -396,7 +396,7 @@ export const declinePr = async (prsId, status, afterPrDeclined, error) => {
 
 export const undecline = async (prsId, callback, error) => {
   const addResponse = await fetch(
-    `${process.env.REACT_APP_API}/api/v3/pr/${prsId}/resetDecline`,
+    `${process.env.REACT_APP_API}/api/v1/pr/${prsId}/resetDecline`,
     {
       method: 'post',
       mode: 'cors'

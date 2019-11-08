@@ -8,7 +8,7 @@ export const loadAllArchivedFilesList = async (
   try {
     setIsLoading(true);
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/hr/downloadInfo`
+      `${process.env.REACT_APP_API}/api/v1/hr/downloadInfo`
     );
     const result = await response.json();
     setIsLoading(false);
@@ -34,7 +34,7 @@ export const uploadFiles = async (
     });
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/hr/upload`,
+      `${process.env.REACT_APP_API}/api/v1/hr/upload`,
       {
         method: 'post',
         mode: 'cors',
@@ -62,7 +62,7 @@ export const downloadFile = async (
     const response = await fetch(
       `${
         process.env.REACT_APP_API
-      }/api/v3/employees/${employeeId}/archivedPrs/${fileId}`
+      }/api/v1/employees/${employeeId}/archivedPrs/${fileId}`
     );
 
     const result = await response.json();
@@ -81,7 +81,7 @@ export const loadArchivedFilesList = async (
   try {
     setIsLoading(true);
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/employees/${employeeId}/archivedPrs`
+      `${process.env.REACT_APP_API}/api/v1/employees/${employeeId}/archivedPrs`
     );
     const result = await response.json();
     setIsLoading(false);

@@ -8,7 +8,7 @@ export const getFilterPossibilities = async (
   try {
     setLoading(true);
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/prs/filter`
+      `${process.env.REACT_APP_API}/api/v1/prs/filter`
     );
     const possibilities = await response.json();
     setLoading(false);
