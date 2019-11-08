@@ -5,7 +5,7 @@ export const getFeedbacks = async (setData, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/feedback/all`
+      `${process.env.REACT_APP_API}/api/v1/scorecards/feedback/all`
     );
     const data = await response.json();
 
@@ -20,7 +20,7 @@ export const getFeedbacks = async (setData, setIsLoading, error) => {
 export const addFeedback = async (type, subject, message, error, info) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/feedback`,
+      `${process.env.REACT_APP_API}/api/v1/scorecards/feedback`,
       {
         method: 'post',
         mode: 'cors',
@@ -42,7 +42,7 @@ export const addFeedback = async (type, subject, message, error, info) => {
 
 export const deleteFeedbacks = async (ids, error) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v3/feedback`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/feedback`, {
       method: 'delete',
       mode: 'cors',
       body: JSON.stringify(ids)

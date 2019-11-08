@@ -39,7 +39,7 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
 
     //Fetching reviewer info
     response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/employee/overview`
+      `${process.env.REACT_APP_API}/api/v1/scorecards/employee/overview`
     );
     if (!response.ok) {
       authContext.setValue(true);
