@@ -6,7 +6,7 @@ export const getAllRules = async (setRules, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/automation/rule/all`
+      `${process.env.REACT_APP_API}/api/v1/automation/rule/all`
     );
 
     const responseRules = await response.json();
@@ -23,7 +23,7 @@ export const getAllRules = async (setRules, setIsLoading, error) => {
 
 export const deleteRule = async (id, error) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/automation/rule/${id}`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/automation/rule/${id}`, {
       method: 'delete',
       mode: 'cors'
     });
@@ -37,7 +37,7 @@ export const addRule = async (ruleObject, rules, setRules, error, info) => {
   try {
     const newRules = [...rules];
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/automation/rule`,
+      `${process.env.REACT_APP_API}/api/v1/automation/rule`,
       {
         method: 'post',
         mode: 'cors',
@@ -71,7 +71,7 @@ export const updateRulePriority = async (map, processType, error) => {
     await fetch(
       `${
         process.env.REACT_APP_API
-      }/api/v1/scorecards/automation/rule/swapPriorities?processType=${processType}`,
+      }/api/v1/automation/rule/swapPriorities?processType=${processType}`,
       {
         method: 'post',
         mode: 'cors',

@@ -4,7 +4,7 @@ export const getRoles = async (setRoles, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/roles/all`);
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v1/roles/all`);
 
     const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
@@ -24,7 +24,7 @@ export const getRoles = async (setRoles, setIsLoading, error) => {
 export const getSystemInfo = async (setSystemInfo, error) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/system/info`
+      `${process.env.REACT_APP_API}/api/v1/system/info`
     );
 
     const responseJson = await response.json();
@@ -44,7 +44,7 @@ export const getAllEmployeesWithRoles = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/employee-with-roles/all`
+      `${process.env.REACT_APP_API}/api/v1/employee-with-roles/all`
     );
 
     const responseList = await response.json();
@@ -61,7 +61,7 @@ export const getAllEmployeesWithRoles = async (
 
 export const setRoles = async (employeeId, roles, error) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/employee/${employeeId}/roles`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/employee/${employeeId}/roles`, {
       method: 'post',
       mode: 'cors',
       body: JSON.stringify(roles)
@@ -80,7 +80,7 @@ export const getHealthcheckData = async (
   try {
     setIsLoading(true);
 
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/log/all`);
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v1/log/all`);
     const data = await response.json();
 
     setData(data);
@@ -93,7 +93,7 @@ export const getHealthcheckData = async (
 
 export const deleteError = async (id, error) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/log/${id}`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/log/${id}`, {
       method: 'delete',
       mode: 'cors'
     });
@@ -105,7 +105,7 @@ export const deleteError = async (id, error) => {
 
 export const deleteAllErrors = async error => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v1/scorecards/log/delete/all`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/log/delete/all`, {
       method: 'delete',
       mode: 'cors'
     });
@@ -124,7 +124,7 @@ export const getMaintenanceTeam = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/maintenance/member/all`
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member/all`
     );
     const data = await response.json();
 
@@ -145,7 +145,7 @@ export const addMaintenanceTeamMember = async (
   try {
     error.hide();
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/maintenance/member/${id}`,
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member/${id}`,
       {
         method: 'post',
         mode: 'cors'
@@ -168,7 +168,7 @@ export const addMaintenanceTeamMember = async (
 export const deleteMaintenanceTeamMember = async (id, error) => {
   try {
     await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/maintenance/member/${id}`,
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member/${id}`,
       {
         method: 'delete',
         mode: 'cors'

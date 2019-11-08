@@ -5,7 +5,7 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/employee/all`
+      `${process.env.REACT_APP_API}/api/v1/employee/all`
     );
 
     const responseEmployees = await response.json();
@@ -28,7 +28,7 @@ export const getInactiveEmployees = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/inactive/employee/all`
+      `${process.env.REACT_APP_API}/api/v1/inactive/employee/all`
     );
 
     const responseEmployees = await response.json();
@@ -62,7 +62,7 @@ export const getEmployeeById = async (
   try {
     setIsLoading(true);
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/employee/${employeeId}`
+      `${process.env.REACT_APP_API}/api/v1/employee/${employeeId}`
     );
     if (response.ok) {
       const employee = await response.json();

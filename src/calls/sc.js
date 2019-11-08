@@ -5,7 +5,7 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/sc/overview/own`
+      `${process.env.REACT_APP_API}/api/v1/sc/overview/own`
     );
     const responseOwnScs = await response.json();
 
@@ -28,7 +28,7 @@ export const fetchScById = async (scId, setSc, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/sc/${scId}`
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}`
     );
     const responseScData = await response.json();
     setIsLoading(false);
@@ -45,7 +45,7 @@ export const getScsInProgress = async (setScs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/sc/overview/hr/in-progress`
+      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/in-progress`
     );
     const responseScs = await response.json();
 
@@ -63,7 +63,7 @@ export const getScsHrTodo = async (setScs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/sc/overview/hr/todo`
+      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/todo`
     );
     const responseScs = await response.json();
 
@@ -81,7 +81,7 @@ export const getScsToReview = async (setScs, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/scorecards/sc/overview/scs-to-review`
+      `${process.env.REACT_APP_API}/api/v1/sc/overview/scs-to-review`
     );
     const responseScs = await response.json();
 

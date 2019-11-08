@@ -18,7 +18,7 @@ export const appointmentsSearch = async (
   const response = await fetch(
     `${
       process.env.REACT_APP_API
-    }/api/v1/scorecards/appointments?login=${employeeIds}&date=${day}&room=${room}`
+    }/api/v1/appointments?login=${employeeIds}&date=${day}&room=${room}`
   );
   if (response.ok) {
     const appointments = await response.json();
