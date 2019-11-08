@@ -19,64 +19,6 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
   }
 };
 
-export const getAllPrsByEmployee = async (
-  id,
-  setPrs,
-  setArchivedPrs,
-  setIsLoading,
-  error
-) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/pr/overview/all/${id}`
-    );
-    const responsePrs = await response.json();
-    let archivedPrs = [...responsePrs.archivedPrs];
-    let prs = [...responsePrs.prs];
-    addAttributeToArchivedPrs(archivedPrs);
-    addAttributeToPrs(prs);
-
-    setIsLoading(false);
-    setPrs(prs);
-    setArchivedPrs(archivedPrs);
-  } catch (err) {
-    console.log(err);
-    setIsLoading(false);
-    error.showGeneral();
-  }
-};
-
-export const getAllPrsOfInactiveEmployee = async (
-  id,
-  setPrs,
-  setArchivedPrs,
-  setIsLoading,
-  error
-) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/inactive/employee/${id}/pr/all`
-    );
-    const responsePrs = await response.json();
-    let archivedPrs = [...responsePrs.archivedPrs];
-    let prs = [...responsePrs.prs];
-    addAttributeToArchivedPrs(archivedPrs);
-    addAttributeToPrs(prs);
-
-    setIsLoading(false);
-    setPrs(prs);
-    setArchivedPrs(archivedPrs);
-  } catch (err) {
-    console.log(err);
-    setIsLoading(false);
-    error.showGeneral();
-  }
-};
-
 export const getInactiveEmployees = async (
   setEmployees,
   setIsLoading,

@@ -48,7 +48,6 @@ export const getScsInProgress = async (setScs, setIsLoading, error) => {
       `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/in-progress`
     );
     const responseScs = await response.json();
-    console.log('RESPONSE: ', responseScs);
 
     setIsLoading(false);
     setScs(responseScs);
