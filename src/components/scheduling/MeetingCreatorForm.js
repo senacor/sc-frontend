@@ -5,7 +5,6 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import DateTimePicker from './DateTimePicker';
-import { addMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -200,7 +199,6 @@ const MeetingCreatorForm = ({
     event.preventDefault();
     if (validateDateTimeInput()) {
       if (!blockedForSelectedTime()) {
-        addMeeting(createMeeting(prById), setMeeting, error);
         error.hide();
       } else {
         error.show('meetingcreatorform.blocked');

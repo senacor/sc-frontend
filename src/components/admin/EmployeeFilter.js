@@ -17,7 +17,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import { addMaintenanceTeamMember } from '../../calls/admin';
-import { delegateReviewer } from '../../calls/pr';
 import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
@@ -85,7 +84,6 @@ export const EmployeeFilter = ({
       );
     } else if (delegation) {
       if (pr.employee.id !== employee.id) {
-        delegateReviewer(pr.id, employee.id, updatePr, error);
       } else {
         error.show('prdetailinformation.delegationerror');
       }

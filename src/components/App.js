@@ -22,21 +22,9 @@ const AllEmployeesContainer = lazy(() =>
 const FormerEmployeesContainer = lazy(() =>
   import('./AllEmployees/FormerEmployeesContainer')
 );
-const OwnPrsContainer = lazy(() =>
-  import('./myPerformanceReviews/OwnPrsContainer')
-);
 const OwnScsContainer = lazy(() => import('./scs/ownScs/OwnScsContainer'));
-const PrsForProcessingContainer = lazy(() =>
-  import('./processingPrs/ProcessingPrsContainer')
-);
 const ScsForProcessingContainer = lazy(() =>
   import('./processingScs/ProcessingScsContainer')
-);
-const PerformanceReviewDetail = lazy(() =>
-  import('./pr/PerformanceReviewDetail')
-);
-const InactivePerformanceReviewDetail = lazy(() =>
-  import('./pr/InactivePerformanceReviewDetail')
 );
 const ScorecardDetail = lazy(() => import('./scs/ScorecardDetail'));
 const Login = lazy(() => import('./login/Login'));
@@ -66,20 +54,10 @@ const withContent = WrappedComponent => props => (
   </Content>
 );
 
-const PrsForProcessingContainerWithContent = withContent(
-  PrsForProcessingContainer
-);
 const ScsForProcessingContainerWithContent = withContent(
   ScsForProcessingContainer
 );
-const OwnPrsContainerWithContent = withContent(OwnPrsContainer);
 const OwnScsContainerWithContent = withContent(OwnScsContainer);
-const PerformanceReviewDetail2WithContent = withContent(
-  PerformanceReviewDetail
-);
-const InactivePerformanceReviewDetail2WithContent = withContent(
-  InactivePerformanceReviewDetail
-);
 const ScorecardDetail2WithContent = withContent(ScorecardDetail);
 const DashboardWithContent = withContent(Dashboard);
 const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
@@ -161,16 +139,6 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.PR_IN_PROGRESS}
-                      component={DashboardWithContent}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={ROUTES.PR_HR_TODO}
-                      component={DashboardWithContent}
-                    />
-                    <PrivateRoute
-                      exact
                       path={ROUTES.SC_HR_TODO}
                       component={DashboardWithContent}
                     />
@@ -186,38 +154,13 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.OWN_PR_TABLE}
-                      component={OwnPrsContainerWithContent}
-                    />
-                    <PrivateRoute
-                      exact
                       path={ROUTES.OWN_SCS}
                       component={OwnScsContainerWithContent}
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.PR_TO_REVIEW_TABLE}
-                      component={PrsForProcessingContainerWithContent}
-                    />
-                    <PrivateRoute
-                      exact
                       path={ROUTES.SC_TO_REVIEW_TABLE}
                       component={ScsForProcessingContainerWithContent}
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/prs/:id"
-                      component={PerformanceReviewDetail2WithContent}
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/prDetail/:id"
-                      component={PerformanceReviewDetail2WithContent}
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/prDetailInactive/:id"
-                      component={InactivePerformanceReviewDetail2WithContent}
                     />
                     <PrivateRoute
                       exact
@@ -246,6 +189,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.ALL_PRS_TABLE}
+                      component={AllEmployeesContainerWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.MAINTENANCE}
                       component={MaintenancePanelWithContent}
                     />
@@ -253,11 +201,6 @@ const App = () => {
                       exact
                       path={ROUTES.AUTORULES}
                       component={AutomationRulesWithContent}
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/prDetailWithoutAppbar/:id"
-                      component={PerformanceReviewDetail}
                     />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route

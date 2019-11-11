@@ -1,15 +1,9 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-import { formatDateForFrontend } from '../../helper/date';
 import InfoWidget from '../utils/InfoWidget';
-import { AuthorizationContext } from '../App';
 import { getSystemInfo } from '../../calls/admin';
-import PrsInProgressDialog from './PrsInProgressDialog/PrsInProgressDialog';
-import PrsTodoHrDialog from './PrsTodoHrDialog/PrsTodoHrDialog';
-import PrsDeclinedDialog from './PrsDeclined/PrsDeclinedDialog';
 import ROUTES from '../../helper/routes';
-import { getUserInfo } from '../../calls/userinfo';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -37,17 +31,12 @@ const styles = theme => ({
 const Dashboard = ({ classes, intl }) => {
   const user = useUserinfoContext();
   const { userroles, userinfo } = user.context.value;
-  const authContext = useContext(AuthorizationContext.context);
   const error = useErrorContext();
   const [systemInfo, setSystemInfo] = React.useState({});
-  const numberOfPrsToReview = userinfo ? userinfo.numberOfPrsToReview : 0;
   const numberOfScsToReview = userinfo ? userinfo.numberOfScsToReview : 0;
-  const numberOfPrsToSupervise = userinfo ? userinfo.numberOfPrsToSupervise : 0;
-  const { idOfNewestOpenPr } = userinfo;
   const formerUsersCount = userinfo
     ? userinfo.numberOfEmployeeInactiveThisMonth
     : 0;
-  let prsNotFilledByEmployee = userinfo ? userinfo.prsNotFilledByEmployee : 0;
 
   useEffect(
     () => {
@@ -58,58 +47,9 @@ const Dashboard = ({ classes, intl }) => {
     [userroles]
   );
 
-  const refreshDashboard = () => {
-    getUserInfo(user.context, error, authContext);
-  };
-
   return userinfo ? (
     <div className={classes.columnContainer}>
       <div className={classes.rowContainer}>
-        {idOfNewestOpenPr && user.hasRoleEmployee() && (
-          <InfoWidget
-            value={formatDateForFrontend(userinfo.deadlineOfNewestPr)}
-            linkTo={`${ROUTES.PR_TO_REVIEW_TABLE}/${idOfNewestOpenPr}`}
-            label={intl.formatMessage({
-              id: 'dashboard.opened'
-            })}
-            icon={'perm_identity'}
-          />
-        )}
-
-        {numberOfPrsToReview > 1 && user.hasRoleEmployee() && (
-          <InfoWidget
-            label={intl.formatMessage({
-              id: 'dashboard.evaluator'
-            })}
-            value={numberOfPrsToReview}
-            linkTo={ROUTES.PR_TO_REVIEW_TABLE}
-            icon={'supervisor_account'}
-          />
-        )}
-
-        {numberOfPrsToReview > 0 && (
-          <InfoWidget
-            label={intl.formatMessage({
-              id: 'dashboard.reviewer'
-            })}
-            value={numberOfPrsToReview}
-            linkTo={ROUTES.PR_TO_REVIEW_TABLE}
-            icon={'library_books'}
-          />
-        )}
-
-        {(numberOfPrsToSupervise > 0 && user.hasRoleSupervisor()) ||
-        numberOfPrsToReview > 0 ? (
-          <InfoWidget
-            label={intl.formatMessage({
-              id: 'dashboard.supervisor'
-            })}
-            value={numberOfPrsToSupervise}
-            linkTo={ROUTES.PR_TO_REVIEW_TABLE}
-            icon={'library_books'}
-          />
-        ) : null}
-
         {numberOfScsToReview > 0 && (
           <InfoWidget
             label={intl.formatMessage({
@@ -121,30 +61,11 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-        {user.hasRoleEmployee() && prsNotFilledByEmployee > 0 && (
-          <InfoWidget
-            label={intl.formatMessage({
-              id: 'dashboard.unprocessed'
-            })}
-            value={prsNotFilledByEmployee}
-            linkTo={ROUTES.OWN_PR_TABLE}
-            icon={'collections_bookmark'}
-          />
-        )}
-
-        {user.hasRoleSupervisor() && (
-          <PrsDeclinedDialog
-            isHr={false}
-            declinedPrs={userinfo.prsDeclinedByHr}
-            refreshDashboard={refreshDashboard}
-          />
-        )}
+        {user.hasRoleSupervisor() && <div />}
 
         {user.hasRoleHr() && (
           <div className={classes.rowContainer}>
             <ScsInProgressDialog scsInProgress={userinfo.scsInProgressForHr} />
-            <PrsInProgressDialog prsInProgress={userinfo.prsInProgressForHr} />
-            <PrsTodoHrDialog todoForHr={userinfo.prsInTodoForHr} />
             <ScsTodoHrDialog todoForHr={userinfo.scsInTodoForHr} />
             <InfoWidget
               label={intl.formatMessage({
@@ -153,11 +74,6 @@ const Dashboard = ({ classes, intl }) => {
               value={formerUsersCount}
               linkTo={ROUTES.FORMER_EMPLOYEES}
               icon={'emoji_people'}
-            />
-            <PrsDeclinedDialog
-              isHr={true}
-              refreshDashboard={refreshDashboard}
-              declinedPrs={userinfo.prsDeclinedBySupervisor}
             />
           </div>
         )}
