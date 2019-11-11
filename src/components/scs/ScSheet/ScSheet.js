@@ -72,8 +72,8 @@ const ScSheet = ({ sc, classes, intl }) => {
   const addFields = type => {
     const initialFieldsData = {
       headline: '',
-      weight: undefined,
-      percentage: undefined,
+      weight: 0,
+      percentage: 0,
       evaluation: undefined,
       description: '',
       goal: '',
