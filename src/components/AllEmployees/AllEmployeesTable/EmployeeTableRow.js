@@ -9,7 +9,6 @@ import {
 // Material UI
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import EmployeesPRsDialog from '../EmployeesPRsDialog';
 
 const styles = theme => ({
   tableRow: {
@@ -60,10 +59,6 @@ const EmployeeTableRow = ({
     setDialogOpen(true);
   };
 
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
-
   const employeeName = `${firstName} ${lastName}`;
   let bgClass = '';
   let onRowClick = handleDialogOpen;
@@ -96,15 +91,10 @@ const EmployeeTableRow = ({
           {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>
-      {dialogOpen && (
-        <EmployeesPRsDialog
-          firstName={firstName}
-          lastName={lastName}
-          employeeId={id}
-          dialogOpen={dialogOpen}
-          dialogClose={handleDialogClose}
-        />
-      )}
+      {dialogOpen &&
+        {
+          /* TODO: add SCs view*/
+        }}
     </Fragment>
   );
 };

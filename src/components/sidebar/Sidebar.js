@@ -11,7 +11,6 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AutoRules from '@material-ui/icons/RotateRight';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
 import BarChart from '@material-ui/icons/BarChart';
@@ -134,15 +133,6 @@ export const Sidebar = ({ intl, classes }) => {
       // DEVELOPER / CONSULTING
       {
         label: intl.formatMessage({
-          id: 'sidebar.myprs'
-        }),
-        icon: <AssignmentIndIcon />,
-        value: ROUTES.OWN_PR_TABLE,
-        roles: [ROLES.EMPLOYEE],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
           id: 'sidebar.myScs'
         }),
         icon: <AssessmentIcon />,
@@ -151,16 +141,6 @@ export const Sidebar = ({ intl, classes }) => {
         onClick: resetMessages
       },
       // SUPERVISOR + PERSONAL_DEV
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.prs'
-        }),
-        icon: <LibraryBooksIcon />,
-        value: ROUTES.PR_TO_REVIEW_TABLE,
-        roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
-        reviewerCheck: true,
-        onClick: resetMessages
-      },
       {
         label: intl.formatMessage({
           id: 'sidebar.scs'

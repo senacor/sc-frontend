@@ -5,71 +5,13 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/employee/all`
+      `${process.env.REACT_APP_API}/api/v1/employee/all`
     );
 
     const responseEmployees = await response.json();
 
     setIsLoading(false);
     setEmployees(responseEmployees);
-  } catch (err) {
-    console.log(err);
-    setIsLoading(false);
-    error.showGeneral();
-  }
-};
-
-export const getAllPrsByEmployee = async (
-  id,
-  setPrs,
-  setArchivedPrs,
-  setIsLoading,
-  error
-) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/pr/overview/all/${id}`
-    );
-    const responsePrs = await response.json();
-    let archivedPrs = [...responsePrs.archivedPrs];
-    let prs = [...responsePrs.prs];
-    addAttributeToArchivedPrs(archivedPrs);
-    addAttributeToPrs(prs);
-
-    setIsLoading(false);
-    setPrs(prs);
-    setArchivedPrs(archivedPrs);
-  } catch (err) {
-    console.log(err);
-    setIsLoading(false);
-    error.showGeneral();
-  }
-};
-
-export const getAllPrsOfInactiveEmployee = async (
-  id,
-  setPrs,
-  setArchivedPrs,
-  setIsLoading,
-  error
-) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/inactive/employee/${id}/pr/all`
-    );
-    const responsePrs = await response.json();
-    let archivedPrs = [...responsePrs.archivedPrs];
-    let prs = [...responsePrs.prs];
-    addAttributeToArchivedPrs(archivedPrs);
-    addAttributeToPrs(prs);
-
-    setIsLoading(false);
-    setPrs(prs);
-    setArchivedPrs(archivedPrs);
   } catch (err) {
     console.log(err);
     setIsLoading(false);
@@ -86,7 +28,7 @@ export const getInactiveEmployees = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/inactive/employee/all`
+      `${process.env.REACT_APP_API}/api/v1/inactive/employee/all`
     );
 
     const responseEmployees = await response.json();
@@ -120,7 +62,7 @@ export const getEmployeeById = async (
   try {
     setIsLoading(true);
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/employee/${employeeId}`
+      `${process.env.REACT_APP_API}/api/v1/employee/${employeeId}`
     );
     if (response.ok) {
       const employee = await response.json();

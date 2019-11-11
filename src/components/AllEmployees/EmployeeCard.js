@@ -12,7 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import EmployeesPRsDialog from './EmployeesPRsDialog';
 
 const styles = theme => ({
   card: {
@@ -87,11 +86,7 @@ const EmployeeCard = ({
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
-    setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogOpen(false);
+    setDialogOpen(!dialogOpen);
   };
 
   const employeeName = (
@@ -198,15 +193,8 @@ const EmployeeCard = ({
           )}
         </CardContent>
       </Card>
-      {dialogOpen && (
-        <EmployeesPRsDialog
-          firstName={firstName}
-          lastName={lastName}
-          employeeId={id}
-          dialogOpen={dialogOpen}
-          dialogClose={handleDialogClose}
-        />
-      )}
+      {dialogOpen &&
+        <div>TODO add dialog</div>}
     </Fragment>
   );
 };

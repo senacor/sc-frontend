@@ -4,7 +4,9 @@ export const getRoles = async (setRoles, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/role`);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/roles/all`
+    );
 
     const responseList = await response.json();
     const prTableEntries = responseList ? responseList : [];
@@ -24,7 +26,7 @@ export const getRoles = async (setRoles, setIsLoading, error) => {
 export const getSystemInfo = async (setSystemInfo, error) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/system/info`
+      `${process.env.REACT_APP_API}/api/v1/system/info`
     );
 
     const responseJson = await response.json();
@@ -44,7 +46,7 @@ export const getAllEmployeesWithRoles = async (
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/role/employee/all`
+      `${process.env.REACT_APP_API}/api/v1/employee-with-roles/all`
     );
 
     const responseList = await response.json();
@@ -61,26 +63,25 @@ export const getAllEmployeesWithRoles = async (
 
 export const setRoles = async (employeeId, roles, error) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v3/role/${employeeId}`, {
-      method: 'post',
-      mode: 'cors',
-      body: JSON.stringify(roles)
-    });
+    await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/${employeeId}/roles`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(roles)
+      }
+    );
   } catch (err) {
     console.log(err);
     error.showGeneral();
   }
 };
 
-export const getHealthcheckData = async (
-  setData,
-  setIsLoading,
-  error
-) => {
+export const getHealthcheckData = async (setData, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
-    const response = await fetch(`${process.env.REACT_APP_API}/api/v3/log/all`);
+    const response = await fetch(`${process.env.REACT_APP_API}/api/v1/log/all`);
     const data = await response.json();
 
     setData(data);
@@ -93,7 +94,7 @@ export const getHealthcheckData = async (
 
 export const deleteError = async (id, error) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v3/log/delete/${id}`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/log/delete/${id}`, {
       method: 'delete',
       mode: 'cors'
     });
@@ -105,7 +106,7 @@ export const deleteError = async (id, error) => {
 
 export const deleteAllErrors = async error => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v3/log/delete/all`, {
+    await fetch(`${process.env.REACT_APP_API}/api/v1/log/delete/all`, {
       method: 'delete',
       mode: 'cors'
     });
@@ -115,16 +116,12 @@ export const deleteAllErrors = async error => {
   }
 };
 
-export const getMaintenanceTeam = async (
-  setData,
-  setIsLoading,
-  error
-) => {
+export const getMaintenanceTeam = async (setData, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/maintenance/member/all`
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member/all`
     );
     const data = await response.json();
 
@@ -145,7 +142,7 @@ export const addMaintenanceTeamMember = async (
   try {
     error.hide();
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v3/maintenance/member/${id}`,
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member/${id}`,
       {
         method: 'post',
         mode: 'cors'
@@ -168,7 +165,7 @@ export const addMaintenanceTeamMember = async (
 export const deleteMaintenanceTeamMember = async (id, error) => {
   try {
     await fetch(
-      `${process.env.REACT_APP_API}/api/v3/maintenance/member/${id}`,
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member/${id}`,
       {
         method: 'delete',
         mode: 'cors'
