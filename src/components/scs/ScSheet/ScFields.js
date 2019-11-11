@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import {
-  withStyles,
-  TextField,
   Grid,
   IconButton,
-  Tooltip
+  TextField,
+  Tooltip,
+  withStyles
 } from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
@@ -18,8 +18,13 @@ const styles = theme => ({
   fieldContainer: {
     marginTop: 2 * theme.spacing.unit,
     marginBottom: 2 * theme.spacing.unit,
-    background: theme.palette.secondary.brightGrey,
     borderRadius: 3
+  },
+  dailyBusinessBackground: {
+    background: theme.palette.secondary.brightGrey
+  },
+  projectBackground: {
+    background: theme.palette.secondary.brighterGreen
   },
   textsContainer: {
     padding: theme.spacing.unit * 2
@@ -35,26 +40,25 @@ const ScFields = ({
   intl,
   classes,
   fields,
-  changeHeadline,
-  changeWeight,
-  changePercentage,
-  changeEvaluation,
-  changeDescription,
-  changeGoal,
-  changeGoalComment,
-  removeFields
+  handleChange,
+  removeFields,
+  type
 }) => {
+  const bgClass =
+    type === 'dailyBusiness'
+      ? classes.dailyBusinessBackground
+      : classes.projectBackground;
   return (
     <Fragment>
       {fields.map((field, index) => {
         return (
-          <div key={index} className={classes.fieldContainer}>
+          <div key={index} className={`${bgClass} ${classes.fieldContainer}`}>
             <Tooltip
               title={intl.formatMessage({ id: 'scsheet.tooltip.removeField' })}
             >
               <IconButton
                 className={classes.removeIcon}
-                onClick={() => removeFields(index)}
+                onClick={() => removeFields(type, index)}
               >
                 <RemoveIcon />
               </IconButton>
@@ -68,11 +72,14 @@ const ScFields = ({
                     margin="normal"
                     variant="outlined"
                     label={intl.formatMessage({
-                      id: 'scsheet.textheader.headline'
+                      id:
+                        type === 'dailyBusiness'
+                          ? 'scsheet.textheader.headline.dailyBusiness'
+                          : 'scsheet.textheader.headline.project'
                     })}
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => changeHeadline(index, e)}
+                    onChange={e => handleChange(type, index, 'headline', e)}
                   />
                 </Grid>
                 <Grid item sm={2}>
@@ -86,7 +93,7 @@ const ScFields = ({
                     })}
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => changeWeight(index, e)}
+                    onChange={e => handleChange(type, index, 'weight', e)}
                   />
                 </Grid>
                 <Grid item sm={2}>
@@ -100,12 +107,14 @@ const ScFields = ({
                     })}
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => changePercentage(index, e)}
+                    onChange={e => handleChange(type, index, 'percentage', e)}
                   />
                 </Grid>
                 <Grid item sm={2} className={classes.textCenter}>
                   <ScRatingPoints
-                    changeEvaluation={e => changeEvaluation(index, e)}
+                    changeEvaluation={e =>
+                      handleChange(type, index, 'evaluation', e)
+                    }
                     rating={fields.evaluation}
                   />
                 </Grid>
@@ -124,7 +133,7 @@ const ScFields = ({
                     multiline
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => changeDescription(index, e)}
+                    onChange={e => handleChange(type, index, 'description', e)}
                   />
                 </Grid>
                 <Grid item sm={4}>
@@ -138,7 +147,7 @@ const ScFields = ({
                     multiline
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => changeGoal(index, e)}
+                    onChange={e => handleChange(type, index, 'goal', e)}
                   />
                 </Grid>
                 <Grid item sm={4}>
@@ -154,7 +163,7 @@ const ScFields = ({
                     multiline
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => changeGoalComment(index, e)}
+                    onChange={e => handleChange(type, index, 'goalComment', e)}
                   />
                 </Grid>
               </Grid>
