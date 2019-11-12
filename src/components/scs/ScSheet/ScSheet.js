@@ -105,6 +105,7 @@ const ScSheet = ({ sc, classes, intl }) => {
           percentage: my.percentage,
           description: my.description,
           achievement: my.achievement,
+          weight: my.weight,
           comment: my.comment
         };
       }),
@@ -115,6 +116,7 @@ const ScSheet = ({ sc, classes, intl }) => {
           percentage: my.percentage,
           description: my.description,
           achievement: my.achievement,
+          weight: my.weight,
           comment: my.comment
         };
       })
