@@ -68,18 +68,18 @@ const ScFields = ({
                 <Grid item sm={6}>
                   <TextField
                     type="text"
-                    value={field.headline}
+                    value={field.title}
                     margin="normal"
                     variant="outlined"
                     label={intl.formatMessage({
                       id:
                         type === 'dailyBusiness'
-                          ? 'scsheet.textheader.headline.dailyBusiness'
-                          : 'scsheet.textheader.headline.project'
+                          ? 'scsheet.textheader.title.dailyBusiness'
+                          : 'scsheet.textheader.title.project'
                     })}
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => handleChange(type, index, 'headline', e)}
+                    onChange={e => handleChange(type, index, 'title', e)}
                   />
                 </Grid>
                 <Grid item sm={2}>
@@ -139,31 +139,31 @@ const ScFields = ({
                 <Grid item sm={4}>
                   <TextField
                     type="text"
-                    value={field.goal}
+                    value={field.achievement}
                     margin="normal"
                     variant="outlined"
-                    label={intl.formatMessage({ id: 'scsheet.textarea.goal' })}
+                    label={intl.formatMessage({ id: 'scsheet.textarea.achievement' })}
                     rows={3}
                     multiline
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => handleChange(type, index, 'goal', e)}
+                    onChange={e => handleChange(type, index, 'achievement', e)}
                   />
                 </Grid>
                 <Grid item sm={4}>
                   <TextField
                     type="text"
-                    value={field.goalComment}
+                    value={field.comment}
                     margin="normal"
                     variant="outlined"
                     label={intl.formatMessage({
-                      id: 'scsheet.textarea.goalcomment'
+                      id: 'scsheet.textarea.comment'
                     })}
                     rows={3}
                     multiline
                     fullWidth
                     className={classes.textarea}
-                    onChange={e => handleChange(type, index, 'goalComment', e)}
+                    onChange={e => handleChange(type, index, 'comment', e)}
                   />
                 </Grid>
               </Grid>

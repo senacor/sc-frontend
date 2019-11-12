@@ -12,6 +12,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { IconButton, Tooltip, Typography } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
+import { savePerformanceData } from '../../../calls/sc';
 
 const styles = theme => ({
   header: {
@@ -28,6 +34,9 @@ const styles = theme => ({
   btnContainer: {
     textAlign: 'right'
   },
+  btnSave: {
+    marginRight: theme.spacing.unit * 2
+  },
   formControl: {
     minWidth: 180
   },
@@ -37,9 +46,36 @@ const styles = theme => ({
 });
 
 const ScSheet = ({ sc, classes, intl }) => {
+  const initialFieldsData = {
+    title: '',
+    weight: 0,
+    percentage: 0,
+    evaluation: undefined,
+    description: '',
+    achievement: '',
+    comment: ''
+  };
+
+  const info = useInfoContext();
+  const error = useErrorContext();
+  const user = useUserinfoContext();
   const [position, setPosition] = useState('');
-  const [scDailyBusinessFields, setScDailyBusinessFields] = useState([]);
-  const [scProjectFields, setScProjectFields] = useState([]);
+
+  const [
+    dailyBusinessEmployeeFields,
+    setDailyBusinessEmployeeFields
+  ] = useState(sc.employeePerformance.dailyBusiness);
+  const [projectEmployeeFields, setProjectEmployeeFields] = useState(
+    sc.employeePerformance.project
+  );
+
+  const [
+    dailyBusinessReviewerFields,
+    setDailyBusinessReviewerFields
+  ] = useState(sc.reviewerPerformance.dailyBusiness);
+  const [projectReviewerFields, setProjectReviewerFields] = useState(
+    sc.reviewerPerformance.project
+  );
 
   const mockPositions = [
     'Specialist',
@@ -53,53 +89,195 @@ const ScSheet = ({ sc, classes, intl }) => {
     // TODO: submitting data and sending to backend
   };
 
+  const handleSave = () => {
+    const dailyBusinessFields = user.isReviewerInSc(sc)
+      ? dailyBusinessReviewerFields
+      : dailyBusinessEmployeeFields;
+    const projectFields = user.isReviewerInSc(sc)
+      ? projectReviewerFields
+      : projectEmployeeFields;
+
+    const data = {
+      dailyBusiness: dailyBusinessFields.map(my => {
+        return {
+          title: my.title,
+          evaluation: my.evaluation ? my.evaluation : 0,
+          percentage: my.percentage,
+          description: my.description,
+          achievement: my.achievement,
+          comment: my.comment
+        };
+      }),
+      project: projectFields.map(my => {
+        return {
+          title: my.title,
+          evaluation: my.evaluation ? my.evaluation : 0,
+          percentage: my.percentage,
+          description: my.description,
+          achievement: my.achievement,
+          comment: my.comment
+        };
+      })
+    };
+    savePerformanceData(
+      sc.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      data,
+      info,
+      error
+    );
+  };
+
   const handleChangePosition = event => {
     setPosition(event.target.value);
   };
 
-  const handleChangePropKey = (type, i, propKey, event) => {
+  const handleChangePropKeyEmployee = (type, i, propKey, event) => {
     if (type === 'dailyBusiness') {
-      const values = [...scDailyBusinessFields];
+      const values = [...dailyBusinessEmployeeFields];
       values[i][propKey] = event.target.value;
-      setScDailyBusinessFields(values);
+      setDailyBusinessEmployeeFields(values);
     } else {
-      const values = [...scProjectFields];
+      const values = [...projectEmployeeFields];
       values[i][propKey] = event.target.value;
-      setScProjectFields(values);
+      setProjectEmployeeFields(values);
     }
   };
 
-  const addFields = type => {
-    const initialFieldsData = {
-      headline: '',
-      weight: 0,
-      percentage: 0,
-      evaluation: undefined,
-      description: '',
-      goal: '',
-      goalComment: ''
-    };
+  const handleChangePropKeyReviewer = (type, i, propKey, event) => {
     if (type === 'dailyBusiness') {
-      const values = [...scDailyBusinessFields];
-      values.push(initialFieldsData);
-      setScDailyBusinessFields(values);
+      const values = [...dailyBusinessReviewerFields];
+      values[i][propKey] = event.target.value;
+      setDailyBusinessReviewerFields(values);
     } else {
-      const values = [...scProjectFields];
-      values.push(initialFieldsData);
-      setScProjectFields(values);
+      const values = [...projectReviewerFields];
+      values[i][propKey] = event.target.value;
+      setProjectReviewerFields(values);
     }
   };
 
-  const removeFields = (type, i) => {
+  const addFieldsEmployee = type => {
     if (type === 'dailyBusiness') {
-      const values = [...scDailyBusinessFields];
-      values.splice(i, 1);
-      setScDailyBusinessFields(values);
+      const values = [...dailyBusinessEmployeeFields];
+      values.push(initialFieldsData);
+      setDailyBusinessEmployeeFields(values);
     } else {
-      const values = [...scProjectFields];
-      values.splice(i, 1);
-      setScProjectFields(values);
+      const values = [...projectEmployeeFields];
+      values.push(initialFieldsData);
+      setProjectEmployeeFields(values);
     }
+  };
+
+  const addFieldsReviewer = type => {
+    if (type === 'dailyBusiness') {
+      const values = [...dailyBusinessReviewerFields];
+      values.push(initialFieldsData);
+      setDailyBusinessReviewerFields(values);
+    } else {
+      const values = [...projectReviewerFields];
+      values.push(initialFieldsData);
+      setProjectReviewerFields(values);
+    }
+  };
+
+  const removeFieldsEmployee = (type, i) => {
+    if (type === 'dailyBusiness') {
+      const values = [...dailyBusinessEmployeeFields];
+      values.splice(i, 1);
+      setDailyBusinessEmployeeFields(values);
+    } else {
+      const values = [...projectEmployeeFields];
+      values.splice(i, 1);
+      setProjectEmployeeFields(values);
+    }
+  };
+
+  const removeFieldsReviewer = (type, i) => {
+    if (type === 'dailyBusiness') {
+      const values = [...dailyBusinessReviewerFields];
+      values.splice(i, 1);
+      setDailyBusinessReviewerFields(values);
+    } else {
+      const values = [...projectReviewerFields];
+      values.splice(i, 1);
+      setProjectReviewerFields(values);
+    }
+  };
+
+  const disableSaveButton = () => {
+    if (user.isReviewerInSc(sc)) {
+      return sc.statusSet.includes('REVIEWER_SUBMITTED');
+    }
+
+    if (user.isOwnerInSc(sc)) {
+      return sc.statusSet.includes('EMPLOYEE_SUBMITTED');
+    }
+
+    return true;
+  };
+
+  const renderScFields = user => {
+    const isEmployee = user === 'employee';
+    return (
+      <Fragment>
+        <ScFields
+          fields={
+            isEmployee
+              ? dailyBusinessEmployeeFields
+              : dailyBusinessReviewerFields
+          }
+          type={'dailyBusiness'}
+          handleChange={
+            isEmployee
+              ? handleChangePropKeyEmployee
+              : handleChangePropKeyReviewer
+          }
+          removeFields={
+            isEmployee ? removeFieldsEmployee : removeFieldsReviewer
+          }
+        />
+        <Tooltip
+          title={intl.formatMessage({
+            id: 'scsheet.tooltip.addField.dailyBusiness'
+          })}
+        >
+          <IconButton
+            onClick={
+              isEmployee
+                ? () => addFieldsEmployee('dailyBusiness')
+                : () => addFieldsReviewer('dailyBusiness')
+            }
+          >
+            <AddIcon color="primary" />
+          </IconButton>
+        </Tooltip>
+        <ScFields
+          fields={isEmployee ? projectEmployeeFields : projectReviewerFields}
+          type={'project'}
+          handleChange={
+            isEmployee
+              ? handleChangePropKeyEmployee
+              : handleChangePropKeyReviewer
+          }
+          removeFields={
+            isEmployee ? removeFieldsEmployee : removeFieldsReviewer
+          }
+        />
+        <Tooltip
+          title={intl.formatMessage({ id: 'scsheet.tooltip.addField.project' })}
+        >
+          <IconButton
+            onClick={
+              isEmployee
+                ? () => addFieldsEmployee('project')
+                : () => addFieldsReviewer('project')
+            }
+          >
+            <AddIcon className={classes.addProjectButton} />
+          </IconButton>
+        </Tooltip>
+      </Fragment>
+    );
   };
 
   return (
@@ -124,35 +302,20 @@ const ScSheet = ({ sc, classes, intl }) => {
       <Typography variant="h5" className={classes.header}>
         {intl.formatMessage({ id: 'scsheet.category.leistungen' })}
       </Typography>
-      <ScFields
-        fields={scDailyBusinessFields}
-        type={'dailyBusiness'}
-        handleChange={handleChangePropKey}
-        removeFields={removeFields}
-      />
-      <Tooltip
-        title={intl.formatMessage({
-          id: 'scsheet.tooltip.addField.dailyBusiness'
-        })}
-      >
-        <IconButton onClick={() => addFields('dailyBusiness')}>
-          <AddIcon color="primary" />
-        </IconButton>
-      </Tooltip>
-      <ScFields
-        fields={scProjectFields}
-        type={'project'}
-        handleChange={handleChangePropKey}
-        removeFields={removeFields}
-      />
-      <Tooltip
-        title={intl.formatMessage({ id: 'scsheet.tooltip.addField.project' })}
-      >
-        <IconButton onClick={() => addFields('project')}>
-          <AddIcon className={classes.addProjectButton} />
-        </IconButton>
-      </Tooltip>
+      {user.isOwnerInSc(sc) && renderScFields('employee')}
+      {user.isReviewerInSc(sc) && renderScFields('reviewer')}
       <div className={classes.btnContainer}>
+        <Button
+          disabled={disableSaveButton()}
+          className={classes.btnSave}
+          variant="contained"
+          color="secondary"
+          onClick={handleSave}
+        >
+          {intl.formatMessage({
+            id: 'scsheet.save'
+          })}
+        </Button>
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           {intl.formatMessage({
             id: 'scsheet.submit'
