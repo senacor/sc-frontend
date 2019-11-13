@@ -36,14 +36,7 @@ const styles = theme => ({
   }
 });
 
-const ScFields = ({
-  intl,
-  classes,
-  fields,
-  handleChange,
-  removeFields,
-  type
-}) => {
+const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
   const bgClass =
     type === 'dailyBusiness'
       ? classes.dailyBusinessBackground
@@ -142,7 +135,9 @@ const ScFields = ({
                     value={field.achievement}
                     margin="normal"
                     variant="outlined"
-                    label={intl.formatMessage({ id: 'scsheet.textarea.achievement' })}
+                    label={intl.formatMessage({
+                      id: 'scsheet.textarea.achievement'
+                    })}
                     rows={3}
                     multiline
                     fullWidth
@@ -175,4 +170,4 @@ const ScFields = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(ScFields));
+export default injectIntl(withStyles(styles)(ScRow));

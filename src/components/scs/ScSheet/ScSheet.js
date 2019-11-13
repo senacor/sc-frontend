@@ -2,22 +2,20 @@ import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-import ScFields from './ScFields';
 // Material UI
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { IconButton, Tooltip, Typography } from '@material-ui/core';
-
-import AddIcon from '@material-ui/icons/AddBox';
+import { Typography } from '@material-ui/core';
 import {
   useErrorContext,
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
+import ScRows from './ScRows';
 
 const styles = theme => ({
   header: {
@@ -218,70 +216,6 @@ const ScSheet = ({ sc, classes, intl }) => {
     return true;
   };
 
-  const renderScFields = user => {
-    const isEmployee = user === 'employee';
-    return (
-      <Fragment>
-        <ScFields
-          fields={
-            isEmployee
-              ? dailyBusinessEmployeeFields
-              : dailyBusinessReviewerFields
-          }
-          type={'dailyBusiness'}
-          handleChange={
-            isEmployee
-              ? handleChangePropKeyEmployee
-              : handleChangePropKeyReviewer
-          }
-          removeFields={
-            isEmployee ? removeFieldsEmployee : removeFieldsReviewer
-          }
-        />
-        <Tooltip
-          title={intl.formatMessage({
-            id: 'scsheet.tooltip.addField.dailyBusiness'
-          })}
-        >
-          <IconButton
-            onClick={
-              isEmployee
-                ? () => addFieldsEmployee('dailyBusiness')
-                : () => addFieldsReviewer('dailyBusiness')
-            }
-          >
-            <AddIcon color="primary" />
-          </IconButton>
-        </Tooltip>
-        <ScFields
-          fields={isEmployee ? projectEmployeeFields : projectReviewerFields}
-          type={'project'}
-          handleChange={
-            isEmployee
-              ? handleChangePropKeyEmployee
-              : handleChangePropKeyReviewer
-          }
-          removeFields={
-            isEmployee ? removeFieldsEmployee : removeFieldsReviewer
-          }
-        />
-        <Tooltip
-          title={intl.formatMessage({ id: 'scsheet.tooltip.addField.project' })}
-        >
-          <IconButton
-            onClick={
-              isEmployee
-                ? () => addFieldsEmployee('project')
-                : () => addFieldsReviewer('project')
-            }
-          >
-            <AddIcon className={classes.addProjectButton} />
-          </IconButton>
-        </Tooltip>
-      </Fragment>
-    );
-  };
-
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -304,8 +238,36 @@ const ScSheet = ({ sc, classes, intl }) => {
       <Typography variant="h5" className={classes.header}>
         {intl.formatMessage({ id: 'scsheet.category.leistungen' })}
       </Typography>
-      {user.isOwnerInSc(sc) && renderScFields('employee')}
-      {user.isReviewerInSc(sc) && renderScFields('reviewer')}
+      {user.isOwnerInSc(sc) && (
+        <ScRows
+          userVariant={'employee'}
+          dailyBusinessEmployeeFields={dailyBusinessEmployeeFields}
+          dailyBusinessReviewerFields={dailyBusinessReviewerFields}
+          handleChangePropKeyEmployee={handleChangePropKeyEmployee}
+          handleChangePropKeyReviewer={handleChangePropKeyReviewer}
+          removeFieldsEmployee={removeFieldsEmployee}
+          removeFieldsReviewer={removeFieldsReviewer}
+          addFieldsEmployee={addFieldsEmployee}
+          addFieldsReviewer={addFieldsReviewer}
+          projectEmployeeFields={projectEmployeeFields}
+          projectReviewerFields={projectReviewerFields}
+        />
+      )}
+      {user.isReviewerInSc(sc) && (
+        <ScRows
+          userVariant={'reviewer'}
+          dailyBusinessEmployeeFields={dailyBusinessEmployeeFields}
+          dailyBusinessReviewerFields={dailyBusinessReviewerFields}
+          handleChangePropKeyEmployee={handleChangePropKeyEmployee}
+          handleChangePropKeyReviewer={handleChangePropKeyReviewer}
+          removeFieldsEmployee={removeFieldsEmployee}
+          removeFieldsReviewer={removeFieldsReviewer}
+          addFieldsEmployee={addFieldsEmployee}
+          addFieldsReviewer={addFieldsReviewer}
+          projectEmployeeFields={projectEmployeeFields}
+          projectReviewerFields={projectReviewerFields}
+        />
+      )}
       <div className={classes.btnContainer}>
         <Button
           disabled={disableSaveButton()}
