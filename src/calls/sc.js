@@ -1,5 +1,25 @@
 import { default as fetch } from '../helper/customFetch';
 
+export const savePerformanceData = async (scId, type, data, info, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/performance/${type}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(data)
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
   try {
     setIsLoading(true);

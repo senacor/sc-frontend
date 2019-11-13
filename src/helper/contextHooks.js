@@ -26,14 +26,17 @@ export const useUserinfoContext = () => {
   const { userroles, userinfo } = userInfoContext.value;
   return {
     context: userInfoContext,
-    isSupervisorInPr: pr => {
-      return userinfo.userId === pr.supervisor.id;
+    isSupervisorInSc: sc => {
+      return userinfo.userId === sc.supervisor.id;
     },
-    isReviewerInPr: pr => {
-      return userinfo.userId === pr.reviewer.id;
+    isReviewerInSc: sc => {
+      return (
+        userinfo.userId === sc.reviewer1.id ||
+        userinfo.userId === sc.reviewer2.id
+      );
     },
-    isOwnerInPr: pr => {
-      return pr.employee.id === userinfo.userId;
+    isOwnerInSc: sc => {
+      return sc.employee.id === userinfo.userId;
     },
     hasRoleAdmin: () => {
       return userroles[0] === 'ADMIN';
