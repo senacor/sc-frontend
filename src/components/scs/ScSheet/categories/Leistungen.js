@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-import ScRow from './ScRow';
+import ScRow from '../ScRow';
 // Material UI
 import { IconButton, Tooltip } from '@material-ui/core';
 
@@ -14,8 +14,8 @@ const styles = theme => ({
   }
 });
 
-const ScRows = ({
-  userVariant,
+const Leistungen = ({
+  isEmployee,
   classes,
   intl,
   dailyBusinessEmployeeFields,
@@ -29,7 +29,6 @@ const ScRows = ({
   projectEmployeeFields,
   projectReviewerFields
 }) => {
-  const isEmployee = userVariant === 'employee';
   return (
     <Fragment>
       <ScRow
@@ -82,4 +81,4 @@ const ScRows = ({
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(ScRows)));
+export default withRouter(injectIntl(withStyles(styles)(Leistungen)));

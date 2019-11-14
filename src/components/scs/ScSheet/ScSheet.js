@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 // Material UI
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -15,7 +14,8 @@ import {
   useUserinfoContext
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
-import ScRows from './ScRows';
+import Leistungen from './categories/Leistungen';
+import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
   header: {
@@ -29,12 +29,6 @@ const styles = theme => ({
   addProjectButton: {
     color: theme.palette.secondary.yellow
   },
-  btnContainer: {
-    textAlign: 'right'
-  },
-  btnSave: {
-    marginRight: theme.spacing.unit * 2
-  },
   formControl: {
     minWidth: 180
   },
@@ -46,9 +40,9 @@ const styles = theme => ({
 const ScSheet = ({ sc, classes, intl }) => {
   const initialFieldsData = {
     title: '',
-    weight: 0,
-    percentage: 0,
-    evaluation: undefined,
+    weight: '',
+    percentage: '',
+    evaluation: '',
     description: '',
     achievement: '',
     comment: ''
@@ -133,6 +127,7 @@ const ScSheet = ({ sc, classes, intl }) => {
   };
 
   const handleChangePropKeyEmployee = (type, i, propKey, event) => {
+    console.log('propKey', propKey);
     if (type === 'dailyBusiness') {
       const values = [...dailyBusinessEmployeeFields];
       values[i][propKey] = event.target.value;
@@ -204,16 +199,10 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
-  const disableSaveButton = () => {
-    if (user.isReviewerInSc(sc)) {
-      return sc.statusSet.includes('REVIEWER_SUBMITTED');
-    }
-
+  const determineUserVariant = () => {
     if (user.isOwnerInSc(sc)) {
-      return sc.statusSet.includes('EMPLOYEE_SUBMITTED');
-    }
-
-    return true;
+      return true;
+    } else return false;
   };
 
   return (
@@ -238,9 +227,10 @@ const ScSheet = ({ sc, classes, intl }) => {
       <Typography variant="h5" className={classes.header}>
         {intl.formatMessage({ id: 'scsheet.category.leistungen' })}
       </Typography>
-      {user.isOwnerInSc(sc) && (
-        <ScRows
-          userVariant={'employee'}
+      {/* CATEGORIES */}
+      <Fragment>
+        <Leistungen
+          isEmployee={determineUserVariant()}
           dailyBusinessEmployeeFields={dailyBusinessEmployeeFields}
           dailyBusinessReviewerFields={dailyBusinessReviewerFields}
           handleChangePropKeyEmployee={handleChangePropKeyEmployee}
@@ -252,40 +242,13 @@ const ScSheet = ({ sc, classes, intl }) => {
           projectEmployeeFields={projectEmployeeFields}
           projectReviewerFields={projectReviewerFields}
         />
-      )}
-      {user.isReviewerInSc(sc) && (
-        <ScRows
-          userVariant={'reviewer'}
-          dailyBusinessEmployeeFields={dailyBusinessEmployeeFields}
-          dailyBusinessReviewerFields={dailyBusinessReviewerFields}
-          handleChangePropKeyEmployee={handleChangePropKeyEmployee}
-          handleChangePropKeyReviewer={handleChangePropKeyReviewer}
-          removeFieldsEmployee={removeFieldsEmployee}
-          removeFieldsReviewer={removeFieldsReviewer}
-          addFieldsEmployee={addFieldsEmployee}
-          addFieldsReviewer={addFieldsReviewer}
-          projectEmployeeFields={projectEmployeeFields}
-          projectReviewerFields={projectReviewerFields}
-        />
-      )}
-      <div className={classes.btnContainer}>
-        <Button
-          disabled={disableSaveButton()}
-          className={classes.btnSave}
-          variant="contained"
-          color="secondary"
-          onClick={handleSave}
-        >
-          {intl.formatMessage({
-            id: 'scsheet.save'
-          })}
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          {intl.formatMessage({
-            id: 'scsheet.submit'
-          })}
-        </Button>
-      </div>
+        {/* Other categories as separated components */}
+      </Fragment>
+      <ButtonsBelowSheet
+        handleSave={handleSave}
+        handleSubmit={handleSubmit}
+        sc={sc}
+      />
     </Fragment>
   );
 };
