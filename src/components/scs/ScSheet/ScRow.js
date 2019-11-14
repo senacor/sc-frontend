@@ -48,8 +48,8 @@ const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
       {fields.map((field, index) => {
         return (
           <div key={index} className={classes.fieldContainer}>
-            {type === 'dailyBusiness' ||
-              (type ===  'project' && (
+            {(type === 'dailyBusiness' ||
+              type ===  'project') && (
                 <Tooltip
                   title={intl.formatMessage({
                     id: 'scsheet.tooltip.removeField'
@@ -62,7 +62,7 @@ const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
                     <RemoveIcon />
                   </IconButton>
                 </Tooltip>
-              ))}
+              )}
             <div className={classes.textsContainer}>
               <Grid container spacing={8}>
                 <Grid item sm={6}>
