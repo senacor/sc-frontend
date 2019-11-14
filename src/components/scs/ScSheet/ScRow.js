@@ -31,13 +31,25 @@ const styles = theme => ({
 });
 
 const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
+  if (fields === undefined) {
+    fields = [{
+      title: "",
+      weight: "",
+      percentage: "",
+      evaluation: "",
+      description: "",
+      achievement: "",
+      comment: ""
+    }];
+  }
+  console.log('fields', type, fields)
   return (
     <Fragment>
       {fields.map((field, index) => {
         return (
           <div key={index} className={classes.fieldContainer}>
             {type === 'dailyBusiness' ||
-              ('project' && (
+              (type ===  'project' && (
                 <Tooltip
                   title={intl.formatMessage({
                     id: 'scsheet.tooltip.removeField'

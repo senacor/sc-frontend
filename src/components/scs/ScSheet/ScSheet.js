@@ -15,6 +15,7 @@ import {
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
 import Leistungen from './categories/Leistungen';
+import Kompetenz from './categories/Kompetenz';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
@@ -60,6 +61,7 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [projectEmployeeFields, setProjectEmployeeFields] = useState(
     sc.employeePerformance.project
   );
+  const [kompetenzEmployeeFields, setkompetenzEmployeeFields] = useState(sc.employeePerformance.kompetenz);
 
   const [
     dailyBusinessReviewerFields,
@@ -68,6 +70,7 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [projectReviewerFields, setProjectReviewerFields] = useState(
     sc.reviewerPerformance.project
   );
+  const [kompetenzReviewerFields, setkompetenzReviewerFields] = useState(sc.reviewerPerformance.kompetenz);
 
   const mockPositions = [
     'Specialist',
@@ -241,7 +244,13 @@ const ScSheet = ({ sc, classes, intl }) => {
           projectEmployeeFields={projectEmployeeFields}
           projectReviewerFields={projectReviewerFields}
         />
-        {/* Other categories as separated components */}
+        <Kompetenz
+          isEmployee={determineUserVariant()}
+          kompetenzEmployeeFields={kompetenzEmployeeFields}
+          kompetenzReviewerFields={kompetenzReviewerFields}
+          handleChangePropKeyEmployee={handleChangePropKeyEmployee}
+          handleChangePropKeyReviewer={handleChangePropKeyReviewer}
+        />
       </Fragment>
       <ButtonsBelowSheet
         handleSave={handleSave}
