@@ -127,7 +127,6 @@ const ScSheet = ({ sc, classes, intl }) => {
   };
 
   const handleChangePropKeyEmployee = (type, i, propKey, event) => {
-    console.log('propKey', propKey);
     if (type === 'dailyBusiness') {
       const values = [...dailyBusinessEmployeeFields];
       values[i][propKey] = event.target.value;

@@ -20,12 +20,6 @@ const styles = theme => ({
     marginBottom: 2 * theme.spacing.unit,
     borderRadius: 3
   },
-  dailyBusinessBackground: {
-    background: theme.palette.secondary.brightGrey
-  },
-  projectBackground: {
-    background: theme.palette.secondary.brighterGreen
-  },
   textsContainer: {
     padding: theme.spacing.unit * 2
   },
@@ -37,25 +31,26 @@ const styles = theme => ({
 });
 
 const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
-  const bgClass =
-    type === 'dailyBusiness'
-      ? classes.dailyBusinessBackground
-      : classes.projectBackground;
   return (
     <Fragment>
       {fields.map((field, index) => {
         return (
-          <div key={index} className={`${bgClass} ${classes.fieldContainer}`}>
-            <Tooltip
-              title={intl.formatMessage({ id: 'scsheet.tooltip.removeField' })}
-            >
-              <IconButton
-                className={classes.removeIcon}
-                onClick={() => removeFields(type, index)}
-              >
-                <RemoveIcon />
-              </IconButton>
-            </Tooltip>
+          <div key={index} className={classes.fieldContainer}>
+            {type === 'dailyBusiness' ||
+              ('project' && (
+                <Tooltip
+                  title={intl.formatMessage({
+                    id: 'scsheet.tooltip.removeField'
+                  })}
+                >
+                  <IconButton
+                    className={classes.removeIcon}
+                    onClick={() => removeFields(type, index)}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                </Tooltip>
+              ))}
             <div className={classes.textsContainer}>
               <Grid container spacing={8}>
                 <Grid item sm={6}>
@@ -91,6 +86,7 @@ const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
                 </Grid>
                 <Grid item sm={2}>
                   <TextField
+                    disabled
                     type="number"
                     value={field.percentage}
                     margin="normal"
