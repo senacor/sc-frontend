@@ -14,19 +14,11 @@ import {
   useUserinfoContext
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
-import Leistungen from './categories/Leistungen';
+import Performance from './categories/Performance';
 import Kompetenz from './categories/Kompetenz';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
-  header: {
-    background: theme.palette.secondary.darkGreen,
-    color: theme.palette.contrastText,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
-    borderRadius: 3
-  },
   addProjectButton: {
     color: theme.palette.secondary.yellow
   },
@@ -211,7 +203,9 @@ const ScSheet = ({ sc, classes, intl }) => {
     <Fragment>
       <div className={classes.dropdownContainer}>
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">Position</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            {intl.formatMessage({ id: 'scsheet.position' })}
+          </InputLabel>
           <Select
             labelid="demo-simple-select-label"
             id="demo-simple-select"
@@ -226,12 +220,9 @@ const ScSheet = ({ sc, classes, intl }) => {
           </Select>
         </FormControl>
       </div>
-      <Typography variant="h5" className={classes.header}>
-        {intl.formatMessage({ id: 'scsheet.category.leistungen' })}
-      </Typography>
       {/* CATEGORIES */}
       <Fragment>
-        <Leistungen
+        <Performance
           isEmployee={determineUserVariant()}
           dailyBusinessEmployeeFields={dailyBusinessEmployeeFields}
           dailyBusinessReviewerFields={dailyBusinessReviewerFields}

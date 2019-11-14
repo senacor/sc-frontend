@@ -15,15 +15,9 @@ const styles = theme => ({
     position: 'absolute',
     right: 40
   },
-  fieldContainer: {
-    marginTop: 2 * theme.spacing.unit,
-    marginBottom: 2 * theme.spacing.unit,
-    borderRadius: 3
-  },
   textsContainer: {
     padding: theme.spacing.unit * 2
   },
-  textArea: {},
   textCenter: {
     textAlign: 'center',
     margin: 'auto'
@@ -47,22 +41,21 @@ const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
     <Fragment>
       {fields.map((field, index) => {
         return (
-          <div key={index} className={classes.fieldContainer}>
-            {(type === 'dailyBusiness' ||
-              type ===  'project') && (
-                <Tooltip
-                  title={intl.formatMessage({
-                    id: 'scsheet.tooltip.removeField'
-                  })}
+          <div key={index}>
+            {(type === 'project' || type === 'dailyBusiness') && (
+              <Tooltip
+                title={intl.formatMessage({
+                  id: 'scsheet.tooltip.removeField'
+                })}
+              >
+                <IconButton
+                  className={classes.removeIcon}
+                  onClick={() => removeFields(type, index)}
                 >
-                  <IconButton
-                    className={classes.removeIcon}
-                    onClick={() => removeFields(type, index)}
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                </Tooltip>
-              )}
+                  <RemoveIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             <div className={classes.textsContainer}>
               <Grid container spacing={8}>
                 <Grid item sm={6}>
