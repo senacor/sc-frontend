@@ -18,6 +18,12 @@ const WorkQuality = memo(
           fields={workQualityFields}
           action={handleChangeWorkQuality}
           title={intl.formatMessage({ id: 'scsheet.subcategory.workQuality' })}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description.workQuality'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement'
+          })}
         />
       </Fragment>
     );

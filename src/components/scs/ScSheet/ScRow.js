@@ -10,7 +10,8 @@ import {
   Typography,
   FormControl,
   Select,
-  MenuItem
+  MenuItem,
+  InputLabel
 } from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
@@ -34,11 +35,25 @@ const styles = theme => ({
   percentage: {
     margin: 'auto',
     textAlign: 'center'
+  },
+  input: {
+    minHeight: 150
   }
 });
 
 const ScRow = memo(
-  ({ intl, classes, title, fields, action, removeSubcategory, type }) => {
+  ({
+    intl,
+    classes,
+    title,
+    description,
+    achievement,
+    performanceLevel,
+    fields,
+    action,
+    removeSubcategory,
+    type
+  }) => {
     return (
       <Fragment>
         {fields.map((field, index) => {
@@ -59,7 +74,7 @@ const ScRow = memo(
                 </Tooltip>
               )}
               <div className={classes.textsContainer}>
-                <Grid container spacing={8}>
+                <Grid container>
                   <Grid item sm={6}>
                     {type === 'dailyBusiness' || type === 'project' ? (
                       <TextField
@@ -67,14 +82,13 @@ const ScRow = memo(
                         value={field.title}
                         margin="normal"
                         variant="outlined"
-                        label={intl.formatMessage({
+                        placeholder={intl.formatMessage({
                           id:
                             type === 'dailyBusiness'
                               ? 'scsheet.textheader.title.dailyBusiness'
                               : 'scsheet.textheader.title.project'
                         })}
                         fullWidth
-                        className={classes.textarea}
                         onChange={e => action(type, index, 'title', e)}
                       />
                     ) : (
@@ -83,7 +97,14 @@ const ScRow = memo(
                   </Grid>
                   <Grid item sm={2} className={classes.percentage}>
                     <FormControl>
+                      <InputLabel id="weight-label">
+                        {intl.formatMessage({
+                          id: 'scsheet.textheader.weight'
+                        })}
+                      </InputLabel>
                       <Select
+                        labelId="weight-label"
+                        id="weight-label"
                         value={field.weight}
                         onChange={e => action(type, index, 'weight', e)}
                       >
@@ -121,13 +142,11 @@ const ScRow = memo(
                       value={field.description}
                       margin="normal"
                       variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textarea.description'
-                      })}
-                      rows={3}
+                      placeholder={description}
+                      rows={6}
                       multiline
                       fullWidth
-                      className={classes.textarea}
+                      InputProps={{ className: classes.input }}
                       onChange={e => action(type, index, 'description', e)}
                     />
                   </Grid>
@@ -137,13 +156,11 @@ const ScRow = memo(
                       value={field.achievement}
                       margin="normal"
                       variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textarea.achievement'
-                      })}
-                      rows={3}
+                      placeholder={achievement}
+                      rows={6}
                       multiline
                       fullWidth
-                      className={classes.textarea}
+                      InputProps={{ className: classes.input }}
                       onChange={e => action(type, index, 'achievement', e)}
                     />
                   </Grid>
@@ -153,13 +170,13 @@ const ScRow = memo(
                       value={field.comment}
                       margin="normal"
                       variant="outlined"
-                      label={intl.formatMessage({
+                      placeholder={intl.formatMessage({
                         id: 'scsheet.textarea.comment'
                       })}
-                      rows={3}
+                      rows={6}
                       multiline
                       fullWidth
-                      className={classes.textarea}
+                      InputProps={{ className: classes.input }}
                       onChange={e => action(type, index, 'comment', e)}
                     />
                   </Grid>

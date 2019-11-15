@@ -37,6 +37,12 @@ const Performance = memo(
           type={'dailyBusiness'}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement'
+          })}
         />
         <Tooltip
           title={intl.formatMessage({
@@ -56,6 +62,12 @@ const Performance = memo(
           type={'project'}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement'
+          })}
         />
         <Tooltip
           title={intl.formatMessage({

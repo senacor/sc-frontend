@@ -20,6 +20,12 @@ const WorkEffectivity = memo(
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'
           })}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description.workEffectivity'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement'
+          })}
         />
       </Fragment>
     );
