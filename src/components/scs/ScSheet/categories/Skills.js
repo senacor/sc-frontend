@@ -13,14 +13,11 @@ const styles = theme => ({
   }
 });
 
-const Skills = ({
-  isEmployee,
+const Skills = React.memo(({
   classes,
   intl,
-  kompetenzEmployeeFields,
-  kompetenzReviewerFields,
-  handleChangePropKeyEmployee,
-  handleChangePropKeyReviewer
+  skillsFields,
+  handleChangeSkills
 }) => {
   return (
     <Fragment>
@@ -31,55 +28,39 @@ const Skills = ({
         {intl.formatMessage({ id: 'scsheet.subtitle.skillsinthefield' })}
       </Typography>
       <ScRow
-        fields={
-          isEmployee ? kompetenzEmployeeFields : kompetenzReviewerFields
-        }
+        fields={skillsFields}
         type={'skillsInTheField'}
-        handleChange={
-          isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
-        }
+        handleChange={handleChangeSkills}
       />
       <Divider />
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.impactonteam' })}
       </Typography>
       <ScRow
-        fields={
-          isEmployee ? kompetenzEmployeeFields : kompetenzReviewerFields
-        }
+        fields={skillsFields}
         type={'impactOnTeam'}
-        handleChange={
-          isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
-        }
+        handleChange={handleChangeSkills}
       />
       <Divider />
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.servicequality' })}
       </Typography>
       <ScRow
-        fields={
-          isEmployee ? kompetenzEmployeeFields : kompetenzReviewerFields
-        }
+        fields={skillsFields}
         type={'serviceQuality'}
-        handleChange={
-          isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
-        }
+        handleChange={handleChangeSkills}
       />
       <Divider />
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.impactoncompany' })}
       </Typography>
       <ScRow
-        fields={
-          isEmployee ? kompetenzEmployeeFields : kompetenzReviewerFields
-        }
+        fields={skillsFields}
         type={'impactOnCompany'}
-        handleChange={
-          isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
-        }
+        handleChange={handleChangeSkills}
       />
     </Fragment>
   );
-};
+}, (prevProps, nextProps) => prevProps.show === nextProps.show);
 
 export default withRouter(injectIntl(withStyles(styles)(Skills)));
