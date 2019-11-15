@@ -36,18 +36,6 @@ const styles = theme => ({
 
 const ScRow = memo(
   ({ intl, classes, fields, action, removeSubcategory, type }) => {
-    if (fields === undefined) {
-      fields = [{
-        title: "",
-        weight: "",
-        percentage: "",
-        evaluation: "",
-        description: "",
-        achievement: "",
-        comment: ""
-      }];
-    }
-
     return (
       <Fragment>
         {fields.map((field, index) => {

@@ -16,7 +16,10 @@ const styles = theme => ({
 const Skills = React.memo(({
   classes,
   intl,
-  skillsFields,
+  skillsInTheFieldsFields,
+  impactOnTeamFields,
+  serviceQualityFields,
+  impactOnCompanyFields,
   handleChangeSkills
 }) => {
   return (
@@ -28,36 +31,36 @@ const Skills = React.memo(({
         {intl.formatMessage({ id: 'scsheet.subtitle.skillsinthefield' })}
       </Typography>
       <ScRow
-        fields={skillsFields}
+        fields={skillsInTheFieldsFields}
         type={'skillsInTheField'}
-        handleChange={handleChangeSkills}
+        action={handleChangeSkills}
       />
       <Divider />
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.impactonteam' })}
       </Typography>
       <ScRow
-        fields={skillsFields}
+        fields={impactOnTeamFields}
         type={'impactOnTeam'}
-        handleChange={handleChangeSkills}
+        action={handleChangeSkills}
       />
       <Divider />
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.servicequality' })}
       </Typography>
       <ScRow
-        fields={skillsFields}
+        fields={serviceQualityFields}
         type={'serviceQuality'}
-        handleChange={handleChangeSkills}
+        action={handleChangeSkills}
       />
       <Divider />
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.impactoncompany' })}
       </Typography>
       <ScRow
-        fields={skillsFields}
+        fields={impactOnCompanyFields}
         type={'impactOnCompany'}
-        handleChange={handleChangeSkills}
+        action={handleChangeSkills}
       />
     </Fragment>
   );

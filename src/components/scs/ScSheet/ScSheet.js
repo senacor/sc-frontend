@@ -50,7 +50,42 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [projectFields, setProjectFields] = useState(
     sc.employeePerformance.project
   );
-  const [skillsFields, setSkillsFields] = useState(sc.employeePerformance.skills);
+  const [skillsInTheFieldFields, setSkillsInTheFieldFields] = useState([{
+    title: "",
+    weight: "",
+    percentage: "",
+    evaluation: "",
+    description: "",
+    achievement: "",
+    comment: ""
+  }]);
+  const [impactOnTeamFields, setImpactOnTeamFields] = useState([{
+    title: "",
+    weight: "",
+    percentage: "",
+    evaluation: "",
+    description: "",
+    achievement: "",
+    comment: ""
+  }]);
+  const [serviceQualityFields, setServiceQualityFields] = useState([{
+    title: "",
+    weight: "",
+    percentage: "",
+    evaluation: "",
+    description: "",
+    achievement: "",
+    comment: ""
+  }]);
+  const [impactOnCompanyFields, setImpactOnCompanyFields] = useState([{
+    title: "",
+    weight: "",
+    percentage: "",
+    evaluation: "",
+    description: "",
+    achievement: "",
+    comment: ""
+  }]);
 
   const mockPositions = [
     'Specialist',
@@ -138,11 +173,29 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
-  const handleChangeSkills = () => {
-
+  const handleChangeSkills = (type, i, propKey, event) => {
+    if (type === 'skillsInTheField') {
+      const values = [...skillsInTheFieldFields];
+      values[i][propKey] = event.target.value;
+      setSkillsInTheFieldFields(values);
+    } else if (type === 'impactOnTeam') {
+      const values = [...impactOnTeamFields];
+      values[i][propKey] = event.target.value;
+      setImpactOnTeamFields(values);
+    } else if (type === 'serviceQuality') {
+      const values = [...serviceQualityFields];
+      values[i][propKey] = event.target.value;
+      setServiceQualityFields(values);
+    } else {
+      const values = [...impactOnCompanyFields];
+      values[i][propKey] = event.target.value;
+      setImpactOnCompanyFields(values);
+    }
+    console.log('skills', skillsInTheFieldFields);
+    console.log('impT', impactOnTeamFields);
+    console.log('serv', serviceQualityFields);
+    console.log('impC', impactOnCompanyFields);
   };
-
-  console.log('dailyBusiness', dailyBusinessFields);
 
   return (
     <Fragment>
@@ -175,7 +228,10 @@ const ScSheet = ({ sc, classes, intl }) => {
           removeSubcategory={removeSubcategory}
         />
         <Skills
-          skillsFields={skillsFields}
+          skillsInTheFieldsFields={skillsInTheFieldFields}
+          impactOnTeamFields={impactOnTeamFields}
+          serviceQualityFields={serviceQualityFields}
+          impactOnCompanyFields={impactOnCompanyFields}
           handleChangeSkills={handleChangeSkills}
         />
       </Fragment>
