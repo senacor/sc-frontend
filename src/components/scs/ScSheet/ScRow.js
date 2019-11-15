@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Grid,
@@ -6,7 +6,8 @@ import {
   TextField,
   Tooltip,
   withStyles,
-  Paper
+  Paper,
+  Typography
 } from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
@@ -26,12 +27,15 @@ const styles = theme => ({
   textCenter: {
     textAlign: 'center',
     margin: 'auto'
+  },
+  percentage: {
+    margin: 'auto',
+    textAlign: 'center'
   }
 });
 
-const ScRow = React.memo(
+const ScRow = memo(
   ({ intl, classes, fields, action, removeSubcategory, type }) => {
-    console.log('fields', fields);
     return (
       <Fragment>
         {fields.map((field, index) => {
@@ -84,19 +88,15 @@ const ScRow = React.memo(
                       onChange={e => action(type, index, 'weight', e)}
                     />
                   </Grid>
-                  <Grid item sm={2}>
-                    <TextField
-                      type="number"
-                      defaultValue={field.percentage}
-                      margin="normal"
-                      variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textheader.percentage'
-                      })}
-                      fullWidth
-                      className={classes.textarea}
-                      onChange={e => action(type, index, 'percentage', e)}
-                    />
+                  <Grid
+                    item
+                    sm={2}
+                    component="div"
+                    className={classes.percentage}
+                  >
+                    <Typography variant="body2">{`${
+                      field.percentage
+                    } %`}</Typography>
                   </Grid>
                   <Grid item sm={2} className={classes.textCenter}>
                     <ScRatingPoints
