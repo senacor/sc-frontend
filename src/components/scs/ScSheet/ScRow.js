@@ -14,16 +14,22 @@ import {
   InputLabel
 } from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
-import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
+import RemoveIcon from '@material-ui/icons/Close';
 
 const styles = theme => ({
   scRowContainer: {
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    transition: '0.3s',
+    '&:hover': {
+      transform: 'scale(1.01)',
+      border: `1px solid ${theme.palette.secondary.main}`,
+      background: theme.palette.secondary.brighterGrey
+    }
   },
   removeIcon: {
-    position: 'absolute',
-    right: 40
+    position: 'relative',
+    float: 'right'
   },
   textsContainer: {
     padding: theme.spacing.unit * 2
@@ -35,6 +41,9 @@ const styles = theme => ({
   percentage: {
     margin: 'auto',
     textAlign: 'center'
+  },
+  percentageText: {
+    paddingBottom: theme.spacing.unit
   },
   input: {
     minHeight: 150
@@ -122,6 +131,15 @@ const ScRow = memo(
                     component="div"
                     className={classes.percentage}
                   >
+                    <Typography
+                      variant="caption"
+                      color="textSecondary"
+                      className={classes.percentageText}
+                    >
+                      {intl.formatMessage({
+                        id: 'scsheet.textheader.percentage'
+                      })}
+                    </Typography>
                     <Typography variant="body2">{`${
                       field.percentage
                     } %`}</Typography>
