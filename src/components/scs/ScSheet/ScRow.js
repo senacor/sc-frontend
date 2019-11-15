@@ -31,6 +31,7 @@ const styles = theme => ({
 
 const ScRow = React.memo(
   ({ intl, classes, fields, action, removeSubcategory, type }) => {
+    console.log('fields', fields);
     return (
       <Fragment>
         {fields.map((field, index) => {
@@ -163,7 +164,7 @@ const ScRow = React.memo(
       </Fragment>
     );
   },
-  (prevProps, nextProps) => prevProps.show === nextProps.show
+  (prevProps, nextProps) => prevProps.fields === nextProps.fields
 );
 
 export default injectIntl(withStyles(styles)(ScRow));

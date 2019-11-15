@@ -50,8 +50,6 @@ const ScSheet = ({ sc, classes, intl }) => {
     sc.employeePerformance.project
   );
 
-  console.log('sc', sc);
-
   const mockPositions = [
     'Specialist',
     'Senior (Expert)',
@@ -137,8 +135,6 @@ const ScSheet = ({ sc, classes, intl }) => {
       setProjectFields(values);
     }
   };
-
-  console.log('dailyBusiness', dailyBusinessFields);
 
   return (
     <Fragment>
