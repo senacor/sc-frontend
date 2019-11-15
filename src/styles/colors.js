@@ -67,6 +67,18 @@ const theme = createMuiTheme({
       width: '100%',
       textAlign: 'center',
       overflow: 'auto'
+    },
+    categoryTitle: {
+      background: '#004953',
+      color: '#FFFFFF',
+      padding: 8,
+      paddingLeft: 16,
+      marginTop: 16,
+      borderRadius: 3
+    },
+    subCategoryTitle: {
+      padding: 8,
+      paddingTop: 16
     }
   }
 });
