@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Typography } from '@material-ui/core';
 import {
   useErrorContext,
   useInfoContext,
@@ -15,7 +14,7 @@ import {
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
-import Competence from './categories/Competence';
+import Skills from './categories/Skills';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
@@ -235,7 +234,7 @@ const ScSheet = ({ sc, classes, intl }) => {
           projectEmployeeFields={projectEmployeeFields}
           projectReviewerFields={projectReviewerFields}
         />
-        <Competence
+        <Skills
           isEmployee={determineUserVariant()}
           kompetenzEmployeeFields={kompetenzEmployeeFields}
           kompetenzReviewerFields={kompetenzReviewerFields}
