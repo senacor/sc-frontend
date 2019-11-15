@@ -50,16 +50,7 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [projectFields, setProjectFields] = useState(
     sc.employeePerformance.project
   );
-  const [kompetenzEmployeeFields, setkompetenzEmployeeFields] = useState(sc.employeePerformance.kompetenz);
-
-  const [
-    dailyBusinessReviewerFields,
-    setDailyBusinessReviewerFields
-  ] = useState(sc.reviewerPerformance.dailyBusiness);
-  const [projectReviewerFields, setProjectReviewerFields] = useState(
-    sc.reviewerPerformance.project
-  );
-  const [kompetenzReviewerFields, setkompetenzReviewerFields] = useState(sc.reviewerPerformance.kompetenz);
+  const [skillsFields, setSkillsFields] = useState(sc.employeePerformance.skills);
 
   const mockPositions = [
     'Specialist',
@@ -147,6 +138,10 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
+  const handleChangeSkills = () => {
+
+  };
+
   console.log('dailyBusiness', dailyBusinessFields);
 
   return (
@@ -180,11 +175,8 @@ const ScSheet = ({ sc, classes, intl }) => {
           removeSubcategory={removeSubcategory}
         />
         <Skills
-          isEmployee={determineUserVariant()}
-          kompetenzEmployeeFields={kompetenzEmployeeFields}
-          kompetenzReviewerFields={kompetenzReviewerFields}
-          handleChangePropKeyEmployee={handleChangePropKeyEmployee}
-          handleChangePropKeyReviewer={handleChangePropKeyReviewer}
+          skillsFields={skillsFields}
+          handleChangeSkills={handleChangeSkills}
         />
       </Fragment>
       <ButtonsBelowSheet
