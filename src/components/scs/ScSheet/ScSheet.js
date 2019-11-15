@@ -15,7 +15,7 @@ import {
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
-import Kompetenz from './categories/Kompetenz';
+import Competence from './categories/Competence';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
@@ -235,7 +235,7 @@ const ScSheet = ({ sc, classes, intl }) => {
           projectEmployeeFields={projectEmployeeFields}
           projectReviewerFields={projectReviewerFields}
         />
-        <Kompetenz
+        <Competence
           isEmployee={determineUserVariant()}
           kompetenzEmployeeFields={kompetenzEmployeeFields}
           kompetenzReviewerFields={kompetenzReviewerFields}

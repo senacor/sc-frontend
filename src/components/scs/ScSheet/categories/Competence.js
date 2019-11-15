@@ -10,7 +10,7 @@ const styles = theme => ({
   }
 });
 
-const Kompetenz = ({
+const Competence = ({
   isEmployee,
   classes,
   intl,
@@ -25,7 +25,7 @@ const Kompetenz = ({
         fields={
           isEmployee ? kompetenzEmployeeFields : kompetenzReviewerFields
         }
-        type={'kompetenz'}
+        type={'competence'}
         handleChange={
           isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
         }
@@ -34,4 +34,4 @@ const Kompetenz = ({
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(Kompetenz)));
+export default withRouter(injectIntl(withStyles(styles)(Competence)));

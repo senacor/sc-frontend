@@ -36,7 +36,7 @@ const ScRow = ({ intl, classes, fields, handleChange, removeFields, type }) => {
       comment: ""
     }];
   }
-  console.log('fields', type, fields)
+
   return (
     <Fragment>
       {fields.map((field, index) => {
