@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import ScRow from '../ScRow';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import {Grid} from "@material-ui/core";
+import TextField from "@material-ui/core/es/TextField";
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -20,13 +22,28 @@ const Skills = React.memo(({
   impactOnTeamFields,
   serviceQualityFields,
   impactOnCompanyFields,
-  handleChangeSkills
+  handleChangeSkills,
+  skillsWeightPercentage
 }) => {
   return (
     <Fragment>
-      <Typography variant="h5" className={classes.categoryTitle}>
-        {intl.formatMessage({ id: 'scsheet.category.skills' })}
-      </Typography>
+      <Grid container>
+        <Grid item xs={11}>
+          <Typography variant="h5" className={classes.categoryTitle}>
+            {intl.formatMessage({id: 'scsheet.category.skills'})}
+          </Typography>
+        </Grid>
+        <Grid item xs={1}>
+          <TextField
+            inputProps={{style: {height:10}}}
+            type="number"
+            defaultValue={skillsWeightPercentage}
+            margin="normal"
+            variant="outlined"
+            label={'%'}
+          />
+        </Grid>
+      </Grid>
       <Typography variant="h5" className={classes.subCategoryTitle}>
         {intl.formatMessage({ id: 'scsheet.subtitle.skillsinthefield' })}
       </Typography>

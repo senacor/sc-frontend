@@ -14,6 +14,7 @@ import {
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
+import Skills from './categories/Skills';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 
 const styles = theme => ({
@@ -49,6 +50,12 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [projectFields, setProjectFields] = useState(
     sc.employeePerformance.project
   );
+  const [skillsInTheFieldFields, setSkillsInTheFieldFields] = useState([initialFieldsData]);
+  const [impactOnTeamFields, setImpactOnTeamFields] = useState([initialFieldsData]);
+  const [serviceQualityFields, setServiceQualityFields] = useState([initialFieldsData]);
+  const [impactOnCompanyFields, setImpactOnCompanyFields] = useState([initialFieldsData]);
+  const [performanceWeightPercentage, setPerformanceWeightPercentage] = useState(10);
+  const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(20);
 
   const mockPositions = [
     'Specialist',
@@ -136,6 +143,26 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
+  const handleChangeSkills = (type, i, propKey, event) => {
+    if (type === 'skillsInTheField') {
+      const values = [...skillsInTheFieldFields];
+      values[i][propKey] = event.target.value;
+      setSkillsInTheFieldFields(values);
+    } else if (type === 'impactOnTeam') {
+      const values = [...impactOnTeamFields];
+      values[i][propKey] = event.target.value;
+      setImpactOnTeamFields(values);
+    } else if (type === 'serviceQuality') {
+      const values = [...serviceQualityFields];
+      values[i][propKey] = event.target.value;
+      setServiceQualityFields(values);
+    } else {
+      const values = [...impactOnCompanyFields];
+      values[i][propKey] = event.target.value;
+      setImpactOnCompanyFields(values);
+    }
+  };
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -165,9 +192,17 @@ const ScSheet = ({ sc, classes, intl }) => {
           handleChangePerformance={handleChangePerformance}
           addSubcategory={addSubcategory}
           removeSubcategory={removeSubcategory}
-          hasWeightPercentage={false}
+          hasWeightPercentage={true}
+          performanceWeightPercentage={performanceWeightPercentage}
         />
-        {/* Other categories as separated components */}
+        <Skills
+          skillsInTheFieldsFields={skillsInTheFieldFields}
+          impactOnTeamFields={impactOnTeamFields}
+          serviceQualityFields={serviceQualityFields}
+          impactOnCompanyFields={impactOnCompanyFields}
+          handleChangeSkills={handleChangeSkills}
+          skillsWeightPercentage={skillsWeightPercentage}
+        />
       </Fragment>
       <ButtonsBelowSheet
         handleSave={handleSave}

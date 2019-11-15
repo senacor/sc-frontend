@@ -4,9 +4,10 @@ import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import ScRow from '../ScRow';
 // Material UI
-import { IconButton, Tooltip, Typography, Divider } from '@material-ui/core';
+import { IconButton, Tooltip, Typography, Divider, Grid } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
+import TextField from "@material-ui/core/es/TextField/TextField";
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -23,13 +24,40 @@ const Performance = memo(
     projectFields,
     handleChangePerformance,
     addSubcategory,
-    removeSubcategory
+    removeSubcategory,
+    hasWeightPercentage,
+    performanceWeightPercentage
   }) => {
     return (
       <Fragment>
-        <Typography variant="h5" className={classes.categoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.category.performance' })}
-        </Typography>
+        <Grid container>
+          {hasWeightPercentage ? (
+            <Fragment>
+              <Grid item xs={11}>
+                <Typography variant="h5" className={classes.categoryTitle}>
+                  {intl.formatMessage({id: 'scsheet.category.performance'})}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <TextField
+                  inputProps={{style: {height:10}}}
+                  type="number"
+                  defaultValue={performanceWeightPercentage}
+                  margin="normal"
+                  variant="outlined"
+                  label={'%'}
+                />
+              </Grid>
+            </Fragment>
+          ) : (
+            <Grid item xs={12}>
+              <Typography variant="h5" className={classes.categoryTitle}>
+                {intl.formatMessage({id: 'scsheet.category.performance'})}
+              </Typography>
+            </Grid>
+          )
+        }
+        </Grid>
         <Typography variant="h5" className={classes.subCategoryTitle}>
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
         </Typography>
