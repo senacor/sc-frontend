@@ -15,84 +15,63 @@ const styles = theme => ({
   }
 });
 
-const Performance = ({
-  isEmployee,
-  classes,
-  intl,
-  dailyBusinessEmployeeFields,
-  dailyBusinessReviewerFields,
-  handleChangePropKeyEmployee,
-  handleChangePropKeyReviewer,
-  removeFieldsEmployee,
-  removeFieldsReviewer,
-  addFieldsEmployee,
-  addFieldsReviewer,
-  projectEmployeeFields,
-  projectReviewerFields
-}) => {
-  return (
-    <Fragment>
-      <Typography variant="h5" className={classes.categoryTitle}>
-        {intl.formatMessage({ id: 'scsheet.category.performance' })}
-      </Typography>
-      <Typography variant="h5" className={classes.subCategoryTitle}>
-        {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
-      </Typography>
-      <ScRow
-        fields={
-          isEmployee ? dailyBusinessEmployeeFields : dailyBusinessReviewerFields
-        }
-        type={'dailyBusiness'}
-        handleChange={
-          isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
-        }
-        removeFields={isEmployee ? removeFieldsEmployee : removeFieldsReviewer}
-      />
-      <Tooltip
-        title={intl.formatMessage({
-          id: 'scsheet.tooltip.addField.dailyBusiness'
-        })}
-      >
-        <IconButton
-          onClick={
-            isEmployee
-              ? () => addFieldsEmployee('dailyBusiness')
-              : () => addFieldsReviewer('dailyBusiness')
-          }
+const Performance = React.memo(
+  ({
+    classes,
+    intl,
+    dailyBusinessFields,
+    projectFields,
+    handleChangePerformance,
+    addSubcategory,
+    removeSubcategory
+  }) => {
+    return (
+      <Fragment>
+        <Typography variant="h5" className={classes.categoryTitle}>
+          {intl.formatMessage({ id: 'scsheet.category.performance' })}
+        </Typography>
+        <Typography variant="h5" className={classes.subCategoryTitle}>
+          {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
+        </Typography>
+        <ScRow
+          fields={dailyBusinessFields}
+          type={'dailyBusiness'}
+          action={handleChangePerformance}
+          removeSubcategory={removeSubcategory}
+        />
+        <Tooltip
+          title={intl.formatMessage({
+            id: 'scsheet.tooltip.addField.dailyBusiness'
+          })}
         >
-          <AddIcon color="primary" />
-        </IconButton>
-      </Tooltip>
-      <Divider />
-      <Typography variant="h5" className={classes.subCategoryTitle}>
-        {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
-      </Typography>
-      <ScRow
-        fields={isEmployee ? projectEmployeeFields : projectReviewerFields}
-        type={'project'}
-        handleChange={
-          isEmployee ? handleChangePropKeyEmployee : handleChangePropKeyReviewer
-        }
-        removeFields={isEmployee ? removeFieldsEmployee : removeFieldsReviewer}
-      />
-      <Tooltip
-        title={intl.formatMessage({
-          id: 'scsheet.tooltip.addField.project'
-        })}
-      >
-        <IconButton
-          onClick={
-            isEmployee
-              ? () => addFieldsEmployee('project')
-              : () => addFieldsReviewer('project')
-          }
+          <IconButton onClick={e => addSubcategory('dailyBusiness')}>
+            <AddIcon color="primary" />
+          </IconButton>
+        </Tooltip>
+        <Divider />
+        <Typography variant="h5" className={classes.subCategoryTitle}>
+          {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
+        </Typography>
+        <ScRow
+          fields={projectFields}
+          type={'project'}
+          action={handleChangePerformance}
+          removeSubcategory={removeSubcategory}
+        />
+        <Tooltip
+          title={intl.formatMessage({
+            id: 'scsheet.tooltip.addField.project'
+          })}
         >
-          <AddIcon className={classes.addProjectButton} />
-        </IconButton>
-      </Tooltip>
-      <Divider />
-    </Fragment>
-  );
-};
+          <IconButton onClick={e => addSubcategory('project')}>
+            <AddIcon className={classes.addProjectButton} />
+          </IconButton>
+        </Tooltip>
+        <Divider />
+      </Fragment>
+    );
+  },
+  (prevProps, nextProps) => prevProps.show === nextProps.show
+);
 
 export default withRouter(injectIntl(withStyles(styles)(Performance)));
