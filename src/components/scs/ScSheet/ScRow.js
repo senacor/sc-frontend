@@ -7,7 +7,10 @@ import {
   Tooltip,
   withStyles,
   Paper,
-  Typography
+  Typography,
+  FormControl,
+  Select,
+  MenuItem
 } from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
@@ -35,7 +38,7 @@ const styles = theme => ({
 });
 
 const ScRow = memo(
-  ({ intl, classes, fields, action, removeSubcategory, type }) => {
+  ({ intl, classes, title, fields, action, removeSubcategory, type }) => {
     return (
       <Fragment>
         {fields.map((field, index) => {
@@ -58,35 +61,39 @@ const ScRow = memo(
               <div className={classes.textsContainer}>
                 <Grid container spacing={8}>
                   <Grid item sm={6}>
-                    <TextField
-                      type="text"
-                      defaultValue={field.title}
-                      margin="normal"
-                      variant="outlined"
-                      label={intl.formatMessage({
-                        id:
-                          type === 'dailyBusiness'
-                            ? 'scsheet.textheader.title.dailyBusiness'
-                            : 'scsheet.textheader.title.project'
-                      })}
-                      fullWidth
-                      className={classes.textarea}
-                      onChange={e => action(type, index, 'title', e)}
-                    />
+                    {type === 'dailyBusiness' || type === 'project' ? (
+                      <TextField
+                        type="text"
+                        value={field.title}
+                        margin="normal"
+                        variant="outlined"
+                        label={intl.formatMessage({
+                          id:
+                            type === 'dailyBusiness'
+                              ? 'scsheet.textheader.title.dailyBusiness'
+                              : 'scsheet.textheader.title.project'
+                        })}
+                        fullWidth
+                        className={classes.textarea}
+                        onChange={e => action(type, index, 'title', e)}
+                      />
+                    ) : (
+                      <Typography variant="body1">{title}</Typography>
+                    )}
                   </Grid>
-                  <Grid item sm={2}>
-                    <TextField
-                      type="number"
-                      defaultValue={field.weight}
-                      margin="normal"
-                      variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textheader.weight'
-                      })}
-                      fullWidth
-                      className={classes.textarea}
-                      onChange={e => action(type, index, 'weight', e)}
-                    />
+                  <Grid item sm={2} className={classes.percentage}>
+                    <FormControl>
+                      <Select
+                        value={field.weight}
+                        onChange={e => action(type, index, 'weight', e)}
+                      >
+                        {['-', 1, 2, 3].map((val, index) => (
+                          <MenuItem key={index} value={val}>
+                            {val}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid
                     item
@@ -111,7 +118,7 @@ const ScRow = memo(
                   <Grid item sm={4}>
                     <TextField
                       type="text"
-                      defaultValue={field.description}
+                      value={field.description}
                       margin="normal"
                       variant="outlined"
                       label={intl.formatMessage({
@@ -127,7 +134,7 @@ const ScRow = memo(
                   <Grid item sm={4}>
                     <TextField
                       type="text"
-                      defaultValue={field.achievement}
+                      value={field.achievement}
                       margin="normal"
                       variant="outlined"
                       label={intl.formatMessage({
@@ -143,7 +150,7 @@ const ScRow = memo(
                   <Grid item sm={4}>
                     <TextField
                       type="text"
-                      defaultValue={field.comment}
+                      value={field.comment}
                       margin="normal"
                       variant="outlined"
                       label={intl.formatMessage({

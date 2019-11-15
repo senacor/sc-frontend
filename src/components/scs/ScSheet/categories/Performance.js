@@ -1,7 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { withRouter } from 'react-router-dom';
 import ScRow from '../ScRow';
 // Material UI
 import { IconButton, Tooltip, Typography, Divider } from '@material-ui/core';
@@ -76,4 +75,4 @@ const Performance = memo(
     prevProps.projectFields === nextProps.projectFields
 );
 
-export default withRouter(injectIntl(withStyles(styles)(Performance)));
+export default injectIntl(withStyles(styles)(Performance));

@@ -15,6 +15,9 @@ import {
 import { savePerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
+import WorkEffectivity from './categories/WorkEffectivity';
+import WorkQuality from './categories/WorkQuality';
+import { positions } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   addProjectButton: {
@@ -31,7 +34,7 @@ const styles = theme => ({
 const ScSheet = ({ sc, classes, intl }) => {
   const initialFieldsData = {
     title: '',
-    weight: '',
+    weight: '-',
     percentage: 0,
     evaluation: '',
     description: '',
@@ -49,14 +52,12 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [projectFields, setProjectFields] = useState(
     sc.employeePerformance.project
   );
-
-  const mockPositions = [
-    'Specialist',
-    'Senior (Expert)',
-    'Senior (Mgmt.)',
-    'Expert',
-    'Manager'
-  ];
+  const [workEffectivityFields, setWorkEffectivityFields] = useState([
+    initialFieldsData
+  ]);
+  const [workQualityFields, setWorkQualityFields] = useState([
+    initialFieldsData
+  ]);
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
@@ -86,6 +87,7 @@ const ScSheet = ({ sc, classes, intl }) => {
           comment: field.comment
         };
       })
+      // TODO: other categories
     };
     savePerformanceData(
       sc.id,
@@ -136,6 +138,18 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
+  const handleChangeWorkEffectivity = (type, i, propKey, event) => {
+    const values = [...workEffectivityFields];
+    values[i][propKey] = event.target.value;
+    setWorkEffectivityFields(values);
+  };
+
+  const handleChangeWorkQuality = (type, i, propKey, event) => {
+    const values = [...workQualityFields];
+    values[i][propKey] = event.target.value;
+    setWorkQualityFields(values);
+  };
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -149,7 +163,7 @@ const ScSheet = ({ sc, classes, intl }) => {
             value={position}
             onChange={handleChangePosition}
           >
-            {mockPositions.map((pos, index) => (
+            {positions.map((pos, index) => (
               <MenuItem key={index} value={pos}>
                 {pos}
               </MenuItem>
@@ -165,6 +179,14 @@ const ScSheet = ({ sc, classes, intl }) => {
           handleChangePerformance={handleChangePerformance}
           addSubcategory={addSubcategory}
           removeSubcategory={removeSubcategory}
+        />
+        <WorkEffectivity
+          workEffectivityFields={workEffectivityFields}
+          handleChangeWorkEffectivity={handleChangeWorkEffectivity}
+        />
+        <WorkQuality
+          workQualityFields={workQualityFields}
+          handleChangeWorkQuality={handleChangeWorkQuality}
         />
         {/* Other categories as separated components */}
       </Fragment>
