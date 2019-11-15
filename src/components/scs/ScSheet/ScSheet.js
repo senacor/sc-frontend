@@ -33,7 +33,7 @@ const ScSheet = ({ sc, classes, intl }) => {
   const initialFieldsData = {
     title: '',
     weight: '',
-    percentage: '',
+    percentage: 0,
     evaluation: '',
     description: '',
     achievement: '',
