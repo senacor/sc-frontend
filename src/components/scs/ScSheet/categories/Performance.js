@@ -15,63 +15,60 @@ const styles = theme => ({
   }
 });
 
-const Performance = React.memo(
-  ({
-    classes,
-    intl,
-    dailyBusinessFields,
-    projectFields,
-    handleChangePerformance,
-    addSubcategory,
-    removeSubcategory
-  }) => {
-    return (
-      <Fragment>
-        <Typography variant="h5" className={classes.categoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.category.performance' })}
-        </Typography>
-        <Typography variant="h5" className={classes.subCategoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
-        </Typography>
-        <ScRow
-          fields={dailyBusinessFields}
-          type={'dailyBusiness'}
-          action={handleChangePerformance}
-          removeSubcategory={removeSubcategory}
-        />
-        <Tooltip
-          title={intl.formatMessage({
-            id: 'scsheet.tooltip.addField.dailyBusiness'
-          })}
-        >
-          <IconButton onClick={e => addSubcategory('dailyBusiness')}>
-            <AddIcon color="primary" />
-          </IconButton>
-        </Tooltip>
-        <Divider />
-        <Typography variant="h5" className={classes.subCategoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
-        </Typography>
-        <ScRow
-          fields={projectFields}
-          type={'project'}
-          action={handleChangePerformance}
-          removeSubcategory={removeSubcategory}
-        />
-        <Tooltip
-          title={intl.formatMessage({
-            id: 'scsheet.tooltip.addField.project'
-          })}
-        >
-          <IconButton onClick={e => addSubcategory('project')}>
-            <AddIcon className={classes.addProjectButton} />
-          </IconButton>
-        </Tooltip>
-        <Divider />
-      </Fragment>
-    );
-  },
-  (prevProps, nextProps) => prevProps.show === nextProps.show
-);
+const Performance = ({
+  classes,
+  intl,
+  dailyBusinessFields,
+  projectFields,
+  handleChangePerformance,
+  addSubcategory,
+  removeSubcategory
+}) => {
+  return (
+    <Fragment>
+      <Typography variant="h5" className={classes.categoryTitle}>
+        {intl.formatMessage({ id: 'scsheet.category.performance' })}
+      </Typography>
+      <Typography variant="h5" className={classes.subCategoryTitle}>
+        {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
+      </Typography>
+      <ScRow
+        fields={dailyBusinessFields}
+        type={'dailyBusiness'}
+        action={handleChangePerformance}
+        removeSubcategory={removeSubcategory}
+      />
+      <Tooltip
+        title={intl.formatMessage({
+          id: 'scsheet.tooltip.addField.dailyBusiness'
+        })}
+      >
+        <IconButton onClick={e => addSubcategory('dailyBusiness')}>
+          <AddIcon color="primary" />
+        </IconButton>
+      </Tooltip>
+      <Divider />
+      <Typography variant="h5" className={classes.subCategoryTitle}>
+        {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
+      </Typography>
+      <ScRow
+        fields={projectFields}
+        type={'project'}
+        action={handleChangePerformance}
+        removeSubcategory={removeSubcategory}
+      />
+      <Tooltip
+        title={intl.formatMessage({
+          id: 'scsheet.tooltip.addField.project'
+        })}
+      >
+        <IconButton onClick={e => addSubcategory('project')}>
+          <AddIcon className={classes.addProjectButton} />
+        </IconButton>
+      </Tooltip>
+      <Divider />
+    </Fragment>
+  );
+};
 
 export default withRouter(injectIntl(withStyles(styles)(Performance)));

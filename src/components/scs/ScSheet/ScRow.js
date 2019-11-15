@@ -175,7 +175,7 @@ const ScRow = React.memo(
       </Fragment>
     );
   },
-  (prevProps, nextProps) => prevProps.show === nextProps.show
+  (prevProps, nextProps) => prevProps.fields === nextProps.fields
 );
 
 export default injectIntl(withStyles(styles)(ScRow));
