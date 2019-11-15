@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
@@ -8,10 +8,16 @@ import getDisplayName from '../../helper/getDisplayName';
 import Grid from '@material-ui/core/Grid';
 import { formatDateForFrontend } from '../../helper/date';
 import { modifyString } from '../../helper/string';
+import { getAllEmployees } from '../../calls/employees';
+import { useErrorContext, useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
+import ScDelegationMenu from './ScSheet/ScDelegationMenu';
 
 const styles = theme => ({
   spacing: {
     margin: 3 * theme.spacing.unit
+  },
+  saveBtn: {
+    margin: 2 * theme.spacing.unit
   },
   root: {
     padding: 3 * theme.spacing.unit
@@ -31,7 +37,16 @@ const styles = theme => ({
 });
 
 const ScDetailInformation = ({ classes, sc, intl }) => {
+  const error = useErrorContext();
+  const info = useInfoContext();
+  const user = useUserinfoContext();
+  const [employees, setEmployees] = useState([]);
+
   const { firstName, lastName } = sc.employee;
+
+  useEffect(() => {
+    getAllEmployees(setEmployees, () => {}, error);
+  }, []);
 
   const mainContent = `${intl.formatMessage({
     id: 'prdetailinformation.duedate'
@@ -42,24 +57,6 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
   })} ${modifyString(sc.position)}, ${intl.formatMessage({
     id: 'prdetailinformation.termin'
   })} ${formatDateForFrontend(sc.createdDate)}`; // sc.createdDate is only temporary, waiting for termin date
-
-  const supervisorText = `${intl.formatMessage({
-    id: 'prdetailinformation.supervisor'
-  })} ${getDisplayName(sc.supervisor)},`;
-
-  const reviewer1Text = `${
-    sc.reviewer2
-      ? intl.formatMessage({
-          id: 'scdetailinformation.firstReviewer'
-        })
-      : intl.formatMessage({
-          id: 'prdetailinformation.reviewer'
-        })
-  } ${getDisplayName(sc.reviewer1)},`;
-
-  const reviewer2Text = `${intl.formatMessage({
-    id: 'scdetailinformation.secondReviewer'
-  })} ${getDisplayName(sc.reviewer2)}`;
 
   return (
     <Paper className={classes.spacing}>
@@ -77,21 +74,13 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
             <Typography variant="body2" color="textSecondary">
               {mainContent}
             </Typography>
-            <div className={classes.names}>
-              <Typography variant="body2" color="textSecondary">
-                {supervisorText}
-              </Typography>
-              {sc.reviewer1 && (
-                <Typography variant="body2" color="textSecondary">
-                  {reviewer1Text}
-                </Typography>
-              )}
-              {sc.reviewer2 && (
-                <Typography variant="body2" color="textSecondary">
-                  {reviewer2Text}
-                </Typography>
-              )}
-            </div>
+            <ScDelegationMenu
+              sc={sc}
+              employees={employees}
+              info={info}
+              error={error}
+              activeDelegationButtons={user.isSupervisorInSc(sc)}
+            />
           </Grid>
           <Grid item md={2} xs={12} />
         </Grid>

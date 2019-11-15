@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import FilterList from '@material-ui/icons/FilterList';
 import AddIcon from '@material-ui/icons/Add';
 import PersonAddIcon from '@material-ui/icons/People';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import {
   Avatar,
@@ -24,6 +26,11 @@ const styles = theme => ({
     display: 'flex',
     padding: 2 * theme.spacing.unit,
     flexDirection: 'column'
+  },
+  btnDelete: {
+    margin: 2 * theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.darkRed,
+    color: theme.palette.secondary.white
   },
   leftIcon: {
     marginRight: theme.spacing.unit
@@ -82,11 +89,6 @@ export const EmployeeFilter = ({
         setMaintenanceData,
         error
       );
-    } else if (delegation) {
-      if (pr.employee.id !== employee.id) {
-      } else {
-        error.show('prdetailinformation.delegationerror');
-      }
     } else {
       setSelectedEmployee(employee);
     }
@@ -116,10 +118,16 @@ export const EmployeeFilter = ({
           onClick={handleOpen}
           disabled={isDisabled}
         >
-          <PersonAddIcon className={classes.leftIcon} />
-          {intl.formatMessage({
-            id: 'prdetailinformation.delegate'
-          })}
+          <Fragment>
+            {delegation.includes('edit') ? (
+              <EditIcon className={classes.leftIcon} />
+            ) : (
+              <PersonAddIcon className={classes.leftIcon} />
+            )}
+            {intl.formatMessage({
+              id: delegation
+            })}
+          </Fragment>
         </Button>
       ) : (
         <IconButton onClick={handleOpen}>
@@ -179,6 +187,18 @@ export const EmployeeFilter = ({
                 );
               })}
             </List>
+          )}
+          {delegation && delegation.includes('edit') && (
+            <Button
+              variant="contained"
+              className={classes.btnDelete}
+              onClick={() => setSelectedEmployee(null)}
+            >
+              <DeleteIcon />
+              {intl.formatMessage({
+                id: 'sc.reviewerbutton.remove'
+              })}
+            </Button>
           )}
         </div>
       </Popover>
