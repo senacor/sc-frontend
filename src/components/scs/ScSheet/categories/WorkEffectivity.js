@@ -15,6 +15,7 @@ const WorkEffectivity = memo(
           {intl.formatMessage({ id: 'scsheet.category.workEffectivity' })}
         </Typography>
         <ScRow
+          type={'workEffectivity'}
           fields={workEffectivityFields}
           action={handleChangeWorkEffectivity}
           title={intl.formatMessage({

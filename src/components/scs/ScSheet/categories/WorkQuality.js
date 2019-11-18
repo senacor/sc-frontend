@@ -15,6 +15,7 @@ const WorkQuality = memo(
           {intl.formatMessage({ id: 'scsheet.category.workQuality' })}
         </Typography>
         <ScRow
+          type={'workQuality'}
           fields={workQualityFields}
           action={handleChangeWorkQuality}
           title={intl.formatMessage({ id: 'scsheet.subcategory.workQuality' })}

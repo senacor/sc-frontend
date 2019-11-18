@@ -37,7 +37,7 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
     title: '',
     weight: '-',
     percentage: 0,
-    evaluation: '',
+    evaluation: '-',
     description: '',
     achievement: '',
     comment: ''
@@ -47,9 +47,9 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
   const error = useErrorContext();
   const user = useUserinfoContext();
   const [position, setPosition] = useState('');
-  const [dailyBusinessFields, setDailyBusinessFields] = useState(
-    sc.employeePerformance.dailyBusiness
-  );
+  const [dailyBusinessFields, setDailyBusinessFields] = useState([
+    initialFieldsData
+  ]);
   const [projectFields, setProjectFields] = useState(
     sc.employeePerformance.project
   );
@@ -97,7 +97,8 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
       project: projectFields.map(field => {
         return {
           title: field.title,
-          evaluation: field.evaluation ? field.evaluation : 0,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
           percentage: field.percentage,
           description: field.description,
           achievement: field.achievement,
