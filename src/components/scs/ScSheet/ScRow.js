@@ -7,19 +7,29 @@ import {
   Tooltip,
   withStyles,
   Paper,
-  Typography
+  Typography,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel
 } from '@material-ui/core';
 import ScRatingPoints from '../ScRatingPoints';
-import RemoveIcon from '@material-ui/icons/IndeterminateCheckBox';
+import RemoveIcon from '@material-ui/icons/Close';
 
 const styles = theme => ({
   scRowContainer: {
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    transition: '0.3s',
+    '&:hover': {
+      transform: 'scale(1.01)',
+      border: `1px solid ${theme.palette.secondary.main}`,
+      background: theme.palette.secondary.brighterGrey
+    }
   },
   removeIcon: {
-    position: 'absolute',
-    right: 40
+    position: 'relative',
+    float: 'right'
   },
   textsContainer: {
     padding: theme.spacing.unit * 2
@@ -31,11 +41,27 @@ const styles = theme => ({
   percentage: {
     margin: 'auto',
     textAlign: 'center'
+  },
+  percentageText: {
+    paddingBottom: theme.spacing.unit
+  },
+  input: {
+    minHeight: 150
   }
 });
 
 const ScRow = memo(
-  ({ intl, classes, fields, action, removeSubcategory, type }) => {
+  ({
+    intl,
+    classes,
+    title,
+    description,
+    achievement,
+    fields,
+    action,
+    removeSubcategory,
+    type
+  }) => {
     return (
       <Fragment>
         {fields.map((field, index) => {
@@ -56,37 +82,47 @@ const ScRow = memo(
                 </Tooltip>
               )}
               <div className={classes.textsContainer}>
-                <Grid container spacing={8}>
+                <Grid container>
                   <Grid item sm={6}>
-                    <TextField
-                      type="text"
-                      defaultValue={field.title}
-                      margin="normal"
-                      variant="outlined"
-                      label={intl.formatMessage({
-                        id:
-                          type === 'dailyBusiness'
-                            ? 'scsheet.textheader.title.dailyBusiness'
-                            : 'scsheet.textheader.title.project'
-                      })}
-                      fullWidth
-                      className={classes.textarea}
-                      onChange={e => action(type, index, 'title', e)}
-                    />
+                    {type === 'dailyBusiness' || type === 'project' ? (
+                      <TextField
+                        type="text"
+                        value={field.title}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder={intl.formatMessage({
+                          id:
+                            type === 'dailyBusiness'
+                              ? 'scsheet.textheader.title.dailyBusiness'
+                              : 'scsheet.textheader.title.project'
+                        })}
+                        fullWidth
+                        onChange={e => action(type, index, 'title', e)}
+                      />
+                    ) : (
+                      <Typography variant="body1">{title}</Typography>
+                    )}
                   </Grid>
-                  <Grid item sm={2}>
-                    <TextField
-                      type="number"
-                      defaultValue={field.weight}
-                      margin="normal"
-                      variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textheader.weight'
-                      })}
-                      fullWidth
-                      className={classes.textarea}
-                      onChange={e => action(type, index, 'weight', e)}
-                    />
+                  <Grid item sm={2} className={classes.percentage}>
+                    <FormControl>
+                      <InputLabel id="weight-label">
+                        {intl.formatMessage({
+                          id: 'scsheet.textheader.weight'
+                        })}
+                      </InputLabel>
+                      <Select
+                        id="weight-label"
+                        value={field.weight}
+                        onChange={e => action(type, index, 'weight', e)}
+                        renderValue={selected => <span>{selected}</span>}
+                      >
+                        {[1, 2, 3].map((val, index) => (
+                          <MenuItem key={index} value={val}>
+                            {val}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid
                     item
@@ -94,16 +130,26 @@ const ScRow = memo(
                     component="div"
                     className={classes.percentage}
                   >
+                    <Typography
+                      variant="caption"
+                      color="textSecondary"
+                      className={classes.percentageText}
+                    >
+                      {intl.formatMessage({
+                        id: 'scsheet.textheader.percentage'
+                      })}
+                    </Typography>
                     <Typography variant="body2">{`${
                       field.percentage
                     } %`}</Typography>
                   </Grid>
                   <Grid item sm={2} className={classes.textCenter}>
                     <ScRatingPoints
+                      type={type}
+                      rating={field.evaluation}
                       changeEvaluation={e =>
                         action(type, index, 'evaluation', e)
                       }
-                      rating={fields.evaluation}
                     />
                   </Grid>
                 </Grid>
@@ -111,48 +157,44 @@ const ScRow = memo(
                   <Grid item sm={4}>
                     <TextField
                       type="text"
-                      defaultValue={field.description}
+                      value={field.description}
                       margin="normal"
                       variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textarea.description'
-                      })}
-                      rows={3}
+                      placeholder={description}
+                      rows={6}
                       multiline
                       fullWidth
-                      className={classes.textarea}
+                      InputProps={{ className: classes.input }}
                       onChange={e => action(type, index, 'description', e)}
                     />
                   </Grid>
                   <Grid item sm={4}>
                     <TextField
                       type="text"
-                      defaultValue={field.achievement}
+                      value={field.achievement}
                       margin="normal"
                       variant="outlined"
-                      label={intl.formatMessage({
-                        id: 'scsheet.textarea.achievement'
-                      })}
-                      rows={3}
+                      placeholder={achievement}
+                      rows={6}
                       multiline
                       fullWidth
-                      className={classes.textarea}
+                      InputProps={{ className: classes.input }}
                       onChange={e => action(type, index, 'achievement', e)}
                     />
                   </Grid>
                   <Grid item sm={4}>
                     <TextField
                       type="text"
-                      defaultValue={field.comment}
+                      value={field.comment}
                       margin="normal"
                       variant="outlined"
-                      label={intl.formatMessage({
+                      placeholder={intl.formatMessage({
                         id: 'scsheet.textarea.comment'
                       })}
-                      rows={3}
+                      rows={6}
                       multiline
                       fullWidth
-                      className={classes.textarea}
+                      InputProps={{ className: classes.input }}
                       onChange={e => action(type, index, 'comment', e)}
                     />
                   </Grid>

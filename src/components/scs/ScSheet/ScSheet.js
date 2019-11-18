@@ -11,6 +11,9 @@ import { useErrorContext, useInfoContext, useUserinfoContext } from '../../../he
 import { savePerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
+import WorkEffectivity from './categories/WorkEffectivity';
+import WorkQuality from './categories/WorkQuality';
+import { positions } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   addProjectButton: {
@@ -27,9 +30,9 @@ const styles = theme => ({
 const ScSheet = ({ sc, classes, intl }) => {
   const initialFieldsData = {
     title: '',
-    weight: '',
+    weight: '-',
     percentage: 0,
-    evaluation: '',
+    evaluation: '-',
     description: '',
     achievement: '',
     comment: ''
@@ -39,16 +42,18 @@ const ScSheet = ({ sc, classes, intl }) => {
   const error = useErrorContext();
   const user = useUserinfoContext();
   const [position, setPosition] = useState('');
-  const [dailyBusinessFields, setDailyBusinessFields] = useState([]);
-  const [projectFields, setProjectFields] = useState([]);
-
-  const mockPositions = [
-    'Specialist',
-    'Senior (Expert)',
-    'Senior (Mgmt.)',
-    'Expert',
-    'Manager'
-  ];
+  const [dailyBusinessFields, setDailyBusinessFields] = useState([
+    initialFieldsData
+  ]);
+  const [projectFields, setProjectFields] = useState(
+    sc.employeePerformance.project
+  );
+  const [workEffectivityFields, setWorkEffectivityFields] = useState([
+    initialFieldsData
+  ]);
+  const [workQualityFields, setWorkQualityFields] = useState([
+    initialFieldsData
+  ]);
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
@@ -59,25 +64,52 @@ const ScSheet = ({ sc, classes, intl }) => {
       dailyBusiness: dailyBusinessFields.map(field => {
         return {
           title: field.title,
-          evaluation: field.evaluation ? field.evaluation : 0,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
           percentage: field.percentage,
           description: field.description,
           achievement: field.achievement,
-          weight: field.weight,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
       }),
       project: projectFields.map(field => {
         return {
           title: field.title,
-          evaluation: field.evaluation ? field.evaluation : 0,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
           percentage: field.percentage,
           description: field.description,
           achievement: field.achievement,
-          weight: field.weight,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      workEffectivity: workEffectivityFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      workQuality: workQualityFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
       })
+      // TODO: other categories
     };
     savePerformanceData(
       sc.id,
@@ -128,6 +160,18 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
+  const handleChangeWorkEffectivity = (type, i, propKey, event) => {
+    const values = [...workEffectivityFields];
+    values[i][propKey] = event.target.value;
+    setWorkEffectivityFields(values);
+  };
+
+  const handleChangeWorkQuality = (type, i, propKey, event) => {
+    const values = [...workQualityFields];
+    values[i][propKey] = event.target.value;
+    setWorkQualityFields(values);
+  };
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -141,7 +185,7 @@ const ScSheet = ({ sc, classes, intl }) => {
             value={position}
             onChange={handleChangePosition}
           >
-            {mockPositions.map((pos, index) => (
+            {positions.map((pos, index) => (
               <MenuItem key={index} value={pos}>
                 {pos}
               </MenuItem>
@@ -157,6 +201,14 @@ const ScSheet = ({ sc, classes, intl }) => {
           handleChangePerformance={handleChangePerformance}
           addSubcategory={addSubcategory}
           removeSubcategory={removeSubcategory}
+        />
+        <WorkEffectivity
+          workEffectivityFields={workEffectivityFields}
+          handleChangeWorkEffectivity={handleChangeWorkEffectivity}
+        />
+        <WorkQuality
+          workQualityFields={workQualityFields}
+          handleChangeWorkQuality={handleChangeWorkQuality}
         />
         {/* Other categories as separated components */}
       </Fragment>
