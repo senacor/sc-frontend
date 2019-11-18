@@ -16,7 +16,7 @@ const ScorecardDetail = ({ match }) => {
   const [sc, setSc] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const error = useErrorContext();
-  const { value: meeting, setValue: setMeeting } = useContext(
+  const { setValue: setMeeting } = useContext(
     MeetingContext.context
   );
 
