@@ -188,6 +188,16 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
     }
   };
 
+  const handleChangeWeightPercentage = (type, value) => {
+    if (type === 'performance') {
+      setPerformanceWeightPercentage(value);
+      setSkillsWeightPercentage(100 - value);
+    } else if (type === 'skills') {
+      setSkillsWeightPercentage(value);
+      setPerformanceWeightPercentage(100 - value);
+    }
+  };
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -220,6 +230,7 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
             removeSubcategory={removeSubcategory}
             hasWeightPercentage={true}
             performanceWeightPercentage={performanceWeightPercentage}
+            handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
           <Skills
             skillsInTheFieldsFields={skillsInTheFieldFields}
@@ -228,6 +239,7 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
             impactOnCompanyFields={impactOnCompanyFields}
             handleChangeSkills={handleChangeSkills}
             skillsWeightPercentage={skillsWeightPercentage}
+            handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
         </Fragment>
       ) : (

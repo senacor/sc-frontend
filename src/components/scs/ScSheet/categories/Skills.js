@@ -24,7 +24,8 @@ const Skills = React.memo(
     serviceQualityFields,
     impactOnCompanyFields,
     handleChangeSkills,
-    skillsWeightPercentage
+    skillsWeightPercentage,
+    handleChangeWeightPercentage
   }) => {
     return (
       <Fragment>
@@ -39,6 +40,9 @@ const Skills = React.memo(
               inputProps={{ style: { height: 10 } }}
               type="number"
               defaultValue={skillsWeightPercentage}
+              onChange={event =>
+                handleChangeWeightPercentage('skills', event.target.value)
+              }
               margin="normal"
               variant="outlined"
               label={'%'}

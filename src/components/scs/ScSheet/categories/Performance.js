@@ -3,10 +3,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import ScRow from '../ScRow';
 // Material UI
-import { IconButton, Tooltip, Typography, Divider, Grid } from '@material-ui/core';
+import {
+  IconButton,
+  Tooltip,
+  Typography,
+  Divider,
+  Grid
+} from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
-import TextField from "@material-ui/core/es/TextField/TextField";
+import TextField from '@material-ui/core/es/TextField/TextField';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -25,7 +31,8 @@ const Performance = memo(
     addSubcategory,
     removeSubcategory,
     hasWeightPercentage,
-    performanceWeightPercentage
+    performanceWeightPercentage,
+    handleChangeWeightPercentage
   }) => {
     return (
       <Fragment>
@@ -34,14 +41,20 @@ const Performance = memo(
             <Fragment>
               <Grid item xs={11}>
                 <Typography variant="h5" className={classes.categoryTitle}>
-                  {intl.formatMessage({id: 'scsheet.category.performance'})}
+                  {intl.formatMessage({ id: 'scsheet.category.performance' })}
                 </Typography>
               </Grid>
               <Grid item xs={1}>
                 <TextField
-                  inputProps={{style: {height:10}}}
+                  inputProps={{ style: { height: 10 } }}
                   type="number"
                   defaultValue={performanceWeightPercentage}
+                  onChange={event =>
+                    handleChangeWeightPercentage(
+                      'performance',
+                      event.target.value
+                    )
+                  }
                   margin="normal"
                   variant="outlined"
                   label={'%'}
@@ -51,11 +64,10 @@ const Performance = memo(
           ) : (
             <Grid item xs={12}>
               <Typography variant="h5" className={classes.categoryTitle}>
-                {intl.formatMessage({id: 'scsheet.category.performance'})}
+                {intl.formatMessage({ id: 'scsheet.category.performance' })}
               </Typography>
             </Grid>
-          )
-        }
+          )}
         </Grid>
         <Typography variant="h5" className={classes.subCategoryTitle}>
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
