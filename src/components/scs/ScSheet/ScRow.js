@@ -5,7 +5,6 @@ import {
   IconButton,
   TextField,
   Tooltip,
-  withStyles,
   Paper,
   Typography,
   FormControl,
@@ -13,6 +12,7 @@ import {
   MenuItem,
   InputLabel
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/Close';
 
