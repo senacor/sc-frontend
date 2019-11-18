@@ -1,23 +1,27 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-// Material UI
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import {
   useErrorContext,
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData } from '../../../calls/sc';
+import { savePerformanceData, getScPerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEffectivity from './categories/WorkEffectivity';
 import WorkQuality from './categories/WorkQuality';
-import { positions } from '../../../helper/scSheetData';
+
+// Material UI
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from '@material-ui/core';
+import { positions } from '../../../helper/filterData';
 
 const styles = theme => ({
   addProjectButton: {
@@ -31,7 +35,7 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, classes, intl }) => {
+const ScSheet = ({ match, sc, classes, intl }) => {
   const initialFieldsData = {
     title: '',
     weight: '-',
@@ -45,19 +49,30 @@ const ScSheet = ({ sc, classes, intl }) => {
   const info = useInfoContext();
   const error = useErrorContext();
   const user = useUserinfoContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
     initialFieldsData
   ]);
-  const [projectFields, setProjectFields] = useState(
-    sc.employeePerformance.project
-  );
+  const [projectFields, setProjectFields] = useState([initialFieldsData]);
   const [workEffectivityFields, setWorkEffectivityFields] = useState([
     initialFieldsData
   ]);
   const [workQualityFields, setWorkQualityFields] = useState([
     initialFieldsData
   ]);
+
+  useEffect(() => {
+    getScPerformanceData(
+      match.params.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      setDailyBusinessFields,
+      setProjectFields,
+      setWorkEffectivityFields,
+      setIsLoading,
+      error
+    );
+  }, []);
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
@@ -148,10 +163,6 @@ const ScSheet = ({ sc, classes, intl }) => {
     }
   };
 
-  const handleChangePosition = event => {
-    setPosition(event.target.value);
-  };
-
   const handleChangePerformance = (type, i, propKey, event) => {
     if (type === 'dailyBusiness') {
       const values = [...dailyBusinessFields];
@@ -176,6 +187,10 @@ const ScSheet = ({ sc, classes, intl }) => {
     setWorkQualityFields(values);
   };
 
+  const handleChangePosition = event => {
+    setPosition(event.target.value);
+  };
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -198,24 +213,28 @@ const ScSheet = ({ sc, classes, intl }) => {
         </FormControl>
       </div>
       {/* CATEGORIES */}
-      <Fragment>
-        <Performance
-          dailyBusinessFields={dailyBusinessFields}
-          projectFields={projectFields}
-          handleChangePerformance={handleChangePerformance}
-          addSubcategory={addSubcategory}
-          removeSubcategory={removeSubcategory}
-        />
-        <WorkEffectivity
-          workEffectivityFields={workEffectivityFields}
-          handleChangeWorkEffectivity={handleChangeWorkEffectivity}
-        />
-        <WorkQuality
-          workQualityFields={workQualityFields}
-          handleChangeWorkQuality={handleChangeWorkQuality}
-        />
-        {/* Other categories as separated components */}
-      </Fragment>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <Fragment>
+          <Performance
+            dailyBusinessFields={dailyBusinessFields}
+            projectFields={projectFields}
+            handleChangePerformance={handleChangePerformance}
+            addSubcategory={addSubcategory}
+            removeSubcategory={removeSubcategory}
+          />
+          <WorkEffectivity
+            workEffectivityFields={workEffectivityFields}
+            handleChangeWorkEffectivity={handleChangeWorkEffectivity}
+          />
+          <WorkQuality
+            workQualityFields={workQualityFields}
+            handleChangeWorkQuality={handleChangeWorkQuality}
+          />
+          {/* Other categories as separated components */}
+        </Fragment>
+      )}
       <ButtonsBelowSheet
         handleSave={handleSave}
         handleSubmit={handleSubmit}

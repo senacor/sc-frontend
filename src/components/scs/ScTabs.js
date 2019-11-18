@@ -22,8 +22,8 @@ const styles = theme => ({
   indicator: {
     backgroundColor: theme.palette.secondary.white
   },
-  tabStyle: {
-    color: theme.palette.secondary.white
+  tabStyleSc: {
+    backgroundColor: theme.palette.secondary.main
   },
   tabsBackground: {
     backgroundColor: theme.palette.primary[400]
@@ -45,19 +45,13 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const ScTabs = ({ classes, intl, sc }) => {
-  const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
-
-  const handleChange = (event, value) => {
-    setTabValue(value);
-  };
-
+const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
   return (
     <Paper className={classes.paper}>
       <AppBar position="static" className={classes.tabsBackground}>
         <Tabs
           value={tabValue}
-          onChange={handleChange}
+          onChange={handleChangeTab}
           variant="fullWidth"
           indicatorColor="secondary"
           classes={{
@@ -65,36 +59,46 @@ const ScTabs = ({ classes, intl, sc }) => {
           }}
         >
           <Tab
-            value={'DETAIL_VIEW'}
+            value={'SC_EMPLOYEE'}
             classes={{
-              root: classes.tabStyle
+              root: classes.tabStyleSc
             }}
             label={intl.formatMessage({
-              id: 'prtabs.details'
+              id: 'sctabs.employee'
             })}
-            id={'TabDetails'}
+            id={'TabDetailsEmployee'}
           />
-          {/* <Tab
-            value={'SCHEDULE_VIEW'}
+          <Tab
+            value={'SC_REVIEWER'}
             classes={{
-              root: classes.tabStyle
+              root: classes.tabStyleSc
             }}
             label={intl.formatMessage({
-              id: 'prtabs.findtermin'
+              id: 'sctabs.reviewer'
+            })}
+            id={'TabDetailsReviewer'}
+          />
+          <Tab
+            value={'SCHEDULE_VIEW'}
+            label={intl.formatMessage({
+              id: 'sctabs.findtermin'
             })}
             id={'TabTerminfindung'}
-          /> */}
+          />
         </Tabs>
       </AppBar>
-      {tabValue === 'DETAIL_VIEW' && (
+      {tabValue === 'SC_EMPLOYEE' && (
+        <TabContainer spacing={classes.spacing}>
+          <ScSheet sc={sc} />
+        </TabContainer>
+      )}
+      {tabValue === 'SC_REVIEWER' && (
         <TabContainer spacing={classes.spacing}>
           <ScSheet sc={sc} />
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
-        <TabContainer spacing={classes.spacing}>
-          {/* <SchedulingView sc={sc} /> */}
-        </TabContainer>
+        <TabContainer spacing={classes.spacing} />
       )}
     </Paper>
   );

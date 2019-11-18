@@ -1,5 +1,37 @@
 import { default as fetch } from '../helper/customFetch';
 
+export const getScPerformanceData = async (
+  scId,
+  type,
+  setDailyBusinessFields,
+  setProjectFields,
+  setWorkEffectivityFields,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/performance/${type}`
+    );
+    const responseData = await response.json();
+    console.log('responseData', responseData);
+    if (responseData.generalPerformance.dailyBusiness.length > 0) {
+      setDailyBusinessFields(responseData.generalPerformance.dailyBusiness);
+    }
+    if (responseData.generalPerformance.project.length > 0) {
+      setProjectFields(responseData.generalPerformance.project);
+    }
+    if (responseData.workActivity.length > 0) {
+      setWorkEffectivityFields(responseData.workActivity);
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const savePerformanceData = async (scId, type, data, info, error) => {
   try {
     const response = await fetch(
