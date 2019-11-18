@@ -45,40 +45,64 @@ const Skills = React.memo(
             />
           </Grid>
         </Grid>
-        <Typography variant="h5" className={classes.subCategoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.subtitle.skillsinthefield' })}
-        </Typography>
         <ScRow
           fields={skillsInTheFieldsFields}
           type={'skillsInTheField'}
           action={handleChangeSkills}
+          title={intl.formatMessage({
+            id: 'scsheet.subtitle.skillsinthefield'
+          })}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement.skillsinthefield'
+          })}
         />
         <Divider />
-        <Typography variant="h5" className={classes.subCategoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.subtitle.impactonteam' })}
-        </Typography>
         <ScRow
           fields={impactOnTeamFields}
           type={'impactOnTeam'}
           action={handleChangeSkills}
+          title={intl.formatMessage({
+            id: 'scsheet.subtitle.impactonteam'
+          })}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement.impactonteam'
+          })}
         />
         <Divider />
-        <Typography variant="h5" className={classes.subCategoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.subtitle.servicequality' })}
-        </Typography>
         <ScRow
           fields={serviceQualityFields}
           type={'serviceQuality'}
           action={handleChangeSkills}
+          title={intl.formatMessage({
+            id: 'scsheet.subtitle.servicequality'
+          })}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement.servicequality'
+          })}
         />
         <Divider />
-        <Typography variant="h5" className={classes.subCategoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.subtitle.impactoncompany' })}
-        </Typography>
         <ScRow
           fields={impactOnCompanyFields}
           type={'impactOnCompany'}
           action={handleChangeSkills}
+          title={intl.formatMessage({
+            id: 'scsheet.subtitle.impactoncompany'
+          })}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement.impactoncompany'
+          })}
         />
       </Fragment>
     );
