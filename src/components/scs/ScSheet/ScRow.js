@@ -57,7 +57,6 @@ const ScRow = memo(
     title,
     description,
     achievement,
-    performanceLevel,
     fields,
     action,
     removeSubcategory,

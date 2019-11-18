@@ -18,6 +18,7 @@ import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEffectivity from './categories/WorkEffectivity';
 import WorkQuality from './categories/WorkQuality';
 import { positions } from '../../../helper/scSheetData';
+import Skills from './categories/Skills';
 
 const styles = theme => ({
   addProjectButton: {
@@ -31,7 +32,7 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, classes, intl }) => {
+const ScSheet = ({ sc, withSkills, classes, intl }) => {
   const initialFieldsData = {
     title: '',
     weight: '-',
@@ -58,6 +59,23 @@ const ScSheet = ({ sc, classes, intl }) => {
   const [workQualityFields, setWorkQualityFields] = useState([
     initialFieldsData
   ]);
+  const [skillsInTheFieldFields, setSkillsInTheFieldFields] = useState([
+    initialFieldsData
+  ]);
+  const [impactOnTeamFields, setImpactOnTeamFields] = useState([
+    initialFieldsData
+  ]);
+  const [serviceQualityFields, setServiceQualityFields] = useState([
+    initialFieldsData
+  ]);
+  const [impactOnCompanyFields, setImpactOnCompanyFields] = useState([
+    initialFieldsData
+  ]);
+  const [
+    performanceWeightPercentage,
+    setPerformanceWeightPercentage
+  ] = useState(10);
+  const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(20);
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
@@ -150,6 +168,26 @@ const ScSheet = ({ sc, classes, intl }) => {
     setWorkQualityFields(values);
   };
 
+  const handleChangeSkills = (type, i, propKey, event) => {
+    if (type === 'skillsInTheField') {
+      const values = [...skillsInTheFieldFields];
+      values[i][propKey] = event.target.value;
+      setSkillsInTheFieldFields(values);
+    } else if (type === 'impactOnTeam') {
+      const values = [...impactOnTeamFields];
+      values[i][propKey] = event.target.value;
+      setImpactOnTeamFields(values);
+    } else if (type === 'serviceQuality') {
+      const values = [...serviceQualityFields];
+      values[i][propKey] = event.target.value;
+      setServiceQualityFields(values);
+    } else if (type === 'impactOnCompany') {
+      const values = [...impactOnCompanyFields];
+      values[i][propKey] = event.target.value;
+      setImpactOnCompanyFields(values);
+    }
+  };
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -172,25 +210,46 @@ const ScSheet = ({ sc, classes, intl }) => {
         </FormControl>
       </div>
       {/* CATEGORIES */}
-      <Fragment>
-        <Performance
-          dailyBusinessFields={dailyBusinessFields}
-          projectFields={projectFields}
-          handleChangePerformance={handleChangePerformance}
-          addSubcategory={addSubcategory}
-          removeSubcategory={removeSubcategory}
-          hasWeightPercentage={false}
-        />
-        <WorkEffectivity
-          workEffectivityFields={workEffectivityFields}
-          handleChangeWorkEffectivity={handleChangeWorkEffectivity}
-        />
-        <WorkQuality
-          workQualityFields={workQualityFields}
-          handleChangeWorkQuality={handleChangeWorkQuality}
-        />
-        {/* Other categories as separated components */}
-      </Fragment>
+      {withSkills ? (
+        <Fragment>
+          <Performance
+            dailyBusinessFields={dailyBusinessFields}
+            projectFields={projectFields}
+            handleChangePerformance={handleChangePerformance}
+            addSubcategory={addSubcategory}
+            removeSubcategory={removeSubcategory}
+            hasWeightPercentage={true}
+            performanceWeightPercentage={performanceWeightPercentage}
+          />
+          <Skills
+            skillsInTheFieldsFields={skillsInTheFieldFields}
+            impactOnTeamFields={impactOnTeamFields}
+            serviceQualityFields={serviceQualityFields}
+            impactOnCompanyFields={impactOnCompanyFields}
+            handleChangeSkills={handleChangeSkills}
+            skillsWeightPercentage={skillsWeightPercentage}
+          />
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Performance
+            dailyBusinessFields={dailyBusinessFields}
+            projectFields={projectFields}
+            handleChangePerformance={handleChangePerformance}
+            addSubcategory={addSubcategory}
+            removeSubcategory={removeSubcategory}
+            hasWeightPercentage={false}
+          />
+          <WorkEffectivity
+            workEffectivityFields={workEffectivityFields}
+            handleChangeWorkEffectivity={handleChangeWorkEffectivity}
+          />
+          <WorkQuality
+            workQualityFields={workQualityFields}
+            handleChangeWorkQuality={handleChangeWorkQuality}
+          />
+        </Fragment>
+      )}
       <ButtonsBelowSheet
         handleSave={handleSave}
         handleSubmit={handleSubmit}

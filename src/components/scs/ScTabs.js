@@ -7,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import ScSheetWithSkills from './ScSheet/ScSheetWithSkills';
+import ScSheet from './ScSheet/ScSheet';
 
 const styles = theme => ({
   root: {
@@ -88,7 +88,7 @@ const ScTabs = ({ classes, intl, sc }) => {
       </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheetWithSkills sc={sc} />
+          <ScSheet sc={sc} withSkills />
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
