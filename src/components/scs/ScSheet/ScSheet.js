@@ -86,11 +86,12 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
       dailyBusiness: dailyBusinessFields.map(field => {
         return {
           title: field.title,
-          evaluation: field.evaluation ? field.evaluation : 0,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
           percentage: field.percentage,
           description: field.description,
           achievement: field.achievement,
-          weight: field.weight,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
       }),
@@ -102,7 +103,31 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
           percentage: field.percentage,
           description: field.description,
           achievement: field.achievement,
-          weight: field.weight,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      workEffectivity: workEffectivityFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      workQuality: workQualityFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
       })
