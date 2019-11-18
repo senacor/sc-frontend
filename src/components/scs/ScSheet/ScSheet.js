@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
@@ -12,7 +12,11 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData } from '../../../calls/sc';
+import {
+  fetchScLayer,
+  fetchScPerformance,
+  savePerformanceData
+} from '../../../calls/sc';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 
@@ -43,12 +47,8 @@ const ScSheet = ({ sc, classes, intl }) => {
   const error = useErrorContext();
   const user = useUserinfoContext();
   const [position, setPosition] = useState('');
-  const [dailyBusinessFields, setDailyBusinessFields] = useState(
-    sc.employeePerformance.dailyBusiness
-  );
-  const [projectFields, setProjectFields] = useState(
-    sc.employeePerformance.project
-  );
+  const [dailyBusinessFields, setDailyBusinessFields] = useState([]);
+  const [projectFields, setProjectFields] = useState([]);
 
   const mockPositions = [
     'Specialist',
