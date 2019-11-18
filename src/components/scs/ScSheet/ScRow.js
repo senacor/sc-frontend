@@ -114,8 +114,9 @@ const ScRow = memo(
                         id="weight-label"
                         value={field.weight}
                         onChange={e => action(type, index, 'weight', e)}
+                        renderValue={selected => <span>{selected}</span>}
                       >
-                        {['-', 1, 2, 3].map((val, index) => (
+                        {[1, 2, 3].map((val, index) => (
                           <MenuItem key={index} value={val}>
                             {val}
                           </MenuItem>
