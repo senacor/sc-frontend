@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import ScRow from '../ScRow';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { Grid } from '@material-ui/core';
-import TextField from '@material-ui/core/es/TextField';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   ...theme.styledComponents,

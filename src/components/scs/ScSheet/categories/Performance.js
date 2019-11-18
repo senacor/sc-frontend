@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
-import TextField from '@material-ui/core/es/TextField/TextField';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   ...theme.styledComponents,
