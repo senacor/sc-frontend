@@ -198,7 +198,6 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
       setPerformanceWeightPercentage(100 - value);
     }
   };
-
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>

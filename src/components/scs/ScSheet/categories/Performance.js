@@ -124,7 +124,9 @@ const Performance = memo(
   },
   (prevProps, nextProps) =>
     prevProps.dailyBusinessFields === nextProps.dailyBusinessFields &&
-    prevProps.projectFields === nextProps.projectFields
+    prevProps.projectFields === nextProps.projectFields &&
+    prevProps.performanceWeightPercentage ===
+      nextProps.performanceWeightPercentage
 );
 
 export default injectIntl(withStyles(styles)(Performance));

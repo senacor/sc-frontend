@@ -40,9 +40,9 @@ const Skills = React.memo(
               inputProps={{ style: { height: 10 } }}
               type="number"
               value={skillsWeightPercentage}
-              onChange={event =>
-                handleChangeWeightPercentage('skills', event.target.value)
-              }
+              onChange={event => {
+                handleChangeWeightPercentage('skills', event.target.value);
+              }}
               margin="normal"
               variant="outlined"
               label={'%'}
@@ -111,7 +111,12 @@ const Skills = React.memo(
       </Fragment>
     );
   },
-  (prevProps, nextProps) => prevProps.show === nextProps.show
+  (prevProps, nextProps) =>
+    prevProps.skillsInTheFieldsFields === nextProps.skillsInTheFieldsFields &&
+    prevProps.impactOnTeamFields === nextProps.impactOnTeamFields &&
+    prevProps.serviceQualityFields === nextProps.serviceQualityFields &&
+    prevProps.impactOnCompanyFields === nextProps.impactOnCompanyFields &&
+    prevProps.skillsWeightPercentage === nextProps.skillsWeightPercentage
 );
 
 export default withRouter(injectIntl(withStyles(styles)(Skills)));
