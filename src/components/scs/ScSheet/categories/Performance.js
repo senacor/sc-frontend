@@ -48,7 +48,7 @@ const Performance = memo(
                 <TextField
                   inputProps={{ style: { height: 10 } }}
                   type="number"
-                  defaultValue={performanceWeightPercentage}
+                  value={performanceWeightPercentage}
                   onChange={event =>
                     handleChangeWeightPercentage(
                       'performance',

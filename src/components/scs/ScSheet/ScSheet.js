@@ -74,8 +74,8 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
   const [
     performanceWeightPercentage,
     setPerformanceWeightPercentage
-  ] = useState(10);
-  const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(20);
+  ] = useState(30);
+  const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(70);
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend

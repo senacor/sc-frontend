@@ -39,7 +39,7 @@ const Skills = React.memo(
             <TextField
               inputProps={{ style: { height: 10 } }}
               type="number"
-              defaultValue={skillsWeightPercentage}
+              value={skillsWeightPercentage}
               onChange={event =>
                 handleChangeWeightPercentage('skills', event.target.value)
               }
