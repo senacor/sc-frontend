@@ -57,7 +57,6 @@ const ScRow = memo(
     title,
     description,
     achievement,
-    performanceLevel,
     fields,
     action,
     removeSubcategory,
@@ -112,7 +111,6 @@ const ScRow = memo(
                         })}
                       </InputLabel>
                       <Select
-                        labelId="weight-label"
                         id="weight-label"
                         value={field.weight}
                         onChange={e => action(type, index, 'weight', e)}
@@ -146,10 +144,11 @@ const ScRow = memo(
                   </Grid>
                   <Grid item sm={2} className={classes.textCenter}>
                     <ScRatingPoints
+                      type={type}
+                      rating={field.evaluation}
                       changeEvaluation={e =>
                         action(type, index, 'evaluation', e)
                       }
-                      rating={fields.evaluation}
                     />
                   </Grid>
                 </Grid>
