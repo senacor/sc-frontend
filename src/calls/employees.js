@@ -15,6 +15,7 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
   } catch (err) {
     console.log(err);
     setIsLoading(false);
+    setEmployees([]);
     error.showGeneral();
   }
 };
@@ -38,6 +39,7 @@ export const getInactiveEmployees = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
+    setEmployees([]);
     error.showGeneral();
   }
 };

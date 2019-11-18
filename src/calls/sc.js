@@ -20,6 +20,33 @@ export const savePerformanceData = async (scId, type, data, info, error) => {
   }
 };
 
+export const saveDelegation = async (
+  scId,
+  data,
+  info,
+  error,
+  afterDelegation
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/delegate`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(data)
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.delegation.saved');
+    }
+    afterDelegation();
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
   try {
     setIsLoading(true);

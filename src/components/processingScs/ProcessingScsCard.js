@@ -22,6 +22,9 @@ const styles = theme => ({
       transform: 'scale(1.05)'
     }
   },
+  progressNoReviewers: {
+    color: theme.palette.secondary.darkRed
+  },
   header: {
     backgroundColor: theme.palette.secondary.brightGrey,
     height: 50,
@@ -61,6 +64,8 @@ const ProcessingScsCard = ({
   classes,
   history,
   sc: {
+    reviewer1,
+    reviewer2,
     scId,
     employeeFirstName,
     employeeLastName,
@@ -75,6 +80,28 @@ const ProcessingScsCard = ({
       <Typography className={classes.lastname}>{employeeLastName}</Typography>
     </Fragment>
   );
+
+  const showProgress = () => {
+    if (!inProgress) {
+      return (
+        <Typography variant="caption">
+          {intl.formatMessage({ id: 'scscard.finished' })}
+        </Typography>
+      );
+    }
+    if (!reviewer1 && !reviewer2) {
+      return (
+        <Typography variant="caption" className={classes.progressNoReviewers}>
+          {intl.formatMessage({ id: 'sc.no.reviewer' })}
+        </Typography>
+      );
+    }
+    return (
+      <Typography variant="caption">
+        {intl.formatMessage({ id: 'scscard.inprogress' })}
+      </Typography>
+    );
+  };
 
   return (
     <Card className={classes.card}>
@@ -94,11 +121,7 @@ const ProcessingScsCard = ({
       <div className={classes.occasion}>
         <br />
         <Typography variant="body1">{mapPosition(employeePosition)}</Typography>
-        <Typography variant="caption">
-          {inProgress
-            ? intl.formatMessage({ id: 'scscard.inprogress' })
-            : intl.formatMessage({ id: 'scscard.finished' })}
-        </Typography>
+        {showProgress()}
       </div>
     </Card>
   );
