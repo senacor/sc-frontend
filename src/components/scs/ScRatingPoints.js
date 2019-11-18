@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import FormControl from '@material-ui/core/FormControl/FormControl';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import { withStyles, Tooltip } from '@material-ui/core';
+import { withStyles, Tooltip, InputLabel } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import InfoIcon from '@material-ui/icons/Info';
 
@@ -15,7 +15,8 @@ const styles = theme => ({
   },
   iconComment: {
     color: theme.palette.primary['400'],
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 });
 
@@ -38,7 +39,14 @@ const ScRatingPoints = ({ classes, intl }) => {
   return (
     <Fragment>
       <FormControl>
+        <InputLabel id="evaluation-label">
+          {intl.formatMessage({
+            id: 'scsheet.textheader.selfEvaluation'
+          })}
+        </InputLabel>
         <Select
+          labelId="evaluation-label"
+          id="evaluation-label"
           value={ratingValue(rating)}
           onChange={handleChangeRating}
           className={classes.select}

@@ -1,7 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { withRouter } from 'react-router-dom';
 import ScRow from '../ScRow';
 // Material UI
 import { IconButton, Tooltip, Typography, Divider, Grid } from '@material-ui/core';
@@ -66,6 +65,12 @@ const Performance = memo(
           type={'dailyBusiness'}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement'
+          })}
         />
         <Tooltip
           title={intl.formatMessage({
@@ -85,6 +90,12 @@ const Performance = memo(
           type={'project'}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
+          description={intl.formatMessage({
+            id: 'scsheet.textarea.description'
+          })}
+          achievement={intl.formatMessage({
+            id: 'scsheet.textarea.achievement'
+          })}
         />
         <Tooltip
           title={intl.formatMessage({
@@ -104,4 +115,4 @@ const Performance = memo(
     prevProps.projectFields === nextProps.projectFields
 );
 
-export default withRouter(injectIntl(withStyles(styles)(Performance)));
+export default injectIntl(withStyles(styles)(Performance));
