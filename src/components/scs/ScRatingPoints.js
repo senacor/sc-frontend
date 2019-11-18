@@ -1,10 +1,17 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import FormControl from '@material-ui/core/FormControl/FormControl';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import { withStyles, Tooltip } from '@material-ui/core';
+import { withStyles, Tooltip, InputLabel } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import InfoIcon from '@material-ui/icons/Info';
+import {
+  projectPerformanceLevels,
+  workEffectivityPerformanceLevels,
+  generalPerformanceLevels,
+  dailyBusinessPerformanceLevels,
+  workQualityPerformanceLevels
+} from '../../helper/scSheetData';
 
 const styles = theme => ({
   center: {
@@ -15,58 +22,52 @@ const styles = theme => ({
   },
   iconComment: {
     color: theme.palette.primary['400'],
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 });
 
-const ScRatingPoints = ({ classes, intl }) => {
-  // TODO: connecting to ScFields object
-  const [rating, setRating] = useState('');
-
-  const ratingValue = entry => {
-    if (entry) {
-      return entry;
-    } else {
-      return '-';
+const ScRatingPoints = ({ classes, intl, type, rating, changeEvaluation }) => {
+  const determinePerformanceLevelsText = type => {
+    let arr;
+    switch (type) {
+      case 'dailyBusiness':
+        arr = dailyBusinessPerformanceLevels;
+        break;
+      case 'project':
+        arr = projectPerformanceLevels;
+        break;
+      case 'workEffectivity':
+        arr = workEffectivityPerformanceLevels;
+        break;
+      case 'workQuality':
+        arr = workQualityPerformanceLevels;
+        break;
+      default:
+        arr = generalPerformanceLevels;
     }
-  };
-
-  const handleChangeRating = event => {
-    setRating(event.target.value);
+    return arr;
   };
 
   return (
     <Fragment>
       <FormControl>
+        <InputLabel id="evaluation-label">
+          {intl.formatMessage({
+            id: 'scsheet.textheader.selfEvaluation'
+          })}
+        </InputLabel>
         <Select
-          value={ratingValue(rating)}
-          onChange={handleChangeRating}
+          id="evaluation-label"
+          value={rating}
+          onChange={changeEvaluation}
           className={classes.select}
-          renderValue={selected => <div>{selected}</div>}
+          renderValue={selected => <span>{selected}</span>}
         >
-          {[
-            `1 - ${intl.formatMessage({
-              id: 'scsheet.evaluation.1'
-            })}`,
-            `2 - ${intl.formatMessage({
-              id: 'scsheet.evaluation.2'
-            })}`,
-            `3 - ${intl.formatMessage({
-              id: 'scsheet.evaluation.3'
-            })}`,
-            `4 - ${intl.formatMessage({
-              id: 'scsheet.evaluation.4'
-            })}`,
-            `5 - ${intl.formatMessage({
-              id: 'scsheet.evaluation.5'
-            })}`
-          ].map((value, index) => {
+          {determinePerformanceLevelsText(type).map((value, index) => {
             return (
-              <MenuItem
-                key={index}
-                value={Number(ratingValue(value.charAt(0)))}
-              >
-                {ratingValue(value)}
+              <MenuItem key={index} value={index + 1}>
+                {intl.formatMessage({ id: value })}
               </MenuItem>
             );
           })}
