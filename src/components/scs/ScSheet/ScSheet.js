@@ -7,7 +7,11 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useErrorContext, useInfoContext, useUserinfoContext } from '../../../helper/contextHooks';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
@@ -211,6 +215,9 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
   };
 
   const handleChangeWeightPercentage = (type, value) => {
+    if (value < 0 || value > 100) {
+      return;
+    }
     if (type === 'performance') {
       setPerformanceWeightPercentage(value);
       setSkillsWeightPercentage(100 - value);
