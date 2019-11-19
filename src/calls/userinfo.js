@@ -29,7 +29,7 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
       !userinfo.userroles.includes(ROLES.ADMIN)
     ) {
       let response = await fetch(
-        `${process.env.REACT_APP_API}/oauth2/userinfo/photo`,
+        `${process.env.REACT_APP_API}/api/v1/employee/photo`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
