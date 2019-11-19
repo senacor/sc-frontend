@@ -43,9 +43,6 @@
     "prettier": "1.15.2"
   },
   "proxy": {
-    "/oauth2": {
-      "target": "http://localhost:8000"
-    },
     "/api/v1": {
       "target": "http://localhost:8030"
     }

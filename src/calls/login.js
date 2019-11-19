@@ -24,7 +24,7 @@ export const login = async (
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/oauth2/token`,
+      `${process.env.REACT_APP_API}/api/v1/oauth2/token`,
       {
         method: 'post',
         mode: 'cors',

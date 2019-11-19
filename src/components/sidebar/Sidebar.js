@@ -93,14 +93,14 @@ export const Sidebar = ({ intl, classes }) => {
         value: ROUTES.DASHBOARD,
         onClick: resetMessages
       },
-      // ADMIN
+      // ADMIN_TECH
       {
         label: intl.formatMessage({
           id: 'sidebar.systemandinterfaces'
         }),
         icon: <SettingsApplications />,
         value: ROUTES.ADMIN_SYSTEM_PANEL,
-        roles: [ROLES.ADMIN],
+        roles: [ROLES.ADMIN_TECH],
         onClick: resetMessages
       },
       {
@@ -109,7 +109,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <SupervisedUserCircle />,
         value: ROUTES.ADMIN_USER_ROLES,
-        roles: [ROLES.ADMIN],
+        roles: [ROLES.ADMIN_HR],
         onClick: resetMessages
       },
       {
@@ -118,7 +118,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <Build />,
         value: ROUTES.MAINTENANCE,
-        roles: [ROLES.ADMIN],
+        roles: [ROLES.ADMIN_TECH],
         onClick: resetMessages
       },
       {
@@ -127,7 +127,7 @@ export const Sidebar = ({ intl, classes }) => {
         }),
         icon: <AutoRules />,
         value: ROUTES.AUTORULES,
-        roles: [ROLES.ADMIN],
+        roles: [ROLES.ADMIN_TECH],
         onClick: resetMessages
       },
       // DEVELOPER / CONSULTING
@@ -242,7 +242,7 @@ export const Sidebar = ({ intl, classes }) => {
       </List>
       <Divider />
       <CompositionNumber />
-      {!userroles.includes(ROLES.ADMIN) && (
+      {!userroles.includes(ROLES.ADMIN_TECH) && (
         <div className={`${classes.feedbackBtn} ${classes.menuItem}`}>
           <FeedbackButton />
         </div>
