@@ -15,7 +15,7 @@ const styles = theme => ({
   }
 });
 
-const Skills = React.memo(
+const PrCategories = React.memo(
   ({
     classes,
     intl,
@@ -23,8 +23,8 @@ const Skills = React.memo(
     impactOnTeamFields,
     serviceQualityFields,
     impactOnCompanyFields,
-    handleChangeSkills,
-    skillsWeightPercentage,
+    handleChangePrCategories,
+    prCategoriesWeightPercentage,
     handleChangeWeightPercentage
   }) => {
     return (
@@ -39,9 +39,12 @@ const Skills = React.memo(
             <TextField
               inputProps={{ style: { height: 10 } }}
               type="number"
-              value={skillsWeightPercentage}
+              value={prCategoriesWeightPercentage}
               onChange={event => {
-                handleChangeWeightPercentage('skills', event.target.value);
+                handleChangeWeightPercentage(
+                  'prCategories',
+                  event.target.value
+                );
               }}
               margin="normal"
               variant="outlined"
@@ -52,7 +55,7 @@ const Skills = React.memo(
         <ScRow
           fields={skillsInTheFieldsFields}
           type={'skillsInTheField'}
-          action={handleChangeSkills}
+          action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.skillsinthefield'
           })}
@@ -67,7 +70,7 @@ const Skills = React.memo(
         <ScRow
           fields={impactOnTeamFields}
           type={'impactOnTeam'}
-          action={handleChangeSkills}
+          action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.impactonteam'
           })}
@@ -82,7 +85,7 @@ const Skills = React.memo(
         <ScRow
           fields={serviceQualityFields}
           type={'serviceQuality'}
-          action={handleChangeSkills}
+          action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.servicequality'
           })}
@@ -97,7 +100,7 @@ const Skills = React.memo(
         <ScRow
           fields={impactOnCompanyFields}
           type={'impactOnCompany'}
-          action={handleChangeSkills}
+          action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.impactoncompany'
           })}
@@ -119,4 +122,4 @@ const Skills = React.memo(
     prevProps.skillsWeightPercentage === nextProps.skillsWeightPercentage
 );
 
-export default withRouter(injectIntl(withStyles(styles)(Skills)));
+export default withRouter(injectIntl(withStyles(styles)(PrCategories)));

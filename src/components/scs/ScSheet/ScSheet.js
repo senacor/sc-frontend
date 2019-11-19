@@ -21,7 +21,7 @@ import WorkQuality from './categories/WorkQuality';
 // Material UI
 import { CircularProgress } from '@material-ui/core';
 import { positions } from '../../../helper/filterData';
-import Skills from './categories/Skills';
+import PrCategories from './categories/PrCategories';
 
 const styles = theme => ({
   addProjectButton: {
@@ -35,7 +35,7 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
+const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const initialFieldsData = {
     title: '',
     weight: '-',
@@ -79,18 +79,27 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
     performanceWeightPercentage,
     setPerformanceWeightPercentage
   ] = useState(30);
-  const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(70);
+  const [
+    prCategoriesWeightPercentage,
+    setPrCategoriesWeightPercentage
+  ] = useState(70);
 
   useEffect(() => {
     fetchScById(match.params.id, setIsLoading, error).then(response => {
       if (user.isOwnerInSc(response)) {
         setDailyBusinessFields(response.employeeData.dailyBusiness);
         setProjectFields(response.employeeData.project);
-        if (withSkills) {
+        if (withPrCategories) {
           setSkillsInTheFieldFields(response.employeeData.skillsInTheFields);
           setImpactOnTeamFields(response.employeeData.impactOnTeam);
           setServiceQualityFields(response.employeeData.serviceQuality);
           setImpactOnCompanyFields(response.employeeData.impactOnCompany);
+          setPerformanceWeightPercentage(
+            100 - response.employeeData.skillsWeightPercentage
+          );
+          setPrCategoriesWeightPercentage(
+            response.employeeData.skillsWeightPercentage
+          );
         } else {
           setWorkEffectivityFields(response.employeeData.workEffectivity);
           setWorkQualityFields(response.employeeData.workQuality);
@@ -98,11 +107,17 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
       } else {
         setDailyBusinessFields(response.reviewerData.dailyBusiness);
         setProjectFields(response.reviewerData.project);
-        if (withSkills) {
+        if (withPrCategories) {
           setSkillsInTheFieldFields(response.reviewerData.skillsInTheFields);
           setImpactOnTeamFields(response.reviewerData.impactOnTeam);
           setServiceQualityFields(response.reviewerData.serviceQuality);
           setImpactOnCompanyFields(response.reviewerData.impactOnCompany);
+          setPerformanceWeightPercentage(
+            100 - response.reviewerData.skillsWeightPercentage
+          );
+          setPrCategoriesWeightPercentage(
+            response.reviewerData.skillsWeightPercentage
+          );
         } else {
           setWorkEffectivityFields(response.reviewerData.workEffectivity);
           setWorkQualityFields(response.reviewerData.workQuality);
@@ -224,7 +239,7 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
     setWorkQualityFields(values);
   };
 
-  const handleChangeSkills = (type, i, propKey, event) => {
+  const handleChangePrCategories = (type, i, propKey, event) => {
     if (type === 'skillsInTheField') {
       const values = [...skillsInTheFieldFields];
       values[i][propKey] = event.target.value;
@@ -250,9 +265,9 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
     }
     if (type === 'performance') {
       setPerformanceWeightPercentage(value);
-      setSkillsWeightPercentage(100 - value);
-    } else if (type === 'skills') {
-      setSkillsWeightPercentage(value);
+      setPrCategoriesWeightPercentage(100 - value);
+    } else if (type === 'prCategories') {
+      setPrCategoriesWeightPercentage(value);
       setPerformanceWeightPercentage(100 - value);
     }
   };
@@ -291,7 +306,7 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
         </FormControl>
       </div>
       {/* CATEGORIES */}
-      {withSkills ? (
+      {withPrCategories ? (
         <Fragment>
           <Performance
             dailyBusinessFields={dailyBusinessFields}
@@ -303,13 +318,13 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
             performanceWeightPercentage={performanceWeightPercentage}
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
-          <Skills
+          <PrCategories
             skillsInTheFieldsFields={skillsInTheFieldFields}
             impactOnTeamFields={impactOnTeamFields}
             serviceQualityFields={serviceQualityFields}
             impactOnCompanyFields={impactOnCompanyFields}
-            handleChangeSkills={handleChangeSkills}
-            skillsWeightPercentage={skillsWeightPercentage}
+            handleChangePrCategories={handleChangePrCategories}
+            prCategoriesWeightPercentage={prCategoriesWeightPercentage}
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
         </Fragment>
