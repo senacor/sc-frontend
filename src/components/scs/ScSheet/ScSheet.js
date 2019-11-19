@@ -191,6 +191,13 @@ const ScSheet = ({ match, sc, classes, intl }) => {
     setPosition(event.target.value);
   };
 
+  if (isLoading) {
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -212,29 +219,24 @@ const ScSheet = ({ match, sc, classes, intl }) => {
           </Select>
         </FormControl>
       </div>
-      {/* CATEGORIES */}
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <Fragment>
-          <Performance
-            dailyBusinessFields={dailyBusinessFields}
-            projectFields={projectFields}
-            handleChangePerformance={handleChangePerformance}
-            addSubcategory={addSubcategory}
-            removeSubcategory={removeSubcategory}
-          />
-          <WorkEffectivity
-            workEffectivityFields={workEffectivityFields}
-            handleChangeWorkEffectivity={handleChangeWorkEffectivity}
-          />
-          <WorkQuality
-            workQualityFields={workQualityFields}
-            handleChangeWorkQuality={handleChangeWorkQuality}
-          />
-          {/* Other categories as separated components */}
-        </Fragment>
-      )}
+      <Fragment>
+        <Performance
+          dailyBusinessFields={dailyBusinessFields}
+          projectFields={projectFields}
+          handleChangePerformance={handleChangePerformance}
+          addSubcategory={addSubcategory}
+          removeSubcategory={removeSubcategory}
+        />
+        <WorkEffectivity
+          workEffectivityFields={workEffectivityFields}
+          handleChangeWorkEffectivity={handleChangeWorkEffectivity}
+        />
+        <WorkQuality
+          workQualityFields={workQualityFields}
+          handleChangeWorkQuality={handleChangeWorkQuality}
+        />
+        {/* Other categories as separated components */}
+      </Fragment>
       <ButtonsBelowSheet
         handleSave={handleSave}
         handleSubmit={handleSubmit}

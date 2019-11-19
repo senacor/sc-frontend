@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ScSheet from './ScSheet/ScSheet';
+import { useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   root: {
@@ -46,6 +47,8 @@ TabContainer.propTypes = {
 };
 
 const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
+  const user = useUserinfoContext();
+
   return (
     <Paper className={classes.paper}>
       <AppBar position="static" className={classes.tabsBackground}>
@@ -59,6 +62,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
           }}
         >
           <Tab
+            disabled={user.isReviewerInSc(sc)} // TODO: depends also on status of current SC
             value={'SC_EMPLOYEE'}
             classes={{
               root: classes.tabStyleSc
@@ -69,6 +73,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
             id={'TabDetailsEmployee'}
           />
           <Tab
+            disabled={!user.isReviewerInSc(sc)}
             value={'SC_REVIEWER'}
             classes={{
               root: classes.tabStyleSc
