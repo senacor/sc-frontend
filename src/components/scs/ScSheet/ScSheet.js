@@ -52,9 +52,14 @@ const ScSheet = ({ match, sc, classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
+    initialFieldsData,
+    initialFieldsData,
     initialFieldsData
   ]);
-  const [projectFields, setProjectFields] = useState([initialFieldsData]);
+  const [projectFields, setProjectFields] = useState([
+    initialFieldsData,
+    initialFieldsData
+  ]);
   const [workEffectivityFields, setWorkEffectivityFields] = useState([
     initialFieldsData
   ]);
@@ -69,6 +74,7 @@ const ScSheet = ({ match, sc, classes, intl }) => {
       setDailyBusinessFields,
       setProjectFields,
       setWorkEffectivityFields,
+      setWorkQualityFields,
       setIsLoading,
       error
     );

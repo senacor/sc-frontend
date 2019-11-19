@@ -6,6 +6,7 @@ export const getScPerformanceData = async (
   setDailyBusinessFields,
   setProjectFields,
   setWorkEffectivityFields,
+  setWorkQualityFields,
   setIsLoading,
   error
 ) => {
@@ -15,7 +16,6 @@ export const getScPerformanceData = async (
       `${process.env.REACT_APP_API}/api/v1/sc/${scId}/performance/${type}`
     );
     const responseData = await response.json();
-    console.log('responseData', responseData);
     if (responseData.generalPerformance.dailyBusiness.length > 0) {
       setDailyBusinessFields(responseData.generalPerformance.dailyBusiness);
     }
@@ -24,6 +24,9 @@ export const getScPerformanceData = async (
     }
     if (responseData.workActivity.length > 0) {
       setWorkEffectivityFields(responseData.workActivity);
+    }
+    if (responseData.workQuality.length > 0) {
+      setWorkQualityFields(responseData.workQuality);
     }
     setIsLoading(false);
   } catch (err) {
