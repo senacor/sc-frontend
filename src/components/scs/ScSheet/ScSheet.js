@@ -1,23 +1,26 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-// Material UI
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import {
   useErrorContext,
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData } from '../../../calls/sc';
+import { savePerformanceData, getScPerformanceData } from '../../../calls/sc';
+// Material UI
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEffectivity from './categories/WorkEffectivity';
 import WorkQuality from './categories/WorkQuality';
-import { positions } from '../../../helper/scSheetData';
+
+// Material UI
+import { CircularProgress } from '@material-ui/core';
+import { positions } from '../../../helper/filterData';
 import Skills from './categories/Skills';
 
 const styles = theme => ({
@@ -32,7 +35,7 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, withSkills, classes, intl }) => {
+const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
   const initialFieldsData = {
     title: '',
     weight: '-',
@@ -46,6 +49,7 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
   const info = useInfoContext();
   const error = useErrorContext();
   const user = useUserinfoContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
     { ...initialFieldsData }
@@ -76,6 +80,19 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
     setPerformanceWeightPercentage
   ] = useState(30);
   const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(70);
+
+  useEffect(() => {
+    getScPerformanceData(
+      match.params.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      setDailyBusinessFields,
+      setProjectFields,
+      setWorkEffectivityFields,
+      setWorkQualityFields,
+      setIsLoading,
+      error
+    );
+  }, []);
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
@@ -166,10 +183,6 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
     }
   };
 
-  const handleChangePosition = event => {
-    setPosition(event.target.value);
-  };
-
   const handleChangePerformance = (type, i, propKey, event) => {
     if (type === 'dailyBusiness') {
       const values = [...dailyBusinessFields];
@@ -226,6 +239,19 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
       setPerformanceWeightPercentage(100 - value);
     }
   };
+
+  const handleChangePosition = event => {
+    setPosition(event.target.value);
+  };
+
+  if (isLoading) {
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
@@ -278,7 +304,6 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
             handleChangePerformance={handleChangePerformance}
             addSubcategory={addSubcategory}
             removeSubcategory={removeSubcategory}
-            hasWeightPercentage={false}
           />
           <WorkEffectivity
             workEffectivityFields={workEffectivityFields}
@@ -288,6 +313,7 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
+          {/* Other categories as separated components */}
         </Fragment>
       )}
       <ButtonsBelowSheet

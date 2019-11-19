@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ScSheet from './ScSheet/ScSheet';
+import { useUserinfoContext } from '../../helper/contextHooks';
 import SchedulingView from '../scheduling/SchedulingView';
 
 const styles = theme => ({
@@ -23,8 +24,8 @@ const styles = theme => ({
   indicator: {
     backgroundColor: theme.palette.secondary.white
   },
-  tabStyle: {
-    color: theme.palette.secondary.white
+  tabStyleSc: {
+    backgroundColor: theme.palette.secondary.main
   },
   tabsBackground: {
     backgroundColor: theme.palette.primary[400]
@@ -46,19 +47,15 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const ScTabs = ({ classes, intl, sc }) => {
-  const [tabValue, setTabValue] = useState('DETAIL_VIEW'); //or SCHEDULE_VIEW
-
-  const handleChange = (event, value) => {
-    setTabValue(value);
-  };
+const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
+  const user = useUserinfoContext();
 
   return (
     <Paper className={classes.paper}>
       <AppBar position="static" className={classes.tabsBackground}>
         <Tabs
           value={tabValue}
-          onChange={handleChange}
+          onChange={handleChangeTab}
           variant="fullWidth"
           indicatorColor="secondary"
           classes={{
@@ -66,30 +63,42 @@ const ScTabs = ({ classes, intl, sc }) => {
           }}
         >
           <Tab
-            value={'DETAIL_VIEW'}
+            disabled={user.isReviewerInSc(sc)} // TODO: depends also on status of current SC
+            value={'SC_EMPLOYEE'}
             classes={{
-              root: classes.tabStyle
+              root: classes.tabStyleSc
             }}
             label={intl.formatMessage({
-              id: 'prtabs.details'
+              id: 'sctabs.employee'
             })}
-            id={'TabDetails'}
+            id={'TabDetailsEmployee'}
           />
-          {
-            <Tab
-              value={'SCHEDULE_VIEW'}
-              classes={{
-                root: classes.tabStyle
-              }}
-              label={intl.formatMessage({
-                id: 'sctabs.findtermin'
-              })}
-              id={'TabTerminfindung'}
-            />
-          }
+          <Tab
+            disabled={!user.isReviewerInSc(sc)}
+            value={'SC_REVIEWER'}
+            classes={{
+              root: classes.tabStyleSc
+            }}
+            label={intl.formatMessage({
+              id: 'sctabs.reviewer'
+            })}
+            id={'TabDetailsReviewer'}
+          />
+          <Tab
+            value={'SCHEDULE_VIEW'}
+            label={intl.formatMessage({
+              id: 'sctabs.findtermin'
+            })}
+            id={'TabTerminfindung'}
+          />
         </Tabs>
       </AppBar>
-      {tabValue === 'DETAIL_VIEW' && (
+      {tabValue === 'SC_EMPLOYEE' && (
+        <TabContainer spacing={classes.spacing}>
+          <ScSheet sc={sc} />
+        </TabContainer>
+      )}
+      {tabValue === 'SC_REVIEWER' && (
         <TabContainer spacing={classes.spacing}>
           <ScSheet sc={sc} withSkills />
         </TabContainer>
