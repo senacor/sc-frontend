@@ -13,6 +13,15 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+<<<<<<< Updated upstream
+=======
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
+import { savePerformanceData } from '../../../calls/sc';
+>>>>>>> Stashed changes
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEffectivity from './categories/WorkEffectivity';
@@ -51,19 +60,16 @@ const ScSheet = ({ match, sc, classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
-    initialFieldsData,
-    initialFieldsData,
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [projectFields, setProjectFields] = useState([
-    initialFieldsData,
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [workEffectivityFields, setWorkEffectivityFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [workQualityFields, setWorkQualityFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
 
   useEffect(() => {
@@ -192,6 +198,7 @@ const ScSheet = ({ match, sc, classes, intl }) => {
     setWorkQualityFields(values);
   };
 
+<<<<<<< Updated upstream
   const handleChangePosition = event => {
     setPosition(event.target.value);
   };
@@ -203,6 +210,11 @@ const ScSheet = ({ match, sc, classes, intl }) => {
       </div>
     );
   }
+=======
+  console.log('workEffectivity', workEffectivityFields);
+  console.log('workQuality', workQualityFields);
+
+>>>>>>> Stashed changes
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
