@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ScSheet from './ScSheet/ScSheet';
+import SchedulingView from '../scheduling/SchedulingView';
 
 const styles = theme => ({
   root: {
@@ -74,16 +75,18 @@ const ScTabs = ({ classes, intl, sc }) => {
             })}
             id={'TabDetails'}
           />
-          {/* <Tab
-            value={'SCHEDULE_VIEW'}
-            classes={{
-              root: classes.tabStyle
-            }}
-            label={intl.formatMessage({
-              id: 'prtabs.findtermin'
-            })}
-            id={'TabTerminfindung'}
-          /> */}
+          {
+            <Tab
+              value={'SCHEDULE_VIEW'}
+              classes={{
+                root: classes.tabStyle
+              }}
+              label={intl.formatMessage({
+                id: 'sctabs.findtermin'
+              })}
+              id={'TabTerminfindung'}
+            />
+          }
         </Tabs>
       </AppBar>
       {tabValue === 'DETAIL_VIEW' && (
@@ -93,7 +96,7 @@ const ScTabs = ({ classes, intl, sc }) => {
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
         <TabContainer spacing={classes.spacing}>
-          {/* <SchedulingView sc={sc} /> */}
+          <SchedulingView sc={sc} />
         </TabContainer>
       )}
     </Paper>

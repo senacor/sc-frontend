@@ -99,7 +99,7 @@ export const ErrorContext = newContext({
 export const InfoContext = newContext({ hasInfos: false, messageId: '' });
 
 export const MeetingContext = newContext({});
-export const PrContext = newContext({});
+export const ScContext = newContext({});
 export const UserinfoContext = newContext({
   userinfo: {},
   userroles: [],
@@ -114,7 +114,7 @@ const App = () => {
       InfoContext,
       MeetingContext,
       UserinfoContext,
-      PrContext,
+      ScContext,
       LanguageContext
     ],
     <LanguageContext.context.Consumer>

@@ -198,7 +198,7 @@
   "prstate.fillrequired": "Bitte alle Pflichtfelder ausfüllen.",
   "prstate.progress": "Fortschritt des Reviewprozesses",
   "prtabs.details": "Details",
-  "prtabs.findtermin": "Terminfindung",
+  "sctabs.findtermin": "Terminfindung",
   "datetimepicker.date": "Datumsvorschlag",
   "datetimepicker.from": "Von",
   "datetimepicker.to": "Bis",
