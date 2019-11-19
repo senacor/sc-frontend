@@ -52,7 +52,7 @@ const styles = theme => ({
   }
 });
 
-export const MeetingCreator = ({ classes, intl, pr }) => {
+export const MeetingCreator = ({ classes, intl, sc }) => {
   const [appointmentResults, setAppointmentResults] = useState({});
   const [selectedDate, setSelectedDate] = useState(
     moment.tz('Europe/Berlin').format('YYYY-MM-DD')
@@ -62,8 +62,10 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
   let error = useErrorContext();
 
   const fetchAppointments = date => {
-    let attendees = [pr.employee.login, pr.supervisor.login];
-    pr.supervisor.id !== pr.reviewer.id && attendees.push(pr.reviewer.login);
+    let attendees = [sc.employee.login, sc.supervisor.login];
+    sc.reviewer1 &&
+      sc.supervisor.id !== sc.reviewer1.id &&
+      attendees.push(sc.reviewer1.login);
 
     appointmentsSearch(
       attendees.join(','),
@@ -101,7 +103,7 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
           >
             <Grid item>
               <MeetingCreatorForm
-                prById={pr}
+                scById={sc}
                 fetchAppointments={fetchAppointments}
                 selectedRoom={selectedRoom}
                 setSelectedRoom={setSelectedRoom}
@@ -118,7 +120,7 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
                   })}
                 </div>
                 <div className={classes.title}>
-                  {`${pr.employee.firstName} ${pr.employee.lastName}`}
+                  {`${sc.employee.firstName} ${sc.employee.lastName}`}
                 </div>
               </div>
               <div className={classes.titleSupervisor}>
@@ -128,7 +130,7 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
                   })}
                 </div>
                 <div className={classes.title}>
-                  {`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
+                  {`${sc.supervisor.firstName} ${sc.supervisor.lastName}`}
                 </div>
               </div>
               <div className={classes.titleReviewer}>
@@ -137,9 +139,9 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
                     id: 'meetingcreator.reviewer'
                   })}
                 </div>
-                {pr.supervisor.id !== pr.reviewer.id && (
+                {sc.supervisor.id !== sc.reviewer1.id && (
                   <div className={classes.title}>
-                    {`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
+                    {`${sc.reviewer1.firstName} ${sc.reviewer1.lastName}`}
                   </div>
                 )}
               </div>
@@ -162,30 +164,30 @@ export const MeetingCreator = ({ classes, intl, pr }) => {
               <TimeTable>
                 <Attendee
                   appointments={extractAppointments(
-                    appointmentResults[pr.employee.login].appointments
+                    appointmentResults[sc.employee.login].appointments
                   )}
                   selectedDate={selectedDate}
                   distanceFromLeft={10}
-                  name={`${pr.employee.firstName} ${pr.employee.lastName}`}
+                  name={`${sc.employee.firstName} ${sc.employee.lastName}`}
                   attendee={'employee'}
                 />
                 <Attendee
                   appointments={extractAppointments(
-                    appointmentResults[pr.supervisor.login].appointments
+                    appointmentResults[sc.supervisor.login].appointments
                   )}
                   selectedDate={selectedDate}
                   distanceFromLeft={90 / 4 + 10}
-                  name={`${pr.supervisor.firstName} ${pr.supervisor.lastName}`}
+                  name={`${sc.supervisor.firstName} ${sc.supervisor.lastName}`}
                   attendee={'supervisor'}
                 />
-                {pr.supervisor.id !== pr.reviewer.id && (
+                {sc.supervisor.id !== sc.reviewer1.id && (
                   <Attendee
                     appointments={extractAppointments(
-                      appointmentResults[pr.reviewer.login].appointments
+                      appointmentResults[sc.reviewer1.login].appointments
                     )}
                     selectedDate={selectedDate}
                     distanceFromLeft={180 / 4 + 10}
-                    name={`${pr.reviewer.firstName} ${pr.reviewer.lastName}`}
+                    name={`${sc.reviewer1.firstName} ${sc.reviewer1.lastName}`}
                     attendee={'reviewer'}
                   />
                 )}
