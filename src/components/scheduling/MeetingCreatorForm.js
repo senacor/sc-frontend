@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import { useErrorContext } from '../../helper/contextHooks';
+import { addMeeting } from '../../calls/meetings';
 
 const momentRange = extendMoment(moment);
 
@@ -52,7 +53,7 @@ const styles = theme => ({
 });
 
 const MeetingCreatorForm = ({
-  prById,
+  scById,
   fetchAppointments,
   classes,
   intl,
@@ -127,35 +128,36 @@ const MeetingCreatorForm = ({
     }
   };
 
-  const createMeeting = prById => {
+  const createMeeting = scById => {
     let startDateTime = moment.tz(
       `${selectedDate} ${startTime}`,
       'Europe/Berlin'
     );
     let endDateTime = moment.tz(`${selectedDate} ${endTime}`, 'Europe/Berlin');
-    let meeting_details = {
-      prById: prById,
+
+    let meeting = {
+      scById: scById,
       start: startDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       end: endDateTime.utc().format('YYYY-MM-DDTHH:mmZ'),
       location: location,
       room: selectedRoom,
-      requiredAttendees: [prById.employee.login],
+      requiredAttendees: [scById.employee.login],
       optionalAttendees: []
     };
 
-    if (prById.supervisor.id === prById.reviewer.id) {
-      meeting_details.requiredAttendees.push(prById.supervisor.login);
+    if (scById.supervisor.id === scById.reviewer1.id) {
+      meeting.requiredAttendees.push(scById.supervisor.login);
     } else {
-      meeting_details.requiredAttendees.push(prById.reviewer.login);
-      meeting_details.optionalAttendees.push(prById.supervisor.login);
+      meeting.requiredAttendees.push(scById.reviewer1.login);
+      meeting.optionalAttendees.push(scById.supervisor.login);
     }
 
-    return meeting_details;
+    return meeting;
   };
 
   const validateDateTimeInput = () => {
-    let start = createMeeting(prById).start;
-    let end = createMeeting(prById).end;
+    let start = createMeeting(scById).start;
+    let end = createMeeting(scById).end;
     if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
       return false;
     }
@@ -166,8 +168,8 @@ const MeetingCreatorForm = ({
   };
 
   const blockedForSelectedTime = () => {
-    let start = createMeeting(prById).start;
-    let end = createMeeting(prById).end;
+    let start = createMeeting(scById).start;
+    let end = createMeeting(scById).end;
     if (!moment(start, 'YYYY-MM-DDTHH:mmZ', true).isValid()) {
       return false;
     }
@@ -199,6 +201,7 @@ const MeetingCreatorForm = ({
     event.preventDefault();
     if (validateDateTimeInput()) {
       if (!blockedForSelectedTime()) {
+        addMeeting(createMeeting(scById), setMeeting, error);
         error.hide();
       } else {
         error.show('meetingcreatorform.blocked');
@@ -220,7 +223,15 @@ const MeetingCreatorForm = ({
         setSelectedDate(value);
         break;
       case 'startTime':
+        const start = moment(startTime, 'HH:mm');
+        const end = moment(endTime, 'HH:mm');
+        const durationInMinutes = moment.duration(end.diff(start)).asMinutes();
+        const newEndTimeValue = moment(value, 'HH:mm').add(
+          durationInMinutes,
+          'minutes'
+        );
         setStartTime(value);
+        setEndTime(newEndTimeValue.format('HH:mm'));
         break;
       case 'endTime':
         setEndTime(value);
