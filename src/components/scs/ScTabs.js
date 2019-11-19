@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ScSheet from './ScSheet/ScSheet';
 import { useUserinfoContext } from '../../helper/contextHooks';
+import SchedulingView from '../scheduling/SchedulingView';
 
 const styles = theme => ({
   root: {
@@ -103,7 +104,9 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (
-        <TabContainer spacing={classes.spacing} />
+        <TabContainer spacing={classes.spacing}>
+          <SchedulingView sc={sc} />
+        </TabContainer>
       )}
     </Paper>
   );

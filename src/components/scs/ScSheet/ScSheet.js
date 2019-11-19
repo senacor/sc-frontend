@@ -8,19 +8,18 @@ import {
   useUserinfoContext
 } from '../../../helper/contextHooks';
 import { savePerformanceData, getScPerformanceData } from '../../../calls/sc';
+// Material UI
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEffectivity from './categories/WorkEffectivity';
 import WorkQuality from './categories/WorkQuality';
 
 // Material UI
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem
-} from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import { positions } from '../../../helper/filterData';
 
 const styles = theme => ({

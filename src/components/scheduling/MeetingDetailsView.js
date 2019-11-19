@@ -39,10 +39,14 @@ const styles = theme => ({
   info: {
     marginTop: '4%',
     marginBottom: '4%'
+  },
+  warningText: {
+    padding: theme.spacing.unit,
+    textAlign: 'center'
   }
 });
 
-const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
+const MeetingDetailsView = ({ classes, sc, handleChange, intl }) => {
   const { value: meeting } = useContext(MeetingContext.context);
   const [openRequiredAttendees, setOpenRequiredAttendees] = useState(true);
   const [openOptionalAttendees, setOpenOptionalAttendees] = useState(true);
@@ -62,12 +66,22 @@ const MeetingDetailsView = ({ classes, pr, handleChange, intl }) => {
   };
 
   let roomName;
+  if (!meeting || Object.keys(meeting).length === 0) {
+    return (
+      <Typography className={classes.warningText}>
+        {intl.formatMessage({ id: 'scsheet.meetingsDisabled' })}
+      </Typography>
+    );
+  }
   const optionalAttendeesWithoutRoom = [...meeting.optionalAttendees];
   const roomLogin = Object.keys(meeting.optionalAttendees).find(attendee => {
     return (
-      attendee !== pr.employee.login &&
-      attendee !== pr.supervisor.login &&
-      attendee !== pr.reviewer.login
+      sc.employee &&
+      attendee !== sc.employee.login &&
+      sc.supervisor &&
+      attendee !== sc.supervisor.login &&
+      sc.reviewer1 &&
+      attendee !== sc.reviewer1.login
     );
   });
   if (roomLogin) {

@@ -25,9 +25,9 @@ export const getScPerformanceData = async (
     if (responseData.workActivity.length > 0) {
       setWorkEffectivityFields(responseData.workActivity);
     }
-    if (responseData.workQuality.length > 0) {
-      setWorkQualityFields(responseData.workQuality);
-    }
+    // if (responseData.workQuality.length > 0) {
+    //   setWorkQualityFields(responseData.workQuality);
+    // }
     setIsLoading(false);
   } catch (err) {
     console.log(err);
@@ -105,7 +105,13 @@ export const linkToSc = (id, history) => {
   history.push(`/scDetail/${id}`);
 };
 
-export const fetchScById = async (scId, setSc, setIsLoading, error) => {
+export const fetchScById = async (
+  scId,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
   try {
     setIsLoading(true);
 
@@ -115,6 +121,7 @@ export const fetchScById = async (scId, setSc, setIsLoading, error) => {
     const responseScData = await response.json();
     setIsLoading(false);
     setSc(responseScData);
+    afterScFetched(responseScData);
   } catch (err) {
     console.log(err);
     setIsLoading(false);

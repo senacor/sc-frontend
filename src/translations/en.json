@@ -200,7 +200,7 @@
   "prstate.fillrequired": "Please fill in all required fields.",
   "prstate.progress": "Progress of the review process",
   "prtabs.details": "Details",
-  "prtabs.findtermin": "Find date",
+  "sctabs.findtermin": "Find date",
   "datetimepicker.date": "Date proposal",
   "datetimepicker.from": "From",
   "datetimepicker.to": "To",

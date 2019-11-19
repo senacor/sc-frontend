@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import ScTabs from './ScTabs';
@@ -6,6 +6,8 @@ import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import { fetchScById } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
+import { fetchMeeting } from '../../calls/meetings';
+import { MeetingContext } from '../App';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -17,9 +19,15 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const [isLoading, setIsLoading] = useState(false);
   const error = useErrorContext();
   const user = useUserinfoContext();
+  const { setValue: setMeeting } = useContext(MeetingContext.context);
 
   useEffect(() => {
-    fetchScById(match.params.id, setSc, setIsLoading, error);
+    const afterScFetched = sc => {
+      setSc(sc);
+      fetchMeeting(sc, setMeeting, error);
+    };
+
+    fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
   }, []);
 
   useEffect(
