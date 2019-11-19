@@ -100,7 +100,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
       )}
       {tabValue === 'SC_REVIEWER' && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheet sc={sc} withSkills />
+          <ScSheet sc={sc} />
         </TabContainer>
       )}
       {tabValue === 'SCHEDULE_VIEW' && (

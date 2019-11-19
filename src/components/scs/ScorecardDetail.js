@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ScTabs from './ScTabs';
 import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
-import { fetchScById } from '../../calls/sc';
+import { fetchScByIdWithAfter } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
@@ -27,7 +27,13 @@ const ScorecardDetail = ({ match, intl, classes }) => {
       fetchMeeting(sc, setMeeting, error);
     };
 
-    fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
+    fetchScByIdWithAfter(
+      match.params.id,
+      setSc,
+      setIsLoading,
+      error,
+      afterScFetched
+    );
   }, []);
 
   useEffect(

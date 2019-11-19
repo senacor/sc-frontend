@@ -7,7 +7,7 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData, getScPerformanceData } from '../../../calls/sc';
+import { fetchScById, savePerformanceData } from '../../../calls/sc';
 // Material UI
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -82,16 +82,33 @@ const ScSheet = ({ sc, withSkills, match, classes, intl }) => {
   const [skillsWeightPercentage, setSkillsWeightPercentage] = useState(70);
 
   useEffect(() => {
-    getScPerformanceData(
-      match.params.id,
-      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
-      setDailyBusinessFields,
-      setProjectFields,
-      setWorkEffectivityFields,
-      setWorkQualityFields,
-      setIsLoading,
-      error
-    );
+    fetchScById(match.params.id, setIsLoading, error).then(response => {
+      if (user.isOwnerInSc(response)) {
+        setDailyBusinessFields(response.employeeData.dailyBusiness);
+        setProjectFields(response.employeeData.project);
+        if (withSkills) {
+          setSkillsInTheFieldFields(response.employeeData.skillsInTheFields);
+          setImpactOnTeamFields(response.employeeData.impactOnTeam);
+          setServiceQualityFields(response.employeeData.serviceQuality);
+          setImpactOnCompanyFields(response.employeeData.impactOnCompany);
+        } else {
+          setWorkEffectivityFields(response.employeeData.workEffectivity);
+          setWorkQualityFields(response.employeeData.workQuality);
+        }
+      } else {
+        setDailyBusinessFields(response.reviewerData.dailyBusiness);
+        setProjectFields(response.reviewerData.project);
+        if (withSkills) {
+          setSkillsInTheFieldFields(response.reviewerData.skillsInTheFields);
+          setImpactOnTeamFields(response.reviewerData.impactOnTeam);
+          setServiceQualityFields(response.reviewerData.serviceQuality);
+          setImpactOnCompanyFields(response.reviewerData.impactOnCompany);
+        } else {
+          setWorkEffectivityFields(response.reviewerData.workEffectivity);
+          setWorkQualityFields(response.reviewerData.workQuality);
+        }
+      }
+    });
   }, []);
 
   const handleSubmit = () => {
