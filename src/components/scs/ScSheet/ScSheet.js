@@ -48,28 +48,28 @@ const ScSheet = ({ sc, withSkills, classes, intl }) => {
   const user = useUserinfoContext();
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
-  const [projectFields, setProjectFields] = useState(
-    sc.employeePerformance.project
-  );
+  const [projectFields, setProjectFields] = useState([
+    { ...initialFieldsData }
+  ]);
   const [workEffectivityFields, setWorkEffectivityFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [workQualityFields, setWorkQualityFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [skillsInTheFieldFields, setSkillsInTheFieldFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [impactOnTeamFields, setImpactOnTeamFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [serviceQualityFields, setServiceQualityFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [impactOnCompanyFields, setImpactOnCompanyFields] = useState([
-    initialFieldsData
+    { ...initialFieldsData }
   ]);
   const [
     performanceWeightPercentage,
