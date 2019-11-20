@@ -16,7 +16,7 @@ const WorkEfficiency = memo(
         </Typography>
         <ScRow
           type={'workEfficiency'}
-          fields={workEfficiencyFields}
+          row={workEfficiencyFields}
           action={handleChangeWorkEfficiency}
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'

@@ -53,7 +53,7 @@ const PrCategories = React.memo(
           </Grid>
         </Grid>
         <ScRow
-          fields={skillsInTheFieldsFields}
+          row={skillsInTheFieldsFields}
           type={'skillsInTheField'}
           action={handleChangePrCategories}
           title={intl.formatMessage({
@@ -68,7 +68,7 @@ const PrCategories = React.memo(
         />
         <Divider />
         <ScRow
-          fields={impactOnTeamFields}
+          row={impactOnTeamFields}
           type={'impactOnTeam'}
           action={handleChangePrCategories}
           title={intl.formatMessage({
@@ -83,7 +83,7 @@ const PrCategories = React.memo(
         />
         <Divider />
         <ScRow
-          fields={serviceQualityFields}
+          row={serviceQualityFields}
           type={'serviceQuality'}
           action={handleChangePrCategories}
           title={intl.formatMessage({
@@ -98,7 +98,7 @@ const PrCategories = React.memo(
         />
         <Divider />
         <ScRow
-          fields={impactOnCompanyFields}
+          row={impactOnCompanyFields}
           type={'impactOnCompany'}
           action={handleChangePrCategories}
           title={intl.formatMessage({

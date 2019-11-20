@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
@@ -17,7 +17,6 @@ import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEfficiency from './categories/WorkEfficiency';
 import WorkQuality from './categories/WorkQuality';
-
 // Material UI
 import { CircularProgress } from '@material-ui/core';
 import { positions } from '../../../helper/filterData';
@@ -57,24 +56,24 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const [projectFields, setProjectFields] = useState([
     { ...initialFieldsData }
   ]);
-  const [workEfficiencyFields, setWorkEfficiencyFields] = useState([
-    { ...initialFieldsData }
-  ]);
-  const [workQualityFields, setWorkQualityFields] = useState([
-    { ...initialFieldsData }
-  ]);
-  const [skillsInTheFieldsFields, setSkillsInTheFieldsFields] = useState([
-    { ...initialFieldsData }
-  ]);
-  const [impactOnTeamFields, setImpactOnTeamFields] = useState([
-    { ...initialFieldsData }
-  ]);
-  const [serviceQualityFields, setServiceQualityFields] = useState([
-    { ...initialFieldsData }
-  ]);
-  const [impactOnCompanyFields, setImpactOnCompanyFields] = useState([
-    { ...initialFieldsData }
-  ]);
+  const [workEfficiencyFields, setWorkEfficiencyFields] = useState({
+    ...initialFieldsData
+  });
+  const [workQualityFields, setWorkQualityFields] = useState({
+    ...initialFieldsData
+  });
+  const [skillsInTheFieldsFields, setSkillsInTheFieldsFields] = useState({
+    ...initialFieldsData
+  });
+  const [impactOnTeamFields, setImpactOnTeamFields] = useState({
+    ...initialFieldsData
+  });
+  const [serviceQualityFields, setServiceQualityFields] = useState({
+    ...initialFieldsData
+  });
+  const [impactOnCompanyFields, setImpactOnCompanyFields] = useState({
+    ...initialFieldsData
+  });
   const [
     performanceWeightPercentage,
     setPerformanceWeightPercentage
@@ -89,17 +88,17 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
       setDailyBusinessFields(sc.employeeData.dailyBusiness);
       setProjectFields(sc.employeeData.project);
       if (withPrCategories) {
-        setSkillsInTheFieldsFields([sc.employeeData.skillsInTheFields]);
-        setImpactOnTeamFields([sc.employeeData.impactOnTeam]);
-        setServiceQualityFields([sc.employeeData.serviceQuality]);
-        setImpactOnCompanyFields([sc.employeeData.impactOnCompany]);
+        setSkillsInTheFieldsFields(sc.employeeData.skillsInTheFields);
+        setImpactOnTeamFields(sc.employeeData.impactOnTeam);
+        setServiceQualityFields(sc.employeeData.serviceQuality);
+        setImpactOnCompanyFields(sc.employeeData.impactOnCompany);
         setPerformanceWeightPercentage(
           100 - sc.employeeData.skillsWeightPercentage
         );
         setPrCategoriesWeightPercentage(sc.employeeData.skillsWeightPercentage);
       } else {
-        setWorkEfficiencyFields([sc.employeeData.workEfficiency]);
-        setWorkQualityFields([sc.employeeData.workQuality]);
+        setWorkEfficiencyFields(sc.employeeData.workEfficiency);
+        setWorkQualityFields(sc.employeeData.workQuality);
       }
     } else {
       setDailyBusinessFields(sc.reviewerData.dailyBusiness);
@@ -125,103 +124,27 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   };
 
   const handleSave = () => {
+    const mapToDTO = field => {
+      return {
+        title: field.title,
+        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 0,
+        percentage: field.percentage,
+        description: field.description,
+        achievement: field.achievement,
+        weight: typeof field.weight === 'number' ? field.weight : 1,
+        comment: field.comment
+      };
+    };
+
     const data = {
-      dailyBusiness: dailyBusinessFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      }),
-      project: projectFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      }),
-      workEfficiency: workEfficiencyFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      })[0],
-      workQuality: workQualityFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      })[0],
-      skillsInTheFields: skillsInTheFieldsFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      })[0],
-      impactOnTeam: impactOnTeamFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      })[0],
-      serviceQuality: serviceQualityFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      })[0],
-      impactOnCompany: impactOnCompanyFields.map(field => {
-        return {
-          title: field.title,
-          evaluation:
-            typeof field.evaluation === 'number' ? field.evaluation : 0,
-          percentage: field.percentage,
-          description: field.description,
-          achievement: field.achievement,
-          weight: typeof field.weight === 'number' ? field.weight : 1,
-          comment: field.comment
-        };
-      })[0],
+      dailyBusiness: dailyBusinessFields.map(mapToDTO),
+      project: projectFields.map(mapToDTO),
+      workEfficiency: mapToDTO(workEfficiencyFields),
+      workQuality: mapToDTO(workQualityFields),
+      skillsInTheFields: mapToDTO(skillsInTheFieldsFields),
+      impactOnTeam: mapToDTO(impactOnTeamFields),
+      serviceQuality: mapToDTO(serviceQualityFields),
+      impactOnCompany: mapToDTO(impactOnCompanyFields),
       skillsWeightPercentage: prCategoriesWeightPercentage
     };
 
@@ -261,43 +184,47 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const handleChangePerformance = (type, i, propKey, event) => {
     if (type === 'dailyBusiness') {
       const values = [...dailyBusinessFields];
-      values[i][propKey] = event.target.value;
+      const newObjectValue = { ...values[i] };
+      newObjectValue[propKey] = event.target.value;
+      values[i] = newObjectValue;
       setDailyBusinessFields(values);
     } else if (type === 'project') {
       const values = [...projectFields];
-      values[i][propKey] = event.target.value;
+      const newObjectValue = { ...values[i] };
+      newObjectValue[propKey] = event.target.value;
+      values[i] = newObjectValue;
       setProjectFields(values);
     }
   };
 
-  const handleChangeWorkEfficiency = (type, i, propKey, event) => {
-    const values = [...workEfficiencyFields];
-    values[i][propKey] = event.target.value;
+  const handleChangeWorkEfficiency = (type, propKey, event) => {
+    const values = { ...workEfficiencyFields };
+    values[propKey] = event.target.value;
     setWorkEfficiencyFields(values);
   };
 
-  const handleChangeWorkQuality = (type, i, propKey, event) => {
-    const values = [...workQualityFields];
-    values[i][propKey] = event.target.value;
+  const handleChangeWorkQuality = (type, propKey, event) => {
+    const values = { ...workQualityFields };
+    values[propKey] = event.target.value;
     setWorkQualityFields(values);
   };
 
-  const handleChangePrCategories = (type, i, propKey, event) => {
+  const handleChangePrCategories = (type, propKey, event) => {
     if (type === 'skillsInTheField') {
-      const values = [...skillsInTheFieldsFields];
-      values[i][propKey] = event.target.value;
+      const values = { ...skillsInTheFieldsFields };
+      values[propKey] = event.target.value;
       setSkillsInTheFieldsFields(values);
     } else if (type === 'impactOnTeam') {
-      const values = [...impactOnTeamFields];
-      values[i][propKey] = event.target.value;
+      const values = { ...impactOnTeamFields };
+      values[propKey] = event.target.value;
       setImpactOnTeamFields(values);
     } else if (type === 'serviceQuality') {
-      const values = [...serviceQualityFields];
-      values[i][propKey] = event.target.value;
+      const values = { ...serviceQualityFields };
+      values[propKey] = event.target.value;
       setServiceQualityFields(values);
     } else if (type === 'impactOnCompany') {
-      const values = [...impactOnCompanyFields];
-      values[i][propKey] = event.target.value;
+      const values = { ...impactOnCompanyFields };
+      values[propKey] = event.target.value;
       setImpactOnCompanyFields(values);
     }
   };

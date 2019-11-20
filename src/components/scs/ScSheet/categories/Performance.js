@@ -1,18 +1,18 @@
 import React, { Fragment, memo } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import ScRow from '../ScRow';
 // Material UI
 import {
+  Divider,
+  Grid,
   IconButton,
   Tooltip,
-  Typography,
-  Divider,
-  Grid
+  Typography
 } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
 import TextField from '@material-ui/core/TextField';
+import ScRows from '../ScRows';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -72,7 +72,7 @@ const Performance = memo(
         <Typography variant="h5" className={classes.subCategoryTitle}>
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
         </Typography>
-        <ScRow
+        <ScRows
           fields={dailyBusinessFields}
           type={'dailyBusiness'}
           action={handleChangePerformance}
@@ -97,7 +97,7 @@ const Performance = memo(
         <Typography variant="h5" className={classes.subCategoryTitle}>
           {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
         </Typography>
-        <ScRow
+        <ScRows
           fields={projectFields}
           type={'project'}
           action={handleChangePerformance}
