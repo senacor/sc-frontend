@@ -15,7 +15,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
-import WorkEffectivity from './categories/WorkEffectivity';
+import WorkEfficiency from './categories/WorkEfficiency';
 import WorkQuality from './categories/WorkQuality';
 
 // Material UI
@@ -57,7 +57,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const [projectFields, setProjectFields] = useState([
     { ...initialFieldsData }
   ]);
-  const [workEffectivityFields, setWorkEffectivityFields] = useState([
+  const [workEfficiencyFields, setWorkEfficiencyFields] = useState([
     { ...initialFieldsData }
   ]);
   const [workQualityFields, setWorkQualityFields] = useState([
@@ -98,7 +98,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
         );
         setPrCategoriesWeightPercentage(sc.employeeData.skillsWeightPercentage);
       } else {
-        setWorkEffectivityFields([sc.employeeData.workEffectivity]);
+        setWorkEfficiencyFields([sc.employeeData.workEfficiency]);
         setWorkQualityFields([sc.employeeData.workQuality]);
       }
     } else {
@@ -114,7 +114,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
         );
         setPrCategoriesWeightPercentage(sc.reviewerData.skillsWeightPercentage);
       } else {
-        setWorkEffectivityFields(sc.reviewerData.workEffectivity);
+        setWorkEfficiencyFields(sc.reviewerData.workEfficiency);
         setWorkQualityFields(sc.reviewerData.workQuality);
       }
     }
@@ -150,7 +150,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           comment: field.comment
         };
       }),
-      workEfficiency: workEffectivityFields.map(field => {
+      workEfficiency: workEfficiencyFields.map(field => {
         return {
           title: field.title,
           evaluation:
@@ -161,7 +161,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      }),
+      })[0],
       workQuality: workQualityFields.map(field => {
         return {
           title: field.title,
@@ -173,7 +173,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      }),
+      })[0],
       skillsInTheFieldFields: skillsInTheFieldFields.map(field => {
         return {
           title: field.title,
@@ -185,7 +185,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      }),
+      })[0],
       impactOnTeam: impactOnTeamFields.map(field => {
         return {
           title: field.title,
@@ -197,7 +197,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      }),
+      })[0],
       serviceQuality: serviceQualityFields.map(field => {
         return {
           title: field.title,
@@ -209,7 +209,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      }),
+      })[0],
       impactOnCompany: impactOnCompanyFields.map(field => {
         return {
           title: field.title,
@@ -221,7 +221,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      })
+      })[0]
     };
 
     savePerformanceData(
@@ -269,10 +269,10 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
     }
   };
 
-  const handleChangeWorkEffectivity = (type, i, propKey, event) => {
-    const values = [...workEffectivityFields];
+  const handleChangeWorkEfficiency = (type, i, propKey, event) => {
+    const values = [...workEfficiencyFields];
     values[i][propKey] = event.target.value;
-    setWorkEffectivityFields(values);
+    setWorkEfficiencyFields(values);
   };
 
   const handleChangeWorkQuality = (type, i, propKey, event) => {
@@ -379,9 +379,9 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
             addSubcategory={addSubcategory}
             removeSubcategory={removeSubcategory}
           />
-          <WorkEffectivity
-            workEffectivityFields={workEffectivityFields}
-            handleChangeWorkEffectivity={handleChangeWorkEffectivity}
+          <WorkEfficiency
+            workEfficiencyFields={workEfficiencyFields}
+            handleChangeWorkEfficiency={handleChangeWorkEfficiency}
           />
           <WorkQuality
             workQualityFields={workQualityFields}
