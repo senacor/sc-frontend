@@ -63,7 +63,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const [workQualityFields, setWorkQualityFields] = useState([
     { ...initialFieldsData }
   ]);
-  const [skillsInTheFieldFields, setSkillsInTheFieldFields] = useState([
+  const [skillsInTheFieldsFields, setSkillsInTheFieldsFields] = useState([
     { ...initialFieldsData }
   ]);
   const [impactOnTeamFields, setImpactOnTeamFields] = useState([
@@ -89,7 +89,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
       setDailyBusinessFields(sc.employeeData.dailyBusiness);
       setProjectFields(sc.employeeData.project);
       if (withPrCategories) {
-        setSkillsInTheFieldFields([sc.employeeData.skillsInTheFields]);
+        setSkillsInTheFieldsFields([sc.employeeData.skillsInTheFields]);
         setImpactOnTeamFields([sc.employeeData.impactOnTeam]);
         setServiceQualityFields([sc.employeeData.serviceQuality]);
         setImpactOnCompanyFields([sc.employeeData.impactOnCompany]);
@@ -105,7 +105,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
       setDailyBusinessFields(sc.reviewerData.dailyBusiness);
       setProjectFields(sc.reviewerData.project);
       if (withPrCategories) {
-        setSkillsInTheFieldFields(sc.reviewerData.skillsInTheFields);
+        setSkillsInTheFieldsFields(sc.reviewerData.skillsInTheFields);
         setImpactOnTeamFields(sc.reviewerData.impactOnTeam);
         setServiceQualityFields(sc.reviewerData.serviceQuality);
         setImpactOnCompanyFields(sc.reviewerData.impactOnCompany);
@@ -174,7 +174,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           comment: field.comment
         };
       })[0],
-      skillsInTheFieldFields: skillsInTheFieldFields.map(field => {
+      skillsInTheFields: skillsInTheFieldsFields.map(field => {
         return {
           title: field.title,
           evaluation:
@@ -221,7 +221,8 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
-      })[0]
+      })[0],
+      skillsWeightPercentage: prCategoriesWeightPercentage
     };
 
     savePerformanceData(
@@ -283,9 +284,9 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
 
   const handleChangePrCategories = (type, i, propKey, event) => {
     if (type === 'skillsInTheField') {
-      const values = [...skillsInTheFieldFields];
+      const values = [...skillsInTheFieldsFields];
       values[i][propKey] = event.target.value;
-      setSkillsInTheFieldFields(values);
+      setSkillsInTheFieldsFields(values);
     } else if (type === 'impactOnTeam') {
       const values = [...impactOnTeamFields];
       values[i][propKey] = event.target.value;
@@ -361,7 +362,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
           <PrCategories
-            skillsInTheFieldsFields={skillsInTheFieldFields}
+            skillsInTheFieldsFields={skillsInTheFieldsFields}
             impactOnTeamFields={impactOnTeamFields}
             serviceQualityFields={serviceQualityFields}
             impactOnCompanyFields={impactOnCompanyFields}
