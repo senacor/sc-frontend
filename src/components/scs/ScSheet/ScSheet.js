@@ -49,7 +49,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const info = useInfoContext();
   const error = useErrorContext();
   const user = useUserinfoContext();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
     { ...initialFieldsData }
