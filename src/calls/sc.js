@@ -3,7 +3,7 @@ import { default as fetch } from '../helper/customFetch';
 export const savePerformanceData = async (scId, type, data, info, error) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/performance/${type}`,
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/data/${type}`,
       {
         method: 'post',
         mode: 'cors',
@@ -70,7 +70,13 @@ export const linkToSc = (id, history) => {
   history.push(`/scDetail/${id}`);
 };
 
-export const fetchScById = async (scId, setSc, setIsLoading, error) => {
+export const fetchScById = async (
+  scId,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
   try {
     setIsLoading(true);
 
@@ -80,6 +86,7 @@ export const fetchScById = async (scId, setSc, setIsLoading, error) => {
     const responseScData = await response.json();
     setIsLoading(false);
     setSc(responseScData);
+    afterScFetched(responseScData);
   } catch (err) {
     console.log(err);
     setIsLoading(false);

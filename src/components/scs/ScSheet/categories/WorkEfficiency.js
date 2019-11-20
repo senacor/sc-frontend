@@ -7,17 +7,17 @@ const styles = theme => ({
   ...theme.styledComponents
 });
 
-const WorkEffectivity = memo(
-  ({ classes, intl, workEffectivityFields, handleChangeWorkEffectivity }) => {
+const WorkEfficiency = memo(
+  ({ classes, intl, workEfficiencyFields, handleChangeWorkEfficiency }) => {
     return (
       <Fragment>
         <Typography variant="h5" className={classes.categoryTitle}>
           {intl.formatMessage({ id: 'scsheet.category.workEffectivity' })}
         </Typography>
         <ScRow
-          type={'workEffectivity'}
-          fields={workEffectivityFields}
-          action={handleChangeWorkEffectivity}
+          type={'workEfficiency'}
+          row={workEfficiencyFields}
+          action={handleChangeWorkEfficiency}
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'
           })}
@@ -32,7 +32,7 @@ const WorkEffectivity = memo(
     );
   },
   (prevProps, nextProps) =>
-    prevProps.workEffectivityFields === nextProps.workEffectivityFields
+    prevProps.workEfficiencyFields === nextProps.workEfficiencyFields
 );
 
-export default injectIntl(withStyles(styles)(WorkEffectivity));
+export default injectIntl(withStyles(styles)(WorkEfficiency));

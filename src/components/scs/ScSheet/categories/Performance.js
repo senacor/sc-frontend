@@ -1,11 +1,18 @@
 import React, { Fragment, memo } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import ScRow from '../ScRow';
 // Material UI
-import { IconButton, Tooltip, Typography, Divider } from '@material-ui/core';
+import {
+  Divider,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography
+} from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
+import TextField from '@material-ui/core/TextField';
+import ScRows from '../ScRows';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -22,17 +29,50 @@ const Performance = memo(
     projectFields,
     handleChangePerformance,
     addSubcategory,
-    removeSubcategory
+    removeSubcategory,
+    hasWeightPercentage,
+    performanceWeightPercentage,
+    handleChangeWeightPercentage
   }) => {
     return (
       <Fragment>
-        <Typography variant="h5" className={classes.categoryTitle}>
-          {intl.formatMessage({ id: 'scsheet.category.performance' })}
-        </Typography>
+        <Grid container>
+          {hasWeightPercentage ? (
+            <Fragment>
+              <Grid item xs={11}>
+                <Typography variant="h5" className={classes.categoryTitle}>
+                  {intl.formatMessage({ id: 'scsheet.category.performance' })}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <TextField
+                  inputProps={{ style: { height: 10 } }}
+                  type="number"
+                  value={performanceWeightPercentage}
+                  onChange={event =>
+                    handleChangeWeightPercentage(
+                      'performance',
+                      event.target.value
+                    )
+                  }
+                  margin="normal"
+                  variant="outlined"
+                  label={'%'}
+                />
+              </Grid>
+            </Fragment>
+          ) : (
+            <Grid item xs={12}>
+              <Typography variant="h5" className={classes.categoryTitle}>
+                {intl.formatMessage({ id: 'scsheet.category.performance' })}
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
         <Typography variant="h5" className={classes.subCategoryTitle}>
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
         </Typography>
-        <ScRow
+        <ScRows
           fields={dailyBusinessFields}
           type={'dailyBusiness'}
           action={handleChangePerformance}
@@ -57,7 +97,7 @@ const Performance = memo(
         <Typography variant="h5" className={classes.subCategoryTitle}>
           {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
         </Typography>
-        <ScRow
+        <ScRows
           fields={projectFields}
           type={'project'}
           action={handleChangePerformance}
@@ -84,7 +124,9 @@ const Performance = memo(
   },
   (prevProps, nextProps) =>
     prevProps.dailyBusinessFields === nextProps.dailyBusinessFields &&
-    prevProps.projectFields === nextProps.projectFields
+    prevProps.projectFields === nextProps.projectFields &&
+    prevProps.performanceWeightPercentage ===
+      nextProps.performanceWeightPercentage
 );
 
 export default injectIntl(withStyles(styles)(Performance));
