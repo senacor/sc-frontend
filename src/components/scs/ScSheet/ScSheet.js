@@ -78,28 +78,28 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const [
     performanceWeightPercentage,
     setPerformanceWeightPercentage
-  ] = useState(30);
+  ] = useState(0);
   const [
     prCategoriesWeightPercentage,
     setPrCategoriesWeightPercentage
-  ] = useState(70);
+  ] = useState(0);
 
   useEffect(() => {
     if (user.isOwnerInSc(sc)) {
       setDailyBusinessFields(sc.employeeData.dailyBusiness);
       setProjectFields(sc.employeeData.project);
       if (withPrCategories) {
-        setSkillsInTheFieldFields(sc.employeeData.skillsInTheFields);
-        setImpactOnTeamFields(sc.employeeData.impactOnTeam);
-        setServiceQualityFields(sc.employeeData.serviceQuality);
-        setImpactOnCompanyFields(sc.employeeData.impactOnCompany);
+        setSkillsInTheFieldFields([sc.employeeData.skillsInTheFields]);
+        setImpactOnTeamFields([sc.employeeData.impactOnTeam]);
+        setServiceQualityFields([sc.employeeData.serviceQuality]);
+        setImpactOnCompanyFields([sc.employeeData.impactOnCompany]);
         setPerformanceWeightPercentage(
           100 - sc.employeeData.skillsWeightPercentage
         );
         setPrCategoriesWeightPercentage(sc.employeeData.skillsWeightPercentage);
       } else {
-        setWorkEffectivityFields(sc.employeeData.workEffectivity);
-        setWorkQualityFields(sc.employeeData.workQuality);
+        setWorkEffectivityFields([sc.employeeData.workEffectivity]);
+        setWorkQualityFields([sc.employeeData.workQuality]);
       }
     } else {
       setDailyBusinessFields(sc.reviewerData.dailyBusiness);
@@ -150,7 +150,7 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           comment: field.comment
         };
       }),
-      workEffectivity: workEffectivityFields.map(field => {
+      workEfficiency: workEffectivityFields.map(field => {
         return {
           title: field.title,
           evaluation:
@@ -173,9 +173,57 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
           weight: typeof field.weight === 'number' ? field.weight : 1,
           comment: field.comment
         };
+      }),
+      skillsInTheFieldFields: skillsInTheFieldFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      impactOnTeam: impactOnTeamFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      serviceQuality: serviceQualityFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
+      }),
+      impactOnCompany: impactOnCompanyFields.map(field => {
+        return {
+          title: field.title,
+          evaluation:
+            typeof field.evaluation === 'number' ? field.evaluation : 0,
+          percentage: field.percentage,
+          description: field.description,
+          achievement: field.achievement,
+          weight: typeof field.weight === 'number' ? field.weight : 1,
+          comment: field.comment
+        };
       })
-      // TODO: other categories
     };
+
     savePerformanceData(
       sc.id,
       user.isReviewerInSc(sc) ? 'reviewer' : 'employee',

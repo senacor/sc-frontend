@@ -119,7 +119,8 @@ const PrCategories = React.memo(
     prevProps.impactOnTeamFields === nextProps.impactOnTeamFields &&
     prevProps.serviceQualityFields === nextProps.serviceQualityFields &&
     prevProps.impactOnCompanyFields === nextProps.impactOnCompanyFields &&
-    prevProps.skillsWeightPercentage === nextProps.skillsWeightPercentage
+    prevProps.prCategoriesWeightPercentage ===
+      nextProps.prCategoriesWeightPercentage
 );
 
 export default withRouter(injectIntl(withStyles(styles)(PrCategories)));

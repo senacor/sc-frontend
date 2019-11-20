@@ -62,6 +62,7 @@ const ScRow = memo(
     removeSubcategory,
     type
   }) => {
+    console.log('fields', fields);
     return (
       <Fragment>
         {fields.map((field, index) => {
