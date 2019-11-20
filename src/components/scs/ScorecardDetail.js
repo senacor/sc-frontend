@@ -3,22 +3,23 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import ScTabs from './ScTabs';
 import ScDetailInformation from './ScDetailInformation';
-import { useErrorContext } from '../../helper/contextHooks';
-import { MeetingContext } from '../App';
+import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import { fetchScById } from '../../calls/sc';
+import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
+import { MeetingContext } from '../App';
 
 const styles = theme => ({
   ...theme.styledComponents
 });
 
-const ScorecardDetail = ({ match }) => {
+const ScorecardDetail = ({ match, intl, classes }) => {
   const [sc, setSc] = useState(null);
+  const [scTab, setScTab] = useState('SC_EMPLOYEE');
   const [isLoading, setIsLoading] = useState(false);
   const error = useErrorContext();
-  const { setValue: setMeeting } = useContext(
-    MeetingContext.context
-  );
+  const user = useUserinfoContext();
+  const { setValue: setMeeting } = useContext(MeetingContext.context);
 
   useEffect(() => {
     const afterScFetched = sc => {
@@ -29,6 +30,21 @@ const ScorecardDetail = ({ match }) => {
     fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
   }, []);
 
+  useEffect(
+    () => {
+      if (sc && user.isReviewerInSc(sc)) {
+        setScTab('SC_REVIEWER');
+      } else {
+        setScTab('SC_EMPLOYEE');
+      }
+    },
+    [sc]
+  );
+
+  const handleChangeTab = (event, value) => {
+    setScTab(value);
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -37,7 +53,11 @@ const ScorecardDetail = ({ match }) => {
         sc && (
           <Fragment>
             <ScDetailInformation sc={sc} />
-            <ScTabs sc={sc} />
+            <ScTabs
+              sc={sc}
+              tabValue={scTab}
+              handleChangeTab={handleChangeTab}
+            />
           </Fragment>
         )
       )}
@@ -45,4 +65,4 @@ const ScorecardDetail = ({ match }) => {
   );
 };
 
-export default withStyles(styles)(ScorecardDetail);
+export default injectIntl(withStyles(styles)(ScorecardDetail));

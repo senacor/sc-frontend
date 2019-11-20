@@ -39,6 +39,10 @@ const styles = theme => ({
   info: {
     marginTop: '4%',
     marginBottom: '4%'
+  },
+  warningText: {
+    padding: theme.spacing.unit,
+    textAlign: 'center'
   }
 });
 
@@ -62,6 +66,13 @@ const MeetingDetailsView = ({ classes, sc, handleChange, intl }) => {
   };
 
   let roomName;
+  if (!meeting || Object.keys(meeting).length === 0) {
+    return (
+      <Typography className={classes.warningText}>
+        {intl.formatMessage({ id: 'scsheet.meetingsDisabled' })}
+      </Typography>
+    );
+  }
   const optionalAttendeesWithoutRoom = [...meeting.optionalAttendees];
   const roomLogin = Object.keys(meeting.optionalAttendees).find(attendee => {
     return (
