@@ -60,9 +60,9 @@ const ScRows = memo(
               title={title}
               description={description}
               achievement={achievement}
-              fields={fields}
               action={(type, fieldKey, e) => {
-                action(type, index, fieldKey, e)}}
+                action(type, index, fieldKey, e);
+              }}
               removeSubcategory={type => removeSubcategory(type, index)}
               type={type}
             />
