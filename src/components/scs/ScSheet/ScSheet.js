@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { withRouter } from 'react-router-dom';
 import {
   useErrorContext,
   useInfoContext,
@@ -18,11 +17,12 @@ import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEfficiency from './categories/WorkEfficiency';
 import WorkQuality from './categories/WorkQuality';
 // Material UI
-import { CircularProgress } from '@material-ui/core';
 import { positions } from '../../../helper/filterData';
 import PrCategories from './categories/PrCategories';
+import { weightSumWithoutPR } from './calculationFunc';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   addProjectButton: {
     color: theme.palette.secondary.yellow
   },
@@ -34,10 +34,10 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
+const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   const initialFieldsData = {
     title: '',
-    weight: '-',
+    weight: 1,
     percentage: 0,
     evaluation: '-',
     description: '',
@@ -48,7 +48,6 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const info = useInfoContext();
   const error = useErrorContext();
   const user = useUserinfoContext();
-  const [isLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
     { ...initialFieldsData }
@@ -82,6 +81,12 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
     prCategoriesWeightPercentage,
     setPrCategoriesWeightPercentage
   ] = useState(0);
+  let weightsWithoutPR = weightSumWithoutPR(
+    dailyBusinessFields,
+    projectFields,
+    workEfficiencyFields,
+    workQualityFields
+  );
 
   useEffect(() => {
     if (user.isOwnerInSc(sc)) {
@@ -127,11 +132,11 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
     const mapToDTO = field => {
       return {
         title: field.title,
-        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 0,
+        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
         percentage: field.percentage,
         description: field.description,
         achievement: field.achievement,
-        weight: typeof field.weight === 'number' ? field.weight : 1,
+        weight: field.weight,
         comment: field.comment
       };
     };
@@ -186,12 +191,22 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
       const values = [...dailyBusinessFields];
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
+      if (propKey === 'weight') {
+        newObjectValue['percentage'] = Math.round(
+          (newObjectValue['weight'] / weightsWithoutPR) * 100
+        );
+      }
       values[i] = newObjectValue;
       setDailyBusinessFields(values);
     } else if (type === 'project') {
       const values = [...projectFields];
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
+      if (propKey === 'weight') {
+        newObjectValue['percentage'] = Math.round(
+          (newObjectValue['weight'] / weightsWithoutPR) * 100
+        );
+      }
       values[i] = newObjectValue;
       setProjectFields(values);
     }
@@ -200,12 +215,22 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const handleChangeWorkEfficiency = (type, propKey, event) => {
     const values = { ...workEfficiencyFields };
     values[propKey] = event.target.value;
+    if (propKey === 'weight') {
+      values['percentage'] = Math.round(
+        (values['weight'] / weightsWithoutPR) * 100
+      );
+    }
     setWorkEfficiencyFields(values);
   };
 
   const handleChangeWorkQuality = (type, propKey, event) => {
     const values = { ...workQualityFields };
     values[propKey] = event.target.value;
+    if (propKey === 'weight') {
+      values['percentage'] = Math.round(
+        (values['weight'] / weightsWithoutPR) * 100
+      );
+    }
     setWorkQualityFields(values);
   };
 
@@ -245,14 +270,6 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const handleChangePosition = event => {
     setPosition(event.target.value);
   };
-
-  if (isLoading) {
-    return (
-      <div style={{ textAlign: 'center' }}>
-        <CircularProgress />
-      </div>
-    );
-  }
 
   return (
     <Fragment>
@@ -327,4 +344,4 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(ScSheet)));
+export default injectIntl(withStyles(styles)(ScSheet));

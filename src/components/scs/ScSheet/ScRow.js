@@ -96,7 +96,8 @@ const ScRow = memo(
                     })}
                     fullWidth
                     onChange={e => {
-                      action(type, 'title', e)}}
+                      action(type, 'title', e);
+                    }}
                   />
                 ) : (
                   <Typography variant="body1">{title}</Typography>
