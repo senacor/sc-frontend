@@ -81,6 +81,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     prCategoriesWeightPercentage,
     setPrCategoriesWeightPercentage
   ] = useState(0);
+
   let weightsWithoutPR = weightSumWithoutPR(
     dailyBusinessFields,
     projectFields,
