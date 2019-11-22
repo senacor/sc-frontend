@@ -54,16 +54,13 @@ const PrCategories = React.memo(
         </Grid>
         <ScRow
           row={skillsInTheFieldsFields}
-          type={'skillsInTheField'}
+          type={'skillsInTheFields'}
           action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.skillsinthefield'
           })}
           description={intl.formatMessage({
-            id: 'scsheet.textarea.description'
-          })}
-          achievement={intl.formatMessage({
-            id: 'scsheet.textarea.achievement.skillsinthefield'
+            id: 'scsheet.textarea.description.skillsinthefield'
           })}
         />
         <Divider />
@@ -75,10 +72,7 @@ const PrCategories = React.memo(
             id: 'scsheet.subtitle.impactonteam'
           })}
           description={intl.formatMessage({
-            id: 'scsheet.textarea.description'
-          })}
-          achievement={intl.formatMessage({
-            id: 'scsheet.textarea.achievement.impactonteam'
+            id: 'scsheet.textarea.description.impactonteam'
           })}
         />
         <Divider />
@@ -90,10 +84,7 @@ const PrCategories = React.memo(
             id: 'scsheet.subtitle.servicequality'
           })}
           description={intl.formatMessage({
-            id: 'scsheet.textarea.description'
-          })}
-          achievement={intl.formatMessage({
-            id: 'scsheet.textarea.achievement.servicequality'
+            id: 'scsheet.textarea.description.servicequality'
           })}
         />
         <Divider />
@@ -105,10 +96,7 @@ const PrCategories = React.memo(
             id: 'scsheet.subtitle.impactoncompany'
           })}
           description={intl.formatMessage({
-            id: 'scsheet.textarea.description'
-          })}
-          achievement={intl.formatMessage({
-            id: 'scsheet.textarea.achievement.impactoncompany'
+            id: 'scsheet.textarea.description.impactoncompany'
           })}
         />
       </Fragment>
