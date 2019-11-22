@@ -20,7 +20,13 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { reduceWeights, updatePercentageAllWithoutPR } from './calculationFunc';
+import {
+  reduceWeights,
+  updatePercentageAllWithoutPR,
+  calculateFinalScoreWithoutPR,
+  round
+} from './calculationFunc';
+import ScoreWithoutPR from './ScoreWithoutPR';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -40,7 +46,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     title: '',
     weight: 1,
     percentage: 0,
-    evaluation: '-',
+    evaluation: 0,
     description: '',
     achievement: '',
     comment: ''
@@ -83,6 +89,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     setPrCategoriesWeightPercentage
   ] = useState(0);
   const [weightsWithoutPR, setWeightsWithoutPR] = useState(7);
+  const [finalScore, setFinalScore] = useState(0);
 
   useEffect(
     () => {
@@ -120,6 +127,34 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       }
     },
     [weightsWithoutPR, withPrCategories]
+  );
+
+  useEffect(
+    () => {
+      if (!withPrCategories) {
+        setFinalScore(
+          round(
+            calculateFinalScoreWithoutPR(
+              dailyBusinessFields,
+              projectFields,
+              workEfficiencyFields,
+              workQualityFields,
+              weightsWithoutPR
+            ),
+            1
+          )
+        );
+      } else {
+        // TODO: set final score for SC with PR
+      }
+    },
+    [
+      weightsWithoutPR,
+      dailyBusinessFields,
+      projectFields,
+      workEfficiencyFields,
+      workQualityFields
+    ]
   );
 
   useEffect(() => {
@@ -346,7 +381,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
-          {/* Other categories as separated components */}
+          <ScoreWithoutPR finalScore={finalScore} />
         </Fragment>
       )}
       <ButtonsBelowSheet
