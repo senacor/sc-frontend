@@ -1,12 +1,9 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  withStyles,
-  Grid,
-  Typography,
-  CircularProgress
-} from '@material-ui/core';
 import { determineFinalPercentage } from './calculationFunc';
+
+// Material UI
+import { withStyles, Grid, Typography } from '@material-ui/core';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -30,24 +27,6 @@ const styles = theme => ({
 
 const ScoreWithoutPR = memo(
   ({ intl, classes, finalScore }) => {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(
-      () => {
-        if (finalScore || finalScore === 0) {
-          setIsLoading(false);
-        }
-      },
-      [finalScore]
-    );
-
-    if (isLoading) {
-      return (
-        <div className={classes.progressBarCentered}>
-          <CircularProgress />
-        </div>
-      );
-    }
     return (
       <div className={classes.container}>
         <Grid container className={classes.scoreGridContainer}>
