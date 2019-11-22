@@ -6,7 +6,7 @@ import {
   Typography,
   CircularProgress
 } from '@material-ui/core';
-import { round } from './calculationFunc';
+import { round, determineFinalPercentage } from './calculationFunc';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -41,8 +41,6 @@ const ScoreWithoutPR = memo(
       [finalScore]
     );
 
-    console.log('now');
-
     if (isLoading) {
       return (
         <div className={classes.progressBarCentered}>
@@ -59,7 +57,7 @@ const ScoreWithoutPR = memo(
             </Typography>
           </Grid>
           <Grid item sm={2}>
-            <Typography variant="body1">{round(finalScore, 1)}</Typography>
+            <Typography variant="body1">{finalScore}</Typography>
           </Grid>
         </Grid>
         <Grid container className={classes.percentageGridContainer}>
@@ -69,7 +67,7 @@ const ScoreWithoutPR = memo(
             </Typography>
           </Grid>
           <Grid item sm={2}>
-            100%
+            {`${determineFinalPercentage(finalScore)} %`}
           </Grid>
         </Grid>
       </div>

@@ -23,7 +23,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {
   reduceWeights,
   updatePercentageAllWithoutPR,
-  calculateFinalScoreWithoutPR
+  calculateFinalScoreWithoutPR,
+  round
 } from './calculationFunc';
 import ScoreWithoutPR from './ScoreWithoutPR';
 
@@ -88,6 +89,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     setPrCategoriesWeightPercentage
   ] = useState(0);
   const [weightsWithoutPR, setWeightsWithoutPR] = useState(7);
+  const [finalScore, setFinalScore] = useState(0);
 
   useEffect(
     () => {
@@ -125,6 +127,30 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       }
     },
     [weightsWithoutPR, withPrCategories]
+  );
+
+  useEffect(
+    () => {
+      setFinalScore(
+        round(
+          calculateFinalScoreWithoutPR(
+            dailyBusinessFields,
+            projectFields,
+            workEfficiencyFields,
+            workQualityFields,
+            weightsWithoutPR
+          ),
+          1
+        )
+      );
+    },
+    [
+      weightsWithoutPR,
+      dailyBusinessFields,
+      projectFields,
+      workEfficiencyFields,
+      workQualityFields
+    ]
   );
 
   useEffect(() => {
@@ -351,15 +377,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
-          <ScoreWithoutPR
-            finalScore={calculateFinalScoreWithoutPR(
-              dailyBusinessFields,
-              projectFields,
-              workEfficiencyFields,
-              workQualityFields,
-              weightsWithoutPR
-            )}
-          />
+          <ScoreWithoutPR finalScore={finalScore} />
         </Fragment>
       )}
       <ButtonsBelowSheet
