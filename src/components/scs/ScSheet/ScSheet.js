@@ -1,28 +1,29 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { withRouter } from 'react-router-dom';
 import {
   useErrorContext,
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
 import { savePerformanceData } from '../../../calls/sc';
+import { positions } from '../../../helper/filterData';
+import PrCategories from './categories/PrCategories';
+import cloneDeep from '../../../helper/cloneDeep';
+import Performance from './categories/Performance';
+import ButtonsBelowSheet from './ButtonsBelowSheet';
+import WorkEfficiency from './categories/WorkEfficiency';
+import WorkQuality from './categories/WorkQuality';
+
 // Material UI
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Performance from './categories/Performance';
-import ButtonsBelowSheet from './ButtonsBelowSheet';
-import WorkEfficiency from './categories/WorkEfficiency';
-import WorkQuality from './categories/WorkQuality';
-// Material UI
-import { CircularProgress } from '@material-ui/core';
-import { positions } from '../../../helper/filterData';
-import PrCategories from './categories/PrCategories';
+import { reduceWeights, updatePercentageAllWithoutPR } from './calculationFunc';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   addProjectButton: {
     color: theme.palette.secondary.yellow
   },
@@ -34,10 +35,10 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
+const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   const initialFieldsData = {
     title: '',
-    weight: '-',
+    weight: 1,
     percentage: 0,
     evaluation: '-',
     description: '',
@@ -48,7 +49,6 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const info = useInfoContext();
   const error = useErrorContext();
   const user = useUserinfoContext();
-  const [isLoading] = useState(false);
   const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
     { ...initialFieldsData }
@@ -82,6 +82,45 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
     prCategoriesWeightPercentage,
     setPrCategoriesWeightPercentage
   ] = useState(0);
+  const [weightsWithoutPR, setWeightsWithoutPR] = useState(7);
+
+  useEffect(
+    () => {
+      if (!withPrCategories) {
+        const totalWeight =
+          reduceWeights(dailyBusinessFields) +
+          reduceWeights(projectFields) +
+          workEfficiencyFields.weight +
+          workQualityFields.weight;
+        setWeightsWithoutPR(totalWeight);
+      }
+    },
+    [
+      dailyBusinessFields,
+      projectFields,
+      workEfficiencyFields,
+      workQualityFields
+    ]
+  );
+
+  useEffect(
+    () => {
+      if (!withPrCategories) {
+        updatePercentageAllWithoutPR(
+          dailyBusinessFields,
+          setDailyBusinessFields,
+          projectFields,
+          setProjectFields,
+          workEfficiencyFields,
+          setWorkEfficiencyFields,
+          workQualityFields,
+          setWorkQualityFields,
+          weightsWithoutPR
+        );
+      }
+    },
+    [weightsWithoutPR, withPrCategories]
+  );
 
   useEffect(() => {
     if (user.isOwnerInSc(sc)) {
@@ -127,11 +166,11 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
     const mapToDTO = field => {
       return {
         title: field.title,
-        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 0,
+        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
         percentage: field.percentage,
         description: field.description,
         achievement: field.achievement,
-        weight: typeof field.weight === 'number' ? field.weight : 1,
+        weight: field.weight,
         comment: field.comment
       };
     };
@@ -183,13 +222,13 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
 
   const handleChangePerformance = (type, i, propKey, event) => {
     if (type === 'dailyBusiness') {
-      const values = [...dailyBusinessFields];
+      const values = cloneDeep(dailyBusinessFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
       values[i] = newObjectValue;
       setDailyBusinessFields(values);
     } else if (type === 'project') {
-      const values = [...projectFields];
+      const values = cloneDeep(projectFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
       values[i] = newObjectValue;
@@ -245,14 +284,6 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   const handleChangePosition = event => {
     setPosition(event.target.value);
   };
-
-  if (isLoading) {
-    return (
-      <div style={{ textAlign: 'center' }}>
-        <CircularProgress />
-      </div>
-    );
-  }
 
   return (
     <Fragment>
@@ -327,4 +358,4 @@ const ScSheet = ({ sc, withPrCategories, match, classes, intl }) => {
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(ScSheet)));
+export default injectIntl(withStyles(styles)(ScSheet));

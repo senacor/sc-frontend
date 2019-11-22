@@ -48,7 +48,9 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   return (
     <Fragment>
       {isLoading ? (
-        <CircularProgress />
+        <div className={classes.progressBarCentered}>
+          <CircularProgress />
+        </div>
       ) : (
         sc && (
           <Fragment>
