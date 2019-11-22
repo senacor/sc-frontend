@@ -6,7 +6,7 @@ import {
   Typography,
   CircularProgress
 } from '@material-ui/core';
-import { round, determineFinalPercentage } from './calculationFunc';
+import { determineFinalPercentage } from './calculationFunc';
 
 const styles = theme => ({
   ...theme.styledComponents,
