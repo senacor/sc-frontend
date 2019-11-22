@@ -1,20 +1,6 @@
 import cloneDeep from '../../../helper/cloneDeep';
 
-export const weightSumWithoutPR = (
-  dailyBusiness,
-  project,
-  workEfficiency,
-  workQuality
-) => {
-  const weightSum =
-    reduceWeights(dailyBusiness) +
-    reduceWeights(project) +
-    workEfficiency.weight +
-    workQuality.weight;
-  return weightSum;
-};
-
-const reduceWeights = arr => {
+export const reduceWeights = arr => {
   const value = arr.reduce((acc, obj) => {
     return acc + obj.weight;
   }, 0);
@@ -38,4 +24,25 @@ export const updatePercentageObj = (state, setState, totalWeight) => {
   const value = { ...state };
   value.percentage = Math.round((value.weight / totalWeight) * 100);
   setState(value);
+};
+
+export const updatePercentageAllWithoutPR = (
+  dailyBusinessFields,
+  setDailyBusinessFields,
+  projectFields,
+  setProjectFields,
+  workEfficiencyFields,
+  setWorkEfficiencyFields,
+  workQualityFields,
+  setWorkQualityFields,
+  totalWeight
+) => {
+  updatePercentageArr(dailyBusinessFields, setDailyBusinessFields, totalWeight);
+  updatePercentageArr(projectFields, setProjectFields, totalWeight);
+  updatePercentageObj(
+    workEfficiencyFields,
+    setWorkEfficiencyFields,
+    totalWeight
+  );
+  updatePercentageObj(workQualityFields, setWorkQualityFields, totalWeight);
 };

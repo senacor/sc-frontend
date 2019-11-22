@@ -9,11 +9,6 @@ import {
 import { savePerformanceData } from '../../../calls/sc';
 import { positions } from '../../../helper/filterData';
 import PrCategories from './categories/PrCategories';
-import {
-  weightSumWithoutPR,
-  updatePercentageArr,
-  updatePercentageObj
-} from './calculationFunc';
 import cloneDeep from '../../../helper/cloneDeep';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
@@ -25,6 +20,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { reduceWeights, updatePercentageAllWithoutPR } from './calculationFunc';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -86,12 +82,40 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     prCategoriesWeightPercentage,
     setPrCategoriesWeightPercentage
   ] = useState(0);
+  const [weightsWithoutPR, setWeightsWithoutPR] = useState(7);
 
-  const weightsWithoutPR = weightSumWithoutPR(
-    dailyBusinessFields,
-    projectFields,
-    workEfficiencyFields,
-    workQualityFields
+  useEffect(
+    () => {
+      const totalWeight =
+        reduceWeights(dailyBusinessFields) +
+        reduceWeights(projectFields) +
+        workEfficiencyFields.weight +
+        workQualityFields.weight;
+      setWeightsWithoutPR(totalWeight);
+    },
+    [
+      dailyBusinessFields,
+      projectFields,
+      workEfficiencyFields,
+      workQualityFields
+    ]
+  );
+
+  useEffect(
+    () => {
+      updatePercentageAllWithoutPR(
+        dailyBusinessFields,
+        setDailyBusinessFields,
+        projectFields,
+        setProjectFields,
+        workEfficiencyFields,
+        setWorkEfficiencyFields,
+        workQualityFields,
+        setWorkQualityFields,
+        weightsWithoutPR
+      );
+    },
+    [weightsWithoutPR]
   );
 
   useEffect(() => {
@@ -198,90 +222,26 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
       values[i] = newObjectValue;
-      if (propKey === 'weight') {
-        updatePercentageArr(values, setDailyBusinessFields, weightsWithoutPR);
-        updatePercentageArr(projectFields, setProjectFields, weightsWithoutPR);
-        updatePercentageObj(
-          workEfficiencyFields,
-          setWorkEfficiencyFields,
-          weightsWithoutPR
-        );
-        updatePercentageObj(
-          workQualityFields,
-          setWorkQualityFields,
-          weightsWithoutPR
-        );
-      } else {
-        setDailyBusinessFields(values);
-      }
+      setDailyBusinessFields(values);
     } else if (type === 'project') {
       const values = cloneDeep(projectFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
       values[i] = newObjectValue;
-      if (propKey === 'weight') {
-        updatePercentageArr(values, setProjectFields, weightsWithoutPR);
-        updatePercentageArr(
-          dailyBusinessFields,
-          setDailyBusinessFields,
-          weightsWithoutPR
-        );
-        updatePercentageObj(
-          workEfficiencyFields,
-          setWorkEfficiencyFields,
-          weightsWithoutPR
-        );
-        updatePercentageObj(
-          workQualityFields,
-          setWorkQualityFields,
-          weightsWithoutPR
-        );
-      } else {
-        setProjectFields(values);
-      }
+      setProjectFields(values);
     }
   };
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {
     const values = { ...workEfficiencyFields };
     values[propKey] = event.target.value;
-    if (propKey === 'weight') {
-      updatePercentageObj(values, setWorkEfficiencyFields, weightsWithoutPR);
-      updatePercentageObj(
-        workQualityFields,
-        setWorkQualityFields,
-        weightsWithoutPR
-      );
-      updatePercentageArr(projectFields, setProjectFields, weightsWithoutPR);
-      updatePercentageArr(
-        dailyBusinessFields,
-        setDailyBusinessFields,
-        weightsWithoutPR
-      );
-    } else {
-      setWorkEfficiencyFields(values);
-    }
+    setWorkEfficiencyFields(values);
   };
 
   const handleChangeWorkQuality = (type, propKey, event) => {
     const values = { ...workQualityFields };
     values[propKey] = event.target.value;
-    if (propKey === 'weight') {
-      updatePercentageObj(values, setWorkQualityFields, weightsWithoutPR);
-      updatePercentageObj(
-        workEfficiencyFields,
-        setWorkEfficiencyFields,
-        weightsWithoutPR
-      );
-      updatePercentageArr(projectFields, setProjectFields, weightsWithoutPR);
-      updatePercentageArr(
-        dailyBusinessFields,
-        setDailyBusinessFields,
-        weightsWithoutPR
-      );
-    } else {
-      setWorkQualityFields(values);
-    }
+    setWorkQualityFields(values);
   };
 
   const handleChangePrCategories = (type, propKey, event) => {
