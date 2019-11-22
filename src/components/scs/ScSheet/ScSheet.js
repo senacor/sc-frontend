@@ -131,18 +131,22 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
 
   useEffect(
     () => {
-      setFinalScore(
-        round(
-          calculateFinalScoreWithoutPR(
-            dailyBusinessFields,
-            projectFields,
-            workEfficiencyFields,
-            workQualityFields,
-            weightsWithoutPR
-          ),
-          1
-        )
-      );
+      if (!withPrCategories) {
+        setFinalScore(
+          round(
+            calculateFinalScoreWithoutPR(
+              dailyBusinessFields,
+              projectFields,
+              workEfficiencyFields,
+              workQualityFields,
+              weightsWithoutPR
+            ),
+            1
+          )
+        );
+      } else {
+        // TODO: set final score for SC with PR
+      }
     },
     [
       weightsWithoutPR,
