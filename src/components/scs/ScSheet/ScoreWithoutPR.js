@@ -1,6 +1,9 @@
 import React, { memo } from 'react';
 import { injectIntl } from 'react-intl';
-import { determineFinalPercentage } from './calculationFunc';
+import {
+  determineFinalPercentage,
+  determineFinalText
+} from './calculationFunc';
 
 // Material UI
 import { withStyles, Grid, Typography } from '@material-ui/core';
@@ -27,6 +30,7 @@ const styles = theme => ({
 
 const ScoreWithoutPR = memo(
   ({ intl, classes, finalScore }) => {
+    let finalTextId = determineFinalText(finalScore);
     return (
       <div className={classes.container}>
         <Grid container className={classes.scoreGridContainer}>
@@ -42,7 +46,7 @@ const ScoreWithoutPR = memo(
         <Grid container className={classes.percentageGridContainer}>
           <Grid item sm={10}>
             <Typography variant="body1" className={classes.white}>
-              Score text
+              {finalTextId && intl.formatMessage({ id: `${finalTextId}` })}
             </Typography>
           </Grid>
           <Grid item sm={2}>
