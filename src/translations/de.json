@@ -368,6 +368,7 @@
   "scsheet.textarea.description": "Beschreibung",
   "scsheet.textarea.achievement": "Zielvorgabe",
   "scsheet.textarea.comment": "Kommentar zur Zielrreichung",
+  "scsheet.textarea.description.basis": "Bewertung auf Basis von:",
   "scsheet.textarea.description.workEffectivity": "Durchschnittliche Wochenarbeitszeit, Arbeitsein- und aufteilung mit Kollegen und Liefergeschwindigkeit",
   "scsheet.textarea.description.workQuality": "Fehlerfreiheit und inhaltliche Ausgereiftheit, Liefertreue, Eigenständige, kontinuierliche Optimierung und Weiterentwicklung von Prozessabläufen, Selbständiges Projektmanagement und Priorisierung, Lieferung von Ideen und Konzepten",
   "scsheet.textarea.achievement.skillsinthefield": "Fachwissen, Problemanalyse & Problemlösung, Arbeitsweise",

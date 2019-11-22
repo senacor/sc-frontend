@@ -34,6 +34,12 @@ const styles = theme => ({
   textsContainer: {
     padding: theme.spacing.unit * 2
   },
+  padding: {
+    padding: theme.spacing.unit
+  },
+  textBasis: {
+    paddingBottom: theme.spacing.unit
+  },
   textCenter: {
     textAlign: 'center',
     margin: 'auto'
@@ -147,18 +153,29 @@ const ScRow = memo(
             </Grid>
             <Grid container spacing={8}>
               <Grid item sm={4}>
-                <TextField
-                  type="text"
-                  value={row.description}
-                  margin="normal"
-                  variant="outlined"
-                  placeholder={description}
-                  rows={6}
-                  multiline
-                  fullWidth
-                  InputProps={{ className: classes.input }}
-                  onChange={e => action(type, 'description', e)}
-                />
+                {type === 'workEfficiency' || type === 'workQuality' ? (
+                  <div className={classes.padding}>
+                    <Typography className={classes.textBasis}>
+                      {intl.formatMessage({
+                        id: 'scsheet.textarea.description.basis'
+                      })}
+                    </Typography>
+                    <Typography>{description}</Typography>
+                  </div>
+                ) : (
+                  <TextField
+                    type="text"
+                    value={row.description}
+                    margin="normal"
+                    variant="outlined"
+                    placeholder={description}
+                    rows={6}
+                    multiline
+                    fullWidth
+                    InputProps={{ className: classes.input }}
+                    onChange={e => action(type, 'description', e)}
+                  />
+                )}
               </Grid>
               <Grid item sm={4}>
                 <TextField
