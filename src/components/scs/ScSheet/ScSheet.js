@@ -46,7 +46,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     title: '',
     weight: 1,
     percentage: 0,
-    evaluation: '-',
+    evaluation: 0,
     description: '',
     achievement: '',
     comment: ''
@@ -112,7 +112,6 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
 
   useEffect(
     () => {
-      console.log('here');
       if (!withPrCategories) {
         updatePercentageAllWithoutPR(
           dailyBusinessFields,
