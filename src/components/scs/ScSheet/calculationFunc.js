@@ -46,3 +46,31 @@ export const updatePercentageAllWithoutPR = (
   );
   updatePercentageObj(workQualityFields, setWorkQualityFields, totalWeight);
 };
+
+export const calculateFinalScoreWithoutPR = (
+  dailyBusiness,
+  project,
+  workQuality,
+  workEfficiency,
+  totalWeight
+) => {
+  const dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness);
+  const projectScore = multiplyWeightByScoreArr(project);
+  const workQualityScore = workQuality.weight * workQuality.evaluation;
+  const workEfficiencyScore = workEfficiency.weight * workEfficiency.evaluation;
+  const scoreInTotal =
+    dailyBusinessScore + projectScore + workQualityScore + workEfficiencyScore;
+  const finalScore = scoreInTotal / totalWeight;
+  return finalScore;
+};
+
+const multiplyWeightByScoreArr = arr => {
+  const mapArr = arr.map(obj => obj.weight * obj.evaluation);
+  const reducedArr = mapArr.reduce((acc, item) => acc + item);
+  return reducedArr;
+};
+
+export const round = (value, precision) => {
+  const multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+};

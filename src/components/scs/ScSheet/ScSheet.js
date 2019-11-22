@@ -20,7 +20,12 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { reduceWeights, updatePercentageAllWithoutPR } from './calculationFunc';
+import {
+  reduceWeights,
+  updatePercentageAllWithoutPR,
+  calculateFinalScoreWithoutPR
+} from './calculationFunc';
+import ScoreWithoutPR from './ScoreWithoutPR';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -346,7 +351,15 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
-          {/* Other categories as separated components */}
+          <ScoreWithoutPR
+            finalScore={calculateFinalScoreWithoutPR(
+              dailyBusinessFields,
+              projectFields,
+              workEfficiencyFields,
+              workQualityFields,
+              weightsWithoutPR
+            )}
+          />
         </Fragment>
       )}
       <ButtonsBelowSheet
