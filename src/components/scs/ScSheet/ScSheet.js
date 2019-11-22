@@ -86,12 +86,14 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
 
   useEffect(
     () => {
-      const totalWeight =
-        reduceWeights(dailyBusinessFields) +
-        reduceWeights(projectFields) +
-        workEfficiencyFields.weight +
-        workQualityFields.weight;
-      setWeightsWithoutPR(totalWeight);
+      if (!withPrCategories) {
+        const totalWeight =
+          reduceWeights(dailyBusinessFields) +
+          reduceWeights(projectFields) +
+          workEfficiencyFields.weight +
+          workQualityFields.weight;
+        setWeightsWithoutPR(totalWeight);
+      }
     },
     [
       dailyBusinessFields,
@@ -103,19 +105,21 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
 
   useEffect(
     () => {
-      updatePercentageAllWithoutPR(
-        dailyBusinessFields,
-        setDailyBusinessFields,
-        projectFields,
-        setProjectFields,
-        workEfficiencyFields,
-        setWorkEfficiencyFields,
-        workQualityFields,
-        setWorkQualityFields,
-        weightsWithoutPR
-      );
+      if (!withPrCategories) {
+        updatePercentageAllWithoutPR(
+          dailyBusinessFields,
+          setDailyBusinessFields,
+          projectFields,
+          setProjectFields,
+          workEfficiencyFields,
+          setWorkEfficiencyFields,
+          workQualityFields,
+          setWorkQualityFields,
+          weightsWithoutPR
+        );
+      }
     },
-    [weightsWithoutPR]
+    [weightsWithoutPR, withPrCategories]
   );
 
   useEffect(() => {
