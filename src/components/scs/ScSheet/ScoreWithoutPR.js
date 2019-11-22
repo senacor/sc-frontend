@@ -34,7 +34,7 @@ const ScoreWithoutPR = memo(
 
     useEffect(
       () => {
-        if (finalScore) {
+        if (finalScore || finalScore === 0) {
           setIsLoading(false);
         }
       },

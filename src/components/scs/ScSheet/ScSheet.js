@@ -112,6 +112,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
 
   useEffect(
     () => {
+      console.log('here');
       if (!withPrCategories) {
         updatePercentageAllWithoutPR(
           dailyBusinessFields,
