@@ -54,6 +54,7 @@ const ScRow = memo(
   ({
     intl,
     classes,
+    index,
     title,
     description,
     achievement,
@@ -65,7 +66,7 @@ const ScRow = memo(
     return (
       <Fragment>
         <Paper className={classes.scRowContainer}>
-          {(type === 'project' || type === 'dailyBusiness') && (
+          {(type === 'project' || type === 'dailyBusiness') && index !== 0 && (
             <Tooltip
               title={intl.formatMessage({
                 id: 'scsheet.tooltip.removeField'
