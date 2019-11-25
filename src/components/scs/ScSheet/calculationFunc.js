@@ -47,6 +47,50 @@ export const updatePercentageAllWithoutPR = (
   updatePercentageObj(workQualityFields, setWorkQualityFields, totalWeight);
 };
 
+export const updatePercentageWithPRPerformance = (
+  dailyBusinessFields,
+  setDailyBusinessFields,
+  projectFields,
+  setProjectFields,
+  totalWeightPerformance
+) => {
+  updatePercentageArr(
+    dailyBusinessFields,
+    setDailyBusinessFields,
+    totalWeightPerformance
+  );
+  updatePercentageArr(projectFields, setProjectFields, totalWeightPerformance);
+};
+
+export const updatePercentageWithPRPrCategories = (
+  skillsInTheFields,
+  setSkillsInTheFields,
+  impactOnTeam,
+  setImpactOnTeam,
+  serviceQuality,
+  setServiceQuality,
+  impactOnCompany,
+  setImpactOnCompany,
+  totalWeightPrCategories
+) => {
+  updatePercentageObj(
+    skillsInTheFields,
+    setSkillsInTheFields,
+    totalWeightPrCategories
+  );
+  updatePercentageObj(impactOnTeam, setImpactOnTeam, totalWeightPrCategories);
+  updatePercentageObj(
+    serviceQuality,
+    setServiceQuality,
+    totalWeightPrCategories
+  );
+  updatePercentageObj(
+    impactOnCompany,
+    setImpactOnCompany,
+    totalWeightPrCategories
+  );
+};
+
 export const calculateFinalScoreWithoutPR = (
   dailyBusiness,
   project,
@@ -62,6 +106,10 @@ export const calculateFinalScoreWithoutPR = (
     dailyBusinessScore + projectScore + workQualityScore + workEfficiencyScore;
   const finalScore = scoreInTotal / totalWeight;
   return finalScore;
+};
+
+export const calculateFinalScoreWithPR = () => {
+  // TODO in next sprint
 };
 
 const multiplyWeightByScoreArr = arr => {

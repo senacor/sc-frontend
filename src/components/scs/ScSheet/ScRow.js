@@ -69,6 +69,13 @@ const ScRow = memo(
     removeSubcategory,
     type
   }) => {
+    const weightValues =
+      type === 'skillsInTheFields' ||
+      type === 'impactOnTeam' ||
+      type === 'serviceQuality' ||
+      type === 'impactOnCompany'
+        ? [0.5, 1, 2, 3]
+        : [1, 2, 3];
     return (
       <Fragment>
         <Paper className={classes.scRowContainer}>
@@ -123,7 +130,7 @@ const ScRow = memo(
                     onChange={e => action(type, 'weight', e)}
                     renderValue={selected => <span>{selected}</span>}
                   >
-                    {[1, 2, 3].map((val, index) => (
+                    {weightValues.map((val, index) => (
                       <MenuItem key={index} value={val}>
                         {val}
                       </MenuItem>
