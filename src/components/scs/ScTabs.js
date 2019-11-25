@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import ScSheet from './ScSheet/ScSheet';
 import { useUserinfoContext } from '../../helper/contextHooks';
 import SchedulingView from '../scheduling/SchedulingView';
+import { SC_TAB } from '../../helper/scSheetData';
 
 const styles = theme => ({
   root: {
@@ -64,7 +65,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
         >
           <Tab
             disabled={user.isReviewerInSc(sc)} // TODO: depends also on status of current SC
-            value={'SC_EMPLOYEE'}
+            value={SC_TAB.EMPLOYEE}
             classes={{
               root: classes.tabStyleSc
             }}
@@ -75,7 +76,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
           />
           <Tab
             disabled={!user.isReviewerInSc(sc)}
-            value={'SC_REVIEWER'}
+            value={SC_TAB.REVIEWER}
             classes={{
               root: classes.tabStyleSc
             }}
@@ -85,7 +86,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
             id={'TabDetailsReviewer'}
           />
           <Tab
-            value={'SCHEDULE_VIEW'}
+            value={SC_TAB.MEETING}
             label={intl.formatMessage({
               id: 'sctabs.findtermin'
             })}
@@ -93,17 +94,17 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
           />
         </Tabs>
       </AppBar>
-      {tabValue === 'SC_EMPLOYEE' && (
-        <TabContainer spacing={classes.spacing}>
-          <ScSheet sc={sc} withPrCategories />
-        </TabContainer>
-      )}
-      {tabValue === 'SC_REVIEWER' && (
+      {tabValue === SC_TAB.EMPLOYEE && (
         <TabContainer spacing={classes.spacing}>
           <ScSheet sc={sc} />
         </TabContainer>
       )}
-      {tabValue === 'SCHEDULE_VIEW' && (
+      {tabValue === SC_TAB.REVIEWER && (
+        <TabContainer spacing={classes.spacing}>
+          <ScSheet sc={sc} />
+        </TabContainer>
+      )}
+      {tabValue === SC_TAB.MEETING && (
         <TabContainer spacing={classes.spacing}>
           <SchedulingView sc={sc} />
         </TabContainer>

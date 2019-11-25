@@ -10,7 +10,8 @@ import {
   workEffectivityPerformanceLevels,
   generalPerformanceLevels,
   dailyBusinessPerformanceLevels,
-  workQualityPerformanceLevels
+  workQualityPerformanceLevels,
+  CATEGORY
 } from '../../helper/scSheetData';
 
 const styles = theme => ({
@@ -31,16 +32,16 @@ const ScRatingPoints = ({ classes, intl, type, rating, changeEvaluation }) => {
   const determinePerformanceLevelsText = type => {
     let arr;
     switch (type) {
-      case 'dailyBusiness':
+      case CATEGORY.DAILY_BUSINESS:
         arr = dailyBusinessPerformanceLevels;
         break;
-      case 'project':
+      case CATEGORY.PROJECT:
         arr = projectPerformanceLevels;
         break;
-      case 'workEffectivity':
+      case CATEGORY.WORK_EFFICIENCY:
         arr = workEffectivityPerformanceLevels;
         break;
-      case 'workQuality':
+      case CATEGORY.WORK_QUALITY:
         arr = workQualityPerformanceLevels;
         break;
       default:

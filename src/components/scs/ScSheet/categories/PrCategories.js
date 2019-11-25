@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import { CATEGORY } from '../../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -42,7 +43,7 @@ const PrCategories = React.memo(
               value={prCategoriesWeightPercentage}
               onChange={event => {
                 handleChangeWeightPercentage(
-                  'prCategories',
+                  CATEGORY.PR_CATEGORIES,
                   event.target.value
                 );
               }}
@@ -54,7 +55,7 @@ const PrCategories = React.memo(
         </Grid>
         <ScRow
           row={skillsInTheFieldsFields}
-          type={'skillsInTheFields'}
+          type={CATEGORY.SKILLS_IN_THE_FIELDS}
           action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.skillsinthefield'
@@ -66,7 +67,7 @@ const PrCategories = React.memo(
         <Divider />
         <ScRow
           row={impactOnTeamFields}
-          type={'impactOnTeam'}
+          type={CATEGORY.TEAM_IMPACT}
           action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.impactonteam'
@@ -78,7 +79,7 @@ const PrCategories = React.memo(
         <Divider />
         <ScRow
           row={serviceQualityFields}
-          type={'serviceQuality'}
+          type={CATEGORY.SERVICE_QUALITY}
           action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.servicequality'
@@ -90,7 +91,7 @@ const PrCategories = React.memo(
         <Divider />
         <ScRow
           row={impactOnCompanyFields}
-          type={'impactOnCompany'}
+          type={CATEGORY.COMPANY_IMPACT}
           action={handleChangePrCategories}
           title={intl.formatMessage({
             id: 'scsheet.subtitle.impactoncompany'

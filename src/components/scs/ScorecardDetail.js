@@ -8,6 +8,7 @@ import { fetchScById } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
+import { SC_TAB } from '../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -15,7 +16,7 @@ const styles = theme => ({
 
 const ScorecardDetail = ({ match, intl, classes }) => {
   const [sc, setSc] = useState(null);
-  const [scTab, setScTab] = useState('SC_EMPLOYEE');
+  const [scTab, setScTab] = useState(SC_TAB.EMPLOYEE);
   const [isLoading, setIsLoading] = useState(false);
   const error = useErrorContext();
   const user = useUserinfoContext();
@@ -33,9 +34,9 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   useEffect(
     () => {
       if (sc && user.isReviewerInSc(sc)) {
-        setScTab('SC_REVIEWER');
+        setScTab(SC_TAB.REVIEWER);
       } else {
-        setScTab('SC_EMPLOYEE');
+        setScTab(SC_TAB.EMPLOYEE);
       }
     },
     [sc]

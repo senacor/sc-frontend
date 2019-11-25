@@ -15,6 +15,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/Close';
+import { CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   scRowContainer: {
@@ -79,24 +80,26 @@ const ScRow = memo(
     return (
       <Fragment>
         <Paper className={classes.scRowContainer}>
-          {(type === 'project' || type === 'dailyBusiness') && index !== 0 && (
-            <Tooltip
-              title={intl.formatMessage({
-                id: 'scsheet.tooltip.removeField'
-              })}
-            >
-              <IconButton
-                className={classes.removeIcon}
-                onClick={() => removeSubcategory(type)}
+          {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) &&
+            index !== 0 && (
+              <Tooltip
+                title={intl.formatMessage({
+                  id: 'scsheet.tooltip.removeField'
+                })}
               >
-                <RemoveIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+                <IconButton
+                  className={classes.removeIcon}
+                  onClick={() => removeSubcategory(type)}
+                >
+                  <RemoveIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           <div className={classes.textsContainer}>
             <Grid container>
               <Grid item sm={6}>
-                {type === 'dailyBusiness' || type === 'project' ? (
+                {type === CATEGORY.DAILY_BUSINESS ||
+                type === CATEGORY.PROJECT ? (
                   <TextField
                     type="text"
                     value={row.title}
@@ -104,7 +107,7 @@ const ScRow = memo(
                     variant="outlined"
                     placeholder={intl.formatMessage({
                       id:
-                        type === 'dailyBusiness'
+                        type === CATEGORY.DAILY_BUSINESS
                           ? 'scsheet.textheader.title.dailyBusiness'
                           : 'scsheet.textheader.title.project'
                     })}
@@ -158,10 +161,10 @@ const ScRow = memo(
                 />
               </Grid>
             </Grid>
-            {type === 'skillsInTheFields' ||
-            type === 'impactOnTeam' ||
-            type === 'serviceQuality' ||
-            type === 'impactOnCompany' ? (
+            {type === CATEGORY.SKILLS_IN_THE_FIELDS ||
+            type === CATEGORY.TEAM_IMPACT ||
+            type === CATEGORY.SERVICE_QUALITY ||
+            type === CATEGORY.COMPANY_IMPACT ? (
               <Fragment>
                 <Grid container>
                   <Grid item sm={12}>
@@ -192,7 +195,8 @@ const ScRow = memo(
             ) : (
               <Grid container spacing={8}>
                 <Grid item sm={4}>
-                  {type === 'workEfficiency' || type === 'workQuality' ? (
+                  {type === CATEGORY.WORK_EFFICIENCY ||
+                  type === CATEGORY.WORK_QUALITY ? (
                     <div className={classes.padding}>
                       <Typography className={classes.textBasis}>
                         {intl.formatMessage({
@@ -216,21 +220,32 @@ const ScRow = memo(
                     />
                   )}
                 </Grid>
-                <Grid item sm={4}>
-                  <TextField
-                    type="text"
-                    value={row.achievement}
-                    margin="normal"
-                    variant="outlined"
-                    placeholder={achievement}
-                    rows={6}
-                    multiline
-                    fullWidth
-                    InputProps={{ className: classes.input }}
-                    onChange={e => action(type, 'achievement', e)}
-                  />
-                </Grid>
-                <Grid item sm={4}>
+                {type === CATEGORY.WORK_EFFICIENCY ||
+                type === CATEGORY.WORK_QUALITY ? null : (
+                  <Grid item sm={4}>
+                    <TextField
+                      type="text"
+                      value={row.achievement}
+                      margin="normal"
+                      variant="outlined"
+                      placeholder={achievement}
+                      rows={6}
+                      multiline
+                      fullWidth
+                      InputProps={{ className: classes.input }}
+                      onChange={e => action(type, 'achievement', e)}
+                    />
+                  </Grid>
+                )}
+                <Grid
+                  item
+                  sm={
+                    type === CATEGORY.WORK_EFFICIENCY ||
+                    type === CATEGORY.WORK_QUALITY
+                      ? 8
+                      : 4
+                  }
+                >
                   <TextField
                     type="text"
                     value={row.comment}
