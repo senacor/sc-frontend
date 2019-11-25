@@ -13,6 +13,7 @@ import {
 import AddIcon from '@material-ui/icons/AddBox';
 import TextField from '@material-ui/core/TextField';
 import ScRows from '../ScRows';
+import { CATEGORY } from '../../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -51,7 +52,7 @@ const Performance = memo(
                   value={performanceWeightPercentage}
                   onChange={event =>
                     handleChangeWeightPercentage(
-                      'performance',
+                      CATEGORY.PERFORMANCE,
                       event.target.value
                     )
                   }
@@ -74,7 +75,7 @@ const Performance = memo(
         </Typography>
         <ScRows
           fields={dailyBusinessFields}
-          type={'dailyBusiness'}
+          type={CATEGORY.DAILY_BUSINESS}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
           description={intl.formatMessage({
@@ -89,7 +90,7 @@ const Performance = memo(
             id: 'scsheet.tooltip.addField.dailyBusiness'
           })}
         >
-          <IconButton onClick={e => addSubcategory('dailyBusiness')}>
+          <IconButton onClick={e => addSubcategory(CATEGORY.DAILY_BUSINESS)}>
             <AddIcon color="primary" />
           </IconButton>
         </Tooltip>
@@ -99,7 +100,7 @@ const Performance = memo(
         </Typography>
         <ScRows
           fields={projectFields}
-          type={'project'}
+          type={CATEGORY.PROJECT}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
           description={intl.formatMessage({
@@ -114,7 +115,7 @@ const Performance = memo(
             id: 'scsheet.tooltip.addField.project'
           })}
         >
-          <IconButton onClick={e => addSubcategory('project')}>
+          <IconButton onClick={e => addSubcategory(CATEGORY.PROJECT)}>
             <AddIcon className={classes.addProjectButton} />
           </IconButton>
         </Tooltip>

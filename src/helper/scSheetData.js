@@ -45,3 +45,16 @@ export const generalPerformanceLevels = [
   'scsheet.evaluation.general.4',
   'scsheet.evaluation.general.5'
 ];
+
+export const CATEGORY = {
+  DAILY_BUSINESS: 'dailyBusiness',
+  PROJECT: 'project',
+  WORK_EFFICIENCY: 'workEfficiency',
+  WORK_QUALITY: 'workQuality',
+  SKILLS_IN_THE_FIELDS: 'skillsInTheFields',
+  TEAM_IMPACT: 'impactOnTeam',
+  COMPANY_IMPACT: 'impactOnCompany',
+  SERVICE_QUALITY: 'serviceQuality',
+  PERFORMANCE: 'performance',
+  PR_CATEGORIES: 'prCategories'
+};
