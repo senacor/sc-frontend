@@ -71,10 +71,10 @@ const ScRow = memo(
     type
   }) => {
     const weightValues =
-      type === 'skillsInTheFields' ||
-      type === 'impactOnTeam' ||
-      type === 'serviceQuality' ||
-      type === 'impactOnCompany'
+      type === CATEGORY.SKILLS_IN_THE_FIELDS ||
+      type === CATEGORY.TEAM_IMPACT ||
+      type === CATEGORY.SERVICE_QUALITY ||
+      type === CATEGORY.COMPANY_IMPACT
         ? [0.5, 1, 2, 3]
         : [1, 2, 3];
     return (
