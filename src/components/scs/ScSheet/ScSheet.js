@@ -24,7 +24,6 @@ import {
   reduceWeights,
   updatePercentageAllWithoutPR,
   calculateFinalScoreWithoutPR,
-  calculateFinalScoreWithPR,
   round,
   updatePercentageWithPRPerformance,
   updatePercentageWithPRPrCategories
