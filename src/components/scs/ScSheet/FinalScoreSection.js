@@ -28,7 +28,7 @@ const styles = theme => ({
   }
 });
 
-const ScoreWithoutPR = memo(
+const FinalScoreSection = memo(
   ({ intl, classes, finalScore }) => {
     let finalTextId = determineFinalText(finalScore);
     return (
@@ -59,4 +59,4 @@ const ScoreWithoutPR = memo(
   (prevProps, nextProps) => prevProps.finalScore === nextProps.finalScore
 );
 
-export default injectIntl(withStyles(styles)(ScoreWithoutPR));
+export default injectIntl(withStyles(styles)(FinalScoreSection));
