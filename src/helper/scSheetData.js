@@ -58,3 +58,9 @@ export const CATEGORY = {
   PERFORMANCE: 'performance',
   PR_CATEGORIES: 'prCategories'
 };
+
+export const SC_TAB = {
+  EMPLOYEE: 'scEmployee',
+  REVIEWER: 'scReviewer',
+  MEETING: 'scheduleView'
+};
