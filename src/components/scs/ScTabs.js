@@ -95,7 +95,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
       </AppBar>
       {tabValue === 'SC_EMPLOYEE' && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheet sc={sc} />
+          <ScSheet sc={sc} withPrCategories />
         </TabContainer>
       )}
       {tabValue === 'SC_REVIEWER' && (

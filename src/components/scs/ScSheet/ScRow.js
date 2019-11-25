@@ -151,63 +151,96 @@ const ScRow = memo(
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={8}>
-              <Grid item sm={4}>
-                {type === 'workEfficiency' || type === 'workQuality' ? (
-                  <div className={classes.padding}>
-                    <Typography className={classes.textBasis}>
-                      {intl.formatMessage({
-                        id: 'scsheet.textarea.description.basis'
+            {type === 'skillsInTheFields' ||
+            type === 'impactOnTeam' ||
+            type === 'serviceQuality' ||
+            type === 'impactOnCompany' ? (
+              <Fragment>
+                <Grid container>
+                  <Grid item sm={12}>
+                    <div className={classes.padding}>
+                      <Typography>{description}</Typography>
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item sm={12}>
+                    <TextField
+                      type="text"
+                      value={row.comment}
+                      margin="normal"
+                      variant="outlined"
+                      placeholder={intl.formatMessage({
+                        id: 'scsheet.textarea.comment'
                       })}
-                    </Typography>
-                    <Typography>{description}</Typography>
-                  </div>
-                ) : (
+                      rows={5}
+                      multiline
+                      fullWidth
+                      InputProps={{ className: classes.input }}
+                      onChange={e => action(type, 'comment', e)}
+                    />
+                  </Grid>
+                </Grid>
+              </Fragment>
+            ) : (
+              <Grid container spacing={8}>
+                <Grid item sm={4}>
+                  {type === 'workEfficiency' || type === 'workQuality' ? (
+                    <div className={classes.padding}>
+                      <Typography className={classes.textBasis}>
+                        {intl.formatMessage({
+                          id: 'scsheet.textarea.description.basis'
+                        })}
+                      </Typography>
+                      <Typography>{description}</Typography>
+                    </div>
+                  ) : (
+                    <TextField
+                      type="text"
+                      value={row.description}
+                      margin="normal"
+                      variant="outlined"
+                      placeholder={description}
+                      rows={6}
+                      multiline
+                      fullWidth
+                      InputProps={{ className: classes.input }}
+                      onChange={e => action(type, 'description', e)}
+                    />
+                  )}
+                </Grid>
+                <Grid item sm={4}>
                   <TextField
                     type="text"
-                    value={row.description}
+                    value={row.achievement}
                     margin="normal"
                     variant="outlined"
-                    placeholder={description}
+                    placeholder={achievement}
                     rows={6}
                     multiline
                     fullWidth
                     InputProps={{ className: classes.input }}
-                    onChange={e => action(type, 'description', e)}
+                    onChange={e => action(type, 'achievement', e)}
                   />
-                )}
+                </Grid>
+                <Grid item sm={4}>
+                  <TextField
+                    type="text"
+                    value={row.comment}
+                    margin="normal"
+                    variant="outlined"
+                    placeholder={intl.formatMessage({
+                      id: 'scsheet.textarea.comment'
+                    })}
+                    rows={6}
+                    multiline
+                    fullWidth
+                    InputProps={{ className: classes.input }}
+                    onChange={e => action(type, 'comment', e)}
+                  />
+                </Grid>
               </Grid>
-              <Grid item sm={4}>
-                <TextField
-                  type="text"
-                  value={row.achievement}
-                  margin="normal"
-                  variant="outlined"
-                  placeholder={achievement}
-                  rows={6}
-                  multiline
-                  fullWidth
-                  InputProps={{ className: classes.input }}
-                  onChange={e => action(type, 'achievement', e)}
-                />
-              </Grid>
-              <Grid item sm={4}>
-                <TextField
-                  type="text"
-                  value={row.comment}
-                  margin="normal"
-                  variant="outlined"
-                  placeholder={intl.formatMessage({
-                    id: 'scsheet.textarea.comment'
-                  })}
-                  rows={6}
-                  multiline
-                  fullWidth
-                  InputProps={{ className: classes.input }}
-                  onChange={e => action(type, 'comment', e)}
-                />
-              </Grid>
-            </Grid>
+            )}
           </div>
         </Paper>
       </Fragment>
