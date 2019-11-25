@@ -24,7 +24,9 @@ import {
   reduceWeights,
   updatePercentageAllWithoutPR,
   calculateFinalScoreWithoutPR,
-  round
+  round,
+  updatePercentageWithPRPerformance,
+  updatePercentageWithPRPrCategories
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
 import { CATEGORY } from '../../../helper/scSheetData';
@@ -90,6 +92,8 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     setPrCategoriesWeightPercentage
   ] = useState(0);
   const [weightsWithoutPR, setWeightsWithoutPR] = useState(7);
+  const [weightsWithPRPerformance, setWeightsWithPRPerformance] = useState(5);
+  const [weightsWithPRPrCategories, setWeightsWithPRPrCategories] = useState(4);
   const [finalScore, setFinalScore] = useState(0);
 
   useEffect(
@@ -101,13 +105,27 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
           workEfficiencyFields.weight +
           workQualityFields.weight;
         setWeightsWithoutPR(totalWeight);
+      } else {
+        const totalWeightPerformance =
+          reduceWeights(dailyBusinessFields) + reduceWeights(projectFields);
+        setWeightsWithPRPerformance(totalWeightPerformance);
+        const totalWeightPrCategories =
+          skillsInTheFieldsFields.weight +
+          impactOnTeamFields.weight +
+          serviceQualityFields.weight +
+          impactOnCompanyFields.weight;
+        setWeightsWithPRPrCategories(totalWeightPrCategories);
       }
     },
     [
       dailyBusinessFields,
       projectFields,
       workEfficiencyFields,
-      workQualityFields
+      workQualityFields,
+      skillsInTheFieldsFields,
+      impactOnTeamFields,
+      serviceQualityFields,
+      impactOnCompanyFields
     ]
   );
 
@@ -125,9 +143,37 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
           setWorkQualityFields,
           weightsWithoutPR
         );
+      } else {
+        updatePercentageWithPRPerformance(
+          dailyBusinessFields,
+          setDailyBusinessFields,
+          projectFields,
+          setProjectFields,
+          weightsWithPRPerformance,
+          performanceWeightPercentage
+        );
+        updatePercentageWithPRPrCategories(
+          skillsInTheFieldsFields,
+          setSkillsInTheFieldsFields,
+          impactOnTeamFields,
+          setImpactOnTeamFields,
+          serviceQualityFields,
+          setServiceQualityFields,
+          impactOnCompanyFields,
+          setImpactOnCompanyFields,
+          weightsWithPRPrCategories,
+          prCategoriesWeightPercentage
+        );
       }
     },
-    [weightsWithoutPR, withPrCategories]
+    [
+      weightsWithoutPR,
+      weightsWithPRPerformance,
+      weightsWithPRPrCategories,
+      performanceWeightPercentage,
+      prCategoriesWeightPercentage,
+      withPrCategories
+    ]
   );
 
   useEffect(
@@ -146,7 +192,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
           )
         );
       } else {
-        // TODO: set final score for SC with PR
+        // TODO in next sprint
       }
     },
     [
@@ -364,6 +410,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             prCategoriesWeightPercentage={prCategoriesWeightPercentage}
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
+          <FinalScoreSection finalScore={finalScore} />
         </Fragment>
       ) : (
         <Fragment>
