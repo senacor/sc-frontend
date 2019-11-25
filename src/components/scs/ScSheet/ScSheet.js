@@ -26,7 +26,7 @@ import {
   calculateFinalScoreWithoutPR,
   round
 } from './calculationFunc';
-import ScoreWithoutPR from './ScoreWithoutPR';
+import FinalScoreSection from './FinalScoreSection';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -381,7 +381,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
-          <ScoreWithoutPR finalScore={finalScore} />
+          <FinalScoreSection finalScore={finalScore} />
         </Fragment>
       )}
       <ButtonsBelowSheet

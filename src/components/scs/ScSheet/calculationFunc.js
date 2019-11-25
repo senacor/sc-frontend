@@ -96,3 +96,19 @@ export const determineFinalPercentage = score => {
   } else value = 100;
   return value;
 };
+
+export const determineFinalText = score => {
+  let value;
+  if (score >= 0.5 && score < 1.5) {
+    value = 'scsheet.finalText.0.5';
+  } else if (score >= 1.5 && score < 2.5) {
+    value = 'scsheet.finalText.1.5';
+  } else if (score >= 2.5 && score < 3.5) {
+    value = 'scsheet.finalText.2.5';
+  } else if (score >= 3.5 && score < 4.5) {
+    value = 'scsheet.finalText.3.5';
+  } else if (score >= 4.5) {
+    value = 'scsheet.finalText.4.5';
+  } else value = '';
+  return value;
+};
