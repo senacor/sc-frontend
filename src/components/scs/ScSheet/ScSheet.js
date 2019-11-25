@@ -149,7 +149,8 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
           setDailyBusinessFields,
           projectFields,
           setProjectFields,
-          weightsWithPRPerformance
+          weightsWithPRPerformance,
+          performanceWeightPercentage
         );
         updatePercentageWithPRPrCategories(
           skillsInTheFieldsFields,
@@ -160,7 +161,8 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
           setServiceQualityFields,
           impactOnCompanyFields,
           setImpactOnCompanyFields,
-          weightsWithPRPrCategories
+          weightsWithPRPrCategories,
+          prCategoriesWeightPercentage
         );
       }
     },
@@ -168,6 +170,8 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       weightsWithoutPR,
       weightsWithPRPerformance,
       weightsWithPRPrCategories,
+      performanceWeightPercentage,
+      prCategoriesWeightPercentage,
       withPrCategories
     ]
   );
@@ -327,7 +331,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   };
 
   const handleChangePrCategories = (type, propKey, event) => {
-    if (type === 'skillsInTheField') {
+    if (type === 'skillsInTheFields') {
       const values = { ...skillsInTheFieldsFields };
       values[propKey] = event.target.value;
       setSkillsInTheFieldsFields(values);
