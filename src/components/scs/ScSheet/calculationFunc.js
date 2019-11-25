@@ -8,21 +8,43 @@ export const reduceWeights = arr => {
 };
 
 // Helper functions - SC WITHOUT PR
-export const updatePercentageArr = (state, setState, totalWeight) => {
+export const updatePercentageArr = (
+  state,
+  setState,
+  totalWeight,
+  weightPercentage
+) => {
   const values = cloneDeep(state);
   const newValues = values.map(obj => {
     const newObjectValue = { ...obj };
-    newObjectValue.percentage = Math.round(
-      (newObjectValue.weight / totalWeight) * 100
-    );
+    if (weightPercentage !== undefined) {
+      newObjectValue.percentage = Math.round(
+        (newObjectValue.weight / totalWeight) * 100 * (weightPercentage / 100)
+      );
+    } else {
+      newObjectValue.percentage = Math.round(
+        (newObjectValue.weight / totalWeight) * 100
+      );
+    }
     return newObjectValue;
   });
   setState(newValues);
 };
 
-export const updatePercentageObj = (state, setState, totalWeight) => {
+export const updatePercentageObj = (
+  state,
+  setState,
+  totalWeight,
+  weightPercentage
+) => {
   const value = { ...state };
-  value.percentage = Math.round((value.weight / totalWeight) * 100);
+  if (weightPercentage !== undefined) {
+    value.percentage = Math.round(
+      (value.weight / totalWeight) * 100 * (weightPercentage / 100)
+    );
+  } else {
+    value.percentage = Math.round((value.weight / totalWeight) * 100);
+  }
   setState(value);
 };
 
@@ -52,14 +74,21 @@ export const updatePercentageWithPRPerformance = (
   setDailyBusinessFields,
   projectFields,
   setProjectFields,
-  totalWeightPerformance
+  totalWeightPerformance,
+  performanceWeightPercentage
 ) => {
   updatePercentageArr(
     dailyBusinessFields,
     setDailyBusinessFields,
-    totalWeightPerformance
+    totalWeightPerformance,
+    performanceWeightPercentage
   );
-  updatePercentageArr(projectFields, setProjectFields, totalWeightPerformance);
+  updatePercentageArr(
+    projectFields,
+    setProjectFields,
+    totalWeightPerformance,
+    performanceWeightPercentage
+  );
 };
 
 export const updatePercentageWithPRPrCategories = (
@@ -71,23 +100,32 @@ export const updatePercentageWithPRPrCategories = (
   setServiceQuality,
   impactOnCompany,
   setImpactOnCompany,
-  totalWeightPrCategories
+  totalWeightPrCategories,
+  prCategoriesWeightPercentage
 ) => {
   updatePercentageObj(
     skillsInTheFields,
     setSkillsInTheFields,
-    totalWeightPrCategories
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
   );
-  updatePercentageObj(impactOnTeam, setImpactOnTeam, totalWeightPrCategories);
+  updatePercentageObj(
+    impactOnTeam,
+    setImpactOnTeam,
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
+  );
   updatePercentageObj(
     serviceQuality,
     setServiceQuality,
-    totalWeightPrCategories
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
   );
   updatePercentageObj(
     impactOnCompany,
     setImpactOnCompany,
-    totalWeightPrCategories
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
   );
 };
 
@@ -108,9 +146,7 @@ export const calculateFinalScoreWithoutPR = (
   return finalScore;
 };
 
-export const calculateFinalScoreWithPR = () => {
-  // TODO in next sprint
-};
+// TODO calculateFinalScoreWithPR
 
 const multiplyWeightByScoreArr = arr => {
   const mapArr = arr.map(obj => obj.weight * obj.evaluation);
