@@ -27,6 +27,7 @@ import {
   round
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
+import { CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -232,7 +233,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   };
 
   const addSubcategory = type => {
-    if (type === 'dailyBusiness') {
+    if (type === CATEGORY.DAILY_BUSINESS) {
       const values = [...dailyBusinessFields];
       values.push(initialFieldsData);
       setDailyBusinessFields(values);
@@ -244,7 +245,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   };
 
   const removeSubcategory = (type, index) => {
-    if (type === 'dailyBusiness') {
+    if (type === CATEGORY.DAILY_BUSINESS) {
       const values = [...dailyBusinessFields];
       values.splice(index, 1);
       setDailyBusinessFields(values);
@@ -256,13 +257,13 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   };
 
   const handleChangePerformance = (type, i, propKey, event) => {
-    if (type === 'dailyBusiness') {
+    if (type === CATEGORY.DAILY_BUSINESS) {
       const values = cloneDeep(dailyBusinessFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
       values[i] = newObjectValue;
       setDailyBusinessFields(values);
-    } else if (type === 'project') {
+    } else if (type === CATEGORY.PROJECT) {
       const values = cloneDeep(projectFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
@@ -284,19 +285,19 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   };
 
   const handleChangePrCategories = (type, propKey, event) => {
-    if (type === 'skillsInTheField') {
+    if (type === CATEGORY.SKILLS_IN_THE_FIELDS) {
       const values = { ...skillsInTheFieldsFields };
       values[propKey] = event.target.value;
       setSkillsInTheFieldsFields(values);
-    } else if (type === 'impactOnTeam') {
+    } else if (type === CATEGORY.TEAM_IMPACT) {
       const values = { ...impactOnTeamFields };
       values[propKey] = event.target.value;
       setImpactOnTeamFields(values);
-    } else if (type === 'serviceQuality') {
+    } else if (type === CATEGORY.SERVICE_QUALITY) {
       const values = { ...serviceQualityFields };
       values[propKey] = event.target.value;
       setServiceQualityFields(values);
-    } else if (type === 'impactOnCompany') {
+    } else if (type === CATEGORY.COMPANY_IMPACT) {
       const values = { ...impactOnCompanyFields };
       values[propKey] = event.target.value;
       setImpactOnCompanyFields(values);
@@ -307,10 +308,10 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     if (value < 0 || value > 100) {
       return;
     }
-    if (type === 'performance') {
+    if (type === CATEGORY.PERFORMANCE) {
       setPerformanceWeightPercentage(value);
       setPrCategoriesWeightPercentage(100 - value);
-    } else if (type === 'prCategories') {
+    } else if (type === CATEGORY.PR_CATEGORIES) {
       setPrCategoriesWeightPercentage(value);
       setPerformanceWeightPercentage(100 - value);
     }

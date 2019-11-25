@@ -2,6 +2,7 @@ import React, { Fragment, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Typography } from '@material-ui/core';
 import ScRow from '../ScRow';
+import { CATEGORY } from '../../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -15,7 +16,7 @@ const WorkEfficiency = memo(
           {intl.formatMessage({ id: 'scsheet.category.workEffectivity' })}
         </Typography>
         <ScRow
-          type={'workEfficiency'}
+          type={CATEGORY.WORK_EFFICIENCY}
           row={workEfficiencyFields}
           action={handleChangeWorkEfficiency}
           title={intl.formatMessage({
