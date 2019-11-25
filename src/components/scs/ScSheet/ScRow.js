@@ -209,21 +209,28 @@ const ScRow = memo(
                     />
                   )}
                 </Grid>
-                <Grid item sm={4}>
-                  <TextField
-                    type="text"
-                    value={row.achievement}
-                    margin="normal"
-                    variant="outlined"
-                    placeholder={achievement}
-                    rows={6}
-                    multiline
-                    fullWidth
-                    InputProps={{ className: classes.input }}
-                    onChange={e => action(type, 'achievement', e)}
-                  />
-                </Grid>
-                <Grid item sm={4}>
+                {type === 'workEfficiency' || type === 'workQuality' ? null : (
+                  <Grid item sm={4}>
+                    <TextField
+                      type="text"
+                      value={row.achievement}
+                      margin="normal"
+                      variant="outlined"
+                      placeholder={achievement}
+                      rows={6}
+                      multiline
+                      fullWidth
+                      InputProps={{ className: classes.input }}
+                      onChange={e => action(type, 'achievement', e)}
+                    />
+                  </Grid>
+                )}
+                <Grid
+                  item
+                  sm={
+                    type === 'workEfficiency' || type === 'workQuality' ? 8 : 4
+                  }
+                >
                   <TextField
                     type="text"
                     value={row.comment}
