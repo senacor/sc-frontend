@@ -8,21 +8,43 @@ export const reduceWeights = arr => {
 };
 
 // Helper functions - SC WITHOUT PR
-export const updatePercentageArr = (state, setState, totalWeight) => {
+export const updatePercentageArr = (
+  state,
+  setState,
+  totalWeight,
+  weightPercentage
+) => {
   const values = cloneDeep(state);
   const newValues = values.map(obj => {
     const newObjectValue = { ...obj };
-    newObjectValue.percentage = Math.round(
-      (newObjectValue.weight / totalWeight) * 100
-    );
+    if (weightPercentage !== undefined) {
+      newObjectValue.percentage = Math.round(
+        (newObjectValue.weight / totalWeight) * 100 * (weightPercentage / 100)
+      );
+    } else {
+      newObjectValue.percentage = Math.round(
+        (newObjectValue.weight / totalWeight) * 100
+      );
+    }
     return newObjectValue;
   });
   setState(newValues);
 };
 
-export const updatePercentageObj = (state, setState, totalWeight) => {
+export const updatePercentageObj = (
+  state,
+  setState,
+  totalWeight,
+  weightPercentage
+) => {
   const value = { ...state };
-  value.percentage = Math.round((value.weight / totalWeight) * 100);
+  if (weightPercentage !== undefined) {
+    value.percentage = Math.round(
+      (value.weight / totalWeight) * 100 * (weightPercentage / 100)
+    );
+  } else {
+    value.percentage = Math.round((value.weight / totalWeight) * 100);
+  }
   setState(value);
 };
 
@@ -47,6 +69,66 @@ export const updatePercentageAllWithoutPR = (
   updatePercentageObj(workQualityFields, setWorkQualityFields, totalWeight);
 };
 
+export const updatePercentageWithPRPerformance = (
+  dailyBusinessFields,
+  setDailyBusinessFields,
+  projectFields,
+  setProjectFields,
+  totalWeightPerformance,
+  performanceWeightPercentage
+) => {
+  updatePercentageArr(
+    dailyBusinessFields,
+    setDailyBusinessFields,
+    totalWeightPerformance,
+    performanceWeightPercentage
+  );
+  updatePercentageArr(
+    projectFields,
+    setProjectFields,
+    totalWeightPerformance,
+    performanceWeightPercentage
+  );
+};
+
+export const updatePercentageWithPRPrCategories = (
+  skillsInTheFields,
+  setSkillsInTheFields,
+  impactOnTeam,
+  setImpactOnTeam,
+  serviceQuality,
+  setServiceQuality,
+  impactOnCompany,
+  setImpactOnCompany,
+  totalWeightPrCategories,
+  prCategoriesWeightPercentage
+) => {
+  updatePercentageObj(
+    skillsInTheFields,
+    setSkillsInTheFields,
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
+  );
+  updatePercentageObj(
+    impactOnTeam,
+    setImpactOnTeam,
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
+  );
+  updatePercentageObj(
+    serviceQuality,
+    setServiceQuality,
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
+  );
+  updatePercentageObj(
+    impactOnCompany,
+    setImpactOnCompany,
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
+  );
+};
+
 export const calculateFinalScoreWithoutPR = (
   dailyBusiness,
   project,
@@ -63,6 +145,8 @@ export const calculateFinalScoreWithoutPR = (
   const finalScore = scoreInTotal / totalWeight;
   return finalScore;
 };
+
+// TODO calculateFinalScoreWithPR
 
 const multiplyWeightByScoreArr = arr => {
   const mapArr = arr.map(obj => obj.weight * obj.evaluation);
