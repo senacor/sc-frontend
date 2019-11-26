@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles, Button, Tooltip } from '@material-ui/core';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
@@ -10,10 +10,20 @@ const styles = theme => ({
   },
   btnSave: {
     marginRight: theme.spacing.unit * 2
+  },
+  submitBtnContainer: {
+    display: 'inline-block'
   }
 });
 
-const ButtonsBelowSheet = ({ classes, intl, sc, handleSave, handleSubmit }) => {
+const ButtonsBelowSheet = ({
+  classes,
+  intl,
+  sc,
+  handleSave,
+  handleSubmit,
+  submitDisabled
+}) => {
   const user = useUserinfoContext();
 
   const disableSaveButton = () => {
@@ -39,9 +49,26 @@ const ButtonsBelowSheet = ({ classes, intl, sc, handleSave, handleSubmit }) => {
       >
         {intl.formatMessage({ id: 'scsheet.save' })}
       </Button>
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
-        {intl.formatMessage({ id: 'scsheet.submit' })}
-      </Button>
+
+      <Tooltip
+        title={
+          submitDisabled
+            ? intl.formatMessage({ id: 'scsheet.tooltip.score' })
+            : ''
+        }
+        placement="top"
+      >
+        <div className={classes.submitBtnContainer}>
+          <Button
+            disabled={submitDisabled}
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+          >
+            {intl.formatMessage({ id: 'scsheet.submit' })}
+          </Button>
+        </div>
+      </Tooltip>
     </div>
   );
 };

@@ -382,6 +382,8 @@
   "scsheet.finalText.4.5": "Ohne jede Einschränkung vorbildlich, stets eigene Initiative mit erheblichen Verbesserungen",
   "scsheet.submit": "Freigeben",
   "scsheet.save": "Speichern",
+  "scsheet.required": "* Pflichtfeld",
+  "scsheet.tooltip.score": "Es fehlen noch Eintragungen bei der Bewertung. Bitte fülle die fehlenden Felder aus, bevor du die scorecard freigibst.",
   "scsheet.category.performance": "Leistungen",
   "scsheet.category.skills": "Kompetenz & Entwicklung",
   "scsheet.category.workEffectivity": "Arbeitseffizienz, Arbeitseinsatz",
