@@ -30,7 +30,7 @@ import {
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
 import { CATEGORY } from '../../../helper/scSheetData';
-import { TextField } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   ...theme.styledComponents,
