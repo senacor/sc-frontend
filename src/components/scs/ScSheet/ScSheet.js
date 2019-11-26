@@ -95,6 +95,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   const [weightsWithPRPerformance, setWeightsWithPRPerformance] = useState(5);
   const [weightsWithPRPrCategories, setWeightsWithPRPrCategories] = useState(4);
   const [finalScore, setFinalScore] = useState(0);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   useEffect(
     () => {
@@ -243,6 +244,40 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
   };
+
+  useEffect(() => {
+    setSubmitDisabled(false);
+    if (dailyBusinessFields.find(element => element.evaluation === 0)) {
+      setSubmitDisabled(true);
+    }
+    if (projectFields.find(element => element.evaluation === 0)) {
+      setSubmitDisabled(true);
+    }
+    if (withPrCategories) {
+      if (skillsInTheFieldsFields.evaluation === 0) {
+        setSubmitDisabled(true);
+      }
+      if (impactOnTeamFields.evaluation === 0) {
+        setSubmitDisabled(true);
+      }
+      if (serviceQualityFields.evaluation === 0) {
+        setSubmitDisabled(true);
+      }
+      if (impactOnCompanyFields.evaluation === 0) {
+        setSubmitDisabled(true);
+      }
+      if (prCategoriesWeightPercentage === 0) {
+        setSubmitDisabled(true);
+      }
+    } else {
+      if (workEfficiencyFields.evaluation === 0) {
+        setSubmitDisabled(true);
+      }
+      if (workQualityFields.evaluation === 0) {
+        setSubmitDisabled(true);
+      }
+    }
+  });
 
   const handleSave = () => {
     const mapToDTO = field => {
@@ -433,6 +468,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
         </Fragment>
       )}
       <ButtonsBelowSheet
+        submitDisabled={submitDisabled}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
         sc={sc}
