@@ -30,6 +30,7 @@ import {
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
 import { CATEGORY } from '../../../helper/scSheetData';
+import { TextField } from '@material-ui/core';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -370,23 +371,32 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   return (
     <Fragment>
       <div className={classes.dropdownContainer}>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">
-            {intl.formatMessage({ id: 'scsheet.position' })}
-          </InputLabel>
-          <Select
-            labelid="demo-simple-select-label"
-            id="demo-simple-select"
+        {user.isReviewerInSc(sc) ? (
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">
+              {intl.formatMessage({ id: 'scsheet.position' })}
+            </InputLabel>
+            <Select
+              labelid="demo-simple-select-label"
+              id="demo-simple-select"
+              value={position}
+              disabled={!user.isReviewerInSc(sc)}
+              onChange={handleChangePosition}
+            >
+              {positions.map((pos, index) => (
+                <MenuItem key={index} value={pos}>
+                  {pos}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : (
+          <TextField
+            label={intl.formatMessage({ id: 'scsheet.position' })}
             value={position}
-            onChange={handleChangePosition}
-          >
-            {positions.map((pos, index) => (
-              <MenuItem key={index} value={pos}>
-                {pos}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            disabled
+          />
+        )}
       </div>
       {/* CATEGORIES */}
       {withPrCategories ? (
