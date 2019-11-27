@@ -127,7 +127,8 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       skillsInTheFieldsFields,
       impactOnTeamFields,
       serviceQualityFields,
-      impactOnCompanyFields
+      impactOnCompanyFields,
+      withPrCategories
     ]
   );
 
@@ -202,45 +203,53 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       dailyBusinessFields,
       projectFields,
       workEfficiencyFields,
-      workQualityFields
+      workQualityFields,
+      withPrCategories
     ]
   );
 
-  useEffect(() => {
-    if (user.isOwnerInSc(sc)) {
-      setDailyBusinessFields(sc.employeeData.dailyBusiness);
-      setProjectFields(sc.employeeData.project);
-      if (withPrCategories) {
-        setSkillsInTheFieldsFields(sc.employeeData.skillsInTheFields);
-        setImpactOnTeamFields(sc.employeeData.impactOnTeam);
-        setServiceQualityFields(sc.employeeData.serviceQuality);
-        setImpactOnCompanyFields(sc.employeeData.impactOnCompany);
-        setPerformanceWeightPercentage(
-          100 - sc.employeeData.skillsWeightPercentage
-        );
-        setPrCategoriesWeightPercentage(sc.employeeData.skillsWeightPercentage);
+  useEffect(
+    () => {
+      if (user.isOwnerInSc(sc)) {
+        setDailyBusinessFields(sc.employeeData.dailyBusiness);
+        setProjectFields(sc.employeeData.project);
+        if (withPrCategories) {
+          setSkillsInTheFieldsFields(sc.employeeData.skillsInTheFields);
+          setImpactOnTeamFields(sc.employeeData.impactOnTeam);
+          setServiceQualityFields(sc.employeeData.serviceQuality);
+          setImpactOnCompanyFields(sc.employeeData.impactOnCompany);
+          setPerformanceWeightPercentage(
+            100 - sc.employeeData.skillsWeightPercentage
+          );
+          setPrCategoriesWeightPercentage(
+            sc.employeeData.skillsWeightPercentage
+          );
+        } else {
+          setWorkEfficiencyFields(sc.employeeData.workEfficiency);
+          setWorkQualityFields(sc.employeeData.workQuality);
+        }
       } else {
-        setWorkEfficiencyFields(sc.employeeData.workEfficiency);
-        setWorkQualityFields(sc.employeeData.workQuality);
+        setDailyBusinessFields(sc.reviewerData.dailyBusiness);
+        setProjectFields(sc.reviewerData.project);
+        if (withPrCategories) {
+          setSkillsInTheFieldsFields(sc.reviewerData.skillsInTheFields);
+          setImpactOnTeamFields(sc.reviewerData.impactOnTeam);
+          setServiceQualityFields(sc.reviewerData.serviceQuality);
+          setImpactOnCompanyFields(sc.reviewerData.impactOnCompany);
+          setPerformanceWeightPercentage(
+            100 - sc.reviewerData.skillsWeightPercentage
+          );
+          setPrCategoriesWeightPercentage(
+            sc.reviewerData.skillsWeightPercentage
+          );
+        } else {
+          setWorkEfficiencyFields(sc.reviewerData.workEfficiency);
+          setWorkQualityFields(sc.reviewerData.workQuality);
+        }
       }
-    } else {
-      setDailyBusinessFields(sc.reviewerData.dailyBusiness);
-      setProjectFields(sc.reviewerData.project);
-      if (withPrCategories) {
-        setSkillsInTheFieldsFields(sc.reviewerData.skillsInTheFields);
-        setImpactOnTeamFields(sc.reviewerData.impactOnTeam);
-        setServiceQualityFields(sc.reviewerData.serviceQuality);
-        setImpactOnCompanyFields(sc.reviewerData.impactOnCompany);
-        setPerformanceWeightPercentage(
-          100 - sc.reviewerData.skillsWeightPercentage
-        );
-        setPrCategoriesWeightPercentage(sc.reviewerData.skillsWeightPercentage);
-      } else {
-        setWorkEfficiencyFields(sc.reviewerData.workEfficiency);
-        setWorkQualityFields(sc.reviewerData.workQuality);
-      }
-    }
-  }, []);
+    },
+    [withPrCategories]
+  );
 
   const handleSubmit = () => {
     // TODO: submitting data and sending to backend
