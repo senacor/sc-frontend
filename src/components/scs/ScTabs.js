@@ -55,12 +55,13 @@ TabContainer.propTypes = {
 const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
   const user = useUserinfoContext();
 
+  // TODO delete type select after demo
   const [scWithPr, setScWithPr] = useState(false);
 
   const handleChangeType = event => {
     setScWithPr(event.target.value);
   };
-  console.log('scwithpr', scWithPr);
+
   return (
     <Paper className={classes.paper}>
       <div style={{ textAlign: 'center' }}>
