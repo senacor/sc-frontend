@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,6 +11,10 @@ import ScSheet from './ScSheet/ScSheet';
 import { useUserinfoContext } from '../../helper/contextHooks';
 import SchedulingView from '../scheduling/SchedulingView';
 import { SC_TAB } from '../../helper/scSheetData';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
   root: {
@@ -51,8 +55,31 @@ TabContainer.propTypes = {
 const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
   const user = useUserinfoContext();
 
+  // TODO delete type select after demo
+  const [scWithPr, setScWithPr] = useState(false);
+
+  const handleChangeType = event => {
+    setScWithPr(event.target.value);
+  };
+
   return (
     <Paper className={classes.paper}>
+      <div style={{ textAlign: 'center' }}>
+        <FormControl style={{ marginTop: 15, marginBottom: 15 }}>
+          <InputLabel id="type-select-label">{'Type'}</InputLabel>
+          <Select
+            labelid="type-select-label"
+            id="demo-simple-select"
+            value={scWithPr}
+            onChange={event => handleChangeType(event)}
+          >
+            <MenuItem value={false}>Ohne PR</MenuItem>
+            <MenuItem value={true}>Mit PR</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+
       <AppBar position="static" className={classes.tabsBackground}>
         <Tabs
           value={tabValue}
@@ -96,7 +123,7 @@ const ScTabs = ({ classes, intl, sc, tabValue, handleChangeTab }) => {
       </AppBar>
       {tabValue === SC_TAB.EMPLOYEE && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheet sc={sc} />
+          <ScSheet sc={sc} withPrCategories={scWithPr} />
         </TabContainer>
       )}
       {tabValue === SC_TAB.REVIEWER && (
