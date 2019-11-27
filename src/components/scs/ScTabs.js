@@ -13,10 +13,8 @@ import SchedulingView from '../scheduling/SchedulingView';
 import { SC_TAB } from '../../helper/scSheetData';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import { positions } from '../../helper/filterData';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
