@@ -363,6 +363,8 @@
   "scsheet.sctype": "Scorecard Typ",
   "scsheet.sctype.withoutPR": "ohne PR",
   "scsheet.sctype.withPR": "mit PR",
+  "scsheet.scTypeNotChosen": "Dein Beurteiler hat den Scorecard Typ noch nicht ausgewählt! Bitte warten.",
+  "scsheet.typeSelectionHeader": "Scorecard Auswahl",
   "scsheet.textheader.title.dailyBusiness": "Titel für Eintrag zum Daily Business",
   "scsheet.textheader.title.project": "Titel für Eintrag zum Projekt",
   "scsheet.textheader.percentage": "Anteil",
