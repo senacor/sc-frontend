@@ -25,6 +25,7 @@ import { positions } from '../../helper/scSheetData';
 import { modifyString } from '../../helper/string';
 
 const styles = theme => ({
+  ...theme.styledComponents,
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -51,6 +52,12 @@ const styles = theme => ({
   spacing: {
     padding: theme.spacing.unit
   },
+  scTypeSelectionHeader: {
+    background: theme.palette.secondary.darkGreen,
+    color: theme.palette.secondary.white,
+    padding: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 2
+  },
   dropdownContainer: {
     display: 'flex',
     justifyContent: 'space-around'
@@ -65,6 +72,10 @@ const styles = theme => ({
     height: 40,
     marginTop: 'auto',
     marginBottom: 'auto'
+  },
+  scTypeNotSelected: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center'
   }
 });
 
@@ -89,72 +100,15 @@ const ScTabs = ({
   position,
   handleChangePosition,
   handleChangeType,
-  scWithPr,
+  scTypeSeleted,
   handleSubmitScType
 }) => {
   const user = useUserinfoContext();
 
   return (
     <Fragment>
-      {user.isReviewerInSc(sc) && (
-        <Paper className={classes.chooseScType}>
-          <Typography variant="h5">Scorecard selection</Typography>
-          <div className={classes.dropdownContainer}>
-            <FormControl className={classes.formControl}>
-              <FormLabel component="legend">
-                {intl.formatMessage({ id: 'scsheet.position' })}
-              </FormLabel>
-              <Select
-                labelid="demo-simple-select-label"
-                id="demo-simple-select"
-                value={position}
-                disabled={!user.isReviewerInSc(sc)}
-                onChange={handleChangePosition}
-              >
-                {positions.map((pos, index) => (
-                  <MenuItem key={index} value={pos.toUpperCase()}>
-                    {modifyString(pos)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormLabel component="legend">
-                {intl.formatMessage({ id: 'scsheet.sctype' })}
-              </FormLabel>
-              <RadioGroup
-                aria-label="sc-type"
-                name="sc-type-radios"
-                onChange={handleChangeType}
-                className={classes.radioGroup}
-              >
-                <FormControlLabel
-                  value={SC_STATUS.WITH_PR}
-                  control={<Radio />}
-                  label={intl.formatMessage({ id: 'scsheet.sctype.withPR' })}
-                />
-                <FormControlLabel
-                  value={SC_STATUS.WITHOUT_PR}
-                  control={<Radio />}
-                  label={intl.formatMessage({
-                    id: 'scsheet.sctype.withoutPR'
-                  })}
-                />
-              </RadioGroup>
-            </FormControl>
-            <Button
-              disabled={!scWithPr || !position}
-              onClick={handleSubmitScType}
-              color="secondary"
-              variant="contained"
-              className={classes.submitScType}
-            >
-              {intl.formatMessage({ id: 'scsheet.submit' })}
-            </Button>
-          </div>
-        </Paper>
-      )}
-      {scWithPr && (
+      {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
+      sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
         <Paper className={classes.paper}>
           <AppBar position="static" className={classes.tabsBackground}>
             <Tabs
@@ -199,12 +153,18 @@ const ScTabs = ({
           </AppBar>
           {tabValue === SC_TAB.EMPLOYEE && (
             <TabContainer spacing={classes.spacing}>
-              <ScSheet sc={sc} scWithPr />
+              <ScSheet
+                sc={sc}
+                scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
+              />
             </TabContainer>
           )}
           {tabValue === SC_TAB.REVIEWER && (
             <TabContainer spacing={classes.spacing}>
-              <ScSheet sc={sc} scWithPr />
+              <ScSheet
+                sc={sc}
+                scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
+              />
             </TabContainer>
           )}
           {tabValue === SC_TAB.MEETING && (
@@ -212,6 +172,71 @@ const ScTabs = ({
               <SchedulingView sc={sc} />
             </TabContainer>
           )}
+        </Paper>
+      ) : user.isReviewerInSc(sc) ? (
+        <Paper className={classes.chooseScType}>
+          <Typography variant="h5" className={classes.scTypeSelectionHeader}>
+            {intl.formatMessage({ id: 'scsheet.typeSelectionHeader' })}
+          </Typography>
+          <div className={classes.dropdownContainer}>
+            <FormControl className={classes.formControl}>
+              <FormLabel component="legend">
+                {intl.formatMessage({ id: 'scsheet.position' })}
+              </FormLabel>
+              <Select
+                labelid="demo-simple-select-label"
+                id="demo-simple-select"
+                value={position}
+                disabled={!user.isReviewerInSc(sc)}
+                onChange={handleChangePosition}
+              >
+                {positions.map((pos, index) => (
+                  <MenuItem key={index} value={pos.toUpperCase()}>
+                    {modifyString(pos)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <FormLabel component="legend">
+                {intl.formatMessage({ id: 'scsheet.sctype' })}
+              </FormLabel>
+              <RadioGroup
+                aria-label="sc-type"
+                name="sc-type-radios"
+                onChange={handleChangeType}
+                className={classes.radioGroup}
+              >
+                <FormControlLabel
+                  value={SC_STATUS.WITH_PR}
+                  control={<Radio />}
+                  label={intl.formatMessage({ id: 'scsheet.sctype.withPR' })}
+                />
+                <FormControlLabel
+                  value={SC_STATUS.WITHOUT_PR}
+                  control={<Radio />}
+                  label={intl.formatMessage({
+                    id: 'scsheet.sctype.withoutPR'
+                  })}
+                />
+              </RadioGroup>
+            </FormControl>
+            <Button
+              disabled={!scTypeSeleted || !position}
+              onClick={handleSubmitScType}
+              color="secondary"
+              variant="contained"
+              className={classes.submitScType}
+            >
+              {intl.formatMessage({ id: 'scsheet.submit' })}
+            </Button>
+          </div>
+        </Paper>
+      ) : (
+        <Paper className={`${classes.paper} ${classes.scTypeNotSelected}`}>
+          <Typography variant="body2">
+            {intl.formatMessage({ id: 'scsheet.scTypeNotChosen' })}
+          </Typography>
         </Paper>
       )}
     </Fragment>

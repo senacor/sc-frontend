@@ -19,7 +19,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const [scTab, setScTab] = useState(SC_TAB.EMPLOYEE);
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState('');
-  const [scWithPr, setScWithPr] = useState(undefined);
+  const [scTypeSeleted, setScTypeSelected] = useState(undefined);
 
   const error = useErrorContext();
   const user = useUserinfoContext();
@@ -31,7 +31,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleChangeType = event => {
-    setScWithPr(event.target.value);
+    setScTypeSelected(event.target.value);
   };
 
   const handleChangePosition = event => {
@@ -39,10 +39,10 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleSubmitScType = () => {
-    if (scWithPr) {
+    if (scTypeSeleted) {
       addScType(
         sc.id,
-        scWithPr,
+        scTypeSeleted,
         position,
         setSc,
         setIsLoading,
@@ -88,7 +88,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               position={position}
               handleChangePosition={handleChangePosition}
               handleChangeType={handleChangeType}
-              scWithPr={scWithPr}
+              scTypeSeleted={scTypeSeleted}
               handleSubmitScType={handleSubmitScType}
             />
           </Fragment>
