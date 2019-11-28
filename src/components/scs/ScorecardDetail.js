@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ScTabs from './ScTabs';
 import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
-import { fetchScById } from '../../calls/sc';
+import { fetchScById, addScType } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
@@ -18,16 +18,41 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const [sc, setSc] = useState(null);
   const [scTab, setScTab] = useState(SC_TAB.EMPLOYEE);
   const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState('');
+  const [scWithPr, setScWithPr] = useState(undefined);
+
   const error = useErrorContext();
   const user = useUserinfoContext();
   const { setValue: setMeeting } = useContext(MeetingContext.context);
 
-  useEffect(() => {
-    const afterScFetched = sc => {
-      setSc(sc);
-      fetchMeeting(sc, setMeeting, error);
-    };
+  const afterScFetched = sc => {
+    setSc(sc);
+    fetchMeeting(sc, setMeeting, error);
+  };
 
+  const handleChangeType = event => {
+    setScWithPr(event.target.value);
+  };
+
+  const handleChangePosition = event => {
+    setPosition(event.target.value);
+  };
+
+  const handleSubmitScType = () => {
+    if (scWithPr) {
+      addScType(
+        sc.id,
+        scWithPr,
+        position,
+        setSc,
+        setIsLoading,
+        error,
+        afterScFetched
+      );
+    }
+  };
+
+  useEffect(() => {
     fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
   }, []);
 
@@ -60,6 +85,11 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               sc={sc}
               tabValue={scTab}
               handleChangeTab={handleChangeTab}
+              position={position}
+              handleChangePosition={handleChangePosition}
+              handleChangeType={handleChangeType}
+              scWithPr={scWithPr}
+              handleSubmitScType={handleSubmitScType}
             />
           </Fragment>
         )

@@ -206,7 +206,6 @@ export const Sidebar = ({ intl, classes }) => {
           ) : (
             <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
           )}
-
           <Typography>{fullName}</Typography>
         </div>
       </div>
