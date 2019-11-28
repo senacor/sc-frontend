@@ -23,6 +23,7 @@ import {
 } from '@material-ui/core';
 import { positions } from '../../helper/scSheetData';
 import { modifyString } from '../../helper/string';
+import TimeIcon from '@material-ui/icons/AccessTime';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -75,7 +76,12 @@ const styles = theme => ({
   },
   scTypeNotSelected: {
     padding: theme.spacing.unit * 2,
-    textAlign: 'center'
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '& p': {
+      paddingLeft: theme.spacing.unit
+    }
   }
 });
 
@@ -234,6 +240,7 @@ const ScTabs = ({
         </Paper>
       ) : (
         <Paper className={`${classes.paper} ${classes.scTypeNotSelected}`}>
+          <TimeIcon />
           <Typography variant="body2">
             {intl.formatMessage({ id: 'scsheet.scTypeNotChosen' })}
           </Typography>
