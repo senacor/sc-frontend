@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import ScSheet from './ScSheet/ScSheet';
 import { useUserinfoContext } from '../../helper/contextHooks';
 import SchedulingView from '../scheduling/SchedulingView';
 import { SC_TAB, SC_STATUS } from '../../helper/scSheetData';
+import { positions } from '../../helper/scSheetData';
+import { modifyString } from '../../helper/string';
+
+// Material UI
 import {
   FormControl,
   Select,
@@ -21,8 +21,12 @@ import {
   Radio,
   Button
 } from '@material-ui/core';
-import { positions } from '../../helper/scSheetData';
-import { modifyString } from '../../helper/string';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
+// Icons
 import TimeIcon from '@material-ui/icons/AccessTime';
 
 const styles = theme => ({
