@@ -42,7 +42,7 @@ export const getAllEmployeesWithRoles = async (
   setIsLoading,
   error
 ) => {
-  //TODO: remove this comment
+  //TODO: remove this comment or not?
   try {
     setIsLoading(true);
 
