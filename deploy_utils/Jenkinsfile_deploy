@@ -1,33 +1,31 @@
 pipeline {
 
-    agent any
+  agent any
 
-    environment {
-        DEPLOY_DIR="production"
-        FRONTEND_DIR="frontend"
-    }
+  environment {
+    DEPLOY_DIR = "production"
+    FRONTEND_DIR = "frontend"
+  }
 
-    stages {
-        stage('Building app') {
-                steps {
-                    sh "npm install"
-                    sh "npm run build"
-                }
-        }
-        stage('Copying') {
-                steps {
-                    sh "tar cvf build.tar build"
-                }
-        }
-        stage('publishing image to target server') {
-               stage('publishing image to prod server') {
-                      steps {
-                          sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
-                            execCommand: 'cd '+env.DEPLOY_DIR+'/'+env.FRONTEND_DIR+'; tar -zxvf build.tar; rm build.tar',
-                            remoteDirectory: './'+env.DEPLOY_DIR+'/'+env.FRONTEND_DIR,
-                            sourceFiles: 'build.tar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                      }
-               }
-        }
+  stages {
+    stage('Building app') {
+      steps {
+        sh "npm install"
+        sh "npm run build"
+      }
     }
+    stage('Copying') {
+      steps {
+        sh "tar cvf build.tar build"
+      }
+    }
+    stage('publishing image to target server') {
+      steps {
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
+          execCommand: 'cd ' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR + '; tar -zxvf build.tar; rm build.tar',
+          remoteDirectory: './' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR,
+          sourceFiles: 'build.tar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+      }
+    }
+  }
 }
