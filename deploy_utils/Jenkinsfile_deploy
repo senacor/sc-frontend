@@ -19,12 +19,25 @@ pipeline {
         sh "tar cvf build.tar build"
       }
     }
-    stage('publishing image to target server') {
+    stage('publishing frontend app to target server') {
       steps {
-        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
-          execCommand: 'cd ' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR + '; tar -zxvf build.tar; rm build.tar',
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', execCommand: '', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
           remoteDirectory: './' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR,
-          sourceFiles: 'build.tar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+          sourceFiles: 'deploy_utils/docker-compose.yml'
+        )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
+          execCommand: 'cd ' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR + '; tar -xvf build.tar; rm build.tar',
+          remoteDirectory: './' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR,
+          sourceFiles: 'build.tar'
+        )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+      }
+    }
+    stage('running frontend server') {
+      steps {
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, sourceFiles: '', remoteDirectory: '', excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
+          execCommand: 'cd ' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR + '; docker-compose up -d'
+          )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
       }
     }
   }
