@@ -5,6 +5,7 @@ pipeline {
   environment {
     DEPLOY_DIR = "production"
     FRONTEND_DIR = "frontend"
+    REACT_APP_API = "10.90.10.150:8043"
   }
 
   stages {
@@ -37,7 +38,7 @@ pipeline {
     stage('running frontend server') {
       steps {
         sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, sourceFiles: '', remoteDirectory: '', excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
-          execCommand: 'cd ' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR + '; docker-compose up -d'
+          execCommand: 'cd ' + env.DEPLOY_DIR + '/' + env.FRONTEND_DIR + '; docker-compose stop; docker-compose up -d'
           )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
       }
     }
