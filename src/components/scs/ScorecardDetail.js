@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
-import ScTabs from './ScTabs';
+import ScContainer from './scContainer/ScContainer';
 import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import { fetchScById, addScType } from '../../calls/sc';
@@ -81,7 +81,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
         sc && (
           <Fragment>
             <ScDetailInformation sc={sc} />
-            <ScTabs
+            <ScContainer
               sc={sc}
               tabValue={scTab}
               handleChangeTab={handleChangeTab}
