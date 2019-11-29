@@ -5,14 +5,14 @@ pipeline {
   environment {
     DEPLOY_DIR = "production"
     FRONTEND_DIR = "frontend"
-    REACT_APP_API = "http://10.90.10.150"
+    BACKEND_URL = ""
   }
 
   stages {
     stage('Building app') {
       steps {
 //        sh "npm install"
-        sh "npm run build"
+        sh "REACT_APP_API="+env.BACKEND_URL+" npm run build"
       }
     }
     stage('Copying') {
