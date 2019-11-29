@@ -3,14 +3,19 @@ pipeline {
     agent any
 
     environment {
-        DACO = credentials("secVal")
+        //DACO = credentials("secVal")
     }
 
     stages {
-        stage('building jar') {
-                agent { docker 'node' }
+        stage('Building app') {
                 steps {
-                    sh "npm build"
+                    sh "npm install"
+                    sh "npm run build"
+                }
+        }
+        stage('Copying') {
+                steps {
+                    sh "tar cvf build.tar build"
                 }
         }
     }
