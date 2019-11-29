@@ -5,13 +5,13 @@ pipeline {
   environment {
     DEPLOY_DIR = "production"
     FRONTEND_DIR = "frontend"
-    REACT_APP_API = "10.90.10.150:8043"
+    REACT_APP_API = ""
   }
 
   stages {
     stage('Building app') {
       steps {
-        sh "npm install"
+//        sh "npm install"
         sh "npm run build"
       }
     }
