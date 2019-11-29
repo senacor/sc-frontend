@@ -6,6 +6,7 @@ import { SC_STATUS } from '../../../helper/scSheetData';
 import EmployeeWaitForScText from './EmployeeWaitForScText';
 import ScTabs from './ScTabs';
 import ScTypeToChoose from './ScTypeToChoose';
+import StatusStepper from './statusStepper/StatusStepper';
 
 const styles = theme => ({});
 
@@ -23,6 +24,7 @@ const ScContainer = ({
 
   return (
     <Fragment>
+      <StatusStepper sc={sc} />
       {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
       sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
         <ScTabs sc={sc} tabValue={tabValue} handleChangeTab={handleChangeTab} />

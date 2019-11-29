@@ -7,10 +7,6 @@ import TimeIcon from '@material-ui/icons/AccessTime';
 
 const styles = theme => ({
   ...theme.styledComponents,
-  paper: {
-    backgroundColor: theme.palette.secondary.white,
-    margin: 3 * theme.spacing.unit
-  },
   scTypeNotSelected: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
