@@ -3,7 +3,6 @@ pipeline {
     environment {
         CI='true'
     }
-    tools { nodejs "node" }
 
     stages {
         stage('Obtaining dependencies') {
