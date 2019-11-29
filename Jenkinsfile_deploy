@@ -2,9 +2,9 @@ pipeline {
 
     agent any
 
-    environment {
+    //environment {
         //DACO = credentials("secVal")
-    }
+    //}
 
     stages {
         stage('Building app') {
