@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Building app') {
       steps {
-//        sh "npm install"
+        sh "npm install"
         sh "REACT_APP_API="+env.BACKEND_URL+" npm run build"
       }
     }
