@@ -35,7 +35,9 @@ const StatusStepper = ({ classes, intl, sc }) => {
   useEffect(
     () => {
       const statuses = sc.statusSet;
-      if (
+      if (statuses.length === 0) {
+        setActiveStep(0);
+      } else if (
         statuses.includes(SC_STATUS.WITHOUT_PR) ||
         statuses.includes(SC_STATUS.WITH_PR)
       ) {

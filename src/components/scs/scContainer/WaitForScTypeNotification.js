@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const EmployeeWaitForScText = ({ intl, classes }) => {
+const WaitForScTypeNotification = ({ intl, classes }) => {
   return (
     <Paper className={`${classes.paper} ${classes.scTypeNotSelected}`}>
       <TimeIcon />
@@ -29,4 +29,4 @@ const EmployeeWaitForScText = ({ intl, classes }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeeWaitForScText));
+export default injectIntl(withStyles(styles)(WaitForScTypeNotification));

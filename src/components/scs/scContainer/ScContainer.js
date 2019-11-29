@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import { SC_STATUS } from '../../../helper/scSheetData';
-import EmployeeWaitForScText from './EmployeeWaitForScText';
+import WaitForScTypeNotification from './WaitForScTypeNotification';
 import ScTabs from './ScTabs';
 import ScTypeToChoose from './ScTypeToChoose';
 import StatusStepper from './statusStepper/StatusStepper';
@@ -38,7 +38,7 @@ const ScContainer = ({
           handleSubmitScType={handleSubmitScType}
         />
       ) : (
-        <EmployeeWaitForScText />
+        <WaitForScTypeNotification />
       )}
     </Fragment>
   );
