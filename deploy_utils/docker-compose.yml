@@ -3,5 +3,6 @@ services:
   sc_frontend:
     image: pierrezemb/gostatic
     ports: ["8043:8043"]
+    command: "-fallback index.html"
     volumes:
       - ./build:/srv/http
