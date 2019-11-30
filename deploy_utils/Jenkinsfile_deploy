@@ -5,7 +5,7 @@ pipeline {
   environment {
     DEPLOY_DIR = "production"
     FRONTEND_DIR = "frontend"
-    BACKEND_URL = "backend"
+    BACKEND_URL = "http://10.90.10.150"
   }
 
   stages {
