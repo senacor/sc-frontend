@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography, Button } from '@material-ui/core';
 import { SC_STATUS } from '../../../../helper/scSheetData';
 import { useUserinfoContext } from '../../../../helper/contextHooks';
 
@@ -17,22 +17,18 @@ const styles = theme => ({
   }
 });
 
-const StepContent = ({ classes, intl, step, activeStep, sc }) => {
+const StepContent = ({
+  classes,
+  intl,
+  step,
+  activeStep,
+  sc,
+  handleMeetingConfirm
+}) => {
   const user = useUserinfoContext();
   const statuses = sc.statusSet;
 
-  const determineScPhase = index => {
-    switch (index) {
-      case 0:
-        return determineTextInPreparation();
-      case 1:
-        return determineTextInProgress();
-      default:
-        return;
-    }
-  };
-
-  const determineTextInPreparation = () => {
+  const determineTextPreparation = () => {
     let label = '';
     if (
       statuses.includes(SC_STATUS.WITHOUT_PR) ||
@@ -49,6 +45,101 @@ const StepContent = ({ classes, intl, step, activeStep, sc }) => {
         {label}
       </Typography>
     );
+  };
+
+  const determineTextInProgress = () => {
+    let stepCaptionText = {
+      reviewer: '',
+      employee: '',
+      termin: ''
+    };
+    if (!statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
+      // employee submitted SC
+      if (user.isOwnerInSc(sc)) {
+        stepCaptionText.employee = intl.formatMessage({
+          id: 'sc.phase.inProgress.scToSubmit'
+        });
+      } else if (user.isReviewerInSc(sc) || user.hasRoleHr()) {
+        stepCaptionText.employee = intl.formatMessage({
+          id: 'sc.phase.inProgress.scNotSubmitted'
+        });
+      } else return;
+    } else {
+      stepCaptionText.employee = intl.formatMessage({
+        id: 'sc.phase.inProgress.scSubmitted'
+      });
+    }
+    if (!statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
+      // reviewer submitted SC
+      if (user.isReviewerInSc(sc)) {
+        stepCaptionText.reviewer = intl.formatMessage({
+          id: 'sc.phase.inProgress.scToSubmit'
+        });
+      } else if (user.isOwnerInSc(sc) || user.hasRoleAdmin()) {
+        stepCaptionText.reviewer = intl.formatMessage({
+          id: 'sc.phase.inProgress.scNotSubmitted'
+        });
+      } else return;
+    } else {
+      stepCaptionText.employee = intl.formatMessage({
+        id: 'sc.phase.inProgress.scSubmitted'
+      });
+    }
+    if (
+      !statuses.includes(SC_STATUS.REVIEWER_MEETING_ACCEPTED) ||
+      !statuses.includes(SC_STATUS.EMPLOYEE_MEETING_ACCEPTED)
+    ) {
+      // Termin was not accepted by employee or reviewer yet
+      stepCaptionText.termin = intl.formatMessage({
+        id: 'sc.phase.inProgress.terminNotCreated'
+      });
+    } else {
+      stepCaptionText.termin = intl.formatMessage({
+        id: 'sc.phase.inProgress.terminCreated'
+      });
+    }
+    return stepCaptionLayout(
+      stepCaptionText.employee,
+      stepCaptionText.reviewer,
+      stepCaptionText.termin
+    );
+  };
+
+  const determineTextTermin = () => {
+    if (user.isReviewerInSc(sc)) {
+      return (
+        <Button onClick={handleMeetingConfirm}>
+          {intl.formatMessage({ id: 'sc.phase.Termin.terminTakenPlace' })}
+        </Button>
+      );
+    } else if (user.hasRoleHr()) {
+      if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
+        return (
+          <Typography color="textSecondary" variant="body2">
+            {intl.formatMessage({ id: 'sc.phase.Termin.terminCreated' })}
+          </Typography>
+        );
+      } else {
+        return (
+          <Typography color="textSecondary" variant="body2">
+            {intl.formatMessage({ id: 'sc.phase.Termin.terminNotCreated' })}
+          </Typography>
+        );
+      }
+    } else return;
+  };
+
+  const determineScPhase = index => {
+    switch (index) {
+      case 0:
+        return determineTextPreparation();
+      case 1:
+        return determineTextInProgress();
+      case 2:
+        return determineTextTermin();
+      default:
+        return;
+    }
   };
 
   const stepCaptionLayout = (employeeText, reviewerText, terminText) => (
@@ -73,35 +164,6 @@ const StepContent = ({ classes, intl, step, activeStep, sc }) => {
       </Typography>
     </div>
   );
-
-  const determineTextInProgress = () => {
-    let stepCaptionText = {
-      reviewer: '',
-      employee: '',
-      termin: ''
-    };
-    if (user.isReviewerInSc(sc)) {
-      if (statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
-        stepCaptionText.employee = intl.formatMessage({
-          id: 'sc.phase.inProgress.scSubmitted'
-        });
-      } else {
-        stepCaptionText.employee = intl.formatMessage({
-          id: 'sc.phase.inProgress.scNotSubmitted'
-        });
-      }
-      if (!statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
-        stepCaptionText.reviewer = intl.formatMessage({
-          id: 'sc.phase.inProgress.scToSubmit'
-        });
-      }
-    }
-    return stepCaptionLayout(
-      stepCaptionText.employee,
-      stepCaptionText.reviewer,
-      stepCaptionText.termin
-    );
-  };
 
   return (
     <div className={classes.container}>

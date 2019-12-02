@@ -42,10 +42,23 @@ const StatusStepper = ({ classes, intl, sc }) => {
         statuses.includes(SC_STATUS.WITH_PR)
       ) {
         setActiveStep(1);
+      } else if (
+        statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
+        statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)
+      ) {
+        setActiveStep(2);
+      } else if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
+        setActiveStep(3);
+      } else {
+        setActiveStep(0);
       }
     },
     [sc]
   );
+
+  const handleMeetingConfirm = () => {
+    // TODO: add status, that meeting has taken place
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -53,7 +66,12 @@ const StatusStepper = ({ classes, intl, sc }) => {
         {steps.map(step => (
           <Step key={step.index}>
             <StepLabel>
-              <StepContent step={step} activeStep={activeStep} sc={sc} />
+              <StepContent
+                step={step}
+                activeStep={activeStep}
+                sc={sc}
+                handleMeetingConfirm={handleMeetingConfirm}
+              />
             </StepLabel>
           </Step>
         ))}
