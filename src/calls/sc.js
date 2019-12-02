@@ -178,7 +178,7 @@ export const addScType = async (
   }
 };
 
-export const setStatus = async (scId, status, error) => {
+export const addStatus = async (scId, status, error) => {
   try {
     const response = await fetch(
       `${

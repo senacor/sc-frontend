@@ -6,7 +6,7 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData, setStatus } from '../../../calls/sc';
+import { savePerformanceData, addStatus } from '../../../calls/sc';
 import PrCategories from './categories/PrCategories';
 import cloneDeep from '../../../helper/cloneDeep';
 import Performance from './categories/Performance';
@@ -269,11 +269,11 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
     ).then(() => {
       if (user.isOwnerInSc(sc)) {
         if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
-          setStatus(sc.id, SC_STATUS.EMPLOYEE_SUBMITTED, error);
+          addStatus(sc.id, SC_STATUS.EMPLOYEE_SUBMITTED, error);
         }
       } else if (user.isReviewerInSc(sc)) {
         if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
-          setStatus(sc.id, SC_STATUS.REVIEWER_SUBMITTED, error);
+          addStatus(sc.id, SC_STATUS.REVIEWER_SUBMITTED, error);
         }
       }
     });
