@@ -11,7 +11,7 @@ const styles = theme => ({
   }
 });
 
-const StatusStepper = ({ classes, intl, sc }) => {
+const StatusStepper = ({ classes, intl, sc, handleMeetingConfirm }) => {
   const steps = [
     {
       index: 0,
@@ -58,10 +58,6 @@ const StatusStepper = ({ classes, intl, sc }) => {
     },
     [sc]
   );
-
-  const handleMeetingConfirm = () => {
-    // TODO: add status, that meeting has taken place
-  };
 
   return (
     <Paper className={classes.paper}>

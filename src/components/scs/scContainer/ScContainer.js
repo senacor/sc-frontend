@@ -18,13 +18,18 @@ const ScContainer = ({
   handleChangePosition,
   handleChangeType,
   scTypeSeleted,
-  handleSubmitScType
+  handleSubmitScType,
+  handleMeetingConfirm
 }) => {
   const user = useUserinfoContext();
 
   return (
     <Fragment>
-      <StatusStepper sc={sc} />
+      <StatusStepper
+        sc={sc}
+        position={position}
+        handleMeetingConfirm={handleMeetingConfirm}
+      />
       {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
       sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
         <ScTabs sc={sc} tabValue={tabValue} handleChangeTab={handleChangeTab} />

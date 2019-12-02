@@ -148,7 +148,7 @@ export const getScsToReview = async (setScs, setIsLoading, error) => {
   }
 };
 
-export const addScType = async (
+export const addScStatus = async (
   scId,
   status,
   position,

@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core';
 import ScContainer from './scContainer/ScContainer';
 import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
-import { fetchScById, addScType } from '../../calls/sc';
+import { fetchScById, addScStatus } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
-import { SC_TAB } from '../../helper/scSheetData';
+import { SC_TAB, SC_STATUS } from '../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -40,7 +40,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const handleSubmitScType = () => {
     if (scTypeSeleted) {
-      addScType(
+      addScStatus(
         sc.id,
         scTypeSeleted,
         position,
@@ -71,6 +71,18 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTab(value);
   };
 
+  const handleMeetingConfirm = () => {
+    addScStatus(
+      sc.id,
+      [SC_STATUS.MEETING_CONFIRMED],
+      position,
+      setSc,
+      setIsLoading,
+      error,
+      afterScFetched
+    );
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -90,6 +102,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               handleChangeType={handleChangeType}
               scTypeSeleted={scTypeSeleted}
               handleSubmitScType={handleSubmitScType}
+              handleMeetingConfirm={handleMeetingConfirm}
             />
           </Fragment>
         )
