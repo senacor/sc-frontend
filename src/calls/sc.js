@@ -148,7 +148,7 @@ export const getScsToReview = async (setScs, setIsLoading, error) => {
   }
 };
 
-export const addScType = async (
+export const addScStatus = async (
   scId,
   status,
   position,
@@ -158,15 +158,28 @@ export const addScType = async (
   afterScFetched
 ) => {
   try {
-    const response = await fetch(
-      `${
-        process.env.REACT_APP_API
-      }/api/v1/sc/${scId}/status?scStatus=${status}&position=${position}`,
-      {
-        method: 'post',
-        mode: 'cors'
-      }
-    );
+    let response;
+    if (position) {
+      response = await fetch(
+        `${
+          process.env.REACT_APP_API
+        }/api/v1/sc/${scId}/status?scStatus=${status}&position=${position}`,
+        {
+          method: 'post',
+          mode: 'cors'
+        }
+      );
+    } else {
+      response = await fetch(
+        `${
+          process.env.REACT_APP_API
+        }/api/v1/sc/${scId}/status?scStatus=${status}`,
+        {
+          method: 'post',
+          mode: 'cors'
+        }
+      );
+    }
     if (response.ok) {
       fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
     } else {
@@ -176,8 +189,4 @@ export const addScType = async (
     console.log(err);
     error.showGeneral();
   }
-};
-
-export const addScStatus = () => {
-  // TODO
 };
