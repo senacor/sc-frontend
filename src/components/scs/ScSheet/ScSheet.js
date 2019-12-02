@@ -13,8 +13,6 @@ import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEfficiency from './categories/WorkEfficiency';
 import WorkQuality from './categories/WorkQuality';
-
-// Material UI
 import {
   reduceWeights,
   updatePercentageAllWithoutPR,
@@ -32,8 +30,6 @@ const styles = theme => ({
     color: theme.palette.secondary.yellow
   }
 });
-
-const mockedStatus = ['SC_TYPE_CHOSEN'];
 
 const ScSheet = ({ sc, scWithPr, classes, intl }) => {
   const initialFieldsData = {
