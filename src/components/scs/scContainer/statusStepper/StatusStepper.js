@@ -12,7 +12,6 @@ const styles = theme => ({
 });
 
 const StatusStepper = ({ classes, intl, sc }) => {
-  const [activeStep, setActiveStep] = useState(0);
   const steps = [
     {
       index: 0,
@@ -31,26 +30,30 @@ const StatusStepper = ({ classes, intl, sc }) => {
       label: intl.formatMessage({ id: 'sc.phase.done' })
     }
   ];
+  const [activeStep, setActiveStep] = useState(steps[0].id);
 
   useEffect(
     () => {
       const statuses = sc.statusSet;
       if (statuses.length === 0) {
-        setActiveStep(0);
+        setActiveStep(steps[0].index);
       } else if (
-        statuses.includes(SC_STATUS.WITHOUT_PR) ||
-        statuses.includes(SC_STATUS.WITH_PR)
+        (statuses.includes(SC_STATUS.WITHOUT_PR) ||
+          statuses.includes(SC_STATUS.WITH_PR)) &&
+        (!statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
+          !statuses.includes(SC_STATUS.REVIEWER_SUBMITTED))
       ) {
-        setActiveStep(1);
+        setActiveStep(steps[1].index);
       } else if (
         statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
-        statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)
+        statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
+        !statuses.includes(SC_STATUS.MEETING_CONFIRMED)
       ) {
-        setActiveStep(2);
+        setActiveStep(steps[2].index);
       } else if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
-        setActiveStep(3);
+        setActiveStep(steps[3].index);
       } else {
-        setActiveStep(0);
+        setActiveStep(steps[0].index);
       }
     },
     [sc]

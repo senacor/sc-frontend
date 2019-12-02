@@ -14,6 +14,11 @@ const styles = theme => ({
   },
   stepCaptionTitle: {
     paddingTop: theme.spacing.unit
+  },
+  btnMeetingConfirm: {
+    marginTop: theme.spacing.unit,
+    maxWidth: 140,
+    fontSize: '0.85rem'
   }
 });
 
@@ -75,13 +80,13 @@ const StepContent = ({
         stepCaptionText.reviewer = intl.formatMessage({
           id: 'sc.phase.inProgress.scToSubmit'
         });
-      } else if (user.isOwnerInSc(sc) || user.hasRoleAdmin()) {
+      } else if (user.isOwnerInSc(sc) || user.hasRoleHr()) {
         stepCaptionText.reviewer = intl.formatMessage({
           id: 'sc.phase.inProgress.scNotSubmitted'
         });
       } else return;
     } else {
-      stepCaptionText.employee = intl.formatMessage({
+      stepCaptionText.reviewer = intl.formatMessage({
         id: 'sc.phase.inProgress.scSubmitted'
       });
     }
@@ -108,7 +113,12 @@ const StepContent = ({
   const determineTextTermin = () => {
     if (user.isReviewerInSc(sc)) {
       return (
-        <Button onClick={handleMeetingConfirm}>
+        <Button
+          className={classes.btnMeetingConfirm}
+          variant="contained"
+          color="secondary"
+          onClick={handleMeetingConfirm}
+        >
           {intl.formatMessage({ id: 'sc.phase.Termin.terminTakenPlace' })}
         </Button>
       );
