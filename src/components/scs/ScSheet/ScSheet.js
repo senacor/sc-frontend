@@ -31,7 +31,15 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, scWithPr, classes, intl }) => {
+const ScSheet = ({
+  sc,
+  scWithPr,
+  classes,
+  intl,
+  setSc,
+  setIsLoading,
+  afterScFetched
+}) => {
   const initialFieldsData = {
     title: '',
     weight: 1,
@@ -112,6 +120,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       impactOnTeamFields,
       serviceQualityFields,
       impactOnCompanyFields,
+      sc,
       scWithPr
     ]
   );
@@ -159,6 +168,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       weightsWithPRPrCategories,
       performanceWeightPercentage,
       prCategoriesWeightPercentage,
+      sc,
       scWithPr
     ]
   );
@@ -188,6 +198,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       projectFields,
       workEfficiencyFields,
       workQualityFields,
+      sc,
       scWithPr
     ]
   );
@@ -232,7 +243,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
         }
       }
     },
-    [scWithPr]
+    [sc, scWithPr]
   );
 
   const handleSubmit = () => {
@@ -269,11 +280,25 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
     ).then(() => {
       if (user.isOwnerInSc(sc)) {
         if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
-          addStatus(sc.id, SC_STATUS.EMPLOYEE_SUBMITTED, error);
+          addStatus(
+            sc.id,
+            SC_STATUS.EMPLOYEE_SUBMITTED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
         }
       } else if (user.isReviewerInSc(sc)) {
         if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
-          addStatus(sc.id, SC_STATUS.REVIEWER_SUBMITTED, error);
+          addStatus(
+            sc.id,
+            SC_STATUS.REVIEWER_SUBMITTED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
         }
       }
     });

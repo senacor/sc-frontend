@@ -96,6 +96,9 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               scTypeSeleted={scTypeSeleted}
               handleSubmitScType={handleSubmitScType}
               handleMeetingConfirm={handleMeetingConfirm}
+              setSc={setSc}
+              setIsLoading={setIsLoading}
+              afterScFetched={afterScFetched}
             />
           </Fragment>
         )

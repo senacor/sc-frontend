@@ -19,7 +19,10 @@ const ScContainer = ({
   handleChangeType,
   scTypeSeleted,
   handleSubmitScType,
-  handleMeetingConfirm
+  handleMeetingConfirm,
+  setSc,
+  setIsLoading,
+  afterScFetched
 }) => {
   const user = useUserinfoContext();
 
@@ -32,7 +35,14 @@ const ScContainer = ({
       />
       {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
       sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
-        <ScTabs sc={sc} tabValue={tabValue} handleChangeTab={handleChangeTab} />
+        <ScTabs
+          sc={sc}
+          tabValue={tabValue}
+          handleChangeTab={handleChangeTab}
+          setSc={setSc}
+          setIsLoading={setIsLoading}
+          afterScFetched={afterScFetched}
+        />
       ) : user.isReviewerInSc(sc) ? (
         <ScTypeToChoose
           sc={sc}

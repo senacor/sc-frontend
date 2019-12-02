@@ -178,7 +178,14 @@ export const addScType = async (
   }
 };
 
-export const addStatus = async (scId, status, error) => {
+export const addStatus = async (
+  scId,
+  status,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
   try {
     const response = await fetch(
       `${
@@ -190,7 +197,7 @@ export const addStatus = async (scId, status, error) => {
       }
     );
     if (response.ok) {
-      //fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
     } else {
       error.showGeneral();
     }
