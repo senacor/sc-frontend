@@ -7,10 +7,6 @@ import TimeIcon from '@material-ui/icons/AccessTime';
 
 const styles = theme => ({
   ...theme.styledComponents,
-  paper: {
-    backgroundColor: theme.palette.secondary.white,
-    margin: 3 * theme.spacing.unit
-  },
   scTypeNotSelected: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
@@ -22,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const EmployeeWaitForScText = ({ intl, classes }) => {
+const WaitForScTypeNotification = ({ intl, classes }) => {
   return (
     <Paper className={`${classes.paper} ${classes.scTypeNotSelected}`}>
       <TimeIcon />
@@ -33,4 +29,4 @@ const EmployeeWaitForScText = ({ intl, classes }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(EmployeeWaitForScText));
+export default injectIntl(withStyles(styles)(WaitForScTypeNotification));

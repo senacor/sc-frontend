@@ -177,3 +177,7 @@ export const addScType = async (
     error.showGeneral();
   }
 };
+
+export const addScStatus = () => {
+  // TODO
+};

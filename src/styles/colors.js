@@ -79,6 +79,10 @@ const theme = createMuiTheme({
     subCategoryTitle: {
       padding: 8,
       paddingTop: 16
+    },
+    paper: {
+      backgroundColor: '#FFFFFF',
+      margin: 24
     }
   }
 });
