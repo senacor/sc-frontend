@@ -30,7 +30,8 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.white
   },
   spacing: {
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 10
   }
 });
 

@@ -6,7 +6,9 @@ import { useUserinfoContext } from '../../../helper/contextHooks';
 const styles = theme => ({
   btnContainer: {
     padding: theme.spacing.unit * 2,
-    textAlign: 'right'
+    position: 'fixed',
+    bottom: 5,
+    right: 5
   },
   btnSave: {
     marginRight: theme.spacing.unit * 2
