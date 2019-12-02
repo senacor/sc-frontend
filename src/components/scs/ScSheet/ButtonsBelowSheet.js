@@ -2,6 +2,7 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Button, Tooltip } from '@material-ui/core';
 import { useUserinfoContext } from '../../../helper/contextHooks';
+import { SC_STATUS } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   btnContainer: {
@@ -28,11 +29,11 @@ const ButtonsBelowSheet = ({
 
   const disableSaveButton = () => {
     if (user.isReviewerInSc(sc)) {
-      return sc.statusSet.includes('REVIEWER_SUBMITTED');
+      return sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED);
     }
 
     if (user.isOwnerInSc(sc)) {
-      return sc.statusSet.includes('EMPLOYEE_SUBMITTED');
+      return sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED);
     }
 
     return true;

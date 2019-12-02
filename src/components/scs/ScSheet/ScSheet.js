@@ -6,7 +6,7 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData } from '../../../calls/sc';
+import { savePerformanceData, setStatus } from '../../../calls/sc';
 import PrCategories from './categories/PrCategories';
 import cloneDeep from '../../../helper/cloneDeep';
 import Performance from './categories/Performance';
@@ -22,7 +22,7 @@ import {
   updatePercentageWithPRPrCategories
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
-import { CATEGORY } from '../../../helper/scSheetData';
+import { SC_STATUS, CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -236,7 +236,47 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
   );
 
   const handleSubmit = () => {
-    // TODO: submitting data and sending to backend
+    const mapToDTO = field => {
+      return {
+        title: field.title,
+        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
+        percentage: field.percentage,
+        description: field.description,
+        achievement: field.achievement,
+        weight: field.weight,
+        comment: field.comment
+      };
+    };
+
+    const data = {
+      dailyBusiness: dailyBusinessFields.map(mapToDTO),
+      project: projectFields.map(mapToDTO),
+      workEfficiency: mapToDTO(workEfficiencyFields),
+      workQuality: mapToDTO(workQualityFields),
+      skillsInTheFields: mapToDTO(skillsInTheFieldsFields),
+      impactOnTeam: mapToDTO(impactOnTeamFields),
+      serviceQuality: mapToDTO(serviceQualityFields),
+      impactOnCompany: mapToDTO(impactOnCompanyFields),
+      skillsWeightPercentage: prCategoriesWeightPercentage
+    };
+
+    savePerformanceData(
+      sc.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      data,
+      info,
+      error
+    ).then(() => {
+      if (user.isOwnerInSc(sc)) {
+        if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
+          setStatus(sc.id, SC_STATUS.EMPLOYEE_SUBMITTED, error);
+        }
+      } else if (user.isReviewerInSc(sc)) {
+        if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
+          setStatus(sc.id, SC_STATUS.REVIEWER_SUBMITTED, error);
+        }
+      }
+    });
   };
 
   const validateEvaluations = () => {
@@ -258,6 +298,22 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       arr.push(workQualityFields.evaluation);
     }
     return arr.every(numberIsPositive);
+  };
+
+  const isSubmitted = () => {
+    if (
+      user.isOwnerInSc(sc) &&
+      sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)
+    ) {
+      return true;
+    } else if (
+      user.isReviewerInSc(sc) &&
+      sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)
+    ) {
+      return true;
+    }
+
+    return false;
   };
 
   const handleSave = () => {
@@ -425,7 +481,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
         </Fragment>
       )}
       <ButtonsBelowSheet
-        submitDisabled={!validateEvaluations()}
+        submitDisabled={!validateEvaluations() || isSubmitted()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
         sc={sc}

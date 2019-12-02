@@ -1,6 +1,9 @@
 // Replacing "_" with " " and setting only first letter as capital
 // Example use: pr occasion
 export const modifyString = string => {
+  if (!string) {
+    return null;
+  }
   const replacedStr =
     string.charAt(0).toUpperCase() +
     string

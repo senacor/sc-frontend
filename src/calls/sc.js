@@ -177,3 +177,25 @@ export const addScType = async (
     error.showGeneral();
   }
 };
+
+export const setStatus = async (scId, status, error) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/status?scStatus=${status}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      //fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
