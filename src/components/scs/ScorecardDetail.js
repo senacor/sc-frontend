@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ScContainer from './scContainer/ScContainer';
 import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
-import { fetchScById, addScType } from '../../calls/sc';
+import { fetchScById, addScType, addScStatus } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
@@ -27,6 +27,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const afterScFetched = sc => {
     setSc(sc);
+    setPosition(sc.position);
     fetchMeeting(sc, setMeeting, error);
   };
 
@@ -71,6 +72,10 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTab(value);
   };
 
+  const handleMeetingConfirm = () => {
+    addScStatus();
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -90,6 +95,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               handleChangeType={handleChangeType}
               scTypeSeleted={scTypeSeleted}
               handleSubmitScType={handleSubmitScType}
+              handleMeetingConfirm={handleMeetingConfirm}
             />
           </Fragment>
         )

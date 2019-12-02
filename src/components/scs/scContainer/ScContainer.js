@@ -3,9 +3,10 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import { SC_STATUS } from '../../../helper/scSheetData';
-import EmployeeWaitForScText from './EmployeeWaitForScText';
+import WaitForScTypeNotification from './WaitForScTypeNotification';
 import ScTabs from './ScTabs';
 import ScTypeToChoose from './ScTypeToChoose';
+import StatusStepper from './statusStepper/StatusStepper';
 
 const styles = theme => ({});
 
@@ -17,12 +18,18 @@ const ScContainer = ({
   handleChangePosition,
   handleChangeType,
   scTypeSeleted,
-  handleSubmitScType
+  handleSubmitScType,
+  handleMeetingConfirm
 }) => {
   const user = useUserinfoContext();
 
   return (
     <Fragment>
+      <StatusStepper
+        sc={sc}
+        position={position}
+        handleMeetingConfirm={handleMeetingConfirm}
+      />
       {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
       sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
         <ScTabs sc={sc} tabValue={tabValue} handleChangeTab={handleChangeTab} />
@@ -36,7 +43,7 @@ const ScContainer = ({
           handleSubmitScType={handleSubmitScType}
         />
       ) : (
-        <EmployeeWaitForScText />
+        <WaitForScTypeNotification />
       )}
     </Fragment>
   );

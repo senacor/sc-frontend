@@ -20,10 +20,6 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     margin: 3 * theme.spacing.unit
   },
-  paper: {
-    backgroundColor: theme.palette.secondary.white,
-    margin: 3 * theme.spacing.unit
-  },
   tabStyleSc: {
     backgroundColor: theme.palette.secondary.main
   },
@@ -34,7 +30,8 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.white
   },
   spacing: {
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 10
   }
 });
 
