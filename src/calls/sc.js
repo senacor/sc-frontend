@@ -148,7 +148,7 @@ export const getScsToReview = async (setScs, setIsLoading, error) => {
   }
 };
 
-export const addScStatus = async (
+export const addScType = async (
   scId,
   status,
   position,
@@ -176,4 +176,8 @@ export const addScStatus = async (
     console.log(err);
     error.showGeneral();
   }
+};
+
+export const addScStatus = () => {
+  // TODO
 };

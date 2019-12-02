@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core';
 import ScContainer from './scContainer/ScContainer';
 import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
-import { fetchScById, addScStatus } from '../../calls/sc';
+import { fetchScById, addScType, addScStatus } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { fetchMeeting } from '../../calls/meetings';
 import { MeetingContext } from '../App';
-import { SC_TAB, SC_STATUS } from '../../helper/scSheetData';
+import { SC_TAB } from '../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -27,6 +27,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const afterScFetched = sc => {
     setSc(sc);
+    setPosition(sc.position);
     fetchMeeting(sc, setMeeting, error);
   };
 
@@ -40,7 +41,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const handleSubmitScType = () => {
     if (scTypeSeleted) {
-      addScStatus(
+      addScType(
         sc.id,
         scTypeSeleted,
         position,
@@ -72,15 +73,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleMeetingConfirm = () => {
-    addScStatus(
-      sc.id,
-      [SC_STATUS.MEETING_CONFIRMED],
-      position,
-      setSc,
-      setIsLoading,
-      error,
-      afterScFetched
-    );
+    addScStatus();
   };
 
   return (
