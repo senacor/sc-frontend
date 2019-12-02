@@ -68,7 +68,8 @@ const ScRow = memo(
     row,
     action,
     removeSubcategory,
-    type
+    type,
+    fieldsDisabled
   }) => {
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
@@ -101,6 +102,7 @@ const ScRow = memo(
                 {type === CATEGORY.DAILY_BUSINESS ||
                 type === CATEGORY.PROJECT ? (
                   <TextField
+                    disabled={fieldsDisabled}
                     type="text"
                     value={row.title}
                     margin="normal"
@@ -128,6 +130,7 @@ const ScRow = memo(
                     })}
                   </InputLabel>
                   <Select
+                    disabled={fieldsDisabled}
                     id="weight-label"
                     value={row.weight}
                     onChange={e => action(type, 'weight', e)}
@@ -155,6 +158,7 @@ const ScRow = memo(
               </Grid>
               <Grid item sm={2} className={classes.textCenter}>
                 <ScRatingPoints
+                  fieldsDisabled={fieldsDisabled}
                   type={type}
                   rating={row.evaluation}
                   changeEvaluation={e => action(type, 'evaluation', e)}
@@ -176,6 +180,7 @@ const ScRow = memo(
                 <Grid container>
                   <Grid item sm={12}>
                     <TextField
+                      disabled={fieldsDisabled}
                       type="text"
                       value={row.comment}
                       margin="normal"
@@ -207,6 +212,7 @@ const ScRow = memo(
                     </div>
                   ) : (
                     <TextField
+                      disabled={fieldsDisabled}
                       type="text"
                       value={row.description}
                       margin="normal"
@@ -224,6 +230,7 @@ const ScRow = memo(
                 type === CATEGORY.WORK_QUALITY ? null : (
                   <Grid item sm={4}>
                     <TextField
+                      disabled={fieldsDisabled}
                       type="text"
                       value={row.achievement}
                       margin="normal"
@@ -247,6 +254,7 @@ const ScRow = memo(
                   }
                 >
                   <TextField
+                    disabled={fieldsDisabled}
                     type="text"
                     value={row.comment}
                     margin="normal"

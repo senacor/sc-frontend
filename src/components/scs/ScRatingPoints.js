@@ -28,7 +28,14 @@ const styles = theme => ({
   }
 });
 
-const ScRatingPoints = ({ classes, intl, type, rating, changeEvaluation }) => {
+const ScRatingPoints = ({
+  classes,
+  intl,
+  type,
+  rating,
+  changeEvaluation,
+  fieldsDisabled
+}) => {
   const determinePerformanceLevelsText = type => {
     let arr;
     switch (type) {
@@ -59,6 +66,7 @@ const ScRatingPoints = ({ classes, intl, type, rating, changeEvaluation }) => {
           })}
         </InputLabel>
         <Select
+          disabled={fieldsDisabled}
           id="evaluation-label"
           value={rating}
           onChange={changeEvaluation}

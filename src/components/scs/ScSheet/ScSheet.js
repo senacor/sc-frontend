@@ -23,6 +23,7 @@ import {
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
 import { CATEGORY } from '../../../helper/scSheetData';
+import { allowEditFields } from './helperFunc';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -81,6 +82,17 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
   const [weightsWithPRPerformance, setWeightsWithPRPerformance] = useState(5);
   const [weightsWithPRPrCategories, setWeightsWithPRPrCategories] = useState(4);
   const [finalScore, setFinalScore] = useState(0);
+  const [fieldsDisabled, setFieldsDisabled] = useState(true);
+
+  useEffect(() => {
+    setFieldsDisabled(
+      !allowEditFields(
+        user.isOwnerInSc(sc),
+        user.isReviewerInSc(sc),
+        sc.statusSet
+      )
+    );
+  }, []);
 
   useEffect(
     () => {
@@ -384,6 +396,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       {scWithPr ? (
         <Fragment>
           <Performance
+            fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
             projectFields={projectFields}
             handleChangePerformance={handleChangePerformance}
@@ -394,6 +407,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
           <PrCategories
+            fieldsDisabled={fieldsDisabled}
             skillsInTheFieldsFields={skillsInTheFieldsFields}
             impactOnTeamFields={impactOnTeamFields}
             serviceQualityFields={serviceQualityFields}
@@ -407,6 +421,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       ) : (
         <Fragment>
           <Performance
+            fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
             projectFields={projectFields}
             handleChangePerformance={handleChangePerformance}
@@ -414,10 +429,12 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
             removeSubcategory={removeSubcategory}
           />
           <WorkEfficiency
+            fieldsDisabled={fieldsDisabled}
             workEfficiencyFields={workEfficiencyFields}
             handleChangeWorkEfficiency={handleChangeWorkEfficiency}
           />
           <WorkQuality
+            fieldsDisabled={fieldsDisabled}
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
