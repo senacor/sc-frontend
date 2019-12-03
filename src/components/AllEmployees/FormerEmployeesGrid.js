@@ -1,14 +1,14 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { Button, CircularProgress, withStyles } from '@material-ui/core';
-import FormerEmployeeCard from './FormerEmployeeCard';
-// Calls
-// Material UI
-import Grid from '@material-ui/core/Grid';
 import {
   handleFormerFilterActive,
   checkFilterValues
 } from '../../helper/filterFunctions';
+import EmployeeCard from './EmployeeCard';
+
+// Material UI
+import Grid from '@material-ui/core/Grid';
+import { Button, CircularProgress, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   gridContainer: {
@@ -50,18 +50,18 @@ const FormerEmployeesGrid = ({
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
-      checkFilterValues(filterInputs.cc, empl.competence) &&
-      checkFilterValues(filterInputs.cst, empl.cst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
-      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      checkFilterValues(filterInputs.month, empl.endDate[1])
+      checkFilterValues(filterInputs.department, empl.department) &&
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      // &&
+      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      // checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <FormerEmployeeCard employee={employee} />
+      <EmployeeCard employee={employee} formerEmployee />
     </Grid>
   ));
 
@@ -70,7 +70,7 @@ const FormerEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <FormerEmployeeCard employee={employee} />
+        <EmployeeCard employee={employee} formerEmployee />
       </Grid>
     ));
 

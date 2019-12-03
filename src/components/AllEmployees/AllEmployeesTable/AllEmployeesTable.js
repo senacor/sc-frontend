@@ -29,9 +29,12 @@ export const filterEmployees = (employees, filterInputs) => {
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
+      checkFilterValues(filterInputs.department, empl.department) &&
+      checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      // &&
+      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      // checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 };
@@ -40,9 +43,6 @@ const AllEmployeesTable = ({
   classes,
   intl,
   filterInputs,
-  toggleSelected,
-  selection,
-  selected,
   employees,
   isLoading
 }) => {
@@ -65,15 +65,7 @@ const AllEmployeesTable = ({
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
-      return (
-        <EmployeeTableRow
-          key={employee.id}
-          employee={employee}
-          toggleSelected={toggleSelected}
-          selection={selection}
-          selected={selected[employee.id]}
-        />
-      );
+      return <EmployeeTableRow key={employee.id} employee={employee} />;
     });
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
@@ -81,13 +73,7 @@ const AllEmployeesTable = ({
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow
-        key={employee.id}
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
+      <EmployeeTableRow key={employee.id} employee={employee} />
     ));
 
   if (isLoading) {

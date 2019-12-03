@@ -9,15 +9,27 @@ export const positions = [
   'Other'
 ];
 
-export const competenceCenters = [
-  'Consultants',
-  'Commercial Banking',
-  'Retail Banking',
-  'Mobility',
-  'Insurance & Public Services',
-  'DEV Tech',
-  'ETL Tech'
+export const departments = [
+  'Accounting',
+  'Corporate-Controlling',
+  'Finance',
+  'FIS',
+  'Geschäftsbereichs-Controlling',
+  'HR',
+  'IT Administration',
+  'IT Servicedesk',
+  'Legal',
+  'Marketing/PR',
+  'Office Services',
+  'Payroll',
+  'Personal Development',
+  'Projektcontrolling',
+  'Recruiting',
+  'TBD',
+  'Travel Services'
 ];
+
+export const scStatuses = [];
 
 export const cst = [
   'CBK',

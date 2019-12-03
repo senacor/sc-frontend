@@ -26,9 +26,6 @@ const AllEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
-  toggleSelected,
-  selection,
-  selected,
   employees,
   isLoading
 }) => {
@@ -53,21 +50,19 @@ const AllEmployeesGrid = ({
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
+      checkFilterValues(filterInputs.department, empl.department) &&
+      checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      // &&
+      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      // checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
+      <EmployeeCard employee={employee} formerEmployee />
     </Grid>
   ));
 
@@ -76,12 +71,7 @@ const AllEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <EmployeeCard
-          employee={employee}
-          toggleSelected={toggleSelected}
-          selection={selection}
-          selected={selected[employee.id]}
-        />
+        <EmployeeCard employee={employee} formerEmployee />
       </Grid>
     ));
 
@@ -98,6 +88,7 @@ const AllEmployeesGrid = ({
             <Button
               className={classes.showMore}
               onClick={() => showMore(employees)}
+              variant="contained"
             >
               {`${intl.formatMessage({
                 id: 'showMore'
@@ -108,6 +99,7 @@ const AllEmployeesGrid = ({
             <Button
               className={classes.showMore}
               onClick={() => showMore(filteredEmployees)}
+              variant="contained"
             >
               {`${intl.formatMessage({
                 id: 'showMore'

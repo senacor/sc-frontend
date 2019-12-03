@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const sortByLastName = (data, sortDirection) => {
   if (sortDirection === 'asc') {
     data.sort((a, b) => {
@@ -163,12 +165,29 @@ export const checkFilterValues = (filterData, userData) => {
   } else if (filterData !== '' && typeof filterData === 'string') {
     return userData
       ? userData
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterData.toLowerCase())
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(filterData.toLowerCase())
       : false;
   } else {
     return true;
   }
+};
+
+export const years = () => {
+  let years = [];
+  const currentYear = moment().year();
+  for (let i = currentYear; i >= 2000; i--) {
+    years.push(i);
+  }
+  return years;
+};
+
+export const months = () => {
+  let months = [];
+  for (let i = 1; i <= 12; i++) {
+    months.push(i);
+  }
+  return months;
 };

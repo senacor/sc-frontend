@@ -17,7 +17,7 @@ const styles = theme => ({
     display: 'block'
   },
   inputForAll: {
-    width: 130,
+    width: 87,
     margin: 2 * theme.spacing.unit
   },
   inputForFormer: {
@@ -27,6 +27,9 @@ const styles = theme => ({
   inputForProcessing: {
     width: 150,
     margin: 0
+  },
+  label: {
+    paddingLeft: 2 * theme.spacing.unit
   },
   chips: {
     display: 'flex',
@@ -46,7 +49,12 @@ const SortingFilter = ({
   return (
     <div className={classes.expansionFilter}>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="select-multiple-positions">{sortBy}</InputLabel>
+        <InputLabel
+          className={classes.label}
+          htmlFor="select-multiple-positions"
+        >
+          {sortBy}
+        </InputLabel>
         <Select
           multiple
           value={stateValue}

@@ -48,10 +48,7 @@ const EmployeeTableRow = ({
     dateOfNextPr,
     supervisorName,
     hasOpenedPr
-  },
-  selection,
-  selected,
-  toggleSelected
+  }
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -62,18 +59,6 @@ const EmployeeTableRow = ({
   const employeeName = `${firstName} ${lastName}`;
   let bgClass = '';
   let onRowClick = handleDialogOpen;
-
-  if (selection) {
-    if (hasOpenedPr || !supervisorName) {
-      bgClass = classes.selectionUnavailable;
-      onRowClick = () => {};
-    } else {
-      onRowClick = () => toggleSelected(id);
-      bgClass = selected ? classes.selected : classes.selectable;
-    }
-  } else {
-    bgClass = classes.notSelection;
-  }
 
   return (
     <Fragment>

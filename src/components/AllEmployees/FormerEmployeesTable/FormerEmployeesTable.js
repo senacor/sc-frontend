@@ -30,11 +30,11 @@ export const filterEmployees = (employees, filterInputs) => {
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
-      checkFilterValues(filterInputs.cc, empl.competence) &&
-      checkFilterValues(filterInputs.cst, empl.cst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
-      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      checkFilterValues(filterInputs.month, empl.endDate[1])
+      checkFilterValues(filterInputs.department, empl.department) &&
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      //  &&
+      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      // checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 };

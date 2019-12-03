@@ -4,12 +4,10 @@ import { withStyles, Tooltip } from '@material-ui/core';
 import FormerEmployeesGrid from './FormerEmployeesGrid';
 import SearchFilter from './SearchFilter';
 import SortingFilter from './SortingFilter';
-import {
-  positions,
-  competenceCenters,
-  cst,
-  locations
-} from '../../helper/filterData';
+import { positions, departments, locations } from '../../helper/filterData';
+import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
+import { useErrorContext } from '../../helper/contextHooks';
+import { years, months } from '../../helper/filterFunctions';
 
 // Calls
 import { getInactiveEmployees } from '../../calls/employees';
@@ -24,9 +22,6 @@ import Typography from '@material-ui/core/Typography';
 import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
-import moment from 'moment';
-import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
-import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -36,7 +31,7 @@ const styles = theme => ({
     margin: '0.5rem',
     padding: '0.5rem 2rem'
   },
-  upperPanel: {
+  upperMenuContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -80,8 +75,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   const [monthSorting, setMonthSorting] = useState([]);
   const [yearSorting, setYearSorting] = useState([]);
   const [positionSorting, setPositionSorting] = useState([]);
-  const [ccSorting, setCcSorting] = useState([]);
-  const [cstSorting, setCstSorting] = useState([]);
+  const [departmentSorting, setDepartmentSorting] = useState([]);
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
@@ -109,12 +103,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     setPositionSorting(event.target.value);
   };
 
-  const handleSortCcChange = event => {
-    setCcSorting(event.target.value);
-  };
-
-  const handleSortCstChange = event => {
-    setCstSorting(event.target.value);
+  const handleSortDepartmentChange = event => {
+    setDepartmentSorting(event.target.value);
   };
 
   const handleSortLocationChange = event => {
@@ -129,9 +119,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     setYearSorting([]);
     setMonthSorting([]);
     setSearchEmployeesValue('');
-    setCstSorting([]);
     setPositionSorting([]);
-    setCcSorting([]);
+    setDepartmentSorting([]);
     setLocationSorting([]);
   };
 
@@ -150,26 +139,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     year: [...yearSorting],
     month: [...monthSorting],
     position: [...positionSorting],
-    cc: [...ccSorting],
-    cst: [...cstSorting],
+    department: [...departmentSorting],
     officeLocation: [...locationSorting]
-  };
-
-  const years = () => {
-    let years = [];
-    const currentYear = moment().year();
-    for (let i = currentYear; i >= 2000; i--) {
-      years.push(i);
-    }
-    return years;
-  };
-
-  const months = () => {
-    let months = [];
-    for (let i = 1; i <= 12; i++) {
-      months.push(i);
-    }
-    return months;
   };
 
   const sortingData = [
@@ -196,10 +167,10 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     },
     {
       id: 4,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.cc' }),
-      menuData: competenceCenters,
-      stateValue: ccSorting,
-      handleChange: handleSortCcChange
+      sortBy: intl.formatMessage({ id: 'employeeInfo.department' }),
+      menuData: departments,
+      stateValue: departmentSorting,
+      handleChange: handleSortDepartmentChange
     },
     {
       id: 5,
@@ -207,15 +178,41 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       menuData: locations,
       stateValue: locationSorting,
       handleChange: handleSortLocationChange
-    },
-    {
-      id: 6,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.cst' }),
-      menuData: cst,
-      stateValue: cstSorting,
-      handleChange: handleSortCstChange
     }
   ];
+
+  const upperFilterMenu = (
+    <div className={classes.upperMenuContainer}>
+      <SearchFilter
+        searchValue={searchEmployeesValue}
+        searchChange={handleSearchEmployeeChange}
+        placeholder={intl.formatMessage({
+          id: 'filter.searchEmployee'
+        })}
+      />
+      {visibleAdvancedFilter && (
+        <Button
+          variant="contained"
+          onClick={clearFilter}
+          className={classes.clearFilterBtn}
+        >
+          <Typography variant="button" className={classes.clearFilterText}>
+            x {intl.formatMessage({ id: 'filter.clear' })}
+          </Typography>
+        </Button>
+      )}
+      <Button
+        onClick={() => toggleSortingFilter()}
+        className={classes.toggleFilterBtn}
+        variant="contained"
+      >
+        <FilterIcon />
+        <Typography variant="button">
+          {intl.formatMessage({ id: 'filter.advanced' })}
+        </Typography>
+      </Button>
+    </div>
+  );
 
   return (
     <div className={classes.container}>
@@ -231,24 +228,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
         )}
       </IconButton>
       <Paper className={classes.filterWithUpload}>
-        <div className={classes.upperPanel}>
-          <div className={classes.advFilter}>
-            <SearchFilter
-              searchValue={searchEmployeesValue}
-              searchChange={handleSearchEmployeeChange}
-              placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
-            />
-            <Button
-              onClick={() => toggleSortingFilter()}
-              className={classes.advFilterButton}
-            >
-              <FilterIcon />
-              <Typography variant="button">
-                {intl.formatMessage({ id: 'filter.advanced' })}
-              </Typography>
-            </Button>
-          </div>
-        </div>
+        {upperFilterMenu}
         {visibleAdvancedFilter && (
           <div className={classes.advFilter}>
             {sortingData.map(item => (
@@ -258,21 +238,15 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
                 handleChange={item.handleChange}
                 menuData={item.menuData}
                 stateValue={item.stateValue}
-                formerEmployees={true}
+                formerEmployees
               />
             ))}
-            <Button onClick={clearFilter} className={classes.clearFilterBtn}>
-              <Typography variant="button" className={classes.clearFilterText}>
-                x {intl.formatMessage({ id: 'filter.clear' })}
-              </Typography>
-            </Button>
           </div>
         )}
       </Paper>
       {tableView ? (
         <FormerEmployeesTable
           filterInputs={filterInputs}
-          selected={{}}
           employees={employees}
           isLoading={isLoading}
         />
