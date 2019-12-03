@@ -26,7 +26,8 @@ const PrCategories = React.memo(
     impactOnCompanyFields,
     handleChangePrCategories,
     prCategoriesWeightPercentage,
-    handleChangeWeightPercentage
+    handleChangeWeightPercentage,
+    fieldsDisabled
   }) => {
     return (
       <Fragment>
@@ -38,6 +39,7 @@ const PrCategories = React.memo(
           </Grid>
           <Grid item xs={1}>
             <TextField
+              disabled={fieldsDisabled}
               inputProps={{ style: { height: 10 } }}
               type="number"
               value={prCategoriesWeightPercentage}
@@ -54,6 +56,7 @@ const PrCategories = React.memo(
           </Grid>
         </Grid>
         <ScRow
+          fieldsDisabled={fieldsDisabled}
           row={skillsInTheFieldsFields}
           type={CATEGORY.SKILLS_IN_THE_FIELDS}
           action={handleChangePrCategories}
@@ -66,6 +69,7 @@ const PrCategories = React.memo(
         />
         <Divider />
         <ScRow
+          fieldsDisabled={fieldsDisabled}
           row={impactOnTeamFields}
           type={CATEGORY.TEAM_IMPACT}
           action={handleChangePrCategories}
@@ -78,6 +82,7 @@ const PrCategories = React.memo(
         />
         <Divider />
         <ScRow
+          fieldsDisabled={fieldsDisabled}
           row={serviceQualityFields}
           type={CATEGORY.SERVICE_QUALITY}
           action={handleChangePrCategories}
@@ -90,6 +95,7 @@ const PrCategories = React.memo(
         />
         <Divider />
         <ScRow
+          fieldsDisabled={fieldsDisabled}
           row={impactOnCompanyFields}
           type={CATEGORY.COMPANY_IMPACT}
           action={handleChangePrCategories}

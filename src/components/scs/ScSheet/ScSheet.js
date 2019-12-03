@@ -6,7 +6,7 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData, addStatus } from '../../../calls/sc';
+import { savePerformanceData, addScStatus } from '../../../calls/sc';
 import PrCategories from './categories/PrCategories';
 import cloneDeep from '../../../helper/cloneDeep';
 import Performance from './categories/Performance';
@@ -22,6 +22,7 @@ import {
   updatePercentageWithPRPrCategories
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
+import { allowEditFields } from './helperFunc';
 import { SC_STATUS, SC_TAB, CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
@@ -90,6 +91,20 @@ const ScSheet = ({
   const [weightsWithPRPerformance, setWeightsWithPRPerformance] = useState(5);
   const [weightsWithPRPrCategories, setWeightsWithPRPrCategories] = useState(4);
   const [finalScore, setFinalScore] = useState(0);
+  const [fieldsDisabled, setFieldsDisabled] = useState(true);
+
+  useEffect(
+    () => {
+      setFieldsDisabled(
+        !allowEditFields(
+          user.isOwnerInSc(sc),
+          user.isReviewerInSc(sc),
+          sc.statusSet
+        )
+      );
+    },
+    [sc]
+  );
 
   useEffect(
     () => {
@@ -319,7 +334,7 @@ const ScSheet = ({
     ).then(() => {
       if (user.isOwnerInSc(sc)) {
         if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
-          addStatus(
+          addScStatus(
             sc.id,
             SC_STATUS.EMPLOYEE_SUBMITTED,
             setSc,
@@ -330,7 +345,7 @@ const ScSheet = ({
         }
       } else if (user.isReviewerInSc(sc)) {
         if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
-          addStatus(
+          addScStatus(
             sc.id,
             SC_STATUS.REVIEWER_SUBMITTED,
             setSc,
@@ -504,6 +519,7 @@ const ScSheet = ({
       {scWithPr ? (
         <Fragment>
           <Performance
+            fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
             projectFields={projectFields}
             handleChangePerformance={handleChangePerformance}
@@ -514,6 +530,7 @@ const ScSheet = ({
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
           <PrCategories
+            fieldsDisabled={fieldsDisabled}
             skillsInTheFieldsFields={skillsInTheFieldsFields}
             impactOnTeamFields={impactOnTeamFields}
             serviceQualityFields={serviceQualityFields}
@@ -527,6 +544,7 @@ const ScSheet = ({
       ) : (
         <Fragment>
           <Performance
+            fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
             projectFields={projectFields}
             handleChangePerformance={handleChangePerformance}
@@ -534,10 +552,12 @@ const ScSheet = ({
             removeSubcategory={removeSubcategory}
           />
           <WorkEfficiency
+            fieldsDisabled={fieldsDisabled}
             workEfficiencyFields={workEfficiencyFields}
             handleChangeWorkEfficiency={handleChangeWorkEfficiency}
           />
           <WorkQuality
+            fieldsDisabled={fieldsDisabled}
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />

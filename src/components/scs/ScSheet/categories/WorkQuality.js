@@ -9,13 +9,20 @@ const styles = theme => ({
 });
 
 const WorkQuality = memo(
-  ({ classes, intl, workQualityFields, handleChangeWorkQuality }) => {
+  ({
+    classes,
+    intl,
+    workQualityFields,
+    handleChangeWorkQuality,
+    fieldsDisabled
+  }) => {
     return (
       <Fragment>
         <Typography variant="h5" className={classes.categoryTitle}>
           {intl.formatMessage({ id: 'scsheet.category.workQuality' })}
         </Typography>
         <ScRow
+          fieldsDisabled={fieldsDisabled}
           type={CATEGORY.WORK_QUALITY}
           row={workQualityFields}
           action={handleChangeWorkQuality}
