@@ -17,7 +17,7 @@ pipeline {
           env.FRONTEND_PATH = env.TARGET_FOLDER + "/frontend"
           env.BACKEND_URL = env.FRONTEND_URL
         }
-        sh 'echo "'+env.loadedParameters+'" > deploy_utils/config.tmp'
+        sh 'echo "'+env.loadedParameters+'" > config.tmp'
       }
     }
     stage('Building app') {
