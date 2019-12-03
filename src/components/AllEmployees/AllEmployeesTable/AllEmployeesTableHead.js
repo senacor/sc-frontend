@@ -34,7 +34,7 @@ const AllEmployeesTableHead = ({ intl, classes }) => {
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.cst'
+            id: 'employeeInfo.scStatus'
           })}
         </TableCell>
         <TableCell className={classes.tableCell}>
@@ -44,17 +44,17 @@ const AllEmployeesTableHead = ({ intl, classes }) => {
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.cc'
+            id: 'employeeInfo.department'
           })}
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.officelocation'
+            id: 'employeeInfo.office'
           })}
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.startDate'
+            id: 'employeeInfo.entryDate'
           })}
         </TableCell>
       </TableRow>

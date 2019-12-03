@@ -34,17 +34,12 @@ const FormerEmployeesTableHead = ({ intl, classes }) => {
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.cst'
-          })}
-        </TableCell>
-        <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
             id: 'employeeInfo.supervisor'
           })}
         </TableCell>
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
-            id: 'employeeInfo.cc'
+            id: 'employeeInfo.department'
           })}
         </TableCell>
         <TableCell className={classes.tableCell}>

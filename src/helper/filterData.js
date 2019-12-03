@@ -29,7 +29,13 @@ export const departments = [
   'Travel Services'
 ];
 
-export const scStatuses = [];
+export const scStatuses = [
+  'Initialization',
+  'In progress',
+  'Termin',
+  'Done',
+  'No Scorecard'
+];
 
 export const cst = [
   'CBK',

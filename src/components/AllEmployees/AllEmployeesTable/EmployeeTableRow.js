@@ -38,48 +38,42 @@ const styles = theme => ({
 const EmployeeTableRow = ({
   classes,
   employee: {
-    id,
     firstName,
     lastName,
-    competenceCenter,
+    department,
     currentPosition,
-    currentCst,
+    scStatus,
     officeLocation,
-    dateOfNextPr,
     supervisorName,
-    hasOpenedPr
-  }
+    entryDate,
+    exitDate
+  },
+  formerEmployee
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
-    setDialogOpen(true);
+    setDialogOpen(!dialogOpen);
   };
 
   const employeeName = `${firstName} ${lastName}`;
-  let bgClass = '';
-  let onRowClick = handleDialogOpen;
 
   return (
     <Fragment>
-      <TableRow
-        className={`${classes.tableRow} ${bgClass}`}
-        onClick={onRowClick}
-      >
+      <TableRow className={`${classes.tableRow}`} onClick={handleDialogOpen}>
         <TableCell>{employeeName}</TableCell>
         <TableCell>{currentPosition}</TableCell>
-        <TableCell>{currentCst}</TableCell>
+        <TableCell>{scStatus}</TableCell>
         <TableCell>{supervisorName}</TableCell>
-        <TableCell>{competenceCenter}</TableCell>
+        <TableCell>{department}</TableCell>
         <TableCell>{officeLocation}</TableCell>
         <TableCell>
-          {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+          {formerEmployee
+            ? formatLocaleDateTime(exitDate, FRONTEND_DATE_FORMAT)
+            : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>
-      {dialogOpen &&
-        {
-          /* TODO: add SCs view*/
-        }}
+      {dialogOpen && <div>TODO add dialog</div>}
     </Fragment>
   );
 };

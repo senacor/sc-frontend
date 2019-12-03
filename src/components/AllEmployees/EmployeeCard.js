@@ -102,16 +102,13 @@ const EmployeeCard = ({
       <Avatar />
     );
 
-  let avatar = employeePhoto;
-  let onCardClick = handleDialogOpen;
-
   return (
     <Fragment>
-      <Card className={classes.card} onClick={onCardClick}>
+      <Card className={classes.card} onClick={handleDialogOpen}>
         <CardHeader
           className={`${classes.header}`}
           title={employeeName}
-          avatar={avatar}
+          avatar={employeePhoto}
         />
         <Divider />
         <CardContent>
