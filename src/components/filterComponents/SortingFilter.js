@@ -14,22 +14,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 const styles = theme => ({
   ...theme,
   expansionFilter: {
-    display: 'block'
+    display: 'block',
+    marginBottom: 2 * theme.spacing.unit
   },
-  inputForAll: {
-    width: 87,
-    margin: 2 * theme.spacing.unit
-  },
-  inputForFormer: {
-    width: 87,
-    margin: 2 * theme.spacing.unit
-  },
-  inputForProcessing: {
-    width: 150,
-    margin: 0
-  },
-  label: {
-    paddingLeft: 2 * theme.spacing.unit
+  input: {
+    width: 120
   },
   chips: {
     display: 'flex',
@@ -42,34 +31,18 @@ const SortingFilter = ({
   sortBy,
   handleChange,
   menuData,
-  stateValue,
-  formerEmployees,
-  processingPrs
+  stateValue
 }) => {
   return (
     <div className={classes.expansionFilter}>
       <FormControl className={classes.formControl}>
-        <InputLabel
-          className={classes.label}
-          htmlFor="select-multiple-positions"
-        >
-          {sortBy}
-        </InputLabel>
+        <InputLabel htmlFor="select-multiple-positions">{sortBy}</InputLabel>
         <Select
           multiple
           value={stateValue}
           onChange={handleChange}
           input={
-            <Input
-              id="select-multiple-positions"
-              className={
-                formerEmployees
-                  ? classes.inputForFormer
-                  : processingPrs
-                  ? classes.inputForProcessing
-                  : classes.inputForAll
-              }
-            />
+            <Input id="select-multiple-positions" className={classes.input} />
           }
           renderValue={selected => (
             <div className={classes.chips}>{`${selected.length} items`}</div>

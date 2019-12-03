@@ -2,24 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Tooltip } from '@material-ui/core';
 import FormerEmployeesGrid from './FormerEmployeesGrid';
-import SearchFilter from './SearchFilter';
-import SortingFilter from './SortingFilter';
 import { positions, departments, locations } from '../../helper/filterData';
 import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
 import { useErrorContext } from '../../helper/contextHooks';
 import { years, months } from '../../helper/filterFunctions';
+import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
 
 // Calls
 import { getInactiveEmployees } from '../../calls/employees';
 
 // Material UI
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 // Icons
-import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
 
@@ -181,39 +176,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     }
   ];
 
-  const upperFilterMenu = (
-    <div className={classes.upperMenuContainer}>
-      <SearchFilter
-        searchValue={searchEmployeesValue}
-        searchChange={handleSearchEmployeeChange}
-        placeholder={intl.formatMessage({
-          id: 'filter.searchEmployee'
-        })}
-      />
-      {visibleAdvancedFilter && (
-        <Button
-          variant="contained"
-          onClick={clearFilter}
-          className={classes.clearFilterBtn}
-        >
-          <Typography variant="button" className={classes.clearFilterText}>
-            x {intl.formatMessage({ id: 'filter.clear' })}
-          </Typography>
-        </Button>
-      )}
-      <Button
-        onClick={() => toggleSortingFilter()}
-        className={classes.toggleFilterBtn}
-        variant="contained"
-      >
-        <FilterIcon />
-        <Typography variant="button">
-          {intl.formatMessage({ id: 'filter.advanced' })}
-        </Typography>
-      </Button>
-    </div>
-  );
-
   return (
     <div className={classes.container}>
       <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
@@ -227,23 +189,14 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
           </Tooltip>
         )}
       </IconButton>
-      <Paper className={classes.filterWithUpload}>
-        {upperFilterMenu}
-        {visibleAdvancedFilter && (
-          <div className={classes.advFilter}>
-            {sortingData.map(item => (
-              <SortingFilter
-                key={item.id}
-                sortBy={item.sortBy}
-                handleChange={item.handleChange}
-                menuData={item.menuData}
-                stateValue={item.stateValue}
-                formerEmployees
-              />
-            ))}
-          </div>
-        )}
-      </Paper>
+      <UpperFilterMenu
+        searchEmployeesValue={searchEmployeesValue}
+        handleSearchEmployeeChange={handleSearchEmployeeChange}
+        visibleAdvancedFilter={visibleAdvancedFilter}
+        clearFilter={clearFilter}
+        toggleSortingFilter={toggleSortingFilter}
+        sortingData={sortingData}
+      />
       {tableView ? (
         <FormerEmployeesTable
           filterInputs={filterInputs}
