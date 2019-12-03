@@ -178,7 +178,7 @@ export const addScType = async (
   }
 };
 
-export const addStatus = async (
+export const addScStatus = async (
   scId,
   status,
   setSc,

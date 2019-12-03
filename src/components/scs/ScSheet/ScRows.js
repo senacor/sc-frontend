@@ -47,7 +47,8 @@ const ScRows = memo(
     fields,
     action,
     removeSubcategory,
-    type
+    type,
+    fieldsDisabled
   }) => {
     return (
       <Fragment>
@@ -57,6 +58,7 @@ const ScRows = memo(
               key={index}
               index={index}
               row={row}
+              fieldsDisabled={fieldsDisabled}
               title={title}
               description={description}
               achievement={achievement}

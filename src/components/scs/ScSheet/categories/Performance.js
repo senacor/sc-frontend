@@ -19,6 +19,9 @@ const styles = theme => ({
   ...theme.styledComponents,
   addProjectButton: {
     color: theme.palette.secondary.yellow
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
@@ -33,7 +36,8 @@ const Performance = memo(
     removeSubcategory,
     hasWeightPercentage,
     performanceWeightPercentage,
-    handleChangeWeightPercentage
+    handleChangeWeightPercentage,
+    fieldsDisabled
   }) => {
     return (
       <Fragment>
@@ -47,6 +51,7 @@ const Performance = memo(
               </Grid>
               <Grid item xs={1}>
                 <TextField
+                  disabled={fieldsDisabled}
                   inputProps={{ style: { height: 10 } }}
                   type="number"
                   value={performanceWeightPercentage}
@@ -74,6 +79,7 @@ const Performance = memo(
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
         </Typography>
         <ScRows
+          fieldsDisabled={fieldsDisabled}
           fields={dailyBusinessFields}
           type={CATEGORY.DAILY_BUSINESS}
           action={handleChangePerformance}
@@ -90,7 +96,10 @@ const Performance = memo(
             id: 'scsheet.tooltip.addField.dailyBusiness'
           })}
         >
-          <IconButton onClick={e => addSubcategory(CATEGORY.DAILY_BUSINESS)}>
+          <IconButton
+            className={fieldsDisabled && classes.hidden}
+            onClick={e => addSubcategory(CATEGORY.DAILY_BUSINESS)}
+          >
             <AddIcon color="primary" />
           </IconButton>
         </Tooltip>
@@ -99,6 +108,7 @@ const Performance = memo(
           {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
         </Typography>
         <ScRows
+          fieldsDisabled={fieldsDisabled}
           fields={projectFields}
           type={CATEGORY.PROJECT}
           action={handleChangePerformance}
@@ -115,7 +125,10 @@ const Performance = memo(
             id: 'scsheet.tooltip.addField.project'
           })}
         >
-          <IconButton onClick={e => addSubcategory(CATEGORY.PROJECT)}>
+          <IconButton
+            onClick={e => addSubcategory(CATEGORY.PROJECT)}
+            className={fieldsDisabled && classes.hidden}
+          >
             <AddIcon className={classes.addProjectButton} />
           </IconButton>
         </Tooltip>
