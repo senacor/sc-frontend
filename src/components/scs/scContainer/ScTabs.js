@@ -67,8 +67,6 @@ const ScTabs = ({
           }}
         >
           <Tab
-            // if user is REVIEWER and one of the employee/reviewer did not submit yet
-            // then the tab EMPLOYEE is disabled
             disabled={
               user.isReviewerInSc(sc) &&
               (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
@@ -84,8 +82,6 @@ const ScTabs = ({
             id={'TabDetailsEmployee'}
           />
           <Tab
-            // if user is EMPLOYEE and one of the employee/reviewer did not submit yet
-            // then the tab REVIEWER is disabled
             disabled={
               user.isOwnerInSc(sc) &&
               (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
