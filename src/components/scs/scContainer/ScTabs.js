@@ -105,6 +105,7 @@ const ScTabs = ({
             setSc={setSc}
             setIsLoading={setIsLoading}
             afterScFetched={afterScFetched}
+            tabValue={tabValue}
           />
         </TabContainer>
       )}
@@ -116,6 +117,7 @@ const ScTabs = ({
             setSc={setSc}
             setIsLoading={setIsLoading}
             afterScFetched={afterScFetched}
+            tabValue={tabValue}
           />
         </TabContainer>
       )}

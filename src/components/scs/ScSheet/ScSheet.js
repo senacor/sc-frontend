@@ -22,7 +22,7 @@ import {
   updatePercentageWithPRPrCategories
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
-import { SC_STATUS, CATEGORY } from '../../../helper/scSheetData';
+import { SC_STATUS, SC_TAB, CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -38,7 +38,8 @@ const ScSheet = ({
   intl,
   setSc,
   setIsLoading,
-  afterScFetched
+  afterScFetched,
+  tabValue
 }) => {
   const initialFieldsData = {
     title: '',
@@ -223,7 +224,7 @@ const ScSheet = ({
           setWorkEfficiencyFields(sc.employeeData.workEfficiency);
           setWorkQualityFields(sc.employeeData.workQuality);
         }
-      } else {
+      } else if (user.isReviewerInSc(sc)) {
         setDailyBusinessFields(sc.reviewerData.dailyBusiness);
         setProjectFields(sc.reviewerData.project);
         if (scWithPr) {
@@ -240,6 +241,44 @@ const ScSheet = ({
         } else {
           setWorkEfficiencyFields(sc.reviewerData.workEfficiency);
           setWorkQualityFields(sc.reviewerData.workQuality);
+        }
+      } else if (user.hasRoleHr()) {
+        if (tabValue === SC_TAB.EMPLOYEE) {
+          setDailyBusinessFields(sc.employeeData.dailyBusiness);
+          setProjectFields(sc.employeeData.project);
+          if (scWithPr) {
+            setSkillsInTheFieldsFields(sc.employeeData.skillsInTheFields);
+            setImpactOnTeamFields(sc.employeeData.impactOnTeam);
+            setServiceQualityFields(sc.employeeData.serviceQuality);
+            setImpactOnCompanyFields(sc.employeeData.impactOnCompany);
+            setPerformanceWeightPercentage(
+              100 - sc.employeeData.skillsWeightPercentage
+            );
+            setPrCategoriesWeightPercentage(
+              sc.employeeData.skillsWeightPercentage
+            );
+          } else {
+            setWorkEfficiencyFields(sc.employeeData.workEfficiency);
+            setWorkQualityFields(sc.employeeData.workQuality);
+          }
+        } else if (tabValue === SC_TAB.REVIEWER) {
+          setDailyBusinessFields(sc.reviewerData.dailyBusiness);
+          setProjectFields(sc.reviewerData.project);
+          if (scWithPr) {
+            setSkillsInTheFieldsFields(sc.reviewerData.skillsInTheFields);
+            setImpactOnTeamFields(sc.reviewerData.impactOnTeam);
+            setServiceQualityFields(sc.reviewerData.serviceQuality);
+            setImpactOnCompanyFields(sc.reviewerData.impactOnCompany);
+            setPerformanceWeightPercentage(
+              100 - sc.reviewerData.skillsWeightPercentage
+            );
+            setPrCategoriesWeightPercentage(
+              sc.reviewerData.skillsWeightPercentage
+            );
+          } else {
+            setWorkEfficiencyFields(sc.reviewerData.workEfficiency);
+            setWorkQualityFields(sc.reviewerData.workQuality);
+          }
         }
       }
     },
