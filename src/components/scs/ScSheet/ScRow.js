@@ -54,6 +54,9 @@ const styles = theme => ({
   },
   input: {
     minHeight: 150
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
@@ -89,7 +92,9 @@ const ScRow = memo(
                 })}
               >
                 <IconButton
-                  className={classes.removeIcon}
+                  className={
+                    fieldsDisabled ? classes.hidden : classes.removeIcon
+                  }
                   onClick={() => removeSubcategory(type)}
                 >
                   <RemoveIcon />
