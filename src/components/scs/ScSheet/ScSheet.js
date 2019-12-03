@@ -6,7 +6,7 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData } from '../../../calls/sc';
+import { savePerformanceData, addScStatus } from '../../../calls/sc';
 import PrCategories from './categories/PrCategories';
 import cloneDeep from '../../../helper/cloneDeep';
 import Performance from './categories/Performance';
@@ -22,8 +22,8 @@ import {
   updatePercentageWithPRPrCategories
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
-import { CATEGORY } from '../../../helper/scSheetData';
 import { allowEditFields } from './helperFunc';
+import { SC_STATUS, CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -32,7 +32,15 @@ const styles = theme => ({
   }
 });
 
-const ScSheet = ({ sc, scWithPr, classes, intl }) => {
+const ScSheet = ({
+  sc,
+  scWithPr,
+  classes,
+  intl,
+  setSc,
+  setIsLoading,
+  afterScFetched
+}) => {
   const initialFieldsData = {
     title: '',
     weight: 1,
@@ -84,15 +92,18 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
   const [finalScore, setFinalScore] = useState(0);
   const [fieldsDisabled, setFieldsDisabled] = useState(true);
 
-  useEffect(() => {
-    setFieldsDisabled(
-      !allowEditFields(
-        user.isOwnerInSc(sc),
-        user.isReviewerInSc(sc),
-        sc.statusSet
-      )
-    );
-  }, []);
+  useEffect(
+    () => {
+      setFieldsDisabled(
+        !allowEditFields(
+          user.isOwnerInSc(sc),
+          user.isReviewerInSc(sc),
+          sc.statusSet
+        )
+      );
+    },
+    [sc]
+  );
 
   useEffect(
     () => {
@@ -124,6 +135,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       impactOnTeamFields,
       serviceQualityFields,
       impactOnCompanyFields,
+      sc,
       scWithPr
     ]
   );
@@ -171,6 +183,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       weightsWithPRPrCategories,
       performanceWeightPercentage,
       prCategoriesWeightPercentage,
+      sc,
       scWithPr
     ]
   );
@@ -200,6 +213,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       projectFields,
       workEfficiencyFields,
       workQualityFields,
+      sc,
       scWithPr
     ]
   );
@@ -244,11 +258,65 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
         }
       }
     },
-    [scWithPr]
+    [sc, scWithPr]
   );
 
   const handleSubmit = () => {
-    // TODO: submitting data and sending to backend
+    const mapToDTO = field => {
+      return {
+        title: field.title,
+        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
+        percentage: field.percentage,
+        description: field.description,
+        achievement: field.achievement,
+        weight: field.weight,
+        comment: field.comment
+      };
+    };
+
+    const data = {
+      dailyBusiness: dailyBusinessFields.map(mapToDTO),
+      project: projectFields.map(mapToDTO),
+      workEfficiency: mapToDTO(workEfficiencyFields),
+      workQuality: mapToDTO(workQualityFields),
+      skillsInTheFields: mapToDTO(skillsInTheFieldsFields),
+      impactOnTeam: mapToDTO(impactOnTeamFields),
+      serviceQuality: mapToDTO(serviceQualityFields),
+      impactOnCompany: mapToDTO(impactOnCompanyFields),
+      skillsWeightPercentage: prCategoriesWeightPercentage
+    };
+
+    savePerformanceData(
+      sc.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      data,
+      info,
+      error
+    ).then(() => {
+      if (user.isOwnerInSc(sc)) {
+        if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
+          addScStatus(
+            sc.id,
+            SC_STATUS.EMPLOYEE_SUBMITTED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
+        }
+      } else if (user.isReviewerInSc(sc)) {
+        if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
+          addScStatus(
+            sc.id,
+            SC_STATUS.REVIEWER_SUBMITTED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
+        }
+      }
+    });
   };
 
   const validateEvaluations = () => {
@@ -270,6 +338,22 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
       arr.push(workQualityFields.evaluation);
     }
     return arr.every(numberIsPositive);
+  };
+
+  const isSubmitted = () => {
+    if (
+      user.isOwnerInSc(sc) &&
+      sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)
+    ) {
+      return true;
+    } else if (
+      user.isReviewerInSc(sc) &&
+      sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)
+    ) {
+      return true;
+    }
+
+    return false;
   };
 
   const handleSave = () => {
@@ -442,7 +526,7 @@ const ScSheet = ({ sc, scWithPr, classes, intl }) => {
         </Fragment>
       )}
       <ButtonsBelowSheet
-        submitDisabled={!validateEvaluations()}
+        submitDisabled={!validateEvaluations() || isSubmitted()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
         sc={sc}

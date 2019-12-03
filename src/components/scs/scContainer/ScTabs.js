@@ -43,7 +43,16 @@ const TabContainer = ({ spacing, children }) => {
   );
 };
 
-const ScTabs = ({ intl, classes, sc, tabValue, handleChangeTab }) => {
+const ScTabs = ({
+  intl,
+  classes,
+  sc,
+  tabValue,
+  handleChangeTab,
+  setSc,
+  setIsLoading,
+  afterScFetched
+}) => {
   const user = useUserinfoContext();
   return (
     <Paper className={classes.paper}>
@@ -93,6 +102,9 @@ const ScTabs = ({ intl, classes, sc, tabValue, handleChangeTab }) => {
           <ScSheet
             sc={sc}
             scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
+            setSc={setSc}
+            setIsLoading={setIsLoading}
+            afterScFetched={afterScFetched}
           />
         </TabContainer>
       )}
@@ -101,6 +113,9 @@ const ScTabs = ({ intl, classes, sc, tabValue, handleChangeTab }) => {
           <ScSheet
             sc={sc}
             scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
+            setSc={setSc}
+            setIsLoading={setIsLoading}
+            afterScFetched={afterScFetched}
           />
         </TabContainer>
       )}

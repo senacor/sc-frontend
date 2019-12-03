@@ -9,7 +9,11 @@ import Grid from '@material-ui/core/Grid';
 import { formatDateForFrontend } from '../../helper/date';
 import { modifyString } from '../../helper/string';
 import { getAllEmployees } from '../../calls/employees';
-import { useErrorContext, useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../helper/contextHooks';
 import ScDelegationMenu from './ScSheet/ScDelegationMenu';
 
 const styles = theme => ({
@@ -52,9 +56,13 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
     id: 'prdetailinformation.duedate'
   })} ${formatDateForFrontend(sc.createdDate)}, ${intl.formatMessage({
     id: 'scdetailinformation.department'
-  })}: ${sc.department}, ${intl.formatMessage({
-    id: 'prdetailinformation.position'
-  })} ${modifyString(sc.position)}, ${intl.formatMessage({
+  })}: ${sc.department}, ${
+    sc.position
+      ? intl.formatMessage({
+          id: 'prdetailinformation.position'
+        })
+      : ''
+  } ${sc.position ? modifyString(sc.position) + ', ' : ''}${intl.formatMessage({
     id: 'prdetailinformation.termin'
   })} ${formatDateForFrontend(sc.createdDate)}`; // sc.createdDate is only temporary, waiting for termin date
 
