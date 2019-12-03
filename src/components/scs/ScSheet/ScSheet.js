@@ -23,7 +23,7 @@ import {
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
 import { allowEditFields } from './helperFunc';
-import { SC_STATUS, CATEGORY } from '../../../helper/scSheetData';
+import { SC_STATUS, SC_TAB, CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -39,7 +39,8 @@ const ScSheet = ({
   intl,
   setSc,
   setIsLoading,
-  afterScFetched
+  afterScFetched,
+  tabValue
 }) => {
   const initialFieldsData = {
     title: '',
@@ -102,7 +103,7 @@ const ScSheet = ({
         )
       );
     },
-    [sc]
+    [sc, tabValue]
   );
 
   useEffect(
@@ -136,7 +137,8 @@ const ScSheet = ({
       serviceQualityFields,
       impactOnCompanyFields,
       sc,
-      scWithPr
+      scWithPr,
+      tabValue
     ]
   );
 
@@ -184,7 +186,8 @@ const ScSheet = ({
       performanceWeightPercentage,
       prCategoriesWeightPercentage,
       sc,
-      scWithPr
+      scWithPr,
+      tabValue
     ]
   );
 
@@ -214,13 +217,14 @@ const ScSheet = ({
       workEfficiencyFields,
       workQualityFields,
       sc,
-      scWithPr
+      scWithPr,
+      tabValue
     ]
   );
 
   useEffect(
     () => {
-      if (user.isOwnerInSc(sc)) {
+      if (tabValue === SC_TAB.EMPLOYEE) {
         setDailyBusinessFields(sc.employeeData.dailyBusiness);
         setProjectFields(sc.employeeData.project);
         if (scWithPr) {
@@ -238,7 +242,7 @@ const ScSheet = ({
           setWorkEfficiencyFields(sc.employeeData.workEfficiency);
           setWorkQualityFields(sc.employeeData.workQuality);
         }
-      } else {
+      } else if (tabValue === SC_TAB.REVIEWER) {
         setDailyBusinessFields(sc.reviewerData.dailyBusiness);
         setProjectFields(sc.reviewerData.project);
         if (scWithPr) {
@@ -258,7 +262,7 @@ const ScSheet = ({
         }
       }
     },
-    [sc, scWithPr]
+    [sc, scWithPr, tabValue]
   );
 
   const handleSubmit = () => {

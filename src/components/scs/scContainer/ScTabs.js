@@ -67,7 +67,11 @@ const ScTabs = ({
           }}
         >
           <Tab
-            disabled={user.isReviewerInSc(sc)} // TODO: depends also on status of current SC
+            disabled={
+              user.isReviewerInSc(sc) &&
+              (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
+                !sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED))
+            }
             value={SC_TAB.EMPLOYEE}
             classes={{
               root: classes.tabStyleSc
@@ -78,7 +82,11 @@ const ScTabs = ({
             id={'TabDetailsEmployee'}
           />
           <Tab
-            disabled={!user.isReviewerInSc(sc)}
+            disabled={
+              user.isOwnerInSc(sc) &&
+              (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
+                !sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED))
+            }
             value={SC_TAB.REVIEWER}
             classes={{
               root: classes.tabStyleSc
@@ -105,6 +113,7 @@ const ScTabs = ({
             setSc={setSc}
             setIsLoading={setIsLoading}
             afterScFetched={afterScFetched}
+            tabValue={tabValue}
           />
         </TabContainer>
       )}
@@ -116,6 +125,7 @@ const ScTabs = ({
             setSc={setSc}
             setIsLoading={setIsLoading}
             afterScFetched={afterScFetched}
+            tabValue={tabValue}
           />
         </TabContainer>
       )}
