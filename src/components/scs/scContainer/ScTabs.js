@@ -67,7 +67,13 @@ const ScTabs = ({
           }}
         >
           <Tab
-            disabled={user.isReviewerInSc(sc)} // TODO: depends also on status of current SC
+            // if user is REVIEWER and one of the employee/reviewer did not submit yet
+            // then the tab EMPLOYEE is disabled
+            disabled={
+              user.isReviewerInSc(sc) &&
+              (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
+                !sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED))
+            }
             value={SC_TAB.EMPLOYEE}
             classes={{
               root: classes.tabStyleSc
@@ -78,7 +84,13 @@ const ScTabs = ({
             id={'TabDetailsEmployee'}
           />
           <Tab
-            disabled={!user.isReviewerInSc(sc)}
+            // if user is EMPLOYEE and one of the employee/reviewer did not submit yet
+            // then the tab REVIEWER is disabled
+            disabled={
+              user.isOwnerInSc(sc) &&
+              (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
+                !sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED))
+            }
             value={SC_TAB.REVIEWER}
             classes={{
               root: classes.tabStyleSc
