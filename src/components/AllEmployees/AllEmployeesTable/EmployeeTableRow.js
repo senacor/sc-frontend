@@ -9,6 +9,7 @@ import {
 // Material UI
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import { modifyString } from '../../../helper/string';
 
 const styles = theme => ({
   tableRow: {
@@ -37,16 +38,17 @@ const styles = theme => ({
 
 const EmployeeTableRow = ({
   classes,
+  intl,
   employee: {
     firstName,
     lastName,
     department,
-    currentPosition,
+    position,
     scStatus,
     officeLocation,
     supervisorName,
     entryDate,
-    exitDate
+    endDate
   },
   formerEmployee
 }) => {
@@ -62,14 +64,20 @@ const EmployeeTableRow = ({
     <Fragment>
       <TableRow className={`${classes.tableRow}`} onClick={handleDialogOpen}>
         <TableCell>{employeeName}</TableCell>
-        <TableCell>{currentPosition}</TableCell>
-        <TableCell>{scStatus}</TableCell>
-        <TableCell>{supervisorName}</TableCell>
+        <TableCell>{position}</TableCell>
+        {!formerEmployee && (
+          <TableCell>
+            {scStatus
+              ? modifyString(scStatus)
+              : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
+          </TableCell>
+        )}
+        {!formerEmployee && <TableCell>{supervisorName}</TableCell>}
         <TableCell>{department}</TableCell>
         <TableCell>{officeLocation}</TableCell>
         <TableCell>
           {formerEmployee
-            ? formatLocaleDateTime(exitDate, FRONTEND_DATE_FORMAT)
+            ? formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)
             : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>

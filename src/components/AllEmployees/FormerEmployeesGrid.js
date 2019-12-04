@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import {
-  handleFormerFilterActive,
-  checkFilterValues
+  checkFilterValues,
+  handleFilterActive
 } from '../../helper/filterFunctions';
 import EmployeeCard from './EmployeeCard';
 
@@ -34,7 +34,7 @@ const FormerEmployeesGrid = ({
   const cardsToShow = 15;
 
   useEffect(() => {
-    handleFormerFilterActive(filterInputs, setFilterActive);
+    setFilterActive(handleFilterActive(filterInputs));
   });
 
   const showMore = employees => {
@@ -51,10 +51,9 @@ const FormerEmployeesGrid = ({
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
       checkFilterValues(filterInputs.department, empl.department) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
-      // &&
-      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      // checkFilterValues(filterInputs.month, empl.endDate[1])
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+      checkFilterValues(filterInputs.month, empl.endDate[1])
     );
   });
 

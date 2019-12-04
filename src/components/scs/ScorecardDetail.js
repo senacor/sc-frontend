@@ -25,6 +25,21 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const user = useUserinfoContext();
   const { setValue: setMeeting } = useContext(MeetingContext.context);
 
+  useEffect(() => {
+    fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
+  }, []);
+
+  useEffect(
+    () => {
+      if (sc && user.isReviewerInSc(sc)) {
+        setScTab(SC_TAB.REVIEWER);
+      } else {
+        setScTab(SC_TAB.EMPLOYEE);
+      }
+    },
+    [sc]
+  );
+
   const afterScFetched = sc => {
     setSc(sc);
     setPosition(sc.position);
@@ -52,21 +67,6 @@ const ScorecardDetail = ({ match, intl, classes }) => {
       );
     }
   };
-
-  useEffect(() => {
-    fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
-  }, []);
-
-  useEffect(
-    () => {
-      if (sc && user.isReviewerInSc(sc)) {
-        setScTab(SC_TAB.REVIEWER);
-      } else {
-        setScTab(SC_TAB.EMPLOYEE);
-      }
-    },
-    [sc]
-  );
 
   const handleChangeTab = (event, value) => {
     setScTab(value);

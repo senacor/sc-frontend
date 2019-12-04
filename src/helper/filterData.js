@@ -1,12 +1,10 @@
 export const positions = [
-  'Consultant',
-  'Developer',
-  'Senior Consultant',
-  'Senior Developer',
-  'Technical Expert',
-  'Lead Developer',
-  'Managing Consultant',
-  'Other'
+  'Assistant',
+  'Expert',
+  'Manager',
+  'Partner',
+  'Senior Specialist',
+  'Specialist'
 ];
 
 export const departments = [

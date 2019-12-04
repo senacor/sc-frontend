@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
+import { modifyString } from '../../helper/string';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -66,13 +68,13 @@ const EmployeeCard = ({
     firstName,
     lastName,
     department,
-    currentPosition,
+    position,
     scStatus,
     officeLocation,
     userPhoto,
     supervisorName,
     entryDate,
-    exitDate
+    endDate
   },
   formerEmployee
 }) => {
@@ -117,21 +119,21 @@ const EmployeeCard = ({
               {intl.formatMessage({
                 id: 'employeeInfo.position'
               })}
-              <div className={classes.textInfo}>{currentPosition}</div>
+              <div className={classes.textInfo}>{position}</div>
             </Typography>
           </Fragment>
-          <Typography className={classes.text} component="span">
-            {`${intl.formatMessage({
-              id: 'employeeInfo.scStatus'
-            })}: `}
-            <span className={classes.textInfo}>{scStatus}</span>
-          </Typography>
-          <Typography className={classes.text} component="span">
-            {`${intl.formatMessage({
-              id: 'employeeInfo.supervisor'
-            })}: `}
-            <span className={classes.textInfo}>{supervisorName}</span>
-          </Typography>
+          {!formerEmployee && (
+            <Typography className={classes.text} component="span">
+              {`${intl.formatMessage({
+                id: 'employeeInfo.supervisor'
+              })}: `}
+              <span className={classes.textInfo}>
+                {supervisorName
+                  ? supervisorName
+                  : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+              </span>
+            </Typography>
+          )}
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
               id: 'employeeInfo.department'
@@ -149,14 +151,31 @@ const EmployeeCard = ({
               {`${intl.formatMessage({
                 id: 'employeeInfo.exitDate'
               })}: `}
-              <span className={classes.textInfo}>{exitDate}</span>
+              <span className={classes.textInfo}>
+                {' '}
+                {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
+              </span>
             </Typography>
           ) : (
             <Typography className={classes.text} component="span">
               {`${intl.formatMessage({
                 id: 'employeeInfo.entryDate'
               })}: `}
-              <span className={classes.textInfo}>{entryDate}</span>
+              <span className={classes.textInfo}>
+                {formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
+              </span>
+            </Typography>
+          )}
+          {!formerEmployee && (
+            <Typography className={classes.text} component="span">
+              {`${intl.formatMessage({
+                id: 'employeeInfo.scStatus'
+              })}: `}
+              <span className={classes.textInfo}>
+                {scStatus
+                  ? modifyString(scStatus)
+                  : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
+              </span>
             </Typography>
           )}
         </CardContent>

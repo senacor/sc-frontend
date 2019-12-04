@@ -231,6 +231,8 @@
   "employeeInfo.year": "Jahr",
   "employeeInfo.month": "Monat",
   "employeeInfo.scStatus": "SC Status",
+  "employeeInfo.noScStatus": "Kein SC erstellt",
+  "employeeInfo.noSupervisor": "Nicht verfügbar",
   "switchView.cards": "Auf die Karte-Ansicht wechseln",
   "switchView.table": "Auf die Tabelle-Ansicht wechseln",
   "compositionnumber.version": "version",

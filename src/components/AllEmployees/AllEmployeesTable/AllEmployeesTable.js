@@ -23,22 +23,6 @@ const styles = theme => ({
   }
 });
 
-export const filterEmployees = (employees, filterInputs) => {
-  return employees.filter(empl => {
-    const employeeName = empl.firstName + ' ' + empl.lastName;
-    return (
-      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.department, empl.department) &&
-      checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
-      // &&
-      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      // checkFilterValues(filterInputs.month, empl.endDate[1])
-    );
-  });
-};
-
 const AllEmployeesTable = ({
   classes,
   intl,
@@ -51,7 +35,7 @@ const AllEmployeesTable = ({
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    handleFilterActive(filterInputs, setFilterActive);
+    setFilterActive(handleFilterActive(filterInputs));
   });
 
   const handleChangeRowsPerPage = event => {
@@ -60,6 +44,21 @@ const AllEmployeesTable = ({
 
   const handleChangePage = (event, page) => {
     setPage(page);
+  };
+
+  const filterEmployees = (employees, filterInputs) => {
+    return employees.filter(empl => {
+      const employeeName = empl.firstName + ' ' + empl.lastName;
+      return (
+        checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.position, empl.position) &&
+        checkFilterValues(filterInputs.department, empl.department) &&
+        checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
+        checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+        checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
+        checkFilterValues(filterInputs.month, empl.entryDate[1])
+      );
+    });
   };
 
   const employeesData = employees

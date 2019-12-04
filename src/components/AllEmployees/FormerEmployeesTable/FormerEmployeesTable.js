@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import FormerEmployeesTableHead from './FormerEmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
 } from '../../../helper/filterFunctions';
 import EmployeeTableRow from '../AllEmployeesTable/EmployeeTableRow';
+import AllEmployeesTableHead from '../AllEmployeesTable/AllEmployeesTableHead';
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
@@ -22,21 +22,6 @@ const styles = theme => ({
     overflow: 'auto'
   }
 });
-
-export const filterEmployees = (employees, filterInputs) => {
-  return employees.filter(empl => {
-    const employeeName = empl.firstName + ' ' + empl.lastName;
-    return (
-      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.position) &&
-      checkFilterValues(filterInputs.department, empl.department) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
-      //  &&
-      // checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      // checkFilterValues(filterInputs.month, empl.endDate[1])
-    );
-  });
-};
 
 const FormerEmployeesTable = ({
   classes,
@@ -59,6 +44,20 @@ const FormerEmployeesTable = ({
 
   const handleChangePage = (event, page) => {
     setPage(page);
+  };
+
+  const filterEmployees = (employees, filterInputs) => {
+    return employees.filter(empl => {
+      const employeeName = empl.firstName + ' ' + empl.lastName;
+      return (
+        checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.position, empl.position) &&
+        checkFilterValues(filterInputs.department, empl.department) &&
+        checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+        checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+        checkFilterValues(filterInputs.month, empl.endDate[1])
+      );
+    });
   };
 
   const employeesData = employees
@@ -91,7 +90,7 @@ const FormerEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <FormerEmployeesTableHead />
+        <AllEmployeesTableHead formerEmployee />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>

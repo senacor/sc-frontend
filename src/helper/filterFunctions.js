@@ -1,4 +1,5 @@
 import moment from 'moment';
+const isEqual = require('lodash/isEqual');
 
 export const sortByLastName = (data, sortDirection) => {
   if (sortDirection === 'asc') {
@@ -47,7 +48,7 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'employeeLastName');
     },
     position: (a, b) => {
-      return sortsForFields.byField(a, b, 'currentPosition');
+      return sortsForFields.byField(a, b, 'position');
     },
     scposition: (a, b) => {
       return sortsForFields.byField(a, b, 'employeePosition');
@@ -85,35 +86,37 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
   }
 };
 
-export const handleFilterActive = (filterInputs, setFilterActive) => {
+export const handleFilterActive = filterInputs => {
+  const compareObjWith = { ...filterInputs };
   const emptyInputs = {
-    searchEmployee: '',
-    position: [],
-    cc: [],
-    cst: [],
-    officeLocation: []
-  };
-  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
-    setFilterActive(false);
-  } else {
-    setFilterActive(true);
-  }
-};
-
-export const handleFormerFilterActive = (filterInputs, setFilterActive) => {
-  const emptyInputs = {
-    searchEmployee: '',
-    year: [],
+    department: [],
     month: [],
+    officeLocation: [],
     position: [],
-    cc: [],
-    cst: [],
-    officeLocation: []
+    scStatus: [],
+    searchEmployee: '',
+    year: []
   };
-  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
-    setFilterActive(false);
+  const emptyInputsFormerEmployee = {
+    department: [],
+    month: [],
+    officeLocation: [],
+    position: [],
+    searchEmployee: '',
+    year: []
+  };
+  if ('scStatus' in filterInputs) {
+    if (isEqual(compareObjWith, emptyInputs)) {
+      return false;
+    } else {
+      return true;
+    }
   } else {
-    setFilterActive(true);
+    if (isEqual(compareObjWith, emptyInputsFormerEmployee)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 };
 

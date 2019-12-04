@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 
@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesTableHead = ({ intl, classes }) => {
+const AllEmployeesTableHead = ({ intl, classes, formerEmployee }) => {
   return (
     <TableHead>
       <TableRow className={classes.tableHead}>
@@ -32,16 +32,20 @@ const AllEmployeesTableHead = ({ intl, classes }) => {
             id: 'employeeInfo.position'
           })}
         </TableCell>
-        <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.scStatus'
-          })}
-        </TableCell>
-        <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.supervisor'
-          })}
-        </TableCell>
+        {!formerEmployee && (
+          <Fragment>
+            <TableCell className={classes.tableCell}>
+              {intl.formatMessage({
+                id: 'employeeInfo.scStatus'
+              })}
+            </TableCell>
+            <TableCell className={classes.tableCell}>
+              {intl.formatMessage({
+                id: 'employeeInfo.supervisor'
+              })}
+            </TableCell>
+          </Fragment>
+        )}
         <TableCell className={classes.tableCell}>
           {intl.formatMessage({
             id: 'employeeInfo.department'
@@ -53,9 +57,11 @@ const AllEmployeesTableHead = ({ intl, classes }) => {
           })}
         </TableCell>
         <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.entryDate'
-          })}
+          {formerEmployee
+            ? intl.formatMessage({ id: 'employeeInfo.exitDate' })
+            : intl.formatMessage({
+                id: 'employeeInfo.entryDate'
+              })}
         </TableCell>
       </TableRow>
     </TableHead>
