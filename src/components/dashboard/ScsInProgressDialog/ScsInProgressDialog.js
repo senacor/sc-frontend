@@ -7,7 +7,7 @@ import SortingFilter from '../../filterComponents/SortingFilter';
 import {
   locations,
   scDepartmentMenu,
-  scPositionMenu,
+  positions,
   scStatuses
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
@@ -86,7 +86,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   const [department, setDepartment] = useState([]);
   const [position, setPosition] = useState([]);
   const [office, setOffice] = useState([]);
-  const [workstatus, setWorkstatus] = useState([]);
+  const [scStatus, setScStatus] = useState([]);
 
   const error = useErrorContext();
 
@@ -124,8 +124,8 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     setOffice(event.target.value);
   };
 
-  const handleSearchWorkstatusChange = event => {
-    setWorkstatus(event.target.value);
+  const handleScStatusChange = event => {
+    setScStatus(event.target.value);
   };
 
   const filterInputs = {
@@ -134,7 +134,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     department: department,
     position: position,
     office: office,
-    status: workstatus
+    status: scStatus
   };
 
   const dialogClose = () => {
@@ -153,7 +153,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     setPosition([]);
     setOffice([]);
     setDepartment([]);
-    setWorkstatus([]);
+    setScStatus([]);
   };
 
   return (
@@ -228,7 +228,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
                 handleChange={handleDepartmentChange}
                 menuData={scDepartmentMenu}
                 stateValue={department}
-                processingPrs={true}
+                processingPrs
               />
               <div className={classes.searchSupervisor}>
                 <SearchFilter
@@ -242,23 +242,23 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
                 handleChange={handleSearchPositionChange}
-                menuData={scPositionMenu}
+                menuData={positions}
                 stateValue={position}
-                processingPrs={true}
+                processingPrs
               />
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.office' })}
                 handleChange={handleOfficeChange}
                 menuData={locations}
                 stateValue={office}
-                processingPrs={true}
+                processingPrs
               />
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'sc.workstatus' })}
-                handleChange={handleSearchWorkstatusChange}
+                handleChange={handleScStatusChange}
                 menuData={scStatuses}
-                stateValue={workstatus}
-                processingPrs={true}
+                stateValue={scStatus}
+                processingPrs
               />
             </div>
           )}
