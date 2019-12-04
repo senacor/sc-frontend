@@ -106,18 +106,9 @@ export const handleFilterActive = filterInputs => {
     year: []
   };
   if ('scStatus' in filterInputs) {
-    if (isEqual(compareObjWith, emptyInputs)) {
-      return false;
-    } else {
-      return true;
-    }
-  } else {
-    if (isEqual(compareObjWith, emptyInputsFormerEmployee)) {
-      return false;
-    } else {
-      return true;
-    }
+    return !isEqual(compareObjWith, emptyInputs);
   }
+  return !isEqual(compareObjWith, emptyInputsFormerEmployee);
 };
 
 export const handleProgressFilterActive = (filterInputs, setFilterActive) => {

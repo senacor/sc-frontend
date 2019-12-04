@@ -27,62 +27,7 @@ export const departments = [
   'Travel Services'
 ];
 
-export const scStatuses = [
-  'Initialization',
-  'In progress',
-  'Termin',
-  'Done',
-  'No Scorecard'
-];
-
-export const cst = [
-  'CBK',
-  'TBK',
-  'BAW',
-  'DAI',
-  'AMBI',
-  'ARZ',
-  'AVA',
-  'AWA',
-  'AWARF',
-  'BAVM',
-  'BAY',
-  'BDB',
-  'BMW',
-  'BOFI',
-  'BYFA',
-  'BYLB',
-  'CONC',
-  'DBIS',
-  'DEB',
-  'DHYP',
-  'DIBA',
-  'DKB',
-  'DKBP',
-  'DMIG',
-  'DPP',
-  'FB',
-  'GLS',
-  'INTDEV',
-  'INTL',
-  'INTMIP',
-  'INTRF',
-  'IPEX',
-  'LBB',
-  'LBGU',
-  'LBMF',
-  'ME',
-  'MPAMIP',
-  'NLB',
-  'OPAG',
-  'PBAG',
-  'PBB',
-  'RBG',
-  'RVAMIP',
-  'RVARF',
-  'SUEL',
-  'ZUR'
-];
+export const scStatuses = ['Initialization', 'In progress', 'Termin', 'Done'];
 
 export const locations = [
   'Berlin',
@@ -95,14 +40,6 @@ export const locations = [
   'Nürnberg',
   'Stuttgart',
   'Wien'
-];
-
-export const occasions = [
-  'End probation',
-  'Yearly',
-  'On demand',
-  'On demand by supervisor',
-  'On demand by personal dev'
 ];
 
 export const scDepartmentMenu = [
