@@ -2,11 +2,15 @@ pipeline {
 
   agent any
 
+  parameters {
+    string(defaultValue: 'production', description: '', name: 'environment')
+  }
+
   stages {
 
     stage('reading config file') {
       steps {
-        configFileProvider([configFile(fileId: 'productionConfig', variable: 'configFile')]) {
+        configFileProvider([configFile(fileId: params.environment+'Config', variable: 'configFile')]) {
           load "${configFile}"
           script {
             env.loadedParameters = sh(returnStdout: true, script: "cat ${configFile}").replaceAll("env.", "")
