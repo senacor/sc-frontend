@@ -198,7 +198,7 @@ export const Sidebar = ({ intl, classes }) => {
         <div className={classes.column}>
           {userphoto === '' ? (
             <Avatar alt={fullName} className={classes.avatar}>{`${initials[0]}${
-              initials[1]
+              initials[initials.length - 1]
             }`}</Avatar>
           ) : (
             <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
