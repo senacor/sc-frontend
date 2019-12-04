@@ -15,13 +15,18 @@ import Divider from '@material-ui/core/Divider';
 const styles = theme => ({
   card: {
     width: 260,
-    height: 350,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: '0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
     }
+  },
+  heightAllEmployee: {
+    height: 320
+  },
+  heightFormerEmployee: {
+    height: 270
   },
   header: {
     backgroundColor: theme.palette.secondary.brightGrey,
@@ -106,7 +111,14 @@ const EmployeeCard = ({
 
   return (
     <Fragment>
-      <Card className={classes.card} onClick={handleDialogOpen}>
+      <Card
+        className={
+          formerEmployee
+            ? `${classes.card} ${classes.heightFormerEmployee}`
+            : `${classes.card} ${classes.heightAllEmployee}`
+        }
+        onClick={handleDialogOpen}
+      >
         <CardHeader
           className={`${classes.header}`}
           title={employeeName}
@@ -116,10 +128,10 @@ const EmployeeCard = ({
         <CardContent>
           <Fragment>
             <Typography className={classes.text} component="span">
-              {intl.formatMessage({
+              {`${intl.formatMessage({
                 id: 'employeeInfo.position'
-              })}
-              <div className={classes.textInfo}>{position}</div>
+              })}: `}
+              <span className={classes.textInfo}>{position}</span>
             </Typography>
           </Fragment>
           {!formerEmployee && (

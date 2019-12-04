@@ -95,6 +95,8 @@ const AllEmployeesContainer = ({ classes, intl }) => {
     setPositionSorting([]);
     setDepartmentSorting([]);
     setLocationSorting([]);
+    setMonthSorting([]);
+    setYearSorting([]);
   };
 
   const toggleChangeView = () => {
