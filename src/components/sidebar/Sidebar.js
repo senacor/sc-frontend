@@ -181,11 +181,6 @@ export const Sidebar = ({ intl, classes }) => {
     ];
   };
 
-  const givenName = userinfo.givenName ? userinfo.givenName : '';
-  const surname = userinfo.surname ? userinfo.surname : '';
-
-  const fullName = `${givenName} ${surname}`;
-
   if (!userroles.length) {
     return (
       <div className={classes.progressBarCentered}>
@@ -194,15 +189,17 @@ export const Sidebar = ({ intl, classes }) => {
     );
   }
 
+  const fullName = userinfo.employeeName;
+  const initials = fullName.split(' ').map(str => str[0]);
+
   return (
     <div className={classes.root}>
       <div className={classes.row}>
         <div className={classes.column}>
           {userphoto === '' ? (
-            <Avatar
-              alt={fullName}
-              className={classes.avatar}
-            >{`${givenName.charAt(0)}${surname.charAt(0)}`}</Avatar>
+            <Avatar alt={fullName} className={classes.avatar}>{`${initials[0]}${
+              initials[initials.length - 1]
+            }`}</Avatar>
           ) : (
             <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
           )}
