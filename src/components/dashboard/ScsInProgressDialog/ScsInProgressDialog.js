@@ -3,6 +3,18 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import ROUTES from '../../../helper/routes';
 import InfoWidget from '../../utils/InfoWidget';
+import SortingFilter from '../../filterComponents/SortingFilter';
+import {
+  locations,
+  scDepartmentMenu,
+  scPositionMenu,
+  scStatuses
+} from '../../../helper/filterData';
+import { useErrorContext } from '../../../helper/contextHooks';
+import ScsInProgressTable from './ScsInProgressTable';
+import { getScsInProgress } from '../../../calls/sc';
+import SearchFilter from '../../filterComponents/SearchFilter';
+
 // Material UI
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,22 +23,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
-import SearchFilter from '../../filterComponents/SearchFilter';
-import Button from '@material-ui/core/Button';
 import FilterIcon from '@material-ui/icons/FilterList';
-import SortingFilter from '../../filterComponents/SortingFilter';
-import {
-  locations,
-  scDepartmentMenu,
-  scPositionMenu,
-  scWorkstatusMenu
-} from '../../../helper/filterData';
-import { useErrorContext } from '../../../helper/contextHooks';
-import ScsInProgressTable from './ScsInProgressTable';
-import { getScsInProgress } from '../../../calls/sc';
 
 const styles = theme => ({
   btnClose: {
@@ -54,6 +55,13 @@ const styles = theme => ({
     height: 38,
     minWidth: 160
   },
+  basicFilterContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2
+  },
   advFilter: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -61,6 +69,10 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
+  },
+  searchSupervisor: {
+    display: 'block',
+    marginBottom: 2 * theme.spacing.unit
   }
 });
 
@@ -174,17 +186,32 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
         </DialogTitle>
         <Divider />
         <DialogContent className={classes.dialogContent}>
-          <Grid container>
-            <Grid item xs={5}>
-              <SearchFilter
-                searchValue={searchEmployeesValue}
-                searchChange={handleSearchEmployeeChange}
-                placeholder={intl.formatMessage({
-                  id: 'filter.searchEmployee'
-                })}
-              />
+          <div className={classes.basicFilterContainer}>
+            <SearchFilter
+              searchValue={searchEmployeesValue}
+              searchChange={handleSearchEmployeeChange}
+              placeholder={intl.formatMessage({
+                id: 'filter.searchEmployee'
+              })}
+            />
+            <div>
+              {visibleAdvancedFilter && (
+                <Button
+                  variant="contained"
+                  onClick={clearFilter}
+                  className={classes.clearFilterBtn}
+                >
+                  <Typography
+                    variant="button"
+                    className={classes.clearFilterText}
+                  >
+                    x {intl.formatMessage({ id: 'filter.clear' })}
+                  </Typography>
+                </Button>
+              )}
               <Button
                 onClick={() => toggleSortingFilter()}
+                variant="contained"
                 className={classes.advFilterBtn}
               >
                 <FilterIcon />
@@ -192,9 +219,8 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
                   {intl.formatMessage({ id: 'filter.advanced' })}
                 </Typography>
               </Button>
-            </Grid>
-            <Grid item xs={7} />
-          </Grid>
+            </div>
+          </div>
           {visibleAdvancedFilter && (
             <div className={classes.advFilter}>
               <SortingFilter
@@ -204,13 +230,15 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
                 stateValue={department}
                 processingPrs={true}
               />
-              <SearchFilter
-                searchValue={searchSupervisorValue}
-                searchChange={handleSearchSupervisorChange}
-                placeholder={intl.formatMessage({
-                  id: 'employeeInfo.supervisor'
-                })}
-              />
+              <div className={classes.searchSupervisor}>
+                <SearchFilter
+                  searchValue={searchSupervisorValue}
+                  searchChange={handleSearchSupervisorChange}
+                  placeholder={intl.formatMessage({
+                    id: 'employeeInfo.supervisor'
+                  })}
+                />
+              </div>
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
                 handleChange={handleSearchPositionChange}
@@ -228,18 +256,10 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'sc.workstatus' })}
                 handleChange={handleSearchWorkstatusChange}
-                menuData={scWorkstatusMenu}
+                menuData={scStatuses}
                 stateValue={workstatus}
                 processingPrs={true}
               />
-              <Button onClick={clearFilter} className={classes.clearFilterBtn}>
-                <Typography
-                  variant="button"
-                  className={classes.clearFilterText}
-                >
-                  x {intl.formatMessage({ id: 'filter.clear' })}
-                </Typography>
-              </Button>
             </div>
           )}
           {isLoading ? (
