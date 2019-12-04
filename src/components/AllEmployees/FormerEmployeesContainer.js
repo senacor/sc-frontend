@@ -2,31 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Tooltip } from '@material-ui/core';
 import FormerEmployeesGrid from './FormerEmployeesGrid';
-import SearchFilter from './SearchFilter';
-import SortingFilter from './SortingFilter';
-import {
-  positions,
-  competenceCenters,
-  cst,
-  locations
-} from '../../helper/filterData';
+import { positions, departments, locations } from '../../helper/filterData';
+import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
+import { useErrorContext } from '../../helper/contextHooks';
+import { years, months } from '../../helper/filterFunctions';
+import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
 
 // Calls
 import { getInactiveEmployees } from '../../calls/employees';
 
 // Material UI
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 // Icons
-import FilterIcon from '@material-ui/icons/FilterList';
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
-import moment from 'moment';
-import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
-import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   container: {
@@ -36,7 +26,7 @@ const styles = theme => ({
     margin: '0.5rem',
     padding: '0.5rem 2rem'
   },
-  upperPanel: {
+  upperMenuContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -80,8 +70,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   const [monthSorting, setMonthSorting] = useState([]);
   const [yearSorting, setYearSorting] = useState([]);
   const [positionSorting, setPositionSorting] = useState([]);
-  const [ccSorting, setCcSorting] = useState([]);
-  const [cstSorting, setCstSorting] = useState([]);
+  const [departmentSorting, setDepartmentSorting] = useState([]);
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
@@ -109,12 +98,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     setPositionSorting(event.target.value);
   };
 
-  const handleSortCcChange = event => {
-    setCcSorting(event.target.value);
-  };
-
-  const handleSortCstChange = event => {
-    setCstSorting(event.target.value);
+  const handleSortDepartmentChange = event => {
+    setDepartmentSorting(event.target.value);
   };
 
   const handleSortLocationChange = event => {
@@ -129,9 +114,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     setYearSorting([]);
     setMonthSorting([]);
     setSearchEmployeesValue('');
-    setCstSorting([]);
     setPositionSorting([]);
-    setCcSorting([]);
+    setDepartmentSorting([]);
     setLocationSorting([]);
   };
 
@@ -150,26 +134,8 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     year: [...yearSorting],
     month: [...monthSorting],
     position: [...positionSorting],
-    cc: [...ccSorting],
-    cst: [...cstSorting],
+    department: [...departmentSorting],
     officeLocation: [...locationSorting]
-  };
-
-  const years = () => {
-    let years = [];
-    const currentYear = moment().year();
-    for (let i = currentYear; i >= 2000; i--) {
-      years.push(i);
-    }
-    return years;
-  };
-
-  const months = () => {
-    let months = [];
-    for (let i = 1; i <= 12; i++) {
-      months.push(i);
-    }
-    return months;
   };
 
   const sortingData = [
@@ -196,10 +162,10 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     },
     {
       id: 4,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.cc' }),
-      menuData: competenceCenters,
-      stateValue: ccSorting,
-      handleChange: handleSortCcChange
+      sortBy: intl.formatMessage({ id: 'employeeInfo.department' }),
+      menuData: departments,
+      stateValue: departmentSorting,
+      handleChange: handleSortDepartmentChange
     },
     {
       id: 5,
@@ -207,13 +173,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       menuData: locations,
       stateValue: locationSorting,
       handleChange: handleSortLocationChange
-    },
-    {
-      id: 6,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.cst' }),
-      menuData: cst,
-      stateValue: cstSorting,
-      handleChange: handleSortCstChange
     }
   ];
 
@@ -230,49 +189,17 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
           </Tooltip>
         )}
       </IconButton>
-      <Paper className={classes.filterWithUpload}>
-        <div className={classes.upperPanel}>
-          <div className={classes.advFilter}>
-            <SearchFilter
-              searchValue={searchEmployeesValue}
-              searchChange={handleSearchEmployeeChange}
-              placeholder={intl.formatMessage({ id: 'filter.searchEmployee' })}
-            />
-            <Button
-              onClick={() => toggleSortingFilter()}
-              className={classes.advFilterButton}
-            >
-              <FilterIcon />
-              <Typography variant="button">
-                {intl.formatMessage({ id: 'filter.advanced' })}
-              </Typography>
-            </Button>
-          </div>
-        </div>
-        {visibleAdvancedFilter && (
-          <div className={classes.advFilter}>
-            {sortingData.map(item => (
-              <SortingFilter
-                key={item.id}
-                sortBy={item.sortBy}
-                handleChange={item.handleChange}
-                menuData={item.menuData}
-                stateValue={item.stateValue}
-                formerEmployees={true}
-              />
-            ))}
-            <Button onClick={clearFilter} className={classes.clearFilterBtn}>
-              <Typography variant="button" className={classes.clearFilterText}>
-                x {intl.formatMessage({ id: 'filter.clear' })}
-              </Typography>
-            </Button>
-          </div>
-        )}
-      </Paper>
+      <UpperFilterMenu
+        searchEmployeesValue={searchEmployeesValue}
+        handleSearchEmployeeChange={handleSearchEmployeeChange}
+        visibleAdvancedFilter={visibleAdvancedFilter}
+        clearFilter={clearFilter}
+        toggleSortingFilter={toggleSortingFilter}
+        sortingData={sortingData}
+      />
       {tableView ? (
         <FormerEmployeesTable
           filterInputs={filterInputs}
-          selected={{}}
           employees={employees}
           isLoading={isLoading}
         />

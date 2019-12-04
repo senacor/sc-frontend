@@ -2,8 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { modifyString } from '../../helper/string';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -16,13 +15,18 @@ import Divider from '@material-ui/core/Divider';
 const styles = theme => ({
   card: {
     width: 260,
-    height: 350,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: '0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
     }
+  },
+  heightAllEmployee: {
+    height: 320
+  },
+  heightFormerEmployee: {
+    height: 270
   },
   header: {
     backgroundColor: theme.palette.secondary.brightGrey,
@@ -66,22 +70,18 @@ const EmployeeCard = ({
   intl,
   classes,
   employee: {
-    id,
     firstName,
     lastName,
-    competenceCenter,
-    currentPosition,
-    currentCst,
+    department,
+    position,
+    scStatus,
     officeLocation,
-    dateOfNextPr,
     userPhoto,
     supervisorName,
-    hasOpenedPr
+    entryDate,
+    endDate
   },
-  selection,
-  selected,
-  toggleSelected,
-  formerEmployees
+  formerEmployee
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -109,92 +109,90 @@ const EmployeeCard = ({
       <Avatar />
     );
 
-  let bgClass = '';
-  let avatar = employeePhoto;
-  let onCardClick = handleDialogOpen;
-
-  if (selection) {
-    if (hasOpenedPr || !supervisorName) {
-      bgClass = classes.selectionUnavailable;
-      avatar = (
-        <HighlightOffIcon className={`${classes.avatar} ${classes.iconGrey}`} />
-      );
-      onCardClick = () => {};
-    } else {
-      onCardClick = () => toggleSelected(id);
-      bgClass = selected ? classes.selected : classes.selectable;
-      avatar = selected ? (
-        <CheckCircleIcon className={`${classes.avatar} ${classes.iconGreen}`} />
-      ) : (
-        employeePhoto
-      );
-    }
-  }
-
   return (
     <Fragment>
-      <Card className={classes.card} onClick={onCardClick}>
+      <Card
+        className={
+          formerEmployee
+            ? `${classes.card} ${classes.heightFormerEmployee}`
+            : `${classes.card} ${classes.heightAllEmployee}`
+        }
+        onClick={handleDialogOpen}
+      >
         <CardHeader
-          className={`${classes.header} ${bgClass}`}
+          className={`${classes.header}`}
           title={employeeName}
-          avatar={avatar}
+          avatar={employeePhoto}
         />
         <Divider />
         <CardContent>
           <Fragment>
             <Typography className={classes.text} component="span">
-              {intl.formatMessage({
+              {`${intl.formatMessage({
                 id: 'employeeInfo.position'
-              })}
-              <div className={classes.textInfo}>{currentPosition}</div>
+              })}: `}
+              <span className={classes.textInfo}>{position}</span>
             </Typography>
           </Fragment>
+          {!formerEmployee && (
+            <Typography className={classes.text} component="span">
+              {`${intl.formatMessage({
+                id: 'employeeInfo.supervisor'
+              })}: `}
+              <span className={classes.textInfo}>
+                {supervisorName
+                  ? supervisorName
+                  : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+              </span>
+            </Typography>
+          )}
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
-              id: 'employeeInfo.cst'
+              id: 'employeeInfo.department'
             })}: `}
-            <span className={classes.textInfo}>{currentCst}</span>
+            <span className={classes.textInfo}>{department}</span>
           </Typography>
           <Typography className={classes.text} component="span">
             {`${intl.formatMessage({
-              id: 'employeeInfo.supervisor'
-            })}: `}
-            <span className={classes.textInfo}>{supervisorName}</span>
-          </Typography>
-          <Typography className={classes.text} component="span">
-            {`${intl.formatMessage({
-              id: 'employeeInfo.cc'
-            })}: `}
-            <span className={classes.textInfo}>{competenceCenter}</span>
-          </Typography>
-          <Typography className={classes.text} component="span">
-            {`${intl.formatMessage({
-              id: 'employeeInfo.officelocation'
+              id: 'employeeInfo.office'
             })}: `}
             <span className={classes.textInfo}>{officeLocation}</span>
           </Typography>
-          <Typography className={classes.text} component="span">
-            {`${intl.formatMessage({
-              id: 'employeeInfo.startDate'
-            })}: `}
-            <span className={classes.textInfo}>
-              {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
-            </span>
-          </Typography>
-          {formerEmployees && (
+          {formerEmployee ? (
             <Typography className={classes.text} component="span">
               {`${intl.formatMessage({
                 id: 'employeeInfo.exitDate'
               })}: `}
               <span className={classes.textInfo}>
-                {formatLocaleDateTime(dateOfNextPr, FRONTEND_DATE_FORMAT)}
+                {' '}
+                {formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)}
+              </span>
+            </Typography>
+          ) : (
+            <Typography className={classes.text} component="span">
+              {`${intl.formatMessage({
+                id: 'employeeInfo.entryDate'
+              })}: `}
+              <span className={classes.textInfo}>
+                {formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
+              </span>
+            </Typography>
+          )}
+          {!formerEmployee && (
+            <Typography className={classes.text} component="span">
+              {`${intl.formatMessage({
+                id: 'employeeInfo.scStatus'
+              })}: `}
+              <span className={classes.textInfo}>
+                {scStatus
+                  ? modifyString(scStatus)
+                  : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
               </span>
             </Typography>
           )}
         </CardContent>
       </Card>
-      {dialogOpen &&
-        <div>TODO add dialog</div>}
+      {dialogOpen && <div>TODO add dialog</div>}
     </Fragment>
   );
 };

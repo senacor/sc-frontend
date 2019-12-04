@@ -1,14 +1,14 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import EmployeeCard from './EmployeeCard';
-// Calls
-// Material UI
-import Grid from '@material-ui/core/Grid';
 import {
   handleFilterActive,
   checkFilterValues
 } from '../../helper/filterFunctions';
+
+// Material UI
+import Grid from '@material-ui/core/Grid';
+import { Button, CircularProgress, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   gridContainer: {
@@ -26,9 +26,6 @@ const AllEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
-  toggleSelected,
-  selection,
-  selected,
   employees,
   isLoading
 }) => {
@@ -37,7 +34,7 @@ const AllEmployeesGrid = ({
   const cardsToShow = 15;
 
   useEffect(() => {
-    handleFilterActive(filterInputs, setFilterActive);
+    setFilterActive(handleFilterActive(filterInputs));
   });
 
   const showMore = employees => {
@@ -52,22 +49,19 @@ const AllEmployeesGrid = ({
     const employeeName = empl.firstName + ' ' + empl.lastName;
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.currentPosition) &&
-      checkFilterValues(filterInputs.cc, empl.competenceCenter) &&
-      checkFilterValues(filterInputs.cst, empl.currentCst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation)
+      checkFilterValues(filterInputs.position, empl.position) &&
+      checkFilterValues(filterInputs.department, empl.department) &&
+      checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
+      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+      checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
+      checkFilterValues(filterInputs.month, empl.entryDate[1])
     );
   });
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard
-        employee={employee}
-        toggleSelected={toggleSelected}
-        selection={selection}
-        selected={selected[employee.id]}
-      />
+      <EmployeeCard employee={employee} />
     </Grid>
   ));
 
@@ -76,12 +70,7 @@ const AllEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <EmployeeCard
-          employee={employee}
-          toggleSelected={toggleSelected}
-          selection={selection}
-          selected={selected[employee.id]}
-        />
+        <EmployeeCard employee={employee} />
       </Grid>
     ));
 
@@ -98,6 +87,7 @@ const AllEmployeesGrid = ({
             <Button
               className={classes.showMore}
               onClick={() => showMore(employees)}
+              variant="contained"
             >
               {`${intl.formatMessage({
                 id: 'showMore'
@@ -108,6 +98,7 @@ const AllEmployeesGrid = ({
             <Button
               className={classes.showMore}
               onClick={() => showMore(filteredEmployees)}
+              variant="contained"
             >
               {`${intl.formatMessage({
                 id: 'showMore'

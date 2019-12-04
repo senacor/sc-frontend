@@ -14,10 +14,10 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
-import SearchFilter from '../../AllEmployees/SearchFilter';
+import SearchFilter from '../../filterComponents/SearchFilter';
 import Button from '@material-ui/core/Button';
 import FilterIcon from '@material-ui/icons/FilterList';
-import SortingFilter from '../../AllEmployees/SortingFilter';
+import SortingFilter from '../../filterComponents/SortingFilter';
 import {
   locations,
   scDepartmentMenu,
