@@ -37,7 +37,7 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
     employee: true,
     department: false,
     supervisor: false,
-    scposition: false,
+    classification: false,
     office: false,
     status: false
   });
@@ -68,7 +68,7 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
         newSortActive.supervisor = true;
         break;
       case 'POSITION':
-        newSortActive.scposition = true;
+        newSortActive.classification = true;
         break;
       case 'OFFICE':
         newSortActive.office = true;
@@ -91,7 +91,10 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
         checkFilterValues(filterInputs.searchEmployee, employeeName) &&
         checkFilterValues(filterInputs.searchSupervisor, sc.supervisor) &&
         checkFilterValues(filterInputs.department, sc.department) &&
-        checkFilterValues(filterInputs.position, sc.employeePosition) &&
+        checkFilterValues(
+          filterInputs.classification,
+          modifyString(sc.classification)
+        ) &&
         checkFilterValues(filterInputs.office, sc.office) &&
         checkFilterValues(filterInputs.status, modifyString(sc.scStatus))
       );
@@ -137,11 +140,11 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.scposition}
+              active={sortActive.classification}
               direction={sortDirection}
               onClick={() => handleSort('POSITION')}
             >
-              {intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
+              {intl.formatMessage({ id: 'employeeInfo.classification' })}
             </TableSortLabel>
           </TableCell>
           <TableCell>
@@ -178,7 +181,7 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
               </TableCell>
               <TableCell>{sc.department}</TableCell>
               <TableCell>{sc.supervisor}</TableCell>
-              <TableCell>{modifyString(sc.employeePosition)}</TableCell>
+              <TableCell>{modifyString(sc.classification)}</TableCell>
               <TableCell>{sc.office}</TableCell>
               <TableCell>{modifyString(sc.scStatus)}</TableCell>
             </TableRow>
