@@ -7,8 +7,8 @@ import SortingFilter from '../../filterComponents/SortingFilter';
 import {
   locations,
   scDepartmentMenu,
-  positions,
-  scStatuses
+  scStatuses,
+  classifications
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
 import ScsInProgressTable from './ScsInProgressTable';
@@ -86,7 +86,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const [searchSupervisorValue, setSearchSupervisorValue] = useState('');
   const [department, setDepartment] = useState([]);
-  const [position, setPosition] = useState([]);
+  const [classification, setClassification] = useState([]);
   const [office, setOffice] = useState([]);
   const [scStatus, setScStatus] = useState([]);
 
@@ -118,8 +118,8 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     setDepartment(event.target.value);
   };
 
-  const handleSearchPositionChange = event => {
-    setPosition(event.target.value);
+  const handleSearchClassificationChange = event => {
+    setClassification(event.target.value);
   };
 
   const handleOfficeChange = event => {
@@ -134,7 +134,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     searchEmployee: searchEmployeesValue,
     searchSupervisor: searchSupervisorValue,
     department: department,
-    position: position,
+    classification: classification,
     office: office,
     status: scStatus
   };
@@ -152,7 +152,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   const clearFilter = () => {
     setSearchEmployeesValue('');
     setSearchSupervisorValue('');
-    setPosition([]);
+    setClassification([]);
     setOffice([]);
     setDepartment([]);
     setScStatus([]);
@@ -242,10 +242,12 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
                 processingPrs
               />
               <SortingFilter
-                sortBy={intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
-                handleChange={handleSearchPositionChange}
-                menuData={positions}
-                stateValue={position}
+                sortBy={intl.formatMessage({
+                  id: 'employeeInfo.classification'
+                })}
+                handleChange={handleSearchClassificationChange}
+                menuData={classifications}
+                stateValue={classification}
                 processingPrs
               />
               <SortingFilter

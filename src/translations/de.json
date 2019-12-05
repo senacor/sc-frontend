@@ -209,6 +209,7 @@
   "employeeInfo.positionAbrv": "Position",
   "employeeInfo.department": "Abteilung",
   "employeeInfo.position": "Position",
+  "employeeInfo.classification": "Einstufung",
   "employeeInfo.cst": "CST",
   "employeeInfo.cc": "CC",
   "employeeInfo.supervisor": "Vorgesetzter",

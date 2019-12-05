@@ -42,7 +42,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const afterScFetched = sc => {
     setSc(sc);
-    setClassification(sc.classification);
+    setClassification(sc.classification ? sc.classification : '');
     fetchMeeting(sc, setMeeting, error);
   };
 

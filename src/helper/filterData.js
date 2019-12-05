@@ -1,3 +1,11 @@
+export const classifications = [
+  'Specialist',
+  'Senior Expert',
+  'Senior Management',
+  'Lead Expert',
+  'Lead Management'
+];
+
 export const positions = [
   'Assistant',
   'Expert',
@@ -60,14 +68,6 @@ export const scDepartmentMenu = [
   'Recruiting',
   'Travel Services',
   'TBD'
-];
-
-export const scPositionMenu = [
-  'Specialist',
-  'Senior Expert',
-  'Senior Management',
-  'Lead Expert',
-  'Lead Management'
 ];
 
 export const scWorkstatusMenu = ['In progress', 'Done'];
