@@ -60,12 +60,14 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
   )}, ${intl.formatMessage({
     id: 'scdetailinformation.department'
   })}: ${sc.department}, ${
-    sc.position
+    sc.classification
       ? intl.formatMessage({
-          id: 'scdetailinformation.position'
+          id: 'scdetailinformation.classification'
         })
       : ''
-  } ${sc.position ? modifyString(sc.position) + ', ' : ''}${intl.formatMessage({
+  } ${
+    sc.classification ? modifyString(sc.classification) + ', ' : ''
+  }${intl.formatMessage({
     id: 'scdetailinformation.termin'
   })} ${
     sc.finalMeetingDate

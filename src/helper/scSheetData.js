@@ -1,3 +1,11 @@
+export const classifications = [
+  'Specialist',
+  'Senior_Expert',
+  'Senior_Management',
+  'Lead_Expert',
+  'Lead_Management'
+];
+
 export const dailyBusinessPerformanceLevels = [
   'scsheet.evaluation.dailyBusiness.1',
   'scsheet.evaluation.dailyBusiness.2',

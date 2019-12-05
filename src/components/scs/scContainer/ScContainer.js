@@ -14,8 +14,8 @@ const ScContainer = ({
   sc,
   tabValue,
   handleChangeTab,
-  position,
-  handleChangePosition,
+  classification,
+  handleChangeClassification,
   handleChangeType,
   scTypeSeleted,
   handleSubmitScType,
@@ -28,11 +28,7 @@ const ScContainer = ({
 
   return (
     <Fragment>
-      <StatusStepper
-        sc={sc}
-        position={position}
-        handleMeetingConfirm={handleMeetingConfirm}
-      />
+      <StatusStepper sc={sc} handleMeetingConfirm={handleMeetingConfirm} />
       {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
       sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
         <ScTabs
@@ -46,8 +42,8 @@ const ScContainer = ({
       ) : user.isReviewerInSc(sc) ? (
         <ScTypeToChoose
           sc={sc}
-          position={position}
-          handleChangePosition={handleChangePosition}
+          classification={classification}
+          handleChangeClassification={handleChangeClassification}
           handleChangeType={handleChangeType}
           scTypeSeleted={scTypeSeleted}
           handleSubmitScType={handleSubmitScType}
