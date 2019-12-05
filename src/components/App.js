@@ -24,7 +24,7 @@ const FormerEmployeesContainer = lazy(() =>
 );
 const OwnScsContainer = lazy(() => import('./scs/ownScs/OwnScsContainer'));
 const ProcessingScsContainer = lazy(() =>
-  import('./scs/processingScs/ProcessingScsContainer')
+  import('./scs/processingScs/ProcessingScContainer')
 );
 const ScorecardDetail = lazy(() => import('./scs/ScorecardDetail'));
 const Login = lazy(() => import('./login/Login'));

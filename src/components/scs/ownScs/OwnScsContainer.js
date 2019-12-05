@@ -25,24 +25,21 @@ const OwnScsContainer = ({ classes }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
-  const user = useUserinfoContext();
+  const userId = useUserinfoContext().context.value.userinfo.userId;
 
   useEffect(() => {
     getOwnScs(setOwnScs, setIsLoading, error);
   }, []);
 
-  const listofOwnScs = ownScs.map((sc, index) => (
-    <Grid item key={index} className={classes.padding}>
-      <ScCard
-        sc={sc}
-        status={determineScRole(
-          user.isOwnerInSc(sc),
-          user.isReviewerInSc(sc),
-          sc.statusSet
-        )}
-      />
-    </Grid>
-  ));
+  const listofOwnScs = ownScs.map((sc, index) => {
+    const statuses = sc.statusSet;
+    const isOwner = userId === sc.employeeId;
+    return (
+      <Grid item key={index} className={classes.padding}>
+        <ScCard sc={sc} status={determineScRole(isOwner, null, statuses)} />
+      </Grid>
+    );
+  });
 
   return (
     <div className={classes.container}>

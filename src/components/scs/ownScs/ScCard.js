@@ -44,10 +44,12 @@ const styles = theme => ({
     borderBottom: `1px solid ${theme.palette.secondary.brightGrey}`
   },
   cardFooter: {
-    height: 50,
+    height: 40,
+    padding: theme.spacing.unit,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    textAlign: 'center'
   },
   prIcon: {
     fontSize: '4rem',

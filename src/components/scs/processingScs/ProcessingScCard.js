@@ -49,10 +49,12 @@ const styles = theme => ({
     cursor: 'pointer'
   },
   cardFooter: {
-    height: 50,
+    height: 45,
+    padding: theme.spacing.unit,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    textAlign: 'center'
   },
   prIcon: {
     fontSize: '4rem',

@@ -2,9 +2,9 @@ import { SC_STATUS } from '../../helper/scSheetData';
 
 export const determineScRole = (isOwnerSc, isReviewerSc, statuses) => {
   if (isReviewerSc) {
-    determineStatusReviewer(statuses);
+    return determineStatusReviewer(statuses);
   } else if (isOwnerSc) {
-    determineStatusOwner(statuses);
+    return determineStatusOwner(statuses);
   }
 };
 

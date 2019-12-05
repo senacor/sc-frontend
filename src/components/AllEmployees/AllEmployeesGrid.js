@@ -48,11 +48,12 @@ const AllEmployeesGrid = ({
 
   let filteredEmployees = employees.filter(empl => {
     const employeeName = empl.firstName + ' ' + empl.lastName;
+    const modifiedScStatus = modifyString(empl.scStatus);
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
       checkFilterValues(filterInputs.department, empl.department) &&
-      checkFilterValues(filterInputs.scStatus, modifyString(empl.scStatus)) &&
+      checkFilterValues(filterInputs.scStatus, modifiedScStatus) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
       checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
       checkFilterValues(filterInputs.month, empl.entryDate[1])

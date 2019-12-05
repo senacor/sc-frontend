@@ -20,29 +20,30 @@ const styles = theme => ({
   padding: 3 * theme.spacing.unit
 });
 
-const ProcessingScsContainer = ({ classes }) => {
+const ProcessingScContainer = ({ classes }) => {
   const [processingScs, setProcessingScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
-  const user = useUserinfoContext();
+  const userId = useUserinfoContext().context.value.userinfo.userId;
 
   useEffect(() => {
     getScsToReview(setProcessingScs, setIsLoading, error);
   }, []);
 
-  const listOfProcessingScs = processingScs.map((sc, index) => (
-    <Grid item key={index} className={classes.padding}>
-      <ProcessingScsCard
-        sc={sc}
-        status={determineScRole(
-          user.isOwnerInSc(sc),
-          user.isReviewerInSc(sc),
-          sc.statusSet
-        )}
-      />
-    </Grid>
-  ));
+  const listOfProcessingScs = processingScs.map((sc, index) => {
+    const statuses = sc.statusSet;
+    const isOwner = userId === sc.employeeId;
+    const isReviewer = userId === sc.reviewer1 || userId === sc.reviewer2;
+    return (
+      <Grid item key={index} className={classes.padding}>
+        <ProcessingScsCard
+          sc={sc}
+          status={determineScRole(isOwner, isReviewer, statuses)}
+        />
+      </Grid>
+    );
+  });
 
   return (
     <div className={classes.container}>
@@ -59,4 +60,4 @@ const ProcessingScsContainer = ({ classes }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(ProcessingScsContainer));
+export default injectIntl(withStyles(styles)(ProcessingScContainer));
