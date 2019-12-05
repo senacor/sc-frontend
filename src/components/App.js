@@ -23,8 +23,8 @@ const FormerEmployeesContainer = lazy(() =>
   import('./AllEmployees/FormerEmployeesContainer')
 );
 const OwnScsContainer = lazy(() => import('./scs/ownScs/OwnScsContainer'));
-const ScsForProcessingContainer = lazy(() =>
-  import('./processingScs/ProcessingScsContainer')
+const ProcessingScsContainer = lazy(() =>
+  import('./scs/processingScs/ProcessingScsContainer')
 );
 const ScorecardDetail = lazy(() => import('./scs/ScorecardDetail'));
 const Login = lazy(() => import('./login/Login'));
@@ -54,9 +54,7 @@ const withContent = WrappedComponent => props => (
   </Content>
 );
 
-const ScsForProcessingContainerWithContent = withContent(
-  ScsForProcessingContainer
-);
+const ProcessingScsContainerWithContent = withContent(ProcessingScsContainer);
 const OwnScsContainerWithContent = withContent(OwnScsContainer);
 const ScorecardDetail2WithContent = withContent(ScorecardDetail);
 const DashboardWithContent = withContent(Dashboard);
@@ -160,7 +158,7 @@ const App = () => {
                     <PrivateRoute
                       exact
                       path={ROUTES.SC_TO_REVIEW_TABLE}
-                      component={ScsForProcessingContainerWithContent}
+                      component={ProcessingScsContainerWithContent}
                     />
                     <PrivateRoute
                       exact

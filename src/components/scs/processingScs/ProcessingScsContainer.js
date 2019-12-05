@@ -1,7 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import ProcessingScsCard from './ProcessingScCard';
+import {
+  useErrorContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
+import { getScsToReview } from '../../../calls/sc';
+import { determineScRole } from '../helperFunc';
 
 const styles = theme => ({
   ...theme,
@@ -14,26 +20,27 @@ const styles = theme => ({
   padding: 3 * theme.spacing.unit
 });
 
-const mockedScs = [
-  {
-    id: 3,
-    employeeFirstName: 'First Name',
-    employeeLastName: 'Last Name',
-    createdDate: [2019, 10, 29],
-    inProgress: true
-  }
-];
+const ProcessingScsContainer = ({ classes }) => {
+  const [processingScs, setProcessingScs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-const ProcessingScsContainer = ({ classes, intl }) => {
-  const isLoading = false; // temporary variable, in future will be set in state
+  const error = useErrorContext();
+  const user = useUserinfoContext();
 
-  //   useEffect(() => {
-  //     // fetch processing scs
-  //   }, []);
+  useEffect(() => {
+    getScsToReview(setProcessingScs, setIsLoading, error);
+  }, []);
 
-  const listOfProcessingScs = mockedScs.map((scs, index) => (
+  const listOfProcessingScs = processingScs.map((sc, index) => (
     <Grid item key={index} className={classes.padding}>
-      <ProcessingScsCard sc={scs} />
+      <ProcessingScsCard
+        sc={sc}
+        status={determineScRole(
+          user.isOwnerInSc(sc),
+          user.isReviewerInSc(sc),
+          sc.statusSet
+        )}
+      />
     </Grid>
   ));
 

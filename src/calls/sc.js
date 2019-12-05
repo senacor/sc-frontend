@@ -112,24 +112,6 @@ export const getScsInProgress = async (setScs, setIsLoading, error) => {
   }
 };
 
-export const getScsHrTodo = async (setScs, setIsLoading, error) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/todo`
-    );
-    const responseScs = await response.json();
-
-    setIsLoading(false);
-    setScs(responseScs);
-  } catch (err) {
-    console.log(err);
-    setIsLoading(false);
-    error.showGeneral();
-  }
-};
-
 export const getScsToReview = async (setScs, setIsLoading, error) => {
   try {
     setIsLoading(true);

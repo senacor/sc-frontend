@@ -1,9 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Grid, CircularProgress } from '@material-ui/core';
-import { useErrorContext } from '../../../helper/contextHooks';
+import {
+  useErrorContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
 import { getOwnScs } from '../../../calls/sc';
 import ScCard from './ScCard';
+import { determineScRole } from '../helperFunc';
 
 const styles = theme => ({
   ...theme,
@@ -16,11 +20,12 @@ const styles = theme => ({
   padding: 3 * theme.spacing.unit
 });
 
-const OwnScsContainer = ({ classes, intl }) => {
+const OwnScsContainer = ({ classes }) => {
   const [ownScs, setOwnScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
+  const user = useUserinfoContext();
 
   useEffect(() => {
     getOwnScs(setOwnScs, setIsLoading, error);
@@ -28,7 +33,14 @@ const OwnScsContainer = ({ classes, intl }) => {
 
   const listofOwnScs = ownScs.map((sc, index) => (
     <Grid item key={index} className={classes.padding}>
-      <ScCard sc={sc} active={true} />
+      <ScCard
+        sc={sc}
+        status={determineScRole(
+          user.isOwnerInSc(sc),
+          user.isReviewerInSc(sc),
+          sc.statusSet
+        )}
+      />
     </Grid>
   ));
 
