@@ -18,7 +18,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const [sc, setSc] = useState(null);
   const [scTab, setScTab] = useState(SC_TAB.EMPLOYEE);
   const [isLoading, setIsLoading] = useState(false);
-  const [position, setPosition] = useState('');
+  const [classification, setClassification] = useState('');
   const [scTypeSeleted, setScTypeSelected] = useState(undefined);
 
   const error = useErrorContext();
@@ -42,7 +42,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const afterScFetched = sc => {
     setSc(sc);
-    setPosition(sc.position);
+    setClassification(sc.classification ? sc.classification : '');
     fetchMeeting(sc, setMeeting, error);
   };
 
@@ -50,8 +50,8 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTypeSelected(event.target.value);
   };
 
-  const handleChangePosition = event => {
-    setPosition(event.target.value);
+  const handleChangeClassification = event => {
+    setClassification(event.target.value);
   };
 
   const handleSubmitScType = () => {
@@ -59,7 +59,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
       addScType(
         sc.id,
         scTypeSeleted,
-        position,
+        classification,
         setSc,
         setIsLoading,
         error,
@@ -97,8 +97,8 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               sc={sc}
               tabValue={scTab}
               handleChangeTab={handleChangeTab}
-              position={position}
-              handleChangePosition={handleChangePosition}
+              classification={classification}
+              handleChangeClassification={handleChangeClassification}
               handleChangeType={handleChangeType}
               scTypeSeleted={scTypeSeleted}
               handleSubmitScType={handleSubmitScType}

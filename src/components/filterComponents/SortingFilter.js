@@ -13,7 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
   ...theme,
-  expansionFilter: {
+  dropdownFilter: {
     display: 'block',
     marginBottom: 2 * theme.spacing.unit
   },
@@ -34,7 +34,7 @@ const SortingFilter = ({
   stateValue
 }) => {
   return (
-    <div className={classes.expansionFilter}>
+    <div className={classes.dropdownFilter}>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="select-multiple-positions">{sortBy}</InputLabel>
         <Select

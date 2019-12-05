@@ -151,7 +151,7 @@ export const getScsToReview = async (setScs, setIsLoading, error) => {
 export const addScType = async (
   scId,
   status,
-  position,
+  classification,
   setSc,
   setIsLoading,
   error,
@@ -161,7 +161,7 @@ export const addScType = async (
     const response = await fetch(
       `${
         process.env.REACT_APP_API
-      }/api/v1/sc/${scId}/status?scStatus=${status}&position=${position}`,
+      }/api/v1/sc/${scId}/status?scStatus=${status}&classification=${classification}`,
       {
         method: 'post',
         mode: 'cors'

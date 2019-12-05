@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
+import { linkToSc } from '../../calls/sc';
+import { modifyString } from '../../helper/string';
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -9,8 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 // Icons
 import ScIcon from '@material-ui/icons/InsertChart';
-import { linkToSc } from '../../calls/sc';
-import { mapPosition } from '../../helper/string';
 
 const styles = theme => ({
   card: {
@@ -120,7 +120,9 @@ const ProcessingScsCard = ({
       {/* Occasion container */}
       <div className={classes.occasion}>
         <br />
-        <Typography variant="body1">{mapPosition(employeePosition)}</Typography>
+        <Typography variant="body1">
+          {modifyString(employeePosition)}
+        </Typography>
         {showProgress()}
       </div>
     </Card>

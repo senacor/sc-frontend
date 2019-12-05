@@ -1,4 +1,4 @@
-export const positions = [
+export const classifications = [
   'Specialist',
   'Senior_Expert',
   'Senior_Management',

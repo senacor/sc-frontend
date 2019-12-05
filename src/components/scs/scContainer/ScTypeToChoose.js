@@ -13,7 +13,7 @@ import {
   Radio,
   Button
 } from '@material-ui/core';
-import { SC_STATUS, positions } from '../../../helper/scSheetData';
+import { SC_STATUS, classifications } from '../../../helper/scSheetData';
 import { modifyString } from '../../../helper/string';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 
@@ -51,8 +51,8 @@ const ScTypeToChoose = ({
   classes,
   intl,
   sc,
-  position,
-  handleChangePosition,
+  classification,
+  handleChangeClassification,
   handleChangeType,
   scTypeSeleted,
   handleSubmitScType
@@ -66,16 +66,16 @@ const ScTypeToChoose = ({
       <div className={classes.dropdownContainer}>
         <FormControl className={classes.formControl}>
           <FormLabel component="legend">
-            {intl.formatMessage({ id: 'scsheet.position' })}
+            {intl.formatMessage({ id: 'scsheet.classification' })}
           </FormLabel>
           <Select
             labelid="demo-simple-select-label"
             id="demo-simple-select"
-            value={position}
+            value={classification}
             disabled={!user.isReviewerInSc(sc)}
-            onChange={handleChangePosition}
+            onChange={handleChangeClassification}
           >
-            {positions.map((pos, index) => (
+            {classifications.map((pos, index) => (
               <MenuItem key={index} value={pos.toUpperCase()}>
                 {modifyString(pos)}
               </MenuItem>
@@ -107,7 +107,7 @@ const ScTypeToChoose = ({
           </RadioGroup>
         </FormControl>
         <Button
-          disabled={!scTypeSeleted || !position}
+          disabled={!scTypeSeleted || !classification}
           onClick={handleSubmitScType}
           color="secondary"
           variant="contained"

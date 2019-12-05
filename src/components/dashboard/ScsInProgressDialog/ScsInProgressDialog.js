@@ -3,6 +3,18 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import ROUTES from '../../../helper/routes';
 import InfoWidget from '../../utils/InfoWidget';
+import SortingFilter from '../../filterComponents/SortingFilter';
+import {
+  locations,
+  scDepartmentMenu,
+  scStatuses,
+  classifications
+} from '../../../helper/filterData';
+import { useErrorContext } from '../../../helper/contextHooks';
+import ScsInProgressTable from './ScsInProgressTable';
+import { getScsInProgress } from '../../../calls/sc';
+import SearchFilter from '../../filterComponents/SearchFilter';
+
 // Material UI
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,22 +23,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
-import SearchFilter from '../../filterComponents/SearchFilter';
-import Button from '@material-ui/core/Button';
 import FilterIcon from '@material-ui/icons/FilterList';
-import SortingFilter from '../../filterComponents/SortingFilter';
-import {
-  locations,
-  scDepartmentMenu,
-  scPositionMenu,
-  scWorkstatusMenu
-} from '../../../helper/filterData';
-import { useErrorContext } from '../../../helper/contextHooks';
-import ScsInProgressTable from './ScsInProgressTable';
-import { getScsInProgress } from '../../../calls/sc';
 
 const styles = theme => ({
   btnClose: {
@@ -54,13 +55,26 @@ const styles = theme => ({
     height: 38,
     minWidth: 160
   },
+  basicFilterContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2
+  },
   advFilter: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
+  },
+  searchSupervisor: {
+    display: 'block',
+    marginBottom: 2 * theme.spacing.unit
   }
 });
 
@@ -72,9 +86,9 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const [searchSupervisorValue, setSearchSupervisorValue] = useState('');
   const [department, setDepartment] = useState([]);
-  const [position, setPosition] = useState([]);
+  const [classification, setClassification] = useState([]);
   const [office, setOffice] = useState([]);
-  const [workstatus, setWorkstatus] = useState([]);
+  const [scStatus, setScStatus] = useState([]);
 
   const error = useErrorContext();
 
@@ -104,25 +118,25 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     setDepartment(event.target.value);
   };
 
-  const handleSearchPositionChange = event => {
-    setPosition(event.target.value);
+  const handleSearchClassificationChange = event => {
+    setClassification(event.target.value);
   };
 
   const handleOfficeChange = event => {
     setOffice(event.target.value);
   };
 
-  const handleSearchWorkstatusChange = event => {
-    setWorkstatus(event.target.value);
+  const handleScStatusChange = event => {
+    setScStatus(event.target.value);
   };
 
   const filterInputs = {
     searchEmployee: searchEmployeesValue,
     searchSupervisor: searchSupervisorValue,
     department: department,
-    position: position,
+    classification: classification,
     office: office,
-    status: workstatus
+    status: scStatus
   };
 
   const dialogClose = () => {
@@ -138,10 +152,10 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   const clearFilter = () => {
     setSearchEmployeesValue('');
     setSearchSupervisorValue('');
-    setPosition([]);
+    setClassification([]);
     setOffice([]);
     setDepartment([]);
-    setWorkstatus([]);
+    setScStatus([]);
   };
 
   return (
@@ -174,17 +188,32 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
         </DialogTitle>
         <Divider />
         <DialogContent className={classes.dialogContent}>
-          <Grid container>
-            <Grid item xs={5}>
-              <SearchFilter
-                searchValue={searchEmployeesValue}
-                searchChange={handleSearchEmployeeChange}
-                placeholder={intl.formatMessage({
-                  id: 'filter.searchEmployee'
-                })}
-              />
+          <div className={classes.basicFilterContainer}>
+            <SearchFilter
+              searchValue={searchEmployeesValue}
+              searchChange={handleSearchEmployeeChange}
+              placeholder={intl.formatMessage({
+                id: 'filter.searchEmployee'
+              })}
+            />
+            <div>
+              {visibleAdvancedFilter && (
+                <Button
+                  variant="contained"
+                  onClick={clearFilter}
+                  className={classes.clearFilterBtn}
+                >
+                  <Typography
+                    variant="button"
+                    className={classes.clearFilterText}
+                  >
+                    x {intl.formatMessage({ id: 'filter.clear' })}
+                  </Typography>
+                </Button>
+              )}
               <Button
                 onClick={() => toggleSortingFilter()}
+                variant="contained"
                 className={classes.advFilterBtn}
               >
                 <FilterIcon />
@@ -192,54 +221,49 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
                   {intl.formatMessage({ id: 'filter.advanced' })}
                 </Typography>
               </Button>
-            </Grid>
-            <Grid item xs={7} />
-          </Grid>
+            </div>
+          </div>
           {visibleAdvancedFilter && (
             <div className={classes.advFilter}>
+              <div className={classes.searchSupervisor}>
+                <SearchFilter
+                  searchValue={searchSupervisorValue}
+                  searchChange={handleSearchSupervisorChange}
+                  placeholder={intl.formatMessage({
+                    id: 'employeeInfo.supervisor'
+                  })}
+                />
+              </div>
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.department' })}
                 handleChange={handleDepartmentChange}
                 menuData={scDepartmentMenu}
                 stateValue={department}
-                processingPrs={true}
-              />
-              <SearchFilter
-                searchValue={searchSupervisorValue}
-                searchChange={handleSearchSupervisorChange}
-                placeholder={intl.formatMessage({
-                  id: 'employeeInfo.supervisor'
-                })}
+                processingPrs
               />
               <SortingFilter
-                sortBy={intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
-                handleChange={handleSearchPositionChange}
-                menuData={scPositionMenu}
-                stateValue={position}
-                processingPrs={true}
+                sortBy={intl.formatMessage({
+                  id: 'employeeInfo.classification'
+                })}
+                handleChange={handleSearchClassificationChange}
+                menuData={classifications}
+                stateValue={classification}
+                processingPrs
               />
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.office' })}
                 handleChange={handleOfficeChange}
                 menuData={locations}
                 stateValue={office}
-                processingPrs={true}
+                processingPrs
               />
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'sc.workstatus' })}
-                handleChange={handleSearchWorkstatusChange}
-                menuData={scWorkstatusMenu}
-                stateValue={workstatus}
-                processingPrs={true}
+                handleChange={handleScStatusChange}
+                menuData={scStatuses}
+                stateValue={scStatus}
+                processingPrs
               />
-              <Button onClick={clearFilter} className={classes.clearFilterBtn}>
-                <Typography
-                  variant="button"
-                  className={classes.clearFilterText}
-                >
-                  x {intl.formatMessage({ id: 'filter.clear' })}
-                </Typography>
-              </Button>
             </div>
           )}
           {isLoading ? (
