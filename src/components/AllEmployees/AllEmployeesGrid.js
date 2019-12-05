@@ -5,6 +5,7 @@ import {
   handleFilterActive,
   checkFilterValues
 } from '../../helper/filterFunctions';
+import { modifyString } from '../../helper/string';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -51,7 +52,7 @@ const AllEmployeesGrid = ({
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
       checkFilterValues(filterInputs.department, empl.department) &&
-      checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
+      checkFilterValues(filterInputs.scStatus, modifyString(empl.scStatus)) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
       checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
       checkFilterValues(filterInputs.month, empl.entryDate[1])
