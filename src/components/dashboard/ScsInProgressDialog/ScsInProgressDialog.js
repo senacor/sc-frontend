@@ -64,8 +64,10 @@ const styles = theme => ({
   },
   advFilter: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
@@ -223,13 +225,6 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
           </div>
           {visibleAdvancedFilter && (
             <div className={classes.advFilter}>
-              <SortingFilter
-                sortBy={intl.formatMessage({ id: 'employeeInfo.department' })}
-                handleChange={handleDepartmentChange}
-                menuData={scDepartmentMenu}
-                stateValue={department}
-                processingPrs
-              />
               <div className={classes.searchSupervisor}>
                 <SearchFilter
                   searchValue={searchSupervisorValue}
@@ -239,6 +234,13 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
                   })}
                 />
               </div>
+              <SortingFilter
+                sortBy={intl.formatMessage({ id: 'employeeInfo.department' })}
+                handleChange={handleDepartmentChange}
+                menuData={scDepartmentMenu}
+                stateValue={department}
+                processingPrs
+              />
               <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
                 handleChange={handleSearchPositionChange}

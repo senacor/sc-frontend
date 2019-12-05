@@ -13,9 +13,10 @@ import {
   Radio,
   Button
 } from '@material-ui/core';
-import { SC_STATUS, positions } from '../../../helper/scSheetData';
+import { SC_STATUS } from '../../../helper/scSheetData';
 import { modifyString } from '../../../helper/string';
 import { useUserinfoContext } from '../../../helper/contextHooks';
+import { positions } from '../../../helper/filterData';
 
 const styles = theme => ({
   ...theme.styledComponents,
