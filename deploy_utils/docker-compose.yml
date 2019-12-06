@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  sc_frontend:
+    image: pierrezemb/gostatic
+    ports: ["${FRONTEND_PORT}:${FRONTEND_PORT}"]
+    container_name: ${FRONTEND_CONTAINER_NAME}
+    command: "-fallback index.html -port ${FRONTEND_PORT}"
+    volumes:
+      - ./build:/srv/http
+    networks:
+      internal_network:
+        aliases:
+          - ${FRONTEND_CONTAINER_NAME}
+
+networks:
+  internal_network:
+    name: internal_network
