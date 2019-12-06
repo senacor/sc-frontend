@@ -10,7 +10,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ScsInProgressDialog from './ScsInProgressDialog/ScsInProgressDialog';
-import ScsTodoHrDialog from './ScsTodoHrDialog/ScsTodoHrDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -61,12 +60,9 @@ const Dashboard = ({ classes, intl }) => {
           />
         )}
 
-        {user.hasRoleSupervisor() && <div />}
-
         {user.hasRoleHr() && (
-          <div className={classes.rowContainer}>
+          <Fragment>
             <ScsInProgressDialog scsInProgress={userinfo.scsInProgressForHr} />
-            <ScsTodoHrDialog todoForHr={userinfo.scsInTodoForHr} />
             <InfoWidget
               label={intl.formatMessage({
                 id: 'dashboard.newformeremployees'
@@ -75,7 +71,7 @@ const Dashboard = ({ classes, intl }) => {
               linkTo={ROUTES.FORMER_EMPLOYEES}
               icon={'emoji_people'}
             />
-          </div>
+          </Fragment>
         )}
 
         {/* Notification about administration mode, if userrole is admin */}

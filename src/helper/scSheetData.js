@@ -1,9 +1,9 @@
-export const positions = [
+export const classifications = [
   'Specialist',
-  'Senior (Expert)',
-  'Senior (Mgmt.)',
-  'Expert',
-  'Manager'
+  'Senior_Expert',
+  'Senior_Management',
+  'Lead_Expert',
+  'Lead_Management'
 ];
 
 export const dailyBusinessPerformanceLevels = [
@@ -63,4 +63,14 @@ export const SC_TAB = {
   EMPLOYEE: 'scEmployee',
   REVIEWER: 'scReviewer',
   MEETING: 'scheduleView'
+};
+
+export const SC_STATUS = {
+  WITH_PR: 'SC_WITH_PR_CHOSEN',
+  WITHOUT_PR: 'SC_WITHOUT_PR_CHOSEN',
+  EMPLOYEE_SUBMITTED: 'EMPLOYEE_SUBMITTED',
+  REVIEWER_SUBMITTED: 'REVIEWER_SUBMITTED',
+  EMPLOYEE_MEETING_ACCEPTED: 'EMPLOYEE_MEETING_ACCEPTED',
+  REVIEWER_MEETING_ACCEPTED: 'REVIEWER_MEETING_ACCEPTED',
+  MEETING_CONFIRMED: 'MEETING_CONFIRMED'
 };

@@ -1,3 +1,6 @@
+import moment from 'moment';
+const isEqual = require('lodash/isEqual');
+
 export const sortByLastName = (data, sortDirection) => {
   if (sortDirection === 'asc') {
     data.sort((a, b) => {
@@ -45,7 +48,7 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'employeeLastName');
     },
     position: (a, b) => {
-      return sortsForFields.byField(a, b, 'currentPosition');
+      return sortsForFields.byField(a, b, 'position');
     },
     scposition: (a, b) => {
       return sortsForFields.byField(a, b, 'employeePosition');
@@ -83,36 +86,29 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
   }
 };
 
-export const handleFilterActive = (filterInputs, setFilterActive) => {
+export const handleFilterActive = filterInputs => {
+  const compareObjWith = { ...filterInputs };
   const emptyInputs = {
-    searchEmployee: '',
-    position: [],
-    cc: [],
-    cst: [],
-    officeLocation: []
-  };
-  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
-    setFilterActive(false);
-  } else {
-    setFilterActive(true);
-  }
-};
-
-export const handleFormerFilterActive = (filterInputs, setFilterActive) => {
-  const emptyInputs = {
-    searchEmployee: '',
-    year: [],
+    department: [],
     month: [],
+    officeLocation: [],
     position: [],
-    cc: [],
-    cst: [],
-    officeLocation: []
+    scStatus: [],
+    searchEmployee: '',
+    year: []
   };
-  if (JSON.stringify(emptyInputs) === JSON.stringify(filterInputs)) {
-    setFilterActive(false);
-  } else {
-    setFilterActive(true);
+  const emptyInputsFormerEmployee = {
+    department: [],
+    month: [],
+    officeLocation: [],
+    position: [],
+    searchEmployee: '',
+    year: []
+  };
+  if ('scStatus' in filterInputs) {
+    return !isEqual(compareObjWith, emptyInputs);
   }
+  return !isEqual(compareObjWith, emptyInputsFormerEmployee);
 };
 
 export const handleProgressFilterActive = (filterInputs, setFilterActive) => {
@@ -163,12 +159,29 @@ export const checkFilterValues = (filterData, userData) => {
   } else if (filterData !== '' && typeof filterData === 'string') {
     return userData
       ? userData
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterData.toLowerCase())
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(filterData.toLowerCase())
       : false;
   } else {
     return true;
   }
+};
+
+export const years = () => {
+  let years = [];
+  const currentYear = moment().year();
+  for (let i = currentYear; i >= 2000; i--) {
+    years.push(i);
+  }
+  return years;
+};
+
+export const months = () => {
+  let months = [];
+  for (let i = 1; i <= 12; i++) {
+    months.push(i);
+  }
+  return months;
 };

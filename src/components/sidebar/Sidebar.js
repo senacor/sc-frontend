@@ -82,109 +82,102 @@ export const Sidebar = ({ intl, classes }) => {
     error.hide();
   };
 
-  const getListOfMenuItems = () => {
-    return [
-      // DASHBOARD
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.dashboard'
-        }),
-        icon: <DashboardIcon />,
-        value: ROUTES.DASHBOARD,
-        onClick: resetMessages
-      },
-      // ADMIN_TECH
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.systemandinterfaces'
-        }),
-        icon: <SettingsApplications />,
-        value: ROUTES.ADMIN_SYSTEM_PANEL,
-        roles: [ROLES.ADMIN_TECH],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.userroles'
-        }),
-        icon: <SupervisedUserCircle />,
-        value: ROUTES.ADMIN_USER_ROLES,
-        roles: [ROLES.ADMIN_HR],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.maintenance'
-        }),
-        icon: <Build />,
-        value: ROUTES.MAINTENANCE,
-        roles: [ROLES.ADMIN_TECH],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.autorules'
-        }),
-        icon: <AutoRules />,
-        value: ROUTES.AUTORULES,
-        roles: [ROLES.ADMIN_TECH],
-        onClick: resetMessages
-      },
-      // DEVELOPER / CONSULTING
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.myScs'
-        }),
-        icon: <AssessmentIcon />,
-        value: ROUTES.OWN_SCS,
-        roles: [ROLES.EMPLOYEE],
-        onClick: resetMessages
-      },
-      // SUPERVISOR + PERSONAL_DEV
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.scs'
-        }),
-        icon: <BarChart />,
-        value: ROUTES.SC_TO_REVIEW_TABLE,
-        roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
-        reviewerCheck: true,
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.allEmployees'
-        }),
-        icon: <LibraryBooksIcon />,
-        value: ROUTES.ALL_PRS_TABLE,
-        roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
-        onClick: resetMessages
-      },
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.formerEmployees'
-        }),
-        icon: <LibraryBooksIcon />,
-        value: ROUTES.FORMER_EMPLOYEES,
-        roles: [ROLES.PERSONAL_DEV],
-        onClick: resetMessages
-      },
-      // LOGOUT
-      {
-        label: intl.formatMessage({
-          id: 'sidebar.logout'
-        }),
-        icon: <PowerSettingsNewIcon />,
-        value: ROUTES.LOGOUT,
-        onClick: resetMessages
-      }
-    ];
-  };
-
-  const givenName = userinfo.givenName ? userinfo.givenName : '';
-  const surname = userinfo.surname ? userinfo.surname : '';
-
-  const fullName = `${givenName} ${surname}`;
+  const listOfMenuItems = [
+    // DASHBOARD
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.dashboard'
+      }),
+      icon: <DashboardIcon />,
+      value: ROUTES.DASHBOARD,
+      onClick: resetMessages
+    },
+    // ADMIN_TECH
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.systemandinterfaces'
+      }),
+      icon: <SettingsApplications />,
+      value: ROUTES.ADMIN_SYSTEM_PANEL,
+      roles: [ROLES.ADMIN_TECH],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.userroles'
+      }),
+      icon: <SupervisedUserCircle />,
+      value: ROUTES.ADMIN_USER_ROLES,
+      roles: [ROLES.ADMIN_HR],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.maintenance'
+      }),
+      icon: <Build />,
+      value: ROUTES.MAINTENANCE,
+      roles: [ROLES.ADMIN_TECH],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.autorules'
+      }),
+      icon: <AutoRules />,
+      value: ROUTES.AUTORULES,
+      roles: [ROLES.ADMIN_TECH],
+      onClick: resetMessages
+    },
+    // EMPLOYEE
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.myScs'
+      }),
+      icon: <AssessmentIcon />,
+      value: ROUTES.OWN_SCS,
+      roles: [ROLES.EMPLOYEE],
+      onClick: resetMessages
+    },
+    // SUPERVISOR + PERSONAL_DEV
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.scs'
+      }),
+      icon: <BarChart />,
+      value: ROUTES.SC_TO_REVIEW_TABLE,
+      roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
+      reviewerCheck: true,
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.allEmployees'
+      }),
+      icon: <LibraryBooksIcon />,
+      value: ROUTES.ALL_PRS_TABLE,
+      roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.formerEmployees'
+      }),
+      icon: <LibraryBooksIcon />,
+      value: ROUTES.FORMER_EMPLOYEES,
+      roles: [ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    // LOGOUT
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.logout'
+      }),
+      icon: <PowerSettingsNewIcon />,
+      value: ROUTES.LOGOUT,
+      onClick: resetMessages
+    }
+  ];
 
   if (!userroles.length) {
     return (
@@ -194,30 +187,31 @@ export const Sidebar = ({ intl, classes }) => {
     );
   }
 
+  const fullName = userinfo.employeeName;
+  const initials = fullName.split(' ').map(str => str[0]);
+
   return (
     <div className={classes.root}>
       <div className={classes.row}>
         <div className={classes.column}>
           {userphoto === '' ? (
-            <Avatar
-              alt={fullName}
-              className={classes.avatar}
-            >{`${givenName.charAt(0)}${surname.charAt(0)}`}</Avatar>
+            <Avatar alt={fullName} className={classes.avatar}>{`${initials[0]}${
+              initials[initials.length - 1]
+            }`}</Avatar>
           ) : (
             <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
           )}
-
           <Typography>{fullName}</Typography>
         </div>
       </div>
       <Divider />
 
       <List component="nav">
-        {getListOfMenuItems().map(entry => {
-          const hasPRsToProcess =
+        {listOfMenuItems.map(entry => {
+          const hasScsToProcess =
             !entry.reviewerCheck ||
-            (entry.reviewerCheck && userinfo.numberOfPrsToReview);
-          return hasPRsToProcess ? (
+            (entry.reviewerCheck && userinfo.numberOfScsToReview);
+          return hasScsToProcess ? (
             <Authorized roles={entry.roles} key={entry.label}>
               <ListItem
                 component={NavLink}

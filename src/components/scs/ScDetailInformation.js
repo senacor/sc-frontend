@@ -6,10 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper/Paper';
 import getDisplayName from '../../helper/getDisplayName';
 import Grid from '@material-ui/core/Grid';
-import { formatDateForFrontend } from '../../helper/date';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { modifyString } from '../../helper/string';
 import { getAllEmployees } from '../../calls/employees';
-import { useErrorContext, useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../helper/contextHooks';
 import ScDelegationMenu from './ScSheet/ScDelegationMenu';
 
 const styles = theme => ({
@@ -49,14 +53,27 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
   }, []);
 
   const mainContent = `${intl.formatMessage({
-    id: 'prdetailinformation.duedate'
-  })} ${formatDateForFrontend(sc.createdDate)}, ${intl.formatMessage({
+    id: 'scdetailinformation.duedate'
+  })} ${formatLocaleDateTime(
+    sc.createdDate,
+    FRONTEND_DATE_FORMAT
+  )}, ${intl.formatMessage({
     id: 'scdetailinformation.department'
-  })}: ${sc.department}, ${intl.formatMessage({
-    id: 'prdetailinformation.position'
-  })} ${modifyString(sc.position)}, ${intl.formatMessage({
-    id: 'prdetailinformation.termin'
-  })} ${formatDateForFrontend(sc.createdDate)}`; // sc.createdDate is only temporary, waiting for termin date
+  })}: ${sc.department}, ${
+    sc.classification
+      ? intl.formatMessage({
+          id: 'scdetailinformation.classification'
+        })
+      : ''
+  } ${
+    sc.classification ? modifyString(sc.classification) + ', ' : ''
+  }${intl.formatMessage({
+    id: 'scdetailinformation.termin'
+  })} ${
+    sc.finalMeetingDate
+      ? formatLocaleDateTime(sc.finalMeetingDate, FRONTEND_DATE_FORMAT)
+      : intl.formatMessage({ id: 'scdetailinformation.terminNotDefined' })
+  }`;
 
   return (
     <Paper className={classes.spacing}>

@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import {
+  checkFilterValues,
+  handleScProgressFilterActive,
+  sortBySortActive
+} from '../../../helper/filterFunctions';
+import { linkToSc } from '../../../calls/sc';
+import { modifyString } from '../../../helper/string';
+
 // Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -9,53 +17,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import { checkFilterValues, handleScProgressFilterActive, sortBySortActive } from '../../../helper/filterFunctions';
-import { linkToSc } from '../../../calls/sc';
-import { mapPosition } from '../../../helper/string';
-
-export const filterScs = (scs, filterInputs) => {
-  return scs.filter(sc => {
-    const employeeName = sc.employeeFirstName + ' ' + sc.employeeLastName;
-    const checkStatus = (desired, actual) => {
-      if (desired.length === 2 || desired.length < 1) {
-        return true;
-      }
-      if (desired.toString().includes('In progress') && actual === true) {
-        return true;
-      }
-      return desired.toString().includes('Done') && actual === false;
-    };
-
-    const checkPosition = (desired, actual) => {
-      if (!desired || desired.length < 1) {
-        return true;
-      }
-      return desired
-        .map(position => position.toUpperCase().replace(' ', '_'))
-        .includes(actual);
-    };
-
-    return (
-      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.searchSupervisor, sc.supervisor) &&
-      checkFilterValues(filterInputs.department, sc.department) &&
-      checkPosition(filterInputs.position, sc.employeePosition) &&
-      checkFilterValues(filterInputs.office, sc.office) &&
-      checkStatus(filterInputs.status, sc.inProgress)
-    );
-  });
-};
-
-export const defaultScSortActive = () => {
-  return {
-    employee: true,
-    department: false,
-    supervisor: false,
-    scposition: false,
-    office: false,
-    status: false
-  };
-};
 
 const styles = theme => ({
   tableRow: {
@@ -72,7 +33,14 @@ const styles = theme => ({
 const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [sortDirection, setSortDirection] = useState('asc');
-  const [sortActive, setSortActive] = useState(defaultScSortActive());
+  const [sortActive, setSortActive] = useState({
+    employee: true,
+    department: false,
+    supervisor: false,
+    classification: false,
+    office: false,
+    status: false
+  });
 
   useEffect(() => {
     handleScProgressFilterActive(filterInputs, setFilterActive);
@@ -100,7 +68,7 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
         newSortActive.supervisor = true;
         break;
       case 'POSITION':
-        newSortActive.scposition = true;
+        newSortActive.classification = true;
         break;
       case 'OFFICE':
         newSortActive.office = true;
@@ -113,6 +81,24 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
     }
     setSortActive(newSortActive);
     changeDirection();
+  };
+
+  const filterScs = (scs, filterInputs) => {
+    return scs.filter(sc => {
+      const employeeName = sc.employeeFirstName + ' ' + sc.employeeLastName;
+
+      return (
+        checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.searchSupervisor, sc.supervisor) &&
+        checkFilterValues(filterInputs.department, sc.department) &&
+        checkFilterValues(
+          filterInputs.classification,
+          modifyString(sc.classification)
+        ) &&
+        checkFilterValues(filterInputs.office, sc.office) &&
+        checkFilterValues(filterInputs.status, modifyString(sc.scStatus))
+      );
+    });
   };
 
   const filteredScs = filterScs(scs, filterInputs);
@@ -154,11 +140,11 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.scposition}
+              active={sortActive.classification}
               direction={sortDirection}
               onClick={() => handleSort('POSITION')}
             >
-              {intl.formatMessage({ id: 'employeeInfo.positionAbrv' })}
+              {intl.formatMessage({ id: 'employeeInfo.classification' })}
             </TableSortLabel>
           </TableCell>
           <TableCell>
@@ -195,13 +181,9 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
               </TableCell>
               <TableCell>{sc.department}</TableCell>
               <TableCell>{sc.supervisor}</TableCell>
-              <TableCell>{mapPosition(sc.employeePosition)}</TableCell>
+              <TableCell>{modifyString(sc.classification)}</TableCell>
               <TableCell>{sc.office}</TableCell>
-              <TableCell>
-                {sc.inProgress
-                  ? intl.formatMessage({ id: 'sc.running' })
-                  : intl.formatMessage({ id: 'sc.done' })}
-              </TableCell>
+              <TableCell>{modifyString(sc.scStatus)}</TableCell>
             </TableRow>
           );
         })}

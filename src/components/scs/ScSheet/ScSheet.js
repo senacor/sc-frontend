@@ -6,20 +6,13 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { savePerformanceData } from '../../../calls/sc';
-import { positions } from '../../../helper/filterData';
+import { savePerformanceData, addScStatus } from '../../../calls/sc';
 import PrCategories from './categories/PrCategories';
 import cloneDeep from '../../../helper/cloneDeep';
 import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEfficiency from './categories/WorkEfficiency';
 import WorkQuality from './categories/WorkQuality';
-
-// Material UI
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import {
   reduceWeights,
   updatePercentageAllWithoutPR,
@@ -29,23 +22,26 @@ import {
   updatePercentageWithPRPrCategories
 } from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
-import { CATEGORY } from '../../../helper/scSheetData';
-import TextField from '@material-ui/core/TextField';
+import { allowEditFields } from './helperFunc';
+import { SC_STATUS, SC_TAB, CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents,
   addProjectButton: {
     color: theme.palette.secondary.yellow
-  },
-  formControl: {
-    minWidth: 180
-  },
-  dropdownContainer: {
-    textAlign: 'center'
   }
 });
 
-const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
+const ScSheet = ({
+  sc,
+  scWithPr,
+  classes,
+  intl,
+  setSc,
+  setIsLoading,
+  afterScFetched,
+  tabValue
+}) => {
   const initialFieldsData = {
     title: '',
     weight: 1,
@@ -59,7 +55,6 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   const info = useInfoContext();
   const error = useErrorContext();
   const user = useUserinfoContext();
-  const [position, setPosition] = useState('');
   const [dailyBusinessFields, setDailyBusinessFields] = useState([
     { ...initialFieldsData }
   ]);
@@ -96,10 +91,24 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
   const [weightsWithPRPerformance, setWeightsWithPRPerformance] = useState(5);
   const [weightsWithPRPrCategories, setWeightsWithPRPrCategories] = useState(4);
   const [finalScore, setFinalScore] = useState(0);
+  const [fieldsDisabled, setFieldsDisabled] = useState(true);
 
   useEffect(
     () => {
-      if (!withPrCategories) {
+      setFieldsDisabled(
+        !allowEditFields(
+          user.isOwnerInSc(sc),
+          user.isReviewerInSc(sc),
+          sc.statusSet
+        )
+      );
+    },
+    [sc, tabValue]
+  );
+
+  useEffect(
+    () => {
+      if (!scWithPr) {
         const totalWeight =
           reduceWeights(dailyBusinessFields) +
           reduceWeights(projectFields) +
@@ -127,13 +136,15 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       impactOnTeamFields,
       serviceQualityFields,
       impactOnCompanyFields,
-      withPrCategories
+      sc,
+      scWithPr,
+      tabValue
     ]
   );
 
   useEffect(
     () => {
-      if (!withPrCategories) {
+      if (!scWithPr) {
         updatePercentageAllWithoutPR(
           dailyBusinessFields,
           setDailyBusinessFields,
@@ -174,13 +185,15 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       weightsWithPRPrCategories,
       performanceWeightPercentage,
       prCategoriesWeightPercentage,
-      withPrCategories
+      sc,
+      scWithPr,
+      tabValue
     ]
   );
 
   useEffect(
     () => {
-      if (!withPrCategories) {
+      if (!scWithPr) {
         setFinalScore(
           round(
             calculateFinalScoreWithoutPR(
@@ -203,16 +216,18 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       projectFields,
       workEfficiencyFields,
       workQualityFields,
-      withPrCategories
+      sc,
+      scWithPr,
+      tabValue
     ]
   );
 
   useEffect(
     () => {
-      if (user.isOwnerInSc(sc)) {
+      if (tabValue === SC_TAB.EMPLOYEE) {
         setDailyBusinessFields(sc.employeeData.dailyBusiness);
         setProjectFields(sc.employeeData.project);
-        if (withPrCategories) {
+        if (scWithPr) {
           setSkillsInTheFieldsFields(sc.employeeData.skillsInTheFields);
           setImpactOnTeamFields(sc.employeeData.impactOnTeam);
           setServiceQualityFields(sc.employeeData.serviceQuality);
@@ -227,10 +242,10 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
           setWorkEfficiencyFields(sc.employeeData.workEfficiency);
           setWorkQualityFields(sc.employeeData.workQuality);
         }
-      } else {
+      } else if (tabValue === SC_TAB.REVIEWER) {
         setDailyBusinessFields(sc.reviewerData.dailyBusiness);
         setProjectFields(sc.reviewerData.project);
-        if (withPrCategories) {
+        if (scWithPr) {
           setSkillsInTheFieldsFields(sc.reviewerData.skillsInTheFields);
           setImpactOnTeamFields(sc.reviewerData.impactOnTeam);
           setServiceQualityFields(sc.reviewerData.serviceQuality);
@@ -247,11 +262,65 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
         }
       }
     },
-    [withPrCategories]
+    [sc, scWithPr, tabValue]
   );
 
   const handleSubmit = () => {
-    // TODO: submitting data and sending to backend
+    const mapToDTO = field => {
+      return {
+        title: field.title,
+        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
+        percentage: field.percentage,
+        description: field.description,
+        achievement: field.achievement,
+        weight: field.weight,
+        comment: field.comment
+      };
+    };
+
+    const data = {
+      dailyBusiness: dailyBusinessFields.map(mapToDTO),
+      project: projectFields.map(mapToDTO),
+      workEfficiency: mapToDTO(workEfficiencyFields),
+      workQuality: mapToDTO(workQualityFields),
+      skillsInTheFields: mapToDTO(skillsInTheFieldsFields),
+      impactOnTeam: mapToDTO(impactOnTeamFields),
+      serviceQuality: mapToDTO(serviceQualityFields),
+      impactOnCompany: mapToDTO(impactOnCompanyFields),
+      skillsWeightPercentage: prCategoriesWeightPercentage
+    };
+
+    savePerformanceData(
+      sc.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      data,
+      info,
+      error
+    ).then(() => {
+      if (user.isOwnerInSc(sc)) {
+        if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
+          addScStatus(
+            sc.id,
+            SC_STATUS.EMPLOYEE_SUBMITTED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
+        }
+      } else if (user.isReviewerInSc(sc)) {
+        if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
+          addScStatus(
+            sc.id,
+            SC_STATUS.REVIEWER_SUBMITTED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
+        }
+      }
+    });
   };
 
   const validateEvaluations = () => {
@@ -263,7 +332,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     projectFields.forEach(el => {
       arr.push(el.evaluation);
     });
-    if (withPrCategories) {
+    if (scWithPr) {
       arr.push(skillsInTheFieldsFields.evaluation);
       arr.push(impactOnCompanyFields.evaluation);
       arr.push(impactOnTeamFields.evaluation);
@@ -273,6 +342,22 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       arr.push(workQualityFields.evaluation);
     }
     return arr.every(numberIsPositive);
+  };
+
+  const isSubmitted = () => {
+    if (
+      user.isOwnerInSc(sc) &&
+      sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)
+    ) {
+      return true;
+    } else if (
+      user.isReviewerInSc(sc) &&
+      sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)
+    ) {
+      return true;
+    }
+
+    return false;
   };
 
   const handleSave = () => {
@@ -394,44 +479,12 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
     }
   };
 
-  const handleChangePosition = event => {
-    setPosition(event.target.value);
-  };
-
   return (
     <Fragment>
-      <div className={classes.dropdownContainer}>
-        {user.isReviewerInSc(sc) ? (
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">
-              {intl.formatMessage({ id: 'scsheet.position' })}
-            </InputLabel>
-            <Select
-              labelid="demo-simple-select-label"
-              id="demo-simple-select"
-              value={position}
-              disabled={!user.isReviewerInSc(sc)}
-              onChange={handleChangePosition}
-            >
-              {positions.map((pos, index) => (
-                <MenuItem key={index} value={pos}>
-                  {pos}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        ) : (
-          <TextField
-            label={intl.formatMessage({ id: 'scsheet.position' })}
-            value={position}
-            disabled
-          />
-        )}
-      </div>
-      {/* CATEGORIES */}
-      {withPrCategories ? (
+      {scWithPr ? (
         <Fragment>
           <Performance
+            fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
             projectFields={projectFields}
             handleChangePerformance={handleChangePerformance}
@@ -442,6 +495,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             handleChangeWeightPercentage={handleChangeWeightPercentage}
           />
           <PrCategories
+            fieldsDisabled={fieldsDisabled}
             skillsInTheFieldsFields={skillsInTheFieldsFields}
             impactOnTeamFields={impactOnTeamFields}
             serviceQualityFields={serviceQualityFields}
@@ -455,6 +509,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
       ) : (
         <Fragment>
           <Performance
+            fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
             projectFields={projectFields}
             handleChangePerformance={handleChangePerformance}
@@ -462,10 +517,12 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
             removeSubcategory={removeSubcategory}
           />
           <WorkEfficiency
+            fieldsDisabled={fieldsDisabled}
             workEfficiencyFields={workEfficiencyFields}
             handleChangeWorkEfficiency={handleChangeWorkEfficiency}
           />
           <WorkQuality
+            fieldsDisabled={fieldsDisabled}
             workQualityFields={workQualityFields}
             handleChangeWorkQuality={handleChangeWorkQuality}
           />
@@ -473,7 +530,7 @@ const ScSheet = ({ sc, withPrCategories, classes, intl }) => {
         </Fragment>
       )}
       <ButtonsBelowSheet
-        submitDisabled={!validateEvaluations()}
+        submitDisabled={!validateEvaluations() || isSubmitted()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
         sc={sc}

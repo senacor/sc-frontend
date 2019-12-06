@@ -9,13 +9,20 @@ const styles = theme => ({
 });
 
 const WorkEfficiency = memo(
-  ({ classes, intl, workEfficiencyFields, handleChangeWorkEfficiency }) => {
+  ({
+    classes,
+    intl,
+    workEfficiencyFields,
+    handleChangeWorkEfficiency,
+    fieldsDisabled
+  }) => {
     return (
       <Fragment>
         <Typography variant="h5" className={classes.categoryTitle}>
           {intl.formatMessage({ id: 'scsheet.category.workEffectivity' })}
         </Typography>
         <ScRow
+          fieldsDisabled={fieldsDisabled}
           type={CATEGORY.WORK_EFFICIENCY}
           row={workEfficiencyFields}
           action={handleChangeWorkEfficiency}

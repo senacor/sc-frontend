@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import FormerEmployeesTableHead from './FormerEmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
 } from '../../../helper/filterFunctions';
-import FormerEmployeeTableRow from './FormerEmployeeTableRow';
+import EmployeeTableRow from '../AllEmployeesTable/EmployeeTableRow';
+import AllEmployeesTableHead from '../AllEmployeesTable/AllEmployeesTableHead';
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
@@ -20,24 +20,8 @@ const styles = theme => ({
   paper: {
     margin: 2 * theme.spacing.unit,
     overflow: 'auto'
-  },
-  table: {}
+  }
 });
-
-export const filterEmployees = (employees, filterInputs) => {
-  return employees.filter(empl => {
-    const employeeName = empl.firstName + ' ' + empl.lastName;
-    return (
-      checkFilterValues(filterInputs.searchEmployee, employeeName) &&
-      checkFilterValues(filterInputs.position, empl.position) &&
-      checkFilterValues(filterInputs.cc, empl.competence) &&
-      checkFilterValues(filterInputs.cst, empl.cst) &&
-      checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
-      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      checkFilterValues(filterInputs.month, empl.endDate[1])
-    );
-  });
-};
 
 const FormerEmployeesTable = ({
   classes,
@@ -62,10 +46,30 @@ const FormerEmployeesTable = ({
     setPage(page);
   };
 
+  const filterEmployees = (employees, filterInputs) => {
+    return employees.filter(empl => {
+      const employeeName = empl.firstName + ' ' + empl.lastName;
+      return (
+        checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.position, empl.position) &&
+        checkFilterValues(filterInputs.department, empl.department) &&
+        checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
+        checkFilterValues(filterInputs.year, empl.endDate[0]) &&
+        checkFilterValues(filterInputs.month, empl.endDate[1])
+      );
+    });
+  };
+
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
-      return <FormerEmployeeTableRow key={employee.id} employee={employee} />;
+      return (
+        <EmployeeTableRow
+          key={employee.id}
+          employee={employee}
+          formerEmployee
+        />
+      );
     });
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
@@ -73,7 +77,7 @@ const FormerEmployeesTable = ({
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <FormerEmployeeTableRow key={employee.id} employee={employee} />
+      <EmployeeTableRow key={employee.id} employee={employee} formerEmployee />
     ));
 
   if (isLoading) {
@@ -86,7 +90,7 @@ const FormerEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <FormerEmployeesTableHead />
+        <AllEmployeesTableHead formerEmployee />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>

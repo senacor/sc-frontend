@@ -147,3 +147,62 @@ export const getScsToReview = async (setScs, setIsLoading, error) => {
     error.showGeneral();
   }
 };
+
+export const addScType = async (
+  scId,
+  status,
+  classification,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/status?scStatus=${status}&classification=${classification}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const addScStatus = async (
+  scId,
+  status,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/status?scStatus=${status}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
