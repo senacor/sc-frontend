@@ -473,6 +473,8 @@
   "sc.statusStepper.termin": "Terminfindung",
   "sc.status.chooseScType": "Bitte Level und Scorecard-Art wählen",
   "sc.status.pleaseSubmit": "Bitte Scorecard freigeben",
+  "sc.status.waitForEmployee": "Bitte warte...",
+  "sc.status.waitForReviewer": "Bitte warte...",
   "sc.status.arrangeMeeting": "Bitte Termin vereinbaren",
   "sc.status.processDone": "Scorecard Prozess abgeschlossen",
   "sc.status.scTypeWaiting": "Bitte auf SC-Typ warten",

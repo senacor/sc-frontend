@@ -22,6 +22,13 @@ const determineStatusOwner = statuses => {
   ) {
     statusTextId = 'sc.status.pleaseSubmit';
   } else if (
+    (statuses.includes(SC_STATUS.WITH_PR) ||
+      statuses.includes(SC_STATUS.WITHOUT_PR)) &&
+    statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
+    !statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)
+  ) {
+    statusTextId = 'sc.status.waitForReviewer';
+  } else if (
     statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
     statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
     !statuses.includes(SC_STATUS.MEETING_CONFIRMED)
@@ -46,6 +53,13 @@ const determineStatusReviewer = statuses => {
     !statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)
   ) {
     statusTextId = 'sc.status.pleaseSubmit';
+  } else if (
+    (statuses.includes(SC_STATUS.WITH_PR) ||
+      statuses.includes(SC_STATUS.WITHOUT_PR)) &&
+    statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
+    !statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED)
+  ) {
+    statusTextId = 'sc.status.waitForEmployee';
   } else if (
     statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
     statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
