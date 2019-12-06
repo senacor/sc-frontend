@@ -3,14 +3,14 @@ pipeline {
   agent any
 
   parameters {
-    string(description: '', name: 'environment')
+    choice(choices: ['production', 'stage'], description: 'Enter the environemnt for deployment', name: 'environment')
   }
 
   stages {
 
     stage('reading config file') {
       steps {
-        configFileProvider([configFile(fileId: params.environment+'Config', variable: 'configFile')]) {
+        configFileProvider([configFile(fileId: params.environment + 'Config', variable: 'configFile')]) {
           load "${configFile}"
           script {
             env.loadedParameters = sh(returnStdout: true, script: "cat ${configFile}").replaceAll("env.", "")
@@ -21,13 +21,13 @@ pipeline {
           env.FRONTEND_PATH = env.TARGET_FOLDER + "/frontend"
           env.BACKEND_URL = env.FRONTEND_URL
         }
-        sh 'echo "'+env.loadedParameters+'" > config.tmp'
+        sh 'echo "' + env.loadedParameters + '" > config.tmp'
       }
     }
     stage('Building app') {
       steps {
         sh "npm install"
-        sh "REACT_APP_API="+env.BACKEND_URL+" npm run build"
+        sh "REACT_APP_API=" + env.BACKEND_URL + " npm run build"
       }
     }
     stage('Copying') {
@@ -53,8 +53,8 @@ pipeline {
     stage('running frontend server') {
       steps {
         sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, sourceFiles: '', remoteDirectory: '', excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
-          execCommand: 'cd ' + env.FRONTEND_PATH + '; mv config.tmp .env; docker-compose -p '+env.FRONTEND_CONTAINER_NAME+' down; docker-compose -p '+env.FRONTEND_CONTAINER_NAME+' up -d'
-          )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+          execCommand: 'cd ' + env.FRONTEND_PATH + '; mv config.tmp .env; docker-compose -p ' + env.FRONTEND_CONTAINER_NAME + ' down; docker-compose -p ' + env.FRONTEND_CONTAINER_NAME + ' up -d'
+        )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
       }
     }
   }
