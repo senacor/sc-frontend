@@ -73,7 +73,7 @@ const ButtonsBelowSheet = ({
       <Tooltip
         title={
           submitDisabled
-            ? intl.formatMessage({ id: 'scsheet.tooltip.score' })
+            ? intl.formatMessage({ id: 'scsheet.tooltip.titleMissing' })
             : ''
         }
         placement="top"
