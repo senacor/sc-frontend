@@ -46,7 +46,7 @@ const ScSheet = ({
     title: '',
     weight: 1,
     percentage: 0,
-    evaluation: 0,
+    evaluation: 3,
     description: '',
     achievement: '',
     comment: ''
@@ -323,25 +323,16 @@ const ScSheet = ({
     });
   };
 
-  const validateEvaluations = () => {
+  const validateTitles = () => {
     let arr = [];
-    const numberIsPositive = number => number > 0;
+    const textIsTruthy = string => string.length > 0;
     dailyBusinessFields.forEach(el => {
-      arr.push(el.evaluation);
+      arr.push(el.title);
     });
     projectFields.forEach(el => {
-      arr.push(el.evaluation);
+      arr.push(el.title);
     });
-    if (scWithPr) {
-      arr.push(skillsInTheFieldsFields.evaluation);
-      arr.push(impactOnCompanyFields.evaluation);
-      arr.push(impactOnTeamFields.evaluation);
-      arr.push(serviceQualityFields.evaluation);
-    } else {
-      arr.push(workEfficiencyFields.evaluation);
-      arr.push(workQualityFields.evaluation);
-    }
-    return arr.every(numberIsPositive);
+    return arr.every(textIsTruthy);
   };
 
   const isSubmitted = () => {
@@ -530,7 +521,7 @@ const ScSheet = ({
         </Fragment>
       )}
       <ButtonsBelowSheet
-        submitDisabled={!validateEvaluations() || isSubmitted()}
+        submitDisabled={!validateTitles() || isSubmitted()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
         sc={sc}
