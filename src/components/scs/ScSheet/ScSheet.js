@@ -335,22 +335,6 @@ const ScSheet = ({
     return arr.every(textIsTruthy);
   };
 
-  const isSubmitted = () => {
-    if (
-      user.isOwnerInSc(sc) &&
-      sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)
-    ) {
-      return true;
-    } else if (
-      user.isReviewerInSc(sc) &&
-      sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)
-    ) {
-      return true;
-    }
-
-    return false;
-  };
-
   const handleSave = () => {
     const mapToDTO = field => {
       return {
@@ -521,7 +505,7 @@ const ScSheet = ({
         </Fragment>
       )}
       <ButtonsBelowSheet
-        submitDisabled={!validateTitles() || isSubmitted()}
+        submitDisabled={!validateTitles()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
         sc={sc}
