@@ -1,0 +1,111 @@
+pipeline {
+
+  agent any
+
+  // REQUIRED AVAILABLE COMMANDS for Jenkins: mvn, npm
+
+  // For proper use, Jenkins needs to have following plugins installed:
+  // - configFileProvider - Config File Provider Plugin - https://wiki.jenkins.io/display/JENKINS/Config+File+Provider+Plugin
+  // - sshPublisher - Publish Over SSH Plugin - https://wiki.jenkins.io/display/JENKINS/Publish+Over+SSH+Plugin
+
+  // the configuration of the sshPublisher (Jenkins -> Manage Jenkins -> Configure System -> section Publish over SSH):
+  // - in section SSH Servers: name
+  //    - name: PROD VM
+  //    - hostname: hr-scorecard.polaris.senacor.com (or another)
+  //    - username: smarcin (or another)
+  // - in section above: Key needs to be filled
+  //                    (generate private key on the machine,
+  //                    where Jenkins is running and append
+  //                    public key into hostname:~/.ssh/authorized_keys)
+
+  // the configuration of configFileProvider (Jenkins -> Manage Jenkins -> Managed Files -> Add a new Config -> Groovy file)
+  // - id of file needs to be productionConfig or stageConfig or another, if you also adapt parameters
+  // - strictly expected content of the file (fill the proper values):
+  // env.TARGET_FOLDER="deployment/production"
+  // env.BACKEND_PORT=8030
+  // env.BACKEND_IMAGE_NAME="sc-backend"
+  // env.BACKEND_IMAGE_FILE="sc-backend-image"
+  // env.BACKEND_CONTAINER_NAME="sc-backend-production-container"
+  // env.BACKEND_SPRING_PROFILES="postgres,production"
+  // env.DB_CONTAINER_NAME="db-production-container"
+  // env.DB_HOST_NAME="db-production"
+  // env.DB_PORT=5432
+  // env.DB_PASSWORD="somePassword"
+  // env.FRONTEND_URL="https://hr-scorecard.senacor.com"
+  // env.FRONTEND_PORT=8043
+  // env.FRONTEND_CONTAINER_NAME="sc-frontend-production-container"
+  // env.INNER_NETWORK_NAME="production_network"
+  // env.AZURE_CLIENT_SECRET="secretKey"
+  // env.AZURE_CLIENT_ID="clientID"
+
+  parameters {
+    choice(choices: ['production', 'stage'], description: 'Enter the environment for deployment', name: 'environment')
+  }
+
+  stages {
+
+    // Setting up the env variables, which will be used in whole process
+    // - there are read from configFile according environment parameter
+    stage('reading config file') {
+      steps {
+        configFileProvider([configFile(fileId: params.environment + 'Config', variable: 'configFile')]) {
+          load "${configFile}"
+          script {
+            // loading all variables into single string without Groory 'env.' prefix
+            env.loadedParameters = sh(returnStdout: true, script: "cat ${configFile}").replaceAll("env.", "")
+          }
+        }
+        script {
+          env.DEPLOY_DIR = env.TARGET_FOLDER
+          env.FRONTEND_PATH = env.TARGET_FOLDER + "/frontend"
+          env.BACKEND_URL = env.FRONTEND_URL
+        }
+        //storing variables into file config.tmp for further use on another machine
+        sh 'echo "' + env.loadedParameters + '" > config.tmp'
+      }
+    }
+    stage('Building app') {
+      steps {
+        sh "npm install"
+        sh "REACT_APP_API=" + env.BACKEND_URL + " npm run build"
+      }
+      //NOTE: env.BACKEND_URL contains url, that gets queried from frontend
+    }
+    stage('Copying') {
+      steps {
+        sh "tar cvf build.tar build"
+      }
+    }
+    stage('publishing frontend app to target server') {
+      steps {
+        //copying deploy_utils/docker-compose.yml into target machine with frontend path
+        dir('deploy_utils') {
+          sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', execCommand: '', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
+            remoteDirectory: './' + env.FRONTEND_PATH,
+            sourceFiles: 'docker-compose.yml'
+          )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+        }
+
+        //1. copying build.tar with frontend containing static files and config.tmp containing env variables into remote machine
+        //2. THEN execute on remote machine: untar the build.tar to get build folder with static content. Remove build.tar on target machine.
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
+          execCommand: 'cd ' + env.FRONTEND_PATH + '; tar -xvf build.tar; rm build.tar',
+          remoteDirectory: './' + env.FRONTEND_PATH,
+          sourceFiles: 'build.tar,config.tmp'
+        )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+      }
+    }
+    stage('running frontend server') {
+      steps {
+        // Execute on remote machine:
+        // 1. rename config.tmp into .env, because docker-compose gets .env file as set of environment variables during compose commands
+        // 2. docker-compose down - kills and destroys the running frontend container, if any
+        // 3. docker-compose up - creates new container and starts it
+        // this will simply triggers frontend server for serving static frontend files
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD VM', transfers: [sshTransfer(cleanRemote: false, sourceFiles: '', remoteDirectory: '', excludes: '', remoteDirectorySDF: false, removePrefix: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+',
+          execCommand: 'cd ' + env.FRONTEND_PATH + '; mv config.tmp .env; docker-compose -p ' + env.FRONTEND_CONTAINER_NAME + ' down; docker-compose -p ' + env.FRONTEND_CONTAINER_NAME + ' up -d'
+        )], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+      }
+    }
+  }
+}
