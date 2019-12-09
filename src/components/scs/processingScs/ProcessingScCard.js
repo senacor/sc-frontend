@@ -45,7 +45,16 @@ const styles = theme => ({
   content: {
     textAlign: 'center',
     borderTop: `1px solid ${theme.palette.secondary.brightGrey}`,
+    borderBottom: `1px solid ${theme.palette.secondary.brightGrey}`,
     cursor: 'pointer'
+  },
+  cardFooter: {
+    height: 45,
+    padding: theme.spacing.unit,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
   },
   prIcon: {
     fontSize: '4rem',
@@ -64,6 +73,7 @@ const ProcessingScCard = ({
   intl,
   classes,
   history,
+  status,
   sc: { scId, employeeFirstName, employeeLastName, createdDate }
 }) => {
   const startDateContainer = (
@@ -95,8 +105,13 @@ const ProcessingScCard = ({
       <CardHeader className={classes.header} title={employeeName} />
       <CardContent className={classes.content} onClick={() => linkToPr(scId)}>
         <PrIcon className={classes.prIcon} />
-        <div>{startDateContainer}</div>
+        {startDateContainer}
       </CardContent>
+      <div className={classes.cardFooter}>
+        <Typography className={classes.inProgress} color="secondary">
+          {intl.formatMessage({ id: `${status}` })}
+        </Typography>
+      </div>
     </Card>
   );
 };

@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
@@ -44,6 +43,14 @@ const styles = theme => ({
     borderTop: `1px solid ${theme.palette.secondary.brightGrey}`,
     borderBottom: `1px solid ${theme.palette.secondary.brightGrey}`
   },
+  cardFooter: {
+    height: 40,
+    padding: theme.spacing.unit,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
+  },
   prIcon: {
     fontSize: '4rem',
     width: '100%'
@@ -64,7 +71,8 @@ const ScCard = ({
   classes,
   intl,
   history,
-  sc: { scId, createdDate, inProgress }
+  status,
+  sc: { scId, createdDate }
 }) => {
   const startDateHeader = (
     <Fragment>
@@ -89,17 +97,11 @@ const ScCard = ({
         >
           <AssessmentIcon className={classes.prIcon} />
         </CardContent>
-        <CardActions className={classes.actions}>
-          {inProgress ? (
-            <Typography className={classes.inProgress} color="secondary">
-              {intl.formatMessage({ id: 'scscard.inprogress' })}
-            </Typography>
-          ) : (
-            <Typography>
-              {intl.formatMessage({ id: 'scscard.finished' })}
-            </Typography>
-          )}
-        </CardActions>
+        <div className={classes.cardFooter}>
+          <Typography className={classes.inProgress} color="secondary">
+            {intl.formatMessage({ id: `${status}` })}
+          </Typography>
+        </div>
       </Card>
     </Fragment>
   );
