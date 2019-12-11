@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react';
+import React, { Fragment, memo, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 // Material UI
@@ -14,6 +14,7 @@ import AddIcon from '@material-ui/icons/AddBox';
 import TextField from '@material-ui/core/TextField';
 import ScRows from '../ScRows';
 import { CATEGORY } from '../../../../helper/scSheetData';
+import ConfirmDialog from '../../../utils/ConfirmDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -30,15 +31,43 @@ const Performance = memo(
     classes,
     intl,
     dailyBusinessFields,
+    setDailyBusinessFields,
     projectFields,
+    setProjectFields,
     handleChangePerformance,
     addSubcategory,
-    removeSubcategory,
     hasWeightPercentage,
     performanceWeightPercentage,
     handleChangeWeightPercentage,
     fieldsDisabled
   }) => {
+    const [dialogOpened, setDialogOpened] = useState(false);
+    const [fieldOpenedDialog, setFieldOpenedDialog] = useState(undefined);
+
+    console.log('fieldsOpened', fieldOpenedDialog);
+
+    const removeSubcategory = (type, index) => {
+      if (type === CATEGORY.DAILY_BUSINESS) {
+        const values = [...dailyBusinessFields];
+        values.splice(index, 1);
+        setDailyBusinessFields(values);
+      } else {
+        const values = [...projectFields];
+        values.splice(index, 1);
+        setProjectFields(values);
+      }
+      setDialogOpened(false);
+    };
+
+    const handleDialogOpen = (type, index) => {
+      setDialogOpened(true);
+      setFieldOpenedDialog({ type, index });
+    };
+
+    const handleDialogClose = () => {
+      setDialogOpened(false);
+    };
+
     return (
       <Fragment>
         <Grid container>
@@ -90,6 +119,7 @@ const Performance = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
+          dialogOpen={handleDialogOpen}
         />
         <Tooltip
           title={intl.formatMessage({
@@ -119,6 +149,7 @@ const Performance = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
+          dialogOpen={handleDialogOpen}
         />
         <Tooltip
           title={intl.formatMessage({
@@ -133,6 +164,19 @@ const Performance = memo(
           </IconButton>
         </Tooltip>
         <Divider />
+        <ConfirmDialog
+          open={dialogOpened}
+          handleClose={handleDialogClose}
+          handleConfirm={() =>
+            removeSubcategory(fieldOpenedDialog.type, fieldOpenedDialog.index)
+          }
+          confirmationText={intl.formatMessage({
+            id: 'autorules.dialogText'
+          })}
+          confirmationHeader={intl.formatMessage({
+            id: 'autorules.dialogTitle'
+          })}
+        />
       </Fragment>
     );
   },
