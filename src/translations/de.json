@@ -359,6 +359,8 @@
   "scsheet.sctype.withPR": "mit PR",
   "scsheet.scTypeNotChosen": "Der Beurteiler hat den Scorecard Typ noch nicht ausgewählt! Bitte warten.",
   "scsheet.typeSelectionHeader": "Scorecard Auswahl",
+  "scsheet.fieldDelete.confirm": "Bist du sicher, dass du dieses Feld löschen willst?",
+  "scsheet.fieldDelete.title": "Feldlöschung",
   "scsheet.textheader.title.dailyBusiness": "Titel für Eintrag zum Daily Business",
   "scsheet.textheader.title.project": "Titel für Eintrag zum Projekt",
   "scsheet.textheader.percentage": "Anteil",

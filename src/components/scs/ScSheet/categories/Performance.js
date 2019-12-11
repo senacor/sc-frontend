@@ -170,10 +170,10 @@ const Performance = memo(
             removeSubcategory(fieldOpenedDialog.type, fieldOpenedDialog.index)
           }
           confirmationText={intl.formatMessage({
-            id: 'autorules.dialogText'
+            id: 'scsheet.fieldDelete.confirm'
           })}
           confirmationHeader={intl.formatMessage({
-            id: 'autorules.dialogTitle'
+            id: 'scsheet.fieldDelete.title'
           })}
         />
       </Fragment>
