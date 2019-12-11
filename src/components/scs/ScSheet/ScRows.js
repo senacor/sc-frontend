@@ -49,7 +49,8 @@ const ScRows = memo(
     removeSubcategory,
     type,
     fieldsDisabled,
-    dialogOpen
+    dialogOpen,
+    fieldsAmount
   }) => {
     return (
       <Fragment>
@@ -60,6 +61,7 @@ const ScRows = memo(
               index={index}
               row={row}
               fieldsDisabled={fieldsDisabled}
+              fieldsAmount={fieldsAmount}
               title={title}
               description={description}
               achievement={achievement}

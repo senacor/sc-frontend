@@ -73,7 +73,8 @@ const ScRow = memo(
     removeSubcategory,
     type,
     fieldsDisabled,
-    dialogOpen
+    dialogOpen,
+    fieldsAmount
   }) => {
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
@@ -107,7 +108,7 @@ const ScRow = memo(
       <Fragment>
         <Paper className={classes.scRowContainer}>
           {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) &&
-            index !== 0 && (
+            fieldsAmount > 1 && (
               <Tooltip
                 title={intl.formatMessage({
                   id: 'scsheet.tooltip.removeField'

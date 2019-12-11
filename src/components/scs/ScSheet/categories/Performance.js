@@ -109,6 +109,7 @@ const Performance = memo(
         <ScRows
           fieldsDisabled={fieldsDisabled}
           fields={dailyBusinessFields}
+          fieldsAmount={dailyBusinessFields.length}
           type={CATEGORY.DAILY_BUSINESS}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
@@ -139,6 +140,7 @@ const Performance = memo(
         <ScRows
           fieldsDisabled={fieldsDisabled}
           fields={projectFields}
+          fieldsAmount={projectFields.length}
           type={CATEGORY.PROJECT}
           action={handleChangePerformance}
           removeSubcategory={removeSubcategory}
