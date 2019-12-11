@@ -72,8 +72,7 @@ const ScRow = memo(
     action,
     removeSubcategory,
     type,
-    fieldsDisabled,
-    dialogOpen
+    fieldsDisabled
   }) => {
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
@@ -96,7 +95,7 @@ const ScRow = memo(
                   className={
                     fieldsDisabled ? classes.hidden : classes.removeIcon
                   }
-                  onClick={() => dialogOpen(type, index)}
+                  onClick={() => removeSubcategory(type)}
                 >
                   <RemoveIcon />
                 </IconButton>

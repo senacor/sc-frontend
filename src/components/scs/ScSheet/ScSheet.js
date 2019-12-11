@@ -381,6 +381,18 @@ const ScSheet = ({
     }
   };
 
+  const removeSubcategory = (type, index) => {
+    if (type === CATEGORY.DAILY_BUSINESS) {
+      const values = [...dailyBusinessFields];
+      values.splice(index, 1);
+      setDailyBusinessFields(values);
+    } else {
+      const values = [...projectFields];
+      values.splice(index, 1);
+      setProjectFields(values);
+    }
+  };
+
   const handleChangePerformance = (type, i, propKey, event) => {
     if (type === CATEGORY.DAILY_BUSINESS) {
       const values = cloneDeep(dailyBusinessFields);
@@ -449,11 +461,10 @@ const ScSheet = ({
           <Performance
             fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
-            setDailyBusinessFields={setDailyBusinessFields}
             projectFields={projectFields}
-            setProjectFields={setProjectFields}
             handleChangePerformance={handleChangePerformance}
             addSubcategory={addSubcategory}
+            removeSubcategory={removeSubcategory}
             hasWeightPercentage={true}
             performanceWeightPercentage={performanceWeightPercentage}
             handleChangeWeightPercentage={handleChangeWeightPercentage}
@@ -475,11 +486,10 @@ const ScSheet = ({
           <Performance
             fieldsDisabled={fieldsDisabled}
             dailyBusinessFields={dailyBusinessFields}
-            setDailyBusinessFields={setDailyBusinessFields}
             projectFields={projectFields}
-            setProjectFields={setProjectFields}
             handleChangePerformance={handleChangePerformance}
             addSubcategory={addSubcategory}
+            removeSubcategory={removeSubcategory}
           />
           <WorkEfficiency
             fieldsDisabled={fieldsDisabled}
