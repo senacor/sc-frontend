@@ -141,14 +141,14 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   const sortingData = [
     {
       id: 1,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.year' }),
+      sortBy: intl.formatMessage({ id: 'employeeInfo.endYear' }),
       menuData: years(),
       stateValue: yearSorting,
       handleChange: handleSortYearChange
     },
     {
       id: 2,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.month' }),
+      sortBy: intl.formatMessage({ id: 'employeeInfo.endMonth' }),
       menuData: months(),
       stateValue: monthSorting,
       handleChange: handleSortMonthChange
