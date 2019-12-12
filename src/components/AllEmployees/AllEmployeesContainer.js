@@ -122,14 +122,14 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const sortingData = [
     {
       id: 1,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.year' }),
+      sortBy: intl.formatMessage({ id: 'employeeInfo.startYear' }),
       menuData: years(),
       stateValue: yearSorting,
       handleChange: handleSortYearChange
     },
     {
       id: 2,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.month' }),
+      sortBy: intl.formatMessage({ id: 'employeeInfo.startMonth' }),
       menuData: months(),
       stateValue: monthSorting,
       handleChange: handleSortMonthChange
