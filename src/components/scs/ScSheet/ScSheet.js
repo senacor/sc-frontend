@@ -13,17 +13,21 @@ import Performance from './categories/Performance';
 import ButtonsBelowSheet from './ButtonsBelowSheet';
 import WorkEfficiency from './categories/WorkEfficiency';
 import WorkQuality from './categories/WorkQuality';
-import {
-  reduceWeights,
-  updatePercentageAllWithoutPR,
-  calculateFinalScoreWithoutPR,
-  round,
-  updatePercentageWithPRPerformance,
-  updatePercentageWithPRPrCategories
-} from './calculationFunc';
 import FinalScoreSection from './FinalScoreSection';
 import { allowEditFields } from './helperFunc';
 import { SC_STATUS, SC_TAB, CATEGORY } from '../../../helper/scSheetData';
+
+// Calculation functions
+import { reduceWeights } from './calculations/helperFunctions';
+import {
+  calculatePercentageWithoutPr,
+  calculateFinalScoreWithoutPr
+} from './calculations/scWithoutPr';
+import {
+  calculatePercentageWithPrPerformance,
+  calculatePercentageWithPRPrCategories,
+  calculateFinalScoreWithPr
+} from './calculations/scWithPr';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -93,6 +97,8 @@ const ScSheet = ({
   const [finalScore, setFinalScore] = useState(0);
   const [fieldsDisabled, setFieldsDisabled] = useState(true);
 
+  const weightWithPR = weightsWithPRPerformance + weightsWithPRPrCategories;
+
   useEffect(
     () => {
       setFieldsDisabled(
@@ -145,7 +151,7 @@ const ScSheet = ({
   useEffect(
     () => {
       if (!scWithPr) {
-        updatePercentageAllWithoutPR(
+        calculatePercentageWithoutPr(
           dailyBusinessFields,
           setDailyBusinessFields,
           projectFields,
@@ -157,7 +163,7 @@ const ScSheet = ({
           weightsWithoutPR
         );
       } else {
-        updatePercentageWithPRPerformance(
+        calculatePercentageWithPrPerformance(
           dailyBusinessFields,
           setDailyBusinessFields,
           projectFields,
@@ -165,7 +171,7 @@ const ScSheet = ({
           weightsWithPRPerformance,
           performanceWeightPercentage
         );
-        updatePercentageWithPRPrCategories(
+        calculatePercentageWithPRPrCategories(
           skillsInTheFieldsFields,
           setSkillsInTheFieldsFields,
           impactOnTeamFields,
@@ -195,19 +201,28 @@ const ScSheet = ({
     () => {
       if (!scWithPr) {
         setFinalScore(
-          round(
-            calculateFinalScoreWithoutPR(
-              dailyBusinessFields,
-              projectFields,
-              workEfficiencyFields,
-              workQualityFields,
-              weightsWithoutPR
-            ),
-            1
+          calculateFinalScoreWithoutPr(
+            dailyBusinessFields,
+            projectFields,
+            workEfficiencyFields,
+            workQualityFields,
+            weightsWithoutPR
           )
         );
       } else {
-        // TODO in next sprint
+        setFinalScore(
+          calculateFinalScoreWithPr(
+            dailyBusinessFields,
+            projectFields,
+            skillsInTheFieldsFields,
+            impactOnTeamFields,
+            serviceQualityFields,
+            impactOnCompanyFields,
+            performanceWeightPercentage,
+            prCategoriesWeightPercentage,
+            weightWithPR
+          )
+        );
       }
     },
     [
@@ -216,6 +231,10 @@ const ScSheet = ({
       projectFields,
       workEfficiencyFields,
       workQualityFields,
+      skillsInTheFieldsFields,
+      impactOnTeamFields,
+      serviceQualityFields,
+      setImpactOnCompanyFields,
       sc,
       scWithPr,
       tabValue
