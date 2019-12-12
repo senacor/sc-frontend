@@ -72,7 +72,9 @@ const ScRow = memo(
     action,
     removeSubcategory,
     type,
-    fieldsDisabled
+    fieldsDisabled,
+    dialogOpen,
+    fieldsAmount
   }) => {
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
@@ -81,11 +83,32 @@ const ScRow = memo(
       type === CATEGORY.COMPANY_IMPACT
         ? [0.5, 1, 2, 3]
         : [1, 2, 3];
+
+    const handleRemoveField = (
+      title,
+      description,
+      achievement,
+      comment,
+      type,
+      index
+    ) => {
+      if (
+        title.length === 0 &&
+        description.length === 0 &&
+        achievement.length === 0 &&
+        comment.length === 0
+      ) {
+        removeSubcategory(type, index);
+      } else {
+        dialogOpen(type, index);
+      }
+    };
+
     return (
       <Fragment>
         <Paper className={classes.scRowContainer}>
           {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) &&
-            index !== 0 && (
+            fieldsAmount > 1 && (
               <Tooltip
                 title={intl.formatMessage({
                   id: 'scsheet.tooltip.removeField'
@@ -95,7 +118,16 @@ const ScRow = memo(
                   className={
                     fieldsDisabled ? classes.hidden : classes.removeIcon
                   }
-                  onClick={() => removeSubcategory(type)}
+                  onClick={() =>
+                    handleRemoveField(
+                      row.title,
+                      row.description,
+                      row.achievement,
+                      row.comment,
+                      type,
+                      index
+                    )
+                  }
                 >
                   <RemoveIcon />
                 </IconButton>

@@ -48,7 +48,9 @@ const ScRows = memo(
     action,
     removeSubcategory,
     type,
-    fieldsDisabled
+    fieldsDisabled,
+    dialogOpen,
+    fieldsAmount
   }) => {
     return (
       <Fragment>
@@ -59,14 +61,16 @@ const ScRows = memo(
               index={index}
               row={row}
               fieldsDisabled={fieldsDisabled}
+              fieldsAmount={fieldsAmount}
               title={title}
               description={description}
               achievement={achievement}
               action={(type, fieldKey, e) => {
                 action(type, index, fieldKey, e);
               }}
-              removeSubcategory={type => removeSubcategory(type, index)}
+              removeSubcategory={() => removeSubcategory(type, index)}
               type={type}
+              dialogOpen={dialogOpen}
             />
           );
         })}
