@@ -119,10 +119,7 @@ export const calculateFinalScoreWithPr = (
       impactOnTeamScore +
       serviceQualityScore +
       impactOnCompanyScore);
-
-  console.log('prCategoriesWeight', prCategoriesWeight);
   const finalScore =
-    (round(performanceHelperScore, 1) + round(prCategoriesHelperScore, 1)) /
-    totalWeight;
+    (performanceHelperScore + prCategoriesHelperScore) / totalWeight;
   return round(finalScore, 1);
 };
