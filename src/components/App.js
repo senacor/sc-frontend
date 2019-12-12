@@ -172,6 +172,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={'/employeeScs/:id'}
+                      component={AllEmployeesContainerWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.FORMER_EMPLOYEES}
                       component={FormerEmployeesContainerWithContent}
                     />
