@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { SC_TAB, SC_STATUS } from '../../../helper/scSheetData';
 import { useUserinfoContext } from '../../../helper/contextHooks';
-import ScSheet from '../ScSheet/ScSheet';
+import ScSheetContainer from '../ScSheet/scTypes/ScSheetContainer';
 import SchedulingView from '../../scheduling/SchedulingView';
 
 const styles = theme => ({
@@ -107,7 +107,7 @@ const ScTabs = ({
       </AppBar>
       {tabValue === SC_TAB.EMPLOYEE && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheet
+          <ScSheetContainer
             sc={sc}
             scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
             setSc={setSc}
@@ -119,7 +119,7 @@ const ScTabs = ({
       )}
       {tabValue === SC_TAB.REVIEWER && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheet
+          <ScSheetContainer
             sc={sc}
             scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
             setSc={setSc}
