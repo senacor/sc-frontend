@@ -60,8 +60,8 @@ const ScSheetWithoutPr = ({
       setWeightsWithoutPR(totalWeight);
     },
     [
-      ...dailyBusinessFields.map(item => item.weight),
-      ...projectFields.map(item => item.weight),
+      dailyBusinessFields,
+      projectFields,
       workEfficiencyFields.weight,
       workQualityFields.weight
     ]
@@ -97,10 +97,8 @@ const ScSheetWithoutPr = ({
       );
     },
     [
-      ...dailyBusinessFields.map(item => item.evaluation),
-      ...dailyBusinessFields.map(item => item.weight),
-      ...projectFields.map(item => item.evaluation),
-      ...projectFields.map(item => item.weight),
+      dailyBusinessFields,
+      projectFields,
       workEfficiencyFields.evaluation,
       workEfficiencyFields.weight,
       workQualityFields.evaluation,

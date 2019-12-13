@@ -89,8 +89,8 @@ const ScSheetWithPr = ({
       setWeightsWithPRPrCategories(totalWeightPrCategories);
     },
     [
-      ...dailyBusinessFields.map(item => item.weight),
-      ...projectFields.map(item => item.weight),
+      dailyBusinessFields,
+      projectFields,
       skillsInTheFieldsFields.weight,
       impactOnTeamFields.weight,
       serviceQualityFields.weight,
@@ -141,10 +141,8 @@ const ScSheetWithPr = ({
       );
     },
     [
-      ...dailyBusinessFields.map(item => item.evaluation),
-      ...dailyBusinessFields.map(item => item.weight),
-      ...projectFields.map(item => item.evaluation),
-      ...projectFields.map(item => item.weight),
+      dailyBusinessFields,
+      projectFields,
       serviceQualityFields.evalution,
       serviceQualityFields.weight,
       impactOnCompanyFields.evaluation,
