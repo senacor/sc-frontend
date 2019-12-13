@@ -60,12 +60,10 @@ const ScSheetWithoutPr = ({
       setWeightsWithoutPR(totalWeight);
     },
     [
-      dailyBusinessFields,
-      projectFields,
-      workEfficiencyFields,
-      workQualityFields,
-      sc,
-      tabValue
+      ...dailyBusinessFields.map(item => item.weight),
+      ...projectFields.map(item => item.weight),
+      workEfficiencyFields.weight,
+      workQualityFields.weight
     ]
   );
 
@@ -83,7 +81,7 @@ const ScSheetWithoutPr = ({
         weightsWithoutPR
       );
     },
-    [weightsWithoutPR, sc, tabValue]
+    [weightsWithoutPR]
   );
 
   useEffect(
@@ -99,13 +97,14 @@ const ScSheetWithoutPr = ({
       );
     },
     [
-      weightsWithoutPR,
-      dailyBusinessFields,
-      projectFields,
-      workEfficiencyFields,
-      workQualityFields,
-      sc,
-      tabValue
+      ...dailyBusinessFields.map(item => item.evaluation),
+      ...dailyBusinessFields.map(item => item.weight),
+      ...projectFields.map(item => item.evaluation),
+      ...projectFields.map(item => item.weight),
+      workEfficiencyFields.evaluation,
+      workEfficiencyFields.weight,
+      workQualityFields.evaluation,
+      workQualityFields.weight
     ]
   );
 
@@ -123,7 +122,7 @@ const ScSheetWithoutPr = ({
         setWorkQualityFields(sc.reviewerData.workQuality);
       }
     },
-    [sc, tabValue]
+    [tabValue]
   );
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {

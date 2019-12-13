@@ -89,14 +89,12 @@ const ScSheetWithPr = ({
       setWeightsWithPRPrCategories(totalWeightPrCategories);
     },
     [
-      dailyBusinessFields,
-      projectFields,
-      skillsInTheFieldsFields,
-      impactOnTeamFields,
-      serviceQualityFields,
-      impactOnCompanyFields,
-      sc,
-      tabValue
+      ...dailyBusinessFields.map(item => item.weight),
+      ...projectFields.map(item => item.weight),
+      skillsInTheFieldsFields.weight,
+      impactOnTeamFields.weight,
+      serviceQualityFields.weight,
+      impactOnCompanyFields.weight
     ]
   );
 
@@ -123,14 +121,7 @@ const ScSheetWithPr = ({
         prCategoriesWeightPercentage
       );
     },
-    [
-      weightsWithPRPerformance,
-      weightsWithPRPrCategories,
-      performanceWeightPercentage,
-      prCategoriesWeightPercentage,
-      sc,
-      tabValue
-    ]
+    [weightWithPR, performanceWeightPercentage, prCategoriesWeightPercentage]
   );
 
   useEffect(
@@ -150,14 +141,19 @@ const ScSheetWithPr = ({
       );
     },
     [
-      dailyBusinessFields,
-      projectFields,
-      skillsInTheFieldsFields,
-      impactOnTeamFields,
-      serviceQualityFields,
-      setImpactOnCompanyFields,
-      sc,
-      tabValue
+      ...dailyBusinessFields.map(item => item.evaluation),
+      ...dailyBusinessFields.map(item => item.weight),
+      ...projectFields.map(item => item.evaluation),
+      ...projectFields.map(item => item.weight),
+      serviceQualityFields.evalution,
+      serviceQualityFields.weight,
+      impactOnCompanyFields.evaluation,
+      impactOnCompanyFields.weight,
+      skillsInTheFieldsFields.evaluation,
+      skillsInTheFieldsFields.weight,
+      impactOnTeamFields.evaluation,
+      impactOnTeamFields.weight,
+      performanceWeightPercentage
     ]
   );
 
@@ -187,7 +183,7 @@ const ScSheetWithPr = ({
         setPrCategoriesWeightPercentage(sc.reviewerData.skillsWeightPercentage);
       }
     },
-    [sc, tabValue]
+    [tabValue]
   );
 
   const handleChangePrCategories = (type, propKey, event) => {
