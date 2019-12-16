@@ -157,7 +157,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                 {formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT)}
               </TableCell>
               <TableCell>{modifyString(sc.classification)}</TableCell>
-              <TableCell>{'...todo...'}</TableCell>
+              <TableCell>{`${sc.finalScore}%`}</TableCell>
               <TableCell>{modifyString(sc.status)}</TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
