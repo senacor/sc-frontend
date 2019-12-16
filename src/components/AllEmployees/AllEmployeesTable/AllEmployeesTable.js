@@ -48,6 +48,9 @@ const AllEmployeesTable = ({
 
   const filterEmployees = (employees, filterInputs) => {
     return employees.filter(empl => {
+      if (!empl.entryDate) {
+        return false;
+      }
       const employeeName = empl.firstName + ' ' + empl.lastName;
       return (
         checkFilterValues(filterInputs.searchEmployee, employeeName) &&
