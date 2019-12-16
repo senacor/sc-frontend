@@ -53,7 +53,7 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit
   },
   input: {
-    minHeight: 150
+    color: theme.palette.secondary.darkGrey
   },
   hidden: {
     display: 'none'
@@ -72,7 +72,9 @@ const ScRow = memo(
     action,
     removeSubcategory,
     type,
-    fieldsDisabled
+    fieldsDisabled,
+    dialogOpen,
+    fieldsAmount
   }) => {
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
@@ -81,11 +83,32 @@ const ScRow = memo(
       type === CATEGORY.COMPANY_IMPACT
         ? [0.5, 1, 2, 3]
         : [1, 2, 3];
+
+    const handleRemoveField = (
+      title,
+      description,
+      achievement,
+      comment,
+      type,
+      index
+    ) => {
+      if (
+        title.length === 0 &&
+        description.length === 0 &&
+        achievement.length === 0 &&
+        comment.length === 0
+      ) {
+        removeSubcategory(type, index);
+      } else {
+        dialogOpen(type, index);
+      }
+    };
+
     return (
       <Fragment>
         <Paper className={classes.scRowContainer}>
           {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) &&
-            index !== 0 && (
+            fieldsAmount > 1 && (
               <Tooltip
                 title={intl.formatMessage({
                   id: 'scsheet.tooltip.removeField'
@@ -95,7 +118,16 @@ const ScRow = memo(
                   className={
                     fieldsDisabled ? classes.hidden : classes.removeIcon
                   }
-                  onClick={() => removeSubcategory(type)}
+                  onClick={() =>
+                    handleRemoveField(
+                      row.title,
+                      row.description,
+                      row.achievement,
+                      row.comment,
+                      type,
+                      index
+                    )
+                  }
                 >
                   <RemoveIcon />
                 </IconButton>
@@ -107,12 +139,13 @@ const ScRow = memo(
                 {type === CATEGORY.DAILY_BUSINESS ||
                 type === CATEGORY.PROJECT ? (
                   <TextField
+                    required
                     disabled={fieldsDisabled}
                     type="text"
                     value={row.title}
                     margin="normal"
                     variant="outlined"
-                    placeholder={intl.formatMessage({
+                    label={intl.formatMessage({
                       id:
                         type === CATEGORY.DAILY_BUSINESS
                           ? 'scsheet.textheader.title.dailyBusiness'
@@ -122,6 +155,7 @@ const ScRow = memo(
                     onChange={e => {
                       action(type, 'title', e);
                     }}
+                    inputProps={{ className: classes.input }}
                   />
                 ) : (
                   <Typography variant="body1">{title}</Typography>
@@ -140,6 +174,7 @@ const ScRow = memo(
                     value={row.weight}
                     onChange={e => action(type, 'weight', e)}
                     renderValue={selected => <span>{selected}</span>}
+                    inputProps={{ className: classes.input }}
                   >
                     {weightValues.map((val, index) => (
                       <MenuItem key={index} value={val}>
@@ -159,7 +194,9 @@ const ScRow = memo(
                     id: 'scsheet.textheader.percentage'
                   })}
                 </Typography>
-                <Typography variant="body2">{`${row.percentage} %`}</Typography>
+                <Typography variant="body2" className={classes.input}>{`${
+                  row.percentage
+                } %`}</Typography>
               </Grid>
               <Grid item sm={2} className={classes.textCenter}>
                 <ScRatingPoints
@@ -190,13 +227,13 @@ const ScRow = memo(
                       value={row.comment}
                       margin="normal"
                       variant="outlined"
-                      placeholder={intl.formatMessage({
+                      label={intl.formatMessage({
                         id: 'scsheet.textarea.comment'
                       })}
                       rows={5}
                       multiline
                       fullWidth
-                      InputProps={{ className: classes.input }}
+                      inputProps={{ className: classes.input }}
                       onChange={e => action(type, 'comment', e)}
                     />
                   </Grid>
@@ -222,11 +259,11 @@ const ScRow = memo(
                       value={row.description}
                       margin="normal"
                       variant="outlined"
-                      placeholder={description}
+                      label={description}
                       rows={6}
                       multiline
                       fullWidth
-                      InputProps={{ className: classes.input }}
+                      inputProps={{ className: classes.input }}
                       onChange={e => action(type, 'description', e)}
                     />
                   )}
@@ -240,11 +277,11 @@ const ScRow = memo(
                       value={row.achievement}
                       margin="normal"
                       variant="outlined"
-                      placeholder={achievement}
+                      label={achievement}
                       rows={6}
                       multiline
                       fullWidth
-                      InputProps={{ className: classes.input }}
+                      inputProps={{ className: classes.input }}
                       onChange={e => action(type, 'achievement', e)}
                     />
                   </Grid>
@@ -264,13 +301,13 @@ const ScRow = memo(
                     value={row.comment}
                     margin="normal"
                     variant="outlined"
-                    placeholder={intl.formatMessage({
+                    label={intl.formatMessage({
                       id: 'scsheet.textarea.comment'
                     })}
                     rows={6}
                     multiline
                     fullWidth
-                    InputProps={{ className: classes.input }}
+                    inputProps={{ className: classes.input }}
                     onChange={e => action(type, 'comment', e)}
                   />
                 </Grid>

@@ -25,6 +25,9 @@ const styles = theme => ({
     color: theme.palette.primary['400'],
     padding: theme.spacing.unit,
     marginTop: theme.spacing.unit
+  },
+  input: {
+    color: theme.palette.secondary.darkGrey
   }
 });
 
@@ -72,6 +75,7 @@ const ScRatingPoints = ({
           onChange={changeEvaluation}
           className={classes.select}
           renderValue={selected => <span>{selected}</span>}
+          inputProps={{ className: classes.input }}
         >
           {determinePerformanceLevelsText(type).map((value, index) => {
             return (
