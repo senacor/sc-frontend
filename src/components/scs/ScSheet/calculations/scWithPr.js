@@ -98,9 +98,10 @@ export const calculateFinalScoreWithPr = (
   impactOnTeam,
   serviceQuality,
   impactOnCompany,
+  performanceWeightPercentage,
+  prCategoriesWeightPercentage,
   performanceWeight,
-  prCategoriesWeight,
-  totalWeight
+  prCategoriesWeight
 ) => {
   const dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness);
   const projectScore = multiplyWeightByScoreArr(project);
@@ -111,15 +112,20 @@ export const calculateFinalScoreWithPr = (
   const impactOnCompanyScore =
     impactOnCompany.weight * impactOnCompany.evaluation;
 
-  const performanceHelperScore =
-    (performanceWeight / 100) * (dailyBusinessScore + projectScore);
-  const prCategoriesHelperScore =
-    (prCategoriesWeight / 100) *
-    (skillsInTheFieldsScore +
-      impactOnTeamScore +
-      serviceQualityScore +
-      impactOnCompanyScore);
-  const finalScore =
-    (performanceHelperScore + prCategoriesHelperScore) / totalWeight;
-  return round(finalScore, 1);
+  const performanceHelperScore = round(
+    (performanceWeightPercentage / 100) *
+      ((dailyBusinessScore + projectScore) / performanceWeight),
+    1
+  );
+  const prCategoriesHelperScore = round(
+    (prCategoriesWeightPercentage / 100) *
+      ((skillsInTheFieldsScore +
+        impactOnTeamScore +
+        serviceQualityScore +
+        impactOnCompanyScore) /
+        prCategoriesWeight),
+    1
+  );
+  const finalScore = performanceHelperScore + prCategoriesHelperScore;
+  return finalScore;
 };

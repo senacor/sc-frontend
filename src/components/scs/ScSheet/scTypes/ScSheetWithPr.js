@@ -136,7 +136,8 @@ const ScSheetWithPr = ({
           impactOnCompanyFields,
           performanceWeightPercentage,
           prCategoriesWeightPercentage,
-          weightWithPR
+          weightsWithPRPerformance,
+          weightsWithPRPrCategories
         )
       );
     },
