@@ -15,6 +15,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import IconButton from '@material-ui/core/IconButton';
+import GetApp from '@material-ui/icons/GetApp';
 
 const styles = theme => ({
   tableRow: {
@@ -74,6 +76,8 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     setSortActive(newSortActive);
     changeDirection();
   };
+
+  const downloadAsPdf = scId => {};
 
   sortBySortActive(scs, sortActive, sortDirection);
 
@@ -135,6 +139,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
             </TableSortLabel>
           </TableCell>
+          <TableCell>{intl.formatMessage({ id: 'scdialog.pdf' })}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -156,6 +161,11 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               <TableCell>{modifyString(sc.status)}</TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
+              </TableCell>
+              <TableCell>
+                <IconButton onClick={() => downloadAsPdf(sc.scId)}>
+                  <GetApp />
+                </IconButton>
               </TableCell>
             </TableRow>
           );
