@@ -126,6 +126,6 @@ export const calculateFinalScoreWithPr = (
         prCategoriesWeight),
     1
   );
-  const finalScore = performanceHelperScore + prCategoriesHelperScore;
+  const finalScore = round(performanceHelperScore + prCategoriesHelperScore, 1);
   return finalScore;
 };

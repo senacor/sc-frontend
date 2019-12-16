@@ -17,25 +17,15 @@ export const round = (value, precision) => {
 };
 
 export const determineFinalPercentage = score => {
-  let value;
-  if (score <= 1.5) {
-    value = 75;
-  } else if (score < 2 && score >= 1.5) {
-    value = 100;
-  } else if (score < 2.5 && score >= 2) {
-    value = 125;
-  } else if (score < 3 && score >= 2.5) {
-    value = 150;
-  } else if (score < 3.5 && score >= 3) {
-    value = 175;
-  } else if (score < 4 && score > 3.5) {
-    value = 200;
-  } else if (score < 4.5 && score > 4) {
-    value = 250;
-  } else if (score >= 4.5) {
-    value = 300;
-  } else value = 100;
-  return value;
+  if (score <= 1.5) return 75;
+  if (score < 2 && score >= 1.5) return 100;
+  if (score < 2.5 && score >= 2) return 125;
+  if (score < 3 && score >= 2.5) return 150;
+  if (score < 3.5 && score >= 3) return 175;
+  if (score < 4 && score > 3.5) return 200;
+  if (score < 4.5 && score > 4) return 250;
+  if (score >= 4.5) return 300;
+  return 100;
 };
 
 export const determineFinalText = score => {
