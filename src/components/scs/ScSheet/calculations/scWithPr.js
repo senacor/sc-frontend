@@ -112,20 +112,16 @@ export const calculateFinalScoreWithPr = (
   const impactOnCompanyScore =
     impactOnCompany.weight * impactOnCompany.evaluation;
 
-  const performanceHelperScore = round(
+  const performanceHelperScore =
     (performanceWeightPercentage / 100) *
-      ((dailyBusinessScore + projectScore) / performanceWeight),
-    1
-  );
-  const prCategoriesHelperScore = round(
+    ((dailyBusinessScore + projectScore) / performanceWeight);
+  const prCategoriesHelperScore =
     (prCategoriesWeightPercentage / 100) *
-      ((skillsInTheFieldsScore +
-        impactOnTeamScore +
-        serviceQualityScore +
-        impactOnCompanyScore) /
-        prCategoriesWeight),
-    1
-  );
+    ((skillsInTheFieldsScore +
+      impactOnTeamScore +
+      serviceQualityScore +
+      impactOnCompanyScore) /
+      prCategoriesWeight);
   const finalScore = round(performanceHelperScore + prCategoriesHelperScore, 1);
   return finalScore;
 };
