@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -46,6 +46,15 @@ const ScDelegationMenu = ({
   });
   const [selectedReviewer1, setSelectedReviewer1] = useState(sc.reviewer1);
   const [selectedReviewer2, setSelectedReviewer2] = useState(sc.reviewer2);
+
+  useEffect(
+    () => {
+      if (!selectedReviewer1 && !selectedReviewer2) {
+        setSelectedReviewer1(sc.supervisor);
+      }
+    },
+    [selectedReviewer1, selectedReviewer2]
+  );
 
   const addReviewer = employee => {
     if (selectedReviewer1) {

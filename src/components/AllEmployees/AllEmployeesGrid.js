@@ -47,6 +47,9 @@ const AllEmployeesGrid = ({
   };
 
   let filteredEmployees = employees.filter(empl => {
+    if (!empl.entryDate) {
+      return false;
+    }
     const employeeName = empl.firstName + ' ' + empl.lastName;
     const modifiedScStatus = modifyString(empl.scStatus);
     return (
