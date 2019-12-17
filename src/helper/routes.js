@@ -13,7 +13,8 @@ const ROUTES = {
   ADMIN_USER_ROLES: '/userroles',
   ADMIN_SYSTEM_PANEL: '/system',
   MAINTENANCE: '/maintenance',
-  AUTORULES: '/autorules'
+  AUTORULES: '/autorules',
+  EMPLOYEE_SC: '/employeeScs'
 };
 
 export default ROUTES;

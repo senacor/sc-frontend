@@ -188,3 +188,26 @@ export const addScStatus = async (
     error.showGeneral();
   }
 };
+
+export const getEmployeeScs = async (
+  employeeId,
+  setScs,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/${employeeId}/sc/all`
+    );
+    const responseScs = await response.json();
+
+    setIsLoading(false);
+    setScs(responseScs);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};

@@ -68,6 +68,39 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       const result1 =
         dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
       return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    createdDate: (a, b) => {
+      const dateA = a.createdDate;
+      const dateB = b.createdDate;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    deadline: (a, b) => {
+      const dateA = a.deadline;
+      const dateB = b.deadline;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    classification: (a, b) => {
+      return sortsForFields.byField(a, b, 'classification');
+    },
+    finalScore: (a, b) => {
+      return sortsForFields.byField(a, b, 'finalScore');
+    },
+    scStatus: (a, b) => {
+      return sortsForFields.byField(a, b, 'status');
+    },
+    scStatusStartTime: (a, b) => {
+      const dateA = a.statusStartTime;
+      const dateB = b.statusStartTime;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
     }
   };
 
