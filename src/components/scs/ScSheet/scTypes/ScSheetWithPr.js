@@ -18,7 +18,7 @@ import {
   useErrorContext,
   useUserinfoContext
 } from '../../../../helper/contextHooks';
-import { downloadScPdf } from '../helperFunc.js';
+import { downloadScAsPdf } from '../helperFunc.js';
 
 const styles = theme => ({});
 
@@ -308,7 +308,7 @@ const ScSheetWithPr = ({
   };
 
   const handlePdfDownload = () => {
-    downloadScPdf(sc.id, error);
+    downloadScAsPdf(sc.id, error);
   };
 
   return (

@@ -26,7 +26,7 @@ export const allowEditFields = (isOwner, isReviewer, statuses) => {
   return false;
 };
 
-export const downloadScPdf = (scId, error) => {
+export const downloadScAsPdf = (scId, error) => {
   let promise = exportToPdf(scId, error);
 
   promise.then(response => {

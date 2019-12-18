@@ -13,7 +13,7 @@ import {
 import { SC_TAB, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
 import { savePerformanceData, addScStatus } from '../../../../calls/sc';
-import { downloadScPdf } from '../helperFunc.js';
+import { downloadScAsPdf } from '../helperFunc.js';
 import {
   useInfoContext,
   useErrorContext,
@@ -219,7 +219,7 @@ const ScSheetWithoutPr = ({
   };
 
   const handlePdfDownload = () => {
-    downloadScPdf(sc.id, error);
+    downloadScAsPdf(sc.id, error);
   };
 
   return (
