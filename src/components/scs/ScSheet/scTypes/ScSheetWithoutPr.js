@@ -13,6 +13,7 @@ import {
 import { SC_TAB, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
 import { savePerformanceData, addScStatus } from '../../../../calls/sc';
+import { downloadScPdf } from '../helperFunc.js';
 import {
   useInfoContext,
   useErrorContext,
@@ -217,6 +218,10 @@ const ScSheetWithoutPr = ({
     );
   };
 
+  const handlePdfDownload = () => {
+    downloadScPdf(sc.id, error);
+  };
+
   return (
     <Fragment>
       <Performance
@@ -243,6 +248,7 @@ const ScSheetWithoutPr = ({
         submitDisabled={!validateTitles()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
+        handlePdfDownload={handlePdfDownload}
         sc={sc}
       />
     </Fragment>

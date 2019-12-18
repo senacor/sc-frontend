@@ -1,6 +1,6 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Button, Tooltip } from '@material-ui/core';
+import { Button, Tooltip, withStyles } from '@material-ui/core';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import { SC_STATUS } from '../../../helper/scSheetData';
 
@@ -23,7 +23,15 @@ const styles = theme => ({
 });
 
 const ButtonsBelowSheet = memo(
-  ({ classes, intl, sc, handleSave, handleSubmit, submitDisabled }) => {
+  ({
+    classes,
+    intl,
+    sc,
+    handleSave,
+    handleSubmit,
+    handlePdfDownload,
+    submitDisabled
+  }) => {
     const user = useUserinfoContext();
     const [hidden, setHidden] = useState(false);
     const statuses = sc.statusSet;
@@ -62,6 +70,16 @@ const ButtonsBelowSheet = memo(
           onClick={handleSave}
         >
           {intl.formatMessage({ id: 'scsheet.save' })}
+        </Button>
+
+        <Button
+          className={classes.btnSave}
+          variant="contained"
+          color="secondary"
+          onClick={handlePdfDownload}
+          download
+        >
+          {intl.formatMessage({ id: 'scsheet.downloadPdf' })}
         </Button>
 
         <Tooltip

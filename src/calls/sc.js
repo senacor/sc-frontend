@@ -20,6 +20,17 @@ export const savePerformanceData = async (scId, type, data, info, error) => {
   }
 };
 
+export const exportToPdf = async (scId, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/exportPdf`
+    );
+    return await response.blob();
+  } catch (err) {
+    error.showGeneral();
+  }
+};
+
 export const saveDelegation = async (
   scId,
   data,
