@@ -30,11 +30,8 @@ const determineStatusOwner = statuses => {
     statusTextId = 'sc.status.waitForReviewer';
   } else if (
     statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
-    statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
-    !statuses.includes(SC_STATUS.MEETING_CONFIRMED)
+    statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED)
   ) {
-    statusTextId = 'sc.status.arrangeMeeting';
-  } else if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
     statusTextId = 'sc.status.processDone';
   }
   return statusTextId;
@@ -62,11 +59,7 @@ const determineStatusReviewer = statuses => {
     statusTextId = 'sc.status.waitForEmployee';
   } else if (
     statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
-    statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
-    !statuses.includes(SC_STATUS.MEETING_CONFIRMED)
-  ) {
-    statusTextId = 'sc.status.arrangeMeeting';
-  } else if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
+    statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
     statusTextId = 'sc.status.processDone';
   }
   return statusTextId;

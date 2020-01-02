@@ -19,7 +19,6 @@ const ScContainer = ({
   handleChangeType,
   scTypeSeleted,
   handleSubmitScType,
-  handleMeetingConfirm,
   setSc,
   setIsLoading,
   afterScFetched
@@ -28,7 +27,7 @@ const ScContainer = ({
 
   return (
     <Fragment>
-      <StatusStepper sc={sc} handleMeetingConfirm={handleMeetingConfirm} />
+      <StatusStepper sc={sc} />
       {sc.statusSet.includes(SC_STATUS.WITHOUT_PR) ||
       sc.statusSet.includes(SC_STATUS.WITH_PR) ? (
         <ScTabs
