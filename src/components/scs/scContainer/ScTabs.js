@@ -97,7 +97,6 @@ const ScTabs = ({
             id={'TabDetailsReviewer'}
           />
           <Tab
-            disabled={sc.statusSet.includes(SC_STATUS.MEETING_CONFIRMED)}
             value={SC_TAB.MEETING}
             label={intl.formatMessage({
               id: 'sctabs.findtermin'

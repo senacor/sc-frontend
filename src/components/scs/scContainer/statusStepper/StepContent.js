@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Typography, Button } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
 import { SC_STATUS } from '../../../../helper/scSheetData';
 import { useUserinfoContext } from '../../../../helper/contextHooks';
 
@@ -22,14 +22,7 @@ const styles = theme => ({
   }
 });
 
-const StepContent = ({
-  classes,
-  intl,
-  step,
-  activeStep,
-  sc,
-  handleMeetingConfirm
-}) => {
+const StepContent = ({ classes, intl, step, activeStep, sc }) => {
   const user = useUserinfoContext();
   const statuses = sc.statusSet;
 
@@ -90,53 +83,11 @@ const StepContent = ({
         id: 'sc.phase.inProgress.scSubmitted'
       });
     }
-    if (
-      !statuses.includes(SC_STATUS.REVIEWER_MEETING_ACCEPTED) ||
-      !statuses.includes(SC_STATUS.EMPLOYEE_MEETING_ACCEPTED)
-    ) {
-      // Termin was not accepted by employee or reviewer yet
-      stepCaptionText.termin = intl.formatMessage({
-        id: 'sc.phase.inProgress.terminNotCreated'
-      });
-    } else {
-      stepCaptionText.termin = intl.formatMessage({
-        id: 'sc.phase.inProgress.terminCreated'
-      });
-    }
     return stepCaptionLayout(
       stepCaptionText.employee,
       stepCaptionText.reviewer,
       stepCaptionText.termin
     );
-  };
-
-  const determineTextTermin = () => {
-    if (user.isReviewerInSc(sc)) {
-      return (
-        <Button
-          className={classes.btnMeetingConfirm}
-          variant="contained"
-          color="secondary"
-          onClick={handleMeetingConfirm}
-        >
-          {intl.formatMessage({ id: 'sc.phase.Termin.terminTakenPlace' })}
-        </Button>
-      );
-    } else if (user.hasRoleHr()) {
-      if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
-        return (
-          <Typography color="textSecondary" variant="body2">
-            {intl.formatMessage({ id: 'sc.phase.Termin.terminCreated' })}
-          </Typography>
-        );
-      } else {
-        return (
-          <Typography color="textSecondary" variant="body2">
-            {intl.formatMessage({ id: 'sc.phase.Termin.terminNotCreated' })}
-          </Typography>
-        );
-      }
-    } else return;
   };
 
   const determineScPhase = index => {
@@ -145,8 +96,6 @@ const StepContent = ({
         return determineTextPreparation();
       case 1:
         return determineTextInProgress();
-      case 2:
-        return determineTextTermin();
       default:
         return;
     }
@@ -165,9 +114,6 @@ const StepContent = ({
       </Typography>
       <Typography color="textSecondary" variant="body2">
         {reviewerText}
-      </Typography>
-      <Typography variant="body2" className={classes.stepCaptionTitle}>
-        {intl.formatMessage({ id: 'sc.statusStepper.termin' })}:
       </Typography>
       <Typography color="textSecondary" variant="body2">
         {terminText}

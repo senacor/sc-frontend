@@ -11,7 +11,7 @@ const styles = theme => ({
   }
 });
 
-const StatusStepper = ({ classes, intl, sc, handleMeetingConfirm }) => {
+const StatusStepper = ({ classes, intl, sc }) => {
   const steps = [
     {
       index: 0,
@@ -23,10 +23,6 @@ const StatusStepper = ({ classes, intl, sc, handleMeetingConfirm }) => {
     },
     {
       index: 2,
-      label: intl.formatMessage({ id: 'sc.phase.termin' })
-    },
-    {
-      index: 3,
       label: intl.formatMessage({ id: 'sc.phase.done' })
     }
   ];
@@ -44,16 +40,8 @@ const StatusStepper = ({ classes, intl, sc, handleMeetingConfirm }) => {
           !statuses.includes(SC_STATUS.REVIEWER_SUBMITTED))
       ) {
         setActiveStep(steps[1].index);
-      } else if (
-        statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
-        statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
-        !statuses.includes(SC_STATUS.MEETING_CONFIRMED)
-      ) {
-        setActiveStep(steps[2].index);
-      } else if (statuses.includes(SC_STATUS.MEETING_CONFIRMED)) {
-        setActiveStep(steps[3].index);
       } else {
-        setActiveStep(steps[0].index);
+        setActiveStep(steps[2].index);
       }
     },
     [sc]
@@ -65,12 +53,7 @@ const StatusStepper = ({ classes, intl, sc, handleMeetingConfirm }) => {
         {steps.map(step => (
           <Step key={step.index}>
             <StepLabel>
-              <StepContent
-                step={step}
-                activeStep={activeStep}
-                sc={sc}
-                handleMeetingConfirm={handleMeetingConfirm}
-              />
+              <StepContent step={step} activeStep={activeStep} sc={sc} />
             </StepLabel>
           </Step>
         ))}
