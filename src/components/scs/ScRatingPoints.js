@@ -65,7 +65,7 @@ const ScRatingPoints = ({
       <FormControl>
         <InputLabel id="evaluation-label">
           {intl.formatMessage({
-            id: 'scsheet.textheader.selfEvaluation'
+            id: 'scsheet.textheader.evaluation'
           })}
         </InputLabel>
         <Select
