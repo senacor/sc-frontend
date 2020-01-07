@@ -30,8 +30,8 @@ const styles = theme => ({
 });
 
 export const DateItem = ({ classes, intl, ruleDate, onDelete, modifyDate }) => {
-  const ruleDateDay = parseInt(ruleDate.split('-')[0]);
-  const ruleDateMonth = parseInt(ruleDate.split('-')[1]);
+  const ruleDateDay = parseInt(ruleDate.split('-')[0], []);
+  const ruleDateMonth = parseInt(ruleDate.split('-')[1], []);
 
   const [month, setMonth] = React.useState(ruleDateMonth);
   const [day, setDay] = React.useState(ruleDateDay);
