@@ -1,30 +1,22 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import Rule from './Rule';
-import {
-  getAllRules,
-  deleteRule,
-  addRule,
-  updateRulePriority
-} from '../../../calls/rules';
-import NewCustomRule from './NewCustomRule';
-import { validPriority, validChronology, validProcess } from './functions';
-import Sortable from 'react-sortablejs';
 import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
-
 // Material UI
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
+import List from '@material-ui/core/List';
+import DateItem from './DateItem';
+import AddIcon from '@material-ui/icons/Add';
+import Grid from '@material-ui/core/Grid';
 import ConfirmDialog from '../../utils/ConfirmDialog';
+import { getAllRules, saveRules } from '../../../calls/rules';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -32,6 +24,27 @@ const styles = theme => ({
     margin: 3 * theme.spacing.unit,
     paddingBottom: 5 * theme.spacing.unit,
     paddingTop: 5 * theme.spacing.unit
+  },
+  btnAdd: {
+    backgroundColor: theme.palette.primary[400],
+    color: theme.palette.secondary.white
+  },
+  rightSide: {
+    display: 'block',
+    textAlign: 'right'
+  },
+  leftSide: {
+    display: 'block',
+    textAlign: 'left'
+  },
+  actionBtnContainer: {
+    display: 'flex'
+  },
+  actionBtn: {
+    margin: 3 * theme.spacing.unit
+  },
+  hidden: {
+    display: 'none'
   },
   rulesPaper: {
     margin: 3 * theme.spacing.unit,
@@ -56,180 +69,69 @@ const styles = theme => ({
     marginTop: 3 * theme.spacing.unit,
     textAlign: 'center'
   },
-  noRules: {
-    color: theme.palette.secondary.mediumGrey
+  leftIcon: {
+    marginRight: theme.spacing.unit
+  },
+  addMenu: {
+    display: 'block',
+    width: '100%',
+    textAlign: 'right'
   },
   listItem: {
     background: theme.palette.secondary.brightGrey,
     marginTop: theme.spacing.unit,
-    marginBottom: 2 * theme.spacing.unit,
-    cursor: 'grab',
-    boxShadow: `0px 1px 4px 4px ${theme.palette.secondary.mediumGrey}`
+    marginBottom: 2 * theme.spacing.unit
   }
 });
 
 const AutomationRulesContainer = ({ classes, intl }) => {
-  const [rules, setRules] = useState([]);
-  const [newRuleActive, setNewRuleActive] = useState(false);
+  const [ruleDates, setRuleDates] = useState([]);
+  const [loadedRuleDates, setLoadedRuleDates] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [values, setValues] = useState({
-    processType: '',
-    regulationCriterion: '',
-    timeUnit: '',
-    chronology: '',
-    priority: '',
-    timeUnitNumber: '',
-    expirationDate: ''
-  });
-  const [endDateChecked, setEndDateChecked] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const error = useErrorContext();
   const info = useInfoContext();
-  const maxRulesAmount = 2;
 
   useEffect(() => {
-    getAllRules(setRules, setIsLoading, error);
+    getAllRules(setRuleDates, setIsLoading, error);
   }, []);
 
-  useEffect(
-    () => {
-      if (rules.length >= maxRulesAmount) {
-        setNewRuleActive(false);
-      }
-    },
-    [rules]
-  );
+  const rulesUpdated = loadedRuleDates.join('-') !== ruleDates.join('-');
+
+  const saveChanges = () => {
+    const afterSave = () => {
+      setLoadedRuleDates([...ruleDates]);
+    };
+    saveRules(ruleDates, afterSave, error, info);
+    setDialogOpen(false);
+  };
+
+  const revertChanges = () => {
+    setRuleDates([...loadedRuleDates]);
+  };
 
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
 
-  const handleDialogOpen = () => {
-    setDialogOpen(true);
+  const addNewDate = () => {
+    setRuleDates([...ruleDates, '01-01']);
   };
 
-  const handleDeleteRule = id => {
-    deleteRule(id, error);
-    const newRulesData = rules.filter(rule => rule.id !== id);
-    setRules(newRulesData);
-    setDialogOpen(false);
+  const deleteDate = index => {
+    console.log('DELETE: ', index);
+    ruleDates.splice(index, 1);
+    setRuleDates([...ruleDates]);
   };
 
-  const handleNewRuleActive = () => {
-    setNewRuleActive(!newRuleActive);
-  };
-
-  const handleChange = event => {
-    event.persist();
-    setValues(oldValues => ({
-      ...oldValues,
-      [event.target.name]: event.target.value
-    }));
-  };
-
-  const handleChangeNumber = event => {
-    const newValues = { ...values };
-    newValues.timeUnitNumber = event.target.value;
-    setValues(newValues);
-  };
-
-  const handleChangeEndDate = () => {
-    if (endDateChecked) {
-      setEndDateChecked(false);
-    } else {
-      const newValues = { ...values };
-      newValues.expirationDate = '';
-      setValues(newValues);
-      setEndDateChecked(true);
-    }
-  };
-
-  const newRuleSubmit = () => {
-    if (
-      rules.length === 0 ||
-      (validChronology(values, rules) &&
-        validPriority(values, rules) &&
-        validProcess(values))
-    ) {
-      error.hide();
-      addRule(values, rules, setRules, error, info);
-    } else if (!validPriority(values, rules)) {
-      info.hide();
-      error.show('message.invalidPriority');
-    } else if (!validChronology(values, rules)) {
-      info.hide();
-      error.show('message.invalidChronology');
-    } else if (!validProcess(values)) {
-      info.hide();
-      error.show('message.entryDateAndBeforeError');
-    }
-  };
-
-  const setNewPriority = arr => {
-    let arrWithNewPriorities = arr;
-    arrWithNewPriorities[0].priority = 'HIGHEST';
-    arrWithNewPriorities[1].priority = 'LOWEST';
-    return arrWithNewPriorities;
-  };
-
-  const createMap = arr => {
-    const newMap = new Map();
-    arr.map(item => {
-      return newMap.set(item.id, item.priority);
-    });
-    return newMap;
-  };
-
-  const handleOrderRules = (order, sortable, evt) => {
-    let newRules = [...rules];
-    const mapOrder = (array, order, key) => {
-      array.sort((a, b) => {
-        let A = a[key],
-          B = b[key];
-
-        if (order.indexOf(A) > order.indexOf(B)) {
-          return 1;
-        } else {
-          return -1;
-        }
-      });
-      return array;
-    };
-    const orderedArr = mapOrder(newRules, order, 'id');
-    setNewPriority(orderedArr);
-    setRules(orderedArr);
-    updateRulePriority(createMap(orderedArr), rules[0].processType, error);
+  const modifyDate = (index, value) => {
+    ruleDates[index] = value;
+    setRuleDates([...ruleDates]);
   };
 
   return (
     <Fragment>
-      <div className={classes.createRuleContainer}>
-        <Fragment>
-          <Button
-            disabled={rules.length === maxRulesAmount || isLoading}
-            onClick={handleNewRuleActive}
-            color="primary"
-            variant="contained"
-          >
-            {intl.formatMessage({
-              id: 'autorules.createRule'
-            })}
-          </Button>
-          {newRuleActive && (
-            <Paper className={classes.paper}>
-              <NewCustomRule
-                values={values}
-                handleChange={handleChange}
-                handleChangeNumber={handleChangeNumber}
-                newRuleSubmit={newRuleSubmit}
-                handleChangeEndDate={handleChangeEndDate}
-                endDateChecked={endDateChecked}
-              />
-            </Paper>
-          )}
-        </Fragment>
-      </div>
       <Paper className={classes.rulesPaper}>
         <div className={classes.title}>
           <AutoRules color="primary" />
@@ -238,44 +140,86 @@ const AutomationRulesContainer = ({ classes, intl }) => {
           </Typography>
         </div>
         <Divider className={classes.divider} />
+        <div className={classes.leftSide}>
+          <Typography variant="body1">
+            {intl.formatMessage({ id: 'autorules.dates.title' })}
+          </Typography>
+        </div>
         {isLoading ? (
           <CircularProgress />
-        ) : rules.length > 0 ? (
-          <List>
-            <Sortable
-              onChange={(order, sortable, evt) =>
-                handleOrderRules(order, sortable, evt)
-              }
-              options={{
-                animation: 150,
-                sortable: true
-              }}
-            >
-              {rules.map(rule => (
-                <Fragment key={rule.id}>
-                  <ListItem className={classes.listItem} data-id={rule.id}>
-                    <Rule rule={rule} openDialog={handleDialogOpen} />
-                  </ListItem>
-                  <ConfirmDialog
-                    open={dialogOpen}
-                    handleClose={handleDialogClose}
-                    handleConfirm={() => handleDeleteRule(rule.id)}
-                    confirmationText={intl.formatMessage({
-                      id: 'autorules.dialogText'
-                    })}
-                    confirmationHeader={intl.formatMessage({
-                      id: 'autorules.dialogTitle'
-                    })}
-                  />
-                </Fragment>
-              ))}
-            </Sortable>
-          </List>
         ) : (
-          <Typography variant="body2" className={classes.noRules}>
-            {intl.formatMessage({ id: 'autorules.noRulesDefined' })}
-          </Typography>
+          <List>
+            {ruleDates.length > 0 ? (
+              ruleDates.map((ruleDate, index) => {
+                return (
+                  <ListItem key={Math.random()} className={classes.listItem}>
+                    <DateItem
+                      ruleDate={ruleDate}
+                      onDelete={() => {
+                        deleteDate(index);
+                      }}
+                      modifyDate={value => modifyDate(index, value)}
+                    />
+                  </ListItem>
+                );
+              })
+            ) : (
+              <Typography variant="body2">
+                {intl.formatMessage({ id: 'autorules.noDatesDefined' })}
+              </Typography>
+            )}
+            <ListItem className={classes.listItem}>
+              <div className={classes.addMenu}>
+                <Button className={classes.btnAdd} onClick={addNewDate}>
+                  <AddIcon className={classes.leftIcon} />
+                  {intl.formatMessage({
+                    id: 'autorules.add'
+                  })}
+                </Button>
+              </div>
+            </ListItem>
+          </List>
         )}
+        <div className={classes.actionBtnContainer}>
+          <Grid item sm={6} className={classes.leftSide}>
+            <Button
+              onClick={revertChanges}
+              color="primary"
+              variant="contained"
+              className={
+                !rulesUpdated || isLoading ? classes.hidden : classes.actionBtn
+              }
+            >
+              {intl.formatMessage({
+                id: 'autorules.revert'
+              })}
+            </Button>
+          </Grid>
+          <Grid item sm={6} className={classes.rightSide}>
+            <Button
+              disabled={!rulesUpdated || isLoading}
+              onClick={() => setDialogOpen(true)}
+              color="primary"
+              variant="contained"
+              className={classes.actionBtn}
+            >
+              {intl.formatMessage({
+                id: 'autorules.savechanges'
+              })}
+            </Button>
+          </Grid>
+        </div>
+        <ConfirmDialog
+          open={dialogOpen}
+          handleClose={handleDialogClose}
+          handleConfirm={() => saveChanges()}
+          confirmationText={intl.formatMessage({
+            id: 'autorules.dialogText'
+          })}
+          confirmationHeader={intl.formatMessage({
+            id: 'autorules.dialogTitle'
+          })}
+        />
       </Paper>
     </Fragment>
   );

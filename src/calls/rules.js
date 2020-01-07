@@ -1,83 +1,37 @@
 import { default as fetch } from '../helper/customFetch';
-import { sortByPriority } from '../components/admin/automationRules/functions';
 
 export const getAllRules = async (setRules, setIsLoading, error) => {
   try {
     setIsLoading(true);
-
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/automation/rule/all`
+      `${process.env.REACT_APP_API}/api/v1/automation/dates`
     );
-
     const responseRules = await response.json();
-
     setIsLoading(false);
-    sortByPriority(responseRules);
-    setRules(responseRules);
+    setRules(
+      responseRules && Array.isArray(responseRules) ? responseRules : []
+    );
   } catch (err) {
+    setRules([]);
     console.log(err);
     setIsLoading(false);
     error.showGeneral();
   }
 };
 
-export const deleteRule = async (id, error) => {
+export const saveRules = async (rules, afterSave, error, info) => {
   try {
-    await fetch(`${process.env.REACT_APP_API}/api/v1/automation/rule/${id}`, {
-      method: 'delete',
-      mode: 'cors'
-    });
-  } catch (err) {
-    console.log(err);
-    error.showGeneral();
-  }
-};
-
-export const addRule = async (ruleObject, rules, setRules, error, info) => {
-  try {
-    const newRules = [...rules];
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/automation/rule`,
+      `${process.env.REACT_APP_API}/api/v1/automation/dates`,
       {
         method: 'post',
         mode: 'cors',
-        body: JSON.stringify({
-          chronology: ruleObject.chronology,
-          timeUnit: ruleObject.timeUnit,
-          processType: ruleObject.processType,
-          regulationCriterion: ruleObject.regulationCriterion,
-          priority: ruleObject.priority,
-          timeUnitNumber: ruleObject.timeUnitNumber,
-          expirationDate: ruleObject.expirationDate
-        })
+        body: JSON.stringify(rules)
       }
     );
-
-    const ruleResponse = await response.json();
-    if (response.status === 200) {
-      newRules.push(ruleResponse);
-      sortByPriority(newRules);
-      setRules(newRules);
-      info.msg('message.ruleCreated');
-    }
-  } catch (err) {
-    console.log(err);
-    error.showGeneral();
-  }
-};
-
-export const updateRulePriority = async (map, processType, error) => {
-  try {
-    await fetch(
-      `${
-        process.env.REACT_APP_API
-      }/api/v1/automation/rule/swapPriorities?processType=${processType}`,
-      {
-        method: 'post',
-        mode: 'cors',
-        body: JSON.stringify(Object.fromEntries(map))
-      }
-    );
+    await response.json();
+    afterSave();
+    info.msg('autorules.save.success');
   } catch (err) {
     console.log(err);
     error.showGeneral();
