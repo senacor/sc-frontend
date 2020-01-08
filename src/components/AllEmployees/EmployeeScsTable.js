@@ -7,6 +7,7 @@ import { linkToSc } from '../../calls/sc';
 import { modifyString } from '../../helper/string';
 import { formatLocaleDateTime } from '../../helper/date';
 import { FRONTEND_DATE_FORMAT } from '../../helper/date';
+import { downloadScAsPdf } from '../../components/scs/ScSheet/helperFunc.js';
 
 // Material UI
 import Table from '@material-ui/core/Table';
@@ -17,6 +18,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import IconButton from '@material-ui/core/IconButton';
 import GetApp from '@material-ui/icons/GetApp';
+import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   tableRow: {
@@ -30,6 +32,7 @@ const styles = theme => ({
 });
 
 const EmployeeScsTable = ({ classes, intl, scs, history }) => {
+  const error = useErrorContext();
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
     createdDate: true,
@@ -77,7 +80,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     changeDirection();
   };
 
-  const downloadAsPdf = scId => {};
+  const downloadAsPdf = scId => {
+    downloadScAsPdf(scId, error);
+  };
 
   sortBySortActive(scs, sortActive, sortDirection);
 

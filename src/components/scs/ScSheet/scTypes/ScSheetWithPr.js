@@ -18,6 +18,7 @@ import {
   useErrorContext,
   useUserinfoContext
 } from '../../../../helper/contextHooks';
+import { downloadScAsPdf } from '../helperFunc.js';
 
 const styles = theme => ({});
 
@@ -306,6 +307,10 @@ const ScSheetWithPr = ({
     });
   };
 
+  const handlePdfDownload = () => {
+    downloadScAsPdf(sc.id, error);
+  };
+
   return (
     <Fragment>
       <Performance
@@ -335,6 +340,7 @@ const ScSheetWithPr = ({
         submitDisabled={!validateTitles()}
         handleSave={handleSave}
         handleSubmit={handleSubmit}
+        handlePdfDownload={handlePdfDownload}
         sc={sc}
       />
     </Fragment>

@@ -1,29 +1,45 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Button, Tooltip } from '@material-ui/core';
+import { Button, Tooltip, withStyles, Typography } from '@material-ui/core';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import { SC_STATUS } from '../../../helper/scSheetData';
+import PdfIcon from '@material-ui/icons/PictureAsPdf';
 
 const styles = theme => ({
   btnContainer: {
     padding: theme.spacing.unit * 2,
     position: 'fixed',
+    display: 'flex',
     bottom: 5,
     right: 5
   },
-  btnSave: {
-    marginRight: theme.spacing.unit * 2
-  },
-  submitBtnContainer: {
-    display: 'inline-block'
-  },
   hidden: {
     display: 'none'
+  },
+  btnSubmit: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  },
+  btnDownload: {
+    background: theme.palette.secondary.darkYellow,
+    color: theme.palette.secondary.white
+  },
+  btnDownloadText: {
+    color: theme.palette.secondary.white,
+    paddingLeft: theme.spacing.unit
   }
 });
 
 const ButtonsBelowSheet = memo(
-  ({ classes, intl, sc, handleSave, handleSubmit, submitDisabled }) => {
+  ({
+    classes,
+    intl,
+    sc,
+    handleSave,
+    handleSubmit,
+    handlePdfDownload,
+    submitDisabled
+  }) => {
     const user = useUserinfoContext();
     const [hidden, setHidden] = useState(false);
     const statuses = sc.statusSet;
@@ -72,8 +88,9 @@ const ButtonsBelowSheet = memo(
           }
           placement="top"
         >
-          <div className={classes.submitBtnContainer}>
+          <div>
             <Button
+              className={classes.btnSubmit}
               disabled={submitDisabled}
               variant="contained"
               color="primary"
@@ -83,6 +100,18 @@ const ButtonsBelowSheet = memo(
             </Button>
           </div>
         </Tooltip>
+
+        <Button
+          className={classes.btnDownload}
+          variant="contained"
+          onClick={handlePdfDownload}
+          download
+        >
+          <PdfIcon />
+          <Typography className={classes.btnDownloadText}>
+            {intl.formatMessage({ id: 'scsheet.downloadPdf' })}
+          </Typography>
+        </Button>
       </div>
     );
   },
