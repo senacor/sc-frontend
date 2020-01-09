@@ -19,8 +19,10 @@ const styles = theme => ({
   },
   advFilter: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
@@ -44,42 +46,58 @@ const UpperFilterMenu = ({
   intl,
   searchEmployeesValue,
   handleSearchEmployeeChange,
+  searchSupervisorValue,
+  handleSearchSupervisorChange,
   visibleAdvancedFilter,
   clearFilter,
   toggleSortingFilter,
-  sortingData
+  sortingData,
+  formerEmployees
 }) => {
   return (
     <Paper className={classes.upperMenuPaper}>
       <div className={classes.upperMenuContainer}>
-        <SearchFilter
-          searchValue={searchEmployeesValue}
-          searchChange={handleSearchEmployeeChange}
-          placeholder={intl.formatMessage({
-            id: 'filter.searchEmployee'
-          })}
-        />
-        {visibleAdvancedFilter && (
+        <div>
+          <SearchFilter
+            searchValue={searchEmployeesValue}
+            searchChange={handleSearchEmployeeChange}
+            placeholder={intl.formatMessage({
+              id: 'filter.searchEmployee'
+            })}
+          />
+          {visibleAdvancedFilter && !formerEmployees && (
+            <SearchFilter
+              searchValue={searchSupervisorValue}
+              searchChange={handleSearchSupervisorChange}
+              placeholder={intl.formatMessage({
+                id: 'filter.searchSupervisor'
+              })}
+            />
+          )}
+        </div>
+        <div>
+          {visibleAdvancedFilter && (
+            <Button
+              variant="contained"
+              onClick={clearFilter}
+              className={classes.clearFilterBtn}
+            >
+              <Typography variant="button" className={classes.clearFilterText}>
+                x {intl.formatMessage({ id: 'filter.clear' })}
+              </Typography>
+            </Button>
+          )}
           <Button
+            onClick={() => toggleSortingFilter()}
+            className={classes.toggleFilterBtn}
             variant="contained"
-            onClick={clearFilter}
-            className={classes.clearFilterBtn}
           >
-            <Typography variant="button" className={classes.clearFilterText}>
-              x {intl.formatMessage({ id: 'filter.clear' })}
+            <FilterIcon />
+            <Typography variant="button">
+              {intl.formatMessage({ id: 'filter.advanced' })}
             </Typography>
           </Button>
-        )}
-        <Button
-          onClick={() => toggleSortingFilter()}
-          className={classes.toggleFilterBtn}
-          variant="contained"
-        >
-          <FilterIcon />
-          <Typography variant="button">
-            {intl.formatMessage({ id: 'filter.advanced' })}
-          </Typography>
-        </Button>
+        </div>
       </div>
       {visibleAdvancedFilter && (
         <div className={classes.advFilter}>

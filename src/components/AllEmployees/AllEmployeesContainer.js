@@ -38,7 +38,7 @@ const styles = theme => ({
 
 const AllEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
-  const error = useErrorContext();
+  const [searchSupervisorValue, setSearchSupervisorValue] = useState('');
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [monthSorting, setMonthSorting] = useState([]);
@@ -50,6 +50,8 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
 
+  const error = useErrorContext();
+
   useEffect(() => {
     if (localStorage.getItem('view') === 'table') {
       setTableView(true);
@@ -59,6 +61,10 @@ const AllEmployeesContainer = ({ classes, intl }) => {
 
   const handleSearchEmployeeChange = event => {
     setSearchEmployeesValue(event.target.value);
+  };
+
+  const handleSearchSupervisorChange = event => {
+    setSearchSupervisorValue(event.target.value);
   };
 
   const handleSortPositionChange = event => {
@@ -111,6 +117,7 @@ const AllEmployeesContainer = ({ classes, intl }) => {
 
   const filterInputs = {
     searchEmployee: searchEmployeesValue,
+    searchSupervisor: searchSupervisorValue,
     year: [...yearSorting],
     month: [...monthSorting],
     position: [...positionSorting],
@@ -180,6 +187,8 @@ const AllEmployeesContainer = ({ classes, intl }) => {
       <UpperFilterMenu
         searchEmployeesValue={searchEmployeesValue}
         handleSearchEmployeeChange={handleSearchEmployeeChange}
+        searchSupervisorValue={searchSupervisorValue}
+        handleSearchSupervisorChange={handleSearchSupervisorChange}
         visibleAdvancedFilter={visibleAdvancedFilter}
         clearFilter={clearFilter}
         toggleSortingFilter={toggleSortingFilter}

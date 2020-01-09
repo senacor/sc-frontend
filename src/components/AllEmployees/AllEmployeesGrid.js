@@ -54,6 +54,7 @@ const AllEmployeesGrid = ({
     const modifiedScStatus = modifyString(empl.scStatus);
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+      checkFilterValues(filterInputs.searchSupervisor, empl.supervisorName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
       checkFilterValues(filterInputs.department, empl.department) &&
       checkFilterValues(filterInputs.scStatus, modifiedScStatus) &&

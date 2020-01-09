@@ -54,6 +54,7 @@ const AllEmployeesTable = ({
       const employeeName = empl.firstName + ' ' + empl.lastName;
       return (
         checkFilterValues(filterInputs.searchEmployee, employeeName) &&
+        checkFilterValues(filterInputs.searchSupervisor, empl.supervisorName) &&
         checkFilterValues(filterInputs.position, empl.position) &&
         checkFilterValues(filterInputs.department, empl.department) &&
         checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
