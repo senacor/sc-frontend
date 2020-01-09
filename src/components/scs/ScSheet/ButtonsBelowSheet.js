@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Tooltip, withStyles, Typography } from '@material-ui/core';
 import { useUserinfoContext } from '../../../helper/contextHooks';
@@ -41,25 +41,8 @@ const ButtonsBelowSheet = memo(
     submitDisabled
   }) => {
     const user = useUserinfoContext();
-    const [hidden, setHidden] = useState(false);
-    const statuses = sc.statusSet;
 
-    useEffect(
-      () => {
-        if (
-          (user.isReviewerInSc(sc) &&
-            statuses.includes(SC_STATUS.REVIEWER_SUBMITTED)) ||
-          (user.isOwnerInSc(sc) &&
-            statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) ||
-          user.hasRoleHr()
-        ) {
-          setHidden(true);
-        }
-      },
-      [sc]
-    );
-
-    const disableSaveButton = () => {
+    const isButtonDisabled = () => {
       if (user.isReviewerInSc(sc)) {
         return sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED);
       } else if (user.isOwnerInSc(sc)) {
@@ -69,9 +52,9 @@ const ButtonsBelowSheet = memo(
     };
 
     return (
-      <div className={hidden ? classes.hidden : classes.btnContainer}>
+      <div className={classes.btnContainer}>
         <Button
-          disabled={disableSaveButton()}
+          disabled={isButtonDisabled()}
           className={classes.btnSave}
           variant="contained"
           color="secondary"
@@ -91,7 +74,7 @@ const ButtonsBelowSheet = memo(
           <div>
             <Button
               className={classes.btnSubmit}
-              disabled={submitDisabled}
+              disabled={submitDisabled || isButtonDisabled()}
               variant="contained"
               color="primary"
               onClick={handleSubmit}
