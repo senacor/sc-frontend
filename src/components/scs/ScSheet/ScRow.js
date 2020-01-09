@@ -21,9 +21,8 @@ const styles = theme => ({
   scRowContainer: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
-    transition: '0.3s',
+    transition: '0.2s',
     '&:hover': {
-      transform: 'scale(1.01)',
       border: `1px solid ${theme.palette.secondary.main}`,
       background: theme.palette.secondary.brighterGrey
     }
