@@ -50,7 +50,7 @@ const FinalScoreSection = memo(
             </Typography>
           </Grid>
           <Grid item sm={2}>
-            {determineFinalPercentage(finalScore)}
+            {`${determineFinalPercentage(finalScore)} %`}
           </Grid>
         </Grid>
       </div>
