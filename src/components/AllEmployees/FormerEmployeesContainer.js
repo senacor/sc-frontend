@@ -196,6 +196,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
         clearFilter={clearFilter}
         toggleSortingFilter={toggleSortingFilter}
         sortingData={sortingData}
+        formerEmployees
       />
       {tableView ? (
         <FormerEmployeesTable

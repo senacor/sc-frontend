@@ -205,7 +205,7 @@ export const checkFilterValues = (filterData, userData) => {
 export const years = () => {
   let years = [];
   const currentYear = moment().year();
-  for (let i = currentYear; i >= 2000; i--) {
+  for (let i = currentYear; i >= 1999; i--) {
     years.push(i);
   }
   return years;
