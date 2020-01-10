@@ -80,9 +80,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     changeDirection();
   };
 
-  const downloadAsPdf = (e, scId) => {
+  const downloadAsPdf = (e, scId, login) => {
     e.stopPropagation();
-    downloadScAsPdf(scId, error);
+    downloadScAsPdf(scId, login, error);
   };
 
   sortBySortActive(scs, sortActive, sortDirection);
@@ -169,7 +169,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
               </TableCell>
               <TableCell>
-                <IconButton onClick={e => downloadAsPdf(e, sc.scId)}>
+                <IconButton
+                  onClick={e => downloadAsPdf(e, sc.scId, sc.employeeLogin)}
+                >
                   <GetApp />
                 </IconButton>
               </TableCell>
