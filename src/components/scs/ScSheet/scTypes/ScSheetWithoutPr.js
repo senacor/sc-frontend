@@ -219,7 +219,7 @@ const ScSheetWithoutPr = ({
   };
 
   const handlePdfDownload = () => {
-    downloadScAsPdf(sc.id, error);
+    downloadScAsPdf(sc.id, sc.employee.login, error);
   };
 
   return (
