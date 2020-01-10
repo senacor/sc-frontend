@@ -63,7 +63,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
             {intl.formatMessage({
-              id: 'appbar.portal'
+              id: 'appbar.appTitle'
             })}
           </Typography>
           <LanguageButton languageButtonClassName={classes.languageButton} />

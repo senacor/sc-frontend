@@ -80,7 +80,8 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     changeDirection();
   };
 
-  const downloadAsPdf = scId => {
+  const downloadAsPdf = (e, scId) => {
+    e.stopPropagation();
     downloadScAsPdf(scId, error);
   };
 
@@ -168,7 +169,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
               </TableCell>
               <TableCell>
-                <IconButton onClick={() => downloadAsPdf(sc.scId)}>
+                <IconButton onClick={e => downloadAsPdf(e, sc.scId)}>
                   <GetApp />
                 </IconButton>
               </TableCell>

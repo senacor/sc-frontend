@@ -1,5 +1,5 @@
 {
-  "appbar.portal": "Senacor Portal",
+  "appbar.appTitle": "Scorecard Portal",
   "appbar.drawer": "Open drawer",
   "dashboard.opened": "My opened PR",
   "dashboard.evaluator": "PRs with me as evaluator in total (incl. archive)",

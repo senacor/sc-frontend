@@ -1,5 +1,5 @@
 {
-  "appbar.portal": "Senacor Portal",
+  "appbar.appTitle": "Scorecard Portal",
   "appbar.drawer": "Offene Schublade",
   "dashboard.opened": "Offenes eigenes PR",
   "dashboard.evaluator": "PRs mit mir als Bewerter insgesamt (inkl. Archiv)",
