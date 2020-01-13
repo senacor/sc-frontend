@@ -94,7 +94,11 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   const info = useInfoContext();
 
   useEffect(() => {
-    getAllRules(setRuleDates, setIsLoading, error);
+    const afterLoad = ruleDates => {
+      setLoadedRuleDates([...ruleDates]);
+      setRuleDates([...ruleDates]);
+    };
+    getAllRules(afterLoad, setIsLoading, error);
   }, []);
 
   const rulesUpdated = loadedRuleDates.join('-') !== ruleDates.join('-');
@@ -120,7 +124,6 @@ const AutomationRulesContainer = ({ classes, intl }) => {
   };
 
   const deleteDate = index => {
-    console.log('DELETE: ', index);
     ruleDates.splice(index, 1);
     setRuleDates([...ruleDates]);
   };
