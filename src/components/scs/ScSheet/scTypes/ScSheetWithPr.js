@@ -160,27 +160,27 @@ const ScSheetWithPr = ({
   useEffect(
     () => {
       if (tabValue === SC_TAB.EMPLOYEE) {
-        setDailyBusinessFields(sc.employeeData.dailyBusiness);
-        setProjectFields(sc.employeeData.project);
-        setSkillsInTheFieldsFields(sc.employeeData.skillsInTheFields);
-        setImpactOnTeamFields(sc.employeeData.impactOnTeam);
-        setServiceQualityFields(sc.employeeData.serviceQuality);
-        setImpactOnCompanyFields(sc.employeeData.impactOnCompany);
+        setDailyBusinessFields(sc.privateEmployeeData.dailyBusiness);
+        setProjectFields(sc.privateEmployeeData.project);
+        setSkillsInTheFieldsFields(sc.privateEmployeeData.skillsInTheFields);
+        setImpactOnTeamFields(sc.privateEmployeeData.impactOnTeam);
+        setServiceQualityFields(sc.privateEmployeeData.serviceQuality);
+        setImpactOnCompanyFields(sc.privateEmployeeData.impactOnCompany);
         setPerformanceWeightPercentage(
-          100 - sc.employeeData.skillsWeightPercentage
+          100 - sc.privateEmployeeData.skillsWeightPercentage
         );
-        setPrCategoriesWeightPercentage(sc.employeeData.skillsWeightPercentage);
+        setPrCategoriesWeightPercentage(sc.privateEmployeeData.skillsWeightPercentage);
       } else if (tabValue === SC_TAB.REVIEWER) {
-        setDailyBusinessFields(sc.reviewerData.dailyBusiness);
-        setProjectFields(sc.reviewerData.project);
-        setSkillsInTheFieldsFields(sc.reviewerData.skillsInTheFields);
-        setImpactOnTeamFields(sc.reviewerData.impactOnTeam);
-        setServiceQualityFields(sc.reviewerData.serviceQuality);
-        setImpactOnCompanyFields(sc.reviewerData.impactOnCompany);
+        setDailyBusinessFields(sc.privateReviewerData.dailyBusiness);
+        setProjectFields(sc.privateReviewerData.project);
+        setSkillsInTheFieldsFields(sc.privateReviewerData.skillsInTheFields);
+        setImpactOnTeamFields(sc.privateReviewerData.impactOnTeam);
+        setServiceQualityFields(sc.privateReviewerData.serviceQuality);
+        setImpactOnCompanyFields(sc.privateReviewerData.impactOnCompany);
         setPerformanceWeightPercentage(
-          100 - sc.reviewerData.skillsWeightPercentage
+          100 - sc.privateReviewerData.skillsWeightPercentage
         );
-        setPrCategoriesWeightPercentage(sc.reviewerData.skillsWeightPercentage);
+        setPrCategoriesWeightPercentage(sc.privateReviewerData.skillsWeightPercentage);
       }
     },
     [tabValue]
