@@ -52,6 +52,7 @@ export const EmployeeFilter = ({
   delegation,
   isDisabled,
   settingReviewers,
+  index,
   intl,
   classes
 }) => {
@@ -88,6 +89,8 @@ export const EmployeeFilter = ({
         setMaintenanceData,
         error
       );
+    } else if (settingReviewers) {
+      setSelectedEmployee(employee, index);
     } else {
       setSelectedEmployee(employee);
     }

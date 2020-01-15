@@ -19,8 +19,13 @@ const ScsToDelegateTable = ({
   allEmployees,
   intl
 }) => {
-  const selectReviewer = () => {
-    //
+  const selectReviewer = (reviewer, index) => {
+    const newReviewers = [...reviewers];
+    newReviewers[index] = Object.assign({
+      reviewerId: reviewer.id,
+      reviewerName: `${reviewer.firstName} ${reviewer.lastName}`
+    });
+    setReviewers(newReviewers);
   };
 
   return (
@@ -51,6 +56,7 @@ const ScsToDelegateTable = ({
                     data={allEmployees}
                     setSelectedEmployee={selectReviewer}
                     settingReviewers
+                    index={index}
                   />
                 </Fragment>
               </TableCell>
