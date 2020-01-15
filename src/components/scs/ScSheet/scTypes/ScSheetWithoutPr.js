@@ -110,15 +110,15 @@ const ScSheetWithoutPr = ({
   useEffect(
     () => {
       if (tabValue === SC_TAB.EMPLOYEE) {
-        setDailyBusinessFields(sc.employeeData.dailyBusiness);
-        setProjectFields(sc.employeeData.project);
-        setWorkEfficiencyFields(sc.employeeData.workEfficiency);
-        setWorkQualityFields(sc.employeeData.workQuality);
+        setDailyBusinessFields(sc.privateEmployeeData.dailyBusiness);
+        setProjectFields(sc.privateEmployeeData.project);
+        setWorkEfficiencyFields(sc.privateEmployeeData.workEfficiency);
+        setWorkQualityFields(sc.privateEmployeeData.workQuality);
       } else if (tabValue === SC_TAB.REVIEWER) {
-        setDailyBusinessFields(sc.reviewerData.dailyBusiness);
-        setProjectFields(sc.reviewerData.project);
-        setWorkEfficiencyFields(sc.reviewerData.workEfficiency);
-        setWorkQualityFields(sc.reviewerData.workQuality);
+        setDailyBusinessFields(sc.privateReviewerData.dailyBusiness);
+        setProjectFields(sc.privateReviewerData.project);
+        setWorkEfficiencyFields(sc.privateReviewerData.workEfficiency);
+        setWorkQualityFields(sc.privateReviewerData.workQuality);
       }
     },
     [tabValue]
