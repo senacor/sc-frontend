@@ -51,8 +51,7 @@ export const EmployeeFilter = ({
   maintenanceData,
   delegation,
   isDisabled,
-  pr,
-  updatePr,
+  settingReviewers,
   intl,
   classes
 }) => {
@@ -128,6 +127,14 @@ export const EmployeeFilter = ({
               id: delegation
             })}
           </Fragment>
+        </Button>
+      ) : settingReviewers ? (
+        <Button
+          color="primary"
+          className={classes.spacing}
+          onClick={handleOpen}
+        >
+          <EditIcon className={classes.leftIcon} />
         </Button>
       ) : (
         <IconButton onClick={handleOpen}>

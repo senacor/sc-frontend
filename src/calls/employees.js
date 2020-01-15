@@ -80,3 +80,28 @@ export const getEmployeeById = async (
     });
   }
 };
+
+export const getEmployeesInTeam = async (
+  setEmployeesInTeam,
+  employeeId,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/${employeeId}/team`
+    );
+
+    const responseEmployees = await response.json();
+
+    setIsLoading(false);
+    setEmployeesInTeam(responseEmployees);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    setEmployeesInTeam([]);
+    error.showGeneral();
+  }
+};

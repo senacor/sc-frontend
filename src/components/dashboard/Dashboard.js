@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ScsInProgressDialog from './ScsInProgressDialog/ScsInProgressDialog';
+import ScsToDelegateDialog from './ScsToDelegate/ScsToDelegateDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -73,6 +74,8 @@ const Dashboard = ({ classes, intl }) => {
             />
           </Fragment>
         )}
+
+        {user.hasRoleSupervisor() && <ScsToDelegateDialog />}
 
         {/* Notification about administration mode, if userrole is admin */}
         {user.hasRoleAdmin() && Object.keys(systemInfo).length > 0 && (
