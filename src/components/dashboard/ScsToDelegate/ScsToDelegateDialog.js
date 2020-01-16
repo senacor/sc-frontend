@@ -53,19 +53,24 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      const defaultReviewers = [];
-      employeesInTeam.forEach(() => {
-        defaultReviewers.push({
-          reviewerId: userId,
-          reviewerName: userName
-        });
-      });
-      setReviewers(defaultReviewers);
+      setReviewers(getDefaultReviewers());
     },
     [employeesInTeam]
   );
 
+  const getDefaultReviewers = () => {
+    const defaultReviewers = [];
+    employeesInTeam.forEach(() => {
+      defaultReviewers.push({
+        reviewerId: userId,
+        reviewerName: userName
+      });
+    });
+    return defaultReviewers;
+  };
+
   const dialogOpen = () => {
+    setReviewers(getDefaultReviewers());
     setDialogOpened(true);
   };
 
@@ -86,6 +91,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
 
   const handleSave = () => {
     saveReviewers(createData(), info, error);
+    dialogClose();
   };
 
   return (
