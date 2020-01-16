@@ -72,7 +72,7 @@ export const EmployeeFilter = ({
 
   const handleDelete = () => {
     setValue('');
-    if (!maintenance && !delegation) {
+    if (!maintenance && !delegation && !settingReviewers) {
       setSelectedEmployee(null);
     }
   };
