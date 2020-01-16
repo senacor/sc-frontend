@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
@@ -10,13 +10,20 @@ import Typography from '@material-ui/core/Typography';
 import TableRow from '@material-ui/core/TableRow';
 import EmployeeFilter from '../../admin/EmployeeFilter';
 
-const styles = theme => ({});
+const styles = theme => ({
+  reviewerCell: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+});
 
 const ScsToDelegateTable = ({
   employeesInTeam,
   reviewers,
   setReviewers,
   allEmployees,
+  classes,
   intl
 }) => {
   const selectReviewer = (reviewer, index) => {
@@ -50,15 +57,15 @@ const ScsToDelegateTable = ({
             <TableRow key={index}>
               <TableCell>{`${entry.firstName} ${entry.lastName}`}</TableCell>
               <TableCell>
-                <Fragment>
-                  {reviewers[index].reviewerName}
+                <div className={classes.reviewerCell}>
+                  <Typography>{reviewers[index].reviewerName}</Typography>
                   <EmployeeFilter
                     data={allEmployees}
                     setSelectedEmployee={selectReviewer}
                     settingReviewers
                     index={index}
                   />
-                </Fragment>
+                </div>
               </TableCell>
             </TableRow>
           );
