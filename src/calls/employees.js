@@ -105,3 +105,23 @@ export const getEmployeesInTeam = async (
     error.showGeneral();
   }
 };
+
+export const saveReviewers = async (data, info, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/reviewers`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(data)
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};

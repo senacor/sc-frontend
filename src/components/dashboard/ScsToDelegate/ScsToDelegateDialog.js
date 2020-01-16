@@ -10,12 +10,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import DialogContent from '@material-ui/core/DialogContent';
 import ScsToDelegateTable from './ScsToDelegateTable';
-import { getAllEmployees, getEmployeesInTeam } from '../../../calls/employees';
+import {
+  getAllEmployees,
+  getEmployeesInTeam,
+  saveReviewers
+} from '../../../calls/employees';
 import {
   useErrorContext,
+  useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
-import { CircularProgress } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DialogActions from '@material-ui/core/DialogActions';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   btnClose: {
@@ -34,6 +41,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
+  const info = useInfoContext();
   const userId = useUserinfoContext().context.value.userinfo.userId;
   const userName = useUserinfoContext().context.value.userinfo.employeeName;
 
@@ -65,6 +73,21 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
     setDialogOpened(false);
   };
 
+  const createData = () => {
+    const data = [];
+    employeesInTeam.forEach((employee, index) => {
+      data.push({
+        employeeId: employee.id,
+        reviewerId: reviewers[index].reviewerId
+      });
+    });
+    return data;
+  };
+
+  const handleSave = () => {
+    saveReviewers(createData(), info, error);
+  };
+
   return (
     <Fragment>
       <InfoWidget
@@ -94,6 +117,14 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
             />
           )}
         </DialogContent>
+        <DialogActions>
+          <Button variant="contained" color="secondary" onClick={dialogClose}>
+            {intl.formatMessage({ id: 'scstodelegate.cancel' })}
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleSave}>
+            {intl.formatMessage({ id: 'scstodelegate.save' })}
+          </Button>
+        </DialogActions>
       </Dialog>
     </Fragment>
   );
