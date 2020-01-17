@@ -66,12 +66,12 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     <Fragment>
       {isLoading ? (
         <div className={classes.progressBarCentered}>
-          <CircularProgress/>
+          <CircularProgress />
         </div>
       ) : (
         sc && (
           <Fragment>
-            <ScDetailInformation sc={sc}/>
+            <ScDetailInformation sc={sc} />
             <ScContainer
               sc={sc}
               tabValue={scTab}
