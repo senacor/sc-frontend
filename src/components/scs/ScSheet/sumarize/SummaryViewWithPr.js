@@ -1,15 +1,15 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import PerformanceSummary from './PerformanceSummary';
 import SummaryPrCategories from './SummaryPrCategories';
+import { reduceWeights } from '../calculations/helperFunctions';
+import { calculateFinalScoreWithPr } from '../calculations/scWithPr';
+import FinalScoreSection from '../FinalScoreSection';
 
 const styles = theme => ({});
 
 const SummaryViewWithPr = ({ sc }) => {
-  const [performanceWeightPercentage] = useState(0);
-  const [prCategoriesWeightPercentage] = useState(0);
-
   //TODO: so far using PRIVATE SPACE, use only PUBLSIHED for VIEW!
   //unwrapping private data
   const revData = sc.privateReviewerData;
@@ -51,6 +51,32 @@ const SummaryViewWithPr = ({ sc }) => {
     };
   });
 
+  //SCORE CALCULATION based on REVIEWER score
+  const totalWeightPerformance =
+    reduceWeights(revData.dailyBusiness) + reduceWeights(revData.project);
+
+  const totalWeightPrCategories =
+    revData.skillsInTheFields.weight +
+    revData.impactOnTeam.weight +
+    revData.serviceQuality.weight +
+    revData.impactOnCompany.weight;
+
+  const prCategoriesWeightPercentage = revData.skillsWeightPercentage;
+  const performanceWeightPercentage = 100 - prCategoriesWeightPercentage;
+
+  const finalScore = calculateFinalScoreWithPr(
+    revData.dailyBusiness,
+    revData.project,
+    revData.skillsInTheFields,
+    revData.impactOnTeam,
+    revData.serviceQuality,
+    revData.impactOnCompany,
+    performanceWeightPercentage,
+    prCategoriesWeightPercentage,
+    totalWeightPerformance,
+    totalWeightPrCategories
+  );
+
   return (
     <Fragment>
       <PerformanceSummary
@@ -58,7 +84,6 @@ const SummaryViewWithPr = ({ sc }) => {
         projectGoals={projectGoals}
         hasWeightPercentage
         performanceWeightPercentage={performanceWeightPercentage}
-        handleChangeWeightPercentage={() => {}}
       />
       <SummaryPrCategories
         skillsInTheFieldsFields={skillsInTheFieldsFields}
@@ -67,7 +92,7 @@ const SummaryViewWithPr = ({ sc }) => {
         impactOnCompanyFields={impactOnCompanyFields}
         prCategoriesWeightPercentage={prCategoriesWeightPercentage}
       />
-      {/*<FinalScoreSection finalScore={finalScore} />*/}
+      <FinalScoreSection finalScore={finalScore} reviewerScore />
     </Fragment>
   );
 };

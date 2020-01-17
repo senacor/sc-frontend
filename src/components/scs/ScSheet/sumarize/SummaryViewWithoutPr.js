@@ -4,13 +4,15 @@ import { Typography, withStyles } from '@material-ui/core';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import MixedScRow from './MixedScRow';
 import PerformanceSummary from './PerformanceSummary';
+import { reduceWeights } from '../calculations/helperFunctions';
+import { calculateFinalScoreWithoutPr } from '../calculations/scWithoutPr';
+import FinalScoreSection from '../FinalScoreSection';
 
 const styles = theme => ({
   ...theme.styledComponents
 });
 
 const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
-
   //TODO: so far using PRIVATE SPACE, use only PUBLSIHED for VIEW!
   //unwrapping private data
   const revData = sc.privateReviewerData;
@@ -43,6 +45,21 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
     employee: emData.workQuality,
     reviewer: revData.workQuality
   };
+
+  //SCORE CALCULATION based on REVIEWER score
+  const totalWeight =
+    reduceWeights(revData.dailyBusiness) +
+    reduceWeights(revData.project) +
+    revData.workEfficiency.weight +
+    revData.workQuality.weight;
+
+  const finalScore = calculateFinalScoreWithoutPr(
+    revData.dailyBusiness,
+    revData.project,
+    revData.workEfficiency,
+    revData.workQuality,
+    totalWeight
+  );
 
   const renderWorkEfficiency = () => {
     return (
@@ -97,12 +114,11 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
       <PerformanceSummary
         dailyBusinessGoals={dailyBusinessGoals}
         projectGoals={projectGoals}
-        hasWeightPercentage
         handleChangeWeightPercentage={() => {}}
       />
       {renderWorkEfficiency()}
       {renderWorkQuality()}
-      {/*<FinalScoreSection finalScore={finalScore} />*/}
+      <FinalScoreSection finalScore={finalScore} reviewerScore />
     </Fragment>
   );
 };

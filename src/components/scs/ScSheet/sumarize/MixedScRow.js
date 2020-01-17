@@ -1,6 +1,15 @@
 import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
-import { FormControl, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@material-ui/core';
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import List from '@material-ui/core/List';
@@ -53,18 +62,18 @@ const styles = theme => ({
 });
 
 const MixedScRow = ({
-                      intl,
-                      classes,
-                      index,
-                      title,
-                      description,
-                      achievement,
-                      rowReviewer,
-                      rowEmployee,
-                      action,
-                      removeSubcategory,
-                      type
-                    }) => {
+  intl,
+  classes,
+  index,
+  title,
+  description,
+  achievement,
+  rowReviewer,
+  rowEmployee,
+  action,
+  removeSubcategory,
+  type
+}) => {
   const weightValues =
     type === CATEGORY.SKILLS_IN_THE_FIELDS ||
     type === CATEGORY.TEAM_IMPACT ||
@@ -93,7 +102,7 @@ const MixedScRow = ({
             primary={reviewerText}
           />
         </ListItem>
-        <Divider/>
+        <Divider />
         <ListItem>
           <ListItemText
             style={{ whiteSpace: 'pre-line' }}
@@ -169,14 +178,13 @@ const MixedScRow = ({
               </Typography>
               <Typography variant="body2" className={classes.input}>{`${
                 rowReviewer.percentage
-                } %`}</Typography>
+              } %`}</Typography>
             </Grid>
             <Grid item sm={2} className={classes.textCenter}>
               <SummaryScRatingPoints
-                fieldsDisabled={true}
                 type={type}
-                rating={rowReviewer.evaluation}
-                changeEvaluation={e => action(type, 'evaluation', e)}
+                ratingReviewer={rowReviewer.evaluation}
+                ratingEmployee={rowEmployee.evaluation}
               />
             </Grid>
           </Grid>

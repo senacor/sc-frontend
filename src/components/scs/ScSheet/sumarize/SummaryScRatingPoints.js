@@ -25,9 +25,8 @@ const SummaryScRatingPoints = ({
   classes,
   intl,
   type,
-  rating,
-  changeEvaluation,
-  fieldsDisabled
+  ratingReviewer,
+  ratingEmployee
 }) => {
   return (
     <Fragment>
@@ -44,10 +43,9 @@ const SummaryScRatingPoints = ({
             })}
           </InputLabel>
           <Select
-            // IconComponent={() => null}
             disabled
             id="evaluation-label"
-            value={rating}
+            value={ratingReviewer}
             className={classes.select}
             renderValue={selected => <span>{selected}</span>}
             inputProps={{ className: classes.input }}
@@ -60,11 +58,9 @@ const SummaryScRatingPoints = ({
             })}
           </InputLabel>
           <Select
-            // IconComponent={() => null}
-            disabled={fieldsDisabled}
+            disabled
             id="evaluation-label"
-            value={rating}
-            onChange={changeEvaluation}
+            value={ratingEmployee}
             className={classes.select}
             renderValue={selected => <span>{selected}</span>}
             inputProps={{ className: classes.input }}

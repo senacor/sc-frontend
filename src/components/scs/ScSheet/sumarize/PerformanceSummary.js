@@ -38,16 +38,10 @@ const PerformanceSummary = ({
             </Grid>
             <Grid item xs={1}>
               <TextField
-                disabled={true}
+                disabled
                 inputProps={{ style: { height: 10 } }}
                 type="number"
                 value={performanceWeightPercentage}
-                onChange={event =>
-                  handleChangeWeightPercentage(
-                    CATEGORY.PERFORMANCE,
-                    event.target.value
-                  )
-                }
                 margin="normal"
                 variant="outlined"
                 label={'%'}
