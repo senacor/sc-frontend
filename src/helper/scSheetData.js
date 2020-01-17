@@ -60,9 +60,8 @@ export const CATEGORY = {
 };
 
 export const SC_TAB = {
-  EMPLOYEE: 'scEmployee',
-  REVIEWER: 'scReviewer',
-  MEETING: 'scheduleView'
+  MY_DATA: 'myData',
+  SUMMARY: 'summary'
 };
 
 export const SC_STATUS = {
