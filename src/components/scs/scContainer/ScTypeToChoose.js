@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   withStyles,
@@ -11,11 +11,19 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Button
+  Button,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TextField,
+  IconButton
 } from '@material-ui/core';
 import { SC_STATUS, classifications } from '../../../helper/scSheetData';
 import { modifyString } from '../../../helper/string';
 import { useUserinfoContext } from '../../../helper/contextHooks';
+import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -54,34 +62,62 @@ const ScTypeToChoose = ({
   classification,
   handleChangeClassification,
   handleChangeType,
-  scTypeSeleted,
+  scTypeSelected,
   handleSubmitScType
 }) => {
+  const [dailyBusinesses, setDailyBusinesses] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [dailyBusinessValue, setDailyBusinessValue] = useState('');
+  const [projectValue, setProjectValue] = useState('');
+
   const user = useUserinfoContext();
+
+  const handleDailyBusinessChange = event => {
+    setDailyBusinessValue(event.target.value);
+  };
+
+  const handleProjectChange = event => {
+    setProjectValue(event.target.value);
+  };
+
+  const addDailyBusiness = () => {
+    if (!dailyBusinessValue.trim()) {
+      return;
+    }
+    const newDailyBusinesses = [...dailyBusinesses];
+    newDailyBusinesses.push(dailyBusinessValue.trim());
+    setDailyBusinesses(newDailyBusinesses);
+    setDailyBusinessValue('');
+  };
+
+  const addProject = () => {
+    if (!projectValue.trim()) {
+      return;
+    }
+    const newProjects = [...projects];
+    newProjects.push(projectValue.trim());
+    setProjects(newProjects);
+    setProjectValue('');
+  };
+
+  const deleteDailyBusiness = idx => {
+    const newDailyBusinesses = [...dailyBusinesses];
+    newDailyBusinesses.splice(idx, 1);
+    setDailyBusinesses(newDailyBusinesses);
+  };
+
+  const deleteProject = idx => {
+    const newProjects = [...projects];
+    newProjects.splice(idx, 1);
+    setProjects(newProjects);
+  };
+
   return (
     <Paper className={classes.chooseScType}>
       <Typography variant="h5" className={classes.scTypeSelectionHeader}>
         {intl.formatMessage({ id: 'scsheet.typeSelectionHeader' })}
       </Typography>
       <div className={classes.dropdownContainer}>
-        <FormControl className={classes.formControl}>
-          <FormLabel component="legend">
-            {intl.formatMessage({ id: 'scsheet.classification' })}
-          </FormLabel>
-          <Select
-            labelid="demo-simple-select-label"
-            id="demo-simple-select"
-            value={classification}
-            disabled={!user.isReviewerInSc(sc)}
-            onChange={handleChangeClassification}
-          >
-            {classifications.map((pos, index) => (
-              <MenuItem key={index} value={pos.toUpperCase()}>
-                {modifyString(pos)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <FormControl className={classes.formControl}>
           <FormLabel component="legend">
             {intl.formatMessage({ id: 'scsheet.sctype' })}
@@ -106,8 +142,104 @@ const ScTypeToChoose = ({
             />
           </RadioGroup>
         </FormControl>
+        <FormControl className={classes.formControl}>
+          <FormLabel component="legend">
+            {intl.formatMessage({ id: 'scsheet.classification' })}
+          </FormLabel>
+          <Select
+            labelid="demo-simple-select-label"
+            id="demo-simple-select"
+            value={classification}
+            disabled={!user.isReviewerInSc(sc)}
+            onChange={handleChangeClassification}
+          >
+            {classifications.map((pos, index) => (
+              <MenuItem key={index} value={pos.toUpperCase()}>
+                {modifyString(pos)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+      <div>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Typography>
+                  {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {dailyBusinesses.map((entry, idx) => {
+              return (
+                <TableRow>
+                  <TableCell>
+                    <Typography>{entry}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={() => deleteDailyBusiness(idx)}>
+                      <Icon>clear</Icon>
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+            <TableRow>
+              <TableCell>
+                <TextField
+                  value={dailyBusinessValue}
+                  onChange={handleDailyBusinessChange}
+                />
+                <Button onClick={addDailyBusiness}>
+                  {intl.formatMessage({ id: 'sctypetochoose.add' })}
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Typography>
+                  {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {projects.map((entry, idx) => {
+              return (
+                <TableRow>
+                  <TableCell>
+                    <Typography>{entry}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={() => deleteProject(idx)}>
+                      <Icon>clear</Icon>
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+            <TableRow>
+              <TableCell>
+                <TextField
+                  value={projectValue}
+                  onChange={handleProjectChange}
+                />
+                <Button onClick={addProject}>
+                  {intl.formatMessage({ id: 'sctypetochoose.add' })}
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
         <Button
-          disabled={!scTypeSeleted || !classification}
+          disabled={!scTypeSelected || !classification}
           onClick={handleSubmitScType}
           color="secondary"
           variant="contained"
