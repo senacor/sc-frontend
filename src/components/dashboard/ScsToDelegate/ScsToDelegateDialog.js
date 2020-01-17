@@ -40,10 +40,13 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   const [reviewers, setReviewers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const user = useUserinfoContext();
+  const { userinfo } = user.context.value;
   const error = useErrorContext();
   const info = useInfoContext();
-  const userId = useUserinfoContext().context.value.userinfo.userId;
-  const userName = useUserinfoContext().context.value.userinfo.employeeName;
+  const userId = userinfo.userId;
+  const userName = userinfo.employeeName;
+  const scsToDelegate = userinfo.scsToDelegate;
 
   useEffect(() => {
     getAllEmployees(setAllEmployees, setIsLoading, error).then(() => {
@@ -100,7 +103,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
         label={'vyberaj beurteilerov'}
         //linkTo={}
         onClick={dialogOpen}
-        value={employeesInTeam.length}
+        value={scsToDelegate}
         icon={'category'}
       />
       <Dialog open={dialogOpened}>

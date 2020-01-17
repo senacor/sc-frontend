@@ -37,6 +37,7 @@ const Dashboard = ({ classes, intl }) => {
   const formerUsersCount = userinfo
     ? userinfo.numberOfEmployeeInactiveThisMonth
     : 0;
+  const scsToDelegate = userinfo ? userinfo.scsToDelegate : 0;
 
   useEffect(
     () => {
@@ -75,7 +76,9 @@ const Dashboard = ({ classes, intl }) => {
           </Fragment>
         )}
 
-        {user.hasRoleSupervisor() && <ScsToDelegateDialog />}
+        {user.hasRoleSupervisor() && scsToDelegate > 0 && (
+          <ScsToDelegateDialog />
+        )}
 
         {/* Notification about administration mode, if userrole is admin */}
         {user.hasRoleAdmin() && Object.keys(systemInfo).length > 0 && (
