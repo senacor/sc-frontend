@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar/Avatar';
@@ -8,13 +8,7 @@ import getDisplayName from '../../helper/getDisplayName';
 import Grid from '@material-ui/core/Grid';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { modifyString } from '../../helper/string';
-import { getAllEmployees } from '../../calls/employees';
-import {
-  useErrorContext,
-  useInfoContext,
-  useUserinfoContext
-} from '../../helper/contextHooks';
-import ScDelegationMenu from './ScSheet/ScDelegationMenu';
+import { SC_STATUS } from '../../helper/scSheetData';
 
 const styles = theme => ({
   spacing: {
@@ -41,39 +35,52 @@ const styles = theme => ({
 });
 
 const ScDetailInformation = ({ classes, sc, intl }) => {
-  const error = useErrorContext();
-  const info = useInfoContext();
-  const user = useUserinfoContext();
-  const [employees, setEmployees] = useState([]);
-
   const { firstName, lastName } = sc.employee;
 
-  useEffect(() => {
-    getAllEmployees(setEmployees, () => {}, error);
-  }, []);
+  const im = id =>
+    intl.formatMessage({
+      id: id
+    });
 
-  const mainContent = `${intl.formatMessage({
-    id: 'scdetailinformation.duedate'
-  })} ${formatLocaleDateTime(
-    sc.createdDate,
-    FRONTEND_DATE_FORMAT
-  )}, ${intl.formatMessage({
-    id: 'scdetailinformation.department'
-  })}: ${sc.department}, ${
-    sc.classification
-      ? intl.formatMessage({
-          id: 'scdetailinformation.classification'
-        })
-      : ''
-  } ${
-    sc.classification ? modifyString(sc.classification) + ', ' : ''
-  }${intl.formatMessage({
-    id: 'scdetailinformation.termin'
-  })} ${
-    sc.finalMeetingDate
-      ? formatLocaleDateTime(sc.finalMeetingDate, FRONTEND_DATE_FORMAT)
-      : intl.formatMessage({ id: 'scdetailinformation.terminNotDefined' })
-  }`;
+  let mainContent = im('scdetailinformation.duedate') + ' ';
+  mainContent +=
+    formatLocaleDateTime(sc.createdDate, FRONTEND_DATE_FORMAT) + ', ';
+  mainContent += im('scdetailinformation.department') + ': ';
+  mainContent += sc.department + ', ';
+  mainContent += sc.classification
+    ? im('scdetailinformation.classification') + ' '
+    : '';
+  mainContent += sc.classification ? modifyString(sc.classification) : '';
+
+  //Variant (with or without PR)
+  let variantInfo;
+  if (
+    !sc.statusSet.includes(SC_STATUS.WITH_PR) &&
+    !sc.statusSet.includes(SC_STATUS.WITHOUT_PR)
+  ) {
+    variantInfo = im('scdetailinformation.no.variant');
+  } else {
+    variantInfo = sc.statusSet.includes(SC_STATUS.WITH_PR)
+      ? im('scdetailinformation.with.pr')
+      : im('scdetailinformation.without.pr');
+  }
+
+  const supervisorAndReviewersText = () => {
+    //Supervisor: Michal Beres,
+    let resultText = `${im('sc.supervisor')} ${getDisplayName(
+      sc.supervisor
+    )}, `;
+
+    //Supervisor: Michael Beres, Kein Reviewer
+    if (!sc.reviewer1) {
+      resultText += im('sc.no.reviewer');
+      return resultText;
+    }
+
+    //Supervisor: Michael Beres, Beurteiler: Boris Kollar
+    resultText += `${im('sc.reviewer')} ${getDisplayName(sc.reviewer1)}`;
+    return resultText;
+  };
 
   return (
     <Paper className={classes.spacing}>
@@ -89,15 +96,14 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
               {getDisplayName(sc.employee)}
             </Typography>
             <Typography variant="body2" color="textSecondary">
+              {variantInfo}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
               {mainContent}
             </Typography>
-            <ScDelegationMenu
-              sc={sc}
-              employees={employees}
-              info={info}
-              error={error}
-              activeDelegationButtons={user.isSupervisorInSc(sc)}
-            />
+            <Typography variant="body2" color="textSecondary">
+              {supervisorAndReviewersText()}
+            </Typography>
           </Grid>
           <Grid item md={2} xs={12} />
         </Grid>
