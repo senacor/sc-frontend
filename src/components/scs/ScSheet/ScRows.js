@@ -4,18 +4,18 @@ import ScRow from './ScRow';
 
 const ScRows = memo(
   ({
-     intl,
-     title,
-     description,
-     achievement,
-     fields,
-     action,
-     removeSubcategory,
-     type,
-     fieldsDisabled,
-     dialogOpen,
-     fieldsAmount
-   }) => {
+    intl,
+    title,
+    description,
+    achievement,
+    fields,
+    action,
+    removeSubcategory,
+    type,
+    fieldsDisabled,
+    dialogOpen,
+    fieldsAmount
+  }) => {
     return (
       <Fragment>
         {fields.map((row, index) => {
