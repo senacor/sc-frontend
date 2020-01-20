@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { useUserinfoContext } from '../../../helper/contextHooks';
+import { checkEvaluationsFilledWithPR, checkEvaluationsFilledWithoutPR } from '../ScSheet/evaluationsCheck';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -62,43 +63,11 @@ const StatusStepper = ({ classes, intl, sc }) => {
 
     const isReady = () => {
       if (sc.statusSet.includes(SC_STATUS.WITHOUT_PR)) {
-        return (
-          revData.dailyBusiness.reduce((result, goal) => {
-            if (!(goal.evaluation > 0)) {
-              result = false;
-            }
-            return result;
-          }, true) &&
-          revData.project.reduce((result, goal) => {
-            if (!(goal.evaluation > 0)) {
-              result = false;
-            }
-            return result;
-          }, true) &&
-          revData.workEfficiency.evaluation > 0 &&
-          revData.workQuality.evaluation > 0
-        );
+        return checkEvaluationsFilledWithPR();
       }
 
       if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {
-        return (
-          revData.dailyBusiness.reduce((result, goal) => {
-            if (!(goal.evaluation > 0)) {
-              result = false;
-            }
-            return result;
-          }, true) &&
-          revData.project.reduce((result, goal) => {
-            if (!(goal.evaluation > 0)) {
-              result = false;
-            }
-            return result;
-          }, true) &&
-          revData.serviceQuality.evaluation > 0 &&
-          revData.skillsInTheFields.evaluation > 0 &&
-          revData.impactOnTeam.evaluation > 0 &&
-          revData.impactOnCompany.evaluation > 0
-        );
+        return checkEvaluationsFilledWithoutPR();
       }
 
       return false;
