@@ -122,7 +122,7 @@ const ScSheetWithoutPr = ({
         setWorkQualityFields(sc.privateReviewerData.workQuality);
       }
     },
-    [tabValue]
+    [sc]
   );
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {

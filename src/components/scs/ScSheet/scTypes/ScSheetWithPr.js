@@ -188,7 +188,7 @@ const ScSheetWithPr = ({
         );
       }
     },
-    [tabValue]
+    [sc]
   );
 
   const handleChangePrCategories = (type, propKey, event) => {
