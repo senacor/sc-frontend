@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core';
 import PrCategories from '../categories/PrCategories';
 import FinalScoreSection from '../FinalScoreSection';
 import { reduceWeights } from '../calculations/helperFunctions';
+import { checkEvaluationsFilledWithPR } from '../evaluationsCheck';
 import {
   calculateFinalScoreWithPr,
   calculatePercentageWithPrPerformance,
@@ -303,7 +304,6 @@ const ScSheetWithPr = ({
   };
 
   const handleCloseSc = () => {
-    console.log("adding status closed");
     if (user.isReviewerInSc(sc)) {
       addScStatus(
         sc.id,
@@ -318,6 +318,10 @@ const ScSheetWithPr = ({
 
   const handlePdfDownload = () => {
     downloadScAsPdf(sc.id, sc.employee.login, error);
+  };
+
+  const areAllEvaluationsFilled = () => {
+    return checkEvaluationsFilledWithPR(dailyBusinessFields, projectFields, serviceQualityFields, skillsInTheFieldsFields, impactOnTeamFields, impactOnCompanyFields);
   };
 
   return (
@@ -347,6 +351,7 @@ const ScSheetWithPr = ({
       <FinalScoreSection finalScore={finalScore} />
       <ButtonsBelowSheet
         submitDisabled={!validateTitles()}
+        withEvaluationsButtonDisabled={!areAllEvaluationsFilled()}
         handleSave={handleSave}
         handlePublish={handlePublish}
         handleCloseSc={handleCloseSc}

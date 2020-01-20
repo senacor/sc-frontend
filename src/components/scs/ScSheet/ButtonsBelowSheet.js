@@ -4,7 +4,6 @@ import { Button, Tooltip, withStyles, Typography } from '@material-ui/core';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
 import PublishScDialog from "./PublishScDialog";
 import ConfirmDialog from '../../utils/ConfirmDialog';
-import {useUserinfoContext} from "../../../helper/contextHooks";
 import {SC_STATUS} from "../../../helper/scSheetData";
 
 const styles = theme => ({
@@ -45,9 +44,8 @@ const ButtonsBelowSheet = memo(
     handleCloseSc,
     handlePdfDownload,
     submitDisabled,
-    closeScButtonHidden
+    withEvaluationsButtonDisabled
   }) => {
-    const user = useUserinfoContext();
     const [publishScDialogOpened, setPublishScDialogOpened] = useState(false);
     const [closeScDialogOpened, setCloseScDialogOpened] = useState(false);
 
@@ -65,28 +63,6 @@ const ButtonsBelowSheet = memo(
 
     const handleCloseScClosingDialog = () => {
       setCloseScDialogOpened(false);
-    };
-
-    const isWithEvaluationsButtonDisabled = () => {
-      if (user.isOwnerInSc(sc)) {
-        return isAnyEvaluationNotFilled(sc.privateEmployeeData, sc.statusSet.includes(SC_STATUS.WITH_PR));
-      }
-      if (user.isReviewerInSc(sc)) {
-        return isAnyEvaluationNotFilled(sc.privateReviewerData, sc.statusSet.includes(SC_STATUS.WITH_PR));
-      }
-    };
-
-    const isAnyEvaluationNotFilled = (sectionData, withPr) => {
-      if (withPr) {
-        if (sectionData.serviceQuality.evaluation === '0') return true;
-        if (sectionData.impactOnTeam.evaluation === '0') return true;
-        if (sectionData.impactOnCompany.evaluation === '0') return true;
-        if (sectionData.skillsInTheFields.evaluation === '0') return true;
-      } else {
-        if (sectionData.workQuality.evaluation === '0') return true;
-        if (sectionData.workEfficiency.evaluation === '0') return true;
-      }
-      return false;
     };
 
     return (
@@ -146,7 +122,7 @@ const ButtonsBelowSheet = memo(
           open={publishScDialogOpened}
           handlePublish={handlePublish}
           handleClose={handleClosePublishScDialog}
-          withEvaluationsButtonDisabled={isWithEvaluationsButtonDisabled()}
+          withEvaluationsButtonDisabled={withEvaluationsButtonDisabled}
         />
         <ConfirmDialog
           open={closeScDialogOpened}
@@ -165,8 +141,7 @@ const ButtonsBelowSheet = memo(
   (prevProps, nextProps) =>
     prevProps.submitDisabled === nextProps.submitDisabled &&
     prevProps.handleSave === nextProps.handleSave &&
-    prevProps.handlePublish === nextProps.handlePublish &&
-    prevProps.closeScButtonHidden === nextProps.closeScButtonHidden
+    prevProps.handlePublish === nextProps.handlePublish
 );
 
 export default injectIntl(withStyles(styles)(ButtonsBelowSheet));
