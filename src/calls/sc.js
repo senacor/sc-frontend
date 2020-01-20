@@ -200,9 +200,6 @@ export const addScStatus = async (
   afterScFetched
 ) => {
   try {
-    console.log(`${
-      process.env.REACT_APP_API
-    }/api/v1/sc/${scId}/status?scStatus=${status}`);
     const response = await fetch(
       `${
         process.env.REACT_APP_API
