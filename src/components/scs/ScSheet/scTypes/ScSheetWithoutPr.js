@@ -10,7 +10,7 @@ import {
   calculatePercentageWithoutPr,
   calculateFinalScoreWithoutPr
 } from '../calculations/scWithoutPr';
-import { SC_TAB, SC_STATUS } from '../../../../helper/scSheetData';
+import { SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
 import { savePerformanceData, addScStatus } from '../../../../calls/sc';
 import { downloadScAsPdf } from '../helperFunc.js';
@@ -26,7 +26,6 @@ const ScSheetWithoutPr = ({
   sc,
   setSc,
   setIsLoading,
-  tabValue,
   validateTitles,
   fieldsDisabled,
   handleChangePerformance,
@@ -36,6 +35,7 @@ const ScSheetWithoutPr = ({
   projectFields,
   setProjectFields,
   addSubcategory,
+  removeSubcategory,
   afterScFetched
 }) => {
   const info = useInfoContext();
@@ -109,19 +109,19 @@ const ScSheetWithoutPr = ({
 
   useEffect(
     () => {
-      if (tabValue === SC_TAB.EMPLOYEE) {
+      if (user.isOwnerInSc(sc)) {
         setDailyBusinessFields(sc.privateEmployeeData.dailyBusiness);
         setProjectFields(sc.privateEmployeeData.project);
         setWorkEfficiencyFields(sc.privateEmployeeData.workEfficiency);
         setWorkQualityFields(sc.privateEmployeeData.workQuality);
-      } else if (tabValue === SC_TAB.REVIEWER) {
+      } else if (user.isReviewerInSc(sc)) {
         setDailyBusinessFields(sc.privateReviewerData.dailyBusiness);
         setProjectFields(sc.privateReviewerData.project);
         setWorkEfficiencyFields(sc.privateReviewerData.workEfficiency);
         setWorkQualityFields(sc.privateReviewerData.workQuality);
       }
     },
-    [tabValue]
+    [sc]
   );
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {
@@ -232,6 +232,8 @@ const ScSheetWithoutPr = ({
         setProjectFields={setProjectFields}
         handleChangePerformance={handleChangePerformance}
         addSubcategory={addSubcategory}
+        removeSubcategory={removeSubcategory}
+        canRemoveGoal={user.isReviewerInSc(sc)}
       />
       <WorkEfficiency
         fieldsDisabled={fieldsDisabled}

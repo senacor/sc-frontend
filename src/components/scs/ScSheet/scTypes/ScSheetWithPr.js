@@ -25,6 +25,7 @@ const styles = theme => ({});
 const ScSheetWithPr = ({
   fieldsDisabled,
   addSubcategory,
+  removeSubcategory,
   tabValue,
   validateTitles,
   sc,
@@ -187,7 +188,7 @@ const ScSheetWithPr = ({
         );
       }
     },
-    [tabValue]
+    [sc]
   );
 
   const handleChangePrCategories = (type, propKey, event) => {
@@ -325,6 +326,7 @@ const ScSheetWithPr = ({
         setProjectFields={setProjectFields}
         handleChangePerformance={handleChangePerformance}
         addSubcategory={addSubcategory}
+        removeSubcategory={removeSubcategory}
         hasWeightPercentage
         performanceWeightPercentage={performanceWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
