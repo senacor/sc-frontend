@@ -64,10 +64,12 @@ const ScTypeToChoose = ({
   handleChangeClassification,
   handleChangeType,
   scTypeSelected,
-  handleSubmitScType
+  handleSubmitScType,
+  dailyBusinesses,
+  setDailyBusinesses,
+  projects,
+  setProjects
 }) => {
-  const [dailyBusinesses, setDailyBusinesses] = useState([]);
-  const [projects, setProjects] = useState([]);
   const [dailyBusinessValue, setDailyBusinessValue] = useState('');
   const [projectValue, setProjectValue] = useState('');
 
