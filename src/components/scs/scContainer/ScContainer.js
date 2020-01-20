@@ -17,11 +17,15 @@ const ScContainer = ({
   classification,
   handleChangeClassification,
   handleChangeType,
-  scTypeSeleted,
+  scTypeSelected,
   handleSubmitScType,
   setSc,
   setIsLoading,
-  afterScFetched
+  afterScFetched,
+  dailyBusinesses,
+  setDailyBusinesses,
+  projects,
+  setProjects
 }) => {
   const user = useUserinfoContext();
 
@@ -44,8 +48,12 @@ const ScContainer = ({
           classification={classification}
           handleChangeClassification={handleChangeClassification}
           handleChangeType={handleChangeType}
-          scTypeSeleted={scTypeSeleted}
+          scTypeSelected={scTypeSelected}
           handleSubmitScType={handleSubmitScType}
+          dailyBusinesses={dailyBusinesses}
+          setDailyBusinesses={setDailyBusinesses}
+          projects={projects}
+          setProjects={setProjects}
         />
       ) : (
         <WaitForScTypeNotification />
