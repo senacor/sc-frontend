@@ -145,6 +145,8 @@ export const addScType = async (
   scId,
   status,
   classification,
+  dailyBusinesses,
+  projects,
   setSc,
   setIsLoading,
   error,
@@ -157,7 +159,11 @@ export const addScType = async (
       }/api/v1/sc/${scId}/status?scStatus=${status}&classification=${classification}`,
       {
         method: 'post',
-        mode: 'cors'
+        mode: 'cors',
+        body: JSON.stringify({
+          dailyBusinesses: dailyBusinesses,
+          projects: projects
+        })
       }
     );
     if (response.ok) {

@@ -17,7 +17,9 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const [scTab, setScTab] = useState(SC_TAB.MY_DATA);
   const [isLoading, setIsLoading] = useState(false);
   const [classification, setClassification] = useState('');
-  const [scTypeSeleted, setScTypeSelected] = useState(undefined);
+  const [scTypeSelected, setScTypeSelected] = useState(undefined);
+  const [dailyBusinesses, setDailyBusinesses] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   const user = useUserinfoContext();
   const error = useErrorContext();
@@ -45,11 +47,13 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleSubmitScType = () => {
-    if (scTypeSeleted) {
+    if (scTypeSelected) {
       addScType(
         sc.id,
-        scTypeSeleted,
+        scTypeSelected,
         classification,
+        dailyBusinesses,
+        projects,
         setSc,
         setIsLoading,
         error,
@@ -66,12 +70,12 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     <Fragment>
       {isLoading ? (
         <div className={classes.progressBarCentered}>
-          <CircularProgress/>
+          <CircularProgress />
         </div>
       ) : (
         sc && (
           <Fragment>
-            <ScDetailInformation sc={sc}/>
+            <ScDetailInformation sc={sc} />
             <ScContainer
               sc={sc}
               tabValue={scTab}
@@ -79,11 +83,15 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               classification={classification}
               handleChangeClassification={handleChangeClassification}
               handleChangeType={handleChangeType}
-              scTypeSeleted={scTypeSeleted}
+              scTypeSelected={scTypeSelected}
               handleSubmitScType={handleSubmitScType}
               setSc={setSc}
               setIsLoading={setIsLoading}
               afterScFetched={afterScFetched}
+              dailyBusinesses={dailyBusinesses}
+              setDailyBusinesses={setDailyBusinesses}
+              projects={projects}
+              setProjects={setProjects}
             />
           </Fragment>
         )
