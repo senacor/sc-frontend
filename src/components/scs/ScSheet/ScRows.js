@@ -15,6 +15,7 @@ const ScRows = memo(
      removeSubcategory,
      fieldsAmount,
      canRemoveGoal
+  }) => {
     return (
       <Fragment>
         {fields.map((row, index) => {
