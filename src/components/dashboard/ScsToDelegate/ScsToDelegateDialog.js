@@ -93,7 +93,10 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   };
 
   const handleSave = () => {
-    saveReviewers(createData(), info, error);
+    saveReviewers(createData(), info, error).then(() => {
+      // refresh page in order to hide the card on dashboard (for selecting reviewers)
+      window.location.reload();
+    });
     dialogClose();
   };
 
