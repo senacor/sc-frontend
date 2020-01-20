@@ -46,9 +46,9 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
   mainContent +=
     formatLocaleDateTime(sc.createdDate, FRONTEND_DATE_FORMAT) + ', ';
   mainContent += im('scdetailinformation.department') + ': ';
-  mainContent += sc.department + ', ';
+  mainContent += sc.department;
   mainContent += sc.classification
-    ? im('scdetailinformation.classification') + ' '
+    ? ', ' + im('scdetailinformation.classification') + ' '
     : '';
   mainContent += sc.classification ? modifyString(sc.classification) : '';
 

@@ -6,7 +6,7 @@ import { SC_STATUS } from '../../../helper/scSheetData';
 import WaitForScTypeNotification from './WaitForScTypeNotification';
 import ScTabs from './ScTabs';
 import ScTypeToChoose from './ScTypeToChoose';
-import StatusStepper from './statusStepper/StatusStepper';
+import StatusStepper from './StatusStepper';
 
 const styles = theme => ({});
 

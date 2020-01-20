@@ -66,19 +66,20 @@ const ScTabs = ({
             indicator: classes.indicator
           }}
         >
-          {(user.isReviewerInSc(sc) || user.isOwnerInSc(sc)) && (
-            <Tab
-              selected={tabValue === SC_TAB.MY_DATA}
-              value={SC_TAB.MY_DATA}
-              classes={{
-                root: classes.tabStyleSc
-              }}
-              label={intl.formatMessage({
-                id: 'sctabs.my.data'
-              })}
-              id={'TabDetailsEmployee'}
-            />
-          )}
+          {(user.isReviewerInSc(sc) || user.isOwnerInSc(sc)) &&
+            !sc.statusSet.includes(SC_STATUS.CLOSED) && (
+              <Tab
+                selected={tabValue === SC_TAB.MY_DATA}
+                value={SC_TAB.MY_DATA}
+                classes={{
+                  root: classes.tabStyleSc
+                }}
+                label={intl.formatMessage({
+                  id: 'sctabs.my.data'
+                })}
+                id={'TabDetailsEmployee'}
+              />
+            )}
           <Tab
             selected={tabValue === SC_TAB.SUMMARY}
             value={SC_TAB.SUMMARY}
@@ -93,7 +94,8 @@ const ScTabs = ({
         </Tabs>
       </AppBar>
       {tabValue === SC_TAB.MY_DATA &&
-        (user.isOwnerInSc(sc) || user.isReviewerInSc(sc)) && (
+        (user.isOwnerInSc(sc) || user.isReviewerInSc(sc)) &&
+        !sc.statusSet.includes(SC_STATUS.CLOSED) && (
           <TabContainer spacing={classes.spacing}>
             <ScSheetContainer
               sc={sc}
