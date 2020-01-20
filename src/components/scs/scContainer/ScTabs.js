@@ -1,17 +1,17 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import {
-  withStyles,
-  Paper,
   AppBar,
-  Tabs,
+  Paper,
   Tab,
-  Typography
+  Tabs,
+  Typography,
+  withStyles
 } from '@material-ui/core';
-import { SC_TAB, SC_STATUS } from '../../../helper/scSheetData';
-import { useUserinfoContext } from '../../../helper/contextHooks';
+import { SC_STATUS, SC_TAB } from '../../../helper/scSheetData';
 import ScSheetContainer from '../ScSheet/scTypes/ScSheetContainer';
-import SchedulingView from '../../scheduling/SchedulingView';
+import ScSheetSummaryContainer from '../ScSheet/sumarize/ScSheetSummaryContainer';
+import { useUserinfoContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -66,48 +66,50 @@ const ScTabs = ({
             indicator: classes.indicator
           }}
         >
+          {(user.isReviewerInSc(sc) || user.isOwnerInSc(sc)) &&
+            !sc.statusSet.includes(SC_STATUS.CLOSED) && (
+              <Tab
+                selected={tabValue === SC_TAB.MY_DATA}
+                value={SC_TAB.MY_DATA}
+                classes={{
+                  root: classes.tabStyleSc
+                }}
+                label={intl.formatMessage({
+                  id: 'sctabs.my.data'
+                })}
+                id={'TabDetailsEmployee'}
+              />
+            )}
           <Tab
-            disabled={
-              user.isReviewerInSc(sc) &&
-              (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
-                !sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED))
-            }
-            value={SC_TAB.EMPLOYEE}
+            selected={tabValue === SC_TAB.SUMMARY}
+            value={SC_TAB.SUMMARY}
             classes={{
               root: classes.tabStyleSc
             }}
             label={intl.formatMessage({
-              id: 'sctabs.employee'
-            })}
-            id={'TabDetailsEmployee'}
-          />
-          <Tab
-            disabled={
-              user.isOwnerInSc(sc) &&
-              (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED) ||
-                !sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED))
-            }
-            value={SC_TAB.REVIEWER}
-            classes={{
-              root: classes.tabStyleSc
-            }}
-            label={intl.formatMessage({
-              id: 'sctabs.reviewer'
+              id: 'sctabs.summary'
             })}
             id={'TabDetailsReviewer'}
           />
-          <Tab
-            value={SC_TAB.MEETING}
-            label={intl.formatMessage({
-              id: 'sctabs.findtermin'
-            })}
-            id={'TabTerminfindung'}
-          />
         </Tabs>
       </AppBar>
-      {tabValue === SC_TAB.EMPLOYEE && (
+      {tabValue === SC_TAB.MY_DATA &&
+        (user.isOwnerInSc(sc) || user.isReviewerInSc(sc)) &&
+        !sc.statusSet.includes(SC_STATUS.CLOSED) && (
+          <TabContainer spacing={classes.spacing}>
+            <ScSheetContainer
+              sc={sc}
+              scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
+              setSc={setSc}
+              setIsLoading={setIsLoading}
+              afterScFetched={afterScFetched}
+              tabValue={tabValue}
+            />
+          </TabContainer>
+        )}
+      {tabValue === SC_TAB.SUMMARY && (
         <TabContainer spacing={classes.spacing}>
-          <ScSheetContainer
+          <ScSheetSummaryContainer
             sc={sc}
             scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
             setSc={setSc}
@@ -115,23 +117,6 @@ const ScTabs = ({
             afterScFetched={afterScFetched}
             tabValue={tabValue}
           />
-        </TabContainer>
-      )}
-      {tabValue === SC_TAB.REVIEWER && (
-        <TabContainer spacing={classes.spacing}>
-          <ScSheetContainer
-            sc={sc}
-            scWithPr={sc.statusSet.includes(SC_STATUS.WITH_PR)}
-            setSc={setSc}
-            setIsLoading={setIsLoading}
-            afterScFetched={afterScFetched}
-            tabValue={tabValue}
-          />
-        </TabContainer>
-      )}
-      {tabValue === SC_TAB.MEETING && (
-        <TabContainer spacing={classes.spacing}>
-          <SchedulingView sc={sc} />
         </TabContainer>
       )}
     </Paper>

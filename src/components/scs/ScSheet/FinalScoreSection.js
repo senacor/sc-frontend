@@ -29,14 +29,18 @@ const styles = theme => ({
 });
 
 const FinalScoreSection = memo(
-  ({ intl, classes, finalScore }) => {
+  ({ intl, classes, finalScore, reviewerScore }) => {
     let finalTextId = determineFinalText(finalScore);
     return (
       <div className={classes.container}>
         <Grid container className={classes.scoreGridContainer}>
           <Grid item sm={10}>
             <Typography variant="body1">
-              {intl.formatMessage({ id: 'scwithoutPR.score.title' })}
+              {intl.formatMessage({
+                id: !reviewerScore
+                  ? 'scwithoutPR.score.title'
+                  : 'scwithoutPR.score.title.reviewer'
+              })}
             </Typography>
           </Grid>
           <Grid item sm={2}>

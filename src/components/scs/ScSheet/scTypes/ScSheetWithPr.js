@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Performance from '../categories/Performance';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
@@ -6,16 +6,16 @@ import PrCategories from '../categories/PrCategories';
 import FinalScoreSection from '../FinalScoreSection';
 import { reduceWeights } from '../calculations/helperFunctions';
 import {
+  calculateFinalScoreWithPr,
   calculatePercentageWithPrPerformance,
-  calculatePercentageWithPRPrCategories,
-  calculateFinalScoreWithPr
+  calculatePercentageWithPRPrCategories
 } from '../calculations/scWithPr';
-import { SC_TAB, CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
+import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
-import { savePerformanceData, addScStatus } from '../../../../calls/sc';
+import { addScStatus, savePerformanceData } from '../../../../calls/sc';
 import {
-  useInfoContext,
   useErrorContext,
+  useInfoContext,
   useUserinfoContext
 } from '../../../../helper/contextHooks';
 import { downloadScAsPdf } from '../helperFunc.js';
@@ -159,7 +159,7 @@ const ScSheetWithPr = ({
 
   useEffect(
     () => {
-      if (tabValue === SC_TAB.EMPLOYEE) {
+      if (user.isOwnerInSc(sc)) {
         setDailyBusinessFields(sc.privateEmployeeData.dailyBusiness);
         setProjectFields(sc.privateEmployeeData.project);
         setSkillsInTheFieldsFields(sc.privateEmployeeData.skillsInTheFields);
@@ -169,8 +169,10 @@ const ScSheetWithPr = ({
         setPerformanceWeightPercentage(
           100 - sc.privateEmployeeData.skillsWeightPercentage
         );
-        setPrCategoriesWeightPercentage(sc.privateEmployeeData.skillsWeightPercentage);
-      } else if (tabValue === SC_TAB.REVIEWER) {
+        setPrCategoriesWeightPercentage(
+          sc.privateEmployeeData.skillsWeightPercentage
+        );
+      } else if (user.isReviewerInSc(sc)) {
         setDailyBusinessFields(sc.privateReviewerData.dailyBusiness);
         setProjectFields(sc.privateReviewerData.project);
         setSkillsInTheFieldsFields(sc.privateReviewerData.skillsInTheFields);
@@ -180,7 +182,9 @@ const ScSheetWithPr = ({
         setPerformanceWeightPercentage(
           100 - sc.privateReviewerData.skillsWeightPercentage
         );
-        setPrCategoriesWeightPercentage(sc.privateReviewerData.skillsWeightPercentage);
+        setPrCategoriesWeightPercentage(
+          sc.privateReviewerData.skillsWeightPercentage
+        );
       }
     },
     [tabValue]

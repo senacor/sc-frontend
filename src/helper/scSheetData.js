@@ -60,14 +60,15 @@ export const CATEGORY = {
 };
 
 export const SC_TAB = {
-  EMPLOYEE: 'scEmployee',
-  REVIEWER: 'scReviewer',
-  MEETING: 'scheduleView'
+  MY_DATA: 'myData',
+  SUMMARY: 'summary'
 };
 
 export const SC_STATUS = {
   WITH_PR: 'SC_WITH_PR_CHOSEN',
   WITHOUT_PR: 'SC_WITHOUT_PR_CHOSEN',
   EMPLOYEE_SUBMITTED: 'EMPLOYEE_SUBMITTED',
-  REVIEWER_SUBMITTED: 'REVIEWER_SUBMITTED'
+  REVIEWER_SUBMITTED: 'REVIEWER_SUBMITTED',
+  ARCHIVED: 'ARCHIVED',
+  CLOSED: 'CLOSED'
 };
