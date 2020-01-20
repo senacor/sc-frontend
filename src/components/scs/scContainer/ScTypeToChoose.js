@@ -18,7 +18,8 @@ import {
   TableCell,
   TableBody,
   TextField,
-  IconButton
+  IconButton,
+  Grid
 } from '@material-ui/core';
 import { SC_STATUS, classifications } from '../../../helper/scSheetData';
 import { modifyString } from '../../../helper/string';
@@ -162,82 +163,90 @@ const ScTypeToChoose = ({
         </FormControl>
       </div>
       <div>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Typography>
-                  {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {dailyBusinesses.map((entry, idx) => {
-              return (
+        <Grid container>
+          <Grid item xs={6}>
+            <Table>
+              <TableHead>
                 <TableRow>
                   <TableCell>
-                    <Typography>{entry}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton onClick={() => deleteDailyBusiness(idx)}>
-                      <Icon>clear</Icon>
-                    </IconButton>
+                    <Typography>
+                      {intl.formatMessage({
+                        id: 'scsheet.subtitle.dailyBusiness'
+                      })}
+                    </Typography>
                   </TableCell>
                 </TableRow>
-              );
-            })}
-            <TableRow>
-              <TableCell>
-                <TextField
-                  value={dailyBusinessValue}
-                  onChange={handleDailyBusinessChange}
-                />
-                <Button onClick={addDailyBusiness}>
-                  {intl.formatMessage({ id: 'sctypetochoose.add' })}
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Typography>
-                  {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {projects.map((entry, idx) => {
-              return (
+              </TableHead>
+              <TableBody>
+                {dailyBusinesses.map((entry, idx) => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Typography>{entry}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton onClick={() => deleteDailyBusiness(idx)}>
+                          <Icon>clear</Icon>
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
                 <TableRow>
                   <TableCell>
-                    <Typography>{entry}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton onClick={() => deleteProject(idx)}>
-                      <Icon>clear</Icon>
-                    </IconButton>
+                    <TextField
+                      value={dailyBusinessValue}
+                      onChange={handleDailyBusinessChange}
+                    />
+                    <Button onClick={addDailyBusiness}>
+                      {intl.formatMessage({ id: 'sctypetochoose.add' })}
+                    </Button>
                   </TableCell>
                 </TableRow>
-              );
-            })}
-            <TableRow>
-              <TableCell>
-                <TextField
-                  value={projectValue}
-                  onChange={handleProjectChange}
-                />
-                <Button onClick={addProject}>
-                  {intl.formatMessage({ id: 'sctypetochoose.add' })}
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+              </TableBody>
+            </Table>
+          </Grid>
+          <Grid item xs={6}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <Typography>
+                      {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {projects.map((entry, idx) => {
+                  return (
+                    <TableRow>
+                      <TableCell>
+                        <Typography>{entry}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton onClick={() => deleteProject(idx)}>
+                          <Icon>clear</Icon>
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                <TableRow>
+                  <TableCell>
+                    <TextField
+                      value={projectValue}
+                      onChange={handleProjectChange}
+                    />
+                    <Button onClick={addProject}>
+                      {intl.formatMessage({ id: 'sctypetochoose.add' })}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Grid>
+        </Grid>
         <Button
           disabled={!scTypeSelected || !classification}
           onClick={handleSubmitScType}
