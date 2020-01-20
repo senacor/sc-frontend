@@ -12,7 +12,7 @@ import {
 } from '../calculations/scWithPr';
 import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
-import { addScStatus, savePerformanceData } from '../../../../calls/sc';
+import { savePerformanceData, addScStatus, publishScSectionData } from '../../../../calls/sc';
 import {
   useErrorContext,
   useInfoContext,
@@ -255,7 +255,7 @@ const ScSheetWithPr = ({
     );
   };
 
-  const handleSubmit = () => {
+  const handlePublish = withEvaluation => {
     const mapToDTO = field => {
       return {
         title: field.title,
@@ -278,37 +278,42 @@ const ScSheetWithPr = ({
       skillsWeightPercentage: prCategoriesWeightPercentage
     };
 
-    savePerformanceData(
-      sc.id,
-      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
-      data,
-      info,
-      error
-    ).then(() => {
-      if (user.isOwnerInSc(sc)) {
-        if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
+    publishScSectionData(sc.id, user.isReviewerInSc(sc) ? 'reviewer' : 'employee', data, withEvaluation, info, setIsLoading, error)
+      .then(() => {
+        if (user.isOwnerInSc(sc)) {
           addScStatus(
             sc.id,
-            SC_STATUS.EMPLOYEE_SUBMITTED,
+            SC_STATUS.EMPLOYEE_PUBLISHED,
+            setSc,
+            setIsLoading,
+            error,
+            afterScFetched
+          );
+        } else if (user.isReviewerInSc(sc)) {
+          addScStatus(
+            sc.id,
+            SC_STATUS.REVIEWER_PUBLISHED,
             setSc,
             setIsLoading,
             error,
             afterScFetched
           );
         }
-      } else if (user.isReviewerInSc(sc)) {
-        if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
-          addScStatus(
-            sc.id,
-            SC_STATUS.REVIEWER_SUBMITTED,
-            setSc,
-            setIsLoading,
-            error,
-            afterScFetched
-          );
-        }
-      }
-    });
+      });
+  };
+
+  const handleCloseSc = () => {
+    console.log("adding status closed");
+    if (user.isReviewerInSc(sc)) {
+      addScStatus(
+        sc.id,
+        SC_STATUS.CLOSED,
+        setSc,
+        setIsLoading,
+        error,
+        afterScFetched
+      );
+    }
   };
 
   const handlePdfDownload = () => {
@@ -343,7 +348,8 @@ const ScSheetWithPr = ({
       <ButtonsBelowSheet
         submitDisabled={!validateTitles()}
         handleSave={handleSave}
-        handleSubmit={handleSubmit}
+        handlePublish={handlePublish}
+        handleCloseSc={handleCloseSc}
         handlePdfDownload={handlePdfDownload}
         sc={sc}
       />
