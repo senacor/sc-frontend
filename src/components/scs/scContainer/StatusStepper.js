@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { useUserinfoContext } from '../../../helper/contextHooks';
-import { checkEvaluationsFilledWithPR, checkEvaluationsFilledWithoutPR } from '../ScSheet/evaluationsCheck';
+import { checkEvaluationsFilledWithoutPR, checkEvaluationsFilledWithPR } from '../ScSheet/evaluationsCheck';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -63,11 +63,23 @@ const StatusStepper = ({ classes, intl, sc }) => {
 
     const isReady = () => {
       if (sc.statusSet.includes(SC_STATUS.WITHOUT_PR)) {
-        return checkEvaluationsFilledWithPR();
+        return checkEvaluationsFilledWithPR(
+          revData.dailyBusiness,
+          revData.project,
+          revData.serviceQuality,
+          revData.skillsInTheFields,
+          revData.impactOnTeam,
+          revData.impactOnCompany
+        );
       }
 
       if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {
-        return checkEvaluationsFilledWithoutPR();
+        return checkEvaluationsFilledWithoutPR(
+          revData.dailyBusiness,
+          revData.project,
+          revData.workEfficiency,
+          revData.workQuality
+        );
       }
 
       return false;
