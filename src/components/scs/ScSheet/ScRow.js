@@ -88,7 +88,8 @@ const ScRow = memo(
     fieldsDisabled,
     dialogOpen,
     isReviewer,
-    fieldsAmount
+    fieldsAmount,
+    handleChangeWeight
   }) => {
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
@@ -192,7 +193,7 @@ const ScRow = memo(
                       disabled={fieldsDisabled}
                       id="weight-label"
                       value={row.weight}
-                      onChange={e => action(type, 'weight', e)}
+                      onChange={e => handleChangeWeight(e.target.value)}
                       renderValue={selected => <span>{selected}</span>}
                       inputProps={{ className: classes.input }}
                     >

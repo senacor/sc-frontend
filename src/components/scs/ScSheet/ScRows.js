@@ -15,7 +15,8 @@ const ScRows = memo(
     fieldsDisabled,
     dialogOpen,
     isReviewer,
-    fieldsAmount
+    fieldsAmount,
+    handleChangeWeight
   }) => {
     return (
       <Fragment>
@@ -37,6 +38,7 @@ const ScRows = memo(
               removeSubcategory={() => removeSubcategory(type, index)}
               type={type}
               dialogOpen={dialogOpen}
+              handleChangeWeight={value => handleChangeWeight(value, index)}
             />
           );
         })}
