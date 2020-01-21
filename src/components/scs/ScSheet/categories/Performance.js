@@ -1,7 +1,6 @@
 import React, { Fragment, memo, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-
 // Material UI
 import {
   Divider,
@@ -40,8 +39,8 @@ const Performance = memo(
     hasWeightPercentage,
     performanceWeightPercentage,
     handleChangeWeightPercentage,
-    fieldsDisabled,
-    canRemoveGoal
+    isReviewer,
+    fieldsDisabled
   }) => {
     const [addDialogOpened, setAddDialogOpened] = useState(false);
     const [typeOpenedAddDialog, setTypeOpenedAddDialog] = useState(undefined);
@@ -114,6 +113,7 @@ const Performance = memo(
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
         </Typography>
         <ScRows
+          isReviewer={isReviewer}
           fieldsDisabled={fieldsDisabled}
           fields={dailyBusinessFields}
           fieldsAmount={dailyBusinessFields.length}
@@ -126,7 +126,6 @@ const Performance = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
-          canRemoveGoal={canRemoveGoal}
         />
         <Tooltip
           title={intl.formatMessage({
@@ -145,6 +144,7 @@ const Performance = memo(
           {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
         </Typography>
         <ScRows
+          isReviewer={isReviewer}
           fieldsDisabled={fieldsDisabled}
           fields={projectFields}
           fieldsAmount={projectFields.length}
@@ -157,7 +157,6 @@ const Performance = memo(
             id: 'scsheet.textarea.achievement'
           })}
           removeSubcategory={handleRemoveDialogOpen}
-          canRemoveGoal={canRemoveGoal}
         />
         <Tooltip
           title={intl.formatMessage({

@@ -8,6 +8,7 @@ import { CATEGORY } from '../../../../helper/scSheetData';
 import ScSheetWithPr from './ScSheetWithPr';
 import ScSheetWithoutPr from './ScSheetWithoutPr';
 import { addGoal, removeGoal } from '../../../../calls/sc';
+import { wrapPropertiesIntoObject } from '../../../../helper/wrapping';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -29,10 +30,10 @@ const ScSheetContainer = ({
     title: '',
     weight: 1,
     percentage: 0,
-    evaluation: 3,
-    description: '',
-    achievement: '',
-    comment: ''
+    evaluation: { value: 3, state: 'CHANGED' },
+    description: { value: '', state: 'CHANGED' },
+    achievement: { value: '', state: 'CHANGED' },
+    comment: { value: '', state: 'CHANGED' }
   };
   const user = useUserinfoContext();
   const [fieldsDisabled, setFieldsDisabled] = useState(true);
@@ -73,12 +74,20 @@ const ScSheetContainer = ({
       const values = cloneDeep(dailyBusinessFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
+
+      //wrapping values into object in case of: evaluation/description/achievement/comment
+      wrapPropertiesIntoObject(newObjectValue, propKey);
+
       values[i] = newObjectValue;
       setDailyBusinessFields(values);
     } else if (type === CATEGORY.PROJECT) {
       const values = cloneDeep(projectFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
+
+      //wrapping values into object in case of: evaluation/description/achievement/comment
+      wrapPropertiesIntoObject(newObjectValue, propKey);
+
       values[i] = newObjectValue;
       setProjectFields(values);
     }

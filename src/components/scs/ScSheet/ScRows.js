@@ -13,8 +13,8 @@ const ScRows = memo(
      type,
      fieldsDisabled,
      removeSubcategory,
-     fieldsAmount,
-     canRemoveGoal
+    isReviewer,
+    fieldsAmount
   }) => {
     return (
       <Fragment>
@@ -23,6 +23,7 @@ const ScRows = memo(
             <ScRow
               key={index}
               index={index}
+              isReviewer={isReviewer}
               row={row}
               fieldsDisabled={fieldsDisabled}
               fieldsAmount={fieldsAmount}
@@ -34,7 +35,6 @@ const ScRows = memo(
               }}
               type={type}
               removeSubcategory={removeSubcategory}
-              canRemoveGoal={canRemoveGoal}
             />
           );
         })}

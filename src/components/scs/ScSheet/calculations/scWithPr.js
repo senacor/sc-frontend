@@ -92,6 +92,7 @@ export const calculatePercentageWithPRPrCategories = (
 };
 
 export const calculateFinalScoreWithPr = (
+  useWrappedValues,
   dailyBusiness,
   project,
   skillsInTheFields,
@@ -103,14 +104,31 @@ export const calculateFinalScoreWithPr = (
   performanceWeight,
   prCategoriesWeight
 ) => {
-  const dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness);
-  const projectScore = multiplyWeightByScoreArr(project);
-  const skillsInTheFieldsScore =
-    skillsInTheFields.weight * skillsInTheFields.evaluation;
-  const impactOnTeamScore = impactOnTeam.weight * impactOnTeam.evaluation;
-  const serviceQualityScore = serviceQuality.weight * serviceQuality.evaluation;
-  const impactOnCompanyScore =
-    impactOnCompany.weight * impactOnCompany.evaluation;
+  let dailyBusinessScore;
+  let projectScore;
+  let skillsInTheFieldsScore;
+  let impactOnTeamScore;
+  let serviceQualityScore;
+  let impactOnCompanyScore;
+  if (useWrappedValues) {
+    dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness, true);
+    projectScore = multiplyWeightByScoreArr(project, true);
+    skillsInTheFieldsScore =
+      skillsInTheFields.weight * skillsInTheFields.evaluation.value;
+    impactOnTeamScore = impactOnTeam.weight * impactOnTeam.evaluation.value;
+    serviceQualityScore =
+      serviceQuality.weight * serviceQuality.evaluation.value;
+    impactOnCompanyScore =
+      impactOnCompany.weight * impactOnCompany.evaluation.value;
+  } else {
+    dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness, false);
+    projectScore = multiplyWeightByScoreArr(project, false);
+    skillsInTheFieldsScore =
+      skillsInTheFields.weight * skillsInTheFields.evaluation;
+    impactOnTeamScore = impactOnTeam.weight * impactOnTeam.evaluation;
+    serviceQualityScore = serviceQuality.weight * serviceQuality.evaluation;
+    impactOnCompanyScore = impactOnCompany.weight * impactOnCompany.evaluation;
+  }
 
   const performanceHelperScore =
     (performanceWeightPercentage / 100) *

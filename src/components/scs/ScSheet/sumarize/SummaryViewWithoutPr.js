@@ -13,15 +13,13 @@ const styles = theme => ({
 });
 
 const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
-  //TODO: so far using PRIVATE SPACE, use only PUBLSIHED for VIEW!
-  //unwrapping private data
-  const revData = sc.privateReviewerData;
-  const emData = sc.privateEmployeeData;
+  const revData = sc.publishedReviewerData;
+  const emData = sc.publishedEmployeeData;
 
   const dailyBusinessGoals = revData.dailyBusiness.map((reviewerRow, index) => {
     return {
-      employee: sc.privateEmployeeData.dailyBusiness[index]
-        ? sc.privateEmployeeData.dailyBusiness[index]
+      employee: sc.publishedEmployeeData.dailyBusiness[index]
+        ? sc.publishedEmployeeData.dailyBusiness[index]
         : {},
       reviewer: reviewerRow
     };
@@ -29,8 +27,8 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
 
   const projectGoals = revData.project.map((reviewerRow, index) => {
     return {
-      employee: sc.privateEmployeeData.project[index]
-        ? sc.privateEmployeeData.project[index]
+      employee: sc.publishedEmployeeData.project[index]
+        ? sc.publishedEmployeeData.project[index]
         : {},
       reviewer: reviewerRow
     };
@@ -54,6 +52,7 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
     revData.workQuality.weight;
 
   const finalScore = calculateFinalScoreWithoutPr(
+    false,
     revData.dailyBusiness,
     revData.project,
     revData.workEfficiency,
