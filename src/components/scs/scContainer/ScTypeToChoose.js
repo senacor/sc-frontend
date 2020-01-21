@@ -250,7 +250,12 @@ const ScTypeToChoose = ({
           </Grid>
         </Grid>
         <Button
-          disabled={!scTypeSelected || !classification}
+          disabled={
+            !scTypeSelected ||
+            !classification ||
+            dailyBusinesses.length < 1 ||
+            projects.length < 1
+          }
           onClick={handleSubmitScType}
           color="secondary"
           variant="contained"

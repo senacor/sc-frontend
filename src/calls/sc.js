@@ -81,10 +81,20 @@ export const linkToSc = (id, history) => {
   history.push(`/scDetail/${id}`);
 };
 
-export const publishScSectionData = async (scId, type, sectionData, withEvaluation, info, setIsLoading, error) => {
+export const publishScSectionData = async (
+  scId,
+  type,
+  sectionData,
+  withEvaluation,
+  info,
+  setIsLoading,
+  error
+) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/data/${type}/publish?evaluation=${withEvaluation}`,
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/data/${type}/publish?evaluation=${withEvaluation}`,
       {
         method: 'post',
         mode: 'cors',
