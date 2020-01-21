@@ -1,9 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Tooltip, withStyles, Typography } from '@material-ui/core';
-import { useUserinfoContext } from '../../../helper/contextHooks';
-import { SC_STATUS } from '../../../helper/scSheetData';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
+import PublishScDialog from "./PublishScDialog";
+import ConfirmDialog from '../../utils/ConfirmDialog';
+import {SC_STATUS} from "../../../helper/scSheetData";
 
 const styles = theme => ({
   btnContainer: {
@@ -18,6 +19,9 @@ const styles = theme => ({
   },
   btnSubmit: {
     marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  },
+  btnClose: {
     marginRight: theme.spacing.unit
   },
   btnDownload: {
@@ -36,25 +40,34 @@ const ButtonsBelowSheet = memo(
     intl,
     sc,
     handleSave,
-    handleSubmit,
+    handlePublish,
+    handleCloseSc,
     handlePdfDownload,
-    submitDisabled
+    submitDisabled,
+    withEvaluationsButtonDisabled
   }) => {
-    const user = useUserinfoContext();
+    const [publishScDialogOpened, setPublishScDialogOpened] = useState(false);
+    const [closeScDialogOpened, setCloseScDialogOpened] = useState(false);
 
-    const isButtonDisabled = () => {
-      if (user.isReviewerInSc(sc)) {
-        return sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED);
-      } else if (user.isOwnerInSc(sc)) {
-        return sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED);
-      }
-      return true;
+    const handleOpenPublishDialog = () => {
+      setPublishScDialogOpened(true);
+    };
+
+    const handleClosePublishScDialog = () => {
+      setPublishScDialogOpened(false);
+    };
+
+    const handleOpenScClosingDialog = () => {
+      setCloseScDialogOpened(true);
+    };
+
+    const handleCloseScClosingDialog = () => {
+      setCloseScDialogOpened(false);
     };
 
     return (
       <div className={classes.btnContainer}>
         <Button
-          disabled={isButtonDisabled()}
           className={classes.btnSave}
           variant="contained"
           color="secondary"
@@ -74,15 +87,24 @@ const ButtonsBelowSheet = memo(
           <div>
             <Button
               className={classes.btnSubmit}
-              disabled={submitDisabled || isButtonDisabled()}
+              disabled={submitDisabled}
               variant="contained"
               color="primary"
-              onClick={handleSubmit}
+              onClick={handleOpenPublishDialog}
             >
-              {intl.formatMessage({ id: 'scsheet.submit' })}
+              {intl.formatMessage({ id: 'scsheet.publish' })}
             </Button>
           </div>
         </Tooltip>
+
+        <Button
+          className={sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED) ? classes.btnClose : classes.hidden}
+          variant="contained"
+          color="secondary"
+          onClick={handleOpenScClosingDialog}
+        >
+          {intl.formatMessage({ id: 'scsheet.closeSc' })}
+        </Button>
 
         <Button
           className={classes.btnDownload}
@@ -95,13 +117,31 @@ const ButtonsBelowSheet = memo(
             {intl.formatMessage({ id: 'scsheet.downloadPdf' })}
           </Typography>
         </Button>
+
+        <PublishScDialog
+          open={publishScDialogOpened}
+          handlePublish={handlePublish}
+          handleClose={handleClosePublishScDialog}
+          withEvaluationsButtonDisabled={withEvaluationsButtonDisabled}
+        />
+        <ConfirmDialog
+          open={closeScDialogOpened}
+          handleClose={handleCloseScClosingDialog}
+          handleConfirm={() => { handleCloseSc(); handleCloseScClosingDialog(); }}
+          confirmationText={intl.formatMessage({
+            id: 'scsheet.closeScDialog.content'
+          })}
+          confirmationHeader={intl.formatMessage({
+            id: 'scsheet.closeScDialog.header'
+          })}
+        />
       </div>
     );
   },
   (prevProps, nextProps) =>
     prevProps.submitDisabled === nextProps.submitDisabled &&
     prevProps.handleSave === nextProps.handleSave &&
-    prevProps.handleSubmit === nextProps.handleSubmit
+    prevProps.handlePublish === nextProps.handlePublish
 );
 
 export default injectIntl(withStyles(styles)(ButtonsBelowSheet));

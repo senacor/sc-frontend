@@ -81,6 +81,26 @@ export const linkToSc = (id, history) => {
   history.push(`/scDetail/${id}`);
 };
 
+export const publishScSectionData = async (scId, type, sectionData, withEvaluation, info, setIsLoading, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/data/${type}/publish?evaluation=${withEvaluation}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(sectionData)
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const fetchScById = async (
   scId,
   setSc,
