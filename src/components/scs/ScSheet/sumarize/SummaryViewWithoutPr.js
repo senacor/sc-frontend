@@ -52,6 +52,7 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
     revData.workQuality.weight;
 
   const finalScore = calculateFinalScoreWithoutPr(
+    false,
     revData.dailyBusiness,
     revData.project,
     revData.workEfficiency,

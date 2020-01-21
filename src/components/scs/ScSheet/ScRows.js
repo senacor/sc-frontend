@@ -14,6 +14,7 @@ const ScRows = memo(
     type,
     fieldsDisabled,
     dialogOpen,
+    isReviewer,
     fieldsAmount
   }) => {
     return (
@@ -23,6 +24,7 @@ const ScRows = memo(
             <ScRow
               key={index}
               index={index}
+              isReviewer={isReviewer}
               row={row}
               fieldsDisabled={fieldsDisabled}
               fieldsAmount={fieldsAmount}

@@ -1,6 +1,15 @@
 import { default as fetch } from '../helper/customFetch';
 
-export const savePerformanceData = async (scId, type, data, info, error) => {
+export const savePerformanceData = async (
+  scId,
+  type,
+  data,
+  info,
+  error,
+  setSc,
+  setIsLoading,
+  afterScFetched
+) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v1/sc/${scId}/data/${type}`,
@@ -11,8 +20,11 @@ export const savePerformanceData = async (scId, type, data, info, error) => {
       }
     );
 
-    if (response.status === 200) {
+    if (response.ok) {
       info.msg('sc.saved');
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
     }
   } catch (err) {
     console.log(err);

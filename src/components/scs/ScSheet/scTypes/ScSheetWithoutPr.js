@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Performance from '../categories/Performance';
@@ -8,18 +8,28 @@ import FinalScoreSection from '../FinalScoreSection';
 import { reduceWeights } from '../calculations/helperFunctions';
 import { checkEvaluationsFilledWithoutPR } from '../evaluationsCheck';
 import {
-  calculatePercentageWithoutPr,
-  calculateFinalScoreWithoutPr
+  calculateFinalScoreWithoutPr,
+  calculatePercentageWithoutPr
 } from '../calculations/scWithoutPr';
 import { SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
-import { savePerformanceData, addScStatus, publishScSectionData} from '../../../../calls/sc';
+import {
+  savePerformanceData,
+  addScStatus,
+  publishScSectionData
+} from '../../../../calls/sc';
 import { downloadScAsPdf } from '../helperFunc.js';
 import {
-  useInfoContext,
   useErrorContext,
+  useInfoContext,
   useUserinfoContext
 } from '../../../../helper/contextHooks';
+import {
+  determineStatesForProperty,
+  determineStatesForPropertyArray,
+  mapToDTO,
+  wrapPropertiesIntoObject
+} from '../../../../helper/wrapping';
 
 const styles = () => ({});
 
@@ -90,6 +100,7 @@ const ScSheetWithoutPr = ({
     () => {
       setFinalScore(
         calculateFinalScoreWithoutPr(
+          true,
           dailyBusinessFields,
           projectFields,
           workEfficiencyFields,
@@ -111,15 +122,27 @@ const ScSheetWithoutPr = ({
   useEffect(
     () => {
       if (user.isOwnerInSc(sc)) {
-        setDailyBusinessFields(sc.privateEmployeeData.dailyBusiness);
-        setProjectFields(sc.privateEmployeeData.project);
-        setWorkEfficiencyFields(sc.privateEmployeeData.workEfficiency);
-        setWorkQualityFields(sc.privateEmployeeData.workQuality);
+        setDailyBusinessFields(
+          determineStatesForPropertyArray(sc, false, 'dailyBusiness')
+        );
+        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
+        setWorkEfficiencyFields(
+          determineStatesForProperty(sc, false, 'workEfficiency')
+        );
+        setWorkQualityFields(
+          determineStatesForProperty(sc, false, 'workQuality')
+        );
       } else if (user.isReviewerInSc(sc)) {
-        setDailyBusinessFields(sc.privateReviewerData.dailyBusiness);
-        setProjectFields(sc.privateReviewerData.project);
-        setWorkEfficiencyFields(sc.privateReviewerData.workEfficiency);
-        setWorkQualityFields(sc.privateReviewerData.workQuality);
+        setDailyBusinessFields(
+          determineStatesForPropertyArray(sc, true, 'dailyBusiness')
+        );
+        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
+        setWorkEfficiencyFields(
+          determineStatesForProperty(sc, true, 'workEfficiency')
+        );
+        setWorkQualityFields(
+          determineStatesForProperty(sc, true, 'workEfficiency')
+        );
       }
     },
     [sc]
@@ -128,28 +151,18 @@ const ScSheetWithoutPr = ({
   const handleChangeWorkEfficiency = (type, propKey, event) => {
     const values = { ...workEfficiencyFields };
     values[propKey] = event.target.value;
+    wrapPropertiesIntoObject(values, propKey);
     setWorkEfficiencyFields(values);
   };
 
   const handleChangeWorkQuality = (type, propKey, event) => {
     const values = { ...workQualityFields };
     values[propKey] = event.target.value;
+    wrapPropertiesIntoObject(values, propKey);
     setWorkQualityFields(values);
   };
 
   const handlePublish = withEvaluation => {
-    const mapToDTO = field => {
-      return {
-        title: field.title,
-        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
-        percentage: field.percentage,
-        description: field.description,
-        achievement: field.achievement,
-        weight: field.weight,
-        comment: field.comment
-      };
-    };
-
     const data = {
       dailyBusiness: dailyBusinessFields.map(mapToDTO),
       project: projectFields.map(mapToDTO),
@@ -157,28 +170,35 @@ const ScSheetWithoutPr = ({
       workQuality: mapToDTO(workQualityFields)
     };
 
-    publishScSectionData(sc.id, user.isReviewerInSc(sc) ? 'reviewer' : 'employee', data, withEvaluation, info, setIsLoading, error)
-      .then(() => {
-        if (user.isOwnerInSc(sc)) {
-            addScStatus(
-              sc.id,
-              SC_STATUS.EMPLOYEE_PUBLISHED,
-              setSc,
-              setIsLoading,
-              error,
-              afterScFetched
-            );
-        } else if (user.isReviewerInSc(sc)) {
-            addScStatus(
-              sc.id,
-              SC_STATUS.REVIEWER_PUBLISHED,
-              setSc,
-              setIsLoading,
-              error,
-              afterScFetched
-            );
-        }
-      });
+    publishScSectionData(
+      sc.id,
+      user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
+      data,
+      withEvaluation,
+      info,
+      setIsLoading,
+      error
+    ).then(() => {
+      if (user.isOwnerInSc(sc)) {
+        addScStatus(
+          sc.id,
+          SC_STATUS.EMPLOYEE_PUBLISHED,
+          setSc,
+          setIsLoading,
+          error,
+          afterScFetched
+        );
+      } else if (user.isReviewerInSc(sc)) {
+        addScStatus(
+          sc.id,
+          SC_STATUS.REVIEWER_PUBLISHED,
+          setSc,
+          setIsLoading,
+          error,
+          afterScFetched
+        );
+      }
+    });
   };
 
   const handleCloseSc = () => {
@@ -195,18 +215,6 @@ const ScSheetWithoutPr = ({
   };
 
   const handleSave = () => {
-    const mapToDTO = field => {
-      return {
-        title: field.title,
-        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
-        percentage: field.percentage,
-        description: field.description,
-        achievement: field.achievement,
-        weight: field.weight,
-        comment: field.comment
-      };
-    };
-
     const data = {
       dailyBusiness: dailyBusinessFields.map(mapToDTO),
       project: projectFields.map(mapToDTO),
@@ -219,12 +227,21 @@ const ScSheetWithoutPr = ({
       user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
       data,
       info,
-      error
+      error,
+      setSc,
+      setIsLoading,
+      afterScFetched
     );
   };
 
   const areAllEvaluationsFilled = () => {
-    return checkEvaluationsFilledWithoutPR(dailyBusinessFields, projectFields, workEfficiencyFields, workQualityFields);
+    return checkEvaluationsFilledWithoutPR(
+      true,
+      dailyBusinessFields,
+      projectFields,
+      workEfficiencyFields,
+      workQualityFields
+    );
   };
 
   const handlePdfDownload = () => {
@@ -241,20 +258,22 @@ const ScSheetWithoutPr = ({
         setProjectFields={setProjectFields}
         handleChangePerformance={handleChangePerformance}
         addSubcategory={addSubcategory}
+        isReviewer={user.isReviewerInSc(sc)}
       />
       <WorkEfficiency
         fieldsDisabled={fieldsDisabled}
         workEfficiencyFields={workEfficiencyFields}
         handleChangeWorkEfficiency={handleChangeWorkEfficiency}
+        isReviewer={user.isReviewerInSc(sc)}
       />
       <WorkQuality
         fieldsDisabled={fieldsDisabled}
         workQualityFields={workQualityFields}
         handleChangeWorkQuality={handleChangeWorkQuality}
+        isReviewer={user.isReviewerInSc(sc)}
       />
       <FinalScoreSection finalScore={finalScore} />
       <ButtonsBelowSheet
-        submitDisabled={!validateTitles()}
         withEvaluationsButtonDisabled={!areAllEvaluationsFilled()}
         handleSave={handleSave}
         handlePublish={handlePublish}

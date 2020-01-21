@@ -1,7 +1,6 @@
 import React, { Fragment, memo, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-
 // Material UI
 import {
   Divider,
@@ -40,6 +39,7 @@ const Performance = memo(
     hasWeightPercentage,
     performanceWeightPercentage,
     handleChangeWeightPercentage,
+    isReviewer,
     fieldsDisabled
   }) => {
     const [dialogOpened, setDialogOpened] = useState(false);
@@ -107,6 +107,7 @@ const Performance = memo(
           {intl.formatMessage({ id: 'scsheet.subtitle.dailyBusiness' })}
         </Typography>
         <ScRows
+          isReviewer={isReviewer}
           fieldsDisabled={fieldsDisabled}
           fields={dailyBusinessFields}
           fieldsAmount={dailyBusinessFields.length}
@@ -138,6 +139,7 @@ const Performance = memo(
           {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
         </Typography>
         <ScRows
+          isReviewer={isReviewer}
           fieldsDisabled={fieldsDisabled}
           fields={projectFields}
           fieldsAmount={projectFields.length}

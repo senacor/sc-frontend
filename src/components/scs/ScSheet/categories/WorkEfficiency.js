@@ -14,7 +14,8 @@ const WorkEfficiency = memo(
     intl,
     workEfficiencyFields,
     handleChangeWorkEfficiency,
-    fieldsDisabled
+    fieldsDisabled,
+    isReviewer
   }) => {
     return (
       <Fragment>
@@ -22,6 +23,7 @@ const WorkEfficiency = memo(
           {intl.formatMessage({ id: 'scsheet.category.workEffectivity' })}
         </Typography>
         <ScRow
+          isReviewer={isReviewer}
           fieldsDisabled={fieldsDisabled}
           type={CATEGORY.WORK_EFFICIENCY}
           row={workEfficiencyFields}

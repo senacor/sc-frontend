@@ -64,17 +64,19 @@ const StatusStepper = ({ classes, intl, sc }) => {
     const isReady = () => {
       if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {
         return checkEvaluationsFilledWithPR(
+          false,
           revData.dailyBusiness,
           revData.project,
           revData.serviceQuality,
           revData.skillsInTheFields,
           revData.impactOnTeam,
-          revData.impactOnCompany
+          revData.impactOnCompany,
         );
       }
 
       if (sc.statusSet.includes(SC_STATUS.WITHOUT_PR)) {
         return checkEvaluationsFilledWithoutPR(
+          false,
           revData.dailyBusiness,
           revData.project,
           revData.workEfficiency,
