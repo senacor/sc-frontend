@@ -10,10 +10,8 @@ import FinalScoreSection from '../FinalScoreSection';
 const styles = theme => ({});
 
 const SummaryViewWithPr = ({ sc }) => {
-  //TODO: so far using PRIVATE SPACE, use only PUBLSIHED for VIEW!
-  //unwrapping private data
-  const revData = sc.privateReviewerData;
-  const emData = sc.privateEmployeeData;
+  const revData = sc.publishedReviewerData;
+  const emData = sc.publishedEmployeeData;
 
   //building structure {employee: employeePublishedGoal, reviewer: reviewerPublishedGoal}
   const skillsInTheFieldsFields = {
@@ -35,8 +33,8 @@ const SummaryViewWithPr = ({ sc }) => {
 
   const dailyBusinessGoals = revData.dailyBusiness.map((reviewerRow, index) => {
     return {
-      employee: sc.privateEmployeeData.dailyBusiness[index]
-        ? sc.privateEmployeeData.dailyBusiness[index]
+      employee: sc.publishedEmployeeData.dailyBusiness[index]
+        ? sc.publishedEmployeeData.dailyBusiness[index]
         : {},
       reviewer: reviewerRow
     };
@@ -44,8 +42,8 @@ const SummaryViewWithPr = ({ sc }) => {
 
   const projectGoals = revData.project.map((reviewerRow, index) => {
     return {
-      employee: sc.privateEmployeeData.project[index]
-        ? sc.privateEmployeeData.project[index]
+      employee: sc.publishedEmployeeData.project[index]
+        ? sc.publishedEmployeeData.project[index]
         : {},
       reviewer: reviewerRow
     };

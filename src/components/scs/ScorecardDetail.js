@@ -6,7 +6,7 @@ import ScDetailInformation from './ScDetailInformation';
 import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import { addScType, fetchScById } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
-import { SC_TAB } from '../../helper/scSheetData';
+import { SC_STATUS, SC_TAB } from '../../helper/scSheetData';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -31,7 +31,8 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const afterScFetched = sc => {
     setSc(sc);
     setScTab(
-      user.isReviewerInSc(sc) || user.isOwnerInSc(sc)
+      (user.isReviewerInSc(sc) || user.isOwnerInSc(sc)) &&
+        !sc.statusSet.includes(SC_STATUS.CLOSED)
         ? SC_TAB.MY_DATA
         : SC_TAB.SUMMARY
     );

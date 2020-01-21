@@ -62,7 +62,7 @@ const StatusStepper = ({ classes, intl, sc }) => {
     const revData = sc.privateReviewerData;
 
     const isReady = () => {
-      if (sc.statusSet.includes(SC_STATUS.WITHOUT_PR)) {
+      if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {
         return checkEvaluationsFilledWithPR(
           revData.dailyBusiness,
           revData.project,
@@ -73,7 +73,7 @@ const StatusStepper = ({ classes, intl, sc }) => {
         );
       }
 
-      if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {
+      if (sc.statusSet.includes(SC_STATUS.WITHOUT_PR)) {
         return checkEvaluationsFilledWithoutPR(
           revData.dailyBusiness,
           revData.project,
