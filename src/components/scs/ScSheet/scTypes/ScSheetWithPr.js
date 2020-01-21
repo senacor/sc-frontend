@@ -330,6 +330,7 @@ const ScSheetWithPr = ({
         hasWeightPercentage
         performanceWeightPercentage={performanceWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
+        canRemoveGoal={user.isReviewerInSc(sc)}
       />
       <PrCategories
         fieldsDisabled={fieldsDisabled}
