@@ -1,21 +1,21 @@
 import React, { Fragment, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import {
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
   TextField,
   Tooltip,
-  Paper,
-  Typography,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel
+  Typography
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import ScRatingPoints from '../ScRatingPoints';
 import RemoveIcon from '@material-ui/icons/Close';
 import { CATEGORY } from '../../../helper/scSheetData';
+import ScRatingPoints from '../ScRatingPoints';
 
 const styles = theme => ({
   scRowContainer: {
@@ -26,6 +26,12 @@ const styles = theme => ({
       border: `1px solid ${theme.palette.secondary.main}`,
       background: theme.palette.secondary.brighterGrey
     }
+  },
+  backgroundYellow: {
+    backgroundColor: '#ffba0017'
+  },
+  backgroundGreen: {
+    backgroundColor: '#01a68817'
   },
   removeIcon: {
     position: 'relative',
@@ -54,6 +60,14 @@ const styles = theme => ({
   input: {
     color: theme.palette.secondary.darkGrey
   },
+  titleInput: {
+    '& div > fieldset': {
+      borderWidth: 0
+    },
+    '& div > input': {
+      color: theme.palette.secondary.black
+    }
+  },
   hidden: {
     display: 'none'
   }
@@ -73,6 +87,7 @@ const ScRow = memo(
     type,
     fieldsDisabled,
     dialogOpen,
+    isReviewer,
     fieldsAmount
   }) => {
     const weightValues =
@@ -101,6 +116,12 @@ const ScRow = memo(
       } else {
         dialogOpen(type, index);
       }
+    };
+
+    const bgClass = state => {
+      if (state === 'PUBLISHED') return classes.backgroundGreen;
+      if (state === 'SAVED') return '';
+      return classes.backgroundYellow;
     };
 
     return (
@@ -138,8 +159,7 @@ const ScRow = memo(
                 {type === CATEGORY.DAILY_BUSINESS ||
                 type === CATEGORY.PROJECT ? (
                   <TextField
-                    required
-                    disabled={fieldsDisabled}
+                    disabled
                     type="text"
                     value={row.title}
                     margin="normal"
@@ -154,34 +174,36 @@ const ScRow = memo(
                     onChange={e => {
                       action(type, 'title', e);
                     }}
-                    inputProps={{ className: classes.input }}
+                    className={classes.titleInput}
                   />
                 ) : (
                   <Typography variant="body1">{title}</Typography>
                 )}
               </Grid>
               <Grid item sm={2} className={classes.percentage}>
-                <FormControl>
-                  <InputLabel id="weight-label">
-                    {intl.formatMessage({
-                      id: 'scsheet.textheader.weight'
-                    })}
-                  </InputLabel>
-                  <Select
-                    disabled={fieldsDisabled}
-                    id="weight-label"
-                    value={row.weight}
-                    onChange={e => action(type, 'weight', e)}
-                    renderValue={selected => <span>{selected}</span>}
-                    inputProps={{ className: classes.input }}
-                  >
-                    {weightValues.map((val, index) => (
-                      <MenuItem key={index} value={val}>
-                        {val}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                {isReviewer && (
+                  <FormControl>
+                    <InputLabel id="weight-label">
+                      {intl.formatMessage({
+                        id: 'scsheet.textheader.weight'
+                      })}
+                    </InputLabel>
+                    <Select
+                      disabled={fieldsDisabled}
+                      id="weight-label"
+                      value={row.weight}
+                      onChange={e => action(type, 'weight', e)}
+                      renderValue={selected => <span>{selected}</span>}
+                      inputProps={{ className: classes.input }}
+                    >
+                      {weightValues.map((val, index) => (
+                        <MenuItem key={index} value={val}>
+                          {val}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
               </Grid>
               <Grid item sm={2} component="div" className={classes.percentage}>
                 <Typography
@@ -199,6 +221,7 @@ const ScRow = memo(
               </Grid>
               <Grid item sm={2} className={classes.textCenter}>
                 <ScRatingPoints
+                  backgroundClass={bgClass(row.evaluation.state)}
                   fieldsDisabled={fieldsDisabled}
                   type={type}
                   rating={row.evaluation}
@@ -222,8 +245,9 @@ const ScRow = memo(
                   <Grid item sm={12}>
                     <TextField
                       disabled={fieldsDisabled}
+                      className={bgClass(row.comment.state)}
                       type="text"
-                      value={row.comment}
+                      value={row.comment.value}
                       margin="normal"
                       variant="outlined"
                       label={intl.formatMessage({
@@ -254,8 +278,9 @@ const ScRow = memo(
                   ) : (
                     <TextField
                       disabled={fieldsDisabled}
+                      className={bgClass(row.description.state)}
                       type="text"
-                      value={row.description}
+                      value={row.description.value}
                       margin="normal"
                       variant="outlined"
                       label={description}
@@ -271,9 +296,10 @@ const ScRow = memo(
                 type === CATEGORY.WORK_QUALITY ? null : (
                   <Grid item sm={4}>
                     <TextField
+                      className={bgClass(row.achievement.state)}
                       disabled={fieldsDisabled}
                       type="text"
-                      value={row.achievement}
+                      value={row.achievement.value}
                       margin="normal"
                       variant="outlined"
                       label={achievement}
@@ -295,9 +321,10 @@ const ScRow = memo(
                   }
                 >
                   <TextField
+                    className={bgClass(row.comment.state)}
                     disabled={fieldsDisabled}
                     type="text"
-                    value={row.comment}
+                    value={row.comment.value}
                     margin="normal"
                     variant="outlined"
                     label={intl.formatMessage({

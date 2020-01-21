@@ -63,6 +63,7 @@ const SummaryViewWithPr = ({ sc }) => {
   const performanceWeightPercentage = 100 - prCategoriesWeightPercentage;
 
   const finalScore = calculateFinalScoreWithPr(
+    false,
     revData.dailyBusiness,
     revData.project,
     revData.skillsInTheFields,

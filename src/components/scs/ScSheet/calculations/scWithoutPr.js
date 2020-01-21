@@ -46,17 +46,29 @@ export const calculatePercentageWithoutPr = (
 };
 
 export const calculateFinalScoreWithoutPr = (
+  useWrappedValues,
   dailyBusiness,
   project,
   workQuality,
   workEfficiency,
   totalWeight
 ) => {
-  const dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness);
-  const projectScore = multiplyWeightByScoreArr(project);
-
-  const workQualityScore = workQuality.weight * workQuality.evaluation;
-  const workEfficiencyScore = workEfficiency.weight * workEfficiency.evaluation;
+  let dailyBusinessScore;
+  let projectScore;
+  let workQualityScore;
+  let workEfficiencyScore;
+  if (useWrappedValues) {
+    dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness, true);
+    projectScore = multiplyWeightByScoreArr(project, true);
+    workQualityScore = workQuality.weight * workQuality.evaluation.value;
+    workEfficiencyScore =
+      workEfficiency.weight * workEfficiency.evaluation.value;
+  } else {
+    dailyBusinessScore = multiplyWeightByScoreArr(dailyBusiness);
+    projectScore = multiplyWeightByScoreArr(project);
+    workQualityScore = workQuality.weight * workQuality.evaluation;
+    workEfficiencyScore = workEfficiency.weight * workEfficiency.evaluation;
+  }
   const scoreInTotal =
     dailyBusinessScore + projectScore + workQualityScore + workEfficiencyScore;
   const finalScore = scoreInTotal / totalWeight;

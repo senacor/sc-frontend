@@ -20,6 +20,14 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import SummaryScRatingPoints from './SummaryScRatingPoints';
 
 const styles = theme => ({
+  titleInput: {
+    '& div > fieldset': {
+      borderWidth: 0
+    },
+    '& div > input': {
+      color: theme.palette.secondary.black
+    }
+  },
   scRowContainer: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
@@ -121,7 +129,6 @@ const MixedScRow = ({
             <Grid item sm={6}>
               {type === CATEGORY.DAILY_BUSINESS || type === CATEGORY.PROJECT ? (
                 <TextField
-                  required
                   disabled
                   type="text"
                   value={rowReviewer.title}
@@ -137,7 +144,7 @@ const MixedScRow = ({
                   onChange={e => {
                     action(type, 'title', e);
                   }}
-                  inputProps={{ className: classes.input }}
+                  className={classes.titleInput}
                 />
               ) : (
                 <Typography variant="body1">{title}</Typography>
