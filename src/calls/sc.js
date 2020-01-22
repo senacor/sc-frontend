@@ -32,6 +32,34 @@ export const savePerformanceData = async (
   }
 };
 
+export const createScForEmployee = async (
+  employeeId,
+  setScs,
+  setIsLoading,
+  info,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${employeeId}`,
+      { method: 'post', mode: 'cors' }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+      getEmployeeScs(employeeId, setScs, setIsLoading, error);
+    }
+
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};
+
 export const exportToPdf = async (scId, error) => {
   try {
     const response = await fetch(
