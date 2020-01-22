@@ -11,12 +11,13 @@ import {
   calculateFinalScoreWithoutPr,
   calculatePercentageWithoutPr
 } from '../calculations/scWithoutPr';
-import { SC_STATUS } from '../../../../helper/scSheetData';
+import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
 import {
   savePerformanceData,
   addScStatus,
-  publishScSectionData
+  publishScSectionData,
+  saveWeightUpdate
 } from '../../../../calls/sc';
 import { downloadScAsPdf } from '../helperFunc.js';
 import {
@@ -141,7 +142,7 @@ const ScSheetWithoutPr = ({
           determineStatesForProperty(sc, true, 'workEfficiency')
         );
         setWorkQualityFields(
-          determineStatesForProperty(sc, true, 'workEfficiency')
+          determineStatesForProperty(sc, true, 'workQuality')
         );
       }
     },
@@ -248,6 +249,58 @@ const ScSheetWithoutPr = ({
     downloadScAsPdf(sc.id, sc.employee.login, error);
   };
 
+  const handleChangeWeight = (value, type, index) => {
+    const weightDTO = {
+      field: type,
+      index: index,
+      weight: value
+    };
+    const afterUpdate = () => {
+      const scSpacesToUpdate = user.isReviewerInSc(sc)
+        ? [
+            sc.privateReviewerData,
+            sc.publishedReviewerData,
+            sc.publishedEmployeeData
+          ]
+        : [
+            sc.publishedReviewerData,
+            sc.privateEmployeeData,
+            sc.publishedEmployeeData
+          ];
+      if (type === CATEGORY.DAILY_BUSINESS) {
+        dailyBusinessFields[index].weight = value;
+        setDailyBusinessFields([...dailyBusinessFields]);
+        scSpacesToUpdate.forEach(space => {
+          space[type][index].weight = value;
+        });
+      }
+      if (type === CATEGORY.PROJECT) {
+        projectFields[index].weight = value;
+        setProjectFields([...projectFields]);
+        scSpacesToUpdate.forEach(space => {
+          space[type][index].weight = value;
+        });
+      }
+
+      if (type === CATEGORY.WORK_QUALITY) {
+        workQualityFields.weight = value;
+        setWorkQualityFields({ ...workQualityFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+
+      if (type === CATEGORY.WORK_EFFICIENCY) {
+        workEfficiencyFields.weight = value;
+        setWorkEfficiencyFields({ ...workEfficiencyFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+    };
+    saveWeightUpdate(sc.id, weightDTO, info, error, afterUpdate);
+  };
+
   return (
     <Fragment>
       <Performance
@@ -260,18 +313,21 @@ const ScSheetWithoutPr = ({
         addSubcategory={addSubcategory}
         removeSubcategory={removeSubcategory}
         isReviewer={user.isReviewerInSc(sc)}
+        handleChangeWeight={handleChangeWeight}
       />
       <WorkEfficiency
         fieldsDisabled={fieldsDisabled}
         workEfficiencyFields={workEfficiencyFields}
         handleChangeWorkEfficiency={handleChangeWorkEfficiency}
         isReviewer={user.isReviewerInSc(sc)}
+        handleChangeWeight={handleChangeWeight}
       />
       <WorkQuality
         fieldsDisabled={fieldsDisabled}
         workQualityFields={workQualityFields}
         handleChangeWorkQuality={handleChangeWorkQuality}
         isReviewer={user.isReviewerInSc(sc)}
+        handleChangeWeight={handleChangeWeight}
       />
       <FinalScoreSection finalScore={finalScore} />
       <ButtonsBelowSheet

@@ -4,17 +4,18 @@ import ScRow from './ScRow';
 
 const ScRows = memo(
   ({
-     intl,
-     title,
-     description,
-     achievement,
-     fields,
-     action,
-     type,
-     fieldsDisabled,
-     removeSubcategory,
+    intl,
+    title,
+    description,
+    achievement,
+    fields,
+    action,
+    type,
+    fieldsDisabled,
+    removeSubcategory,
     isReviewer,
-    fieldsAmount
+    fieldsAmount,
+    handleChangeWeight
   }) => {
     return (
       <Fragment>
@@ -35,6 +36,7 @@ const ScRows = memo(
               }}
               type={type}
               removeSubcategory={removeSubcategory}
+              handleChangeWeight={value => handleChangeWeight(value, index)}
             />
           );
         })}

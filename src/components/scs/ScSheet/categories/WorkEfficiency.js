@@ -15,7 +15,8 @@ const WorkEfficiency = memo(
     workEfficiencyFields,
     handleChangeWorkEfficiency,
     fieldsDisabled,
-    isReviewer
+    isReviewer,
+    handleChangeWeight
   }) => {
     return (
       <Fragment>
@@ -37,6 +38,9 @@ const WorkEfficiency = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.WORK_EFFICIENCY)
+          }
         />
       </Fragment>
     );

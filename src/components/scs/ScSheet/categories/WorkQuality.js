@@ -15,7 +15,8 @@ const WorkQuality = memo(
     workQualityFields,
     handleChangeWorkQuality,
     fieldsDisabled,
-    isReviewer
+    isReviewer,
+    handleChangeWeight
   }) => {
     return (
       <Fragment>
@@ -35,6 +36,9 @@ const WorkQuality = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.WORK_QUALITY)
+          }
         />
       </Fragment>
     );

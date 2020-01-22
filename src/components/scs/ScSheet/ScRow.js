@@ -86,7 +86,8 @@ const ScRow = memo(
     type,
     fieldsDisabled,
     removeSubcategory,
-    isReviewer
+    isReviewer,
+    handleChangeWeight
   }) => {
 
     const weightValues =
@@ -161,7 +162,7 @@ const ScRow = memo(
                       disabled={fieldsDisabled}
                       id="weight-label"
                       value={row.weight}
-                      onChange={e => action(type, 'weight', e)}
+                      onChange={e => handleChangeWeight(e.target.value)}
                       renderValue={selected => <span>{selected}</span>}
                       inputProps={{ className: classes.input }}
                     >

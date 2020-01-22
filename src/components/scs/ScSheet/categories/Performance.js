@@ -40,13 +40,16 @@ const Performance = memo(
     performanceWeightPercentage,
     handleChangeWeightPercentage,
     isReviewer,
-    fieldsDisabled
+    fieldsDisabled,
+    handleChangeWeight
   }) => {
     const [addDialogOpened, setAddDialogOpened] = useState(false);
     const [typeOpenedAddDialog, setTypeOpenedAddDialog] = useState(undefined);
 
     const [removeDialogOpened, setRemoveDialogOpened] = useState(false);
-    const [fieldOpenedRemoveDialog, setFieldOpenedRemoveDialog] = useState(undefined);
+    const [fieldOpenedRemoveDialog, setFieldOpenedRemoveDialog] = useState(
+      undefined
+    );
 
     const [newGoalName, setNewGoalName] = useState(undefined);
 
@@ -59,7 +62,7 @@ const Performance = memo(
       setRemoveDialogOpened(false);
     };
 
-    const handleAddDialogOpen = (type) => {
+    const handleAddDialogOpen = type => {
       setNewGoalName('');
       setAddDialogOpened(true);
       setTypeOpenedAddDialog({ type });
@@ -69,7 +72,7 @@ const Performance = memo(
       setAddDialogOpened(false);
     };
 
-    const handleChangeGoalName = (event) => {
+    const handleChangeGoalName = event => {
       setNewGoalName(event.target.value);
     };
 
@@ -126,6 +129,9 @@ const Performance = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
+          handleChangeWeight={(value, index) =>
+            handleChangeWeight(value, CATEGORY.DAILY_BUSINESS, index)
+          }
         />
         <Tooltip
           title={intl.formatMessage({
@@ -157,6 +163,9 @@ const Performance = memo(
             id: 'scsheet.textarea.achievement'
           })}
           removeSubcategory={handleRemoveDialogOpen}
+          handleChangeWeight={(value, index) =>
+            handleChangeWeight(value, CATEGORY.PROJECT, index)
+          }
         />
         <Tooltip
           title={intl.formatMessage({
@@ -175,7 +184,10 @@ const Performance = memo(
           open={removeDialogOpened}
           handleClose={handleRemoveDialogClose}
           handleConfirm={() => {
-            removeSubcategory(fieldOpenedRemoveDialog.type, fieldOpenedRemoveDialog.index);
+            removeSubcategory(
+              fieldOpenedRemoveDialog.type,
+              fieldOpenedRemoveDialog.index
+            );
             setRemoveDialogOpened(false);
           }}
           confirmationText={intl.formatMessage({
@@ -199,7 +211,8 @@ const Performance = memo(
           })}
           inputLabel={intl.formatMessage({
             id:
-            typeOpenedAddDialog && typeOpenedAddDialog.type === CATEGORY.DAILY_BUSINESS
+              typeOpenedAddDialog &&
+              typeOpenedAddDialog.type === CATEGORY.DAILY_BUSINESS
                 ? 'scsheet.textheader.title.dailyBusiness'
                 : 'scsheet.textheader.title.project'
           })}

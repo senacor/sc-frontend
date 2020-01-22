@@ -28,7 +28,8 @@ const PrCategories = React.memo(
     prCategoriesWeightPercentage,
     handleChangeWeightPercentage,
     fieldsDisabled,
-    isReviewer
+    isReviewer,
+    handleChangeWeight
   }) => {
     return (
       <Fragment>
@@ -68,6 +69,9 @@ const PrCategories = React.memo(
           description={intl.formatMessage({
             id: 'scsheet.textarea.description.skillsinthefield'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.SKILLS_IN_THE_FIELDS)
+          }
         />
         <Divider />
         <ScRow
@@ -82,6 +86,9 @@ const PrCategories = React.memo(
           description={intl.formatMessage({
             id: 'scsheet.textarea.description.impactonteam'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.TEAM_IMPACT)
+          }
         />
         <Divider />
         <ScRow
@@ -96,6 +103,9 @@ const PrCategories = React.memo(
           description={intl.formatMessage({
             id: 'scsheet.textarea.description.servicequality'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.SERVICE_QUALITY)
+          }
         />
         <Divider />
         <ScRow
@@ -110,6 +120,9 @@ const PrCategories = React.memo(
           description={intl.formatMessage({
             id: 'scsheet.textarea.description.impactoncompany'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.COMPANY_IMPACT)
+          }
         />
       </Fragment>
     );
