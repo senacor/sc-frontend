@@ -51,6 +51,13 @@ const styles = theme => ({
   textInfo: {
     color: theme.palette.primary[400]
   },
+  textInfoUnderline: {
+    color: theme.palette.primary[400],
+    textDecoration: 'underline',
+    '&:hover': {
+      color: theme.palette.secondary.darkRed
+    }
+  },
   selectionUnavailable: {
     backgroundColor: theme.palette.secondary.grey
   },
@@ -84,7 +91,9 @@ const EmployeeCard = ({
     entryDate,
     endDate
   },
-  formerEmployee
+  formerEmployee,
+  employees,
+  personalDev
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -97,6 +106,11 @@ const EmployeeCard = ({
   const handleDialogOpen = () => {
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
     setDialogOpen(!dialogOpen);
+  };
+
+  const handleSupervisorClick = event => {
+    // TODO
+    event.stopPropagation();
   };
 
   const employeeName = (
@@ -149,7 +163,12 @@ const EmployeeCard = ({
               {`${intl.formatMessage({
                 id: 'employeeInfo.supervisor'
               })}: `}
-              <span className={classes.textInfo}>
+              <span
+                className={
+                  personalDev ? classes.textInfoUnderline : classes.textInfo
+                }
+                onClick={handleSupervisorClick}
+              >
                 {supervisorName
                   ? supervisorName
                   : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}

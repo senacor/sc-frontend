@@ -10,6 +10,7 @@ import { modifyString } from '../../helper/string';
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
+import { useUserinfoContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   gridContainer: {
@@ -32,6 +33,9 @@ const AllEmployeesGrid = ({
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
+
+  const user = useUserinfoContext();
+
   const cardsToShow = 15;
 
   useEffect(() => {
@@ -67,7 +71,11 @@ const AllEmployeesGrid = ({
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard employee={employee} />
+      <EmployeeCard
+        employee={employee}
+        employees={employees}
+        personalDev={user.hasRoleHr()}
+      />
     </Grid>
   ));
 
@@ -76,7 +84,11 @@ const AllEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <EmployeeCard employee={employee} />
+        <EmployeeCard
+          employee={employee}
+          employees={employees}
+          personalDev={user.hasRoleHr()}
+        />
       </Grid>
     ));
 
