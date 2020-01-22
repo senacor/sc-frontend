@@ -7,12 +7,13 @@ import PerformanceSummary from './PerformanceSummary';
 import { reduceWeights } from '../calculations/helperFunctions';
 import { calculateFinalScoreWithoutPr, calculatePercentageWithoutPr } from '../calculations/scWithoutPr';
 import FinalScoreSection from '../FinalScoreSection';
+import SummaryButtonsBelowSheet from './SummaryButtonsBelowSheet';
 
 const styles = theme => ({
   ...theme.styledComponents
 });
 
-const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
+const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
   const revData = sc.publishedReviewerData;
   const emData = sc.publishedEmployeeData;
 
@@ -135,7 +136,8 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
       />
       {renderWorkEfficiency()}
       {renderWorkQuality()}
-      <FinalScoreSection finalScore={finalScore} reviewerScore/>
+      <FinalScoreSection finalScore={finalScore} reviewerScore />
+      <SummaryButtonsBelowSheet sc={sc} setSc={setSc} afterScFetched={afterScFetched} />
     </Fragment>
   );
 };

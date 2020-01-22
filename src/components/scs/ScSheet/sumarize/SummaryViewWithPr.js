@@ -6,10 +6,11 @@ import SummaryPrCategories from './SummaryPrCategories';
 import { reduceWeights } from '../calculations/helperFunctions';
 import { calculateFinalScoreWithPr, calculatePercentageWithPrPerformance, calculatePercentageWithPRPrCategories } from '../calculations/scWithPr';
 import FinalScoreSection from '../FinalScoreSection';
+import SummaryButtonsBelowSheet from './SummaryButtonsBelowSheet';
 
 const styles = theme => ({});
 
-const SummaryViewWithPr = ({ sc }) => {
+const SummaryViewWithPr = ({ sc, setSc, afterScFetched }) => {
   const revData = sc.publishedReviewerData;
   const emData = sc.publishedEmployeeData;
 
@@ -120,7 +121,8 @@ const SummaryViewWithPr = ({ sc }) => {
         impactOnCompanyFields={impactOnCompanyFields}
         prCategoriesWeightPercentage={prCategoriesWeightPercentage}
       />
-      <FinalScoreSection finalScore={finalScore} reviewerScore/>
+      <FinalScoreSection finalScore={finalScore} reviewerScore />
+      <SummaryButtonsBelowSheet sc={sc} setSc={setSc} afterScFetched={afterScFetched} />
     </Fragment>
   );
 };
