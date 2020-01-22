@@ -207,6 +207,7 @@ const EmployeeCard = ({
           employeeId={id}
           firstName={firstName}
           lastName={lastName}
+          supervisorName={supervisorName}
           dialogOpen={dialogOpen}
           setDialogOpen={setDialogOpen}
         />
