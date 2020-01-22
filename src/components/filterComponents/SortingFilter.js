@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-
 // Material UI
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -31,12 +30,15 @@ const SortingFilter = ({
   sortBy,
   handleChange,
   menuData,
-  stateValue
+  stateValue,
+  intl
 }) => {
   return (
     <div className={classes.dropdownFilter}>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="select-multiple-positions">{sortBy}</InputLabel>
+        <InputLabel htmlFor="select-multiple-positions">
+          {intl.formatMessage({ id: sortBy })}
+        </InputLabel>
         <Select
           multiple
           value={stateValue}
@@ -48,12 +50,19 @@ const SortingFilter = ({
             <div className={classes.chips}>{`${selected.length} items`}</div>
           )}
         >
-          {menuData.map(name => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={stateValue.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
+          {menuData.map(value => {
+            const showText = () => {
+              return sortBy === 'employeeInfo.scStatus'
+                ? intl.formatMessage({ id: value })
+                : value;
+            };
+            return (
+              <MenuItem key={value} value={value}>
+                <Checkbox checked={stateValue.indexOf(value) > -1} />
+                <ListItemText primary={showText()} />
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </div>

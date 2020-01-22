@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import AllEmployeesTableHead from './AllEmployeesTableHead';
+import EmployeesTableHead from './EmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesTable = ({
+const ActiveEmployeesTable = ({
   classes,
   intl,
   filterInputs,
@@ -89,7 +89,7 @@ const AllEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <AllEmployeesTableHead />
+        <EmployeesTableHead />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>
@@ -124,4 +124,4 @@ const AllEmployeesTable = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesTable));
+export default injectIntl(withStyles(styles)(ActiveEmployeesTable));

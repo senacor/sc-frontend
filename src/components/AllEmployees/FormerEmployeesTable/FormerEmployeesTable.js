@@ -5,8 +5,8 @@ import {
   checkFilterValues,
   handleFilterActive
 } from '../../../helper/filterFunctions';
-import EmployeeTableRow from '../AllEmployeesTable/EmployeeTableRow';
-import AllEmployeesTableHead from '../AllEmployeesTable/AllEmployeesTableHead';
+import EmployeeTableRow from '../EmployeesTable/EmployeeTableRow';
+import EmployeesTableHead from '../EmployeesTable/EmployeesTableHead';
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
@@ -90,7 +90,7 @@ const FormerEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <AllEmployeesTableHead formerEmployee />
+        <EmployeesTableHead formerEmployee />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>

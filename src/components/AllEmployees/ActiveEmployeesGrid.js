@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesGrid = ({
+const ActiveEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
@@ -117,4 +117,4 @@ const AllEmployeesGrid = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesGrid));
+export default injectIntl(withStyles(styles)(ActiveEmployeesGrid));
