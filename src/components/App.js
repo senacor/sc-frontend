@@ -16,8 +16,8 @@ import Content from './AppBar/Content';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
-const AllEmployeesContainer = lazy(() =>
-  import('./AllEmployees/AllEmployeesContainer')
+const ActiveEmployeesContainer = lazy(() =>
+  import('./AllEmployees/ActiveEmployeesContainer')
 );
 const FormerEmployeesContainer = lazy(() =>
   import('./AllEmployees/FormerEmployeesContainer')
@@ -58,7 +58,7 @@ const ProcessingScsContainerWithContent = withContent(ProcessingScsContainer);
 const OwnScsContainerWithContent = withContent(OwnScsContainer);
 const ScorecardDetail2WithContent = withContent(ScorecardDetail);
 const DashboardWithContent = withContent(Dashboard);
-const AllEmployeesContainerWithContent = withContent(AllEmployeesContainer);
+const ActiveEmployeesContainerWithContent = withContent(ActiveEmployeesContainer);
 const FormerEmployeesContainerWithContent = withContent(
   FormerEmployeesContainer
 );
@@ -167,13 +167,13 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.ALL_PRS_TABLE}
-                      component={AllEmployeesContainerWithContent}
+                      path={ROUTES.ACTIVE_EMPLOYEES_TABLE}
+                      component={ActiveEmployeesContainerWithContent}
                     />
                     <PrivateRoute
                       exact
                       path={'/employeeScs/:id'}
-                      component={AllEmployeesContainerWithContent}
+                      component={ActiveEmployeesContainerWithContent}
                     />
                     <PrivateRoute
                       exact
@@ -192,8 +192,8 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
-                      path={ROUTES.ALL_PRS_TABLE}
-                      component={AllEmployeesContainerWithContent}
+                      path={ROUTES.ACTIVE_EMPLOYEES_TABLE}
+                      component={ActiveEmployeesContainerWithContent}
                     />
                     <PrivateRoute
                       exact

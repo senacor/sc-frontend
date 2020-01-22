@@ -1,15 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import EmployeeCard from './EmployeeCard';
 import {
-  handleFilterActive,
-  checkFilterValues
+  checkFilterValues,
+  handleFilterActive
 } from '../../helper/filterFunctions';
-import { modifyString } from '../../helper/string';
-
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
+import { convertToStatusEnum } from '../../helper/filterData';
 
 const styles = theme => ({
   gridContainer: {
@@ -23,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesGrid = ({
+const ActiveEmployeesGrid = ({
   classes,
   intl,
   filterInputs,
@@ -46,18 +45,20 @@ const AllEmployeesGrid = ({
     }
   };
 
+  const statusEnums = convertToStatusEnum(filterInputs.scStatus);
+
   let filteredEmployees = employees.filter(empl => {
     if (!empl.entryDate) {
       return false;
     }
     const employeeName = empl.firstName + ' ' + empl.lastName;
-    const modifiedScStatus = modifyString(empl.scStatus);
+
     return (
       checkFilterValues(filterInputs.searchEmployee, employeeName) &&
       checkFilterValues(filterInputs.searchSupervisor, empl.supervisorName) &&
       checkFilterValues(filterInputs.position, empl.position) &&
       checkFilterValues(filterInputs.department, empl.department) &&
-      checkFilterValues(filterInputs.scStatus, modifiedScStatus) &&
+      checkFilterValues(statusEnums, empl.scStatus) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
       checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
       checkFilterValues(filterInputs.month, empl.entryDate[1])
@@ -117,4 +118,4 @@ const AllEmployeesGrid = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesGrid));
+export default injectIntl(withStyles(styles)(ActiveEmployeesGrid));

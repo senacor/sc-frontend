@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import AllEmployeesTableHead from './AllEmployeesTableHead';
+import EmployeesTableHead from './EmployeesTableHead';
 import {
   checkFilterValues,
   handleFilterActive
 } from '../../../helper/filterFunctions';
 import EmployeeTableRow from './EmployeeTableRow';
-
 // Material UI
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
+import { convertToStatusEnum } from '../../../helper/filterData';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesTable = ({
+const ActiveEmployeesTable = ({
   classes,
   intl,
   filterInputs,
@@ -46,6 +46,8 @@ const AllEmployeesTable = ({
     setPage(page);
   };
 
+  const statusEnums = convertToStatusEnum(filterInputs.scStatus);
+
   const filterEmployees = (employees, filterInputs) => {
     return employees.filter(empl => {
       if (!empl.entryDate) {
@@ -57,7 +59,7 @@ const AllEmployeesTable = ({
         checkFilterValues(filterInputs.searchSupervisor, empl.supervisorName) &&
         checkFilterValues(filterInputs.position, empl.position) &&
         checkFilterValues(filterInputs.department, empl.department) &&
-        checkFilterValues(filterInputs.scStatus, empl.scStatus) &&
+        checkFilterValues(statusEnums, empl.scStatus) &&
         checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
         checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
         checkFilterValues(filterInputs.month, empl.entryDate[1])
@@ -89,7 +91,7 @@ const AllEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <AllEmployeesTableHead />
+        <EmployeesTableHead />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>
@@ -124,4 +126,4 @@ const AllEmployeesTable = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesTable));
+export default injectIntl(withStyles(styles)(ActiveEmployeesTable));

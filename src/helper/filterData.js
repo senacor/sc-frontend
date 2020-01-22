@@ -35,7 +35,13 @@ export const departments = [
   'Travel Services'
 ];
 
-export const scStatuses = ['Initialization', 'In progress', 'Termin', 'Done'];
+export const scStatuses = [
+  'sc.phase.preparation',
+  'sc.phase.inProgress',
+  'sc.phase.ready',
+  'sc.phase.closed',
+  'sc.phase.archived'
+];
 
 export const locations = [
   'Berlin',
@@ -70,4 +76,14 @@ export const scDepartmentMenu = [
   'TBD'
 ];
 
-export const scWorkstatusMenu = ['In progress', 'Done'];
+
+export const convertToStatusEnum = filterInputsStatus => {
+  return filterInputsStatus.map(statusId => {
+    if (statusId === 'sc.phase.preparation') return 'INITIALIZATION';
+    if (statusId === 'sc.phase.inProgress') return 'IN_PROGRESS';
+    if (statusId === 'sc.phase.ready') return 'READY_TO_CLOSE';
+    if (statusId === 'sc.phase.closed') return 'DONE';
+    if (statusId === 'sc.phase.archived') return 'ARCHIVED';
+    return '';
+  });
+};
