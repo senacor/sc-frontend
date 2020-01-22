@@ -32,6 +32,34 @@ export const savePerformanceData = async (
   }
 };
 
+export const createScForEmployee = async (
+  employeeId,
+  setScs,
+  setIsLoading,
+  info,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${employeeId}`,
+      { method: 'post', mode: 'cors' }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+      getEmployeeScs(employeeId, setScs, setIsLoading, error);
+    }
+
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};
+
 export const exportToPdf = async (scId, error) => {
   try {
     const response = await fetch(
@@ -265,6 +293,37 @@ export const addScStatus = async (
       }
     );
     if (response.ok) {
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const removeScStatus = async (
+  scId,
+  status,
+  setSc,
+  setIsLoading,
+  afterScFetched,
+  info,
+  error
+) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/status/remove?scStatus=${status}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      info.msg('scsheet.reopenSuccessful');
       fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
     } else {
       error.showGeneral();
