@@ -14,9 +14,10 @@ import {
 import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
 import {
-  savePerformanceData,
   addScStatus,
-  publishScSectionData
+  publishScSectionData,
+  savePerformanceData,
+  saveWeightUpdate
 } from '../../../../calls/sc';
 import {
   useErrorContext,
@@ -353,6 +354,72 @@ const ScSheetWithPr = ({
     );
   };
 
+  const handleChangeWeight = (value, type, index) => {
+    const weightDTO = {
+      field: type,
+      index: index,
+      weight: value
+    };
+    const afterUpdate = () => {
+      const scSpacesToUpdate = user.isReviewerInSc(sc)
+        ? [
+            sc.privateReviewerData,
+            sc.publishedReviewerData,
+            sc.publishedEmployeeData
+          ]
+        : [
+            sc.publishedReviewerData,
+            sc.privateEmployeeData,
+            sc.publishedEmployeeData
+          ];
+      if (type === CATEGORY.DAILY_BUSINESS) {
+        dailyBusinessFields[index].weight = value;
+        setDailyBusinessFields([...dailyBusinessFields]);
+        scSpacesToUpdate.forEach(space => {
+          space[type][index].weight = value;
+        });
+      }
+      if (type === CATEGORY.PROJECT) {
+        projectFields[index].weight = value;
+        setProjectFields([...projectFields]);
+        scSpacesToUpdate.forEach(space => {
+          space[type][index].weight = value;
+        });
+      }
+
+      if (type === CATEGORY.SERVICE_QUALITY) {
+        serviceQualityFields.weight = value;
+        setServiceQualityFields({ ...serviceQualityFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+
+      if (type === CATEGORY.COMPANY_IMPACT) {
+        impactOnCompanyFields.weight = value;
+        setImpactOnCompanyFields({ ...impactOnCompanyFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+      if (type === CATEGORY.SKILLS_IN_THE_FIELDS) {
+        skillsInTheFieldsFields.weight = value;
+        setSkillsInTheFieldsFields({ ...skillsInTheFieldsFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+      if (type === CATEGORY.TEAM_IMPACT) {
+        impactOnTeamFields.weight = value;
+        setImpactOnTeamFields({ ...impactOnTeamFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+    };
+    saveWeightUpdate(sc.id, weightDTO, info, error, afterUpdate);
+  };
+
   return (
     <Fragment>
       <Performance
@@ -367,6 +434,7 @@ const ScSheetWithPr = ({
         isReviewer={user.isReviewerInSc(sc)}
         performanceWeightPercentage={performanceWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
+        handleChangeWeight={handleChangeWeight}
       />
       <PrCategories
         fieldsDisabled={fieldsDisabled}
@@ -378,6 +446,7 @@ const ScSheetWithPr = ({
         handleChangePrCategories={handleChangePrCategories}
         prCategoriesWeightPercentage={prCategoriesWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
+        handleChangeWeight={handleChangeWeight}
       />
       <FinalScoreSection finalScore={finalScore} />
       <ButtonsBelowSheet

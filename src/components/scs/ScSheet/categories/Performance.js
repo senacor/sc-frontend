@@ -40,7 +40,8 @@ const Performance = memo(
     performanceWeightPercentage,
     handleChangeWeightPercentage,
     isReviewer,
-    fieldsDisabled
+    fieldsDisabled,
+    handleChangeWeight
   }) => {
     const [dialogOpened, setDialogOpened] = useState(false);
     const [fieldOpenedDialog, setFieldOpenedDialog] = useState(undefined);
@@ -121,6 +122,9 @@ const Performance = memo(
             id: 'scsheet.textarea.achievement'
           })}
           dialogOpen={handleDialogOpen}
+          handleChangeWeight={(value, index) =>
+            handleChangeWeight(value, CATEGORY.DAILY_BUSINESS, index)
+          }
         />
         <Tooltip
           title={intl.formatMessage({
@@ -153,6 +157,9 @@ const Performance = memo(
             id: 'scsheet.textarea.achievement'
           })}
           dialogOpen={handleDialogOpen}
+          handleChangeWeight={(value, index) =>
+            handleChangeWeight(value, CATEGORY.PROJECT, index)
+          }
         />
         <Tooltip
           title={intl.formatMessage({
