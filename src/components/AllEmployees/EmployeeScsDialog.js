@@ -67,7 +67,7 @@ const EmployeeScsDialog = ({
   }, []);
 
   const dialogClose = () => {
-    window.history.pushState(null, null, ROUTES.ALL_PRS_TABLE);
+    window.history.pushState(null, null, ROUTES.ACTIVE_EMPLOYEES_TABLE);
     setDialogOpen(false);
   };
 

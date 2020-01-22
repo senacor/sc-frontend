@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesTableHead = ({ intl, classes, formerEmployee }) => {
+const EmployeesTableHead = ({ intl, classes, formerEmployee }) => {
   return (
     <TableHead>
       <TableRow className={classes.tableHead}>
@@ -68,4 +68,4 @@ const AllEmployeesTableHead = ({ intl, classes, formerEmployee }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesTableHead));
+export default injectIntl(withStyles(styles)(EmployeesTableHead));

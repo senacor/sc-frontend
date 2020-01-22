@@ -8,7 +8,7 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
       `${process.env.REACT_APP_API}/api/v1/employee/all`
     );
 
-    const responseEmployees = await response.json();
+    let responseEmployees = await response.json();
 
     setIsLoading(false);
     setEmployees(responseEmployees);

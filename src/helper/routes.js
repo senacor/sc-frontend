@@ -2,7 +2,7 @@ const ROUTES = {
   OWN_SCS: '/myScs',
   SC_TO_REVIEW_TABLE: '/scs',
   SC_DETAIL: '/scDetail/:id',
-  ALL_PRS_TABLE: '/allEmployees',
+  ACTIVE_EMPLOYEES_TABLE: '/activeEmployees',
   FORMER_EMPLOYEES: '/formerEmployees',
   DASHBOARD: '/dashboard',
   SC_IN_PROGRESS: '/dashboard/scsinprogress',

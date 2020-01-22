@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useErrorContext } from '../../helper/contextHooks';
 import { Tooltip, withStyles } from '@material-ui/core';
-import AllEmployeesGrid from './AllEmployeesGrid';
+import ActiveEmployeesGrid from './ActiveEmployeesGrid';
 import {
   departments,
   locations,
   positions,
   scStatuses
 } from '../../helper/filterData';
-import AllEmployeesTable from './AllEmployeesTable/AllEmployeesTable';
+import ActiveEmployeesTable from './EmployeesTable/ActiveEmployeesTable';
 import { years, months } from '../../helper/filterFunctions';
 import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
 
@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-const AllEmployeesContainer = ({ classes, intl }) => {
+const ActiveEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const [searchSupervisorValue, setSearchSupervisorValue] = useState('');
   const [employees, setEmployees] = useState([]);
@@ -129,42 +129,42 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   const sortingData = [
     {
       id: 1,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.startYear' }),
+      sortBy: 'employeeInfo.startYear',
       menuData: years(),
       stateValue: yearSorting,
       handleChange: handleSortYearChange
     },
     {
       id: 2,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.startMonth' }),
+      sortBy: 'employeeInfo.startMonth',
       menuData: months(),
       stateValue: monthSorting,
       handleChange: handleSortMonthChange
     },
     {
       id: 3,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.positionAbrv' }),
+      sortBy: 'employeeInfo.positionAbrv',
       menuData: positions,
       stateValue: positionSorting,
       handleChange: handleSortPositionChange
     },
     {
       id: 4,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.department' }),
+      sortBy: 'employeeInfo.department',
       menuData: departments,
       stateValue: departmentSorting,
       handleChange: handleSortDepartmentChange
     },
     {
       id: 5,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.office' }),
+      sortBy: 'employeeInfo.office',
       menuData: locations,
       stateValue: locationSorting,
       handleChange: handleSortLocationChange
     },
     {
       id: 6,
-      sortBy: intl.formatMessage({ id: 'employeeInfo.scStatus' }),
+      sortBy: 'employeeInfo.scStatus',
       menuData: scStatuses,
       stateValue: scStatusSorting,
       handleChange: handleSortScStatusChange
@@ -195,13 +195,13 @@ const AllEmployeesContainer = ({ classes, intl }) => {
         sortingData={sortingData}
       />
       {tableView ? (
-        <AllEmployeesTable
+        <ActiveEmployeesTable
           filterInputs={filterInputs}
           employees={employees}
           isLoading={isLoading}
         />
       ) : (
-        <AllEmployeesGrid
+        <ActiveEmployeesGrid
           filterInputs={filterInputs}
           employees={employees}
           isLoading={isLoading}
@@ -211,4 +211,4 @@ const AllEmployeesContainer = ({ classes, intl }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(AllEmployeesContainer));
+export default injectIntl(withStyles(styles)(ActiveEmployeesContainer));
