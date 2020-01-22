@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
+import { useErrorContext, useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
 import EmployeeScsTable from './EmployeeScsTable';
 import { getEmployeeScs, createScForEmployee } from '../../calls/sc';
 
@@ -60,6 +60,7 @@ const EmployeeScsDialog = ({
 
   const info = useInfoContext();
   const error = useErrorContext();
+  const user = useUserinfoContext();
 
   useEffect(() => {
     getEmployeeScs(employeeId, setScs, setIsLoading, error);
@@ -71,7 +72,7 @@ const EmployeeScsDialog = ({
   };
 
   const calculateCreateScButtonVisibility = () => {
-    if (supervisorName == null) {
+    if (!user.hasRoleHr() || supervisorName == null) {
       return false;
     }
     if (scs.length === 0) {
