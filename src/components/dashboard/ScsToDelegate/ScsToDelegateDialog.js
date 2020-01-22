@@ -62,14 +62,10 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   );
 
   const getDefaultReviewers = () => {
-    const defaultReviewers = [];
-    employeesInTeam.forEach(() => {
-      defaultReviewers.push({
-        reviewerId: userId,
-        reviewerName: userName
-      });
-    });
-    return defaultReviewers;
+    return employeesInTeam.map(() => ({
+      reviewerId: userId,
+      reviewerName: userName
+    }));
   };
 
   const dialogOpen = () => {
@@ -82,14 +78,10 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   };
 
   const createData = () => {
-    const data = [];
-    employeesInTeam.forEach((employee, index) => {
-      data.push({
-        employeeId: employee.id,
-        reviewerId: reviewers[index].reviewerId
-      });
-    });
-    return data;
+    return employeesInTeam.map((employee, index) => ({
+      employeeId: employee.id,
+      reviewerId: reviewers[index].reviewerId
+    }));
   };
 
   const handleSave = () => {
