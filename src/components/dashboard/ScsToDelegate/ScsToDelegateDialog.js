@@ -104,7 +104,6 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
     <Fragment>
       <InfoWidget
         label={intl.formatMessage({ id: 'scstodelegate.select' })}
-        //linkTo={}
         onClick={dialogOpen}
         value={scsToDelegate}
         icon={'category'}
