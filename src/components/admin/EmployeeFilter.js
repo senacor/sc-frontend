@@ -51,8 +51,8 @@ export const EmployeeFilter = ({
   maintenanceData,
   delegation,
   isDisabled,
-  pr,
-  updatePr,
+  settingReviewers,
+  index,
   intl,
   classes
 }) => {
@@ -72,7 +72,7 @@ export const EmployeeFilter = ({
 
   const handleDelete = () => {
     setValue('');
-    if (!maintenance && !delegation) {
+    if (!maintenance && !delegation && !settingReviewers) {
       setSelectedEmployee(null);
     }
   };
@@ -89,6 +89,8 @@ export const EmployeeFilter = ({
         setMaintenanceData,
         error
       );
+    } else if (settingReviewers) {
+      setSelectedEmployee(employee, index);
     } else {
       setSelectedEmployee(employee);
     }
@@ -128,6 +130,14 @@ export const EmployeeFilter = ({
               id: delegation
             })}
           </Fragment>
+        </Button>
+      ) : settingReviewers ? (
+        <Button
+          color="primary"
+          className={classes.spacing}
+          onClick={handleOpen}
+        >
+          <EditIcon className={classes.leftIcon} />
         </Button>
       ) : (
         <IconButton onClick={handleOpen}>

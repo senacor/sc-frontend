@@ -16,7 +16,8 @@ const styles = theme => ({
     transition: '0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
-    }
+    },
+    cursor: 'pointer'
   },
   cardContent: {
     display: 'flex',
