@@ -137,7 +137,7 @@ const ScSheetWithoutPr = ({
         setDailyBusinessFields(
           determineStatesForPropertyArray(sc, true, 'dailyBusiness')
         );
-        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
+        setProjectFields(determineStatesForPropertyArray(sc, true, 'project'));
         setWorkEfficiencyFields(
           determineStatesForProperty(sc, true, 'workEfficiency')
         );
