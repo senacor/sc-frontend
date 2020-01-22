@@ -92,43 +92,6 @@ export const Sidebar = ({ intl, classes }) => {
       value: ROUTES.DASHBOARD,
       onClick: resetMessages
     },
-    // ADMIN_TECH
-    {
-      label: intl.formatMessage({
-        id: 'sidebar.systemandinterfaces'
-      }),
-      icon: <SettingsApplications />,
-      value: ROUTES.ADMIN_SYSTEM_PANEL,
-      roles: [ROLES.ADMIN_TECH],
-      onClick: resetMessages
-    },
-    {
-      label: intl.formatMessage({
-        id: 'sidebar.userroles'
-      }),
-      icon: <SupervisedUserCircle />,
-      value: ROUTES.ADMIN_USER_ROLES,
-      roles: [ROLES.ADMIN_HR],
-      onClick: resetMessages
-    },
-    {
-      label: intl.formatMessage({
-        id: 'sidebar.maintenance'
-      }),
-      icon: <Build />,
-      value: ROUTES.MAINTENANCE,
-      roles: [ROLES.ADMIN_TECH],
-      onClick: resetMessages
-    },
-    {
-      label: intl.formatMessage({
-        id: 'sidebar.autorules'
-      }),
-      icon: <AutoRules />,
-      value: ROUTES.AUTORULES,
-      roles: [ROLES.ADMIN_TECH],
-      onClick: resetMessages
-    },
     // EMPLOYEE
     {
       label: intl.formatMessage({
@@ -159,6 +122,7 @@ export const Sidebar = ({ intl, classes }) => {
       roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
       onClick: resetMessages
     },
+    //PERSONAL DEVELOPMENT
     {
       label: intl.formatMessage({
         id: 'sidebar.formerEmployees'
@@ -166,6 +130,43 @@ export const Sidebar = ({ intl, classes }) => {
       icon: <LibraryBooksIcon />,
       value: ROUTES.FORMER_EMPLOYEES,
       roles: [ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.autorules'
+      }),
+      icon: <AutoRules />,
+      value: ROUTES.AUTORULES,
+      roles: [ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.userroles'
+      }),
+      icon: <SupervisedUserCircle />,
+      value: ROUTES.ADMIN_USER_ROLES,
+      roles: [ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    // ADMIN_TECH
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.systemandinterfaces'
+      }),
+      icon: <SettingsApplications />,
+      value: ROUTES.ADMIN_SYSTEM_PANEL,
+      roles: [ROLES.ADMIN_TECH],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.maintenance'
+      }),
+      icon: <Build />,
+      value: ROUTES.MAINTENANCE,
+      roles: [ROLES.ADMIN_TECH],
       onClick: resetMessages
     },
     // LOGOUT

@@ -5,7 +5,7 @@ export const getRoles = async (setRoles, setIsLoading, error) => {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/role/all`
+      `${process.env.REACT_APP_API}/api/v1/roles/standard`
     );
 
     const responseList = await response.json();
