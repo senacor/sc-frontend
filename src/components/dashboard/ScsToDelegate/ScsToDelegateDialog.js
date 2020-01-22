@@ -22,7 +22,7 @@ import {
 } from '../../../helper/contextHooks';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   btnClose: {
@@ -103,7 +103,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   return (
     <Fragment>
       <InfoWidget
-        label={'vyberaj beurteilerov'}
+        label={intl.formatMessage({ id: 'scstodelegate.select' })}
         //linkTo={}
         onClick={dialogOpen}
         value={scsToDelegate}
@@ -114,7 +114,9 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
           <CloseIcon />
         </IconButton>
         <DialogTitle disableTypography>
-          <Typography variant="h5">{'vyberaj'}</Typography>
+          <Typography variant="h5">
+            {intl.formatMessage({ id: 'scstodelegate.select' })}
+          </Typography>
         </DialogTitle>
         <Divider />
         <DialogContent>
