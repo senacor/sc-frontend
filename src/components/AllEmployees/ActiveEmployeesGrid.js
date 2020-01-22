@@ -47,7 +47,6 @@ const ActiveEmployeesGrid = ({
 
   const statusEnums = convertToStatusEnum(filterInputs.scStatus);
 
-  console.log('statusEnums: ', statusEnums);
   let filteredEmployees = employees.filter(empl => {
     if (!empl.entryDate) {
       return false;
