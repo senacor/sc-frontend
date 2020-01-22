@@ -303,6 +303,37 @@ export const addScStatus = async (
   }
 };
 
+export const removeScStatus = async (
+  scId,
+  status,
+  setSc,
+  setIsLoading,
+  afterScFetched,
+  info,
+  error
+) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/status/remove?scStatus=${status}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      info.msg('scsheet.reopenSuccessful');
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const getEmployeeScs = async (
   employeeId,
   setScs,
