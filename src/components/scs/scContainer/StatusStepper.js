@@ -59,7 +59,7 @@ const StatusStepper = ({ classes, intl, sc }) => {
       return;
     }
 
-    const revData = sc.privateReviewerData;
+    const revData = sc.publishedReviewerData;
 
     const isReady = () => {
       if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {

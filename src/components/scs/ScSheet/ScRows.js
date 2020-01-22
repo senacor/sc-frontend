@@ -10,10 +10,9 @@ const ScRows = memo(
     achievement,
     fields,
     action,
-    removeSubcategory,
     type,
     fieldsDisabled,
-    dialogOpen,
+    removeSubcategory,
     isReviewer,
     fieldsAmount,
     handleChangeWeight
@@ -35,9 +34,8 @@ const ScRows = memo(
               action={(type, fieldKey, e) => {
                 action(type, index, fieldKey, e);
               }}
-              removeSubcategory={() => removeSubcategory(type, index)}
               type={type}
-              dialogOpen={dialogOpen}
+              removeSubcategory={removeSubcategory}
               handleChangeWeight={value => handleChangeWeight(value, index)}
             />
           );

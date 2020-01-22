@@ -297,3 +297,46 @@ export const getEmployeeScs = async (
     error.showGeneral();
   }
 };
+
+export const addGoal = async (scId, setSc, type, goal, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/goal/${type}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({title: goal})
+      }
+    );
+    if (response.ok) {
+      const responseBody = await response.json();
+      setSc(responseBody);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const removeGoal = async (scId, setSc, type, index, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/goal/${type}?index=${index}`,
+      {
+        method: 'delete',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      const responseBody = await response.json();
+      setSc(responseBody);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};

@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { useUserinfoContext } from '../../../../helper/contextHooks';
+import { useUserinfoContext, useErrorContext } from '../../../../helper/contextHooks';
 import cloneDeep from '../../../../helper/cloneDeep';
 import { allowEditFields } from '../helperFunc';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import ScSheetWithPr from './ScSheetWithPr';
 import ScSheetWithoutPr from './ScSheetWithoutPr';
+import { addGoal, removeGoal } from '../../../../calls/sc';
 import { wrapPropertiesIntoObject } from '../../../../helper/wrapping';
 
 const styles = theme => ({
@@ -24,6 +25,7 @@ const ScSheetContainer = ({
   afterScFetched,
   tabValue
 }) => {
+  const error = useErrorContext();
   const initialFieldsData = {
     title: '',
     weight: 1,
@@ -91,16 +93,12 @@ const ScSheetContainer = ({
     }
   };
 
-  const addSubcategory = type => {
-    if (type === CATEGORY.DAILY_BUSINESS) {
-      const values = [...dailyBusinessFields];
-      values.push(initialFieldsData);
-      setDailyBusinessFields(values);
-    } else {
-      const values = [...projectFields];
-      values.push(initialFieldsData);
-      setProjectFields(values);
-    }
+  const addSubcategory = (type, goal) => {
+    addGoal(sc.id, setSc, type, goal, error);
+  };
+
+  const removeSubcategory = (type, index) => {
+    removeGoal(sc.id, setSc, type, index, error);
   };
 
   return (
@@ -109,6 +107,7 @@ const ScSheetContainer = ({
         <ScSheetWithPr
           fieldsDisabled={fieldsDisabled}
           addSubcategory={addSubcategory}
+          removeSubcategory={removeSubcategory}
           sc={sc}
           tabValue={tabValue}
           validateTitles={validateTitles}
@@ -126,6 +125,7 @@ const ScSheetContainer = ({
         <ScSheetWithoutPr
           fieldsDisabled={fieldsDisabled}
           addSubcategory={addSubcategory}
+          removeSubcategory={removeSubcategory}
           sc={sc}
           tabValue={tabValue}
           validateTitles={validateTitles}

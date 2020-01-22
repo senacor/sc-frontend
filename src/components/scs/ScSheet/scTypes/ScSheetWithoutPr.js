@@ -38,7 +38,6 @@ const ScSheetWithoutPr = ({
   sc,
   setSc,
   setIsLoading,
-  tabValue,
   validateTitles,
   fieldsDisabled,
   handleChangePerformance,
@@ -48,6 +47,7 @@ const ScSheetWithoutPr = ({
   projectFields,
   setProjectFields,
   addSubcategory,
+  removeSubcategory,
   afterScFetched
 }) => {
   const info = useInfoContext();
@@ -137,7 +137,7 @@ const ScSheetWithoutPr = ({
         setDailyBusinessFields(
           determineStatesForPropertyArray(sc, true, 'dailyBusiness')
         );
-        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
+        setProjectFields(determineStatesForPropertyArray(sc, true, 'project'));
         setWorkEfficiencyFields(
           determineStatesForProperty(sc, true, 'workEfficiency')
         );
@@ -311,6 +311,7 @@ const ScSheetWithoutPr = ({
         setProjectFields={setProjectFields}
         handleChangePerformance={handleChangePerformance}
         addSubcategory={addSubcategory}
+        removeSubcategory={removeSubcategory}
         isReviewer={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
       />

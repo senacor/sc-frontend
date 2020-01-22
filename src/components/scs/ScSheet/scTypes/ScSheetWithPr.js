@@ -37,6 +37,7 @@ const styles = theme => ({});
 const ScSheetWithPr = ({
   fieldsDisabled,
   addSubcategory,
+  removeSubcategory,
   tabValue,
   validateTitles,
   sc,
@@ -430,10 +431,12 @@ const ScSheetWithPr = ({
         setProjectFields={setProjectFields}
         handleChangePerformance={handleChangePerformance}
         addSubcategory={addSubcategory}
+        removeSubcategory={removeSubcategory}
         hasWeightPercentage
         isReviewer={user.isReviewerInSc(sc)}
         performanceWeightPercentage={performanceWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
+        canRemoveGoal={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
       />
       <PrCategories

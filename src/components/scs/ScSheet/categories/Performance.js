@@ -15,6 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import ScRows from '../ScRows';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import ConfirmDialog from '../../../utils/ConfirmDialog';
+import TextInputDialog from '../../../utils/TextInputDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -31,11 +32,10 @@ const Performance = memo(
     classes,
     intl,
     dailyBusinessFields,
-    setDailyBusinessFields,
     projectFields,
-    setProjectFields,
     handleChangePerformance,
     addSubcategory,
+    removeSubcategory,
     hasWeightPercentage,
     performanceWeightPercentage,
     handleChangeWeightPercentage,
@@ -43,29 +43,37 @@ const Performance = memo(
     fieldsDisabled,
     handleChangeWeight
   }) => {
-    const [dialogOpened, setDialogOpened] = useState(false);
-    const [fieldOpenedDialog, setFieldOpenedDialog] = useState(undefined);
+    const [addDialogOpened, setAddDialogOpened] = useState(false);
+    const [typeOpenedAddDialog, setTypeOpenedAddDialog] = useState(undefined);
 
-    const removeSubcategory = (type, index) => {
-      if (type === CATEGORY.DAILY_BUSINESS) {
-        const values = [...dailyBusinessFields];
-        values.splice(index, 1);
-        setDailyBusinessFields(values);
-      } else {
-        const values = [...projectFields];
-        values.splice(index, 1);
-        setProjectFields(values);
-      }
-      setDialogOpened(false);
+    const [removeDialogOpened, setRemoveDialogOpened] = useState(false);
+    const [fieldOpenedRemoveDialog, setFieldOpenedRemoveDialog] = useState(
+      undefined
+    );
+
+    const [newGoalName, setNewGoalName] = useState(undefined);
+
+    const handleRemoveDialogOpen = (type, index) => {
+      setRemoveDialogOpened(true);
+      setFieldOpenedRemoveDialog({ type, index });
     };
 
-    const handleDialogOpen = (type, index) => {
-      setDialogOpened(true);
-      setFieldOpenedDialog({ type, index });
+    const handleRemoveDialogClose = () => {
+      setRemoveDialogOpened(false);
     };
 
-    const handleDialogClose = () => {
-      setDialogOpened(false);
+    const handleAddDialogOpen = type => {
+      setNewGoalName('');
+      setAddDialogOpened(true);
+      setTypeOpenedAddDialog({ type });
+    };
+
+    const handleAddDialogClose = () => {
+      setAddDialogOpened(false);
+    };
+
+    const handleChangeGoalName = event => {
+      setNewGoalName(event.target.value);
     };
 
     return (
@@ -114,14 +122,13 @@ const Performance = memo(
           fieldsAmount={dailyBusinessFields.length}
           type={CATEGORY.DAILY_BUSINESS}
           action={handleChangePerformance}
-          removeSubcategory={removeSubcategory}
+          removeSubcategory={handleRemoveDialogOpen}
           description={intl.formatMessage({
             id: 'scsheet.textarea.description'
           })}
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
-          dialogOpen={handleDialogOpen}
           handleChangeWeight={(value, index) =>
             handleChangeWeight(value, CATEGORY.DAILY_BUSINESS, index)
           }
@@ -133,7 +140,7 @@ const Performance = memo(
         >
           <IconButton
             className={fieldsDisabled && classes.hidden}
-            onClick={e => addSubcategory(CATEGORY.DAILY_BUSINESS)}
+            onClick={e => handleAddDialogOpen(CATEGORY.DAILY_BUSINESS)}
           >
             <AddIcon color="primary" />
           </IconButton>
@@ -149,14 +156,13 @@ const Performance = memo(
           fieldsAmount={projectFields.length}
           type={CATEGORY.PROJECT}
           action={handleChangePerformance}
-          removeSubcategory={removeSubcategory}
           description={intl.formatMessage({
             id: 'scsheet.textarea.description'
           })}
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
-          dialogOpen={handleDialogOpen}
+          removeSubcategory={handleRemoveDialogOpen}
           handleChangeWeight={(value, index) =>
             handleChangeWeight(value, CATEGORY.PROJECT, index)
           }
@@ -167,7 +173,7 @@ const Performance = memo(
           })}
         >
           <IconButton
-            onClick={e => addSubcategory(CATEGORY.PROJECT)}
+            onClick={e => handleAddDialogOpen(CATEGORY.PROJECT)}
             className={fieldsDisabled && classes.hidden}
           >
             <AddIcon className={classes.addProjectButton} />
@@ -175,16 +181,40 @@ const Performance = memo(
         </Tooltip>
         <Divider />
         <ConfirmDialog
-          open={dialogOpened}
-          handleClose={handleDialogClose}
-          handleConfirm={() =>
-            removeSubcategory(fieldOpenedDialog.type, fieldOpenedDialog.index)
-          }
+          open={removeDialogOpened}
+          handleClose={handleRemoveDialogClose}
+          handleConfirm={() => {
+            removeSubcategory(
+              fieldOpenedRemoveDialog.type,
+              fieldOpenedRemoveDialog.index
+            );
+            setRemoveDialogOpened(false);
+          }}
           confirmationText={intl.formatMessage({
             id: 'scsheet.fieldDelete.confirm'
           })}
           confirmationHeader={intl.formatMessage({
             id: 'scsheet.fieldDelete.title'
+          })}
+        />
+        <TextInputDialog
+          open={addDialogOpened}
+          handleClose={handleAddDialogClose}
+          handleSubmit={() => {
+            addSubcategory(typeOpenedAddDialog.type, newGoalName);
+            setAddDialogOpened(false);
+          }}
+          handleInputChange={handleChangeGoalName}
+          submitDisabled={!newGoalName}
+          dialogHeader={intl.formatMessage({
+            id: 'scsheet.addGoal.header'
+          })}
+          inputLabel={intl.formatMessage({
+            id:
+              typeOpenedAddDialog &&
+              typeOpenedAddDialog.type === CATEGORY.DAILY_BUSINESS
+                ? 'scsheet.textheader.title.dailyBusiness'
+                : 'scsheet.textheader.title.project'
           })}
         />
       </Fragment>

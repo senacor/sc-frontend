@@ -5,7 +5,7 @@ import { CATEGORY } from '../../../../helper/scSheetData';
 import MixedScRow from './MixedScRow';
 import PerformanceSummary from './PerformanceSummary';
 import { reduceWeights } from '../calculations/helperFunctions';
-import { calculateFinalScoreWithoutPr } from '../calculations/scWithoutPr';
+import { calculateFinalScoreWithoutPr, calculatePercentageWithoutPr } from '../calculations/scWithoutPr';
 import FinalScoreSection from '../FinalScoreSection';
 
 const styles = theme => ({
@@ -15,6 +15,39 @@ const styles = theme => ({
 const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
   const revData = sc.publishedReviewerData;
   const emData = sc.publishedEmployeeData;
+
+  //SCORE CALCULATION based on REVIEWER score
+  const totalWeight =
+    reduceWeights(revData.dailyBusiness) +
+    reduceWeights(revData.project) +
+    revData.workEfficiency.weight +
+    revData.workQuality.weight;
+
+  const finalScore = calculateFinalScoreWithoutPr(
+    false,
+    revData.dailyBusiness,
+    revData.project,
+    revData.workEfficiency,
+    revData.workQuality,
+    totalWeight
+  );
+
+  //CALCULATE PERCENTAGE FOR EACH GOAL based on Reviewer data
+  const setDailyBusinessFields = value => (revData.dailyBusiness = value);
+  const setProjectFields = value => (revData.project = value);
+  const setWorkEfficiencyFields = value => (revData.workEfficiency = value);
+  const setWorkQualityFields = value => (revData.workQuality = value);
+  calculatePercentageWithoutPr(
+    revData.dailyBusiness,
+    setDailyBusinessFields,
+    revData.project,
+    setProjectFields,
+    revData.workEfficiency,
+    setWorkEfficiencyFields,
+    revData.workQuality,
+    setWorkQualityFields,
+    totalWeight
+  );
 
   const dailyBusinessGoals = revData.dailyBusiness.map((reviewerRow, index) => {
     return {
@@ -43,22 +76,6 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
     employee: emData.workQuality,
     reviewer: revData.workQuality
   };
-
-  //SCORE CALCULATION based on REVIEWER score
-  const totalWeight =
-    reduceWeights(revData.dailyBusiness) +
-    reduceWeights(revData.project) +
-    revData.workEfficiency.weight +
-    revData.workQuality.weight;
-
-  const finalScore = calculateFinalScoreWithoutPr(
-    false,
-    revData.dailyBusiness,
-    revData.project,
-    revData.workEfficiency,
-    revData.workQuality,
-    totalWeight
-  );
 
   const renderWorkEfficiency = () => {
     return (
@@ -113,11 +130,12 @@ const SummaryViewWithoutPr = ({ sc, classes, intl }) => {
       <PerformanceSummary
         dailyBusinessGoals={dailyBusinessGoals}
         projectGoals={projectGoals}
-        handleChangeWeightPercentage={() => {}}
+        handleChangeWeightPercentage={() => {
+        }}
       />
       {renderWorkEfficiency()}
       {renderWorkQuality()}
-      <FinalScoreSection finalScore={finalScore} reviewerScore />
+      <FinalScoreSection finalScore={finalScore} reviewerScore/>
     </Fragment>
   );
 };

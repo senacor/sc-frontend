@@ -267,6 +267,8 @@
   "message.feedbackCreated": "Your feedback was successfully noticed.",
   "userrolespanel.user": "User",
   "userrolespanel.roles": "Roles",
+  "system.cancel": "Cancel",
+  "system.ok": "Ok",
   "system.errors": "Errors",
   "system.fis": "FIS connection",
   "system.outlook": "Outlook connection",
