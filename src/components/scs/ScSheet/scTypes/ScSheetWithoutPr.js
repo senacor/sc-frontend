@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import Performance from '../categories/Performance';
@@ -6,19 +6,31 @@ import WorkEfficiency from '../categories/WorkEfficiency';
 import WorkQuality from '../categories/WorkQuality';
 import FinalScoreSection from '../FinalScoreSection';
 import { reduceWeights } from '../calculations/helperFunctions';
+import { checkEvaluationsFilledWithoutPR } from '../evaluationsCheck';
 import {
-  calculatePercentageWithoutPr,
-  calculateFinalScoreWithoutPr
+  calculateFinalScoreWithoutPr,
+  calculatePercentageWithoutPr
 } from '../calculations/scWithoutPr';
-import { SC_TAB, SC_STATUS } from '../../../../helper/scSheetData';
+import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
-import { savePerformanceData, addScStatus } from '../../../../calls/sc';
+import {
+  savePerformanceData,
+  addScStatus,
+  publishScSectionData,
+  saveWeightUpdate
+} from '../../../../calls/sc';
 import { downloadScAsPdf } from '../helperFunc.js';
 import {
-  useInfoContext,
   useErrorContext,
+  useInfoContext,
   useUserinfoContext
 } from '../../../../helper/contextHooks';
+import {
+  determineStatesForProperty,
+  determineStatesForPropertyArray,
+  mapToDTO,
+  wrapPropertiesIntoObject
+} from '../../../../helper/wrapping';
 
 const styles = () => ({});
 
@@ -26,7 +38,6 @@ const ScSheetWithoutPr = ({
   sc,
   setSc,
   setIsLoading,
-  tabValue,
   validateTitles,
   fieldsDisabled,
   handleChangePerformance,
@@ -36,6 +47,7 @@ const ScSheetWithoutPr = ({
   projectFields,
   setProjectFields,
   addSubcategory,
+  removeSubcategory,
   afterScFetched
 }) => {
   const info = useInfoContext();
@@ -89,6 +101,7 @@ const ScSheetWithoutPr = ({
     () => {
       setFinalScore(
         calculateFinalScoreWithoutPr(
+          true,
           dailyBusinessFields,
           projectFields,
           workEfficiencyFields,
@@ -109,46 +122,48 @@ const ScSheetWithoutPr = ({
 
   useEffect(
     () => {
-      if (tabValue === SC_TAB.EMPLOYEE) {
-        setDailyBusinessFields(sc.privateEmployeeData.dailyBusiness);
-        setProjectFields(sc.privateEmployeeData.project);
-        setWorkEfficiencyFields(sc.privateEmployeeData.workEfficiency);
-        setWorkQualityFields(sc.privateEmployeeData.workQuality);
-      } else if (tabValue === SC_TAB.REVIEWER) {
-        setDailyBusinessFields(sc.privateReviewerData.dailyBusiness);
-        setProjectFields(sc.privateReviewerData.project);
-        setWorkEfficiencyFields(sc.privateReviewerData.workEfficiency);
-        setWorkQualityFields(sc.privateReviewerData.workQuality);
+      if (user.isOwnerInSc(sc)) {
+        setDailyBusinessFields(
+          determineStatesForPropertyArray(sc, false, 'dailyBusiness')
+        );
+        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
+        setWorkEfficiencyFields(
+          determineStatesForProperty(sc, false, 'workEfficiency')
+        );
+        setWorkQualityFields(
+          determineStatesForProperty(sc, false, 'workQuality')
+        );
+      } else if (user.isReviewerInSc(sc)) {
+        setDailyBusinessFields(
+          determineStatesForPropertyArray(sc, true, 'dailyBusiness')
+        );
+        setProjectFields(determineStatesForPropertyArray(sc, true, 'project'));
+        setWorkEfficiencyFields(
+          determineStatesForProperty(sc, true, 'workEfficiency')
+        );
+        setWorkQualityFields(
+          determineStatesForProperty(sc, true, 'workQuality')
+        );
       }
     },
-    [tabValue]
+    [sc]
   );
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {
     const values = { ...workEfficiencyFields };
     values[propKey] = event.target.value;
+    wrapPropertiesIntoObject(values, propKey);
     setWorkEfficiencyFields(values);
   };
 
   const handleChangeWorkQuality = (type, propKey, event) => {
     const values = { ...workQualityFields };
     values[propKey] = event.target.value;
+    wrapPropertiesIntoObject(values, propKey);
     setWorkQualityFields(values);
   };
 
-  const handleSubmit = () => {
-    const mapToDTO = field => {
-      return {
-        title: field.title,
-        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
-        percentage: field.percentage,
-        description: field.description,
-        achievement: field.achievement,
-        weight: field.weight,
-        comment: field.comment
-      };
-    };
-
+  const handlePublish = withEvaluation => {
     const data = {
       dailyBusiness: dailyBusinessFields.map(mapToDTO),
       project: projectFields.map(mapToDTO),
@@ -156,52 +171,51 @@ const ScSheetWithoutPr = ({
       workQuality: mapToDTO(workQualityFields)
     };
 
-    savePerformanceData(
+    publishScSectionData(
       sc.id,
       user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
       data,
+      withEvaluation,
       info,
+      setIsLoading,
       error
     ).then(() => {
       if (user.isOwnerInSc(sc)) {
-        if (!sc.statusSet.includes(SC_STATUS.EMPLOYEE_SUBMITTED)) {
-          addScStatus(
-            sc.id,
-            SC_STATUS.EMPLOYEE_SUBMITTED,
-            setSc,
-            setIsLoading,
-            error,
-            afterScFetched
-          );
-        }
+        addScStatus(
+          sc.id,
+          SC_STATUS.EMPLOYEE_PUBLISHED,
+          setSc,
+          setIsLoading,
+          error,
+          afterScFetched
+        );
       } else if (user.isReviewerInSc(sc)) {
-        if (!sc.statusSet.includes(SC_STATUS.REVIEWER_SUBMITTED)) {
-          addScStatus(
-            sc.id,
-            SC_STATUS.REVIEWER_SUBMITTED,
-            setSc,
-            setIsLoading,
-            error,
-            afterScFetched
-          );
-        }
+        addScStatus(
+          sc.id,
+          SC_STATUS.REVIEWER_PUBLISHED,
+          setSc,
+          setIsLoading,
+          error,
+          afterScFetched
+        );
       }
     });
   };
 
-  const handleSave = () => {
-    const mapToDTO = field => {
-      return {
-        title: field.title,
-        evaluation: typeof field.evaluation === 'number' ? field.evaluation : 1,
-        percentage: field.percentage,
-        description: field.description,
-        achievement: field.achievement,
-        weight: field.weight,
-        comment: field.comment
-      };
-    };
+  const handleCloseSc = () => {
+    if (user.isReviewerInSc(sc)) {
+      addScStatus(
+        sc.id,
+        SC_STATUS.CLOSED,
+        setSc,
+        setIsLoading,
+        error,
+        afterScFetched
+      );
+    }
+  };
 
+  const handleSave = () => {
     const data = {
       dailyBusiness: dailyBusinessFields.map(mapToDTO),
       project: projectFields.map(mapToDTO),
@@ -214,12 +228,77 @@ const ScSheetWithoutPr = ({
       user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
       data,
       info,
-      error
+      error,
+      setSc,
+      setIsLoading,
+      afterScFetched
+    );
+  };
+
+  const areAllEvaluationsFilled = () => {
+    return checkEvaluationsFilledWithoutPR(
+      true,
+      dailyBusinessFields,
+      projectFields,
+      workEfficiencyFields,
+      workQualityFields
     );
   };
 
   const handlePdfDownload = () => {
     downloadScAsPdf(sc.id, sc.employee.login, error);
+  };
+
+  const handleChangeWeight = (value, type, index) => {
+    const weightDTO = {
+      field: type,
+      index: index,
+      weight: value
+    };
+    const afterUpdate = () => {
+      const scSpacesToUpdate = user.isReviewerInSc(sc)
+        ? [
+            sc.privateReviewerData,
+            sc.publishedReviewerData,
+            sc.publishedEmployeeData
+          ]
+        : [
+            sc.publishedReviewerData,
+            sc.privateEmployeeData,
+            sc.publishedEmployeeData
+          ];
+      if (type === CATEGORY.DAILY_BUSINESS) {
+        dailyBusinessFields[index].weight = value;
+        setDailyBusinessFields([...dailyBusinessFields]);
+        scSpacesToUpdate.forEach(space => {
+          space[type][index].weight = value;
+        });
+      }
+      if (type === CATEGORY.PROJECT) {
+        projectFields[index].weight = value;
+        setProjectFields([...projectFields]);
+        scSpacesToUpdate.forEach(space => {
+          space[type][index].weight = value;
+        });
+      }
+
+      if (type === CATEGORY.WORK_QUALITY) {
+        workQualityFields.weight = value;
+        setWorkQualityFields({ ...workQualityFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+
+      if (type === CATEGORY.WORK_EFFICIENCY) {
+        workEfficiencyFields.weight = value;
+        setWorkEfficiencyFields({ ...workEfficiencyFields });
+        scSpacesToUpdate.forEach(space => {
+          space[type].weight = value;
+        });
+      }
+    };
+    saveWeightUpdate(sc.id, weightDTO, info, error, afterUpdate);
   };
 
   return (
@@ -232,22 +311,30 @@ const ScSheetWithoutPr = ({
         setProjectFields={setProjectFields}
         handleChangePerformance={handleChangePerformance}
         addSubcategory={addSubcategory}
+        removeSubcategory={removeSubcategory}
+        isReviewer={user.isReviewerInSc(sc)}
+        handleChangeWeight={handleChangeWeight}
       />
       <WorkEfficiency
         fieldsDisabled={fieldsDisabled}
         workEfficiencyFields={workEfficiencyFields}
         handleChangeWorkEfficiency={handleChangeWorkEfficiency}
+        isReviewer={user.isReviewerInSc(sc)}
+        handleChangeWeight={handleChangeWeight}
       />
       <WorkQuality
         fieldsDisabled={fieldsDisabled}
         workQualityFields={workQualityFields}
         handleChangeWorkQuality={handleChangeWorkQuality}
+        isReviewer={user.isReviewerInSc(sc)}
+        handleChangeWeight={handleChangeWeight}
       />
       <FinalScoreSection finalScore={finalScore} />
       <ButtonsBelowSheet
-        submitDisabled={!validateTitles()}
+        withEvaluationsButtonDisabled={!areAllEvaluationsFilled()}
         handleSave={handleSave}
-        handleSubmit={handleSubmit}
+        handlePublish={handlePublish}
+        handleCloseSc={handleCloseSc}
         handlePdfDownload={handlePdfDownload}
         sc={sc}
       />

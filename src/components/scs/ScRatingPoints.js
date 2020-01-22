@@ -36,6 +36,7 @@ const ScRatingPoints = ({
   intl,
   type,
   rating,
+  backgroundClass,
   changeEvaluation,
   fieldsDisabled
 }) => {
@@ -59,7 +60,6 @@ const ScRatingPoints = ({
     }
     return arr;
   };
-
   return (
     <Fragment>
       <FormControl>
@@ -71,9 +71,9 @@ const ScRatingPoints = ({
         <Select
           disabled={fieldsDisabled}
           id="evaluation-label"
-          value={rating}
+          value={typeof rating === 'number' ? rating : rating.value}
           onChange={changeEvaluation}
-          className={classes.select}
+          className={`${classes.select} ${backgroundClass}`}
           renderValue={selected => <span>{selected}</span>}
           inputProps={{ className: classes.input }}
         >

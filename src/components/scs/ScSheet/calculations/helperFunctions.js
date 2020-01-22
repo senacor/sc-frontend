@@ -5,8 +5,11 @@ export const reduceWeights = arr => {
   return value;
 };
 
-export const multiplyWeightByScoreArr = arr => {
-  const mapArr = arr.map(obj => obj.weight * obj.evaluation);
+export const multiplyWeightByScoreArr = (arr, useWrappedValue) => {
+  const mapArr = arr.map(
+    obj =>
+      obj.weight * (useWrappedValue ? obj.evaluation.value : obj.evaluation)
+  );
   const reducedArr = mapArr.reduce((acc, item) => acc + item);
   return reducedArr;
 };

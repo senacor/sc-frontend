@@ -1,6 +1,15 @@
 import { default as fetch } from '../helper/customFetch';
 
-export const savePerformanceData = async (scId, type, data, info, error) => {
+export const savePerformanceData = async (
+  scId,
+  type,
+  data,
+  info,
+  error,
+  setSc,
+  setIsLoading,
+  afterScFetched
+) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v1/sc/${scId}/data/${type}`,
@@ -11,8 +20,11 @@ export const savePerformanceData = async (scId, type, data, info, error) => {
       }
     );
 
-    if (response.status === 200) {
+    if (response.ok) {
       info.msg('sc.saved');
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
     }
   } catch (err) {
     console.log(err);
@@ -79,6 +91,63 @@ export const getOwnScs = async (setOwnScs, setIsLoading, error) => {
 // Redirecting to sc
 export const linkToSc = (id, history) => {
   history.push(`/scDetail/${id}`);
+};
+
+export const saveWeightUpdate = async (
+  scId,
+  weightData,
+  info,
+  error,
+  afterUpdate
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/weight`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(weightData)
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.weight.saved');
+      afterUpdate();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const publishScSectionData = async (
+  scId,
+  type,
+  sectionData,
+  withEvaluation,
+  info,
+  setIsLoading,
+  error
+) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/data/${type}/publish?evaluation=${withEvaluation}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(sectionData)
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
 };
 
 export const fetchScById = async (
@@ -225,6 +294,49 @@ export const getEmployeeScs = async (
   } catch (err) {
     console.log(err);
     setIsLoading(false);
+    error.showGeneral();
+  }
+};
+
+export const addGoal = async (scId, setSc, type, goal, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/goal/${type}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({title: goal})
+      }
+    );
+    if (response.ok) {
+      const responseBody = await response.json();
+      setSc(responseBody);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const removeGoal = async (scId, setSc, type, index, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/goal/${type}?index=${index}`,
+      {
+        method: 'delete',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      const responseBody = await response.json();
+      setSc(responseBody);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
     error.showGeneral();
   }
 };

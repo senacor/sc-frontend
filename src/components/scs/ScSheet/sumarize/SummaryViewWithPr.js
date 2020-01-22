@@ -4,16 +4,70 @@ import { withStyles } from '@material-ui/core';
 import PerformanceSummary from './PerformanceSummary';
 import SummaryPrCategories from './SummaryPrCategories';
 import { reduceWeights } from '../calculations/helperFunctions';
-import { calculateFinalScoreWithPr } from '../calculations/scWithPr';
+import { calculateFinalScoreWithPr, calculatePercentageWithPrPerformance, calculatePercentageWithPRPrCategories } from '../calculations/scWithPr';
 import FinalScoreSection from '../FinalScoreSection';
 
 const styles = theme => ({});
 
 const SummaryViewWithPr = ({ sc }) => {
-  //TODO: so far using PRIVATE SPACE, use only PUBLSIHED for VIEW!
-  //unwrapping private data
-  const revData = sc.privateReviewerData;
-  const emData = sc.privateEmployeeData;
+  const revData = sc.publishedReviewerData;
+  const emData = sc.publishedEmployeeData;
+
+  //SCORE CALCULATION based on REVIEWER score
+  const totalWeightPerformance =
+    reduceWeights(revData.dailyBusiness) + reduceWeights(revData.project);
+
+  const totalWeightPrCategories =
+    revData.skillsInTheFields.weight +
+    revData.impactOnTeam.weight +
+    revData.serviceQuality.weight +
+    revData.impactOnCompany.weight;
+
+  const prCategoriesWeightPercentage = revData.skillsWeightPercentage;
+  const performanceWeightPercentage = 100 - prCategoriesWeightPercentage;
+
+  const finalScore = calculateFinalScoreWithPr(
+    false,
+    revData.dailyBusiness,
+    revData.project,
+    revData.skillsInTheFields,
+    revData.impactOnTeam,
+    revData.serviceQuality,
+    revData.impactOnCompany,
+    performanceWeightPercentage,
+    prCategoriesWeightPercentage,
+    totalWeightPerformance,
+    totalWeightPrCategories
+  );
+
+  //CALCULATING PERCENTAGE FOR EACH GOAL based on Reviewer data
+  const setDailyBusinessFields = value => (revData.dailyBusiness = value);
+  const setProjectFields = value => (revData.project = value);
+  const setSkillsInTheFieldsFields = value =>
+    (revData.skillsInTheFields = value);
+  const setImpactOnTeamFields = value => (revData.impactOnTeam = value);
+  const setServiceQualityFields = value => (revData.serviceQuality = value);
+  const setImpactOnCompanyFields = value => (revData.impactOnCompany = value);
+  calculatePercentageWithPrPerformance(
+    revData.dailyBusiness,
+    setDailyBusinessFields,
+    revData.project,
+    setProjectFields,
+    totalWeightPerformance,
+    performanceWeightPercentage
+  );
+  calculatePercentageWithPRPrCategories(
+    revData.skillsInTheFields,
+    setSkillsInTheFieldsFields,
+    revData.impactOnTeam,
+    setImpactOnTeamFields,
+    revData.serviceQuality,
+    setServiceQualityFields,
+    revData.impactOnCompany,
+    setImpactOnCompanyFields,
+    totalWeightPrCategories,
+    prCategoriesWeightPercentage
+  );
 
   //building structure {employee: employeePublishedGoal, reviewer: reviewerPublishedGoal}
   const skillsInTheFieldsFields = {
@@ -35,8 +89,8 @@ const SummaryViewWithPr = ({ sc }) => {
 
   const dailyBusinessGoals = revData.dailyBusiness.map((reviewerRow, index) => {
     return {
-      employee: sc.privateEmployeeData.dailyBusiness[index]
-        ? sc.privateEmployeeData.dailyBusiness[index]
+      employee: sc.publishedEmployeeData.dailyBusiness[index]
+        ? sc.publishedEmployeeData.dailyBusiness[index]
         : {},
       reviewer: reviewerRow
     };
@@ -44,38 +98,12 @@ const SummaryViewWithPr = ({ sc }) => {
 
   const projectGoals = revData.project.map((reviewerRow, index) => {
     return {
-      employee: sc.privateEmployeeData.project[index]
-        ? sc.privateEmployeeData.project[index]
+      employee: sc.publishedEmployeeData.project[index]
+        ? sc.publishedEmployeeData.project[index]
         : {},
       reviewer: reviewerRow
     };
   });
-
-  //SCORE CALCULATION based on REVIEWER score
-  const totalWeightPerformance =
-    reduceWeights(revData.dailyBusiness) + reduceWeights(revData.project);
-
-  const totalWeightPrCategories =
-    revData.skillsInTheFields.weight +
-    revData.impactOnTeam.weight +
-    revData.serviceQuality.weight +
-    revData.impactOnCompany.weight;
-
-  const prCategoriesWeightPercentage = revData.skillsWeightPercentage;
-  const performanceWeightPercentage = 100 - prCategoriesWeightPercentage;
-
-  const finalScore = calculateFinalScoreWithPr(
-    revData.dailyBusiness,
-    revData.project,
-    revData.skillsInTheFields,
-    revData.impactOnTeam,
-    revData.serviceQuality,
-    revData.impactOnCompany,
-    performanceWeightPercentage,
-    prCategoriesWeightPercentage,
-    totalWeightPerformance,
-    totalWeightPrCategories
-  );
 
   return (
     <Fragment>
@@ -92,7 +120,7 @@ const SummaryViewWithPr = ({ sc }) => {
         impactOnCompanyFields={impactOnCompanyFields}
         prCategoriesWeightPercentage={prCategoriesWeightPercentage}
       />
-      <FinalScoreSection finalScore={finalScore} reviewerScore />
+      <FinalScoreSection finalScore={finalScore} reviewerScore/>
     </Fragment>
   );
 };

@@ -4,7 +4,8 @@ import { exportToPdf } from '../../../calls/sc';
 export const allowEditFields = (isOwner, isReviewer, statuses) => {
   if (isOwner) {
     if (
-      !statuses.includes(SC_STATUS.EMPLOYEE_SUBMITTED) &&
+      (!statuses.includes(SC_STATUS.CLOSED) ||
+        !statuses.includes(SC_STATUS.ARCHIVED)) &&
       (statuses.includes(SC_STATUS.WITHOUT_PR) ||
         statuses.includes(SC_STATUS.WITH_PR))
     ) {
@@ -14,7 +15,8 @@ export const allowEditFields = (isOwner, isReviewer, statuses) => {
     }
   } else if (isReviewer) {
     if (
-      !statuses.includes(SC_STATUS.REVIEWER_SUBMITTED) &&
+      (!statuses.includes(SC_STATUS.CLOSED) ||
+        !statuses.includes(SC_STATUS.ARCHIVED)) &&
       (statuses.includes(SC_STATUS.WITHOUT_PR) ||
         statuses.includes(SC_STATUS.WITH_PR))
     ) {

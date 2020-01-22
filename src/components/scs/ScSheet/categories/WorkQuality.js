@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Typography } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
 import ScRow from '../ScRow';
 import { CATEGORY } from '../../../../helper/scSheetData';
 
@@ -14,7 +14,9 @@ const WorkQuality = memo(
     intl,
     workQualityFields,
     handleChangeWorkQuality,
-    fieldsDisabled
+    fieldsDisabled,
+    isReviewer,
+    handleChangeWeight
   }) => {
     return (
       <Fragment>
@@ -22,6 +24,7 @@ const WorkQuality = memo(
           {intl.formatMessage({ id: 'scsheet.category.workQuality' })}
         </Typography>
         <ScRow
+          isReviewer={isReviewer}
           fieldsDisabled={fieldsDisabled}
           type={CATEGORY.WORK_QUALITY}
           row={workQualityFields}
@@ -33,6 +36,9 @@ const WorkQuality = memo(
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
+          handleChangeWeight={value =>
+            handleChangeWeight(value, CATEGORY.WORK_QUALITY)
+          }
         />
       </Fragment>
     );
