@@ -52,6 +52,7 @@
   "sc.workstatus": "Work status",
   "sc.running": "In progress",
   "sc.done": "Completed",
+  "roles.save": "Save",
   "buttonsbelowsheet.fillrequired": "Please fill in all required fields.",
   "buttonsbelowsheet.release": "Submit",
   "buttonsbelowsheet.finish": "Complete",

@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { Button, Grid, IconButton, List, Popover } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  IconButton,
+  List,
+  Popover,
+  withStyles
+} from '@material-ui/core';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import Icon from '@material-ui/core/Icon';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -9,7 +16,22 @@ import ListItem from '@material-ui/core/ListItem';
 import { setRoles } from '../../calls/admin';
 import { useErrorContext } from '../../helper/contextHooks';
 
+const styles = theme => ({
+  okButton: {
+    margin: '1em',
+    marginTop: 0,
+    width: '100%',
+    color: theme.palette.secondary.white,
+    backgroundColor: theme.palette.primary['400']
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
+});
+
 const UserRolesMenu = props => {
+  const { classes, intl } = props;
   const [selectedRoles, setSelectedRoles] = useState(props.selectedRoles);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -46,7 +68,6 @@ const UserRolesMenu = props => {
           }}
         >
           <Checkbox
-            // className={classes.densed}
             style={{ padding: 0 }}
             id={role.id}
             checked={selectedRoles.includes(role.name)}
@@ -66,8 +87,6 @@ const UserRolesMenu = props => {
     handleClose();
   };
 
-  //TODO: styles not working with className ???
-
   return (
     <div>
       <IconButton onClick={handleClick}>
@@ -80,17 +99,20 @@ const UserRolesMenu = props => {
           handleClose();
         }}
       >
-        <Grid container>
-          <Grid item xs={12}>
+        <Grid container direction="column">
+          <Grid item>
             <List>
               {props.allRoles.map(role => {
                 return showContent(role);
               })}
             </List>
           </Grid>
-          <Grid item xs={9} />
-          <Grid item xs={3}>
-            <Button onClick={handleOk}>OK</Button>
+          <Grid item className={classes.buttonContainer}>
+            <Button className={classes.okButton} onClick={handleOk}>
+              {intl.formatMessage({
+                id: 'roles.save'
+              })}
+            </Button>
           </Grid>
         </Grid>
       </Popover>
@@ -98,4 +120,4 @@ const UserRolesMenu = props => {
   );
 };
 
-export default injectIntl(UserRolesMenu);
+export default injectIntl(withStyles(styles)(UserRolesMenu));

@@ -52,6 +52,7 @@
   "sc.workstatus": "Fortschritt",
   "sc.running": "Laufend",
   "sc.done": "Fertig",
+  "roles.save": "Speichern",
   "buttonsbelowsheet.fillrequired": "Bitte alle Pflichtfelder ausfüllen.",
   "buttonsbelowsheet.release": "Freigeben",
   "buttonsbelowsheet.finish": "Abschliessen",
