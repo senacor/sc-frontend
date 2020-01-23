@@ -10,6 +10,7 @@ import {
 import { removeScStatus } from '../../../../calls/sc';
 import { SC_STATUS } from '../../../../helper/scSheetData';
 import { downloadScAsPdf } from '../helperFunc';
+import ArchiveButtonWithDialog from '../ArchiveButtonWithDialog';
 
 const styles = theme => ({
   btnContainer: {
@@ -23,6 +24,9 @@ const styles = theme => ({
     display: 'none'
   },
   btnReopen: {
+    marginRight: theme.spacing.unit
+  },
+  btnArchive: {
     marginRight: theme.spacing.unit
   },
   btnDownload: {
@@ -76,6 +80,10 @@ const SummaryButtonsBelowSheet = ({
 
   return (
     <div className={classes.btnContainer}>
+      {(user.isReviewerInSc(sc) || user.hasRoleHr()) && (
+        <ArchiveButtonWithDialog sc={sc} />
+      )}
+
       <Button
         className={
           isReopenScButtonVisible() ? classes.btnReopen : classes.hidden
