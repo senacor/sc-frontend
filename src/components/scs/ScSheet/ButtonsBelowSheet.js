@@ -2,9 +2,11 @@ import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Tooltip, withStyles, Typography } from '@material-ui/core';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
-import PublishScDialog from "./PublishScDialog";
+import PublishScDialog from './PublishScDialog';
 import ConfirmDialog from '../../utils/ConfirmDialog';
-import {SC_STATUS} from "../../../helper/scSheetData";
+import { SC_STATUS } from '../../../helper/scSheetData';
+import { useUserinfoContext } from '../../../helper/contextHooks';
+import ArchiveButtonWithDialog from './ArchiveButtonWithDialog';
 
 const styles = theme => ({
   btnContainer: {
@@ -49,6 +51,8 @@ const ButtonsBelowSheet = memo(
     const [publishScDialogOpened, setPublishScDialogOpened] = useState(false);
     const [closeScDialogOpened, setCloseScDialogOpened] = useState(false);
 
+    const user = useUserinfoContext();
+
     const handleOpenPublishDialog = () => {
       setPublishScDialogOpened(true);
     };
@@ -67,6 +71,10 @@ const ButtonsBelowSheet = memo(
 
     return (
       <div className={classes.btnContainer}>
+        {(user.isReviewerInSc(sc) || user.hasRoleHr()) && (
+          <ArchiveButtonWithDialog sc={sc} />
+        )}
+
         <Button
           className={classes.btnSave}
           variant="contained"
@@ -98,7 +106,11 @@ const ButtonsBelowSheet = memo(
         </Tooltip>
 
         <Button
-          className={sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED) ? classes.btnClose : classes.hidden}
+          className={
+            sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED)
+              ? classes.btnClose
+              : classes.hidden
+          }
           variant="contained"
           color="secondary"
           onClick={handleOpenScClosingDialog}
@@ -127,7 +139,10 @@ const ButtonsBelowSheet = memo(
         <ConfirmDialog
           open={closeScDialogOpened}
           handleClose={handleCloseScClosingDialog}
-          handleConfirm={() => { handleCloseSc(); handleCloseScClosingDialog(); }}
+          handleConfirm={() => {
+            handleCloseSc();
+            handleCloseScClosingDialog();
+          }}
           confirmationText={intl.formatMessage({
             id: 'scsheet.closeScDialog.content'
           })}

@@ -409,6 +409,8 @@
   "scdialog.scsvon": "Scorecards for ",
   "scdialog.pdf": "PDF",
   "sctypetochoose.add": "Add",
+  "sc.archived": "Scorecard was archived.",
+  "sc.archived.and.created": "Scorecard was archived and the new one was created.",
   "FINAL_COMMENT_EMPLOYEE": "Final comment employee (optional)",
   "FINAL_COMMENT_HR": "Final comment HR employee (optional)",
   "INFLUENCE_OF_LEADER_AND_ENVIRONMENT": "Contribution of the supervisor and the environment",

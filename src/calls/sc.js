@@ -364,7 +364,7 @@ export const addGoal = async (scId, setSc, type, goal, error) => {
       {
         method: 'post',
         mode: 'cors',
-        body: JSON.stringify({title: goal})
+        body: JSON.stringify({ title: goal })
       }
     );
     if (response.ok) {
@@ -382,7 +382,9 @@ export const addGoal = async (scId, setSc, type, goal, error) => {
 export const removeGoal = async (scId, setSc, type, index, error) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/goal/${type}?index=${index}`,
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/goal/${type}?index=${index}`,
       {
         method: 'delete',
         mode: 'cors'
@@ -391,6 +393,47 @@ export const removeGoal = async (scId, setSc, type, index, error) => {
     if (response.ok) {
       const responseBody = await response.json();
       setSc(responseBody);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const archiveSc = async (scId, afterArchived, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/archive`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      afterArchived();
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const archiveAndCreateSc = async (scId, afterArchived, error) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/archivewithcreate`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      const responseBody = await response.json();
+      afterArchived(responseBody);
     } else {
       error.showGeneral();
     }
