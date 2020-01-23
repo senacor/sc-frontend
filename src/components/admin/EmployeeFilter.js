@@ -13,6 +13,7 @@ import {
   ListItem,
   ListItemText,
   Popover,
+  Tooltip,
   withStyles
 } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -40,6 +41,13 @@ const styles = theme => ({
   },
   spacing: {
     margin: 2 * theme.spacing.unit
+  },
+  textInfoUnderlined: {
+    color: theme.palette.secondary.darkBlue,
+    textDecoration: 'underline',
+    '&:hover': {
+      color: theme.palette.secondary.darkRed
+    }
   }
 });
 
@@ -52,6 +60,7 @@ export const EmployeeFilter = ({
   delegation,
   isDisabled,
   settingReviewers,
+  supervisorName,
   index,
   intl,
   classes
@@ -100,7 +109,7 @@ export const EmployeeFilter = ({
   // TODO: value stays in the popup after closing
 
   return (
-    <div>
+    <Fragment>
       {maintenance ? (
         <Button
           color="primary"
@@ -139,6 +148,16 @@ export const EmployeeFilter = ({
         >
           <EditIcon className={classes.leftIcon} />
         </Button>
+      ) : supervisorName ? (
+        <Tooltip
+          title={intl.formatMessage({
+            id: 'employeeInfo.clicktochange'
+          })}
+        >
+          <span className={classes.textInfoUnderlined} onClick={handleOpen}>
+            {supervisorName}
+          </span>
+        </Tooltip>
       ) : (
         <IconButton onClick={handleOpen}>
           <FilterList />
@@ -212,7 +231,7 @@ export const EmployeeFilter = ({
           )}
         </div>
       </Popover>
-    </div>
+    </Fragment>
   );
 };
 

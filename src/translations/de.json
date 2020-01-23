@@ -229,6 +229,7 @@
   "employeeInfo.noScStatus": "Kein SC erstellt",
   "employeeInfo.noSupervisor": "Nicht verfügbar",
   "employeeInfo.startDate": "Anfangsdatum",
+  "employeeInfo.clicktochange": "Klicken Sie hier, um zu ändern",
   "switchView.cards": "Auf die Karte-Ansicht wechseln",
   "switchView.table": "Auf die Tabelle-Ansicht wechseln",
   "compositionnumber.version": "version",

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { withStyles } from '@material-ui/core';
+import { Tooltip, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { modifyString } from '../../helper/string';
@@ -13,6 +13,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import EmployeeScsDialog from './EmployeeScsDialog';
 import ROUTES from '../../helper/routes';
+import EmployeeFilter from '../admin/EmployeeFilter';
+import { changeSupervisor } from '../../calls/employees';
 
 const styles = theme => ({
   card: {
@@ -51,8 +53,8 @@ const styles = theme => ({
   textInfo: {
     color: theme.palette.primary[400]
   },
-  textInfoUnderline: {
-    color: theme.palette.primary[400],
+  textInfoUnderlined: {
+    color: theme.palette.secondary.darkBlue,
     textDecoration: 'underline',
     '&:hover': {
       color: theme.palette.secondary.darkRed
@@ -93,7 +95,9 @@ const EmployeeCard = ({
   },
   formerEmployee,
   employees,
-  personalDev
+  user,
+  info,
+  error
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -108,9 +112,8 @@ const EmployeeCard = ({
     setDialogOpen(!dialogOpen);
   };
 
-  const handleSupervisorClick = event => {
-    // TODO
-    event.stopPropagation();
+  const handleChangeSupervisor = supervisor => {
+    changeSupervisor(id, supervisor.id, info, error);
   };
 
   const employeeName = (
@@ -163,16 +166,25 @@ const EmployeeCard = ({
               {`${intl.formatMessage({
                 id: 'employeeInfo.supervisor'
               })}: `}
-              <span
-                className={
-                  personalDev ? classes.textInfoUnderline : classes.textInfo
-                }
-                onClick={handleSupervisorClick}
-              >
-                {supervisorName
-                  ? supervisorName
-                  : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
-              </span>
+              {user.hasRoleHr() ? (
+                <EmployeeFilter
+                  data={employees}
+                  supervisorName={
+                    supervisorName
+                      ? supervisorName
+                      : intl.formatMessage({
+                          id: 'employeeInfo.noSupervisor'
+                        })
+                  }
+                  setSelectedEmployee={handleChangeSupervisor}
+                />
+              ) : (
+                <span className={classes.textInfo}>
+                  {supervisorName
+                    ? supervisorName
+                    : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+                </span>
+              )}
             </Typography>
           )}
           <Typography className={classes.text} component="span">

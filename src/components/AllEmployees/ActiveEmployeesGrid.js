@@ -8,7 +8,7 @@ import {
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
-import { useUserinfoContext } from '../../helper/contextHooks';
+import {useErrorContext, useInfoContext, useUserinfoContext} from '../../helper/contextHooks';
 import { convertToStatusEnum } from '../../helper/filterData';
 
 const styles = theme => ({
@@ -34,6 +34,8 @@ const ActiveEmployeesGrid = ({
   const [filterActive, setFilterActive] = useState(false);
 
   const user = useUserinfoContext();
+  const info = useInfoContext();
+  const error = useErrorContext();
 
   const cardsToShow = 15;
 
@@ -75,7 +77,9 @@ const ActiveEmployeesGrid = ({
       <EmployeeCard
         employee={employee}
         employees={employees}
-        personalDev={user.hasRoleHr()}
+        user={user}
+        info={info}
+        error={error}
       />
     </Grid>
   ));
@@ -88,7 +92,9 @@ const ActiveEmployeesGrid = ({
         <EmployeeCard
           employee={employee}
           employees={employees}
-          personalDev={user.hasRoleHr()}
+          user={user}
+          info={info}
+          error={error}
         />
       </Grid>
     ));
