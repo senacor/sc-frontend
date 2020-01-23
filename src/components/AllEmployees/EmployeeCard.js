@@ -100,6 +100,9 @@ const EmployeeCard = ({
   error
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [supervisorNameState, setSupervisorNameState] = useState(
+    supervisorName
+  );
 
   useEffect(() => {
     if (window.location.pathname === `${ROUTES.EMPLOYEE_SC}/${id}`) {
@@ -113,7 +116,9 @@ const EmployeeCard = ({
   };
 
   const handleChangeSupervisor = supervisor => {
-    changeSupervisor(id, supervisor.id, info, error);
+    changeSupervisor(id, supervisor.id, info, error).then(() => {
+      setSupervisorNameState(`${supervisor.firstName} ${supervisor.lastName}`);
+    });
   };
 
   const employeeName = (
@@ -170,8 +175,8 @@ const EmployeeCard = ({
                 <EmployeeFilter
                   data={employees}
                   supervisorName={
-                    supervisorName
-                      ? supervisorName
+                    supervisorNameState
+                      ? supervisorNameState
                       : intl.formatMessage({
                           id: 'employeeInfo.noSupervisor'
                         })
