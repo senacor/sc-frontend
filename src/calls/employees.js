@@ -125,3 +125,29 @@ export const saveReviewers = async (data, info, error) => {
     error.showGeneral();
   }
 };
+
+export const changeSupervisor = async (
+  employeeId,
+  supervisorId,
+  info,
+  error
+) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/employee/${employeeId}/supervisor?supervisorId=${supervisorId}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+
+    if (response.status === 200) {
+      info.msg('sc.saved');
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};

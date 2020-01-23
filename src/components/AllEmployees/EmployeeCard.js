@@ -13,6 +13,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import EmployeeScsDialog from './EmployeeScsDialog';
 import ROUTES from '../../helper/routes';
+import EmployeeFilter from '../admin/EmployeeFilter';
+import { changeSupervisor } from '../../calls/employees';
 
 const styles = theme => ({
   card: {
@@ -51,6 +53,13 @@ const styles = theme => ({
   textInfo: {
     color: theme.palette.primary[400]
   },
+  textInfoUnderlined: {
+    color: theme.palette.secondary.darkBlue,
+    textDecoration: 'underline',
+    '&:hover': {
+      color: theme.palette.secondary.darkRed
+    }
+  },
   selectionUnavailable: {
     backgroundColor: theme.palette.secondary.grey
   },
@@ -84,9 +93,16 @@ const EmployeeCard = ({
     entryDate,
     endDate
   },
-  formerEmployee
+  formerEmployee,
+  employees,
+  user,
+  info,
+  error
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [supervisorNameState, setSupervisorNameState] = useState(
+    supervisorName
+  );
 
   useEffect(() => {
     if (window.location.pathname === `${ROUTES.EMPLOYEE_SC}/${id}`) {
@@ -97,6 +113,12 @@ const EmployeeCard = ({
   const handleDialogOpen = () => {
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
     setDialogOpen(!dialogOpen);
+  };
+
+  const handleChangeSupervisor = supervisor => {
+    changeSupervisor(id, supervisor.id, info, error).then(() => {
+      setSupervisorNameState(`${supervisor.firstName} ${supervisor.lastName}`);
+    });
   };
 
   const employeeName = (
@@ -149,11 +171,25 @@ const EmployeeCard = ({
               {`${intl.formatMessage({
                 id: 'employeeInfo.supervisor'
               })}: `}
-              <span className={classes.textInfo}>
-                {supervisorName
-                  ? supervisorName
-                  : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
-              </span>
+              {user.hasRoleHr() ? (
+                <EmployeeFilter
+                  data={employees}
+                  supervisorName={
+                    supervisorNameState
+                      ? supervisorNameState
+                      : intl.formatMessage({
+                          id: 'employeeInfo.noSupervisor'
+                        })
+                  }
+                  setSelectedEmployee={handleChangeSupervisor}
+                />
+              ) : (
+                <span className={classes.textInfo}>
+                  {supervisorName
+                    ? supervisorName
+                    : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+                </span>
+              )}
             </Typography>
           )}
           <Typography className={classes.text} component="span">
