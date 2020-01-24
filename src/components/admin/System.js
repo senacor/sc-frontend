@@ -86,7 +86,6 @@ const styles = theme => ({
 
 const initialData = {
   fis: null,
-  outlook: null,
   errors: []
 };
 
@@ -138,7 +137,6 @@ export const System = ({ classes, intl }) => {
     deleteAllErrors(error);
     setData({
       fis: data.fis,
-      outlook: data.outlook,
       errors: []
     });
     setDialogOpen(false);
@@ -197,32 +195,16 @@ export const System = ({ classes, intl }) => {
         </div>
       ) : (
         <Fragment>
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Typography variant="h5">
-                    {intl.formatMessage({
-                      id: 'system.fis'
-                    })}
-                  </Typography>
-                  {renderStatusByType('fis')}
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Typography variant="h5">
-                    {intl.formatMessage({
-                      id: 'system.outlook'
-                    })}
-                  </Typography>
-                  {renderStatusByType('outlook')}
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h5">
+                {intl.formatMessage({
+                  id: 'system.fis'
+                })}
+              </Typography>
+              {renderStatusByType('fis')}
+            </CardContent>
+          </Card>
 
           <Paper className={classes.spacing}>
             <Grid container>
