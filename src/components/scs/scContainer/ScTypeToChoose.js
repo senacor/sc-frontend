@@ -53,6 +53,12 @@ const styles = theme => ({
     height: 40,
     marginTop: 'auto',
     marginBottom: 'auto'
+  },
+  tableCell: {
+    padding: 0
+  },
+  textField: {
+    width: '100%'
   }
 });
 
@@ -195,12 +201,19 @@ const ScTypeToChoose = ({
                   );
                 })}
                 <TableRow>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     <TextField
+                      className={classes.textField}
                       value={dailyBusinessValue}
                       onChange={handleDailyBusinessChange}
                     />
-                    <Button onClick={addDailyBusiness}>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={addDailyBusiness}
+                    >
                       {intl.formatMessage({ id: 'sctypetochoose.add' })}
                     </Button>
                   </TableCell>
@@ -235,12 +248,19 @@ const ScTypeToChoose = ({
                   );
                 })}
                 <TableRow>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     <TextField
+                      className={classes.textField}
                       value={projectValue}
                       onChange={handleProjectChange}
                     />
-                    <Button onClick={addProject}>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={addProject}
+                    >
                       {intl.formatMessage({ id: 'sctypetochoose.add' })}
                     </Button>
                   </TableCell>
