@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import FilterList from '@material-ui/icons/FilterList';
-import AddIcon from '@material-ui/icons/Add';
 import PersonAddIcon from '@material-ui/icons/People';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
 import {
   Avatar,
   IconButton,
@@ -19,8 +19,6 @@ import {
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
-import { addMaintenanceTeamMember } from '../../calls/admin';
-import { useErrorContext } from '../../helper/contextHooks';
 
 const styles = theme => ({
   box: {
@@ -32,6 +30,10 @@ const styles = theme => ({
     margin: 2 * theme.spacing.unit,
     backgroundColor: theme.palette.secondary.darkRed,
     color: theme.palette.secondary.white
+  },
+  maintenanceFindButton: {
+    marginTop: '1em',
+    margin: 3 * theme.spacing.unit
   },
   leftIcon: {
     marginRight: theme.spacing.unit
@@ -55,8 +57,6 @@ export const EmployeeFilter = ({
   data,
   setSelectedEmployee,
   maintenance,
-  setMaintenanceData,
-  maintenanceData,
   delegation,
   isDisabled,
   settingReviewers,
@@ -65,7 +65,6 @@ export const EmployeeFilter = ({
   intl,
   classes
 }) => {
-  const error = useErrorContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState('');
 
@@ -91,14 +90,7 @@ export const EmployeeFilter = ({
   };
 
   const selectEmployee = (employee, event) => {
-    if (maintenance) {
-      addMaintenanceTeamMember(
-        employee.id,
-        maintenanceData,
-        setMaintenanceData,
-        error
-      );
-    } else if (settingReviewers) {
+    if (settingReviewers) {
       setSelectedEmployee(employee, index);
     } else {
       setSelectedEmployee(employee);
@@ -113,12 +105,12 @@ export const EmployeeFilter = ({
       {maintenance ? (
         <Button
           color="primary"
-          className={classes.spacing}
+          className={classes.maintenanceFindButton}
           onClick={handleOpen}
         >
-          <AddIcon className={classes.leftIcon} />
+          <SearchIcon className={classes.leftIcon} />
           {intl.formatMessage({
-            id: 'maintenance.add'
+            id: 'maintenance.find'
           })}
         </Button>
       ) : delegation ? (
