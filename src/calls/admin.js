@@ -50,11 +50,13 @@ export const getAllEmployeesWithRoles = async (
     );
 
     const responseList = await response.json();
-    let prTableEntries = responseList ? responseList : [];
-
+    if (response.ok && responseList && Array.isArray(responseList)) {
+      let prTableEntries = responseList ? responseList : [];
+      setData(prTableEntries);
+    }
     setIsLoading(false);
-    setData(prTableEntries);
   } catch (err) {
+    setData([]);
     console.log(err);
     setIsLoading(false);
     error.showGeneral();
@@ -125,36 +127,37 @@ export const getMaintenanceTeam = async (setData, setIsLoading, error) => {
     );
     const data = await response.json();
 
-    setData(data);
+    if (response.ok && data && Array.isArray(data)) {
+      setData(data);
+    }
     setIsLoading(false);
   } catch (err) {
+    setData([]);
     console.log(err);
     error.showGeneral();
   }
 };
 
 export const addMaintenanceTeamMember = async (
-  id,
-  maintenanceData,
+  newMember,
   setMaintenanceData,
   error
 ) => {
   try {
     error.hide();
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/maintenance/member/${id}`,
+      `${process.env.REACT_APP_API}/api/v1/maintenance/member`,
       {
         method: 'post',
-        mode: 'cors'
+        mode: 'cors',
+        body: JSON.stringify(newMember)
       }
     );
-    const member = await response.json();
+    await response.json();
     if (response.status === 400) {
       error.show('maintenance.error');
     } else {
-      let newData = maintenanceData.slice(0);
-      newData.push(member);
-      setMaintenanceData(newData);
+      setMaintenanceData();
     }
   } catch (err) {
     console.log(err);
@@ -162,15 +165,14 @@ export const addMaintenanceTeamMember = async (
   }
 };
 
-export const deleteMaintenanceTeamMember = async (id, error) => {
+export const deleteMaintenanceTeamMember = async (dto, error) => {
+  console.log('DTO: ', dto);
   try {
-    await fetch(
-      `${process.env.REACT_APP_API}/api/v1/maintenance/member/${id}`,
-      {
-        method: 'delete',
-        mode: 'cors'
-      }
-    );
+    await fetch(`${process.env.REACT_APP_API}/api/v1/maintenance/member`, {
+      method: 'delete',
+      mode: 'cors',
+      body: JSON.stringify(dto)
+    });
   } catch (err) {
     console.log(err);
     error.showGeneral();
