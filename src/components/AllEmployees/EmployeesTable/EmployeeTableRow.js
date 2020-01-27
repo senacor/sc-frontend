@@ -10,6 +10,7 @@ import {
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { modifyString } from '../../../helper/string';
+import EmployeeScsDialog from '../EmployeeScsDialog';
 
 const styles = theme => ({
   tableRow: {
@@ -40,6 +41,7 @@ const EmployeeTableRow = ({
   classes,
   intl,
   employee: {
+    id,
     firstName,
     lastName,
     department,
@@ -81,7 +83,16 @@ const EmployeeTableRow = ({
             : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>
-      {dialogOpen && <div>TODO add dialog</div>}
+      {dialogOpen && (
+        <EmployeeScsDialog
+          employeeId={id}
+          firstName={firstName}
+          lastName={lastName}
+          supervisorName={supervisorName}
+          dialogOpen={dialogOpen}
+          setDialogOpen={setDialogOpen}
+        />
+      )}
     </Fragment>
   );
 };
