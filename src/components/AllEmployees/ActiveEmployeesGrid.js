@@ -32,7 +32,6 @@ const ActiveEmployeesGrid = ({
   intl,
   filterInputs,
   employees,
-  currentSupervisors,
   isLoading
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
@@ -75,6 +74,10 @@ const ActiveEmployeesGrid = ({
       checkFilterValues(filterInputs.month, empl.entryDate[1])
     );
   });
+
+  const currentSupervisors = employees.filter(
+    employee => employee.hasSupervisorRole
+  );
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
