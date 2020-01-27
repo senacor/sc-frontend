@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Typography, withStyles } from '@material-ui/core';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
 import { injectIntl } from 'react-intl';
@@ -46,7 +46,6 @@ const SummaryButtonsBelowSheet = ({
   setSc,
   afterScFetched
 }) => {
-  const [setIsLoading] = useState([]);
 
   const user = useUserinfoContext();
   const error = useErrorContext();
@@ -70,7 +69,7 @@ const SummaryButtonsBelowSheet = ({
         sc.id,
         SC_STATUS.CLOSED,
         setSc,
-        setIsLoading,
+        () => {},
         afterScFetched,
         info,
         error

@@ -1,6 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles, Paper, Button, Typography } from '@material-ui/core';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import SearchFilter from './SearchFilter';
 
 // Icons
@@ -38,6 +39,14 @@ const styles = theme => ({
     border: `1px solid ${theme.palette.secondary.grey}`,
     height: 38,
     minWidth: 160
+  },
+  btnDownload: {
+    background: theme.palette.secondary.darkYellow,
+    color: theme.palette.secondary.white
+  },
+  btnDownloadText: {
+    color: theme.palette.secondary.white,
+    paddingLeft: theme.spacing.unit
   }
 });
 
@@ -48,6 +57,7 @@ const UpperFilterMenu = ({
   handleSearchEmployeeChange,
   searchSupervisorValue,
   handleSearchSupervisorChange,
+  handleDownloadAllScs,
   visibleAdvancedFilter,
   clearFilter,
   toggleSortingFilter,
@@ -76,6 +86,18 @@ const UpperFilterMenu = ({
           )}
         </div>
         <div>
+          <Button
+            className={classes.btnDownload}
+            variant="contained"
+            onClick={handleDownloadAllScs}
+            download
+          >
+            <GetAppIcon />
+            <Typography className={classes.btnDownloadText}>
+              {intl.formatMessage({ id: 'filter.downloadAll' })}
+            </Typography>
+          </Button>
+
           {visibleAdvancedFilter && (
             <Button
               variant="contained"
