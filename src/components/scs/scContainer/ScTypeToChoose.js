@@ -128,6 +128,18 @@ const ScTypeToChoose = ({
     dailyBusinesses.length < 1 ||
     projects.length < 1;
 
+  const submitButton = (
+    <Button
+      disabled={submitDisabled}
+      onClick={handleSubmitScType}
+      color="secondary"
+      variant="contained"
+      className={classes.submitScType}
+    >
+      {intl.formatMessage({ id: 'scsheet.submit' })}
+    </Button>
+  );
+
   return (
     <Paper className={classes.chooseScType}>
       <Typography variant="h5" className={classes.scTypeSelectionHeader}>
@@ -278,26 +290,10 @@ const ScTypeToChoose = ({
         </Grid>
         {submitDisabled ? (
           <Tooltip title={intl.formatMessage({ id: 'sctypetochoose.tooltip' })}>
-            <span>
-              <Button
-                disabled
-                color="secondary"
-                variant="contained"
-                className={classes.submitScType}
-              >
-                {intl.formatMessage({ id: 'scsheet.submit' })}
-              </Button>
-            </span>
+            <span>{submitButton}</span>
           </Tooltip>
         ) : (
-          <Button
-            onClick={handleSubmitScType}
-            color="secondary"
-            variant="contained"
-            className={classes.submitScType}
-          >
-            {intl.formatMessage({ id: 'scsheet.submit' })}
-          </Button>
+          submitButton
         )}
       </div>
     </Paper>
