@@ -20,30 +20,6 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
   }
 };
 
-export const getAllSupervisors = async (
-  setSupervisors,
-  setIsLoading,
-  error
-) => {
-  try {
-    setIsLoading(true);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/employee/supervisors`
-    );
-
-    let responseEmployees = await response.json();
-
-    setIsLoading(false);
-    setSupervisors(responseEmployees);
-  } catch (err) {
-    console.log(err);
-    setIsLoading(false);
-    setSupervisors([]);
-    error.showGeneral();
-  }
-};
-
 export const getInactiveEmployees = async (
   setEmployees,
   setIsLoading,
