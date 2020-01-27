@@ -12,6 +12,7 @@ import {
 import ActiveEmployeesTable from './EmployeesTable/ActiveEmployeesTable';
 import { years, months } from '../../helper/filterFunctions';
 import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
+import { downloadExcelAllScs } from '../../helper/downloadExcel';
 
 // Calls
 import { getAllEmployees } from '../../calls/employees';
@@ -115,6 +116,10 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
     }
   };
 
+  const handleDownloadAllScs = () => {
+    downloadExcelAllScs(error);
+  };
+
   const filterInputs = {
     searchEmployee: searchEmployeesValue,
     searchSupervisor: searchSupervisorValue,
@@ -189,6 +194,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
         handleSearchEmployeeChange={handleSearchEmployeeChange}
         searchSupervisorValue={searchSupervisorValue}
         handleSearchSupervisorChange={handleSearchSupervisorChange}
+        handleDownloadAllScs={handleDownloadAllScs}
         visibleAdvancedFilter={visibleAdvancedFilter}
         clearFilter={clearFilter}
         toggleSortingFilter={toggleSortingFilter}
