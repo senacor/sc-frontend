@@ -94,7 +94,7 @@ const EmployeeCard = ({
     endDate
   },
   formerEmployee,
-  employees,
+  currentSupervisors,
   user,
   info,
   error
@@ -173,7 +173,7 @@ const EmployeeCard = ({
               })}: `}
               {user.hasRoleHr() ? (
                 <EmployeeFilter
-                  data={employees}
+                  data={currentSupervisors}
                   supervisorName={
                     supervisorNameState
                       ? supervisorNameState

@@ -15,7 +15,7 @@ import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
 import { downloadExcelAllScs } from '../../helper/downloadExcel';
 
 // Calls
-import { getAllEmployees } from '../../calls/employees';
+import { getAllEmployees, getAllSupervisors } from '../../calls/employees';
 
 // Material UI
 import IconButton from '@material-ui/core/IconButton';
@@ -41,6 +41,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const [searchSupervisorValue, setSearchSupervisorValue] = useState('');
   const [employees, setEmployees] = useState([]);
+  const [currentSupervisors, setCurrentSupervisors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [monthSorting, setMonthSorting] = useState([]);
   const [yearSorting, setYearSorting] = useState([]);
@@ -58,6 +59,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
       setTableView(true);
     }
     getAllEmployees(setEmployees, setIsLoading, error);
+    getAllSupervisors(setCurrentSupervisors, setIsLoading, error);
   }, []);
 
   const handleSearchEmployeeChange = event => {
@@ -204,12 +206,14 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
         <ActiveEmployeesTable
           filterInputs={filterInputs}
           employees={employees}
+          currentSupervisors={currentSupervisors}
           isLoading={isLoading}
         />
       ) : (
         <ActiveEmployeesGrid
           filterInputs={filterInputs}
           employees={employees}
+          currentSupervisors={currentSupervisors}
           isLoading={isLoading}
         />
       )}
