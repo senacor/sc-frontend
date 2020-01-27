@@ -19,7 +19,8 @@ import {
   TableBody,
   TextField,
   IconButton,
-  Grid
+  Grid,
+  Tooltip
 } from '@material-ui/core';
 import { SC_STATUS, classifications } from '../../../helper/scSheetData';
 import { modifyString } from '../../../helper/string';
@@ -53,6 +54,12 @@ const styles = theme => ({
     height: 40,
     marginTop: 'auto',
     marginBottom: 'auto'
+  },
+  tableCell: {
+    padding: 0
+  },
+  textField: {
+    width: '100%'
   }
 });
 
@@ -114,6 +121,12 @@ const ScTypeToChoose = ({
     newProjects.splice(idx, 1);
     setProjects(newProjects);
   };
+
+  const submitDisabled =
+    !scTypeSelected ||
+    !classification ||
+    dailyBusinesses.length < 1 ||
+    projects.length < 1;
 
   return (
     <Paper className={classes.chooseScType}>
@@ -195,12 +208,19 @@ const ScTypeToChoose = ({
                   );
                 })}
                 <TableRow>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     <TextField
+                      className={classes.textField}
                       value={dailyBusinessValue}
                       onChange={handleDailyBusinessChange}
                     />
-                    <Button onClick={addDailyBusiness}>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={addDailyBusiness}
+                    >
                       {intl.formatMessage({ id: 'sctypetochoose.add' })}
                     </Button>
                   </TableCell>
@@ -235,12 +255,19 @@ const ScTypeToChoose = ({
                   );
                 })}
                 <TableRow>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
                     <TextField
+                      className={classes.textField}
                       value={projectValue}
                       onChange={handleProjectChange}
                     />
-                    <Button onClick={addProject}>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={addProject}
+                    >
                       {intl.formatMessage({ id: 'sctypetochoose.add' })}
                     </Button>
                   </TableCell>
@@ -249,20 +276,29 @@ const ScTypeToChoose = ({
             </Table>
           </Grid>
         </Grid>
-        <Button
-          disabled={
-            !scTypeSelected ||
-            !classification ||
-            dailyBusinesses.length < 1 ||
-            projects.length < 1
-          }
-          onClick={handleSubmitScType}
-          color="secondary"
-          variant="contained"
-          className={classes.submitScType}
-        >
-          {intl.formatMessage({ id: 'scsheet.submit' })}
-        </Button>
+        {submitDisabled ? (
+          <Tooltip title={intl.formatMessage({ id: 'sctypetochoose.tooltip' })}>
+            <span>
+              <Button
+                disabled
+                color="secondary"
+                variant="contained"
+                className={classes.submitScType}
+              >
+                {intl.formatMessage({ id: 'scsheet.submit' })}
+              </Button>
+            </span>
+          </Tooltip>
+        ) : (
+          <Button
+            onClick={handleSubmitScType}
+            color="secondary"
+            variant="contained"
+            className={classes.submitScType}
+          >
+            {intl.formatMessage({ id: 'scsheet.submit' })}
+          </Button>
+        )}
       </div>
     </Paper>
   );

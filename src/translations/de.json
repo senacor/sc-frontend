@@ -549,6 +549,7 @@
   "scstodelegate.cancel": "Stornieren",
   "scstodelegate.select": "Beurteiler auswählen",
   "sctypetochoose.add": "Hinzufügen",
+  "sctypetochoose.tooltip": "Sie müssen Scorecard Typ und Einstuffung auswählen und wenigstens ein Tägliches Geschäft und ein Projekt eingeben.",
   "FINAL_COMMENT_EMPLOYEE": "Abschließender, Kommentar durch Mitarbeiter (optional)",
   "FINAL_COMMENT_HR": "Abschließender Kommentar durch HR-Mitarbeiter (optional)",
   "INFLUENCE_OF_LEADER_AND_ENVIRONMENT": "Beitrag des Vorgesetzten und des Umfelds",
