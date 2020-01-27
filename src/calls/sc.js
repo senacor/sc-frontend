@@ -71,6 +71,17 @@ export const exportToPdf = async (scId, error) => {
   }
 };
 
+export const exportToXlsx = async error => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/excel-export`
+    );
+    return await response.blob();
+  } catch (err) {
+    error.showGeneral();
+  }
+};
+
 export const saveDelegation = async (
   scId,
   data,
