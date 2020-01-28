@@ -166,7 +166,6 @@ export const addMaintenanceTeamMember = async (
 };
 
 export const deleteMaintenanceTeamMember = async (dto, error) => {
-  console.log('DTO: ', dto);
   try {
     await fetch(`${process.env.REACT_APP_API}/api/v1/maintenance/member`, {
       method: 'delete',

@@ -52,9 +52,9 @@ const ScSheetWithPr = ({
 }) => {
   const initialFieldsData = {
     title: '',
-    weight: 1,
+    weight: 0,
     percentage: 0,
-    evaluation: { value: 3, state: 'CHANGED' },
+    evaluation: { value: 0, state: 'CHANGED' },
     description: { value: '', state: 'CHANGED' },
     achievement: { value: '', state: 'CHANGED' },
     comment: { value: '', state: 'CHANGED' }
@@ -173,53 +173,60 @@ const ScSheetWithPr = ({
 
   useEffect(
     () => {
-      if (user.isOwnerInSc(sc)) {
-        setDailyBusinessFields(
-          determineStatesForPropertyArray(sc, false, 'dailyBusiness')
-        );
-        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
-        setSkillsInTheFieldsFields(
-          determineStatesForProperty(sc, false, 'skillsInTheFields')
-        );
-        setImpactOnTeamFields(
-          determineStatesForProperty(sc, false, 'impactOnTeam')
-        );
-        setServiceQualityFields(
-          determineStatesForProperty(sc, false, 'serviceQuality')
-        );
-        setImpactOnCompanyFields(
-          determineStatesForProperty(sc, false, 'impactOnCompany')
-        );
-        setPerformanceWeightPercentage(
-          100 - sc.privateEmployeeData.skillsWeightPercentage
-        );
-        setPrCategoriesWeightPercentage(
-          sc.privateEmployeeData.skillsWeightPercentage
-        );
-      } else if (user.isReviewerInSc(sc)) {
-        setDailyBusinessFields(
-          determineStatesForPropertyArray(sc, true, 'dailyBusiness')
-        );
-        setProjectFields(determineStatesForPropertyArray(sc, true, 'project'));
-        setSkillsInTheFieldsFields(
-          determineStatesForProperty(sc, true, 'skillsInTheFields')
-        );
-        setImpactOnTeamFields(
-          determineStatesForProperty(sc, true, 'impactOnTeam')
-        );
-        setServiceQualityFields(
-          determineStatesForProperty(sc, true, 'serviceQuality')
-        );
-        setImpactOnCompanyFields(
-          determineStatesForProperty(sc, true, 'impactOnCompany')
-        );
-        setPerformanceWeightPercentage(
-          100 - sc.privateReviewerData.skillsWeightPercentage
-        );
-        setPrCategoriesWeightPercentage(
-          sc.privateReviewerData.skillsWeightPercentage
-        );
-      }
+      setDailyBusinessFields(
+        determineStatesForPropertyArray(
+          sc,
+          user.isReviewerInSc(sc),
+          'dailyBusiness',
+          dailyBusinessFields
+        )
+      );
+      setProjectFields(
+        determineStatesForPropertyArray(
+          sc,
+          user.isReviewerInSc(sc),
+          'project',
+          projectFields
+        )
+      );
+      setSkillsInTheFieldsFields(
+        determineStatesForProperty(
+          sc,
+          user.isReviewerInSc(sc),
+          'skillsInTheFields',
+          skillsInTheFieldsFields
+        )
+      );
+      setImpactOnTeamFields(
+        determineStatesForProperty(
+          sc,
+          user.isReviewerInSc(sc),
+          'impactOnTeam',
+          impactOnTeamFields
+        )
+      );
+      setServiceQualityFields(
+        determineStatesForProperty(
+          sc,
+          user.isReviewerInSc(sc),
+          'serviceQuality',
+          serviceQualityFields
+        )
+      );
+      setImpactOnCompanyFields(
+        determineStatesForProperty(
+          sc,
+          user.isReviewerInSc(sc),
+          'impactOnCompany',
+          impactOnCompanyFields
+        )
+      );
+
+      const privateData = user.isReviewerInSc(sc)
+        ? sc.privateReviewerData
+        : sc.privateEmployeeData;
+      setPerformanceWeightPercentage(100 - privateData.skillsWeightPercentage);
+      setPrCategoriesWeightPercentage(privateData.skillsWeightPercentage);
     },
     [sc]
   );

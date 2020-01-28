@@ -47,7 +47,7 @@ const styles = theme => ({
   btnDownloadText: {
     color: theme.palette.secondary.white,
     paddingLeft: theme.spacing.unit
-  }
+  },
 });
 
 const UpperFilterMenu = ({
@@ -86,7 +86,7 @@ const UpperFilterMenu = ({
           )}
         </div>
         <div>
-          <Button
+          {handleDownloadAllScs && (<Button
             className={classes.btnDownload}
             variant="contained"
             onClick={handleDownloadAllScs}
@@ -97,6 +97,7 @@ const UpperFilterMenu = ({
               {intl.formatMessage({ id: 'filter.downloadAll' })}
             </Typography>
           </Button>
+          )}
 
           {visibleAdvancedFilter && (
             <Button
