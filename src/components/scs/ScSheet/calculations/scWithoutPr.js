@@ -6,9 +6,7 @@ export const percentageArrWithoutPr = (state, setState, totalWeight) => {
   const values = cloneDeep(state);
   const newValues = values.map(obj => {
     const newObjectValue = { ...obj };
-    newObjectValue.percentage = Math.round(
-      (newObjectValue.weight / totalWeight) * 100
-    );
+    newObjectValue.percentage = totalWeight !== 0 ? Math.round((newObjectValue.weight / totalWeight) * 100) : 0;
     return newObjectValue;
   });
   setState(newValues);
@@ -16,7 +14,7 @@ export const percentageArrWithoutPr = (state, setState, totalWeight) => {
 
 export const percentageObjWithoutPr = (state, setState, totalWeight) => {
   const value = { ...state };
-  value.percentage = Math.round((value.weight / totalWeight) * 100);
+  value.percentage = totalWeight !== 0 ? Math.round((value.weight / totalWeight) * 100) : 0;
   setState(value);
 };
 
@@ -71,6 +69,6 @@ export const calculateFinalScoreWithoutPr = (
   }
   const scoreInTotal =
     dailyBusinessScore + projectScore + workQualityScore + workEfficiencyScore;
-  const finalScore = scoreInTotal / totalWeight;
+  const finalScore = totalWeight !== 0 ? scoreInTotal / totalWeight : 0;
   return round(finalScore, 1);
 };

@@ -52,9 +52,9 @@ const ScSheetWithPr = ({
 }) => {
   const initialFieldsData = {
     title: '',
-    weight: 1,
+    weight: 0,
     percentage: 0,
-    evaluation: { value: 3, state: 'CHANGED' },
+    evaluation: { value: 0, state: 'CHANGED' },
     description: { value: '', state: 'CHANGED' },
     achievement: { value: '', state: 'CHANGED' },
     comment: { value: '', state: 'CHANGED' }

@@ -113,7 +113,7 @@ export const mapToDTO = field => {
   return {
     title: field.title,
     evaluation:
-      typeof field.evaluation.value === 'number' ? field.evaluation.value : 1,
+      typeof field.evaluation.value === 'number' ? field.evaluation.value : 0,
     percentage: field.percentage,
     description: field.description.value,
     achievement: field.achievement.value,
