@@ -89,8 +89,8 @@ const UpperFilterMenu = ({
           )}
         </div>
         <div>
-          <Button
-            className={handleDownloadAllScs ? classes.btnDownload : classes.hidden}
+          {handleDownloadAllScs && (<Button
+            className={classes.btnDownload}
             variant="contained"
             onClick={handleDownloadAllScs}
             download
@@ -100,6 +100,7 @@ const UpperFilterMenu = ({
               {intl.formatMessage({ id: 'filter.downloadAll' })}
             </Typography>
           </Button>
+          )}
 
           {visibleAdvancedFilter && (
             <Button
