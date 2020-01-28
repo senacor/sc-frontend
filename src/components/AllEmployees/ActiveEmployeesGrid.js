@@ -38,7 +38,7 @@ const ActiveEmployeesGrid = ({
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  console.log('selected', selectedEmployee);
+
   const user = useUserinfoContext();
   const info = useInfoContext();
   const error = useErrorContext();
