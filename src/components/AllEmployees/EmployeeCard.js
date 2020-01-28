@@ -104,17 +104,6 @@ const EmployeeCard = ({
     supervisorName
   );
 
-  useEffect(() => {
-    if (window.location.pathname === `${ROUTES.EMPLOYEE_SC}/${id}`) {
-      setSelectedEmployee({
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        supervisorName: supervisorName
-      });
-    }
-  }, []);
-
   const handleDialogOpen = () => {
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
     setSelectedEmployee({

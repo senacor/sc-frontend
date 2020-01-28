@@ -38,7 +38,7 @@ const ActiveEmployeesGrid = ({
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-
+  console.log('selected', selectedEmployee);
   const user = useUserinfoContext();
   const info = useInfoContext();
   const error = useErrorContext();
@@ -48,6 +48,20 @@ const ActiveEmployeesGrid = ({
   useEffect(() => {
     setFilterActive(handleFilterActive(filterInputs));
   });
+
+  useEffect(
+    () => {
+      const splitUrl = window.location.pathname.split('/');
+      if (!isNaN(splitUrl[splitUrl.length - 1])) {
+        setSelectedEmployee(
+          employees.filter(
+            employee => employee.id === Number(splitUrl[splitUrl.length - 1])
+          )[0]
+        );
+      }
+    },
+    [employees]
+  );
 
   const showMore = employees => {
     if (itemsShown + cardsToShow <= employees.length) {
