@@ -71,9 +71,6 @@ export const determineStatesForProperty = (
   //stateObject: 'dailyBusinessFields, projectFields' containing
   // real state with also calculated percentage. Those percentage wee need keep
 
-  if(property === 'workEfficiency'){
-    console.log('workEfficiency: ', stateObject);
-  }
   const publicSpace = isReviewer
     ? sc.publishedReviewerData
     : sc.publishedEmployeeData;
