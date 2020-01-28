@@ -7,7 +7,6 @@ import FormerEmployeesTable from './FormerEmployeesTable/FormerEmployeesTable';
 import { useErrorContext } from '../../helper/contextHooks';
 import { years, months } from '../../helper/filterFunctions';
 import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
-import { downloadExcelAllScs } from '../../helper/downloadExcel';
 
 // Calls
 import { getInactiveEmployees } from '../../calls/employees';
@@ -130,10 +129,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
     }
   };
 
-  const handleDownloadAllScs = () => {
-    downloadExcelAllScs(error);
-  };
-
   const filterInputs = {
     searchEmployee: searchEmployeesValue,
     year: [...yearSorting],
@@ -197,7 +192,6 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       <UpperFilterMenu
         searchEmployeesValue={searchEmployeesValue}
         handleSearchEmployeeChange={handleSearchEmployeeChange}
-        handleDownloadAllScs={handleDownloadAllScs}
         visibleAdvancedFilter={visibleAdvancedFilter}
         clearFilter={clearFilter}
         toggleSortingFilter={toggleSortingFilter}

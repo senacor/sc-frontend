@@ -47,6 +47,9 @@ const styles = theme => ({
   btnDownloadText: {
     color: theme.palette.secondary.white,
     paddingLeft: theme.spacing.unit
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
@@ -87,7 +90,7 @@ const UpperFilterMenu = ({
         </div>
         <div>
           <Button
-            className={classes.btnDownload}
+            className={handleDownloadAllScs ? classes.btnDownload : classes.hidden}
             variant="contained"
             onClick={handleDownloadAllScs}
             download
