@@ -1,13 +1,10 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Grid, CircularProgress } from '@material-ui/core';
-import {
-  useErrorContext,
-  useUserinfoContext
-} from '../../../helper/contextHooks';
+import { CircularProgress, Grid, withStyles } from '@material-ui/core';
+import { useErrorContext } from '../../../helper/contextHooks';
 import { getOwnScs } from '../../../calls/sc';
 import ScCard from './ScCard';
-import { determineScRole } from '../helperFunc';
+import { translateGeneralStatus } from '../../../helper/string';
 
 const styles = theme => ({
   ...theme,
@@ -25,18 +22,15 @@ const OwnScsContainer = ({ classes }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
-  const userId = useUserinfoContext().context.value.userinfo.userId;
 
   useEffect(() => {
     getOwnScs(setOwnScs, setIsLoading, error);
   }, []);
 
   const listofOwnScs = ownScs.map((sc, index) => {
-    const statuses = sc.statusSet;
-    const isOwner = userId === sc.employeeId;
     return (
       <Grid item key={index} className={classes.padding}>
-        <ScCard sc={sc} status={determineScRole(isOwner, null, statuses)} />
+        <ScCard sc={sc} status={translateGeneralStatus(sc.scStatus)} />
       </Grid>
     );
   });

@@ -1,13 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Grid, CircularProgress } from '@material-ui/core';
+import { CircularProgress, Grid, withStyles } from '@material-ui/core';
 import ProcessingScsCard from './ProcessingScCard';
-import {
-  useErrorContext,
-  useUserinfoContext
-} from '../../../helper/contextHooks';
+import { useErrorContext } from '../../../helper/contextHooks';
 import { getScsToReview } from '../../../calls/sc';
-import { determineScRole } from '../helperFunc';
+import { translateGeneralStatus } from '../../../helper/string';
 
 const styles = theme => ({
   ...theme,
@@ -25,21 +22,17 @@ const ProcessingScContainer = ({ classes }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const error = useErrorContext();
-  const userId = useUserinfoContext().context.value.userinfo.userId;
 
   useEffect(() => {
     getScsToReview(setProcessingScs, setIsLoading, error);
   }, []);
 
   const listOfProcessingScs = processingScs.map((sc, index) => {
-    const statuses = sc.statusSet;
-    const isOwner = userId === sc.employeeId;
-    const isReviewer = userId === sc.reviewer1 || userId === sc.reviewer2;
     return (
       <Grid item key={index} className={classes.padding}>
         <ProcessingScsCard
           sc={sc}
-          status={determineScRole(isOwner, isReviewer, statuses)}
+          status={translateGeneralStatus(sc.scStatus)}
         />
       </Grid>
     );
