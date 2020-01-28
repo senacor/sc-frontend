@@ -95,24 +95,34 @@ const EmployeeCard = ({
   },
   formerEmployee,
   currentSupervisors,
+  setSelectedEmployee,
   user,
   info,
   error
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [supervisorNameState, setSupervisorNameState] = useState(
     supervisorName
   );
 
   useEffect(() => {
     if (window.location.pathname === `${ROUTES.EMPLOYEE_SC}/${id}`) {
-      setDialogOpen(true);
+      setSelectedEmployee({
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        supervisorName: supervisorName
+      });
     }
   }, []);
 
   const handleDialogOpen = () => {
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
-    setDialogOpen(!dialogOpen);
+    setSelectedEmployee({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      supervisorName: supervisorName
+    });
   };
 
   const handleChangeSupervisor = supervisor => {
@@ -238,16 +248,6 @@ const EmployeeCard = ({
           )}
         </CardContent>
       </Card>
-      {dialogOpen && (
-        <EmployeeScsDialog
-          employeeId={id}
-          firstName={firstName}
-          lastName={lastName}
-          supervisorName={supervisorName}
-          dialogOpen={dialogOpen}
-          setDialogOpen={setDialogOpen}
-        />
-      )}
     </Fragment>
   );
 };
