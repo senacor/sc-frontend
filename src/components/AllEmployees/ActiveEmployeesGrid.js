@@ -14,6 +14,7 @@ import {
   useUserinfoContext
 } from '../../helper/contextHooks';
 import { convertToStatusEnum } from '../../helper/filterData';
+import EmployeeScsDialog from './EmployeeScsDialog';
 
 const styles = theme => ({
   gridContainer: {
@@ -36,6 +37,7 @@ const ActiveEmployeesGrid = ({
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const user = useUserinfoContext();
   const info = useInfoContext();
@@ -46,6 +48,20 @@ const ActiveEmployeesGrid = ({
   useEffect(() => {
     setFilterActive(handleFilterActive(filterInputs));
   });
+
+  useEffect(
+    () => {
+      const splitUrl = window.location.pathname.split('/');
+      if (!isNaN(splitUrl[splitUrl.length - 1])) {
+        setSelectedEmployee(
+          employees.filter(
+            employee => employee.id === Number(splitUrl[splitUrl.length - 1])
+          )[0]
+        );
+      }
+    },
+    [employees]
+  );
 
   const showMore = employees => {
     if (itemsShown + cardsToShow <= employees.length) {
@@ -85,6 +101,7 @@ const ActiveEmployeesGrid = ({
       <EmployeeCard
         employee={employee}
         currentSupervisors={currentSupervisors}
+        setSelectedEmployee={setSelectedEmployee}
         user={user}
         info={info}
         error={error}
@@ -100,6 +117,7 @@ const ActiveEmployeesGrid = ({
         <EmployeeCard
           employee={employee}
           currentSupervisors={currentSupervisors}
+          setSelectedEmployee={setSelectedEmployee}
           user={user}
           info={info}
           error={error}
@@ -108,39 +126,51 @@ const ActiveEmployeesGrid = ({
     ));
 
   return (
-    <div className={classes.gridContainer}>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <Fragment>
-          <Grid container spacing={16} justify="center">
-            {filterActive ? filteredEmployeesData : employeesData}
-          </Grid>
-          {!filterActive && itemsShown < employees.length && (
-            <Button
-              className={classes.showMore}
-              onClick={() => showMore(employees)}
-              variant="contained"
-            >
-              {`${intl.formatMessage({
-                id: 'showMore'
-              })}..`}
-            </Button>
-          )}
-          {filterActive && itemsShown < filteredEmployees.length && (
-            <Button
-              className={classes.showMore}
-              onClick={() => showMore(filteredEmployees)}
-              variant="contained"
-            >
-              {`${intl.formatMessage({
-                id: 'showMore'
-              })}..`}
-            </Button>
-          )}
-        </Fragment>
+    <Fragment>
+      <div className={classes.gridContainer}>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Fragment>
+            <Grid container spacing={16} justify="center">
+              {filterActive ? filteredEmployeesData : employeesData}
+            </Grid>
+            {!filterActive && itemsShown < employees.length && (
+              <Button
+                className={classes.showMore}
+                onClick={() => showMore(employees)}
+                variant="contained"
+              >
+                {`${intl.formatMessage({
+                  id: 'showMore'
+                })}..`}
+              </Button>
+            )}
+            {filterActive && itemsShown < filteredEmployees.length && (
+              <Button
+                className={classes.showMore}
+                onClick={() => showMore(filteredEmployees)}
+                variant="contained"
+              >
+                {`${intl.formatMessage({
+                  id: 'showMore'
+                })}..`}
+              </Button>
+            )}
+          </Fragment>
+        )}
+      </div>
+      {selectedEmployee && (
+        <EmployeeScsDialog
+          employeeId={selectedEmployee.id}
+          firstName={selectedEmployee.firstName}
+          lastName={selectedEmployee.lastName}
+          supervisorName={selectedEmployee.supervisorName}
+          dialogOpen={selectedEmployee !== null}
+          setSelectedEmployee={setSelectedEmployee}
+        />
       )}
-    </div>
+    </Fragment>
   );
 };
 

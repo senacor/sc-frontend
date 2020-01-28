@@ -1,7 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
-import { useErrorContext, useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../helper/contextHooks';
 import EmployeeScsTable from './EmployeeScsTable';
 import { getEmployeeScs, createScForEmployee } from '../../calls/sc';
 
@@ -51,7 +55,7 @@ const EmployeeScsDialog = ({
   lastName,
   supervisorName,
   dialogOpen,
-  setDialogOpen,
+  setSelectedEmployee,
   classes,
   intl
 }) => {
@@ -68,7 +72,7 @@ const EmployeeScsDialog = ({
 
   const dialogClose = () => {
     window.history.pushState(null, null, ROUTES.ACTIVE_EMPLOYEES_TABLE);
-    setDialogOpen(false);
+    setSelectedEmployee(null);
   };
 
   const calculateCreateScButtonVisibility = () => {
@@ -79,7 +83,9 @@ const EmployeeScsDialog = ({
       return !isLoading;
     }
 
-    return !scs.some((sc) => { return "INITIALIZATION READY_TO_CLOSE IN_PROGRESS".includes(sc.status) });
+    return !scs.some(sc => {
+      return 'INITIALIZATION READY_TO_CLOSE IN_PROGRESS'.includes(sc.status);
+    });
   };
 
   const handleOnCreateScClicked = () => {
@@ -96,7 +102,11 @@ const EmployeeScsDialog = ({
         classes={{ paper: classes.dialogPaper }}
       >
         <Button
-          className={calculateCreateScButtonVisibility() ? classes.btnCreateSc : classes.hidden}
+          className={
+            calculateCreateScButtonVisibility()
+              ? classes.btnCreateSc
+              : classes.hidden
+          }
           variant="contained"
           color="primary"
           onClick={() => handleOnCreateScClicked()}

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
@@ -11,7 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import EmployeeScsDialog from './EmployeeScsDialog';
 import ROUTES from '../../helper/routes';
 import EmployeeFilter from '../admin/EmployeeFilter';
 import { changeSupervisor } from '../../calls/employees';
@@ -95,24 +94,23 @@ const EmployeeCard = ({
   },
   formerEmployee,
   currentSupervisors,
+  setSelectedEmployee,
   user,
   info,
   error
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [supervisorNameState, setSupervisorNameState] = useState(
     supervisorName
   );
 
-  useEffect(() => {
-    if (window.location.pathname === `${ROUTES.EMPLOYEE_SC}/${id}`) {
-      setDialogOpen(true);
-    }
-  }, []);
-
   const handleDialogOpen = () => {
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
-    setDialogOpen(!dialogOpen);
+    setSelectedEmployee({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      supervisorName: supervisorName
+    });
   };
 
   const handleChangeSupervisor = supervisor => {
@@ -238,16 +236,6 @@ const EmployeeCard = ({
           )}
         </CardContent>
       </Card>
-      {dialogOpen && (
-        <EmployeeScsDialog
-          employeeId={id}
-          firstName={firstName}
-          lastName={lastName}
-          supervisorName={supervisorName}
-          dialogOpen={dialogOpen}
-          setDialogOpen={setDialogOpen}
-        />
-      )}
     </Fragment>
   );
 };
