@@ -11,3 +11,20 @@ export const modifyString = string => {
     return replacedStr;
   }
 };
+
+export const translateGeneralStatus = status => {
+  switch (status) {
+    case 'INITIALIZATION':
+      return 'sc.phase.preparation';
+    case 'IN_PROGRESS':
+      return 'sc.phase.inProgress';
+    case 'READY_TO_CLOSE':
+      return 'sc.phase.ready';
+    case 'DONE':
+      return 'sc.phase.closed';
+    case 'ARCHIVED':
+      return 'sc.phase.archived';
+    default:
+      return 'Unbekannt';
+  }
+};
