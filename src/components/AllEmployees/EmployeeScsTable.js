@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { sortBySortActive } from '../../helper/filterFunctions';
 import { linkToSc } from '../../calls/sc';
-import { modifyString } from '../../helper/string';
+import { modifyString, translateGeneralStatus } from '../../helper/string';
 import { formatLocaleDateTime } from '../../helper/date';
 import { FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { downloadScAsPdf } from '../../components/scs/ScSheet/helperFunc.js';
@@ -164,7 +164,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               </TableCell>
               <TableCell>{modifyString(sc.classification)}</TableCell>
               <TableCell>{`${sc.finalScore}%`}</TableCell>
-              <TableCell>{modifyString(sc.status)}</TableCell>
+              <TableCell>{intl.formatMessage({ id: translateGeneralStatus(sc.status) })}</TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
               </TableCell>
