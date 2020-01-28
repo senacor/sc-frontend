@@ -42,7 +42,8 @@ const styles = theme => ({
   },
   btnDownload: {
     background: theme.palette.secondary.darkYellow,
-    color: theme.palette.secondary.white
+    color: theme.palette.secondary.white,
+    marginRight: theme.spacing.unit
   },
   btnDownloadText: {
     color: theme.palette.secondary.white,
