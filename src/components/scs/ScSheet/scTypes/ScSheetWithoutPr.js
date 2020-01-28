@@ -14,9 +14,9 @@ import {
 import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import ButtonsBelowSheet from '../ButtonsBelowSheet';
 import {
-  savePerformanceData,
   addScStatus,
   publishScSectionData,
+  savePerformanceData,
   saveWeightUpdate
 } from '../../../../calls/sc';
 import { downloadScAsPdf } from '../helperFunc.js';
@@ -122,29 +122,38 @@ const ScSheetWithoutPr = ({
 
   useEffect(
     () => {
-      if (user.isOwnerInSc(sc)) {
-        setDailyBusinessFields(
-          determineStatesForPropertyArray(sc, false, 'dailyBusiness')
-        );
-        setProjectFields(determineStatesForPropertyArray(sc, false, 'project'));
-        setWorkEfficiencyFields(
-          determineStatesForProperty(sc, false, 'workEfficiency')
-        );
-        setWorkQualityFields(
-          determineStatesForProperty(sc, false, 'workQuality')
-        );
-      } else if (user.isReviewerInSc(sc)) {
-        setDailyBusinessFields(
-          determineStatesForPropertyArray(sc, true, 'dailyBusiness')
-        );
-        setProjectFields(determineStatesForPropertyArray(sc, true, 'project'));
-        setWorkEfficiencyFields(
-          determineStatesForProperty(sc, true, 'workEfficiency')
-        );
-        setWorkQualityFields(
-          determineStatesForProperty(sc, true, 'workQuality')
-        );
-      }
+      setDailyBusinessFields(
+        determineStatesForPropertyArray(
+          sc,
+          user.isReviewerInSc(sc),
+          'dailyBusiness',
+          dailyBusinessFields
+        )
+      );
+      setProjectFields(
+        determineStatesForPropertyArray(
+          sc,
+          user.isReviewerInSc(sc),
+          'project',
+          projectFields
+        )
+      );
+      setWorkEfficiencyFields(
+        determineStatesForProperty(
+          sc,
+          user.isReviewerInSc(sc),
+          'workEfficiency',
+          workEfficiencyFields
+        )
+      );
+      setWorkQualityFields(
+        determineStatesForProperty(
+          sc,
+          user.isReviewerInSc(sc),
+          'workQuality',
+          workQualityFields
+        )
+      );
     },
     [sc]
   );
