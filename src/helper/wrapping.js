@@ -8,9 +8,16 @@ export const wrapPropertiesIntoObject = (newObjectValue, propKey) => {
   }
 };
 
-export const determineStatesForPropertyArray = (sc, isReviewer, property) => {
+export const determineStatesForPropertyArray = (
+  sc,
+  isReviewer,
+  property,
+  stateObject
+) => {
   //isReviewer: Employee = false or Reviewer = true
   //property: 'dailyBusiness' or 'project'...
+  //stateObject: 'dailyBusinessFields, projectFields' containing
+  // real state with also calculated percentage. Those percentage wee need keep
 
   const publicSpace = isReviewer
     ? sc.publishedReviewerData
@@ -38,13 +45,14 @@ export const determineStatesForPropertyArray = (sc, isReviewer, property) => {
   };
 
   return rsf.map((goal, goalIndex) => {
+    const percentageInfo =
+      stateObject && stateObject[goalIndex]
+        ? { percentage: stateObject[goalIndex].percentage }
+        : {};
     return {
+      ...percentageInfo,
       ...rsf[goalIndex],
       evaluation: compareField(goalIndex, 'evaluation'),
-      // OLD: evaluation:
-      //   typeof privateSpace[property].evaluation === 'number'
-      //     ? privateSpace[property].evaluation
-      //     : 1,
       description: compareField(goalIndex, 'description'),
       achievement: compareField(goalIndex, 'achievement'),
       comment: compareField(goalIndex, 'comment')
@@ -52,10 +60,20 @@ export const determineStatesForPropertyArray = (sc, isReviewer, property) => {
   });
 };
 
-export const determineStatesForProperty = (sc, isReviewer, property) => {
+export const determineStatesForProperty = (
+  sc,
+  isReviewer,
+  property,
+  stateObject
+) => {
   //isReviewer: Employee = false or Reviewer = true
   //property: 'skillsInTheFields', 'impactOnTeam'...
+  //stateObject: 'dailyBusinessFields, projectFields' containing
+  // real state with also calculated percentage. Those percentage wee need keep
 
+  if(property === 'workEfficiency'){
+    console.log('workEfficiency: ', stateObject);
+  }
   const publicSpace = isReviewer
     ? sc.publishedReviewerData
     : sc.publishedEmployeeData;
@@ -82,13 +100,12 @@ export const determineStatesForProperty = (sc, isReviewer, property) => {
     return { value: rsf[field], state: state };
   };
 
+  const percentageInfo =
+    stateObject ? { percentage: stateObject.percentage } : {};
   return {
+    ...percentageInfo,
     ...rsf,
     evaluation: compareField('evaluation'),
-    // OLD: evaluation:
-    //   typeof privateSpace[property].evaluation === 'number'
-    //     ? privateSpace[property].evaluation
-    //     : 1,
     description: compareField('description'),
     achievement: compareField('achievement'),
     comment: compareField('comment')
