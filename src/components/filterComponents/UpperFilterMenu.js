@@ -48,9 +48,6 @@ const styles = theme => ({
     color: theme.palette.secondary.white,
     paddingLeft: theme.spacing.unit
   },
-  hidden: {
-    display: 'none'
-  }
 });
 
 const UpperFilterMenu = ({
