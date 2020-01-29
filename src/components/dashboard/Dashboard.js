@@ -9,7 +9,7 @@ import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ScsInProgressDialog from './ScsInProgressDialog/ScsInProgressDialog';
+import ScsDialog from './ScsInProgressDialog/ScsDialog';
 import ScsToDelegateDialog from './ScsToDelegate/ScsToDelegateDialog';
 
 const styles = theme => ({
@@ -17,7 +17,8 @@ const styles = theme => ({
   rowContainer: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginBottom: 30
   },
   columnContainer: {
     display: 'flex',
@@ -25,6 +26,9 @@ const styles = theme => ({
   },
   noMarginBottom: {
     marginBottom: 0
+  },
+  allScsText: {
+    marginLeft: 3 * theme.spacing.unit
   }
 });
 
@@ -84,66 +88,58 @@ const Dashboard = ({ classes, intl }) => {
             icon={'bar_chart'}
           />
         )}
+      </div>
 
-        {user.hasRoleHr() && (
-          <Fragment>
-            <Typography>
+      {user.hasRoleHr() && (
+        <Fragment>
+          <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
+            <Typography variant="h6" className={classes.allScsText}>
               {intl.formatMessage({
-                id: 'dashboard.scsInProgress'
+                id: 'dashboard.allscs'
               })}
             </Typography>
-            <Fragment>
-              <ScsInProgressDialog
-                numberOfScs={userinfo.numbersByStatuses.scsInitialization}
-                label={intl.formatMessage({
-                  id: 'dashboard.initialization'
-                })}
-                status={'INITIALIZATION'}
-              />
-              <ScsInProgressDialog
-                numberOfScs={userinfo.numbersByStatuses.scsInProgress}
-                label={intl.formatMessage({
-                  id: 'dashboard.inprogress'
-                })}
-                status={'IN_PROGRESS'}
-              />
-              <ScsInProgressDialog
-                numberOfScs={userinfo.numbersByStatuses.scsReady}
-                label={intl.formatMessage({
-                  id: 'dashboard.ready'
-                })}
-                status={'READY'}
-              />
-              <ScsInProgressDialog
-                numberOfScs={userinfo.numbersByStatuses.scsClosed}
-                label={intl.formatMessage({
-                  id: 'dashboard.closed'
-                })}
-                status={'CLOSED'}
-              />
-              <ScsInProgressDialog
-                numberOfScs={userinfo.numbersByStatuses.scsArchived}
-                label={intl.formatMessage({
-                  id: 'dashboard.archived'
-                })}
-                status={'ARCHIVED'}
-              />
-              <InfoWidget
-                label={intl.formatMessage({
-                  id: 'dashboard.newformeremployees'
-                })}
-                value={formerUsersCount}
-                linkTo={ROUTES.FORMER_EMPLOYEES}
-                icon={'emoji_people'}
-              />
-            </Fragment>
-          </Fragment>
-        )}
+          </div>
+          <div className={classes.rowContainer}>
+            <ScsDialog
+              status={'INITIALIZATION'}
+              numberOfScs={userinfo.numbersByStatuses.scsInitialization}
+            />
+            <ScsDialog
+              status={'IN_PROGRESS'}
+              numberOfScs={userinfo.numbersByStatuses.scsInProgress}
+            />
+            <ScsDialog
+              status={'READY'}
+              numberOfScs={userinfo.numbersByStatuses.scsReady}
+            />
+            <ScsDialog
+              status={'CLOSED'}
+              numberOfScs={userinfo.numbersByStatuses.scsClosed}
+            />
+            <ScsDialog
+              status={'ARCHIVED'}
+              numberOfScs={userinfo.numbersByStatuses.scsArchived}
+            />
+          </div>
+          <div className={classes.rowContainer}>
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.newformeremployees'
+              })}
+              value={formerUsersCount}
+              linkTo={ROUTES.FORMER_EMPLOYEES}
+              icon={'emoji_people'}
+            />
+          </div>
+        </Fragment>
+      )}
 
+      <div className={classes.rowContainer}>
         {user.hasRoleSupervisor() && scsToDelegate > 0 && (
           <ScsToDelegateDialog />
         )}
-
+      </div>
+      <div className={classes.rowContainer}>
         {/* Notification about administration mode, if userrole is admin */}
         {user.hasRoleAdmin() && Object.keys(systemInfo).length > 0 && (
           <Fragment>

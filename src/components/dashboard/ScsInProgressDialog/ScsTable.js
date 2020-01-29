@@ -30,7 +30,7 @@ const styles = theme => ({
   employeeNameCell: { maxWidth: 100 }
 });
 
-const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
+const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
@@ -192,4 +192,4 @@ const ScsInProgressTable = ({ classes, intl, scs, history, filterInputs }) => {
   );
 };
 
-export default withRouter(injectIntl(withStyles(styles)(ScsInProgressTable)));
+export default withRouter(injectIntl(withStyles(styles)(ScsTable)));

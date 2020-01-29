@@ -11,7 +11,7 @@ import {
   classifications
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
-import ScsInProgressTable from './ScsInProgressTable';
+import ScsTable from './ScsTable';
 import { getScsByStatus } from '../../../calls/sc';
 import SearchFilter from '../../filterComponents/SearchFilter';
 
@@ -78,7 +78,7 @@ const styles = theme => ({
   }
 });
 
-const ScsInProgressDialog = ({ classes, intl, numberOfScs, label, status }) => {
+const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [scs, setScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -158,6 +158,36 @@ const ScsInProgressDialog = ({ classes, intl, numberOfScs, label, status }) => {
     setDepartment([]);
     setScStatus([]);
   };
+
+  let label;
+  switch (status) {
+    case 'INITIALIZATION':
+      label = intl.formatMessage({
+        id: 'dashboard.initialization'
+      });
+      break;
+    case 'IN_PROGRESS':
+      label = intl.formatMessage({
+        id: 'dashboard.inprogress'
+      });
+      break;
+    case 'READY':
+      label = intl.formatMessage({
+        id: 'dashboard.ready'
+      });
+      break;
+    case 'CLOSED':
+      label = intl.formatMessage({
+        id: 'dashboard.closed'
+      });
+      break;
+    case 'ARCHIVED':
+      label = intl.formatMessage({
+        id: 'dashboard.archived'
+      });
+      break;
+    default:
+  }
 
   return (
     <Fragment>
@@ -269,7 +299,7 @@ const ScsInProgressDialog = ({ classes, intl, numberOfScs, label, status }) => {
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <ScsInProgressTable scs={scs} filterInputs={filterInputs} />
+            <ScsTable scs={scs} filterInputs={filterInputs} />
           )}
         </DialogContent>
       </Dialog>
@@ -277,4 +307,4 @@ const ScsInProgressDialog = ({ classes, intl, numberOfScs, label, status }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(ScsInProgressDialog));
+export default injectIntl(withStyles(styles)(ScsDialog));
