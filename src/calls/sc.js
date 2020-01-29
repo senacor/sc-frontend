@@ -213,13 +213,39 @@ export const fetchScById = async (
   }
 };
 
-export const getScsInProgress = async (setScs, setIsLoading, error) => {
+export const getScsByStatus = async (status, setScs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/in-progress`
-    );
+    let response;
+    switch (status) {
+      case 'INITIALIZATION':
+        response = await fetch(
+          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/initialization`
+        );
+        break;
+      case 'IN_PROGRESS':
+        response = await fetch(
+          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/in-progress`
+        );
+        break;
+      case 'READY':
+        response = await fetch(
+          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/ready`
+        );
+        break;
+      case 'CLOSED':
+        response = await fetch(
+          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/closed`
+        );
+        break;
+      case 'ARCHIVED':
+        response = await fetch(
+          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/archived`
+        );
+        break;
+      default:
+    }
     const responseScs = await response.json();
 
     setIsLoading(false);

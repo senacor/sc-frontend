@@ -12,7 +12,7 @@ import {
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
 import ScsInProgressTable from './ScsInProgressTable';
-import { getScsInProgress } from '../../../calls/sc';
+import { getScsByStatus } from '../../../calls/sc';
 import SearchFilter from '../../filterComponents/SearchFilter';
 
 // Material UI
@@ -78,7 +78,7 @@ const styles = theme => ({
   }
 });
 
-const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
+const ScsInProgressDialog = ({ classes, intl, numberOfScs, label, status }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [scs, setScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +96,8 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     () => {
       if (window.location.pathname === ROUTES.SC_IN_PROGRESS) {
         setDialogOpened(true);
-        getScsInProgress(setScs, setIsLoading, error);
+        // getScsInProgress(setScs, setIsLoading, error);
+        getScsByStatus(status, setScs, setIsLoading, error);
       }
     },
     [dialogOpened]
@@ -161,13 +162,12 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   return (
     <Fragment>
       <InfoWidget
-        label={intl.formatMessage({
-          id: 'dashboard.scsInProgress'
-        })}
+        label={label}
         linkTo={ROUTES.SC_IN_PROGRESS}
         onClick={dialogOpen}
-        value={scsInProgress}
+        value={numberOfScs}
         icon={'insert_chart'}
+        personalDev
       />
       <Dialog
         open={dialogOpened}

@@ -51,6 +51,29 @@ const Dashboard = ({ classes, intl }) => {
   return userinfo ? (
     <div className={classes.columnContainer}>
       <div className={classes.rowContainer}>
+        {/* Welcome page section */}
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="h5" className={classes.cardTitle}>
+              {intl.formatMessage({
+                id: 'dashboard.welcome'
+              })}
+            </Typography>
+            <Typography
+              className={classes.cardParagraph}
+              variant="body1"
+              color="textSecondary"
+            >
+              {`${intl.formatMessage({
+                id: 'dashboard.description'
+              })} `}
+              <br />
+              {`${intl.formatMessage({
+                id: 'dashboard.subdescription'
+              })} `}
+            </Typography>
+          </CardContent>
+        </Card>
         {numberOfScsToReview > 0 && (
           <InfoWidget
             label={intl.formatMessage({
@@ -64,15 +87,56 @@ const Dashboard = ({ classes, intl }) => {
 
         {user.hasRoleHr() && (
           <Fragment>
-            <ScsInProgressDialog scsInProgress={userinfo.scsInProgressForHr} />
-            <InfoWidget
-              label={intl.formatMessage({
-                id: 'dashboard.newformeremployees'
+            <Typography>
+              {intl.formatMessage({
+                id: 'dashboard.scsInProgress'
               })}
-              value={formerUsersCount}
-              linkTo={ROUTES.FORMER_EMPLOYEES}
-              icon={'emoji_people'}
-            />
+            </Typography>
+            <Fragment>
+              <ScsInProgressDialog
+                numberOfScs={userinfo.numbersByStatuses.scsInitialization}
+                label={intl.formatMessage({
+                  id: 'dashboard.initialization'
+                })}
+                status={'INITIALIZATION'}
+              />
+              <ScsInProgressDialog
+                numberOfScs={userinfo.numbersByStatuses.scsInProgress}
+                label={intl.formatMessage({
+                  id: 'dashboard.inprogress'
+                })}
+                status={'IN_PROGRESS'}
+              />
+              <ScsInProgressDialog
+                numberOfScs={userinfo.numbersByStatuses.scsReady}
+                label={intl.formatMessage({
+                  id: 'dashboard.ready'
+                })}
+                status={'READY'}
+              />
+              <ScsInProgressDialog
+                numberOfScs={userinfo.numbersByStatuses.scsClosed}
+                label={intl.formatMessage({
+                  id: 'dashboard.closed'
+                })}
+                status={'CLOSED'}
+              />
+              <ScsInProgressDialog
+                numberOfScs={userinfo.numbersByStatuses.scsArchived}
+                label={intl.formatMessage({
+                  id: 'dashboard.archived'
+                })}
+                status={'ARCHIVED'}
+              />
+              <InfoWidget
+                label={intl.formatMessage({
+                  id: 'dashboard.newformeremployees'
+                })}
+                value={formerUsersCount}
+                linkTo={ROUTES.FORMER_EMPLOYEES}
+                icon={'emoji_people'}
+              />
+            </Fragment>
           </Fragment>
         )}
 
@@ -119,29 +183,6 @@ const Dashboard = ({ classes, intl }) => {
             </Card>
           </Fragment>
         )}
-        {/* Welcome page section */}
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h5" className={classes.cardTitle}>
-              {intl.formatMessage({
-                id: 'dashboard.welcome'
-              })}
-            </Typography>
-            <Typography
-              className={classes.cardParagraph}
-              variant="body1"
-              color="textSecondary"
-            >
-              {`${intl.formatMessage({
-                id: 'dashboard.description'
-              })} `}
-              <br />
-              {`${intl.formatMessage({
-                id: 'dashboard.subdescription'
-              })} `}
-            </Typography>
-          </CardContent>
-        </Card>
       </div>
     </div>
   ) : null;
