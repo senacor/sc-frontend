@@ -124,11 +124,33 @@ const Dashboard = ({ classes, intl }) => {
           <div className={classes.rowContainer}>
             <InfoWidget
               label={intl.formatMessage({
+                id: 'dashboard.newemployees'
+              })}
+              // TODO value: number of employees with employee_status === 'NEW'
+              value={userinfo.numberOfNewEmployees}
+              // TODO linkTo: clarify
+              // linkTo={}
+              icon={'people'}
+            />
+            <InfoWidget
+              label={intl.formatMessage({
                 id: 'dashboard.newformeremployees'
               })}
               value={formerUsersCount}
               linkTo={ROUTES.FORMER_EMPLOYEES}
               icon={'emoji_people'}
+            />
+          </div>
+          <div className={classes.rowContainer}>
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.lastpayrollreport'
+              })}
+              // TODO value: date of last report
+              value={'29.01.2020'}
+              // TODO linkTo: download the report
+              // linkTo={}
+              icon={'table_chart'}
             />
           </div>
         </Fragment>
