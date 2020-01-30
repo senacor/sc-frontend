@@ -109,11 +109,11 @@ const Dashboard = ({ classes, intl }) => {
               numberOfScs={userinfo.numbersByStatuses.scsInProgress}
             />
             <ScsDialog
-              status={'READY'}
+              status={'READY_TO_CLOSE'}
               numberOfScs={userinfo.numbersByStatuses.scsReady}
             />
             <ScsDialog
-              status={'CLOSED'}
+              status={'DONE'}
               numberOfScs={userinfo.numbersByStatuses.scsClosed}
             />
             <ScsDialog

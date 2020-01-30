@@ -28,6 +28,7 @@ import Button from '@material-ui/core/Button';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 import FilterIcon from '@material-ui/icons/FilterList';
+import { translateGeneralStatus } from '../../../helper/string';
 
 const styles = theme => ({
   btnClose: {
@@ -159,35 +160,11 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
     setScStatus([]);
   };
 
-  let label;
-  switch (status) {
-    case 'INITIALIZATION':
-      label = intl.formatMessage({
-        id: 'dashboard.initialization'
-      });
-      break;
-    case 'IN_PROGRESS':
-      label = intl.formatMessage({
-        id: 'dashboard.inprogress'
-      });
-      break;
-    case 'READY':
-      label = intl.formatMessage({
-        id: 'dashboard.ready'
-      });
-      break;
-    case 'CLOSED':
-      label = intl.formatMessage({
-        id: 'dashboard.closed'
-      });
-      break;
-    case 'ARCHIVED':
-      label = intl.formatMessage({
-        id: 'dashboard.archived'
-      });
-      break;
-    default:
-  }
+  const label = `${intl.formatMessage({
+    id: 'dashboard.phase'
+  })} ${intl.formatMessage({
+    id: translateGeneralStatus(status)
+  })}`;
 
   return (
     <Fragment>

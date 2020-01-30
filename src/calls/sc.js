@@ -217,35 +217,9 @@ export const getScsByStatus = async (status, setScs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
-    let response;
-    switch (status) {
-      case 'INITIALIZATION':
-        response = await fetch(
-          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/initialization`
-        );
-        break;
-      case 'IN_PROGRESS':
-        response = await fetch(
-          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/in-progress`
-        );
-        break;
-      case 'READY':
-        response = await fetch(
-          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/ready`
-        );
-        break;
-      case 'CLOSED':
-        response = await fetch(
-          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/closed`
-        );
-        break;
-      case 'ARCHIVED':
-        response = await fetch(
-          `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/archived`
-        );
-        break;
-      default:
-    }
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/${status}`
+    );
     const responseScs = await response.json();
 
     setIsLoading(false);
