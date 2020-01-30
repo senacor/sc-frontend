@@ -11,8 +11,8 @@ import {
   classifications
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
-import ScsInProgressTable from './ScsInProgressTable';
-import { getScsInProgress } from '../../../calls/sc';
+import ScsTable from './ScsTable';
+import { getScsByStatus } from '../../../calls/sc';
 import SearchFilter from '../../filterComponents/SearchFilter';
 
 // Material UI
@@ -28,6 +28,7 @@ import Button from '@material-ui/core/Button';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 import FilterIcon from '@material-ui/icons/FilterList';
+import { translateGeneralStatus } from '../../../helper/string';
 
 const styles = theme => ({
   btnClose: {
@@ -78,7 +79,7 @@ const styles = theme => ({
   }
 });
 
-const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
+const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [scs, setScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +97,8 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     () => {
       if (window.location.pathname === ROUTES.SC_IN_PROGRESS) {
         setDialogOpened(true);
-        getScsInProgress(setScs, setIsLoading, error);
+        // getScsInProgress(setScs, setIsLoading, error);
+        getScsByStatus(status, setScs, setIsLoading, error);
       }
     },
     [dialogOpened]
@@ -158,16 +160,21 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
     setScStatus([]);
   };
 
+  const label = `${intl.formatMessage({
+    id: 'dashboard.phase'
+  })} ${intl.formatMessage({
+    id: translateGeneralStatus(status)
+  })}`;
+
   return (
     <Fragment>
       <InfoWidget
-        label={intl.formatMessage({
-          id: 'dashboard.scsInProgress'
-        })}
+        label={label}
         linkTo={ROUTES.SC_IN_PROGRESS}
         onClick={dialogOpen}
-        value={scsInProgress}
+        value={numberOfScs}
         icon={'insert_chart'}
+        personalDev
       />
       <Dialog
         open={dialogOpened}
@@ -269,7 +276,7 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <ScsInProgressTable scs={scs} filterInputs={filterInputs} />
+            <ScsTable scs={scs} filterInputs={filterInputs} />
           )}
         </DialogContent>
       </Dialog>
@@ -277,4 +284,4 @@ const ScsInProgressDialog = ({ classes, intl, scsInProgress }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(ScsInProgressDialog));
+export default injectIntl(withStyles(styles)(ScsDialog));
