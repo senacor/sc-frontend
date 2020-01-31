@@ -181,8 +181,6 @@
   "autorules.criterion.entryDate": "entry date",
   "payrollreport.download": "Download",
   "payrollreport.date": "Date",
-  "scscard.inprogress": "In progress",
-  "scscard.finished": "Finished",
   "sc.supervisor": "Supervisor:",
   "sc.no.reviewer": "No reviewer",
   "sc.phase.preparation": "Initialization",
