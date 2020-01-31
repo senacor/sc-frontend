@@ -33,10 +33,23 @@ const styles = theme => ({
     width: 250,
     padding: 2 * theme.spacing.unit,
     paddingLeft: theme.spacing.unit
+  },
+  textContainerSmaller: {
+    width: 100,
+    padding: 2 * theme.spacing.unit,
+    paddingLeft: theme.spacing.unit
   }
 });
 
-const InfoWidget = ({ linkTo, onClick, icon, label, value, classes }) => {
+const InfoWidget = ({
+  linkTo,
+  onClick,
+  icon,
+  label,
+  value,
+  personalDev,
+  classes
+}) => {
   return (
     <Card
       component={linkTo && NavLink}
@@ -50,7 +63,11 @@ const InfoWidget = ({ linkTo, onClick, icon, label, value, classes }) => {
             {icon}
           </Icon>
         </div>
-        <div className={classes.textContainer}>
+        <div
+          className={
+            personalDev ? classes.textContainerSmaller : classes.textContainer
+          }
+        >
           <Typography color="textSecondary">{label}</Typography>
           <Typography variant="h5" component="h2">
             {value}

@@ -9,7 +9,7 @@ import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ScsInProgressDialog from './ScsInProgressDialog/ScsInProgressDialog';
+import ScsDialog from './ScsInProgressDialog/ScsDialog';
 import ScsToDelegateDialog from './ScsToDelegate/ScsToDelegateDialog';
 
 const styles = theme => ({
@@ -17,7 +17,8 @@ const styles = theme => ({
   rowContainer: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginBottom: 30
   },
   columnContainer: {
     display: 'flex',
@@ -25,6 +26,9 @@ const styles = theme => ({
   },
   noMarginBottom: {
     marginBottom: 0
+  },
+  allScsText: {
+    marginLeft: 3 * theme.spacing.unit
   }
 });
 
@@ -51,6 +55,29 @@ const Dashboard = ({ classes, intl }) => {
   return userinfo ? (
     <div className={classes.columnContainer}>
       <div className={classes.rowContainer}>
+        {/* Welcome page section */}
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="h5" className={classes.cardTitle}>
+              {intl.formatMessage({
+                id: 'dashboard.welcome'
+              })}
+            </Typography>
+            <Typography
+              className={classes.cardParagraph}
+              variant="body1"
+              color="textSecondary"
+            >
+              {`${intl.formatMessage({
+                id: 'dashboard.description'
+              })} `}
+              <br />
+              {`${intl.formatMessage({
+                id: 'dashboard.subdescription'
+              })} `}
+            </Typography>
+          </CardContent>
+        </Card>
         {numberOfScsToReview > 0 && (
           <InfoWidget
             label={intl.formatMessage({
@@ -61,10 +88,50 @@ const Dashboard = ({ classes, intl }) => {
             icon={'bar_chart'}
           />
         )}
+      </div>
 
-        {user.hasRoleHr() && (
-          <Fragment>
-            <ScsInProgressDialog scsInProgress={userinfo.scsInProgressForHr} />
+      {user.hasRoleHr() && (
+        <Fragment>
+          <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
+            <Typography variant="h6" className={classes.allScsText}>
+              {intl.formatMessage({
+                id: 'dashboard.allscs'
+              })}
+            </Typography>
+          </div>
+          <div className={classes.rowContainer}>
+            <ScsDialog
+              status={'INITIALIZATION'}
+              numberOfScs={userinfo.numbersByStatuses.scsInitialization}
+            />
+            <ScsDialog
+              status={'IN_PROGRESS'}
+              numberOfScs={userinfo.numbersByStatuses.scsInProgress}
+            />
+            <ScsDialog
+              status={'READY_TO_CLOSE'}
+              numberOfScs={userinfo.numbersByStatuses.scsReady}
+            />
+            <ScsDialog
+              status={'DONE'}
+              numberOfScs={userinfo.numbersByStatuses.scsClosed}
+            />
+            <ScsDialog
+              status={'ARCHIVED'}
+              numberOfScs={userinfo.numbersByStatuses.scsArchived}
+            />
+          </div>
+          <div className={classes.rowContainer}>
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.newemployees'
+              })}
+              // TODO value: number of employees with employee_status === 'NEW'
+              value={userinfo.numberOfNewEmployees}
+              // TODO linkTo: clarify
+              // linkTo={}
+              icon={'people'}
+            />
             <InfoWidget
               label={intl.formatMessage({
                 id: 'dashboard.newformeremployees'
@@ -73,13 +140,28 @@ const Dashboard = ({ classes, intl }) => {
               linkTo={ROUTES.FORMER_EMPLOYEES}
               icon={'emoji_people'}
             />
-          </Fragment>
-        )}
+          </div>
+          <div className={classes.rowContainer}>
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.lastpayrollreport'
+              })}
+              // TODO value: date of last report
+              value={'29.01.2020'}
+              // TODO linkTo: download the report
+              // linkTo={}
+              icon={'table_chart'}
+            />
+          </div>
+        </Fragment>
+      )}
 
+      <div className={classes.rowContainer}>
         {user.hasRoleSupervisor() && scsToDelegate > 0 && (
           <ScsToDelegateDialog />
         )}
-
+      </div>
+      <div className={classes.rowContainer}>
         {/* Notification about administration mode, if userrole is admin */}
         {user.hasRoleAdmin() && Object.keys(systemInfo).length > 0 && (
           <Fragment>
@@ -119,29 +201,6 @@ const Dashboard = ({ classes, intl }) => {
             </Card>
           </Fragment>
         )}
-        {/* Welcome page section */}
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h5" className={classes.cardTitle}>
-              {intl.formatMessage({
-                id: 'dashboard.welcome'
-              })}
-            </Typography>
-            <Typography
-              className={classes.cardParagraph}
-              variant="body1"
-              color="textSecondary"
-            >
-              {`${intl.formatMessage({
-                id: 'dashboard.description'
-              })} `}
-              <br />
-              {`${intl.formatMessage({
-                id: 'dashboard.subdescription'
-              })} `}
-            </Typography>
-          </CardContent>
-        </Card>
       </div>
     </div>
   ) : null;

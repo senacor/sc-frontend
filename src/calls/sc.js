@@ -213,12 +213,12 @@ export const fetchScById = async (
   }
 };
 
-export const getScsInProgress = async (setScs, setIsLoading, error) => {
+export const getScsByStatus = async (status, setScs, setIsLoading, error) => {
   try {
     setIsLoading(true);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/in-progress`
+      `${process.env.REACT_APP_API}/api/v1/sc/overview/hr/${status}`
     );
     const responseScs = await response.json();
 
