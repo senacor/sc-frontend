@@ -38,6 +38,9 @@ const styles = theme => ({
   leftIcon: {
     marginRight: theme.spacing.unit
   },
+  leftMargin: {
+    marginLeft: theme.spacing.unit
+  },
   pointer: {
     cursor: 'pointer'
   },
@@ -50,6 +53,11 @@ const styles = theme => ({
     '&:hover': {
       color: theme.palette.secondary.darkRed
     }
+  },
+  btnAdd: {
+    backgroundColor: theme.palette.primary[400],
+    color: theme.palette.secondary.white,
+    margin: 1 * theme.spacing.unit
   }
 });
 
@@ -63,6 +71,7 @@ export const EmployeeFilter = ({
   supervisorName,
   index,
   intl,
+  customComponent,
   classes
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -150,6 +159,15 @@ export const EmployeeFilter = ({
             {supervisorName}
           </span>
         </Tooltip>
+      ) : customComponent ? (
+        <Button className={classes.btnAdd} onClick={handleOpen}>
+          <FilterList />
+          <div className={classes.leftMargin}>
+            {intl.formatMessage({
+              id: 'autorules.search.to.ignorelist'
+            })}
+          </div>
+        </Button>
       ) : (
         <IconButton onClick={handleOpen}>
           <FilterList />
