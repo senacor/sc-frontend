@@ -3,6 +3,7 @@ import 'moment-timezone';
 
 export const FRONTEND_DATE_FORMAT = 'DD.MM.YYYY';
 export const FRONTEND_LOCALE_DATE_TIME_FORMAT = 'YYYY-MM-DD';
+export const EXCEL_NAME_DATE_FORMAT = 'YYYYMMDD';
 
 export const formatDateForFrontend = input => {
   if (input) {
