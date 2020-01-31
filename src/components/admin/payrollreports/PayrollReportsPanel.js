@@ -6,7 +6,7 @@ import { loadPayrollReports } from '../../../calls/payrollReports';
 import { useErrorContext } from '../../../helper/contextHooks';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { downloadPayrollReport } from '../../../helper/downloadExcel';
-import { formatLocaleDateTime, FRONTEND_DATE_FORMAT, FILE_DATE_FORMAT } from '../../../helper/date';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../../helper/date';
 
 const styles = theme => ({
     reportsPaper: {
@@ -43,8 +43,7 @@ const PayrollReportsPanel = ({ classes, intl }) => {
     };
 
     const handleOnDownloadClick = (report) => {
-        let filename = formatLocaleDateTime(report.date, FILE_DATE_FORMAT) + "_SCBewerungexport.xlsx";
-        downloadPayrollReport(report.id, filename, error);
+        downloadPayrollReport(report, error);
     };
 
     reportsData.sort((first, second) => {
