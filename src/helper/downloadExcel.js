@@ -1,9 +1,14 @@
-import { exportToXlsx } from "../calls/sc";
-import { payrollReportXlsx} from "../calls/payrollReports";
+import { exportToXlsx } from '../calls/sc';
+import { payrollReportXlsx} from '../calls/payrollReports';
+import { exportToXlsx } from '../calls/sc';
+import moment from 'moment';
+import { EXCEL_NAME_DATE_FORMAT } from './date';
 
 export const downloadExcelAllScs = error => {
+  const excelName = moment().format(EXCEL_NAME_DATE_FORMAT);
+
     let promise = exportToXlsx(error);
-    handlePromise(promise, `scorecards.xlsx`);
+    handlePromise(promise, `scorecard_report_${excelName}.xlsx`);
 };
 
 export const downloadPayrollReport = (id, filename, error) => {
