@@ -42,7 +42,7 @@ const PayrollReportsPanel = ({ classes, intl }) => {
         sortDirection === 'asc' ? setSortDirection('desc') : setSortDirection('asc');
     };
 
-    const handleOnDownloadClick = (report) => {
+    const handleOnDownloadClick = report => {
         downloadPayrollReport(report, error);
     };
 
