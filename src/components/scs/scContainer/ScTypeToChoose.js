@@ -20,7 +20,8 @@ import {
   TextField,
   IconButton,
   Grid,
-  Tooltip
+  Tooltip,
+  InputLabel
 } from '@material-ui/core';
 import { SC_STATUS, classifications } from '../../../helper/scSheetData';
 import { modifyString } from '../../../helper/string';
@@ -60,6 +61,15 @@ const styles = theme => ({
   },
   textField: {
     width: '100%'
+  },
+  boldText: {
+    fontWeight: 'bold'
+  },
+  tableDiv: {
+    marginTop: 2 * theme.spacing.unit
+  },
+  input: {
+    color: theme.palette.secondary.darkGrey
   }
 });
 
@@ -78,7 +88,9 @@ const ScTypeToChoose = ({
   setProjects
 }) => {
   const [dailyBusinessValue, setDailyBusinessValue] = useState('');
+  const [dailyBusinessWeight, setDailyBusinessWeight] = useState(0);
   const [projectValue, setProjectValue] = useState('');
+  const [projectWeight, setProjectWeight] = useState(0);
 
   const user = useUserinfoContext();
 
@@ -91,23 +103,25 @@ const ScTypeToChoose = ({
   };
 
   const addDailyBusiness = () => {
-    if (!dailyBusinessValue.trim()) {
-      return;
-    }
     const newDailyBusinesses = [...dailyBusinesses];
-    newDailyBusinesses.push(dailyBusinessValue.trim());
+    newDailyBusinesses.push({
+      title: dailyBusinessValue.trim(),
+      weight: dailyBusinessWeight
+    });
     setDailyBusinesses(newDailyBusinesses);
     setDailyBusinessValue('');
+    setDailyBusinessWeight(0);
   };
 
   const addProject = () => {
-    if (!projectValue.trim()) {
-      return;
-    }
     const newProjects = [...projects];
-    newProjects.push(projectValue.trim());
+    newProjects.push({
+      title: projectValue.trim(),
+      weight: projectWeight
+    });
     setProjects(newProjects);
     setProjectValue('');
+    setProjectWeight(0);
   };
 
   const deleteDailyBusiness = idx => {
@@ -189,14 +203,14 @@ const ScTypeToChoose = ({
           </Select>
         </FormControl>
       </div>
-      <div>
+      <div className={classes.tableDiv}>
         <Grid container>
           <Grid item xs={6}>
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>
-                    <Typography>
+                    <Typography className={classes.boldText}>
                       {intl.formatMessage({
                         id: 'scsheet.subtitle.dailyBusiness'
                       })}
@@ -207,9 +221,12 @@ const ScTypeToChoose = ({
               <TableBody>
                 {dailyBusinesses.map((entry, idx) => {
                   return (
-                    <TableRow>
+                    <TableRow key={idx}>
                       <TableCell>
-                        <Typography>{entry}</Typography>
+                        <Typography>{entry.title}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography>{entry.weight}</Typography>
                       </TableCell>
                       <TableCell>
                         <IconButton onClick={() => deleteDailyBusiness(idx)}>
@@ -227,8 +244,31 @@ const ScTypeToChoose = ({
                       onChange={handleDailyBusinessChange}
                     />
                   </TableCell>
+                  <FormControl>
+                    <InputLabel id="weight-daily-business-input">
+                      {intl.formatMessage({
+                        id: 'scsheet.textheader.weight'
+                      })}
+                    </InputLabel>
+                    <Select
+                      id="weight-daily-business-input"
+                      value={dailyBusinessWeight}
+                      onChange={e => setDailyBusinessWeight(e.target.value)}
+                      renderValue={selected => <span>{selected}</span>}
+                      inputProps={{ className: classes.input }}
+                    >
+                      {[1, 2, 3].map((val, index) => (
+                        <MenuItem key={index} value={val}>
+                          {val}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                   <TableCell>
                     <Button
+                      disabled={
+                        !dailyBusinessValue.trim() || dailyBusinessWeight === 0
+                      }
                       variant="contained"
                       color="primary"
                       onClick={addDailyBusiness}
@@ -245,8 +285,10 @@ const ScTypeToChoose = ({
               <TableHead>
                 <TableRow>
                   <TableCell>
-                    <Typography>
-                      {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
+                    <Typography className={classes.boldText}>
+                      {intl.formatMessage({
+                        id: 'scsheet.subtitle.project'
+                      })}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -254,9 +296,12 @@ const ScTypeToChoose = ({
               <TableBody>
                 {projects.map((entry, idx) => {
                   return (
-                    <TableRow>
+                    <TableRow key={idx}>
                       <TableCell>
-                        <Typography>{entry}</Typography>
+                        <Typography>{entry.title}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography>{entry.weight}</Typography>
                       </TableCell>
                       <TableCell>
                         <IconButton onClick={() => deleteProject(idx)}>
@@ -274,8 +319,29 @@ const ScTypeToChoose = ({
                       onChange={handleProjectChange}
                     />
                   </TableCell>
+                  <FormControl>
+                    <InputLabel id="weight-project-input">
+                      {intl.formatMessage({
+                        id: 'scsheet.textheader.weight'
+                      })}
+                    </InputLabel>
+                    <Select
+                      id="weight-project-input"
+                      value={projectWeight}
+                      onChange={e => setProjectWeight(e.target.value)}
+                      renderValue={selected => <span>{selected}</span>}
+                      inputProps={{ className: classes.input }}
+                    >
+                      {[1, 2, 3].map((val, index) => (
+                        <MenuItem key={index} value={val}>
+                          {val}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                   <TableCell>
                     <Button
+                      disabled={!projectValue.trim() || projectWeight === 0}
                       variant="contained"
                       color="primary"
                       onClick={addProject}
