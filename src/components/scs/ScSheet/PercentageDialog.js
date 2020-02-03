@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,8 +17,17 @@ import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
 
 const styles = theme => ({});
 
-const PercentageDialog = ({ open, scId, handleClose, classes, intl }) => {
-  const [skillsPercentage, setSkillsPercentage] = useState(70);
+const PercentageDialog = ({
+  open,
+  scId,
+  prCategoriesWeightPercentage,
+  handleClose,
+  classes,
+  intl
+}) => {
+  const [skillsPercentage, setSkillsPercentage] = useState(
+    prCategoriesWeightPercentage
+  );
 
   const info = useInfoContext();
   const error = useErrorContext();
@@ -28,6 +38,7 @@ const PercentageDialog = ({ open, scId, handleClose, classes, intl }) => {
 
   const handleSave = () => {
     savePercentage(scId, skillsPercentage, info, error);
+    handleClose();
   };
 
   return (

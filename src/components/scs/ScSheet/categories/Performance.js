@@ -42,8 +42,7 @@ const Performance = memo(
     addSubcategory,
     removeSubcategory,
     hasWeightPercentage,
-    performanceWeightPercentage,
-    handleChangeWeightPercentage,
+    prCategoriesWeightPercentage,
     isReviewer,
     fieldsDisabled,
     handleChangeWeight
@@ -99,7 +98,7 @@ const Performance = memo(
                 </Typography>
               </Grid>
               <Typography item xs={1}>
-                {'50%'}
+                {100 - prCategoriesWeightPercentage}
               </Typography>
               <Grid item xs={1}>
                 <Button onClick={handlePercentageDialogOpen}>{'Andern'}</Button>
@@ -221,6 +220,7 @@ const Performance = memo(
         <PercentageDialog
           open={percentageDialogOpened}
           scId={scId}
+          prCategoriesWeightPercentage={prCategoriesWeightPercentage}
           handleClose={handlePercentageDialogClose}
         />
       </Fragment>

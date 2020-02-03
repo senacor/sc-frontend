@@ -442,12 +442,13 @@ const ScSheetWithPr = ({
         removeSubcategory={removeSubcategory}
         hasWeightPercentage
         isReviewer={user.isReviewerInSc(sc)}
-        performanceWeightPercentage={performanceWeightPercentage}
+        prCategoriesWeightPercentage={prCategoriesWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
         canRemoveGoal={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
       />
       <PrCategories
+        scId={sc.id}
         fieldsDisabled={fieldsDisabled}
         skillsInTheFieldsFields={skillsInTheFieldsFields}
         impactOnTeamFields={impactOnTeamFields}
