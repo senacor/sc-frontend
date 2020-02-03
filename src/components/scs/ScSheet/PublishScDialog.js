@@ -1,6 +1,6 @@
 import React from 'react';
-import {injectIntl} from 'react-intl';
-import {Tooltip, withStyles} from '@material-ui/core';
+import { injectIntl } from 'react-intl';
+import { Tooltip, withStyles } from '@material-ui/core';
 // Material UI
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -19,14 +19,14 @@ const styles = theme => ({
 });
 
 const PublishScDialog = ({
-                           intl,
-                           classes,
-                           open,
-                           handlePublish,
-                           handleClose,
-                           withEvaluationsButtonDisabled,
-                           onBackdropClick
-                         }) => {
+  intl,
+  classes,
+  open,
+  handlePublish,
+  handleClose,
+  withEvaluationsButtonDisabled,
+  onBackdropClick
+}) => {
   return (
     <Dialog
       fullWidth
@@ -35,16 +35,18 @@ const PublishScDialog = ({
       onBackdropClick={onBackdropClick}
     >
       <DialogTitle>
-        {intl.formatMessage({id: 'scsheet.publishScDialog.header'})}
+        {intl.formatMessage({ id: 'scsheet.publishScDialog.header' })}
       </DialogTitle>
-      <Divider/>
+      <Divider />
       <DialogContent className={classes.content}>
-        {intl.formatMessage({id: 'scsheet.publishScDialog.content'})}
+        {intl.formatMessage({ id: 'scsheet.publishScDialog.content' })}
       </DialogContent>
       <DialogActions>
         <Tooltip
           disableHoverListener={!withEvaluationsButtonDisabled}
-          title={intl.formatMessage({id: 'scsheet.publishScDialog.publishEvaluationsFirst'})}
+          title={intl.formatMessage({
+            id: 'scsheet.publishScDialog.publishEvaluationsFirst'
+          })}
         >
           <span data-tip-disable={false}>
             {/*button is inside of span to enable tooltip when button is disabled.*/}
@@ -55,13 +57,14 @@ const PublishScDialog = ({
               color="secondary"
               onClick={() => {
                 handlePublish(true);
-                handleClose()
+                handleClose();
               }}
             >
-              {intl.formatMessage({id: 'scsheet.publishScDialog.withEvaluation'})}
+              {intl.formatMessage({
+                id: 'scsheet.publishScDialog.withEvaluation'
+              })}
             </Button>
           </span>
-
         </Tooltip>
 
         <Button
@@ -70,10 +73,12 @@ const PublishScDialog = ({
           color="secondary"
           onClick={() => {
             handlePublish(false);
-            handleClose()
+            handleClose();
           }}
         >
-          {intl.formatMessage({id: 'scsheet.publishScDialog.withoutEvaluation'})}
+          {intl.formatMessage({
+            id: 'scsheet.publishScDialog.withoutEvaluation'
+          })}
         </Button>
 
         <Button
@@ -82,7 +87,7 @@ const PublishScDialog = ({
           color="primary"
           onClick={handleClose}
         >
-          {intl.formatMessage({id: 'scsheet.publishScDialog.cancel'})}
+          {intl.formatMessage({ id: 'scsheet.publishScDialog.cancel' })}
         </Button>
       </DialogActions>
     </Dialog>

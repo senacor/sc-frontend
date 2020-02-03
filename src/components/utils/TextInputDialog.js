@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-
 const styles = theme => ({
   content: {
     padding: theme.spacing.unit * 3
@@ -42,16 +41,16 @@ const TextInputDialog = ({
       <DialogTitle>{dialogHeader}</DialogTitle>
       <Divider />
       <DialogContent className={classes.content}>
-      <TextField
-        required
-        type="text"
-        margin="normal"
-        variant="outlined"
-        label={inputLabel}
-        fullWidth
-        onChange={handleInputChange}
-        inputProps={{ className: classes.input }}
-      />
+        <TextField
+          required
+          type="text"
+          margin="normal"
+          variant="outlined"
+          label={inputLabel}
+          fullWidth
+          onChange={handleInputChange}
+          inputProps={{ className: classes.input }}
+        />
       </DialogContent>
       <DialogActions>
         <Button

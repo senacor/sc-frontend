@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 // Material UI
 import {
+  Button,
   Divider,
   Grid,
   IconButton,
@@ -11,11 +12,11 @@ import {
 } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/AddBox';
-import TextField from '@material-ui/core/TextField';
 import ScRows from '../ScRows';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import ConfirmDialog from '../../../utils/ConfirmDialog';
 import TextInputDialog from '../../../utils/TextInputDialog';
+import PercentageDialog from '../PercentageDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -24,11 +25,15 @@ const styles = theme => ({
   },
   hidden: {
     display: 'none'
+  },
+  whiteFont: {
+    color: '#FFFFFF'
   }
 });
 
 const Performance = memo(
   ({
+    scId,
     classes,
     intl,
     dailyBusinessFields,
@@ -45,13 +50,12 @@ const Performance = memo(
   }) => {
     const [addDialogOpened, setAddDialogOpened] = useState(false);
     const [typeOpenedAddDialog, setTypeOpenedAddDialog] = useState(undefined);
-
     const [removeDialogOpened, setRemoveDialogOpened] = useState(false);
     const [fieldOpenedRemoveDialog, setFieldOpenedRemoveDialog] = useState(
       undefined
     );
-
     const [newGoalName, setNewGoalName] = useState(undefined);
+    const [percentageDialogOpened, setPercentageDialogOpened] = useState(false);
 
     const handleRemoveDialogOpen = (type, index) => {
       setRemoveDialogOpened(true);
@@ -76,32 +80,29 @@ const Performance = memo(
       setNewGoalName(event.target.value);
     };
 
+    const handlePercentageDialogOpen = () => {
+      setPercentageDialogOpened(true);
+    };
+
+    const handlePercentageDialogClose = () => {
+      setPercentageDialogOpened(false);
+    };
+
     return (
       <Fragment>
-        <Grid container>
+        <Grid container className={classes.categoryTitle}>
           {hasWeightPercentage ? (
             <Fragment>
-              <Grid item xs={11}>
-                <Typography variant="h5" className={classes.categoryTitle}>
+              <Grid item xs={10}>
+                <Typography variant="h5" className={classes.whiteFont}>
                   {intl.formatMessage({ id: 'scsheet.category.performance' })}
                 </Typography>
               </Grid>
+              <Typography item xs={1}>
+                {'50%'}
+              </Typography>
               <Grid item xs={1}>
-                <TextField
-                  disabled={fieldsDisabled}
-                  inputProps={{ style: { height: 10 } }}
-                  type="number"
-                  value={performanceWeightPercentage}
-                  onChange={event =>
-                    handleChangeWeightPercentage(
-                      CATEGORY.PERFORMANCE,
-                      event.target.value
-                    )
-                  }
-                  margin="normal"
-                  variant="outlined"
-                  label={'%'}
-                />
+                <Button onClick={handlePercentageDialogOpen}>{'Andern'}</Button>
               </Grid>
             </Fragment>
           ) : (
@@ -216,6 +217,11 @@ const Performance = memo(
                 ? 'scsheet.textheader.title.dailyBusiness'
                 : 'scsheet.textheader.title.project'
           })}
+        />
+        <PercentageDialog
+          open={percentageDialogOpened}
+          scId={scId}
+          handleClose={handlePercentageDialogClose}
         />
       </Fragment>
     );
