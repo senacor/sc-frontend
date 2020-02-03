@@ -14,7 +14,8 @@ const ROUTES = {
   ADMIN_SYSTEM_PANEL: '/system',
   MAINTENANCE: '/maintenance',
   AUTORULES: '/autorules',
-  EMPLOYEE_SC: '/employeeScs'
+  EMPLOYEE_SC: '/employeeScs',
+  PAYROLL_REPORTS: '/payrollReports'
 };
 
 export default ROUTES;
