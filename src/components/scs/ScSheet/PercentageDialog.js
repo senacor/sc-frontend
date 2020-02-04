@@ -1,8 +1,7 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -14,14 +13,17 @@ import {
 import { Slider } from '@material-ui/lab';
 import { savePercentage } from '../../../calls/sc';
 import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
+import { CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({});
 
 const PercentageDialog = ({
   open,
   scId,
-  prCategoriesWeightPercentage,
+  percentage,
+  handleChangeWeightPercentage,
   handleClose,
+  type,
   classes,
   intl
 }) => {
@@ -29,9 +31,9 @@ const PercentageDialog = ({
 
   useEffect(
     () => {
-      setSkillsPercentage(prCategoriesWeightPercentage);
+      setSkillsPercentage(percentage);
     },
-    [prCategoriesWeightPercentage]
+    [percentage]
   );
 
   const info = useInfoContext();
@@ -43,6 +45,9 @@ const PercentageDialog = ({
 
   const handleSave = () => {
     savePercentage(scId, skillsPercentage, info, error);
+    type === CATEGORY.PERFORMANCE
+      ? handleChangeWeightPercentage(type, 100 - skillsPercentage)
+      : handleChangeWeightPercentage(type, skillsPercentage);
     handleClose();
   };
 

@@ -39,6 +39,7 @@ const PrCategories = React.memo(
     impactOnCompanyFields,
     handleChangePrCategories,
     prCategoriesWeightPercentage,
+    handleChangeWeightPercentage,
     fieldsDisabled,
     isReviewer,
     handleChangeWeight
@@ -150,7 +151,9 @@ const PrCategories = React.memo(
         <PercentageDialog
           open={percentageDialogOpened}
           scId={scId}
-          prCategoriesWeightPercentage={prCategoriesWeightPercentage}
+          percentage={prCategoriesWeightPercentage}
+          handleChangeWeightPercentage={handleChangeWeightPercentage}
+          type={CATEGORY.PR_CATEGORIES}
           handleClose={handlePercentageDialogClose}
         />
       </Fragment>

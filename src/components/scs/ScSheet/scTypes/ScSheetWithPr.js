@@ -442,7 +442,7 @@ const ScSheetWithPr = ({
         removeSubcategory={removeSubcategory}
         hasWeightPercentage
         isReviewer={user.isReviewerInSc(sc)}
-        prCategoriesWeightPercentage={prCategoriesWeightPercentage}
+        performanceWeightPercentage={performanceWeightPercentage}
         handleChangeWeightPercentage={handleChangeWeightPercentage}
         canRemoveGoal={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
