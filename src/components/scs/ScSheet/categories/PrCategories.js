@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import { Button } from '@material-ui/core';
 import PercentageDialog from '../PercentageDialog';
+import { useUserinfoContext } from '../../../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -30,7 +31,7 @@ const styles = theme => ({
 
 const PrCategories = React.memo(
   ({
-    scId,
+    sc,
     classes,
     intl,
     skillsInTheFieldsFields,
@@ -46,6 +47,8 @@ const PrCategories = React.memo(
   }) => {
     const [percentageDialogOpened, setPercentageDialogOpened] = useState(false);
 
+    const user = useUserinfoContext();
+
     const handlePercentageDialogOpen = () => {
       setPercentageDialogOpened(true);
     };
@@ -60,26 +63,41 @@ const PrCategories = React.memo(
           container
           className={`${classes.categoryTitle} ${classes.container}`}
         >
-          <Fragment>
-            <Grid item xs={10}>
-              <Typography variant="h5" className={classes.whiteFont}>
-                {intl.formatMessage({ id: 'scsheet.category.skills' })}
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Typography
-                className={classes.whiteFont}
-              >{`${prCategoriesWeightPercentage}%`}</Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Button
-                className={classes.changeButton}
-                onClick={handlePercentageDialogOpen}
-              >
-                {intl.formatMessage({ id: 'percentagedialog.change' })}
-              </Button>
-            </Grid>
-          </Fragment>
+          {user.isReviewerInSc(sc) ? (
+            <Fragment>
+              <Grid item xs={10}>
+                <Typography variant="h5" className={classes.whiteFont}>
+                  {intl.formatMessage({ id: 'scsheet.category.skills' })}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <Typography className={classes.whiteFont}>
+                  {`${prCategoriesWeightPercentage}%`}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <Button
+                  className={classes.changeButton}
+                  onClick={handlePercentageDialogOpen}
+                >
+                  {intl.formatMessage({ id: 'percentagedialog.change' })}
+                </Button>
+              </Grid>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Grid item xs={11}>
+                <Typography variant="h5" className={classes.whiteFont}>
+                  {intl.formatMessage({ id: 'scsheet.category.skills' })}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <Typography className={classes.whiteFont}>
+                  {`${prCategoriesWeightPercentage}%`}
+                </Typography>
+              </Grid>
+            </Fragment>
+          )}
         </Grid>
         <ScRow
           isReviewer={isReviewer}
@@ -150,7 +168,7 @@ const PrCategories = React.memo(
         />
         <PercentageDialog
           open={percentageDialogOpened}
-          scId={scId}
+          scId={sc.id}
           percentage={prCategoriesWeightPercentage}
           handleChangeWeightPercentage={handleChangeWeightPercentage}
           type={CATEGORY.PR_CATEGORIES}

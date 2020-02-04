@@ -313,7 +313,7 @@ const ScSheetWithoutPr = ({
   return (
     <Fragment>
       <Performance
-        scId={sc.id}
+        sc={sc}
         fieldsDisabled={fieldsDisabled}
         dailyBusinessFields={dailyBusinessFields}
         setDailyBusinessFields={setDailyBusinessFields}
