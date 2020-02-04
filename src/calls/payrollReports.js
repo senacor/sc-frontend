@@ -6,7 +6,7 @@ export const loadPayrollReports = async (
   error
 ) => {
   try {
-    setIsLoading(false);
+    setIsLoading(true);
     const response = await fetch(
       `${process.env.REACT_APP_API}/api/v1/payroll-report`
     );
@@ -14,12 +14,37 @@ export const loadPayrollReports = async (
     if (response.ok) {
       const reports = await response.json();
       setReportsData(reports);
-      setIsLoading(false);
     } else {
       error.showGeneral();
     }
-
+    setIsLoading(false);
   } catch (err) {
+    setIsLoading(false);
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const getLastPayrollReport = async (
+  setLastPayrollReport,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/payroll-report/last`
+    );
+
+    if (response.ok) {
+      const report = await response.json();
+      setLastPayrollReport(report);
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    setIsLoading(false);
     console.log(err);
     error.showGeneral();
   }

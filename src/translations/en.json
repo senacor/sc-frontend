@@ -13,6 +13,7 @@
   "dashboard.allscs": "All Scorecards:",
   "dashboard.newemployees": "New employees",
   "dashboard.lastpayrollreport": "Last Payroll report",
+  "dashboard.noLastReport": "No report found",
   "login.username": "Username",
   "login.password": "Password",
   "login.login": "Login",

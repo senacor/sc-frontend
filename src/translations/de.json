@@ -9,6 +9,7 @@
   "dashboard.administrationText": "In diesem Modus kannst du Feedbacks, Logs und aufgetretene Probleme anschauen.",
   "dashboard.allscs": "Alle Scorecards:",
   "dashboard.lastpayrollreport": "Letztes Payroll Report",
+  "dashboard.noLastReport": "Kein report gefunden",
   "dashboard.newformeremployees": "Neue ehemalige Mitarbeiter",
   "dashboard.newemployees": "Neue Mitarbeiter",
   "dashboard.phase": "Phase",
