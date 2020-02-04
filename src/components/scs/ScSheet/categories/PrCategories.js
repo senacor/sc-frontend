@@ -14,6 +14,17 @@ const styles = theme => ({
   ...theme.styledComponents,
   addProjectButton: {
     color: theme.palette.secondary.yellow
+  },
+  whiteFont: {
+    color: '#FFFFFF'
+  },
+  changeButton: {
+    color: '#FFFFFF',
+    backgroundColor: theme.palette.secondary.purple
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -28,7 +39,6 @@ const PrCategories = React.memo(
     impactOnCompanyFields,
     handleChangePrCategories,
     prCategoriesWeightPercentage,
-    handleChangeWeightPercentage,
     fieldsDisabled,
     isReviewer,
     handleChangeWeight
@@ -45,18 +55,28 @@ const PrCategories = React.memo(
 
     return (
       <Fragment>
-        <Grid container className={classes.categoryTitle}>
+        <Grid
+          container
+          className={`${classes.categoryTitle} ${classes.container}`}
+        >
           <Fragment>
             <Grid item xs={10}>
               <Typography variant="h5" className={classes.whiteFont}>
-                {intl.formatMessage({ id: 'scsheet.category.performance' })}
+                {intl.formatMessage({ id: 'scsheet.category.skills' })}
               </Typography>
             </Grid>
-            <Typography item xs={1}>
-              {prCategoriesWeightPercentage}
-            </Typography>
             <Grid item xs={1}>
-              <Button onClick={handlePercentageDialogOpen}>{'Andern'}</Button>
+              <Typography
+                className={classes.whiteFont}
+              >{`${prCategoriesWeightPercentage}%`}</Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Button
+                className={classes.changeButton}
+                onClick={handlePercentageDialogOpen}
+              >
+                {intl.formatMessage({ id: 'percentagedialog.change' })}
+              </Button>
             </Grid>
           </Fragment>
         </Grid>

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
@@ -25,8 +25,13 @@ const PercentageDialog = ({
   classes,
   intl
 }) => {
-  const [skillsPercentage, setSkillsPercentage] = useState(
-    prCategoriesWeightPercentage
+  const [skillsPercentage, setSkillsPercentage] = useState(0);
+
+  useEffect(
+    () => {
+      setSkillsPercentage(prCategoriesWeightPercentage);
+    },
+    [prCategoriesWeightPercentage]
   );
 
   const info = useInfoContext();

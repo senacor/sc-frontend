@@ -328,5 +328,6 @@
   "sctypetochoose.add": "Hinzufügen",
   "sctypetochoose.tooltip": "Du müsst Scorecard Typ und Einstuffung auswählen und wenigstens ein Tägliches Geschäft und ein Projekt eingeben.",
   "percentagedialog.performance": "Leistungen",
-  "percentagedialog.skills": "Kompetenz & Entwicklung"
+  "percentagedialog.skills": "Kompetenz & Entwicklung",
+  "percentagedialog.change": "Ändern"
 }

@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
 // Material UI
 import { Divider, Grid, Typography } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import MixedScRow from './MixedScRow';
 
@@ -14,6 +13,13 @@ const styles = theme => ({
   },
   hidden: {
     display: 'none'
+  },
+  whiteFont: {
+    color: '#FFFFFF'
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -23,29 +29,25 @@ const PerformanceSummary = ({
   dailyBusinessGoals,
   projectGoals,
   hasWeightPercentage,
-  performanceWeightPercentage,
-  handleChangeWeightPercentage
+  performanceWeightPercentage
 }) => {
   return (
     <Fragment>
-      <Grid container>
+      <Grid
+        container
+        className={`${classes.categoryTitle} ${classes.container}`}
+      >
         {hasWeightPercentage ? (
           <Fragment>
             <Grid item xs={11}>
-              <Typography variant="h5" className={classes.categoryTitle}>
+              <Typography variant="h5" className={classes.whiteFont}>
                 {intl.formatMessage({ id: 'scsheet.category.performance' })}
               </Typography>
             </Grid>
             <Grid item xs={1}>
-              <TextField
-                disabled
-                inputProps={{ style: { height: 10 } }}
-                type="number"
-                value={performanceWeightPercentage}
-                margin="normal"
-                variant="outlined"
-                label={'%'}
-              />
+              <Typography className={classes.whiteFont}>
+                {`${performanceWeightPercentage}%`}
+              </Typography>
             </Grid>
           </Fragment>
         ) : (
