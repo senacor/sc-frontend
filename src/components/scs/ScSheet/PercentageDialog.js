@@ -57,6 +57,11 @@ const PercentageDialog = ({
   const info = useInfoContext();
   const error = useErrorContext();
 
+  const closeDialog = () => {
+    setSkillsPercentage(percentage);
+    handleClose();
+  };
+
   const handleChange = (event, newValue) => {
     setSkillsPercentage(newValue);
   };
@@ -104,7 +109,7 @@ const PercentageDialog = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="secondary" onClick={handleClose}>
+        <Button variant="contained" color="secondary" onClick={closeDialog}>
           {intl.formatMessage({
             id: 'system.cancel'
           })}
