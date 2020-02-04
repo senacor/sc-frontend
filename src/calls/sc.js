@@ -453,3 +453,25 @@ export const archiveAndCreateSc = async (scId, afterArchived, error) => {
     error.showGeneral();
   }
 };
+
+export const savePercentage = async (scId, skillsPercentage, info, error) => {
+  try {
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/percentage?skillsPercentage=${skillsPercentage}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+    if (response.ok) {
+      info.msg('sc.saved');
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};

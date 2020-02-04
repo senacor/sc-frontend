@@ -89,7 +89,6 @@ const ScRow = memo(
     isReviewer,
     handleChangeWeight
   }) => {
-
     const weightValues =
       type === CATEGORY.SKILLS_IN_THE_FIELDS ||
       type === CATEGORY.TEAM_IMPACT ||
@@ -107,7 +106,8 @@ const ScRow = memo(
     return (
       <Fragment>
         <Paper className={classes.scRowContainer}>
-          {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) && isReviewer && (
+          {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) &&
+            isReviewer && (
               <Tooltip
                 title={intl.formatMessage({
                   id: 'scsheet.tooltip.removeField'

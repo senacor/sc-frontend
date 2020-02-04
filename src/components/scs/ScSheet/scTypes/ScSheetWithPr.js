@@ -431,6 +431,7 @@ const ScSheetWithPr = ({
   return (
     <Fragment>
       <Performance
+        scId={sc.id}
         fieldsDisabled={fieldsDisabled}
         dailyBusinessFields={dailyBusinessFields}
         setDailyBusinessFields={setDailyBusinessFields}
@@ -447,6 +448,7 @@ const ScSheetWithPr = ({
         handleChangeWeight={handleChangeWeight}
       />
       <PrCategories
+        scId={sc.id}
         fieldsDisabled={fieldsDisabled}
         skillsInTheFieldsFields={skillsInTheFieldsFields}
         impactOnTeamFields={impactOnTeamFields}

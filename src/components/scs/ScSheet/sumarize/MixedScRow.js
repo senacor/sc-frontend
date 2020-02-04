@@ -15,7 +15,6 @@ import { CATEGORY } from '../../../../helper/scSheetData';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import SummaryScRatingPoints from './SummaryScRatingPoints';
 
@@ -66,6 +65,9 @@ const styles = theme => ({
   },
   hidden: {
     display: 'none'
+  },
+  boldText: {
+    fontWeight: 'bold'
   }
 });
 
@@ -91,8 +93,24 @@ const MixedScRow = ({
       : [1, 2, 3];
 
   const mergedCell = (header, valueReviewer, valueEmployee) => {
-    const reviewerText = valueReviewer ? 'Beurteiler: \n' + valueReviewer : '';
-    const employeeText = valueEmployee ? 'Mitarbeiter: \n' + valueEmployee : '';
+    const reviewerText = valueReviewer ? (
+      <Typography>
+        <span className={classes.boldText}>{'Beurteiler: \n'}</span>
+        {valueReviewer}
+      </Typography>
+    ) : (
+      ''
+    );
+
+    const employeeText = valueEmployee ? (
+      <Typography>
+        <span className={classes.boldText}>{'Mitarbeiter: \n'}</span>
+        {valueEmployee}
+      </Typography>
+    ) : (
+      ''
+    );
+
     return (
       <List
         subheader={
@@ -104,19 +122,22 @@ const MixedScRow = ({
         className={classes.root}
         aria-label="mailbox folders"
       >
-        <ListItem>
-          <ListItemText
-            style={{ whiteSpace: 'pre-line' }}
-            primary={reviewerText}
-          />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <ListItemText
-            style={{ whiteSpace: 'pre-line' }}
-            primary={employeeText}
-          />
-        </ListItem>
+        {reviewerText && (
+          <ListItem>
+            <ListItemText
+              style={{ whiteSpace: 'pre-line' }}
+              primary={reviewerText}
+            />
+          </ListItem>
+        )}
+        {employeeText && (
+          <ListItem>
+            <ListItemText
+              style={{ whiteSpace: 'pre-line' }}
+              primary={employeeText}
+            />
+          </ListItem>
+        )}
       </List>
     );
   };

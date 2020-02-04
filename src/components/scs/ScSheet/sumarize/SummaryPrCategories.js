@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { CATEGORY } from '../../../../helper/scSheetData';
 import MixedScRow from './MixedScRow';
 
@@ -13,6 +12,13 @@ const styles = theme => ({
   ...theme.styledComponents,
   addProjectButton: {
     color: theme.palette.secondary.yellow
+  },
+  whiteFont: {
+    color: '#FFFFFF'
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -23,27 +29,23 @@ const SummaryPrCategories = ({
   impactOnTeamFields,
   serviceQualityFields,
   impactOnCompanyFields,
-  handleChangePrCategories,
-  prCategoriesWeightPercentage,
+  prCategoriesWeightPercentage
 }) => {
   return (
     <Fragment>
-      <Grid container>
+      <Grid
+        container
+        className={`${classes.categoryTitle} ${classes.container}`}
+      >
         <Grid item xs={11}>
-          <Typography variant="h5" className={classes.categoryTitle}>
+          <Typography variant="h5" className={classes.whiteFont}>
             {intl.formatMessage({ id: 'scsheet.category.skills' })}
           </Typography>
         </Grid>
         <Grid item xs={1}>
-          <TextField
-            disabled
-            inputProps={{ style: { height: 10 } }}
-            type="number"
-            value={prCategoriesWeightPercentage}
-            margin="normal"
-            variant="outlined"
-            label={'%'}
-          />
+          <Typography className={classes.whiteFont}>
+            {`${prCategoriesWeightPercentage}%`}
+          </Typography>
         </Grid>
       </Grid>
       <MixedScRow

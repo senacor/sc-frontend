@@ -330,5 +330,9 @@
   "scstodelegate.cancel": "Stornieren",
   "scstodelegate.select": "Beurteiler auswählen",
   "sctypetochoose.add": "Hinzufügen",
-  "sctypetochoose.tooltip": "Du müsst Scorecard Typ und Einstuffung auswählen und wenigstens ein Tägliches Geschäft und ein Projekt eingeben."
+  "sctypetochoose.tooltip": "Du müsst Scorecard Typ und Einstuffung auswählen und wenigstens ein Tägliches Geschäft und ein Projekt eingeben.",
+  "percentagedialog.performance": "Leistungen",
+  "percentagedialog.skills": "Kompetenz & Entwicklung",
+  "percentagedialog.change": "Ändern",
+  "percentagedialog.changepercentage": "Prozent ändern"
 }
