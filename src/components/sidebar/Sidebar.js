@@ -100,7 +100,7 @@ export const Sidebar = ({ intl, classes }) => {
       }),
       icon: <AssessmentIcon />,
       value: ROUTES.OWN_SCS,
-      roles: [ROLES.EMPLOYEE],
+      roles: [ROLES.EMPLOYEE, ROLES.SUPERVISOR],
       onClick: resetMessages
     },
     // SUPERVISOR + PERSONAL_DEV
