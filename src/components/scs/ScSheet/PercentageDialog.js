@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
   Typography,
   withStyles
 } from '@material-ui/core';
@@ -15,7 +14,25 @@ import { savePercentage } from '../../../calls/sc';
 import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
 import { CATEGORY } from '../../../helper/scSheetData';
 
-const styles = theme => ({});
+const styles = theme => ({
+  padding: {
+    padding: 3 * theme.spacing.unit
+  },
+  dialogContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 10
+  },
+  centerText: {
+    textAlign: 'center'
+  }
+});
 
 const PercentageDialog = ({
   open,
@@ -52,36 +69,38 @@ const PercentageDialog = ({
   };
 
   return (
-    <Dialog open={open}>
-      <DialogTitle>change percentage</DialogTitle>
-      <DialogContent style={{ padding: 20 }}>
-        <Grid container>
-          <Grid item xs={1}>
-            <Typography>
+    <Dialog open={open} fullWidth>
+      <DialogTitle>
+        {intl.formatMessage({
+          id: 'percentagedialog.changepercentage'
+        })}
+      </DialogTitle>
+      <DialogContent className={classes.padding}>
+        <div className={classes.dialogContainer}>
+          <div className={classes.textContainer}>
+            <Typography className={classes.centerText}>
               {intl.formatMessage({
                 id: 'percentagedialog.performance'
               })}
             </Typography>
             <Typography>{`${100 - skillsPercentage}%`}</Typography>
-          </Grid>
-          <Grid item xs={10}>
-            <Slider
-              value={skillsPercentage}
-              onChange={handleChange}
-              step={5}
-              min={0}
-              max={100}
-            />
-          </Grid>
-          <Grid item xs={1}>
-            <Typography>
+          </div>
+          <Slider
+            value={skillsPercentage}
+            onChange={handleChange}
+            step={5}
+            min={0}
+            max={100}
+          />
+          <div className={classes.textContainer}>
+            <Typography className={classes.centerText}>
               {intl.formatMessage({
                 id: 'percentagedialog.skills'
               })}
             </Typography>
             <Typography>{`${skillsPercentage}%`}</Typography>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </DialogContent>
       <DialogActions>
         <Button variant="contained" color="secondary" onClick={handleClose}>
