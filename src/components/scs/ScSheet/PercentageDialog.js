@@ -15,8 +15,9 @@ import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
 import { CATEGORY } from '../../../helper/scSheetData';
 
 const styles = theme => ({
-  padding: {
-    padding: 3 * theme.spacing.unit
+  content: {
+    padding: 3 * theme.spacing.unit,
+    overflowX: 'hidden'
   },
   dialogContainer: {
     display: 'flex',
@@ -75,7 +76,7 @@ const PercentageDialog = ({
           id: 'percentagedialog.changepercentage'
         })}
       </DialogTitle>
-      <DialogContent className={classes.padding}>
+      <DialogContent className={classes.content}>
         <div className={classes.dialogContainer}>
           <div className={classes.textContainer}>
             <Typography className={classes.centerText}>
