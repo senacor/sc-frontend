@@ -44,7 +44,7 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
 
   let mainContent = im('scdetailinformation.duedate') + ' ';
   mainContent +=
-    formatLocaleDateTime(sc.createdDate, FRONTEND_DATE_FORMAT) + ', ';
+    formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT) + ', ';
   mainContent += im('scdetailinformation.department') + ': ';
   mainContent += sc.department;
   mainContent += sc.classification

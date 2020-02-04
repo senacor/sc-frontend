@@ -11,6 +11,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ScsDialog from './ScsInProgressDialog/ScsDialog';
 import ScsToDelegateDialog from './ScsToDelegate/ScsToDelegateDialog';
+import { getLastPayrollReport } from '../../calls/payrollReports';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
+import { downloadPayrollReport } from '../../helper/downloadExcel';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -37,11 +41,19 @@ const Dashboard = ({ classes, intl }) => {
   const { userroles, userinfo } = user.context.value;
   const error = useErrorContext();
   const [systemInfo, setSystemInfo] = React.useState({});
+  const [lastReport, setLastReport] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState({});
   const numberOfScsToReview = userinfo ? userinfo.numberOfScsToReview : 0;
   const formerUsersCount = userinfo
     ? userinfo.numberOfEmployeeInactiveThisMonth
     : 0;
   const scsToDelegate = userinfo ? userinfo.scsToDelegate : 0;
+
+  useEffect(
+    () => {
+      getLastPayrollReport(setLastReport, setIsLoading, error);
+    }, []
+  );
 
   useEffect(
     () => {
@@ -51,6 +63,10 @@ const Dashboard = ({ classes, intl }) => {
     },
     [userroles]
   );
+
+  const downloadExcelReport = report => {
+    downloadPayrollReport(report, error);
+  };
 
   return userinfo ? (
     <div className={classes.columnContainer}>
@@ -142,16 +158,16 @@ const Dashboard = ({ classes, intl }) => {
             />
           </div>
           <div className={classes.rowContainer}>
-            <InfoWidget
-              label={intl.formatMessage({
-                id: 'dashboard.lastpayrollreport'
-              })}
-              // TODO value: date of last report
-              value={'29.01.2020'}
-              // TODO linkTo: download the report
-              // linkTo={}
-              icon={'table_chart'}
-            />
+            {isLoading ? <CircularProgress /> :
+              <InfoWidget
+                label={intl.formatMessage({
+                  id: 'dashboard.lastpayrollreport'
+                })}
+                value={lastReport.id ? formatLocaleDateTime(lastReport.date, FRONTEND_DATE_FORMAT) : intl.formatMessage({ id: 'dashboard.noLastReport' })}
+                onClick={lastReport.id ? () => downloadExcelReport(lastReport) : () => { }}
+                icon={'table_chart'}
+              />
+            }
           </div>
         </Fragment>
       )}

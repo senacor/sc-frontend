@@ -26,6 +26,7 @@ import { AuthorizationContext, UserinfoContext } from '../App';
 import FeedbackButton from './FeedbackButton';
 import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import ROUTES from '../../helper/routes';
 
 const styles = theme => ({
@@ -147,6 +148,15 @@ export const Sidebar = ({ intl, classes }) => {
       }),
       icon: <SupervisedUserCircle />,
       value: ROUTES.ADMIN_USER_ROLES,
+      roles: [ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.payrollreport'
+      }),
+      icon: <AssignmentIcon />,
+      value: ROUTES.PAYROLL_REPORTS,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
     },
