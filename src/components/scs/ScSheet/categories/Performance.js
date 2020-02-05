@@ -17,6 +17,7 @@ import { CATEGORY } from '../../../../helper/scSheetData';
 import ConfirmDialog from '../../../utils/ConfirmDialog';
 import TextInputDialog from '../../../utils/TextInputDialog';
 import PercentageDialog from '../PercentageDialog';
+import { useUserinfoContext } from '../../../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -41,7 +42,7 @@ const styles = theme => ({
 
 const Performance = memo(
   ({
-    scId,
+    sc,
     classes,
     intl,
     dailyBusinessFields,
@@ -64,6 +65,8 @@ const Performance = memo(
     );
     const [newGoalName, setNewGoalName] = useState(undefined);
     const [percentageDialogOpened, setPercentageDialogOpened] = useState(false);
+
+    const user = useUserinfoContext();
 
     const handleRemoveDialogOpen = (type, index) => {
       setRemoveDialogOpened(true);
@@ -102,7 +105,13 @@ const Performance = memo(
           container
           className={`${classes.categoryTitle} ${classes.container}`}
         >
-          {hasWeightPercentage ? (
+          {!hasWeightPercentage ? (
+            <Grid item xs={12}>
+              <Typography variant="h5" className={classes.whiteFont}>
+                {intl.formatMessage({ id: 'scsheet.category.performance' })}
+              </Typography>
+            </Grid>
+          ) : user.isReviewerInSc(sc) ? (
             <Fragment>
               <Grid item xs={10}>
                 <Typography variant="h5" className={classes.whiteFont}>
@@ -124,11 +133,18 @@ const Performance = memo(
               </Grid>
             </Fragment>
           ) : (
-            <Grid item xs={12}>
-              <Typography variant="h5" className={classes.categoryTitle}>
-                {intl.formatMessage({ id: 'scsheet.category.performance' })}
-              </Typography>
-            </Grid>
+            <Fragment>
+              <Grid item xs={11}>
+                <Typography variant="h5" className={classes.whiteFont}>
+                  {intl.formatMessage({ id: 'scsheet.category.performance' })}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <Typography className={classes.whiteFont}>
+                  {`${performanceWeightPercentage}%`}
+                </Typography>
+              </Grid>
+            </Fragment>
           )}
         </Grid>
         <Typography variant="h5" className={classes.subCategoryTitle}>
@@ -238,7 +254,7 @@ const Performance = memo(
         />
         <PercentageDialog
           open={percentageDialogOpened}
-          scId={scId}
+          scId={sc.id}
           percentage={100 - performanceWeightPercentage}
           handleChangeWeightPercentage={handleChangeWeightPercentage}
           type={CATEGORY.PERFORMANCE}

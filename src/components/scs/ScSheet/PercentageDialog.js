@@ -32,6 +32,9 @@ const styles = theme => ({
   },
   centerText: {
     textAlign: 'center'
+  },
+  buttons: {
+    margin: 2 * theme.spacing.unit
   }
 });
 
@@ -108,7 +111,7 @@ const PercentageDialog = ({
           </div>
         </div>
       </DialogContent>
-      <DialogActions>
+      <DialogActions className={classes.buttons}>
         <Button variant="contained" color="secondary" onClick={closeDialog}>
           {intl.formatMessage({
             id: 'system.cancel'

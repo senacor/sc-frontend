@@ -52,7 +52,7 @@ const PerformanceSummary = ({
           </Fragment>
         ) : (
           <Grid item xs={12}>
-            <Typography variant="h5" className={classes.categoryTitle}>
+            <Typography variant="h5" className={classes.whiteFont}>
               {intl.formatMessage({ id: 'scsheet.category.performance' })}
             </Typography>
           </Grid>
