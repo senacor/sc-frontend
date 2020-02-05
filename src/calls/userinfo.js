@@ -26,7 +26,8 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
     //Fetching photo
     if (
       userinfo.userphoto === '' &&
-      !userinfo.userroles.includes(ROLES.ADMIN)
+      !userinfo.userroles.includes(ROLES.ADMIN) &&
+      !userinfo.userroles.includes(ROLES.PERSONAL_DEV)
     ) {
       let response = await fetch(
         `${process.env.REACT_APP_API}/api/v1/employee/photo`,

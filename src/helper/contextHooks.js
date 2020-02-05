@@ -39,7 +39,7 @@ export const useUserinfoContext = () => {
       return sc.employee && sc.employee.id === userinfo.userId;
     },
     hasRoleAdmin: () => {
-      return userroles[0] === 'ADMIN';
+      return userroles.includes(ROLES.ADMIN);
     },
     hasRoleHr: () => {
       return userroles.includes(ROLES.PERSONAL_DEV);
