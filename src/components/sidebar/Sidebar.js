@@ -15,6 +15,7 @@ import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
 import BarChart from '@material-ui/icons/BarChart';
 import Build from '@material-ui/icons/Build';
+import BuildIcon from '@material-ui/icons/Build';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { CircularProgress } from '@material-ui/core';
@@ -22,11 +23,17 @@ import Authorized from '../authorized/Authorized';
 import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { getUserInfo } from '../../calls/userinfo';
-import { AuthorizationContext, UserinfoContext } from '../App';
+import { AuthorizationContext } from '../App';
 import FeedbackButton from './FeedbackButton';
-import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../helper/contextHooks';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import PersonIcon from '@material-ui/icons/Person';
+
 import ROUTES from '../../helper/routes';
 
 const styles = theme => ({
@@ -38,6 +45,24 @@ const styles = theme => ({
   avatar: {
     width: 60,
     height: 60
+  },
+  adminAvatar: {
+    width: 60,
+    height: 60,
+    backgroundColor: theme.palette.primary[400]
+  },
+  adminIcon: {
+    fontSize: 4 * theme.spacing.unit,
+    color: theme.palette.secondary.darkYellow
+  },
+  pdAvatar: {
+    width: 60,
+    height: 60,
+    backgroundColor: theme.palette.primary[400]
+  },
+  pdIcon: {
+    fontSize: 5 * theme.spacing.unit,
+    color: theme.palette.secondary.darkYellow
   },
   column: {
     display: 'flex',
@@ -68,7 +93,8 @@ const styles = theme => ({
 });
 
 export const Sidebar = ({ intl, classes }) => {
-  const userinfoContext = useContext(UserinfoContext.context);
+  const user = useUserinfoContext();
+  const userinfoContext = user.context;
   const { userphoto, userinfo, userroles } = userinfoContext.value;
   const info = useInfoContext();
   const error = useErrorContext();
@@ -201,14 +227,36 @@ export const Sidebar = ({ intl, classes }) => {
   const fullName = userinfo.employeeName;
   const initials = fullName.split(' ').map(str => str[0]);
 
+  const avatarArtIcon = () => {
+    if (user.hasRoleHr()) {
+      return (
+        <Avatar alt={fullName} className={classes.pdAvatar}>
+          <PersonIcon className={classes.pdIcon} />
+        </Avatar>
+      );
+    }
+
+    if (user.hasRoleAdmin()) {
+      return (
+        <Avatar alt={fullName} className={classes.adminAvatar}>
+          <BuildIcon className={classes.adminIcon} />
+        </Avatar>
+      );
+    }
+
+    return (
+      <Avatar alt={fullName} className={classes.avatar}>
+        {`${initials[0]}${initials[initials.length - 1]}`}
+      </Avatar>
+    );
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.row}>
         <div className={classes.column}>
           {userphoto === '' ? (
-            <Avatar alt={fullName} className={classes.avatar}>{`${initials[0]}${
-              initials[initials.length - 1]
-            }`}</Avatar>
+            avatarArtIcon()
           ) : (
             <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
           )}
