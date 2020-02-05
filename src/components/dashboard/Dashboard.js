@@ -44,18 +44,18 @@ const Dashboard = ({ classes, intl }) => {
   const [lastReport, setLastReport] = React.useState({});
   const [isLoading, setIsLoading] = React.useState({});
   const numberOfScsToReview = userinfo ? userinfo.numberOfScsToReview : 0;
+  const numberOfOpenedScs =
+    userinfo && userinfo.openedScs ? userinfo.openedScs.length : 0;
   const formerUsersCount = userinfo
     ? userinfo.numberOfEmployeeInactiveThisMonth
     : 0;
   const scsToDelegate = userinfo ? userinfo.scsToDelegate : 0;
 
-  useEffect(
-    () => {
-      if (user.hasRoleHr()) {
-        getLastPayrollReport(setLastReport, setIsLoading, error);
-      }
-    }, []
-  );
+  useEffect(() => {
+    if (user.hasRoleHr()) {
+      getLastPayrollReport(setLastReport, setIsLoading, error);
+    }
+  }, []);
 
   useEffect(
     () => {
@@ -96,6 +96,16 @@ const Dashboard = ({ classes, intl }) => {
             </Typography>
           </CardContent>
         </Card>
+        {numberOfOpenedScs > 0 && (
+          <InfoWidget
+            label={intl.formatMessage({
+              id: 'dashboard.sc.opened'
+            })}
+            value={numberOfOpenedScs}
+            linkTo={`/scDetail/${userinfo.openedScs[0].id}`}
+            icon={'bar_chart'}
+          />
+        )}
         {numberOfScsToReview > 0 && (
           <InfoWidget
             label={intl.formatMessage({
@@ -160,16 +170,29 @@ const Dashboard = ({ classes, intl }) => {
             />
           </div>
           <div className={classes.rowContainer}>
-            {isLoading ? <CircularProgress /> :
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
               <InfoWidget
                 label={intl.formatMessage({
                   id: 'dashboard.lastpayrollreport'
                 })}
-                value={lastReport.id ? formatLocaleDateTime(lastReport.date, FRONTEND_DATE_FORMAT) : intl.formatMessage({ id: 'dashboard.noLastReport' })}
-                onClick={lastReport.id ? () => downloadExcelReport(lastReport) : () => { }}
+                value={
+                  lastReport.id
+                    ? formatLocaleDateTime(
+                        lastReport.date,
+                        FRONTEND_DATE_FORMAT
+                      )
+                    : intl.formatMessage({ id: 'dashboard.noLastReport' })
+                }
+                onClick={
+                  lastReport.id
+                    ? () => downloadExcelReport(lastReport)
+                    : () => {}
+                }
                 icon={'table_chart'}
               />
-            }
+            )}
           </div>
         </Fragment>
       )}
