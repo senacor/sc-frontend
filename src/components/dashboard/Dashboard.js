@@ -51,16 +51,11 @@ const Dashboard = ({ classes, intl }) => {
 
   useEffect(
     () => {
-      if (user.hasRoleHr()) {
-        getLastPayrollReport(setLastReport, setIsLoading, error);
-      }
-    }, []
-  );
-
-  useEffect(
-    () => {
       if (user.hasRoleAdmin()) {
         getSystemInfo(setSystemInfo, error);
+      }
+      if (user.hasRoleHr()) {
+        getLastPayrollReport(setLastReport, setIsLoading, error);
       }
     },
     [userroles]
