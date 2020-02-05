@@ -105,18 +105,20 @@ const ButtonsBelowSheet = memo(
           </div>
         </Tooltip>
 
-        <Button
-          className={
-            sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED)
-              ? classes.btnClose
-              : classes.hidden
-          }
-          variant="contained"
-          color="secondary"
-          onClick={handleOpenScClosingDialog}
-        >
-          {intl.formatMessage({ id: 'scsheet.closeSc' })}
-        </Button>
+        {!user.isOwnerInSc(sc) && (
+          <Button
+            className={
+              sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED)
+                ? classes.btnClose
+                : classes.hidden
+            }
+            variant="contained"
+            color="secondary"
+            onClick={handleOpenScClosingDialog}
+          >
+            {intl.formatMessage({ id: 'scsheet.closeSc' })}
+          </Button>
+        )}
 
         <Button
           className={classes.btnDownload}
