@@ -67,7 +67,8 @@ const ScTabs = ({
           }}
         >
           {(user.isReviewerInSc(sc) || user.isOwnerInSc(sc)) &&
-            !sc.statusSet.includes(SC_STATUS.CLOSED) && (
+            !sc.statusSet.includes(SC_STATUS.CLOSED) &&
+            !sc.statusSet.includes(SC_STATUS.ARCHIVED) && (
               <Tab
                 selected={tabValue === SC_TAB.MY_DATA}
                 value={SC_TAB.MY_DATA}
