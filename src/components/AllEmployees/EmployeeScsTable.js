@@ -4,11 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { sortBySortActive } from '../../helper/filterFunctions';
 import { linkToSc } from '../../calls/sc';
-import { modifyString, translateGeneralStatus } from '../../helper/string';
-import { formatLocaleDateTime } from '../../helper/date';
-import { FRONTEND_DATE_FORMAT } from '../../helper/date';
+import {
+  translateClassification,
+  translateGeneralStatus
+} from '../../helper/string';
+import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { downloadScAsPdf } from '../../components/scs/ScSheet/helperFunc.js';
-
 // Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -162,9 +163,15 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               <TableCell>
                 {formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT)}
               </TableCell>
-              <TableCell>{modifyString(sc.classification)}</TableCell>
+              <TableCell>
+                {intl.formatMessage({
+                  id: translateClassification(sc.classification)
+                })}
+              </TableCell>
               <TableCell>{`${sc.finalScore}%`}</TableCell>
-              <TableCell>{intl.formatMessage({ id: translateGeneralStatus(sc.status) })}</TableCell>
+              <TableCell>
+                {intl.formatMessage({ id: translateGeneralStatus(sc.status) })}
+              </TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
               </TableCell>

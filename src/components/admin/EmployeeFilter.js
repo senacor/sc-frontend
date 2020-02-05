@@ -208,9 +208,13 @@ export const EmployeeFilter = ({
                 return (
                   (employee.firstName
                     .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
                     .startsWith(value.toLowerCase()) ||
                     employee.lastName
                       .toLowerCase()
+                      .normalize('NFD')
+                      .replace(/[\u0300-\u036f]/g, '')
                       .startsWith(value.toLowerCase())) && (
                     <ListItem className={classes.pointer} key={employee.id}>
                       <Avatar>
