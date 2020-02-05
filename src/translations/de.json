@@ -278,6 +278,8 @@
   "scsheet.subtitle.servicequality": "Servicequalität",
   "scsheet.subtitle.impactoncompany": "Beitrag im Unternehmen",
   "scsheet.addGoal.header": "Neues Ziel",
+  "scsheet.score.percentagetext": "Gemäß OTB Erreichungsgrad",
+  "scsheet.score.percentagetextclosed": "Gemäß OTB Erreichungsgrad : Erwartungen klar erfüllt und professionelle Arbeit",
   "scdetailinformation.department": "Abteilung",
   "scdetailinformation.duedate": "Fälligkeit:",
   "scdetailinformation.classification": "Einstufung:",
