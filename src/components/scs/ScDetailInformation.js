@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import getDisplayName from '../../helper/getDisplayName';
 import Grid from '@material-ui/core/Grid';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
-import { modifyString } from '../../helper/string';
+import { translateClassification } from '../../helper/string';
 import { SC_STATUS } from '../../helper/scSheetData';
 
 const styles = theme => ({
@@ -43,14 +43,15 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
     });
 
   let mainContent = im('scdetailinformation.duedate') + ' ';
-  mainContent +=
-    formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT) + ', ';
+  mainContent += formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT) + ', ';
   mainContent += im('scdetailinformation.department') + ': ';
   mainContent += sc.department;
   mainContent += sc.classification
     ? ', ' + im('scdetailinformation.classification') + ' '
     : '';
-  mainContent += sc.classification ? modifyString(sc.classification) : '';
+  mainContent += sc.classification
+    ? im(translateClassification(sc.classification))
+    : '';
 
   //Variant (with or without PR)
   let variantInfo;

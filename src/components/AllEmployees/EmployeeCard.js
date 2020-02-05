@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
 import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
-import { modifyString } from '../../helper/string';
+import { translateGeneralStatus } from '../../helper/string';
 
 // Material UI
 import Card from '@material-ui/core/Card';
@@ -232,7 +232,7 @@ const EmployeeCard = ({
               })}: `}
               <span className={classes.textInfo}>
                 {scStatus
-                  ? modifyString(scStatus)
+                  ? intl.formatMessage({ id: translateGeneralStatus(scStatus) })
                   : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
               </span>
             </Typography>

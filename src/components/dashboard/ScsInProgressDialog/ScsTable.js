@@ -8,8 +8,11 @@ import {
   sortBySortActive
 } from '../../../helper/filterFunctions';
 import { linkToSc } from '../../../calls/sc';
-import { modifyString } from '../../../helper/string';
-
+import {
+  modifyString,
+  translateClassification,
+  translateGeneralStatus
+} from '../../../helper/string';
 // Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -181,9 +184,17 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               </TableCell>
               <TableCell>{sc.department}</TableCell>
               <TableCell>{sc.supervisor}</TableCell>
-              <TableCell>{modifyString(sc.classification)}</TableCell>
+              <TableCell>
+                {intl.formatMessage({
+                  id: translateClassification(sc.classification)
+                })}
+              </TableCell>
               <TableCell>{sc.office}</TableCell>
-              <TableCell>{modifyString(sc.scStatus)}</TableCell>
+              <TableCell>
+                {intl.formatMessage({
+                  id: translateGeneralStatus(sc.scStatus)
+                })}
+              </TableCell>
             </TableRow>
           );
         })}

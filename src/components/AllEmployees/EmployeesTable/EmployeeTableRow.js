@@ -1,15 +1,14 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
-
 // Material UI
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { modifyString } from '../../../helper/string';
+import { translateGeneralStatus } from '../../../helper/string';
 import EmployeeScsDialog from '../EmployeeScsDialog';
 
 const styles = theme => ({
@@ -70,7 +69,7 @@ const EmployeeTableRow = ({
         {!formerEmployee && (
           <TableCell>
             {scStatus
-              ? modifyString(scStatus)
+              ? intl.formatMessage({ id: translateGeneralStatus(scStatus) })
               : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
           </TableCell>
         )}
