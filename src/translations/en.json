@@ -2,6 +2,7 @@
   "appbar.appTitle": "Scorecard Portal",
   "appbar.drawer": "Open drawer",
   "dashboard.sc.evaluator": "Opened SCs as evaluator",
+  "dashboard.sc.opened": "My opened SCs",
   "dashboard.welcome": "Welcome to the Scorecard Portal!",
   "dashboard.description": "A place for managing Corporate Service Scorecards or viewing your own.",
   "dashboard.subdescription": "As we continuously develop the portal any feedback is appreciated.",
