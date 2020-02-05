@@ -46,7 +46,6 @@ const SummaryButtonsBelowSheet = ({
   setSc,
   afterScFetched
 }) => {
-
   const user = useUserinfoContext();
   const error = useErrorContext();
   const info = useInfoContext();
