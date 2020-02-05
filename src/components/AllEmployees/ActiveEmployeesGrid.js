@@ -91,6 +91,10 @@ const ActiveEmployeesGrid = ({
     );
   });
 
+  filteredEmployees = filteredEmployees.sort((employee1, employee2) => {
+    return employee1.lastName > employee2.lastName;
+  });
+
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole
   );

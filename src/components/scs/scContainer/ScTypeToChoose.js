@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
-  withStyles,
-  Paper,
-  Typography,
-  FormControl,
-  FormLabel,
-  Select,
-  MenuItem,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Radio,
+  RadioGroup,
+  Select,
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
   TextField,
-  IconButton,
-  Grid,
   Tooltip,
-  InputLabel
+  Typography,
+  withStyles
 } from '@material-ui/core';
-import { SC_STATUS, classifications } from '../../../helper/scSheetData';
-import { modifyString } from '../../../helper/string';
+import { classifications, SC_STATUS } from '../../../helper/scSheetData';
+import { translateClassification } from '../../../helper/string';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import Icon from '@material-ui/core/Icon';
 
@@ -197,7 +197,7 @@ const ScTypeToChoose = ({
           >
             {classifications.map((pos, index) => (
               <MenuItem key={index} value={pos.toUpperCase()}>
-                {modifyString(pos)}
+                {intl.formatMessage({ id: translateClassification(pos) })}
               </MenuItem>
             ))}
           </Select>
