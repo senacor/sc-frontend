@@ -29,8 +29,7 @@ const styles = theme => ({
 });
 
 const FinalScoreSection = memo(
-  ({ intl, classes, finalScore, reviewerScore }) => {
-    let finalTextId = determineFinalText(finalScore);
+  ({ isClosed, intl, classes, finalScore, reviewerScore }) => {
     return (
       <div className={classes.container}>
         <Grid container className={classes.scoreGridContainer}>
@@ -50,7 +49,11 @@ const FinalScoreSection = memo(
         <Grid container className={classes.percentageGridContainer}>
           <Grid item sm={10}>
             <Typography variant="body1" className={classes.white}>
-              {finalTextId && intl.formatMessage({ id: `${finalTextId}` })}
+              {isClosed
+                ? intl.formatMessage({
+                    id: 'scsheet.score.percentagetextclosed'
+                  })
+                : intl.formatMessage({ id: 'scsheet.score.percentagetext' })}
             </Typography>
           </Grid>
           <Grid item sm={2}>

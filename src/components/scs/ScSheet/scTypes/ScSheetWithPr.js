@@ -460,7 +460,10 @@ const ScSheetWithPr = ({
         handleChangeWeightPercentage={handleChangeWeightPercentage}
         handleChangeWeight={handleChangeWeight}
       />
-      <FinalScoreSection finalScore={finalScore} />
+      <FinalScoreSection
+        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
+        finalScore={finalScore}
+      />
       <ButtonsBelowSheet
         withEvaluationsButtonDisabled={!areAllEvaluationsFilled()}
         handleSave={handleSave}

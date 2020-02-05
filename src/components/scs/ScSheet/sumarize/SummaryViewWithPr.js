@@ -4,9 +4,14 @@ import { withStyles } from '@material-ui/core';
 import PerformanceSummary from './PerformanceSummary';
 import SummaryPrCategories from './SummaryPrCategories';
 import { reduceWeights } from '../calculations/helperFunctions';
-import { calculateFinalScoreWithPr, calculatePercentageWithPrPerformance, calculatePercentageWithPRPrCategories } from '../calculations/scWithPr';
+import {
+  calculateFinalScoreWithPr,
+  calculatePercentageWithPrPerformance,
+  calculatePercentageWithPRPrCategories
+} from '../calculations/scWithPr';
 import FinalScoreSection from '../FinalScoreSection';
 import SummaryButtonsBelowSheet from './SummaryButtonsBelowSheet';
+import { SC_STATUS } from '../../../../helper/scSheetData';
 
 const styles = theme => ({});
 
@@ -121,8 +126,16 @@ const SummaryViewWithPr = ({ sc, setSc, afterScFetched }) => {
         impactOnCompanyFields={impactOnCompanyFields}
         prCategoriesWeightPercentage={prCategoriesWeightPercentage}
       />
-      <FinalScoreSection finalScore={finalScore} reviewerScore />
-      <SummaryButtonsBelowSheet sc={sc} setSc={setSc} afterScFetched={afterScFetched} />
+      <FinalScoreSection
+        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
+        finalScore={finalScore}
+        reviewerScore
+      />
+      <SummaryButtonsBelowSheet
+        sc={sc}
+        setSc={setSc}
+        afterScFetched={afterScFetched}
+      />
     </Fragment>
   );
 };
