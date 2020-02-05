@@ -51,16 +51,13 @@ const Dashboard = ({ classes, intl }) => {
     : 0;
   const scsToDelegate = userinfo ? userinfo.scsToDelegate : 0;
 
-  useEffect(() => {
-    if (user.hasRoleHr()) {
-      getLastPayrollReport(setLastReport, setIsLoading, error);
-    }
-  }, []);
-
   useEffect(
     () => {
       if (user.hasRoleAdmin()) {
         getSystemInfo(setSystemInfo, error);
+      }
+      if (user.hasRoleHr()) {
+        getLastPayrollReport(setLastReport, setIsLoading, error);
       }
     },
     [userroles]
