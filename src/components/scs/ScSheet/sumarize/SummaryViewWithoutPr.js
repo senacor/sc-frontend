@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { Typography, withStyles } from '@material-ui/core';
-import { CATEGORY } from '../../../../helper/scSheetData';
+import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
 import MixedScRow from './MixedScRow';
 import PerformanceSummary from './PerformanceSummary';
 import { reduceWeights } from '../calculations/helperFunctions';
-import { calculateFinalScoreWithoutPr, calculatePercentageWithoutPr } from '../calculations/scWithoutPr';
+import {
+  calculateFinalScoreWithoutPr,
+  calculatePercentageWithoutPr
+} from '../calculations/scWithoutPr';
 import FinalScoreSection from '../FinalScoreSection';
 import SummaryButtonsBelowSheet from './SummaryButtonsBelowSheet';
 
@@ -131,13 +134,20 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
       <PerformanceSummary
         dailyBusinessGoals={dailyBusinessGoals}
         projectGoals={projectGoals}
-        handleChangeWeightPercentage={() => {
-        }}
+        handleChangeWeightPercentage={() => {}}
       />
       {renderWorkEfficiency()}
       {renderWorkQuality()}
-      <FinalScoreSection finalScore={finalScore} reviewerScore />
-      <SummaryButtonsBelowSheet sc={sc} setSc={setSc} afterScFetched={afterScFetched} />
+      <FinalScoreSection
+        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
+        finalScore={finalScore}
+        reviewerScore
+      />
+      <SummaryButtonsBelowSheet
+        sc={sc}
+        setSc={setSc}
+        afterScFetched={afterScFetched}
+      />
     </Fragment>
   );
 };
