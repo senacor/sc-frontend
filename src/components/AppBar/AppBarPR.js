@@ -37,6 +37,9 @@ const styles = theme => ({
   languageButton: {
     color: theme.palette.contrastText,
     marginLeft: 'auto'
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
@@ -66,7 +69,13 @@ const AppBarPR = ({ classes, intl, theme }) => {
               id: 'appbar.appTitle'
             })}
           </Typography>
-          <LanguageButton languageButtonClassName={classes.languageButton} />
+
+          {/*language button is hidden because it's currently not used*/}
+          <LanguageButton
+            languageButtonClassName={`${classes.languageButton} ${
+              classes.hidden
+            }`}
+          />
         </Toolbar>
       </AppBar>
       <Hidden lgUp className={'ignorePrint'}>
