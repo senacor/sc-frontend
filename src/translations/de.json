@@ -11,7 +11,7 @@
   "dashboard.allscs": "Alle Scorecards:",
   "dashboard.lastpayrollreport": "Letztes Payroll Report",
   "dashboard.noLastReport": "Kein report gefunden",
-  "dashboard.newformeremployees": "Neue ehemalige Mitarbeiter",
+  "dashboard.plannedleavings": "Geplante Austritte",
   "dashboard.newemployees": "Neue Mitarbeiter",
   "dashboard.phase": "Phase",
   "login.username": "Nutzername",
@@ -345,5 +345,12 @@
   "percentagedialog.performance": "Leistungen",
   "percentagedialog.skills": "Kompetenz & Entwicklung",
   "percentagedialog.change": "Ändern",
-  "percentagedialog.changepercentage": "Prozent ändern"
+  "percentagedialog.changepercentage": "Prozent ändern",
+  "plannedleavingstable.employeename": "Mitarbeitername",
+  "plannedleavingstable.position": "Position",
+  "plannedleavingstable.scstatus": "SC Status",
+  "plannedleavingstable.supervisor": "Vorgesetzter",
+  "plannedleavingstable.department": "Abteilung",
+  "plannedleavingstable.office": "Büro",
+  "plannedleavingstable.enddate": "Austrittsdatum"
 }
