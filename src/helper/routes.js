@@ -20,7 +20,8 @@ const ROUTES = {
   IN_PROGRESS: '/dashboard/in-progress',
   READY_TO_CLOSE: '/dashboard/ready-to-close',
   DONE: '/dashboard/done',
-  ARCHIVED: '/dashboard/archived'
+  ARCHIVED: '/dashboard/archived',
+  PLANNED_LEAVINGS: '/dashboard/planned-leavings'
 };
 
 export default ROUTES;

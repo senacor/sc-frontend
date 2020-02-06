@@ -12,6 +12,7 @@ import PlannedLeavingsTable from './PlannedLeavingsTable';
 import { getPlannedLeavings } from '../../../calls/employees';
 import { useErrorContext } from '../../../helper/contextHooks';
 import moment from 'moment';
+import ROUTES from '../../../helper/routes';
 
 const styles = theme => ({
   btnClose: {
@@ -38,14 +39,19 @@ const PlannedLeavingsDialog = ({ numberOfPlannedLeavings, classes, intl }) => {
   const error = useErrorContext();
 
   useEffect(() => {
+    if (window.location.pathname === ROUTES.PLANNED_LEAVINGS) {
+      setDialogOpened(true);
+    }
     getPlannedLeavings(setPlannedLeavings, setIsLoading, error);
   }, []);
 
   const dialogOpen = () => {
+    window.history.pushState(null, null, ROUTES.PLANNED_LEAVINGS);
     setDialogOpened(true);
   };
 
   const dialogClose = () => {
+    window.history.pushState(null, null, ROUTES.DASHBOARD);
     setDialogOpened(false);
   };
 
@@ -72,7 +78,7 @@ const PlannedLeavingsDialog = ({ numberOfPlannedLeavings, classes, intl }) => {
         })}
         onClick={dialogOpen}
         value={numberOfPlannedLeavings}
-        //linkTo={ROUTES.FORMER_EMPLOYEES}
+        linkTo={ROUTES.PLANNED_LEAVINGS}
         icon={'emoji_people'}
       />
       <Dialog

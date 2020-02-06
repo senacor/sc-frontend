@@ -178,6 +178,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.PLANNED_LEAVINGS}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.DECLINED_PR}
                       component={DashboardWithContent}
                     />
