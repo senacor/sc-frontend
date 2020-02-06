@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { Button, Tooltip, withStyles, Typography } from '@material-ui/core';
+import { Button, Tooltip, Typography, withStyles } from '@material-ui/core';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
 import PublishScDialog from './PublishScDialog';
 import ConfirmDialog from '../../utils/ConfirmDialog';
@@ -75,20 +75,25 @@ const ButtonsBelowSheet = memo(
           <ArchiveButtonWithDialog sc={sc} />
         )}
 
-        <Button
-          className={classes.btnSave}
-          variant="contained"
-          color="secondary"
-          onClick={handleSave}
+        <Tooltip
+          title={intl.formatMessage({ id: 'scsheet.tooltip.save' })}
+          placement="top"
         >
-          {intl.formatMessage({ id: 'scsheet.save' })}
-        </Button>
+          <Button
+            className={classes.btnSave}
+            variant="contained"
+            color="secondary"
+            onClick={handleSave}
+          >
+            {intl.formatMessage({ id: 'scsheet.save' })}
+          </Button>
+        </Tooltip>
 
         <Tooltip
           title={
             submitDisabled
               ? intl.formatMessage({ id: 'scsheet.tooltip.titleMissing' })
-              : ''
+              : intl.formatMessage({ id: 'scsheet.tooltip.publish' })
           }
           placement="top"
         >
@@ -106,18 +111,23 @@ const ButtonsBelowSheet = memo(
         </Tooltip>
 
         {!user.isOwnerInSc(sc) && (
-          <Button
-            className={
-              sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED)
-                ? classes.btnClose
-                : classes.hidden
-            }
-            variant="contained"
-            color="secondary"
-            onClick={handleOpenScClosingDialog}
+          <Tooltip
+            title={intl.formatMessage({ id: 'scsheet.tooltip.close' })}
+            placement="top"
           >
-            {intl.formatMessage({ id: 'scsheet.closeSc' })}
-          </Button>
+            <Button
+              className={
+                sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED)
+                  ? classes.btnClose
+                  : classes.hidden
+              }
+              variant="contained"
+              color="secondary"
+              onClick={handleOpenScClosingDialog}
+            >
+              {intl.formatMessage({ id: 'scsheet.closeSc' })}
+            </Button>
+          </Tooltip>
         )}
 
         <Button
