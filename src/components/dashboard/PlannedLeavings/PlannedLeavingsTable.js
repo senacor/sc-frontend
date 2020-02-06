@@ -14,16 +14,32 @@ import {
 } from '../../../helper/date';
 import { translateGeneralStatus } from '../../../helper/string';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import ROUTES from '../../../helper/routes';
+import { withRouter } from 'react-router-dom';
 
-const styles = theme => ({});
+const styles = theme => ({
+  tableRow: {
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.3s',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.brightGrey
+    }
+  }
+});
 
 const PlannedLeavingsTable = ({
   plannedLeavings,
   sortDirection,
   handleSort,
   classes,
-  intl
+  intl,
+  history
 }) => {
+  const handleClick = employeeId => {
+    history.push(`${ROUTES.EMPLOYEE_SC}/${employeeId}`);
+  };
+
   return (
     <Table>
       <TableHead>
@@ -73,7 +89,11 @@ const PlannedLeavingsTable = ({
       </TableHead>
       <TableBody>
         {plannedLeavings.map((employee, index) => (
-          <TableRow key={index}>
+          <TableRow
+            key={index}
+            onClick={() => handleClick(employee.id)}
+            className={classes.tableRow}
+          >
             <TableCell>
               {`${employee.firstName} ${employee.lastName}`}
             </TableCell>
@@ -96,4 +116,4 @@ const PlannedLeavingsTable = ({
   );
 };
 
-export default injectIntl(withStyles(styles)(PlannedLeavingsTable));
+export default withRouter(injectIntl(withStyles(styles)(PlannedLeavingsTable)));

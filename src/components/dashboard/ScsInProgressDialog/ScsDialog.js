@@ -29,6 +29,7 @@ import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { translateGeneralStatus } from '../../../helper/string';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   btnClose: {
@@ -79,7 +80,7 @@ const styles = theme => ({
   }
 });
 
-const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
+const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [scs, setScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -142,12 +143,12 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
   };
 
   const dialogClose = () => {
-    window.history.pushState(null, null, ROUTES.DASHBOARD);
+    history.push(ROUTES.DASHBOARD);
     setDialogOpened(false);
   };
 
   const dialogOpen = () => {
-    window.history.pushState(null, null, ROUTES.SC_IN_PROGRESS);
+    history.push(ROUTES.SC_IN_PROGRESS);
     setDialogOpened(true);
   };
 
@@ -284,4 +285,4 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(ScsDialog));
+export default withRouter(injectIntl(withStyles(styles)(ScsDialog)));

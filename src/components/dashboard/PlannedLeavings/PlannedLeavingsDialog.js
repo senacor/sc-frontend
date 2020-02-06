@@ -13,6 +13,7 @@ import { getPlannedLeavings } from '../../../calls/employees';
 import { useErrorContext } from '../../../helper/contextHooks';
 import moment from 'moment';
 import ROUTES from '../../../helper/routes';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   btnClose: {
@@ -30,7 +31,12 @@ const styles = theme => ({
   }
 });
 
-const PlannedLeavingsDialog = ({ numberOfPlannedLeavings, classes, intl }) => {
+const PlannedLeavingsDialog = ({
+  numberOfPlannedLeavings,
+  classes,
+  intl,
+  history
+}) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [plannedLeavings, setPlannedLeavings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,12 +52,12 @@ const PlannedLeavingsDialog = ({ numberOfPlannedLeavings, classes, intl }) => {
   }, []);
 
   const dialogOpen = () => {
-    window.history.pushState(null, null, ROUTES.PLANNED_LEAVINGS);
+    history.push(ROUTES.PLANNED_LEAVINGS);
     setDialogOpened(true);
   };
 
   const dialogClose = () => {
-    window.history.pushState(null, null, ROUTES.DASHBOARD);
+    history.push(ROUTES.DASHBOARD);
     setDialogOpened(false);
   };
 
@@ -113,4 +119,6 @@ const PlannedLeavingsDialog = ({ numberOfPlannedLeavings, classes, intl }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(PlannedLeavingsDialog));
+export default withRouter(
+  injectIntl(withStyles(styles)(PlannedLeavingsDialog))
+);
