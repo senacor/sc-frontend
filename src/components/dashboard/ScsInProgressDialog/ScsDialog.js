@@ -29,6 +29,7 @@ import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { translateGeneralStatus } from '../../../helper/string';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   btnClose: {
@@ -79,7 +80,7 @@ const styles = theme => ({
   }
 });
 
-const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
+const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [scs, setScs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +96,7 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
 
   useEffect(
     () => {
-      if (window.location.pathname === ROUTES.SC_IN_PROGRESS) {
+      if (window.location.pathname === ROUTES[status]) {
         setDialogOpened(true);
         // getScsInProgress(setScs, setIsLoading, error);
         getScsByStatus(status, setScs, setIsLoading, error);
@@ -142,12 +143,12 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
   };
 
   const dialogClose = () => {
-    window.history.pushState(null, null, ROUTES.DASHBOARD);
+    history.push(ROUTES.DASHBOARD);
     setDialogOpened(false);
   };
 
   const dialogOpen = () => {
-    window.history.pushState(null, null, ROUTES.SC_IN_PROGRESS);
+    history.push(ROUTES.SC_IN_PROGRESS);
     setDialogOpened(true);
   };
 
@@ -170,7 +171,7 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
     <Fragment>
       <InfoWidget
         label={label}
-        linkTo={ROUTES.SC_IN_PROGRESS}
+        linkTo={ROUTES[status]}
         onClick={dialogOpen}
         value={numberOfScs}
         icon={'insert_chart'}
@@ -189,7 +190,7 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
         <DialogTitle disableTypography>
           <Typography variant="h5">
             {intl.formatMessage({
-              id: 'dashboard.scsInProgress'
+              id: translateGeneralStatus(status)
             })}
           </Typography>
         </DialogTitle>
@@ -284,4 +285,4 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
   );
 };
 
-export default injectIntl(withStyles(styles)(ScsDialog));
+export default withRouter(injectIntl(withStyles(styles)(ScsDialog)));

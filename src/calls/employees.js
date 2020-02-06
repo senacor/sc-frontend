@@ -151,3 +151,27 @@ export const changeSupervisor = async (
     error.showGeneral();
   }
 };
+
+export const getPlannedLeavings = async (
+  setPlannedLeavings,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/plannedLeavings`
+    );
+
+    const responseEmployees = await response.json();
+
+    setIsLoading(false);
+    setPlannedLeavings(responseEmployees);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    setPlannedLeavings([]);
+    error.showGeneral();
+  }
+};
