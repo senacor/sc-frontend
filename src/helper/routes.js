@@ -15,7 +15,12 @@ const ROUTES = {
   MAINTENANCE: '/maintenance',
   AUTORULES: '/autorules',
   EMPLOYEE_SC: '/employeeScs',
-  PAYROLL_REPORTS: '/payrollReports'
+  PAYROLL_REPORTS: '/payrollReports',
+  INITIALIZATION: '/dashboard/initialization',
+  IN_PROGRESS: '/dashboard/in-progress',
+  READY_TO_CLOSE: '/dashboard/ready-to-close',
+  DONE: '/dashboard/done',
+  ARCHIVED: '/dashboard/archived'
 };
 
 export default ROUTES;

@@ -95,7 +95,7 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
 
   useEffect(
     () => {
-      if (window.location.pathname === ROUTES.SC_IN_PROGRESS) {
+      if (window.location.pathname === ROUTES[status]) {
         setDialogOpened(true);
         // getScsInProgress(setScs, setIsLoading, error);
         getScsByStatus(status, setScs, setIsLoading, error);
@@ -170,7 +170,7 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
     <Fragment>
       <InfoWidget
         label={label}
-        linkTo={ROUTES.SC_IN_PROGRESS}
+        linkTo={ROUTES[status]}
         onClick={dialogOpen}
         value={numberOfScs}
         icon={'insert_chart'}
@@ -189,7 +189,7 @@ const ScsDialog = ({ classes, intl, numberOfScs, status }) => {
         <DialogTitle disableTypography>
           <Typography variant="h5">
             {intl.formatMessage({
-              id: 'dashboard.scsInProgress'
+              id: translateGeneralStatus(status)
             })}
           </Typography>
         </DialogTitle>

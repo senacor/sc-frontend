@@ -34,7 +34,9 @@ const MaintenancePanel = lazy(() => import('./admin/MaintenanceContainer'));
 const AutomationRulesContainer = lazy(() =>
   import('./admin/automationRules/AutomationRulesContainer')
 );
-const PayrollReportsPanel = lazy(() => import('./admin/payrollreports/PayrollReportsPanel'));
+const PayrollReportsPanel = lazy(() =>
+  import('./admin/payrollreports/PayrollReportsPanel')
+);
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
@@ -59,7 +61,9 @@ const ProcessingScsContainerWithContent = withContent(ProcessingScsContainer);
 const OwnScsContainerWithContent = withContent(OwnScsContainer);
 const ScorecardDetail2WithContent = withContent(ScorecardDetail);
 const DashboardWithContent = withContent(Dashboard);
-const ActiveEmployeesContainerWithContent = withContent(ActiveEmployeesContainer);
+const ActiveEmployeesContainerWithContent = withContent(
+  ActiveEmployeesContainer
+);
 const FormerEmployeesContainerWithContent = withContent(
   FormerEmployeesContainer
 );
@@ -145,6 +149,31 @@ const App = () => {
                     <PrivateRoute
                       exact
                       path={ROUTES.SC_IN_PROGRESS}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.INITIALIZATION}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.IN_PROGRESS}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.READY_TO_CLOSE}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.DONE}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.ARCHIVED}
                       component={DashboardWithContent}
                     />
                     <PrivateRoute
