@@ -58,10 +58,10 @@ const PlannedLeavingsDialog = ({ numberOfPlannedLeavings, classes, intl }) => {
   const sortedPlannedLeavings = [...plannedLeavings];
   sortDirection === 'asc'
     ? sortedPlannedLeavings.sort((a, b) =>
-        moment(a).isAfter(moment(b)) ? 1 : -1
+        moment(a.endDate).isAfter(moment(b.endDate)) ? 1 : -1
       )
     : sortedPlannedLeavings.sort((a, b) =>
-        moment(a).isAfter(moment(b)) ? -1 : 1
+        moment(a.endDate).isAfter(moment(b.endDate)) ? -1 : 1
       );
 
   return (
