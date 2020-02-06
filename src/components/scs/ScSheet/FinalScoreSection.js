@@ -1,9 +1,6 @@
 import React, { memo } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  determineFinalPercentage,
-  determineFinalText
-} from './calculations/helperFunctions';
+import { determineFinalPercentage } from './calculations/helperFunctions';
 
 // Material UI
 import { withStyles, Grid, Typography } from '@material-ui/core';
