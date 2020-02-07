@@ -23,6 +23,63 @@ export const getRoles = async (setRoles, setIsLoading, error) => {
   }
 };
 
+export const getAllPatches = async (setPatchInfo, setIsLoading, error) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/data-patch`
+    );
+
+    setIsLoading(false);
+    if (response.ok) {
+      const responseObject = await response.json();
+      setPatchInfo(responseObject);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};
+
+export const uploadPatchFile = async (
+  file,
+  setIsLoading,
+  updatePatchInfo,
+  info,
+  error
+) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/data-patch`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: formData
+      },
+      null,
+      {}
+    );
+    if (response.ok) {
+      const responseJson = await response.json();
+      updatePatchInfo(responseJson);
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    setIsLoading(false);
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const getSystemInfo = async (setSystemInfo, error) => {
   try {
     const response = await fetch(

@@ -37,6 +37,9 @@ const AutomationRulesContainer = lazy(() =>
 const PayrollReportsPanel = lazy(() =>
   import('./admin/payrollreports/PayrollReportsPanel')
 );
+const DatabasePatchesPanel = lazy(() =>
+  import('./admin/dbPatch/DatabasePatchesPanel')
+);
 
 // AppBar
 const AppBarPR = lazy(() => import('./AppBar/AppBarPR'));
@@ -72,6 +75,7 @@ const SystemPanelWithContent = withContent(SystemPanel);
 const MaintenancePanelWithContent = withContent(MaintenancePanel);
 const AutomationRulesWithContent = withContent(AutomationRulesContainer);
 const PayrollReportsWithContent = withContent(PayrollReportsPanel);
+const DatabasePatchesPanelWithContent = withContent(DatabasePatchesPanel);
 
 export const messages = {
   de: messages_de,
@@ -245,6 +249,11 @@ const App = () => {
                       exact
                       path={ROUTES.PAYROLL_REPORTS}
                       component={PayrollReportsWithContent}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={ROUTES.DATABASE_PATCHES}
+                      component={DatabasePatchesPanelWithContent}
                     />
                     <PrivateRoute path={ROUTES.LOGOUT} component={Logout} />
                     <Route
