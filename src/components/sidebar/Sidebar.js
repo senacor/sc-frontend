@@ -32,6 +32,7 @@ import {
 } from '../../helper/contextHooks';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import SyncIcon from '@material-ui/icons/Sync';
 import PersonIcon from '@material-ui/icons/Person';
 
 import ROUTES from '../../helper/routes';
@@ -183,6 +184,15 @@ export const Sidebar = ({ intl, classes }) => {
       }),
       icon: <AssignmentIcon />,
       value: ROUTES.PAYROLL_REPORTS,
+      roles: [ROLES.PERSONAL_DEV],
+      onClick: resetMessages
+    },
+    {
+      label: intl.formatMessage({
+        id: 'sidebar.fissyncs'
+      }),
+      icon: <SyncIcon />,
+      value: ROUTES.DATABASE_PATCHES,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
     },

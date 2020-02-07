@@ -16,6 +16,7 @@ const ROUTES = {
   AUTORULES: '/autorules',
   EMPLOYEE_SC: '/employeeScs',
   PAYROLL_REPORTS: '/payrollReports',
+  DATABASE_PATCHES: '/databasePatches',
   INITIALIZATION: '/dashboard/initialization',
   IN_PROGRESS: '/dashboard/in-progress',
   READY_TO_CLOSE: '/dashboard/ready-to-close',
