@@ -182,6 +182,11 @@ const App = () => {
                     />
                     <PrivateRoute
                       exact
+                      path={ROUTES.NEW_EMPLOYEES}
+                      component={DashboardWithContent}
+                    />
+                    <PrivateRoute
+                      exact
                       path={ROUTES.PLANNED_LEAVINGS}
                       component={DashboardWithContent}
                     />
