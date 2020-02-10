@@ -1,4 +1,8 @@
 {
+  "version.title": "Application version",
+  "version.cancel": "Cancel",
+  "version.frontend.title": "Frontend version: ",
+  "version.backend.title": "Backend version: ",
   "appbar.appTitle": "Scorecard Portal",
   "appbar.drawer": "Open drawer",
   "dashboard.sc.evaluator": "Opened SCs as evaluator",
@@ -60,6 +64,7 @@
   "sidebar.feedback": "Feedback",
   "sidebar.autorules": "Automation rules",
   "sidebar.payrollreport": "Payroll reports",
+  "sidebar.fissyncs": "FIS Synchronize",
   "mapratingfullfilment.noentry": "no record",
   "mapratingfullfilment.notfulfilled": "not fulfilled",
   "mapratingfullfilment.partlynotfulfilled": "partly not fulfilled",

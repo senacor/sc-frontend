@@ -20,16 +20,11 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { CircularProgress } from '@material-ui/core';
 import Authorized from '../authorized/Authorized';
-import CompositionNumber from './CompositionNumber';
 import ROLES from '../../helper/roles';
 import { getUserInfo } from '../../calls/userinfo';
 import { AuthorizationContext } from '../App';
 import FeedbackButton from './FeedbackButton';
-import {
-  useErrorContext,
-  useInfoContext,
-  useUserinfoContext
-} from '../../helper/contextHooks';
+import { useErrorContext, useInfoContext, useUserinfoContext } from '../../helper/contextHooks';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import SyncIcon from '@material-ui/icons/Sync';
@@ -106,7 +101,7 @@ export const Sidebar = ({ intl, classes }) => {
   }, []);
 
   if (Object.keys(userinfo).length === 0) {
-    return <CircularProgress />;
+    return <CircularProgress/>;
   }
 
   const resetMessages = () => {
@@ -120,7 +115,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.dashboard'
       }),
-      icon: <DashboardIcon />,
+      icon: <DashboardIcon/>,
       value: ROUTES.DASHBOARD,
       onClick: resetMessages
     },
@@ -129,7 +124,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.myScs'
       }),
-      icon: <AssessmentIcon />,
+      icon: <AssessmentIcon/>,
       value: ROUTES.OWN_SCS,
       roles: [ROLES.EMPLOYEE, ROLES.SUPERVISOR],
       onClick: resetMessages
@@ -139,7 +134,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.scs'
       }),
-      icon: <BarChart />,
+      icon: <BarChart/>,
       value: ROUTES.SC_TO_REVIEW_TABLE,
       roles: [ROLES.SUPERVISOR, ROLES.EMPLOYEE],
       reviewerCheck: true,
@@ -149,7 +144,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.activeEmployees'
       }),
-      icon: <LibraryBooksIcon />,
+      icon: <LibraryBooksIcon/>,
       value: ROUTES.ACTIVE_EMPLOYEES_TABLE,
       roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
       onClick: resetMessages
@@ -159,7 +154,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.formerEmployees'
       }),
-      icon: <LibraryBooksIcon />,
+      icon: <LibraryBooksIcon/>,
       value: ROUTES.FORMER_EMPLOYEES,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
@@ -168,7 +163,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.autorules'
       }),
-      icon: <AutoRules />,
+      icon: <AutoRules/>,
       value: ROUTES.AUTORULES,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
@@ -177,7 +172,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.userroles'
       }),
-      icon: <SupervisedUserCircle />,
+      icon: <SupervisedUserCircle/>,
       value: ROUTES.ADMIN_USER_ROLES,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
@@ -186,7 +181,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.payrollreport'
       }),
-      icon: <AssignmentIcon />,
+      icon: <AssignmentIcon/>,
       value: ROUTES.PAYROLL_REPORTS,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
@@ -195,7 +190,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.fissyncs'
       }),
-      icon: <SyncIcon />,
+      icon: <SyncIcon/>,
       value: ROUTES.DATABASE_PATCHES,
       roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
@@ -205,7 +200,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.systemandinterfaces'
       }),
-      icon: <SettingsApplications />,
+      icon: <SettingsApplications/>,
       value: ROUTES.ADMIN_SYSTEM_PANEL,
       roles: [ROLES.ADMIN_TECH],
       onClick: resetMessages
@@ -214,7 +209,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.maintenance'
       }),
-      icon: <Build />,
+      icon: <Build/>,
       value: ROUTES.MAINTENANCE,
       roles: [ROLES.ADMIN_TECH],
       onClick: resetMessages
@@ -224,7 +219,7 @@ export const Sidebar = ({ intl, classes }) => {
       label: intl.formatMessage({
         id: 'sidebar.logout'
       }),
-      icon: <PowerSettingsNewIcon />,
+      icon: <PowerSettingsNewIcon/>,
       value: ROUTES.LOGOUT,
       onClick: resetMessages
     }
@@ -245,7 +240,7 @@ export const Sidebar = ({ intl, classes }) => {
     if (user.hasRoleHr()) {
       return (
         <Avatar alt={fullName} className={classes.pdAvatar}>
-          <PersonIcon className={classes.pdIcon} />
+          <PersonIcon className={classes.pdIcon}/>
         </Avatar>
       );
     }
@@ -253,7 +248,7 @@ export const Sidebar = ({ intl, classes }) => {
     if (user.hasRoleAdmin()) {
       return (
         <Avatar alt={fullName} className={classes.adminAvatar}>
-          <BuildIcon className={classes.adminIcon} />
+          <BuildIcon className={classes.adminIcon}/>
         </Avatar>
       );
     }
@@ -272,12 +267,12 @@ export const Sidebar = ({ intl, classes }) => {
           {userphoto === '' ? (
             avatarArtIcon()
           ) : (
-            <Avatar alt={fullName} src={userphoto} className={classes.avatar} />
+            <Avatar alt={fullName} src={userphoto} className={classes.avatar}/>
           )}
           <Typography>{fullName}</Typography>
         </div>
       </div>
-      <Divider />
+      <Divider/>
 
       <List component="nav">
         {listOfMenuItems.map(entry => {
@@ -307,11 +302,10 @@ export const Sidebar = ({ intl, classes }) => {
           ) : null;
         })}
       </List>
-      <Divider />
-      <CompositionNumber />
+      <Divider/>
       {!userroles.includes(ROLES.ADMIN_TECH) && (
         <div className={`${classes.feedbackBtn} ${classes.menuItem}`}>
-          <FeedbackButton />
+          <FeedbackButton/>
         </div>
       )}
     </div>

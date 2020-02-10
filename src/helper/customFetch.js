@@ -21,6 +21,10 @@ export default function customFetch(
     additionalHeaders
   );
   return fetch(url, authenticationConfig).then(response => {
+    let bv = response.headers.get('backend_version');
+    if (!window.sc_app_backend_version) {
+      window.sc_app_backend_version = bv;
+    }
     if (response.status === 401 && !response.url.includes('oauth2/token')) {
       logout();
       window.location.pathname = ROUTES.LOGIN;
