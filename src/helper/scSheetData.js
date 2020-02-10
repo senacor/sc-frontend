@@ -1,9 +1,9 @@
 export const classifications = [
-  'Specialist',
-  'Senior_Expert',
-  'Senior_Management',
-  'Lead_Expert',
-  'Lead_Management'
+  'SPECIALIST',
+  'SENIOR_EXPERT',
+  'SENIOR_MANAGEMENT',
+  'LEAD_EXPERT',
+  'LEAD_MANAGEMENT'
 ];
 
 export const dailyBusinessPerformanceLevels = [
