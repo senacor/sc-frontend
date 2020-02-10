@@ -80,6 +80,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
                 <EmployeeFilter
                   data={data}
                   setSelectedEmployee={setSelectedEmployee}
+                  settingRoles
                 />
                 {`${intl.formatMessage({
                   id: 'userrolespanel.user'

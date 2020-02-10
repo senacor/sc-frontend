@@ -69,6 +69,7 @@ export const EmployeeFilter = ({
   isDisabled,
   settingReviewers,
   supervisorName,
+  settingRoles,
   index,
   intl,
   customComponent,
@@ -89,7 +90,7 @@ export const EmployeeFilter = ({
 
   const handleDelete = () => {
     setValue('');
-    if (!maintenance && !delegation && !settingReviewers) {
+    if (settingRoles) {
       setSelectedEmployee(null);
     }
   };
