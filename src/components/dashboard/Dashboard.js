@@ -92,6 +92,28 @@ const Dashboard = ({ classes, intl }) => {
             </Typography>
           </CardContent>
         </Card>
+
+        {user.hasNoRole() && (
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h5" className={classes.cardTitle}>
+                {intl.formatMessage({
+                  id: 'dashboard.norole'
+                })}
+              </Typography>
+              <Typography
+                className={classes.cardParagraph}
+                variant="body1"
+                color="textSecondary"
+              >
+                {`${intl.formatMessage({
+                  id: 'dashboard.noroledescription'
+                })} `}
+              </Typography>
+            </CardContent>
+          </Card>
+        )}
+
         {numberOfOpenedScs > 0 && (
           <InfoWidget
             label={intl.formatMessage({

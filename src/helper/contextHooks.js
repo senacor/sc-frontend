@@ -49,6 +49,9 @@ export const useUserinfoContext = () => {
     },
     hasRoleSupervisor: () => {
       return userroles.includes(ROLES.SUPERVISOR);
+    },
+    hasNoRole: () => {
+      return userroles.length === 0;
     }
   };
 };

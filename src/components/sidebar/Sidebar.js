@@ -105,6 +105,10 @@ export const Sidebar = ({ intl, classes }) => {
     getUserInfo(userinfoContext, error, authContext);
   }, []);
 
+  if (Object.keys(userinfo).length === 0) {
+    return <CircularProgress />;
+  }
+
   const resetMessages = () => {
     info.hide();
     error.hide();
@@ -226,13 +230,13 @@ export const Sidebar = ({ intl, classes }) => {
     }
   ];
 
-  if (!userroles.length) {
-    return (
-      <div className={classes.progressBarCentered}>
-        <CircularProgress />
-      </div>
-    );
-  }
+  // if (!userroles.length) {
+  //   return (
+  //     <div className={classes.progressBarCentered}>
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
 
   const fullName = userinfo.employeeName;
   const initials = fullName.split(' ').map(str => str[0]);

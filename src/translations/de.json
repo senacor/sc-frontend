@@ -14,6 +14,8 @@
   "dashboard.plannedleavings": "Geplante Austritte",
   "dashboard.newemployees": "Neue Mitarbeiter",
   "dashboard.phase": "Phase",
+  "dashboard.norole": "Keine Rolle!",
+  "dashboard.noroledescription": "Du hast keine zugewiesene Rolle. Wende dich  an Personal Development.",
   "login.username": "Nutzername",
   "login.password": "Passwort",
   "login.login": "Anmelden",
