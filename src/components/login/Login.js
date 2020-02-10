@@ -161,7 +161,6 @@ const Login = ({ location, classes, intl }) => {
               className={classes.logo}
               alt="Senacor"
               onDoubleClick={() => {
-                console.log('JOO2O', versionContext);
                 versionContext.setValue(true);
               }}
             />
@@ -172,7 +171,6 @@ const Login = ({ location, classes, intl }) => {
               className={classes.logo}
               alt="Senacor"
               onDoubleClick={() => {
-                console.log('JOO2O', versionContext);
                 versionContext.setValue(true);
               }}
             />
