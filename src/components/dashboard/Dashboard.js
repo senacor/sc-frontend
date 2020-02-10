@@ -16,6 +16,7 @@ import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
 import { downloadPayrollReport } from '../../helper/downloadExcel';
 import { CircularProgress } from '@material-ui/core';
 import PlannedLeavingsDialog from './PlannedLeavings/PlannedLeavingsDialog';
+import NewEmployeesDialog from './newEmployees/NewEmployeesDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -49,6 +50,8 @@ const Dashboard = ({ classes, intl }) => {
     userinfo && userinfo.openedScs ? userinfo.openedScs.length : 0;
   const plannedLeavings = userinfo ? userinfo.numberOfPlannedLeavings : 0;
   const scsToDelegate = userinfo ? userinfo.scsToDelegate : 0;
+  const employeesWithoutSupervisorCount = userinfo ? userinfo.employeesWithoutSupervisorCount : 0;
+  const fisPatchNeeded = userinfo ? userinfo.fisPatchNeeded : false;
 
   useEffect(
     () => {
@@ -168,15 +171,9 @@ const Dashboard = ({ classes, intl }) => {
             />
           </div>
           <div className={classes.rowContainer}>
-            <InfoWidget
-              label={intl.formatMessage({
-                id: 'dashboard.newemployees'
-              })}
-              // TODO value: number of employees with employee_status === 'NEW'
-              value={userinfo.numberOfNewEmployees}
-              // TODO linkTo: clarify
-              // linkTo={}
-              icon={'people'}
+            <NewEmployeesDialog 
+              employeesWithoutSupervisorCount={employeesWithoutSupervisorCount}
+              fisPatchNeeded={fisPatchNeeded}
             />
             <PlannedLeavingsDialog numberOfPlannedLeavings={plannedLeavings} />
           </div>

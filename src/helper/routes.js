@@ -22,7 +22,8 @@ const ROUTES = {
   READY_TO_CLOSE: '/dashboard/ready-to-close',
   DONE: '/dashboard/done',
   ARCHIVED: '/dashboard/archived',
-  PLANNED_LEAVINGS: '/dashboard/planned-leavings'
+  PLANNED_LEAVINGS: '/dashboard/planned-leavings',
+  NEW_EMPLOYEES: '/dashboard/new-employees'
 };
 
 export default ROUTES;

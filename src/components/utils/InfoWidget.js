@@ -38,6 +38,18 @@ const styles = theme => ({
     width: 100,
     padding: 2 * theme.spacing.unit,
     paddingLeft: theme.spacing.unit
+  },
+  note: {
+    width: '100%',
+    color: theme.palette.secondary.darkRed
+  },
+  noteClickable: {
+    width: '100%',
+    color: theme.palette.secondary.darkRed,
+    textDecoration: 'underline',
+    '&:hover': {
+      color: theme.palette.secondary.red
+    }
   }
 });
 
@@ -47,6 +59,8 @@ const InfoWidget = ({
   icon,
   label,
   value,
+  note,
+  onNoteClicked,
   personalDev,
   classes
 }) => {
@@ -72,6 +86,14 @@ const InfoWidget = ({
           <Typography variant="h5" component="h2">
             {value}
           </Typography>
+          {note &&
+            <span 
+              className={onNoteClicked ? classes.noteClickable : classes.note}
+              onClick={onNoteClicked}
+            >
+              {note}
+            </span>
+            }
         </div>
       </CardContent>
     </Card>

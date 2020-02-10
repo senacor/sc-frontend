@@ -361,5 +361,14 @@
   "plannedleavingstable.supervisor": "Vorgesetzter",
   "plannedleavingstable.department": "Abteilung",
   "plannedleavingstable.office": "Büro",
-  "plannedleavingstable.enddate": "Austrittsdatum"
+  "plannedleavingstable.enddate": "Austrittsdatum",
+  "newemployeesdialog.pleasePatchData": "Bitte FIS report hochladen.",
+  "newemployeesdialog.save": "Speichern",
+  "newemployeesdialog.cancel": "Abbrechen",
+  "newemployeesdialogtable.employeename": "Mitarbeitername",
+  "newemployeesdialogtable.position": "Position",
+  "newemployeesdialogtable.department": "Abteilung",
+  "newemployeesdialogtable.office": "Büro",
+  "newemployeesdialogtable.entrydate": "Eintrittsdatum",
+  "newemployeesdialogtable.supervisor": "Vorgesetzter"
 }

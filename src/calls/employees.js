@@ -175,3 +175,62 @@ export const getPlannedLeavings = async (
     error.showGeneral();
   }
 };
+
+export const getEmployeesWithoutSupervisor = async (
+  setEmployeesWithoutSupervisor,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/newEmployees`
+    );
+
+    if (response.ok) {
+      const responseEmployees = await response.json();
+      setEmployeesWithoutSupervisor(responseEmployees);
+    } else {
+      setEmployeesWithoutSupervisor([]);
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    setEmployeesWithoutSupervisor([]);
+    error.showGeneral();
+  }
+};
+
+export const assignSupervisorsToEmployees = async (
+  data,
+  setIsLoading,
+  info,
+  error,
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/assign-supervisors`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(data)
+      }
+    );
+
+    if (response.ok) {
+      info.msg('sc.saved');
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};

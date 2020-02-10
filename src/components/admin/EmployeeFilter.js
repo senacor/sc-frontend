@@ -68,6 +68,7 @@ export const EmployeeFilter = ({
   delegation,
   isDisabled,
   settingReviewers,
+  settingSupervisors,
   supervisorName,
   settingRoles,
   index,
@@ -100,7 +101,7 @@ export const EmployeeFilter = ({
   };
 
   const selectEmployee = (employee, event) => {
-    if (settingReviewers) {
+    if (settingReviewers || settingSupervisors) {
       setSelectedEmployee(employee, index);
     } else {
       setSelectedEmployee(employee);
