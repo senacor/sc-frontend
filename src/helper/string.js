@@ -31,15 +31,15 @@ export const translateGeneralStatus = status => {
 
 export const translateClassification = classification => {
   switch (classification) {
-    case 'Specialist':
+    case 'SPECIALIST':
       return 'sc.classification.specialist';
-    case 'Senior_Expert':
+    case 'SENIOR_EXPERT':
       return 'sc.classification.seniorexpert';
-    case 'Senior_Management':
+    case 'SENIOR_MANAGEMENT':
       return 'sc.classification.seniormanagement';
-    case 'Lead_Expert':
+    case 'LEAD_EXPERT':
       return 'sc.classification.expert';
-    case 'Lead_Management':
+    case 'LEAD_MANAGEMENT':
       return 'sc.classification.manager';
     default:
       return 'Unbekannt';
