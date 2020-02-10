@@ -67,7 +67,10 @@ pipeline {
     stage('Building app') {
       steps {
         sh "npm install"
-        sh "REACT_APP_API=" + env.BACKEND_URL + " npm run build"
+        script {
+          FRONTEND_VERSION = sh(script: "git log -n 1 --pretty=format:'%H -> %B'", returnStdout: true)
+        }
+        sh "REACT_APP_API=" + env.BACKEND_URL + " REACT_APP_FRONTEND_VERSION='" + FRONTEND_VERSION +"' npm run build"
       }
       //NOTE: env.BACKEND_URL contains url, that gets queried from frontend
     }

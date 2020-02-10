@@ -1,4 +1,8 @@
 {
+  "version.title": "Anwendung version",
+  "version.cancel": "Abbrechen",
+  "version.frontend.title": "Frontend Version: ",
+  "version.backend.title": "Backend Version: ",
   "appbar.appTitle": "Scorecard Portal",
   "appbar.drawer": "Offene Schublade",
   "dashboard.sc.evaluator": "Offene SCs als Beurteiler",

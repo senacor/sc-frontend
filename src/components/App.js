@@ -13,6 +13,7 @@ import messages_en from '../translations/en.json';
 import senacorTheme from '../styles/colors';
 import { newContext, provideContexts } from './Context';
 import Content from './AppBar/Content';
+import VersionDialog from './VersionDialog';
 
 // Routes
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
@@ -56,6 +57,7 @@ const styles = {
 const withContent = WrappedComponent => props => (
   <Content>
     <AppBarPR />
+    <VersionDialog />
     <WrappedComponent {...props} />
   </Content>
 );
@@ -93,6 +95,7 @@ export const determineLanguage = lang => {
 };
 
 export const LanguageContext = newContext('de');
+export const VersionContext = newContext(false);
 export const AuthorizationContext = newContext({
   unauthorized: false,
   invalidCredentials: false
@@ -123,7 +126,8 @@ const App = () => {
       MeetingContext,
       UserinfoContext,
       ScContext,
-      LanguageContext
+      LanguageContext,
+      VersionContext
     ],
     <LanguageContext.context.Consumer>
       {context => (

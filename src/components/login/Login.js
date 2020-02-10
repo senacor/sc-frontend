@@ -17,7 +17,8 @@ import senacorLogo from '../../styles/senacor_transparent.png';
 import senacorLogoMobile from '../../styles/senacor_transparent_white.png';
 import LanguageButton from '../translations/LanguageButton';
 import { login } from '../../calls/login';
-import { AuthorizationContext, UserinfoContext } from '../App';
+import { AuthorizationContext, UserinfoContext, VersionContext } from '../App';
+import VersionDialog from '../VersionDialog';
 
 const styles = theme => ({
   hero: {
@@ -108,6 +109,7 @@ const styles = theme => ({
 });
 
 const Login = ({ location, classes, intl }) => {
+  const versionContext = useContext(VersionContext.context);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -150,16 +152,27 @@ const Login = ({ location, classes, intl }) => {
   return (
     <div className={classes.hero}>
       <div className={classes.login}>
+        <VersionDialog />
         <LanguageButton languageButtonClassName={classes.languageButton} />
         <form className={classes.form} onSubmit={handleOnClick}>
           <Hidden smDown>
-            <img src={senacorLogo} className={classes.logo} alt="Senacor" />
+            <img
+              src={senacorLogo}
+              className={classes.logo}
+              alt="Senacor"
+              onDoubleClick={() => {
+                versionContext.setValue(true);
+              }}
+            />
           </Hidden>
           <Hidden mdUp>
             <img
               src={senacorLogoMobile}
               className={classes.logo}
               alt="Senacor"
+              onDoubleClick={() => {
+                versionContext.setValue(true);
+              }}
             />
           </Hidden>
           <FormControl

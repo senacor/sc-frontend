@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,6 +11,7 @@ import { injectIntl } from 'react-intl';
 
 import Sidebar from '../sidebar/Sidebar';
 import LanguageButton from '../translations/LanguageButton';
+import { VersionContext } from '../App';
 
 const drawerWidth = 270;
 const appBarHeight = 64;
@@ -44,6 +45,7 @@ const styles = theme => ({
 });
 
 const AppBarPR = ({ classes, intl, theme }) => {
+  const versionContext = useContext(VersionContext.context);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -64,7 +66,7 @@ const AppBarPR = ({ classes, intl, theme }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h6" color="inherit" noWrap onDoubleClick={() => {versionContext.setValue(true)}}>
             {intl.formatMessage({
               id: 'appbar.appTitle'
             })}
