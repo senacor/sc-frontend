@@ -259,13 +259,14 @@ const ScSheetWithPr = ({
     if (value < 0 || value > 100) {
       return;
     }
-    if (type === CATEGORY.PERFORMANCE) {
-      setPerformanceWeightPercentage(value);
-      setPrCategoriesWeightPercentage(100 - value);
-    } else if (type === CATEGORY.PR_CATEGORIES) {
-      setPrCategoriesWeightPercentage(value);
-      setPerformanceWeightPercentage(100 - value);
-    }
+    const prPercentage = (type === CATEGORY.PR_CATEGORIES) ? value : 100 - value;
+    setPrCategoriesWeightPercentage(prPercentage);
+    setPerformanceWeightPercentage(100 - prPercentage);
+
+    const privateSpace = user.isReviewerInSc(sc) ? sc.privateReviewerData : sc.privateEmployeeData;
+    privateSpace.skillsWeightPercentage = prPercentage;
+    sc.publishedReviewerData.skillsWeightPercentage = prPercentage;
+    sc.publishedEmployeeData.skillsWeightPercentage = prPercentage;
   };
 
   const handleSave = () => {
