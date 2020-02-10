@@ -13,6 +13,12 @@ import { VersionContext } from './App';
 const styles = theme => ({
   content: {
     paddingBottom: 0
+  },
+  dialogText: {
+    borderRadius: 1.2 * theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+    padding: 1 * theme.spacing.unit,
+    backgroundColor: theme.palette.primary[50]
   }
 });
 
@@ -41,10 +47,10 @@ const VersionDialog = ({ classes, intl }) => {
     >
       <DialogTitle>{im('version.title')}</DialogTitle>
       <DialogContent className={classes.content}>
-        <DialogContentText>
+        <DialogContentText className={classes.dialogText}>
           {im('version.frontend.title')} {frontendVersion}
         </DialogContentText>
-        <DialogContentText>
+        <DialogContentText className={classes.dialogText}>
           {im('version.backend.title')} {backendVersion}
         </DialogContentText>
       </DialogContent>
