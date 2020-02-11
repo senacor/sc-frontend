@@ -109,6 +109,8 @@
   "filter.advanced": "Erweiterter Filter",
   "filter.clear": "Filter löschen",
   "filter.downloadAll": "Alle Scorecards als Excel exportieren",
+  "filter.selected.item": "Element",
+  "filter.selected.items": "Elemente",
   "maintenance.feedbacks": "Feedbacks",
   "maintenance.sentby": "Gesendet von",
   "maintenance.type": "Typ",
