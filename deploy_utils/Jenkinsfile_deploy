@@ -66,11 +66,16 @@ pipeline {
     }
     stage('Building app') {
       steps {
-        sh "npm install"
         script {
           FRONTEND_VERSION = sh(script: "git log -n 1 --pretty=format:'%H -> %B'", returnStdout: true)
+          FRONTEND_VERSION = FRONTEND_VERSION.replace("\n", " ")
         }
-        sh "REACT_APP_API=" + env.BACKEND_URL + " REACT_APP_FRONTEND_VERSION='" + FRONTEND_VERSION +"' npm run build"
+        sh 'printf "REACT_APP_API=' + env.BACKEND_URL + '\n " > .env.production'
+        sh 'echo "REACT_APP_FRONTEND_VERSION=' + FRONTEND_VERSION + '" >> .env.production'
+        sh "docker image prune -f"
+        sh "docker build -t npm_build_engine ."
+        sh "docker run npm_build_engine:latest npm run build"
+        sh "docker cp \$(docker container ls -l -q):/app/build build"
       }
       //NOTE: env.BACKEND_URL contains url, that gets queried from frontend
     }
