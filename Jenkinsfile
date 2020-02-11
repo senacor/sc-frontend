@@ -20,7 +20,7 @@ pipeline {
     }
     stage('npm build') {
       steps {
-        sh " docker run npm_build_engine:latest npm build"
+        sh " docker run npm_build_engine:latest npm run build"
       }
     }
   }
