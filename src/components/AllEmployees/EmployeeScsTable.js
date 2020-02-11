@@ -168,7 +168,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                   id: translateClassification(sc.classification)
                 })}
               </TableCell>
-              <TableCell>{`${sc.finalScore}%`}</TableCell>
+              <TableCell>
+                {'DONE ARCHIVED'.includes(sc.status) && `${sc.finalScore}%`}
+              </TableCell>
               <TableCell>
                 {intl.formatMessage({ id: translateGeneralStatus(sc.status) })}
               </TableCell>
