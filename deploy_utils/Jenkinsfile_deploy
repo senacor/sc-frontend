@@ -69,6 +69,7 @@ pipeline {
         sh "npm install"
         script {
           FRONTEND_VERSION = sh(script: "git log -n 1 --pretty=format:'%H -> %B'", returnStdout: true)
+          FRONTEND_VERSION = FRONTEND_VERSION.replace("\n", " ")
         }
         sh "REACT_APP_API=" + env.BACKEND_URL + " REACT_APP_FRONTEND_VERSION='" + FRONTEND_VERSION +"' npm run build"
       }
