@@ -376,5 +376,13 @@
   "newemployeesdialogtable.department": "Abteilung",
   "newemployeesdialogtable.office": "Büro",
   "newemployeesdialogtable.entrydate": "Eintrittsdatum",
-  "newemployeesdialogtable.supervisor": "Vorgesetzter"
+  "newemployeesdialogtable.supervisor": "Vorgesetzter",
+  "scsheet.score.percentage.title.250": "Ohne jede Einschränkung vorbildlich, stets eigene Initiative mit erheblichen Verbesserungen",
+  "scsheet.score.percentage.title.225": "Erwartungen deutlich übererfüllt, sehr selbständige Leistung, mit Highlights",
+  "scsheet.score.percentage.title.200": "Erwartungen deutlich übererfüllt, sehr selbständige Leistung, mit Highlights",
+  "scsheet.score.percentage.title.175": "Erwartungen klar erfüllt und professionelle Arbeit",
+  "scsheet.score.percentage.title.150": "Erwartungen klar erfüllt und professionelle Arbeit",
+  "scsheet.score.percentage.title.125": "Erwartungen unterschritten, gelegentliche Mängel",
+  "scsheet.score.percentage.title.100": "Erwartungen unterschritten, gelegentliche Mängel",
+  "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen"
 }

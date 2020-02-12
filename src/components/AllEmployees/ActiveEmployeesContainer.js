@@ -179,6 +179,11 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
     }
   ];
 
+  const updateScStatus = employeeId => {
+    const employee = employees.find(employee => employee.id === employeeId);
+    employee.scStatus = 'INITIALIZATION';
+  };
+
   return (
     <div className={classes.container}>
       <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
@@ -226,6 +231,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
           supervisorName={selectedEmployee.supervisorName}
           dialogOpen={selectedEmployee !== null}
           setSelectedEmployee={setSelectedEmployee}
+          updateScStatus={updateScStatus}
         />
       )}
     </div>

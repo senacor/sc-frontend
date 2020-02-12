@@ -11,7 +11,7 @@ import {
 } from '../calculations/scWithPr';
 import FinalScoreSection from '../FinalScoreSection';
 import SummaryButtonsBelowSheet from './SummaryButtonsBelowSheet';
-import { SC_STATUS } from '../../../../helper/scSheetData';
+import { isReady } from '../evaluationsCheck';
 
 const styles = theme => ({});
 
@@ -127,7 +127,7 @@ const SummaryViewWithPr = ({ sc, setSc, afterScFetched }) => {
         prCategoriesWeightPercentage={prCategoriesWeightPercentage}
       />
       <FinalScoreSection
-        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
+        isReady={isReady(sc)}
         finalScore={finalScore}
         reviewerScore
       />

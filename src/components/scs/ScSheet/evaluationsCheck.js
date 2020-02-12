@@ -1,3 +1,32 @@
+import { SC_STATUS } from '../../../helper/scSheetData';
+
+export const isReady = sc => {
+  const revData = sc.publishedReviewerData;
+  if (sc.statusSet.includes(SC_STATUS.WITH_PR)) {
+    return checkEvaluationsFilledWithPR(
+      false,
+      revData.dailyBusiness,
+      revData.project,
+      revData.serviceQuality,
+      revData.skillsInTheFields,
+      revData.impactOnTeam,
+      revData.impactOnCompany
+    );
+  }
+
+  if (sc.statusSet.includes(SC_STATUS.WITHOUT_PR)) {
+    return checkEvaluationsFilledWithoutPR(
+      false,
+      revData.dailyBusiness,
+      revData.project,
+      revData.workEfficiency,
+      revData.workQuality
+    );
+  }
+
+  return false;
+};
+
 export const checkEvaluationsFilledWithPR = (
   useWrappedValues,
   dailyBusiness,

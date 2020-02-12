@@ -1,9 +1,8 @@
-import React, { memo } from 'react';
+import React, { Fragment, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import { determineFinalPercentage } from './calculations/helperFunctions';
-
 // Material UI
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -26,7 +25,39 @@ const styles = theme => ({
 });
 
 const FinalScoreSection = memo(
-  ({ isClosed, intl, classes, finalScore, reviewerScore }) => {
+  ({ isReady, intl, classes, finalScore, reviewerScore }) => {
+
+    const percentageTextDescription = () => {
+      if (!isReady) {
+        return intl.formatMessage({
+          id: 'scsheet.score.percentagetext'
+        });
+      }
+
+      const percentageToMessageId = {
+        75: 'scsheet.score.percentage.title.75',
+        100: 'scsheet.score.percentage.title.100',
+        125: 'scsheet.score.percentage.title.125',
+        150: 'scsheet.score.percentage.title.150',
+        175: 'scsheet.score.percentage.title.175',
+        200: 'scsheet.score.percentage.title.200',
+        250: 'scsheet.score.percentage.title.250',
+        300: 'scsheet.score.percentage.title.300'
+      };
+
+      return (
+        <Fragment>
+          {intl.formatMessage({
+            id: 'scsheet.score.percentagetext'
+          })}{' '}
+          :{' '}
+          {intl.formatMessage({
+            id: percentageToMessageId[determineFinalPercentage(finalScore)]
+          })}
+        </Fragment>
+      );
+    };
+
     return (
       <div className={classes.container}>
         <Grid container className={classes.scoreGridContainer}>
@@ -46,11 +77,7 @@ const FinalScoreSection = memo(
         <Grid container className={classes.percentageGridContainer}>
           <Grid item sm={10}>
             <Typography variant="body1" className={classes.white}>
-              {isClosed
-                ? intl.formatMessage({
-                    id: 'scsheet.score.percentagetextclosed'
-                  })
-                : intl.formatMessage({ id: 'scsheet.score.percentagetext' })}
+              {percentageTextDescription()}
             </Typography>
           </Grid>
           <Grid item sm={2}>

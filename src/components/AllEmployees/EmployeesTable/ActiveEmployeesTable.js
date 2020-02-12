@@ -14,6 +14,11 @@ import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
 import { convertToStatusEnum } from '../../../helper/filterData';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -34,6 +39,10 @@ const ActiveEmployeesTable = ({
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
+
+  const user = useUserinfoContext();
+  const info = useInfoContext();
+  const error = useErrorContext();
 
   useEffect(() => {
     setFilterActive(handleFilterActive(filterInputs));
@@ -84,26 +93,42 @@ const ActiveEmployeesTable = ({
 
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map(employee => (
-      <EmployeeTableRow
-        key={employee.id}
-        employee={employee}
-        setSelectedEmployee={setSelectedEmployee}
-      />
-    ));
+    .map(employee => {
+      return (
+        <EmployeeTableRow
+          key={employee.id}
+          employee={employee}
+          user={user}
+          info={info}
+          error={error}
+          currentSupervisors={currentSupervisors}
+          setSelectedEmployee={setSelectedEmployee}
+        />
+      );
+    });
 
   let filteredEmployees = filterEmployees(employees, filterInputs);
   filteredEmployees = sortEmployees(filteredEmployees);
 
+  const currentSupervisors = employees.filter(
+    employee => employee.hasSupervisorRole
+  );
+
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map(employee => (
-      <EmployeeTableRow
-        key={employee.id}
-        employee={employee}
-        setSelectedEmployee={setSelectedEmployee}
-      />
-    ));
+    .map(employee => {
+      return (
+        <EmployeeTableRow
+          key={employee.id}
+          employee={employee}
+          user={user}
+          info={info}
+          error={error}
+          currentSupervisors={currentSupervisors}
+          setSelectedEmployee={setSelectedEmployee}
+        />
+      );
+    });
 
   if (isLoading) {
     return (

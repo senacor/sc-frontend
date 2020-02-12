@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
@@ -9,6 +9,8 @@ import {
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { translateGeneralStatus } from '../../../helper/string';
+import EmployeeFilter from '../../admin/EmployeeFilter';
+import { changeSupervisor } from '../../../calls/employees';
 import ROUTES from '../../../helper/routes';
 
 const styles = theme => ({
@@ -52,8 +54,16 @@ const EmployeeTableRow = ({
     endDate
   },
   formerEmployee,
+  user,
+  info,
+  error,
+  currentSupervisors,
   setSelectedEmployee
 }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [supervisorNameState, setSupervisorNameState] = useState(
+    supervisorName
+  );
 
   const handleDialogOpen = () => {
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
@@ -67,9 +77,18 @@ const EmployeeTableRow = ({
 
   const employeeName = `${firstName} ${lastName}`;
 
+  const handleChangeSupervisor = supervisor => {
+    changeSupervisor(id, supervisor.id, info, error).then(() => {
+      setSupervisorNameState(`${supervisor.firstName} ${supervisor.lastName}`);
+    });
+  };
+
   return (
     <Fragment>
-      <TableRow className={`${classes.tableRow} ${classes.notSelection}`} onClick={handleDialogOpen}>
+      <TableRow
+        className={`${classes.tableRow} ${classes.notSelection}`}
+        onClick={handleDialogOpen}
+      >
         <TableCell>{employeeName}</TableCell>
         <TableCell>{position}</TableCell>
         {!formerEmployee && (
@@ -79,7 +98,33 @@ const EmployeeTableRow = ({
               : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
           </TableCell>
         )}
-        {!formerEmployee && <TableCell>{supervisorName}</TableCell>}
+        <TableCell>
+          {!formerEmployee && (
+            <Typography>
+              {user.hasRoleHr() ? (
+                <EmployeeFilter
+                  data={currentSupervisors}
+                  supervisorName={
+                    supervisorNameState
+                      ? supervisorNameState
+                      : intl.formatMessage({
+                          id: 'employeeInfo.noSupervisor'
+                        })
+                  }
+                  setSelectedEmployee={handleChangeSupervisor}
+                />
+              ) : (
+                <TableCell>
+                  <span className={classes.textInfo}>
+                    {supervisorName
+                      ? supervisorName
+                      : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+                  </span>
+                </TableCell>
+              )}
+            </Typography>
+          )}
+        </TableCell>
         <TableCell>{department}</TableCell>
         <TableCell>{officeLocation}</TableCell>
         <TableCell>

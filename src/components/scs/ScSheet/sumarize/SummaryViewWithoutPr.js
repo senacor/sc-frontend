@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { Typography, withStyles } from '@material-ui/core';
-import { CATEGORY, SC_STATUS } from '../../../../helper/scSheetData';
+import { CATEGORY } from '../../../../helper/scSheetData';
 import MixedScRow from './MixedScRow';
 import PerformanceSummary from './PerformanceSummary';
 import { reduceWeights } from '../calculations/helperFunctions';
@@ -11,6 +11,7 @@ import {
 } from '../calculations/scWithoutPr';
 import FinalScoreSection from '../FinalScoreSection';
 import SummaryButtonsBelowSheet from './SummaryButtonsBelowSheet';
+import { isReady } from '../evaluationsCheck';
 
 const styles = theme => ({
   ...theme.styledComponents
@@ -139,7 +140,7 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
       {renderWorkEfficiency()}
       {renderWorkQuality()}
       <FinalScoreSection
-        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
+        isReady={isReady(sc)}
         finalScore={finalScore}
         reviewerScore
       />
