@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core';
 import PrCategories from '../categories/PrCategories';
 import FinalScoreSection from '../FinalScoreSection';
 import { reduceWeights } from '../calculations/helperFunctions';
-import { checkEvaluationsFilledWithPR } from '../evaluationsCheck';
+import { checkEvaluationsFilledWithPR, isReady } from '../evaluationsCheck';
 import {
   calculateFinalScoreWithPr,
   calculatePercentageWithPrPerformance,
@@ -259,11 +259,13 @@ const ScSheetWithPr = ({
     if (value < 0 || value > 100) {
       return;
     }
-    const prPercentage = (type === CATEGORY.PR_CATEGORIES) ? value : 100 - value;
+    const prPercentage = type === CATEGORY.PR_CATEGORIES ? value : 100 - value;
     setPrCategoriesWeightPercentage(prPercentage);
     setPerformanceWeightPercentage(100 - prPercentage);
 
-    const privateSpace = user.isReviewerInSc(sc) ? sc.privateReviewerData : sc.privateEmployeeData;
+    const privateSpace = user.isReviewerInSc(sc)
+      ? sc.privateReviewerData
+      : sc.privateEmployeeData;
     privateSpace.skillsWeightPercentage = prPercentage;
     sc.publishedReviewerData.skillsWeightPercentage = prPercentage;
     sc.publishedEmployeeData.skillsWeightPercentage = prPercentage;
@@ -461,10 +463,7 @@ const ScSheetWithPr = ({
         handleChangeWeightPercentage={handleChangeWeightPercentage}
         handleChangeWeight={handleChangeWeight}
       />
-      <FinalScoreSection
-        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
-        finalScore={finalScore}
-      />
+      <FinalScoreSection isReady={isReady(sc)} finalScore={finalScore} />
       <ButtonsBelowSheet
         withEvaluationsButtonDisabled={!areAllEvaluationsFilled()}
         handleSave={handleSave}
