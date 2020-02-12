@@ -28,7 +28,8 @@ const FormerEmployeesTable = ({
   intl,
   filterInputs,
   employees,
-  isLoading
+  isLoading,
+  setSelectedEmployee
 }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -62,22 +63,26 @@ const FormerEmployeesTable = ({
 
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map(employee => {
-      return (
-        <EmployeeTableRow
-          key={employee.id}
-          employee={employee}
-          formerEmployee
-        />
-      );
-    });
+    .map(employee => (
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+        formerEmployee
+      />
+    ));
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
 
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow key={employee.id} employee={employee} formerEmployee />
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+        formerEmployee
+      />
     ));
 
   if (isLoading) {

@@ -104,9 +104,6 @@ const EmployeeCard = ({
   );
 
   const handleDialogOpen = () => {
-    if (formerEmployee) {
-      return;
-    }
     window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
     setSelectedEmployee({
       id: id,

@@ -28,7 +28,8 @@ const ActiveEmployeesTable = ({
   intl,
   filterInputs,
   employees,
-  isLoading
+  isLoading,
+  setSelectedEmployee
 }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -69,16 +70,24 @@ const ActiveEmployeesTable = ({
 
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map(employee => {
-      return <EmployeeTableRow key={employee.id} employee={employee} />;
-    });
+    .map(employee => (
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+      />
+    ));
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
 
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow key={employee.id} employee={employee} />
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+      />
     ));
 
   if (isLoading) {
