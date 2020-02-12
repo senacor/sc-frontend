@@ -28,7 +28,8 @@ const ActiveEmployeesTable = ({
   intl,
   filterInputs,
   employees,
-  isLoading
+  isLoading,
+  setSelectedEmployee
 }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -69,21 +70,24 @@ const ActiveEmployeesTable = ({
 
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map(employee => {
-      return <EmployeeTableRow key={employee.id} employee={employee} updateScStatus={updateScStatus}/>;
-    });
+    .map(employee => (
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+      />
+    ));
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
-
-  const updateScStatus = employeeId => {
-    let employee = employees.find(employee => employee.id === employeeId);
-    employee.scStatus = 'INITIALIZATION';
-  };
 
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow key={employee.id} employee={employee} updateScStatus={updateScStatus}/>
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+      />
     ));
 
   if (isLoading) {

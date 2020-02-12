@@ -14,7 +14,6 @@ import {
   useUserinfoContext
 } from '../../helper/contextHooks';
 import { convertToStatusEnum } from '../../helper/filterData';
-import EmployeeScsDialog from './EmployeeScsDialog';
 
 const styles = theme => ({
   gridContainer: {
@@ -33,11 +32,11 @@ const ActiveEmployeesGrid = ({
   intl,
   filterInputs,
   employees,
-  isLoading
+  isLoading,
+  setSelectedEmployee
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const user = useUserinfoContext();
   const info = useInfoContext();
@@ -98,11 +97,6 @@ const ActiveEmployeesGrid = ({
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole
   );
-  
-  const updateScStatus = employeeId => {
-    let employee = employees.find(employee => employee.id === employeeId);
-    employee.scStatus = 'INITIALIZATION';
-  };
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
@@ -169,17 +163,6 @@ const ActiveEmployeesGrid = ({
           </Fragment>
         )}
       </div>
-      {selectedEmployee && (
-        <EmployeeScsDialog
-          employeeId={selectedEmployee.id}
-          firstName={selectedEmployee.firstName}
-          lastName={selectedEmployee.lastName}
-          supervisorName={selectedEmployee.supervisorName}
-          dialogOpen={selectedEmployee !== null}
-          setSelectedEmployee={setSelectedEmployee}
-          updateScStatus={updateScStatus}
-        />
-      )}
     </Fragment>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import {
@@ -9,7 +9,7 @@ import {
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { translateGeneralStatus } from '../../../helper/string';
-import EmployeeScsDialog from '../EmployeeScsDialog';
+import ROUTES from '../../../helper/routes';
 
 const styles = theme => ({
   tableRow: {
@@ -51,20 +51,25 @@ const EmployeeTableRow = ({
     entryDate,
     endDate
   },
-  updateScStatus,
-  formerEmployee
+  formerEmployee,
+  setSelectedEmployee
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
-    setDialogOpen(!dialogOpen);
+    window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
+    setSelectedEmployee({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      supervisorName: supervisorName
+    });
   };
 
   const employeeName = `${firstName} ${lastName}`;
 
   return (
     <Fragment>
-      <TableRow className={`${classes.tableRow}`} onClick={handleDialogOpen}>
+      <TableRow className={`${classes.tableRow} ${classes.notSelection}`} onClick={handleDialogOpen}>
         <TableCell>{employeeName}</TableCell>
         <TableCell>{position}</TableCell>
         {!formerEmployee && (
@@ -83,17 +88,6 @@ const EmployeeTableRow = ({
             : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>
-      {dialogOpen && (
-        <EmployeeScsDialog
-          employeeId={id}
-          firstName={firstName}
-          lastName={lastName}
-          supervisorName={supervisorName}
-          dialogOpen={dialogOpen}
-          setDialogOpen={setDialogOpen}
-          updateScStatus={updateScStatus}
-        />
-      )}
     </Fragment>
   );
 };

@@ -27,7 +27,8 @@ const FormerEmployeesGrid = ({
   intl,
   filterInputs,
   employees,
-  isLoading
+  isLoading,
+  setSelectedEmployee
 }) => {
   const [itemsShown, setItemsShown] = useState(15);
   const [filterActive, setFilterActive] = useState(false);
@@ -60,7 +61,11 @@ const FormerEmployeesGrid = ({
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
     <Grid item key={employee.id}>
-      <EmployeeCard employee={employee} formerEmployee />
+      <EmployeeCard
+        employee={employee}
+        setSelectedEmployee={setSelectedEmployee}
+        formerEmployee
+      />
     </Grid>
   ));
 
@@ -69,7 +74,11 @@ const FormerEmployeesGrid = ({
     .slice(0, itemsShown)
     .map(employee => (
       <Grid item key={employee.id}>
-        <EmployeeCard employee={employee} formerEmployee />
+        <EmployeeCard
+          employee={employee}
+          setSelectedEmployee={setSelectedEmployee}
+          formerEmployee
+        />
       </Grid>
     ));
 

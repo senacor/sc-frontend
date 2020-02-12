@@ -93,7 +93,7 @@ const EmployeeScsDialog = ({
 
   const handleOnCreateScClicked = () => {
     createScForEmployee(employeeId, setScs, setIsLoading, info, error);
-    updateScStatus(employeeId);
+    updateScStatus && updateScStatus(employeeId);
   };
 
   return (
