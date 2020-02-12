@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 // Icons
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
+import EmployeeScsDialog from './EmployeeScsDialog';
 
 const styles = theme => ({
   container: {
@@ -74,6 +75,7 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
   const [locationSorting, setLocationSorting] = useState([]);
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [tableView, setTableView] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem('view') === 'table') {
@@ -203,12 +205,24 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
           filterInputs={filterInputs}
           employees={employees}
           isLoading={isLoading}
+          setSelectedEmployee={setSelectedEmployee}
         />
       ) : (
         <FormerEmployeesGrid
           filterInputs={filterInputs}
           employees={employees}
           isLoading={isLoading}
+          setSelectedEmployee={setSelectedEmployee}
+        />
+      )}
+      {selectedEmployee && (
+        <EmployeeScsDialog
+          employeeId={selectedEmployee.id}
+          firstName={selectedEmployee.firstName}
+          lastName={selectedEmployee.lastName}
+          supervisorName={selectedEmployee.supervisorName}
+          dialogOpen={selectedEmployee !== null}
+          setSelectedEmployee={setSelectedEmployee}
         />
       )}
     </div>
