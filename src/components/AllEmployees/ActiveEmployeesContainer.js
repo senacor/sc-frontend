@@ -98,6 +98,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
 
   const clearFilter = () => {
     setSearchEmployeesValue('');
+    setSearchSupervisorValue('');
     setScStatusSorting([]);
     setPositionSorting([]);
     setDepartmentSorting([]);
