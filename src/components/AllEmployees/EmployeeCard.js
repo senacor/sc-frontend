@@ -52,13 +52,6 @@ const styles = theme => ({
   textInfo: {
     color: theme.palette.primary[400]
   },
-  textInfoUnderlined: {
-    color: theme.palette.secondary.darkBlue,
-    textDecoration: 'underline',
-    '&:hover': {
-      color: theme.palette.secondary.darkRed
-    }
-  },
   selectionUnavailable: {
     backgroundColor: theme.palette.secondary.grey
   },

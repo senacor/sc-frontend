@@ -14,6 +14,11 @@ import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TablePagination from '@material-ui/core/TablePagination';
 import { convertToStatusEnum } from '../../../helper/filterData';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -33,6 +38,10 @@ const ActiveEmployeesTable = ({
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
+
+  const user = useUserinfoContext();
+  const info = useInfoContext();
+  const error = useErrorContext();
 
   useEffect(() => {
     setFilterActive(handleFilterActive(filterInputs));
@@ -70,15 +79,35 @@ const ActiveEmployeesTable = ({
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
-      return <EmployeeTableRow key={employee.id} employee={employee} />;
+      return (
+        <EmployeeTableRow
+          key={employee.id}
+          employee={employee}
+          user={user}
+          info={info}
+          error={error}
+          currentSupervisors={currentSupervisors}
+        />
+      );
     });
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
 
+  const currentSupervisors = employees.filter(
+    employee => employee.hasSupervisorRole
+  );
+
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow key={employee.id} employee={employee} />
+      <EmployeeTableRow
+        key={employee.id}
+        employee={employee}
+        user={user}
+        info={info}
+        error={error}
+        currentSupervisors={currentSupervisors}
+      />
     ));
 
   if (isLoading) {

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT
@@ -10,6 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { translateGeneralStatus } from '../../../helper/string';
 import EmployeeScsDialog from '../EmployeeScsDialog';
+import EmployeeFilter from '../../admin/EmployeeFilter';
+import { changeSupervisor } from '../../../calls/employees';
 
 const styles = theme => ({
   tableRow: {
@@ -51,15 +53,28 @@ const EmployeeTableRow = ({
     entryDate,
     endDate
   },
-  formerEmployee
+  formerEmployee,
+  user,
+  info,
+  error,
+  currentSupervisors
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [supervisorNameState, setSupervisorNameState] = useState(
+    supervisorName
+  );
 
   const handleDialogOpen = () => {
     setDialogOpen(!dialogOpen);
   };
 
   const employeeName = `${firstName} ${lastName}`;
+
+  const handleChangeSupervisor = supervisor => {
+    changeSupervisor(id, supervisor.id, info, error).then(() => {
+      setSupervisorNameState(`${supervisor.firstName} ${supervisor.lastName}`);
+    });
+  };
 
   return (
     <Fragment>
@@ -73,7 +88,33 @@ const EmployeeTableRow = ({
               : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
           </TableCell>
         )}
-        {!formerEmployee && <TableCell>{supervisorName}</TableCell>}
+        <TableCell>
+          {!formerEmployee && (
+            <Typography>
+              {user.hasRoleHr() ? (
+                <EmployeeFilter
+                  data={currentSupervisors}
+                  supervisorName={
+                    supervisorNameState
+                      ? supervisorNameState
+                      : intl.formatMessage({
+                          id: 'employeeInfo.noSupervisor'
+                        })
+                  }
+                  setSelectedEmployee={handleChangeSupervisor}
+                />
+              ) : (
+                <TableCell>
+                  <span className={classes.textInfo}>
+                    {supervisorName
+                      ? supervisorName
+                      : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+                  </span>
+                </TableCell>
+              )}
+            </Typography>
+          )}
+        </TableCell>
         <TableCell>{department}</TableCell>
         <TableCell>{officeLocation}</TableCell>
         <TableCell>

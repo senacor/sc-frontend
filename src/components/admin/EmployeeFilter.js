@@ -157,7 +157,10 @@ export const EmployeeFilter = ({
             id: 'employeeInfo.clicktochange'
           })}
         >
-          <span className={classes.textInfoUnderlined} onClick={handleOpen}>
+          <span
+            className={`${classes.textInfoUnderlined} ${classes.pointer}`}
+            onClick={handleOpen}
+          >
             {supervisorName}
           </span>
         </Tooltip>
