@@ -27,6 +27,9 @@ const styles = theme => ({
       color: theme.palette.secondary.black
     }
   },
+  wordWrap: {
+    wordWrap: 'break-word'
+  },
   scRowContainer: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
@@ -94,7 +97,7 @@ const MixedScRow = ({
 
   const mergedCell = (header, valueReviewer, valueEmployee) => {
     const reviewerText = valueReviewer ? (
-      <Typography>
+      <Typography className={classes.wordWrap}>
         <span className={classes.boldText}>{'Beurteiler: \n'}</span>
         {valueReviewer}
       </Typography>
@@ -103,7 +106,7 @@ const MixedScRow = ({
     );
 
     const employeeText = valueEmployee ? (
-      <Typography>
+      <Typography className={classes.wordWrap}>
         <span className={classes.boldText}>{'Mitarbeiter: \n'}</span>
         {valueEmployee}
       </Typography>

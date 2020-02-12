@@ -6,7 +6,7 @@ import WorkEfficiency from '../categories/WorkEfficiency';
 import WorkQuality from '../categories/WorkQuality';
 import FinalScoreSection from '../FinalScoreSection';
 import { reduceWeights } from '../calculations/helperFunctions';
-import { checkEvaluationsFilledWithoutPR } from '../evaluationsCheck';
+import { checkEvaluationsFilledWithoutPR, isReady } from '../evaluationsCheck';
 import {
   calculateFinalScoreWithoutPr,
   calculatePercentageWithoutPr
@@ -339,10 +339,7 @@ const ScSheetWithoutPr = ({
         isReviewer={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
       />
-      <FinalScoreSection
-        isClosed={sc.statusSet.includes(SC_STATUS.CLOSED)}
-        finalScore={finalScore}
-      />
+      <FinalScoreSection isReady={isReady(sc)} finalScore={finalScore} />
       <ButtonsBelowSheet
         withEvaluationsButtonDisabled={!areAllEvaluationsFilled()}
         handleSave={handleSave}

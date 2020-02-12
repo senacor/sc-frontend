@@ -4,9 +4,9 @@ import { Button, Tooltip, Typography, withStyles } from '@material-ui/core';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
 import PublishScDialog from './PublishScDialog';
 import ConfirmDialog from '../../utils/ConfirmDialog';
-import { SC_STATUS } from '../../../helper/scSheetData';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import ArchiveButtonWithDialog from './ArchiveButtonWithDialog';
+import { isReady } from './evaluationsCheck';
 
 const styles = theme => ({
   btnContainer: {
@@ -116,11 +116,7 @@ const ButtonsBelowSheet = memo(
             placement="top"
           >
             <Button
-              className={
-                sc.statusSet.includes(SC_STATUS.REVIEWER_PUBLISHED)
-                  ? classes.btnClose
-                  : classes.hidden
-              }
+              className={isReady(sc) ? classes.btnClose : classes.hidden}
               variant="contained"
               color="secondary"
               onClick={handleOpenScClosingDialog}

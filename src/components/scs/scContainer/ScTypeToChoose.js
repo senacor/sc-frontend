@@ -53,14 +53,26 @@ const styles = theme => ({
   },
   submitScType: {
     height: 40,
-    marginTop: 'auto',
-    marginBottom: 'auto'
+    margin: 2 * theme.spacing.unit
   },
   tableCell: {
-    padding: 0
+    padding: 0,
+    paddingLeft: 1.5 * theme.spacing.unit,
+    borderBottom: 0
+  },
+  tableCellNoBorder: {
+    border: 0
   },
   textField: {
-    width: '100%'
+    width: '100%',
+    top: 1 * theme.spacing.unit
+  },
+  weightForm: {
+    marginLeft: 2 * theme.spacing.unit
+  },
+  tableRow: {
+    paddingTop: 1 * theme.spacing.unit,
+    paddingBottom: 1 * theme.spacing.unit
   },
   boldText: {
     fontWeight: 'bold'
@@ -70,6 +82,10 @@ const styles = theme => ({
   },
   input: {
     color: theme.palette.secondary.darkGrey
+  },
+  categoryFormsRow: {
+    paddingBottom: 2 * theme.spacing.unit,
+    paddingTop: 2 * theme.spacing.unit
   }
 });
 
@@ -225,10 +241,10 @@ const ScTypeToChoose = ({
                       <TableCell>
                         <Typography>{entry.title}</Typography>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.tableCellNoBorder}>
                         <Typography>{entry.weight}</Typography>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.tableCellNoBorder}>
                         <IconButton onClick={() => deleteDailyBusiness(idx)}>
                           <Icon>clear</Icon>
                         </IconButton>
@@ -236,7 +252,7 @@ const ScTypeToChoose = ({
                     </TableRow>
                   );
                 })}
-                <TableRow>
+                <TableRow className={classes.categoryFormsRow}>
                   <TableCell className={classes.tableCell}>
                     <TextField
                       className={classes.textField}
@@ -244,27 +260,29 @@ const ScTypeToChoose = ({
                       onChange={handleDailyBusinessChange}
                     />
                   </TableCell>
-                  <FormControl>
-                    <InputLabel id="weight-daily-business-input">
-                      {intl.formatMessage({
-                        id: 'scsheet.textheader.weight'
-                      })}
-                    </InputLabel>
-                    <Select
-                      id="weight-daily-business-input"
-                      value={dailyBusinessWeight}
-                      onChange={e => setDailyBusinessWeight(e.target.value)}
-                      renderValue={selected => <span>{selected}</span>}
-                      inputProps={{ className: classes.input }}
-                    >
-                      {[1, 2, 3].map((val, index) => (
-                        <MenuItem key={index} value={val}>
-                          {val}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
+                    <FormControl className={classes.weightForm}>
+                      <InputLabel id="weight-daily-business-input">
+                        {intl.formatMessage({
+                          id: 'scsheet.textheader.weight'
+                        })}
+                      </InputLabel>
+                      <Select
+                        id="weight-daily-business-input"
+                        value={dailyBusinessWeight}
+                        onChange={e => setDailyBusinessWeight(e.target.value)}
+                        renderValue={selected => <span>{selected}</span>}
+                        inputProps={{ className: classes.input }}
+                      >
+                        {[1, 2, 3].map((val, index) => (
+                          <MenuItem key={index} value={val}>
+                            {val}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
                     <Button
                       disabled={
                         !dailyBusinessValue.trim() || dailyBusinessWeight === 0
@@ -300,10 +318,10 @@ const ScTypeToChoose = ({
                       <TableCell>
                         <Typography>{entry.title}</Typography>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.tableCellNoBorder}>
                         <Typography>{entry.weight}</Typography>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.tableCellNoBorder}>
                         <IconButton onClick={() => deleteProject(idx)}>
                           <Icon>clear</Icon>
                         </IconButton>
@@ -311,7 +329,7 @@ const ScTypeToChoose = ({
                     </TableRow>
                   );
                 })}
-                <TableRow>
+                <TableRow className={classes.tableRow}>
                   <TableCell className={classes.tableCell}>
                     <TextField
                       className={classes.textField}
@@ -319,27 +337,29 @@ const ScTypeToChoose = ({
                       onChange={handleProjectChange}
                     />
                   </TableCell>
-                  <FormControl>
-                    <InputLabel id="weight-project-input">
-                      {intl.formatMessage({
-                        id: 'scsheet.textheader.weight'
-                      })}
-                    </InputLabel>
-                    <Select
-                      id="weight-project-input"
-                      value={projectWeight}
-                      onChange={e => setProjectWeight(e.target.value)}
-                      renderValue={selected => <span>{selected}</span>}
-                      inputProps={{ className: classes.input }}
-                    >
-                      {[1, 2, 3].map((val, index) => (
-                        <MenuItem key={index} value={val}>
-                          {val}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <TableCell>
+                  <TableCell className={classes.tableCell}>
+                    <FormControl className={classes.weightForm}>
+                      <InputLabel id="weight-project-input">
+                        {intl.formatMessage({
+                          id: 'scsheet.textheader.weight'
+                        })}
+                      </InputLabel>
+                      <Select
+                        id="weight-project-input"
+                        value={projectWeight}
+                        onChange={e => setProjectWeight(e.target.value)}
+                        renderValue={selected => <span>{selected}</span>}
+                        inputProps={{ className: classes.input }}
+                      >
+                        {[1, 2, 3].map((val, index) => (
+                          <MenuItem key={index} value={val}>
+                            {val}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
                     <Button
                       disabled={!projectValue.trim() || projectWeight === 0}
                       variant="contained"
