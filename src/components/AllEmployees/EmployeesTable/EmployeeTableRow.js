@@ -51,6 +51,7 @@ const EmployeeTableRow = ({
     entryDate,
     endDate
   },
+  updateScStatus,
   formerEmployee
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -90,6 +91,7 @@ const EmployeeTableRow = ({
           supervisorName={supervisorName}
           dialogOpen={dialogOpen}
           setDialogOpen={setDialogOpen}
+          updateScStatus={updateScStatus}
         />
       )}
     </Fragment>

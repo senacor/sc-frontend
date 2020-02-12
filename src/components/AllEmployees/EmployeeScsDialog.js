@@ -55,7 +55,9 @@ const EmployeeScsDialog = ({
   lastName,
   supervisorName,
   dialogOpen,
+  setDialogOpen,
   setSelectedEmployee,
+  updateScStatus,
   classes,
   intl
 }) => {
@@ -72,7 +74,8 @@ const EmployeeScsDialog = ({
 
   const dialogClose = () => {
     window.history.pushState(null, null, ROUTES.ACTIVE_EMPLOYEES_TABLE);
-    setSelectedEmployee(null);
+    setSelectedEmployee && setSelectedEmployee(null);
+    setDialogOpen && setDialogOpen(false);
   };
 
   const calculateCreateScButtonVisibility = () => {
@@ -90,6 +93,7 @@ const EmployeeScsDialog = ({
 
   const handleOnCreateScClicked = () => {
     createScForEmployee(employeeId, setScs, setIsLoading, info, error);
+    updateScStatus(employeeId);
   };
 
   return (

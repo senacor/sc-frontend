@@ -98,6 +98,11 @@ const ActiveEmployeesGrid = ({
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole
   );
+  
+  const updateScStatus = employeeId => {
+    let employee = employees.find(employee => employee.id === employeeId);
+    employee.scStatus = 'INITIALIZATION';
+  };
 
   // All employees
   const employeesData = employees.slice(0, itemsShown).map(employee => (
@@ -172,6 +177,7 @@ const ActiveEmployeesGrid = ({
           supervisorName={selectedEmployee.supervisorName}
           dialogOpen={selectedEmployee !== null}
           setSelectedEmployee={setSelectedEmployee}
+          updateScStatus={updateScStatus}
         />
       )}
     </Fragment>

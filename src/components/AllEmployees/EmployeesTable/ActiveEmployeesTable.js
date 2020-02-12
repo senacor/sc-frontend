@@ -70,15 +70,20 @@ const ActiveEmployeesTable = ({
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
-      return <EmployeeTableRow key={employee.id} employee={employee} />;
+      return <EmployeeTableRow key={employee.id} employee={employee} updateScStatus={updateScStatus}/>;
     });
 
   const filteredEmployees = filterEmployees(employees, filterInputs);
 
+  const updateScStatus = employeeId => {
+    let employee = employees.find(employee => employee.id === employeeId);
+    employee.scStatus = 'INITIALIZATION';
+  };
+
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
-      <EmployeeTableRow key={employee.id} employee={employee} />
+      <EmployeeTableRow key={employee.id} employee={employee} updateScStatus={updateScStatus}/>
     ));
 
   if (isLoading) {
