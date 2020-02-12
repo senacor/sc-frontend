@@ -77,6 +77,20 @@ const ActiveEmployeesTable = ({
     });
   };
 
+  const sortEmployees = employees => {
+    return employees.sort((employee1, employee2) => {
+      if (employee1.lastName > employee2.lastName) {
+        return 1;
+      }
+      if (employee1.lastName < employee2.lastName) {
+        return -1;
+      }
+      return 0;
+    });
+  };
+
+  employees = sortEmployees(employees);
+
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
@@ -93,7 +107,8 @@ const ActiveEmployeesTable = ({
       );
     });
 
-  const filteredEmployees = filterEmployees(employees, filterInputs);
+  let filteredEmployees = filterEmployees(employees, filterInputs);
+  filteredEmployees = sortEmployees(filteredEmployees);
 
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole

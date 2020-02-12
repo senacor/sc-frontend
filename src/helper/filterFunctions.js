@@ -121,6 +121,7 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
 
 export const handleFilterActive = filterInputs => {
   const compareObjWith = { ...filterInputs };
+
   const emptyInputs = {
     department: [],
     month: [],
@@ -128,6 +129,7 @@ export const handleFilterActive = filterInputs => {
     position: [],
     scStatus: [],
     searchEmployee: '',
+    searchSupervisor: '',
     year: []
   };
   const emptyInputsFormerEmployee = {
