@@ -186,7 +186,7 @@ const ScRow = memo(
                   })}
                 </Typography>
                 <Typography variant="body2" className={classes.input}>{`${
-                  row.percentage
+                  row.percentage ? row.percentage : 0
                 } %`}</Typography>
               </Grid>
               <Grid item sm={2} className={classes.textCenter}>
