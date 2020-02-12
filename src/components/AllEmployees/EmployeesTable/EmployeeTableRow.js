@@ -9,9 +9,9 @@ import {
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { translateGeneralStatus } from '../../../helper/string';
-import EmployeeScsDialog from '../EmployeeScsDialog';
 import EmployeeFilter from '../../admin/EmployeeFilter';
 import { changeSupervisor } from '../../../calls/employees';
+import ROUTES from '../../../helper/routes';
 
 const styles = theme => ({
   tableRow: {
@@ -57,7 +57,8 @@ const EmployeeTableRow = ({
   user,
   info,
   error,
-  currentSupervisors
+  currentSupervisors,
+  setSelectedEmployee
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [supervisorNameState, setSupervisorNameState] = useState(
@@ -65,7 +66,13 @@ const EmployeeTableRow = ({
   );
 
   const handleDialogOpen = () => {
-    setDialogOpen(!dialogOpen);
+    window.history.pushState(null, null, `${ROUTES.EMPLOYEE_SC}/${id}`);
+    setSelectedEmployee({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      supervisorName: supervisorName
+    });
   };
 
   const employeeName = `${firstName} ${lastName}`;
@@ -78,7 +85,10 @@ const EmployeeTableRow = ({
 
   return (
     <Fragment>
-      <TableRow className={`${classes.tableRow}`} onClick={handleDialogOpen}>
+      <TableRow
+        className={`${classes.tableRow} ${classes.notSelection}`}
+        onClick={handleDialogOpen}
+      >
         <TableCell>{employeeName}</TableCell>
         <TableCell>{position}</TableCell>
         {!formerEmployee && (
@@ -123,16 +133,6 @@ const EmployeeTableRow = ({
             : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
       </TableRow>
-      {dialogOpen && (
-        <EmployeeScsDialog
-          employeeId={id}
-          firstName={firstName}
-          lastName={lastName}
-          supervisorName={supervisorName}
-          dialogOpen={dialogOpen}
-          setDialogOpen={setDialogOpen}
-        />
-      )}
     </Fragment>
   );
 };
