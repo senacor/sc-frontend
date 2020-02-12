@@ -33,6 +33,11 @@ const SortingFilter = ({
   stateValue,
   intl
 }) => {
+  const selectedTitle = countOfSelected => {
+    return intl.formatMessage({
+      id: countOfSelected < 2 ? 'filter.selected.item' : 'filter.selected.items'
+    });
+  };
   return (
     <div className={classes.dropdownFilter}>
       <FormControl className={classes.formControl}>
@@ -47,7 +52,9 @@ const SortingFilter = ({
             <Input id="select-multiple-positions" className={classes.input} />
           }
           renderValue={selected => (
-            <div className={classes.chips}>{`${selected.length} items`}</div>
+            <div className={classes.chips}>
+              {selected.length} {selectedTitle(selected.length)}
+            </div>
           )}
         >
           {menuData.map(value => {
