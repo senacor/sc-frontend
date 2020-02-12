@@ -70,6 +70,18 @@ const ActiveEmployeesGrid = ({
     }
   };
 
+  const sortEmployees = employees => {
+    return employees.sort((employee1, employee2) => {
+      if (employee1.lastName > employee2.lastName) {
+        return 1;
+      }
+      if (employee1.lastName < employee2.lastName) {
+        return -1;
+      }
+      return 0;
+    });
+  };
+
   const statusEnums = convertToStatusEnum(filterInputs.scStatus);
 
   let filteredEmployees = employees.filter(empl => {
@@ -90,25 +102,8 @@ const ActiveEmployeesGrid = ({
     );
   });
 
-  employees = employees.sort((employee1, employee2) => {
-    if (employee1.lastName > employee2.lastName) {
-      return 1;
-    } else if (employee1.lastName < employee2.lastName) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
-
-  filteredEmployees = filteredEmployees.sort((employee1, employee2) => {
-    if (employee1.lastName > employee2.lastName) {
-      return 1;
-    } else if (employee1.lastName < employee2.lastName) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
+  employees = sortEmployees(employees);
+  filteredEmployees = sortEmployees(filteredEmployees);
 
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole
