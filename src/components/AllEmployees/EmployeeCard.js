@@ -109,7 +109,7 @@ const EmployeeCard = ({
       id: id,
       firstName: firstName,
       lastName: lastName,
-      supervisorName: supervisorName
+      supervisorName: supervisorNameState
     });
   };
 
