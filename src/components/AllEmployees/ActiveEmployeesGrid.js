@@ -91,8 +91,24 @@ const ActiveEmployeesGrid = ({
     );
   });
 
+  employees = employees.sort((employee1, employee2) => {
+    if (employee1.lastName > employee2.lastName) {
+      return 1;
+    } else if (employee1.lastName < employee2.lastName) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
   filteredEmployees = filteredEmployees.sort((employee1, employee2) => {
-    return employee1.lastName > employee2.lastName;
+    if (employee1.lastName > employee2.lastName) {
+      return 1;
+    } else if (employee1.lastName < employee2.lastName) {
+      return -1;
+    } else {
+      return 0;
+    }
   });
 
   const currentSupervisors = employees.filter(
