@@ -1,24 +1,26 @@
 pipeline {
   agent any
-  environment {
-    CI = 'true'
-  }
 
   stages {
-    stage('Obtaining dependencies') {
+    stage('Prune docker images') {
       steps {
-        sh "npm install"
+        sh "docker image prune -f"
 
       }
     }
-    stage('Test stage') {
+    stage('Build frontend npm build engine') {
       steps {
-        sh "npm test"
+        sh "docker build -t npm_build_engine ."
       }
     }
-    stage('Build stage') {
+    stage('npm test') {
       steps {
-        sh "npm run build"
+        sh " docker run npm_build_engine:latest npm test"
+      }
+    }
+    stage('npm build') {
+      steps {
+        sh " docker run npm_build_engine:latest npm run build"
       }
     }
   }
