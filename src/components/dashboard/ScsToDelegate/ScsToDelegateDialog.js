@@ -37,7 +37,6 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   const [dialogOpened, setDialogOpened] = useState(false);
   const [allEmployees, setAllEmployees] = useState([]);
   const [employeesInTeam, setEmployeesInTeam] = useState([]);
-  const [reviewers, setReviewers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const user = useUserinfoContext();
@@ -45,7 +44,6 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   const error = useErrorContext();
   const info = useInfoContext();
   const userId = userinfo.userId;
-  const userName = userinfo.employeeName;
   const scsToDelegate = userinfo.scsToDelegate;
 
   useEffect(() => {
@@ -54,22 +52,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
     });
   }, []);
 
-  useEffect(
-    () => {
-      setReviewers(getDefaultReviewers());
-    },
-    [employeesInTeam]
-  );
-
-  const getDefaultReviewers = () => {
-    return employeesInTeam.map(() => ({
-      reviewerId: userId,
-      reviewerName: userName
-    }));
-  };
-
   const dialogOpen = () => {
-    setReviewers(getDefaultReviewers());
     setDialogOpened(true);
   };
 
@@ -78,9 +61,9 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
   };
 
   const createData = () => {
-    return employeesInTeam.map((employee, index) => ({
-      employeeId: employee.id,
-      reviewerId: reviewers[index].reviewerId
+    return employeesInTeam.map(entry => ({
+      employeeId: entry.employeeId,
+      reviewerId: entry.reviewerId
     }));
   };
 
@@ -116,8 +99,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
           ) : (
             <ScsToDelegateTable
               employeesInTeam={employeesInTeam}
-              reviewers={reviewers}
-              setReviewers={setReviewers}
+              setEmployeesInTeam={setEmployeesInTeam}
               allEmployees={allEmployees}
             />
           )}

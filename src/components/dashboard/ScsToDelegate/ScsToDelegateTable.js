@@ -9,7 +9,6 @@ import TableCell from '@material-ui/core/TableCell';
 import Typography from '@material-ui/core/Typography';
 import TableRow from '@material-ui/core/TableRow';
 import EmployeeFilter from '../../admin/EmployeeFilter';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   reviewerCell: {
@@ -21,24 +20,18 @@ const styles = theme => ({
 
 const ScsToDelegateTable = ({
   employeesInTeam,
-  reviewers,
-  setReviewers,
+  setEmployeesInTeam,
   allEmployees,
   classes,
   intl
 }) => {
-  const selectReviewer = (reviewer, index) => {
-    const newReviewers = [...reviewers];
-    newReviewers[index] = Object.assign({
-      reviewerId: reviewer.id,
-      reviewerName: `${reviewer.firstName} ${reviewer.lastName}`
-    });
-    setReviewers(newReviewers);
+  const changeReviewer = (reviewer, index) => {
+    const newEmployeesInTeam = [...employeesInTeam];
+    newEmployeesInTeam[index].reviewerId = reviewer.id;
+    newEmployeesInTeam[index].reviewerFirstName = reviewer.firstName;
+    newEmployeesInTeam[index].reviewerLastName = reviewer.lastName;
+    setEmployeesInTeam(newEmployeesInTeam);
   };
-
-  if (reviewers.length === 0) {
-    return <CircularProgress />;
-  }
 
   return (
     <Table>
@@ -60,13 +53,17 @@ const ScsToDelegateTable = ({
         {employeesInTeam.map((entry, index) => {
           return (
             <TableRow key={index}>
-              <TableCell>{`${entry.firstName} ${entry.lastName}`}</TableCell>
+              <TableCell>{`${entry.employeeFirstName} ${
+                entry.employeeLastName
+              }`}</TableCell>
               <TableCell>
                 <div className={classes.reviewerCell}>
-                  <Typography>{reviewers[index].reviewerName}</Typography>
+                  <Typography>{`${entry.reviewerFirstName} ${
+                    entry.reviewerLastName
+                  }`}</Typography>
                   <EmployeeFilter
                     data={allEmployees}
-                    setSelectedEmployee={selectReviewer}
+                    setSelectedEmployee={changeReviewer}
                     settingReviewers
                     index={index}
                   />
