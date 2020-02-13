@@ -66,6 +66,9 @@ const styles = theme => ({
     padding: 2 * theme.spacing.unit,
     display: 'flex',
     alignItems: 'center'
+  },
+  fileFormatHint: {
+    color: theme.palette.secondary.darkYellow
   }
 });
 
@@ -141,6 +144,12 @@ const DatabasePatchesPanel = ({ classes, intl }) => {
       <div className={classes.description}>
         <Typography variant="body1">
           {intl.formatMessage({ id: 'fissyncs.description' })}
+        </Typography>
+      </div>
+
+      <div className={classes.description}>
+        <Typography variant="body1" className={classes.fileFormatHint}>
+          {intl.formatMessage({ id: 'fissyncs.fileformathint' })}
         </Typography>
       </div>
 

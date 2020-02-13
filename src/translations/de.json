@@ -68,6 +68,7 @@
   "sidebar.payrollreport": "Payroll reports",
   "sidebar.fissyncs": "FIS Synchronisierung",
   "fissyncs.description": "Scorecard Portal bekommt von FIS nicht alle benötigte Angaben. Deshalb können manche Daten verältet sein. Du kannst ein FIS Report Datei hochladen, um die Änderungen automatisch zu aktualisieren.",
+  "fissyncs.fileformathint": "--- Juliana to provide the final text --- Die Datei sollte ein offizieller FIS-Bericht im Format CSV sein, der Zeilen mit 28 Spalten enthält. Jede Zeile muss Werte in den Spalten 1, 6, 7, 13 und 28 enthalten.",
   "fissyncs.btn.upload": "FIS Report hochladen",
   "fissyncs.date": "Datum",
   "fissyncs.status": "Status",
