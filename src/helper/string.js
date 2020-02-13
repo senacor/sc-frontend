@@ -45,3 +45,14 @@ export const translateClassification = classification => {
       return 'Unbekannt';
   }
 };
+
+export const translateRole = role => {
+  switch (role) {
+    case 'EMPLOYEE':
+      return 'rolemanagement.employee';
+    case 'SUPERVISOR':
+      return 'rolemanagement.supervisor';
+    default:
+      return 'Unbekannt';
+  }
+};

@@ -105,6 +105,9 @@ const styles = theme => ({
   },
   buttonProgress: {
     color: theme.palette.secondary.blue
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
@@ -153,7 +156,11 @@ const Login = ({ location, classes, intl }) => {
     <div className={classes.hero}>
       <div className={classes.login}>
         <VersionDialog />
-        <LanguageButton languageButtonClassName={classes.languageButton} />
+        <LanguageButton
+          languageButtonClassName={`${classes.languageButton} ${
+            classes.hidden
+          }`}
+        />
         <form className={classes.form} onSubmit={handleOnClick}>
           <Hidden smDown>
             <img

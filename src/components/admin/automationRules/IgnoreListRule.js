@@ -191,7 +191,7 @@ const IgnoreListRule = ({
             </ListItem>
           ) : (
             <Typography variant="body2">
-              {intl.formatMessage({ id: 'autorules.noDatesDefined' })}
+              {intl.formatMessage({ id: 'autorules.noNamesDefined' })}
             </Typography>
           )}
           <ListItem className={classes.listItem}>

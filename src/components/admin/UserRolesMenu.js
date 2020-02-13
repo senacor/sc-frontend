@@ -15,6 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import { setRoles } from '../../calls/admin';
 import { useErrorContext } from '../../helper/contextHooks';
+import { translateRole } from '../../helper/string';
 
 const styles = theme => ({
   okButton: {
@@ -75,7 +76,9 @@ const UserRolesMenu = props => {
             checkedIcon={<Icon>check</Icon>}
             icon={<Icon />}
           />
-          <ListItemText primary={role.name} />
+          <ListItemText
+            primary={intl.formatMessage({ id: translateRole(role.name) })}
+          />
         </ListItem>
       </div>
     );

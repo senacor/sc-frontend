@@ -182,6 +182,7 @@
   "autorules.savechanges": "Änderungen speichern",
   "autorules.revert": "Zurücksetzen",
   "autorules.noDatesDefined": "Es gibt momentan kein automatisches Datum eingestellt.",
+  "autorules.noNamesDefined": "Es gibt momentan keinen Name für Scorecard Prozess Ausnahme erteilt.",
   "autorules.save.success": "Alle Datumänderungen gespeichert.",
   "autorules.dateIsValid": "Datum sollte mindestens von morgen sein",
   "autorules.processValid": "Ausgewälte Chronologie kann nicht mit diesem Kriterium konfiguriert sein!",
@@ -384,5 +385,7 @@
   "scsheet.score.percentage.title.150": "Erwartungen klar erfüllt und professionelle Arbeit",
   "scsheet.score.percentage.title.125": "Erwartungen unterschritten, gelegentliche Mängel",
   "scsheet.score.percentage.title.100": "Erwartungen unterschritten, gelegentliche Mängel",
-  "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen"
+  "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen",
+  "rolemanagement.employee": "Mitarbeiter",
+  "rolemanagement.supervisor": "Vorgesetzter"
 }
