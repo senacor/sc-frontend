@@ -60,7 +60,6 @@ const EmployeeTableRow = ({
   currentSupervisors,
   setSelectedEmployee
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [supervisorNameState, setSupervisorNameState] = useState(
     supervisorName
   );
@@ -98,8 +97,8 @@ const EmployeeTableRow = ({
               : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
           </TableCell>
         )}
-        <TableCell>
-          {!formerEmployee && (
+        {!formerEmployee && (
+          <TableCell>
             <Typography>
               {user.hasRoleHr() ? (
                 <EmployeeFilter
@@ -123,8 +122,8 @@ const EmployeeTableRow = ({
                 </TableCell>
               )}
             </Typography>
-          )}
-        </TableCell>
+          </TableCell>
+        )}
         <TableCell>{department}</TableCell>
         <TableCell>{officeLocation}</TableCell>
         <TableCell>
