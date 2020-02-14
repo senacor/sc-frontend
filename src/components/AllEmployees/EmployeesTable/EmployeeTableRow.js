@@ -60,7 +60,6 @@ const EmployeeTableRow = ({
   currentSupervisors,
   setSelectedEmployee
 }) => {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [supervisorNameState, setSupervisorNameState] = useState(
     supervisorName
   );
