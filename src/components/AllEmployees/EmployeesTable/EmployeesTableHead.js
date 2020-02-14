@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-
 // Material UI
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const styles = theme => ({
   tableHead: {
@@ -18,50 +18,131 @@ const styles = theme => ({
   }
 });
 
-const EmployeesTableHead = ({ intl, classes, formerEmployee }) => {
+const EmployeesTableHead = ({ intl, classes, formerEmployee, sortActive, setSortActive, sortDirection, setSortDirection }) => {
+
+
+  const handleSort = column => {
+    const newSortActive = { ...sortActive };
+    Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
+    switch (column) {
+      case 'lastName':
+        newSortActive.lastName = true;
+        break;
+      case 'position':
+        newSortActive.position = true;
+        break;
+      case 'scStatus':
+        newSortActive.scStatus = true;
+        break;
+      case 'supervisorName':
+        newSortActive.supervisorName = true;
+        break;
+      case 'department':
+        newSortActive.department = true;
+        break;
+      case 'officeLocation':
+        newSortActive.officeLocation = true;
+        break;
+      case 'endDate':
+        newSortActive.endDate = true;
+        break;
+      case 'entryDate':
+        newSortActive.entryDate = true;
+        break;
+      default:
+        break;
+    }
+    setSortActive(newSortActive);
+    changeDirection();
+  };
+
+  const changeDirection = () => {
+    if (sortDirection === 'asc') {
+      setSortDirection('desc');
+    } else {
+      setSortDirection('asc');
+    }
+  };
+
   return (
     <TableHead>
-      <TableRow className={classes.tableHead}>
+      <TableRow className={classes.tableCell}>
         <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.name'
-          })}
+          <TableSortLabel
+            active={sortActive.lastName}
+            direction={sortDirection}
+            onClick={() => handleSort('lastName')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.name' })}
+          </TableSortLabel>
         </TableCell>
         <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.position'
-          })}
+          <TableSortLabel
+            active={sortActive.position}
+            direction={sortDirection}
+            onClick={() => handleSort('position')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.position' })}
+          </TableSortLabel>
         </TableCell>
         {!formerEmployee && (
           <Fragment>
             <TableCell className={classes.tableCell}>
-              {intl.formatMessage({
-                id: 'employeeInfo.scStatus'
-              })}
+              <TableSortLabel
+                active={sortActive.scStatus}
+                direction={sortDirection}
+                onClick={() => handleSort('scStatus')}
+              >
+                {intl.formatMessage({ id: 'employeeInfo.scStatus' })}
+              </TableSortLabel>
             </TableCell>
             <TableCell className={classes.tableCell}>
-              {intl.formatMessage({
-                id: 'employeeInfo.supervisor'
-              })}
+              <TableSortLabel
+                active={sortActive.supervisorName}
+                direction={sortDirection}
+                onClick={() => handleSort('supervisorName')}
+              >
+                {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+              </TableSortLabel>
             </TableCell>
           </Fragment>
         )}
         <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.department'
-          })}
+          <TableSortLabel
+            active={sortActive.department}
+            direction={sortDirection}
+            onClick={() => handleSort('department')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.department' })}
+          </TableSortLabel>
         </TableCell>
         <TableCell className={classes.tableCell}>
-          {intl.formatMessage({
-            id: 'employeeInfo.office'
-          })}
+          <TableSortLabel
+            active={sortActive.officeLocation}
+            direction={sortDirection}
+            onClick={() => handleSort('officeLocation')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.office' })}
+          </TableSortLabel>
         </TableCell>
         <TableCell className={classes.tableCell}>
-          {formerEmployee
-            ? intl.formatMessage({ id: 'employeeInfo.exitDate' })
-            : intl.formatMessage({
-                id: 'employeeInfo.entryDate'
-              })}
+          {formerEmployee ? (
+            <TableSortLabel
+              active={sortActive.endDate}
+              direction={sortDirection}
+              onClick={() => handleSort('endDate')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.exitDate' })}
+            </TableSortLabel>
+          ) : (
+            <TableSortLabel
+              active={sortActive.entryDate}
+              direction={sortDirection}
+              onClick={() => handleSort('entryDate')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.entryDate' })}
+            </TableSortLabel>
+          )}
         </TableCell>
       </TableRow>
     </TableHead>

@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core';
 import EmployeesTableHead from './EmployeesTableHead';
 import {
   checkFilterValues,
-  handleFilterActive
+  handleFilterActive,
+  sortEmployeeBySortActive
 } from '../../../helper/filterFunctions';
 import EmployeeTableRow from './EmployeeTableRow';
 // Material UI
@@ -39,6 +40,17 @@ const ActiveEmployeesTable = ({
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortActive, setSortActive] = useState({
+    lastName: true,
+    position: false,
+    scStatus: false,
+    supervisorName: false,
+    department: false,
+    officeLocation: false,
+    endDate: false,
+    entryDate: false
+  });
 
   const user = useUserinfoContext();
   const info = useInfoContext();
@@ -77,19 +89,7 @@ const ActiveEmployeesTable = ({
     });
   };
 
-  const sortEmployees = employees => {
-    return employees.sort((employee1, employee2) => {
-      if (employee1.lastName > employee2.lastName) {
-        return 1;
-      }
-      if (employee1.lastName < employee2.lastName) {
-        return -1;
-      }
-      return 0;
-    });
-  };
-
-  employees = sortEmployees(employees);
+  employees = sortEmployeeBySortActive(employees, sortActive, sortDirection);
 
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -108,7 +108,6 @@ const ActiveEmployeesTable = ({
     });
 
   let filteredEmployees = filterEmployees(employees, filterInputs);
-  filteredEmployees = sortEmployees(filteredEmployees);
 
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole
@@ -140,7 +139,12 @@ const ActiveEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <EmployeesTableHead />
+        <EmployeesTableHead
+          sortActive={sortActive}
+          setSortActive={setSortActive}
+          sortDirection={sortDirection}
+          setSortDirection={setSortDirection}
+        />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>

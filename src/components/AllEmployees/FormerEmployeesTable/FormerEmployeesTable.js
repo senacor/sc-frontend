@@ -3,7 +3,8 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import {
   checkFilterValues,
-  handleFilterActive
+  handleFilterActive,
+  sortEmployeeBySortActive
 } from '../../../helper/filterFunctions';
 import EmployeeTableRow from '../EmployeesTable/EmployeeTableRow';
 import EmployeesTableHead from '../EmployeesTable/EmployeesTableHead';
@@ -35,6 +36,18 @@ const FormerEmployeesTable = ({
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
 
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortActive, setSortActive] = useState({
+    lastName: true,
+    position: false,
+    scStatus: false,
+    supervisorName: false,
+    department: false,
+    officeLocation: false,
+    endDate: false,
+    entryDate: false
+  });
+
   useEffect(() => {
     handleFilterActive(filterInputs, setFilterActive);
   });
@@ -61,6 +74,8 @@ const FormerEmployeesTable = ({
     });
   };
 
+  employees = sortEmployeeBySortActive(employees, sortActive, sortDirection);
+
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => (
@@ -72,7 +87,7 @@ const FormerEmployeesTable = ({
       />
     ));
 
-  const filteredEmployees = filterEmployees(employees, filterInputs);
+  let filteredEmployees = filterEmployees(employees, filterInputs);
 
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -95,7 +110,13 @@ const FormerEmployeesTable = ({
   return (
     <Paper className={classes.paper}>
       <Table className={classes.table}>
-        <EmployeesTableHead formerEmployee />
+        <EmployeesTableHead
+          formerEmployee
+          sortActive={sortActive}
+          setSortActive={setSortActive}
+          sortDirection={sortDirection}
+          setSortDirection={setSortDirection}
+        />
         <TableBody>
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>

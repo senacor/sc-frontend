@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 const isEqual = require('lodash/isEqual');
 
 export const sortByLastName = (data, sortDirection) => {
@@ -28,6 +29,69 @@ export const sortByLastName = (data, sortDirection) => {
       }
     });
   }
+};
+
+export const sortEmployeeBySortActive = (data, sortActive, sortDirection) => {
+  const sortsForFields = {
+    byField: (a, b, field) => {
+      return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+    },
+    lastName: (a, b) => {
+      return sortsForFields.byField(a, b, 'lastName');
+    },
+    position: (a, b) => {
+      return sortsForFields.byField(a, b, 'position');
+    },
+    scStatus: (a, b) => {
+      return sortsForFields.byField(a, b, 'scStatus');
+    },
+    supervisorName: (a, b) => {
+      return sortsForFields.byField(a, b, 'supervisorName');
+    },
+    department: (a, b) => {
+      return sortsForFields.byField(a, b, 'department');
+    },
+    officeLocation: (a, b) => {
+      return sortsForFields.byField(a, b, 'officeLocation');
+    },
+    endDate: (a, b) => {
+      const dateA = a.endDate;
+      const dateB = b.endDate;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    entryDate: (a, b) => {
+      const dateA = a.entryDate;
+      const dateB = b.entryDate;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    }
+  };
+
+  let sortBy = null;
+  for (let key in sortActive) {
+    if (sortActive[key]) {
+      sortBy = key;
+      break;
+    }
+  }
+  const missingProperties = data.filter(a => !a[sortBy]);
+  let withProperties = data.filter(a => a[sortBy]);
+
+  if (sortBy) {
+    withProperties.sort(sortsForFields[sortBy]);
+
+    data = [...withProperties, ...missingProperties];
+    if (sortDirection === 'desc') {
+      data = data.reverse();
+    }
+  }
+
+  return data;
 };
 
 export const sortBySortActive = (data, sortActive, sortDirection) => {
