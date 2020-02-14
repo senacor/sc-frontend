@@ -20,9 +20,11 @@ import {
 import PublishIcon from '@material-ui/icons/Publish';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import InfoIcon from '@material-ui/icons/Info';
 
 import Button from '@material-ui/core/Button';
 import { getAllPatches, uploadPatchFile } from '../../../calls/admin';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   containerPaper: {
@@ -40,6 +42,9 @@ const styles = theme => ({
   },
   statusIconFailure: {
     color: theme.palette.secondary.darkRed
+  },
+  tooltip: {
+    color: theme.palette.secondary.yellow
   },
   btn: {
     backgroundColor: theme.palette.primary[400],
@@ -63,9 +68,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   description: {
-    padding: 2 * theme.spacing.unit,
-    display: 'flex',
-    alignItems: 'center'
+    padding: 1 * theme.spacing.unit
   }
 });
 
@@ -138,9 +141,40 @@ const DatabasePatchesPanel = ({ classes, intl }) => {
         </Typography>
       </div>
 
-      <div className={classes.description}>
-        <Typography variant="body1">
+      <div>
+        <Typography variant="body1" className={classes.description}>
           {intl.formatMessage({ id: 'fissyncs.description' })}
+        </Typography>
+      </div>
+
+      <div>
+        <Typography variant="body1" className={classes.description}>
+          {intl.formatMessage({ id: 'fissyncs.description2' })}
+          <a
+            href={
+              'https://reporting.senacor.com/reportserver/?/Mitarbeiter%20Stammdaten'
+            }
+          >
+            Mitarbeiter Stammdaten
+          </a>
+          {intl.formatMessage({ id: 'fissyncs.description3' })}
+        </Typography>
+      </div>
+
+      <div>
+        <Typography variant="body1" className={classes.description}>
+          {intl.formatMessage({ id: 'fissyncs.description.hint' })}
+          <Tooltip
+            title={
+              <div style={{ whiteSpace: 'pre-wrap' }}>
+                {intl.formatMessage({ id: 'fissyncs.description.hint2' })}
+              </div>
+            }
+            interactive
+            className={classes.tooltip}
+          >
+            <InfoIcon />
+          </Tooltip>
         </Typography>
       </div>
 
