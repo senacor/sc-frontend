@@ -69,9 +69,6 @@ const styles = theme => ({
   },
   description: {
     padding: 1 * theme.spacing.unit
-  },
-  fileFormatHint: {
-    color: theme.palette.secondary.darkYellow
   }
 });
 
