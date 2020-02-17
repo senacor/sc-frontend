@@ -172,7 +172,9 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
       </TableHead>
       <TableBody>
         {scsToDisplay.map(sc => {
-          const employeeName = `${sc.employeeFirstName} ${sc.employeeLastName}`;
+          const employeeName = `${sc.employeeLastName}, ${
+            sc.employeeFirstName
+          }`;
           return (
             <TableRow
               key={sc.scId}

@@ -1,6 +1,6 @@
 function getDisplayName(employee) {
   if (employee) {
-    return `${employee.firstName} ${employee.lastName}`;
+    return `${employee.lastName}, ${employee.firstName}`;
   }
 }
 

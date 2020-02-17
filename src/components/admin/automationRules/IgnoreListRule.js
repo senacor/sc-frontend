@@ -148,7 +148,7 @@ const IgnoreListRule = ({
     if (!employee) {
       return;
     }
-    return employee.firstName + ' ' + employee.lastName;
+    return employee.lastName + ', ' + employee.firstName;
   };
 
   return (
