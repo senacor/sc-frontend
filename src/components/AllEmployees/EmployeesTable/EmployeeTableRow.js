@@ -74,7 +74,7 @@ const EmployeeTableRow = ({
     });
   };
 
-  const employeeName = `${firstName} ${lastName}`;
+  const employeeName = `${lastName}, ${firstName}`;
 
   const handleChangeSupervisor = supervisor => {
     changeSupervisor(id, supervisor.id, info, error).then(() => {

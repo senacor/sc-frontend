@@ -91,8 +91,10 @@ const ProcessingScCard = ({
 
   const employeeName = (
     <Fragment>
+      <Typography className={classes.lastname}>
+        {`${employeeLastName},`}
+      </Typography>
       <Typography className={classes.firstname}>{employeeFirstName}</Typography>
-      <Typography className={classes.lastname}>{employeeLastName}</Typography>
     </Fragment>
   );
 

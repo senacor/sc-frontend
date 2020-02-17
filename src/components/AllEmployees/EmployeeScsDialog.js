@@ -125,7 +125,7 @@ const EmployeeScsDialog = ({
           <Typography variant="h5">
             {intl.formatMessage({
               id: 'scdialog.scsvon'
-            }) + `${firstName} ${lastName}`}
+            }) + `${lastName}, ${firstName}`}
           </Typography>
         </DialogTitle>
         <Divider />

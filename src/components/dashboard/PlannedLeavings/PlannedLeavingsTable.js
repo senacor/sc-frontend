@@ -95,7 +95,7 @@ const PlannedLeavingsTable = ({
             className={classes.tableRow}
           >
             <TableCell>
-              {`${employee.firstName} ${employee.lastName}`}
+              {`${employee.lastName}, ${employee.firstName}`}
             </TableCell>
             <TableCell>{employee.position}</TableCell>
             <TableCell>

@@ -115,10 +115,10 @@ const EmployeeCard = ({
   const employeeName = (
     <Fragment>
       <Typography variant="h5" className={classes.name}>
-        {firstName}
+        {`${lastName},`}
       </Typography>
       <Typography variant="h5" className={classes.name}>
-        {lastName}
+        {firstName}
       </Typography>
     </Fragment>
   );
