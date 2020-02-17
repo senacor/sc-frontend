@@ -108,17 +108,17 @@ const EmployeeCard = ({
 
   const handleChangeSupervisor = supervisor => {
     changeSupervisor(id, supervisor.id, info, error).then(() => {
-      setSupervisorNameState(`${supervisor.firstName} ${supervisor.lastName}`);
+      setSupervisorNameState(`${supervisor.lastName}, ${supervisor.firstName}`);
     });
   };
 
   const employeeName = (
     <Fragment>
       <Typography variant="h5" className={classes.name}>
-        {firstName}
+        {`${lastName},`}
       </Typography>
       <Typography variant="h5" className={classes.name}>
-        {lastName}
+        {firstName}
       </Typography>
     </Fragment>
   );

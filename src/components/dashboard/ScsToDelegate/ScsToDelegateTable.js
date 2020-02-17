@@ -53,14 +53,14 @@ const ScsToDelegateTable = ({
         {employeesInTeam.map((entry, index) => {
           return (
             <TableRow key={index}>
-              <TableCell>{`${entry.employeeFirstName} ${
-                entry.employeeLastName
-              }`}</TableCell>
+              <TableCell>
+                {`${entry.employeeLastName}, ${entry.employeeFirstName}`}
+              </TableCell>
               <TableCell>
                 <div className={classes.reviewerCell}>
-                  <Typography>{`${entry.reviewerFirstName} ${
-                    entry.reviewerLastName
-                  }`}</Typography>
+                  <Typography>
+                    {`${entry.reviewerLastName}, ${entry.reviewerFirstName}`}
+                  </Typography>
                   <EmployeeFilter
                     data={allEmployees}
                     setSelectedEmployee={changeReviewer}

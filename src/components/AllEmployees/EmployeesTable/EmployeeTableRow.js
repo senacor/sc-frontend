@@ -74,7 +74,7 @@ const EmployeeTableRow = ({
     });
   };
 
-  const employeeName = `${firstName} ${lastName}`;
+  const employeeName = `${lastName}, ${firstName}`;
 
   const handleChangeSupervisor = supervisor => {
     changeSupervisor(id, supervisor.id, info, error).then(() => {
@@ -90,13 +90,6 @@ const EmployeeTableRow = ({
       >
         <TableCell>{employeeName}</TableCell>
         <TableCell>{position}</TableCell>
-        {!formerEmployee && (
-          <TableCell>
-            {scStatus
-              ? intl.formatMessage({ id: translateGeneralStatus(scStatus) })
-              : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
-          </TableCell>
-        )}
         {!formerEmployee && (
           <TableCell>
             <Typography>
@@ -131,6 +124,13 @@ const EmployeeTableRow = ({
             ? formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)
             : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
+        {!formerEmployee && (
+          <TableCell>
+            {scStatus
+              ? intl.formatMessage({ id: translateGeneralStatus(scStatus) })
+              : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
+          </TableCell>
+        )}
       </TableRow>
     </Fragment>
   );

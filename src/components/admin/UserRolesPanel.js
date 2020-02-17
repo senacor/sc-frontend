@@ -104,7 +104,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
           ) : selectedEmployee ? (
             <TableRow>
               <TableCell>
-                {`${selectedEmployee.firstName} ${selectedEmployee.lastName}`}
+                {`${selectedEmployee.lastName}, ${selectedEmployee.firstName}`}
               </TableCell>
               <TableCell>
                 <UserRolesMenu
@@ -122,7 +122,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
                 return (
                   <TableRow key={entry.id}>
                     <TableCell>
-                      {`${entry.firstName} ${entry.lastName}`}
+                      {`${entry.lastName}, ${entry.firstName}`}
                     </TableCell>
                     <TableCell>
                       <UserRolesMenu

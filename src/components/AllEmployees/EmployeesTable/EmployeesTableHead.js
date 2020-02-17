@@ -18,9 +18,15 @@ const styles = theme => ({
   }
 });
 
-const EmployeesTableHead = ({ intl, classes, formerEmployee, sortActive, setSortActive, sortDirection, setSortDirection }) => {
-
-
+const EmployeesTableHead = ({
+  intl,
+  classes,
+  formerEmployee,
+  sortActive,
+  setSortActive,
+  sortDirection,
+  setSortDirection
+}) => {
   const handleSort = column => {
     const newSortActive = { ...sortActive };
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
@@ -85,28 +91,15 @@ const EmployeesTableHead = ({ intl, classes, formerEmployee, sortActive, setSort
             {intl.formatMessage({ id: 'employeeInfo.position' })}
           </TableSortLabel>
         </TableCell>
-        {!formerEmployee && (
-          <Fragment>
-            <TableCell className={classes.tableCell}>
-              <TableSortLabel
-                active={sortActive.scStatus}
-                direction={sortDirection}
-                onClick={() => handleSort('scStatus')}
-              >
-                {intl.formatMessage({ id: 'employeeInfo.scStatus' })}
-              </TableSortLabel>
-            </TableCell>
-            <TableCell className={classes.tableCell}>
-              <TableSortLabel
-                active={sortActive.supervisorName}
-                direction={sortDirection}
-                onClick={() => handleSort('supervisorName')}
-              >
-                {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
-              </TableSortLabel>
-            </TableCell>
-          </Fragment>
-        )}
+        <TableCell className={classes.tableCell}>
+          <TableSortLabel
+            active={sortActive.supervisorName}
+            direction={sortDirection}
+            onClick={() => handleSort('supervisorName')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+          </TableSortLabel>
+        </TableCell>
         <TableCell className={classes.tableCell}>
           <TableSortLabel
             active={sortActive.department}
@@ -144,6 +137,19 @@ const EmployeesTableHead = ({ intl, classes, formerEmployee, sortActive, setSort
             </TableSortLabel>
           )}
         </TableCell>
+        {!formerEmployee && (
+          <Fragment>
+            <TableCell className={classes.tableCell}>
+              <TableSortLabel
+                active={sortActive.scStatus}
+                direction={sortDirection}
+                onClick={() => handleSort('scStatus')}
+              >
+                {intl.formatMessage({ id: 'employeeInfo.scStatus' })}
+              </TableSortLabel>
+            </TableCell>
+          </Fragment>
+        )}
       </TableRow>
     </TableHead>
   );

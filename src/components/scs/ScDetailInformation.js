@@ -70,7 +70,7 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
     //Supervisor: Michal Beres,
     let resultText = `${im('sc.supervisor')} ${getDisplayName(
       sc.supervisor
-    )}, `;
+    )}; `;
 
     //Supervisor: Michael Beres, Kein Reviewer
     if (!sc.reviewer1) {
@@ -89,7 +89,7 @@ const ScDetailInformation = ({ classes, sc, intl }) => {
         <Grid container alignItems="center" justify="center">
           <Grid item md={1} xs={3}>
             <Avatar className={classes.avatar}>
-              {`${firstName.charAt(0)}${lastName.charAt(0)}`}
+              {`${lastName.charAt(0)}${firstName.charAt(0)}`}
             </Avatar>
           </Grid>
           <Grid item md={9} xs={9}>
