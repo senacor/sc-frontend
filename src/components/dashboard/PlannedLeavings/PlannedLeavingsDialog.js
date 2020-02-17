@@ -90,6 +90,7 @@ const PlannedLeavingsDialog = ({
       <Dialog
         open={dialogOpened}
         classes={{ paper: classes.dialogPaper }}
+        onClose={dialogClose}
         fullWidth
         maxWidth="lg"
       >

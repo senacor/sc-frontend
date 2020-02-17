@@ -57,6 +57,27 @@ export const getUserInfo = async (userinfoContext, error, authContext) => {
   }
 };
 
+export const getPDInfo = async (setPdInfo, setIsLoading, error) => {
+  try {
+    setIsLoading(true);
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/pdinfo`
+    );
+
+    if (response.ok) {
+      const pdinfo = await response.json();
+      setPdInfo(pdinfo);
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    setIsLoading(false);
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 function arrayBufferToBase64(buffer) {
   let binary = '';
   let bytes = [].slice.call(new Uint8Array(buffer));

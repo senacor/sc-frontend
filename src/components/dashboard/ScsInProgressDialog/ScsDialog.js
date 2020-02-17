@@ -161,11 +161,9 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
     setScStatus([]);
   };
 
-  const label = `${intl.formatMessage({
-    id: 'dashboard.phase'
-  })} ${intl.formatMessage({
+  const label = intl.formatMessage({
     id: translateGeneralStatus(status)
-  })}`;
+  });
 
   return (
     <Fragment>
