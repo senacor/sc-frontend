@@ -10,16 +10,13 @@ import {
   scStatuses
 } from '../../helper/filterData';
 import ActiveEmployeesTable from './EmployeesTable/ActiveEmployeesTable';
-import { years, months } from '../../helper/filterFunctions';
+import { months, years } from '../../helper/filterFunctions';
 import UpperFilterMenu from '../filterComponents/UpperFilterMenu';
 import { downloadExcelAllScs } from '../../helper/downloadExcel';
-
 // Calls
-import { getAllEmployees } from '../../calls/employees';
-
+import { getActiveEmployees } from '../../calls/employees';
 // Material UI
 import IconButton from '@material-ui/core/IconButton';
-
 // Icons
 import TableViewIcon from '@material-ui/icons/List';
 import CardsViewIcon from '@material-ui/icons/AccountBox';
@@ -59,7 +56,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
     if (localStorage.getItem('view') === 'table') {
       setTableView(true);
     }
-    getAllEmployees(setEmployees, setIsLoading, error);
+    getActiveEmployees(setEmployees, setIsLoading, error);
   }, []);
 
   const handleSearchEmployeeChange = event => {

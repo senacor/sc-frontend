@@ -94,12 +94,14 @@ const DatabasePatchesPanel = ({ classes, intl }) => {
   };
 
   const { patches } = patchInfo;
-  patches.sort((first, second) => {
-    if (sortDirection === 'asc') {
-      return first.id - second.id;
-    } else {
-      return second.id - first.id;
-    }
+  patches.sort((a, b) => {
+    const dateA = a.date;
+    const dateB = b.date;
+    const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+    const result1 =
+      dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+    const result = dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    return sortDirection === 'asc' ? result : result * -1;
   });
 
   const callPatch = event => {

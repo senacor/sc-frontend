@@ -91,6 +91,10 @@ const ActiveEmployeesTable = ({
 
   employees = sortEmployeeBySortActive(employees, sortActive, sortDirection);
 
+  const currentSupervisors = employees.filter(
+    employee => employee.hasSupervisorRole
+  );
+
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map(employee => {
@@ -108,10 +112,6 @@ const ActiveEmployeesTable = ({
     });
 
   let filteredEmployees = filterEmployees(employees, filterInputs);
-
-  const currentSupervisors = employees.filter(
-    employee => employee.hasSupervisorRole
-  );
 
   const filteredEmployeesData = filteredEmployees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
