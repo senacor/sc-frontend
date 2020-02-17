@@ -108,7 +108,7 @@ const EmployeeCard = ({
 
   const handleChangeSupervisor = supervisor => {
     changeSupervisor(id, supervisor.id, info, error).then(() => {
-      setSupervisorNameState(`${supervisor.firstName} ${supervisor.lastName}`);
+      setSupervisorNameState(`${supervisor.lastName}, ${supervisor.firstName}`);
     });
   };
 

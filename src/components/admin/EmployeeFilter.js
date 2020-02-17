@@ -223,11 +223,11 @@ export const EmployeeFilter = ({
                       .startsWith(value.toLowerCase())) && (
                     <ListItem className={classes.pointer} key={employee.id}>
                       <Avatar>
-                        {employee.firstName.charAt(0)}
                         {employee.lastName.charAt(0)}
+                        {employee.firstName.charAt(0)}
                       </Avatar>
                       <ListItemText
-                        primary={`${employee.firstName} ${employee.lastName}`}
+                        primary={`${employee.lastName}, ${employee.firstName}`}
                         onClick={event => selectEmployee(employee, event)}
                       />
                     </ListItem>
