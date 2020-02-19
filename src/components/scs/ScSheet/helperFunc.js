@@ -1,5 +1,9 @@
 import { SC_STATUS } from '../../../helper/scSheetData';
 import { exportToPdf } from '../../../calls/sc';
+import {
+  FILE_NAME_DATE_FORMAT,
+  formatLocaleDateTime
+} from '../../../helper/date';
 
 export const allowEditFields = (isOwner, isReviewer, statuses) => {
   if (isOwner) {
@@ -28,14 +32,16 @@ export const allowEditFields = (isOwner, isReviewer, statuses) => {
   return false;
 };
 
-export const downloadScAsPdf = (scId, login, error) => {
+export const downloadScAsPdf = (scId, deadline, login, error) => {
   let promise = exportToPdf(scId, error);
+
+  const date = formatLocaleDateTime(deadline, FILE_NAME_DATE_FORMAT);
 
   promise.then(response => {
     const url = window.URL.createObjectURL(new Blob([response]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `${login}_${scId}.pdf`);
+    link.setAttribute('download', `${login}_${date}.pdf`);
     document.body.appendChild(link);
     link.click();
     link.parentNode.removeChild(link);

@@ -59,7 +59,7 @@ const SummaryButtonsBelowSheet = ({
   };
 
   const handlePdfDownload = () => {
-    downloadScAsPdf(sc.id, sc.employee.login, error);
+    downloadScAsPdf(sc.id, sc.deadline, sc.employee.login, error);
   };
 
   const handleReopenSc = () => {

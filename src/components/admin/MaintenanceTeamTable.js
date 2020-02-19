@@ -60,6 +60,10 @@ const styles = theme => ({
   },
   inputText: {
     marginRight: '1vw'
+  },
+  addText: {
+    paddingLeft: 2 * theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 });
 
@@ -218,10 +222,19 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </Grid>
+        <Grid item xs={12} md={12}>
+          <Typography variant="h6" className={classes.addText}>
+            {intl.formatMessage({
+              id: 'maintenance.addmember'
+            })}
+          </Typography>
+        </Grid>
         <Grid item xs={12} md={12} className={classes.maintenanceAddPanel}>
           <TextField
             value={maintenanceMemberName}
-            label={'Employee name'}
+            label={intl.formatMessage({
+              id: 'maintenance.name'
+            })}
             className={classes.inputText}
             onChange={e => {
               setMaintenanceMemberName(e.target.value);
@@ -229,7 +242,9 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
           />
           <TextField
             value={maintenanceMemberEmail}
-            label={'Mail address'}
+            label={intl.formatMessage({
+              id: 'maintenance.email'
+            })}
             type={'email'}
             onChange={e => {
               setMaintenanceMemberEmail(e.target.value);
