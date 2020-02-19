@@ -64,14 +64,12 @@ const FinalScoreSection = memo(
           <Grid item sm={10}>
             <Typography variant="body1">
               {intl.formatMessage({
-                id: !reviewerScore
-                  ? 'scwithoutPR.score.title'
-                  : 'scwithoutPR.score.title.reviewer'
+                id: 'scwithoutPR.score.title'
               })}
             </Typography>
           </Grid>
           <Grid item sm={2}>
-            <Typography variant="body1">{finalScore}</Typography>
+            <Typography variant="body1">{finalScore.toFixed(1)}</Typography>
           </Grid>
         </Grid>
         <Grid container className={classes.percentageGridContainer}>

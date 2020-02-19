@@ -16,11 +16,6 @@ import { downloadPayrollReport } from '../../helper/downloadExcel';
 import { CircularProgress } from '@material-ui/core';
 import PlannedLeavingsDialog from './PlannedLeavings/PlannedLeavingsDialog';
 import NewEmployeesDialog from './newEmployees/NewEmployeesDialog';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withRouter } from 'react-router-dom';
 import { getPDInfo } from '../../calls/userinfo';
 
@@ -39,7 +34,8 @@ const styles = theme => ({
   noMarginBottom: {
     marginBottom: 0
   },
-  noPaddingBottom: {
+  welcomeCardContent: {
+    width: '100%',
     '&:last-child': { paddingBottom: 0 }
   },
   cardTitle: {
@@ -57,18 +53,23 @@ const styles = theme => ({
     width: 'auto',
     flexGrow: 1
   },
-  dateCell: {
-    marginTop: 2.5 * theme.spacing.unit,
-    padding: 2 * theme.spacing.unit,
-    paddingRight: 5 * theme.spacing.unit
-  },
-  secondDateCell: {
-    marginTop: 2.5 * theme.spacing.unit,
-    padding: 2 * theme.spacing.unit
-  },
   flexRow: {
     display: 'flex',
     flexDirection: 'row'
+  },
+  timeRangeContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'end'
+  },
+  timeRange: {
+    marginRight: theme.spacing.unit
+  },
+  welcome50: {
+    width: '50%'
+  },
+  welcome100: {
+    width: '100%'
   }
 });
 
@@ -145,72 +146,6 @@ const Dashboard = ({ classes, intl, history }) => {
       <Fragment>
         <div className={classes.flexRow}>
           {intoCard(
-            'dashboard.timerange',
-            <Fragment>
-              <div className={classes.dateCell}>
-                <FormControl variant="outlined">
-                  <InputLabel htmlFor="date-von">
-                    {intl.formatMessage({
-                      id: 'dashboard.from'
-                    })}
-                  </InputLabel>
-                  <OutlinedInput
-                    id="date-von"
-                    type={'text'}
-                    value={timeRangeFrom}
-                    readOnly
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <DateRangeIcon />
-                      </InputAdornment>
-                    }
-                    labelWidth={30}
-                  />
-                </FormControl>
-              </div>
-              <div className={classes.secondDateCell}>
-                <FormControl variant="outlined">
-                  <InputLabel htmlFor="date-von">
-                    {intl.formatMessage({
-                      id: 'dashboard.to'
-                    })}
-                  </InputLabel>
-                  <OutlinedInput
-                    id="date-von"
-                    type={'text'}
-                    value={timeRangeTo}
-                    readOnly
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <DateRangeIcon />
-                      </InputAdornment>
-                    }
-                    labelWidth={30}
-                  />
-                </FormControl>
-              </div>
-            </Fragment>
-          )}
-          {intoCard(
-            'dashboard.last.fissync',
-            <InfoWidget
-              value={lastFISsync}
-              note={
-                fisPatchNeeded
-                  ? intl.formatMessage({
-                      id: 'newemployeesdialog.pleasePatchData'
-                    })
-                  : ''
-              }
-              onNoteClicked={fisPatchNeeded ? handleOnFisNoteClicked : () => {}}
-              linkTo={ROUTES.DATABASE_PATCHES}
-              icon={'sync'}
-            />
-          )}
-        </div>
-
-        <div className={classes.flexRow}>
-          {intoCard(
             'dashboard.allscs',
             <Fragment>
               <ScsDialog
@@ -251,26 +186,49 @@ const Dashboard = ({ classes, intl, history }) => {
             </Fragment>
           )}
           {intoCard(
-            'dashboard.lastpayrollreport',
+            'dashboard.notifications',
             isLoading ? (
               <CircularProgress />
             ) : (
-              <InfoWidget
-                value={
-                  lastReport.id
-                    ? formatLocaleDateTime(
-                        lastReport.date,
-                        FRONTEND_DATE_FORMAT
-                      )
-                    : intl.formatMessage({ id: 'dashboard.noLastReport' })
-                }
-                onClick={
-                  lastReport.id
-                    ? () => downloadExcelReport(lastReport)
-                    : () => {}
-                }
-                icon={'table_chart'}
-              />
+              <Fragment>
+                <InfoWidget
+                  label={intl.formatMessage({
+                    id: 'dashboard.lastpayrollreport'
+                  })}
+                  value={
+                    lastReport.id
+                      ? formatLocaleDateTime(
+                          lastReport.date,
+                          FRONTEND_DATE_FORMAT
+                        )
+                      : intl.formatMessage({ id: 'dashboard.noLastReport' })
+                  }
+                  onClick={
+                    lastReport.id
+                      ? () => downloadExcelReport(lastReport)
+                      : () => {}
+                  }
+                  icon={'table_chart'}
+                />
+                <InfoWidget
+                  label={intl.formatMessage({
+                    id: 'dashboard.last.fissync'
+                  })}
+                  value={lastFISsync}
+                  note={
+                    fisPatchNeeded
+                      ? intl.formatMessage({
+                          id: 'newemployeesdialog.pleasePatchData'
+                        })
+                      : ''
+                  }
+                  onNoteClicked={
+                    fisPatchNeeded ? handleOnFisNoteClicked : () => {}
+                  }
+                  linkTo={ROUTES.DATABASE_PATCHES}
+                  icon={'sync'}
+                />
+              </Fragment>
             )
           )}
         </div>
@@ -282,8 +240,12 @@ const Dashboard = ({ classes, intl, history }) => {
     <div className={classes.columnContainer}>
       <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
         {/* Welcome page section */}
-        <div className={classes.nocard}>
-          <CardContent className={classes.noPaddingBottom}>
+        <div
+          className={`${classes.nocard} ${
+            user.hasRoleHr() ? classes.welcome50 : classes.welcome100
+          }`}
+        >
+          <CardContent className={`${classes.welcomeCardContent}`}>
             <Typography variant="h5">
               {intl.formatMessage({
                 id: 'dashboard.welcome'
@@ -304,48 +266,75 @@ const Dashboard = ({ classes, intl, history }) => {
             </Typography>
           </CardContent>
         </div>
-
-        {user.hasNoRole() && (
-          <Card className={classes.card}>
+        {user.hasRoleHr() && (
+          <div className={classes.timeRangeContainer}>
             <CardContent>
-              <Typography variant="h5" className={classes.cardTitle}>
-                {intl.formatMessage({
-                  id: 'dashboard.norole'
-                })}
-              </Typography>
               <Typography
-                className={classes.cardParagraph}
+                className={classes.timeRange}
                 variant="body1"
                 color="textSecondary"
               >
-                {`${intl.formatMessage({
-                  id: 'dashboard.noroledescription'
-                })} `}
+                <b>
+                  {`${intl.formatMessage({
+                    id: 'dashboard.timerange'
+                  })} `}
+                </b>
+                {timeRangeFrom === ''
+                  ? intl.formatMessage({
+                      id: 'dashboard.unknown'
+                    })
+                  : `${intl.formatMessage({
+                      id: 'dashboard.from'
+                    })} ${timeRangeFrom} ${intl.formatMessage({
+                      id: 'dashboard.to'
+                    })} ${timeRangeTo}`}
               </Typography>
             </CardContent>
-          </Card>
+          </div>
         )}
+        <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
+          {user.hasNoRole() && (
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography variant="h5">
+                  {intl.formatMessage({
+                    id: 'dashboard.norole'
+                  })}
+                </Typography>
+                <Typography
+                  className={classes.cardParagraph}
+                  variant="body1"
+                  color="textSecondary"
+                >
+                  {`${intl.formatMessage({
+                    id: 'dashboard.noroledescription'
+                  })} `}
+                </Typography>
+              </CardContent>
+            </Card>
+          )}
 
-        {numberOfOpenedScs > 0 && (
-          <InfoWidget
-            label={intl.formatMessage({
-              id: 'dashboard.sc.opened'
-            })}
-            value={numberOfOpenedScs}
-            linkTo={`/scDetail/${userinfo.openedScs[0].id}`}
-            icon={'bar_chart'}
-          />
-        )}
-        {numberOfScsToReview > 0 && (
-          <InfoWidget
-            label={intl.formatMessage({
-              id: 'dashboard.sc.evaluator'
-            })}
-            value={numberOfScsToReview}
-            linkTo={ROUTES.SC_TO_REVIEW_TABLE}
-            icon={'bar_chart'}
-          />
-        )}
+          {numberOfOpenedScs > 0 && (
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.sc.opened'
+              })}
+              value={numberOfOpenedScs}
+              linkTo={`/scDetail/${userinfo.openedScs[0].id}`}
+              icon={'bar_chart'}
+            />
+          )}
+          {numberOfScsToReview > 0 && (
+            <InfoWidget
+              label={intl.formatMessage({
+                id: 'dashboard.sc.evaluator'
+              })}
+              value={numberOfScsToReview}
+              linkTo={ROUTES.SC_TO_REVIEW_TABLE}
+              icon={'bar_chart'}
+            />
+          )}
+        </div>
       </div>
 
       {user.hasRoleHr() && renderPDdashboard()}
@@ -377,7 +366,7 @@ const Dashboard = ({ classes, intl, history }) => {
             />
             <Card className={`${classes.card} ${classes.noMarginBottom}`}>
               <CardContent>
-                <Typography className={classes.cardTitle} variant="h5">
+                <Typography variant="h5">
                   {intl.formatMessage({
                     id: 'dashboard.administrationTitle'
                   })}

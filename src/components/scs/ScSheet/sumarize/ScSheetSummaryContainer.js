@@ -14,9 +14,19 @@ const styles = theme => ({
 const ScSheetSummaryContainer = ({ sc, setSc, scWithPr, afterScFetched }) => {
   return (
     <Fragment>
-      {scWithPr ?
-        <SummaryViewWithPr sc={sc} setSc={setSc} afterScFetched={afterScFetched} /> :
-        <SummaryViewWithoutPr sc={sc} setSc={setSc} afterScFetched={afterScFetched} />}
+      {scWithPr ? (
+        <SummaryViewWithPr
+          sc={sc}
+          setSc={setSc}
+          afterScFetched={afterScFetched}
+        />
+      ) : (
+        <SummaryViewWithoutPr
+          sc={sc}
+          setSc={setSc}
+          afterScFetched={afterScFetched}
+        />
+      )}
     </Fragment>
   );
 };
