@@ -30,7 +30,7 @@ const styles = theme => ({
     fontSize: 30
   },
   textContainer: {
-    width: 250,
+    width: 200,
     padding: 2 * theme.spacing.unit,
     paddingLeft: theme.spacing.unit
   },
@@ -86,14 +86,14 @@ const InfoWidget = ({
           <Typography variant="h5" component="h2">
             {value}
           </Typography>
-          {note &&
-            <span 
+          {note && (
+            <span
               className={onNoteClicked ? classes.noteClickable : classes.note}
               onClick={onNoteClicked}
             >
               {note}
             </span>
-            }
+          )}
         </div>
       </CardContent>
     </Card>
