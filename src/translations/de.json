@@ -351,6 +351,7 @@
   "sc.status.scTypeWaiting": "Bitte auf SC-Typ warten",
   "sc.summary.employee": "Mitarbeiter",
   "sc.summary.reviewer": "Beurteiler",
+  "sc.start": "SC Start",
   "scdialog.createddate": "Start des SCs",
   "scdialog.deadline": "SC Fälligkeit",
   "scdialog.classification": "Einstufung",
