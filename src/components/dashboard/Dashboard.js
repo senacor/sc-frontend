@@ -53,15 +53,6 @@ const styles = theme => ({
     width: 'auto',
     flexGrow: 1
   },
-  dateCell: {
-    marginTop: 2.5 * theme.spacing.unit,
-    padding: 2 * theme.spacing.unit,
-    paddingRight: 5 * theme.spacing.unit
-  },
-  secondDateCell: {
-    marginTop: 2.5 * theme.spacing.unit,
-    padding: 2 * theme.spacing.unit
-  },
   flexRow: {
     display: 'flex',
     flexDirection: 'row'
@@ -249,7 +240,11 @@ const Dashboard = ({ classes, intl, history }) => {
     <div className={classes.columnContainer}>
       <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
         {/* Welcome page section */}
-        <div className={`${classes.nocard} ${user.hasRoleHr() ? classes.welcome50 : classes.welcome100}`}>
+        <div
+          className={`${classes.nocard} ${
+            user.hasRoleHr() ? classes.welcome50 : classes.welcome100
+          }`}
+        >
           <CardContent className={`${classes.welcomeCardContent}`}>
             <Typography variant="h5">
               {intl.formatMessage({
