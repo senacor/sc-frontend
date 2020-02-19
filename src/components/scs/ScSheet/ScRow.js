@@ -27,6 +27,15 @@ const styles = theme => ({
       background: theme.palette.secondary.brighterGrey
     }
   },
+  captionContainer: {
+    padding: 2 * theme.spacing.unit,
+    paddingTop: 0,
+    display: 'flex',
+    justifyContent: 'end'
+  },
+  captionTitle: {
+    marginTop: theme.spacing.unit
+  },
   backgroundYellow: {
     backgroundColor: '#ffba0017'
   },
@@ -59,6 +68,16 @@ const styles = theme => ({
   },
   input: {
     color: theme.palette.secondary.darkGrey
+  },
+  captionGeneral: {
+    borderStyle: 'solid',
+    borderWidth: 1,
+    marginRight: 2 * theme.spacing.unit,
+    padding: 1.5 * theme.spacing.unit,
+    borderRadius: 0.75 * theme.spacing.unit,
+    marginLeft: 0.5 * theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
   },
   titleInput: {
     '& div > fieldset': {
@@ -309,6 +328,26 @@ const ScRow = memo(
                 </Grid>
               </Grid>
             )}
+          </div>
+          <div className={classes.captionContainer}>
+            <div className={classes.captionTitle}>
+              {intl.formatMessage({ id: 'scsheet.caption.title' })}
+            </div>
+            <div className={`${classes.captionGeneral}`}>
+              {intl.formatMessage({ id: 'scsheet.caption.saved' })}
+            </div>
+            <div
+              className={`${classes.captionGeneral} ${classes.backgroundGreen}`}
+            >
+              {intl.formatMessage({ id: 'scsheet.caption.publish' })}
+            </div>
+            <div
+              className={`${classes.captionGeneral} ${
+                classes.backgroundYellow
+              }`}
+            >
+              {intl.formatMessage({ id: 'scsheet.caption.notsaved' })}
+            </div>
           </div>
         </Paper>
       </Fragment>
