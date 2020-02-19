@@ -179,7 +179,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               </TableCell>
               <TableCell>
                 <IconButton
-                  onClick={e => downloadAsPdf(e, sc.scId, sc.employeeLogin)}
+                  onClick={e =>
+                    downloadAsPdf(e, sc.scId, sc.deadline, sc.employeeLogin)
+                  }
                 >
                   <GetApp />
                 </IconButton>

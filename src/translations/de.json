@@ -331,7 +331,7 @@
   "scwithoutPR.score.title.reviewer": "Score (unter Berücksichtigung Gewichtung) nach Bewertung von Beurteiler",
   "sc.phase.preparation": "Initialisierung",
   "sc.phase.inProgress": "Durchführung",
-  "sc.phase.ready": "Fertig",
+  "sc.phase.ready": "Bewertet",
   "sc.phase.closed": "Abgeschlossen",
   "sc.phase.archived": "Archiviert",
   "sc.statusStepper.init.reviewer.hint": "Bitte Scorecard Typ, Einstufung und mindestens eine Tätigkeit für jede Bewertungskategorie auswählen.",

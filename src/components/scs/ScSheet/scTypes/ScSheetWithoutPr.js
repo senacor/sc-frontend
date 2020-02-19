@@ -255,7 +255,7 @@ const ScSheetWithoutPr = ({
   };
 
   const handlePdfDownload = () => {
-    downloadScAsPdf(sc.id, sc.employee.login, error);
+    downloadScAsPdf(sc.id, sc.deadline, sc.employee.login, error);
   };
 
   const handleChangeWeight = (value, type, index) => {
