@@ -56,11 +56,6 @@ const PlannedLeavingsTable = ({
           </TableCell>
           <TableCell>
             {intl.formatMessage({
-              id: 'plannedleavingstable.scstatus'
-            })}
-          </TableCell>
-          <TableCell>
-            {intl.formatMessage({
               id: 'plannedleavingstable.supervisor'
             })}
           </TableCell>
@@ -85,6 +80,11 @@ const PlannedLeavingsTable = ({
               })}
             </TableSortLabel>
           </TableCell>
+          <TableCell>
+            {intl.formatMessage({
+              id: 'plannedleavingstable.scstatus'
+            })}
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -98,16 +98,16 @@ const PlannedLeavingsTable = ({
               {`${employee.lastName}, ${employee.firstName}`}
             </TableCell>
             <TableCell>{employee.position}</TableCell>
-            <TableCell>
-              {intl.formatMessage({
-                id: translateGeneralStatus(employee.scStatus)
-              })}
-            </TableCell>
             <TableCell>{employee.supervisorName}</TableCell>
             <TableCell>{employee.department}</TableCell>
             <TableCell>{employee.officeLocation}</TableCell>
             <TableCell>
               {formatLocaleDateTime(employee.endDate, FRONTEND_DATE_FORMAT)}
+            </TableCell>
+            <TableCell>
+              {intl.formatMessage({
+                id: translateGeneralStatus(employee.scStatus)
+              })}
             </TableCell>
           </TableRow>
         ))}
