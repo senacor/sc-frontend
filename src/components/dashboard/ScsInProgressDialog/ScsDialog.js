@@ -7,8 +7,7 @@ import SortingFilter from '../../filterComponents/SortingFilter';
 import {
   locations,
   scDepartmentMenu,
-  scStatuses,
-  classifications
+  positions
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
 import ScsTable from './ScsTable';
@@ -87,10 +86,9 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
   const [visibleAdvancedFilter, setVisibleAdvancedFilter] = useState(false);
   const [searchEmployeesValue, setSearchEmployeesValue] = useState('');
   const [searchSupervisorValue, setSearchSupervisorValue] = useState('');
+  const [position, setPosition] = useState([]);
   const [department, setDepartment] = useState([]);
-  const [classification, setClassification] = useState([]);
   const [office, setOffice] = useState([]);
-  const [scStatus, setScStatus] = useState([]);
 
   const error = useErrorContext();
 
@@ -121,25 +119,20 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
     setDepartment(event.target.value);
   };
 
-  const handleSearchClassificationChange = event => {
-    setClassification(event.target.value);
-  };
-
   const handleOfficeChange = event => {
     setOffice(event.target.value);
   };
 
-  const handleScStatusChange = event => {
-    setScStatus(event.target.value);
+  const handlePositionChange = event => {
+    setPosition(event.target.value);
   };
 
   const filterInputs = {
     searchEmployee: searchEmployeesValue,
     searchSupervisor: searchSupervisorValue,
+    position: position,
     department: department,
-    classification: classification,
-    office: office,
-    status: scStatus
+    office: office
   };
 
   const dialogClose = () => {
@@ -155,10 +148,8 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
   const clearFilter = () => {
     setSearchEmployeesValue('');
     setSearchSupervisorValue('');
-    setClassification([]);
     setOffice([]);
     setDepartment([]);
-    setScStatus([]);
   };
 
   const label = intl.formatMessage({
@@ -241,6 +232,13 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
                 />
               </div>
               <SortingFilter
+                sortBy={intl.formatMessage({ id: 'employeeInfo.position' })}
+                handleChange={handlePositionChange}
+                menuData={positions}
+                stateValue={position}
+                processingPrs
+              />
+              <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.department' })}
                 handleChange={handleDepartmentChange}
                 menuData={scDepartmentMenu}
@@ -248,26 +246,10 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
                 processingPrs
               />
               <SortingFilter
-                sortBy={intl.formatMessage({
-                  id: 'employeeInfo.classification'
-                })}
-                handleChange={handleSearchClassificationChange}
-                menuData={classifications}
-                stateValue={classification}
-                processingPrs
-              />
-              <SortingFilter
                 sortBy={intl.formatMessage({ id: 'employeeInfo.office' })}
                 handleChange={handleOfficeChange}
                 menuData={locations}
                 stateValue={office}
-                processingPrs
-              />
-              <SortingFilter
-                sortBy={intl.formatMessage({ id: 'sc.workstatus' })}
-                handleChange={handleScStatusChange}
-                menuData={scStatuses}
-                stateValue={scStatus}
                 processingPrs
               />
             </div>

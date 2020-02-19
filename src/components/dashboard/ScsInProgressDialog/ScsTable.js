@@ -8,11 +8,7 @@ import {
   sortBySortActive
 } from '../../../helper/filterFunctions';
 import { linkToSc } from '../../../calls/sc';
-import {
-  modifyString,
-  translateClassification,
-  translateGeneralStatus
-} from '../../../helper/string';
+import { modifyString } from '../../../helper/string';
 // Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -20,6 +16,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import {
+  formatLocaleDateTime,
+  FRONTEND_DATE_FORMAT
+} from '../../../helper/date';
 
 const styles = theme => ({
   tableRow: {
@@ -38,11 +38,12 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
     employee: true,
-    department: false,
+    position: false,
     supervisor: false,
-    classification: false,
+    department: false,
     office: false,
-    status: false
+    scStart: false,
+    scStatusStartTime: false
   });
 
   useEffect(() => {
@@ -64,20 +65,23 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
       case 'EMPLOYEE':
         newSortActive.employee = true;
         break;
-      case 'DEPARTMENT':
-        newSortActive.department = true;
+      case 'POSITION':
+        newSortActive.position = true;
         break;
       case 'SUPERVISOR':
         newSortActive.supervisor = true;
         break;
-      case 'POSITION':
-        newSortActive.classification = true;
+      case 'DEPARTMENT':
+        newSortActive.department = true;
         break;
       case 'OFFICE':
         newSortActive.office = true;
         break;
-      case 'STATUS':
-        newSortActive.status = true;
+      case 'SC_START':
+        newSortActive.scStart = true;
+        break;
+      case 'SC_STATUS_START':
+        newSortActive.scStatusStartTime = true;
         break;
       default:
         break;
@@ -93,13 +97,9 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
       return (
         checkFilterValues(filterInputs.searchEmployee, employeeName) &&
         checkFilterValues(filterInputs.searchSupervisor, sc.supervisor) &&
+        checkFilterValues(filterInputs.position, sc.position) &&
         checkFilterValues(filterInputs.department, sc.department) &&
-        checkFilterValues(
-          filterInputs.classification,
-          modifyString(sc.classification)
-        ) &&
-        checkFilterValues(filterInputs.office, sc.office) &&
-        checkFilterValues(filterInputs.status, modifyString(sc.scStatus))
+        checkFilterValues(filterInputs.office, sc.office)
       );
     });
   };
@@ -125,11 +125,11 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.department}
+              active={sortActive.position}
               direction={sortDirection}
-              onClick={() => handleSort('DEPARTMENT')}
+              onClick={() => handleSort('POSITION')}
             >
-              {intl.formatMessage({ id: 'employeeInfo.department' })}
+              {intl.formatMessage({ id: 'employeeInfo.position' })}
             </TableSortLabel>
           </TableCell>
           <TableCell>
@@ -143,11 +143,11 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.classification}
+              active={sortActive.department}
               direction={sortDirection}
-              onClick={() => handleSort('POSITION')}
+              onClick={() => handleSort('DEPARTMENT')}
             >
-              {intl.formatMessage({ id: 'employeeInfo.classification' })}
+              {intl.formatMessage({ id: 'employeeInfo.department' })}
             </TableSortLabel>
           </TableCell>
           <TableCell>
@@ -161,11 +161,20 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.status}
+              active={sortActive.scStart}
               direction={sortDirection}
-              onClick={() => handleSort('STATUS')}
+              onClick={() => handleSort('SC_START')}
             >
-              {intl.formatMessage({ id: 'sc.workstatus' })}
+              {intl.formatMessage({ id: 'sc.start' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={sortActive.scStatusStart}
+              direction={sortDirection}
+              onClick={() => handleSort('SC_STATUS_START')}
+            >
+              {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
             </TableSortLabel>
           </TableCell>
         </TableRow>
@@ -184,18 +193,15 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               <TableCell className={classes.employeeNameCell}>
                 {employeeName}
               </TableCell>
-              <TableCell>{sc.department}</TableCell>
+              <TableCell>{sc.position}</TableCell>
               <TableCell>{sc.supervisor}</TableCell>
-              <TableCell>
-                {intl.formatMessage({
-                  id: translateClassification(sc.classification)
-                })}
-              </TableCell>
+              <TableCell>{sc.department}</TableCell>
               <TableCell>{sc.office}</TableCell>
               <TableCell>
-                {intl.formatMessage({
-                  id: translateGeneralStatus(sc.scStatus)
-                })}
+                {formatLocaleDateTime(sc.createdDate, FRONTEND_DATE_FORMAT)}
+              </TableCell>
+              <TableCell>
+                {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
               </TableCell>
             </TableRow>
           );

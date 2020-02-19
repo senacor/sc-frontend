@@ -8,7 +8,6 @@ export const getAllRules = async (setRules, setIsLoading, error) => {
     );
     const responseRules = await response.json();
     setIsLoading(false);
-    console.log('responseRules', responseRules);
     setRules(responseRules);
   } catch (err) {
     setRules([]);

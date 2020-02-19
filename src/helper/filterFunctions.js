@@ -121,8 +121,8 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'occasion');
     },
     supervisor: (a, b) => {
-      const aValue = a.supervisor.split(' ')[1];
-      const bValue = b.supervisor.split(' ')[1];
+      const aValue = a.supervisor;
+      const bValue = b.supervisor;
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
     },
     date: (a, b) => {
@@ -144,6 +144,14 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
     deadline: (a, b) => {
       const dateA = a.deadline;
       const dateB = b.deadline;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    scStart: (a, b) => {
+      const dateA = a.createdDate;
+      const dateB = b.createdDate;
       const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
       const result1 =
         dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
