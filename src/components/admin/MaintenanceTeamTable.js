@@ -61,8 +61,9 @@ const styles = theme => ({
   inputText: {
     marginRight: '1vw'
   },
-  paddingLeft: {
-    paddingLeft: 2 * theme.spacing.unit
+  addText: {
+    paddingLeft: 2 * theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 });
 
@@ -222,7 +223,7 @@ const MaintenanceTeamTable = ({ classes, intl }) => {
           />
         </Grid>
         <Grid item xs={12} md={12}>
-          <Typography variant="h6" className={classes.paddingLeft}>
+          <Typography variant="h6" className={classes.addText}>
             {intl.formatMessage({
               id: 'maintenance.addmember'
             })}
