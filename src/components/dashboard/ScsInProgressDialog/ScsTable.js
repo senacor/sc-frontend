@@ -97,13 +97,9 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
       return (
         checkFilterValues(filterInputs.searchEmployee, employeeName) &&
         checkFilterValues(filterInputs.searchSupervisor, sc.supervisor) &&
+        checkFilterValues(filterInputs.position, sc.position) &&
         checkFilterValues(filterInputs.department, sc.department) &&
-        checkFilterValues(
-          filterInputs.classification,
-          modifyString(sc.classification)
-        ) &&
-        checkFilterValues(filterInputs.office, sc.office) &&
-        checkFilterValues(filterInputs.status, modifyString(sc.scStatus))
+        checkFilterValues(filterInputs.office, sc.office)
       );
     });
   };

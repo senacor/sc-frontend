@@ -121,8 +121,8 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'occasion');
     },
     supervisor: (a, b) => {
-      const aValue = a.supervisor.split(' ')[1];
-      const bValue = b.supervisor.split(' ')[1];
+      const aValue = a.supervisor;
+      const bValue = b.supervisor;
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
     },
     date: (a, b) => {
