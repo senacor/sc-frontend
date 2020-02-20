@@ -236,6 +236,23 @@ const Dashboard = ({ classes, intl, history }) => {
     );
   };
 
+  const welcomeDescription = () => {
+    if (user.hasRoleAdmin()) return null;
+    return (
+      <Fragment>
+        {`${intl.formatMessage({
+          id: user.hasRoleEmployee()
+            ? 'dashboard.description.employee'
+            : 'dashboard.description.other'
+        })} `}
+        <br />
+        {`${intl.formatMessage({
+          id: 'dashboard.subdescription'
+        })} `}
+      </Fragment>
+    );
+  };
+
   return userinfo ? (
     <div className={classes.columnContainer}>
       <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
@@ -256,13 +273,7 @@ const Dashboard = ({ classes, intl, history }) => {
               variant="body1"
               color="textSecondary"
             >
-              {`${intl.formatMessage({
-                id: 'dashboard.description'
-              })} `}
-              <br />
-              {`${intl.formatMessage({
-                id: 'dashboard.subdescription'
-              })} `}
+              {welcomeDescription()}
             </Typography>
           </CardContent>
         </div>
