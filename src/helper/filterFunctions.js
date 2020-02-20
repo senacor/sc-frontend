@@ -105,11 +105,17 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
     office: (a, b) => {
       return sortsForFields.byField(a, b, 'office');
     },
+    officeLocation: (a, b) => {
+      return sortsForFields.byField(a, b, 'officeLocation');
+    },
     status: (a, b) => {
       return sortsForFields.byField(a, b, 'inProgress');
     },
     employee: (a, b) => {
       return sortsForFields.byField(a, b, 'employeeLastName');
+    },
+    employeeName: (a, b) => {
+      return sortsForFields.byField(a, b, 'lastName');
     },
     position: (a, b) => {
       return sortsForFields.byField(a, b, 'position');

@@ -15,6 +15,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import EmployeeFilter from '../../admin/EmployeeFilter';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { sortBySortActive } from '../../../helper/filterFunctions';
 
 const styles = theme => ({
   tableRow: {
@@ -39,11 +40,11 @@ const NewEmployeesTable = ({
 }) => {
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employee: true,
+    employeeName: true,
     position: false,
     supervisor: false,
     department: false,
-    office: false,
+    officeLocation: false,
     entryDate: false
   });
 
@@ -60,7 +61,7 @@ const NewEmployeesTable = ({
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'EMPLOYEE':
-        newSortActive.employee = true;
+        newSortActive.employeeName = true;
         break;
       case 'POSITION':
         newSortActive.position = true;
@@ -72,7 +73,7 @@ const NewEmployeesTable = ({
         newSortActive.department = true;
         break;
       case 'OFFICE':
-        newSortActive.office = true;
+        newSortActive.officeLocation = true;
         break;
       case 'ENTRY_DATE':
         newSortActive.entryDate = true;
@@ -84,13 +85,16 @@ const NewEmployeesTable = ({
     changeDirection();
   };
 
+  const employeesToDisplay = [...newEmployees];
+  sortBySortActive(employeesToDisplay, sortActive, sortDirection);
+
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>
             <TableSortLabel
-              active={sortActive.employee}
+              active={sortActive.employeeName}
               direction={sortDirection}
               onClick={() => handleSort('EMPLOYEE')}
             >
@@ -134,7 +138,7 @@ const NewEmployeesTable = ({
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.office}
+              active={sortActive.officeLocation}
               direction={sortDirection}
               onClick={() => handleSort('OFFICE')}
             >
@@ -157,7 +161,7 @@ const NewEmployeesTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {newEmployees.map((employee, index) => (
+        {employeesToDisplay.map((employee, index) => (
           <TableRow key={index} className={classes.tableRow}>
             <TableCell>
               {`${employee.lastName}, ${employee.firstName}`}
