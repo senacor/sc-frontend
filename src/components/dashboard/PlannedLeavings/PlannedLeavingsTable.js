@@ -181,9 +181,11 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               {formatLocaleDateTime(employee.endDate, FRONTEND_DATE_FORMAT)}
             </TableCell>
             <TableCell>
-              {intl.formatMessage({
-                id: translateGeneralStatus(employee.scStatus)
-              })}
+              {employee.scStatus
+                ? intl.formatMessage({
+                    id: translateGeneralStatus(employee.scStatus)
+                  })
+                : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}
             </TableCell>
           </TableRow>
         ))}
