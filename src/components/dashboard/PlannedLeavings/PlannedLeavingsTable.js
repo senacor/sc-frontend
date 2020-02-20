@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Table,
@@ -16,6 +16,7 @@ import { translateGeneralStatus } from '../../../helper/string';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import ROUTES from '../../../helper/routes';
 import { withRouter } from 'react-router-dom';
+import { sortBySortActive } from '../../../helper/filterFunctions';
 
 const styles = theme => ({
   tableRow: {
@@ -28,52 +29,121 @@ const styles = theme => ({
   }
 });
 
-const PlannedLeavingsTable = ({
-  plannedLeavings,
-  sortDirection,
-  handleSort,
-  classes,
-  intl,
-  history
-}) => {
+const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortActive, setSortActive] = useState({
+    employee: true,
+    position: false,
+    supervisor: false,
+    department: false,
+    office: false,
+    endDate: false,
+    scStatus: false
+  });
+
+  const changeDirection = () => {
+    if (sortDirection === 'asc') {
+      setSortDirection('desc');
+    } else {
+      setSortDirection('asc');
+    }
+  };
+
+  const handleSort = column => {
+    const newSortActive = { ...sortActive };
+    Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
+    switch (column) {
+      case 'EMPLOYEE':
+        newSortActive.employee = true;
+        break;
+      case 'POSITION':
+        newSortActive.position = true;
+        break;
+      case 'SUPERVISOR':
+        newSortActive.supervisor = true;
+        break;
+      case 'DEPARTMENT':
+        newSortActive.department = true;
+        break;
+      case 'OFFICE':
+        newSortActive.office = true;
+        break;
+      case 'END_DATE':
+        newSortActive.endDate = true;
+        break;
+      case 'SC_STATUS':
+        newSortActive.scStatus = true;
+        break;
+      default:
+        break;
+    }
+    setSortActive(newSortActive);
+    changeDirection();
+  };
+
   const handleClick = employeeId => {
     history.push(`${ROUTES.EMPLOYEE_SC}/${employeeId}`);
   };
+
+  const plannedLeavingsToDisplay = [...plannedLeavings];
+  sortBySortActive(plannedLeavingsToDisplay, sortActive, sortDirection);
 
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>
-            {intl.formatMessage({
-              id: 'plannedleavingstable.employeename'
-            })}
-          </TableCell>
-          <TableCell>
-            {intl.formatMessage({
-              id: 'plannedleavingstable.position'
-            })}
-          </TableCell>
-          <TableCell>
-            {intl.formatMessage({
-              id: 'plannedleavingstable.supervisor'
-            })}
-          </TableCell>
-          <TableCell>
-            {intl.formatMessage({
-              id: 'plannedleavingstable.department'
-            })}
-          </TableCell>
-          <TableCell>
-            {intl.formatMessage({
-              id: 'plannedleavingstable.office'
-            })}
+            <TableSortLabel
+              active={sortActive.employee}
+              direction={sortDirection}
+              onClick={() => handleSort('EMPLOYEE')}
+            >
+              {intl.formatMessage({
+                id: 'plannedleavingstable.employeename'
+              })}
+            </TableSortLabel>
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active
+              active={sortActive.position}
               direction={sortDirection}
-              onClick={() => handleSort()}
+              onClick={() => handleSort('POSITION')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.position' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={sortActive.supervisor}
+              direction={sortDirection}
+              onClick={() => handleSort('SUPERVISOR')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={sortActive.department}
+              direction={sortDirection}
+              onClick={() => handleSort('DEPARTMENT')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.department' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={sortActive.office}
+              direction={sortDirection}
+              onClick={() => handleSort('OFFICE')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.office' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={sortActive.endDate}
+              direction={sortDirection}
+              onClick={() => handleSort('END_DATE')}
             >
               {intl.formatMessage({
                 id: 'plannedleavingstable.enddate'
@@ -81,14 +151,20 @@ const PlannedLeavingsTable = ({
             </TableSortLabel>
           </TableCell>
           <TableCell>
-            {intl.formatMessage({
-              id: 'plannedleavingstable.scstatus'
-            })}
+            <TableSortLabel
+              active={sortActive.scStatus}
+              direction={sortDirection}
+              onClick={() => handleSort('SC_STATUS')}
+            >
+              {intl.formatMessage({
+                id: 'plannedleavingstable.scstatus'
+              })}
+            </TableSortLabel>
           </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {plannedLeavings.map((employee, index) => (
+        {plannedLeavingsToDisplay.map((employee, index) => (
           <TableRow
             key={index}
             onClick={() => handleClick(employee.id)}
