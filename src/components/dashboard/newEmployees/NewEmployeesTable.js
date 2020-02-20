@@ -42,7 +42,7 @@ const NewEmployeesTable = ({
   const [sortActive, setSortActive] = useState({
     employeeName: true,
     position: false,
-    supervisor: false,
+    supervisorName: false,
     department: false,
     officeLocation: false,
     entryDate: false
@@ -67,7 +67,7 @@ const NewEmployeesTable = ({
         newSortActive.position = true;
         break;
       case 'SUPERVISOR':
-        newSortActive.supervisor = true;
+        newSortActive.supervisorName = true;
         break;
       case 'DEPARTMENT':
         newSortActive.department = true;
@@ -116,7 +116,7 @@ const NewEmployeesTable = ({
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.supervisor}
+              active={sortActive.supervisorName}
               direction={sortDirection}
               onClick={() => handleSort('SUPERVISOR')}
             >

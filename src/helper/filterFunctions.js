@@ -131,6 +131,11 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       const bValue = b.supervisor;
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
     },
+    supervisorName: (a, b) => {
+      const aValue = a.supervisorName;
+      const bValue = b.supervisorName;
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    },
     date: (a, b) => {
       const dateA = a.startDate;
       const dateB = b.startDate;
