@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { CircularProgress, withStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +11,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PlannedLeavingsTable from './PlannedLeavingsTable';
 import { getPlannedLeavings } from '../../../calls/employees';
 import { useErrorContext } from '../../../helper/contextHooks';
-import moment from 'moment';
 import ROUTES from '../../../helper/routes';
 import { withRouter } from 'react-router-dom';
 

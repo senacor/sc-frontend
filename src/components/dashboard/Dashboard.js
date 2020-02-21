@@ -93,12 +93,10 @@ const Dashboard = ({ classes, intl, history }) => {
   const employeesWithoutSupervisorCount = userinfo
     ? userinfo.employeesWithoutSupervisorCount
     : 0;
-  const fisPatchNeeded = userinfo ? userinfo.fisPatchNeeded : false;
 
   const lastReport = pdInfo.lastReport;
   const timeRangeFrom = pdInfo.timeRangeFrom;
   const timeRangeTo = pdInfo.timeRangeTo;
-  const lastFISsync = pdInfo.lastFISsync;
 
   useEffect(
     () => {
@@ -116,11 +114,11 @@ const Dashboard = ({ classes, intl, history }) => {
     downloadPayrollReport(report, error);
   };
 
-  const handleOnFisNoteClicked = event => {
-    event.stopPropagation();
-    event.preventDefault();
-    history.push(ROUTES.DATABASE_PATCHES);
-  };
+  // const handleOnFisNoteClicked = event => {
+  //   event.stopPropagation();
+  //   event.preventDefault();
+  //   history.push(ROUTES.DATABASE_PATCHES);
+  // };
 
   const renderPDdashboard = () => {
     const intoCard = (title, content) => {
@@ -186,15 +184,12 @@ const Dashboard = ({ classes, intl, history }) => {
             </Fragment>
           )}
           {intoCard(
-            'dashboard.notifications',
+            'dashboard.lastpayrollreport',
             isLoading ? (
               <CircularProgress />
             ) : (
               <Fragment>
                 <InfoWidget
-                  label={intl.formatMessage({
-                    id: 'dashboard.lastpayrollreport'
-                  })}
                   value={
                     lastReport.id
                       ? formatLocaleDateTime(
@@ -210,24 +205,24 @@ const Dashboard = ({ classes, intl, history }) => {
                   }
                   icon={'table_chart'}
                 />
-                <InfoWidget
-                  label={intl.formatMessage({
-                    id: 'dashboard.last.fissync'
-                  })}
-                  value={lastFISsync}
-                  note={
-                    fisPatchNeeded
-                      ? intl.formatMessage({
-                          id: 'newemployeesdialog.pleasePatchData'
-                        })
-                      : ''
-                  }
-                  onNoteClicked={
-                    fisPatchNeeded ? handleOnFisNoteClicked : () => {}
-                  }
-                  linkTo={ROUTES.DATABASE_PATCHES}
-                  icon={'sync'}
-                />
+                {/*<InfoWidget*/}
+                {/*label={intl.formatMessage({*/}
+                {/*id: 'dashboard.last.fissync'*/}
+                {/*})}*/}
+                {/*value={lastFISsync}*/}
+                {/*note={*/}
+                {/*fisPatchNeeded*/}
+                {/*? intl.formatMessage({*/}
+                {/*id: 'newemployeesdialog.pleasePatchData'*/}
+                {/*})*/}
+                {/*: ''*/}
+                {/*}*/}
+                {/*onNoteClicked={*/}
+                {/*fisPatchNeeded ? handleOnFisNoteClicked : () => {}*/}
+                {/*}*/}
+                {/*linkTo={ROUTES.DATABASE_PATCHES}*/}
+                {/*icon={'sync'}*/}
+                {/*/>*/}
               </Fragment>
             )
           )}
