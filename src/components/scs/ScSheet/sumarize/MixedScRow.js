@@ -71,6 +71,9 @@ const styles = theme => ({
   },
   boldText: {
     fontWeight: 'bold'
+  },
+  enterOnNewline: {
+    whiteSpace: 'break-spaces'
   }
 });
 
@@ -252,7 +255,7 @@ const MixedScRow = ({
                         id: 'scsheet.textarea.description.basis'
                       })}
                     </Typography>
-                    <Typography>{description}</Typography>
+                    <Typography className={classes.enterOnNewline}>{description}</Typography>
                   </div>
                 ) : (
                   mergedCell(
