@@ -69,6 +69,9 @@ const styles = theme => ({
   input: {
     color: theme.palette.secondary.darkGrey
   },
+  enterOnNewline: {
+    whiteSpace: 'break-spaces'
+  },
   captionGeneral: {
     borderStyle: 'solid',
     borderWidth: 1,
@@ -262,7 +265,9 @@ const ScRow = memo(
                           id: 'scsheet.textarea.description.basis'
                         })}
                       </Typography>
-                      <Typography>{description}</Typography>
+                      <Typography className={classes.enterOnNewline}>
+                        {description}
+                      </Typography>
                     </div>
                   ) : (
                     <TextField
