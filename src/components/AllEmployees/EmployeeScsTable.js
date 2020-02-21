@@ -8,7 +8,11 @@ import {
   translateClassification,
   translateGeneralStatus
 } from '../../helper/string';
-import { formatLocaleDateTime, FRONTEND_DATE_FORMAT } from '../../helper/date';
+import {
+  formatLocaleDateTime,
+  FRONTEND_DATE_FORMAT,
+  getReadableDate
+} from '../../helper/date';
 import { downloadScAsPdf } from '../../components/scs/ScSheet/helperFunc.js';
 // Material UI
 import Table from '@material-ui/core/Table';
@@ -29,6 +33,20 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.brightGrey
     }
+  },
+  tableHeader: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.secondary.white,
+    zIndex: 100,
+    marginBottom: 1
+  },
+  table: {
+    overflowY: 'scroll',
+    borderCollapse: 'separate'
+  },
+  zIndexLow: {
+    zIndex: 1
   }
 });
 
@@ -36,7 +54,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   const error = useErrorContext();
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    createdDate: true,
+    createdDateTime: true,
     deadline: false,
     classification: false,
     finalScore: false,
@@ -57,7 +75,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'CREATED_DATE':
-        newSortActive.createdDate = true;
+        newSortActive.createdDateTime = true;
         break;
       case 'DEADLINE':
         newSortActive.deadline = true;
@@ -89,12 +107,12 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   sortBySortActive(scs, sortActive, sortDirection);
 
   return (
-    <Table>
-      <TableHead>
+    <Table className={classes.table}>
+      <TableHead className={classes.tableHeader}>
         <TableRow>
           <TableCell>
             <TableSortLabel
-              active={sortActive.createdDate}
+              active={sortActive.createdDateTime}
               direction={sortDirection}
               onClick={() => handleSort('CREATED_DATE')}
             >
@@ -157,9 +175,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               onClick={() => linkToSc(sc.scId, history)}
               className={classes.tableRow}
             >
-              <TableCell>
-                {formatLocaleDateTime(sc.createdDate, FRONTEND_DATE_FORMAT)}
-              </TableCell>
+              <TableCell>{getReadableDate(sc.createdDateTime)}</TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT)}
               </TableCell>
@@ -179,6 +195,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               </TableCell>
               <TableCell>
                 <IconButton
+                  className={classes.zIndexLow}
                   onClick={e =>
                     downloadAsPdf(e, sc.scId, sc.deadline, sc.employeeLogin)
                   }

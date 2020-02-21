@@ -152,6 +152,18 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
         dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
       return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
     },
+    createdDateTime: (a, b) => {
+      const dateA = a.createdDateTime;
+      const dateB = b.createdDateTime;
+      const result4 = dateA[4] < dateB[4] ? -1 : dateA[4] > dateB[4] ? 1 : 0;
+      const result3 =
+        dateA[3] < dateB[3] ? -1 : dateA[3] > dateB[3] ? 1 : result4;
+      const result2 =
+        dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : result3;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
     deadline: (a, b) => {
       const dateA = a.deadline;
       const dateB = b.deadline;
