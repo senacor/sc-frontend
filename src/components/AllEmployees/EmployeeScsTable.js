@@ -29,6 +29,20 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.brightGrey
     }
+  },
+  tableHeader: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.secondary.white,
+    zIndex: 100,
+    marginBottom: 1
+  },
+  table: {
+    overflowY: 'scroll',
+    borderCollapse: 'separate'
+  },
+  zIndexLow: {
+    zIndex: 1
   }
 });
 
@@ -89,8 +103,8 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   sortBySortActive(scs, sortActive, sortDirection);
 
   return (
-    <Table>
-      <TableHead>
+    <Table className={classes.table}>
+      <TableHead className={classes.tableHeader}>
         <TableRow>
           <TableCell>
             <TableSortLabel
@@ -179,6 +193,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               </TableCell>
               <TableCell>
                 <IconButton
+                  className={classes.zIndexLow}
                   onClick={e =>
                     downloadAsPdf(e, sc.scId, sc.deadline, sc.employeeLogin)
                   }
