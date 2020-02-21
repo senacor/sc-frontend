@@ -40,7 +40,6 @@ const PlannedLeavingsDialog = ({
   const [dialogOpened, setDialogOpened] = useState(false);
   const [plannedLeavings, setPlannedLeavings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [sortDirection, setSortDirection] = useState('asc');
 
   const error = useErrorContext();
 
@@ -60,21 +59,6 @@ const PlannedLeavingsDialog = ({
     history.push(ROUTES.DASHBOARD);
     setDialogOpened(false);
   };
-
-  const handleSort = () => {
-    sortDirection === 'asc'
-      ? setSortDirection('desc')
-      : setSortDirection('asc');
-  };
-
-  const sortedPlannedLeavings = [...plannedLeavings];
-  sortDirection === 'asc'
-    ? sortedPlannedLeavings.sort((a, b) =>
-        moment(a.endDate).isAfter(moment(b.endDate)) ? 1 : -1
-      )
-    : sortedPlannedLeavings.sort((a, b) =>
-        moment(a.endDate).isAfter(moment(b.endDate)) ? -1 : 1
-      );
 
   return (
     <Fragment>
@@ -108,11 +92,7 @@ const PlannedLeavingsDialog = ({
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <PlannedLeavingsTable
-              plannedLeavings={sortedPlannedLeavings}
-              sortDirection={sortDirection}
-              handleSort={handleSort}
-            />
+            <PlannedLeavingsTable plannedLeavings={plannedLeavings} />
           )}
         </DialogContent>
       </Dialog>

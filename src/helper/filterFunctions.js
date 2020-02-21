@@ -105,11 +105,17 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
     office: (a, b) => {
       return sortsForFields.byField(a, b, 'office');
     },
+    officeLocation: (a, b) => {
+      return sortsForFields.byField(a, b, 'officeLocation');
+    },
     status: (a, b) => {
       return sortsForFields.byField(a, b, 'inProgress');
     },
     employee: (a, b) => {
       return sortsForFields.byField(a, b, 'employeeLastName');
+    },
+    employeeName: (a, b) => {
+      return sortsForFields.byField(a, b, 'lastName');
     },
     position: (a, b) => {
       return sortsForFields.byField(a, b, 'position');
@@ -123,6 +129,11 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
     supervisor: (a, b) => {
       const aValue = a.supervisor;
       const bValue = b.supervisor;
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    },
+    supervisorName: (a, b) => {
+      const aValue = a.supervisorName;
+      const bValue = b.supervisorName;
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
     },
     date: (a, b) => {
@@ -169,6 +180,22 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
     scStatusStartTime: (a, b) => {
       const dateA = a.statusStartTime;
       const dateB = b.statusStartTime;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    endDate: (a, b) => {
+      const dateA = a.endDate;
+      const dateB = b.endDate;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    entryDate: (a, b) => {
+      const dateA = a.entryDate;
+      const dateB = b.entryDate;
       const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
       const result1 =
         dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;

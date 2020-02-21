@@ -8,7 +8,6 @@ import {
   sortBySortActive
 } from '../../../helper/filterFunctions';
 import { linkToSc } from '../../../calls/sc';
-import { modifyString } from '../../../helper/string';
 // Material UI
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
