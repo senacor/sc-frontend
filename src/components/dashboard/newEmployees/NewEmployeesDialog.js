@@ -1,6 +1,6 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { CircularProgress, withStyles, Button } from '@material-ui/core';
+import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
@@ -12,11 +12,12 @@ import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
 import ROUTES from '../../../helper/routes';
 import { withRouter } from 'react-router-dom';
 import {
+  assignSupervisorsToEmployees,
   getAllEmployees,
-  getEmployeesWithoutSupervisor,
-  assignSupervisorsToEmployees
+  getEmployeesWithoutSupervisor
 } from '../../../calls/employees';
 import NewEmployeesTable from './NewEmployeesTable';
+import { sortBySortActive } from '../../../helper/filterFunctions';
 
 const styles = theme => ({
   dialogContent: {
@@ -58,6 +59,52 @@ const NewEmployeesDialog = ({
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sendToBackend, setSendToBackend] = useState([]);
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortActive, setSortActive] = useState({
+    employeeName: true,
+    position: false,
+    supervisorName: false,
+    department: false,
+    officeLocation: false,
+    entryDate: false
+  });
+
+  const changeDirection = () => {
+    if (sortDirection === 'asc') {
+      setSortDirection('desc');
+    } else {
+      setSortDirection('asc');
+    }
+  };
+
+  const handleSort = column => {
+    const newSortActive = { ...sortActive };
+    Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
+    switch (column) {
+      case 'EMPLOYEE':
+        newSortActive.employeeName = true;
+        break;
+      case 'POSITION':
+        newSortActive.position = true;
+        break;
+      case 'SUPERVISOR':
+        newSortActive.supervisorName = true;
+        break;
+      case 'DEPARTMENT':
+        newSortActive.department = true;
+        break;
+      case 'OFFICE':
+        newSortActive.officeLocation = true;
+        break;
+      case 'ENTRY_DATE':
+        newSortActive.entryDate = true;
+        break;
+      default:
+        break;
+    }
+    setSortActive(newSortActive);
+    changeDirection();
+  };
 
   const error = useErrorContext();
   const info = useInfoContext();
@@ -73,6 +120,15 @@ const NewEmployeesDialog = ({
       error
     );
   }, []);
+
+  useEffect(
+    () => {
+      const sortedEmployees = [...employeesWithoutSupervisor];
+      sortBySortActive(sortedEmployees, sortActive, sortDirection);
+      setEmployeesWithoutSupervisor(sortedEmployees);
+    },
+    [sortActive, sortDirection]
+  );
 
   const dialogOpen = () => {
     history.push(ROUTES.NEW_EMPLOYEES);
@@ -157,6 +213,9 @@ const NewEmployeesDialog = ({
               currentSupervisors={supervisors}
               newEmployees={employeesWithoutSupervisor}
               handleChangeSupervisor={handleChangeSupervisor}
+              sortActive={sortActive}
+              sortDirection={sortDirection}
+              handleSort={handleSort}
             />
           )}
 

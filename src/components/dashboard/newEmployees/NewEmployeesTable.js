@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Table,
@@ -15,7 +15,6 @@ import {
 import { withRouter } from 'react-router-dom';
 import EmployeeFilter from '../../admin/EmployeeFilter';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import { sortBySortActive } from '../../../helper/filterFunctions';
 
 const styles = theme => ({
   tableRow: {
@@ -36,58 +35,11 @@ const NewEmployeesTable = ({
   newEmployees,
   handleChangeSupervisor,
   classes,
-  intl
+  intl,
+  sortActive,
+  sortDirection,
+  handleSort
 }) => {
-  const [sortDirection, setSortDirection] = useState('asc');
-  const [sortActive, setSortActive] = useState({
-    employeeName: true,
-    position: false,
-    supervisorName: false,
-    department: false,
-    officeLocation: false,
-    entryDate: false
-  });
-
-  const changeDirection = () => {
-    if (sortDirection === 'asc') {
-      setSortDirection('desc');
-    } else {
-      setSortDirection('asc');
-    }
-  };
-
-  const handleSort = column => {
-    const newSortActive = { ...sortActive };
-    Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
-    switch (column) {
-      case 'EMPLOYEE':
-        newSortActive.employeeName = true;
-        break;
-      case 'POSITION':
-        newSortActive.position = true;
-        break;
-      case 'SUPERVISOR':
-        newSortActive.supervisorName = true;
-        break;
-      case 'DEPARTMENT':
-        newSortActive.department = true;
-        break;
-      case 'OFFICE':
-        newSortActive.officeLocation = true;
-        break;
-      case 'ENTRY_DATE':
-        newSortActive.entryDate = true;
-        break;
-      default:
-        break;
-    }
-    setSortActive(newSortActive);
-    changeDirection();
-  };
-
-  const employeesToDisplay = [...newEmployees];
-  sortBySortActive(employeesToDisplay, sortActive, sortDirection);
-
   return (
     <Table>
       <TableHead>
@@ -161,7 +113,7 @@ const NewEmployeesTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {employeesToDisplay.map((employee, index) => (
+        {newEmployees.map((employee, index) => (
           <TableRow key={index} className={classes.tableRow}>
             <TableCell>
               {`${employee.lastName}, ${employee.firstName}`}
