@@ -21,8 +21,12 @@ import { sortBySortActive } from '../../../helper/filterFunctions';
 
 const styles = theme => ({
   dialogContent: {
-    padding: 3 * theme.spacing.unit,
-    textAlign: 'center'
+    paddingTop: 0,
+    paddingBottom: 3 * theme.spacing.unit,
+    paddingRight: 3 * theme.spacing.unit,
+    paddingLeft: 3 * theme.spacing.unit,
+    textAlign: 'center',
+    overflowY: 'auto'
   },
   dialogPaper: {
     height: '80vh'
