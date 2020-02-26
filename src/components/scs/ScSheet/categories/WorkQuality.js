@@ -30,9 +30,30 @@ const WorkQuality = memo(
           row={workQualityFields}
           action={handleChangeWorkQuality}
           title={intl.formatMessage({ id: 'scsheet.subcategory.workQuality' })}
-          description={intl.formatMessage({
-            id: 'scsheet.textarea.description.workQuality'
-          })}
+          description={
+            <ul>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality1'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality2'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality3'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality4'
+                })}
+              </li>
+            </ul>
+          }
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
