@@ -92,7 +92,7 @@
   "mapratingfullfilment.partlyoverfulfilled": "zT. übererfüllt",
   "mapratingfullfilment.overfulfilled": "übererfüllt",
   "mapratingfullfilment.notselected": "keine Auswahl",
-  "message.error": "Ein unerwarteter Fehler wurde aufgetreten.",
+  "message.error": "Ein unerwarteter Fehler ist aufgetreten.",
   "message.feedbackCreated": "Dein Feedback wurde erfolgreich aufgezeichnet.",
   "userrolespanel.user": "Benutzer",
   "userrolespanel.roles": "Rolle",
