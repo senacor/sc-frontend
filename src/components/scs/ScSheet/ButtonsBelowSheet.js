@@ -93,7 +93,9 @@ const ButtonsBelowSheet = memo(
           title={
             submitDisabled
               ? intl.formatMessage({ id: 'scsheet.tooltip.titleMissing' })
-              : intl.formatMessage({ id: 'scsheet.tooltip.publish' })
+              : user.isOwnerInSc(sc)
+              ? intl.formatMessage({ id: 'scsheet.tooltip.publish.employee' })
+              : intl.formatMessage({ id: 'scsheet.tooltip.publish.reviewer' })
           }
           placement="top"
         >
