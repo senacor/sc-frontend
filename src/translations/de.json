@@ -310,7 +310,7 @@
   "scsheet.evaluation.general.3": "3 - Erwartungen klar erfüllt",
   "scsheet.evaluation.general.4": "4 - Erwartungen deutlich übererfüllt, Weiterentwicklung erkennbar",
   "scsheet.evaluation.general.5": "5 - Ohne jede Einschränkung vorbildlich, deutliche Weiterentwicklung",
-  "scsheet.tooltip.evaluation": "Bewertung in diesem Bereich",
+  "scsheet.tooltip.evaluation": "Performance Level",
   "scsheet.tooltip.addField.dailyBusiness": "Feld hinzufügen für Kategorie Daily Business",
   "scsheet.tooltip.addField.project": "Feld hinzufügen für Kategorie Project",
   "scsheet.tooltip.removeField": "Feld löschen",
