@@ -65,7 +65,7 @@ const styles = theme => ({
   },
   advFilter: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginRight: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
