@@ -277,7 +277,7 @@
   "scsheet.publishScDialog.content": "Wie willst du die SC veröffentlichen?",
   "scsheet.publishScDialog.withEvaluation": "Mit Einschätzungen",
   "scsheet.publishScDialog.withoutEvaluation": "Ohne Einschätzungen",
-  "scsheet.publishScDialog.publishEvaluationsFirst": "Die Einschätzungen wurden noch nicht gefüllt.",
+  "scsheet.publishScDialog.publishEvaluationsFirst": "Um die Scorecard mit Einschätzungen zu veröffentlichen, fülle bitte deine Einschätzungen in allen Bereichen aus.",
   "scsheet.publishScDialog.cancel": "Abbrechen",
   "scsheet.downloadPdf": "Herunterladen",
   "scsheet.tooltip.titleMissing": "Bitte fülle die alle Titel der Kategorien Tägliches Geschäft und Projekt aus!",
