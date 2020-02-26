@@ -345,7 +345,7 @@
   "sc.statusStepper.init.reviewer.hint": "Bitte Scorecard Typ, Einstufung und mindestens eine Tätigkeit für jede Bewertungskategorie auswählen.",
   "sc.statusStepper.init.employee.hint": "Bitte warte, bis der Beurteiler die Scorecard initialisiert.",
   "sc.statusStepper.init.other.hint": "Warten auf die Initialisierung vom Beurteiler.",
-  "sc.statusStepper.progress.reviewer.hint": "Um den Prozess abzuschließen , bewerte deinen Mitarbeiter im Folgenden.",
+  "sc.statusStepper.progress.reviewer.hint": "Um den Prozess abzuschließen, fülle bitte deine Einschätzung in allen Bereichen aus.",
   "sc.statusStepper.progress.employee.hint": "Bitte fülle die Felder im Formular aus!",
   "sc.statusStepper.progress.other.hint": "Warten auf Einschätzung vom Beurteiler.",
   "sc.statusStepper.ready": "Einschätzung vom Beurteiler ist vollständig ausgefüllt und Prozess kann abgeschlossen werden.",
