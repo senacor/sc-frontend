@@ -11,7 +11,7 @@ import {
 import {
   formatLocaleDateTime,
   FRONTEND_DATE_FORMAT,
-  getReadableDate
+  getReadableDateWithoutTime
 } from '../../helper/date';
 import { downloadScAsPdf } from '../../components/scs/ScSheet/helperFunc.js';
 // Material UI
@@ -175,7 +175,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               onClick={() => linkToSc(sc.scId, history)}
               className={classes.tableRow}
             >
-              <TableCell>{getReadableDate(sc.createdDateTime)}</TableCell>
+              <TableCell>{getReadableDateWithoutTime(sc.createdDateTime)}</TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT)}
               </TableCell>
