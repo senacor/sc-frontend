@@ -26,7 +26,6 @@ const styles = theme => ({
 
 const FinalScoreSection = memo(
   ({ isReady, intl, classes, finalScore, reviewerScore }) => {
-
     const percentageTextDescription = () => {
       if (!isReady) {
         return intl.formatMessage({
@@ -49,7 +48,7 @@ const FinalScoreSection = memo(
         <Fragment>
           {intl.formatMessage({
             id: 'scsheet.score.percentagetext'
-          })}{' '}
+          })}
           :{' '}
           {intl.formatMessage({
             id: percentageToMessageId[determineFinalPercentage(finalScore)]
