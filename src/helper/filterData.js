@@ -40,7 +40,8 @@ export const scStatuses = [
   'sc.phase.inProgress',
   'sc.phase.ready',
   'sc.phase.closed',
-  'sc.phase.archived'
+  'sc.phase.archived',
+  'sc.phase.noSc'
 ];
 
 export const locations = [
@@ -84,6 +85,7 @@ export const convertToStatusEnum = filterInputsStatus => {
     if (statusId === 'sc.phase.ready') return 'READY_TO_CLOSE';
     if (statusId === 'sc.phase.closed') return 'DONE';
     if (statusId === 'sc.phase.archived') return 'ARCHIVED';
+    if (statusId === 'sc.phase.noSc') return null;
     return '';
   });
 };
