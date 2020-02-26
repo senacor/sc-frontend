@@ -26,6 +26,16 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.brightGrey
     }
+  },
+  tableHeader: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.secondary.white,
+    marginBottom: 1
+  },
+  table: {
+    overflowY: 'scroll',
+    borderCollapse: 'separate'
   }
 });
 
@@ -89,8 +99,8 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
   sortBySortActive(plannedLeavingsToDisplay, sortActive, sortDirection);
 
   return (
-    <Table>
-      <TableHead>
+    <Table className={classes.table}>
+      <TableHead className={classes.tableHeader}>
         <TableRow>
           <TableCell>
             <TableSortLabel
