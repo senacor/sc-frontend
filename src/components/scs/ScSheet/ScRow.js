@@ -52,9 +52,6 @@ const styles = theme => ({
   padding: {
     padding: theme.spacing.unit
   },
-  textBasis: {
-    paddingBottom: theme.spacing.unit
-  },
   textCenter: {
     textAlign: 'center',
     margin: 'auto'
@@ -260,7 +257,7 @@ const ScRow = memo(
                   {type === CATEGORY.WORK_EFFICIENCY ||
                   type === CATEGORY.WORK_QUALITY ? (
                     <div className={classes.padding}>
-                      <Typography className={classes.textBasis}>
+                      <Typography>
                         {intl.formatMessage({
                           id: 'scsheet.textarea.description.basis'
                         })}

@@ -95,9 +95,25 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'
           })}
-          description={intl.formatMessage({
-            id: 'scsheet.textarea.description.workEffectivity'
-          })}
+          description={
+            <ul>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workEffectivity1'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workEffectivity2'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workEffectivity3'
+                })}
+              </li>
+            </ul>
+          }
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
@@ -119,9 +135,30 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workQuality'
           })}
-          description={intl.formatMessage({
-            id: 'scsheet.textarea.description.workQuality'
-          })}
+          description={
+            <ul>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality1'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality2'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality3'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workQuality4'
+                })}
+              </li>
+            </ul>
+          }
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}

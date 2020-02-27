@@ -49,7 +49,7 @@ const FinalScoreSection = memo(
         <Fragment>
           {intl.formatMessage({
             id: 'scsheet.score.percentagetext'
-          })}{' '}
+          })}
           :{' '}
           {intl.formatMessage({
             id: percentageToMessageId[determineFinalPercentage(finalScore)]
