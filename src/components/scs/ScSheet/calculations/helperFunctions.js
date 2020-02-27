@@ -26,8 +26,9 @@ export const determineFinalPercentage = score => {
   if (score < 3 && score >= 2.5) return 150;
   if (score < 3.5 && score >= 3) return 175;
   if (score < 4 && score >= 3.5) return 200;
-  if (score < 4.5 && score >= 4) return 250;
-  if (score >= 4.5) return 300;
+  if (score < 4.5 && score >= 4) return 225;
+  if (score < 4.8 && score >= 4.5) return 250;
+  if (score >= 4.8) return 300;
   return 100;
 };
 
