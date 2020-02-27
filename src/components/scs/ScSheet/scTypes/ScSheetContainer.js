@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectIntl } from 'react-intl';
-import { useUserinfoContext, useErrorContext } from '../../../../helper/contextHooks';
+import {
+  useUserinfoContext,
+  useErrorContext
+} from '../../../../helper/contextHooks';
 import cloneDeep from '../../../../helper/cloneDeep';
 import { allowEditFields } from '../helperFunc';
 import { CATEGORY } from '../../../../helper/scSheetData';
