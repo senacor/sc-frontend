@@ -38,8 +38,12 @@ const styles = theme => ({
     right: 10
   },
   dialogContent: {
-    padding: 3 * theme.spacing.unit,
-    textAlign: 'center'
+    paddingTop: 0,
+    paddingBottom: 3 * theme.spacing.unit,
+    paddingRight: 3 * theme.spacing.unit,
+    paddingLeft: 3 * theme.spacing.unit,
+    textAlign: 'center',
+    overflowY: 'auto'
   },
   dialogPaper: {
     height: '80vh'
@@ -65,7 +69,7 @@ const styles = theme => ({
   },
   advFilter: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginRight: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
@@ -75,6 +79,9 @@ const styles = theme => ({
   },
   searchSupervisor: {
     display: 'block',
+    marginBottom: 2 * theme.spacing.unit
+  },
+  title: {
     marginBottom: 2 * theme.spacing.unit
   }
 });
@@ -177,14 +184,12 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
           <CloseIcon />
         </IconButton>
         <DialogTitle disableTypography>
-          <Typography variant="h5">
+          <Typography variant="h5" className={classes.title}>
             {intl.formatMessage({
               id: translateGeneralStatus(status)
             })}
           </Typography>
-        </DialogTitle>
-        <Divider />
-        <DialogContent className={classes.dialogContent}>
+          <Divider />
           <div className={classes.basicFilterContainer}>
             <SearchFilter
               searchValue={searchEmployeesValue}
@@ -254,6 +259,8 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
               />
             </div>
           )}
+        </DialogTitle>
+        <DialogContent className={classes.dialogContent}>
           {isLoading ? (
             <CircularProgress />
           ) : (
