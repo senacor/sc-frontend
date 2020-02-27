@@ -27,6 +27,16 @@ const styles = theme => ({
   },
   textInfo: {
     color: theme.palette.primary[400]
+  },
+  tableHeader: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.secondary.white,
+    marginBottom: 1
+  },
+  table: {
+    overflowY: 'scroll',
+    borderCollapse: 'separate'
   }
 });
 
@@ -41,8 +51,8 @@ const NewEmployeesTable = ({
   handleSort
 }) => {
   return (
-    <Table>
-      <TableHead>
+    <Table className={classes.table}>
+      <TableHead className={classes.tableHeader}>
         <TableRow>
           <TableCell>
             <TableSortLabel

@@ -29,7 +29,19 @@ const styles = theme => ({
       backgroundColor: theme.palette.secondary.brightGrey
     }
   },
-  employeeNameCell: { maxWidth: 100 }
+  employeeNameCell: {
+    maxWidth: 100
+  },
+  tableHeader: {
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.secondary.white,
+    marginBottom: 1
+  },
+  table: {
+    overflowY: 'scroll',
+    borderCollapse: 'separate'
+  }
 });
 
 const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
@@ -110,8 +122,8 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
   sortBySortActive(scsToDisplay, sortActive, sortDirection);
 
   return (
-    <Table>
-      <TableHead>
+    <Table className={classes.table}>
+      <TableHead className={classes.tableHeader}>
         <TableRow>
           <TableCell>
             <TableSortLabel

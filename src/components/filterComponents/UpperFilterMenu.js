@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   advFilter: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -48,7 +48,7 @@ const styles = theme => ({
   btnDownloadText: {
     color: theme.palette.secondary.white,
     paddingLeft: theme.spacing.unit
-  },
+  }
 });
 
 const UpperFilterMenu = ({
@@ -87,17 +87,18 @@ const UpperFilterMenu = ({
           )}
         </div>
         <div>
-          {handleDownloadAllScs && (<Button
-            className={classes.btnDownload}
-            variant="contained"
-            onClick={handleDownloadAllScs}
-            download
-          >
-            <GetAppIcon />
-            <Typography className={classes.btnDownloadText}>
-              {intl.formatMessage({ id: 'filter.downloadAll' })}
-            </Typography>
-          </Button>
+          {handleDownloadAllScs && (
+            <Button
+              className={classes.btnDownload}
+              variant="contained"
+              onClick={handleDownloadAllScs}
+              download
+            >
+              <GetAppIcon />
+              <Typography className={classes.btnDownloadText}>
+                {intl.formatMessage({ id: 'filter.downloadAll' })}
+              </Typography>
+            </Button>
           )}
 
           {visibleAdvancedFilter && (
