@@ -14,9 +14,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { getAllEmployeesWithRoles, getRoles } from '../../calls/admin';
 import UserRolesMenu from './UserRolesMenu';
-import { sortByLastName } from '../../helper/filterFunctions';
 import EmployeeFilter from './EmployeeFilter';
 import { useErrorContext } from '../../helper/contextHooks';
+import { translateRole } from '../../helper/string';
+import { sortEmployeeByLastNameOrRoles } from '../../helper/filterFunctions';
 
 const styles = theme => ({
   spacing: {
@@ -31,6 +32,10 @@ export const UserRolesPanel = ({ classes, intl }) => {
   const [page, setPage] = useState(0);
   const [roles, setRoles] = useState([]);
   const [sortDirection, setSortDirection] = useState('asc');
+  const [sortActive, setSortActive] = useState({
+    lastName: true,
+    roles: false
+  });
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   let error = useErrorContext();
@@ -48,12 +53,21 @@ export const UserRolesPanel = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const handleSort = () => {
-    if (sortDirection === 'asc') {
-      setSortDirection('desc');
-    } else {
-      setSortDirection('asc');
-    }
+  const handleSort = field => {
+    const newSortActive = {
+      lastName: false,
+      roles: false
+    };
+    newSortActive[field] = true;
+    setSortActive(newSortActive);
+    const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+    setSortDirection(newSortDirection);
+    const sortedData = sortEmployeeByLastNameOrRoles(
+      data,
+      newSortActive,
+      newSortDirection
+    );
+    setData(sortedData);
   };
 
   const updateEmployee = (employeeId, roles) => {
@@ -61,10 +75,21 @@ export const UserRolesPanel = ({ classes, intl }) => {
     employee.roles = roles;
     let newData = data.filter(e => e.id !== employeeId);
     newData.push(employee);
-    setData(newData);
+    const sortedData = sortEmployeeByLastNameOrRoles(
+      newData,
+      sortActive,
+      sortDirection
+    );
+    setData(sortedData);
   };
 
-  sortByLastName(data, sortDirection);
+  const translateRoles = roles => {
+    if (roles) {
+      return roles
+        .map(role => intl.formatMessage({ id: translateRole(role) }))
+        .join(', ');
+    }
+  };
 
   return (
     <Paper className={classes.spacing}>
@@ -73,9 +98,9 @@ export const UserRolesPanel = ({ classes, intl }) => {
           <TableRow>
             <TableCell>
               <TableSortLabel
-                active={true}
+                active={sortActive.lastName}
                 direction={sortDirection}
-                onClick={handleSort}
+                onClick={() => handleSort('lastName')}
               >
                 <EmployeeFilter
                   data={data}
@@ -88,8 +113,19 @@ export const UserRolesPanel = ({ classes, intl }) => {
               </TableSortLabel>
             </TableCell>
             <TableCell>
+              <TableSortLabel
+                active={sortActive.roles}
+                direction={sortDirection}
+                onClick={() => handleSort('roles')}
+              >
+                {`${intl.formatMessage({
+                  id: 'userrolespanel.roles'
+                })}`}
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
               {`${intl.formatMessage({
-                id: 'userrolespanel.roles'
+                id: 'userrolespanel.actions'
               })}`}
             </TableCell>
           </TableRow>
@@ -105,6 +141,11 @@ export const UserRolesPanel = ({ classes, intl }) => {
             <TableRow>
               <TableCell>
                 {`${selectedEmployee.lastName}, ${selectedEmployee.firstName}`}
+              </TableCell>
+              <TableCell>
+                {`${intl.formatMessage({
+                  id: translateRole('NO_ROLE')
+                })}`}
               </TableCell>
               <TableCell>
                 <UserRolesMenu
@@ -124,6 +165,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
                     <TableCell>
                       {`${entry.lastName}, ${entry.firstName}`}
                     </TableCell>
+                    <TableCell>{translateRoles(entry.roles)}</TableCell>
                     <TableCell>
                       <UserRolesMenu
                         employeeId={entry.id}

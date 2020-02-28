@@ -98,14 +98,14 @@ const ProcessingScCard = ({
     </Fragment>
   );
 
-  const linkToPr = id => {
+  const linkToSc = id => {
     history.push(`/scDetail/${id}`);
   };
 
   return (
     <Card className={classes.card}>
       <CardHeader className={classes.header} title={employeeName} />
-      <CardContent className={classes.content} onClick={() => linkToPr(scId)}>
+      <CardContent className={classes.content} onClick={() => linkToSc(scId)}>
         <PrIcon className={classes.prIcon} />
         {startDateContainer}
       </CardContent>

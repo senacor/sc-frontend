@@ -96,6 +96,7 @@
   "message.feedbackCreated": "Dein Feedback wurde erfolgreich aufgezeichnet.",
   "userrolespanel.user": "Benutzer",
   "userrolespanel.roles": "Rolle",
+  "userrolespanel.actions": "Einstellung",
   "system.cancel": "Abbrechen",
   "system.ok": "Ok",
   "system.errors": "Fehler",
@@ -197,7 +198,7 @@
   "autorules.revert": "Zurücksetzen",
   "autorules.noDatesDefined": "Es gibt momentan kein automatisches Datum eingestellt.",
   "autorules.noNamesDefined": "Es gibt momentan keinen Name für Scorecard Prozess Ausnahme erteilt.",
-  "autorules.save.success": "Alle Datumänderungen gespeichert.",
+  "autorules.save.success": "Alle Änderungen gespeichert.",
   "autorules.dateIsValid": "Datum sollte mindestens von morgen sein",
   "autorules.processValid": "Ausgewälte Chronologie kann nicht mit diesem Kriterium konfiguriert sein!",
   "autorules.timeValid": "Zeiteinheitnummer sollte gültig sein!",
@@ -407,5 +408,6 @@
   "scsheet.score.percentage.title.100": "Erwartungen unterschritten, gelegentliche Mängel",
   "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen",
   "rolemanagement.employee": "Mitarbeiter",
-  "rolemanagement.supervisor": "Vorgesetzter"
+  "rolemanagement.supervisor": "Vorgesetzter",
+  "rolemanagement.personaldevelopment": "Personal Development"
 }
