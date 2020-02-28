@@ -90,7 +90,6 @@ const Dashboard = ({ classes, intl, history }) => {
   const employeesWithoutSupervisorCount = userinfo
     ? userinfo.employeesWithoutSupervisorCount
     : 0;
-
   const lastReport = pdInfo.lastReport;
   const timeRangeFrom = pdInfo.timeRangeFrom;
   const timeRangeTo = pdInfo.timeRangeTo;
