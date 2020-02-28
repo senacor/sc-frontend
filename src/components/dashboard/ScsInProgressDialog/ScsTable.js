@@ -181,7 +181,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortActive.scStatusStart}
+              active={sortActive.scStatusStartTime}
               direction={sortDirection}
               onClick={() => handleSort('SC_STATUS_START')}
             >
