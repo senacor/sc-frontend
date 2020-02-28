@@ -347,6 +347,7 @@
   "sc.phase.ready": "Bewertet",
   "sc.phase.closed": "Abgeschlossen",
   "sc.phase.archived": "Archiviert",
+  "sc.phase.noSc": "Keine SC erstellt",
   "sc.statusStepper.init.reviewer.hint": "Bitte Scorecard Typ, Einstufung und mindestens eine Tätigkeit für jede Bewertungskategorie auswählen.",
   "sc.statusStepper.init.employee.hint": "Bitte warte, bis der Beurteiler die Scorecard initialisiert.",
   "sc.statusStepper.init.other.hint": "Warten auf die Initialisierung vom Beurteiler.",
