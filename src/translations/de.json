@@ -382,7 +382,7 @@
   "scstodelegate.cancel": "Abbrechen",
   "scstodelegate.select": "Beurteiler auswählen",
   "sctypetochoose.add": "Hinzufügen",
-  "sctypetochoose.tooltip": "Du müsst Scorecard Typ und Einstufung auswählen und wenigstens ein Tägliches Geschäft und ein Projekt eingeben.",
+  "sctypetochoose.tooltip": "Für freigeben muss mindestens ein tägliches Geschäft und ein Projekt zur Scorecard hinzufügen sein.",
   "percentagedialog.performance": "Leistungen",
   "percentagedialog.skills": "Kompetenz & Entwicklung",
   "percentagedialog.change": "Ändern",
