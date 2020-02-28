@@ -227,7 +227,7 @@ const MixedScRow = ({
               <Grid container>
                 <Grid item sm={12}>
                   <div className={classes.padding}>
-                    <Typography>{description}</Typography>
+                    <Typography component={'span'}>{description}</Typography>
                   </div>
                 </Grid>
               </Grid>
@@ -252,7 +252,10 @@ const MixedScRow = ({
                         id: 'scsheet.textarea.description.basis'
                       })}
                     </Typography>
-                    <Typography className={classes.enterOnNewline}>
+                    <Typography
+                      component={'span'}
+                      className={classes.enterOnNewline}
+                    >
                       {description}
                     </Typography>
                   </div>

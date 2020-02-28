@@ -226,7 +226,7 @@ const ScRow = memo(
                 <Grid container>
                   <Grid item sm={12}>
                     <div className={classes.padding}>
-                      <Typography>{description}</Typography>
+                      <Typography component={'span'}>{description}</Typography>
                     </div>
                   </Grid>
                 </Grid>
@@ -262,7 +262,10 @@ const ScRow = memo(
                           id: 'scsheet.textarea.description.basis'
                         })}
                       </Typography>
-                      <Typography className={classes.enterOnNewline}>
+                      <Typography
+                        component={'span'}
+                        className={classes.enterOnNewline}
+                      >
                         {description}
                       </Typography>
                     </div>
