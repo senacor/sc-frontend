@@ -52,6 +52,8 @@ export const translateRole = role => {
       return 'rolemanagement.employee';
     case 'SUPERVISOR':
       return 'rolemanagement.supervisor';
+    case 'PERSONAL_DEV':
+      return 'rolemanagement.personaldevelopment';
     default:
       return 'Unbekannt';
   }
