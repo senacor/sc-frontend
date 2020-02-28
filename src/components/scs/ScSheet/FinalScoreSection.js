@@ -26,7 +26,6 @@ const styles = theme => ({
 
 const FinalScoreSection = memo(
   ({ isReady, intl, classes, finalScore, reviewerScore }) => {
-
     const percentageTextDescription = () => {
       if (!isReady) {
         return intl.formatMessage({
@@ -41,6 +40,7 @@ const FinalScoreSection = memo(
         150: 'scsheet.score.percentage.title.150',
         175: 'scsheet.score.percentage.title.175',
         200: 'scsheet.score.percentage.title.200',
+        225: 'scsheet.score.percentage.title.225',
         250: 'scsheet.score.percentage.title.250',
         300: 'scsheet.score.percentage.title.300'
       };
@@ -49,11 +49,12 @@ const FinalScoreSection = memo(
         <Fragment>
           {intl.formatMessage({
             id: 'scsheet.score.percentagetext'
-          })}{' '}
-          :{' '}
-          {intl.formatMessage({
-            id: percentageToMessageId[determineFinalPercentage(finalScore)]
           })}
+          :{' '}
+          {finalScore > 0 &&
+            intl.formatMessage({
+              id: percentageToMessageId[determineFinalPercentage(finalScore)]
+            })}
         </Fragment>
       );
     };

@@ -49,9 +49,6 @@ const styles = theme => ({
   padding: {
     padding: theme.spacing.unit
   },
-  textBasis: {
-    paddingBottom: theme.spacing.unit
-  },
   textCenter: {
     textAlign: 'center',
     margin: 'auto'
@@ -230,7 +227,7 @@ const MixedScRow = ({
               <Grid container>
                 <Grid item sm={12}>
                   <div className={classes.padding}>
-                    <Typography>{description}</Typography>
+                    <Typography component={'span'}>{description}</Typography>
                   </div>
                 </Grid>
               </Grid>
@@ -250,12 +247,17 @@ const MixedScRow = ({
                 {type === CATEGORY.WORK_EFFICIENCY ||
                 type === CATEGORY.WORK_QUALITY ? (
                   <div className={classes.padding}>
-                    <Typography className={classes.textBasis}>
+                    <Typography>
                       {intl.formatMessage({
                         id: 'scsheet.textarea.description.basis'
                       })}
                     </Typography>
-                    <Typography className={classes.enterOnNewline}>{description}</Typography>
+                    <Typography
+                      component={'span'}
+                      className={classes.enterOnNewline}
+                    >
+                      {description}
+                    </Typography>
                   </div>
                 ) : (
                   mergedCell(

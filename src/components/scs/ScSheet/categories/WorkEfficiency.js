@@ -32,9 +32,25 @@ const WorkEfficiency = memo(
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'
           })}
-          description={intl.formatMessage({
-            id: 'scsheet.textarea.description.workEffectivity'
-          })}
+          description={
+            <ul>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workEffectivity1'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workEffectivity2'
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'scsheet.textarea.description.workEffectivity3'
+                })}
+              </li>
+            </ul>
+          }
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
