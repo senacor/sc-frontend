@@ -95,8 +95,12 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
     history.push(`${ROUTES.EMPLOYEE_SC}/${employeeId}`);
   };
 
-  const plannedLeavingsToDisplay = [...plannedLeavings];
-  sortBySortActive(plannedLeavingsToDisplay, sortActive, sortDirection);
+  let plannedLeavingsToDisplay = [...plannedLeavings];
+  plannedLeavingsToDisplay = sortBySortActive(
+    plannedLeavingsToDisplay,
+    sortActive,
+    sortDirection
+  );
 
   return (
     <Table className={classes.table}>

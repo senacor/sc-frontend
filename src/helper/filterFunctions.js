@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { translateGeneralStatus } from './string';
 
 const isEqual = require('lodash/isEqual');
 
@@ -80,7 +81,12 @@ export const sortEmployeeByLastNameOrRoles = (
   return data;
 };
 
-export const sortEmployeeBySortActive = (data, sortActive, sortDirection) => {
+export const sortEmployeeBySortActive = (
+  data,
+  sortActive,
+  sortDirection,
+  intl
+) => {
   const sortsForFields = {
     byField: (a, b, field) => {
       return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
@@ -92,7 +98,13 @@ export const sortEmployeeBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'position');
     },
     scStatus: (a, b) => {
-      return sortsForFields.byField(a, b, 'scStatus');
+      const statusA = intl.formatMessage({
+        id: translateGeneralStatus(a.scStatus)
+      });
+      const statusB = intl.formatMessage({
+        id: translateGeneralStatus(b.scStatus)
+      });
+      return statusA < statusB ? -1 : statusA > statusB ? 1 : 0;
     },
     supervisorName: (a, b) => {
       return sortsForFields.byField(a, b, 'supervisorName');
@@ -286,12 +298,18 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       break;
     }
   }
+  const missingProperties = data.filter(a => !a[sortBy]);
+  let withProperties = data.filter(a => a[sortBy]);
+
   if (sortBy) {
-    data.sort(sortsForFields[sortBy]);
+    withProperties.sort(sortsForFields[sortBy]);
+
+    data = [...withProperties, ...missingProperties];
     if (sortDirection === 'desc') {
       data = data.reverse();
     }
   }
+  return data;
 };
 
 export const handleFilterActive = filterInputs => {

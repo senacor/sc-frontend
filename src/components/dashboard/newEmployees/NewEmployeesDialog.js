@@ -127,8 +127,12 @@ const NewEmployeesDialog = ({
 
   useEffect(
     () => {
-      const sortedEmployees = [...employeesWithoutSupervisor];
-      sortBySortActive(sortedEmployees, sortActive, sortDirection);
+      let sortedEmployees = [...employeesWithoutSupervisor];
+      sortedEmployees = sortBySortActive(
+        sortedEmployees,
+        sortActive,
+        sortDirection
+      );
       setEmployeesWithoutSupervisor(sortedEmployees);
     },
     [sortActive, sortDirection]
