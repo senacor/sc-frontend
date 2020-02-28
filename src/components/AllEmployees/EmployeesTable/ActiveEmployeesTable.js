@@ -89,7 +89,12 @@ const ActiveEmployeesTable = ({
     });
   };
 
-  employees = sortEmployeeBySortActive(employees, sortActive, sortDirection);
+  employees = sortEmployeeBySortActive(
+    employees,
+    sortActive,
+    sortDirection,
+    intl
+  );
 
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole

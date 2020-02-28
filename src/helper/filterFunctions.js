@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { translateGeneralStatus } from './string';
 
 const isEqual = require('lodash/isEqual');
 
@@ -31,7 +32,12 @@ export const sortByLastName = (data, sortDirection) => {
   }
 };
 
-export const sortEmployeeBySortActive = (data, sortActive, sortDirection) => {
+export const sortEmployeeBySortActive = (
+  data,
+  sortActive,
+  sortDirection,
+  intl
+) => {
   const sortsForFields = {
     byField: (a, b, field) => {
       return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
@@ -43,7 +49,13 @@ export const sortEmployeeBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'position');
     },
     scStatus: (a, b) => {
-      return sortsForFields.byField(a, b, 'scStatus');
+      const statusA = intl.formatMessage({
+        id: translateGeneralStatus(a.scStatus)
+      });
+      const statusB = intl.formatMessage({
+        id: translateGeneralStatus(b.scStatus)
+      });
+      return statusA < statusB ? -1 : statusA > statusB ? 1 : 0;
     },
     supervisorName: (a, b) => {
       return sortsForFields.byField(a, b, 'supervisorName');
