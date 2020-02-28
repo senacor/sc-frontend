@@ -27,6 +27,15 @@ const OwnScsContainer = ({ classes }) => {
     getOwnScs(setOwnScs, setIsLoading, error);
   }, []);
 
+  ownScs.sort((a, b) => {
+    const dateA = a.createdDate;
+    const dateB = b.createdDate;
+    const result2 = dateA[2] < dateB[2] ? 1 : dateA[2] > dateB[2] ? -1 : 0;
+    const result1 =
+      dateA[1] < dateB[1] ? 1 : dateA[1] > dateB[1] ? -1 : result2;
+    return dateA[0] < dateB[0] ? 1 : dateA[0] > dateB[0] ? -1 : result1;
+  });
+
   const listofOwnScs = ownScs.map((sc, index) => {
     return (
       <Grid item key={index} className={classes.padding}>
