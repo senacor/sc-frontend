@@ -85,7 +85,22 @@ const ProcessingScContainer = ({ classes, intl }) => {
 
   const sortedScs = sortBySortActive(processingScs, sortActive, sortDirection);
 
-  const listOfProcessingScs = sortedScs.map((sc, index) => {
+  const sortedScsByLastName = [...processingScs].sort((a, b) => {
+    if (a.employeeLastName < b.employeeLastName) {
+      return -1;
+    } else if (a.employeeLastName > b.employeeLastName) {
+      return 1;
+    } else {
+      if (a.employeeFirstName < b.employeeFirstName) {
+        return -1;
+      } else if (a.employeeFirstName > b.employeeFirstName) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  });
+  const listOfProcessingScs = sortedScsByLastName.map((sc, index) => {
     return (
       <Grid item key={index} className={classes.padding}>
         <ProcessingScsCard
