@@ -63,12 +63,9 @@ const styles = theme => ({
     justifyContent: 'end'
   },
   timeRange: {
-    marginRight: theme.spacing.unit
+    marginLeft: 5 * theme.spacing.unit
   },
-  welcome50: {
-    width: '50%'
-  },
-  welcome100: {
+  welcome: {
     width: '100%'
   }
 });
@@ -93,7 +90,6 @@ const Dashboard = ({ classes, intl, history }) => {
   const employeesWithoutSupervisorCount = userinfo
     ? userinfo.employeesWithoutSupervisorCount
     : 0;
-
   const lastReport = pdInfo.lastReport;
   const timeRangeFrom = pdInfo.timeRangeFrom;
   const timeRangeTo = pdInfo.timeRangeTo;
@@ -252,11 +248,7 @@ const Dashboard = ({ classes, intl, history }) => {
     <div className={classes.columnContainer}>
       <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
         {/* Welcome page section */}
-        <div
-          className={`${classes.nocard} ${
-            user.hasRoleHr() ? classes.welcome50 : classes.welcome100
-          }`}
-        >
+        <div className={`${classes.nocard} ${classes.welcome}`}>
           <CardContent className={`${classes.welcomeCardContent}`}>
             <Typography variant="h5">
               {intl.formatMessage({
@@ -273,30 +265,26 @@ const Dashboard = ({ classes, intl, history }) => {
           </CardContent>
         </div>
         {user.hasRoleHr() && (
-          <div className={classes.timeRangeContainer}>
-            <CardContent>
-              <Typography
-                className={classes.timeRange}
-                variant="body1"
-                color="textSecondary"
-              >
-                <b>
-                  {`${intl.formatMessage({
-                    id: 'dashboard.timerange'
-                  })} `}
-                </b>
-                {timeRangeFrom === ''
-                  ? intl.formatMessage({
-                      id: 'dashboard.unknown'
-                    })
-                  : `${intl.formatMessage({
-                      id: 'dashboard.from'
-                    })} ${timeRangeFrom} ${intl.formatMessage({
-                      id: 'dashboard.to'
-                    })} ${timeRangeTo}`}
-              </Typography>
-            </CardContent>
-          </div>
+          <Typography
+            className={classes.timeRange}
+            variant="body1"
+            color="textSecondary"
+          >
+            <b>
+              {`${intl.formatMessage({
+                id: 'dashboard.timerange'
+              })} `}
+            </b>
+            {timeRangeFrom === ''
+              ? intl.formatMessage({
+                  id: 'dashboard.unknown'
+                })
+              : `${intl.formatMessage({
+                  id: 'dashboard.from'
+                })} ${timeRangeFrom} ${intl.formatMessage({
+                  id: 'dashboard.to'
+                })} ${timeRangeTo}`}
+          </Typography>
         )}
         <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
           {user.hasNoRole() && (

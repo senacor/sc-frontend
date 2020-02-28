@@ -91,15 +91,17 @@ const EmployeesTableHead = ({
             {intl.formatMessage({ id: 'employeeInfo.position' })}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.tableCell}>
-          <TableSortLabel
-            active={sortActive.supervisorName}
-            direction={sortDirection}
-            onClick={() => handleSort('supervisorName')}
-          >
-            {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
-          </TableSortLabel>
-        </TableCell>
+        {!formerEmployee && (
+          <TableCell className={classes.tableCell}>
+            <TableSortLabel
+              active={sortActive.supervisorName}
+              direction={sortDirection}
+              onClick={() => handleSort('supervisorName')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+            </TableSortLabel>
+          </TableCell>
+        )}
         <TableCell className={classes.tableCell}>
           <TableSortLabel
             active={sortActive.department}

@@ -96,6 +96,7 @@
   "message.feedbackCreated": "Dein Feedback wurde erfolgreich aufgezeichnet.",
   "userrolespanel.user": "Benutzer",
   "userrolespanel.roles": "Rolle",
+  "userrolespanel.actions": "Einstellung",
   "system.cancel": "Abbrechen",
   "system.ok": "Ok",
   "system.errors": "Fehler",
@@ -197,7 +198,7 @@
   "autorules.revert": "Zurücksetzen",
   "autorules.noDatesDefined": "Es gibt momentan kein automatisches Datum eingestellt.",
   "autorules.noNamesDefined": "Es gibt momentan keinen Name für Scorecard Prozess Ausnahme erteilt.",
-  "autorules.save.success": "Alle Datumänderungen gespeichert.",
+  "autorules.save.success": "Alle Änderungen gespeichert.",
   "autorules.dateIsValid": "Datum sollte mindestens von morgen sein",
   "autorules.processValid": "Ausgewälte Chronologie kann nicht mit diesem Kriterium konfiguriert sein!",
   "autorules.timeValid": "Zeiteinheitnummer sollte gültig sein!",
@@ -347,6 +348,7 @@
   "sc.phase.ready": "Bewertet",
   "sc.phase.closed": "Abgeschlossen",
   "sc.phase.archived": "Archiviert",
+  "sc.phase.noSc": "Keine SC erstellt",
   "sc.statusStepper.init.reviewer.hint": "Bitte Scorecard Typ, Einstufung und mindestens eine Tätigkeit für jede Bewertungskategorie auswählen.",
   "sc.statusStepper.init.employee.hint": "Bitte warte, bis der Beurteiler die Scorecard initialisiert.",
   "sc.statusStepper.init.other.hint": "Warten auf die Initialisierung vom Beurteiler.",
@@ -380,7 +382,7 @@
   "scstodelegate.cancel": "Abbrechen",
   "scstodelegate.select": "Beurteiler auswählen",
   "sctypetochoose.add": "Hinzufügen",
-  "sctypetochoose.tooltip": "Du müsst Scorecard Typ und Einstufung auswählen und wenigstens ein Tägliches Geschäft und ein Projekt eingeben.",
+  "sctypetochoose.tooltip": "Für freigeben muss mindestens ein tägliches Geschäft und ein Projekt zur Scorecard hinzufügen sein.",
   "percentagedialog.performance": "Leistungen",
   "percentagedialog.skills": "Kompetenz & Entwicklung",
   "percentagedialog.change": "Ändern",
@@ -412,5 +414,6 @@
   "scsheet.score.percentage.title.100": "Erwartungen unterschritten, gelegentliche Mängel",
   "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen",
   "rolemanagement.employee": "Mitarbeiter",
-  "rolemanagement.supervisor": "Vorgesetzter"
+  "rolemanagement.supervisor": "Vorgesetzter",
+  "rolemanagement.personaldevelopment": "Personal Development"
 }

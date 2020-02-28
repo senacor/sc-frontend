@@ -55,6 +55,12 @@ export const getReadableDate = date => {
   return `${date[2]}.${date[1]}.${date[0]}, ${date[3]}:${minutes}`;
 };
 
+export const getReadableDateWithoutTime = date => {
+  const day = date[2] > 9 ? date[2].toString() : `0${date[2]}`;
+  const month = date[1] > 9 ? date[1].toString() : `0${date[1]}`;
+  return `${day}.${month}.${date[0]}`;
+};
+
 export const dateIsAfterTodayOrEqual = date => {
   const formattedDate = Date.parse(
     formatLocaleDateTime(date, FRONTEND_LOCALE_DATE_TIME_FORMAT)

@@ -32,6 +32,55 @@ export const sortByLastName = (data, sortDirection) => {
   }
 };
 
+export const sortEmployeeByLastNameOrRoles = (
+  data,
+  sortActive,
+  sortDirection
+) => {
+  const sortsForFields = {
+    lastName: (a, b) => {
+      return a['lastName'] < b['lastName']
+        ? -1
+        : a['lastName'] > b['lastName']
+        ? 1
+        : 0;
+    },
+    roles: (a, b) => {
+      const aRolesArray = a.roles;
+      const bRolesArray = b.roles;
+      if (!aRolesArray || !aRolesArray[0]) {
+        return -1;
+      }
+      return aRolesArray[0] < bRolesArray[0]
+        ? -1
+        : aRolesArray[0] > bRolesArray[0]
+        ? 1
+        : 0;
+    }
+  };
+
+  const sortBy = sortActive.lastName ? 'lastName' : 'roles';
+
+  let missingProperties;
+  let withProperties;
+  if (sortBy === 'lastName') {
+    missingProperties = data.filter(a => !a['lastName']);
+    withProperties = data.filter(a => a['lastName']);
+  } else {
+    missingProperties = data.filter(a => !a['roles'] || a['roles'].length < 1);
+    withProperties = data.filter(a => a['roles'] && a['roles'].length > 0);
+  }
+
+  if (sortBy) {
+    withProperties.sort(sortsForFields[sortBy]);
+    data = [...withProperties, ...missingProperties];
+    if (sortDirection === 'desc') {
+      data = data.reverse();
+    }
+  }
+  return data;
+};
+
 export const sortEmployeeBySortActive = (
   data,
   sortActive,
@@ -65,6 +114,18 @@ export const sortEmployeeBySortActive = (
     },
     officeLocation: (a, b) => {
       return sortsForFields.byField(a, b, 'officeLocation');
+    },
+    roles: (a, b) => {
+      const aRolesArray = a.roles;
+      const bRolesArray = b.roles;
+      if (!aRolesArray || !aRolesArray[0]) {
+        return -1;
+      }
+      return aRolesArray[0] < bRolesArray[0]
+        ? -1
+        : aRolesArray[0] > bRolesArray[0]
+        ? 1
+        : 0;
     },
     endDate: (a, b) => {
       const dateA = a.endDate;
@@ -137,6 +198,9 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
     },
     occasion: (a, b) => {
       return sortsForFields.byField(a, b, 'occasion');
+    },
+    currentStatus: (a, b) => {
+      return sortsForFields.byField(a, b, 'scStatus');
     },
     supervisor: (a, b) => {
       const aValue = a.supervisor;
