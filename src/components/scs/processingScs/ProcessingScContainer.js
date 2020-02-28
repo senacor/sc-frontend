@@ -83,8 +83,7 @@ const ProcessingScContainer = ({ classes, intl }) => {
     setPage(page);
   };
 
-  sortBySortActive(processingScs, sortActive, sortDirection);
-  const sortedScs = processingScs;
+  const sortedScs = sortBySortActive(processingScs, sortActive, sortDirection);
 
   const listOfProcessingScs = sortedScs.map((sc, index) => {
     return (

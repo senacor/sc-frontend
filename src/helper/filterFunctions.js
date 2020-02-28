@@ -298,12 +298,18 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       break;
     }
   }
+  const missingProperties = data.filter(a => !a[sortBy]);
+  let withProperties = data.filter(a => a[sortBy]);
+
   if (sortBy) {
-    data.sort(sortsForFields[sortBy]);
+    withProperties.sort(sortsForFields[sortBy]);
+
+    data = [...withProperties, ...missingProperties];
     if (sortDirection === 'desc') {
       data = data.reverse();
     }
   }
+  return data;
 };
 
 export const handleFilterActive = filterInputs => {

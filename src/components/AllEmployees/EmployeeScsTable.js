@@ -104,7 +104,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     downloadScAsPdf(scId, login, error);
   };
 
-  sortBySortActive(scs, sortActive, sortDirection);
+  scs = sortBySortActive(scs, sortActive, sortDirection);
 
   return (
     <Table className={classes.table}>
@@ -175,7 +175,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               onClick={() => linkToSc(sc.scId, history)}
               className={classes.tableRow}
             >
-              <TableCell>{getReadableDateWithoutTime(sc.createdDateTime)}</TableCell>
+              <TableCell>
+                {getReadableDateWithoutTime(sc.createdDateTime)}
+              </TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.deadline, FRONTEND_DATE_FORMAT)}
               </TableCell>

@@ -117,9 +117,9 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
 
   const filteredScs = filterScs(scs, filterInputs);
 
-  const scsToDisplay = filterActive ? filteredScs : scs;
+  let scsToDisplay = filterActive ? filteredScs : scs;
 
-  sortBySortActive(scsToDisplay, sortActive, sortDirection);
+  scsToDisplay = sortBySortActive(scsToDisplay, sortActive, sortDirection);
 
   return (
     <Table className={classes.table}>
