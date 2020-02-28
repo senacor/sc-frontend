@@ -50,7 +50,7 @@ const EmployeeTableRow = ({
     <Fragment>
       <TableRow
         className={`${classes.tableRow} ${classes.notSelection}`}
-        onClick={linkToSc}
+        onClick={() => linkToSc(scId)}
       >
         <TableCell>{`${employeeLastName}, ${employeeFirstName}`}</TableCell>
         <TableCell>
