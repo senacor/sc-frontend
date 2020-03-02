@@ -14,7 +14,7 @@ export const downloadPayrollReport = (report, error) => {
   let promise = payrollReportXlsx(report.id, error);
   let filename =
     formatLocaleDateTime(report.date, FILE_NAME_DATE_FORMAT) +
-    '_SCBewerungexport.xlsx';
+    '_SCBewertungsexport.xlsx';
 
   handlePromise(promise, filename);
 };
