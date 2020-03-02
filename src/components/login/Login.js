@@ -19,6 +19,7 @@ import LanguageButton from '../translations/LanguageButton';
 import { login } from '../../calls/login';
 import { AuthorizationContext, UserinfoContext, VersionContext } from '../App';
 import VersionDialog from '../VersionDialog';
+import FeedbackButton from '../sidebar/FeedbackButton';
 
 const styles = theme => ({
   hero: {
@@ -255,6 +256,7 @@ const Login = ({ location, classes, intl }) => {
               {<FormattedMessage id="login.login" />}
             </Button>
           </Hidden>
+          <FeedbackButton login />
         </form>
       </div>
     </div>
