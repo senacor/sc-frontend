@@ -1,8 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-import { addFeedback } from '../../calls/feedbacks';
-
+import { addFeedback, addFeedbackFromLogin } from '../../calls/feedbacks';
 // Material UI
 import Divider from '@material-ui/core/Divider';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -19,6 +18,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useErrorContext, useInfoContext } from '../../helper/contextHooks';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Zoom from '@material-ui/core/Zoom';
 
 const styles = theme => ({
   ...theme,
@@ -26,8 +27,22 @@ const styles = theme => ({
     color: theme.palette.secondary.white,
     margin: theme.spacing.unit
   },
+  sentCheck: {
+    color: theme.palette.secondary.green,
+    fontSize: 12 * theme.spacing.unit
+  },
+  flexCenter: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
   fullWidth: {
     width: '100%'
+  },
+  sentDialogContent: {
+    padding: 3 * theme.spacing.unit,
+    paddingBottom: 0,
+    display: 'flex',
+    flexDirection: 'column'
   },
   dialogContent: {
     padding: 3 * theme.spacing.unit,
@@ -53,7 +68,7 @@ const styles = theme => ({
   }
 });
 
-const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
+const FeedbackCreateDialog = ({ classes, intl, open, handleClose, login }) => {
   const feedbackTypes = [
     {
       name: 'Bug',
@@ -77,6 +92,8 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
 
   const [type, setType] = useState(feedbackTypes[0].name);
   const [subject, setSubject] = useState('');
+  const [email, setEmail] = useState('');
+  const [feedbackSent, setFeedbackSent] = useState(false);
   const [message, setMessage] = useState('');
   const [maxLengthReached, setMaxLengthReached] = useState(false);
 
@@ -87,6 +104,12 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
     addFeedback(type, subject, message, error, info);
     setMaxLengthReached(false);
     handleClose();
+  };
+
+  const handleSendFromLogin = () => {
+    addFeedbackFromLogin(email, type, subject, message, error, info);
+    setMaxLengthReached(false);
+    setFeedbackSent(true);
   };
 
   const handleChangeType = event => {
@@ -111,6 +134,44 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
     }
   };
 
+  const invalidEmail =
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !email || email.length < 1;
+
+  const feedbackSentDialog = () => {
+    return (
+      <Fragment>
+        <Dialog open={open} maxWidth={'md'} TransitionComponent={Zoom} transitionDuration={{ enter: 500}}>
+          <DialogContent className={classes.sentDialogContent}>
+            <div className={classes.flexCenter}>
+              <CheckCircleOutlineIcon className={classes.sentCheck} />
+            </div>
+            <div className={classes.flexCenter}>
+              <Typography>
+                {intl.formatMessage({
+                  id: 'message.feedbackloginCreated'
+                })}
+              </Typography>
+            </div>
+          </DialogContent>
+          <DialogActions className={classes.flexCenter}>
+            <Button
+              onClick={() => handleClose()}
+              className={classes.buttons}
+              variant="contained"
+              color="secondary"
+            >
+              {intl.formatMessage({
+                id: 'feedbackcreatedialog.close'
+              })}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
+    );
+  };
+
+  if (feedbackSent) return feedbackSentDialog();
+
   return (
     <Fragment>
       <Dialog open={open} fullWidth maxWidth={'md'}>
@@ -124,25 +185,35 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
         <Divider />
         <DialogContent className={classes.dialogContent}>
           <div className={classes.dialogContainer}>
-            <FormControl className={`${classes.formControl} ${classes.input}`}>
-              <InputLabel htmlFor="select-type">
-                {intl.formatMessage({
-                  id: 'feedbackcreatedialog.type'
-                })}
-              </InputLabel>
-              <Select
-                input={<Input id="select-type" />}
-                className={classes.margin}
-                value={type}
-                onChange={handleChangeType}
+            {!login ? (
+              <FormControl
+                className={`${classes.formControl} ${classes.input}`}
               >
-                {feedbackTypes.map(type => (
-                  <MenuItem key={type.name} value={type.name}>
-                    <ListItemText primary={type.label} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                <InputLabel htmlFor="select-type">
+                  {intl.formatMessage({
+                    id: 'feedbackcreatedialog.type'
+                  })}
+                </InputLabel>
+                <Select
+                  input={<Input id="select-type" />}
+                  className={classes.margin}
+                  value={type}
+                  onChange={handleChangeType}
+                >
+                  {feedbackTypes.map(type => (
+                    <MenuItem key={type.name} value={type.name}>
+                      <ListItemText primary={type.label} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ) : (
+              <Typography>
+                {intl.formatMessage({
+                  id: 'feedbackcreatedialog.logindescription'
+                })}
+              </Typography>
+            )}
             <div className={classes.maxLength}>
               {maxLengthReached && (
                 <Typography className={classes.maxLengthFont}>
@@ -175,6 +246,22 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
               id: 'feedbackcreatedialog.messagePlaceholder'
             })}
           />
+          {login && (
+            <TextField
+              value={email}
+              error={invalidEmail}
+              required
+              className={`${classes.fullWidth} ${classes.margin}`}
+              variant="outlined"
+              label={intl.formatMessage({
+                id: 'maintenance.email'
+              })}
+              type={'email'}
+              onChange={e => {
+                setEmail(e.target.value);
+              }}
+            />
+          )}
         </DialogContent>
         <DialogActions>
           <Button
@@ -188,11 +275,13 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose }) => {
             })}
           </Button>
           <Button
-            onClick={handleSend}
+            onClick={login ? handleSendFromLogin : handleSend}
             className={classes.buttons}
             variant="contained"
             color="secondary"
-            disabled={!subject.trim() || !message.trim()}
+            disabled={
+              !subject.trim() || !message.trim() || (login && invalidEmail)
+            }
           >
             {intl.formatMessage({
               id: 'feedbackcreatedialog.send'

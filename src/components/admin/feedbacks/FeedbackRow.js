@@ -49,15 +49,7 @@ const styles = theme => ({
 const FeedbackRow = ({
   classes,
   intl,
-  entry: {
-    id,
-    senderfirstName,
-    senderLastName,
-    context,
-    subject,
-    body,
-    sentAt
-  },
+  entry: { id, email, context, subject, body, sentAt },
   selected,
   changeSelectedItem,
   isLoading
@@ -81,6 +73,12 @@ const FeedbackRow = ({
       name: 'OTHER',
       label: intl.formatMessage({
         id: 'feedbackcreatedialog.other'
+      })
+    },
+    {
+      name: 'ACCESS_ISSUE',
+      label: intl.formatMessage({
+        id: 'feedbackcreatedialog.accessissue'
       })
     }
   ];
@@ -107,10 +105,9 @@ const FeedbackRow = ({
               onChange={() => changeSelectedItem(id)}
             />
           </TableCell>
-          <TableCell
-            onClick={handleDialogDetailsOpen}
-            className={classes.cell}
-          >{`${senderfirstName} ${senderLastName}`}</TableCell>
+          <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
+            {email ? email : '-'}
+          </TableCell>
           <TableCell onClick={handleDialogDetailsOpen} className={classes.cell}>
             {displayContext(context)}
           </TableCell>
@@ -141,8 +138,7 @@ const FeedbackRow = ({
           handleDialogDetailsClose={handleDialogDetailsClose}
           message={body}
           subject={subject}
-          senderFirstName={senderfirstName}
-          senderLastName={senderLastName}
+          email={email}
           context={displayContext(context)}
         />
       </Fragment>

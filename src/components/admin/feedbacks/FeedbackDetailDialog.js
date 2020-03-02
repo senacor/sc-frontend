@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
-
 // Material UI
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -36,8 +35,7 @@ const FeedbackDetailDialog = ({
   classes,
   message,
   subject,
-  senderFirstName,
-  senderLastName,
+  email,
   context
 }) => {
   return (
@@ -48,10 +46,9 @@ const FeedbackDetailDialog = ({
       maxWidth={'md'}
     >
       <DialogTitle disableTypography>
-        <Typography
-          variant="h5"
-          className={classes.paddingBottom}
-        >{`${senderFirstName} ${senderLastName}`}</Typography>
+        <Typography variant="h5" className={classes.paddingBottom}>
+          {email ? email : '-'}
+        </Typography>
         <Typography variant="subtitle2" className={classes.subtitle}>
           {`${intl.formatMessage({
             id: 'feedbackcreatedialog.subject'
