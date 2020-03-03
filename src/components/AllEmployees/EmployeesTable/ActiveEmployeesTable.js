@@ -83,8 +83,14 @@ const ActiveEmployeesTable = ({
         checkFilterValues(filterInputs.department, empl.department) &&
         checkFilterValues(statusEnums, empl.scStatus) &&
         checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
-        checkFilterValues(filterInputs.year, empl.entryDate[0]) &&
-        checkFilterValues(filterInputs.month, empl.entryDate[1])
+        checkFilterValues(
+          filterInputs.year,
+          empl.endDate ? empl.endDate[0] : null
+        ) &&
+        checkFilterValues(
+          filterInputs.month,
+          empl.endDate ? empl.endDate[1] : null
+        )
       );
     });
   };

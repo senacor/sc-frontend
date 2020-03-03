@@ -53,8 +53,14 @@ const FormerEmployeesGrid = ({
       checkFilterValues(filterInputs.position, empl.position) &&
       checkFilterValues(filterInputs.department, empl.department) &&
       checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
-      checkFilterValues(filterInputs.year, empl.endDate[0]) &&
-      checkFilterValues(filterInputs.month, empl.endDate[1])
+      checkFilterValues(
+        filterInputs.year,
+        empl.endDate ? empl.endDate[0] : null
+      ) &&
+      checkFilterValues(
+        filterInputs.month,
+        empl.endDate ? empl.endDate[1] : null
+      )
     );
   });
 
