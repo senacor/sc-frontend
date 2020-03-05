@@ -125,9 +125,9 @@ const EmployeeCard = ({
 
   const employeePhoto =
     !userPhoto || userPhoto.length === 0 ? (
-      <Avatar className={classes.avatar}>{`${firstName.charAt(
+      <Avatar className={classes.avatar}>{`${lastName.charAt(
         0
-      )}${lastName.charAt(0)}`}</Avatar>
+      )}${firstName.charAt(0)}`}</Avatar>
     ) : (
       <Avatar />
     );
