@@ -137,11 +137,9 @@ const StatusStepper = ({ classes, intl, sc }) => {
             {steps.map(step => (
               <Step key={step.index}>
                 <StepLabel>
-                  <div>
-                    <Typography color="primary" variant="body1">
-                      {step.label}
-                    </Typography>
-                  </div>
+                  <Typography color="primary" variant="body1">
+                    {step.label}
+                  </Typography>
                 </StepLabel>
               </Step>
             ))}
