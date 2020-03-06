@@ -242,9 +242,6 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose, login }) => {
             onChange={handleChangeMessage}
             className={`${classes.fullWidth} ${classes.margin}`}
             inputProps={{ maxLength: 1000 }}
-            placeholder={intl.formatMessage({
-              id: 'feedbackcreatedialog.messagePlaceholder'
-            })}
           />
           {login && (
             <TextField
