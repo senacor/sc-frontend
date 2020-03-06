@@ -140,7 +140,12 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose, login }) => {
   const feedbackSentDialog = () => {
     return (
       <Fragment>
-        <Dialog open={open} maxWidth={'md'} TransitionComponent={Zoom} transitionDuration={{ enter: 500}}>
+        <Dialog
+          open={open}
+          maxWidth={'md'}
+          TransitionComponent={Zoom}
+          transitionDuration={{ enter: 500 }}
+        >
           <DialogContent className={classes.sentDialogContent}>
             <div className={classes.flexCenter}>
               <CheckCircleOutlineIcon className={classes.sentCheck} />
