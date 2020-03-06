@@ -13,9 +13,6 @@ const styles = theme => ({
   mainStepLabel: {
     color: theme.palette.primary['400']
   },
-  container: {
-    maxWidth: 170
-  },
   archivedLabel: {
     padding: '5vh',
     display: 'flex',
@@ -140,7 +137,7 @@ const StatusStepper = ({ classes, intl, sc }) => {
             {steps.map(step => (
               <Step key={step.index}>
                 <StepLabel>
-                  <div className={classes.container}>
+                  <div>
                     <Typography color="primary" variant="body1">
                       {step.label}
                     </Typography>
