@@ -52,12 +52,7 @@ const styles = theme => ({
   }
 });
 
-const ArchiveButtonWithDialog = ({
-  classes,
-  intl,
-  sc,
-  history,
-}) => {
+const ArchiveButtonWithDialog = ({ classes, intl, sc, history }) => {
   if (!sc) {
     return null;
   }
