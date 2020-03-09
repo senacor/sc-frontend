@@ -140,7 +140,12 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose, login }) => {
   const feedbackSentDialog = () => {
     return (
       <Fragment>
-        <Dialog open={open} maxWidth={'md'} TransitionComponent={Zoom} transitionDuration={{ enter: 500}}>
+        <Dialog
+          open={open}
+          maxWidth={'md'}
+          TransitionComponent={Zoom}
+          transitionDuration={{ enter: 500 }}
+        >
           <DialogContent className={classes.sentDialogContent}>
             <div className={classes.flexCenter}>
               <CheckCircleOutlineIcon className={classes.sentCheck} />
@@ -242,9 +247,6 @@ const FeedbackCreateDialog = ({ classes, intl, open, handleClose, login }) => {
             onChange={handleChangeMessage}
             className={`${classes.fullWidth} ${classes.margin}`}
             inputProps={{ maxLength: 1000 }}
-            placeholder={intl.formatMessage({
-              id: 'feedbackcreatedialog.messagePlaceholder'
-            })}
           />
           {login && (
             <TextField
