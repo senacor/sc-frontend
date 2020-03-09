@@ -106,13 +106,11 @@ const EmployeeTableRow = ({
                   setSelectedEmployee={handleChangeSupervisor}
                 />
               ) : (
-                <TableCell>
-                  <span className={classes.textInfo}>
-                    {supervisorName
-                      ? supervisorName
-                      : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
-                  </span>
-                </TableCell>
+                <span className={classes.textInfo}>
+                  {supervisorName
+                    ? supervisorName
+                    : intl.formatMessage({ id: 'employeeInfo.noSupervisor' })}
+                </span>
               )}
             </Typography>
           </TableCell>
