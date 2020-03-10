@@ -123,9 +123,9 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
 
   return (
     <Table className={classes.table}>
-      <TableHead className={classes.tableHeader}>
+      <TableHead >
         <TableRow>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.employee}
               direction={sortDirection}
@@ -134,7 +134,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               {intl.formatMessage({ id: 'meetingcreator.employee' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.position}
               direction={sortDirection}
@@ -143,7 +143,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               {intl.formatMessage({ id: 'employeeInfo.position' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.supervisor}
               direction={sortDirection}
@@ -152,7 +152,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.department}
               direction={sortDirection}
@@ -161,7 +161,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               {intl.formatMessage({ id: 'employeeInfo.department' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.office}
               direction={sortDirection}
@@ -170,7 +170,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               {intl.formatMessage({ id: 'employeeInfo.office' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.scStart}
               direction={sortDirection}
@@ -179,7 +179,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
               {intl.formatMessage({ id: 'sc.start' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.scStatusStartTime}
               direction={sortDirection}

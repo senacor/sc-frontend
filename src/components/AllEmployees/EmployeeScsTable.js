@@ -108,9 +108,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
 
   return (
     <Table className={classes.table}>
-      <TableHead className={classes.tableHeader}>
+      <TableHead>
         <TableRow>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.createdDateTime}
               direction={sortDirection}
@@ -119,7 +119,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.createddate' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.deadline}
               direction={sortDirection}
