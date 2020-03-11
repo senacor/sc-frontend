@@ -21,7 +21,7 @@ export const round = (value, precision) => {
 
 export const determineFinalPercentage = score => {
   if (score === 0) return 0;
-  if (score <= 1.5) return 75;
+  if (score < 1.5) return 75;
   if (score < 2 && score >= 1.5) return 100;
   if (score < 2.5 && score >= 2) return 125;
   if (score < 3 && score >= 2.5) return 150;
