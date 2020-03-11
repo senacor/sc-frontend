@@ -48,7 +48,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employee: true,
+    employeeLastName: true,
     position: false,
     supervisor: false,
     department: false,
@@ -74,7 +74,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'EMPLOYEE':
-        newSortActive.employee = true;
+        newSortActive.employeeLastName = true;
         break;
       case 'POSITION':
         newSortActive.position = true;
@@ -123,11 +123,11 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
 
   return (
     <Table className={classes.table}>
-      <TableHead >
+      <TableHead>
         <TableRow>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
-              active={sortActive.employee}
+              active={sortActive.employeeLastName}
               direction={sortDirection}
               onClick={() => handleSort('EMPLOYEE')}
             >

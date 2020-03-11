@@ -42,7 +42,7 @@ const styles = theme => ({
 const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employeeName: true,
+    lastName: true,
     position: false,
     supervisorName: false,
     department: false,
@@ -64,7 +64,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'EMPLOYEE':
-        newSortActive.employeeName = true;
+        newSortActive.lastName = true;
         break;
       case 'POSITION':
         newSortActive.position = true;
@@ -108,7 +108,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
         <TableRow>
           <TableCell>
             <TableSortLabel
-              active={sortActive.employeeName}
+              active={sortActive.lastName}
               direction={sortDirection}
               onClick={() => handleSort('EMPLOYEE')}
             >
