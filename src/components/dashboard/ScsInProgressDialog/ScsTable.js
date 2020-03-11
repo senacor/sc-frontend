@@ -123,7 +123,7 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
 
   return (
     <Table className={classes.table}>
-      <TableHead >
+      <TableHead>
         <TableRow>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel

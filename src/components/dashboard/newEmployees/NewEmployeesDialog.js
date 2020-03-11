@@ -65,7 +65,7 @@ const NewEmployeesDialog = ({
   const [sendToBackend, setSendToBackend] = useState([]);
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employeeName: true,
+    lastName: true,
     position: false,
     supervisorName: false,
     department: false,
@@ -86,7 +86,7 @@ const NewEmployeesDialog = ({
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'EMPLOYEE':
-        newSortActive.employeeName = true;
+        newSortActive.lastName = true;
         break;
       case 'POSITION':
         newSortActive.position = true;

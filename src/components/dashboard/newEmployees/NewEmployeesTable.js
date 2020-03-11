@@ -56,7 +56,7 @@ const NewEmployeesTable = ({
         <TableRow>
           <TableCell>
             <TableSortLabel
-              active={sortActive.employeeName}
+              active={sortActive.lastName}
               direction={sortDirection}
               onClick={() => handleSort('EMPLOYEE')}
             >
