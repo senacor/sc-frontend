@@ -86,7 +86,9 @@ const FinalScoreSection = memo(
       </div>
     );
   },
-  (prevProps, nextProps) => prevProps.finalScore === nextProps.finalScore
+  (prevProps, nextProps) =>
+    prevProps.finalScore === nextProps.finalScore &&
+    prevProps.isReady === nextProps.isReady
 );
 
 export default injectIntl(withStyles(styles)(FinalScoreSection));
