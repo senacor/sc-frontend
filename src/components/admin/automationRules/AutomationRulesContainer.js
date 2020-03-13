@@ -8,11 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
-import { getAllRules } from '../../../calls/rules';
-import AutomationRule from './AutomationRule';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import IgnoreListRule from './IgnoreListRule';
 import { getAllEmployees } from '../../../calls/employees';
+import ScPeriodsTable from './ScPeriodsTable';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -38,66 +36,31 @@ const styles = theme => ({
 });
 
 const AutomationRulesContainer = ({ classes, intl }) => {
-  const defaultRules = {
-    scGeneration: [],
-    scProcessEnd: [],
-    payrollReport: [],
-    scIgnoreList: [2000]
-  };
-  const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const [rules, setRules] = useState(defaultRules);
   const error = useErrorContext();
 
   useEffect(() => {
-    const afterLoad = rules => {
-      setRules({ ...rules });
-    };
-    getAllRules(afterLoad, setIsLoading, error);
-    getAllEmployees(setEmployees, setIsLoading, error);
+    getAllEmployees(setEmployees, () => {}, error);
   }, []);
 
   return (
     <Fragment>
       <Paper className={classes.rulesPaper}>
         <div className={classes.title}>
-          <AutoRules color="primary"/>
+          <AutoRules color="primary" />
           <Typography variant="h5">
             {intl.formatMessage({ id: 'sidebar.autorules' })}
           </Typography>
         </div>
-        <Divider className={classes.divider}/>
-        {isLoading ? (
-          <CircularProgress/>
-        ) : (
-          <Fragment>
-            <AutomationRule
-              ruleDatesProp={rules.scGeneration}
-              ruleId={'autorules.sc.generation'}
-              ruleDescriptionId={'autorules.sc.generation.dates.title'}
-              ruleType={'SC_GENERATION'}
-            />
-            <IgnoreListRule
-              ignorelistProp={rules.scIgnoreList}
-              ruleId={'autorules.process.end'}
-              ruleDescriptionId={'autorules.process.end.dates.title'}
-              employees={employees}
-              ruleType={'SC_IGNORE_LIST'}
-            />
-            <AutomationRule
-              ruleDatesProp={rules.scProcessEnd}
-              ruleId={'autorules.process.end'}
-              ruleDescriptionId={'autorules.process.end.dates.title'}
-              ruleType={'SC_PROCESS_END'}
-            />
-            <AutomationRule
-              ruleDatesProp={rules.payrollReport}
-              ruleId={'autorules.payroll.report'}
-              ruleDescriptionId={'autorules.payroll.report.dates.title'}
-              ruleType={'PAYROLL_REPORT'}
-            />
-          </Fragment>
-        )}
+        <Divider className={classes.divider} />
+        <Fragment>
+          <ScPeriodsTable />
+          <IgnoreListRule
+            ruleId={'autorules.process.end'}
+            ruleDescriptionId={'autorules.process.end.dates.title'}
+            employees={employees}
+          />
+        </Fragment>
       </Paper>
     </Fragment>
   );
