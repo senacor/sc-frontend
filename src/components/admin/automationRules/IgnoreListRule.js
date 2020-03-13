@@ -9,7 +9,6 @@ import ListItem from '@material-ui/core/ListItem';
 // Icons
 import List from '@material-ui/core/List';
 import ConfirmDialog from '../../utils/ConfirmDialog';
-import { saveRules } from '../../../calls/rules';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,6 +16,7 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EmployeeFilter from '../EmployeeFilter';
+import { getIgnoreList, saveIgnoreList } from '../../../calls/rules';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -55,7 +55,6 @@ const styles = theme => ({
   },
   container: {
     marginTop: 2 * theme.spacing.unit,
-    backgroundColor: theme.palette.primary[50],
     padding: 2 * theme.spacing.unit,
     borderRadius: 1 * theme.spacing.unit
   },
@@ -63,7 +62,6 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    background: theme.palette.secondary.brightGrey,
     marginBottom: 1 * theme.spacing.unit,
     borderRadius: 1 * theme.spacing.unit
   },
@@ -91,23 +89,23 @@ const styles = theme => ({
 const IgnoreListRule = ({
   classes,
   intl,
-  ignorelistProp,
   ruleId,
   ruleDescriptionId,
-  employees,
-  ruleType
+  employees
 }) => {
-  const [ignorelist, setIgnorelist] = useState([...ignorelistProp]);
-  const [loadedIgnorelist, setLoadedIgnorelist] = useState([...ignorelistProp]);
+  const initList = [];
+  const [ignorelist, setIgnorelist] = useState([...initList]);
+  const [loadedIgnorelist, setLoadedIgnorelist] = useState([...initList]);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(
-    () => {
-      setIgnorelist([...ignorelistProp]);
-      setLoadedIgnorelist([...ignorelistProp]);
-    },
-    [ignorelistProp]
-  );
+  useEffect(() => {
+    const afterLoaded = loadedList => {
+      setIgnorelist([...loadedList]);
+      setLoadedIgnorelist([...loadedList]);
+    };
+    getIgnoreList(afterLoaded, setIsLoading, error);
+  }, []);
 
   const error = useErrorContext();
   const info = useInfoContext();
@@ -118,7 +116,7 @@ const IgnoreListRule = ({
     const afterSave = () => {
       setLoadedIgnorelist([...ignorelist]);
     };
-    saveRules(ruleType, ignorelist, afterSave, error, info);
+    saveIgnoreList(ignorelist, afterSave, error, info);
     setDialogOpen(false);
   };
 
@@ -151,13 +149,17 @@ const IgnoreListRule = ({
     return employee.lastName + ', ' + employee.firstName;
   };
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <Fragment>
       <div className={classes.container}>
         <Typography variant="body1" className={classes.ruleTitle}>
           {intl.formatMessage({ id: 'autorules.sc.ignorelist' })}
         </Typography>
-        <div className={classes.leftSide}>
+        <div className={classes.leftSide} style={{ justifyContent: 'center' }}>
           <Typography variant="body1">
             {intl.formatMessage({ id: 'autorules.sc.ignorelist.dates.title' })}
           </Typography>
