@@ -20,7 +20,7 @@ import AssessmentIcon from '@material-ui/icons/Assessment';
 const styles = theme => ({
   card: {
     width: 170,
-    height: 210,
+    height: 200,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -30,7 +30,7 @@ const styles = theme => ({
   },
   header: {
     backgroundColor: theme.palette.secondary.brightGrey,
-    height: 40,
+    height: 30,
     textAlign: 'center',
     padding: theme.spacing.unit,
     cursor: 'auto'
@@ -44,7 +44,7 @@ const styles = theme => ({
     borderBottom: `1px solid ${theme.palette.secondary.brightGrey}`
   },
   cardFooter: {
-    height: 40,
+    height: 30,
     padding: theme.spacing.unit,
     display: 'flex',
     justifyContent: 'center',
@@ -72,18 +72,11 @@ const ScCard = ({
   intl,
   history,
   status,
-  sc: { scId, createdDate }
+  sc: { scId, createdDate, periodName }
 }) => {
   const startDateHeader = (
     <Fragment>
-      <Typography variant="body2" className={classes.date}>
-        {intl.formatMessage({
-          id: 'employeeInfo.startDate'
-        })}
-      </Typography>
-      <Typography variant="body1">
-        {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
-      </Typography>
+      <Typography variant="body2">{periodName}</Typography>
     </Fragment>
   );
 

@@ -19,7 +19,7 @@ import PrIcon from '@material-ui/icons/PermContactCalendar';
 const styles = theme => ({
   card: {
     width: 200,
-    height: 270,
+    height: 250,
     margin: theme.spacing.unit,
     transition: 'all 0.3s',
     '&:hover': {
@@ -74,18 +74,11 @@ const ProcessingScCard = ({
   classes,
   history,
   status,
-  sc: { scId, employeeFirstName, employeeLastName, createdDate }
+  sc: { scId, employeeFirstName, employeeLastName, periodName }
 }) => {
   const startDateContainer = (
     <Fragment>
-      <Typography variant="body2" className={classes.subtitle}>
-        {intl.formatMessage({
-          id: 'employeeInfo.startDate'
-        })}
-      </Typography>
-      <Typography variant="body1">
-        {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
-      </Typography>
+      <Typography variant="body2">{periodName}</Typography>
     </Fragment>
   );
 
