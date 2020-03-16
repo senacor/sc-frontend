@@ -40,7 +40,7 @@ const EmployeeTableRow = ({
   classes,
   history,
   status,
-  sc: { scId, employeeFirstName, employeeLastName, createdDate }
+  sc: { scId, employeeFirstName, employeeLastName, createdDate, periodName }
 }) => {
   const linkToSc = id => {
     history.push(`/scDetail/${id}`);
@@ -53,6 +53,7 @@ const EmployeeTableRow = ({
         onClick={() => linkToSc(scId)}
       >
         <TableCell>{`${employeeLastName}, ${employeeFirstName}`}</TableCell>
+        <TableCell>{periodName}</TableCell>
         <TableCell>
           {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
         </TableCell>

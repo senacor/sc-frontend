@@ -6,25 +6,26 @@ import {
   FRONTEND_DATE_FORMAT
 } from '../../../helper/date';
 import { withRouter } from 'react-router-dom';
-
 // Material UI
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-
 // Icons
 import PrIcon from '@material-ui/icons/PermContactCalendar';
 
 const styles = theme => ({
   card: {
     width: 200,
-    height: 250,
+    height: 300,
     margin: theme.spacing.unit,
     transition: 'all 0.3s',
     '&:hover': {
       transform: 'scale(1.05)'
     }
+  },
+  smaller: {
+    fontSize: '0.9rem'
   },
   header: {
     backgroundColor: theme.palette.secondary.brightGrey,
@@ -46,7 +47,8 @@ const styles = theme => ({
     textAlign: 'center',
     borderTop: `1px solid ${theme.palette.secondary.brightGrey}`,
     borderBottom: `1px solid ${theme.palette.secondary.brightGrey}`,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    padding: theme.spacing.unit
   },
   cardFooter: {
     height: 45,
@@ -74,11 +76,22 @@ const ProcessingScCard = ({
   classes,
   history,
   status,
-  sc: { scId, employeeFirstName, employeeLastName, periodName }
+  sc: { scId, employeeFirstName, employeeLastName, createdDate, periodName }
 }) => {
   const startDateContainer = (
     <Fragment>
-      <Typography variant="body2">{periodName}</Typography>
+      <Typography variant="body1" className={classes.smaller}>
+        <b>{intl.formatMessage({ id: 'sc.period' })}:</b>
+      </Typography>
+      <Typography variant="body1" className={classes.smaller}>
+        {periodName}
+      </Typography>
+      <Typography variant="body1" className={classes.smaller}>
+        <b>{intl.formatMessage({ id: 'sc.startdate' })}:</b>
+      </Typography>
+      <Typography variant="body1" className={classes.smaller}>
+        {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
+      </Typography>
     </Fragment>
   );
 

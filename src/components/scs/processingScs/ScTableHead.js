@@ -37,6 +37,9 @@ const ScTableHead = ({
       case 'createdDate':
         newSortActive.createdDate = true;
         break;
+      case 'periodName':
+        newSortActive.periodName = true;
+        break;
       case 'currentStatus':
         newSortActive.currentStatus = true;
         break;
@@ -65,6 +68,15 @@ const ScTableHead = ({
             onClick={() => handleSort('employee')}
           >
             {intl.formatMessage({ id: 'employeeInfo.name' })}
+          </TableSortLabel>
+        </TableCell>
+        <TableCell className={classes.tableCell}>
+          <TableSortLabel
+            active={sortActive.periodName}
+            direction={sortDirection}
+            onClick={() => handleSort('periodName')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.periodName' })}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.tableCell}>
