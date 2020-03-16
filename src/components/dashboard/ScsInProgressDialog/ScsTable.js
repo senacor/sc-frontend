@@ -53,8 +53,8 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
     supervisor: false,
     department: false,
     office: false,
-    scStart: false,
-    scStatusStartTime: false
+    createdDate: false,
+    statusStartTime: false
   });
 
   useEffect(() => {
@@ -88,11 +88,11 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
       case 'OFFICE':
         newSortActive.office = true;
         break;
-      case 'SC_START':
-        newSortActive.scStart = true;
+      case 'CREATED_DATE':
+        newSortActive.createdDate = true;
         break;
-      case 'SC_STATUS_START':
-        newSortActive.scStatusStartTime = true;
+      case 'STATUS_START':
+        newSortActive.statusStartTime = true;
         break;
       default:
         break;
@@ -172,18 +172,18 @@ const ScsTable = ({ classes, intl, scs, history, filterInputs }) => {
           </TableCell>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
-              active={sortActive.scStart}
+              active={sortActive.createdDate}
               direction={sortDirection}
-              onClick={() => handleSort('SC_START')}
+              onClick={() => handleSort('CREATED_DATE')}
             >
               {intl.formatMessage({ id: 'sc.start' })}
             </TableSortLabel>
           </TableCell>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
-              active={sortActive.scStatusStartTime}
+              active={sortActive.statusStartTime}
               direction={sortDirection}
-              onClick={() => handleSort('SC_STATUS_START')}
+              onClick={() => handleSort('STATUS_START')}
             >
               {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
             </TableSortLabel>
