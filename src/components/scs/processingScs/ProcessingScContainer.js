@@ -51,7 +51,8 @@ const ProcessingScContainer = ({ classes, intl }) => {
   const [sortActive, setSortActive] = useState({
     employee: true,
     createdDate: false,
-    currentStatus: false
+    currentStatus: false,
+    periodName: false
   });
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);

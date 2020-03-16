@@ -54,7 +54,8 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   const error = useErrorContext();
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    createdDateTime: true,
+    periodName: true,
+    createdDateTime: false,
     deadline: false,
     classification: false,
     finalScore: false,
@@ -74,6 +75,9 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     const newSortActive = { ...sortActive };
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
+      case 'PERIOD':
+        newSortActive.periodName = true;
+        break;
       case 'CREATED_DATE':
         newSortActive.createdDateTime = true;
         break;
@@ -105,11 +109,19 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   };
 
   scs = sortBySortActive(scs, sortActive, sortDirection);
-
   return (
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
+          <TableCell className={classes.tableHeader}>
+            <TableSortLabel
+              active={sortActive.periodName}
+              direction={sortDirection}
+              onClick={() => handleSort('PERIOD')}
+            >
+              {intl.formatMessage({ id: 'scdialog.period' })}
+            </TableSortLabel>
+          </TableCell>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.createdDateTime}
@@ -175,6 +187,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               onClick={() => linkToSc(sc.scId, history)}
               className={classes.tableRow}
             >
+              <TableCell>{sc.periodName}</TableCell>
               <TableCell>
                 {getReadableDateWithoutTime(sc.createdDateTime)}
               </TableCell>
