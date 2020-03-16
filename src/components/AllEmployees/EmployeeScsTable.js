@@ -140,7 +140,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.deadline' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.classification}
               direction={sortDirection}
@@ -149,7 +149,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.classification' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.finalScore}
               direction={sortDirection}
@@ -158,7 +158,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.finalscore' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.scStatus}
               direction={sortDirection}
@@ -167,7 +167,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.scstatus' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.scStatusStartTime}
               direction={sortDirection}
@@ -176,7 +176,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>{intl.formatMessage({ id: 'scdialog.pdf' })}</TableCell>
+          <TableCell className={classes.tableHeader}>{intl.formatMessage({ id: 'scdialog.pdf' })}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

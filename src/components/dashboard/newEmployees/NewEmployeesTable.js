@@ -52,9 +52,9 @@ const NewEmployeesTable = ({
 }) => {
   return (
     <Table className={classes.table}>
-      <TableHead className={classes.tableHeader}>
+      <TableHead>
         <TableRow>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.lastName}
               direction={sortDirection}
@@ -65,7 +65,7 @@ const NewEmployeesTable = ({
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.position}
               direction={sortDirection}
@@ -76,7 +76,7 @@ const NewEmployeesTable = ({
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.supervisorName}
               direction={sortDirection}
@@ -87,7 +87,7 @@ const NewEmployeesTable = ({
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.department}
               direction={sortDirection}
@@ -98,7 +98,7 @@ const NewEmployeesTable = ({
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.officeLocation}
               direction={sortDirection}
@@ -109,7 +109,7 @@ const NewEmployeesTable = ({
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.entryDate}
               direction={sortDirection}
