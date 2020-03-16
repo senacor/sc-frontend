@@ -38,7 +38,7 @@ const ScTableHead = ({
         newSortActive.createdDate = true;
         break;
       case 'periodName':
-        newSortActive.periodName = true;
+        newSortActive.periodNameCD = true;
         break;
       case 'currentStatus':
         newSortActive.currentStatus = true;

@@ -52,7 +52,7 @@ const ProcessingScContainer = ({ classes, intl }) => {
     employee: true,
     createdDate: false,
     currentStatus: false,
-    periodName: false
+    periodNameCD: false
   });
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
