@@ -39,9 +39,10 @@ export const sortEmployeeByLastNameOrRoles = (
 ) => {
   const sortsForFields = {
     lastName: (a, b) => {
-      return a['lastName'] < b['lastName']
+      const collator = new Intl.Collator('de');
+      return collator.compare(a['lastName'], b['lastName']) < 0
         ? -1
-        : a['lastName'] > b['lastName']
+        : collator.compare(a['lastName'], b['lastName']) > 0
         ? 1
         : 0;
     },
