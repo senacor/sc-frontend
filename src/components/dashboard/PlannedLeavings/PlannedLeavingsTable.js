@@ -104,9 +104,9 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
 
   return (
     <Table className={classes.table}>
-      <TableHead className={classes.tableHeader}>
+      <TableHead>
         <TableRow>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.lastName}
               direction={sortDirection}
@@ -117,7 +117,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.position}
               direction={sortDirection}
@@ -126,7 +126,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               {intl.formatMessage({ id: 'employeeInfo.position' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.supervisorName}
               direction={sortDirection}
@@ -135,7 +135,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.department}
               direction={sortDirection}
@@ -144,7 +144,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               {intl.formatMessage({ id: 'employeeInfo.department' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.office}
               direction={sortDirection}
@@ -153,7 +153,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               {intl.formatMessage({ id: 'employeeInfo.office' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.endDate}
               direction={sortDirection}
@@ -164,7 +164,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
               })}
             </TableSortLabel>
           </TableCell>
-          <TableCell>
+          <TableCell className={classes.tableHeader}>
             <TableSortLabel
               active={sortActive.scStatus}
               direction={sortDirection}
