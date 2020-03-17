@@ -39,9 +39,10 @@ export const sortEmployeeByLastNameOrRoles = (
 ) => {
   const sortsForFields = {
     lastName: (a, b) => {
-      return a['lastName'] < b['lastName']
+      const collator = new Intl.Collator('de');
+      return collator.compare(a['lastName'], b['lastName']) < 0
         ? -1
-        : a['lastName'] > b['lastName']
+        : collator.compare(a['lastName'], b['lastName']) > 0
         ? 1
         : 0;
     },
@@ -89,7 +90,12 @@ export const sortEmployeeBySortActive = (
 ) => {
   const sortsForFields = {
     byField: (a, b, field) => {
-      return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+      const collator = new Intl.Collator('de');
+      return collator.compare(a[field], b[field]) < 0
+        ? -1
+        : collator.compare(a[field], b[field]) > 0
+        ? 1
+        : 0;
     },
     lastName: (a, b) => {
       return sortsForFields.byField(a, b, 'lastName');
@@ -170,7 +176,12 @@ export const sortEmployeeBySortActive = (
 export const sortBySortActive = (data, sortActive, sortDirection) => {
   const sortsForFields = {
     byField: (a, b, field) => {
-      return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+      const collator = new Intl.Collator('de');
+      return collator.compare(a[field], b[field]) < 0
+        ? -1
+        : collator.compare(a[field], b[field]) > 0
+        ? 1
+        : 0;
     },
     department: (a, b) => {
       return sortsForFields.byField(a, b, 'department');
@@ -209,14 +220,10 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'scStatus');
     },
     supervisor: (a, b) => {
-      const aValue = a.supervisor;
-      const bValue = b.supervisor;
-      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+      return sortsForFields.byField(a, b, 'supervisor');
     },
     supervisorName: (a, b) => {
-      const aValue = a.supervisorName;
-      const bValue = b.supervisorName;
-      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+      return sortsForFields.byField(a, b, 'supervisorName');
     },
     date: (a, b) => {
       const dateA = a.startDate;
