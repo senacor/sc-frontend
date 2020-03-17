@@ -90,15 +90,15 @@ export const sortEmployeeBySortActive = (
 ) => {
   const sortsForFields = {
     byField: (a, b, field) => {
-      return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
-    },
-    lastName: (a, b) => {
       const collator = new Intl.Collator('de');
-      return collator.compare(a['lastName'], b['lastName']) < 0
+      return collator.compare(a[field], b[field]) < 0
         ? -1
-        : collator.compare(a['lastName'], b['lastName']) > 0
+        : collator.compare(a[field], b[field]) > 0
         ? 1
         : 0;
+    },
+    lastName: (a, b) => {
+      return sortsForFields.byField(a, b, 'lastName');
     },
     position: (a, b) => {
       return sortsForFields.byField(a, b, 'position');
@@ -113,12 +113,7 @@ export const sortEmployeeBySortActive = (
       return statusA < statusB ? -1 : statusA > statusB ? 1 : 0;
     },
     supervisorName: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['supervisorName'], b['supervisorName']) < 0
-        ? -1
-        : collator.compare(a['supervisorName'], b['supervisorName']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'supervisorName');
     },
     department: (a, b) => {
       return sortsForFields.byField(a, b, 'department');
@@ -181,7 +176,12 @@ export const sortEmployeeBySortActive = (
 export const sortBySortActive = (data, sortActive, sortDirection) => {
   const sortsForFields = {
     byField: (a, b, field) => {
-      return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+      const collator = new Intl.Collator('de');
+      return collator.compare(a[field], b[field]) < 0
+        ? -1
+        : collator.compare(a[field], b[field]) > 0
+        ? 1
+        : 0;
     },
     department: (a, b) => {
       return sortsForFields.byField(a, b, 'department');
@@ -196,36 +196,16 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'inProgress');
     },
     employee: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['employeeLastName'], b['employeeLastName']) < 0
-        ? -1
-        : collator.compare(a['employeeLastName'], b['employeeLastName']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'employeeLastName');
     },
     employeeName: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['lastName'], b['lastName']) < 0
-        ? -1
-        : collator.compare(a['lastName'], b['lastName']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'lastName');
     },
     lastName: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['lastName'], b['lastName']) < 0
-        ? -1
-        : collator.compare(a['lastName'], b['lastName']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'lastName');
     },
     employeeLastName: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['employeeLastName'], b['employeeLastName']) < 0
-        ? -1
-        : collator.compare(a['employeeLastName'], b['employeeLastName']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'employeeLastName');
     },
     position: (a, b) => {
       return sortsForFields.byField(a, b, 'position');
@@ -240,20 +220,10 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       return sortsForFields.byField(a, b, 'scStatus');
     },
     supervisor: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['supervisor'], b['supervisor']) < 0
-        ? -1
-        : collator.compare(a['supervisor'], b['supervisor']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'supervisor');
     },
     supervisorName: (a, b) => {
-      const collator = new Intl.Collator('de');
-      return collator.compare(a['supervisorName'], b['supervisorName']) < 0
-        ? -1
-        : collator.compare(a['supervisorName'], b['supervisorName']) > 0
-        ? 1
-        : 0;
+      return sortsForFields.byField(a, b, 'supervisorName');
     },
     date: (a, b) => {
       const dateA = a.startDate;
