@@ -21,7 +21,6 @@ const styles = theme => ({
 const ScTableHead = ({
   intl,
   classes,
-  formerEmployee,
   sortActive,
   setSortActive,
   sortDirection,
@@ -31,14 +30,14 @@ const ScTableHead = ({
     const newSortActive = { ...sortActive };
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
-      case 'employee':
-        newSortActive.employee = true;
+      case 'employeeLastName':
+        newSortActive.employeeLastName = true;
         break;
       case 'createdDate':
         newSortActive.createdDate = true;
         break;
-      case 'periodName':
-        newSortActive.periodNameCD = true;
+      case 'deadline':
+        newSortActive.deadline = true;
         break;
       case 'currentStatus':
         newSortActive.currentStatus = true;
@@ -63,9 +62,9 @@ const ScTableHead = ({
       <TableRow className={classes.tableCell}>
         <TableCell className={classes.tableCell}>
           <TableSortLabel
-            active={sortActive.employee}
+            active={sortActive.employeeLastName}
             direction={sortDirection}
-            onClick={() => handleSort('employee')}
+            onClick={() => handleSort('employeeLastName')}
           >
             {intl.formatMessage({ id: 'employeeInfo.name' })}
           </TableSortLabel>
@@ -74,7 +73,7 @@ const ScTableHead = ({
           <TableSortLabel
             active={sortActive.periodName}
             direction={sortDirection}
-            onClick={() => handleSort('periodName')}
+            onClick={() => handleSort('createdDate')}
           >
             {intl.formatMessage({ id: 'employeeInfo.periodName' })}
           </TableSortLabel>
@@ -86,6 +85,15 @@ const ScTableHead = ({
             onClick={() => handleSort('createdDate')}
           >
             {intl.formatMessage({ id: 'employeeInfo.startDate' })}
+          </TableSortLabel>
+        </TableCell>
+        <TableCell className={classes.tableCell}>
+          <TableSortLabel
+            active={sortActive.deadline}
+            direction={sortDirection}
+            onClick={() => handleSort('deadline')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.deadline' })}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.tableCell}>

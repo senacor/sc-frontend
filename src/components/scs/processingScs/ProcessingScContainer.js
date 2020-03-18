@@ -49,8 +49,9 @@ const ProcessingScContainer = ({ classes, intl }) => {
   const [tableView, setTableView] = useState(false);
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employee: true,
+    employeeLastName: true,
     createdDate: false,
+    deadline: false,
     currentStatus: false,
     periodNameCD: false
   });
@@ -87,14 +88,17 @@ const ProcessingScContainer = ({ classes, intl }) => {
   const sortedScs = sortBySortActive(processingScs, sortActive, sortDirection);
 
   const sortedScsByLastName = [...processingScs].sort((a, b) => {
-    if (a.employeeLastName < b.employeeLastName) {
+    const collator = Intl.Collator('de');
+    if (collator.compare(a.employeeLastName, b.employeeLastName) < 0) {
       return -1;
-    } else if (a.employeeLastName > b.employeeLastName) {
+    } else if (collator.compare(a.employeeLastName, b.employeeLastName) > 0) {
       return 1;
     } else {
-      if (a.employeeFirstName < b.employeeFirstName) {
+      if (collator.compare(a.employeeFirstName, b.employeeFirstName) < 0) {
         return -1;
-      } else if (a.employeeFirstName > b.employeeFirstName) {
+      } else if (
+        collator.compare(a.employeeFirstName, b.employeeFirstName) > 0
+      ) {
         return 1;
       } else {
         return 0;
@@ -140,9 +144,10 @@ const ProcessingScContainer = ({ classes, intl }) => {
                     setSortDirection={setSortDirection}
                   />
                   <TableBody>
-                    {sortedScs.map(sc => {
+                    {sortedScs.map((sc, index) => {
                       return (
                         <ScTableRow
+                          key={index}
                           sc={sc}
                           status={translateGeneralStatus(sc.scStatus)}
                         />

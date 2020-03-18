@@ -55,6 +55,7 @@
   "employeeInfo.noScStatus": "Keine SC erstellt",
   "employeeInfo.noSupervisor": "Nicht verfügbar",
   "employeeInfo.startDate": "Anfangsdatum",
+  "employeeInfo.deadline": "Fälligkeit",
   "employeeInfo.clicktochange": "Klick hier, um zu ändern",
   "switchView.cards": "In die Karten-Ansicht wechseln",
   "switchView.table": "In die Tabellen-Ansicht wechseln",
