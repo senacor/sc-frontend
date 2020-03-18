@@ -18,7 +18,7 @@ import {
 const styles = theme => ({
   card: {
     width: 170,
-    height: 255,
+    height: 245,
     margin: theme.spacing.unit,
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -40,6 +40,10 @@ const styles = theme => ({
     color: theme.palette.secondary.darkGrey
   },
   content: {
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingLeft: 0,
+    paddingRight: 0,
     textAlign: 'center',
     borderTop: `1px solid ${theme.palette.secondary.brightGrey}`,
     borderBottom: `1px solid ${theme.palette.secondary.brightGrey}`
@@ -65,6 +69,9 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  grey: {
+    color: theme.palette.secondary.mediumGrey
   }
 });
 
@@ -73,7 +80,7 @@ const ScCard = ({
   intl,
   history,
   status,
-  sc: { scId, createdDate, periodName }
+  sc: { scId, createdDate, deadline, periodName }
 }) => {
   const periodHeader = (
     <Fragment>
@@ -96,11 +103,21 @@ const ScCard = ({
         >
           <AssessmentIcon className={classes.prIcon} />
           <Fragment>
-            <Typography variant="body1" className={classes.smaller}>
-              {intl.formatMessage({ id: 'sc.startdate' })}
+            <Typography
+              variant="body1"
+              className={`${classes.smaller} ${classes.grey}`}
+            >
+              {`${intl.formatMessage({
+                id: 'sccard.start'
+              })}: ${formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}`}
             </Typography>
-            <Typography variant="body1" className={classes.smaller}>
-              {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
+            <Typography
+              variant="body1"
+              className={`${classes.smaller} ${classes.grey}`}
+            >
+              {`${intl.formatMessage({
+                id: 'sccard.deadline'
+              })}: ${formatLocaleDateTime(deadline, FRONTEND_DATE_FORMAT)}`}
             </Typography>
           </Fragment>
         </CardContent>

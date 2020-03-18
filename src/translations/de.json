@@ -405,5 +405,7 @@
   "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen",
   "rolemanagement.employee": "Mitarbeiter",
   "rolemanagement.supervisor": "Vorgesetzter",
-  "rolemanagement.personaldevelopment": "Personal Development"
+  "rolemanagement.personaldevelopment": "Personal Development",
+  "sccard.start": "Start",
+  "sccard.deadline": "Fälligkeit"
 }
