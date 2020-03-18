@@ -63,6 +63,7 @@ const styles = theme => ({
     justifyContent: 'end'
   },
   timeRange: {
+    width: '100%',
     marginLeft: 5 * theme.spacing.unit
   },
   welcome: {
@@ -77,8 +78,6 @@ const Dashboard = ({ classes, intl, history }) => {
   const [systemInfo, setSystemInfo] = React.useState({});
   const [pdInfo, setPdInfo] = React.useState({
     lastReport: {},
-    timeRangeFrom: '',
-    timeRangeTo: '',
     lastFISsync: ''
   });
   const [isLoading, setIsLoading] = React.useState({});
@@ -91,8 +90,8 @@ const Dashboard = ({ classes, intl, history }) => {
     ? userinfo.employeesWithoutSupervisorCount
     : 0;
   const lastReport = pdInfo.lastReport;
-  const timeRangeFrom = pdInfo.timeRangeFrom;
-  const timeRangeTo = pdInfo.timeRangeTo;
+  const timeRangeFrom = userinfo.timeRangeFrom;
+  const timeRangeTo = userinfo.timeRangeTo;
 
   useEffect(
     () => {
@@ -264,28 +263,28 @@ const Dashboard = ({ classes, intl, history }) => {
             </Typography>
           </CardContent>
         </div>
-        {user.hasRoleHr() && (
-          <Typography
-            className={classes.timeRange}
-            variant="body1"
-            color="textSecondary"
-          >
-            <b>
-              {`${intl.formatMessage({
-                id: 'dashboard.timerange'
-              })} `}
-            </b>
-            {timeRangeFrom === ''
-              ? intl.formatMessage({
-                  id: 'dashboard.unknown'
-                })
-              : `${intl.formatMessage({
-                  id: 'dashboard.from'
-                })} ${timeRangeFrom} ${intl.formatMessage({
-                  id: 'dashboard.to'
-                })} ${timeRangeTo}`}
-          </Typography>
-        )}
+
+        <Typography
+          className={classes.timeRange}
+          variant="body1"
+          color="textSecondary"
+        >
+          <b>
+            {`${intl.formatMessage({
+              id: 'dashboard.timerange'
+            })} `}
+          </b>
+          {timeRangeFrom === ''
+            ? intl.formatMessage({
+                id: 'dashboard.unknown'
+              })
+            : `${intl.formatMessage({
+                id: 'dashboard.from'
+              })} ${timeRangeFrom} ${intl.formatMessage({
+                id: 'dashboard.to'
+              })} ${timeRangeTo}`}
+        </Typography>
+
         <div className={`${classes.rowContainer} ${classes.noMarginBottom}`}>
           {user.hasNoRole() && (
             <Card className={classes.card}>
