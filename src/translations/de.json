@@ -407,7 +407,7 @@
   "rolemanagement.employee": "Mitarbeiter",
   "rolemanagement.supervisor": "Vorgesetzter",
   "rolemanagement.personaldevelopment": "Personal Development",
-  "rolemanagement.unknown": "Unbekannt"
+  "rolemanagement.unknown": "Unbekannt",
   "sccard.start": "Start",
   "sccard.deadline": "Fälligkeit"
 }
