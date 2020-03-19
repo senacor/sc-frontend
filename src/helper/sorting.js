@@ -54,6 +54,33 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       const result1 =
         dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
       return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    lastName: (a, b) => {
+      const collator = new Intl.Collator('de');
+      if (collator.compare(a.lastName, b.lastName) < 0) {
+        return -1;
+      } else if (collator.compare(a.lastName, b.lastName) > 0) {
+        return 1;
+      } else {
+        if (collator.compare(a.firstName, b.firstName) < 0) {
+          return -1;
+        } else if (collator.compare(a.firstName, b.firstName) > 0) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    },
+    officeLocation: (a, b) => {
+      return sortsForFields.byField(a, b, 'officeLocation');
+    },
+    entryDate: (a, b) => {
+      const dateA = a.entryDate;
+      const dateB = b.entryDate;
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
     }
 
     // department: (a, b) => {

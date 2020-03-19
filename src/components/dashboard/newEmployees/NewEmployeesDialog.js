@@ -17,7 +17,7 @@ import {
   getEmployeesWithoutSupervisor
 } from '../../../calls/employees';
 import NewEmployeesTable from './NewEmployeesTable';
-import { sortBySortActive } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 
 const styles = theme => ({
   dialogContent: {
@@ -67,7 +67,6 @@ const NewEmployeesDialog = ({
   const [sortActive, setSortActive] = useState({
     lastName: true,
     position: false,
-    supervisorName: false,
     department: false,
     officeLocation: false,
     entryDate: false
@@ -90,9 +89,6 @@ const NewEmployeesDialog = ({
         break;
       case 'POSITION':
         newSortActive.position = true;
-        break;
-      case 'SUPERVISOR':
-        newSortActive.supervisorName = true;
         break;
       case 'DEPARTMENT':
         newSortActive.department = true;
