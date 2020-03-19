@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
-import { sortBySortActive } from '../../helper/filterFunctions';
+import { sortBySortActive } from '../../helper/sorting';
 import { linkToSc } from '../../calls/sc';
 import {
   translateClassification,
@@ -54,13 +54,13 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   const error = useErrorContext();
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    periodName: true,
+    periodNameDialog: true,
     createdDateTime: false,
     deadline: false,
     classification: false,
     finalScore: false,
     scStatus: false,
-    scStatusStartTime: false
+    statusStartTime: false
   });
 
   const changeDirection = () => {
@@ -76,7 +76,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'PERIOD':
-        newSortActive.periodName = true;
+        newSortActive.periodNameDialog = true;
         break;
       case 'CREATED_DATE':
         newSortActive.createdDateTime = true;
@@ -93,8 +93,8 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
       case 'SC_STATUS':
         newSortActive.scStatus = true;
         break;
-      case 'SC_STATUS_START_TIME':
-        newSortActive.scStatusStartTime = true;
+      case 'STATUS_START_TIME':
+        newSortActive.statusStartTime = true;
         break;
       default:
         break;
@@ -108,14 +108,14 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
     downloadScAsPdf(scId, login, error);
   };
 
-  scs = sortBySortActive(scs, sortActive, sortDirection);
+  scs = sortBySortActive(scs, sortActive, sortDirection, intl);
   return (
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
-              active={sortActive.periodName}
+              active={sortActive.periodNameDialog}
               direction={sortDirection}
               onClick={() => handleSort('PERIOD')}
             >
@@ -169,14 +169,16 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
           </TableCell>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
-              active={sortActive.scStatusStartTime}
+              active={sortActive.statusStartTime}
               direction={sortDirection}
-              onClick={() => handleSort('SC_STATUS_START_TIME')}
+              onClick={() => handleSort('STATUS_START_TIME')}
             >
               {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell className={classes.tableHeader}>{intl.formatMessage({ id: 'scdialog.pdf' })}</TableCell>
+          <TableCell className={classes.tableHeader}>
+            {intl.formatMessage({ id: 'scdialog.pdf' })}
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -187,7 +189,7 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               onClick={() => linkToSc(sc.scId, history)}
               className={classes.tableRow}
             >
-              <TableCell>{sc.periodName}</TableCell>
+              <TableCell>{sc.periodNameDialog}</TableCell>
               <TableCell>
                 {getReadableDateWithoutTime(sc.createdDateTime)}
               </TableCell>
@@ -200,11 +202,13 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                 })}
               </TableCell>
               <TableCell>
-                {'READY_TO_CLOSE ARCHIVED'.includes(sc.status) &&
+                {'READY_TO_CLOSE ARCHIVED'.includes(sc.scStatus) &&
                   `${sc.finalScore}%`}
               </TableCell>
               <TableCell>
-                {intl.formatMessage({ id: translateGeneralStatus(sc.status) })}
+                {intl.formatMessage({
+                  id: translateGeneralStatus(sc.scStatus)
+                })}
               </TableCell>
               <TableCell>
                 {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}

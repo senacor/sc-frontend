@@ -10,10 +10,27 @@ export const sortBySortActive = (data, sortActive, sortDirection, intl) => {
         ? 1
         : 0;
     },
+    byNumberField: (a, b, field) => {
+      const numberA = a[field];
+      const numberB = b[field];
+      return numberA < numberB ? -1 : numberA > numberB ? 1 : 0;
+    },
     byDateField: (a, b, field) => {
       const dateA = a[field];
       const dateB = b[field];
       const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
+    byDateTimeField: (a, b, field) => {
+      const dateA = a[field];
+      const dateB = b[field];
+      const result4 = dateA[4] < dateB[4] ? -1 : dateA[4] > dateB[4] ? 1 : 0;
+      const result3 =
+        dateA[3] < dateB[3] ? -1 : dateA[3] > dateB[3] ? 1 : result4;
+      const result2 =
+        dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : result3;
       const result1 =
         dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
       return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
@@ -104,6 +121,21 @@ export const sortBySortActive = (data, sortActive, sortDirection, intl) => {
     },
     periodName: (a, b) => {
       return sortsForFields.byDateField(a, b, 'createdDate');
+    },
+    createdDateTime: (a, b) => {
+      return sortsForFields.byDateTimeField(a, b, 'createdDateTime');
+    },
+    periodNameDialog: (a, b) => {
+      return sortsForFields.byDateTimeField(a, b, 'createdDateTime');
+    },
+    deadline: (a, b) => {
+      return sortsForFields.byDateField(a, b, 'deadline');
+    },
+    classification: (a, b) => {
+      return sortsForFields.byStringField(a, b, 'classification');
+    },
+    finalScore: (a, b) => {
+      return sortsForFields.byNumberField(a, b, 'finalScore');
     }
   };
 
