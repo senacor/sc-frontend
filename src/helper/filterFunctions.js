@@ -97,6 +97,12 @@ export const sortEmployeeBySortActive = (
         ? 1
         : 0;
     },
+    ignorechecked: (a, b) => {
+      if (a.ignorechecked === b.ignorechecked) {
+        return 0;
+      }
+      return a > b ? 1 : -1;
+    },
     lastName: (a, b) => {
       return sortsForFields.byField(a, b, 'lastName');
     },
