@@ -55,6 +55,6 @@ export const translateRole = role => {
     case 'PERSONAL_DEV':
       return 'rolemanagement.personaldevelopment';
     default:
-      return 'Unbekannt';
+      return 'rolemanagement.unknown';
   }
 };

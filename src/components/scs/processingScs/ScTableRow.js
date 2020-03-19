@@ -40,7 +40,14 @@ const EmployeeTableRow = ({
   classes,
   history,
   status,
-  sc: { scId, employeeFirstName, employeeLastName, createdDate, periodName }
+  sc: {
+    scId,
+    employeeFirstName,
+    employeeLastName,
+    createdDate,
+    deadline,
+    periodName
+  }
 }) => {
   const linkToSc = id => {
     history.push(`/scDetail/${id}`);
@@ -56,6 +63,9 @@ const EmployeeTableRow = ({
         <TableCell>{periodName}</TableCell>
         <TableCell>
           {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
+        </TableCell>
+        <TableCell>
+          {formatLocaleDateTime(deadline, FRONTEND_DATE_FORMAT)}
         </TableCell>
         <TableCell>{intl.formatMessage({ id: `${status}` })}</TableCell>
       </TableRow>

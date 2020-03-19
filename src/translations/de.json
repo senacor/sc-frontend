@@ -10,7 +10,7 @@
   "dashboard.welcome": "Willkommen im Scorecard Portal!",
   "dashboard.description.employee": "Hier findest Du einen Überblick über deine eigenen Scorecards.",
   "dashboard.description.other": "Hier findest du einen Überblick über die Scorecards im Bereich Corporate Services sowie deine eigenen Scorecards.",
-  "dashboard.subdescription": "Da wir ständig dabei sind das Portal zu verbessern freuen wir uns über jedes Feedback.",
+  "dashboard.subdescription": "Da wir ständig dabei sind, das Portal zu verbessern, freuen wir uns über jedes Feedback.",
   "dashboard.administrationTitle": "Achtung! Du bist im Administratorenmodus.",
   "dashboard.administrationText": "In diesem Modus kannst du Feedbacks, Logs und aufgetretene Probleme ansehen.",
   "dashboard.allscs": "Übersicht Scorecards",
@@ -55,6 +55,7 @@
   "employeeInfo.noScStatus": "Keine SC erstellt",
   "employeeInfo.noSupervisor": "Nicht verfügbar",
   "employeeInfo.startDate": "Anfangsdatum",
+  "employeeInfo.deadline": "Fälligkeit",
   "employeeInfo.clicktochange": "Klick hier, um zu ändern",
   "switchView.cards": "In die Karten-Ansicht wechseln",
   "switchView.table": "In die Tabellen-Ansicht wechseln",
@@ -411,5 +412,8 @@
   "scsheet.score.percentage.title.75": "Erwartungen deutlich unterschritten, keine Verbesserungen",
   "rolemanagement.employee": "Mitarbeiter",
   "rolemanagement.supervisor": "Vorgesetzter",
-  "rolemanagement.personaldevelopment": "Personal Development"
+  "rolemanagement.personaldevelopment": "Personal Development",
+  "rolemanagement.unknown": "Unbekannt",
+  "sccard.start": "Start",
+  "sccard.deadline": "Fälligkeit"
 }

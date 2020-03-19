@@ -14,7 +14,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 import ScTableHead from './ScTableHead';
 import ScTableRow from './ScTableRow';
-import { sortBySortActive } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 
 const styles = theme => ({
   ...theme,
@@ -49,10 +49,10 @@ const ProcessingScContainer = ({ classes, intl }) => {
   const [tableView, setTableView] = useState(false);
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employee: true,
+    employeeLastName: true,
+    periodName: false,
     createdDate: false,
-    currentStatus: false,
-    periodNameCD: false
+    scStatus: false
   });
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
@@ -84,17 +84,25 @@ const ProcessingScContainer = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const sortedScs = sortBySortActive(processingScs, sortActive, sortDirection);
+  const sortedScs = sortBySortActive(
+    processingScs,
+    sortActive,
+    sortDirection,
+    intl
+  );
 
   const sortedScsByLastName = [...processingScs].sort((a, b) => {
-    if (a.employeeLastName < b.employeeLastName) {
+    const collator = Intl.Collator('de');
+    if (collator.compare(a.employeeLastName, b.employeeLastName) < 0) {
       return -1;
-    } else if (a.employeeLastName > b.employeeLastName) {
+    } else if (collator.compare(a.employeeLastName, b.employeeLastName) > 0) {
       return 1;
     } else {
-      if (a.employeeFirstName < b.employeeFirstName) {
+      if (collator.compare(a.employeeFirstName, b.employeeFirstName) < 0) {
         return -1;
-      } else if (a.employeeFirstName > b.employeeFirstName) {
+      } else if (
+        collator.compare(a.employeeFirstName, b.employeeFirstName) > 0
+      ) {
         return 1;
       } else {
         return 0;
@@ -140,9 +148,10 @@ const ProcessingScContainer = ({ classes, intl }) => {
                     setSortDirection={setSortDirection}
                   />
                   <TableBody>
-                    {sortedScs.map(sc => {
+                    {sortedScs.map((sc, index) => {
                       return (
                         <ScTableRow
+                          key={index}
                           sc={sc}
                           status={translateGeneralStatus(sc.scStatus)}
                         />
