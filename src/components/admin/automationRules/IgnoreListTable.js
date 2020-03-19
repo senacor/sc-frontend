@@ -10,10 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { useErrorContext, useInfoContext } from '../../../helper/contextHooks';
-import {
-  checkFilterValues,
-  sortEmployeeBySortActive
-} from '../../../helper/filterFunctions';
+import { checkFilterValues } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItem from '@material-ui/core/ListItem';
@@ -229,7 +227,7 @@ const IgnoreListTable = ({ classes, intl, employees }) => {
     return e;
   });
 
-  const sortedEmployees = sortEmployeeBySortActive(
+  const sortedEmployees = sortBySortActive(
     employeesWithIgnoreChecked,
     sortActive,
     sortDirection,
