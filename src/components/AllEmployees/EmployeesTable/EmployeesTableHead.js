@@ -37,9 +37,6 @@ const EmployeesTableHead = ({
       case 'position':
         newSortActive.position = true;
         break;
-      case 'scStatus':
-        newSortActive.scStatus = true;
-        break;
       case 'supervisorName':
         newSortActive.supervisorName = true;
         break;
@@ -54,6 +51,9 @@ const EmployeesTableHead = ({
         break;
       case 'entryDate':
         newSortActive.entryDate = true;
+        break;
+      case 'scStatus':
+        newSortActive.scStatus = true;
         break;
       default:
         break;

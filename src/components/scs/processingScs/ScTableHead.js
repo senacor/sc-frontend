@@ -30,17 +30,17 @@ const ScTableHead = ({
     const newSortActive = { ...sortActive };
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
-      case 'employeeLastName':
+      case 'employee':
         newSortActive.employeeLastName = true;
+        break;
+      case 'periodName':
+        newSortActive.periodName = true;
         break;
       case 'createdDate':
         newSortActive.createdDate = true;
         break;
-      case 'deadline':
-        newSortActive.deadline = true;
-        break;
-      case 'currentStatus':
-        newSortActive.currentStatus = true;
+      case 'scStatus':
+        newSortActive.scStatus = true;
         break;
       default:
         break;
@@ -98,9 +98,9 @@ const ScTableHead = ({
         </TableCell>
         <TableCell className={classes.tableCell}>
           <TableSortLabel
-            active={sortActive.currentStatus}
+            active={sortActive.scStatus}
             direction={sortDirection}
-            onClick={() => handleSort('currentStatus')}
+            onClick={() => handleSort('scStatus')}
           >
             {intl.formatMessage({ id: 'scdialog.scstatus' })}
           </TableSortLabel>

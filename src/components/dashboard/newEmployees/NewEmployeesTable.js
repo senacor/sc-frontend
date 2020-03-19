@@ -77,15 +77,9 @@ const NewEmployeesTable = ({
             </TableSortLabel>
           </TableCell>
           <TableCell className={classes.tableHeader}>
-            <TableSortLabel
-              active={sortActive.supervisorName}
-              direction={sortDirection}
-              onClick={() => handleSort('SUPERVISOR')}
-            >
-              {intl.formatMessage({
-                id: 'newemployeesdialogtable.supervisor'
-              })}
-            </TableSortLabel>
+            {intl.formatMessage({
+              id: 'newemployeesdialogtable.supervisor'
+            })}
           </TableCell>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
