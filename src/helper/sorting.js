@@ -90,6 +90,17 @@ export const sortBySortActive = (data, sortActive, sortDirection, intl) => {
         id: translateGeneralStatus(b.scStatus)
       });
       return statusA < statusB ? -1 : statusA > statusB ? 1 : 0;
+    },
+    roles: (a, b) => {
+      const roleA = a.roles[0];
+      const roleB = b.roles[0];
+      if (!roleA) {
+        return 1;
+      }
+      if (!roleB) {
+        return -1;
+      }
+      return roleA < roleB ? -1 : roleA > roleB ? 1 : 0;
     }
 
     // department: (a, b) => {

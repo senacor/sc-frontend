@@ -17,7 +17,7 @@ import UserRolesMenu from './UserRolesMenu';
 import EmployeeFilter from './EmployeeFilter';
 import { useErrorContext } from '../../helper/contextHooks';
 import { translateRole } from '../../helper/string';
-import { sortEmployeeByLastNameOrRoles } from '../../helper/filterFunctions';
+import { sortBySortActive } from '../../helper/sorting';
 
 const styles = theme => ({
   spacing: {
@@ -60,13 +60,11 @@ export const UserRolesPanel = ({ classes, intl }) => {
     };
     newSortActive[field] = true;
     setSortActive(newSortActive);
+
     const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     setSortDirection(newSortDirection);
-    const sortedData = sortEmployeeByLastNameOrRoles(
-      data,
-      newSortActive,
-      newSortDirection
-    );
+
+    const sortedData = sortBySortActive(data, newSortActive, newSortDirection);
     setData(sortedData);
   };
 
@@ -75,16 +73,14 @@ export const UserRolesPanel = ({ classes, intl }) => {
     employee.roles = roles;
     let newData = data.filter(e => e.id !== employeeId);
     newData.push(employee);
-    const sortedData = sortEmployeeByLastNameOrRoles(
-      newData,
-      sortActive,
-      sortDirection
-    );
+    const sortedData = sortBySortActive(newData, sortActive, sortDirection);
     setData(sortedData);
   };
 
   const translateRoles = roles => {
-    if (roles) {
+    if (roles.length === 0) {
+      return [intl.formatMessage({ id: 'rolemanagement.unknown' })];
+    } else {
       return roles
         .map(role => intl.formatMessage({ id: translateRole(role) }))
         .join(', ');
