@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 // Icons
 import AutoRules from '@material-ui/icons/RotateRight';
-import IgnoreListRule from './IgnoreListRule';
 import { getAllEmployees } from '../../../calls/employees';
 import ScPeriodsTable from './ScPeriodsTable';
+import IgnoreListTable from './IgnoreListTable';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -55,11 +55,7 @@ const AutomationRulesContainer = ({ classes, intl }) => {
         <Divider className={classes.divider} />
         <Fragment>
           <ScPeriodsTable />
-          <IgnoreListRule
-            ruleId={'autorules.process.end'}
-            ruleDescriptionId={'autorules.process.end.dates.title'}
-            employees={employees}
-          />
+          <IgnoreListTable employees={employees} />
         </Fragment>
       </Paper>
     </Fragment>
