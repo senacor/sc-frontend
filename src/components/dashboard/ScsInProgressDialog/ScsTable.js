@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import {
   checkFilterValues,
-  handleScProgressFilterActive,
-  sortBySortActive
+  handleScProgressFilterActive
 } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 import { linkToSc } from '../../../calls/sc';
 // Material UI
 import Table from '@material-ui/core/Table';
