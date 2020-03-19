@@ -21,7 +21,6 @@ const styles = theme => ({
 const ScTableHead = ({
   intl,
   classes,
-  formerEmployee,
   sortActive,
   setSortActive,
   sortDirection,
@@ -32,16 +31,16 @@ const ScTableHead = ({
     Object.keys(newSortActive).forEach(v => (newSortActive[v] = false));
     switch (column) {
       case 'employee':
-        newSortActive.employee = true;
+        newSortActive.employeeLastName = true;
+        break;
+      case 'periodName':
+        newSortActive.periodName = true;
         break;
       case 'createdDate':
         newSortActive.createdDate = true;
         break;
-      case 'periodName':
-        newSortActive.periodNameCD = true;
-        break;
-      case 'currentStatus':
-        newSortActive.currentStatus = true;
+      case 'scStatus':
+        newSortActive.scStatus = true;
         break;
       default:
         break;
@@ -63,7 +62,7 @@ const ScTableHead = ({
       <TableRow className={classes.tableCell}>
         <TableCell className={classes.tableCell}>
           <TableSortLabel
-            active={sortActive.employee}
+            active={sortActive.employeeLastName}
             direction={sortDirection}
             onClick={() => handleSort('employee')}
           >
@@ -90,9 +89,9 @@ const ScTableHead = ({
         </TableCell>
         <TableCell className={classes.tableCell}>
           <TableSortLabel
-            active={sortActive.currentStatus}
+            active={sortActive.scStatus}
             direction={sortDirection}
-            onClick={() => handleSort('currentStatus')}
+            onClick={() => handleSort('scStatus')}
           >
             {intl.formatMessage({ id: 'scdialog.scstatus' })}
           </TableSortLabel>

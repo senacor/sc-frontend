@@ -14,7 +14,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 import ScTableHead from './ScTableHead';
 import ScTableRow from './ScTableRow';
-import { sortBySortActive } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 
 const styles = theme => ({
   ...theme,
@@ -49,10 +49,10 @@ const ProcessingScContainer = ({ classes, intl }) => {
   const [tableView, setTableView] = useState(false);
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortActive, setSortActive] = useState({
-    employee: true,
+    employeeLastName: true,
+    periodName: false,
     createdDate: false,
-    currentStatus: false,
-    periodNameCD: false
+    scStatus: false
   });
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [page, setPage] = useState(0);
@@ -84,7 +84,12 @@ const ProcessingScContainer = ({ classes, intl }) => {
     setPage(page);
   };
 
-  const sortedScs = sortBySortActive(processingScs, sortActive, sortDirection);
+  const sortedScs = sortBySortActive(
+    processingScs,
+    sortActive,
+    sortDirection,
+    intl
+  );
 
   const sortedScsByLastName = [...processingScs].sort((a, b) => {
     if (a.employeeLastName < b.employeeLastName) {
