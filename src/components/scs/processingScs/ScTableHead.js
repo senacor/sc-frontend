@@ -64,7 +64,7 @@ const ScTableHead = ({
           <TableSortLabel
             active={sortActive.employeeLastName}
             direction={sortDirection}
-            onClick={() => handleSort('employee')}
+            onClick={() => handleSort('employeeLastName')}
           >
             {intl.formatMessage({ id: 'employeeInfo.name' })}
           </TableSortLabel>
@@ -73,7 +73,7 @@ const ScTableHead = ({
           <TableSortLabel
             active={sortActive.periodName}
             direction={sortDirection}
-            onClick={() => handleSort('periodName')}
+            onClick={() => handleSort('createdDate')}
           >
             {intl.formatMessage({ id: 'employeeInfo.periodName' })}
           </TableSortLabel>
@@ -85,6 +85,15 @@ const ScTableHead = ({
             onClick={() => handleSort('createdDate')}
           >
             {intl.formatMessage({ id: 'employeeInfo.startDate' })}
+          </TableSortLabel>
+        </TableCell>
+        <TableCell className={classes.tableCell}>
+          <TableSortLabel
+            active={sortActive.deadline}
+            direction={sortDirection}
+            onClick={() => handleSort('deadline')}
+          >
+            {intl.formatMessage({ id: 'employeeInfo.deadline' })}
           </TableSortLabel>
         </TableCell>
         <TableCell className={classes.tableCell}>

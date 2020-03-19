@@ -17,7 +17,7 @@ import PrIcon from '@material-ui/icons/PermContactCalendar';
 const styles = theme => ({
   card: {
     width: 200,
-    height: 300,
+    height: 305,
     margin: theme.spacing.unit,
     transition: 'all 0.3s',
     '&:hover': {
@@ -68,6 +68,12 @@ const styles = theme => ({
     height: 50,
     margin: 'auto 0',
     padding: '5px 0'
+  },
+  paddingBottom: {
+    paddingBottom: theme.spacing.unit
+  },
+  grey: {
+    color: theme.palette.secondary.mediumGrey
   }
 });
 
@@ -76,21 +82,41 @@ const ProcessingScCard = ({
   classes,
   history,
   status,
-  sc: { scId, employeeFirstName, employeeLastName, createdDate, periodName }
+  sc: {
+    scId,
+    employeeFirstName,
+    employeeLastName,
+    createdDate,
+    deadline,
+    periodName
+  }
 }) => {
   const startDateContainer = (
     <Fragment>
       <Typography variant="body1" className={classes.smaller}>
         <b>{intl.formatMessage({ id: 'sc.period' })}:</b>
       </Typography>
-      <Typography variant="body1" className={classes.smaller}>
+      <Typography
+        variant="body1"
+        className={`${classes.smaller} ${classes.paddingBottom}`}
+      >
         {periodName}
       </Typography>
-      <Typography variant="body1" className={classes.smaller}>
-        <b>{intl.formatMessage({ id: 'sc.startdate' })}:</b>
+      <Typography
+        variant="body1"
+        className={`${classes.smaller} ${classes.grey}`}
+      >
+        {`${intl.formatMessage({
+          id: 'sccard.start'
+        })}: ${formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}`}
       </Typography>
-      <Typography variant="body1" className={classes.smaller}>
-        {formatLocaleDateTime(createdDate, FRONTEND_DATE_FORMAT)}
+      <Typography
+        variant="body1"
+        className={`${classes.smaller} ${classes.grey}`}
+      >
+        {`${intl.formatMessage({
+          id: 'sccard.deadline'
+        })}: ${formatLocaleDateTime(deadline, FRONTEND_DATE_FORMAT)}`}
       </Typography>
     </Fragment>
   );
