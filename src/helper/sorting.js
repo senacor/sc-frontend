@@ -1,6 +1,8 @@
-export const sortBySortActive = (data, sortActive, sortDirection) => {
+import { translateGeneralStatus } from './string';
+
+export const sortBySortActive = (data, sortActive, sortDirection, intl) => {
   const sortsForFields = {
-    byField: (a, b, field) => {
+    byStringField: (a, b, field) => {
       const collator = new Intl.Collator('de');
       return collator.compare(a[field], b[field]) < 0
         ? -1
@@ -8,7 +10,14 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
         ? 1
         : 0;
     },
-
+    byDateField: (a, b, field) => {
+      const dateA = a[field];
+      const dateB = b[field];
+      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
+      const result1 =
+        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
+      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+    },
     employeeLastName: (a, b) => {
       const collator = new Intl.Collator('de');
       if (collator.compare(a.employeeLastName, b.employeeLastName) < 0) {
@@ -28,32 +37,22 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       }
     },
     position: (a, b) => {
-      return sortsForFields.byField(a, b, 'position');
+      return sortsForFields.byStringField(a, b, 'position');
     },
     supervisor: (a, b) => {
-      return sortsForFields.byField(a, b, 'supervisor');
+      return sortsForFields.byStringField(a, b, 'supervisor');
     },
     department: (a, b) => {
-      return sortsForFields.byField(a, b, 'department');
+      return sortsForFields.byStringField(a, b, 'department');
     },
     office: (a, b) => {
-      return sortsForFields.byField(a, b, 'office');
+      return sortsForFields.byStringField(a, b, 'office');
     },
     createdDate: (a, b) => {
-      const dateA = a.createdDate;
-      const dateB = b.createdDate;
-      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
-      const result1 =
-        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
-      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+      return sortsForFields.byDateField(a, b, 'createdDate');
     },
     statusStartTime: (a, b) => {
-      const dateA = a.statusStartTime;
-      const dateB = b.statusStartTime;
-      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
-      const result1 =
-        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
-      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+      return sortsForFields.byDateField(a, b, 'statusStartTime');
     },
     lastName: (a, b) => {
       const collator = new Intl.Collator('de');
@@ -72,15 +71,25 @@ export const sortBySortActive = (data, sortActive, sortDirection) => {
       }
     },
     officeLocation: (a, b) => {
-      return sortsForFields.byField(a, b, 'officeLocation');
+      return sortsForFields.byStringField(a, b, 'officeLocation');
     },
     entryDate: (a, b) => {
-      const dateA = a.entryDate;
-      const dateB = b.entryDate;
-      const result2 = dateA[2] < dateB[2] ? -1 : dateA[2] > dateB[2] ? 1 : 0;
-      const result1 =
-        dateA[1] < dateB[1] ? -1 : dateA[1] > dateB[1] ? 1 : result2;
-      return dateA[0] < dateB[0] ? -1 : dateA[0] > dateB[0] ? 1 : result1;
+      return sortsForFields.byDateField(a, b, 'entryDate');
+    },
+    supervisorName: (a, b) => {
+      return sortsForFields.byStringField(a, b, 'supervisorName');
+    },
+    endDate: (a, b) => {
+      return sortsForFields.byDateField(a, b, 'endDate');
+    },
+    scStatus: (a, b) => {
+      const statusA = intl.formatMessage({
+        id: translateGeneralStatus(a.scStatus)
+      });
+      const statusB = intl.formatMessage({
+        id: translateGeneralStatus(b.scStatus)
+      });
+      return statusA < statusB ? -1 : statusA > statusB ? 1 : 0;
     }
 
     // department: (a, b) => {

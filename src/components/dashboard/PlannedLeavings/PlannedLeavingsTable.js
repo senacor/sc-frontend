@@ -16,7 +16,7 @@ import { translateGeneralStatus } from '../../../helper/string';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import ROUTES from '../../../helper/routes';
 import { withRouter } from 'react-router-dom';
-import { sortBySortActive } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 
 const styles = theme => ({
   tableRow: {
@@ -46,7 +46,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
     position: false,
     supervisorName: false,
     department: false,
-    office: false,
+    officeLocation: false,
     endDate: false,
     scStatus: false
   });
@@ -76,7 +76,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
         newSortActive.department = true;
         break;
       case 'OFFICE':
-        newSortActive.office = true;
+        newSortActive.officeLocation = true;
         break;
       case 'END_DATE':
         newSortActive.endDate = true;
@@ -99,7 +99,8 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
   plannedLeavingsToDisplay = sortBySortActive(
     plannedLeavingsToDisplay,
     sortActive,
-    sortDirection
+    sortDirection,
+    intl
   );
 
   return (
@@ -146,7 +147,7 @@ const PlannedLeavingsTable = ({ plannedLeavings, classes, intl, history }) => {
           </TableCell>
           <TableCell className={classes.tableHeader}>
             <TableSortLabel
-              active={sortActive.office}
+              active={sortActive.officeLocation}
               direction={sortDirection}
               onClick={() => handleSort('OFFICE')}
             >
