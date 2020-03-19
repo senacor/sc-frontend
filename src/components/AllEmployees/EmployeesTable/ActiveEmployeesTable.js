@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core';
 import EmployeesTableHead from './EmployeesTableHead';
 import {
   checkFilterValues,
-  handleFilterActive,
-  sortEmployeeBySortActive
+  handleFilterActive
 } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 import EmployeeTableRow from './EmployeeTableRow';
 // Material UI
 import Paper from '@material-ui/core/Paper';
@@ -44,12 +44,11 @@ const ActiveEmployeesTable = ({
   const [sortActive, setSortActive] = useState({
     lastName: true,
     position: false,
-    scStatus: false,
     supervisorName: false,
     department: false,
     officeLocation: false,
-    endDate: false,
-    entryDate: false
+    entryDate: false,
+    scStatus: false
   });
 
   const user = useUserinfoContext();
@@ -95,12 +94,7 @@ const ActiveEmployeesTable = ({
     });
   };
 
-  employees = sortEmployeeBySortActive(
-    employees,
-    sortActive,
-    sortDirection,
-    intl
-  );
+  employees = sortBySortActive(employees, sortActive, sortDirection, intl);
 
   const currentSupervisors = employees.filter(
     employee => employee.hasSupervisorRole

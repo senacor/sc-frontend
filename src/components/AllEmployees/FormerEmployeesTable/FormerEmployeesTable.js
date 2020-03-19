@@ -3,9 +3,9 @@ import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import {
   checkFilterValues,
-  handleFilterActive,
-  sortEmployeeBySortActive
+  handleFilterActive
 } from '../../../helper/filterFunctions';
+import { sortBySortActive } from '../../../helper/sorting';
 import EmployeeTableRow from '../EmployeesTable/EmployeeTableRow';
 import EmployeesTableHead from '../EmployeesTable/EmployeesTableHead';
 
@@ -40,12 +40,9 @@ const FormerEmployeesTable = ({
   const [sortActive, setSortActive] = useState({
     lastName: true,
     position: false,
-    scStatus: false,
-    supervisorName: false,
     department: false,
     officeLocation: false,
-    endDate: false,
-    entryDate: false
+    endDate: false
   });
 
   useEffect(() => {
@@ -80,7 +77,7 @@ const FormerEmployeesTable = ({
     });
   };
 
-  employees = sortEmployeeBySortActive(employees, sortActive, sortDirection);
+  employees = sortBySortActive(employees, sortActive, sortDirection);
 
   const employeesData = employees
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
