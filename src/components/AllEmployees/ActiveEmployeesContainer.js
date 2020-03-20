@@ -208,6 +208,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
       {tableView ? (
         <ActiveEmployeesTable
           filterInputs={filterInputs}
+          visibleAdvancedFilter={visibleAdvancedFilter}
           employees={employees}
           isLoading={isLoading}
           setSelectedEmployee={setSelectedEmployee}
