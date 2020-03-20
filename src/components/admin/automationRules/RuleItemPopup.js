@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { Typography, withStyles } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
@@ -49,6 +49,23 @@ const RuleItemPopup = ({
   const [opened, setOpened] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState(defaultValue);
+  const [valid, setValid] = useState(true);
+
+  //validation
+  useEffect(
+    () => {
+      //validation off for dates
+      if (!textType) {
+        setValid(true);
+        return;
+      }
+      //text validation
+      setValid(
+        value != null && value.length > 0 && value.replace(/ /g, '').length > 0
+      );
+    },
+    [value]
+  );
 
   const handleOpen = event => {
     setOpened(true);
@@ -160,6 +177,7 @@ const RuleItemPopup = ({
             className={classes.btn}
             variant="contained"
             color="primary"
+            disabled={!valid}
             onClick={saveValue}
           >
             {intl.formatMessage({ id: 'autorules.save' })}
