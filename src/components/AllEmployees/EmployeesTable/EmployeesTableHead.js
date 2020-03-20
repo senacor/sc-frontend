@@ -9,9 +9,9 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const styles = theme => ({
   tableHead: {
-    height: 80,
-    backgroundColor: theme.palette.secondary.brightGrey,
-    color: theme.palette.secondary.black
+    position: 'sticky',
+    top: 0,
+    backgroundColor: theme.palette.secondary.white
   },
   tableCell: {
     fontSize: '0.8rem'
@@ -71,7 +71,7 @@ const EmployeesTableHead = ({
   };
 
   return (
-    <TableHead>
+    <TableHead className={classes.tableHead}>
       <TableRow className={classes.tableCell}>
         <TableCell className={classes.tableCell}>
           <TableSortLabel
