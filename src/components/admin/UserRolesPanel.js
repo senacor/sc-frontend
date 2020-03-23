@@ -138,11 +138,7 @@ export const UserRolesPanel = ({ classes, intl }) => {
               <TableCell>
                 {`${selectedEmployee.lastName}, ${selectedEmployee.firstName}`}
               </TableCell>
-              <TableCell>
-                {`${intl.formatMessage({
-                  id: translateRole('NO_ROLE')
-                })}`}
-              </TableCell>
+              <TableCell>{translateRoles(selectedEmployee.roles)}</TableCell>
               <TableCell>
                 <UserRolesMenu
                   employeeId={selectedEmployee.id}
