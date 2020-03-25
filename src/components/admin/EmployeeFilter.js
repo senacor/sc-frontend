@@ -197,7 +197,7 @@ export const EmployeeFilter = ({
               event.stopPropagation();
             }}
             InputProps={{
-              endAdornment: (
+              endAdornment: value && (
                 <InputAdornment position="end">
                   <IconButton onClick={handleDelete}>
                     <Icon id="adornmentIcon">clear</Icon>
