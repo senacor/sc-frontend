@@ -37,6 +37,9 @@ const styles = theme => ({
   table: {
     overflowY: 'scroll',
     borderCollapse: 'separate'
+  },
+  dummyRow: {
+    height: 10 * theme.spacing.unit
   }
 });
 
@@ -145,6 +148,7 @@ const NewEmployeesTable = ({
             </TableCell>
           </TableRow>
         ))}
+        <TableRow className={classes.dummyRow} />
       </TableBody>
     </Table>
   );
