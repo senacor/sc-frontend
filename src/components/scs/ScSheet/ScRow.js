@@ -108,14 +108,6 @@ const ScRow = memo(
     isReviewer,
     handleChangeWeight
   }) => {
-    // const weightValues =
-    //   type === CATEGORY.SKILLS_IN_THE_FIELDS ||
-    //   type === CATEGORY.TEAM_IMPACT ||
-    //   type === CATEGORY.SERVICE_QUALITY ||
-    //   type === CATEGORY.COMPANY_IMPACT
-    //     ? [0.5, 1, 2, 3]
-    //     : [1, 2, 3];
-
     const weightValues = [0.5, 1, 2, 3];
 
     const bgClass = state => {
