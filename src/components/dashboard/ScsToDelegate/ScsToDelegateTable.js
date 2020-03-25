@@ -38,12 +38,17 @@ const ScsToDelegateTable = ({
       <TableHead>
         <TableRow>
           <TableCell>
-            <Typography>
+            <Typography variant="subtitle2">
               {intl.formatMessage({ id: 'scstodelegate.employee' })}
             </Typography>
           </TableCell>
           <TableCell>
-            <Typography>
+            <Typography variant="subtitle2">
+              {intl.formatMessage({ id: 'scstodelegate.position' })}
+            </Typography>
+          </TableCell>
+          <TableCell>
+            <Typography variant="subtitle2">
               {intl.formatMessage({ id: 'scstodelegate.selectedreviewers' })}
             </Typography>
           </TableCell>
@@ -56,6 +61,7 @@ const ScsToDelegateTable = ({
               <TableCell>
                 {`${entry.employeeLastName}, ${entry.employeeFirstName}`}
               </TableCell>
+              <TableCell>{entry.employeePosition}</TableCell>
               <TableCell>
                 <div className={classes.reviewerCell}>
                   <Typography>

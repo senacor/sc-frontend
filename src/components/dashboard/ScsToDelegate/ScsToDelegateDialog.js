@@ -30,6 +30,9 @@ const styles = theme => ({
     height: 50,
     position: 'absolute',
     right: 10
+  },
+  dialogPaper: {
+    minWidth: 700
   }
 });
 
@@ -83,7 +86,7 @@ const ScsToDelegateDialog = ({ classes, intl }) => {
         value={scsToDelegate}
         icon={'category'}
       />
-      <Dialog open={dialogOpened}>
+      <Dialog open={dialogOpened} classes={{ paper: classes.dialogPaper }}>
         <IconButton onClick={dialogClose} className={classes.btnClose}>
           <CloseIcon />
         </IconButton>
