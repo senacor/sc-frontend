@@ -25,6 +25,7 @@ const ScRows = memo(
               key={index}
               index={index}
               isReviewer={isReviewer}
+              removable={fields.length > 1}
               row={row}
               fieldsDisabled={fieldsDisabled}
               fieldsAmount={fieldsAmount}

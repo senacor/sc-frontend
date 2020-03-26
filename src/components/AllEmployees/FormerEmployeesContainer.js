@@ -183,11 +183,11 @@ const FormerEmployeesContainer = ({ classes, intl }) => {
       <IconButton className={classes.setViewBtn} onClick={toggleChangeView}>
         {tableView ? (
           <Tooltip title={intl.formatMessage({ id: 'switchView.cards' })}>
-            <TableViewIcon />
+            <CardsViewIcon />
           </Tooltip>
         ) : (
           <Tooltip title={intl.formatMessage({ id: 'switchView.table' })}>
-            <CardsViewIcon />
+            <TableViewIcon />
           </Tooltip>
         )}
       </IconButton>
