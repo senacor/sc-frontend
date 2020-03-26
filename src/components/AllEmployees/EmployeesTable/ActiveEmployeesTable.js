@@ -97,11 +97,11 @@ const ActiveEmployeesTable = ({
         checkFilterValues(filterInputs.officeLocation, empl.officeLocation) &&
         checkFilterValues(
           filterInputs.year,
-          empl.endDate ? empl.endDate[0] : null
+          empl.entryDate ? empl.entryDate[0] : null
         ) &&
         checkFilterValues(
           filterInputs.month,
-          empl.endDate ? empl.endDate[1] : null
+          empl.entryDate ? empl.entryDate[1] : null
         )
       );
     });
