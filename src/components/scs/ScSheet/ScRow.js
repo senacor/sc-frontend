@@ -105,6 +105,7 @@ const ScRow = memo(
     type,
     fieldsDisabled,
     removeSubcategory,
+    removable,
     isReviewer,
     handleChangeWeight
   }) => {
@@ -126,7 +127,8 @@ const ScRow = memo(
       <Fragment>
         <Paper className={classes.scRowContainer}>
           {(type === CATEGORY.PROJECT || type === CATEGORY.DAILY_BUSINESS) &&
-            isReviewer && (
+            isReviewer &&
+            removable && (
               <Tooltip
                 title={intl.formatMessage({
                   id: 'scsheet.tooltip.removeField'

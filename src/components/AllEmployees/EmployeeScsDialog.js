@@ -91,7 +91,7 @@ const EmployeeScsDialog = ({
     }
 
     return !scs.some(sc => {
-      return 'INITIALIZATION READY_TO_CLOSE IN_PROGRESS'.includes(sc.status);
+      return 'INITIALIZATION READY_TO_CLOSE IN_PROGRESS'.includes(sc.scStatus);
     });
   };
 
