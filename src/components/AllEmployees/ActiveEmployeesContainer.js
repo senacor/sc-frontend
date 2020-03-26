@@ -191,7 +191,7 @@ const ActiveEmployeesContainer = ({ classes, intl }) => {
               : intl.formatMessage({ id: 'switchView.table' })
           }
         >
-          <span>{tableView ? <TableViewIcon /> : <CardsViewIcon />}</span>
+          <span>{tableView ? <CardsViewIcon /> : <TableViewIcon />}</span>
         </Tooltip>
       </IconButton>
       <UpperFilterMenu
