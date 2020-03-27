@@ -1,14 +1,18 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { withStyles, Paper, Button, Typography } from '@material-ui/core';
+import { Button, Paper, Typography, withStyles } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import SearchFilter from './SearchFilter';
-
 // Icons
 import FilterIcon from '@material-ui/icons/FilterList';
 import SortingFilter from './SortingFilter';
+import FilteredValuesViewer from './FilteredValuesViewer';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const styles = theme => ({
+  searchSupervisorContainer: {
+    display: 'block'
+  },
   upperMenuPaper: {
     margin: '0.5rem',
     padding: '0.5rem 2rem'
@@ -22,7 +26,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginLeft: theme.spacing.unit,
+    flexWrap: 'wrap',
     marginRight: theme.spacing.unit,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
@@ -48,6 +52,31 @@ const styles = theme => ({
   btnDownloadText: {
     color: theme.palette.secondary.white,
     paddingLeft: theme.spacing.unit
+  },
+  valuesContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginTop: theme.spacing.unit
+  },
+  textContainer: {
+    color: theme.palette.secondary.darkGrey,
+    textAlign: 'center',
+    display: 'flex',
+    marginRight: theme.spacing.unit
+  },
+  textHeader: {
+    color: theme.palette.secondary.darkGrey,
+    textAlign: 'center',
+    display: 'flex',
+    marginRight: theme.spacing.unit / 2
+  },
+  textValue: {
+    color: theme.palette.secondary.darkGrey,
+    textAlign: 'center',
+    display: 'flex'
+  },
+  advFilterBtnText: {
+    marginLeft: theme.spacing.unit / 2
   }
 });
 
@@ -76,15 +105,6 @@ const UpperFilterMenu = ({
               id: 'filter.searchEmployee'
             })}
           />
-          {visibleAdvancedFilter && !formerEmployees && (
-            <SearchFilter
-              searchValue={searchSupervisorValue}
-              searchChange={handleSearchSupervisorChange}
-              placeholder={intl.formatMessage({
-                id: 'filter.searchSupervisor'
-              })}
-            />
-          )}
         </div>
         <div>
           {handleDownloadAllScs && (
@@ -117,24 +137,38 @@ const UpperFilterMenu = ({
             className={classes.toggleFilterBtn}
             variant="contained"
           >
-            <FilterIcon />
-            <Typography variant="button">
+            {visibleAdvancedFilter ? <VisibilityOffIcon /> : <FilterIcon />}
+            <Typography variant="button" className={classes.advFilterBtnText}>
               {intl.formatMessage({ id: 'filter.advanced' })}
             </Typography>
           </Button>
         </div>
       </div>
       {visibleAdvancedFilter && (
-        <div className={classes.advFilter}>
-          {sortingData.map(item => (
-            <SortingFilter
-              key={item.id}
-              sortBy={item.sortBy}
-              handleChange={item.handleChange}
-              menuData={item.menuData}
-              stateValue={item.stateValue}
-            />
-          ))}
+        <div>
+          <div className={classes.advFilter}>
+            {!formerEmployees && (
+              <div className={classes.searchSupervisorContainer}>
+                <SearchFilter
+                  searchValue={searchSupervisorValue}
+                  searchChange={handleSearchSupervisorChange}
+                  placeholder={intl.formatMessage({
+                    id: 'filter.searchSupervisor'
+                  })}
+                />
+              </div>
+            )}
+            {sortingData.map(item => (
+              <SortingFilter
+                key={item.id}
+                sortBy={item.sortBy}
+                handleChange={item.handleChange}
+                menuData={item.menuData}
+                stateValue={item.stateValue}
+              />
+            ))}
+          </div>
+          <FilteredValuesViewer sortingData={sortingData} />
         </div>
       )}
     </Paper>
