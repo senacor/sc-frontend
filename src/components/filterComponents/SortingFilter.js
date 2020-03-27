@@ -14,7 +14,7 @@ const styles = theme => ({
   ...theme,
   dropdownFilter: {
     display: 'block',
-    marginBottom: 2 * theme.spacing.unit,
+    marginBottom: 0,
     marginRight: 3 * theme.spacing.unit
   },
   input: {

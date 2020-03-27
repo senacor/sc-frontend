@@ -9,7 +9,6 @@ const styles = theme => ({
     width: '12rem',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
     marginRight: 3 * theme.spacing.unit
   }
 });

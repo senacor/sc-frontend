@@ -6,14 +6,13 @@ import InfoWidget from '../../utils/InfoWidget';
 import SortingFilter from '../../filterComponents/SortingFilter';
 import {
   locations,
-  scDepartmentMenu,
-  positions
+  positions,
+  scDepartmentMenu
 } from '../../../helper/filterData';
 import { useErrorContext } from '../../../helper/contextHooks';
 import ScsTable from './ScsTable';
 import { getScsByStatus } from '../../../calls/sc';
 import SearchFilter from '../../filterComponents/SearchFilter';
-
 // Material UI
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
@@ -23,12 +22,13 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-
 // Icons
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import CloseIcon from '@material-ui/icons/Close';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { translateGeneralStatus } from '../../../helper/string';
 import { withRouter } from 'react-router-dom';
+import FilteredValuesViewer from '../../filterComponents/FilteredValuesViewer';
 
 const styles = theme => ({
   btnClose: {
@@ -78,11 +78,16 @@ const styles = theme => ({
     }
   },
   searchSupervisor: {
-    display: 'block',
-    marginBottom: 2 * theme.spacing.unit
+    display: 'block'
   },
   title: {
     marginBottom: 2 * theme.spacing.unit
+  },
+  advFilterBtnText: {
+    marginLeft: theme.spacing.unit / 2
+  },
+  filterValuesViewerContainer: {
+    marginLeft: 2 * theme.spacing.unit
   }
 });
 
@@ -163,6 +168,25 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
     id: translateGeneralStatus(status)
   });
 
+  const sortingData = [
+    {
+      sortBy: 'employeeInfo.supervisor',
+      stateValue: searchSupervisorValue
+    },
+    {
+      sortBy: 'employeeInfo.position',
+      stateValue: position
+    },
+    {
+      sortBy: 'employeeInfo.department',
+      stateValue: department
+    },
+    {
+      sortBy: 'employeeInfo.office',
+      stateValue: office
+    }
+  ];
+
   return (
     <Fragment>
       <InfoWidget
@@ -218,45 +242,53 @@ const ScsDialog = ({ classes, intl, numberOfScs, status, history }) => {
                 variant="contained"
                 className={classes.advFilterBtn}
               >
-                <FilterIcon />
-                <Typography variant="button">
+                {visibleAdvancedFilter ? <VisibilityOffIcon /> : <FilterIcon />}
+                <Typography
+                  variant="button"
+                  className={classes.advFilterBtnText}
+                >
                   {intl.formatMessage({ id: 'filter.advanced' })}
                 </Typography>
               </Button>
             </div>
           </div>
           {visibleAdvancedFilter && (
-            <div className={classes.advFilter}>
-              <div className={classes.searchSupervisor}>
-                <SearchFilter
-                  searchValue={searchSupervisorValue}
-                  searchChange={handleSearchSupervisorChange}
-                  placeholder={intl.formatMessage({
-                    id: 'employeeInfo.supervisor'
-                  })}
+            <div>
+              <div className={classes.advFilter}>
+                <div className={classes.searchSupervisor}>
+                  <SearchFilter
+                    searchValue={searchSupervisorValue}
+                    searchChange={handleSearchSupervisorChange}
+                    placeholder={intl.formatMessage({
+                      id: 'employeeInfo.supervisor'
+                    })}
+                  />
+                </div>
+                <SortingFilter
+                  sortBy={intl.formatMessage({ id: 'employeeInfo.position' })}
+                  handleChange={handlePositionChange}
+                  menuData={positions}
+                  stateValue={position}
+                  processingPrs
+                />
+                <SortingFilter
+                  sortBy={intl.formatMessage({ id: 'employeeInfo.department' })}
+                  handleChange={handleDepartmentChange}
+                  menuData={scDepartmentMenu}
+                  stateValue={department}
+                  processingPrs
+                />
+                <SortingFilter
+                  sortBy={intl.formatMessage({ id: 'employeeInfo.office' })}
+                  handleChange={handleOfficeChange}
+                  menuData={locations}
+                  stateValue={office}
+                  processingPrs
                 />
               </div>
-              <SortingFilter
-                sortBy={intl.formatMessage({ id: 'employeeInfo.position' })}
-                handleChange={handlePositionChange}
-                menuData={positions}
-                stateValue={position}
-                processingPrs
-              />
-              <SortingFilter
-                sortBy={intl.formatMessage({ id: 'employeeInfo.department' })}
-                handleChange={handleDepartmentChange}
-                menuData={scDepartmentMenu}
-                stateValue={department}
-                processingPrs
-              />
-              <SortingFilter
-                sortBy={intl.formatMessage({ id: 'employeeInfo.office' })}
-                handleChange={handleOfficeChange}
-                menuData={locations}
-                stateValue={office}
-                processingPrs
-              />
+              <div className={classes.filterValuesViewerContainer}>
+                <FilteredValuesViewer sortingData={sortingData} />
+              </div>
             </div>
           )}
         </DialogTitle>
