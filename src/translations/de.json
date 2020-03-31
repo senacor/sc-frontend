@@ -386,6 +386,7 @@
   "scstodelegate.select": "Beurteiler auswählen",
   "sctypetochoose.add": "Hinzufügen",
   "sctypetochoose.tooltip": "Bitte Scorecard Typ, Einstufung auswählen und mindestens ein Tägliches Geschäft und ein Projekt inkl. Gewichtung hinzufügen.",
+  "sctypetochoose.addfield": "Feld hinzufügen",
   "percentagedialog.performance": "Leistungen",
   "percentagedialog.skills": "Kompetenz & Entwicklung",
   "percentagedialog.change": "Ändern",

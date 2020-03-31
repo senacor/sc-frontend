@@ -87,6 +87,19 @@ const styles = theme => ({
   categoryFormsRow: {
     paddingBottom: 2 * theme.spacing.unit,
     paddingTop: 2 * theme.spacing.unit
+  },
+  textFieldInput: {
+    height: 0,
+    width: '16rem'
+  },
+  noBorders: {
+    border: 'none'
+  },
+  noPadding: {
+    padding: 0
+  },
+  noRightPadding: {
+    paddingRight: 0
   }
 });
 
@@ -245,7 +258,7 @@ const ScTypeToChoose = ({
       <div className={classes.tableDiv}>
         <Grid container>
           <Grid item xs={6}>
-            <Table>
+            <Table style={{ marginRight: 35 }}>
               <TableHead>
                 <TableRow>
                   <TableCell>
@@ -255,21 +268,30 @@ const ScTypeToChoose = ({
                       })}
                     </Typography>
                   </TableCell>
+                  <TableCell />
                 </TableRow>
               </TableHead>
               <TableBody>
                 {dailyBusinesses.map((entry, idx) => {
                   return (
                     <TableRow key={idx}>
-                      <TableCell>
+                      <TableCell
+                        className={`${classes.noBorders} ${classes.noPadding}`}
+                      >
                         <TextField
+                          variant="outlined"
+                          inputProps={{ className: classes.textFieldInput }}
                           onChange={event =>
                             onChangeDailyBusinessTitle(idx, event)
                           }
                           value={entry.title}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell
+                        className={`${classes.noBorders} ${
+                          classes.noRightPadding
+                        }`}
+                      >
                         <FormControl className={classes.weightForm}>
                           <InputLabel id="weight-daily-business-input">
                             {intl.formatMessage({
@@ -293,7 +315,7 @@ const ScTypeToChoose = ({
                           </Select>
                         </FormControl>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.noBorders}>
                         <IconButton onClick={() => deleteDailyBusiness(idx)}>
                           <Icon>clear</Icon>
                         </IconButton>
@@ -303,9 +325,13 @@ const ScTypeToChoose = ({
                 })}
               </TableBody>
             </Table>
-            <IconButton onClick={addDailyBusiness}>
-              <AddIcon />
-            </IconButton>
+            <Tooltip
+              title={intl.formatMessage({ id: 'sctypetochoose.addfield' })}
+            >
+              <IconButton onClick={addDailyBusiness}>
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
           </Grid>
           <Grid item xs={6}>
             <Table>
@@ -318,19 +344,28 @@ const ScTypeToChoose = ({
                       })}
                     </Typography>
                   </TableCell>
+                  <TableCell />
                 </TableRow>
               </TableHead>
               <TableBody>
                 {projects.map((entry, idx) => {
                   return (
                     <TableRow key={idx}>
-                      <TableCell>
+                      <TableCell
+                        className={`${classes.noBorders} ${classes.noPadding}`}
+                      >
                         <TextField
+                          variant="outlined"
+                          inputProps={{ className: classes.textFieldInput }}
                           onChange={event => onChangeProjectTitle(idx, event)}
                           value={entry.title}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell
+                        className={`${classes.noBorders} ${
+                          classes.noRightPadding
+                        }`}
+                      >
                         <FormControl className={classes.weightForm}>
                           <InputLabel id="weight-project-input">
                             {intl.formatMessage({
@@ -352,7 +387,7 @@ const ScTypeToChoose = ({
                           </Select>
                         </FormControl>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className={classes.noBorders}>
                         <IconButton onClick={() => deleteProject(idx)}>
                           <Icon>clear</Icon>
                         </IconButton>
@@ -362,9 +397,13 @@ const ScTypeToChoose = ({
                 })}
               </TableBody>
             </Table>
-            <IconButton onClick={addProject}>
-              <AddIcon />
-            </IconButton>
+            <Tooltip
+              title={intl.formatMessage({ id: 'sctypetochoose.addfield' })}
+            >
+              <IconButton onClick={addProject}>
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
         {submitDisabled ? (
