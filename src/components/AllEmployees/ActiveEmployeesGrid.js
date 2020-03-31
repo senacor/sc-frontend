@@ -14,11 +14,16 @@ import {
   useUserinfoContext
 } from '../../helper/contextHooks';
 import { convertToStatusEnum } from '../../helper/filterData';
+import { JSS } from '../../styles/jsStyles';
 
 const styles = theme => ({
   gridContainer: {
     paddingTop: 2 * theme.spacing.unit,
-    textAlign: 'center'
+    textAlign: 'center',
+    overflow: 'auto'
+  },
+  normalizedContent: {
+    width: '100%'
   },
   showMore: {
     marginTop: theme.spacing.unit,
@@ -147,12 +152,12 @@ const ActiveEmployeesGrid = ({
 
   return (
     <Fragment>
-      <div className={classes.gridContainer}>
+      <div className={classes.gridContainer} id={JSS.CONTENT_ID}>
         {isLoading ? (
           <CircularProgress />
         ) : (
           <Fragment>
-            <Grid container spacing={16} justify="center">
+            <Grid container spacing={16} justify="center" className={classes.normalizedContent}>
               {filterActive ? filteredEmployeesData : employeesData}
             </Grid>
             {!filterActive && itemsShown < employees.length && (

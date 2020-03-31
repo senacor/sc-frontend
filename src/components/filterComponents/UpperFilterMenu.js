@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { Button, Paper, Typography, withStyles } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -8,6 +8,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import SortingFilter from './SortingFilter';
 import FilteredValuesViewer from './FilteredValuesViewer';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { JSS } from '../../styles/jsStyles';
 
 const styles = theme => ({
   searchSupervisorContainer: {
@@ -94,8 +95,11 @@ const UpperFilterMenu = ({
   sortingData,
   formerEmployees
 }) => {
+  useEffect(() => {
+    JSS.tableHeightAdaptationCallback();
+  });
   return (
-    <Paper className={classes.upperMenuPaper}>
+    <Paper className={classes.upperMenuPaper} id={JSS.FILTER_ID}>
       <div className={classes.upperMenuContainer}>
         <div>
           <SearchFilter

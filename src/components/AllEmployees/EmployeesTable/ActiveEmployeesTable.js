@@ -20,6 +20,8 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../../helper/contextHooks';
+import TableRow from '@material-ui/core/TableRow';
+import { JSS } from '../../../styles/jsStyles';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -27,17 +29,11 @@ const styles = theme => ({
     margin: 2 * theme.spacing.unit,
     overflow: 'auto'
   },
-  advFilterInvisible: {
-    height: 'calc(100vh - 1rem - 208px)'
-  },
-  advFilterVisible: {
-    height: 'calc(100vh - 1rem - 208px - 64px)'
-  },
-  advFilterMultipleLines: {
-    height: 'calc(100vh - 1rem - 208px - 128px)'
-  },
   table: {
     borderCollapse: 'separate'
+  },
+  dummyRow: {
+    height: 56
   }
 });
 
@@ -47,8 +43,7 @@ const ActiveEmployeesTable = ({
   filterInputs,
   employees,
   isLoading,
-  setSelectedEmployee,
-  visibleAdvancedFilter
+  setSelectedEmployee
 }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -154,18 +149,8 @@ const ActiveEmployeesTable = ({
       </div>
     );
   }
-
-  let filterVariantStyle;
-  if (!visibleAdvancedFilter) {
-    filterVariantStyle = classes.advFilterInvisible;
-  } else {
-    filterVariantStyle =
-      window.innerWidth <= 1280
-        ? classes.advFilterMultipleLines
-        : classes.advFilterVisible;
-  }
   return (
-    <Paper className={`${classes.paper} ${filterVariantStyle}`}>
+    <Paper className={classes.paper} id={JSS.CONTENT_ID}>
       <Table className={classes.table}>
         <EmployeesTableHead
           sortActive={sortActive}
@@ -174,6 +159,7 @@ const ActiveEmployeesTable = ({
           setSortDirection={setSortDirection}
         />
         <TableBody>
+          <TableRow className={classes.dummyRow} />
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>
       </Table>

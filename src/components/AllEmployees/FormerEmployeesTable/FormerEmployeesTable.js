@@ -15,12 +15,17 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { JSS } from '../../../styles/jsStyles';
+import TableRow from '@material-ui/core/TableRow';
 
 const styles = theme => ({
   ...theme.styledComponents,
   paper: {
     margin: 2 * theme.spacing.unit,
     overflow: 'auto'
+  },
+  dummyRow: {
+    height: 56
   }
 });
 
@@ -111,7 +116,7 @@ const FormerEmployeesTable = ({
     );
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} id={JSS.CONTENT_ID}>
       <Table className={classes.table}>
         <EmployeesTableHead
           formerEmployee
@@ -121,6 +126,7 @@ const FormerEmployeesTable = ({
           setSortDirection={setSortDirection}
         />
         <TableBody>
+          <TableRow className={classes.dummyRow} />
           {filterActive ? filteredEmployeesData : employeesData}
         </TableBody>
       </Table>

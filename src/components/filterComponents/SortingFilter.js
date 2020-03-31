@@ -18,7 +18,12 @@ const styles = theme => ({
     marginRight: 3 * theme.spacing.unit
   },
   input: {
-    width: 120
+    width: 135
+  },
+  dropdownIcon: {
+    '& div > svg': {
+      background: 'white'
+    }
   },
   chips: {
     display: 'flex',
@@ -50,7 +55,10 @@ const SortingFilter = ({
           value={stateValue}
           onChange={handleChange}
           input={
-            <Input id="select-multiple-positions" className={classes.input} />
+            <Input
+              id="select-multiple-positions"
+              className={`${classes.input} ${classes.dropdownIcon}`}
+            />
           }
           renderValue={selected => (
             <div className={classes.chips}>
