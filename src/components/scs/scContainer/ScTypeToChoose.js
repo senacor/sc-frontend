@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
@@ -258,7 +258,7 @@ const ScTypeToChoose = ({
       <div className={classes.tableDiv}>
         <Grid container>
           <Grid item xs={6}>
-            <Table style={{ marginRight: 35 }}>
+            <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>
