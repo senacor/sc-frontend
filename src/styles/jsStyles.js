@@ -53,8 +53,9 @@ export const JSS = {
     }
     const tableEl = document.getElementById(JSS.CONTENT_ID);
     if (tableEl) {
-      document.getElementById(JSS.TABLE_HEADER_ID).style.top =
-        '' + window.innerHeight - tableEl.clientHeight - 32 + 'px';
+      getById(JSS.TABLE_HEADER_ID).style.top =
+        '' + tableEl.getBoundingClientRect().top + 'px';
+      getById(JSS.TABLE_HEADER_ID).style.width = getStyle(tableEl, 'width');
     }
   }
 };

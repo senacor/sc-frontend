@@ -10,12 +10,15 @@ import { JSS } from '../../../styles/jsStyles';
 
 const styles = theme => ({
   tableHead: {
-    position: 'fixed',
-    top: 0,
     backgroundColor: theme.palette.secondary.white
   },
   tableCell: {
     fontSize: '0.8rem'
+  },
+  tableHeadContainer: {
+    position: 'fixed',
+    overflowX: 'hidden',
+    height: 64
   }
 });
 
@@ -76,89 +79,91 @@ const EmployeesTableHead = ({
   });
 
   return (
-    <TableHead className={classes.tableHead} id={JSS.TABLE_HEADER_ID}>
-      <TableRow className={classes.tableCell}>
-        <TableCell className={classes.tableCell} id={JSS.TTID.LASTNAME}>
-          <TableSortLabel
-            active={sortActive.lastName}
-            direction={sortDirection}
-            onClick={() => handleSort('lastName')}
-          >
-            {intl.formatMessage({ id: 'employeeInfo.name' })}
-          </TableSortLabel>
-        </TableCell>
-        <TableCell className={classes.tableCell} id={JSS.TTID.POSITION}>
-          <TableSortLabel
-            active={sortActive.position}
-            direction={sortDirection}
-            onClick={() => handleSort('position')}
-          >
-            {intl.formatMessage({ id: 'employeeInfo.position' })}
-          </TableSortLabel>
-        </TableCell>
-        {!formerEmployee && (
-          <TableCell className={classes.tableCell} id={JSS.TTID.SUPERVISOR}>
+    <div className={classes.tableHeadContainer} id={JSS.TABLE_HEADER_ID}>
+      <TableHead className={classes.tableHead}>
+        <TableRow className={classes.tableCell}>
+          <TableCell className={classes.tableCell} id={JSS.TTID.LASTNAME}>
             <TableSortLabel
-              active={sortActive.supervisorName}
+              active={sortActive.lastName}
               direction={sortDirection}
-              onClick={() => handleSort('supervisorName')}
+              onClick={() => handleSort('lastName')}
             >
-              {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
+              {intl.formatMessage({ id: 'employeeInfo.name' })}
             </TableSortLabel>
           </TableCell>
-        )}
-        <TableCell className={classes.tableCell} id={JSS.TTID.DEPARTMENT}>
-          <TableSortLabel
-            active={sortActive.department}
-            direction={sortDirection}
-            onClick={() => handleSort('department')}
-          >
-            {intl.formatMessage({ id: 'employeeInfo.department' })}
-          </TableSortLabel>
-        </TableCell>
-        <TableCell className={classes.tableCell} id={JSS.TTID.OFFICE}>
-          <TableSortLabel
-            active={sortActive.officeLocation}
-            direction={sortDirection}
-            onClick={() => handleSort('officeLocation')}
-          >
-            {intl.formatMessage({ id: 'employeeInfo.office' })}
-          </TableSortLabel>
-        </TableCell>
-        <TableCell className={classes.tableCell} id={JSS.TTID.DATE}>
-          {formerEmployee ? (
+          <TableCell className={classes.tableCell} id={JSS.TTID.POSITION}>
             <TableSortLabel
-              active={sortActive.endDate}
+              active={sortActive.position}
               direction={sortDirection}
-              onClick={() => handleSort('endDate')}
+              onClick={() => handleSort('position')}
             >
-              {intl.formatMessage({ id: 'employeeInfo.exitDate' })}
+              {intl.formatMessage({ id: 'employeeInfo.position' })}
             </TableSortLabel>
-          ) : (
-            <TableSortLabel
-              active={sortActive.entryDate}
-              direction={sortDirection}
-              onClick={() => handleSort('entryDate')}
-            >
-              {intl.formatMessage({ id: 'employeeInfo.entryDate' })}
-            </TableSortLabel>
-          )}
-        </TableCell>
-        {!formerEmployee && (
-          <Fragment>
-            <TableCell className={classes.tableCell} id={JSS.TTID.STATUS}>
+          </TableCell>
+          {!formerEmployee && (
+            <TableCell className={classes.tableCell} id={JSS.TTID.SUPERVISOR}>
               <TableSortLabel
-                active={sortActive.scStatus}
+                active={sortActive.supervisorName}
                 direction={sortDirection}
-                onClick={() => handleSort('scStatus')}
+                onClick={() => handleSort('supervisorName')}
               >
-                {intl.formatMessage({ id: 'employeeInfo.scStatus' })}
+                {intl.formatMessage({ id: 'employeeInfo.supervisor' })}
               </TableSortLabel>
             </TableCell>
-          </Fragment>
-        )}
-      </TableRow>
-    </TableHead>
+          )}
+          <TableCell className={classes.tableCell} id={JSS.TTID.DEPARTMENT}>
+            <TableSortLabel
+              active={sortActive.department}
+              direction={sortDirection}
+              onClick={() => handleSort('department')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.department' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell className={classes.tableCell} id={JSS.TTID.OFFICE}>
+            <TableSortLabel
+              active={sortActive.officeLocation}
+              direction={sortDirection}
+              onClick={() => handleSort('officeLocation')}
+            >
+              {intl.formatMessage({ id: 'employeeInfo.office' })}
+            </TableSortLabel>
+          </TableCell>
+          <TableCell className={classes.tableCell} id={JSS.TTID.DATE}>
+            {formerEmployee ? (
+              <TableSortLabel
+                active={sortActive.endDate}
+                direction={sortDirection}
+                onClick={() => handleSort('endDate')}
+              >
+                {intl.formatMessage({ id: 'employeeInfo.exitDate' })}
+              </TableSortLabel>
+            ) : (
+              <TableSortLabel
+                active={sortActive.entryDate}
+                direction={sortDirection}
+                onClick={() => handleSort('entryDate')}
+              >
+                {intl.formatMessage({ id: 'employeeInfo.entryDate' })}
+              </TableSortLabel>
+            )}
+          </TableCell>
+          {!formerEmployee && (
+            <Fragment>
+              <TableCell className={classes.tableCell} id={JSS.TTID.STATUS}>
+                <TableSortLabel
+                  active={sortActive.scStatus}
+                  direction={sortDirection}
+                  onClick={() => handleSort('scStatus')}
+                >
+                  {intl.formatMessage({ id: 'employeeInfo.scStatus' })}
+                </TableSortLabel>
+              </TableCell>
+            </Fragment>
+          )}
+        </TableRow>
+      </TableHead>
+    </div>
   );
 };
 
