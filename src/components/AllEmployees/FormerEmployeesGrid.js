@@ -9,11 +9,16 @@ import EmployeeCard from './EmployeeCard';
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import { Button, CircularProgress, withStyles } from '@material-ui/core';
+import { JSS } from '../../styles/jsStyles';
 
 const styles = theme => ({
   gridContainer: {
     paddingTop: 2 * theme.spacing.unit,
-    textAlign: 'center'
+    textAlign: 'center',
+    overflow: 'auto'
+  },
+  normalizedContent: {
+    width: '100%'
   },
   showMore: {
     marginTop: theme.spacing.unit,
@@ -89,12 +94,17 @@ const FormerEmployeesGrid = ({
     ));
 
   return (
-    <div className={classes.gridContainer}>
+    <div className={classes.gridContainer} id={JSS.CONTENT_ID}>
       {isLoading ? (
         <CircularProgress />
       ) : (
         <Fragment>
-          <Grid container spacing={16} justify="center">
+          <Grid
+            container
+            spacing={16}
+            justify="center"
+            className={classes.normalizedContent}
+          >
             {filterActive ? filteredEmployeesData : employeesData}
           </Grid>
           {!filterActive && itemsShown < employees.length && (

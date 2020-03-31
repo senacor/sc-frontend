@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 // Material UI
@@ -6,10 +6,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { JSS } from '../../../styles/jsStyles';
 
 const styles = theme => ({
   tableHead: {
-    position: 'sticky',
+    position: 'fixed',
     top: 0,
     backgroundColor: theme.palette.secondary.white
   },
@@ -70,10 +71,14 @@ const EmployeesTableHead = ({
     }
   };
 
+  useEffect(() => {
+    JSS.headerRowAdaptationCallback();
+  });
+
   return (
-    <TableHead className={classes.tableHead}>
+    <TableHead className={classes.tableHead} id={JSS.TABLE_HEADER_ID}>
       <TableRow className={classes.tableCell}>
-        <TableCell className={classes.tableCell}>
+        <TableCell className={classes.tableCell} id={JSS.TTID.LASTNAME}>
           <TableSortLabel
             active={sortActive.lastName}
             direction={sortDirection}
@@ -82,7 +87,7 @@ const EmployeesTableHead = ({
             {intl.formatMessage({ id: 'employeeInfo.name' })}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.tableCell}>
+        <TableCell className={classes.tableCell} id={JSS.TTID.POSITION}>
           <TableSortLabel
             active={sortActive.position}
             direction={sortDirection}
@@ -92,7 +97,7 @@ const EmployeesTableHead = ({
           </TableSortLabel>
         </TableCell>
         {!formerEmployee && (
-          <TableCell className={classes.tableCell}>
+          <TableCell className={classes.tableCell} id={JSS.TTID.SUPERVISOR}>
             <TableSortLabel
               active={sortActive.supervisorName}
               direction={sortDirection}
@@ -102,7 +107,7 @@ const EmployeesTableHead = ({
             </TableSortLabel>
           </TableCell>
         )}
-        <TableCell className={classes.tableCell}>
+        <TableCell className={classes.tableCell} id={JSS.TTID.DEPARTMENT}>
           <TableSortLabel
             active={sortActive.department}
             direction={sortDirection}
@@ -111,7 +116,7 @@ const EmployeesTableHead = ({
             {intl.formatMessage({ id: 'employeeInfo.department' })}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.tableCell}>
+        <TableCell className={classes.tableCell} id={JSS.TTID.OFFICE}>
           <TableSortLabel
             active={sortActive.officeLocation}
             direction={sortDirection}
@@ -120,7 +125,7 @@ const EmployeesTableHead = ({
             {intl.formatMessage({ id: 'employeeInfo.office' })}
           </TableSortLabel>
         </TableCell>
-        <TableCell className={classes.tableCell}>
+        <TableCell className={classes.tableCell} id={JSS.TTID.DATE}>
           {formerEmployee ? (
             <TableSortLabel
               active={sortActive.endDate}
@@ -141,7 +146,7 @@ const EmployeesTableHead = ({
         </TableCell>
         {!formerEmployee && (
           <Fragment>
-            <TableCell className={classes.tableCell}>
+            <TableCell className={classes.tableCell} id={JSS.TTID.STATUS}>
               <TableSortLabel
                 active={sortActive.scStatus}
                 direction={sortDirection}

@@ -52,7 +52,7 @@ const styles = theme => ({
 
 const EmployeeScsTable = ({ classes, intl, scs, history }) => {
   const error = useErrorContext();
-  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortDirection, setSortDirection] = useState('desc');
   const [sortActive, setSortActive] = useState({
     periodNameDialog: true,
     createdDateTime: false,

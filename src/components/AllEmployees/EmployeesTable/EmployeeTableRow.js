@@ -12,6 +12,7 @@ import { translateGeneralStatus } from '../../../helper/string';
 import EmployeeFilter from '../../admin/EmployeeFilter';
 import { changeSupervisor } from '../../../calls/employees';
 import ROUTES from '../../../helper/routes';
+import { JSS } from '../../../styles/jsStyles';
 
 const styles = theme => ({
   tableRow: {
@@ -88,10 +89,10 @@ const EmployeeTableRow = ({
         className={`${classes.tableRow} ${classes.notSelection}`}
         onClick={handleDialogOpen}
       >
-        <TableCell>{employeeName}</TableCell>
-        <TableCell>{position}</TableCell>
+        <TableCell id={JSS.TOID.LASTNAME}>{employeeName}</TableCell>
+        <TableCell id={JSS.TOID.POSITION}>{position}</TableCell>
         {!formerEmployee && (
-          <TableCell>
+          <TableCell id={JSS.TOID.SUPERVISOR}>
             <Typography>
               {user.hasRoleHr() ? (
                 <EmployeeFilter
@@ -115,15 +116,15 @@ const EmployeeTableRow = ({
             </Typography>
           </TableCell>
         )}
-        <TableCell>{department}</TableCell>
-        <TableCell>{officeLocation}</TableCell>
-        <TableCell>
+        <TableCell id={JSS.TOID.DEPARTMENT}>{department}</TableCell>
+        <TableCell id={JSS.TOID.OFFICE}>{officeLocation}</TableCell>
+        <TableCell id={JSS.TOID.DATE}>
           {formerEmployee
             ? formatLocaleDateTime(endDate, FRONTEND_DATE_FORMAT)
             : formatLocaleDateTime(entryDate, FRONTEND_DATE_FORMAT)}
         </TableCell>
         {!formerEmployee && (
-          <TableCell>
+          <TableCell id={JSS.TOID.STATUS}>
             {scStatus
               ? intl.formatMessage({ id: translateGeneralStatus(scStatus) })
               : intl.formatMessage({ id: 'employeeInfo.noScStatus' })}

@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   textValue: {
     color: theme.palette.secondary.darkGrey,
-    textAlign: 'center',
+    textAlign: 'left',
     display: 'flex'
   }
 });
