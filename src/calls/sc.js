@@ -1,4 +1,5 @@
 import { default as fetch } from '../helper/customFetch';
+import { SC_STATUS } from '../helper/scSheetData';
 
 export const savePerformanceData = async (
   scId,
@@ -234,10 +235,16 @@ export const addScType = async (
   afterScFetched
 ) => {
   try {
+    const statusDTO =
+      status === SC_STATUS.SC_WITHOUT_PR_PRESET
+        ? SC_STATUS.WITHOUT_PR
+        : status === SC_STATUS.SC_WITH_PR_PRESET
+        ? SC_STATUS.WITH_PR
+        : status;
     const response = await fetch(
       `${
         process.env.REACT_APP_API
-      }/api/v1/sc/${scId}/status?scStatus=${status}&classification=${classification}`,
+      }/api/v1/sc/${scId}/status?scStatus=${statusDTO}&classification=${classification}`,
       {
         method: 'post',
         mode: 'cors',
@@ -258,13 +265,58 @@ export const addScType = async (
   }
 };
 
+export const saveScInit = async (
+  scId,
+  status,
+  classification,
+  dailyBusinesses,
+  projects,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched,
+  info
+) => {
+  try {
+    const statusDTO =
+      status === SC_STATUS.WITHOUT_PR
+        ? SC_STATUS.SC_WITHOUT_PR_PRESET
+        : status === SC_STATUS.WITH_PR
+        ? SC_STATUS.SC_WITH_PR_PRESET
+        : status;
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/saveInit?scStatus=${statusDTO}&classification=${classification}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({
+          dailyBusinesses: dailyBusinesses,
+          projects: projects
+        })
+      }
+    );
+    if (response.ok) {
+      info.msg('sc.saved');
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const addScStatus = async (
   scId,
   status,
   setSc,
   setIsLoading,
   error,
-  afterScFetched
+  afterScFetched,
+  info
 ) => {
   try {
     const response = await fetch(
@@ -277,6 +329,7 @@ export const addScStatus = async (
       }
     );
     if (response.ok) {
+      info.msg('sc.saved');
       fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
     } else {
       error.showGeneral();

@@ -105,8 +105,6 @@ export const ErrorContext = newContext({
 });
 export const InfoContext = newContext({ hasInfos: false, messageId: '' });
 
-export const MeetingContext = newContext({});
-export const ScContext = newContext({});
 export const UserinfoContext = newContext({
   userinfo: {},
   userroles: [],
@@ -119,9 +117,7 @@ const App = () => {
       AuthorizationContext,
       ErrorContext,
       InfoContext,
-      MeetingContext,
       UserinfoContext,
-      ScContext,
       LanguageContext,
       VersionContext
     ],
