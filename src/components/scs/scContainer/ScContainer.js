@@ -25,6 +25,7 @@ const ScContainer = ({
   dailyBusinesses,
   setDailyBusinesses,
   projects,
+  handleSaveInit,
   setProjects
 }) => {
   const user = useUserinfoContext();
@@ -50,6 +51,7 @@ const ScContainer = ({
           handleChangeType={handleChangeType}
           scTypeSelected={scTypeSelected}
           handleSubmitScType={handleSubmitScType}
+          handleSaveInit={handleSaveInit}
           dailyBusinesses={dailyBusinesses}
           setDailyBusinesses={setDailyBusinesses}
           projects={projects}

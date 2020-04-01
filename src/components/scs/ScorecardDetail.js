@@ -3,8 +3,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import ScContainer from './scContainer/ScContainer';
 import ScDetailInformation from './ScDetailInformation';
-import { useErrorContext, useUserinfoContext } from '../../helper/contextHooks';
-import { addScType, fetchScById } from '../../calls/sc';
+import {
+  useErrorContext,
+  useInfoContext,
+  useUserinfoContext
+} from '../../helper/contextHooks';
+import { addScType, fetchScById, saveScInit } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { SC_STATUS, SC_TAB } from '../../helper/scSheetData';
 
@@ -23,6 +27,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const user = useUserinfoContext();
   const error = useErrorContext();
+  const info = useInfoContext();
 
   useEffect(() => {
     fetchScById(match.params.id, setSc, setIsLoading, error, afterScFetched);
@@ -37,6 +42,25 @@ const ScorecardDetail = ({ match, intl, classes }) => {
         : SC_TAB.SUMMARY
     );
     setClassification(sc.classification ? sc.classification : '');
+
+    const getScTypeState = () => {
+      const validStatuses = [
+        SC_STATUS.WITH_PR,
+        SC_STATUS.WITHOUT_PR,
+        SC_STATUS.SC_WITH_PR_PRESET,
+        SC_STATUS.SC_WITHOUT_PR_PRESET
+      ];
+      return validStatuses.reduce((acc, statusFlag) => {
+        if (acc) {
+          return acc;
+        }
+        if (sc.statusSet.includes(statusFlag)) {
+          acc = statusFlag;
+        }
+        return acc;
+      }, undefined);
+    };
+    setScTypeSelected(getScTypeState());
   };
 
   const handleChangeType = event => {
@@ -58,9 +82,25 @@ const ScorecardDetail = ({ match, intl, classes }) => {
         setSc,
         setIsLoading,
         error,
-        afterScFetched
+        afterScFetched,
+        info
       );
     }
+  };
+
+  const handleSaveInit = () => {
+    saveScInit(
+      sc.id,
+      scTypeSelected,
+      classification,
+      dailyBusinesses,
+      projects,
+      setSc,
+      setIsLoading,
+      error,
+      afterScFetched,
+      info
+    );
   };
 
   const handleChangeTab = (event, value) => {
@@ -86,6 +126,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               handleChangeType={handleChangeType}
               scTypeSelected={scTypeSelected}
               handleSubmitScType={handleSubmitScType}
+              handleSaveInit={handleSaveInit}
               setSc={setSc}
               setIsLoading={setIsLoading}
               afterScFetched={afterScFetched}

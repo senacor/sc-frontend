@@ -19,7 +19,7 @@ import { sortBySortActive } from '../../../helper/sorting';
 const styles = theme => ({
   ...theme,
   container: {
-    height: '70vh',
+    height: 'calc(100vh - 88px)',
     padding: 3 * theme.spacing.unit,
     overflowX: 'hidden',
     overflowY: 'auto'

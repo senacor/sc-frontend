@@ -112,6 +112,7 @@ const ScTypeToChoose = ({
   handleChangeType,
   scTypeSelected,
   handleSubmitScType,
+  handleSaveInit,
   dailyBusinesses,
   setDailyBusinesses,
   projects,
@@ -119,10 +120,26 @@ const ScTypeToChoose = ({
 }) => {
   const user = useUserinfoContext();
 
-  useEffect(() => {
-    setDailyBusinesses([{ title: '', weight: 0 }]);
-    setProjects([{ title: '', weight: 0 }]);
-  }, []);
+  useEffect(
+    () => {
+      if (sc && sc.privateReviewerData) {
+        const lProjects = sc.privateReviewerData.project;
+        const lDBs = sc.privateReviewerData.dailyBusiness;
+        setProjects(
+          lProjects && lProjects.length > 0
+            ? lProjects
+            : [{ title: '', weight: 0 }]
+        );
+        setDailyBusinesses(
+          lDBs && lDBs.length > 0 ? lDBs : [{ title: '', weight: 0 }]
+        );
+      } else {
+        setDailyBusinesses([{ title: '', weight: 0 }]);
+        setProjects([{ title: '', weight: 0 }]);
+      }
+    },
+    [sc]
+  );
 
   const addDailyBusiness = () => {
     const newDailyBusinesses = [...dailyBusinesses];
@@ -198,13 +215,105 @@ const ScTypeToChoose = ({
     <Button
       disabled={submitDisabled}
       onClick={handleSubmitScType}
-      color="secondary"
+      color="primary"
       variant="contained"
       className={classes.submitScType}
     >
-      {intl.formatMessage({ id: 'scsheet.submit' })}
+      {intl.formatMessage({ id: 'scsheet.publish' })}
     </Button>
   );
+
+  const saveButton = (
+    <Tooltip title={intl.formatMessage({ id: 'sctypetochoose.save.tooltip' })}>
+      <Button
+        onClick={handleSaveInit}
+        color="secondary"
+        variant="contained"
+        className={classes.submitScType}
+      >
+        {intl.formatMessage({ id: 'scsheet.save' })}
+      </Button>
+    </Tooltip>
+  );
+
+  const renderGoalSection = (
+    categoryId,
+    contentArray,
+    changeTitle,
+    setWeight,
+    deleteItem,
+    addItem
+  ) => {
+    return (
+      <Grid item xs={6}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Typography className={classes.boldText}>
+                  {intl.formatMessage({
+                    id: categoryId
+                  })}
+                </Typography>
+              </TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {contentArray.map((entry, idx) => {
+              return (
+                <TableRow key={idx}>
+                  <TableCell
+                    className={`${classes.noBorders} ${classes.noPadding}`}
+                  >
+                    <TextField
+                      variant="outlined"
+                      inputProps={{ className: classes.textFieldInput }}
+                      onChange={event => changeTitle(idx, event)}
+                      value={entry.title}
+                    />
+                  </TableCell>
+                  <TableCell
+                    className={`${classes.noBorders} ${classes.noRightPadding}`}
+                  >
+                    <FormControl className={classes.weightForm}>
+                      <InputLabel>
+                        {intl.formatMessage({
+                          id: 'scsheet.textheader.weight'
+                        })}
+                      </InputLabel>
+                      <Select
+                        value={contentArray[idx].weight}
+                        onChange={event => setWeight(idx, event)}
+                        renderValue={selected => <span>{selected}</span>}
+                        inputProps={{ className: classes.input }}
+                      >
+                        {[0.5, 1, 2, 3].map((val, index) => (
+                          <MenuItem key={index} value={val}>
+                            {val}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+                  <TableCell className={classes.noBorders}>
+                    <IconButton onClick={() => deleteItem(idx)}>
+                      <Icon>clear</Icon>
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+        <Tooltip title={intl.formatMessage({ id: 'sctypetochoose.addfield' })}>
+          <IconButton onClick={addItem}>
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
+      </Grid>
+    );
+  };
 
   return (
     <Paper className={classes.chooseScType}>
@@ -224,12 +333,26 @@ const ScTypeToChoose = ({
           >
             <FormControlLabel
               value={SC_STATUS.WITH_PR}
-              control={<Radio />}
+              control={
+                <Radio
+                  checked={
+                    scTypeSelected === SC_STATUS.WITH_PR ||
+                    scTypeSelected === SC_STATUS.SC_WITH_PR_PRESET
+                  }
+                />
+              }
               label={intl.formatMessage({ id: 'scsheet.sctype.withPR' })}
             />
             <FormControlLabel
               value={SC_STATUS.WITHOUT_PR}
-              control={<Radio />}
+              control={
+                <Radio
+                  checked={
+                    scTypeSelected === SC_STATUS.WITHOUT_PR ||
+                    scTypeSelected === SC_STATUS.SC_WITHOUT_PR_PRESET
+                  }
+                />
+              }
               label={intl.formatMessage({
                 id: 'scsheet.sctype.withoutPR'
               })}
@@ -257,155 +380,24 @@ const ScTypeToChoose = ({
       </div>
       <div className={classes.tableDiv}>
         <Grid container>
-          <Grid item xs={6}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <Typography className={classes.boldText}>
-                      {intl.formatMessage({
-                        id: 'scsheet.subtitle.dailyBusiness'
-                      })}
-                    </Typography>
-                  </TableCell>
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {dailyBusinesses.map((entry, idx) => {
-                  return (
-                    <TableRow key={idx}>
-                      <TableCell
-                        className={`${classes.noBorders} ${classes.noPadding}`}
-                      >
-                        <TextField
-                          variant="outlined"
-                          inputProps={{ className: classes.textFieldInput }}
-                          onChange={event =>
-                            onChangeDailyBusinessTitle(idx, event)
-                          }
-                          value={entry.title}
-                        />
-                      </TableCell>
-                      <TableCell
-                        className={`${classes.noBorders} ${
-                          classes.noRightPadding
-                        }`}
-                      >
-                        <FormControl className={classes.weightForm}>
-                          <InputLabel id="weight-daily-business-input">
-                            {intl.formatMessage({
-                              id: 'scsheet.textheader.weight'
-                            })}
-                          </InputLabel>
-                          <Select
-                            id="weight-daily-business-input"
-                            value={dailyBusinesses[idx].weight}
-                            onChange={event =>
-                              setDailyBusinessWeight(idx, event)
-                            }
-                            renderValue={selected => <span>{selected}</span>}
-                            inputProps={{ className: classes.input }}
-                          >
-                            {[0.5, 1, 2, 3].map((val, index) => (
-                              <MenuItem key={index} value={val}>
-                                {val}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                      <TableCell className={classes.noBorders}>
-                        <IconButton onClick={() => deleteDailyBusiness(idx)}>
-                          <Icon>clear</Icon>
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-            <Tooltip
-              title={intl.formatMessage({ id: 'sctypetochoose.addfield' })}
-            >
-              <IconButton onClick={addDailyBusiness}>
-                <AddIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
-          <Grid item xs={6}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <Typography className={classes.boldText}>
-                      {intl.formatMessage({
-                        id: 'scsheet.subtitle.project'
-                      })}
-                    </Typography>
-                  </TableCell>
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {projects.map((entry, idx) => {
-                  return (
-                    <TableRow key={idx}>
-                      <TableCell
-                        className={`${classes.noBorders} ${classes.noPadding}`}
-                      >
-                        <TextField
-                          variant="outlined"
-                          inputProps={{ className: classes.textFieldInput }}
-                          onChange={event => onChangeProjectTitle(idx, event)}
-                          value={entry.title}
-                        />
-                      </TableCell>
-                      <TableCell
-                        className={`${classes.noBorders} ${
-                          classes.noRightPadding
-                        }`}
-                      >
-                        <FormControl className={classes.weightForm}>
-                          <InputLabel id="weight-project-input">
-                            {intl.formatMessage({
-                              id: 'scsheet.textheader.weight'
-                            })}
-                          </InputLabel>
-                          <Select
-                            id="weight-procet-input"
-                            value={projects[idx].weight}
-                            onChange={event => setProjectWeight(idx, event)}
-                            renderValue={selected => <span>{selected}</span>}
-                            inputProps={{ className: classes.input }}
-                          >
-                            {[0.5, 1, 2, 3].map((val, index) => (
-                              <MenuItem key={index} value={val}>
-                                {val}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                      <TableCell className={classes.noBorders}>
-                        <IconButton onClick={() => deleteProject(idx)}>
-                          <Icon>clear</Icon>
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-            <Tooltip
-              title={intl.formatMessage({ id: 'sctypetochoose.addfield' })}
-            >
-              <IconButton onClick={addProject}>
-                <AddIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
+          {renderGoalSection(
+            'scsheet.subtitle.dailyBusiness',
+            dailyBusinesses,
+            onChangeDailyBusinessTitle,
+            setDailyBusinessWeight,
+            deleteDailyBusiness,
+            addDailyBusiness
+          )}
+          {renderGoalSection(
+            'scsheet.subtitle.project',
+            projects,
+            onChangeProjectTitle,
+            setProjectWeight,
+            deleteProject,
+            addProject
+          )}
         </Grid>
+        <span>{saveButton}</span>
         {submitDisabled ? (
           <Tooltip title={intl.formatMessage({ id: 'sctypetochoose.tooltip' })}>
             <span>{submitButton}</span>
