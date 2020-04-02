@@ -74,9 +74,6 @@ const styles = theme => ({
     marginBottom: 1 * theme.spacing.unit,
     borderRadius: 1 * theme.spacing.unit
   },
-  higherContainer: {
-    marginBottom: 2 * theme.spacing.unit
-  },
   checkAllLabel: {
     color: 'rgba(0, 0, 0, 0.54)',
     fontSize: '0.775rem'
@@ -259,22 +256,20 @@ const IgnoreListTable = ({ classes, intl, employees }) => {
     };
     return (
       <div className={classes.upperMenuContainer}>
-        <div className={classes.higherContainer}>
-          <SearchFilter
-            searchValue={searchEmployeesValue}
-            searchChange={event => setSearchEmployeesValue(event.target.value)}
-            placeholder={intl.formatMessage({
-              id: 'scignorelist.name'
-            })}
-          />
-          <SearchFilter
-            searchValue={searchSupervisorValue}
-            searchChange={event => setSearchSupervisorValue(event.target.value)}
-            placeholder={intl.formatMessage({
-              id: 'scignorelist.supervisor'
-            })}
-          />
-        </div>
+        <SearchFilter
+          searchValue={searchEmployeesValue}
+          searchChange={event => setSearchEmployeesValue(event.target.value)}
+          placeholder={intl.formatMessage({
+            id: 'scignorelist.name'
+          })}
+        />
+        <SearchFilter
+          searchValue={searchSupervisorValue}
+          searchChange={event => setSearchSupervisorValue(event.target.value)}
+          placeholder={intl.formatMessage({
+            id: 'scignorelist.supervisor'
+          })}
+        />
         <SortingFilter
           sortBy={'employeeInfo.department'}
           menuData={departments}

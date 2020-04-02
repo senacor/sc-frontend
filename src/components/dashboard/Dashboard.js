@@ -25,7 +25,8 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 30
+    marginBottom: 30,
+    width: '90%'
   },
   columnContainer: {
     display: 'flex',
