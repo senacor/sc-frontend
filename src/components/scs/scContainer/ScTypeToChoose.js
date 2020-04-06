@@ -403,7 +403,13 @@ const ScTypeToChoose = ({
             <span>{submitButton}</span>
           </Tooltip>
         ) : (
-          submitButton
+          <Tooltip
+            title={intl.formatMessage({
+              id: 'scsheet.tooltip.publish.reviewer'
+            })}
+          >
+            <span>{submitButton}</span>
+          </Tooltip>
         )}
       </div>
     </Paper>
