@@ -321,7 +321,8 @@ const ScSheetWithPr = ({
           setSc,
           setIsLoading,
           error,
-          afterScFetched
+          afterScFetched,
+          info
         );
       } else if (user.isReviewerInSc(sc)) {
         addScStatus(
@@ -330,7 +331,8 @@ const ScSheetWithPr = ({
           setSc,
           setIsLoading,
           error,
-          afterScFetched
+          afterScFetched,
+          info
         );
       }
     });
@@ -344,7 +346,8 @@ const ScSheetWithPr = ({
         setSc,
         setIsLoading,
         error,
-        afterScFetched
+        afterScFetched,
+        info
       );
     }
   };
