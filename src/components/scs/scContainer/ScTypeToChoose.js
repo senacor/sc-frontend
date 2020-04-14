@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
@@ -8,8 +8,12 @@ import {
   Grid,
   IconButton,
   InputLabel,
+  List,
+  ListItem,
+  ListItemText,
   MenuItem,
   Paper,
+  Popover,
   Radio,
   RadioGroup,
   Select,
@@ -100,6 +104,31 @@ const styles = theme => ({
   },
   noRightPadding: {
     paddingRight: 0
+  },
+  captionContainer: {
+    padding: 2 * theme.spacing.unit,
+    paddingTop: 0,
+    display: 'flex',
+    justifyContent: 'end'
+  },
+  captionTitle: {
+    marginTop: theme.spacing.unit
+  },
+  captionGeneral: {
+    borderStyle: 'solid',
+    borderWidth: 1,
+    marginRight: 2 * theme.spacing.unit,
+    padding: 1.5 * theme.spacing.unit,
+    borderRadius: 0.75 * theme.spacing.unit,
+    marginLeft: 0.5 * theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
+  },
+  backgroundYellow: {
+    backgroundColor: '#ffba0017'
+  },
+  backgroundGray: {
+    backgroundColor: 'rgba(0, 0, 0, 0.13)'
   }
 });
 
@@ -118,6 +147,8 @@ const ScTypeToChoose = ({
   projects,
   setProjects
 }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const user = useUserinfoContext();
 
   useEffect(
@@ -195,6 +226,78 @@ const ScTypeToChoose = ({
     setProjects(newProjects);
   };
 
+  const bgClass = (type, idx) => {
+    if (type === 'classification') {
+      if (classification === sc.template.classification) {
+        return classes.backgroundGray;
+      }
+      if (classification === sc.classification) {
+        return '';
+      }
+      return classes.backgroundYellow;
+    }
+
+    if (type === 'dailyBusinessTitle') {
+      if (
+        idx < sc.template.dailyBusiness.length &&
+        dailyBusinesses[idx].title === sc.template.dailyBusiness[idx].title
+      ) {
+        return classes.backgroundGray;
+      }
+      if (
+        dailyBusinesses[idx].title ===
+        sc.publishedReviewerData.dailyBusiness[idx].title
+      ) {
+        return '';
+      }
+      return classes.backgroundYellow;
+    }
+
+    if (type === 'projectTitle') {
+      if (
+        idx < sc.template.project.length &&
+        projects[idx].title === sc.template.project[idx].title
+      ) {
+        return classes.backgroundGray;
+      }
+      if (projects[idx].title === sc.publishedReviewerData.project[idx].title) {
+        return '';
+      }
+      return classes.backgroundYellow;
+    }
+
+    if (type === 'dailyBusinessWeight') {
+      if (
+        idx < sc.template.dailyBusiness.length &&
+        dailyBusinesses[idx].weight === sc.template.dailyBusiness[idx].weight
+      ) {
+        return classes.backgroundGray;
+      }
+      if (
+        dailyBusinesses[idx].weight ===
+        sc.publishedReviewerData.dailyBusiness[idx].weight
+      ) {
+        return '';
+      }
+      return classes.backgroundYellow;
+    }
+
+    if (type === 'projectTitle') {
+      if (
+        idx < sc.template.project.length &&
+        projects[idx].weight === sc.template.project[idx].weight
+      ) {
+        return classes.backgroundGray;
+      }
+      if (
+        projects[idx].weight === sc.publishedReviewerData.project[idx].weight
+      ) {
+        return '';
+      }
+      return classes.backgroundYellow;
+    }
+  };
+
   const containsEmptyValues = array => {
     const entryWithEmptyValues = array.find(
       entry => entry.title.trim() === '' || entry.weight === 0
@@ -236,6 +339,28 @@ const ScTypeToChoose = ({
     </Tooltip>
   );
 
+  const openImportDialog = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const importButton = (
+    <Button onClick={openImportDialog} color="primary" variant="contained">
+      {intl.formatMessage({ id: 'scsheet.import' })}
+    </Button>
+  );
+
+  const importLastSc = () => {
+    // TODO
+  };
+
+  const importOtherSc = () => {
+    // TODO
+  };
+
   const renderGoalSection = (
     categoryId,
     contentArray,
@@ -271,6 +396,10 @@ const ScTypeToChoose = ({
                       inputProps={{ className: classes.textFieldInput }}
                       onChange={event => changeTitle(idx, event)}
                       value={entry.title}
+                      className={bgClass(
+                        `${categoryId.split('.')[2]}Title`,
+                        idx
+                      )}
                     />
                   </TableCell>
                   <TableCell
@@ -287,6 +416,10 @@ const ScTypeToChoose = ({
                         onChange={event => setWeight(idx, event)}
                         renderValue={selected => <span>{selected}</span>}
                         inputProps={{ className: classes.input }}
+                        className={bgClass(
+                          `${categoryId.split('.')[2]}Weight`,
+                          idx
+                        )}
                       >
                         {[0.5, 1, 2, 3].map((val, index) => (
                           <MenuItem key={index} value={val}>
@@ -314,6 +447,23 @@ const ScTypeToChoose = ({
       </Grid>
     );
   };
+
+  const caption = (
+    <div className={classes.captionContainer}>
+      <div className={classes.captionTitle}>
+        {intl.formatMessage({ id: 'scsheet.caption.title' })}
+      </div>
+      <div className={`${classes.captionGeneral} ${classes.backgroundGray}`}>
+        {intl.formatMessage({ id: 'scsheet.caption.imported' })}
+      </div>
+      <div className={`${classes.captionGeneral}`}>
+        {intl.formatMessage({ id: 'scsheet.caption.saved' })}
+      </div>
+      <div className={`${classes.captionGeneral} ${classes.backgroundYellow}`}>
+        {intl.formatMessage({ id: 'scsheet.caption.notsaved' })}
+      </div>
+    </div>
+  );
 
   return (
     <Paper className={classes.chooseScType}>
@@ -369,6 +519,7 @@ const ScTypeToChoose = ({
             value={classification}
             disabled={!user.isReviewerInSc(sc)}
             onChange={handleChangeClassification}
+            className={bgClass('classification')}
           >
             {classifications.map((pos, index) => (
               <MenuItem key={index} value={pos.toUpperCase()}>
@@ -397,6 +548,7 @@ const ScTypeToChoose = ({
             addProject
           )}
         </Grid>
+        {caption}
         <span>{saveButton}</span>
         {submitDisabled ? (
           <Tooltip title={intl.formatMessage({ id: 'sctypetochoose.tooltip' })}>
@@ -411,7 +563,30 @@ const ScTypeToChoose = ({
             <span>{submitButton}</span>
           </Tooltip>
         )}
+        <span>{importButton}</span>
       </div>
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+      >
+        <List>
+          <ListItem dense button onClick={importLastSc}>
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'scsheet.import.last'
+              })}
+            />
+          </ListItem>
+          <ListItem dense button onClick={importOtherSc}>
+            <ListItemText
+              primary={intl.formatMessage({
+                id: 'scsheet.import.other'
+              })}
+            />
+          </ListItem>
+        </List>
+      </Popover>
     </Paper>
   );
 };
