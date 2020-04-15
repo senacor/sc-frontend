@@ -178,8 +178,36 @@ export const fetchScById = async (
     );
     const responseScData = await response.json();
     setIsLoading(false);
-    setSc(responseScData);
-    afterScFetched(responseScData);
+
+    const scWithTemplate = {
+      ...responseScData,
+      initScTemplate: {
+        classification: 'SPECIALIST',
+        data: {
+          dailyBusiness: [
+            { title: 'DB1', weight: 1 },
+            { title: 'DB2', weight: 2 }
+          ],
+          project: [{ title: 'P1', weight: 3 }]
+        },
+        importType: 'last'
+      }
+      // initScTemplate: null
+    };
+    if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
+      scWithTemplate.publishedReviewerData.dailyBusiness.push({
+        title: '',
+        weight: 0
+      });
+    }
+    if (scWithTemplate.publishedReviewerData.project.length === 0) {
+      scWithTemplate.publishedReviewerData.project.push({
+        title: '',
+        weight: 0
+      });
+    }
+    setSc(scWithTemplate);
+    afterScFetched(scWithTemplate);
   } catch (err) {
     console.log(err);
     setIsLoading(false);

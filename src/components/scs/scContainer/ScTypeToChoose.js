@@ -148,6 +148,7 @@ const ScTypeToChoose = ({
   setProjects
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [imported, setImported] = useState(false);
 
   const user = useUserinfoContext();
 
@@ -172,6 +173,12 @@ const ScTypeToChoose = ({
     [sc]
   );
 
+  useEffect(() => {
+    if (sc.initScTemplate) {
+      setImported(true);
+    }
+  }, []);
+
   const addDailyBusiness = () => {
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses.push({
@@ -193,34 +200,44 @@ const ScTypeToChoose = ({
   const deleteDailyBusiness = idx => {
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses.splice(idx, 1);
+    if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
+      sc.initScTemplate.data.dailyBusiness.splice(idx, 1);
+    }
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const deleteProject = idx => {
     const newProjects = [...projects];
     newProjects.splice(idx, 1);
+    if (imported && idx < sc.initScTemplate.data.project.length) {
+      sc.initScTemplate.data.project.splice(idx, 1);
+    }
     setProjects(newProjects);
   };
 
   const onChangeDailyBusinessTitle = (idx, event) => {
+    sc.initScTemplate.data.dailyBusiness[idx].title = null;
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses[idx].title = event.target.value;
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const setDailyBusinessWeight = (idx, event) => {
+    sc.initScTemplate.data.dailyBusiness[idx].weight = null;
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses[idx].weight = event.target.value;
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const onChangeProjectTitle = (idx, event) => {
+    sc.initScTemplate.data.project[idx].title = null;
     const newProjects = [...projects];
     newProjects[idx].title = event.target.value;
     setProjects(newProjects);
   };
 
   const setProjectWeight = (idx, event) => {
+    sc.initScTemplate.data.project[idx].weight = null;
     const newProjects = [...projects];
     newProjects[idx].weight = event.target.value;
     setProjects(newProjects);
@@ -228,10 +245,13 @@ const ScTypeToChoose = ({
 
   const bgClass = (type, idx) => {
     if (type === 'classification') {
-      if (classification === sc.template.classification) {
+      if (imported && classification === sc.initScTemplate.classification) {
         return classes.backgroundGray;
       }
-      if (classification === sc.classification) {
+      if (
+        (classification === '' && sc.classification === null) ||
+        classification === sc.classification
+      ) {
         return '';
       }
       return classes.backgroundYellow;
@@ -239,14 +259,17 @@ const ScTypeToChoose = ({
 
     if (type === 'dailyBusinessTitle') {
       if (
-        idx < sc.template.dailyBusiness.length &&
-        dailyBusinesses[idx].title === sc.template.dailyBusiness[idx].title
+        imported &&
+        idx < sc.initScTemplate.data.dailyBusiness.length &&
+        dailyBusinesses[idx].title ===
+          sc.initScTemplate.data.dailyBusiness[idx].title
       ) {
         return classes.backgroundGray;
       }
       if (
+        idx < sc.publishedReviewerData.dailyBusiness.length &&
         dailyBusinesses[idx].title ===
-        sc.publishedReviewerData.dailyBusiness[idx].title
+          sc.publishedReviewerData.dailyBusiness[idx].title
       ) {
         return '';
       }
@@ -255,12 +278,16 @@ const ScTypeToChoose = ({
 
     if (type === 'projectTitle') {
       if (
-        idx < sc.template.project.length &&
-        projects[idx].title === sc.template.project[idx].title
+        imported &&
+        idx < sc.initScTemplate.data.project.length &&
+        projects[idx].title === sc.initScTemplate.data.project[idx].title
       ) {
         return classes.backgroundGray;
       }
-      if (projects[idx].title === sc.publishedReviewerData.project[idx].title) {
+      if (
+        idx < sc.publishedReviewerData.project.length &&
+        projects[idx].title === sc.publishedReviewerData.project[idx].title
+      ) {
         return '';
       }
       return classes.backgroundYellow;
@@ -268,28 +295,33 @@ const ScTypeToChoose = ({
 
     if (type === 'dailyBusinessWeight') {
       if (
-        idx < sc.template.dailyBusiness.length &&
-        dailyBusinesses[idx].weight === sc.template.dailyBusiness[idx].weight
+        imported &&
+        idx < sc.initScTemplate.data.dailyBusiness.length &&
+        dailyBusinesses[idx].weight ===
+          sc.initScTemplate.data.dailyBusiness[idx].weight
       ) {
         return classes.backgroundGray;
       }
       if (
+        idx < sc.publishedReviewerData.dailyBusiness.length &&
         dailyBusinesses[idx].weight ===
-        sc.publishedReviewerData.dailyBusiness[idx].weight
+          sc.publishedReviewerData.dailyBusiness[idx].weight
       ) {
         return '';
       }
       return classes.backgroundYellow;
     }
 
-    if (type === 'projectTitle') {
+    if (type === 'projectWeight') {
       if (
-        idx < sc.template.project.length &&
-        projects[idx].weight === sc.template.project[idx].weight
+        imported &&
+        idx < sc.initScTemplate.data.project.length &&
+        projects[idx].weight === sc.initScTemplate.data.project[idx].weight
       ) {
         return classes.backgroundGray;
       }
       if (
+        idx < sc.publishedReviewerData.project.length &&
         projects[idx].weight === sc.publishedReviewerData.project[idx].weight
       ) {
         return '';

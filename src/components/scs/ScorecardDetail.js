@@ -68,6 +68,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleChangeClassification = event => {
+    sc.initScTemplate.classification = null;
     setClassification(event.target.value);
   };
 
