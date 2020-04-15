@@ -63,7 +63,9 @@ const StatusStepper = ({ classes, intl, sc }) => {
     }
 
     //general status: INITIALIZATION
-    if (sc.statusSet.length === 0) {
+    if (sc.statusSet.length === 0 || 
+        (!sc.statusSet.includes(SC_STATUS.WITHOUT_PR) 
+          && !sc.statusSet.includes(SC_STATUS.WITH_PR))) {
       setActiveStep(steps[0].index);
       return;
     }
