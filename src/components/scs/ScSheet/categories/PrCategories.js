@@ -10,6 +10,7 @@ import { CATEGORY } from '../../../../helper/scSheetData';
 import { Button } from '@material-ui/core';
 import PercentageDialog from '../PercentageDialog';
 import { useUserinfoContext } from '../../../../helper/contextHooks';
+import { isReady } from '../evaluationsCheck';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -101,6 +102,7 @@ const PrCategories = React.memo(
         </Grid>
         <ScRow
           isReviewer={isReviewer}
+          isScEvaluated={isReady(sc)}
           fieldsDisabled={fieldsDisabled}
           row={skillsInTheFieldsFields}
           type={CATEGORY.SKILLS_IN_THE_FIELDS}
@@ -118,6 +120,7 @@ const PrCategories = React.memo(
         <Divider />
         <ScRow
           isReviewer={isReviewer}
+          isScEvaluated={isReady(sc)}
           fieldsDisabled={fieldsDisabled}
           row={impactOnTeamFields}
           type={CATEGORY.TEAM_IMPACT}
@@ -135,6 +138,7 @@ const PrCategories = React.memo(
         <Divider />
         <ScRow
           isReviewer={isReviewer}
+          isScEvaluated={isReady(sc)}
           fieldsDisabled={fieldsDisabled}
           row={serviceQualityFields}
           type={CATEGORY.SERVICE_QUALITY}
@@ -152,6 +156,7 @@ const PrCategories = React.memo(
         <Divider />
         <ScRow
           isReviewer={isReviewer}
+          isScEvaluated={isReady(sc)}
           fieldsDisabled={fieldsDisabled}
           row={impactOnCompanyFields}
           type={CATEGORY.COMPANY_IMPACT}

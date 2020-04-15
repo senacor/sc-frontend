@@ -14,6 +14,7 @@ const ScRows = memo(
     fieldsDisabled,
     removeSubcategory,
     isReviewer,
+    isScEvaluated,
     fieldsAmount,
     handleChangeWeight
   }) => {
@@ -25,6 +26,7 @@ const ScRows = memo(
               key={index}
               index={index}
               isReviewer={isReviewer}
+              isScEvaluated={isScEvaluated}
               removable={fields.length > 1}
               row={row}
               fieldsDisabled={fieldsDisabled}

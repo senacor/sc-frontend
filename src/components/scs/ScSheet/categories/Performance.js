@@ -18,6 +18,7 @@ import ConfirmDialog from '../../../utils/ConfirmDialog';
 import TextInputDialog from '../../../utils/TextInputDialog';
 import PercentageDialog from '../PercentageDialog';
 import { useUserinfoContext } from '../../../../helper/contextHooks';
+import { isReady } from '../evaluationsCheck';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -152,6 +153,7 @@ const Performance = memo(
         </Typography>
         <ScRows
           isReviewer={isReviewer}
+          isScEvaluated={isReady(sc)}
           fieldsDisabled={fieldsDisabled}
           fields={dailyBusinessFields}
           fieldsAmount={dailyBusinessFields.length}
@@ -186,6 +188,7 @@ const Performance = memo(
         </Typography>
         <ScRows
           isReviewer={isReviewer}
+          isScEvaluated={isReady(sc)}
           fieldsDisabled={fieldsDisabled}
           fields={projectFields}
           fieldsAmount={projectFields.length}

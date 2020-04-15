@@ -16,6 +16,7 @@ const WorkQuality = memo(
     handleChangeWorkQuality,
     fieldsDisabled,
     isReviewer,
+    isScEvaluated,
     handleChangeWeight
   }) => {
     return (
@@ -25,6 +26,7 @@ const WorkQuality = memo(
         </Typography>
         <ScRow
           isReviewer={isReviewer}
+          isScEvaluated={isScEvaluated}
           fieldsDisabled={fieldsDisabled}
           type={CATEGORY.WORK_QUALITY}
           row={workQualityFields}
