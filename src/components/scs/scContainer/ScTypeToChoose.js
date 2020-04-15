@@ -199,7 +199,8 @@ const ScTypeToChoose = ({
 
   const deleteDailyBusiness = idx => {
     const newDailyBusinesses = [...dailyBusinesses];
-    newDailyBusinesses.splice(idx, 1);
+    // newDailyBusinesses.splice(idx, 1);
+    newDailyBusinesses[idx] = null;
     if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness.splice(idx, 1);
     }
@@ -208,7 +209,8 @@ const ScTypeToChoose = ({
 
   const deleteProject = idx => {
     const newProjects = [...projects];
-    newProjects.splice(idx, 1);
+    // newProjects.splice(idx, 1);
+    newProjects[idx] = null;
     if (imported && idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project.splice(idx, 1);
     }
@@ -216,28 +218,36 @@ const ScTypeToChoose = ({
   };
 
   const onChangeDailyBusinessTitle = (idx, event) => {
-    sc.initScTemplate.data.dailyBusiness[idx].title = null;
+    if (imported) {
+      sc.initScTemplate.data.dailyBusiness[idx].title = null;
+    }
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses[idx].title = event.target.value;
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const setDailyBusinessWeight = (idx, event) => {
-    sc.initScTemplate.data.dailyBusiness[idx].weight = null;
+    if (imported) {
+      sc.initScTemplate.data.dailyBusiness[idx].weight = null;
+    }
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses[idx].weight = event.target.value;
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const onChangeProjectTitle = (idx, event) => {
-    sc.initScTemplate.data.project[idx].title = null;
+    if (imported) {
+      sc.initScTemplate.data.project[idx].title = null;
+    }
     const newProjects = [...projects];
     newProjects[idx].title = event.target.value;
     setProjects(newProjects);
   };
 
   const setProjectWeight = (idx, event) => {
-    sc.initScTemplate.data.project[idx].weight = null;
+    if (imported) {
+      sc.initScTemplate.data.project[idx].weight = null;
+    }
     const newProjects = [...projects];
     newProjects[idx].weight = event.target.value;
     setProjects(newProjects);
@@ -331,9 +341,12 @@ const ScTypeToChoose = ({
   };
 
   const containsEmptyValues = array => {
-    const entryWithEmptyValues = array.find(
-      entry => entry.title.trim() === '' || entry.weight === 0
-    );
+    const entryWithEmptyValues = array.find(entry => {
+      if (entry === null) {
+        return false;
+      }
+      return entry.title.trim() === '' || entry.weight === 0;
+    });
 
     return Boolean(entryWithEmptyValues);
   };
@@ -418,6 +431,9 @@ const ScTypeToChoose = ({
           </TableHead>
           <TableBody>
             {contentArray.map((entry, idx) => {
+              if (entry === null) {
+                return '';
+              }
               return (
                 <TableRow key={idx}>
                   <TableCell

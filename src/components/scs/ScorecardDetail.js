@@ -68,7 +68,9 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleChangeClassification = event => {
-    sc.initScTemplate.classification = null;
+    if (sc.initScTemplate) {
+      sc.initScTemplate.classification = null;
+    }
     setClassification(event.target.value);
   };
 
@@ -90,12 +92,16 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleSaveInit = () => {
+    const dailyBusinessesWithoutNulls = [...dailyBusinesses].filter(
+      entry => entry !== null
+    );
+    const projectsWithoutNulls = [...projects].filter(entry => entry !== null);
     saveScInit(
       sc.id,
       scTypeSelected,
       classification,
-      dailyBusinesses,
-      projects,
+      dailyBusinessesWithoutNulls,
+      projectsWithoutNulls,
       setSc,
       setIsLoading,
       error,
