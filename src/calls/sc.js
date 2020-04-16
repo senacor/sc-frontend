@@ -329,6 +329,19 @@ export const saveScInit = async (
         : status === SC_STATUS.WITH_PR
         ? SC_STATUS.SC_WITH_PR_PRESET
         : status;
+
+    const template = initScTemplate
+      ? {
+          dailyBusinesses: initScTemplate.data.dailyBusiness.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          })),
+          projects: initScTemplate.data.project.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          }))
+        }
+      : null;
     const response = await fetch(
       `${
         process.env.REACT_APP_API
@@ -341,12 +354,7 @@ export const saveScInit = async (
             dailyBusinesses: dailyBusinesses,
             projects: projects
           },
-          template: initScTemplate
-            ? {
-                dailyBusinesses: initScTemplate.dailyBusiness,
-                projects: initScTemplate.project
-              }
-            : null
+          template: template
         })
       }
     );

@@ -157,8 +157,18 @@ const ScTypeToChoose = ({
   useEffect(
     () => {
       if (sc && sc.publishedReviewerData) {
-        const lProjects = [...sc.publishedReviewerData.project];
-        const lDBs = [...sc.publishedReviewerData.dailyBusiness];
+        const lProjects = [
+          ...sc.publishedReviewerData.project.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          }))
+        ];
+        const lDBs = [
+          ...sc.publishedReviewerData.dailyBusiness.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          }))
+        ];
         setProjects(
           lProjects && lProjects.length > 0
             ? lProjects
