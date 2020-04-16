@@ -186,6 +186,7 @@ const ScTypeToChoose = ({
           let weight;
           if (
             sc.initScTemplate &&
+            idx < sc.initScTemplate.data.dailyBusiness.length &&
             entry.title === sc.initScTemplate.data.dailyBusiness[idx].title
           ) {
             title = 'IMPORTED';
@@ -194,6 +195,7 @@ const ScTypeToChoose = ({
           }
           if (
             sc.initScTemplate &&
+            idx < sc.initScTemplate.data.dailyBusiness.length &&
             entry.weight === sc.initScTemplate.data.dailyBusiness[idx].weight
           ) {
             weight = 'IMPORTED';
@@ -208,6 +210,7 @@ const ScTypeToChoose = ({
         let weight;
         if (
           sc.initScTemplate &&
+          idx < sc.initScTemplate.data.project.length &&
           entry.title === sc.initScTemplate.data.project[idx].title
         ) {
           title = 'IMPORTED';
@@ -216,6 +219,7 @@ const ScTypeToChoose = ({
         }
         if (
           sc.initScTemplate &&
+          idx < sc.initScTemplate.data.project.length &&
           entry.weight === sc.initScTemplate.data.project[idx].weight
         ) {
           weight = 'IMPORTED';
@@ -227,7 +231,7 @@ const ScTypeToChoose = ({
       let initClassification;
       if (
         sc.initScTemplate &&
-        sc.classification === sc.initScTemplate.classification
+        classification === sc.initScTemplate.classification
       ) {
         initClassification = 'IMPORTED';
       } else {
@@ -387,49 +391,97 @@ const ScTypeToChoose = ({
     }
 
     if (type === 'dailyBusinessTitle') {
-      if (fieldsState && fieldsState.dailyBusiness[idx].title === 'IMPORTED') {
+      if (
+        fieldsState &&
+        fieldsState.dailyBusiness[idx] &&
+        fieldsState.dailyBusiness[idx].title === 'IMPORTED'
+      ) {
         return classes.backgroundGray;
       }
-      if (fieldsState && fieldsState.dailyBusiness[idx].title === 'SAVED') {
+      if (
+        fieldsState &&
+        fieldsState.dailyBusiness[idx] &&
+        fieldsState.dailyBusiness[idx].title === 'SAVED'
+      ) {
         return '';
       }
-      if (fieldsState && fieldsState.dailyBusiness[idx].title === 'CHANGED') {
+      if (
+        fieldsState &&
+        fieldsState.dailyBusiness[idx] &&
+        fieldsState.dailyBusiness[idx].title === 'CHANGED'
+      ) {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'projectTitle') {
-      if (fieldsState && fieldsState.project[idx].title === 'IMPORTED') {
+      if (
+        fieldsState &&
+        fieldsState.project[idx] &&
+        fieldsState.project[idx].title === 'IMPORTED'
+      ) {
         return classes.backgroundGray;
       }
-      if (fieldsState && fieldsState.project[idx].title === 'SAVED') {
+      if (
+        fieldsState &&
+        fieldsState.project[idx] &&
+        fieldsState.project[idx].title === 'SAVED'
+      ) {
         return '';
       }
-      if (fieldsState && fieldsState.project[idx].title === 'CHANGED') {
+      if (
+        fieldsState &&
+        fieldsState.project[idx] &&
+        fieldsState.project[idx].title === 'CHANGED'
+      ) {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'dailyBusinessWeight') {
-      if (fieldsState && fieldsState.dailyBusiness[idx].weight === 'IMPORTED') {
+      if (
+        fieldsState &&
+        fieldsState.dailyBusiness[idx] &&
+        fieldsState.dailyBusiness[idx].weight === 'IMPORTED'
+      ) {
         return classes.backgroundGray;
       }
-      if (fieldsState && fieldsState.dailyBusiness[idx].weight === 'SAVED') {
+      if (
+        fieldsState &&
+        fieldsState.dailyBusiness[idx] &&
+        fieldsState.dailyBusiness[idx].weight === 'SAVED'
+      ) {
         return '';
       }
-      if (fieldsState && fieldsState.dailyBusiness[idx].weight === 'CHANGED') {
+      if (
+        fieldsState &&
+        fieldsState.dailyBusiness[idx] &&
+        fieldsState.dailyBusiness[idx].weight === 'CHANGED'
+      ) {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'projectWeight') {
-      if (fieldsState && fieldsState.project[idx].weight === 'IMPORTED') {
+      if (
+        fieldsState &&
+        fieldsState.project[idx] &&
+        fieldsState.project[idx].weight === 'IMPORTED'
+      ) {
         return classes.backgroundGray;
       }
-      if (fieldsState && fieldsState.project[idx].weight === 'SAVED') {
+      if (
+        fieldsState &&
+        fieldsState.project[idx] &&
+        fieldsState.project[idx].weight === 'SAVED'
+      ) {
         return '';
       }
-      if (fieldsState && fieldsState.project[idx].weight === 'CHANGED') {
+      if (
+        fieldsState &&
+        fieldsState.project[idx] &&
+        fieldsState.project[idx].weight === 'CHANGED'
+      ) {
         return classes.backgroundYellow;
       }
     }
