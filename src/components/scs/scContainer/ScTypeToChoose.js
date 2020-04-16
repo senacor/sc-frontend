@@ -149,7 +149,7 @@ const ScTypeToChoose = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [imported, setImported] = useState(false);
-  const [fieldsState, setFieldsState] = useState({});
+  const [fieldsState, setFieldsState] = useState(null);
 
   const user = useUserinfoContext();
 
@@ -244,6 +244,10 @@ const ScTypeToChoose = ({
   }, []);
 
   const addDailyBusiness = () => {
+    const newFieldsState = { ...fieldsState };
+    newFieldsState.dailyBusiness.push({ title: 'CHANGED', weight: 'CHANGED' });
+    setFieldsState(newFieldsState);
+
     const newDailyBusinesses = [...dailyBusinesses];
     newDailyBusinesses.push({
       title: '',
@@ -253,6 +257,10 @@ const ScTypeToChoose = ({
   };
 
   const addProject = () => {
+    const newFieldsState = { ...fieldsState };
+    newFieldsState.project.push({ title: 'CHANGED', weight: 'CHANGED' });
+    setFieldsState(newFieldsState);
+
     const newProjects = [...projects];
     newProjects.push({
       title: '',
@@ -367,61 +375,61 @@ const ScTypeToChoose = ({
 
   const bgClass = (type, idx) => {
     if (type === 'classification') {
-      if (fieldsState.classification === 'IMPORTED') {
+      if (fieldsState && fieldsState.classification === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (fieldsState.classification === 'SAVED') {
+      if (fieldsState && fieldsState.classification === 'SAVED') {
         return '';
       }
-      if (fieldsState.classification === 'CHANGED') {
+      if (fieldsState && fieldsState.classification === 'CHANGED') {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'dailyBusinessTitle') {
-      if (fieldsState.dailyBusiness[idx].title === 'IMPORTED') {
+      if (fieldsState && fieldsState.dailyBusiness[idx].title === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (fieldsState.dailyBusiness[idx].title === 'SAVED') {
+      if (fieldsState && fieldsState.dailyBusiness[idx].title === 'SAVED') {
         return '';
       }
-      if (fieldsState.dailyBusiness[idx].title === 'CHANGED') {
+      if (fieldsState && fieldsState.dailyBusiness[idx].title === 'CHANGED') {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'projectTitle') {
-      if (fieldsState.project[idx].title === 'IMPORTED') {
+      if (fieldsState && fieldsState.project[idx].title === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (fieldsState.project[idx].title === 'SAVED') {
+      if (fieldsState && fieldsState.project[idx].title === 'SAVED') {
         return '';
       }
-      if (fieldsState.project[idx].title === 'CHANGED') {
+      if (fieldsState && fieldsState.project[idx].title === 'CHANGED') {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'dailyBusinessWeight') {
-      if (fieldsState.dailyBusiness[idx].weight === 'IMPORTED') {
+      if (fieldsState && fieldsState.dailyBusiness[idx].weight === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (fieldsState.dailyBusiness[idx].weight === 'SAVED') {
+      if (fieldsState && fieldsState.dailyBusiness[idx].weight === 'SAVED') {
         return '';
       }
-      if (fieldsState.dailyBusiness[idx].weight === 'CHANGED') {
+      if (fieldsState && fieldsState.dailyBusiness[idx].weight === 'CHANGED') {
         return classes.backgroundYellow;
       }
     }
 
     if (type === 'projectWeight') {
-      if (fieldsState.project[idx].weight === 'IMPORTED') {
+      if (fieldsState && fieldsState.project[idx].weight === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (fieldsState.project[idx].weight === 'SAVED') {
+      if (fieldsState && fieldsState.project[idx].weight === 'SAVED') {
         return '';
       }
-      if (fieldsState.project[idx].weight === 'CHANGED') {
+      if (fieldsState && fieldsState.project[idx].weight === 'CHANGED') {
         return classes.backgroundYellow;
       }
     }
