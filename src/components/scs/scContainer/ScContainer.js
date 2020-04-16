@@ -15,7 +15,7 @@ const ScContainer = ({
   tabValue,
   handleChangeTab,
   classification,
-  handleChangeClassification,
+  setClassification,
   handleChangeType,
   scTypeSelected,
   handleSubmitScType,
@@ -47,7 +47,7 @@ const ScContainer = ({
         <ScTypeToChoose
           sc={sc}
           classification={classification}
-          handleChangeClassification={handleChangeClassification}
+          setClassification={setClassification}
           handleChangeType={handleChangeType}
           scTypeSelected={scTypeSelected}
           handleSubmitScType={handleSubmitScType}

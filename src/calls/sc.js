@@ -194,6 +194,18 @@ export const fetchScById = async (
       // }
       initScTemplate: null
     };
+    // scWithTemplate.publishedReviewerData.dailyBusiness.push({
+    //   title: 'DB1',
+    //   weight: 1
+    // });
+    // scWithTemplate.publishedReviewerData.dailyBusiness.push({
+    //   title: 'DB2',
+    //   weight: 2
+    // });
+    // scWithTemplate.publishedReviewerData.project.push({
+    //   title: 'P1',
+    //   weight: 3
+    // });
     if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
       scWithTemplate.publishedReviewerData.dailyBusiness.push({
         title: '',

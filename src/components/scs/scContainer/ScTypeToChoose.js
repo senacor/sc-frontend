@@ -137,7 +137,7 @@ const ScTypeToChoose = ({
   intl,
   sc,
   classification,
-  handleChangeClassification,
+  setClassification,
   handleChangeType,
   scTypeSelected,
   handleSubmitScType,
@@ -149,14 +149,15 @@ const ScTypeToChoose = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [imported, setImported] = useState(false);
+  const [fieldsState, setFieldsState] = useState({});
 
   const user = useUserinfoContext();
 
   useEffect(
     () => {
-      if (sc && sc.privateReviewerData) {
-        const lProjects = sc.privateReviewerData.project;
-        const lDBs = sc.privateReviewerData.dailyBusiness;
+      if (sc && sc.publishedReviewerData) {
+        const lProjects = [...sc.publishedReviewerData.project];
+        const lDBs = [...sc.publishedReviewerData.dailyBusiness];
         setProjects(
           lProjects && lProjects.length > 0
             ? lProjects
@@ -176,6 +177,69 @@ const ScTypeToChoose = ({
   useEffect(() => {
     if (sc.initScTemplate) {
       setImported(true);
+    }
+
+    if (sc) {
+      const initDailyBusiness = sc.publishedReviewerData.dailyBusiness.map(
+        (entry, idx) => {
+          let title;
+          let weight;
+          if (
+            sc.initScTemplate &&
+            entry.title === sc.initScTemplate.data.dailyBusiness[idx].title
+          ) {
+            title = 'IMPORTED';
+          } else {
+            title = 'SAVED';
+          }
+          if (
+            sc.initScTemplate &&
+            entry.weight === sc.initScTemplate.data.dailyBusiness[idx].weight
+          ) {
+            weight = 'IMPORTED';
+          } else {
+            weight = 'SAVED';
+          }
+          return { title: title, weight: weight };
+        }
+      );
+      const initProject = sc.publishedReviewerData.project.map((entry, idx) => {
+        let title;
+        let weight;
+        if (
+          sc.initScTemplate &&
+          entry.title === sc.initScTemplate.data.project[idx].title
+        ) {
+          title = 'IMPORTED';
+        } else {
+          title = 'SAVED';
+        }
+        if (
+          sc.initScTemplate &&
+          entry.weight === sc.initScTemplate.data.project[idx].weight
+        ) {
+          weight = 'IMPORTED';
+        } else {
+          weight = 'SAVED';
+        }
+        return { title: title, weight: weight };
+      });
+      let initClassification;
+      if (
+        sc.initScTemplate &&
+        sc.classification === sc.initScTemplate.classification
+      ) {
+        initClassification = 'IMPORTED';
+      } else {
+        initClassification = 'SAVED';
+      }
+
+      const initialState = {
+        dailyBusiness: initDailyBusiness,
+        project: initProject,
+        classification: initClassification
+      };
+      setFieldsState(initialState);
     }
   }, []);
 
@@ -218,125 +282,148 @@ const ScTypeToChoose = ({
   };
 
   const onChangeDailyBusinessTitle = (idx, event) => {
-    if (imported) {
+    if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness[idx].title = null;
     }
+
+    const newFieldsState = { ...fieldsState };
+    const newF = { ...newFieldsState.dailyBusiness[idx] };
+    newF.title = 'CHANGED';
+    newFieldsState.dailyBusiness[idx] = newF;
+    setFieldsState(newFieldsState);
+
     const newDailyBusinesses = [...dailyBusinesses];
-    newDailyBusinesses[idx].title = event.target.value;
+    const newDB = { ...newDailyBusinesses[idx] };
+    newDB.title = event.target.value;
+    newDailyBusinesses[idx] = newDB;
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const setDailyBusinessWeight = (idx, event) => {
-    if (imported) {
+    if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness[idx].weight = null;
     }
+
+    const newFieldsState = { ...fieldsState };
+    const newF = { ...newFieldsState.dailyBusiness[idx] };
+    newF.weight = 'CHANGED';
+    newFieldsState.dailyBusiness[idx] = newF;
+    setFieldsState(newFieldsState);
+
     const newDailyBusinesses = [...dailyBusinesses];
-    newDailyBusinesses[idx].weight = event.target.value;
+    const newDB = { ...newDailyBusinesses[idx] };
+    newDB.weight = event.target.value;
+    newDailyBusinesses[idx] = newDB;
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const onChangeProjectTitle = (idx, event) => {
-    if (imported) {
+    if (imported && idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project[idx].title = null;
     }
-    const newProjects = [...projects];
-    newProjects[idx].title = event.target.value;
-    setProjects(newProjects);
+
+    const newFieldsState = { ...fieldsState };
+    const newF = { ...newFieldsState.project[idx] };
+    newF.title = 'CHANGED';
+    newFieldsState.project[idx] = newF;
+    setFieldsState(newFieldsState);
+
+    const newProject = [...projects];
+    const newP = { ...newProject[idx] };
+    newP.title = event.target.value;
+    newProject[idx] = newP;
+    setProjects(newProject);
   };
 
   const setProjectWeight = (idx, event) => {
-    if (imported) {
+    if (imported && idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project[idx].weight = null;
     }
-    const newProjects = [...projects];
-    newProjects[idx].weight = event.target.value;
-    setProjects(newProjects);
+
+    const newFieldsState = { ...fieldsState };
+    const newF = { ...newFieldsState.project[idx] };
+    newF.weight = 'CHANGED';
+    newFieldsState.project[idx] = newF;
+    setFieldsState(newFieldsState);
+
+    const newProject = [...projects];
+    const newP = { ...newProject[idx] };
+    newP.weight = event.target.value;
+    newProject[idx] = newP;
+    setProjects(newProject);
+  };
+
+  const onChangeClassification = event => {
+    if (sc.initScTemplate && sc.initScTemplate.classification !== null) {
+      sc.initScTemplate.classification = null;
+    }
+
+    const newFieldsState = { ...fieldsState };
+    newFieldsState.classification = 'CHANGED';
+    setFieldsState(newFieldsState);
+
+    setClassification(event.target.value);
   };
 
   const bgClass = (type, idx) => {
     if (type === 'classification') {
-      if (imported && classification === sc.initScTemplate.classification) {
+      if (fieldsState.classification === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (
-        (classification === '' && sc.classification === null) ||
-        classification === sc.classification
-      ) {
+      if (fieldsState.classification === 'SAVED') {
         return '';
       }
-      return classes.backgroundYellow;
+      if (fieldsState.classification === 'CHANGED') {
+        return classes.backgroundYellow;
+      }
     }
 
     if (type === 'dailyBusinessTitle') {
-      if (
-        imported &&
-        idx < sc.initScTemplate.data.dailyBusiness.length &&
-        dailyBusinesses[idx].title ===
-          sc.initScTemplate.data.dailyBusiness[idx].title
-      ) {
+      if (fieldsState.dailyBusiness[idx].title === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (
-        idx < sc.publishedReviewerData.dailyBusiness.length &&
-        dailyBusinesses[idx].title ===
-          sc.publishedReviewerData.dailyBusiness[idx].title
-      ) {
+      if (fieldsState.dailyBusiness[idx].title === 'SAVED') {
         return '';
       }
-      return classes.backgroundYellow;
+      if (fieldsState.dailyBusiness[idx].title === 'CHANGED') {
+        return classes.backgroundYellow;
+      }
     }
 
     if (type === 'projectTitle') {
-      if (
-        imported &&
-        idx < sc.initScTemplate.data.project.length &&
-        projects[idx].title === sc.initScTemplate.data.project[idx].title
-      ) {
+      if (fieldsState.project[idx].title === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (
-        idx < sc.publishedReviewerData.project.length &&
-        projects[idx].title === sc.publishedReviewerData.project[idx].title
-      ) {
+      if (fieldsState.project[idx].title === 'SAVED') {
         return '';
       }
-      return classes.backgroundYellow;
+      if (fieldsState.project[idx].title === 'CHANGED') {
+        return classes.backgroundYellow;
+      }
     }
 
     if (type === 'dailyBusinessWeight') {
-      if (
-        imported &&
-        idx < sc.initScTemplate.data.dailyBusiness.length &&
-        dailyBusinesses[idx].weight ===
-          sc.initScTemplate.data.dailyBusiness[idx].weight
-      ) {
+      if (fieldsState.dailyBusiness[idx].weight === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (
-        idx < sc.publishedReviewerData.dailyBusiness.length &&
-        dailyBusinesses[idx].weight ===
-          sc.publishedReviewerData.dailyBusiness[idx].weight
-      ) {
+      if (fieldsState.dailyBusiness[idx].weight === 'SAVED') {
         return '';
       }
-      return classes.backgroundYellow;
+      if (fieldsState.dailyBusiness[idx].weight === 'CHANGED') {
+        return classes.backgroundYellow;
+      }
     }
 
     if (type === 'projectWeight') {
-      if (
-        imported &&
-        idx < sc.initScTemplate.data.project.length &&
-        projects[idx].weight === sc.initScTemplate.data.project[idx].weight
-      ) {
+      if (fieldsState.project[idx].weight === 'IMPORTED') {
         return classes.backgroundGray;
       }
-      if (
-        idx < sc.publishedReviewerData.project.length &&
-        projects[idx].weight === sc.publishedReviewerData.project[idx].weight
-      ) {
+      if (fieldsState.project[idx].weight === 'SAVED') {
         return '';
       }
-      return classes.backgroundYellow;
+      if (fieldsState.project[idx].weight === 'CHANGED') {
+        return classes.backgroundYellow;
+      }
     }
   };
 
@@ -566,7 +653,7 @@ const ScTypeToChoose = ({
             id="demo-simple-select"
             value={classification}
             disabled={!user.isReviewerInSc(sc)}
-            onChange={handleChangeClassification}
+            onChange={onChangeClassification}
             className={bgClass('classification')}
           >
             {classifications.map((pos, index) => (

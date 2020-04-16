@@ -67,13 +67,6 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTypeSelected(event.target.value);
   };
 
-  const handleChangeClassification = event => {
-    if (sc.initScTemplate) {
-      sc.initScTemplate.classification = null;
-    }
-    setClassification(event.target.value);
-  };
-
   const handleSubmitScType = () => {
     if (scTypeSelected) {
       addScType(
@@ -129,7 +122,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               tabValue={scTab}
               handleChangeTab={handleChangeTab}
               classification={classification}
-              handleChangeClassification={handleChangeClassification}
+              setClassification={setClassification}
               handleChangeType={handleChangeType}
               scTypeSelected={scTypeSelected}
               handleSubmitScType={handleSubmitScType}
