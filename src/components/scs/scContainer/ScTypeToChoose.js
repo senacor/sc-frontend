@@ -145,7 +145,8 @@ const ScTypeToChoose = ({
   dailyBusinesses,
   setDailyBusinesses,
   projects,
-  setProjects
+  setProjects,
+  importLastScorecard
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [imported, setImported] = useState(false);
@@ -545,10 +546,6 @@ const ScTypeToChoose = ({
     </Button>
   );
 
-  const importLastSc = () => {
-    // TODO
-  };
-
   const importOtherSc = () => {
     // TODO
   };
@@ -766,7 +763,7 @@ const ScTypeToChoose = ({
         onClose={handleClose}
       >
         <List>
-          <ListItem dense button onClick={importLastSc}>
+          <ListItem dense button onClick={importLastScorecard}>
             <ListItemText
               primary={intl.formatMessage({
                 id: 'scsheet.import.last'

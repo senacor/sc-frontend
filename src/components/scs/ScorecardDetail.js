@@ -8,7 +8,12 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../helper/contextHooks';
-import { addScType, fetchScById, saveScInit } from '../../calls/sc';
+import {
+  addScType,
+  fetchScById,
+  importLastSc,
+  saveScInit
+} from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { SC_STATUS, SC_TAB } from '../../helper/scSheetData';
 
@@ -108,6 +113,10 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTab(value);
   };
 
+  const importLastScorecard = () => {
+    importLastSc(sc.id, setSc, setIsLoading, error, afterScFetched);
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -135,6 +144,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               setDailyBusinesses={setDailyBusinesses}
               projects={projects}
               setProjects={setProjects}
+              importLastScorecard={importLastScorecard}
             />
           </Fragment>
         )

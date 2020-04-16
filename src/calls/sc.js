@@ -341,10 +341,12 @@ export const saveScInit = async (
             dailyBusinesses: dailyBusinesses,
             projects: projects
           },
-          template: {
-            dailyBusinesses: initScTemplate.dailyBusiness,
-            projects: initScTemplate.project
-          }
+          template: initScTemplate
+            ? {
+                dailyBusinesses: initScTemplate.dailyBusiness,
+                projects: initScTemplate.project
+              }
+            : null
         })
       }
     );
@@ -549,6 +551,37 @@ export const savePercentage = async (scId, skillsPercentage, info, error) => {
     }
   } catch (err) {
     console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const importLastSc = async (
+  scId,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/initImportLast`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+
+    if (response.ok) {
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
     error.showGeneral();
   }
 };
