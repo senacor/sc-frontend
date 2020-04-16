@@ -9,9 +9,9 @@ import {
   useUserinfoContext
 } from '../../helper/contextHooks';
 import {
-  addScType,
   fetchScById,
   importLastSc,
+  publishScInit,
   saveScInit
 } from '../../calls/sc';
 import { injectIntl } from 'react-intl';
@@ -74,12 +74,19 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const handleSubmitScType = () => {
     if (scTypeSelected) {
-      addScType(
+      const dailyBusinessesWithoutNulls = [...dailyBusinesses].filter(
+        entry => entry !== null
+      );
+      const projectsWithoutNulls = [...projects].filter(
+        entry => entry !== null
+      );
+      publishScInit(
         sc.id,
         scTypeSelected,
         classification,
-        dailyBusinesses,
-        projects,
+        dailyBusinessesWithoutNulls,
+        projectsWithoutNulls,
+        sc.initScTemplate,
         setSc,
         setIsLoading,
         error,

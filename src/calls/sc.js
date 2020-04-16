@@ -370,6 +370,67 @@ export const saveScInit = async (
   }
 };
 
+export const publishScInit = async (
+  scId,
+  status,
+  classification,
+  dailyBusinesses,
+  projects,
+  initScTemplate,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched,
+  info
+) => {
+  try {
+    const statusDTO =
+      status === SC_STATUS.SC_WITHOUT_PR_PRESET
+        ? SC_STATUS.WITHOUT_PR
+        : status === SC_STATUS.SC_WITH_PR_PRESET
+        ? SC_STATUS.WITH_PR
+        : status;
+
+    const template = initScTemplate
+      ? {
+          dailyBusinesses: initScTemplate.data.dailyBusiness.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          })),
+          projects: initScTemplate.data.project.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          }))
+        }
+      : null;
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/publishInit?scStatus=${statusDTO}&classification=${classification}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({
+          data: {
+            dailyBusinesses: dailyBusinesses,
+            projects: projects
+          },
+          template: template
+        })
+      }
+    );
+    if (response.ok) {
+      info.msg('sc.saved');
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
 export const addScStatus = async (
   scId,
   status,
