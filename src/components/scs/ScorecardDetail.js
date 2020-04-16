@@ -95,6 +95,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
       classification,
       dailyBusinessesWithoutNulls,
       projectsWithoutNulls,
+      sc.initScTemplate,
       setSc,
       setIsLoading,
       error,

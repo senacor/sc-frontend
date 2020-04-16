@@ -181,47 +181,47 @@ export const fetchScById = async (
 
     const scWithTemplate = {
       ...responseScData,
-      // initScTemplate: {
-      //   classification: 'SPECIALIST',
-      //   data: {
-      //     dailyBusiness: [
-      //       { title: 'DB1', weight: 1 },
-      //       { title: 'DB2', weight: 2 }
-      //     ],
-      //     project: [{ title: 'P1', weight: 3 }]
-      //   },
-      //   importType: 'last'
-      // }
-      initScTemplate: null
+      initScTemplate: {
+        classification: 'SPECIALIST',
+        data: {
+          dailyBusiness: [
+            { title: 'DB1', weight: 1 },
+            { title: 'DB2', weight: 2 }
+          ],
+          project: [{ title: 'P1', weight: 3 }]
+        },
+        importType: 'last'
+      }
+      // initScTemplate: null
     };
-    // if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
-    //   scWithTemplate.publishedReviewerData.dailyBusiness.push({
-    //     title: 'DB1',
-    //     weight: 1
-    //   });
-    //   scWithTemplate.publishedReviewerData.dailyBusiness.push({
-    //     title: 'DB2',
-    //     weight: 2
-    //   });
-    // }
-    // if (scWithTemplate.publishedReviewerData.project.length === 0) {
-    //   scWithTemplate.publishedReviewerData.project.push({
-    //     title: 'P1',
-    //     weight: 3
-    //   });
-    // }
     if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
       scWithTemplate.publishedReviewerData.dailyBusiness.push({
-        title: '',
-        weight: 0
+        title: 'DB1',
+        weight: 1
+      });
+      scWithTemplate.publishedReviewerData.dailyBusiness.push({
+        title: 'DB2',
+        weight: 2
       });
     }
     if (scWithTemplate.publishedReviewerData.project.length === 0) {
       scWithTemplate.publishedReviewerData.project.push({
-        title: '',
-        weight: 0
+        title: 'P1',
+        weight: 3
       });
     }
+    // if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
+    //   scWithTemplate.publishedReviewerData.dailyBusiness.push({
+    //     title: '',
+    //     weight: 0
+    //   });
+    // }
+    // if (scWithTemplate.publishedReviewerData.project.length === 0) {
+    //   scWithTemplate.publishedReviewerData.project.push({
+    //     title: '',
+    //     weight: 0
+    //   });
+    // }
     setSc(scWithTemplate);
     afterScFetched(scWithTemplate);
   } catch (err) {
@@ -315,6 +315,7 @@ export const saveScInit = async (
   classification,
   dailyBusinesses,
   projects,
+  initScTemplate,
   setSc,
   setIsLoading,
   error,
@@ -336,8 +337,14 @@ export const saveScInit = async (
         method: 'post',
         mode: 'cors',
         body: JSON.stringify({
-          dailyBusinesses: dailyBusinesses,
-          projects: projects
+          data: {
+            dailyBusinesses: dailyBusinesses,
+            projects: projects
+          },
+          template: {
+            dailyBusinesses: initScTemplate.dailyBusiness,
+            projects: initScTemplate.project
+          }
         })
       }
     );
