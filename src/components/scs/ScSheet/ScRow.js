@@ -42,6 +42,9 @@ const styles = theme => ({
   backgroundGreen: {
     backgroundColor: '#01a68817'
   },
+  backgroundGray: {
+    backgroundColor: 'rgba(0, 0, 0, 0.13)'
+  },
   removeIcon: {
     position: 'relative',
     float: 'right'
@@ -112,6 +115,7 @@ const ScRow = memo(
     const weightValues = [0.5, 1, 2, 3];
 
     const bgClass = state => {
+      if (state === 'IMPORTED') return classes.backgroundGray;
       if (state === 'PUBLISHED') return classes.backgroundGreen;
       if (state === 'SAVED') return '';
       return classes.backgroundYellow;

@@ -30,12 +30,20 @@ export const determineStatesForPropertyArray = (
   const rsf = privateSpace[property];
   const usf = publicSpace[property];
 
+  const templProperty = sc.initScTemplate.data[property];
+
   //compare description, achievement, weight or comment
   const compareField = (goalIndex, field) => {
     let state;
-    if (!usf[goalIndex][field] && !rsf[goalIndex][field]) state = 'PUBLISHED';
-
-    if (usf[goalIndex][field] === rsf[goalIndex][field]) {
+    if (
+      goalIndex < templProperty.length &&
+      rsf[goalIndex].title === templProperty[goalIndex].title &&
+      rsf[goalIndex][field] === templProperty[goalIndex][field]
+    ) {
+      state = 'IMPORTED';
+    } else if (!usf[goalIndex][field] && !rsf[goalIndex][field]) {
+      state = 'PUBLISHED';
+    } else if (usf[goalIndex][field] === rsf[goalIndex][field]) {
       state = 'PUBLISHED';
     } else {
       state = 'SAVED';
@@ -86,9 +94,11 @@ export const determineStatesForProperty = (
   const compareField = field => {
     let state;
 
-    if (!usf[field] && !rsf[field]) state = 'PUBLISHED';
-
-    if (usf[field] === rsf[field]) {
+    if (sc.initScTemplate.importType) {
+      state = 'IMPORTED';
+    } else if (!usf[field] && !rsf[field]) {
+      state = 'PUBLISHED';
+    } else if (usf[field] === rsf[field]) {
       state = 'PUBLISHED';
     } else {
       state = 'SAVED';
@@ -97,8 +107,9 @@ export const determineStatesForProperty = (
     return { value: rsf[field], state: state };
   };
 
-  const percentageInfo =
-    stateObject ? { percentage: stateObject.percentage } : {};
+  const percentageInfo = stateObject
+    ? { percentage: stateObject.percentage }
+    : {};
   return {
     ...percentageInfo,
     ...rsf,
