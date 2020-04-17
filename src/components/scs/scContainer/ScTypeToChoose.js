@@ -185,78 +185,83 @@ const ScTypeToChoose = ({
     [sc]
   );
 
-  useEffect(() => {
-    if (sc.initScTemplate) {
-      setImported(true);
-    }
-
-    if (sc) {
-      const initDailyBusiness = sc.publishedReviewerData.dailyBusiness.map(
-        (entry, idx) => {
-          let title;
-          let weight;
-          if (
-            sc.initScTemplate &&
-            idx < sc.initScTemplate.data.dailyBusiness.length &&
-            entry.title === sc.initScTemplate.data.dailyBusiness[idx].title
-          ) {
-            title = 'IMPORTED';
-          } else {
-            title = 'SAVED';
-          }
-          if (
-            sc.initScTemplate &&
-            idx < sc.initScTemplate.data.dailyBusiness.length &&
-            entry.weight === sc.initScTemplate.data.dailyBusiness[idx].weight
-          ) {
-            weight = 'IMPORTED';
-          } else {
-            weight = 'SAVED';
-          }
-          return { title: title, weight: weight };
-        }
-      );
-      const initProject = sc.publishedReviewerData.project.map((entry, idx) => {
-        let title;
-        let weight;
-        if (
-          sc.initScTemplate &&
-          idx < sc.initScTemplate.data.project.length &&
-          entry.title === sc.initScTemplate.data.project[idx].title
-        ) {
-          title = 'IMPORTED';
-        } else {
-          title = 'SAVED';
-        }
-        if (
-          sc.initScTemplate &&
-          idx < sc.initScTemplate.data.project.length &&
-          entry.weight === sc.initScTemplate.data.project[idx].weight
-        ) {
-          weight = 'IMPORTED';
-        } else {
-          weight = 'SAVED';
-        }
-        return { title: title, weight: weight };
-      });
-      let initClassification;
-      if (
-        sc.initScTemplate &&
-        classification === sc.initScTemplate.classification
-      ) {
-        initClassification = 'IMPORTED';
-      } else {
-        initClassification = 'SAVED';
+  useEffect(
+    () => {
+      if (sc.initScTemplate.importType) {
+        setImported(true);
       }
 
-      const initialState = {
-        dailyBusiness: initDailyBusiness,
-        project: initProject,
-        classification: initClassification
-      };
-      setFieldsState(initialState);
-    }
-  }, []);
+      if (sc) {
+        const initDailyBusiness = sc.publishedReviewerData.dailyBusiness.map(
+          (entry, idx) => {
+            let title;
+            let weight;
+            if (
+              sc.initScTemplate &&
+              idx < sc.initScTemplate.data.dailyBusiness.length &&
+              entry.title === sc.initScTemplate.data.dailyBusiness[idx].title
+            ) {
+              title = 'IMPORTED';
+            } else {
+              title = 'SAVED';
+            }
+            if (
+              sc.initScTemplate &&
+              idx < sc.initScTemplate.data.dailyBusiness.length &&
+              entry.weight === sc.initScTemplate.data.dailyBusiness[idx].weight
+            ) {
+              weight = 'IMPORTED';
+            } else {
+              weight = 'SAVED';
+            }
+            return { title: title, weight: weight };
+          }
+        );
+        const initProject = sc.publishedReviewerData.project.map(
+          (entry, idx) => {
+            let title;
+            let weight;
+            if (
+              sc.initScTemplate &&
+              idx < sc.initScTemplate.data.project.length &&
+              entry.title === sc.initScTemplate.data.project[idx].title
+            ) {
+              title = 'IMPORTED';
+            } else {
+              title = 'SAVED';
+            }
+            if (
+              sc.initScTemplate &&
+              idx < sc.initScTemplate.data.project.length &&
+              entry.weight === sc.initScTemplate.data.project[idx].weight
+            ) {
+              weight = 'IMPORTED';
+            } else {
+              weight = 'SAVED';
+            }
+            return { title: title, weight: weight };
+          }
+        );
+        let initClassification;
+        if (
+          sc.initScTemplate &&
+          classification === sc.initScTemplate.classification
+        ) {
+          initClassification = 'IMPORTED';
+        } else {
+          initClassification = 'SAVED';
+        }
+
+        const initialState = {
+          dailyBusiness: initDailyBusiness,
+          project: initProject,
+          classification: initClassification
+        };
+        setFieldsState(initialState);
+      }
+    },
+    [sc, classification]
+  );
 
   const addDailyBusiness = () => {
     const newFieldsState = { ...fieldsState };
