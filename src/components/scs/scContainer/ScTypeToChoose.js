@@ -245,7 +245,7 @@ const ScTypeToChoose = ({
         let initClassification;
         if (
           sc.initScTemplate &&
-          classification === sc.initScTemplate.classification
+          sc.classification === sc.initScTemplate.classification
         ) {
           initClassification = 'IMPORTED';
         } else {
@@ -260,7 +260,7 @@ const ScTypeToChoose = ({
         setFieldsState(initialState);
       }
     },
-    [sc, classification]
+    [sc]
   );
 
   const addDailyBusiness = () => {
