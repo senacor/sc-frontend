@@ -396,7 +396,6 @@
   "sctypetochoose.tooltip": "Bitte Scorecard Typ, Einstufung auswählen und mindestens ein Tägliches Geschäft und ein Projekt inkl. Gewichtung hinzufügen.",
   "sctypetochoose.save.tooltip": "Gespeicherte Änderungen sind nur für dich sichtbar.",
   "sctypetochoose.addfield": "Feld hinzufügen",
-  "sctypetochoose.dialogtext": "Möchtestu du die Daten aus der ausgewählten SC wirklich importieren? Die aktuelle Daten werden unwiderruflich gelöscht.",
   "percentagedialog.performance": "Leistungen",
   "percentagedialog.skills": "Kompetenz & Entwicklung",
   "percentagedialog.change": "Ändern",

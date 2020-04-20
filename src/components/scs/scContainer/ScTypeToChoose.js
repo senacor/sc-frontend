@@ -32,7 +32,6 @@ import { translateClassification } from '../../../helper/string';
 import { useUserinfoContext } from '../../../helper/contextHooks';
 import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/AddBox';
-import ConfirmDialog from '../../utils/ConfirmDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -147,11 +146,9 @@ const ScTypeToChoose = ({
   setDailyBusinesses,
   projects,
   setProjects,
-  importLastScorecard,
-  importOtherScorecard
+  importLastScorecard
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(null);
   const [fieldsState, setFieldsState] = useState(null);
 
   const user = useUserinfoContext();
@@ -541,7 +538,7 @@ const ScTypeToChoose = ({
     </Tooltip>
   );
 
-  const openImportPopover = event => {
+  const openImportDialog = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -550,10 +547,14 @@ const ScTypeToChoose = ({
   };
 
   const importButton = (
-    <Button onClick={openImportPopover} color="primary" variant="contained">
+    <Button onClick={openImportDialog} color="primary" variant="contained">
       {intl.formatMessage({ id: 'scsheet.import' })}
     </Button>
   );
+
+  const importOtherSc = () => {
+    // TODO
+  };
 
   const renderGoalSection = (
     categoryId,
@@ -768,14 +769,14 @@ const ScTypeToChoose = ({
         onClose={handleClose}
       >
         <List>
-          <ListItem dense button onClick={() => setDialogOpen('LAST')}>
+          <ListItem dense button onClick={importLastScorecard}>
             <ListItemText
               primary={intl.formatMessage({
                 id: 'scsheet.import.last'
               })}
             />
           </ListItem>
-          <ListItem dense button onClick={() => setDialogOpen('OTHER')}>
+          <ListItem dense button onClick={importOtherSc}>
             <ListItemText
               primary={intl.formatMessage({
                 id: 'scsheet.import.other'
@@ -784,33 +785,6 @@ const ScTypeToChoose = ({
           </ListItem>
         </List>
       </Popover>
-      <ConfirmDialog
-        open={Boolean(dialogOpen)}
-        handleClose={() => setDialogOpen(null)}
-        handleConfirm={
-          dialogOpen === 'LAST'
-            ? () => {
-                importLastScorecard();
-                setDialogOpen(null);
-              }
-            : () => {
-                importOtherScorecard();
-                setDialogOpen(null);
-              }
-        }
-        confirmationText={intl.formatMessage({
-          id: 'sctypetochoose.dialogtext'
-        })}
-        confirmationHeader={
-          dialogOpen === 'LAST'
-            ? intl.formatMessage({
-                id: 'scsheet.import.last'
-              })
-            : intl.formatMessage({
-                id: 'scsheet.import.other'
-              })
-        }
-      />
     </Paper>
   );
 };
