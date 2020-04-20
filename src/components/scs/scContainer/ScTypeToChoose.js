@@ -282,21 +282,21 @@ const ScTypeToChoose = ({
 
   const deleteDailyBusiness = idx => {
     const newDailyBusinesses = [...dailyBusinesses];
-    // newDailyBusinesses.splice(idx, 1);
-    newDailyBusinesses[idx] = null;
+    newDailyBusinesses.splice(idx, 1);
     if (idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness.splice(idx, 1);
     }
+    fieldsState.dailyBusiness.splice(idx, 1);
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const deleteProject = idx => {
     const newProjects = [...projects];
-    // newProjects.splice(idx, 1);
-    newProjects[idx] = null;
+    newProjects.splice(idx, 1);
     if (idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project.splice(idx, 1);
     }
+    fieldsState.project.splice(idx, 1);
     setProjects(newProjects);
   };
 
