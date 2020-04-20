@@ -804,12 +804,22 @@ const ScTypeToChoose = ({
                 id: 'scsheet.import.last'
               })}
             />
+            <Radio
+              checked={
+                sc.initScTemplate && sc.initScTemplate.importType === 'last'
+              }
+            />
           </ListItem>
           <ListItem dense button onClick={importOtherSc}>
             <ListItemText
               primary={intl.formatMessage({
                 id: 'scsheet.import.other'
               })}
+            />
+            <Radio
+              checked={
+                sc.initScTemplate && sc.initScTemplate.importType === 'specific'
+              }
             />
           </ListItem>
         </List>
