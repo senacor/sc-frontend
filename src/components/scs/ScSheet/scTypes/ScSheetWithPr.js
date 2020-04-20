@@ -233,21 +233,33 @@ const ScSheetWithPr = ({
 
   const handleChangePrCategories = (type, propKey, event) => {
     if (type === CATEGORY.SKILLS_IN_THE_FIELDS) {
+      if (sc.initScTemplate.importType) {
+        sc.initScTemplate.data.skillsInTheFields[propKey] = null;
+      }
       const values = { ...skillsInTheFieldsFields };
       values[propKey] = event.target.value;
       wrapPropertiesIntoObject(values, propKey);
       setSkillsInTheFieldsFields(values);
     } else if (type === CATEGORY.TEAM_IMPACT) {
+      if (sc.initScTemplate.importType) {
+        sc.initScTemplate.data.impactOnTeam[propKey] = null;
+      }
       const values = { ...impactOnTeamFields };
       values[propKey] = event.target.value;
       wrapPropertiesIntoObject(values, propKey);
       setImpactOnTeamFields(values);
     } else if (type === CATEGORY.SERVICE_QUALITY) {
+      if (sc.initScTemplate.importType) {
+        sc.initScTemplate.data.serviceQuality[propKey] = null;
+      }
       const values = { ...serviceQualityFields };
       values[propKey] = event.target.value;
       wrapPropertiesIntoObject(values, propKey);
       setServiceQualityFields(values);
     } else if (type === CATEGORY.COMPANY_IMPACT) {
+      if (sc.initScTemplate.importType) {
+        sc.initScTemplate.data.impactOnCompany[propKey] = null;
+      }
       const values = { ...impactOnCompanyFields };
       values[propKey] = event.target.value;
       wrapPropertiesIntoObject(values, propKey);
@@ -286,6 +298,7 @@ const ScSheetWithPr = ({
       sc.id,
       user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
       data,
+      sc.initScTemplate,
       info,
       error,
       setSc,

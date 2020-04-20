@@ -15,7 +15,7 @@ const ScContainer = ({
   tabValue,
   handleChangeTab,
   classification,
-  handleChangeClassification,
+  setClassification,
   handleChangeType,
   scTypeSelected,
   handleSubmitScType,
@@ -26,7 +26,8 @@ const ScContainer = ({
   setDailyBusinesses,
   projects,
   handleSaveInit,
-  setProjects
+  setProjects,
+  importLastScorecard
 }) => {
   const user = useUserinfoContext();
 
@@ -47,7 +48,7 @@ const ScContainer = ({
         <ScTypeToChoose
           sc={sc}
           classification={classification}
-          handleChangeClassification={handleChangeClassification}
+          setClassification={setClassification}
           handleChangeType={handleChangeType}
           scTypeSelected={scTypeSelected}
           handleSubmitScType={handleSubmitScType}
@@ -56,6 +57,7 @@ const ScContainer = ({
           setDailyBusinesses={setDailyBusinesses}
           projects={projects}
           setProjects={setProjects}
+          importLastScorecard={importLastScorecard}
         />
       ) : (
         <WaitForScTypeNotification />

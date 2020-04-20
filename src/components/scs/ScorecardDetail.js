@@ -8,7 +8,12 @@ import {
   useInfoContext,
   useUserinfoContext
 } from '../../helper/contextHooks';
-import { addScType, fetchScById, saveScInit } from '../../calls/sc';
+import {
+  fetchScById,
+  importLastSc,
+  publishScInit,
+  saveScInit
+} from '../../calls/sc';
 import { injectIntl } from 'react-intl';
 import { SC_STATUS, SC_TAB } from '../../helper/scSheetData';
 
@@ -67,18 +72,15 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTypeSelected(event.target.value);
   };
 
-  const handleChangeClassification = event => {
-    setClassification(event.target.value);
-  };
-
   const handleSubmitScType = () => {
     if (scTypeSelected) {
-      addScType(
+      publishScInit(
         sc.id,
         scTypeSelected,
         classification,
         dailyBusinesses,
         projects,
+        sc.initScTemplate,
         setSc,
         setIsLoading,
         error,
@@ -89,12 +91,17 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleSaveInit = () => {
+    const dailyBusinessesWithoutNulls = [...dailyBusinesses].filter(
+      entry => entry !== null
+    );
+    const projectsWithoutNulls = [...projects].filter(entry => entry !== null);
     saveScInit(
       sc.id,
       scTypeSelected,
       classification,
-      dailyBusinesses,
-      projects,
+      dailyBusinessesWithoutNulls,
+      projectsWithoutNulls,
+      sc.initScTemplate,
       setSc,
       setIsLoading,
       error,
@@ -105,6 +112,10 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const handleChangeTab = (event, value) => {
     setScTab(value);
+  };
+
+  const importLastScorecard = () => {
+    importLastSc(sc.id, setSc, setIsLoading, error, afterScFetched);
   };
 
   return (
@@ -122,7 +133,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               tabValue={scTab}
               handleChangeTab={handleChangeTab}
               classification={classification}
-              handleChangeClassification={handleChangeClassification}
+              setClassification={setClassification}
               handleChangeType={handleChangeType}
               scTypeSelected={scTypeSelected}
               handleSubmitScType={handleSubmitScType}
@@ -134,6 +145,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               setDailyBusinesses={setDailyBusinesses}
               projects={projects}
               setProjects={setProjects}
+              importLastScorecard={importLastScorecard}
             />
           </Fragment>
         )

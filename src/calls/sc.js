@@ -5,6 +5,7 @@ export const savePerformanceData = async (
   scId,
   type,
   data,
+  template,
   info,
   error,
   setSc,
@@ -17,7 +18,10 @@ export const savePerformanceData = async (
       {
         method: 'post',
         mode: 'cors',
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          data: data,
+          template: template.data
+        })
       }
     );
 
@@ -178,6 +182,19 @@ export const fetchScById = async (
     );
     const responseScData = await response.json();
     setIsLoading(false);
+
+    if (responseScData.publishedReviewerData.dailyBusiness.length === 0) {
+      responseScData.publishedReviewerData.dailyBusiness.push({
+        title: '',
+        weight: 0
+      });
+    }
+    if (responseScData.publishedReviewerData.project.length === 0) {
+      responseScData.publishedReviewerData.project.push({
+        title: '',
+        weight: 0
+      });
+    }
     setSc(responseScData);
     afterScFetched(responseScData);
   } catch (err) {
@@ -271,6 +288,7 @@ export const saveScInit = async (
   classification,
   dailyBusinesses,
   projects,
+  initScTemplate,
   setSc,
   setIsLoading,
   error,
@@ -284,6 +302,19 @@ export const saveScInit = async (
         : status === SC_STATUS.WITH_PR
         ? SC_STATUS.SC_WITH_PR_PRESET
         : status;
+
+    const template = initScTemplate
+      ? {
+          dailyBusinesses: initScTemplate.data.dailyBusiness.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          })),
+          projects: initScTemplate.data.project.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          }))
+        }
+      : null;
     const response = await fetch(
       `${
         process.env.REACT_APP_API
@@ -292,8 +323,72 @@ export const saveScInit = async (
         method: 'post',
         mode: 'cors',
         body: JSON.stringify({
-          dailyBusinesses: dailyBusinesses,
-          projects: projects
+          data: {
+            dailyBusinesses: dailyBusinesses,
+            projects: projects
+          },
+          template: template
+        })
+      }
+    );
+    if (response.ok) {
+      info.msg('sc.saved');
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+  } catch (err) {
+    console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const publishScInit = async (
+  scId,
+  status,
+  classification,
+  dailyBusinesses,
+  projects,
+  initScTemplate,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched,
+  info
+) => {
+  try {
+    const statusDTO =
+      status === SC_STATUS.SC_WITHOUT_PR_PRESET
+        ? SC_STATUS.WITHOUT_PR
+        : status === SC_STATUS.SC_WITH_PR_PRESET
+        ? SC_STATUS.WITH_PR
+        : status;
+
+    const template = initScTemplate
+      ? {
+          dailyBusinesses: initScTemplate.data.dailyBusiness.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          })),
+          projects: initScTemplate.data.project.map(entry => ({
+            title: entry.title,
+            weight: entry.weight
+          }))
+        }
+      : null;
+    const response = await fetch(
+      `${
+        process.env.REACT_APP_API
+      }/api/v1/sc/${scId}/publishInit?scStatus=${statusDTO}&classification=${classification}`,
+      {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify({
+          data: {
+            dailyBusinesses: dailyBusinesses,
+            projects: projects
+          },
+          template: template
         })
       }
     );
@@ -498,6 +593,37 @@ export const savePercentage = async (scId, skillsPercentage, info, error) => {
     }
   } catch (err) {
     console.log(err);
+    error.showGeneral();
+  }
+};
+
+export const importLastSc = async (
+  scId,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/initImportLast`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+
+    if (response.ok) {
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
     error.showGeneral();
   }
 };

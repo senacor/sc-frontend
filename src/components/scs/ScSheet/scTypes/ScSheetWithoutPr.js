@@ -159,6 +159,9 @@ const ScSheetWithoutPr = ({
   );
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {
+    if (sc.initScTemplate.importType) {
+      sc.initScTemplate.data.workEfficiency[propKey] = null;
+    }
     const values = { ...workEfficiencyFields };
     values[propKey] = event.target.value;
     wrapPropertiesIntoObject(values, propKey);
@@ -166,6 +169,9 @@ const ScSheetWithoutPr = ({
   };
 
   const handleChangeWorkQuality = (type, propKey, event) => {
+    if (sc.initScTemplate.importType) {
+      sc.initScTemplate.data.workEfficiency[propKey] = null;
+    }
     const values = { ...workQualityFields };
     values[propKey] = event.target.value;
     wrapPropertiesIntoObject(values, propKey);
@@ -239,6 +245,7 @@ const ScSheetWithoutPr = ({
       sc.id,
       user.isReviewerInSc(sc) ? 'reviewer' : 'employee',
       data,
+      sc.initScTemplate,
       info,
       error,
       setSc,
