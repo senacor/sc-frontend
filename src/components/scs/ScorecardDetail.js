@@ -9,7 +9,9 @@ import {
   useUserinfoContext
 } from '../../helper/contextHooks';
 import {
+  cleanInitImport,
   fetchScById,
+  importFromSpecificSc,
   importLastSc,
   publishScInit,
   saveScInit
@@ -114,8 +116,26 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setScTab(value);
   };
 
-  const importLastScorecard = () => {
-    importLastSc(sc.id, setSc, setIsLoading, error, afterScFetched);
+  const importSc = importAction => {
+    if (importAction.type === 'last') {
+      importLastSc(sc.id, setSc, setIsLoading, error, afterScFetched);
+      return;
+    }
+
+    if (importAction.type === 'specific' && importAction.scId) {
+      importFromSpecificSc(
+        sc.id,
+        importAction.scId,
+        setSc,
+        setIsLoading,
+        error,
+        afterScFetched
+      );
+      return;
+    }
+    if (importAction.type === 'unimport') {
+      cleanInitImport(sc.id, setSc, setIsLoading, error, afterScFetched);
+    }
   };
 
   return (
@@ -145,7 +165,7 @@ const ScorecardDetail = ({ match, intl, classes }) => {
               setDailyBusinesses={setDailyBusinesses}
               projects={projects}
               setProjects={setProjects}
-              importLastScorecard={importLastScorecard}
+              importSc={importSc}
             />
           </Fragment>
         )

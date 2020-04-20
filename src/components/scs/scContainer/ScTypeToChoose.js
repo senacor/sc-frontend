@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
@@ -29,9 +29,16 @@ import {
 } from '@material-ui/core';
 import { classifications, SC_STATUS } from '../../../helper/scSheetData';
 import { translateClassification } from '../../../helper/string';
-import { useUserinfoContext } from '../../../helper/contextHooks';
+import {
+  useErrorContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
 import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/AddBox';
+import EmployeeImportScsDialog from './importSc/EmployeeImportScsDialog';
+import { getAllEmployeesForImport } from '../../../calls/employees';
+import ConfirmDialog from '../../utils/ConfirmDialog';
+import CheckIcon from '@material-ui/icons/Check';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -45,6 +52,15 @@ const styles = theme => ({
     color: theme.palette.secondary.white,
     padding: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 2
+  },
+  btnClear: {
+    color: theme.palette.secondary.darkGrey,
+    paddingLeft: theme.spacing.unit,
+    '&:hover': {
+      transform: 'scale(1.30)',
+      color: theme.palette.secondary.darkRed,
+      transition: 'all 0.3s'
+    }
   },
   dropdownContainer: {
     display: 'flex',
@@ -146,12 +162,20 @@ const ScTypeToChoose = ({
   setDailyBusinesses,
   projects,
   setProjects,
-  importLastScorecard
+  importSc
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [fieldsState, setFieldsState] = useState(null);
+  const [importFromDialogOpen, setImportFromDialogOpen] = useState(false);
+  const [importAction, setImportAction] = useState({});
+  const [allEmployees, setAllEmployees] = useState([]);
 
   const user = useUserinfoContext();
+  const error = useErrorContext();
+
+  useEffect(() => {
+    getAllEmployeesForImport(setAllEmployees, () => {}, error);
+  }, []);
 
   useEffect(
     () => {
@@ -553,7 +577,7 @@ const ScTypeToChoose = ({
   );
 
   const importOtherSc = () => {
-    // TODO
+    setImportFromDialogOpen(true);
   };
 
   const renderGoalSection = (
@@ -769,22 +793,77 @@ const ScTypeToChoose = ({
         onClose={handleClose}
       >
         <List>
-          <ListItem dense button onClick={importLastScorecard}>
+          <ListItem dense button>
             <ListItemText
+              onClick={() => {
+                setImportAction({ type: 'last' });
+              }}
               primary={intl.formatMessage({
                 id: 'scsheet.import.last'
               })}
             />
+            {sc.initScTemplate && sc.initScTemplate.importType === 'last' && (
+              <Fragment>
+                <CheckIcon color={'secondary'} />
+                <Icon
+                  className={classes.btnClear}
+                  onClick={() => setImportAction({ type: 'unimport' })}
+                >
+                  clear
+                </Icon>
+              </Fragment>
+            )}
           </ListItem>
-          <ListItem dense button onClick={importOtherSc}>
+          <ListItem dense button>
             <ListItemText
+              onClick={importOtherSc}
               primary={intl.formatMessage({
                 id: 'scsheet.import.other'
               })}
             />
+            {sc.initScTemplate && sc.initScTemplate.importType === 'specific' && (
+              <Fragment>
+                <CheckIcon color={'secondary'} />
+                <Icon
+                  className={classes.btnClear}
+                  onClick={() => setImportAction({ type: 'unimport' })}
+                >
+                  clear
+                </Icon>
+              </Fragment>
+            )}
           </ListItem>
         </List>
       </Popover>
+      {importFromDialogOpen && (
+        <EmployeeImportScsDialog
+          employees={allEmployees}
+          dialogOpen={importFromDialogOpen}
+          setDialogOpen={setImportFromDialogOpen}
+          importAction={scId => {
+            setImportAction({ type: 'specific', scId: scId });
+          }}
+        />
+      )}
+      <ConfirmDialog
+        open={Object.values(importAction).length > 0}
+        handleClose={() => setImportAction({})}
+        handleConfirm={() => {
+          importSc(importAction);
+        }}
+        confirmationText={intl.formatMessage({
+          id:
+            importAction && importAction.type !== 'unimport'
+              ? 'sc.import.confirm.content'
+              : 'sc.import.clean.content'
+        })}
+        confirmationHeader={intl.formatMessage({
+          id:
+            importAction && importAction.type !== 'unimport'
+              ? 'sc.import.confirm.title'
+              : 'sc.import.clean.title'
+        })}
+      />
     </Paper>
   );
 };

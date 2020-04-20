@@ -20,6 +20,30 @@ export const getAllEmployees = async (setEmployees, setIsLoading, error) => {
   }
 };
 
+export const getAllEmployeesForImport = async (
+  setEmployees,
+  setIsLoading,
+  error
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/employee/all-for-import`
+    );
+
+    let responseEmployees = await response.json();
+
+    setIsLoading(false);
+    setEmployees(responseEmployees);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    setEmployees([]);
+    error.showGeneral();
+  }
+};
+
 export const getActiveEmployees = async (setEmployees, setIsLoading, error) => {
   try {
     setIsLoading(true);
@@ -228,7 +252,7 @@ export const assignSupervisorsToEmployees = async (
   data,
   setIsLoading,
   info,
-  error,
+  error
 ) => {
   try {
     setIsLoading(true);

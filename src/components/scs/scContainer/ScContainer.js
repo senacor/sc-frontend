@@ -27,7 +27,7 @@ const ScContainer = ({
   projects,
   handleSaveInit,
   setProjects,
-  importLastScorecard
+  importSc
 }) => {
   const user = useUserinfoContext();
 
@@ -57,7 +57,7 @@ const ScContainer = ({
           setDailyBusinesses={setDailyBusinesses}
           projects={projects}
           setProjects={setProjects}
-          importLastScorecard={importLastScorecard}
+          importSc={importSc}
         />
       ) : (
         <WaitForScTypeNotification />

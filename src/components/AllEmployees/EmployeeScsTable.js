@@ -24,6 +24,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import IconButton from '@material-ui/core/IconButton';
 import GetApp from '@material-ui/icons/GetApp';
 import { useErrorContext } from '../../helper/contextHooks';
+import Radio from '@material-ui/core/Radio';
 
 const styles = theme => ({
   tableRow: {
@@ -50,7 +51,14 @@ const styles = theme => ({
   }
 });
 
-const EmployeeScsTable = ({ classes, intl, scs, history }) => {
+const EmployeeScsTable = ({
+  classes,
+  intl,
+  scs,
+  history,
+  scImport,
+  selectImportSc
+}) => {
   const error = useErrorContext();
   const [sortDirection, setSortDirection] = useState('desc');
   const [sortActive, setSortActive] = useState({
@@ -167,18 +175,25 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
               {intl.formatMessage({ id: 'scdialog.scstatus' })}
             </TableSortLabel>
           </TableCell>
-          <TableCell className={classes.tableHeader}>
-            <TableSortLabel
-              active={sortActive.statusStartTime}
-              direction={sortDirection}
-              onClick={() => handleSort('STATUS_START_TIME')}
-            >
-              {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
-            </TableSortLabel>
-          </TableCell>
+          {!scImport && (
+            <TableCell className={classes.tableHeader}>
+              <TableSortLabel
+                active={sortActive.statusStartTime}
+                direction={sortDirection}
+                onClick={() => handleSort('STATUS_START_TIME')}
+              >
+                {intl.formatMessage({ id: 'scdialog.scstatusstarttime' })}
+              </TableSortLabel>
+            </TableCell>
+          )}
           <TableCell className={classes.tableHeader}>
             {intl.formatMessage({ id: 'scdialog.pdf' })}
           </TableCell>
+          {scImport && (
+            <TableCell className={classes.tableHeader}>
+              {intl.formatMessage({ id: 'sc.import' })}
+            </TableCell>
+          )}
         </TableRow>
       </TableHead>
       <TableBody>
@@ -210,9 +225,14 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                   id: translateGeneralStatus(sc.scStatus)
                 })}
               </TableCell>
-              <TableCell>
-                {formatLocaleDateTime(sc.statusStartTime, FRONTEND_DATE_FORMAT)}
-              </TableCell>
+              {!scImport && (
+                <TableCell>
+                  {formatLocaleDateTime(
+                    sc.statusStartTime,
+                    FRONTEND_DATE_FORMAT
+                  )}
+                </TableCell>
+              )}
               <TableCell>
                 <IconButton
                   className={classes.zIndexLow}
@@ -223,6 +243,15 @@ const EmployeeScsTable = ({ classes, intl, scs, history }) => {
                   <GetApp />
                 </IconButton>
               </TableCell>
+              {scImport && (
+                <TableCell
+                  onClick={() => {
+                    selectImportSc(sc);
+                  }}
+                >
+                  <Radio checked={scImport.scId === sc.scId} />
+                </TableCell>
+              )}
             </TableRow>
           );
         })}
