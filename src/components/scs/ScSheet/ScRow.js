@@ -110,6 +110,7 @@ const ScRow = memo(
     removeSubcategory,
     removable,
     isReviewer,
+    isScEvaluated,
     handleChangeWeight
   }) => {
     const weightValues = [0.5, 1, 2, 3];
@@ -215,6 +216,8 @@ const ScRow = memo(
                   type={type}
                   rating={row.evaluation}
                   changeEvaluation={e => action(type, 'evaluation', e)}
+                  isReviewer={isReviewer}
+                  isScEvaluated={isScEvaluated}
                 />
               </Grid>
             </Grid>
