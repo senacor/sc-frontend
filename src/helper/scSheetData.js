@@ -7,6 +7,7 @@ export const classifications = [
 ];
 
 export const dailyBusinessPerformanceLevels = [
+  'scsheet.evaluation.dailyBusiness.0',
   'scsheet.evaluation.dailyBusiness.1',
   'scsheet.evaluation.dailyBusiness.2',
   'scsheet.evaluation.dailyBusiness.3',
@@ -15,6 +16,7 @@ export const dailyBusinessPerformanceLevels = [
 ];
 
 export const projectPerformanceLevels = [
+  'scsheet.evaluation.dailyBusiness.0',
   'scsheet.evaluation.dailyBusiness.1',
   'scsheet.evaluation.dailyBusiness.2',
   'scsheet.evaluation.dailyBusiness.3',
@@ -23,6 +25,7 @@ export const projectPerformanceLevels = [
 ];
 
 export const workEffectivityPerformanceLevels = [
+  'scsheet.evaluation.workEffectivity.0',
   'scsheet.evaluation.workEffectivity.1',
   'scsheet.evaluation.workEffectivity.2',
   'scsheet.evaluation.workEffectivity.3',
@@ -31,6 +34,7 @@ export const workEffectivityPerformanceLevels = [
 ];
 
 export const workQualityPerformanceLevels = [
+  'scsheet.evaluation.workQuality.0',
   'scsheet.evaluation.workQuality.1',
   'scsheet.evaluation.workQuality.2',
   'scsheet.evaluation.workQuality.3',
@@ -39,6 +43,7 @@ export const workQualityPerformanceLevels = [
 ];
 
 export const generalPerformanceLevels = [
+  'scsheet.evaluation.general.0',
   'scsheet.evaluation.general.1',
   'scsheet.evaluation.general.2',
   'scsheet.evaluation.general.3',

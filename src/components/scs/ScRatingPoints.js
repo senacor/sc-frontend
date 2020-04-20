@@ -38,7 +38,9 @@ const ScRatingPoints = ({
   rating,
   backgroundClass,
   changeEvaluation,
-  fieldsDisabled
+  fieldsDisabled,
+  isReviewer,
+  isScEvaluated
 }) => {
   const determinePerformanceLevelsText = type => {
     let arr;
@@ -78,8 +80,11 @@ const ScRatingPoints = ({
           inputProps={{ className: classes.input }}
         >
           {determinePerformanceLevelsText(type).map((value, index) => {
+            if (index === 0 && (!isReviewer || (isReviewer && isScEvaluated))) {
+              return null;
+            }
             return (
-              <MenuItem key={index} value={index + 1}>
+              <MenuItem key={index} value={index}>
                 {intl.formatMessage({ id: value })}
               </MenuItem>
             );

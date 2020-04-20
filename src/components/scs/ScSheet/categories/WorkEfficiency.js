@@ -16,6 +16,7 @@ const WorkEfficiency = memo(
     handleChangeWorkEfficiency,
     fieldsDisabled,
     isReviewer,
+    isScEvaluated,
     handleChangeWeight
   }) => {
     return (
@@ -25,6 +26,7 @@ const WorkEfficiency = memo(
         </Typography>
         <ScRow
           isReviewer={isReviewer}
+          isScEvaluated={isScEvaluated}
           fieldsDisabled={fieldsDisabled}
           type={CATEGORY.WORK_EFFICIENCY}
           row={workEfficiencyFields}

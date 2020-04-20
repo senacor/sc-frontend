@@ -5,6 +5,7 @@ export const savePerformanceData = async (
   scId,
   type,
   data,
+  template,
   info,
   error,
   setSc,
@@ -17,7 +18,10 @@ export const savePerformanceData = async (
       {
         method: 'post',
         mode: 'cors',
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          data: data,
+          template: template.data
+        })
       }
     );
 
@@ -179,51 +183,20 @@ export const fetchScById = async (
     const responseScData = await response.json();
     setIsLoading(false);
 
-    const scWithTemplate = {
-      ...responseScData
-      // initScTemplate: {
-      //   classification: 'SPECIALIST',
-      //   data: {
-      //     dailyBusiness: [
-      //       { title: 'DB1', weight: 1 },
-      //       { title: 'DB2', weight: 2 }
-      //     ],
-      //     project: [{ title: 'P1', weight: 3 }]
-      //   },
-      //   importType: 'last'
-      // }
-      // initScTemplate: null
-    };
-    // if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
-    //   scWithTemplate.publishedReviewerData.dailyBusiness.push({
-    //     title: 'DB1',
-    //     weight: 1
-    //   });
-    //   scWithTemplate.publishedReviewerData.dailyBusiness.push({
-    //     title: 'DB2',
-    //     weight: 2
-    //   });
-    // }
-    // if (scWithTemplate.publishedReviewerData.project.length === 0) {
-    //   scWithTemplate.publishedReviewerData.project.push({
-    //     title: 'P1',
-    //     weight: 3
-    //   });
-    // }
-    if (scWithTemplate.publishedReviewerData.dailyBusiness.length === 0) {
-      scWithTemplate.publishedReviewerData.dailyBusiness.push({
+    if (responseScData.publishedReviewerData.dailyBusiness.length === 0) {
+      responseScData.publishedReviewerData.dailyBusiness.push({
         title: '',
         weight: 0
       });
     }
-    if (scWithTemplate.publishedReviewerData.project.length === 0) {
-      scWithTemplate.publishedReviewerData.project.push({
+    if (responseScData.publishedReviewerData.project.length === 0) {
+      responseScData.publishedReviewerData.project.push({
         title: '',
         weight: 0
       });
     }
-    setSc(scWithTemplate);
-    afterScFetched(scWithTemplate);
+    setSc(responseScData);
+    afterScFetched(responseScData);
   } catch (err) {
     console.log(err);
     setIsLoading(false);

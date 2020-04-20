@@ -155,7 +155,6 @@ const ScTypeToChoose = ({
   importSc
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [imported, setImported] = useState(false);
   const [fieldsState, setFieldsState] = useState(null);
   const [importFromDialogOpen, setImportFromDialogOpen] = useState(false);
   const [importAction, setImportAction] = useState({});
@@ -201,17 +200,12 @@ const ScTypeToChoose = ({
 
   useEffect(
     () => {
-      if (sc.initScTemplate.importType) {
-        setImported(true);
-      }
-
       if (sc) {
         const initDailyBusiness = sc.publishedReviewerData.dailyBusiness.map(
           (entry, idx) => {
             let title;
             let weight;
             if (
-              sc.initScTemplate &&
               idx < sc.initScTemplate.data.dailyBusiness.length &&
               entry.title === sc.initScTemplate.data.dailyBusiness[idx].title
             ) {
@@ -220,7 +214,6 @@ const ScTypeToChoose = ({
               title = 'SAVED';
             }
             if (
-              sc.initScTemplate &&
               idx < sc.initScTemplate.data.dailyBusiness.length &&
               entry.weight === sc.initScTemplate.data.dailyBusiness[idx].weight
             ) {
@@ -236,7 +229,6 @@ const ScTypeToChoose = ({
             let title;
             let weight;
             if (
-              sc.initScTemplate &&
               idx < sc.initScTemplate.data.project.length &&
               entry.title === sc.initScTemplate.data.project[idx].title
             ) {
@@ -245,7 +237,6 @@ const ScTypeToChoose = ({
               title = 'SAVED';
             }
             if (
-              sc.initScTemplate &&
               idx < sc.initScTemplate.data.project.length &&
               entry.weight === sc.initScTemplate.data.project[idx].weight
             ) {
@@ -258,7 +249,7 @@ const ScTypeToChoose = ({
         );
         let initClassification;
         if (
-          sc.initScTemplate &&
+          sc.initScTemplate.importType &&
           sc.classification === sc.initScTemplate.classification
         ) {
           initClassification = 'IMPORTED';
@@ -305,26 +296,26 @@ const ScTypeToChoose = ({
 
   const deleteDailyBusiness = idx => {
     const newDailyBusinesses = [...dailyBusinesses];
-    // newDailyBusinesses.splice(idx, 1);
-    newDailyBusinesses[idx] = null;
-    if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
+    newDailyBusinesses.splice(idx, 1);
+    if (idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness.splice(idx, 1);
     }
+    fieldsState.dailyBusiness.splice(idx, 1);
     setDailyBusinesses(newDailyBusinesses);
   };
 
   const deleteProject = idx => {
     const newProjects = [...projects];
-    // newProjects.splice(idx, 1);
-    newProjects[idx] = null;
-    if (imported && idx < sc.initScTemplate.data.project.length) {
+    newProjects.splice(idx, 1);
+    if (idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project.splice(idx, 1);
     }
+    fieldsState.project.splice(idx, 1);
     setProjects(newProjects);
   };
 
   const onChangeDailyBusinessTitle = (idx, event) => {
-    if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
+    if (idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness[idx].title = null;
     }
 
@@ -342,7 +333,7 @@ const ScTypeToChoose = ({
   };
 
   const setDailyBusinessWeight = (idx, event) => {
-    if (imported && idx < sc.initScTemplate.data.dailyBusiness.length) {
+    if (idx < sc.initScTemplate.data.dailyBusiness.length) {
       sc.initScTemplate.data.dailyBusiness[idx].weight = null;
     }
 
@@ -360,7 +351,7 @@ const ScTypeToChoose = ({
   };
 
   const onChangeProjectTitle = (idx, event) => {
-    if (imported && idx < sc.initScTemplate.data.project.length) {
+    if (idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project[idx].title = null;
     }
 
@@ -378,7 +369,7 @@ const ScTypeToChoose = ({
   };
 
   const setProjectWeight = (idx, event) => {
-    if (imported && idx < sc.initScTemplate.data.project.length) {
+    if (idx < sc.initScTemplate.data.project.length) {
       sc.initScTemplate.data.project[idx].weight = null;
     }
 

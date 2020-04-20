@@ -75,18 +75,12 @@ const ScorecardDetail = ({ match, intl, classes }) => {
 
   const handleSubmitScType = () => {
     if (scTypeSelected) {
-      const dailyBusinessesWithoutNulls = [...dailyBusinesses].filter(
-        entry => entry !== null
-      );
-      const projectsWithoutNulls = [...projects].filter(
-        entry => entry !== null
-      );
       publishScInit(
         sc.id,
         scTypeSelected,
         classification,
-        dailyBusinessesWithoutNulls,
-        projectsWithoutNulls,
+        dailyBusinesses,
+        projects,
         sc.initScTemplate,
         setSc,
         setIsLoading,
