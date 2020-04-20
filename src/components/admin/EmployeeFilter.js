@@ -74,6 +74,7 @@ export const EmployeeFilter = ({
   index,
   intl,
   customComponent,
+  employeeImport,
   classes
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -173,6 +174,22 @@ export const EmployeeFilter = ({
             })}
           </div>
         </Button>
+      ) : employeeImport ? (
+        <TextField
+          id="search"
+          name="search"
+          type="search"
+          className={classes.searchField}
+          label={intl.formatMessage({
+            id: 'filter.searchEmployee'
+          })}
+          onClick={handleOpen}
+          value={
+            employeeImport && employeeImport.lastName
+              ? employeeImport.lastName + ' ' + employeeImport.firstName
+              : ''
+          }
+        />
       ) : (
         <IconButton onClick={handleOpen}>
           <FilterList />

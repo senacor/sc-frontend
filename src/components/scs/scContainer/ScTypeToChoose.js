@@ -29,9 +29,14 @@ import {
 } from '@material-ui/core';
 import { classifications, SC_STATUS } from '../../../helper/scSheetData';
 import { translateClassification } from '../../../helper/string';
-import { useUserinfoContext } from '../../../helper/contextHooks';
+import {
+  useErrorContext,
+  useUserinfoContext
+} from '../../../helper/contextHooks';
 import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/AddBox';
+import EmployeeImportScsDialog from './importSc/EmployeeImportScsDialog';
+import { getAllEmployeesForImport } from '../../../calls/employees';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -151,8 +156,15 @@ const ScTypeToChoose = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const [imported, setImported] = useState(false);
   const [fieldsState, setFieldsState] = useState(null);
+  const [importFromDialogOpen, setImportFromDialogOpen] = useState(false);
+  const [allEmployees, setAllEmployees] = useState([]);
 
   const user = useUserinfoContext();
+  const error = useErrorContext();
+
+  useEffect(() => {
+    getAllEmployeesForImport(setAllEmployees, () => {}, error);
+  }, []);
 
   useEffect(
     () => {
@@ -562,7 +574,7 @@ const ScTypeToChoose = ({
   );
 
   const importOtherSc = () => {
-    // TODO
+    setImportFromDialogOpen(true);
   };
 
   const renderGoalSection = (
@@ -794,6 +806,13 @@ const ScTypeToChoose = ({
           </ListItem>
         </List>
       </Popover>
+      {importFromDialogOpen && (
+        <EmployeeImportScsDialog
+          employees={allEmployees}
+          dialogOpen={importFromDialogOpen}
+          setDialogOpen={setImportFromDialogOpen}
+        />
+      )}
     </Paper>
   );
 };
