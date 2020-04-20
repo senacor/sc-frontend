@@ -74,6 +74,12 @@ const ScSheetContainer = ({
 
   const handleChangePerformance = (type, i, propKey, event) => {
     if (type === CATEGORY.DAILY_BUSINESS) {
+      if (
+        sc.initScTemplate.importType &&
+        i < sc.initScTemplate.data.dailyBusiness.length
+      ) {
+        sc.initScTemplate.data.dailyBusiness[i][propKey] = null;
+      }
       const values = cloneDeep(dailyBusinessFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;
@@ -84,6 +90,12 @@ const ScSheetContainer = ({
       values[i] = newObjectValue;
       setDailyBusinessFields(values);
     } else if (type === CATEGORY.PROJECT) {
+      if (
+        sc.initScTemplate.importType &&
+        i < sc.initScTemplate.data.dailyBusiness.length
+      ) {
+        sc.initScTemplate.data.project[i][propKey] = null;
+      }
       const values = cloneDeep(projectFields);
       const newObjectValue = { ...values[i] };
       newObjectValue[propKey] = event.target.value;

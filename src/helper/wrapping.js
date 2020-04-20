@@ -36,6 +36,7 @@ export const determineStatesForPropertyArray = (
   const compareField = (goalIndex, field) => {
     let state;
     if (
+      sc.initScTemplate &&
       goalIndex < templProperty.length &&
       rsf[goalIndex].title === templProperty[goalIndex].title &&
       rsf[goalIndex][field] === templProperty[goalIndex][field]
@@ -90,11 +91,13 @@ export const determineStatesForProperty = (
   const rsf = privateSpace[property];
   const usf = publicSpace[property];
 
+  const templProperty = sc.initScTemplate.data[property];
+
   //compare description, achievement, weight or comment
   const compareField = field => {
     let state;
 
-    if (sc.initScTemplate.importType) {
+    if (sc.initScTemplate.importType && rsf[field] === templProperty[field]) {
       state = 'IMPORTED';
     } else if (!usf[field] && !rsf[field]) {
       state = 'PUBLISHED';

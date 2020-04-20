@@ -5,6 +5,7 @@ export const savePerformanceData = async (
   scId,
   type,
   data,
+  template,
   info,
   error,
   setSc,
@@ -17,7 +18,10 @@ export const savePerformanceData = async (
       {
         method: 'post',
         mode: 'cors',
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          data: data,
+          template: template.data
+        })
       }
     );
 
