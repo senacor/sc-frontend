@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {
   Button,
@@ -38,6 +38,7 @@ import AddIcon from '@material-ui/icons/AddBox';
 import EmployeeImportScsDialog from './importSc/EmployeeImportScsDialog';
 import { getAllEmployeesForImport } from '../../../calls/employees';
 import ConfirmDialog from '../../utils/ConfirmDialog';
+import CheckIcon from '@material-ui/icons/Check';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -51,6 +52,15 @@ const styles = theme => ({
     color: theme.palette.secondary.white,
     padding: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 2
+  },
+  btnClear: {
+    color: theme.palette.secondary.darkGrey,
+    paddingLeft: theme.spacing.unit,
+    '&:hover': {
+      transform: 'scale(1.30)',
+      color: theme.palette.secondary.darkRed,
+      transition: 'all 0.3s'
+    }
   },
   dropdownContainer: {
     display: 'flex',
@@ -783,35 +793,45 @@ const ScTypeToChoose = ({
         onClose={handleClose}
       >
         <List>
-          <ListItem
-            dense
-            button
-            onClick={() => {
-              setImportAction({ type: 'last' });
-            }}
-          >
+          <ListItem dense button>
             <ListItemText
+              onClick={() => {
+                setImportAction({ type: 'last' });
+              }}
               primary={intl.formatMessage({
                 id: 'scsheet.import.last'
               })}
             />
-            <Radio
-              checked={
-                sc.initScTemplate && sc.initScTemplate.importType === 'last'
-              }
-            />
+            {sc.initScTemplate && sc.initScTemplate.importType === 'last' && (
+              <Fragment>
+                <CheckIcon color={'secondary'} />
+                <Icon
+                  className={classes.btnClear}
+                  onClick={() => setImportAction({ type: 'unimport' })}
+                >
+                  clear
+                </Icon>
+              </Fragment>
+            )}
           </ListItem>
-          <ListItem dense button onClick={importOtherSc}>
+          <ListItem dense button>
             <ListItemText
+              onClick={importOtherSc}
               primary={intl.formatMessage({
                 id: 'scsheet.import.other'
               })}
             />
-            <Radio
-              checked={
-                sc.initScTemplate && sc.initScTemplate.importType === 'specific'
-              }
-            />
+            {sc.initScTemplate && sc.initScTemplate.importType === 'specific' && (
+              <Fragment>
+                <CheckIcon color={'secondary'} />
+                <Icon
+                  className={classes.btnClear}
+                  onClick={() => setImportAction({ type: 'unimport' })}
+                >
+                  clear
+                </Icon>
+              </Fragment>
+            )}
           </ListItem>
         </List>
       </Popover>
@@ -832,10 +852,16 @@ const ScTypeToChoose = ({
           importSc(importAction);
         }}
         confirmationText={intl.formatMessage({
-          id: 'sc.import.confirm.content'
+          id:
+            importAction && importAction.type !== 'unimport'
+              ? 'sc.import.confirm.content'
+              : 'sc.import.clean.content'
         })}
         confirmationHeader={intl.formatMessage({
-          id: 'sc.import.confirm.title'
+          id:
+            importAction && importAction.type !== 'unimport'
+              ? 'sc.import.confirm.title'
+              : 'sc.import.clean.title'
         })}
       />
     </Paper>

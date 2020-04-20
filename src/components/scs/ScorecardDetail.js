@@ -9,6 +9,7 @@ import {
   useUserinfoContext
 } from '../../helper/contextHooks';
 import {
+  cleanInitImport,
   fetchScById,
   importFromSpecificSc,
   importLastSc,
@@ -118,17 +119,22 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   const importSc = importAction => {
     if (importAction.type === 'last') {
       importLastSc(sc.id, setSc, setIsLoading, error, afterScFetched);
-    } else {
-      if (importAction.scId) {
-        importFromSpecificSc(
-          sc.id,
-          importAction.scId,
-          setSc,
-          setIsLoading,
-          error,
-          afterScFetched
-        );
-      }
+      return;
+    }
+
+    if (importAction.type === 'specific' && importAction.scId) {
+      importFromSpecificSc(
+        sc.id,
+        importAction.scId,
+        setSc,
+        setIsLoading,
+        error,
+        afterScFetched
+      );
+      return;
+    }
+    if (importAction.type === 'unimport') {
+      cleanInitImport(sc.id, setSc, setIsLoading, error, afterScFetched);
     }
   };
 
