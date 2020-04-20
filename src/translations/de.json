@@ -34,6 +34,8 @@
   "btn.cancel": "Abbrechen",
   "btn.save": "Speichern",
   "sc.import": "SC importieren",
+  "sc.import.confirm.content": "Möchtestu du die Daten aus der ausfewählten SC wirklich importieren? Die aktuelle Daten werden unwiderruflich gelöscht.",
+  "sc.import.confirm.title": "SC importieren",
   "employeefilter.name": "Name",
   "performancereviewtable.nextpage": "Nächste Seite",
   "performancereviewtable.previouspage": "Vorherige Seite",

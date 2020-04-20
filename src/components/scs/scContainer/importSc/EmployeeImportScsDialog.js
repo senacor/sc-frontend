@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 import { useErrorContext } from '../../../../helper/contextHooks';
-import { getEmployeeScs, getEmployeeScsToImport } from '../../../../calls/sc';
+import { getEmployeeScsToImport } from '../../../../calls/sc';
 import EmployeeScsTable from '../../../AllEmployees/EmployeeScsTable';
 import EmployeeFilter from '../../../admin/EmployeeFilter';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -50,6 +50,7 @@ const EmployeeImportScsDialog = ({
   dialogOpen,
   setDialogOpen,
   classes,
+  importAction,
   intl
 }) => {
   const [scs, setScs] = useState([]);
@@ -78,7 +79,7 @@ const EmployeeImportScsDialog = ({
   };
 
   const makeImportFromEmployee = () => {
-    //TODO: make call
+    importAction(selectedScToImport.scId);
     dialogClose();
   };
 

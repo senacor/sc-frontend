@@ -37,6 +37,7 @@ import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/AddBox';
 import EmployeeImportScsDialog from './importSc/EmployeeImportScsDialog';
 import { getAllEmployeesForImport } from '../../../calls/employees';
+import ConfirmDialog from '../../utils/ConfirmDialog';
 
 const styles = theme => ({
   ...theme.styledComponents,
@@ -151,12 +152,13 @@ const ScTypeToChoose = ({
   setDailyBusinesses,
   projects,
   setProjects,
-  importLastScorecard
+  importSc
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [imported, setImported] = useState(false);
   const [fieldsState, setFieldsState] = useState(null);
   const [importFromDialogOpen, setImportFromDialogOpen] = useState(false);
+  const [importAction, setImportAction] = useState({});
   const [allEmployees, setAllEmployees] = useState([]);
 
   const user = useUserinfoContext();
@@ -790,7 +792,13 @@ const ScTypeToChoose = ({
         onClose={handleClose}
       >
         <List>
-          <ListItem dense button onClick={importLastScorecard}>
+          <ListItem
+            dense
+            button
+            onClick={() => {
+              setImportAction({ type: 'last' });
+            }}
+          >
             <ListItemText
               primary={intl.formatMessage({
                 id: 'scsheet.import.last'
@@ -811,8 +819,24 @@ const ScTypeToChoose = ({
           employees={allEmployees}
           dialogOpen={importFromDialogOpen}
           setDialogOpen={setImportFromDialogOpen}
+          importAction={scId => {
+            setImportAction({ type: 'specific', scId: scId });
+          }}
         />
       )}
+      <ConfirmDialog
+        open={Object.values(importAction).length > 0}
+        handleClose={() => setImportAction({})}
+        handleConfirm={() => {
+          importSc(importAction);
+        }}
+        confirmationText={intl.formatMessage({
+          id: 'sc.import.confirm.content'
+        })}
+        confirmationHeader={intl.formatMessage({
+          id: 'sc.import.confirm.title'
+        })}
+      />
     </Paper>
   );
 };

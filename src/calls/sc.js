@@ -679,3 +679,35 @@ export const importLastSc = async (
     error.showGeneral();
   }
 };
+
+export const importFromSpecificSc = async (
+  scId,
+  scFromId,
+  setSc,
+  setIsLoading,
+  error,
+  afterScFetched
+) => {
+  try {
+    setIsLoading(true);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/v1/sc/${scId}/initImport/${scFromId}`,
+      {
+        method: 'post',
+        mode: 'cors'
+      }
+    );
+
+    if (response.ok) {
+      fetchScById(scId, setSc, setIsLoading, error, afterScFetched);
+    } else {
+      error.showGeneral();
+    }
+    setIsLoading(false);
+  } catch (err) {
+    console.log(err);
+    setIsLoading(false);
+    error.showGeneral();
+  }
+};
