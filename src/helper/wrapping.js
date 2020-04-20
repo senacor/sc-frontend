@@ -97,7 +97,11 @@ export const determineStatesForProperty = (
   const compareField = field => {
     let state;
 
-    if (sc.initScTemplate.importType && rsf[field] === templProperty[field]) {
+    if (
+      sc.initScTemplate.importType &&
+      templProperty &&
+      rsf[field] === templProperty[field]
+    ) {
       state = 'IMPORTED';
     } else if (!usf[field] && !rsf[field]) {
       state = 'PUBLISHED';
