@@ -44,7 +44,8 @@ const ScorecardDetail = ({ match, intl, classes }) => {
     setSc(sc);
     setScTab(
       (user.isReviewerInSc(sc) || user.isOwnerInSc(sc)) &&
-        !sc.statusSet.includes(SC_STATUS.CLOSED)
+        !sc.statusSet.includes(SC_STATUS.CLOSED) &&
+        !sc.statusSet.includes(SC_STATUS.ARCHIVED)
         ? SC_TAB.MY_DATA
         : SC_TAB.SUMMARY
     );

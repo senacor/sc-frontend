@@ -201,7 +201,11 @@ const EmployeeScsTable = ({
           return (
             <TableRow
               key={sc.scId}
-              onClick={() => linkToSc(sc.scId, history)}
+              onClick={
+                !scImport
+                  ? () => linkToSc(sc.scId, history)
+                  : () => selectImportSc(sc)
+              }
               className={classes.tableRow}
             >
               <TableCell>{sc.periodNameDialog}</TableCell>
@@ -244,11 +248,7 @@ const EmployeeScsTable = ({
                 </IconButton>
               </TableCell>
               {scImport && (
-                <TableCell
-                  onClick={() => {
-                    selectImportSc(sc);
-                  }}
-                >
+                <TableCell>
                   <Radio checked={scImport.scId === sc.scId} />
                 </TableCell>
               )}

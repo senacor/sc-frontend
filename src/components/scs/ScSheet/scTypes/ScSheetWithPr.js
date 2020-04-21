@@ -28,6 +28,7 @@ import { downloadScAsPdf } from '../helperFunc.js';
 import {
   determineStatesForProperty,
   determineStatesForPropertyArray,
+  isSafeImportAccess,
   mapToDTO,
   wrapPropertiesIntoObject
 } from '../../../../helper/wrapping';
@@ -233,7 +234,7 @@ const ScSheetWithPr = ({
 
   const handleChangePrCategories = (type, propKey, event) => {
     if (type === CATEGORY.SKILLS_IN_THE_FIELDS) {
-      if (sc.initScTemplate.importType) {
+      if (isSafeImportAccess(user, sc, 'skillsInTheFields')) {
         sc.initScTemplate.data.skillsInTheFields[propKey] = null;
       }
       const values = { ...skillsInTheFieldsFields };
@@ -241,7 +242,7 @@ const ScSheetWithPr = ({
       wrapPropertiesIntoObject(values, propKey);
       setSkillsInTheFieldsFields(values);
     } else if (type === CATEGORY.TEAM_IMPACT) {
-      if (sc.initScTemplate.importType) {
+      if (isSafeImportAccess(user, sc, 'impactOnTeam')) {
         sc.initScTemplate.data.impactOnTeam[propKey] = null;
       }
       const values = { ...impactOnTeamFields };
@@ -249,7 +250,7 @@ const ScSheetWithPr = ({
       wrapPropertiesIntoObject(values, propKey);
       setImpactOnTeamFields(values);
     } else if (type === CATEGORY.SERVICE_QUALITY) {
-      if (sc.initScTemplate.importType) {
+      if (isSafeImportAccess(user, sc, 'serviceQuality')) {
         sc.initScTemplate.data.serviceQuality[propKey] = null;
       }
       const values = { ...serviceQualityFields };
@@ -257,7 +258,7 @@ const ScSheetWithPr = ({
       wrapPropertiesIntoObject(values, propKey);
       setServiceQualityFields(values);
     } else if (type === CATEGORY.COMPANY_IMPACT) {
-      if (sc.initScTemplate.importType) {
+      if (isSafeImportAccess(user, sc, 'impactOnCompany')) {
         sc.initScTemplate.data.impactOnCompany[propKey] = null;
       }
       const values = { ...impactOnCompanyFields };

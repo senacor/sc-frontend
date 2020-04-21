@@ -145,6 +145,12 @@ const styles = theme => ({
   },
   backgroundGray: {
     backgroundColor: 'rgba(0, 0, 0, 0.13)'
+  },
+  smallLeftMargin: {
+    marginLeft: 4
+  },
+  smallLeftPadding: {
+    paddingLeft: 4
   }
 });
 
@@ -636,7 +642,11 @@ const ScTypeToChoose = ({
                       <Select
                         value={contentArray[idx].weight}
                         onChange={event => setWeight(idx, event)}
-                        renderValue={selected => <span>{selected}</span>}
+                        renderValue={selected => (
+                          <span className={classes.smallLeftMargin}>
+                            {selected}
+                          </span>
+                        )}
                         inputProps={{ className: classes.input }}
                         className={bgClass(
                           `${categoryId.split('.')[2]}Weight`,
@@ -741,7 +751,9 @@ const ScTypeToChoose = ({
             value={classification}
             disabled={!user.isReviewerInSc(sc)}
             onChange={onChangeClassification}
-            className={bgClass('classification')}
+            className={`${bgClass('classification')} ${
+              classes.smallLeftPadding
+            }`}
           >
             {classifications.map((pos, index) => (
               <MenuItem key={index} value={pos.toUpperCase()}>

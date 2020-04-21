@@ -139,3 +139,12 @@ export const mapToDTO = field => {
     comment: field.comment.value
   };
 };
+
+export const isSafeImportAccess = (user, sc, field) => {
+  return (
+    user.isReviewerInSc(sc) &&
+    sc.initScTemplate &&
+    sc.initScTemplate.importType &&
+    sc.initScTemplate.data[field]
+  );
+};
