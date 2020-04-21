@@ -356,6 +356,15 @@ const ScRow = memo(
             >
               {intl.formatMessage({ id: 'scsheet.caption.notsaved' })}
             </div>
+            {isReviewer && (
+              <div
+                className={`${classes.captionGeneral} ${
+                  classes.backgroundGray
+                }`}
+              >
+                {intl.formatMessage({ id: 'scsheet.caption.imported' })}
+              </div>
+            )}
           </div>
         </Paper>
       </Fragment>

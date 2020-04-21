@@ -18,10 +18,14 @@ export const savePerformanceData = async (
       {
         method: 'post',
         mode: 'cors',
-        body: JSON.stringify({
-          data: data,
-          template: template.data
-        })
+        body: JSON.stringify(
+          type === 'employee'
+            ? data
+            : {
+                data: data,
+                template: template.data
+              }
+        )
       }
     );
 

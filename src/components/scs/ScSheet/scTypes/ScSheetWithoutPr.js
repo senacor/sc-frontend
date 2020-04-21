@@ -28,6 +28,7 @@ import {
 import {
   determineStatesForProperty,
   determineStatesForPropertyArray,
+  isSafeImportAccess,
   mapToDTO,
   wrapPropertiesIntoObject
 } from '../../../../helper/wrapping';
@@ -159,7 +160,7 @@ const ScSheetWithoutPr = ({
   );
 
   const handleChangeWorkEfficiency = (type, propKey, event) => {
-    if (sc.initScTemplate.importType) {
+    if (isSafeImportAccess(user, sc, 'workEfficiency')) {
       sc.initScTemplate.data.workEfficiency[propKey] = null;
     }
     const values = { ...workEfficiencyFields };
@@ -169,8 +170,8 @@ const ScSheetWithoutPr = ({
   };
 
   const handleChangeWorkQuality = (type, propKey, event) => {
-    if (sc.initScTemplate.importType) {
-      sc.initScTemplate.data.workEfficiency[propKey] = null;
+    if (isSafeImportAccess(user, sc, 'workQuality')) {
+      sc.initScTemplate.data.workQuality[propKey] = null;
     }
     const values = { ...workQualityFields };
     values[propKey] = event.target.value;

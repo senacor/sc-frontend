@@ -1,11 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Tooltip, Typography, withStyles } from '@material-ui/core';
 import { injectIntl } from 'react-intl';
-import {
-  useErrorContext,
-  useInfoContext,
-  useUserinfoContext
-} from '../../../helper/contextHooks';
+import { useErrorContext, useInfoContext, useUserinfoContext } from '../../../helper/contextHooks';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
@@ -16,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import ROUTES from '../../../helper/routes';
 import { withRouter } from 'react-router-dom';
 import { archiveAndCreateSc, archiveSc } from '../../../calls/sc';
+import { SC_STATUS } from '../../../helper/scSheetData';
 
 const styles = theme => ({
   btnArchive: {
@@ -61,6 +58,10 @@ const ArchiveButtonWithDialog = ({ classes, intl, sc, history }) => {
   const user = useUserinfoContext();
   const error = useErrorContext();
   const info = useInfoContext();
+
+  if (sc.statusSet.includes(SC_STATUS.ARCHIVED)) {
+    return null;
+  }
 
   const archive = () => {
     const afterArchived = () => {
@@ -177,11 +178,11 @@ const ArchiveButtonWithDialog = ({ classes, intl, sc, history }) => {
         <DialogTitle>
           {intl.formatMessage({ id: 'scsheet.archive.dialog.header' })}
         </DialogTitle>
-        <Divider />
+        <Divider/>
         <DialogContent className={classes.content}>
           <Grid sm={12} className={classes.warningGrid}>
             <Grid sm={2}>
-              <WarningIcon className={classes.warningIcon} fontSize={'large'} />
+              <WarningIcon className={classes.warningIcon} fontSize={'large'}/>
             </Grid>
             <Grid sm={10}>
               <Typography variant="body1" className={classes.warningLeft}>
