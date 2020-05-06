@@ -539,9 +539,7 @@ const ScTypeToChoose = ({
     !scTypeSelected ||
     !classification ||
     dailyBusinesses.length < 1 ||
-    projects.length < 1 ||
-    containsEmptyValues(dailyBusinesses) ||
-    containsEmptyValues(projects);
+    containsEmptyValues(dailyBusinesses);
 
   const submitButton = (
     <Button
