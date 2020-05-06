@@ -92,7 +92,7 @@ const ScSheetContainer = ({
     } else if (type === CATEGORY.PROJECT) {
       if (
         sc.initScTemplate.importType &&
-        i < sc.initScTemplate.data.dailyBusiness.length
+        i < sc.initScTemplate.data.project.length
       ) {
         sc.initScTemplate.data.project[i][propKey] = null;
       }

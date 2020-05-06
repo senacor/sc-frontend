@@ -10,7 +10,9 @@ export const multiplyWeightByScoreArr = (arr, useWrappedValue) => {
     obj =>
       obj.weight * (useWrappedValue ? obj.evaluation.value : obj.evaluation)
   );
-  const reducedArr = mapArr.reduce((acc, item) => acc + item);
+  const reducedArr = mapArr.reduce((acc, item) => {
+    return acc + item;
+  }, 0);
   return reducedArr;
 };
 

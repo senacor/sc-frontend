@@ -539,9 +539,7 @@ const ScTypeToChoose = ({
     !scTypeSelected ||
     !classification ||
     dailyBusinesses.length < 1 ||
-    projects.length < 1 ||
-    containsEmptyValues(dailyBusinesses) ||
-    containsEmptyValues(projects);
+    containsEmptyValues(dailyBusinesses);
 
   const submitButton = (
     <Button
@@ -653,7 +651,7 @@ const ScTypeToChoose = ({
                           idx
                         )}
                       >
-                        {[0.5, 1, 2, 3].map((val, index) => (
+                        {[0.5, 1, 2, 3, 4, 5, 6].map((val, index) => (
                           <MenuItem key={index} value={val}>
                             {val}
                           </MenuItem>

@@ -146,8 +146,16 @@ export const sortBySortActive = (data, sortActive, sortDirection, intl) => {
       break;
     }
   }
-  const missingProperties = data.filter(a => !a[sortBy]);
-  let withProperties = data.filter(a => a[sortBy]);
+
+  let missingProperties;
+  let withProperties;
+  if (sortBy === 'finalScore') {
+    missingProperties = data.filter(a => a.scStatus === 'INITIALIZATION');
+    withProperties = data.filter(a => a.scStatus !== 'INITIALIZATION');
+  } else {
+    missingProperties = data.filter(a => !a[sortBy]);
+    withProperties = data.filter(a => a[sortBy]);
+  }
 
   if (sortBy) {
     withProperties.sort(sortsForFields[sortBy]);

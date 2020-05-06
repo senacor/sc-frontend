@@ -1,6 +1,7 @@
 import React, { Fragment, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import ScRow from './ScRow';
+import { CATEGORY } from '../../../helper/scSheetData';
 
 const ScRows = memo(
   ({
@@ -27,7 +28,7 @@ const ScRows = memo(
               index={index}
               isReviewer={isReviewer}
               isScEvaluated={isScEvaluated}
-              removable={fields.length > 1}
+              removable={type === CATEGORY.PROJECT ? true : fields.length > 1}
               row={row}
               fieldsDisabled={fieldsDisabled}
               fieldsAmount={fieldsAmount}
