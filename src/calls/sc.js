@@ -305,6 +305,8 @@ export const saveScInit = async (
         ? SC_STATUS.SC_WITHOUT_PR_PRESET
         : status === SC_STATUS.WITH_PR
         ? SC_STATUS.SC_WITH_PR_PRESET
+        : status === undefined
+        ? SC_STATUS.NO_STATUS_PRESET
         : status;
 
     const template = initScTemplate

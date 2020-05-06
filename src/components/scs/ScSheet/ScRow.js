@@ -113,7 +113,7 @@ const ScRow = memo(
     isScEvaluated,
     handleChangeWeight
   }) => {
-    const weightValues = [0.5, 1, 2, 3];
+    const weightValues = [0.5, 1, 2, 3, 4, 5, 6];
 
     const bgClass = state => {
       if (state === 'IMPORTED') return classes.backgroundGray;
