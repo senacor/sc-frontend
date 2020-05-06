@@ -83,6 +83,9 @@ const PerformanceSummary = ({
         {intl.formatMessage({ id: 'scsheet.subtitle.project' })}
       </Typography>
       {projectGoals.map((row, index) => {
+        if (row.reviewer === {} || row.reviewer.title === '') {
+          return '';
+        }
         return (
           <MixedScRow
             key={index}

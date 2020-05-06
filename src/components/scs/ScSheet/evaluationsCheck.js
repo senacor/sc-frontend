@@ -75,10 +75,16 @@ const dailyBusinessAndProjectEvaluated = (
       if (!(goal.evaluation.value > 0)) {
         result = false;
       }
+      if (goal.title === '') {
+        return true;
+      }
       return result;
     } else {
       if (!(goal.evaluation > 0)) {
         result = false;
+      }
+      if (goal.title === '') {
+        return true;
       }
       return result;
     }
@@ -86,6 +92,6 @@ const dailyBusinessAndProjectEvaluated = (
 
   return (
     dailyBusiness.reduce(reduceFunction, true) &&
-    project.reduce(reduceFunction, true)
+    (project.length === 0 ? true : project.reduce(reduceFunction, true))
   );
 };
