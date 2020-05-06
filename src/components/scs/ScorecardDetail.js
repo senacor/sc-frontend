@@ -76,13 +76,16 @@ const ScorecardDetail = ({ match, intl, classes }) => {
   };
 
   const handleSubmitScType = () => {
+    const projectsWithoutEmptyValues = [...projects].filter(
+      entry => entry.title && entry.weight
+    );
     if (scTypeSelected) {
       publishScInit(
         sc.id,
         scTypeSelected,
         classification,
         dailyBusinesses,
-        projects,
+        projectsWithoutEmptyValues,
         sc.initScTemplate,
         setSc,
         setIsLoading,
@@ -98,12 +101,15 @@ const ScorecardDetail = ({ match, intl, classes }) => {
       entry => entry !== null
     );
     const projectsWithoutNulls = [...projects].filter(entry => entry !== null);
+    const projectsWithoutNullsAndEmptyValues = projectsWithoutNulls.filter(
+      entry => entry.title && entry.weight
+    );
     saveScInit(
       sc.id,
       scTypeSelected,
       classification,
       dailyBusinessesWithoutNulls,
-      projectsWithoutNulls,
+      projectsWithoutNullsAndEmptyValues,
       sc.initScTemplate,
       setSc,
       setIsLoading,
