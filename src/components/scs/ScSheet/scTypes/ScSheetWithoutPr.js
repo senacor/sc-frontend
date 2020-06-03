@@ -342,6 +342,7 @@ const ScSheetWithoutPr = ({
         handleChangeWorkEfficiency={handleChangeWorkEfficiency}
         isReviewer={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
+        isManager={sc.classification === 'LEAD_MANAGEMENT'}
       />
       <WorkQuality
         fieldsDisabled={fieldsDisabled}
@@ -349,6 +350,7 @@ const ScSheetWithoutPr = ({
         handleChangeWorkQuality={handleChangeWorkQuality}
         isReviewer={user.isReviewerInSc(sc)}
         handleChangeWeight={handleChangeWeight}
+        isManager={sc.classification === 'LEAD_MANAGEMENT'}
       />
       <FinalScoreSection isReady={isReady(sc)} finalScore={finalScore} />
       <ButtonsBelowSheet

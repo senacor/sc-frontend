@@ -83,6 +83,53 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
   };
 
   const renderWorkEfficiency = () => {
+    const description = (
+      <Fragment>
+        {sc.classification === 'LEAD_MANAGEMENT' ? (
+          <ul>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity1.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity2.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity3.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity4.manager'
+              })}
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity1.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity2.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity3.casual'
+              })}
+            </li>
+          </ul>
+        )}
+      </Fragment>
+    );
+
     return (
       <Fragment>
         <Typography variant="h5" className={classes.categoryTitle}>
@@ -95,25 +142,7 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'
           })}
-          description={
-            <ul>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workEffectivity1'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workEffectivity2'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workEffectivity3'
-                })}
-              </li>
-            </ul>
-          }
+          description={description}
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
@@ -123,6 +152,63 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
   };
 
   const renderWorkQuality = () => {
+    const description = (
+      <Fragment>
+        {sc.classification === 'LEAD_MANAGEMENT' ? (
+          <ul>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality1.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality2.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality3.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality4.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality5.manager'
+              })}
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality1.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality2.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality3.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workQuality4.casual'
+              })}
+            </li>
+          </ul>
+        )}
+      </Fragment>
+    );
+
     return (
       <Fragment>
         <Typography variant="h5" className={classes.categoryTitle}>
@@ -135,30 +221,7 @@ const SummaryViewWithoutPr = ({ sc, setSc, afterScFetched, classes, intl }) => {
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workQuality'
           })}
-          description={
-            <ul>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workQuality1'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workQuality2'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workQuality3'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workQuality4'
-                })}
-              </li>
-            </ul>
-          }
+          description={description}
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
