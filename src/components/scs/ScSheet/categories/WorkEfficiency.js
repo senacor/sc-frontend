@@ -17,8 +17,56 @@ const WorkEfficiency = memo(
     fieldsDisabled,
     isReviewer,
     isScEvaluated,
-    handleChangeWeight
+    handleChangeWeight,
+    isManager
   }) => {
+    const description = (
+      <Fragment>
+        {isManager ? (
+          <ul>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity1.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity2.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity3.manager'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity4.manager'
+              })}
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity1.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity2.casual'
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                id: 'scsheet.textarea.description.workEffectivity3.casual'
+              })}
+            </li>
+          </ul>
+        )}
+      </Fragment>
+    );
+
     return (
       <Fragment>
         <Typography variant="h5" className={classes.categoryTitle}>
@@ -34,25 +82,7 @@ const WorkEfficiency = memo(
           title={intl.formatMessage({
             id: 'scsheet.subcategory.workEffectivity'
           })}
-          description={
-            <ul>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workEffectivity1'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workEffectivity2'
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'scsheet.textarea.description.workEffectivity3'
-                })}
-              </li>
-            </ul>
-          }
+          description={description}
           achievement={intl.formatMessage({
             id: 'scsheet.textarea.achievement'
           })}
