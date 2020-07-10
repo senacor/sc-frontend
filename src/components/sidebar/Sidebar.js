@@ -143,16 +143,16 @@ export const Sidebar = ({ intl, classes }) => {
       reviewerCheck: true,
       onClick: resetMessages
     },
+    //PERSONAL DEVELOPMENT
     {
       label: intl.formatMessage({
         id: 'sidebar.activeEmployees'
       }),
       icon: <LibraryBooksIcon />,
       value: ROUTES.ACTIVE_EMPLOYEES_TABLE,
-      roles: [ROLES.SUPERVISOR, ROLES.PERSONAL_DEV],
+      roles: [ROLES.PERSONAL_DEV],
       onClick: resetMessages
     },
-    //PERSONAL DEVELOPMENT
     {
       label: intl.formatMessage({
         id: 'sidebar.formerEmployees'
