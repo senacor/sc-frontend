@@ -152,6 +152,6 @@ export const calculateFinalScoreWithPr = (
           serviceQualityScore +
           impactOnCompanyScore) /
           prCategoriesWeight);
-  const finalScore = round(performanceHelperScore + prCategoriesHelperScore, 1);
+  const finalScore = round(performanceHelperScore + prCategoriesHelperScore, 2);
   return finalScore;
 };

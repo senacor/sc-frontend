@@ -70,7 +70,7 @@ const FinalScoreSection = memo(
             </Typography>
           </Grid>
           <Grid item sm={2}>
-            <Typography variant="body1">{finalScore.toFixed(1)}</Typography>
+            <Typography variant="body1">{finalScore.toFixed(2)}</Typography>
           </Grid>
         </Grid>
         <Grid container className={classes.percentageGridContainer}>
