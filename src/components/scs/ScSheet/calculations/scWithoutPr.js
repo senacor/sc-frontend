@@ -74,5 +74,5 @@ export const calculateFinalScoreWithoutPr = (
   const scoreInTotal =
     dailyBusinessScore + projectScore + workQualityScore + workEfficiencyScore;
   const finalScore = totalWeight !== 0 ? scoreInTotal / totalWeight : 0;
-  return round(finalScore, 1);
+  return round(finalScore, 2);
 };
