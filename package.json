@@ -8,7 +8,7 @@
     "@material-ui/lab": "^3.0.0-alpha.30",
     "@material/slider": "^0.41.0",
     "html2pdf.js": "^0.9.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-ui-slider": "3.0.0",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
