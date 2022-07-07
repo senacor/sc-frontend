@@ -10,7 +10,7 @@
     "html2pdf.js": "^0.9.1",
     "lodash": "^4.17.15",
     "material-ui-slider": "3.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.26",
     "object-get": "^2.1.0",
